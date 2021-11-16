@@ -208,8 +208,6 @@ services:
 
     Ibexa\AdminUi\Form\Type\Location\LocationUpdateVisibilityType: ~
 
-    Ibexa\AdminUi\Form\Type\LocationType: ~
-
     Ibexa\AdminUi\Form\Type\ObjectState\ContentObjectStateUpdateType: ~
 
     Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateChoiceType: ~
