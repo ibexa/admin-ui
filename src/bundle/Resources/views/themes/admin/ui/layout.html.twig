@@ -80,7 +80,7 @@
                 outOfRangeValue: '{{ 'js.error.out_of_range_value'|trans({}, 'validators')|desc('{fieldName} value is out of range. The value must be between {min} and {max}') }}'
             });
 
-            window.CKEDITOR_BASEPATH = window.ALLOYEDITOR_BASEPATH = "/bundles/ezplatformadminuiassets/vendors/alloyeditor/dist/alloy-editor/";
+            window.CKEDITOR_BASEPATH = window.ALLOYEDITOR_BASEPATH = "/bundles/ibexaadminuiassets/vendors/alloyeditor/dist/alloy-editor/";
         </script>
         <script src="/bundles/fosjsrouting/js/router.js"></script>
         <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
@@ -101,19 +101,19 @@
         {{ ez_render_component_group('stylesheet-head') }}
         {{ ez_render_component_group('script-head') }}
 
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/react/umd/react.production.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/react-dom/umd/react-dom.production.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/@popperjs/core/dist/umd/popper.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/create-react-class/create-react-class.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/prop-types/prop-types.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/flatpickr/dist/flatpickr.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/moment/min/moment.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/moment-timezone/builds/moment-timezone-with-data.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/react/umd/react.production.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/react-dom/umd/react-dom.production.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/@popperjs/core/dist/umd/popper.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/create-react-class/create-react-class.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/prop-types/prop-types.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/flatpickr/dist/flatpickr.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/moment/min/moment.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/moment-timezone/builds/moment-timezone-with-data.min.js') }}"></script>
         <script src="{{ asset('bundles/bazingajstranslation/js/translator.min.js') }}"></script>
         <script src="{{ asset('assets/translations/config.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/chart-js/dist/Chart.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/js-md5/build/md5.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/chart-js/dist/Chart.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/js-md5/build/md5.min.js') }}"></script>
     </head>
     <body class="{% block body_class %}{% endblock %}">
         <div id="react-udw" data-filter-subtree-udw-config="{{ ez_udw_config('single_container', {}) }}"></div>

@@ -112,7 +112,7 @@ const Search = ({ itemsPerPage }) => {
                 <div className="c-search__no-results">
                     <img
                         className=""
-                        src="/bundles/ezplatformadminui/img/no-results.svg"
+                        src="/bundles/ibexaadminui/img/no-results.svg"
                     />
                     <h2 className="c-search__no-results-title">
                         {noResultsLabel}
