@@ -50,7 +50,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
             $loader->load('services/test/pages.yaml');
             $loader->load('services/test/components.yaml');
         }
-        
+
         $bundlesMetadata = $container->getParameter('kernel.bundles_metadata');
         $rootPath = $container->getParameter('kernel.project_dir') . '/';
         $targetPath = 'var/encore';
@@ -139,7 +139,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
             ],
         ]);
     }
-    
+
     /**
      * Looks for Resources/encore/ files in every registered and enabled bundle.
      * Dumps json list of paths to files it finds.

@@ -26,7 +26,7 @@ class CompileAssetsCommand extends Command implements BackwardCompatibleCommand
         $this
             ->setName(self::COMMAND_NAME)
             ->setAliases([
-                'ezplatform:encore:compile'
+                'ezplatform:encore:compile',
             ])
             ->setDescription('Compiles all assets using WebPack Encore')
             ->addOption(
