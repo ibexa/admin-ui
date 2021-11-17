@@ -11,18 +11,27 @@ use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Yaml\Yaml;
 
 class IbexaAdminUiExtension extends Extension implements PrependExtensionInterface
 {
+    private const WEBPACK_CONFIG_NAMES = [
+        'ez.config.js',
+        'ez.config.manager.js',
+        'ez.webpack.custom.config.js',
+    ];
+
     /**
      * Loads a specific configuration.
      *
-     * @param array            $configs   An array of configuration values
+     * @param array $configs An array of configuration values
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container A ContainerBuilder instance
      *
      * @throws \InvalidArgumentException When provided tag is not defined in this extension
+     * @throws \Exception
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -35,11 +44,19 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
         $loader->load('services.yaml');
         $loader->load('role.yaml');
 
-        $shouldLoadTestServices = $this->shouldLoadTesttServices($container);
+        $shouldLoadTestServices = $this->shouldLoadTestServices($container);
         if ($shouldLoadTestServices) {
             $loader->load('services/test/feature_contexts.yaml');
             $loader->load('services/test/pages.yaml');
             $loader->load('services/test/components.yaml');
+        }
+        
+        $bundlesMetadata = $container->getParameter('kernel.bundles_metadata');
+        $rootPath = $container->getParameter('kernel.project_dir') . '/';
+        $targetPath = 'var/encore';
+
+        foreach (self::WEBPACK_CONFIG_NAMES as $configName) {
+            $this->dumpConfigurationPathsToFile($configName, $rootPath, $targetPath, $bundlesMetadata);
         }
     }
 
@@ -122,8 +139,42 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
             ],
         ]);
     }
+    
+    /**
+     * Looks for Resources/encore/ files in every registered and enabled bundle.
+     * Dumps json list of paths to files it finds.
+     *
+     * @param string $targetPath Where to put eZ Encore paths configuration file (default: var/encore)
+     */
+    private function dumpConfigurationPathsToFile(string $configName, string $rootPath, string $targetPath, array $bundlesMetadata): void
+    {
+        $finder = new Finder();
+        $filesystem = new Filesystem();
+        $paths = [];
 
-    private function shouldLoadTesttServices(ContainerBuilder $container): bool
+        $finder
+            ->in(array_column($bundlesMetadata, 'path'))
+            ->path('Resources/encore')
+            ->name($configName)
+            ->files();
+
+        /** @var \Symfony\Component\Finder\SplFileInfo $fileInfo */
+        foreach ($finder as $fileInfo) {
+            $paths[] = preg_replace(
+                '/^' . preg_quote($rootPath, '/') . '/',
+                './',
+                $fileInfo->getRealPath()
+            );
+        }
+
+        $filesystem->mkdir($rootPath . '/' . $targetPath);
+        $filesystem->dumpFile(
+            $rootPath . $targetPath . '/' . $configName,
+            sprintf('module.exports = %s;', json_encode($paths))
+        );
+    }
+
+    private function shouldLoadTestServices(ContainerBuilder $container): bool
     {
         return $container->hasParameter('ibexa.testing.browser.enabled')
             && true === $container->getParameter('ibexa.testing.browser.enabled');
