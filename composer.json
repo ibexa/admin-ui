@@ -8,18 +8,22 @@
     },
     "autoload": {
         "psr-4": {
-            "EzSystems\\EzPlatformAdminUiBundle\\": "src/bundle/",
-            "EzSystems\\EzPlatformAdminUi\\": "src/lib/",
             "Ibexa\\AdminUi\\": "src/lib/",
             "Ibexa\\Bundle\\AdminUi\\": "src/bundle/",
-            "Ibexa\\Contracts\\AdminUi\\": "src/contracts/"
+            "Ibexa\\Contracts\\AdminUi\\": "src/contracts/",
+            "EzSystems\\EzPlatformAdminUiBundle\\": "src/bundle/",
+            "EzSystems\\EzPlatformAdminUi\\": "src/lib/",
+            "EzSystems\\EzPlatformEncoreBundle\\": "src/bundle/",
+            "Ibexa\\Platform\\Bundle\\Assets\\": "src/bundle/",
+            "Ibexa\\Platform\\Assets\\": "src/lib/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "EzSystems\\EzPlatformAdminUi\\Tests\\": "tests/lib/",
             "Ibexa\\Tests\\Bundle\\AdminUi\\": "tests/bundle/",
-            "Ibexa\\Tests\\AdminUi\\": "tests/lib/"
+            "Ibexa\\Tests\\AdminUi\\": "tests/lib/",
+            "EzSystems\\EzPlatformAdminUi\\Tests\\": "tests/lib/",
+            "Ibexa\\Platform\\Tests\\Assets\\": "tests/lib/"
         }
     },
     "require": {

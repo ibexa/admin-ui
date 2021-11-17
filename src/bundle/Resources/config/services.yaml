@@ -32,6 +32,8 @@ imports:
     - { resource: services/twig.yaml }
     - { resource: services/autosave.yaml }
     - { resource: services/user.yaml }
+    - { resource: services/commands.yaml }
+    - { resource: services/icons.yaml }
 
 services:
     _defaults:
