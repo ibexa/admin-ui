@@ -15,6 +15,7 @@
         }
 
         &--tablet {
+            background: url('/bundles/ibexaadminui/img/preview-tablet.png') top center no-repeat;
             height: calculateRem(1250px);
 
             iframe {
@@ -24,6 +25,7 @@
         }
 
         &--mobile {
+            background: url('/bundles/ibexaadminui/img/preview-mobile.png') top center no-repeat;
             height: calculateRem(900px);
 
             iframe {
