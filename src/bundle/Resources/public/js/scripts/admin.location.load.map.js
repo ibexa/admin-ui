@@ -13,7 +13,7 @@
 
         Leaflet.marker([latitude, longitude], {
             icon: new Leaflet.Icon.Default({
-                imagePath: '/bundles/ezplatformadminuiassets/vendors/leaflet/dist/images/',
+                imagePath: '/bundles/ibexaadminuiassets/vendors/leaflet/dist/images/',
             }),
         }).addTo(map);
 
