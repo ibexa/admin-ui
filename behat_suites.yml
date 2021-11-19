@@ -1,11 +1,11 @@
 browser:
     extensions:
         Behat\MinkExtension:
-            files_path: '%paths.base%/vendor/ezsystems/ezplatform-admin-ui/src/lib/Behat/TestFiles/'
+            files_path: '%paths.base%/vendor/ibexa/admin-ui/src/lib/Behat/TestFiles/'
     suites:
         admin-ui:
             paths:
-              - '%paths.base%/vendor/ezsystems/ezplatform-admin-ui/features/standard'
+              - '%paths.base%/vendor/ibexa/admin-ui/features/standard'
             filters:
                 tags: "~@broken"
             contexts: 
@@ -36,7 +36,7 @@ browser:
 
         personas:
             paths:
-                - '%paths.base%/vendor/ezsystems/ezplatform-admin-ui/features/personas'
+                - '%paths.base%/vendor/ibexa/admin-ui/features/personas'
             contexts:
                 - Ibexa\Behat\Browser\Context\DebuggingContext
                 - Ibexa\Behat\Browser\Context\AuthenticationContext
