@@ -149,7 +149,7 @@
         color: $ibexa-color-dark;
         text-decoration: underline;
         font-size: $ibexa-text-font-size-medium;
-        transition: background 0.3s $ibexa-admin-transition, color 0.3s $ibexa-admin-transition;
+        transition: background $ibexa-admin-transition-duration $ibexa-admin-transition, color $ibexa-admin-transition-duration $ibexa-admin-transition;
 
         .ibexa-icon {
             fill: $ibexa-color-dark;
@@ -223,7 +223,7 @@
                 .c-list-item__toggler {
                     &:before {
                         border-width: calculateRem(6px) calculateRem(4px) 0 calculateRem(4px);
-                        border-color: $ibexa-black transparent transparent transparent;
+                        border-color: $ibexa-color-dark transparent transparent transparent;
                         transform: translateY(-50%);
                     }
                 }

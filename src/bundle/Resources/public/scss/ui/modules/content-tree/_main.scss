@@ -32,7 +32,7 @@
         border-top: calculateRem(1px) solid $ibexa-color-white;
         height: calculateRem(30px);
         padding: calculateRem(7px);
-        font-size: calculateRem(11px);
+        font-size: $ibexa-text-font-size-small;
         text-align: right;
         color: $ibexa-color-dark-300;
         cursor: pointer;

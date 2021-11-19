@@ -3,7 +3,7 @@
     align-items: center;
     margin-bottom: calculateRem(8px);
     padding: 0 calculateRem(4px) calculateRem(8px);
-    border-bottom: calculateRem(1px) solid $ibexa-color-base-medium;
+    border-bottom: calculateRem(1px) solid $ibexa-color-light-500;
 
     &__expand-btn {
         display: flex;
