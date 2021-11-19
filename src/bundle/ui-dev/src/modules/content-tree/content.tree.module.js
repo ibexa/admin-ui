@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ContentTree from './components/content-tree/content.tree';
 import { loadLocationItems, loadSubtree } from './services/content.tree.service';
 
-const KEY_CONTENT_TREE_SUBTREE = 'ez-content-tree-subtrees';
+const KEY_CONTENT_TREE_SUBTREE = 'ibexa-content-tree-subtrees';
 
 export default class ContentTreeModule extends Component {
     constructor(props) {
@@ -35,7 +35,7 @@ export default class ContentTreeModule extends Component {
     }
 
     componentDidMount() {
-        document.body.addEventListener('ez-content-tree-refresh', this.refreshContentTree, false);
+        document.body.addEventListener('ibexa-content-tree-refresh', this.refreshContentTree, false);
 
         if (this.items.length) {
             this.subtree = this.generateSubtree(this.items, true);

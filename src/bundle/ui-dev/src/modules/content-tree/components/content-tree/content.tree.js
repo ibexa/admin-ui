@@ -5,7 +5,7 @@ import List from '../list/list.component';
 import Header from '../header/header';
 import Icon from '../../../common/icon/icon';
 
-const CLASS_IS_TREE_RESIZING = 'ez-is-tree-resizing';
+const CLASS_IS_TREE_RESIZING = 'ibexa-is-tree-resizing';
 const MIN_CONTAINER_WIDTH = 200;
 const COLLAPSED_WIDTH = 96;
 const EXPANDED_WIDTH = 320;
@@ -56,7 +56,7 @@ export default class ContentTree extends Component {
         if (this.state.containerWidth !== prevState.containerWidth) {
             this.saveConfig('width', this.state.containerWidth);
 
-            document.body.dispatchEvent(new CustomEvent('ez-content-tree-resized'));
+            document.body.dispatchEvent(new CustomEvent('ibexa-content-tree-resized'));
         }
 
         if (this.props.items && this.props.items.length && !this.scrollPositionRestored) {
@@ -68,7 +68,7 @@ export default class ContentTree extends Component {
 
     saveConfig(id, value) {
         const { userId } = this.props;
-        const data = JSON.parse(window.localStorage.getItem('ez-content-tree-state') || '{}');
+        const data = JSON.parse(window.localStorage.getItem('ibexa-content-tree-state') || '{}');
 
         if (!data[userId]) {
             data[userId] = {};
@@ -76,12 +76,12 @@ export default class ContentTree extends Component {
 
         data[userId][id] = value;
 
-        window.localStorage.setItem('ez-content-tree-state', JSON.stringify(data));
+        window.localStorage.setItem('ibexa-content-tree-state', JSON.stringify(data));
     }
 
     getConfig(id) {
         const { userId } = this.props;
-        const data = JSON.parse(window.localStorage.getItem('ez-content-tree-state') || '{}');
+        const data = JSON.parse(window.localStorage.getItem('ibexa-content-tree-state') || '{}');
 
         return data[userId]?.[id];
     }

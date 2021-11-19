@@ -845,7 +845,7 @@ export default class SubItemsModule extends Component {
     }
 
     refreshContentTree() {
-        document.body.dispatchEvent(new CustomEvent('ez-content-tree-refresh'));
+        document.body.dispatchEvent(new CustomEvent('ibexa-content-tree-refresh'));
     }
 
     renderDeleteConfirmationPopupFooter(selectionInfo) {
