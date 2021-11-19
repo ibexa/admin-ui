@@ -203,7 +203,7 @@ class ListItem extends Component {
                 <span {...togglerAttrs} />
                 <a className="c-list-item__label" href={href} onClick={onClick}>
                     {this.renderIcon()}
-                    <span class="c-list-item__label-content">
+                    <span class="c-list-item__label-content" title={name}>
                         {name}
                     </span>
                 </a>

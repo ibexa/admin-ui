@@ -234,7 +234,14 @@
     &--is-hidden {
         > .c-list-item {
             &__row {
-                opacity: 0.3;
+                border-color: $ibexa-color-light-400;
+                background: repeating-linear-gradient(
+                    -80deg,
+                    transparent,
+                    transparent calculateRem(4px),
+                    $ibexa-color-light-400 calculateRem(4px),
+                    $ibexa-color-light-400 calculateRem(5px)
+                );
             }
         }
     }
@@ -242,8 +249,8 @@
     &--is-selected {
         > .c-list-item {
             &__row {
-                border-color: $ibexa-color-light-300;
-                background-color: $ibexa-color-light-300;
+                border-color: $ibexa-color-light-400;
+                background-color: $ibexa-color-light-400;
 
                 &:hover,
                 &:focus {
