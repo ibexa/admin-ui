@@ -39,6 +39,11 @@ class MainMenuBuilerTest extends TestCase
     protected function setUp(): void
     {
         $knpFactory = $this->createMock(\Knp\Menu\FactoryInterface::class);
+        $knpFactory->method('createItem')
+            ->willReturnCallback(static function (string $name) use ($knpFactory) {
+                return new MenuItem($name, $knpFactory);
+            })
+        ;
 
         $parameterMap = [
             ['location_ids.content_structure', null, null, 5],
@@ -197,7 +202,6 @@ class MainMenuBuilerTest extends TestCase
 
     private function assertMenuHasAllItems(array $menu): void
     {
-        $this->assertArrayHasKey(MainMenuBuilder::ITEM_DASHBOARD, $menu);
         $this->assertArrayHasKey(MainMenuBuilder::ITEM_CONTENT, $menu);
         $this->assertArrayHasKey(MainMenuBuilder::ITEM_ADMIN, $menu);
         $this->assertArrayHasKey(MainMenuBuilder::ITEM_BOOKMARKS, $menu);
