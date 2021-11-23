@@ -1,7 +1,15 @@
 (function(global, doc, eZ) {
-    const MAX_NUMBER_OF_LABELS = 16;
     const barDefaultOptions = {
-
+        scales: {
+            xAxes: [
+                {
+                    display: true,
+                    gridLines: {
+                        display: false,
+                    },
+                },
+            ],
+        },
     };
 
     class BarChart extends eZ.core.BaseChart {
@@ -16,12 +24,6 @@
 
         getType() {
             return this.type;
-        }
-
-        setData(data) {
-            super.setData(data);
-
-            this.labelsInterval = Math.max(Math.ceil(this.labels.length / MAX_NUMBER_OF_LABELS), 1);
         }
     }
 
