@@ -1,6 +1,11 @@
 {% extends view_base_layout is defined ? view_base_layout : '@ibexadesign/ui/layout.html.twig' %}
 
-{% block main_container_class %}ibexa-main-container--edit-container{% endblock %}
+{% block main_container_class %}
+    ibexa-main-container--edit-container
+
+    {%- set has_anchor_menu_items = anchor_params.items|default([])|length > 1 -%}
+    {{ has_anchor_menu_items ? ' ibexa-main-container--with-anchor-menu-items' : ' ibexa-main-container--without-anchor-menu-items' }}
+{% endblock %}
 
 {% block header_row %}{% endblock %}
 

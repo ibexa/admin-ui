@@ -3,22 +3,15 @@
 {% trans_default_domain 'content_edit' %}
 
 {% set grouped_fields = grouped_fields|default([]) %}
+{% set anchor_params = { items: grouped_fields|keys } %}
 {% set is_autosave_enabled = ibexa_user_settings['autosave'] is same as('enabled') %}
 {% set form_has_autosave = form.autosave is defined %}
 {% set default_form_templates = ibexa_admin_ui_config.contentEditFormTemplates %}
 {% set form_templates = form_templates is defined ? default_form_templates|merge(form_templates) : default_form_templates %}
-{% set extra_main_class = grouped_fields|length < 2 
-    ? 'ibexa-main-container--without-anchor-menu-items' 
-    : 'ibexa-main-container--with-anchor-menu-items'  
-%}
 
 {% form_theme form with form_templates %}
 
-{% block main_container_class %}{{ parent() }} {{ extra_main_class }}{% endblock %}
-
 {% block left_sidebar %}
-    {% set anchor_params = { items: grouped_fields|keys } %}
-
     {% if without_close_button is not defined or without_close_button != true %}
         {% set referrer_location = content is defined and is_published ? location : parent_location %}
 
