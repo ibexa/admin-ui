@@ -207,7 +207,7 @@ export default class ContentTree extends Component {
         );
     }
 
-    isTreeCollapsed = () => {
+    isTreeCollapsed() {
         const width = this.state.resizedContainerWidth || this.state.containerWidth;
 
         return width <= MIN_CONTAINER_WIDTH;
