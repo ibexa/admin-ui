@@ -560,20 +560,7 @@ ezplatform.content.preview:
         languageCode: ~
         locationId: ~
 
-ezplatform.content.translate:
-    path: /content/{contentId}/translate/{toLanguageCode}/{fromLanguageCode}
-    methods: ['GET', 'POST']
-    defaults:
-        _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentEditController::translateAction'
-        fromLanguageCode: ~
-
-ibexa.content.translate_with_location:
-    path: /content/{contentId}/location/{locationId}/translate/{toLanguageCode}/{fromLanguageCode}
-    methods: ['GET', 'POST']
-    defaults:
-        _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentEditController::translateAction'
-        fromLanguageCode: ~
-
+# IBX-1079: Translate routes with proxy suffix have to be prioritized to avoid issues with URL generations
 ezplatform.content.translate.proxy:
     path: /content/{contentId}/translate/proxy/{toLanguageCode}/{fromLanguageCode}
     methods: ['GET', 'POST']
@@ -586,6 +573,20 @@ ibexa.content.translate_with_location.proxy:
     methods: ['GET', 'POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentEditController::proxyTranslateAction'
+        fromLanguageCode: ~
+
+ezplatform.content.translate:
+    path: /content/{contentId}/translate/{toLanguageCode}/{fromLanguageCode}
+    methods: ['GET', 'POST']
+    defaults:
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentEditController::translateAction'
+        fromLanguageCode: ~
+
+ibexa.content.translate_with_location:
+    path: /content/{contentId}/location/{locationId}/translate/{toLanguageCode}/{fromLanguageCode}
+    methods: ['GET', 'POST']
+    defaults:
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentEditController::translateAction'
         fromLanguageCode: ~
 
 ezplatform.content.check_edit_permission:
