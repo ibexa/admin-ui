@@ -2,14 +2,16 @@
     display: grid;
     grid-template: 'icon content close-btn';
     grid-template-columns: calculateRem(32px) auto calculateRem(32px);
+    grid-column-gap: calculateRem(8px);
     padding: calculateRem(16px) calculateRem(19px);
     border-radius: 0 calculateRem(10px) calculateRem(10px) 0;
     border-width: calculateRem(1px) calculateRem(1px) calculateRem(1px) calculateRem(3px);
     border-left-style: solid;
 
-    &__icon {
+    &__icon-wrapper {
         grid-area: icon;
         margin-top: calculateRem(2px);
+        display: flex;
     }
 
     &__close-btn {
@@ -26,6 +28,7 @@
         display: flex;
         flex-wrap: wrap;
         align-items: baseline;
+        margin-top: calculateRem(6px);
 
         &--subtitle-below {
             flex-direction: column;
@@ -79,5 +82,99 @@
         fill: $ibexa-color-success;
         background-color: $ibexa-color-success-100;
         border-color: $ibexa-color-success-300 $ibexa-color-success-300 $ibexa-color-success-300 $ibexa-color-success;
+    }
+
+    &--toast {
+        padding: calculateRem(12px);
+
+        &.ibexa-alert {
+            &--info {
+                border-radius: calculateRem(10px);
+                border: calculateRem(1px) solid $ibexa-color-info;
+
+                .ibexa-alert {
+                    &__icon-wrapper {
+                        border-radius: 50%;
+                        background: $ibexa-color-info;
+                    }
+                }
+            }
+
+            &--error {
+                border-radius: calculateRem(10px);
+                border: calculateRem(1px) solid $ibexa-color-danger;
+
+                .ibexa-alert {
+                    &__icon-wrapper {
+                        border-radius: $ibexa-border-radius-small;
+                        background: $ibexa-color-danger;
+                        transform: rotate(45deg);
+
+                        .ibexa-icon {
+                            transform: rotate(-45deg);
+                        }
+                    }
+                }
+            }
+
+            &--warning {
+                border-radius: calculateRem(10px);
+                border: calculateRem(1px) solid $ibexa-color-accent;
+
+                .ibexa-alert {
+                    &__icon-wrapper {
+                        position: relative;
+
+                        &:before {
+                            display: inline-block;
+                            margin-left: calculateRem(3px);
+                            font-size: calculateRem(5px);
+                            border: solid calculateRem(15px) transparent;
+                            border-top-width: 0;
+                            border-bottom-width: calculateRem(25px);
+                            border-bottom-color: $ibexa-color-accent;
+                            clip-path: circle(54% at 50% 69%);
+                            vertical-align: bottom;
+                            content: '';
+                        }
+
+                        .ibexa-icon {
+                            position: absolute;
+                            top: calculateRem(9px);
+                            left: calculateRem(8px);
+                        }
+                    }
+                }
+            }
+
+            &--success {
+                border-radius: calculateRem(10px);
+                border: calculateRem(1px) solid $ibexa-color-success;
+
+                .ibexa-alert {
+                    &__icon-wrapper {
+                        border-radius: $ibexa-border-radius-small;
+                        background: $ibexa-color-success;
+                    }
+                }
+            }
+        }
+
+        .ibexa-alert {
+            &__icon-wrapper {
+                width: calculateRem(24px);
+                height: calculateRem(24px);
+                justify-content: center;
+                align-items: center;
+
+                .ibexa-icon {
+                    fill: $ibexa-color-white;
+                }
+            }
+
+            &__close-btn {
+                margin: 0;
+            }
+        }
     }
 }

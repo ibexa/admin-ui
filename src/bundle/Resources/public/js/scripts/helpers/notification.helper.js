@@ -15,7 +15,7 @@
      * @param {Object} detail.rawPlaceholdersMap
      */
     const showNotification = (detail) => {
-        const event = new CustomEvent('ez-notify', { detail });
+        const event = new CustomEvent('ibexa-notify', { detail });
 
         doc.body.dispatchEvent(event);
     };

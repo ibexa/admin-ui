@@ -1,11 +1,16 @@
-<div class="alert alert-{{ label }} alert-dismissible fade show">
-    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close" title="{{ 'alert.close'|trans|desc('Close') }}">
-        <svg class="ibexa-icon ibexa-icon--light ibexa-icon--small">
-            <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
-        </svg>
-    </button>
-    {% if badge is defined %}
-        <span class="badge ez-badge ez-badge--small ez-badge--round">{{ badge }}</span>
-    {% endif %}
-    <span class="ez-notifications-container__message">{{ message }}</span>
-</div>
+{% embed '@ezdesign/ui/component/alert/alert.html.twig' with {
+    type: label,
+    subtitle: message,
+    icon_path: '{{ icon_path }}',
+    show_close_btn: true,
+    is_toast: true,
+} only %}
+    {% block icon %}
+        {% set icon = icon_name_map[type] is defined ? icon_name_map[type] : "" %}
+        <div class="ibexa-alert__icon-wrapper">
+            <svg class="ibexa-icon ibexa-icon--tiny-small ibexa-alert__icon">
+                <use xlink:href="{{ icon_path is defined ? icon_path : ibexa_icon_path(icon) }}"></use>
+            </svg>
+        </div>
+    {% endblock %}
+{% endembed %}
