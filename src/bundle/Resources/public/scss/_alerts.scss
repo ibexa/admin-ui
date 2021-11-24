@@ -4,7 +4,7 @@
     grid-template-columns: calculateRem(32px) auto calculateRem(32px);
     grid-column-gap: calculateRem(8px);
     padding: calculateRem(16px) calculateRem(19px);
-    border-radius: 0 calculateRem(10px) calculateRem(10px) 0;
+    border-radius: 0 $ibexa-border-radius $ibexa-border-radius 0;
     border-width: calculateRem(1px) calculateRem(1px) calculateRem(1px) calculateRem(3px);
     border-left-style: solid;
 
@@ -88,8 +88,9 @@
         padding: calculateRem(12px);
 
         &.ibexa-alert {
+            border-radius: $ibexa-border-radius;
+
             &--info {
-                border-radius: calculateRem(10px);
                 border: calculateRem(1px) solid $ibexa-color-info;
 
                 .ibexa-alert {
@@ -101,7 +102,6 @@
             }
 
             &--error {
-                border-radius: calculateRem(10px);
                 border: calculateRem(1px) solid $ibexa-color-danger;
 
                 .ibexa-alert {
@@ -118,7 +118,6 @@
             }
 
             &--warning {
-                border-radius: calculateRem(10px);
                 border: calculateRem(1px) solid $ibexa-color-accent;
 
                 .ibexa-alert {
@@ -128,7 +127,6 @@
                         &:before {
                             display: inline-block;
                             margin-left: calculateRem(3px);
-                            font-size: calculateRem(5px);
                             border: solid calculateRem(15px) transparent;
                             border-top-width: 0;
                             border-bottom-width: calculateRem(25px);
@@ -148,7 +146,6 @@
             }
 
             &--success {
-                border-radius: calculateRem(10px);
                 border: calculateRem(1px) solid $ibexa-color-success;
 
                 .ibexa-alert {

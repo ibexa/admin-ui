@@ -9,11 +9,11 @@
         success: 'checkmark',
     };
     const addNotification = ({ detail }) => {
-        const { onShow, label, message, rawPlaceholdersMap = {} } = detail;
+        const { onShow, label, message, customIconPath, rawPlaceholdersMap = {} } = detail;
         const config = eZ.adminUiConfig.notifications[label];
         const timeout = config ? config.timeout : 0;
         const container = doc.createElement('div');
-        const iconPath = eZ.helpers.icon.getIconPath(iconsMap[label]);
+        const iconPath = customIconPath ?? eZ.helpers.icon.getIconPath(iconsMap[label]);
         let finalMessage = eZ.helpers.text.escapeHTML(message);
 
         Object.entries(rawPlaceholdersMap).forEach(([placeholder, rawText]) => {
