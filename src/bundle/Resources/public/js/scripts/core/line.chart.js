@@ -70,4 +70,4 @@
     }
 
     eZ.addConfig('core.chart.LineChart', LineChart);
-})(window, window.document, window.eZ, window.Chart);
+})(window, window.document, window.eZ);

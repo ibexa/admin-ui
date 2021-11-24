@@ -28,4 +28,4 @@
     }
 
     eZ.addConfig('core.chart.BarChart', BarChart);
-})(window, window.document, window.eZ, window.Chart);
+})(window, window.document, window.eZ);
