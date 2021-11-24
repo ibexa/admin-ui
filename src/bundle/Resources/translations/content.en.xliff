@@ -66,15 +66,15 @@
         <target state="new">under %location_name%</target>
         <note>key: editing_details</note>
       </trans-unit>
+      <trans-unit id="f6ae7078e77f584ad00c8003405ca11dc57c4d56" resname="preview_header.back">
+        <source>Back</source>
+        <target state="new">Back</target>
+        <note>key: preview_header.back</note>
+      </trans-unit>
       <trans-unit id="583285bb674e4f29b273ceb4b19dc700e44c4130" resname="tooltip.close_label">
         <source>Close</source>
         <target state="new">Close</target>
         <note>key: tooltip.close_label</note>
-      </trans-unit>
-      <trans-unit id="f46c619c6bc5f16699d112b74f64b236898ff787" resname="tooltip.exit_label">
-        <source>Exit</source>
-        <target state="new">Exit</target>
-        <note>key: tooltip.exit_label</note>
       </trans-unit>
       <trans-unit id="2720e3018fc8b1158cb728b1d5dc377ef7293b57" resname="trash.modal.message">
         <source>Are you sure you want to send this Content item to Trash?</source>

@@ -61,10 +61,15 @@
         <target state="new">Reset your password</target>
         <note>key: authentication.reset_your_password</note>
       </trans-unit>
-      <trans-unit id="21689a7153c422f3a4d27fa44d04d6708842a194" resname="authentication.reset_your_password.cancel">
-        <source>Cancel</source>
-        <target state="new">Cancel</target>
-        <note>key: authentication.reset_your_password.cancel</note>
+      <trans-unit id="f7771b5d011f529e37d3b4c94319f52e709256c3" resname="authentication.reset_your_password.back">
+        <source>Back</source>
+        <target state="new">Back</target>
+        <note>key: authentication.reset_your_password.back</note>
+      </trans-unit>
+      <trans-unit id="930de05604c9de549497278656b63f7721e65ce5" resname="authentication.reset_your_password.back_to_sign_in">
+        <source>Go back to Sign in</source>
+        <target state="new">Go back to Sign in</target>
+        <note>key: authentication.reset_your_password.back_to_sign_in</note>
       </trans-unit>
       <trans-unit id="9143793289ea0e20c3dc9f752d43cc727f2dba01" resname="authentication.username">
         <source>Username</source>
@@ -452,6 +457,11 @@
         <source><![CDATA[<p>If you don’t receive the email, double check that you entered the correct email address and check your spam folder.</p>]]></source>
         <target state="new"><![CDATA[<p>If you don’t receive the email, double check that you entered the correct email address and check your spam folder.</p>]]></target>
         <note>key: ezplatform.forgot_user_password.success</note>
+      </trans-unit>
+      <trans-unit id="67603c970498409206e016279f7842369822af72" resname="ezplatform.forgot_user_password.success.alert">
+        <source>We’ve sent to your email account a link to reset your password.</source>
+        <target state="new">We’ve sent to your email account a link to reset your password.</target>
+        <note>key: ezplatform.forgot_user_password.success.alert</note>
       </trans-unit>
       <trans-unit id="40dd2934190789b016771a0fc3b41dcdfe0bb920" resname="ezplatform.reset_user_password.change_password">
         <source>Change password</source>
