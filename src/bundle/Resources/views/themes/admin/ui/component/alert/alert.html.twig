@@ -14,8 +14,9 @@
 >
     {% block icon %}
         {% set icon = icon_name_map[type] is defined ? icon_name_map[type] : '' %}
+        {% set icon_class = is_toast|default(false) ? 'ibexa-icon--tiny-small' : 'ibexa-icon--small' %}
         <div class="ibexa-alert__icon-wrapper">
-            <svg class="ibexa-icon ibexa-icon--small ibexa-alert__icon">
+            <svg class="ibexa-icon ibexa-alert__icon {{ icon_class }}">
                 <use xlink:href="{{ icon_path is defined ? icon_path : ibexa_icon_path(icon) }}"></use>
             </svg>
         </div>
