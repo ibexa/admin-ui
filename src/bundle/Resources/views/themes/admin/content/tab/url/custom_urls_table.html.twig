@@ -41,7 +41,7 @@
 {% endif %}
 
 {% embed '@ezdesign/ui/component/table/table.html.twig' with {
-    headline: 'tab.urls.custom_url_aliases'|trans({'%contentName%' : ez_content_name(content)})|desc('Custom URL aliases for %contentName%'),
+    headline: 'tab.urls.custom_url_aliases'|trans({'%contentName%' : ibexa_content_name(content)})|desc('Custom URL aliases for %contentName%'),
     head_cols: [
         { has_checkbox: true },
         { content: 'tab.urls.url'|trans|desc('URL') },

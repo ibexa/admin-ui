@@ -8,7 +8,7 @@
 {% if subtree_selected %}
     {% set path_locations = ez_path_to_locations(form.subtree.vars.value) %}
     {% set location = path_locations|last %}
-    {% set content_breadcrumbs = ez_content_name(location.contentInfo) %}
+    {% set content_breadcrumbs = ibexa_content_name(location.contentInfo) %}
 {% endif %}
 
 {{ form_start(form, {'attr': {'class': 'ibexa-search-form'}}) }}

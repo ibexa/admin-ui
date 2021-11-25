@@ -159,7 +159,7 @@
         </div>
         <div id="{{ form.selectionRoot.vars.id }}-selected-root-name">
             {% if form.selectionRoot.vars.destination_location is not null %}
-                {{ ez_content_name(form.selectionRoot.vars.destination_location.contentInfo) }}
+                {{ ibexa_content_name(form.selectionRoot.vars.destination_location.contentInfo) }}
             {% endif %}
         </div>
     </div>
@@ -205,7 +205,7 @@
         </div>
         <div id="{{ form.selectionDefaultLocation.vars.id }}-selected-root-name">
             {% if form.selectionDefaultLocation.vars.destination_location is not null %}
-                {{ ez_content_name(form.selectionDefaultLocation.vars.destination_location.contentInfo) }}
+                {{ ibexa_content_name(form.selectionDefaultLocation.vars.destination_location.contentInfo) }}
             {% endif %}
         </div>
     </div>

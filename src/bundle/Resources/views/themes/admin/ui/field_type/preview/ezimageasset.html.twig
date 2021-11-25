@@ -62,6 +62,6 @@
     </div>
 {% else %}
     <a href="{{ path('_ez_content_view', { 'contentId': content.id, 'locationId': content.contentInfo.mainLocationId }) }}" target="_blank">
-        {{ ez_content_name(content) }}
+        {{ ibexa_content_name(content) }}
     </a>
 {% endif %}

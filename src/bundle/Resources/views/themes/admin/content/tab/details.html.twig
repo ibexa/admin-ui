@@ -3,8 +3,8 @@
 {% form_theme form_location_update '@ezdesign/ui/form_fields.html.twig' %}
 
 {% set body_row_cols = [
-    { content: creator is not empty ? ez_content_name(creator) : 'tab.details.creator.not_found'|trans|desc('Can\'t fetch creator') },
-    { content: last_contributor is not empty ? ez_content_name(last_contributor) : 'tab.details.last_contributor.not_found'|trans|desc('Can\'t fetch last contributor') },
+    { content: creator is not empty ? ibexa_content_name(creator) : 'tab.details.creator.not_found'|trans|desc('Can\'t fetch creator') },
+    { content: last_contributor is not empty ? ibexa_content_name(last_contributor) : 'tab.details.last_contributor.not_found'|trans|desc('Can\'t fetch last contributor') },
     { content: version_info.versionNo },
 ] %}
 {% set col_raw %}

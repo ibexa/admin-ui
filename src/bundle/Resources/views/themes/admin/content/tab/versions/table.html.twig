@@ -83,7 +83,7 @@
                         {{ custom_columns }}
                         {% include '@ezdesign/ui/component/table/table_body_cell.html.twig' with {
                             content: version.author is not empty
-                                ? ez_content_name(version.author)
+                                ? ibexa_content_name(version.author)
                                 : 'tab.versions.table.author.not_found'|trans|desc('Can\'t fetch contributor'),
                         } %}
                         {% if not is_draft_conflict %}

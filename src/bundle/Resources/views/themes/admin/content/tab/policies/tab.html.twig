@@ -18,9 +18,9 @@
 
         {% set col_raw %}
             {%- if policy.role_assignment.usergroup is defined -%}
-                {{ ez_content_name( policy.role_assignment.usergroup ) }}
+                {{ ibexa_content_name( policy.role_assignment.usergroup ) }}
             {%- else -%}
-                {{ ez_content_name( policy.role_assignment.user ) }}
+                {{ ibexa_content_name( policy.role_assignment.user ) }}
             {%- endif -%}
         {% endset %}
         {% set body_row_cols = body_row_cols|merge([{

@@ -81,7 +81,7 @@
     {% set additional_data = additional_data ?? null %}
 
     {% if destination_content is defined and destination_content is not null %}
-        {% set destination_content_name = ez_content_name(destination_content) %}
+        {% set destination_content_name = ibexa_content_name(destination_content) %}
         {% set destination_content_url = path('_ez_content_view', {
             contentId: destination_content.id,
             locationId: destination_content.contentInfo.mainLocationId,

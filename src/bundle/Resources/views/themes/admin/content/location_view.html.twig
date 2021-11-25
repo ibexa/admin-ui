@@ -33,7 +33,7 @@
     {% for path_location in path_locations %}
         {% if not loop.last %}
             {% set items = items|merge([{
-                'value': ez_content_name(path_location.contentInfo),
+                'value': ibexa_content_name(path_location.contentInfo),
                 'url': path('_ez_content_view', {
                     'contentId': path_location.contentId,
                     'locationId': path_location.id
@@ -42,7 +42,7 @@
         {% endif %}
     {% endfor %}
 
-    {% set items = items|merge([{ 'value': ez_content_name(content) }]) %}
+    {% set items = items|merge([{ 'value': ibexa_content_name(content) }]) %}
 
     {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: items } %}
 {% endblock %}
@@ -63,7 +63,7 @@
     {% if form_location_trash is defined and form_user_delete is not defined %}
         {% include '@ezdesign/content/modal/location_trash.html.twig' with {
             'form': form_location_trash,
-            'content_name': ez_content_name(content)
+            'content_name': ibexa_content_name(content)
         } only %}
     {% endif %}
     {% if form_user_delete is defined %}
@@ -79,7 +79,7 @@
     {% set icon_name = content_type.identifier %}
     {% set content_type_name = content_type.name %}
     {% embed '@ezdesign/ui/page_title.html.twig' with {
-        title: ez_content_name(content),
+        title: ibexa_content_name(content),
     } %}
         {% block top_side %}
             {% if location is defined and location_is_bookmarked is defined %}

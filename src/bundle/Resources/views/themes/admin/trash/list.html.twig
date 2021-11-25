@@ -53,7 +53,7 @@
                                     type="text"
                                     class="form-control ez-trash-search-form__input"
                                     data-content-type-identifiers="{{ user_content_type_identifier|join(',') }}"
-                                    value="{{ creatorExists ? ez_content_name(creator) }}"
+                                    value="{{ creatorExists ? ibexa_content_name(creator) }}"
                                     placeholder="{{ 'search.creator_input.placeholder'|trans|desc('Type creator\'s name') }}"
                                     {{ creatorExists ? 'disabled'  }}
                                 >
@@ -97,7 +97,7 @@
                     {% set body_row_cols = [] %}
                     {% set trash_item = trash_items[key] %}
                     {% set is_parent_in_trash = trash_item.parentInTrash %}
-                    {% set trash_item_name = ez_content_name(trash_item.location.contentInfo) %}
+                    {% set trash_item_name = ibexa_content_name(trash_item.location.contentInfo) %}
 
                     {% set col_raw %}
                         <div class="form-check">
@@ -137,7 +137,7 @@
                     {% set body_row_cols = body_row_cols|merge([
                         { content: trash_item.contentType.name },
                         { content: trash_item.creator is not empty
-                            ? ez_content_name(trash_item.creator.content) :
+                            ? ibexa_content_name(trash_item.creator.content) :
                             'trash.item.deleted_user'|trans|desc('Deleted user') },
                         { content: trash_item.location.contentInfo.section.name },
                     ]) %}
