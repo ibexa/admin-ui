@@ -1,0 +1,25 @@
+.ibexa-anchor-navigation-section {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-column-gap: calculateRem(32px);
+    opacity: 0.2;
+
+    &__column {
+        border-radius: $ibexa-border-radius;
+
+        &--definitions {
+            min-height: calculateRem(700px);
+            padding: calculateRem(16px) calculateRem(34px);
+            background: $ibexa-color-light-300;
+        }
+    }
+
+    &__column-header {
+        margin: 0;
+        padding: calculateRem(24px) 0;
+    }
+
+    &--active {
+        opacity: 1;
+    }
+}

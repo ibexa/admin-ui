@@ -48,6 +48,7 @@
         padding: calculateRem(4px) calculateRem(32px);
         margin-bottom: 0;
         overflow: auto;
+        list-style: none;
     }
 
     &--draggable {
@@ -97,10 +98,6 @@
         cursor: grab;
     }
 
-    &:last-of-type {
-        margin-bottom: calculateRem(24px);
-    }
-
     &__drag {
         display: flex;
         align-items: center;
@@ -119,10 +116,6 @@
 
     &__label {
         font-size: $ibexa-text-font-size-medium;
-    }
-
-    &__collapse {
-        padding: 0 calculateRem(9px);
     }
 
     &--hidden {

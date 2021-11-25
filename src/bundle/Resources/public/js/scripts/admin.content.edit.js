@@ -44,7 +44,7 @@
     };
     const getInvalidSections = (validator) => {
         return validator.fieldsToValidate.reduce((invalidSections, field) => {
-            const section = field.item.closest('.ibexa-anchor-navigation-sections__section');
+            const section = field.item.closest('.ibexa-anchor-navigation-section');
 
             if (section && field.item.classList.contains('is-invalid')) {
                 invalidSections.add(section.dataset.anchorSectionId);
@@ -55,7 +55,7 @@
     };
     const focusOnFirstError = () => {
         const invalidFields = doc.querySelectorAll('.ez-field-edit.is-invalid');
-        const invalidSection = invalidFields[0].closest('.ibexa-anchor-navigation-sections__section');
+        const invalidSection = invalidFields[0].closest('.ibexa-anchor-navigation-section');
 
         fields.forEach((field) => field.removeAttribute('tabindex'));
         invalidFields.forEach((field) => field.setAttribute('tabindex', '-1'));
@@ -131,7 +131,7 @@
     };
     const fitSections = () => {
         const contentColumn = doc.querySelector('.ibexa-main-container__content-column');
-        const lastSection = doc.querySelector('.ibexa-anchor-navigation-sections .ibexa-anchor-navigation-sections__section:last-child');
+        const lastSection = doc.querySelector('.ibexa-anchor-navigation-sections .ibexa-anchor-navigation-section:last-child');
 
         if (lastSection && lastSection.offsetHeight) {
             const lastSectionHeight = lastSection.offsetHeight;
