@@ -51,21 +51,23 @@ export default class DropAreaComponent extends Component {
 
     render() {
         const maxFileSizeMessage = Translator.trans(/*@Desc("Max file size:")*/ 'max_file_size.message', {}, 'multi_file_upload');
-        const dropActionMessage = Translator.trans(
-            /*@Desc("Drag your files to the browser window or select them")*/ 'drop_action.message',
-            {},
-            'multi_file_upload'
-        );
-        const uploadBtnLabel = Translator.trans(/*@Desc("Upload sub-items")*/ 'upload_btn.label', {}, 'multi_file_upload');
+        const dropActionMessage = Translator.trans(/*@Desc("Drag and drop file")*/ 'drop_action.message', {}, 'multi_file_upload');
+        const separatorMessage = Translator.trans(/*@Desc("or")*/ 'drop_action.separator', {}, 'multi_file_upload');
+        const uploadBtnLabel = Translator.trans(/*@Desc("Upload file")*/ 'upload_btn.label', {}, 'multi_file_upload');
 
         return (
             <form className="c-drop-area" multiple onDrop={this.handleUpload}>
                 <div className="c-drop-area__message c-drop-area__message--main">{dropActionMessage}</div>
-                <button type="button" className="btn ibexa-btn ibexa-btn--primary c-drop-area__btn-select" onClick={this.openFileSelector} tabIndex="-1">
+                <div className="c-drop-area__message c-drop-area__message--separator">{separatorMessage}</div>
+                <button
+                    type="button"
+                    className="btn ibexa-btn ibexa-btn--secondary c-drop-area__btn-select"
+                    onClick={this.openFileSelector}
+                    tabIndex="-1">
                     {uploadBtnLabel}
                 </button>
                 <div className="c-drop-area__message c-drop-area__message--filesize">
-                    ({maxFileSizeMessage} {fileSizeToString(this.props.maxFileSize)})
+                    {maxFileSizeMessage} {fileSizeToString(this.props.maxFileSize)}
                 </div>
                 <input
                     className="c-drop-area__input--hidden"
