@@ -1,6 +1,6 @@
 {% trans_default_domain 'fieldtypes_preview' %}
 
-{% set field = ez_field(content, ez_content_field_identifier_image_asset()) %}
+{% set field = ibexa_field(content, ez_content_field_identifier_image_asset()) %}
 {% set versionInfo = content.versionInfo  %}
 
 {% if not ez_field_is_empty(content, field) %}
