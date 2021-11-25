@@ -13,9 +13,12 @@ const PopupActions = ({ listRef, options }) => {
     };
     const getHeaderActions = () => {
         const { headerActions } = window.eZ.adminUiConfig.contentTreeWidget;
-        const headerActionsArr = headerActions ? [...headerActions] : [];
 
-        return headerActionsArr.sort((headerActionA, headerActionB) => {
+        if (!headerActions) {
+            return [];
+        }
+
+        return [...headerActions].sort((headerActionA, headerActionB) => {
             return headerActionB.priority - headerActionA.priority;
         });
     }
@@ -26,9 +29,7 @@ const PopupActions = ({ listRef, options }) => {
             <li
                 class="c-popup-actions__item"
                 key={item.id}
-                onClick={() => {
-                    toggleExpanded();
-                }}
+                onClick={toggleExpanded}
             >
                 <Component />
             </li>
@@ -37,8 +38,6 @@ const PopupActions = ({ listRef, options }) => {
     const renderItemsList = () => {
         const itemsStyles = {};
         const allOptions = [...options, ...getHeaderActions()];
-
-        console.log(allOptions);
 
         if (containerRef.current) {
             const { left, top, height } = containerRef.current.getBoundingClientRect();

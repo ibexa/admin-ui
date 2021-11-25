@@ -57,7 +57,7 @@ const TreeItemToggleSelection = ({ locationId, isContainer, contentTypeIdentifie
 };
 
 eZ.addConfig(
-    'adminUiConfig.contentTreeWidget.prefixActions',
+    'adminUiConfig.contentTreeWidget.secondaryItemActions',
     [
         {
             id: 'toggle-selection-button',

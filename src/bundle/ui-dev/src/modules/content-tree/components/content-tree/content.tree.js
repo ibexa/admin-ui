@@ -18,7 +18,7 @@ export default class ContentTree extends Component {
         this.toggleCollapseTree = this.toggleCollapseTree.bind(this);
         this.addWidthChangeListener = this.addWidthChangeListener.bind(this);
         this.handleResizeEnd = this.handleResizeEnd.bind(this);
-        this.isTreeCollapsed = this.isTreeCollapsed.bind(this);
+        this.checkIsTreeCollapsed = this.checkIsTreeCollapsed.bind(this);
         this._refTreeContainer = React.createRef();
         this._refPopupContainer = React.createRef();
         this.scrollTimeout = null;
@@ -95,7 +95,7 @@ export default class ContentTree extends Component {
     }
 
     toggleCollapseTree() {
-        const width = this.isTreeCollapsed() ? EXPANDED_WIDTH : COLLAPSED_WIDTH;
+        const width = this.checkIsTreeCollapsed() ? EXPANDED_WIDTH : COLLAPSED_WIDTH;
 
         this.setState(() => ({
             resizedContainerWidth: width,
@@ -154,7 +154,7 @@ export default class ContentTree extends Component {
         return (
             <Header
                 toggleCollapseTree={this.toggleCollapseTree}
-                isCollapsed={this.isTreeCollapsed()}
+                isCollapsed={this.checkIsTreeCollapsed()}
                 popupRef={this._refPopupContainer}
                 actions={actions}
             />
@@ -188,7 +188,7 @@ export default class ContentTree extends Component {
 
         return (
             <div className="m-tree__scrollable-wrapper" ref={(ref) => (this.containerScrollRef = ref)}>
-                {this.isTreeCollapsed() || !items || !items.length ? null : <List {...attrs} />}
+                {this.checkIsTreeCollapsed() || !items || !items.length ? null : <List {...attrs} />}
             </div>
         );
     }
@@ -196,7 +196,7 @@ export default class ContentTree extends Component {
     renderLoadingSpinner() {
         const { items } = this.props;
 
-        if (this.isTreeCollapsed() || (items && items.length)) {
+        if (this.checkIsTreeCollapsed() || (items && items.length)) {
             return;
         }
 
@@ -207,7 +207,7 @@ export default class ContentTree extends Component {
         );
     }
 
-    isTreeCollapsed() {
+    checkIsTreeCollapsed() {
         const width = this.state.resizedContainerWidth || this.state.containerWidth;
 
         return width <= MIN_CONTAINER_WIDTH;

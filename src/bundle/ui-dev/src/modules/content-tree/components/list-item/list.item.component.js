@@ -11,7 +11,7 @@ class ListItem extends Component {
         this.loadMoreSubitems = this.loadMoreSubitems.bind(this);
         this.handleAfterExpandedStateChange = this.handleAfterExpandedStateChange.bind(this);
 
-        this.prefixActions = this.getPrefixActions();
+        this.secondaryItemActions = this.getSecondaryItemActions();
         this.sortedActions = this.getSortedActions();
 
         this.state = {
@@ -20,11 +20,14 @@ class ListItem extends Component {
         };
     }
 
-    getPrefixActions() {
-        const { prefixActions } = window.eZ.adminUiConfig.contentTreeWidget;
-        const prefixActionsArr = prefixActions ? [...prefixActions] : [];
+    getSecondaryItemActions() {
+        const { secondaryItemActions } = window.eZ.adminUiConfig.contentTreeWidget;
 
-        return prefixActionsArr.sort((prefixActionA, prefixActionB) => {
+        if (!secondaryItemActions) {
+            return [];
+        }
+
+        return [...secondaryItemActions].sort((prefixActionA, prefixActionB) => {
             return prefixActionB.priority - prefixActionA.priority;
         });
     }
@@ -190,7 +193,7 @@ class ListItem extends Component {
         return (
             <div className="c-list-item__row" style={{'--indent': indent}}>
                 <div class="c-list-item__prefix-actions">
-                    {this.prefixActions.map((action) => {
+                    {this.secondaryItemActions.map((action) => {
                         const ActionComponent = action.component;
 
                         return (
