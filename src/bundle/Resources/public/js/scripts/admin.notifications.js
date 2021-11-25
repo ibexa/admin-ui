@@ -1,13 +1,19 @@
 (function(global, doc, eZ, bootstrap) {
-    const notificationsContainer = doc.querySelector('.ez-notifications-container');
+    const notificationsContainer = doc.querySelector('.ibexa-notifications-container');
     const notifications = JSON.parse(notificationsContainer.dataset.notifications);
     const template = notificationsContainer.dataset.template;
+    const iconsMap = {
+        info: 'system-information',
+        error: 'circle-close',
+        warning: 'warning-triangle',
+        success: 'checkmark',
+    };
     const addNotification = ({ detail }) => {
-        const { onShow, label, message, rawPlaceholdersMap = {} } = detail;
-        const templateLabel = label === 'error' ? 'danger' : label;
+        const { onShow, label, message, customIconPath, rawPlaceholdersMap = {} } = detail;
         const config = eZ.adminUiConfig.notifications[label];
         const timeout = config ? config.timeout : 0;
         const container = doc.createElement('div');
+        const iconPath = customIconPath ?? eZ.helpers.icon.getIconPath(iconsMap[label]);
         let finalMessage = eZ.helpers.text.escapeHTML(message);
 
         Object.entries(rawPlaceholdersMap).forEach(([placeholder, rawText]) => {
@@ -15,9 +21,9 @@
         });
 
         const notification = template
-            .replace('{{ label }}', templateLabel)
+            .replace('{{ label }}', label)
             .replace('{{ message }}', finalMessage)
-            .replace('{{ badge }}', label);
+            .replace('{{ icon_path }}', iconPath);
 
         container.insertAdjacentHTML('beforeend', notification);
 
@@ -26,7 +32,7 @@
         notificationsContainer.append(notificationNode);
 
         if (timeout) {
-            global.setTimeout(() => notificationNode.querySelector('.close').click(), timeout);
+            global.setTimeout(() => notificationNode.querySelector('.ibexa-alert__close-btn').click(), timeout);
         }
 
         if (typeof onShow === 'function') {
@@ -38,5 +44,5 @@
         messages.forEach((message) => addNotification({ detail: { label, message } }));
     });
 
-    doc.body.addEventListener('ez-notify', addNotification, false);
+    doc.body.addEventListener('ibexa-notify', addNotification, false);
 })(window, window.document, window.eZ, window.bootstrap);
