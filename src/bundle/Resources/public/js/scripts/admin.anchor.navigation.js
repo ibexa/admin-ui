@@ -1,7 +1,7 @@
 (function(global, doc, eZ) {
     const scrollOffset = 300;
     const formContainerNode = doc.querySelector('.ibexa-edit-content');
-    const allSections = [...doc.querySelectorAll('.ibexa-anchor-navigation-sections__section')];
+    const allSections = [...doc.querySelectorAll('.ibexa-anchor-navigation-section')];
     const isVerticalScrollVisible = () => {
         const { scrollHeight, offsetHeight } = formContainerNode;
 
@@ -14,15 +14,15 @@
             btn.classList.toggle('ibexa-anchor-navigation-menu__item-btn--active', anchorTargetSectionId === sectionId);
         });
 
-        doc.querySelectorAll('.ibexa-anchor-navigation-sections__section').forEach((section) => {
+        doc.querySelectorAll('.ibexa-anchor-navigation-section').forEach((section) => {
             const { anchorSectionId } = section.dataset;
 
-            section.classList.toggle('ibexa-anchor-navigation-sections__section--active', anchorSectionId === sectionId);
+            section.classList.toggle('ibexa-anchor-navigation-section--active', anchorSectionId === sectionId);
         });
     };
     const navigateTo = (event) => {
         const { anchorTargetSectionId } = event.currentTarget.dataset;
-        const targetSection = [...doc.querySelectorAll('.ibexa-anchor-navigation-sections__section')].find(
+        const targetSection = [...doc.querySelectorAll('.ibexa-anchor-navigation-section')].find(
             (section) => section.dataset.anchorSectionId == anchorTargetSectionId
         );
 

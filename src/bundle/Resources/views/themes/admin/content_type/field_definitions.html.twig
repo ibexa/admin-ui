@@ -21,22 +21,27 @@
                 {% block body_content_wrapper %}
                     <div
                         class="ibexa-collapse__body-content ibexa-content-type-edit__field-definition-drop-zone"
-                        data-placeholder="{{ include('@ezdesign/content_type/field_definitions_placeholder.html.twig')|e('html_attr') }}"
+                        data-placeholder="{{ include('@ezdesign/ui/drop_zone_item_placeholder.html.twig')|e('html_attr') }}"
                     >
                         {% block body_content %}
-                            {%- include "@ezdesign/content_type/field_definitions_empty_group.html.twig" -%}
+                            {%- include "@ezdesign/ui/drop_zone_empty_placeholder.html.twig" with {
+                                img_alt: 'content_type.view.edit.empty_group_content'|trans|desc('Empty group, please drag some field'),
+                                label: 'content_type.view.edit.empty_group_label'|trans|desc('Your section is empty'),
+                                title: 'content_type.view.edit.empty_group_title'|trans|desc('Drag and drop field type'),
+                                items: field_defintions
+                            } -%}
 
                             {% for field_definition in field_defintions %}
                                 {%- include "@ezdesign/content_type/field_definition.html.twig" -%}
                             {% endfor %}
 
                             {% set field_definitions_placeholder_class = [
-                                'ibexa-field-definitions-placeholder--anchored',
-                                not field_defintions|length ? 'ibexa-field-definitions-placeholder--hidden'
+                                'ibexa-drop-zone-item-placeholder--anchored',
+                                not field_defintions|length ? 'ibexa-drop-zone-item-placeholder--hidden'
                             ] %}
 
-                            {%- include "@ezdesign/content_type/field_definitions_placeholder.html.twig" with {
-                                'field_definitions_placeholder_class': field_definitions_placeholder_class|join(' ')
+                            {%- include "@ezdesign/ui/drop_zone_item_placeholder.html.twig" with {
+                                placeholder_class: field_definitions_placeholder_class|join(' ')
                             } -%}
                         {% endblock %}
                     </div>

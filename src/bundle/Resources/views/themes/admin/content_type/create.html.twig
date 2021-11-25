@@ -20,18 +20,18 @@
 {% block form %}
     {{ form_start(form, { attr: { class: 'ibexa-form' } } ) }}
         <div
-            class="ibexa-content-type-edit__sections ibexa-anchor-navigation-sections container"
+            class="ibexa-anchor-navigation-sections"
             data-language-code="{{ language_code }}"
             data-content-type-group-id="{{ content_type_group.id }}"
             data-content-type-id="{{ content_type.id }}"
         >
             {% block form_sections %}
-                {% embed "@ezdesign/content_type/edit_section.html.twig" with { section_id: '#Global-properties',  is_active: true } %}
-                    {% block title %}
-                        {{ 'content_type.view.edit.global_properties'|trans|desc('Global properties') }}
-                    {% endblock %}
-
-                    {% block left_column %}
+                {% embed "@ezdesign/ui/edit_section.html.twig" with { 
+                    section_id: '#Global-properties',
+                    is_active: true,
+                    left_column_title: 'content_type.view.edit.global_properties'|trans|desc('Global properties'),
+                } %}
+                    {% block left_column_content %}
                         {{ form_row(form.name) }}
                         {{ form_row(form.identifier) }}
                         {{ form_row(form.description) }}
@@ -44,19 +44,18 @@
                     {% endblock %}
                 {% endembed %}
 
-                {% embed "@ezdesign/content_type/edit_section.html.twig" with {
+                {% embed "@ezdesign/ui/edit_section.html.twig" with {
                     section_id: '#Field-definitions',
-                    left_column_class: 'ibexa-content-type-edit__section-column--field-definitions'
+                    left_column_title: 'content_type.view.edit.content_field_definitions'|trans|desc('Field definitions'),
+                    left_column_class: 'ibexa-anchor-navigation-section__column--definitions'
                 } %}
-                    {% block title %}
-                        {{ 'content_type.view.edit.content_field_definitions'|trans|desc('Field definitions') }}
+                    {% block left_column_content %}
+                        {{ include('@ezdesign/content_type/field_definitions.html.twig', { 
+                            grouped_field_defintions: form.fieldDefinitionsData
+                        }) }}
                     {% endblock %}
 
-                    {% block left_column %}
-                        {{ include('@ezdesign/content_type/field_definitions.html.twig', { grouped_field_defintions: form.fieldDefinitionsData }) }}
-                    {% endblock %}
-
-                    {% block right_column %}
+                    {% block right_column_content %}
                         {{ include('@ezdesign/content_type/available_field_types.html.twig') }}
                     {% endblock %}
                 {% endembed %}
