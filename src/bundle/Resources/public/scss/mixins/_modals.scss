@@ -1,8 +1,8 @@
 @mixin modal-main() {
-    background: $ibexa-white;
-    box-shadow: 0 0 calculateRem(30px) 0 rgba($ibexa-black, 0.35);
+    background: $ibexa-color-white;
+    box-shadow: 0 0 calculateRem(30px) 0 rgba($ibexa-color-black, 0.35);
     position: relative;
-    border-radius: calculateRem(4px);
+    border-radius: $ibexa-border-radius;
     overflow: hidden;
 }
 
@@ -42,10 +42,7 @@
     border: none;
 
     .ibexa-icon {
-        width: calculateRem(20px);
-        height: calculateRem(20px);
         margin: 0;
-        fill: $ibexa-color-danger;
         opacity: 1;
     }
 }

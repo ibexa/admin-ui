@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import ProgressBarComponent from '../progress-bar/progress.bar.component';
 import { fileSizeToString } from '../../helpers/text.helper';
+import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
 
 export default class UploadItemComponent extends Component {
@@ -375,7 +376,7 @@ export default class UploadItemComponent extends Component {
 
         const contentTypeIconUrl = eZ.helpers.contentType.getContentTypeIconUrl(contentTypeIdentifier);
 
-        return <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small-medium ibexa-icon--base-dark" />;
+        return <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small-medium" />;
     }
 
     /**
@@ -435,7 +436,12 @@ export default class UploadItemComponent extends Component {
             msg = disallowedContentTypeMessage;
         }
 
-        return isError ? <div className="c-upload-list-item__message c-upload-list-item__message--error">{msg}</div> : null;
+        return isError ? (
+            <div className="c-upload-list-item__message c-upload-list-item__message--error">
+                <Icon name="warning" extraClasses="ibexa-icon--tiny" />
+                {msg}
+            </div>
+        ) : null;
     }
 
     /**
@@ -448,9 +454,14 @@ export default class UploadItemComponent extends Component {
     renderSuccessMessage() {
         const { uploaded, aborted, disallowedSize, disallowedType, failed, uploading } = this.state;
         const isSuccess = uploaded && !aborted && !(disallowedSize || disallowedType) && !failed && !uploading;
-        const message = Translator.trans(/*@Desc("Uploaded")*/ 'upload.success.message', {}, 'multi_file_upload');
+        const message = Translator.trans(/*@Desc("100% Uploaded")*/ 'upload.success.message', {}, 'multi_file_upload');
 
-        return isSuccess ? <div className="c-upload-list-item__message c-upload-list-item__message--success">{message}</div> : null;
+        return isSuccess ? (
+            <div className="c-upload-list-item__message c-upload-list-item__message--success">
+                <Icon name="checkmark" extraClasses="ibexa-icon--tiny" />
+                {message}
+            </div>
+        ) : null;
     }
 
     /**
@@ -472,11 +483,11 @@ export default class UploadItemComponent extends Component {
 
         return (
             <div
-                className="c-upload-list-item__action c-upload-list-item__action--abort"
+                className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--small c-upload-list-item__action c-upload-list-item__action--abort"
                 onClick={this.abortUploading}
                 title={label}
                 tabIndex="-1">
-                <Icon name="circle-close" extraClasses="ibexa-icon--small-medium" />
+                <Icon name="trash" extraClasses="ibexa-icon--small-medium" />
             </div>
         );
     }
@@ -523,7 +534,7 @@ export default class UploadItemComponent extends Component {
 
         return (
             <div
-                className="c-upload-list-item__action c-upload-list-item__action--edit"
+                className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--small c-upload-list-item__action c-upload-list-item__action--edit"
                 title={label}
                 onClick={this.handleEditBtnClick}
                 tabIndex="-1">
@@ -551,7 +562,7 @@ export default class UploadItemComponent extends Component {
 
         return (
             <div
-                className="c-upload-list-item__action c-upload-list-item__action--delete"
+                className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--small c-upload-list-item__action c-upload-list-item__action--delete"
                 onClick={this.deleteFile}
                 title={label}
                 tabIndex="-1">
@@ -561,26 +572,43 @@ export default class UploadItemComponent extends Component {
     }
 
     render() {
-        if (this.state.deleted) {
+        const {
+            uploaded,
+            aborted,
+            disallowedType,
+            disallowedSize,
+            failed,
+            uploading,
+            disallowedContentType,
+            deleted,
+            totalSize,
+        } = this.state;
+        const isError = !uploaded && !aborted && (disallowedSize || disallowedType || disallowedContentType) && failed && !uploading;
+        const wrapperClassName = createCssClassNames({
+            'c-upload-list-item': true,
+            'c-upload-list-item--errored': isError,
+        });
+
+        if (deleted) {
             return null;
         }
 
         return (
-            <div className="c-upload-list-item">
-                <div className="c-upload-list-item__icon-wrapper">{this.renderIcon()}</div>
+            <div className={wrapperClassName}>
+                <div className="c-upload-list-item__icon-wrapper">{!isError && this.renderIcon()}</div>
                 <div className="c-upload-list-item__meta">
                     <div className="c-upload-list-item__name">{this.props.data.file.name}</div>
-                    <div className="c-upload-list-item__size">{this.state.uploaded ? this.state.totalSize : ''}</div>
+                    <div className="c-upload-list-item__size">{!isError && uploaded ? totalSize : ''}</div>
                 </div>
                 <div className="c-upload-list-item__info">
                     {this.renderErrorMessage()}
-                    {this.renderSuccessMessage()}
-                    {this.renderProgressBar()}
+                    {!isError && this.renderSuccessMessage()}
+                    {!isError && this.renderProgressBar()}
                 </div>
                 <div className="c-upload-list-item__actions">
-                    {this.renderAbortBtn()}
-                    {this.renderEditBtn()}
-                    {this.renderDeleteBtn()}
+                    {!isError && this.renderAbortBtn()}
+                    {!isError && this.renderEditBtn()}
+                    {!isError && this.renderDeleteBtn()}
                 </div>
             </div>
         );

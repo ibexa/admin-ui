@@ -1,5 +1,5 @@
 .c-upload-popup {
-    background: rgba($ibexa-black, 0.35);
+    background: rgba($ibexa-color-black, 0.35);
     position: fixed;
     z-index: 99999;
     top: 0;
@@ -25,14 +25,14 @@
             border-bottom: $modal-header-border-width solid $modal-header-border-color;
         }
 
-        &__title {
-            @include modal-title();
-        }
-
         &__content {
             @include modal-body();
 
             padding: $modal-inner-padding;
+        }
+
+        &__footer {
+            border-top: calculateRem(1px) solid $ibexa-color-light-500;
         }
     }
 
