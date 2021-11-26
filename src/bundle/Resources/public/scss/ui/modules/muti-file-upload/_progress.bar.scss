@@ -12,7 +12,7 @@
         width: 20vh;
         position: relative;
 
-        &:after {
+        &::after {
             content: '';
             width: calc(100% - var(--progress));
             height: calculateRem(10px);
