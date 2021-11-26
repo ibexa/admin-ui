@@ -37,7 +37,7 @@
     &__name {
         font-size: calculateRem(16px);
         margin-right: calculateRem(8px);
-        max-width: 20vh;
+        max-width: 15vw;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -59,10 +59,8 @@
         font-style: italic;
         font-size: $ibexa-text-font-size-small;
 
-        &--error {
-            .ibexa-icon {
-                margin-right: calculateRem(4px);
-            }
+        .ibexa-icon {
+            margin-right: calculateRem(4px);
         }
 
         &--success {
@@ -70,7 +68,6 @@
 
             .ibexa-icon {
                 fill: $ibexa-color-positive;
-                margin-right: calculateRem(4px);
             }
         }
     }
