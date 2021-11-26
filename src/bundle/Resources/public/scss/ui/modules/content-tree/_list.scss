@@ -5,8 +5,8 @@
 
     &__no-items-message {
         padding: calculateRem(10px);
-        font-size: calculateRem(12px);
+        font-size: $ibexa-text-font-size-small;
         font-style: italic;
-        color: $ibexa-black;;
+        color: $ibexa-color-dark;
     }
 }
