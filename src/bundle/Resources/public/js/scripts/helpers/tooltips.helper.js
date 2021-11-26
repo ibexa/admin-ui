@@ -67,7 +67,11 @@
             return;
         }
 
-        const tooltipNodes = baseElement.querySelectorAll(TOOLTIPS_SELECTOR);
+        const tooltipNodes = [...baseElement.querySelectorAll(TOOLTIPS_SELECTOR)];
+
+        if (baseElement instanceof HTMLElement) {
+            tooltipNodes.push(baseElement);
+        }
 
         for (tooltipNode of tooltipNodes) {
             if (tooltipNode.title) {
