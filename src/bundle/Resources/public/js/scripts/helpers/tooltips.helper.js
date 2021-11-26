@@ -69,7 +69,7 @@
 
         const tooltipNodes = [...baseElement.querySelectorAll(TOOLTIPS_SELECTOR)];
 
-        if (!baseElement.isEqualNode(doc)) {
+        if (baseElement instanceof HTMLElement) {
             tooltipNodes.push(baseElement);
         }
 
