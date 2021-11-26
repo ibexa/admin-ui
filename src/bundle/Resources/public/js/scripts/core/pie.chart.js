@@ -12,4 +12,4 @@
     }
 
     eZ.addConfig('core.chart.PieChart', PieChart);
-})(window, window.document, window.eZ, window.Chart);
+})(window, window.document, window.eZ);
