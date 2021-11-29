@@ -44,7 +44,7 @@
                             >
                                 {{ ('policy.limitation.identifier.' ~ limitation.identifier|lower)|trans({'%identifier%': limitation.identifier}, 'ezplatform_content_forms_policies')|desc('%identifier%') }}:
                             </span>
-                            {{ ez_render_limitation_value(limitation, {'template': '@ezdesign/content/tab/policies/limitation_values.html.twig'}) }}
+                            {{ ibexa_render_limitation_value(limitation, {'template': '@ezdesign/content/tab/policies/limitation_values.html.twig'}) }}
                         </li>
                     {%- endfor -%}
                 </ul>
