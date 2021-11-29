@@ -1,26 +1,19 @@
 (function (global, doc, React, ReactDOM, eZ) {
+    const contentTreeContainer = doc.querySelector('.ibexa-content-tree-container');
+
+    if (!contentTreeContainer) {
+        return;
+    }
+
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
-    const contentTreeContainer = doc.querySelector('.ibexa-content-tree-container');
     const contentTreeRootElement = doc.querySelector('.ibexa-content-tree-container__root');
+    const { currentLocationPath, treeRootLocationId } = contentTreeContainer.dataset;
     const userId = window.eZ.helpers.user.getId();
     const removeContentTreeContainerWidth = () => {
         contentTreeContainer.style.width = null;
     }
-    const addContentTreeListeners = () => {
-        if (!contentTreeContainer) {
-            return;
-        }
-
-        doc.body.addEventListener('ibexa-tb-rendered:ibexa-content-tree', removeContentTreeContainerWidth);
-    }
     const renderTree = () => {
-        if (!contentTreeContainer) {
-            return;
-        }
-
-        const { currentLocationPath, treeRootLocationId } = contentTreeContainer.dataset;
-
         ReactDOM.render(
             React.createElement(eZ.modules.ContentTree, {
                 userId,
@@ -32,6 +25,7 @@
         );
     }
 
-    addContentTreeListeners();
+    doc.body.addEventListener('ibexa-tb-rendered:ibexa-content-tree', removeContentTreeContainerWidth);
+
     renderTree();
 })(window, window.document, window.React, window.ReactDOM, window.eZ);
