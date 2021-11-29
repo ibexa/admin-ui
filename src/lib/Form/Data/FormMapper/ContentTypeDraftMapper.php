@@ -6,13 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\FormMapper;
+namespace Ibexa\AdminUi\Form\Data\FormMapper;
 
 use eZ\Publish\API\Repository\Values\Content\Language;
 use eZ\Publish\API\Repository\Values\ValueObject;
-use EzSystems\EzPlatformAdminUi\Event\FieldDefinitionMappingEvent;
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData;
-use EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData;
+use eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList;
+use Ibexa\AdminUi\Form\Data\ContentTypeData;
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\Contracts\AdminUi\Event\FieldDefinitionMappingEvent;
+use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,13 +23,18 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
     private $eventDispatcher;
 
+    /** @var \eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList */
+    private $fieldsGroupsList;
+
     /**
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        FieldsGroupsList $fieldsGroupsList
     ) {
         $this->eventDispatcher = $eventDispatcher;
+        $this->fieldsGroupsList = $fieldsGroupsList;
     }
 
     /**
@@ -87,6 +94,10 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
 
             $this->eventDispatcher->dispatch($event, FieldDefinitionMappingEvent::NAME);
 
+            if (empty($fieldDefinitionData->fieldGroup)) {
+                $fieldDefinitionData->fieldGroup = $this->fieldsGroupsList->getDefaultGroup();
+            }
+
             $contentTypeData->addFieldDefinitionData($event->getFieldDefinitionData());
         }
         $contentTypeData->sortFieldDefinitions();
@@ -109,3 +120,5 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
             ->setAllowedTypes('language', Language::class);
     }
 }
+
+class_alias(ContentTypeDraftMapper::class, 'EzSystems\EzPlatformAdminUi\Form\Data\FormMapper\ContentTypeDraftMapper');

@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu;
+namespace Ibexa\AdminUi\Menu;
 
 use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\ContentTypeService;
@@ -14,7 +14,8 @@ use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
 use eZ\Publish\API\Repository\Values\Content\Language;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -34,7 +35,7 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     const ITEM__PREVIEW = 'content_create__sidebar_right__preview';
     const ITEM__CANCEL = 'content_create__sidebar_right__cancel';
 
-    const BTN_TRIGGER_CLASS = 'btn--trigger';
+    const BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
     const BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
 
     /** @var \eZ\Publish\API\Repository\PermissionResolver */
@@ -124,7 +125,6 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
                         ? $publishAttributes
                         : array_merge($publishAttributes, self::BTN_DISABLED_ATTR),
                     'extras' => [
-                        'icon' => 'publish',
                         'orderNumber' => 10,
                     ],
                 ]
@@ -136,7 +136,6 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
                         ? $createAttributes
                         : array_merge($createAttributes, self::BTN_DISABLED_ATTR),
                     'extras' => [
-                        'icon' => 'save',
                         'orderNumber' => 50,
                     ],
                 ]
@@ -148,7 +147,6 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
                         ? $previewAttributes
                         : array_merge($previewAttributes, self::BTN_DISABLED_ATTR),
                     'extras' => [
-                        'icon' => 'view-desktop',
                         'orderNumber' => 60,
                     ],
                 ]
@@ -161,7 +159,6 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
                         'data-click' => '#ezplatform_content_forms_content_edit_cancel',
                     ],
                     'extras' => [
-                        'icon' => 'circle-close',
                         'orderNumber' => 70,
                     ],
                 ]
@@ -199,3 +196,5 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
         return $contentCreateStruct;
     }
 }
+
+class_alias(ContentCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\ContentCreateRightSidebarBuilder');

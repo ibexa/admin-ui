@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu;
+namespace Ibexa\AdminUi\Menu;
 
 use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\API\Repository\PermissionResolver;
@@ -69,10 +69,15 @@ class MenuItemFactory implements FactoryInterface
 
     public function createItem($name, array $options = []): ItemInterface
     {
-        $defaults = [
-            'extras' => ['translation_domain' => 'menu'],
-        ];
+        if (empty($options['extras']['translation_domain'])) {
+            $options['extras']['translation_domain'] = 'menu';
+        }
 
-        return $this->factory->createItem($name, array_merge_recursive($defaults, $options));
+        $item = $this->factory->createItem($name, $options);
+        $item->setFactory($this);
+
+        return $item;
     }
 }
+
+class_alias(MenuItemFactory::class, 'EzSystems\EzPlatformAdminUi\Menu\MenuItemFactory');

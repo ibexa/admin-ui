@@ -6,23 +6,24 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form;
+namespace Ibexa\AdminUi\Form;
 
 use Exception;
 use eZ\Publish\API\Repository\Exceptions\ForbiddenException;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface;
-use EzSystems\EzPlatformAdminUi\UI\Action\EventDispatcherInterface;
-use EzSystems\EzPlatformAdminUi\UI\Action\FormUiActionMappingDispatcher;
-use EzSystems\EzPlatformAdminUi\UI\Action\UiActionEventInterface;
+use EzSystems\EzPlatformUser\Form\SubmitHandler as UserActionsSubmitHandler;
+use Ibexa\AdminUi\UI\Action\FormUiActionMappingDispatcher;
+use Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface;
+use Ibexa\Contracts\AdminUi\UI\Action\EventDispatcherInterface;
+use Ibexa\Contracts\AdminUi\UI\Action\UiActionEventInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 
-class SubmitHandler
+class SubmitHandler implements UserActionsSubmitHandler
 {
     /** @var \EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface */
     protected $notificationHandler;
@@ -152,3 +153,5 @@ class SubmitHandler
         );
     }
 }
+
+class_alias(SubmitHandler::class, 'EzSystems\EzPlatformAdminUi\Form\SubmitHandler');

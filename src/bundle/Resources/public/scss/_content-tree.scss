@@ -7,35 +7,19 @@
         min-width: 0;
     }
 
-    .ez-content-tree-container {
+    .ibexa-content-tree-container {
         position: relative;
-        top: calculateRem(8px);
+        top: 0;
         flex: 0 0 auto;
-        max-width: 0;
         background: $ibexa-white;
         color: inherit;
-        transform: scaleX(0);
-        transform-origin: left;
 
-        &--animate {
-            transition: $ibexa-admin-widget-close-transition;
-
-            &.ez-content-tree-container--expanded {
-                transition: $ibexa-admin-widget-open-transition;
-            }
-        }
-
-        &--expanded {
-            transform-origin: left;
-            transform: scaleX(1);
-            display: initial;
-            max-width: 33vw;
-        }
-
-        &__wrapper {
+        &__root {
             position: -webkit-sticky;
             position: sticky;
             top: 0;
+            height: 100%;
+            overflow: auto;
         }
     }
 

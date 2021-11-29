@@ -1,0 +1,3 @@
+services:
+    EzSystems\EzPlatformUser\ExceptionHandler\ActionResultHandler: '@Ibexa\AdminUi\Notification\TranslatableNotificationHandler'
+    EzSystems\EzPlatformUser\Form\SubmitHandler: '@Ibexa\AdminUi\Form\SubmitHandler'

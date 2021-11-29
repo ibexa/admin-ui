@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu;
+namespace Ibexa\AdminUi\Menu;
 
 use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
 use eZ\Publish\API\Repository\LocationService;
@@ -13,8 +13,9 @@ use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Language;
 use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\SPI\Limitation\Target;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
-use EzSystems\EzPlatformAdminUi\Siteaccess\NonAdminSiteaccessResolver;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -34,7 +35,7 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
     const ITEM__PREVIEW = 'content_edit__sidebar_right__preview';
     const ITEM__CANCEL = 'content_edit__sidebar_right__cancel';
 
-    const BTN_TRIGGER_CLASS = 'btn--trigger';
+    const BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
     const BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
 
     /** @var \EzSystems\EzPlatformAdminUi\Siteaccess\NonAdminSiteaccessResolver */
@@ -122,7 +123,6 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
                         ? $publishAttributes
                         : array_merge($publishAttributes, self::BTN_DISABLED_ATTR),
                     'extras' => [
-                        'icon' => 'publish',
                         'orderNumber' => 10,
                     ],
                 ]
@@ -134,7 +134,6 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
                         ? $editAttributes
                         : array_merge($editAttributes, self::BTN_DISABLED_ATTR),
                     'extras' => [
-                        'icon' => 'save',
                         'orderNumber' => 50,
                     ],
                 ]
@@ -155,7 +154,6 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
                     ? $deleteAttributes
                     : array_merge($deleteAttributes, self::BTN_DISABLED_ATTR),
                 'extras' => [
-                    'icon' => 'trash-empty',
                     'orderNumber' => 70,
                 ],
             ]
@@ -229,10 +227,11 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
                     ? $previewAttributes
                     : array_merge($previewAttributes, self::BTN_DISABLED_ATTR),
                 'extras' => [
-                    'icon' => 'view-desktop',
                     'orderNumber' => 60,
                 ],
             ]
         );
     }
 }
+
+class_alias(ContentEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\ContentEditRightSidebarBuilder');

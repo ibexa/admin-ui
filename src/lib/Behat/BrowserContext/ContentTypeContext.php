@@ -113,6 +113,15 @@ class ContentTypeContext implements Context
     }
 
     /**
+     * @When I select :categoryName category to Content Type definition
+     */
+    public function iSelectCategory(string $categoryName): void
+    {
+        $this->contentTypeUpdatePage->clickAddButton();
+        $this->contentTypeUpdatePage->selectContentTypeCategory($categoryName);
+    }
+
+    /**
      * @When I add field :fieldName to Content Type definition
      */
     public function iAddField(string $fieldName): void
@@ -225,17 +234,9 @@ class ContentTypeContext implements Context
      */
     public function iCheckBlockInField($blockName)
     {
-        $this->contentTypeUpdatePage->expandFieldDefinition('Landing Page');
+        $this->contentTypeUpdatePage->verifyIsLoaded();
+        $this->contentTypeUpdatePage->expandLastFieldDefinition();
         $this->contentTypeUpdatePage->expandDefaultBlocksOption();
         $this->contentTypeUpdatePage->selectBlock($blockName);
-    }
-
-    /**
-     * @Given I select :viewMode editor launch mode in ezlandingpage field options
-     */
-    public function iCheckEditorLaunchModeOption(string $viewMode): void
-    {
-        $this->contentTypeUpdatePage->expandFieldDefinition('Landing Page');
-        $this->contentTypeUpdatePage->selectEditorLaunchMode($viewMode);
     }
 }

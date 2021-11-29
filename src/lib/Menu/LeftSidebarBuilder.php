@@ -6,12 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Menu;
+namespace Ibexa\AdminUi\Menu;
 
 use eZ\Publish\API\Repository\PermissionResolver;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
-use EzSystems\EzPlatformAdminUi\UniversalDiscovery\ConfigResolver;
-use EzSystems\EzPlatformAdminUiBundle\Templating\Twig\UniversalDiscoveryExtension;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\UniversalDiscovery\ConfigResolver;
+use Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -93,7 +94,7 @@ class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainer
                     'extras' => ['icon' => 'browse'],
                     'attributes' => [
                         'type' => 'button',
-                        'class' => 'btn--udw-browse',
+                        'class' => 'ibexa-btn--udw-browse',
                         'data-udw-config' => $this->udwExtension->renderUniversalDiscoveryWidgetConfig('browse', [
                             'type' => 'content_create',
                         ]),
@@ -107,7 +108,7 @@ class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainer
                     'extras' => ['icon' => 'content-tree'],
                     'attributes' => [
                         'type' => 'button',
-                        'class' => 'ez-btn ez-btn--toggle-content-tree',
+                        'class' => 'btn ibexa-btn ibexa-btn--toggle-content-tree',
                     ],
                 ]
             ),
@@ -149,3 +150,5 @@ class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainer
         ];
     }
 }
+
+class_alias(LeftSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\LeftSidebarBuilder');

@@ -4,9 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu;
+namespace Ibexa\AdminUi\Menu;
 
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -50,7 +51,7 @@ class URLEditRightSidebarBuilder extends AbstractBuilder implements TranslationC
                 self::ITEM__SAVE,
                 [
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => sprintf('#url-update', $url->id),
                     ],
                     'extras' => ['icon' => 'save'],
@@ -76,3 +77,5 @@ class URLEditRightSidebarBuilder extends AbstractBuilder implements TranslationC
         ];
     }
 }
+
+class_alias(URLEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\URLEditRightSidebarBuilder');

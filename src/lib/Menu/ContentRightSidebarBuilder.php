@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Menu;
+namespace Ibexa\AdminUi\Menu;
 
 use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\API\Repository\SearchService;
@@ -14,14 +14,15 @@ use eZ\Publish\API\Repository\Values\Content\Location;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\SPI\Limitation\Target;
 use eZ\Publish\SPI\Limitation\Target\Builder\VersionBuilder;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
-use EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface;
-use EzSystems\EzPlatformAdminUi\Specification\ContentType\ContentTypeIsUser;
-use EzSystems\EzPlatformAdminUi\Specification\ContentType\ContentTypeIsUserGroup;
-use EzSystems\EzPlatformAdminUi\Specification\Location\IsRoot;
-use EzSystems\EzPlatformAdminUi\Specification\Location\IsWithinCopySubtreeLimit;
-use EzSystems\EzPlatformAdminUi\UniversalDiscovery\ConfigResolver;
-use EzSystems\EzPlatformAdminUiBundle\Templating\Twig\UniversalDiscoveryExtension;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
+use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
+use Ibexa\AdminUi\Specification\Location\IsRoot;
+use Ibexa\AdminUi\Specification\Location\IsWithinCopySubtreeLimit;
+use Ibexa\AdminUi\UniversalDiscovery\ConfigResolver;
+use Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -151,26 +152,26 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         $canCopy = $this->canCopy($hasCreatePermission);
         $canCopySubtree = $this->canCopySubtree($location, $hasCreatePermission);
         $createAttributes = [
-            'class' => 'ez-btn--extra-actions ez-btn--create',
+            'class' => 'ibexa-btn--extra-actions ibexa-btn--create ibexa-btn--primary',
             'data-actions' => 'create',
             'data-focus-element' => '.ez-instant-filter__input',
         ];
         $sendToTrashAttributes = [
-            'data-toggle' => 'modal',
-            'data-target' => '#trash-location-modal',
+            'data-bs-toggle' => 'modal',
+            'data-bs-target' => '#trash-location-modal',
         ];
         $copySubtreeAttributes = [
-            'class' => 'ez-btn--udw-copy-subtree',
+            'class' => 'ibexa-btn--udw-copy-subtree',
             'data-udw-config' => $uwdConfig,
             'data-root-location' => $startingLocationId,
         ];
         $moveAttributes = [
-            'class' => 'btn--udw-move',
+            'class' => 'ibexa-btn--udw-move',
             'data-udw-config' => $uwdConfig,
             'data-root-location' => $startingLocationId,
         ];
         $copyAttributes = [
-            'class' => 'btn--udw-copy',
+            'class' => 'ibexa-btn--udw-copy',
             'data-udw-config' => $uwdConfig,
             'data-root-location' => $startingLocationId,
         ];
@@ -184,7 +185,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             self::ITEM__CREATE => $this->createMenuItem(
                 self::ITEM__CREATE,
                 [
-                    'extras' => ['icon' => 'create', 'orderNumber' => 10],
+                    'extras' => ['icon' => 'create', 'orderNumber' => 10, 'primary' => true],
                     'attributes' => $canCreate
                         ? $createAttributes
                         : array_merge($createAttributes, ['disabled' => 'disabled']),
@@ -198,7 +199,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             $this->createMenuItem(
                 self::ITEM__MOVE,
                 [
-                    'extras' => ['icon' => 'move', 'orderNumber' => 30],
+                    'extras' => ['orderNumber' => 30],
                     'attributes' => $hasCreatePermission
                         ? $moveAttributes
                         : array_merge($moveAttributes, ['disabled' => 'disabled']),
@@ -210,7 +211,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
                 $this->createMenuItem(
                     self::ITEM__COPY,
                     [
-                        'extras' => ['icon' => 'copy', 'orderNumber' => 40],
+                        'extras' => ['orderNumber' => 40],
                         'attributes' => $canCopy
                             ? $copyAttributes
                             : array_merge($copyAttributes, ['disabled' => 'disabled']),
@@ -222,7 +223,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
                 $this->createMenuItem(
                     self::ITEM__COPY_SUBTREE,
                     [
-                        'extras' => ['icon' => 'copy-subtree', 'orderNumber' => 50],
+                        'extras' => ['orderNumber' => 50],
                         'attributes' => $canCopySubtree
                             ? $copySubtreeAttributes
                             : array_merge($copySubtreeAttributes, ['disabled' => 'disabled']),
@@ -242,10 +243,10 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
                 $this->createMenuItem(
                     self::ITEM__DELETE,
                     [
-                        'extras' => ['icon' => 'trash', 'orderNumber' => 70],
+                        'extras' => ['orderNumber' => 70],
                         'attributes' => [
-                            'data-toggle' => 'modal',
-                            'data-target' => '#delete-user-modal',
+                            'data-bs-toggle' => 'modal',
+                            'data-bs-target' => '#delete-user-modal',
                         ],
                     ]
                 )
@@ -257,7 +258,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
                 $this->createMenuItem(
                     self::ITEM__SEND_TO_TRASH,
                     [
-                        'extras' => ['icon' => 'trash-send', 'orderNumber' => 80],
+                        'extras' => ['orderNumber' => 80],
                         'attributes' => $sendToTrashAttributes,
                     ]
                 )
@@ -277,7 +278,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Create'),
+            (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Create content'),
             (new Message(self::ITEM__EDIT, 'menu'))->setDesc('Edit'),
             (new Message(self::ITEM__SEND_TO_TRASH, 'menu'))->setDesc('Send to Trash'),
             (new Message(self::ITEM__COPY, 'menu'))->setDesc('Copy'),
@@ -297,11 +298,11 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     private function addEditMenuItem(ItemInterface $menu, bool $contentIsUser, bool $canEdit): void
     {
         $editAttributes = [
-            'class' => 'ez-btn--extra-actions ez-btn--edit',
+            'class' => 'ibexa-btn--extra-actions ibexa-btn--edit',
             'data-actions' => 'edit',
         ];
         $editUserAttributes = [
-            'class' => 'ez-btn--extra-actions ez-btn--edit-user',
+            'class' => 'ibexa-btn--extra-actions ibexa-btn--edit-user',
             'data-actions' => 'edit-user',
         ];
 
@@ -310,7 +311,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
                 $this->createMenuItem(
                     self::ITEM__EDIT,
                     [
-                        'extras' => ['icon' => 'edit', 'orderNumber' => 20],
+                        'extras' => ['orderNumber' => 20],
                         'attributes' => $canEdit
                             ? $editUserAttributes
                             : array_merge($editUserAttributes, ['disabled' => 'disabled']),
@@ -322,7 +323,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
                 $this->createMenuItem(
                     self::ITEM__EDIT,
                     [
-                        'extras' => ['icon' => 'edit', 'orderNumber' => 20],
+                        'extras' => ['orderNumber' => 20],
                         'attributes' => $canEdit
                             ? $editAttributes
                             : array_merge($editAttributes, ['disabled' => 'disabled']),
@@ -338,15 +339,15 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     private function addRevealMenuItem(ItemInterface $menu, bool $canHide): void
     {
         $attributes = [
+            'class' => 'ibexa-btn--reveal',
             'data-actions' => 'reveal',
-            'class' => 'ez-btn--reveal',
         ];
 
         $menu->addChild(
             $this->createMenuItem(
                 self::ITEM__REVEAL,
                 [
-                    'extras' => ['icon' => 'reveal', 'orderNumber' => 60],
+                    'extras' => ['orderNumber' => 60],
                     'attributes' => $canHide
                         ? $attributes
                         : array_merge($attributes, ['disabled' => 'disabled']),
@@ -361,15 +362,15 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     private function addHideMenuItem(ItemInterface $menu, bool $canHide): void
     {
         $attributes = [
+            'class' => 'ibexa-btn--hide',
             'data-actions' => 'hide',
-            'class' => 'ez-btn--hide',
         ];
 
         $menu->addChild(
             $this->createMenuItem(
                 self::ITEM__HIDE,
                 [
-                    'extras' => ['icon' => 'hide', 'orderNumber' => 60],
+                    'extras' => ['orderNumber' => 60],
                     'attributes' => $canHide
                         ? $attributes
                         : array_merge($attributes, ['disabled' => 'disabled']),
@@ -414,3 +415,5 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         return $canCopySubtree && $hasCreatePermission;
     }
 }
+
+class_alias(ContentRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\ContentRightSidebarBuilder');

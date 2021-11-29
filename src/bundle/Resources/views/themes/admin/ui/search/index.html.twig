@@ -2,98 +2,40 @@
 
 {% trans_default_domain 'search' %}
 
-{% block page_title %}{% endblock %}
-
-{% block body_class %}ez-search-view ez-has-two-sidebars ez-has-full-width-footer{% endblock %}
+{% block body_class %}ez-search-view{% endblock %}
 
 {% block title %}{{ 'search'|trans|desc('Search') }}{% endblock %}
 
+{% block breadcrumbs %}
+    {% set items = [{
+        'value': 'search'|trans|desc('Search'),
+        'url': path('ezplatform.search')
+    }] %}
+
+    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: items } %}
+{% endblock %}
+
+{% block header %}
+    {% include '@ezdesign/ui/page_title.html.twig' with {
+        title: 'search'|trans|desc('Search'),
+    } %}
+{% endblock %}
+
 {% block content %}
-    <div class="row align-items-stretch ez-main-row">
-
-        {% block left_sidebar %}
-            {{ parent() }}
-        {% endblock left_sidebar %}
-
-        <div class="container ez-content-container">
-            <div class="ez-header mt-5">
-                <div class="container">
-                    {% include '@ezdesign/ui/page_title.html.twig' with {
-                        title: 'search'|trans|desc('Search'),
-                        icon_name: 'search'
-                    } %}
-                </div>
-            </div>
-            <section class="container ez-container">
+    <div class="row align-items-stretch ibexa-main-row">
+        <div class="ibexa-search">
+            <div class="ibexa-search__form">
                 {% include '@ezdesign/ui/search/form.html.twig' with { form: form } %}
-            </section>
-
-            {% if results is defined %}
-                <section class="container ez-container mt-4">
-                    <div class="ez-table-header">
-                        <div class="ez-table-header__headline">{{ 'search.header'|trans({'%total%': pager.nbResults})|desc('Search results (%total%)') }}</div>
-                    </div>
-
-                    {% if results is empty %}
-                        <div class="mx-4">
-                            <table class="table table-hover">
-                                <tr>
-                                    <td colspan="4">
-                                        <span>{{ 'search.no_result'|trans({'%query%': form.vars.value.query})|desc('No results found for "%query%".') }}</span>
-                                    </td>
-                                </tr>
-                            </table>
-                            <h6>{{ 'search.tips.headline'|trans|desc('Some helpful search tips:') }}</h6>
-                            <ul>
-                                <li>{{ 'search.tips.check_spelling'|trans|desc('Check the spelling of keywords.') }}</li>
-                                <li>{{ 'search.tips.different_keywords'|trans|desc('Try different keywords.') }}</li>
-                                <li>{{ 'search.tips.more_general_keywords'|trans|desc('Try more general keywords.') }}</li>
-                                <li>{{ 'search.tips.fewer_keywords'|trans|desc('Try fewer keywords. Reducing keywords results in more matches.') }}</li>
-                            </ul>
-                        </div>
-                    {% else %}
-                        <div class="ez-scrollable-table-wrapper">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th class="ez-table__header-cell ez-table__header-cell--has-icon"></th>
-                                    <th class="ez-table__header-cell ez-table__header-cell--after-icon">{{ 'search.name'|trans|desc('Name') }}</th>
-                                    <th class="ez-table__header-cell">{{ 'search.modified'|trans|desc('Modified') }}</th>
-                                    <th class="ez-table__header-cell">{{ 'search.type'|trans|desc('Content Type') }}</th>
-                                    {% if form.search_language.vars.choices|length > 1 %}
-                                        <th class="ez-table__header-cell">{{ 'search.translations'|trans|desc('Translations') }}</th>
-                                    {% endif %}
-                                    <th class="ez-table__header-cell"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for row in results %}
-                                    {% include '@ezdesign/ui/search/list_item.html.twig' with { row: row } %}
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-
-                        {% if pager.haveToPaginate %}
-                            {% include '@ezdesign/ui/pagination.html.twig' with {
-                                'pager': pager,
-                                'paginaton_params' : {
-                                    'pageParameter': '[search][page]'
-                                }
-                            } %}
-                        {% endif %}
-                    {% endif %}
-
-                    {% form_theme form_edit '@ezdesign/ui/form/flat_widgets.html.twig' %}
-
-                    {{ form_start(form_edit, {
-                        'action': path('ezplatform.content.edit'),
-                        'attr': { 'class': 'ez-edit-content-form'}
-                    }) }}
-                    {{ form_widget(form_edit.language, {'attr': {'hidden': 'hidden', 'class': 'language-input'}}) }}
-                    {{ form_end(form_edit) }}
-                </section>
-            {% endif %}
+            </div>
+            <div class="ibexa-search__edit-form">
+                {% form_theme form_edit '@ezdesign/ui/form/flat_widgets.html.twig' %}
+                {{ form_start(form_edit, {
+                    'action': path('ezplatform.content.edit'),
+                    'attr': { 'class': 'ez-edit-content-form'}
+                }) }}
+                {{ form_widget(form_edit.language, {'attr': {'hidden': 'hidden', 'class': 'language-input'}}) }}
+                {{ form_end(form_edit) }}
+            </div>
         </div>
     </div>
 {% endblock %}

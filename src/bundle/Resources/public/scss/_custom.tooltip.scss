@@ -1,0 +1,124 @@
+.ibexa-tooltip {
+    z-index: 1500;
+
+    &.show {
+        opacity: 1;
+    }
+
+    &.bs-tooltip-top &__arrow {
+        height: calculateRem(8px);
+
+        &::before {
+            border-top-color: $ibexa-white;
+        }
+    }
+
+    &.bs-tooltip-right &__arrow {
+        width: calculateRem(8px);
+
+        &::before {
+            border-right-color: $ibexa-white;
+        }
+    }
+
+    &.bs-tooltip-bottom &__arrow {
+        height: calculateRem(8px);
+
+        &::before {
+            border-bottom-color: $ibexa-white;
+        }
+    }
+
+    &.bs-tooltip-left &__arrow {
+        width: calculateRem(8px);
+
+        &::before {
+            border-left-color: $ibexa-white;
+        }
+    }
+
+    &__inner {
+        padding: calculateRem(11px);
+        max-width: calculateRem(300px);
+        border: calculateRem(1px) solid $ibexa-color-base-light;
+        border-radius: $ibexa-border-radius;
+        background-color: $ibexa-color-white;
+        color: $ibexa-color-dark;
+        font-size: $ibexa-text-font-size;
+        text-align: left;
+        line-height: calculateRem(21px);
+        box-shadow: 0 calculateRem(4px) calculateRem(6px) rgba(135, 135, 135, 0.35);
+    }
+
+    &--ground-dark {
+        .ez-tooltip {
+            &__inner {
+                color: $ibexa-white;
+                background-color: $ibexa-color-ground-dark;
+            }
+        }
+
+        &.ez-tooltip {
+            &.bs-tooltip-top .ez-tooltip__arrow {
+                &::before {
+                    border-top-color: $ibexa-color-ground-dark;
+                }
+            }
+
+            &.bs-tooltip-right .ez-tooltip__arrow {
+                &::before {
+                    border-right-color: $ibexa-color-ground-dark;
+                }
+            }
+
+            &.bs-tooltip-bottom .ez-tooltip__arrow {
+                &::before {
+                    border-bottom-color: $ibexa-color-ground-dark;
+                }
+            }
+
+            &.bs-tooltip-left .ez-tooltip__arrow {
+                &::before {
+                    border-left-color: $ibexa-color-ground-dark;
+                }
+            }
+        }
+    }
+
+    &--info-neon {
+        .ibexa-tooltip {
+            &__inner {
+                color: $ibexa-color-dark;
+                background-color: $ibexa-color-info;
+                border-color: transparent;
+                box-shadow: 0 calculateRem(4px) calculateRem(6px) rgba($ibexa-color-info, 0.1);
+            }
+        }
+
+        &.ibexa-tooltip {
+            &.bs-tooltip-top .ibexa-tooltip__arrow {
+                &::before {
+                    border-top-color: $ibexa-color-info;
+                }
+            }
+
+            &.bs-tooltip-right .ibexa-tooltip__arrow {
+                &::before {
+                    border-right-color: $ibexa-color-info;
+                }
+            }
+
+            &.bs-tooltip-bottom .ibexa-tooltip__arrow {
+                &::before {
+                    border-bottom-color: $ibexa-color-info;
+                }
+            }
+
+            &.bs-tooltip-left .ibexa-tooltip__arrow {
+                &::before {
+                    border-left-color: $ibexa-color-info;
+                }
+            }
+        }
+    }
+}

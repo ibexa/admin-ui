@@ -4,13 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu;
+namespace Ibexa\AdminUi\Menu;
 
 use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
 use eZ\Publish\API\Repository\PermissionResolver;
 use eZ\Publish\API\Repository\TrashService;
 use eZ\Publish\API\Repository\Values\Content\Query;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -77,13 +78,12 @@ class TrashRightSidebarBuilder extends AbstractBuilder implements TranslationCon
         $menu = $this->factory->createItem('root');
 
         $trashEmptyAttributes = [
-            'data-target' => '#confirmEmptyTrash',
-            'data-toggle' => 'modal',
+            'data-bs-target' => '#confirmEmptyTrash',
+            'data-bs-toggle' => 'modal',
         ];
 
         $menu->addChild(
             $this->createMenuItem(self::ITEM__EMPTY, [
-                'extras' => ['icon' => 'trash-empty'],
                 'attributes' => $canDelete > 0 && $trashItemsCount > 0
                     ? $trashEmptyAttributes
                     : ['class' => 'disabled'],
@@ -103,3 +103,5 @@ class TrashRightSidebarBuilder extends AbstractBuilder implements TranslationCon
         ];
     }
 }
+
+class_alias(TrashRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\TrashRightSidebarBuilder');
