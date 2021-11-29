@@ -250,7 +250,7 @@
                 <use xlink:href="{{ ibexa_icon_path('file') }}"></use>
             </svg>
             {{ field.value.fileName }}
-            {{ field.value.fileSize|ez_file_size( 1 ) }}
+            {{ field.value.fileSize|ibexa_file_size( 1 ) }}
             <a class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ml-4" download href="{{ path( route_reference.getRoute(), route_reference.getParams() ) }}">
                 <svg class="ibexa-icon ibexa-icon--small ibexa-icon--download">
                     <use xlink:href="{{ ibexa_icon_path('download') }}"></use>
@@ -307,7 +307,7 @@
                     </tr>
                     <tr>
                         <td>{{ 'ezmedia.size'|trans|desc('Size') }}:</td>
-                        <td>{{ value.fileSize|ez_file_size( 1 ) }}</td>
+                        <td>{{ value.fileSize|ibexa_file_size( 1 ) }}</td>
                     </tr>
                     <tr>
                         <td>{{ 'ezmedia.display_controls'|trans|desc('Display controls') }}:</td>
@@ -426,7 +426,7 @@
                     </tr>
                     <tr class="ez-field-preview__meta-value-row">
                         <td>{{ 'ezimage.size'|trans|desc('Size') }}:</td>
-                        <td>{{ field.value.fileSize|ez_file_size( 1 ) }}</td>
+                        <td>{{ field.value.fileSize|ibexa_file_size( 1 ) }}</td>
                     </tr>
                     <tr class="ez-field-preview__meta-value-row">
                         <td>{{ 'ezimage.alternative_text'|trans|desc('Alternative text') }}:</td>

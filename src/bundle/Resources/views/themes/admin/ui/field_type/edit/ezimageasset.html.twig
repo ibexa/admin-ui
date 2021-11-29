@@ -46,7 +46,7 @@
     </div>
     {% if max_file_size is defined and max_file_size > 0 %}
         <div class="ibexa-data-source__message--filesize">
-            {{ 'fieldtype.binary_base.max_file_size'|trans({'%size%': max_file_size|ez_file_size(2)})|desc('Max file size: %size%') }}
+            {{ 'fieldtype.binary_base.max_file_size'|trans({'%size%': max_file_size|ibexa_file_size(2)})|desc('Max file size: %size%') }}
         </div>
     {% endif %}
 
