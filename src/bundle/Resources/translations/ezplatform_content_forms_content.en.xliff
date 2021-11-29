@@ -186,6 +186,11 @@
         <target state="new">Upload image</target>
         <note>key: fieldtype.ezimageasset.upload.label</note>
       </trans-unit>
+      <trans-unit id="349f28b1b2e3f9c6ac1a0d2cb881f1647419e955" resname="fieldtype.imageasset.drag_drop">
+        <source><![CDATA[Drag and drop image here or <br /><button class="ibexa-data-source__btn-add">Browse</button> to choose a file]]></source>
+        <target state="new"><![CDATA[Drag and drop image here or <br /><button class="ibexa-data-source__btn-add">Browse</button> to choose a file]]></target>
+        <note>key: fieldtype.imageasset.drag_drop</note>
+      </trans-unit>
     </body>
   </file>
 </xliff>
