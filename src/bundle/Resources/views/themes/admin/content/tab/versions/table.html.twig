@@ -88,11 +88,11 @@
                         } %}
                         {% if not is_draft_conflict %}
                             {% include '@ezdesign/ui/component/table/table_body_cell.html.twig' with {
-                                content: version.creationDate|ez_full_datetime,
+                                content: version.creationDate|ibexa_full_datetime,
                             } %}
                         {% endif %}
                         {% include '@ezdesign/ui/component/table/table_body_cell.html.twig' with {
-                            content: version.modificationDate|ez_full_datetime,
+                            content: version.modificationDate|ibexa_full_datetime,
                         } %}
 
                         {% if have_actions %}

@@ -36,7 +36,7 @@
     {% block date %}
         {% include '@ezdesign/ui/component/table/table_body_cell.html.twig' with {
             class: 'ez-notifications-modal__description',
-            content: notification.created|ez_full_datetime,
+            content: notification.created|ibexa_full_datetime,
         } %}
     {% endblock %}
 {% endset %}

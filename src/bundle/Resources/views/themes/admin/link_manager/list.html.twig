@@ -41,8 +41,8 @@
 
             {% set body_row_cols = body_row_cols|merge([
                 { content: url.isValid ? 'url.status.valid'|trans : 'url.status.invalid'|trans },
-                { content: url.lastChecked ? url.lastChecked|ez_full_datetime : 'Never' },
-                { content: url.modified|ez_full_datetime },
+                { content: url.lastChecked ? url.lastChecked|ibexa_full_datetime : 'Never' },
+                { content: url.modified|ibexa_full_datetime },
             ]) %}
 
             {% set col_raw %}

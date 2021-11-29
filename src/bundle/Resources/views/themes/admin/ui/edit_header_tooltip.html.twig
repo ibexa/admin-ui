@@ -3,7 +3,7 @@
         <div>{{ 'content.details.created_by'|trans({'%name%': ibexa_content_name(creator)})|desc('Created by %name%') }}</div>
     {% endif %}
 
-    <div>{{ content.versionInfo.contentInfo.publishedDate|ez_full_datetime }}</div>
+    <div>{{ content.versionInfo.contentInfo.publishedDate|ibexa_full_datetime }}</div>
     <div>
         {% set separatorString = '|' %}
 

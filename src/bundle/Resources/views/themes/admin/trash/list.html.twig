@@ -155,7 +155,7 @@
                     }]) %}
 
                     {% set body_row_cols = body_row_cols|merge([
-                        { content: trash_item.location.trashed|ez_full_datetime },
+                        { content: trash_item.location.trashed|ibexa_full_datetime },
                     ]) %}
 
                     {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}

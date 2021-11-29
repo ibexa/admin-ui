@@ -65,7 +65,7 @@
                 }]) %}
 
                 {% set body_row_cols = body_row_cols|merge([
-                    { content: result.modified|ez_full_datetime },
+                    { content: result.modified|ibexa_full_datetime },
                     { content: result.type },
                 ]) %}
 

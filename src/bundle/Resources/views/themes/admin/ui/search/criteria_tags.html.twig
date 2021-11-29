@@ -29,8 +29,8 @@
     {% endif %}
 
     {% if form.vars.value.lastModified is not empty %}
-        {% set start_date = form.vars.value.lastModified.start_date|ez_short_date %}
-        {% set end_date = form.vars.value.lastModified.end_date|ez_short_date %}
+        {% set start_date = form.vars.value.lastModified.start_date|ibexa_short_date %}
+        {% set end_date = form.vars.value.lastModified.end_date|ibexa_short_date %}
 
         {{ include('@ezdesign/ui/search_tag.html.twig', {
             'content': "#{'search.last.modified'|trans|desc('Last modified')}: #{start_date} - #{end_date}",
@@ -39,8 +39,8 @@
     {% endif %}
 
     {% if form.vars.value.created is not empty %}
-        {% set start_date = form.vars.value.created.start_date|ez_short_date %}
-        {% set end_date = form.vars.value.created.end_date|ez_short_date %}
+        {% set start_date = form.vars.value.created.start_date|ibexa_short_date %}
+        {% set end_date = form.vars.value.created.end_date|ibexa_short_date %}
 
         {{ include('@ezdesign/ui/search_tag.html.twig', {
             'content': "#{'search.created'|trans|desc('Created')}: #{start_date} - #{end_date}",
