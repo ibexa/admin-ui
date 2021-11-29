@@ -404,7 +404,7 @@
 {% block ezimage_field %}
 {% apply spaceless %}
 {% if not ibexa_field_is_empty( content, field ) %}
-{% set imageAlias = ez_image_alias( field, versionInfo, parameters.alias|default( 'original' ) ) %}
+{% set imageAlias = ibexa_image_alias( field, versionInfo, parameters.alias|default( 'original' ) ) %}
 {% set src = imageAlias ? asset( imageAlias.uri ) : "//:0" %}
     {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ez-field-preview ez-field-preview--ezimage')|trim}) %}
 <div {{ block( 'field_attributes' ) }}>
