@@ -9,7 +9,7 @@
         class="btn ibexa-btn ibexa-btn--secondary d-block ez-pick-location-limitation-button"
         data-location-input-selector="#{{ form.limitationValues.vars.id }}"
         data-selected-location-list-selector="#{{ form.limitationValues.vars.id }}-selected-location"
-        data-udw-config="{{ ez_udw_config('multiple', {}) }}"
+        data-udw-config="{{ ibexa_udw_config('multiple', {}) }}"
         data-value-template="{{ include('@ezdesign/limitation/udw_limitation_value_list_item.html.twig', {
             'content_breadcrumbs': '',
             'location_id': '{{ location_id }}',

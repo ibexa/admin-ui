@@ -157,7 +157,7 @@
                     {% if content_type.isContainer %}
                     {{ form_start(form_subitems_content_edit, { 'action': path('ezplatform.content.edit'), 'attr': { 'hidden': 'hidden' }}) }}
                     {{ form_end(form_subitems_content_edit) }}
-                    {% set udwConfigSingle = ez_udw_config('single_container', {}) %}
+                    {% set udwConfigSingle = ibexa_udw_config('single_container', {}) %}
                     <div class="ez-sil"
                         data-location="{{ location.id }}"
                         data-mfu-create-permissions-config="{{ subitems_module.content_create_permissions_for_mfu|json_encode() }}"

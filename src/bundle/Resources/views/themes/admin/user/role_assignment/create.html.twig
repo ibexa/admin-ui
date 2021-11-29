@@ -55,7 +55,7 @@
                                 'data-universaldiscovery-title': users_udw_title,
                                 'data-input-selector': '#' ~ form.users.vars.id,
                                 'data-selected-content-list-selector': '#' ~ form.users.vars.id ~ '-selected-content',
-                                'data-udw-config': ez_udw_config('multiple_user', {}),
+                                'data-udw-config': ibexa_udw_config('multiple_user', {}),
                                 'data-items-map': items_map|json_encode(),
                             },
                             is_single_select: false,
@@ -88,7 +88,7 @@
                                 'data-universaldiscovery-title': groups_udw_title,
                                 'data-input-selector': '#' ~ form.groups.vars.id,
                                 'data-selected-content-list-selector': '#' ~ form.groups.vars.id ~ '-selected-content',
-                                'data-udw-config': ez_udw_config('multiple_user_group', {}),
+                                'data-udw-config': ibexa_udw_config('multiple_user_group', {}),
                                 'data-items-map': items_map|json_encode(),
                             },
                             is_single_select: false,
@@ -133,7 +133,7 @@
                                     'class': 'ez-limitations__btn-select-subtree',
                                     'disabled': not form.limitation_type.location.vars.checked,
                                     'data-input-selector': '#' ~ form.locations.vars.id,
-                                    'data-udw-config': ez_udw_config('single', {})
+                                    'data-udw-config': ibexa_udw_config('single', {})
                                 },
                                 is_single_select: false,
                                 can_be_empty: true,

@@ -220,7 +220,7 @@
                                 {% if can_restore and form_trash_item_restore.trash_items is not empty %}
                                     {% set restore_under_new_parent_button_attr = form_trash_item_restore.location.select_content.vars.attr|merge({
                                         'attr': {
-                                            'data-udw-config': ez_udw_config('single_container', {}),
+                                            'data-udw-config': ibexa_udw_config('single_container', {}),
                                             'class': (form_trash_item_restore.location.select_content.vars.attr.class|default('') ~ ' btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text')|trim,
                                             'disabled': true
                                         }

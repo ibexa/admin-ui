@@ -222,8 +222,8 @@
 
     <div class="ez-data-source">
         <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
-        <div class="hidden" data-udw-config-name="richtext_embed" data-udw-config="{{ ez_udw_config('richtext_embed', udw_context) }}"></div>
-        <div class="hidden" data-udw-config-name="richtext_embed_image" data-udw-config="{{ ez_udw_config('richtext_embed_image', udw_context) }}"></div>
+        <div class="hidden" data-udw-config-name="richtext_embed" data-udw-config="{{ ibexa_udw_config('richtext_embed', udw_context) }}"></div>
+        <div class="hidden" data-udw-config-name="richtext_embed_image" data-udw-config="{{ ibexa_udw_config('richtext_embed_image', udw_context) }}"></div>
         <div class="ibexa-data-source__richtext" id="{{ form.vars.id }}__editable"></div>
         <div class="ibexa-richtext-tools">
             <ul class="ibexa-elements-path"></ul>
