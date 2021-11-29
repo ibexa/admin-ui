@@ -37,7 +37,7 @@
 
                         {% set col_raw %}
                             <svg class="ibexa-icon ibexa-icon--small">
-                                <use xlink:href="{{ ez_content_type_icon(row.contentType.identifier) }}"></use>
+                                <use xlink:href="{{ ibexa_content_type_icon(row.contentType.identifier) }}"></use>
                             </svg>
                         {% endset %}
                         {% set body_row_cols = body_row_cols|merge([{

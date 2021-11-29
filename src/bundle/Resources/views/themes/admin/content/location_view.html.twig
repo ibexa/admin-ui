@@ -98,7 +98,7 @@
                         </svg>
                     {% elseif content_type_identifier is defined %}
                         <svg class="ibexa-icon ibexa-icon--small ibexa-icon--base-dark ibexa-icon--{{ content_type_identifier }}">
-                            <use xlink:href="{{ ez_content_type_icon(content_type_identifier) }}"></use>
+                            <use xlink:href="{{ ibexa_content_type_icon(content_type_identifier) }}"></use>
                         </svg>
                     {% endif %}
                     {{ content_type_name }}

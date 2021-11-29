@@ -38,7 +38,7 @@ class UniversalDiscoveryExtension extends AbstractExtension
                 [
                     'is_safe' => ['json'],
                     'deprecated' => '4.0',
-                    'alternative' => 'ibexa_udw_config'
+                    'alternative' => 'ibexa_udw_config',
                 ]
             ),
             new TwigFunction(

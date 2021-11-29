@@ -41,7 +41,7 @@ class LimitationValueRenderingExtension extends AbstractExtension
                     'is_safe' => ['html'],
                     'needs_environment' => true,
                     'deprecated' => '4.0',
-                    'alternative' => 'ibexa_render_limitation_value'
+                    'alternative' => 'ibexa_render_limitation_value',
                 ]
             ),
             new TwigFunction(

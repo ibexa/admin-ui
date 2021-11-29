@@ -33,7 +33,7 @@ class PathStringExtension extends AbstractExtension
                 [$this, 'getLocationList'],
                 [
                     'deprecated' => '4.0',
-                    'alternative' => 'ibexa_path_to_locations'
+                    'alternative' => 'ibexa_path_to_locations',
                 ]
             ),
             new TwigFunction(
