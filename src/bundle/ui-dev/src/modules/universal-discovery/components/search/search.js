@@ -26,7 +26,10 @@ const selectedContentTypesReducer = (state, action) => {
     }
 };
 
-const languages = Object.values(window.eZ.adminUiConfig.languages.mappings);
+const configLanguages = window.eZ.adminUiConfig.languages;
+const languages = configLanguages.priority.map((value) => {
+    return configLanguages.mappings[value];
+});
 
 const Search = ({ itemsPerPage }) => {
     const searchLabel = Translator.trans(/*@Desc("Search")*/ 'search.search', {}, 'universal_discovery_widget');

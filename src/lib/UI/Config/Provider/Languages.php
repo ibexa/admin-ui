@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\UI\Config\Provider;
 
 use eZ\Publish\API\Repository\LanguageService;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
 /**
@@ -26,6 +27,9 @@ class Languages implements ProviderInterface
     /** @var string[] */
     private $siteAccesses;
 
+    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface */
+    private $siteAccessService;
+
     /**
      * @param \eZ\Publish\API\Repository\LanguageService $languageService
      * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
@@ -34,10 +38,12 @@ class Languages implements ProviderInterface
     public function __construct(
         LanguageService $languageService,
         ConfigResolverInterface $configResolver,
+        SiteAccessServiceInterface $siteAccessService,
         array $siteAccesses
     ) {
         $this->languageService = $languageService;
         $this->configResolver = $configResolver;
+        $this->siteAccessService = $siteAccessService;
         $this->siteAccesses = $siteAccesses;
     }
 
@@ -86,8 +92,10 @@ class Languages implements ProviderInterface
     {
         $priority = [];
         $fallback = [];
+        $siteAccessName = $this->siteAccessService->getCurrent()->name;
+        $siteAccesses = array_unique(array_merge([$siteAccessName], $this->siteAccesses));
 
-        foreach ($this->siteAccesses as $siteAccess) {
+        foreach ($siteAccesses as $siteAccess) {
             $siteAccessLanguages = $this->configResolver->getParameter('languages', null, $siteAccess);
             $priority[] = array_shift($siteAccessLanguages);
             $fallback = array_merge($fallback, $siteAccessLanguages);
