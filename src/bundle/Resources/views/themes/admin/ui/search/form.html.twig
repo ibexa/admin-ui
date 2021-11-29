@@ -6,7 +6,7 @@
 {% set subtree_selected = form.subtree.vars.value is not empty %}
 
 {% if subtree_selected %}
-    {% set path_locations = ez_path_to_locations(form.subtree.vars.value) %}
+    {% set path_locations = ibexa_path_to_locations(form.subtree.vars.value) %}
     {% set location = path_locations|last %}
     {% set content_breadcrumbs = ibexa_content_name(location.contentInfo) %}
 {% endif %}
