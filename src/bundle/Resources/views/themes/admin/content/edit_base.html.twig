@@ -4,7 +4,7 @@
 
 {% set grouped_fields = grouped_fields|default([]) %}
 {% set anchor_params = { items: grouped_fields|keys } %}
-{% set is_autosave_enabled = ez_user_settings['autosave'] is same as('enabled') %}
+{% set is_autosave_enabled = ibexa_user_settings['autosave'] is same as('enabled') %}
 {% set form_has_autosave = form.autosave is defined %}
 {% set default_form_templates = ibexa_admin_ui_config.contentEditFormTemplates %}
 {% set form_templates = form_templates is defined ? default_form_templates|merge(form_templates) : default_form_templates %}
