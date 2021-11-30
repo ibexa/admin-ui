@@ -25,11 +25,6 @@ class FieldEditRenderingExtension extends AbstractExtension
         $this->fieldBlockRenderer = $fieldBlockRenderer;
     }
 
-    public function getName(): string
-    {
-        return 'ezplatform.content_forms.field_edit_rendering';
-    }
-
     /**
      * @return \Twig\TwigFunction[]
      */

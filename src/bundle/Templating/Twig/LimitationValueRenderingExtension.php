@@ -52,10 +52,6 @@ class LimitationValueRenderingExtension extends AbstractExtension
         ];
     }
 
-    public function getName(): string
-    {
-        return 'ezplatform.content_forms.limitation_value_rendering';
-    }
 }
 
 class_alias(LimitationValueRenderingExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\LimitationValueRenderingExtension');
