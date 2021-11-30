@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="CSRF-Token" content="{{ csrf_token('authenticate') }}" />
         <meta name="SiteAccess" content="{{ app.request.get('siteaccess').name }}" />
-        <meta name="UserId" content="{{ ez_admin_ui_config.user.user.id }}" />
+        <meta name="UserId" content="{{ ibexa_admin_ui_config.user.user.id }}" />
         <script>
             const userAgent = navigator.userAgent.toLowerCase();
 
@@ -58,7 +58,7 @@
         {% block meta %}
         {% endblock %}
         <script>
-            window.eZ.addConfig('adminUiConfig', {{ ez_admin_ui_config|json_encode|raw }});
+            window.eZ.addConfig('adminUiConfig', {{ ibexa_admin_ui_config|json_encode|raw }});
             window.eZ.addConfig('richText', {{ ez_richtext_config|json_encode|raw }});
             window.eZ.addConfig('errors', {
                 emailRegexp: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,

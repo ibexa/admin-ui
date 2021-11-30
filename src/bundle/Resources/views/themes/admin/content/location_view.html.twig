@@ -20,7 +20,7 @@
     {% set content_tree_width_style = "width: #{content_tree_width}px;" %}
 
     <div class="ibexa-content-tree-container"
-        data-tree-root-location-id="{{ content_tree_module_root|default(ez_admin_ui_config['contentTree']['treeRootLocationId']) }}"
+        data-tree-root-location-id="{{ content_tree_module_root|default(ibexa_admin_ui_config['contentTree']['treeRootLocationId']) }}"
         data-current-location-path="{{ location_path|default('') }}"
         style="{{ content_tree_width_style }}"
     >

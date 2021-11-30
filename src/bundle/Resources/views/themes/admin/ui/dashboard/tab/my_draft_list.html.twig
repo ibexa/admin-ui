@@ -20,7 +20,7 @@
         {% set body_row_cols = body_row_cols|merge([
             { content: row.versionInfo.name },
             { content: row.contentType.name },
-            { content: ez_admin_ui_config.languages.mappings[row.versionInfo.initialLanguageCode].name },
+            { content: ibexa_admin_ui_config.languages.mappings[row.versionInfo.initialLanguageCode].name },
             { content: row.versionInfo.versionNo },
             { content: row.versionInfo.modificationDate|ibexa_full_datetime },
         ]) %}
