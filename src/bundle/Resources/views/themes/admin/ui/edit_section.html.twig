@@ -1,9 +1,9 @@
 <div 
     data-anchor-section-id="{{ section_id }}" 
-    class="ibexa-anchor-navigation-section {{ section_class|default('') }} {% if is_active|default(false) %}ibexa-anchor-navigation-section--active {{ section_active_class|default('') }}{% endif %}"
+    class="ibexa-anchor-navigation-section row {{ section_class|default('') }} {% if is_active|default(false) %}ibexa-anchor-navigation-section--active {{ section_active_class|default('') }}{% endif %}"
 >
     {% block left_column %}
-        <div class="ibexa-anchor-navigation-section__column ibexa-anchor-navigation-section__column--left {{ left_column_class|default('') }}">
+        <div class="ibexa-anchor-navigation-section__column ibexa-anchor-navigation-section__column--left col-9 col-xxl-8 {{ left_column_class|default('') }}">
             {% if left_column_title is defined %}
                 <h2 class="ibexa-anchor-navigation-section__column-header">{{ left_column_title }}</h2>
             {% endif %}
@@ -15,7 +15,7 @@
     {% endblock %}
 
     {% block right_column %}
-        <div class="ibexa-anchor-navigation-section__column ibexa-anchor-navigation-section__column--right {{ right_column_class|default('') }}">
+        <div class="ibexa-anchor-navigation-section__column ibexa-anchor-navigation-section__column--right col-3 {{ right_column_class|default('') }}">
             {% if right_column_title is defined %}
                 <h2 class="ibexa-anchor-navigation-section__column-header">{{ right_column_title }}</h2>
             {% endif %}
