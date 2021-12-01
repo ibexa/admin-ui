@@ -34,6 +34,7 @@
                     {{ form_widget(form_search.content_type, {
                         'attr': {'class': 'ez-trash-search-form__item ez-trash-search-form__item--auto-send'}
                     }) }}
+
                     {% if can_view_section %}
                         {{ form_widget(form_search.section, {
                             'attr': {'class': 'ez-trash-search-form__item ez-trash-search-form__item--auto-send'}
@@ -173,25 +174,25 @@
                         content: 'trash.name'|trans|desc('Name'),
                         sort_column: 'name',
                         wrapper_attr: {
-                        'data-field': 'name',
-                        'data-direction': sort_directions.name,
-                    },
+                            'data-field': 'name',
+                            'data-direction': sort_directions.name,
+                        },
                     },
                     {
                         content: 'trash.content_type'|trans|desc('Content type'),
                         sort_column: 'content_type',
                         wrapper_attr: {
-                        'data-field': 'content_type',
-                        'data-direction': sort_directions.content_type,
-                    },
+                            'data-field': 'content_type',
+                            'data-direction': sort_directions.content_type,
+                        },
                     },
                     {
                         content: 'trash.creator'|trans|desc('Creator'),
                         sort_column: 'creator',
                         wrapper_attr: {
-                        'data-field': 'creator',
-                        'data-direction': sort_directions.creator,
-                    },
+                            'data-field': 'creator',
+                            'data-direction': sort_directions.creator,
+                        },
                     }
                 ] %}
 
@@ -201,9 +202,9 @@
                             content: 'trash.section'|trans|desc('Section'),
                             sort_column: 'section',
                             wrapper_attr: {
-                            'data-field': 'section',
-                            'data-direction': sort_directions.section,
-                        },
+                                'data-field': 'section',
+                                'data-direction': sort_directions.section,
+                            },
                         },
                     ]) %}
                 {% endif %}
@@ -214,9 +215,9 @@
                         content: 'trash.date'|trans|desc('Sent to trash date'),
                         sort_column: 'trashed',
                         wrapper_attr: {
-                        'data-field': 'trashed',
-                        'data-direction': sort_directions.trashed,
-                    }
+                            'data-field': 'trashed',
+                            'data-direction': sort_directions.trashed,
+                        }
                     },
                 ]) %}
 
