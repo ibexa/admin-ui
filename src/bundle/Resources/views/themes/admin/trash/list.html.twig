@@ -28,48 +28,48 @@
         <div class="container ez-content-container">
             <section class="container ez-container">
                 {{ form_start(form_search, { attr: { class: 'ez-trash-search-form' } }) }}
-                    <div class="ez-trash-search-form__inputs-group">
-                        {% set creator = form_search.vars.data ? form_search.vars.data.creator : '' %}
+                <div class="ez-trash-search-form__inputs-group">
+                    {% set creator = form_search.vars.data ? form_search.vars.data.creator : '' %}
 
-                        {{ form_widget(form_search.content_type, {
+                    {{ form_widget(form_search.content_type, {
+                        'attr': {'class': 'ez-trash-search-form__item ez-trash-search-form__item--auto-send'}
+                    }) }}
+                    {% if can_view_section %}
+                        {{ form_widget(form_search.section, {
                             'attr': {'class': 'ez-trash-search-form__item ez-trash-search-form__item--auto-send'}
                         }) }}
-                        {% if can_view_section %}
-                            {{ form_widget(form_search.section, {
-                                'attr': {'class': 'ez-trash-search-form__item ez-trash-search-form__item--auto-send'}
-                            }) }}
-                        {% endif %}
+                    {% endif %}
 
-                        <div class='ez-trash-search-form__item ez-trash-search-form__item--trashed'>
-                            {{ form_widget(form_search.trashed, {
-                                'attr': {'data-target-selector': '.ez-trash-search-form__range-wrapper--select-trashed-range'}
-                            }) }}
-                        </div>
-                        <div class="ez-trash-search-form__item ez-trash-search-form__item--creator">
-                            {% set creator = form_search.vars.data ? form_search.vars.data.creator : '' %}
-                            {% set creatorExists =  creator is not empty ? true : false %}
-                            <div class="ez-trash-search-form__input-wrapper">
-                                <input
+                    <div class='ez-trash-search-form__item ez-trash-search-form__item--trashed'>
+                        {{ form_widget(form_search.trashed, {
+                            'attr': {'data-target-selector': '.ez-trash-search-form__range-wrapper--select-trashed-range'}
+                        }) }}
+                    </div>
+                    <div class="ez-trash-search-form__item ez-trash-search-form__item--creator">
+                        {% set creator = form_search.vars.data ? form_search.vars.data.creator : '' %}
+                        {% set creatorExists =  creator is not empty ? true : false %}
+                        <div class="ez-trash-search-form__input-wrapper">
+                            <input
                                     type="text"
                                     class="form-control ez-trash-search-form__input"
                                     data-content-type-identifiers="{{ user_content_type_identifier|join(',') }}"
                                     value="{{ creatorExists ? ez_content_name(creator) }}"
                                     placeholder="{{ 'search.creator_input.placeholder'|trans|desc('Type creator\'s name') }}"
                                     {{ creatorExists ? 'disabled'  }}
-                                >
-                                <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--reset-creator">
-                                    <svg class="ibexa-icon ibexa-icon--small ibexa-icon--reset">
-                                        <use xlink:href="{{ ibexa_icon_path('circle-close') }}"></use>
-                                    </svg>
-                                </button>
-                            </div>
-                            <ul class="ez-trash-search-form__user-list ez-trash-search-form__user-list--hidden"></ul>
+                            >
+                            <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--reset-creator">
+                                <svg class="ibexa-icon ibexa-icon--small ibexa-icon--reset">
+                                    <use xlink:href="{{ ibexa_icon_path('circle-close') }}"></use>
+                                </svg>
+                            </button>
                         </div>
-
-                        {{ form_widget(form_search.creator, {'attr': {'hidden': 'hidden'}}) }}
-                        {{ form_widget(form_search.sort, {'attr': {'hidden': 'hidden'}}) }}
-                        {{ form_widget(form_search.trashed_interval, {'attr': {'hidden': 'hidden'}}) }}
+                        <ul class="ez-trash-search-form__user-list ez-trash-search-form__user-list--hidden"></ul>
                     </div>
+
+                    {{ form_widget(form_search.creator, {'attr': {'hidden': 'hidden'}}) }}
+                    {{ form_widget(form_search.sort, {'attr': {'hidden': 'hidden'}}) }}
+                    {{ form_widget(form_search.trashed_interval, {'attr': {'hidden': 'hidden'}}) }}
+                </div>
                 {{ form_end(form_search) }}
 
                 {{ form_start(form_trash_item_restore, {
@@ -139,8 +139,13 @@
                         { content: trash_item.creator is not empty
                             ? ez_content_name(trash_item.creator.content) :
                             'trash.item.deleted_user'|trans|desc('Deleted user') },
-                        { content: trash_item.location.contentInfo.section.name },
                     ]) %}
+
+                    {% if can_view_section %}
+                        {% set body_row_cols = body_row_cols|merge([
+                            { content: trash_item.location.contentInfo.section.name }
+                        ]) %}
+                    {% endif %}
 
                     {% set col_raw %}
                         {% if not is_parent_in_trash %}
@@ -161,53 +166,63 @@
                     {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
                 {% endfor %}
 
-                {% embed '@ezdesign/ui/component/table/table.html.twig' with {
-                    headline: 'trash.table.header'|trans|desc('Trash'),
-                    head_cols: [
-                        { has_checkbox: true },
-                        { has_icon: true },
-                        {
-                            content: 'trash.name'|trans|desc('Name'),
-                            sort_column: 'name',
-                            wrapper_attr: {
-                                'data-field': 'name',
-                                'data-direction': sort_directions.name,
-                            },
-                        },
-                        {
-                            content: 'trash.content_type'|trans|desc('Content type'),
-                            sort_column: 'content_type',
-                            wrapper_attr: {
-                                'data-field': 'content_type',
-                                'data-direction': sort_directions.content_type,
-                            },
-                        },
-                        {
-                            content: 'trash.creator'|trans|desc('Creator'),
-                            sort_column: 'creator',
-                            wrapper_attr: {
-                                'data-field': 'creator',
-                                'data-direction': sort_directions.creator,
-                            },
-                        },
+                {% set head_cols = [
+                    { has_checkbox: true },
+                    { has_icon: true },
+                    {
+                        content: 'trash.name'|trans|desc('Name'),
+                        sort_column: 'name',
+                        wrapper_attr: {
+                        'data-field': 'name',
+                        'data-direction': sort_directions.name,
+                    },
+                    },
+                    {
+                        content: 'trash.content_type'|trans|desc('Content type'),
+                        sort_column: 'content_type',
+                        wrapper_attr: {
+                        'data-field': 'content_type',
+                        'data-direction': sort_directions.content_type,
+                    },
+                    },
+                    {
+                        content: 'trash.creator'|trans|desc('Creator'),
+                        sort_column: 'creator',
+                        wrapper_attr: {
+                        'data-field': 'creator',
+                        'data-direction': sort_directions.creator,
+                    },
+                    }
+                ] %}
+
+                {% if can_view_section %}
+                    {% set head_cols = head_cols|merge([
                         {
                             content: 'trash.section'|trans|desc('Section'),
                             sort_column: 'section',
                             wrapper_attr: {
-                                'data-field': 'section',
-                                'data-direction': sort_directions.section,
-                            },
+                            'data-field': 'section',
+                            'data-direction': sort_directions.section,
                         },
-                        { content: 'trash.original_location'|trans|desc('Original Location') },
-                        {
-                            content: 'trash.date'|trans|desc('Sent to trash date'),
-                            sort_column: 'trashed',
-                            wrapper_attr: {
-                                'data-field': 'trashed',
-                                'data-direction': sort_directions.trashed,
-                            }
                         },
-                    ],
+                    ]) %}
+                {% endif %}
+
+                {% set head_cols = head_cols|merge([
+                    { content: 'trash.original_location'|trans|desc('Original Location') },
+                    {
+                        content: 'trash.date'|trans|desc('Sent to trash date'),
+                        sort_column: 'trashed',
+                        wrapper_attr: {
+                        'data-field': 'trashed',
+                        'data-direction': sort_directions.trashed,
+                    }
+                    },
+                ]) %}
+
+                {% embed '@ezdesign/ui/component/table/table.html.twig' with {
+                    headline: 'trash.table.header'|trans|desc('Trash'),
+                    head_cols,
                     body_rows,
                     empty_table_info_text: 'trash.empty'|trans|desc('Trash is empty. Content you send to Trash will show up here.'),
                 } %}
@@ -236,13 +251,13 @@
                                 {% if can_delete %}
                                     {% set modal_data_target = 'delete-trash-items-modal' %}
                                     <button
-                                        id="delete-trash-items"
-                                        type="button"
-                                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
-                                        disabled
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#{{ modal_data_target }}"
-                                        title="{{ 'trash.delete'|trans|desc('Delete') }}"
+                                            id="delete-trash-items"
+                                            type="button"
+                                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                                            disabled
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#{{ modal_data_target }}"
+                                            title="{{ 'trash.delete'|trans|desc('Delete') }}"
                                     >
                                         <svg class="ibexa-icon ibexa-icon--small ibexa-icon--trash">
                                             <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
