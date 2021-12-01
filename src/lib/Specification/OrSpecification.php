@@ -12,6 +12,7 @@ class OrSpecification extends AbstractSpecification
 {
     /** @var SpecificationInterface */
     private $one;
+
     /** @var SpecificationInterface */
     private $two;
 

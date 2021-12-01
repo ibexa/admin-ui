@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Content\CustomUrl;
 
-use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\AdminUi\Form\EventListener\AddLanguageFieldBasedOnContentListener;
 use Ibexa\AdminUi\Form\EventListener\BuildPathFromRootListener;
 use Ibexa\AdminUi\Form\EventListener\DisableSiteRootCheckboxIfRootLocationListener;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\SiteAccessChoiceLoader;
 use Ibexa\AdminUi\Form\Type\Content\LocationType;
 use Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver;
+use Ibexa\Contracts\Core\Repository\LanguageService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

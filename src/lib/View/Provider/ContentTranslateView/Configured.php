@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\View\Provider\ContentTranslateView;
 
+use Ibexa\AdminUi\View\ContentTranslateView;
 use Ibexa\Core\MVC\Symfony\Matcher\MatcherFactoryInterface;
 use Ibexa\Core\MVC\Symfony\View\View;
 use Ibexa\Core\MVC\Symfony\View\ViewProvider;
-use Ibexa\AdminUi\View\ContentTranslateView;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
 /**
@@ -33,7 +33,7 @@ class Configured implements ViewProvider
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      */

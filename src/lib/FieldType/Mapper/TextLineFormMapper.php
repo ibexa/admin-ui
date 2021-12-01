@@ -6,9 +6,9 @@
  */
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
-use Ibexa\ContentForms\Form\Type\FieldType\TextLineFieldType;
 use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\Form\Type\FieldType\TextLineFieldType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

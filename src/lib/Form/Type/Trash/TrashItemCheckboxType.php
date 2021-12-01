@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Trash;
 
-use Ibexa\Contracts\Core\Repository\TrashService;
 use Ibexa\AdminUi\Form\DataTransformer\TrashItemTransformer;
+use Ibexa\Contracts\Core\Repository\TrashService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -27,7 +27,7 @@ class TrashItemCheckboxType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -35,7 +35,7 @@ class TrashItemCheckboxType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {

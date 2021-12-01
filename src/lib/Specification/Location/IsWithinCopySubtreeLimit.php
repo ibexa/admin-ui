@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification\Location;
 
+use Ibexa\AdminUi\Specification\AbstractSpecification;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
-use Ibexa\AdminUi\Specification\AbstractSpecification;
 
 class IsWithinCopySubtreeLimit extends AbstractSpecification
 {

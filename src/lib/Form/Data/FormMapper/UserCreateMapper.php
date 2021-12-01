@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\FormMapper;
 
+use Ibexa\ContentForms\Data\User\UserCreateData;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
-use Ibexa\ContentForms\Data\User\UserCreateData;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

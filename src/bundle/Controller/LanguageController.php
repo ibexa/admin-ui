@@ -6,10 +6,6 @@
  */
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use Ibexa\Contracts\Core\Repository\LanguageService;
-use Ibexa\Contracts\Core\Repository\Values\Content\Language;
-use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Ibexa\AdminUi\Form\Data\Language\LanguageCreateData;
 use Ibexa\AdminUi\Form\Data\Language\LanguageDeleteData;
 use Ibexa\AdminUi\Form\Data\Language\LanguagesDeleteData;
@@ -19,6 +15,10 @@ use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RedirectResponse;

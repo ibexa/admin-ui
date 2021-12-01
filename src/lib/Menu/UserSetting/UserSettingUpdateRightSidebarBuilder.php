@@ -25,8 +25,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__SAVE = 'object_state_edit__sidebar_right__save';
-    const ITEM__CANCEL = 'object_state_edit__sidebar_right__cancel';
+    public const ITEM__SAVE = 'object_state_edit__sidebar_right__save';
+    public const ITEM__CANCEL = 'object_state_edit__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
@@ -34,7 +34,8 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
     public function __construct(
         MenuItemFactory $factory,
         EventDispatcherInterface $eventDispatcher,
-        TranslatorInterface $translator)
+        TranslatorInterface $translator
+    )
     {
         parent::__construct($factory, $eventDispatcher);
 

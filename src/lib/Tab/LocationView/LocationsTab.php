@@ -8,13 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\LocationView;
 
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\SearchService;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query;
-use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter;
 use Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationAddData;
 use Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationRemoveData;
 use Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData;
@@ -24,6 +17,13 @@ use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\UI\Value\Content\Location\Mapper;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
@@ -34,7 +34,7 @@ use Twig\Environment;
 
 class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    const URI_FRAGMENT = 'ibexa-tab-location-view-locations';
+    public const URI_FRAGMENT = 'ibexa-tab-location-view-locations';
     private const PAGINATION_PARAM_NAME = 'locations-tab-page';
 
     /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
@@ -119,7 +119,7 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplate(): string
     {
@@ -127,7 +127,7 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
@@ -143,7 +143,8 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
 
         if ($contentInfo->published) {
             $currentPage = $this->requestStack->getCurrentRequest()->query->getInt(
-                self::PAGINATION_PARAM_NAME, 1
+                self::PAGINATION_PARAM_NAME,
+                1
             );
 
             $locationQuery = new LocationQuery([
@@ -169,18 +170,25 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
         $formLocationUpdateVisibility = $this->createLocationUpdateVisibilityForm($location);
         $formLocationMainUpdate = $this->createLocationUpdateMainForm($contentInfo, $location);
         $canManageLocations = $this->permissionResolver->canUser(
-            'content', 'manage_locations', $location->getContentInfo()
+            'content',
+            'manage_locations',
+            $location->getContentInfo()
         );
         // We grant access to choose a valid Location from UDW. Now it is not possible to filter locations
         // and show only those which user has access to
         $canCreate = false !== $this->permissionResolver->hasAccess('content', 'create');
         $canEdit = $this->permissionResolver->canUser(
-            'content', 'edit', $location->getContentInfo()
+            'content',
+            'edit',
+            $location->getContentInfo()
         );
         $canHide = [];
         foreach ($locations as $location) {
             $canHide[$location->id] = $this->permissionResolver->canUser(
-                'content', 'hide', $location->getContentInfo(), [$location]
+                'content',
+                'hide',
+                $location->getContentInfo(),
+                [$location]
             );
         }
 

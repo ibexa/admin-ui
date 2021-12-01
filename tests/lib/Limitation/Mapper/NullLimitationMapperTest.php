@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use Ibexa\AdminUi\Limitation\Mapper\NullLimitationMapper;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use PHPUnit\Framework\TestCase;
 
 class NullLimitationMapperTest extends TestCase

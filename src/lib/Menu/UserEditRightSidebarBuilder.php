@@ -6,9 +6,9 @@
  */
 namespace Ibexa\AdminUi\Menu;
 
-use Ibexa\Core\Repository\Exceptions as ApiExceptions;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -21,8 +21,8 @@ use Knp\Menu\ItemInterface;
 class UserEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__UPDATE = 'user_edit__sidebar_right__update';
-    const ITEM__CANCEL = 'user_edit__sidebar_right__cancel';
+    public const ITEM__UPDATE = 'user_edit__sidebar_right__update';
+    public const ITEM__CANCEL = 'user_edit__sidebar_right__cancel';
 
     /**
      * @return string

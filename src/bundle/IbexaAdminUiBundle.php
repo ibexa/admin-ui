@@ -22,7 +22,7 @@ class IbexaAdminUiBundle extends Bundle
     public const ADMIN_GROUP_NAME = 'admin_group';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @throws \Symfony\Component\DependencyInjection\Exception\LogicException
      */

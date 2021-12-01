@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Resolver;
 
-use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Contracts\AdminUi\Resolver\IconPathResolverInterface;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Symfony\Component\Asset\Packages;
 
 /**

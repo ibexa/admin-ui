@@ -8,19 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use Ibexa\Contracts\Core\Repository\ContentTypeService;
-use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
-use Ibexa\Contracts\Core\Repository\LanguageService;
-use Ibexa\Contracts\Core\Repository\UserService;
-use Ibexa\Contracts\Core\Repository\Values\Content\Language;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
-use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
-use Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypeCopyData;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypeEditData;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypesDeleteData;
@@ -35,8 +22,21 @@ use Ibexa\AdminUi\Tab\ContentType\TranslationsTab;
 use Ibexa\AdminUi\UI\Module\FieldTypeToolbar\FieldTypeToolbarFactory;
 use Ibexa\AdminUi\View\ContentTypeCreateView;
 use Ibexa\AdminUi\View\ContentTypeEditView;
+use Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\FormInterface;
@@ -76,6 +76,7 @@ class ContentTypeController extends Controller
 
     /** @var \Ibexa\AdminUi\Form\Data\FormMapper\ContentTypeDraftMapper */
     private $contentTypeDraftMapper;
+
     /**
      * @var \Ibexa\Core\MVC\ConfigResolverInterface
      */

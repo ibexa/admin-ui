@@ -30,7 +30,7 @@ class AvailableTranslationLanguageChoiceLoader extends BaseChoiceLoader
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getChoiceList(): array
     {

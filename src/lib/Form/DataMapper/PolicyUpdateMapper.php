@@ -6,10 +6,10 @@
  */
 namespace Ibexa\AdminUi\Form\DataMapper;
 
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
-use Ibexa\Core\Repository\Values\User\PolicyUpdateStruct;
 use Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData;
 use Ibexa\Contracts\AdminUi\Form\DataMapper\DataMapperInterface;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Repository\Values\User\PolicyUpdateStruct;
 
 /**
  * Maps between PolicyUpdateStruct and PolicyUpdateData objects.

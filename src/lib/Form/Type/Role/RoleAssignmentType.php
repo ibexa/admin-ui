@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Role;
 
-use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\AdminUi\Form\DataTransformer\RoleAssignmentTransformer;
+use Ibexa\Contracts\Core\Repository\RoleService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;

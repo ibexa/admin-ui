@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\AdminUi\EventListener;
 
-use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\AdminUi\EventListener\RequestListener;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;

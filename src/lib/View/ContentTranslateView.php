@@ -8,17 +8,17 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\View;
 
+use Ibexa\ContentForms\Content\View\ContentTypeValueView;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\MVC\Symfony\View\BaseView;
-use Ibexa\ContentForms\Content\View\ContentTypeValueView;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 
 /**
- * @inheritdoc
+ * {@inheritdoc}
  */
 class ContentTranslateView extends BaseView implements ContentTypeValueView
 {

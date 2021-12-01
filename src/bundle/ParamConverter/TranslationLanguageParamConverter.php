@@ -18,8 +18,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TranslationLanguageParamConverter implements ParamConverterInterface
 {
-    const PARAMETER_LANGUAGE_CODE_TO = 'toLanguageCode';
-    const PARAMETER_LANGUAGE_CODE_FROM = 'fromLanguageCode';
+    public const PARAMETER_LANGUAGE_CODE_TO = 'toLanguageCode';
+    public const PARAMETER_LANGUAGE_CODE_FROM = 'fromLanguageCode';
 
     /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
@@ -33,7 +33,7 @@ class TranslationLanguageParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
@@ -51,7 +51,7 @@ class TranslationLanguageParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(ParamConverter $configuration)
     {

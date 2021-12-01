@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Permission;
 
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
+use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
@@ -15,8 +17,6 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult;
 use Ibexa\Contracts\Core\Repository\Values\User\LookupPolicyLimitations;
 use Ibexa\Core\Repository\Values\User\Policy;
-use Ibexa\AdminUi\Exception\InvalidArgumentException;
-use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use PHPUnit\Framework\TestCase;
 
 class LookupLimitationsTransformerTest extends TestCase

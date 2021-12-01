@@ -6,9 +6,9 @@
  */
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Symfony\Component\Form\FormInterface;
 
 class NullLimitationMapper implements LimitationFormMapperInterface, LimitationValueMapperInterface

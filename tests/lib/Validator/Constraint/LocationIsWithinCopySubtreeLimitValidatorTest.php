@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
+use Ibexa\AdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimit;
+use Ibexa\AdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimitValidator;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\AdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimit;
-use Ibexa\AdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimitValidator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;

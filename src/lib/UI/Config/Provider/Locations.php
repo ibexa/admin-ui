@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
-use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 
 final class Locations implements ProviderInterface
 {

@@ -6,8 +6,8 @@
  */
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
-use Ibexa\Contracts\Core\Repository\FieldType;
 use Ibexa\Contracts\Core\FieldType\Value;
+use Ibexa\Contracts\Core\Repository\FieldType;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**

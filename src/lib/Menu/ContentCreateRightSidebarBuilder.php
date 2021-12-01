@@ -6,6 +6,8 @@
  */
 namespace Ibexa\AdminUi\Menu;
 
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\LocationService;
@@ -14,8 +16,6 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
-use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -30,13 +30,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ContentCreateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__PUBLISH = 'content_create__sidebar_right__publish';
-    const ITEM__SAVE_DRAFT = 'content_create__sidebar_right__save_draft';
-    const ITEM__PREVIEW = 'content_create__sidebar_right__preview';
-    const ITEM__CANCEL = 'content_create__sidebar_right__cancel';
+    public const ITEM__PUBLISH = 'content_create__sidebar_right__publish';
+    public const ITEM__SAVE_DRAFT = 'content_create__sidebar_right__save_draft';
+    public const ITEM__PREVIEW = 'content_create__sidebar_right__preview';
+    public const ITEM__CANCEL = 'content_create__sidebar_right__cancel';
 
-    const BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
-    const BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
+    public const BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
+    public const BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
 
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;

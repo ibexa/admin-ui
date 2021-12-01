@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\EventListener;
 
+use Ibexa\ContentForms\User\View\UserCreateView;
+use Ibexa\ContentForms\User\View\UserUpdateView;
 use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
-use Ibexa\ContentForms\User\View\UserCreateView;
-use Ibexa\ContentForms\User\View\UserUpdateView;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

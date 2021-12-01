@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Content\Draft;
 
-use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader;
 use Ibexa\AdminUi\Form\Type\Content\ContentInfoType;
 use Ibexa\AdminUi\Form\Type\Content\LocationType;
 use Ibexa\AdminUi\Form\Type\Content\VersionInfoType;
 use Ibexa\AdminUi\Form\Type\Language\LanguageChoiceType;
+use Ibexa\Contracts\Core\Repository\LanguageService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

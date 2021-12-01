@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
+use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
+use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
@@ -15,8 +17,6 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\Contracts\Core\Limitation\Target;
-use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 
 class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
 {
@@ -67,7 +67,7 @@ class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getChoiceList(): array
     {

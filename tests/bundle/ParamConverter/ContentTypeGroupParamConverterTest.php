@@ -6,17 +6,17 @@
  */
 namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 
+use Ibexa\Bundle\AdminUi\ParamConverter\ContentTypeGroupParamConverter;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
-use Ibexa\Bundle\AdminUi\ParamConverter\ContentTypeGroupParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ContentTypeGroupParamConverterTest extends AbstractParamConverterTest
 {
-    const SUPPORTED_CLASS = ContentTypeGroup::class;
-    const PARAMETER_NAME = 'contentTypeGroup';
+    public const SUPPORTED_CLASS = ContentTypeGroup::class;
+    public const PARAMETER_NAME = 'contentTypeGroup';
 
     /** @var \Ibexa\Bundle\AdminUi\ParamConverter\ContentTypeGroupParamConverter */
     protected $converter;

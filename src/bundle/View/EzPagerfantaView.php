@@ -28,7 +28,7 @@ class EzPagerfantaView extends DefaultView
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName()
     {

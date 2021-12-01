@@ -16,8 +16,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class VersionInfoParamConverter implements ParamConverterInterface
 {
-    const PARAMETER_VERSION_NO = 'versionNo';
-    const PARAMETER_CONTENT_ID = 'contentId';
+    public const PARAMETER_VERSION_NO = 'versionNo';
+    public const PARAMETER_CONTENT_ID = 'contentId';
 
     /**
      * @var \Ibexa\Contracts\Core\Repository\ContentService
@@ -33,7 +33,7 @@ class VersionInfoParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
@@ -56,7 +56,7 @@ class VersionInfoParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(ParamConverter $configuration): bool
     {

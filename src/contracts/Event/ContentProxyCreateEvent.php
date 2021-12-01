@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\AdminUi\Event;
 
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\AdminUi\Event\Options;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\Event;
 

@@ -8,19 +8,19 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\EventListener;
 
+use Ibexa\AdminUi\EventListener\SetViewParametersListener;
+use Ibexa\ContentForms\Content\View\ContentEditView;
+use Ibexa\ContentForms\User\View\UserUpdateView;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\UserService;
-use Ibexa\Core\Repository\Values\Content as API;
 use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
 use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\View\View;
+use Ibexa\Core\Repository\Values\Content as API;
 use Ibexa\Core\Repository\Values\Content as Core;
 use Ibexa\Core\Repository\Values\User\User as CoreUser;
-use Ibexa\ContentForms\Content\View\ContentEditView;
-use Ibexa\ContentForms\User\View\UserUpdateView;
-use Ibexa\AdminUi\EventListener\SetViewParametersListener;
 use PHPUnit\Framework\TestCase;
 
 final class SetViewParametersListenerTest extends TestCase

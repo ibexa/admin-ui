@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Module\FieldTypeToolbar;
 
-use Ibexa\Core\FieldType\FieldTypeRegistry;
 use Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values\FieldTypeToolbar;
 use Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values\FieldTypeToolbarItem;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -64,6 +64,9 @@ final class FieldTypeToolbarFactory
     private function getFieldTypeLabel(string $fieldTypeIdentifier): string
     {
         return $this->translator->trans(/** @Ignore */
-        $fieldTypeIdentifier . '.name', [], 'fieldtypes');
+        $fieldTypeIdentifier . '.name',
+            [],
+            'fieldtypes'
+        );
     }
 }

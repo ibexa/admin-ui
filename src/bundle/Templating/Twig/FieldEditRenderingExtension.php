@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\Core\MVC\Symfony\Templating\Exception\MissingFieldBlockException;
 use Ibexa\Core\MVC\Symfony\Templating\FieldBlockRendererInterface;
-use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;

@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Tests\AdminUi\Pagination\Pagerfanta;
 
+use Ibexa\AdminUi\Pagination\Pagerfanta\URLSearchAdapter;
 use Ibexa\Contracts\Core\Repository\URLService;
 use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\URL\SearchResult;
 use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
-use Ibexa\AdminUi\Pagination\Pagerfanta\URLSearchAdapter;
 use PHPUnit\Framework\TestCase;
 
 class URLSearchAdapterTest extends TestCase

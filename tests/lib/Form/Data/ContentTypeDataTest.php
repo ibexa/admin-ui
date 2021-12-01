@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\Data;
 
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use PHPUnit\Framework\TestCase;
 
 class ContentTypeDataTest extends TestCase

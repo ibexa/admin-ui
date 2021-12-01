@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\Dashboard;
 
-use Ibexa\Contracts\Core\Repository\ContentService;
-use Ibexa\Contracts\Core\Repository\ContentTypeService;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\AdminUi\Pagination\Pagerfanta\ContentDraftAdapter;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -65,7 +65,7 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getIdentifier(): string
     {
@@ -73,7 +73,7 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName(): string
     {
@@ -82,7 +82,7 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getOrder(): int
     {
@@ -116,7 +116,8 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
     public function renderView(array $parameters): string
     {
         $currentPage = $this->requestStack->getCurrentRequest()->query->getInt(
-            self::PAGINATION_PARAM_NAME, 1
+            self::PAGINATION_PARAM_NAME,
+            1
         );
 
         $pagination = new Pagerfanta(

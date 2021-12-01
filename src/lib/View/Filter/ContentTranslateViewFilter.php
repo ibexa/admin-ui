@@ -8,6 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\View\Filter;
 
+use Ibexa\AdminUi\Form\Data\ContentTranslationData;
+use Ibexa\AdminUi\Form\Data\FormMapper\ContentTranslationMapper;
+use Ibexa\ContentForms\Form\Type\Content\ContentEditType;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\LanguageService;
@@ -17,9 +20,6 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
 use Ibexa\Core\MVC\Symfony\View\ViewEvents;
-use Ibexa\ContentForms\Form\Type\Content\ContentEditType;
-use Ibexa\AdminUi\Form\Data\ContentTranslationData;
-use Ibexa\AdminUi\Form\Data\FormMapper\ContentTranslationMapper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;

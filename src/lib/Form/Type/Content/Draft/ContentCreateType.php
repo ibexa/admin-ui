@@ -8,9 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Content\Draft;
 
-use Ibexa\Contracts\Core\Repository\LanguageService;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\AdminUi\Form\Data\Content\Draft\ContentCreateData;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentCreateContentTypeChoiceLoader;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentCreateLanguageChoiceLoader;
@@ -19,6 +16,9 @@ use Ibexa\AdminUi\Form\Type\ContentType\ContentTypeChoiceType;
 use Ibexa\AdminUi\Form\Type\Language\LanguageChoiceType;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

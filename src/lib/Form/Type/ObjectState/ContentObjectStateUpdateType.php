@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ObjectState;
 
+use Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData;
+use Ibexa\AdminUi\Form\Type\Content\ContentInfoType;
 use Ibexa\Contracts\Core\Repository\ObjectStateService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
-use Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData;
-use Ibexa\AdminUi\Form\Type\Content\ContentInfoType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -40,7 +40,7 @@ class ContentObjectStateUpdateType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -79,7 +79,7 @@ class ContentObjectStateUpdateType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {

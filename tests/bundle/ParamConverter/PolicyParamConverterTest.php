@@ -6,19 +6,19 @@
  */
 namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 
+use Ibexa\Bundle\AdminUi\ParamConverter\PolicyParamConverter;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Core\Repository\Values\User\Policy as UserPolicy;
-use Ibexa\Bundle\AdminUi\ParamConverter\PolicyParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PolicyParamConverterTest extends AbstractParamConverterTest
 {
-    const SUPPORTED_CLASS = Policy::class;
-    const PARAMETER_NAME = 'policy';
+    public const SUPPORTED_CLASS = Policy::class;
+    public const PARAMETER_NAME = 'policy';
 
     /** @var \Ibexa\Bundle\AdminUi\ParamConverter\PolicyParamConverter */
     protected $converter;

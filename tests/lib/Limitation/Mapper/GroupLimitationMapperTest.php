@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation\UserGroupLimitation;
 use Ibexa\AdminUi\Limitation\Mapper\GroupLimitationMapper;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\UserGroupLimitation;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

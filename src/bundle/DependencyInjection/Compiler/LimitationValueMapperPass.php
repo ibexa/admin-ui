@@ -16,8 +16,8 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class LimitationValueMapperPass implements CompilerPassInterface
 {
-    const LIMITATION_VALUE_MAPPER_REGISTRY = 'ezplatform.content_forms.limitation_value_mapper.registry';
-    const LIMITATION_VALUE_MAPPER_TAG = 'ez.limitation.valueMapper';
+    public const LIMITATION_VALUE_MAPPER_REGISTRY = 'ezplatform.content_forms.limitation_value_mapper.registry';
+    public const LIMITATION_VALUE_MAPPER_TAG = 'ez.limitation.valueMapper';
 
     public function process(ContainerBuilder $container)
     {

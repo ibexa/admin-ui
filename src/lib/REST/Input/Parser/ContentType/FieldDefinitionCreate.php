@@ -9,9 +9,9 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\REST\Input\Parser\ContentType;
 
 use Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionCreate as FieldDefinitionCreateValue;
+use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
 use Ibexa\Rest\Exceptions;
 use Ibexa\Rest\Input\BaseParser;
-use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
 
 final class FieldDefinitionCreate extends BaseParser
 {

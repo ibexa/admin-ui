@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ContentTypeGroupParamConverter implements ParamConverterInterface
 {
-    const PARAMETER_CONTENT_TYPE_GROUP_ID = 'contentTypeGroupId';
+    public const PARAMETER_CONTENT_TYPE_GROUP_ID = 'contentTypeGroupId';
 
     /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
@@ -34,7 +34,7 @@ class ContentTypeGroupParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
@@ -56,7 +56,7 @@ class ContentTypeGroupParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(ParamConverter $configuration)
     {

@@ -8,9 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use Ibexa\Contracts\Core\Repository\URLWildcardService;
-use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
-use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct;
 use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardData;
 use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
 use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardUpdateData;
@@ -19,6 +16,9 @@ use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Tab\URLManagement\URLWildcardsTab;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\URLWildcardService;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -96,7 +96,8 @@ final class URLWildcardController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form,
+            $result = $this->submitHandler->handle(
+                $form,
                 function (URLWildcardUpdateData $data) use ($urlWildcard) {
                     $urlWildcardUpdateStruct = new URLWildcardUpdateStruct();
                     $urlWildcardUpdateStruct->destinationUrl = $data->getDestinationUrl();

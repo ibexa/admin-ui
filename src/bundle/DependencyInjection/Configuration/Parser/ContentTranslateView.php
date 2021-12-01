@@ -12,8 +12,8 @@ use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\View;
 
 class ContentTranslateView extends View
 {
-    const NODE_KEY = 'content_translate_view';
-    const INFO = 'Template selection settings when displaying a content translate form';
+    public const NODE_KEY = 'content_translate_view';
+    public const INFO = 'Template selection settings when displaying a content translate form';
 }
 
 class_alias(ContentTranslateView::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\ContentTranslateView');

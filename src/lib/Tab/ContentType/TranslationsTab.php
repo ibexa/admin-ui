@@ -20,7 +20,7 @@ use Twig\Environment;
 
 class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    const URI_FRAGMENT = 'ibexa-tab-content-type-view-translations';
+    public const URI_FRAGMENT = 'ibexa-tab-content-type-view-translations';
 
     /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     protected $datasetFactory;

@@ -33,7 +33,7 @@ class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadChoiceList($value = null)
     {
@@ -51,7 +51,7 @@ class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadChoicesForValues(array $values, $value = null)
     {
@@ -65,7 +65,7 @@ class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadValuesForChoices(array $choices, $value = null)
     {

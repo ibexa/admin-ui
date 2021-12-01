@@ -6,9 +6,9 @@
  */
 namespace Ibexa\AdminUi\Validator\Constraints;
 
+use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 

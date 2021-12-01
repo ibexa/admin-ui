@@ -6,17 +6,17 @@
  */
 namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 
+use Ibexa\Bundle\AdminUi\ParamConverter\RoleParamConverter;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
-use Ibexa\Bundle\AdminUi\ParamConverter\RoleParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RoleParamConverterTest extends AbstractParamConverterTest
 {
-    const SUPPORTED_CLASS = Role::class;
-    const PARAMETER_NAME = 'role';
+    public const SUPPORTED_CLASS = Role::class;
+    public const PARAMETER_NAME = 'role';
 
     /** @var \Ibexa\Bundle\AdminUi\ParamConverter\RoleParamConverter */
     protected $converter;

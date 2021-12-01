@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Permission;
 
+use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\LanguageService;
@@ -26,8 +28,6 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
-use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
-use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 
 class PermissionChecker implements PermissionCheckerInterface
 {
@@ -199,7 +199,9 @@ class PermissionChecker implements PermissionCheckerInterface
         $versionBuilder->translateToAnyLanguageOf($this->getActiveLanguageCodes());
         $versionBuilder->createFromAnyContentTypeOf($this->getContentTypeIds());
 
-        return $this->permissionResolver->lookupLimitations('content', 'create',
+        return $this->permissionResolver->lookupLimitations(
+            'content',
+            'create',
             $contentCreateStruct,
             [$versionBuilder->build(), $locationCreateStruct],
             [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
@@ -214,7 +216,9 @@ class PermissionChecker implements PermissionCheckerInterface
         $versionBuilder->translateToAnyLanguageOf($this->getActiveLanguageCodes());
         $versionBuilder->createFromAnyContentTypeOf($this->getContentTypeIds());
 
-        return $this->permissionResolver->lookupLimitations('content', 'edit',
+        return $this->permissionResolver->lookupLimitations(
+            'content',
+            'edit',
             $contentInfo,
             [$versionBuilder->build(), $location],
             [Limitation::CONTENTTYPE, Limitation::LANGUAGE]

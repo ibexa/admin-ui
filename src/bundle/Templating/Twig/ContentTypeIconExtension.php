@@ -26,7 +26,7 @@ class ContentTypeIconExtension extends AbstractExtension
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getFunctions(): array
     {

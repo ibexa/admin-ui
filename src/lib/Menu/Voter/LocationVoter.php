@@ -31,7 +31,7 @@ class LocationVoter implements VoterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function matchItem(ItemInterface $item): ?bool
     {

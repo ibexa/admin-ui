@@ -8,6 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\EventListener;
 
+use Ibexa\AdminUi\Event\Options;
+use Ibexa\AdminUi\EventListener\ContentProxyCreateDraftListener;
+use Ibexa\AdminUi\UserSetting\Autosave;
+use Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent;
+use Ibexa\Contracts\AdminUi\Event\ContentProxyTranslateEvent;
+use Ibexa\Contracts\Core\FieldType\Value;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
@@ -16,14 +22,8 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
-use Ibexa\Contracts\Core\FieldType\Value;
 use Ibexa\User\UserSetting\UserSetting;
 use Ibexa\User\UserSetting\UserSettingService;
-use Ibexa\AdminUi\Event\Options;
-use Ibexa\AdminUi\EventListener\ContentProxyCreateDraftListener;
-use Ibexa\AdminUi\UserSetting\Autosave;
-use Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent;
-use Ibexa\Contracts\AdminUi\Event\ContentProxyTranslateEvent;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\RedirectResponse;

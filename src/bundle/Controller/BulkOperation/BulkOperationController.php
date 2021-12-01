@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller\BulkOperation;
 
-use Ibexa\Rest\Message;
-use Ibexa\Rest\Server\Controller as RestController;
 use Ibexa\AdminUi\REST\Value\BulkOperationResponse;
 use Ibexa\AdminUi\REST\Value\Operation;
 use Ibexa\AdminUi\REST\Value\OperationResponse;
+use Ibexa\Rest\Message;
+use Ibexa\Rest\Server\Controller as RestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 

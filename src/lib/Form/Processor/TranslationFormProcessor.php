@@ -6,12 +6,12 @@
  */
 namespace Ibexa\AdminUi\Form\Processor;
 
-use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\AdminUi\Form\Data\ContentTranslationData;
 use Ibexa\ContentForms\Data\Content\ContentUpdateData;
-use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
 use Ibexa\ContentForms\Event\ContentFormEvents;
 use Ibexa\ContentForms\Event\FormActionEvent;
-use Ibexa\AdminUi\Form\Data\ContentTranslationData;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\Contracts\Core\Repository\ContentService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

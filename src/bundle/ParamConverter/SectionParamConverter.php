@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SectionParamConverter implements ParamConverterInterface
 {
-    const PARAMETER_SECTION_ID = 'sectionId';
+    public const PARAMETER_SECTION_ID = 'sectionId';
 
     /**
      * @var \Ibexa\Contracts\Core\Repository\SectionService
@@ -36,7 +36,7 @@ class SectionParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
@@ -58,7 +58,7 @@ class SectionParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(ParamConverter $configuration)
     {

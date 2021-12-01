@@ -28,7 +28,7 @@ abstract class AbstractSiteaccessPreviewVoter implements SiteaccessPreviewVoterI
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function vote(SiteaccessPreviewVoterContext $context): bool
     {

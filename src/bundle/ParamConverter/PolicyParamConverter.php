@@ -18,8 +18,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PolicyParamConverter implements ParamConverterInterface
 {
-    const PARAMETER_ROLE_ID = 'roleId';
-    const PARAMETER_POLICY_ID = 'policyId';
+    public const PARAMETER_ROLE_ID = 'roleId';
+    public const PARAMETER_POLICY_ID = 'policyId';
 
     /** @var \Ibexa\Contracts\Core\Repository\RoleService */
     private $roleService;
@@ -35,7 +35,7 @@ class PolicyParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
@@ -65,7 +65,7 @@ class PolicyParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(ParamConverter $configuration)
     {

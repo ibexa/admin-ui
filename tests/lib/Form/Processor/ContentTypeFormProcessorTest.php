@@ -6,6 +6,11 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\Processor;
 
+use Ibexa\AdminUi\Form\Data\ContentTypeData;
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor;
+use Ibexa\ContentForms\Event\FormActionEvent;
+use Ibexa\Contracts\AdminUi\Event\FormEvents;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
@@ -13,11 +18,6 @@ use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
-use Ibexa\ContentForms\Event\FormActionEvent;
-use Ibexa\AdminUi\Form\Data\ContentTypeData;
-use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
-use Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor;
-use Ibexa\Contracts\AdminUi\Event\FormEvents;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormConfigInterface;
 use Symfony\Component\Form\FormInterface;
@@ -192,7 +192,8 @@ class ContentTypeFormProcessorTest extends TestCase
         $event = new FormActionEvent(
             $this->createMock(FormInterface::class),
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
-            'publishContentType', ['languageCode' => 'eng-GB']
+            'publishContentType',
+            ['languageCode' => 'eng-GB']
         );
         $this->contentTypeService
             ->expects($this->once())
@@ -210,7 +211,8 @@ class ContentTypeFormProcessorTest extends TestCase
         $event = new FormActionEvent(
             $this->createMock(FormInterface::class),
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
-            'publishContentType', ['languageCode' => 'eng-GB']
+            'publishContentType',
+            ['languageCode' => 'eng-GB']
         );
         $this->contentTypeService
             ->expects($this->once())
@@ -298,7 +300,8 @@ class ContentTypeFormProcessorTest extends TestCase
         $event = new FormActionEvent(
             $mainForm,
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
-            'removeFieldDefinition', ['languageCode' => 'eng-GB']
+            'removeFieldDefinition',
+            ['languageCode' => 'eng-GB']
         );
         $this->formProcessor->processRemoveFieldDefinition($event);
     }
@@ -309,7 +312,8 @@ class ContentTypeFormProcessorTest extends TestCase
         $event = new FormActionEvent(
             $this->createMock(FormInterface::class),
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
-            'removeDraft', ['languageCode' => 'eng-GB']
+            'removeDraft',
+            ['languageCode' => 'eng-GB']
         );
         $this->contentTypeService
             ->expects($this->once())
@@ -327,7 +331,8 @@ class ContentTypeFormProcessorTest extends TestCase
         $event = new FormActionEvent(
             $this->createMock(FormInterface::class),
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
-            'removeDraft', ['languageCode' => 'eng-GB']
+            'removeDraft',
+            ['languageCode' => 'eng-GB']
         );
         $this->contentTypeService
             ->expects($this->once())

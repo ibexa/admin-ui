@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\View\Filter;
 
+use Ibexa\AdminUi\Form\Type\Search\SearchType;
+use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
+use Ibexa\Bundle\Search\Form\Data\SearchData;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\SectionService;
 use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
 use Ibexa\Core\MVC\Symfony\View\ViewEvents;
-use Ibexa\AdminUi\Form\Type\Search\SearchType;
-use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
-use Ibexa\Bundle\Search\Form\Data\SearchData;
 use Ibexa\Search\View\SearchViewFilter;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormFactoryInterface;

@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Menu;
 
+use Ibexa\AdminUi\Menu\MainMenuBuilder;
+use Ibexa\AdminUi\Menu\MenuItemFactory;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\UserInterface;
-use Ibexa\AdminUi\Menu\MainMenuBuilder;
-use Ibexa\AdminUi\Menu\MenuItemFactory;
 use Knp\Menu\MenuItem;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\TestBrowserToken;

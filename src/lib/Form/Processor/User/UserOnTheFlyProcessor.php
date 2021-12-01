@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Processor\User;
 
-use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\ContentForms\Data\User\UserCreateData;
 use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\ContentForms\Form\Processor\User\UserUpdateFormProcessor;
 use Ibexa\Contracts\AdminUi\Event\UserOnTheFlyEvents;
+use Ibexa\Contracts\Core\Repository\UserService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;

@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Siteaccess;
 
+use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
-use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 
 /**
  * Decorator for SiteaccessResolverInterface filtering out all non admin siteaccesses.

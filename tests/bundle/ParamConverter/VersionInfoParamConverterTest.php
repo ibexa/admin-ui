@@ -6,16 +6,16 @@
  */
 namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 
+use Ibexa\Bundle\AdminUi\ParamConverter\VersionInfoParamConverter;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Bundle\AdminUi\ParamConverter\VersionInfoParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 
 class VersionInfoParamConverterTest extends AbstractParamConverterTest
 {
-    const SUPPORTED_CLASS = VersionInfo::class;
-    const PARAMETER_NAME = 'versionInfo';
+    public const SUPPORTED_CLASS = VersionInfo::class;
+    public const PARAMETER_NAME = 'versionInfo';
 
     /** @var \Ibexa\Bundle\AdminUi\ParamConverter\VersionInfoParamConverter */
     protected $converter;

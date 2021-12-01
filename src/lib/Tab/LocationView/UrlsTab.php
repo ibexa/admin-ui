@@ -8,12 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\LocationView;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
-use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\URLAliasService;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Core\Helper\TranslationHelper;
 use Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData;
 use Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
@@ -21,6 +15,12 @@ use Ibexa\AdminUi\Specification\Location\IsRoot;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\URLAliasService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Helper\TranslationHelper;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -30,7 +30,7 @@ use Twig\Environment;
 
 class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    const URI_FRAGMENT = 'ibexa-tab-location-view-urls';
+    public const URI_FRAGMENT = 'ibexa-tab-location-view-urls';
 
     /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
     protected $urlAliasService;
@@ -108,7 +108,7 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplate(): string
     {
@@ -116,7 +116,7 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
@@ -134,20 +134,26 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
         );
 
         $customUrlPagerfanta->setMaxPerPage($customUrlsPaginationParams['limit']);
-        $customUrlPagerfanta->setCurrentPage(min($customUrlsPaginationParams['page'],
-            $customUrlPagerfanta->getNbPages()));
+        $customUrlPagerfanta->setCurrentPage(min(
+            $customUrlsPaginationParams['page'],
+            $customUrlPagerfanta->getNbPages()
+        ));
 
         $systemUrlPagerfanta = new Pagerfanta(
             new ArrayAdapter($this->urlAliasService->listLocationAliases($location, false, null, true))
         );
 
         $systemUrlPagerfanta->setMaxPerPage($systemUrlsPaginationParams['limit']);
-        $systemUrlPagerfanta->setCurrentPage(min($systemUrlsPaginationParams['page'],
-            $systemUrlPagerfanta->getNbPages()));
+        $systemUrlPagerfanta->setCurrentPage(min(
+            $systemUrlsPaginationParams['page'],
+            $systemUrlPagerfanta->getNbPages()
+        ));
 
         $customUrlAddForm = $this->createCustomUrlAddForm($location);
-        $customUrlRemoveForm = $this->createCustomUrlRemoveForm($location,
-            $customUrlPagerfanta->getCurrentPageResults());
+        $customUrlRemoveForm = $this->createCustomUrlRemoveForm(
+            $location,
+            $customUrlPagerfanta->getCurrentPageResults()
+        );
 
         $canEditCustomUrl = $this->permissionResolver->hasAccess('content', 'urltranslator');
 

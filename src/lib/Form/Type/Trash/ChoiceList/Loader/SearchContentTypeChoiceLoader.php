@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Trash\ChoiceList\Loader;
 
+use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader;
+use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
-use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader;
-use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 
@@ -33,7 +33,7 @@ class SearchContentTypeChoiceLoader extends ContentTypeChoiceLoader
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadChoiceList($value = null): ChoiceListInterface
     {

@@ -8,14 +8,14 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller\Content;
 
-use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query;
-use Ibexa\Rest\Message;
-use Ibexa\Rest\Server\Controller as RestController;
 use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode;
 use Ibexa\AdminUi\REST\Value\ContentTree\Node;
 use Ibexa\AdminUi\REST\Value\ContentTree\Root;
 use Ibexa\AdminUi\UI\Module\ContentTree\NodeFactory;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Rest\Message;
+use Ibexa\Rest\Server\Controller as RestController;
 use Symfony\Component\HttpFoundation\Request;
 
 class ContentTreeController extends RestController

@@ -17,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ObjectStateGroupDeleteType extends AbstractType
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -30,7 +30,7 @@ class ObjectStateGroupDeleteType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {

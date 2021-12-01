@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ObjectStateGroupParamConverter implements ParamConverterInterface
 {
-    const PARAMETER_OBJECT_STATE_GROUP_ID = 'objectStateGroupId';
+    public const PARAMETER_OBJECT_STATE_GROUP_ID = 'objectStateGroupId';
 
     /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
     private $objectStateService;

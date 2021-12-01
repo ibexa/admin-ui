@@ -6,11 +6,11 @@
  */
 namespace Ibexa\AdminUi\Form\DataMapper;
 
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
-use Ibexa\Core\Repository\Values\User\PolicyCreateStruct;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData;
 use Ibexa\Contracts\AdminUi\Form\DataMapper\DataMapperInterface;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Repository\Values\User\PolicyCreateStruct;
 
 /**
  * Maps between PolicyCreateStruct and LanguageCreateData objects.

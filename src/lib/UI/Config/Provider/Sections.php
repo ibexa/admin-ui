@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
-use Ibexa\Contracts\Core\Repository\SectionService;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\Contracts\Core\Repository\SectionService;
 
 /**
  * Provides information about sections.

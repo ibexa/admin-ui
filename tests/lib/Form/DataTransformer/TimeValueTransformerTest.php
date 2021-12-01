@@ -7,8 +7,8 @@
 namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
 use DateTime;
-use Ibexa\Core\FieldType\Time\Value;
 use Ibexa\AdminUi\Form\DataTransformer\FieldType\TimeValueTransformer;
+use Ibexa\Core\FieldType\Time\Value;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 

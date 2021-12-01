@@ -6,10 +6,10 @@
  */
 namespace Ibexa\AdminUi\Menu;
 
-use Ibexa\Core\Repository\Exceptions as ApiExceptions;
-use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -24,8 +24,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class SectionEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__SAVE = 'section_edit__sidebar_right__save';
-    const ITEM__CANCEL = 'section_edit__sidebar_right__cancel';
+    public const ITEM__SAVE = 'section_edit__sidebar_right__save';
+    public const ITEM__CANCEL = 'section_edit__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;

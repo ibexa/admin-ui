@@ -6,9 +6,9 @@
  */
 namespace Ibexa\AdminUi\UI\Dataset;
 
+use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\AdminUi\UI\Value\ValueFactory;
 
 class BookmarksDataset
 {

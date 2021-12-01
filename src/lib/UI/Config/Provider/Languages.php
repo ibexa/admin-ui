@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
+use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
-use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
 /**
  * Provides information about languages.

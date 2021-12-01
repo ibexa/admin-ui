@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 

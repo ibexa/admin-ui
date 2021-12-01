@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
-use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\Contracts\Core\Repository\ContentService;
 use Pagerfanta\Adapter\AdapterInterface;
 
 final class ContentDraftAdapter implements AdapterInterface

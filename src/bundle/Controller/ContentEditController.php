@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use Ibexa\Contracts\Core\Repository\ContentService;
-use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\AdminUi\Event\CancelEditVersionDraftEvent;
 use Ibexa\AdminUi\View\ContentTranslateSuccessView;
 use Ibexa\AdminUi\View\ContentTranslateView;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Event\ContentProxyTranslateEvent;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\LocationService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 

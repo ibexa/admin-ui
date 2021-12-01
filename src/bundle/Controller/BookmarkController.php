@@ -8,9 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use Ibexa\Contracts\Core\Repository\BookmarkService;
-use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\AdminUi\Form\Data\Bookmark\BookmarkRemoveData;
 use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
@@ -18,6 +15,9 @@ use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Pagination\Pagerfanta\BookmarkAdapter;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\Core\Repository\BookmarkService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

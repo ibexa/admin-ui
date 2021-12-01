@@ -22,7 +22,8 @@ final class ReorderByOrderNumberListenerTest extends TestCase
         $factory = new MenuFactory();
         $menu = $this->recursiveCreateMenuChildren(
             $factory->createItem('menu'),
-            $factory, [
+            $factory,
+            [
                 ['name' => 'first'],
                 ['name' => 'second'],
                 ['name' => 'third'],
@@ -52,7 +53,8 @@ final class ReorderByOrderNumberListenerTest extends TestCase
         $factory = new MenuFactory();
         $menu = $this->recursiveCreateMenuChildren(
             $factory->createItem('menu'),
-            $factory, [
+            $factory,
+            [
                 ['name' => 'first', 'order' => 100],
                 ['name' => 'second', 'order' => 10],
                 ['name' => 'third', 'order' => 55],
@@ -82,7 +84,8 @@ final class ReorderByOrderNumberListenerTest extends TestCase
         $factory = new MenuFactory();
         $menu = $this->recursiveCreateMenuChildren(
             $factory->createItem('menu'),
-            $factory, [
+            $factory,
+            [
                 ['name' => 'first', 'order' => 50],
                 ['name' => 'second', 'order' => 10],
                 ['name' => 'third', 'order' => 10],
@@ -112,7 +115,8 @@ final class ReorderByOrderNumberListenerTest extends TestCase
         $factory = new MenuFactory();
         $menu = $this->recursiveCreateMenuChildren(
             $factory->createItem('menu'),
-            $factory, [
+            $factory,
+            [
                 ['name' => 'first', 'order' => 100],
                 ['name' => 'unordered'],
                 ['name' => 'second', 'order' => 10],
@@ -146,7 +150,8 @@ final class ReorderByOrderNumberListenerTest extends TestCase
         $factory = new MenuFactory();
         $menu = $this->recursiveCreateMenuChildren(
             $factory->createItem('menu'),
-            $factory, [
+            $factory,
+            [
                 ['name' => 'first', 'order' => 100],
                 ['name' => 'unordered'],
                 ['name' => 'second', 'order' => 10],

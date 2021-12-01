@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\DataMapper;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Form\Data\Language\LanguageCreateData;
 use Ibexa\AdminUi\Form\Data\Section\SectionCreateData;
 use Ibexa\AdminUi\Form\DataMapper\SectionCreateMapper;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct;
 use PHPUnit\Framework\TestCase;
 
 class SelectionCreateMapperTest extends TestCase

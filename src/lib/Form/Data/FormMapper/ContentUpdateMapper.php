@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\FormMapper;
 
+use Ibexa\ContentForms\Data\Content\ContentUpdateData;
+use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
-use Ibexa\ContentForms\Data\Content\ContentUpdateData;
-use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
-use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentUpdateMapper implements FormDataMapperInterface

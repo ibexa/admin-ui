@@ -10,10 +10,10 @@ namespace Ibexa\AdminUi\EventListener;
 
 use DateTime;
 use DateTimeInterface;
-use Ibexa\Contracts\Core\Repository\UserService;
-use Ibexa\Core\MVC\Symfony\Security\UserInterface;
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Core\MVC\Symfony\Security\UserInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

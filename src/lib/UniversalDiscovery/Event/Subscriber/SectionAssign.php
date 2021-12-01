@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber;
 
+use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
+use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
-use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
-use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SectionAssign implements EventSubscriberInterface

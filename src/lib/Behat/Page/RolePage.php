@@ -9,13 +9,13 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\TableNavigationTab;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
+use Ibexa\Contracts\Core\Repository\Repository;
 use PHPUnit\Framework\Assert;
 
 class RolePage extends Page
@@ -41,7 +41,8 @@ class RolePage extends Page
     private $assignments;
 
     public function __construct(
-        Session $session, Router $router,
+        Session $session,
+        Router $router,
         TableNavigationTab $tableNavigationTab,
         Dialog $dialog,
         Repository $repository,

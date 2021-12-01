@@ -6,9 +6,9 @@
  */
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
-use Ibexa\ContentForms\Form\Type\FieldType\CountryFieldType;
 use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\Form\Type\FieldType\CountryFieldType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,7 +21,8 @@ class CountryFormMapper implements FieldDefinitionFormMapperInterface
         $fieldDefinitionForm
             ->add(
                 'isMultiple',
-                CheckboxType::class, [
+                CheckboxType::class,
+                [
                     'required' => false,
                     'property_path' => 'fieldSettings[isMultiple]',
                     'label' => /** @Desc("Multiple choice") */ 'field_definition.ezcountry.is_multiple',
@@ -33,7 +34,8 @@ class CountryFormMapper implements FieldDefinitionFormMapperInterface
                 $fieldDefinitionForm->getConfig()->getFormFactory()->createBuilder()
                     ->create(
                         'defaultValue',
-                        CountryFieldType::class, [
+                        CountryFieldType::class,
+                        [
                             'multiple' => true,
                             'expanded' => false,
                             'required' => false,

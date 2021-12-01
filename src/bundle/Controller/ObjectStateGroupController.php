@@ -8,10 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use Ibexa\Contracts\Core\Repository\ObjectStateService;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
-use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupCreateData;
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupDeleteData;
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupsDeleteData;
@@ -20,6 +16,10 @@ use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\ObjectStateService;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -114,7 +114,8 @@ class ObjectStateGroupController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form,
+            $result = $this->submitHandler->handle(
+                $form,
                 function (ObjectStateGroupCreateData $data) use ($defaultLanguageCode) {
                     $createStruct = $this->objectStateService->newObjectStateGroupCreateStruct(
                         $data->getIdentifier()
@@ -133,7 +134,8 @@ class ObjectStateGroupController extends Controller
                     return $this->redirectToRoute('ezplatform.object_state.group.view', [
                         'objectStateGroupId' => $group->id,
                     ]);
-                });
+                }
+            );
 
             if ($result instanceof Response) {
                 return $result;

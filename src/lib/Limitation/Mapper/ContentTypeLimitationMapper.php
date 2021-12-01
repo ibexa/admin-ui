@@ -6,10 +6,10 @@
  */
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
+use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 

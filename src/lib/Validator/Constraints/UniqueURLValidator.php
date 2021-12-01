@@ -6,9 +6,9 @@
  */
 namespace Ibexa\AdminUi\Validator\Constraints;
 
+use Ibexa\AdminUi\Form\Data\URL\URLUpdateData;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\URLService;
-use Ibexa\AdminUi\Form\Data\URL\URLUpdateData;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -28,7 +28,7 @@ class UniqueURLValidator extends ConstraintValidator
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate($value, Constraint $constraint)
     {

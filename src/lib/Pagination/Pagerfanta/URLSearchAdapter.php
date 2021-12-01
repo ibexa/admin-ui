@@ -35,7 +35,7 @@ class URLSearchAdapter implements AdapterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getNbResults(): int
     {
@@ -47,7 +47,7 @@ class URLSearchAdapter implements AdapterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\URL\URL[]
      */

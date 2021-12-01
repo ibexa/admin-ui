@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ContentType;
 
-use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Ibexa\AdminUi\Form\Type\FieldDefinition\FieldDefinitionType;
+use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;

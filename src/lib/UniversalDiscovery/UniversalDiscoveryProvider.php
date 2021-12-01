@@ -8,6 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UniversalDiscovery;
 
+use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
+use Ibexa\AdminUi\QueryType\LocationPathQueryType;
+use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
@@ -20,10 +24,6 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Rest\Output\Visitor;
 use Ibexa\Rest\Server\Values\Version;
-use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
-use Ibexa\AdminUi\QueryType\LocationPathQueryType;
-use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
-use Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider;
 
 class UniversalDiscoveryProvider implements Provider
 {
@@ -155,7 +155,8 @@ class UniversalDiscoveryProvider implements Provider
         return array_map(
             static function (SearchHit $searchHit) {
                 return $searchHit->valueObject;
-            }, $searchResult->searchHits
+            },
+            $searchResult->searchHits
         );
     }
 

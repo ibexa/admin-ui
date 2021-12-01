@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Policy;
 
-use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData;
 use Ibexa\AdminUi\Form\Type\Role\LimitationType;
+use Ibexa\Contracts\Core\Repository\RoleService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -33,14 +33,15 @@ class PolicyCreateWithLimitationType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add(
                 'policy',
-                PolicyChoiceType::class, [
+                PolicyChoiceType::class,
+                [
                     'label' => /** @Desc("Type") */ 'role.policy.type',
                     'placeholder' => /** @Desc("Choose a type") */ 'role.policy.type.choose',
                     'disabled' => true,
@@ -76,7 +77,7 @@ class PolicyCreateWithLimitationType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {

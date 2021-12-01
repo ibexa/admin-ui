@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
-use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\AdminUiForms;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use PHPUnit\Framework\TestCase;
 
 /**

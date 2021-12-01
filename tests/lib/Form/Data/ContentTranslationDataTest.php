@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\Data;
 
-use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
 use Ibexa\AdminUi\Form\Data\ContentTranslationData;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use PHPUnit\Framework\TestCase;
 
 class ContentTranslationDataTest extends TestCase

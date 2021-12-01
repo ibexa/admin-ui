@@ -17,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class RichTextTypeExtension extends AbstractTypeExtension
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -29,7 +29,7 @@ class RichTextTypeExtension extends AbstractTypeExtension
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {

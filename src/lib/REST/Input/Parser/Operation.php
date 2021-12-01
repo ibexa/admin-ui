@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\REST\Input\Parser;
 
+use Ibexa\AdminUi\REST\Value\Operation as OperationValue;
+use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
 use Ibexa\Rest\Exceptions;
 use Ibexa\Rest\Input\BaseParser;
-use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
-use Ibexa\AdminUi\REST\Value\Operation as OperationValue;
 
 class Operation extends BaseParser
 {

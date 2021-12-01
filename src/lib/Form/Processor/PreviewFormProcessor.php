@@ -9,15 +9,15 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Processor;
 
 use Exception;
+use Ibexa\AdminUi\Form\Event\ContentEditEvents;
+use Ibexa\ContentForms\Data\NewnessCheckable;
+use Ibexa\ContentForms\Event\FormActionEvent;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\ContentForms\Data\NewnessCheckable;
-use Ibexa\ContentForms\Event\FormActionEvent;
-use Ibexa\AdminUi\Form\Event\ContentEditEvents;
-use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -58,7 +58,7 @@ class PreviewFormProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents(): array
     {

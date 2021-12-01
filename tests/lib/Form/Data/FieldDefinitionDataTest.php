@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\Data;
 
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use PHPUnit\Framework\TestCase;
 
 class FieldDefinitionDataTest extends TestCase

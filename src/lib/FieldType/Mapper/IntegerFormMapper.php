@@ -6,9 +6,9 @@
  */
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
-use Ibexa\ContentForms\Form\Type\FieldType\IntegerFieldType;
 use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\Form\Type\FieldType\IntegerFieldType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,7 +34,9 @@ class IntegerFormMapper implements FieldDefinitionFormMapperInterface
 
         $fieldDefinitionForm
             ->add(
-                'minValue', IntegerType::class, [
+                'minValue',
+                IntegerType::class,
+                [
                     'required' => false,
                     'property_path' => 'validatorConfiguration[IntegerValueValidator][minIntegerValue]',
                     'label' => /** @Desc("Minimum value") */ 'field_definition.ezinteger.min_value',
@@ -42,7 +44,9 @@ class IntegerFormMapper implements FieldDefinitionFormMapperInterface
                 ]
             )
             ->add(
-                'maxValue', IntegerType::class, [
+                'maxValue',
+                IntegerType::class,
+                [
                     'required' => false,
                     'property_path' => 'validatorConfiguration[IntegerValueValidator][maxIntegerValue]',
                     'label' => /** @Desc("Maximum value") */ 'field_definition.ezinteger.max_value',

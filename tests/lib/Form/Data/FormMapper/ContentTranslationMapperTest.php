@@ -8,6 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\Data\FormMapper;
 
+use Ibexa\AdminUi\Form\Data\ContentTranslationData;
+use Ibexa\AdminUi\Form\Data\FormMapper\ContentTranslationMapper;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\Contracts\Core\FieldType\Value;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
@@ -17,10 +21,6 @@ use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
-use Ibexa\Contracts\Core\FieldType\Value;
-use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
-use Ibexa\AdminUi\Form\Data\ContentTranslationData;
-use Ibexa\AdminUi\Form\Data\FormMapper\ContentTranslationMapper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;

@@ -8,6 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\Processor;
 
+use Ibexa\AdminUi\Form\Event\ContentEditEvents;
+use Ibexa\AdminUi\Form\Processor\PreviewFormProcessor;
+use Ibexa\ContentForms\Data\Content\ContentCreateData;
+use Ibexa\ContentForms\Event\FormActionEvent;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
@@ -17,12 +23,6 @@ use Ibexa\Core\Repository\Values\Content\Content;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\ContentForms\Data\Content\ContentCreateData;
-use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
-use Ibexa\ContentForms\Event\FormActionEvent;
-use Ibexa\AdminUi\Form\Event\ContentEditEvents;
-use Ibexa\AdminUi\Form\Processor\PreviewFormProcessor;
-use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormConfigInterface;
@@ -85,7 +85,9 @@ class PreviewFormProcessorTest extends TestCase
 
         /** $data variable in PreviewFormProcessor class */
         $contentStruct = $this->generateContentStruct(
-            $languageCode, $fieldDefinitionIdentifier, $fieldDataValue
+            $languageCode,
+            $fieldDefinitionIdentifier,
+            $fieldDataValue
         );
 
         $contentDraft = $this->generateContentDraft($contentDraftId, $languageCode, $locationId);

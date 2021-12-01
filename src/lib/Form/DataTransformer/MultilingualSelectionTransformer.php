@@ -30,7 +30,7 @@ class MultilingualSelectionTransformer implements DataTransformerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function transform($value)
     {
@@ -38,7 +38,7 @@ class MultilingualSelectionTransformer implements DataTransformerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function reverseTransform($value)
     {

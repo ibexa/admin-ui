@@ -8,14 +8,14 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\LocationView;
 
-use Ibexa\Contracts\Core\Repository\ContentService;
-use Ibexa\Contracts\Core\Repository\ContentTypeService;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\AdminUi\Pagination\Pagerfanta\ReverseRelationAdapter;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -104,7 +104,7 @@ class RelationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplate(): string
     {
@@ -112,7 +112,7 @@ class RelationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {

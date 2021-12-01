@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Content\Location;
 
-use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData;
 use Ibexa\AdminUi\Form\Type\Content\ContentInfoType;
 use Ibexa\AdminUi\Form\Type\Content\LocationType;
+use Ibexa\Contracts\Core\Repository\LocationService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;

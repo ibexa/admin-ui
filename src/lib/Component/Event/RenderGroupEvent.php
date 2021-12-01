@@ -13,7 +13,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class RenderGroupEvent extends Event
 {
-    const NAME = 'ezplatform_admin_ui.component.render_group';
+    public const NAME = 'ezplatform_admin_ui.component.render_group';
 
     /** @var \Ibexa\AdminUi\Component\Registry */
     private $registry;

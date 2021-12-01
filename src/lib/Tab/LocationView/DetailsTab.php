@@ -9,12 +9,6 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Tab\LocationView;
 
 use ArrayObject;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\SectionService;
-use Ibexa\Contracts\Core\Repository\UserService;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\AdminUi\Form\Data\Location\LocationAssignSubtreeData;
 use Ibexa\AdminUi\Form\Data\Location\LocationUpdateData;
 use Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData;
@@ -25,6 +19,12 @@ use Ibexa\AdminUi\Specification\UserExists;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -32,7 +32,7 @@ use Twig\Environment;
 
 class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    const URI_FRAGMENT = 'ibexa-tab-location-view-details';
+    public const URI_FRAGMENT = 'ibexa-tab-location-view-details';
 
     /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
     protected $fieldsGroupsListHelper;
@@ -107,7 +107,7 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplate(): string
     {
@@ -115,7 +115,7 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
@@ -206,7 +206,9 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
                 $objectStateUpdateForm = $this->formFactory->create(
                     ContentObjectStateUpdateType::class,
                     new ContentObjectStateUpdateData(
-                        $contentInfo, $objectStateGroup, $objectState
+                        $contentInfo,
+                        $objectStateGroup,
+                        $objectState
                     )
                 )->createView();
 
@@ -249,7 +251,8 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
                 $assignSectionToSubtreeForm = $this->formFactory->create(
                     LocationAssignSectionType::class,
                     new LocationAssignSubtreeData(
-                        $section, $location
+                        $section,
+                        $location
                     )
                 )->createView();
 

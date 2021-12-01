@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Validator\Constraints;
 
-use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\AdminUi\Specification\Location\HasChildren;
+use Ibexa\Contracts\Core\Repository\LocationService;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 

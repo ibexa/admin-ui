@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\Dashboard;
 
+use Ibexa\AdminUi\Pagination\Mapper\AbstractPagerContentToDataMapper;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\LanguageService;
@@ -15,7 +16,6 @@ use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Core\Helper\TranslationHelper;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\Repository\LocationResolver\LocationResolver;
-use Ibexa\AdminUi\Pagination\Mapper\AbstractPagerContentToDataMapper;
 use Pagerfanta\Pagerfanta;
 
 class PagerContentToDataMapper extends AbstractPagerContentToDataMapper

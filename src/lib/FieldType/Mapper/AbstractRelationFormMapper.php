@@ -6,9 +6,9 @@
  */
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
+use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 
 abstract class AbstractRelationFormMapper implements FieldDefinitionFormMapperInterface
 {

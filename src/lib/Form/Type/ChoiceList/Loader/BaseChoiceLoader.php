@@ -23,7 +23,7 @@ abstract class BaseChoiceLoader implements ChoiceLoaderInterface
     abstract public function getChoiceList(): array;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadChoiceList($value = null)
     {
@@ -31,7 +31,7 @@ abstract class BaseChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadChoicesForValues(array $values, $value = null)
     {
@@ -45,7 +45,7 @@ abstract class BaseChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadValuesForChoices(array $choices, $value = null)
     {

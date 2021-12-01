@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification\Location;
 
-use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\AdminUi\Specification\AbstractSpecification;
+use Ibexa\Contracts\Core\Repository\LocationService;
 
 class HasChildren extends AbstractSpecification
 {

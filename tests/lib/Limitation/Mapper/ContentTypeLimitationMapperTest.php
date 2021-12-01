@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
+use Ibexa\AdminUi\Limitation\Mapper\ContentTypeLimitationMapper;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
-use Ibexa\AdminUi\Limitation\Mapper\ContentTypeLimitationMapper;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 

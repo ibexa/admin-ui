@@ -24,19 +24,22 @@ class RoleAssignmentCreateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('groups',
+            ->add(
+                'groups',
                 UserGroupCollectionType::class,
                 [
                     'label' => /** @Desc("Group") */ 'role_assignment.groups',
                 ]
             )
-            ->add('users',
+            ->add(
+                'users',
                 UserCollectionType::class,
                 [
                     'label' => /** @Desc("User") */ 'role_assignment.users',
                 ]
             )
-            ->add('sections',
+            ->add(
+                'sections',
                 SectionChoiceType::class,
                 [
                     'required' => false,
@@ -44,7 +47,8 @@ class RoleAssignmentCreateType extends AbstractType
                     'label' => /** @Desc("Section") */ 'role_assignment.sections',
                 ]
             )
-            ->add('locations',
+            ->add(
+                'locations',
                 LocationType::class,
                 [
                     'required' => false,

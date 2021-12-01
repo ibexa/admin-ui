@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UniversalDiscovery;
 
-use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ConfigResolver

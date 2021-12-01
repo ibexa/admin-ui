@@ -6,12 +6,12 @@
  */
 namespace Ibexa\AdminUi\Menu;
 
-use Ibexa\Core\Repository\Exceptions as ApiExceptions;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\TrashService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
-use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
-use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -26,7 +26,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class TrashRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__EMPTY = 'trash__sidebar_right__empty_trash';
+    public const ITEM__EMPTY = 'trash__sidebar_right__empty_trash';
 
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;

@@ -6,14 +6,14 @@
  */
 namespace Ibexa\AdminUi\EventListener;
 
+use Ibexa\AdminUi\View\ContentTranslateView;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Core\MVC\Symfony\View\Event\FilterViewParametersEvent;
 use Ibexa\Core\MVC\Symfony\View\ViewEvents;
-use Ibexa\AdminUi\View\ContentTranslateView;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * @inheritdoc
+ * {@inheritdoc}
  */
 class ContentTranslateViewFilterParametersListener implements EventSubscriberInterface
 {

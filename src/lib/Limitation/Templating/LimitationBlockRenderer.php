@@ -8,18 +8,18 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Templating;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\AdminUi\Exception\MissingLimitationBlockException;
 use Ibexa\AdminUi\Exception\ValueMapperNotFoundException;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperRegistryInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Twig\Environment;
 
 class LimitationBlockRenderer implements LimitationBlockRendererInterface
 {
-    const LIMITATION_VALUE_BLOCK_NAME = 'ez_limitation_%s_value';
-    const LIMITATION_VALUE_BLOCK_NAME_FALLBACK = 'ez_limitation_value_fallback';
+    public const LIMITATION_VALUE_BLOCK_NAME = 'ez_limitation_%s_value';
+    public const LIMITATION_VALUE_BLOCK_NAME_FALLBACK = 'ez_limitation_value_fallback';
 
     /** @var \Ibexa\AdminUi\Limitation\LimitationValueMapperRegistryInterface */
     private $valueMapperRegistry;

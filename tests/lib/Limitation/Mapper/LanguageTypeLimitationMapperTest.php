@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
+use Ibexa\AdminUi\Limitation\Mapper\LanguageLimitationMapper;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation;
-use Ibexa\AdminUi\Limitation\Mapper\LanguageLimitationMapper;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 

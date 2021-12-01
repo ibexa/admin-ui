@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
+use Ibexa\AdminUi\Form\DataTransformer\LocationTransformer;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
 use Ibexa\Core\Repository\Values\Content\Location;
-use Ibexa\AdminUi\Form\DataTransformer\LocationTransformer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 

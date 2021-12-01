@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Siteaccess;
 
+use Ibexa\AdminUi\Siteaccess\AdminSiteaccessPreviewVoter;
+use Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterContext;
 use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\Repository\Values\Content\Location;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\AdminUi\Siteaccess\AdminSiteaccessPreviewVoter;
-use Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterContext;
 use PHPUnit\Framework\TestCase;
 
 class AdminSiteaccessPreviewVoterTest extends TestCase

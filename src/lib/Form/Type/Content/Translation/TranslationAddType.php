@@ -8,6 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Content\Translation;
 
+use Ibexa\AdminUi\Form\Data\Content\Translation\TranslationAddData;
+use Ibexa\AdminUi\Form\Type\Content\LocationType;
+use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
+use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
@@ -17,10 +21,6 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\Contracts\Core\Limitation\Target;
-use Ibexa\AdminUi\Form\Data\Content\Translation\TranslationAddData;
-use Ibexa\AdminUi\Form\Type\Content\LocationType;
-use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

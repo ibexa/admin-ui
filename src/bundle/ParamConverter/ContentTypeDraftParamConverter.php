@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ContentTypeDraftParamConverter implements ParamConverterInterface
 {
-    const PARAMETER_CONTENT_TYPE_ID = 'contentTypeId';
+    public const PARAMETER_CONTENT_TYPE_ID = 'contentTypeId';
 
     /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
@@ -30,7 +30,7 @@ class ContentTypeDraftParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
@@ -48,7 +48,7 @@ class ContentTypeDraftParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(ParamConverter $configuration)
     {

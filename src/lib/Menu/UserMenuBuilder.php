@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -24,11 +24,11 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    const ITEM_LOGOUT = 'user__content';
-    const ITEM_USER_SETTINGS = 'user__settings';
-    const ITEM_BOOKMARK = 'user__bookmark';
-    const ITEM_DRAFTS = 'user__drafts';
-    const ITEM_NOTIFICATION = 'menu.notification';
+    public const ITEM_LOGOUT = 'user__content';
+    public const ITEM_USER_SETTINGS = 'user__settings';
+    public const ITEM_BOOKMARK = 'user__bookmark';
+    public const ITEM_DRAFTS = 'user__drafts';
+    public const ITEM_NOTIFICATION = 'menu.notification';
 
     /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
     private $tokenStorage;

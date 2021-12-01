@@ -18,8 +18,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class URLWildcardEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__SAVE = 'url_wildcard_edit__sidebar_right__save';
-    const ITEM__CANCEL = 'url_wildcard_edit__sidebar_right__cancel';
+    public const ITEM__SAVE = 'url_wildcard_edit__sidebar_right__save';
+    public const ITEM__CANCEL = 'url_wildcard_edit__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;

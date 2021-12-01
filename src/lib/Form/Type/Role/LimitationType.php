@@ -6,9 +6,9 @@
  */
 namespace Ibexa\AdminUi\Form\Type\Role;
 
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
 use Ibexa\AdminUi\Limitation\LimitationFormMapperRegistryInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;

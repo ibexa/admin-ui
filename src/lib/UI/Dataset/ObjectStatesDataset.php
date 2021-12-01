@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Dataset;
 
+use Ibexa\AdminUi\UI\Value as UIValue;
+use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ObjectStateService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
-use Ibexa\AdminUi\UI\Value as UIValue;
-use Ibexa\AdminUi\UI\Value\ValueFactory;
 
 class ObjectStatesDataset
 {

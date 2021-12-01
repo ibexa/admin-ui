@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use Ibexa\Contracts\Core\Repository\URLAliasService;
 use Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData;
 use Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Tab\LocationView\UrlsTab;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\Core\Repository\URLAliasService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

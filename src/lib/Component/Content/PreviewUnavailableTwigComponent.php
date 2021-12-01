@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Component\Content;
 
+use Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver;
+use Ibexa\Contracts\AdminUi\Component\Renderable;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver;
-use Ibexa\Contracts\AdminUi\Component\Renderable;
 use Twig\Environment;
 
 class PreviewUnavailableTwigComponent implements Renderable

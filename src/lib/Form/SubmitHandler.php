@@ -9,14 +9,14 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form;
 
 use Exception;
-use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
-use Ibexa\User\Form\SubmitHandler as UserActionsSubmitHandler;
 use Ibexa\AdminUi\UI\Action\FormUiActionMappingDispatcher;
 use Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface;
 use Ibexa\Contracts\AdminUi\UI\Action\EventDispatcherInterface;
 use Ibexa\Contracts\AdminUi\UI\Action\UiActionEventInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\User\Form\SubmitHandler as UserActionsSubmitHandler;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -84,17 +84,20 @@ class SubmitHandler implements UserActionsSubmitHandler
                 }
             } catch (ForbiddenException | NotFoundException | UnauthorizedException $e) {
                 $this->notificationHandler->error(/** @Ignore */
-                $e->getMessage());
+                $e->getMessage()
+                );
             } catch (Exception $e) {
                 $this->logException($e);
 
                 $this->notificationHandler->error(/** @Ignore */
-                $e->getMessage());
+                $e->getMessage()
+                );
             }
         } else {
             foreach ($form->getErrors(true, true) as $formError) {
                 $this->notificationHandler->warning(/** @Ignore */
-                $formError->getMessage());
+                $formError->getMessage()
+                );
             }
         }
 

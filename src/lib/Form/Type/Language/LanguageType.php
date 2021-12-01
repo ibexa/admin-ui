@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Language;
 
-use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\AdminUi\Form\DataTransformer\LanguageTransformer;
+use Ibexa\Contracts\Core\Repository\LanguageService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;

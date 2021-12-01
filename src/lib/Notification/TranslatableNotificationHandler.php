@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Notification;
 
-use Ibexa\User\ExceptionHandler\ActionResultHandler;
 use Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\User\ExceptionHandler\ActionResultHandler;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class TranslatableNotificationHandler implements TranslatableNotificationHandlerInterface, ActionResultHandler
@@ -39,7 +39,8 @@ final class TranslatableNotificationHandler implements TranslatableNotificationH
             $locale
         );
         $this->notificationHandler->info(/** @Ignore */
-        $translatedMessage);
+        $translatedMessage
+        );
     }
 
     public function success(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void
@@ -52,7 +53,8 @@ final class TranslatableNotificationHandler implements TranslatableNotificationH
             $locale
         );
         $this->notificationHandler->success(/** @Ignore */
-        $translatedMessage);
+        $translatedMessage
+        );
     }
 
     public function warning(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void
@@ -65,7 +67,8 @@ final class TranslatableNotificationHandler implements TranslatableNotificationH
             $locale
         );
         $this->notificationHandler->warning(/** @Ignore */
-        $translatedMessage);
+        $translatedMessage
+        );
     }
 
     public function error(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void
@@ -78,7 +81,8 @@ final class TranslatableNotificationHandler implements TranslatableNotificationH
             $locale
         );
         $this->notificationHandler->error(/** @Ignore */
-        $translatedMessage);
+        $translatedMessage
+        );
     }
 }
 

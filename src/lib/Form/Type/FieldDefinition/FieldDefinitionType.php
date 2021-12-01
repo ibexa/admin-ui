@@ -6,12 +6,12 @@
  */
 namespace Ibexa\AdminUi\Form\Type\FieldDefinition;
 
-use Ibexa\Contracts\Core\Repository\FieldTypeService;
-use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
-use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy;
 use Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\AdminUi\Form\DataTransformer\TranslatablePropertyTransformer;
+use Ibexa\Contracts\Core\Repository\FieldTypeService;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy;
+use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -76,12 +76,14 @@ class FieldDefinitionType extends AbstractType
 
         $builder
             ->add(
-                $builder->create('name',
+                $builder->create(
+                    'name',
                     TextType::class,
                     [
                         'property_path' => 'names',
                         'label' => /** @Desc("Name") */ 'field_definition.name',
-                    ])
+                    ]
+                )
                     ->addModelTransformer($translatablePropertyTransformer)
             )
             ->add(
@@ -111,7 +113,9 @@ class FieldDefinitionType extends AbstractType
                 'disabled' => $isTranslation,
             ])
             ->add(
-                'fieldGroup', ChoiceType::class, [
+                'fieldGroup',
+                ChoiceType::class,
+                [
                     'choices' => $fieldsGroups,
                     'required' => false,
                     'label' => /** @Desc("Category") */ 'field_definition.field_group',

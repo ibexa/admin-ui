@@ -19,9 +19,9 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ContentParamConverter implements ParamConverterInterface
 {
-    const PARAMETER_CONTENT_ID = 'contentId';
-    const PARAMETER_VERSION_NO = 'versionNo';
-    const PARAMETER_LANGUAGE_CODE = 'languageCode';
+    public const PARAMETER_CONTENT_ID = 'contentId';
+    public const PARAMETER_VERSION_NO = 'versionNo';
+    public const PARAMETER_LANGUAGE_CODE = 'languageCode';
 
     /**
      * @var \Ibexa\Contracts\Core\Repository\ContentService
@@ -37,7 +37,7 @@ class ContentParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
@@ -60,7 +60,7 @@ class ContentParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(ParamConverter $configuration): bool
     {

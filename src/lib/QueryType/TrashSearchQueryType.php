@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\QueryType;
 
+use Ibexa\AdminUi\Form\Data\Search\TrashSearchData;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
@@ -15,7 +16,6 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\QueryType\OptionsResolverBasedQueryType;
-use Ibexa\AdminUi\Form\Data\Search\TrashSearchData;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class TrashSearchQueryType extends OptionsResolverBasedQueryType

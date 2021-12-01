@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentDepthLimitation;
 use Ibexa\AdminUi\Limitation\Mapper\ParentDepthLimitationMapper;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentDepthLimitation;
 use PHPUnit\Framework\TestCase;
 
 class ParentDepthLimitationMapperTest extends TestCase

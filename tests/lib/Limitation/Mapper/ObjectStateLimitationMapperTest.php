@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
+use Ibexa\AdminUi\Limitation\Mapper\ObjectStateLimitationMapper;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\ObjectStateService;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ObjectStateLimitation;
 use Ibexa\Core\Repository\Values\ObjectState\ObjectState;
-use Ibexa\AdminUi\Limitation\Mapper\ObjectStateLimitationMapper;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 

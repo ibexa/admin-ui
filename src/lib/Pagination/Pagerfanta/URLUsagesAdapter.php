@@ -33,7 +33,7 @@ class URLUsagesAdapter implements AdapterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getNbResults(): int
     {
@@ -41,7 +41,7 @@ class URLUsagesAdapter implements AdapterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[]
      */

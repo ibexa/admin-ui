@@ -6,10 +6,10 @@
  */
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\AdminUi\Siteaccess\SiteAccessKeyGeneratorInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 
 class SiteAccessLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
 {

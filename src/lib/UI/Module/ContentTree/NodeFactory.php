@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Module\ContentTree;
 
+use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode;
+use Ibexa\AdminUi\REST\Value\ContentTree\Node;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
 use Ibexa\Contracts\Core\Repository\SearchService;
@@ -21,8 +23,6 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Helper\TranslationHelper;
 use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode;
-use Ibexa\AdminUi\REST\Value\ContentTree\Node;
 
 /**
  * @internal

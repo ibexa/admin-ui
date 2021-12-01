@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\Dashboard;
 
+use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 use Ibexa\Core\QueryType\QueryType;
-use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
-use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Pagerfanta\Pagerfanta;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;

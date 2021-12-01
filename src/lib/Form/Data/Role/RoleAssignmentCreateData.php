@@ -17,9 +17,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class RoleAssignmentCreateData implements TranslationContainerInterface
 {
-    const LIMITATION_TYPE_NONE = 'none';
-    const LIMITATION_TYPE_SECTION = 'section';
-    const LIMITATION_TYPE_LOCATION = 'location';
+    public const LIMITATION_TYPE_NONE = 'none';
+    public const LIMITATION_TYPE_SECTION = 'section';
+    public const LIMITATION_TYPE_LOCATION = 'location';
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[] */
     private $groups;
@@ -190,7 +190,8 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
     {
         if (empty($this->getUsers()) && empty($this->getGroups())) {
             $context->buildViolation(
-            'validator.assign_users_or_groups')
+                'validator.assign_users_or_groups'
+            )
                 ->setTranslationDomain('role')
                 ->addViolation();
         }

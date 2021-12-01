@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification\Content;
 
-use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\AdminUi\Specification\AbstractSpecification;
+use Ibexa\Contracts\Core\Repository\ContentService;
 
 class ContentDraftHasConflict extends AbstractSpecification
 {

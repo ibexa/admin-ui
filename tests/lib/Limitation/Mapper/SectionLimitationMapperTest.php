@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
+use Ibexa\AdminUi\Limitation\Mapper\SectionLimitationMapper;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\SectionService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
-use Ibexa\AdminUi\Limitation\Mapper\SectionLimitationMapper;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 

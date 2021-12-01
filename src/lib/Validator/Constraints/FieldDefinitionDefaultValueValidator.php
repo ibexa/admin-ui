@@ -6,10 +6,10 @@
  */
 namespace Ibexa\AdminUi\Validator\Constraints;
 
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\Contracts\Core\FieldType\Value;
-use Ibexa\ContentForms\Validator\Constraints\FieldTypeValidator;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\Validator\Constraints\FieldTypeValidator;
+use Ibexa\Contracts\Core\FieldType\Value;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Symfony\Component\Validator\Constraint;
 
 /**

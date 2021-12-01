@@ -88,7 +88,7 @@ class LocationTrashType extends AbstractType
     {
         $form->add(
             'confirm',
-                ChoiceType::class,
+            ChoiceType::class,
             [
                 'expanded' => true,
                 'multiple' => true,

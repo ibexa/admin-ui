@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\LocationView;
 
+use Ibexa\AdminUi\Util\FieldDefinitionGroupsUtil;
+use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\AdminUi\Util\FieldDefinitionGroupsUtil;
-use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
-use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -62,7 +62,7 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplate(): string
     {
@@ -70,7 +70,7 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {

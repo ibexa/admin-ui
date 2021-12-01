@@ -27,11 +27,11 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
 {
     use LoggerAwareTrait;
 
-    const TRANSLATOR_OBJECT = 'Translator';
-    const TRANSLATOR_METHOD = 'trans';
+    public const TRANSLATOR_OBJECT = 'Translator';
+    public const TRANSLATOR_METHOD = 'trans';
 
-    const ID_ARG = 0;
-    const DOMAIN_ARG = 2;
+    public const ID_ARG = 0;
+    public const DOMAIN_ARG = 2;
 
     /** @var \Doctrine\Common\Annotations\DocParser */
     private $docParser;

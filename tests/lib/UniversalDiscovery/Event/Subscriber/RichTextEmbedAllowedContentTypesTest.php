@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\UniversalDiscovery\Event\Subscriber;
 
+use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
+use Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber\RichTextEmbedAllowedContentTypes;
+use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
-use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
-use Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber\RichTextEmbedAllowedContentTypes;
-use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use PHPUnit\Framework\TestCase;
 
 final class RichTextEmbedAllowedContentTypesTest extends TestCase

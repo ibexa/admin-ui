@@ -8,19 +8,19 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Permission;
 
+use Ibexa\AdminUi\Permission\PermissionChecker;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
-use Ibexa\Core\Repository\Values\Content;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Core\Repository\Values\Content;
 use Ibexa\Core\Repository\Values\Content as CoreContent;
 use Ibexa\Core\Repository\Values\User\Policy;
 use Ibexa\Core\Repository\Values\User\User as CoreUser;
-use Ibexa\AdminUi\Permission\PermissionChecker;
 use PHPUnit\Framework\TestCase;
 
 class PermissionCheckerTest extends TestCase

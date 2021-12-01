@@ -8,6 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\View\Builder;
 
+use Ibexa\AdminUi\View\ContentTranslateSuccessView;
+use Ibexa\AdminUi\View\ContentTranslateView;
+use Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
@@ -17,9 +20,6 @@ use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\MVC\Symfony\View\Builder\ViewBuilder;
 use Ibexa\Core\MVC\Symfony\View\Configurator;
 use Ibexa\Core\MVC\Symfony\View\ParametersInjector;
-use Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface;
-use Ibexa\AdminUi\View\ContentTranslateSuccessView;
-use Ibexa\AdminUi\View\ContentTranslateView;
 
 /**
  * Builds ContentEditView objects.
@@ -65,7 +65,7 @@ class ContentTranslateViewBuilder implements ViewBuilder
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function matches($argument)
     {

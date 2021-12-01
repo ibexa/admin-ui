@@ -8,6 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
+use Ibexa\AdminUi\Form\Data\Role\RoleAssignmentCreateData;
+use Ibexa\AdminUi\Form\Data\Role\RoleAssignmentDeleteData;
+use Ibexa\AdminUi\Form\Data\Role\RoleAssignmentsDeleteData;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
@@ -16,13 +23,6 @@ use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
 use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
-use Ibexa\AdminUi\Form\Data\Role\RoleAssignmentCreateData;
-use Ibexa\AdminUi\Form\Data\Role\RoleAssignmentDeleteData;
-use Ibexa\AdminUi\Form\Data\Role\RoleAssignmentsDeleteData;
-use Ibexa\AdminUi\Form\Factory\FormFactory;
-use Ibexa\AdminUi\Form\SubmitHandler;
-use Ibexa\Contracts\AdminUi\Controller\Controller;
-use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RedirectResponse;

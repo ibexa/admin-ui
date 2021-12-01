@@ -6,9 +6,9 @@
  */
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
-use Ibexa\ContentForms\Form\Type\FieldType\ISBNFieldType;
 use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\Form\Type\FieldType\ISBNFieldType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,7 +32,9 @@ class ISBNFormMapper implements FieldDefinitionFormMapperInterface
 
         $fieldDefinitionForm
             ->add(
-                'isISBN13', CheckboxType::class, [
+                'isISBN13',
+                CheckboxType::class,
+                [
                     'required' => false,
                     'property_path' => 'fieldSettings[isISBN13]',
                     'label' => /** @Desc("ISBN-13 format") */ 'field_definition.ezisbn.is_isbn13',

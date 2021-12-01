@@ -33,7 +33,7 @@ class UDWBasedValueModelTransformer implements DataTransformerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]|null
      */
@@ -57,7 +57,7 @@ class UDWBasedValueModelTransformer implements DataTransformerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @return int[]|null
      */

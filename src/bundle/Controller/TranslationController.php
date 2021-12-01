@@ -6,8 +6,6 @@
  */
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use Ibexa\Contracts\Core\Repository\ContentService;
-use Ibexa\Core\Helper\TranslationHelper;
 use Ibexa\AdminUi\Form\Data\Content\Translation\TranslationAddData;
 use Ibexa\AdminUi\Form\Data\Content\Translation\TranslationDeleteData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
@@ -15,6 +13,8 @@ use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Tab\LocationView\TranslationsTab;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Core\Helper\TranslationHelper;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

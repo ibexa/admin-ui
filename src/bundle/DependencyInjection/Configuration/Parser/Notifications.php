@@ -28,7 +28,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 class Notifications extends AbstractParser
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer)
     {
@@ -55,7 +55,7 @@ class Notifications extends AbstractParser
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addSemanticConfig(NodeBuilder $nodeBuilder)
     {

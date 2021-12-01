@@ -32,7 +32,7 @@ class ContentTypeDiscardChangesFormProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents(): array
     {

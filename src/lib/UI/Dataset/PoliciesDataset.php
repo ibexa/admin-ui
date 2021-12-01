@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Dataset;
 
+use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
+use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
+use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\User\Policy;
-use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
-use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
-use Ibexa\AdminUi\UI\Value\ValueFactory;
 
 class PoliciesDataset
 {

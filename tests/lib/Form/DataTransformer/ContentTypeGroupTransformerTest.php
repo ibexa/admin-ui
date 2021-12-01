@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
+use Ibexa\AdminUi\Form\DataTransformer\ContentTypeGroupTransformer;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup as APIContentTypeGroup;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeGroup;
-use Ibexa\AdminUi\Form\DataTransformer\ContentTypeGroupTransformer;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Form\Exception\TransformationFailedException;

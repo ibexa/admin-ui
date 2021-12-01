@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config\Provider\Module;
 
-use Ibexa\User\UserSetting\UserSettingService;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\User\UserSetting\UserSettingService;
 
 /**
  * Provides information about current setting for sub-items list.

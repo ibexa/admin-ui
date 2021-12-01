@@ -7,11 +7,11 @@
 namespace Ibexa\AdminUi\Behat\Component\Table;
 
 use Behat\Mink\Session;
-use Ibexa\Core\Base\Exceptions\BadStateException;
 use Ibexa\AdminUi\Behat\Component\Pagination;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\LocatorCollection;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
+use Ibexa\Core\Base\Exceptions\BadStateException;
 
 class TableBuilder
 {
@@ -26,6 +26,7 @@ class TableBuilder
 
     /** @var \Ibexa\Behat\Browser\Locator\LocatorCollection */
     private $locators;
+
     /**
      * @var bool
      */

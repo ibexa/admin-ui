@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\REST\Input\Parser\ContentTree;
 
+use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequest as LoadSubtreeRequestValue;
+use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
 use Ibexa\Rest\Exceptions;
 use Ibexa\Rest\Input\BaseParser;
-use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
-use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequest as LoadSubtreeRequestValue;
 
 class LoadSubtreeRequest extends BaseParser
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function parse(array $data, ParsingDispatcher $parsingDispatcher): LoadSubtreeRequestValue
     {

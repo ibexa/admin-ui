@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Content;
 
-use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\AdminUi\Form\DataTransformer\ContentTransformer;
+use Ibexa\Contracts\Core\Repository\ContentService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,7 +28,7 @@ class ContentType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -36,7 +36,7 @@ class ContentType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getParent(): ?string
     {

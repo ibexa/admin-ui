@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Dataset;
 
+use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\ContentDraftListItemInterface;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
-use Ibexa\AdminUi\UI\Value\ValueFactory;
 
 class ContentDraftListDataset
 {

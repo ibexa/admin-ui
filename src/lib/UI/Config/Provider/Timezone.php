@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
-use Ibexa\User\UserSetting\UserSettingService;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\User\UserSetting\UserSettingService;
 
 class Timezone implements ProviderInterface
 {
@@ -25,7 +25,7 @@ class Timezone implements ProviderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @return string
      *

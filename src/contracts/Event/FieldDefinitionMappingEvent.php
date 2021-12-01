@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\AdminUi\Event;
 
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class FieldDefinitionMappingEvent extends Event

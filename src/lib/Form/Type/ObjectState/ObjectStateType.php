@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ObjectState;
 
-use Ibexa\Contracts\Core\Repository\ObjectStateService;
 use Ibexa\AdminUi\Form\DataTransformer\ObjectStateTransformer;
+use Ibexa\Contracts\Core\Repository\ObjectStateService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;

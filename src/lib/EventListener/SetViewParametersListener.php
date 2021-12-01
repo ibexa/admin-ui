@@ -8,6 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\EventListener;
 
+use Ibexa\AdminUi\View\ContentTranslateView;
+use Ibexa\ContentForms\Content\View\ContentCreateView;
+use Ibexa\ContentForms\Content\View\ContentEditView;
+use Ibexa\ContentForms\User\View\UserUpdateView;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Repository;
@@ -19,10 +23,6 @@ use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\View\View;
-use Ibexa\ContentForms\Content\View\ContentCreateView;
-use Ibexa\ContentForms\Content\View\ContentEditView;
-use Ibexa\ContentForms\User\View\UserUpdateView;
-use Ibexa\AdminUi\View\ContentTranslateView;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

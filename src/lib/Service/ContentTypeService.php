@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Service;
 
-use Ibexa\Core\Repository;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Core\Repository;
 use Symfony\Component\Form\FormFactoryInterface;
 
 class ContentTypeService
@@ -36,7 +36,8 @@ class ContentTypeService
     public function __construct(
         Repository\ContentTypeService $contentTypeService,
         FormFactoryInterface $formFactory,
-        array $prioritizedLanguages)
+        array $prioritizedLanguages
+    )
     {
         $this->contentTypeService = $contentTypeService;
         $this->formFactory = $formFactory;

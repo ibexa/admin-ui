@@ -6,11 +6,11 @@
  */
 namespace Ibexa\AdminUi\Form\DataMapper;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Form\Data\Section\SectionCreateData;
 use Ibexa\Contracts\AdminUi\Form\DataMapper\DataMapperInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * Maps between SectionCreateStruct and SectionCreateData objects.

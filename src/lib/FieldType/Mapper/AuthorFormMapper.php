@@ -6,12 +6,12 @@
  */
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
-use Ibexa\Core\FieldType\Author\Type;
-use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
-use Ibexa\Contracts\ContentForms\FieldType\FieldValueFormMapperInterface;
-use Ibexa\ContentForms\Form\Type\FieldType\AuthorFieldType;
 use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\Form\Type\FieldType\AuthorFieldType;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\Contracts\ContentForms\FieldType\FieldValueFormMapperInterface;
+use Ibexa\Core\FieldType\Author\Type;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

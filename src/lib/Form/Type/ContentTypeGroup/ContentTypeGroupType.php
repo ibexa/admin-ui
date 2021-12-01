@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ContentTypeGroup;
 
-use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\AdminUi\Form\DataTransformer\ContentTypeGroupTransformer;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;

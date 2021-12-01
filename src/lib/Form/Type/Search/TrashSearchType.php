@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Search;
 
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\AdminUi\Form\Data\Search\TrashSearchData;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\DatePeriodChoiceLoader;
 use Ibexa\AdminUi\Form\Type\Content\SortType;
 use Ibexa\AdminUi\Form\Type\Section\SectionChoiceType;
 use Ibexa\AdminUi\Form\Type\Trash\ChoiceList\Loader\SearchContentTypeChoiceLoader;
 use Ibexa\AdminUi\Form\Type\User\UserType;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -88,7 +88,7 @@ class TrashSearchType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */

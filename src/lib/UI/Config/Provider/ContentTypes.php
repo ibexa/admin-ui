@@ -6,11 +6,11 @@
  */
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
+use Ibexa\AdminUi\UI\Service\ContentTypeIconResolver;
+use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
-use Ibexa\AdminUi\UI\Service\ContentTypeIconResolver;
-use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ContentTypes implements ProviderInterface

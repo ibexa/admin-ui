@@ -32,7 +32,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 class ContentTree extends AbstractParser
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addSemanticConfig(NodeBuilder $nodeBuilder)
     {
@@ -99,7 +99,7 @@ class ContentTree extends AbstractParser
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
     {

@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Processor\Content;
 
-use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Ibexa\ContentForms\Event\ContentFormEvents;
 use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\ContentForms\Form\Processor\SystemUrlRedirectProcessor;
-use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class UrlRedirectProcessor implements EventSubscriberInterface

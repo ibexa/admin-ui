@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
+use Ibexa\AdminUi\Form\DataTransformer\RoleTransformer;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Role as APIRole;
 use Ibexa\Core\Repository\Values\User\Role;
-use Ibexa\AdminUi\Form\DataTransformer\RoleTransformer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 

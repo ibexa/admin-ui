@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RoleAssignmentParamConverter implements ParamConverterInterface
 {
-    const PRAMETER_ROLE_ASSIGNMENT_ID = 'assignmentId';
+    public const PRAMETER_ROLE_ASSIGNMENT_ID = 'assignmentId';
 
     /** @var \Ibexa\Contracts\Core\Repository\RoleService */
     private $roleService;
@@ -32,7 +32,7 @@ class RoleAssignmentParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
@@ -54,7 +54,7 @@ class RoleAssignmentParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(ParamConverter $configuration)
     {

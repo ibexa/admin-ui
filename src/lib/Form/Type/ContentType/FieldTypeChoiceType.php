@@ -82,7 +82,10 @@ class FieldTypeChoiceType extends AbstractType
     private function getFieldTypeLabel($fieldTypeIdentifier)
     {
         return $this->translator->trans(/** @Ignore */
-        $fieldTypeIdentifier . '.name', [], 'fieldtypes');
+        $fieldTypeIdentifier . '.name',
+            [],
+            'fieldtypes'
+        );
     }
 }
 

@@ -6,18 +6,18 @@
  */
 namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 
+use Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
-use Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter;
 use stdClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class LanguageParamConverterTest extends AbstractParamConverterTest
 {
-    const SUPPORTED_CLASS = Language::class;
-    const PARAMETER_NAME = 'language';
+    public const SUPPORTED_CLASS = Language::class;
+    public const PARAMETER_NAME = 'language';
 
     /** @var \Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter */
     protected $converter;

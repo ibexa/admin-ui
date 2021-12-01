@@ -6,16 +6,16 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\Data\FormMapper;
 
+use Ibexa\AdminUi\Form\Data\ContentTypeData;
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\AdminUi\Form\Data\FormMapper\ContentTypeDraftMapper;
+use Ibexa\Contracts\AdminUi\Event\FieldDefinitionMappingEvent;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Core\FieldType\Value;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\AdminUi\Form\Data\ContentTypeData;
-use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
-use Ibexa\AdminUi\Form\Data\FormMapper\ContentTypeDraftMapper;
-use Ibexa\Contracts\AdminUi\Event\FieldDefinitionMappingEvent;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\EventDispatcher\Event;

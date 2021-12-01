@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -25,7 +25,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ContentTypeRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__EDIT = 'content_type__sidebar_right__edit';
+    public const ITEM__EDIT = 'content_type__sidebar_right__edit';
 
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;

@@ -29,7 +29,8 @@ class LanguageCreateType extends AbstractType
                 TextType::class,
                 ['label' => /** @Desc("Language code") */ 'ezplatform.language.create.language_code']
             )
-            ->add('enabled',
+            ->add(
+                'enabled',
                 CheckboxType::class,
                 [
                     'label' => /** @Desc("Enabled") */ 'ezplatform.language.create.enabled',

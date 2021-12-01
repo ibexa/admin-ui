@@ -8,6 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Module\Subitems;
 
+use Ibexa\AdminUi\UI\Config\Provider\ContentTypeMappings;
+use Ibexa\AdminUi\UI\Module\Subitems\ValueObjectVisitor\SubitemsList as SubitemsListValueObjectVisitor;
+use Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsList;
+use Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsRow;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\LocationService;
@@ -15,18 +19,14 @@ use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Rest\Output\Visitor;
 use Ibexa\Core\MVC\Symfony\View\ContentView;
 use Ibexa\Rest\Output\Generator\Json as JsonOutputGenerator;
-use Ibexa\Contracts\Rest\Output\Visitor;
 use Ibexa\Rest\Server\Output\ValueObjectVisitor\ContentTypeInfoList as ContentTypeInfoListValueObjectVisitor;
 use Ibexa\Rest\Server\Values\ContentTypeInfoList;
 use Ibexa\Rest\Server\Values\RestContent;
 use Ibexa\Rest\Server\Values\RestLocation;
 use Ibexa\User\UserSetting\UserSettingService;
-use Ibexa\AdminUi\UI\Config\Provider\ContentTypeMappings;
-use Ibexa\AdminUi\UI\Module\Subitems\ValueObjectVisitor\SubitemsList as SubitemsListValueObjectVisitor;
-use Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsList;
-use Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsRow;
 
 /**
  * @internal

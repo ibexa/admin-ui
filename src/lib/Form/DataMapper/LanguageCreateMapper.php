@@ -6,11 +6,11 @@
  */
 namespace Ibexa\AdminUi\Form\DataMapper;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Form\Data\Language\LanguageCreateData;
 use Ibexa\Contracts\AdminUi\Form\DataMapper\DataMapperInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * Maps between LanguageCreateStruct and LanguageCreateData objects.

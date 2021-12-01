@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
+use Ibexa\AdminUi\Form\DataTransformer\UserTransformer;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\UserService;
-use Ibexa\Core\Repository\Values\Content as API;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Core\Repository\Values\Content as API;
 use Ibexa\Core\Repository\Values\Content as Core;
 use Ibexa\Core\Repository\Values\User\User as CoreUser;
-use Ibexa\AdminUi\Form\DataTransformer\UserTransformer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 

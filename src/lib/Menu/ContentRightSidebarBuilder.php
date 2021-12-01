@@ -8,12 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\SearchService;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\Contracts\Core\Limitation\Target;
-use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
@@ -23,6 +17,12 @@ use Ibexa\AdminUi\UniversalDiscovery\ConfigResolver;
 use Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -36,15 +36,15 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__CREATE = 'content__sidebar_right__create';
-    const ITEM__EDIT = 'content__sidebar_right__edit';
-    const ITEM__SEND_TO_TRASH = 'content__sidebar_right__send_to_trash';
-    const ITEM__COPY = 'content__sidebar_right__copy';
-    const ITEM__COPY_SUBTREE = 'content__sidebar_right__copy_subtree';
-    const ITEM__MOVE = 'content__sidebar_right__move';
-    const ITEM__DELETE = 'content__sidebar_right__delete';
-    const ITEM__HIDE = 'content__sidebar_right__hide';
-    const ITEM__REVEAL = 'content__sidebar_right__reveal';
+    public const ITEM__CREATE = 'content__sidebar_right__create';
+    public const ITEM__EDIT = 'content__sidebar_right__edit';
+    public const ITEM__SEND_TO_TRASH = 'content__sidebar_right__send_to_trash';
+    public const ITEM__COPY = 'content__sidebar_right__copy';
+    public const ITEM__COPY_SUBTREE = 'content__sidebar_right__copy_subtree';
+    public const ITEM__MOVE = 'content__sidebar_right__move';
+    public const ITEM__DELETE = 'content__sidebar_right__delete';
+    public const ITEM__HIDE = 'content__sidebar_right__hide';
+    public const ITEM__REVEAL = 'content__sidebar_right__reveal';
 
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;

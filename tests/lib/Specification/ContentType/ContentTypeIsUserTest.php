@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Specification\ContentType;
 
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType as APIContentType;
-use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType as APIContentType;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use PHPUnit\Framework\TestCase;
 
 class ContentTypeIsUserTest extends TestCase
@@ -50,7 +50,8 @@ class ContentTypeIsUserTest extends TestCase
         $specification = new ContentTypeIsUser([]);
 
         $contentTypeWithEzUserField = $this->createContentType(
-            'ezuser', ['ezstring', 'ezuser']
+            'ezuser',
+            ['ezstring', 'ezuser']
         );
 
         $this->assertTrue($specification->isSatisfiedBy($contentTypeWithEzUserField));

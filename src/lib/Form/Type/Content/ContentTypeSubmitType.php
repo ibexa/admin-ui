@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Content;
 
-use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\AdminUi\Form\DataTransformer\ContentTypeTransformer;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;

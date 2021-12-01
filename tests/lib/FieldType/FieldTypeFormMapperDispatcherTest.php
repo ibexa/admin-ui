@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\AdminUi\FieldType;
 
-use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcher;
 use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormInterface;
 

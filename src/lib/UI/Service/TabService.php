@@ -58,8 +58,11 @@ class TabService
         $tabs = $this->getTabsFromGroup($groupIdentifier);
 
         if (!isset($tabs[$tabIdentifier])) {
-            throw new \InvalidArgumentException(sprintf('There is no "%s" tab assigned to "%s" group.', $tabIdentifier,
-                $groupIdentifier));
+            throw new \InvalidArgumentException(sprintf(
+                'There is no "%s" tab assigned to "%s" group.',
+                $tabIdentifier,
+                $groupIdentifier
+            ));
         }
 
         return $tabs[$tabIdentifier];

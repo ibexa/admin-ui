@@ -6,14 +6,14 @@
  */
 namespace Ibexa\AdminUi\Form\Processor\ContentType;
 
+use Ibexa\ContentForms\Event\FormActionEvent;
+use Ibexa\Contracts\AdminUi\Event\FormEvents;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
-use Ibexa\ContentForms\Event\FormActionEvent;
-use Ibexa\Contracts\AdminUi\Event\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;

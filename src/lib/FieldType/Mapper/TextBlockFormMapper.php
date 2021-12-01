@@ -22,7 +22,9 @@ class TextBlockFormMapper implements FieldDefinitionFormMapperInterface
         $isTranslation = $data->contentTypeData->languageCode !== $data->contentTypeData->mainLanguageCode;
         $fieldDefinitionForm
             ->add(
-                'textRows', IntegerType::class, [
+                'textRows',
+                IntegerType::class,
+                [
                     'required' => false,
                     'property_path' => 'fieldSettings[textRows]',
                     'label' => /** @Desc("Number of text rows") */ 'field_definition.eztext.text_rows',

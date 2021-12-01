@@ -42,7 +42,7 @@ class UserIdentifier extends AbstractParser
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
     {

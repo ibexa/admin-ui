@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\EventListener;
 
-use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
 use Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
@@ -99,7 +99,8 @@ class AdminExceptionListener
 
         // map exception to UI notification
         $this->notificationHandler->error(/** @Ignore */
-        $this->getNotificationMessage($exception));
+        $this->getNotificationMessage($exception)
+        );
 
         if ($exception instanceof RuntimeError) {
             // If exception is coming from the template where encore already

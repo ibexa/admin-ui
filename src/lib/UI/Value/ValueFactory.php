@@ -8,6 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Value;
 
+use Ibexa\AdminUi\Specification\UserExists;
+use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\UI\Service\PathService;
+use Ibexa\AdminUi\UI\Value as UIValue;
+use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
@@ -32,12 +38,6 @@ use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\Repository\LocationResolver\LocationResolver;
-use Ibexa\Contracts\Core\Limitation\Target;
-use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
-use Ibexa\AdminUi\Specification\UserExists;
-use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
-use Ibexa\AdminUi\UI\Service\PathService;
-use Ibexa\AdminUi\UI\Value as UIValue;
 
 class ValueFactory
 {
@@ -134,7 +134,9 @@ class ValueFactory
             'author' => $author,
             'translations' => $translationsDataset->getTranslations(),
             'userCanRemove' => $this->permissionResolver->canUser(
-                'content', 'versionremove', $versionInfo
+                'content',
+                'versionremove',
+                $versionInfo
             ),
         ]);
     }
@@ -240,13 +242,21 @@ class ValueFactory
             'childCount' => $this->locationService->getLocationChildCount($location),
             'pathLocations' => $this->pathService->loadPathLocations($location),
             'userCanManage' => $this->permissionResolver->canUser(
-                'content', 'manage_locations', $location->getContentInfo()
+                'content',
+                'manage_locations',
+                $location->getContentInfo()
             ),
             'userCanRemove' => $this->permissionResolver->canUser(
-                'content', 'remove', $location->getContentInfo(), [$location, $target]
+                'content',
+                'remove',
+                $location->getContentInfo(),
+                [$location, $target]
             ),
             'userCanEdit' => $this->permissionResolver->canUser(
-                'content', 'edit', $location->getContentInfo(), [$location]
+                'content',
+                'edit',
+                $location->getContentInfo(),
+                [$location]
             ),
             'main' => $location->getContentInfo()->mainLocationId === $location->id,
         ]);

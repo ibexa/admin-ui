@@ -9,17 +9,6 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\Controller;
 
 use Exception;
-use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\SearchService;
-use Ibexa\Contracts\Core\Repository\SectionService;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
-use Ibexa\Contracts\Core\Repository\Values\Content\Section;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation\NewSectionLimitation;
-use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
-use Ibexa\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 use Ibexa\AdminUi\Form\Data\Section\SectionContentAssignData;
 use Ibexa\AdminUi\Form\Data\Section\SectionCreateData;
 use Ibexa\AdminUi\Form\Data\Section\SectionDeleteData;
@@ -35,6 +24,17 @@ use Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\NewSectionLimitation;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use Ibexa\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -418,7 +418,8 @@ class SectionController extends Controller
                 ]));
             } catch (Exception $e) {
                 $this->notificationHandler->error(/** @Ignore */
-                $e->getMessage());
+                $e->getMessage()
+                );
             }
         }
 
@@ -459,7 +460,8 @@ class SectionController extends Controller
                 ]));
             } catch (Exception $e) {
                 $this->notificationHandler->error(/** @Ignore */
-                $e->getMessage());
+                $e->getMessage()
+                );
             }
         }
 

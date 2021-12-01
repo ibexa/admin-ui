@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\User;
 
-use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\AdminUi\Form\DataTransformer\UserTransformer;
+use Ibexa\Contracts\Core\Repository\UserService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;

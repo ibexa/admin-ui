@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Dataset;
 
+use Ibexa\AdminUi\UI\Value\Content\VersionId;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
@@ -15,7 +16,6 @@ use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
-use Ibexa\AdminUi\UI\Value\Content\VersionId;
 
 /**
  * @deprecated Please move to use ContentDraftListDataset to get a paginated list of content drafts
@@ -42,7 +42,8 @@ class ContentDraftsDataset
     public function __construct(
         ContentService $contentService,
         ContentTypeService $contentTypeService,
-        LocationService $locationService)
+        LocationService $locationService
+    )
     {
         $this->contentService = $contentService;
         $this->contentTypeService = $contentTypeService;

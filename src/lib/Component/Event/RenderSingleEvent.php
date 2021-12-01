@@ -14,7 +14,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class RenderSingleEvent extends Event
 {
-    const NAME = 'ezplatform_admin_ui.component.render_single';
+    public const NAME = 'ezplatform_admin_ui.component.render_single';
 
     /** @var \Ibexa\AdminUi\Component\Registry */
     private $registry;

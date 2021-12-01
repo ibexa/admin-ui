@@ -6,12 +6,12 @@
  */
 namespace Ibexa\AdminUi\EventListener;
 
-use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\Core\MVC\Symfony\View\Event\FilterViewParametersEvent;
-use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
 use Ibexa\AdminUi\Form\Type\Content\Draft\ContentEditType;
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\View\Event\FilterViewParametersEvent;
+use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Ibexa\Search\View\SearchView;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormFactoryInterface;

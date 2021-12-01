@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\DataMapper;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
-use Ibexa\Core\Repository\Values\User\PolicyUpdateStruct;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData;
 use Ibexa\AdminUi\Form\DataMapper\PolicyUpdateMapper;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
+use Ibexa\Core\Repository\Values\User\PolicyUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
 class PolicyUpdateMapperTest extends TestCase

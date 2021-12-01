@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class UiConfigProviderPass implements CompilerPassInterface
 {
-    const TAG_CONFIG_PROVIDER = 'ezplatform.admin_ui.config_provider';
+    public const TAG_CONFIG_PROVIDER = 'ezplatform.admin_ui.config_provider';
 
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container

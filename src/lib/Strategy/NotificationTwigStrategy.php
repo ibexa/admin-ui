@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Strategy;
 
+use Ibexa\AdminUi\Exception\NoValidResultException;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Repository;
-use Ibexa\AdminUi\Exception\NoValidResultException;
 
 class NotificationTwigStrategy
 {

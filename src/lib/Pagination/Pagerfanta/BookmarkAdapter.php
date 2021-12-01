@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
-use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Pagerfanta\Adapter\AdapterInterface;
 
 class BookmarkAdapter implements AdapterInterface

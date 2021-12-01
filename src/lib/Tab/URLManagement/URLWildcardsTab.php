@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\URLManagement;
 
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\URLWildcardService;
-use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\URLWildcardService;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -51,7 +51,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getIdentifier(): string
     {
@@ -59,7 +59,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName(): string
     {
@@ -68,7 +68,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getOrder(): int
     {

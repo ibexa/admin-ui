@@ -31,7 +31,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 class ContentType extends AbstractParser
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer)
     {
@@ -45,7 +45,7 @@ class ContentType extends AbstractParser
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addSemanticConfig(NodeBuilder $nodeBuilder)
     {

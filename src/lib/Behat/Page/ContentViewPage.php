@@ -9,9 +9,6 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use Ibexa\Contracts\Core\Repository\Repository;
-use Ibexa\Contracts\Core\Repository\Values\Content\Content;
-use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 use EzSystems\Behat\Core\Behat\ArgumentParser;
 use Ibexa\AdminUi\Behat\Component\Breadcrumb;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
@@ -25,6 +22,9 @@ use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 use PHPUnit\Framework\Assert;
 
 class ContentViewPage extends Page

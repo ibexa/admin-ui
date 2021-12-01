@@ -6,8 +6,8 @@
  */
 namespace Ibexa\AdminUi\Validator\Constraints;
 
-use Ibexa\ContentForms\Validator\Constraints\FieldTypeValidator;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\Validator\Constraints\FieldTypeValidator;
 use Symfony\Component\Validator\Constraint;
 
 /**

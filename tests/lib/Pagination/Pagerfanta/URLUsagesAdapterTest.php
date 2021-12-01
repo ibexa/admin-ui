@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\AdminUi\Pagination\Pagerfanta;
 
+use Ibexa\AdminUi\Pagination\Pagerfanta\URLUsagesAdapter;
 use Ibexa\Contracts\Core\Repository\URLService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
 use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use Ibexa\Contracts\Core\Repository\Values\URL\UsageSearchResult;
-use Ibexa\AdminUi\Pagination\Pagerfanta\URLUsagesAdapter;
 use PHPUnit\Framework\TestCase;
 
 class URLUsagesAdapterTest extends TestCase

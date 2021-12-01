@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu\Admin\ObjectState;
 
-use Ibexa\Core\Repository\Exceptions as ApiExceptions;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -23,8 +23,8 @@ use Knp\Menu\ItemInterface;
 class ObjectStateCreateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__CREATE = 'object_state_create__sidebar_right__create';
-    const ITEM__CANCEL = 'object_state_create__sidebar_right__cancel';
+    public const ITEM__CREATE = 'object_state_create__sidebar_right__create';
+    public const ITEM__CANCEL = 'object_state_create__sidebar_right__cancel';
 
     /**
      * @return string

@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
+use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\User\UserSetting\Setting\DateTimeFormatSerializer;
 use Ibexa\User\UserSetting\UserSettingService;
-use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
 class DateFormat implements ProviderInterface
 {
@@ -31,7 +31,7 @@ class DateFormat implements ProviderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @return array
      */

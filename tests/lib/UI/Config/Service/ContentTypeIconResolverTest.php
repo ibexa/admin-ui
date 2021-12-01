@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\UI\Config\Service;
 
-use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\AdminUi\UI\Service\ContentTypeIconResolver;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Asset\Packages;
 

@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class URLWildcardType extends AbstractType
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -40,7 +40,7 @@ final class URLWildcardType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver): void
     {

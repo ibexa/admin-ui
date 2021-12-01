@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber;
 
-use Ibexa\Core\FieldType\ImageAsset\AssetMapper;
 use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
+use Ibexa\Core\FieldType\ImageAsset\AssetMapper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ImageAssetDefaultLocationId implements EventSubscriberInterface

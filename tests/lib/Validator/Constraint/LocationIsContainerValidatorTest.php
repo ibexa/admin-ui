@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
+use Ibexa\AdminUi\Validator\Constraints\LocationIsContainer;
+use Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\AdminUi\Validator\Constraints\LocationIsContainer;
-use Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 

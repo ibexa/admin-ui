@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use Ibexa\Contracts\Core\Repository\NotificationService;
-use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\Core\Notification\Renderer\Registry;
 use Ibexa\AdminUi\Pagination\Pagerfanta\NotificationAdapter;
 use Ibexa\Bundle\AdminUi\View\EzPagerfantaView;
 use Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\Core\Repository\NotificationService;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\Notification\Renderer\Registry;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

@@ -8,9 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\LocationView;
 
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\UserService;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
 use Ibexa\AdminUi\Form\Data\Version\VersionRemoveData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
@@ -19,6 +16,9 @@ use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -31,7 +31,7 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
 {
     public const FORM_REMOVE_DRAFT = 'version_remove_draft';
     public const FORM_REMOVE_ARCHIVED = 'version_remove_archived';
-    const URI_FRAGMENT = 'ibexa-tab-location-view-versions';
+    public const URI_FRAGMENT = 'ibexa-tab-location-view-versions';
 
     /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     protected $datasetFactory;
@@ -118,7 +118,7 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplate(): string
     {
@@ -126,7 +126,7 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
@@ -208,7 +208,9 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
         $contentInfo = $location->getContentInfo();
         $data = new VersionRemoveData($contentInfo, $this->getVersionNumbers($versions));
 
-        $formName = sprintf('version-remove-%s', $isDraftForm
+        $formName = sprintf(
+            'version-remove-%s',
+            $isDraftForm
             ? self::FORM_REMOVE_DRAFT
             : self::FORM_REMOVE_ARCHIVED
         );

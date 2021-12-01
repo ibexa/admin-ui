@@ -8,7 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Service\Role;
 
-use Ibexa\Core\Repository;
+use Ibexa\AdminUi\Form\Data\PolicyData;
+use Ibexa\AdminUi\Form\Data\RoleAssignmentData;
+use Ibexa\AdminUi\Form\Data\RoleData;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentId;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
@@ -17,9 +19,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
-use Ibexa\AdminUi\Form\Data\PolicyData;
-use Ibexa\AdminUi\Form\Data\RoleAssignmentData;
-use Ibexa\AdminUi\Form\Data\RoleData;
+use Ibexa\Core\Repository;
 
 class RoleService
 {

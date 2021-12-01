@@ -6,18 +6,18 @@
  */
 namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 
+use Ibexa\Bundle\AdminUi\ParamConverter\ContentTypeParamConverter;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
-use Ibexa\Bundle\AdminUi\ParamConverter\ContentTypeParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ContentTypeParamConverterTest extends AbstractParamConverterTest
 {
-    const SUPPORTED_CLASS = ContentType::class;
-    const PARAMETER_NAME = 'contentType';
+    public const SUPPORTED_CLASS = ContentType::class;
+    public const PARAMETER_NAME = 'contentType';
 
     /** @var \Ibexa\Bundle\AdminUi\ParamConverter\ContentTypeParamConverter */
     protected $converter;

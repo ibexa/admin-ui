@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Validator\Constraints;
 
+use Ibexa\AdminUi\Specification\Location\IsWithinCopySubtreeLimit;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\AdminUi\Specification\Location\IsWithinCopySubtreeLimit;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 

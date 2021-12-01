@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data;
 
-use Ibexa\Core\Repository\Values\Content\ContentUpdateStruct;
 use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\Core\Repository\Values\Content\ContentUpdateStruct;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ContentTranslationData extends ContentUpdateStruct implements NewnessCheckable

@@ -8,13 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use Ibexa\Contracts\Core\Repository\ObjectStateService;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
-use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
-use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData;
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateCreateData;
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateDeleteData;
@@ -28,6 +21,13 @@ use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStatesDeleteType;
 use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateUpdateType;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\ObjectStateService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -137,7 +137,8 @@ class ObjectStateController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form,
+            $result = $this->submitHandler->handle(
+                $form,
                 function (ObjectStateCreateData $data) use ($defaultLanguageCode, $objectStateGroup) {
                     $createStruct = $this->objectStateService->newObjectStateCreateStruct(
                         $data->getIdentifier()
@@ -149,14 +150,15 @@ class ObjectStateController extends Controller
                     $this->notificationHandler->success(
                             /** @Desc("Object state '%name%' created.") */
                             'object_state.create.success',
-                            ['%name%' => $data->getName()],
-                            'object_state'
+                        ['%name%' => $data->getName()],
+                        'object_state'
                     );
 
                     return $this->redirectToRoute('ezplatform.object_state.state.view', [
                         'objectStateId' => $objectState->id,
                     ]);
-                });
+                }
+            );
             if ($result instanceof Response) {
                 return $result;
             }

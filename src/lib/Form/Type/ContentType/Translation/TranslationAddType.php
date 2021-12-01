@@ -8,14 +8,14 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ContentType\Translation;
 
-use Ibexa\Contracts\Core\Repository\ContentTypeService;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\AdminUi\Form\Data\ContentType\Translation\TranslationAddData;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\AvailableTranslationLanguageChoiceLoader;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\BaseTranslationLanguageChoiceLoader;
 use Ibexa\AdminUi\Form\Type\Content\ContentTypeType;
 use Ibexa\AdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupType;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\LanguageService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

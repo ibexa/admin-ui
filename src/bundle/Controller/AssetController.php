@@ -9,10 +9,10 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\Controller;
 
 use Exception;
-use Ibexa\Core\FieldType\Image\Value as ImageValue;
-use Ibexa\Core\FieldType\ImageAsset\AssetMapper as ImageAssetMapper;
 use Ibexa\AdminUi\Form\Data\Asset\ImageAssetUploadData;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Core\FieldType\Image\Value as ImageValue;
+use Ibexa\Core\FieldType\ImageAsset\AssetMapper as ImageAssetMapper;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,10 +24,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AssetController extends Controller
 {
-    const CSRF_TOKEN_HEADER = 'X-CSRF-Token';
+    public const CSRF_TOKEN_HEADER = 'X-CSRF-Token';
 
-    const LANGUAGE_CODE_KEY = 'languageCode';
-    const FILE_KEY = 'file';
+    public const LANGUAGE_CODE_KEY = 'languageCode';
+    public const FILE_KEY = 'file';
 
     /** @var \Symfony\Component\Validator\Validator\ValidatorInterface */
     private $validator;
@@ -51,7 +51,8 @@ class AssetController extends Controller
         ValidatorInterface $validator,
         CsrfTokenManagerInterface $csrfTokenManager,
         ImageAssetMapper $imageAssetMapper,
-        TranslatorInterface $translator)
+        TranslatorInterface $translator
+    )
     {
         $this->validator = $validator;
         $this->csrfTokenManager = $csrfTokenManager;
@@ -116,7 +117,9 @@ class AssetController extends Controller
     {
         $errorMessage = $this->translator->trans(
 /** @Desc("Missing or invalid CSRF token") */
-'asset.upload.invalid_csrf', [], 'assets'
+'asset.upload.invalid_csrf',
+            [],
+            'assets'
         );
 
         return $this->createGenericErrorResponse($errorMessage);

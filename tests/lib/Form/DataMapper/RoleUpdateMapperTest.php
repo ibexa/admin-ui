@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\DataMapper;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Form\Data\Language\LanguageCreateData;
 use Ibexa\AdminUi\Form\Data\Role\RoleUpdateData;
 use Ibexa\AdminUi\Form\DataMapper\RoleUpdateMapper;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
 class RoleUpdateMapperTest extends TestCase

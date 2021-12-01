@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
+use Ibexa\AdminUi\Form\DataTransformer\LocationsTransformer;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Core\Repository\Values\Content\Location;
-use Ibexa\AdminUi\Form\DataTransformer\LocationsTransformer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 

@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ContentInfoParamConverter implements ParamConverterInterface
 {
-    const PARAMETER_CONTENT_INFO_ID = 'contentInfoId';
+    public const PARAMETER_CONTENT_INFO_ID = 'contentInfoId';
 
     /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
@@ -31,7 +31,7 @@ class ContentInfoParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
@@ -48,7 +48,7 @@ class ContentInfoParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(ParamConverter $configuration)
     {

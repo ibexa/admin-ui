@@ -6,15 +6,15 @@
  */
 namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 
+use Ibexa\Bundle\AdminUi\ParamConverter\ContentTypeDraftParamConverter;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
-use Ibexa\Bundle\AdminUi\ParamConverter\ContentTypeDraftParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 
 class ContentTypeDraftParamConverterTest extends AbstractParamConverterTest
 {
-    const SUPPORTED_CLASS = ContentTypeDraft::class;
-    const PARAMETER_NAME = 'contentType';
+    public const SUPPORTED_CLASS = ContentTypeDraft::class;
+    public const PARAMETER_NAME = 'contentType';
 
     /** @var \Ibexa\Bundle\AdminUi\ParamConverter\ContentTypeDraftParamConverter */
     protected $converter;

@@ -134,8 +134,8 @@ final class Table extends Component implements TableInterface
     {
         if ($this->isEmpty()) {
             throw new \Exception(
-                    sprintf(
-                'Table row with given data was not found! Keys: %s, Values: %s',
+                sprintf(
+                        'Table row with given data was not found! Keys: %s, Values: %s',
                         implode(',', array_keys($elementData)),
                         implode(',', array_values($elementData))
                     )
@@ -170,7 +170,7 @@ final class Table extends Component implements TableInterface
 
         throw new \Exception(
             sprintf(
-            'Table row with given data was not found! Keys: %s, Values: %s',
+                'Table row with given data was not found! Keys: %s, Values: %s',
                 implode(',', array_keys($elementData)),
                 implode(',', array_values($elementData))
             )

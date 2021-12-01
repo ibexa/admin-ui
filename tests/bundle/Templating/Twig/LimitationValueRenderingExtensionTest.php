@@ -7,13 +7,13 @@
 namespace Ibexa\Tests\Bundle\AdminUi\Templating\Twig;
 
 use Exception;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\Core\MVC\ConfigResolverInterface;
-use Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension\FileSystemTwigIntegrationTestCase;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperRegistryInterface;
 use Ibexa\AdminUi\Limitation\Templating\LimitationBlockRenderer;
 use Ibexa\Bundle\AdminUi\Templating\Twig\LimitationValueRenderingExtension;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension\FileSystemTwigIntegrationTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionProperty;
 use Twig\Environment;

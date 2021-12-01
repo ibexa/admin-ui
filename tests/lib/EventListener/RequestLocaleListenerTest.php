@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\EventListener;
 
+use Ibexa\AdminUi\EventListener\RequestLocaleListener;
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
-use Ibexa\AdminUi\EventListener\RequestLocaleListener;
-use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;

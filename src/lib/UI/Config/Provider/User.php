@@ -6,11 +6,11 @@
  */
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
+use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\User\User as ApiUser;
 use Ibexa\Core\MVC\Symfony\Security\UserInterface;
-use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 

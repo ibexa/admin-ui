@@ -6,8 +6,6 @@
  */
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use Ibexa\Contracts\Core\Repository\URLService;
-use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
 use Ibexa\AdminUi\Form\Data\URL\URLUpdateData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
@@ -15,13 +13,15 @@ use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Pagination\Pagerfanta\URLUsagesAdapter;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\URLService;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class LinkManagerController extends Controller
 {
-    const DEFAULT_MAX_PER_PAGE = 10;
+    public const DEFAULT_MAX_PER_PAGE = 10;
 
     /** @var \Ibexa\Contracts\Core\Repository\URLService */
     private $urlService;

@@ -18,7 +18,7 @@ class TabPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    const TAG_TAB = 'ezplatform.tab';
+    public const TAG_TAB = 'ezplatform.tab';
 
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container

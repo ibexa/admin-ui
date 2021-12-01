@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Repository\URLService;
-use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use Ibexa\AdminUi\Form\Data\URL\URLUpdateData;
 use Ibexa\AdminUi\Validator\Constraints\UniqueURL;
 use Ibexa\AdminUi\Validator\Constraints\UniqueURLValidator;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\URLService;
+use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;

@@ -6,8 +6,8 @@
  */
 namespace Ibexa\AdminUi\UI\Config\Provider\Module;
 
-use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 
 class ContentTree implements ProviderInterface
 {

@@ -8,8 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\LocationView;
 
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
 use Ibexa\AdminUi\Specification\OrSpecification;
@@ -17,6 +15,8 @@ use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -25,7 +25,7 @@ use Twig\Environment;
 
 class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterface, ConditionalTabInterface
 {
-    const URI_FRAGMENT = 'ibexa-tab-location-view-roles';
+    public const URI_FRAGMENT = 'ibexa-tab-location-view-roles';
 
     /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     protected $datasetFactory;
@@ -105,7 +105,7 @@ class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterfac
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplate(): string
     {
@@ -113,7 +113,7 @@ class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterfac
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {

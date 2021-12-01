@@ -17,8 +17,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class URLEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__SAVE = 'url_edit__sidebar_right__save';
-    const ITEM__CANCEL = 'url_edit__sidebar_right__cancel';
+    public const ITEM__SAVE = 'url_edit__sidebar_right__save';
+    public const ITEM__CANCEL = 'url_edit__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
@@ -26,7 +26,8 @@ class URLEditRightSidebarBuilder extends AbstractBuilder implements TranslationC
     public function __construct(
         MenuItemFactory $factory,
         EventDispatcherInterface $eventDispatcher,
-        TranslatorInterface $translator)
+        TranslatorInterface $translator
+    )
     {
         parent::__construct($factory, $eventDispatcher);
 

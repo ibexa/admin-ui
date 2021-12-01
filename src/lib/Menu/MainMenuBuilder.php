@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -26,27 +26,27 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Main Menu / Dashboard */
-    const ITEM_DASHBOARD = 'main__dashboard';
+    public const ITEM_DASHBOARD = 'main__dashboard';
 
     /* Main Menu / Content */
-    const ITEM_CONTENT = 'main__content';
-    const ITEM_CONTENT_GROUP_SETTINGS = 'main__content__group_settings';
-    const ITEM_CONTENT__CONTENT_STRUCTURE = 'main__content__content_structure';
-    const ITEM_CONTENT__MEDIA = 'main__content__media';
+    public const ITEM_CONTENT = 'main__content';
+    public const ITEM_CONTENT_GROUP_SETTINGS = 'main__content__group_settings';
+    public const ITEM_CONTENT__CONTENT_STRUCTURE = 'main__content__content_structure';
+    public const ITEM_CONTENT__MEDIA = 'main__content__media';
 
     /* Main Menu / Admin */
-    const ITEM_ADMIN__SECTIONS = 'main__admin__sections';
-    const ITEM_ADMIN__ROLES = 'main__admin__roles';
-    const ITEM_ADMIN__LANGUAGES = 'main__admin__languages';
-    const ITEM_ADMIN__CONTENT_TYPES = 'main__admin__content_types';
-    const ITEM_ADMIN__USERS = 'main__admin__users';
-    const ITEM_ADMIN__OBJECT_STATES = 'main__admin__object_states';
-    const ITEM_ADMIN__URL_MANAGEMENT = 'main__admin__url_management';
+    public const ITEM_ADMIN__SECTIONS = 'main__admin__sections';
+    public const ITEM_ADMIN__ROLES = 'main__admin__roles';
+    public const ITEM_ADMIN__LANGUAGES = 'main__admin__languages';
+    public const ITEM_ADMIN__CONTENT_TYPES = 'main__admin__content_types';
+    public const ITEM_ADMIN__USERS = 'main__admin__users';
+    public const ITEM_ADMIN__OBJECT_STATES = 'main__admin__object_states';
+    public const ITEM_ADMIN__URL_MANAGEMENT = 'main__admin__url_management';
 
     /* Main Menu / Bottom items */
-    const ITEM_ADMIN = 'main__admin';
-    const ITEM_BOOKMARKS = 'main__bookmarks';
-    const ITEM_TRASH = 'main__trash';
+    public const ITEM_ADMIN = 'main__admin';
+    public const ITEM_BOOKMARKS = 'main__bookmarks';
+    public const ITEM_TRASH = 'main__trash';
 
     public const ITEM_ADMIN_OPTIONS = [
         self::ITEM_ADMIN__SECTIONS => [

@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
+use Ibexa\AdminUi\Form\Data\ContentTypeData;
+use Ibexa\AdminUi\Validator\Constraints\UniqueContentTypeIdentifier;
+use Ibexa\AdminUi\Validator\Constraints\UniqueContentTypeIdentifierValidator;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
-use Ibexa\AdminUi\Form\Data\ContentTypeData;
-use Ibexa\AdminUi\Validator\Constraints\UniqueContentTypeIdentifier;
-use Ibexa\AdminUi\Validator\Constraints\UniqueContentTypeIdentifierValidator;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;

@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\EventListener;
 
+use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Ibexa\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
-use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

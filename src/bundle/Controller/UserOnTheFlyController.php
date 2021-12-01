@@ -6,9 +6,18 @@
  */
 namespace Ibexa\Bundle\AdminUi\Controller;
 
+use Ibexa\AdminUi\Form\ActionDispatcher\CreateUserOnTheFlyDispatcher;
+use Ibexa\AdminUi\Form\ActionDispatcher\EditUserOnTheFlyDispatcher;
+use Ibexa\AdminUi\View\CreateUserOnTheFlyView;
+use Ibexa\AdminUi\View\EditContentOnTheFlySuccessView;
+use Ibexa\AdminUi\View\EditUserOnTheFlyView;
+use Ibexa\ContentForms\Data\Mapper\UserCreateMapper;
+use Ibexa\ContentForms\Data\Mapper\UserUpdateMapper;
+use Ibexa\ContentForms\Form\Type\User\UserCreateType;
+use Ibexa\ContentForms\Form\Type\User\UserUpdateType;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
-use Ibexa\Core\Repository\Exceptions as ApiException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
@@ -22,16 +31,7 @@ use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Base\Exceptions\UnauthorizedException;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\MVC\Symfony\View\BaseView;
-use Ibexa\ContentForms\Data\Mapper\UserCreateMapper;
-use Ibexa\ContentForms\Data\Mapper\UserUpdateMapper;
-use Ibexa\ContentForms\Form\Type\User\UserCreateType;
-use Ibexa\ContentForms\Form\Type\User\UserUpdateType;
-use Ibexa\AdminUi\Form\ActionDispatcher\CreateUserOnTheFlyDispatcher;
-use Ibexa\AdminUi\Form\ActionDispatcher\EditUserOnTheFlyDispatcher;
-use Ibexa\AdminUi\View\CreateUserOnTheFlyView;
-use Ibexa\AdminUi\View\EditContentOnTheFlySuccessView;
-use Ibexa\AdminUi\View\EditUserOnTheFlyView;
-use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Core\Repository\Exceptions as ApiException;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

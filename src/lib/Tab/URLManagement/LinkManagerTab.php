@@ -8,11 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\URLManagement;
 
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\URLService;
-use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
-use Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause;
-use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
 use Ibexa\AdminUi\Form\Data\URL\URLListData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
@@ -21,6 +16,11 @@ use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterfac
 use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\URLService;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;

@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ObjectStateParamConverter implements ParamConverterInterface
 {
-    const PARAMETER_OBJECT_STATE_ID = 'objectStateId';
+    public const PARAMETER_OBJECT_STATE_ID = 'objectStateId';
 
     /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
     private $objectStateService;

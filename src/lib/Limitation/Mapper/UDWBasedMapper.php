@@ -6,17 +6,17 @@
  */
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
+use Ibexa\AdminUi\Form\DataTransformer\UDWBasedValueModelTransformer;
+use Ibexa\AdminUi\Form\DataTransformer\UDWBasedValueViewTransformer;
+use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
+use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\AdminUi\Translation\Extractor\LimitationTranslationExtractor;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Ancestor;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\Path;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\AdminUi\Form\DataTransformer\UDWBasedValueModelTransformer;
-use Ibexa\AdminUi\Form\DataTransformer\UDWBasedValueViewTransformer;
-use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
-use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
-use Ibexa\AdminUi\Translation\Extractor\LimitationTranslationExtractor;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormInterface;
 

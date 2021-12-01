@@ -8,11 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\LocationView;
 
-use Ibexa\Contracts\Core\Repository\LanguageService;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\Values\Content\Content;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\AdminUi\Form\Data\Content\Translation\MainTranslationUpdateData;
 use Ibexa\AdminUi\Form\Data\Content\Translation\TranslationAddData;
 use Ibexa\AdminUi\Form\Data\Content\Translation\TranslationDeleteData;
@@ -22,6 +17,11 @@ use Ibexa\AdminUi\Form\Type\Content\Translation\TranslationDeleteType;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -31,7 +31,7 @@ use Twig\Environment;
 
 class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    const URI_FRAGMENT = 'ibexa-tab-location-view-translations';
+    public const URI_FRAGMENT = 'ibexa-tab-location-view-translations';
 
     /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     protected $datasetFactory;
@@ -93,7 +93,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplate(): string
     {
@@ -101,7 +101,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {

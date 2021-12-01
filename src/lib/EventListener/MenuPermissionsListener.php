@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\EventListener;
 
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Menu\MainMenuBuilder;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MenuPermissionsListener implements EventSubscriberInterface

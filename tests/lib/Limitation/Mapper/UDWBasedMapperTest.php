@@ -6,6 +6,7 @@
  */
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
+use Ibexa\AdminUi\Limitation\Mapper\UDWBasedMapper;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
@@ -16,7 +17,6 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
 use Ibexa\Core\Repository\Values\Content\Location;
-use Ibexa\AdminUi\Limitation\Mapper\UDWBasedMapper;
 use PHPUnit\Framework\TestCase;
 
 class UDWBasedMapperTest extends TestCase

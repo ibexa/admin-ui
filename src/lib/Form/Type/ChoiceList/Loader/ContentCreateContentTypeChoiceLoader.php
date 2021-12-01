@@ -33,7 +33,7 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadChoiceList($value = null)
     {
@@ -52,7 +52,7 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadChoicesForValues(array $values, $value = null)
     {
@@ -66,7 +66,7 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadValuesForChoices(array $choices, $value = null)
     {

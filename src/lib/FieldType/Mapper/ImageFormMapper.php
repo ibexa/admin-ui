@@ -6,10 +6,10 @@
  */
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
-use Ibexa\Contracts\Core\Repository\FieldTypeService;
-use Ibexa\ContentForms\ConfigResolver\MaxUploadSize;
 use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\ConfigResolver\MaxUploadSize;
+use Ibexa\Contracts\Core\Repository\FieldTypeService;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormInterface;

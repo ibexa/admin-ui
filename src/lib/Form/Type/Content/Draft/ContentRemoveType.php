@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ContentRemoveType extends AbstractType
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -44,7 +44,7 @@ class ContentRemoveType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver): void
     {

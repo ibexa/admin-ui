@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\AdminUi\Validator\Constraints\FieldSettings;
+use Ibexa\AdminUi\Validator\Constraints\FieldSettingsValidator;
 use Ibexa\Contracts\Core\Repository\FieldType;
 use Ibexa\Contracts\Core\Repository\FieldTypeService;
 use Ibexa\Core\FieldType\ValidationError;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
-use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
-use Ibexa\AdminUi\Validator\Constraints\FieldSettings;
-use Ibexa\AdminUi\Validator\Constraints\FieldSettingsValidator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;

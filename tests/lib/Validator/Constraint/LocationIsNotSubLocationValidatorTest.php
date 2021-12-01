@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsNotSubLocation;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsNotSubLocationValidator;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;

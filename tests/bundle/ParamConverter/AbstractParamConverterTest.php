@@ -12,7 +12,7 @@ use Ibexa\Tests\Bundle\Core\Converter\AbstractParamConverterTest as CoreAbstract
 
 abstract class AbstractParamConverterTest extends CoreAbstractParamConverterTest
 {
-    const SUPPORTED_CLASS = null;
+    public const SUPPORTED_CLASS = null;
 
     public function testSupports()
     {

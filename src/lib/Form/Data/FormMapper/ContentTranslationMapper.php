@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\FormMapper;
 
+use Ibexa\AdminUi\Form\Data\ContentTranslationData;
+use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
-use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
-use Ibexa\AdminUi\Form\Data\ContentTranslationData;
-use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentTranslationMapper implements FormDataMapperInterface

@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Content;
 
-use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\AdminUi\Form\DataTransformer\LocationsTransformer;
 use Ibexa\AdminUi\Form\DataTransformer\LocationTransformer;
+use Ibexa\Contracts\Core\Repository\LocationService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,7 +31,8 @@ class LocationType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addViewTransformer($options['multiple']
+        $builder->addViewTransformer(
+            $options['multiple']
             ? new LocationsTransformer($this->locationService)
             : new LocationTransformer($this->locationService)
         );

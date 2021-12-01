@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\TrashLocationOptionProvider;
 
+use Ibexa\AdminUi\Specification\Location\HasChildren as HasChildrenSpec;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\AdminUi\Specification\Location\HasChildren as HasChildrenSpec;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;

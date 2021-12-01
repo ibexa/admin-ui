@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Processor\Content;
 
-use Ibexa\Contracts\Core\Repository\Exceptions\Exception as APIException;
 use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\ContentForms\Form\Processor\ContentFormProcessor;
 use Ibexa\Contracts\AdminUi\Event\AutosaveEvents;
+use Ibexa\Contracts\Core\Repository\Exceptions\Exception as APIException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 

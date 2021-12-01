@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Permission;
 
-use Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult;
 
 /**
  * @internal

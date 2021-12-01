@@ -16,7 +16,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class UDWBasedValueViewTransformer implements DataTransformerInterface
 {
-    const DELIMITER = ',';
+    public const DELIMITER = ',';
 
     /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
@@ -30,7 +30,7 @@ class UDWBasedValueViewTransformer implements DataTransformerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function transform($value)
     {
@@ -42,7 +42,7 @@ class UDWBasedValueViewTransformer implements DataTransformerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function reverseTransform($value)
     {

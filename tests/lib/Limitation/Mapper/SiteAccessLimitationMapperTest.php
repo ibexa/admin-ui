@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SiteAccessLimitation;
-use Ibexa\Core\MVC\Symfony\SiteAccess;
-use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use Ibexa\AdminUi\Limitation\Mapper\SiteAccessLimitationMapper;
 use Ibexa\AdminUi\Siteaccess\SiteAccessKeyGenerator;
 use Ibexa\AdminUi\Siteaccess\SiteAccessKeyGeneratorInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SiteAccessLimitation;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 class SiteAccessLimitationMapperTest extends TestCase

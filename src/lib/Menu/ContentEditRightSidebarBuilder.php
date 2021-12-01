@@ -6,16 +6,16 @@
  */
 namespace Ibexa\AdminUi\Menu;
 
-use Ibexa\Core\Repository\Exceptions as ApiExceptions;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Limitation\Target;
-use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
-use Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver;
-use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -30,13 +30,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ContentEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__PUBLISH = 'content_edit__sidebar_right__publish';
-    const ITEM__SAVE_DRAFT = 'content_edit__sidebar_right__save_draft';
-    const ITEM__PREVIEW = 'content_edit__sidebar_right__preview';
-    const ITEM__CANCEL = 'content_edit__sidebar_right__cancel';
+    public const ITEM__PUBLISH = 'content_edit__sidebar_right__publish';
+    public const ITEM__SAVE_DRAFT = 'content_edit__sidebar_right__save_draft';
+    public const ITEM__PREVIEW = 'content_edit__sidebar_right__preview';
+    public const ITEM__CANCEL = 'content_edit__sidebar_right__cancel';
 
-    const BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
-    const BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
+    public const BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
+    public const BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
 
     /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
     private $siteaccessResolver;

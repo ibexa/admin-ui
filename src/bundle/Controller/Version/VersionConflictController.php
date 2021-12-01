@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller\Version;
 
-use Ibexa\Contracts\Core\Repository\ContentService;
-use Ibexa\Core\Base\Exceptions\BadStateException;
 use Ibexa\AdminUi\Specification\Version\VersionHasConflict;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Core\Base\Exceptions\BadStateException;
 use Symfony\Component\HttpFoundation\Response;
 
 class VersionConflictController extends Controller

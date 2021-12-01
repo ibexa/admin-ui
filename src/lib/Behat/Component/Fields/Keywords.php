@@ -37,7 +37,8 @@ SCRIPT;
         $parsedValue = implode(',', array_map(
             static function (string $element) {
                 return sprintf('"%s"', trim($element));
-            }, explode(',', $parameters['value'])
+            },
+            explode(',', $parameters['value'])
         ));
 
         $this->getSession()->getDriver()->executeScript(sprintf($this->setKeywordsValueScript, $parsedValue));
