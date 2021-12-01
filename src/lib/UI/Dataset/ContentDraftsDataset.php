@@ -43,8 +43,7 @@ class ContentDraftsDataset
         ContentService $contentService,
         ContentTypeService $contentTypeService,
         LocationService $locationService
-    )
-    {
+    ) {
         $this->contentService = $contentService;
         $this->contentTypeService = $contentTypeService;
         $this->locationService = $locationService;

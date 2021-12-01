@@ -27,8 +27,7 @@ class URLEditRightSidebarBuilder extends AbstractBuilder implements TranslationC
         MenuItemFactory $factory,
         EventDispatcherInterface $eventDispatcher,
         TranslatorInterface $translator
-    )
-    {
+    ) {
         parent::__construct($factory, $eventDispatcher);
 
         $this->translator = $translator;

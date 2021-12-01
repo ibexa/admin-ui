@@ -55,8 +55,7 @@ class SectionPage extends Page
         TableBuilder $tableBuilder,
         Dialog $dialog,
         Repository $repository
-    )
-    {
+    ) {
         parent::__construct($session, $router);
         $this->contentItemsTable = $tableBuilder->newTable()->withParentLocator($this->getLocator('contentItemsTable'))->build();
         $this->sectionInformationTable = $tableBuilder->newTable()->withParentLocator($this->getLocator('sectionInfoTable'))->build();

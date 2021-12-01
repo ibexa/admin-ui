@@ -35,8 +35,7 @@ class ContentTypeContext implements Context
         ContentTypeUpdatePage $contentTypeUpdatePage,
         ContentTypeGroupPage $contentTypeGroupPage,
         ContentTypeGroupsPage $contentTypeGroupsPage
-    )
-    {
+    ) {
         $this->contentTypePage = $contentTypePage;
         $this->contentTypeUpdatePage = $contentTypeUpdatePage;
         $this->contentTypeGroupPage = $contentTypeGroupPage;

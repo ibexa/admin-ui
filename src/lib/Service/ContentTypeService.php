@@ -37,8 +37,7 @@ class ContentTypeService
         Repository\ContentTypeService $contentTypeService,
         FormFactoryInterface $formFactory,
         array $prioritizedLanguages
-    )
-    {
+    ) {
         $this->contentTypeService = $contentTypeService;
         $this->formFactory = $formFactory;
         $this->prioritizedLanguages = $prioritizedLanguages;

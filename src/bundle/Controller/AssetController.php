@@ -52,8 +52,7 @@ class AssetController extends Controller
         CsrfTokenManagerInterface $csrfTokenManager,
         ImageAssetMapper $imageAssetMapper,
         TranslatorInterface $translator
-    )
-    {
+    ) {
         $this->validator = $validator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->imageAssetMapper = $imageAssetMapper;

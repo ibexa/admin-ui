@@ -35,8 +35,7 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
         MenuItemFactory $factory,
         EventDispatcherInterface $eventDispatcher,
         TranslatorInterface $translator
-    )
-    {
+    ) {
         parent::__construct($factory, $eventDispatcher);
 
         $this->translator = $translator;
