@@ -74,11 +74,11 @@ services:
             - { name: form.type }
 
     Ibexa\AdminUi\Form\SubmitHandler:
-        decorates: EzSystems\EzPlatformUser\Form\BaseSubmitHandler
+        decorates: Ibexa\User\Form\BaseSubmitHandler
 
     Ibexa\AdminUi\Notification\FlashBagNotificationHandler: ~
     Ibexa\AdminUi\Notification\TranslatableNotificationHandler:
-        decorates: EzSystems\EzPlatformUser\ExceptionHandler\NullActionResultHandler
+        decorates: Ibexa\User\ExceptionHandler\NullActionResultHandler
 
     Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface: '@Ibexa\AdminUi\Notification\FlashBagNotificationHandler'
     Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface: '@Ibexa\AdminUi\Notification\TranslatableNotificationHandler'
@@ -133,7 +133,7 @@ services:
 
     Ibexa\AdminUi\UI\Service\ContentTypeIconResolver: ~
 
-    EzSystems\EzPlatformContentForms\ConfigResolver\MaxUploadSize: ~
+    Ibexa\ContentForms\ConfigResolver\MaxUploadSize: ~
 
     Ibexa\AdminUi\Form\Data\FormMapper\ContentTypeDraftMapper: ~
 

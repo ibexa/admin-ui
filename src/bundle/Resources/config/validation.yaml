@@ -17,11 +17,11 @@ Ibexa\AdminUi\Form\Data\ContentTypeData:
                 max: 255
         defaultSortField:
             - Choice:
-                # See eZ\Publish\API\Repository\Values\Content\Location::SORT_FIELD_*
+                # See Ibexa\Contracts\Core\Repository\Values\Content\Location::SORT_FIELD_*
                 choices: [1, 2, 3, 4, 5, 6, 7, 8, 9]
         defaultSortOrder:
             - Choice:
-                # See eZ\Publish\API\Repository\Values\Content\Location::SORT_ORDER_*
+                # See Ibexa\Contracts\Core\Repository\Values\Content\Location::SORT_ORDER_*
                 choices: [0, 1]
         names:
             - Expression:
@@ -60,17 +60,17 @@ Ibexa\AdminUi\Form\Data\FieldDefinitionData:
             - Type:
                 type: integer
 
-eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroupStruct:
+Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroupStruct:
     properties:
         identifier:
             - NotBlank: ~
 
-EzSystems\EzPlatformContentForms\Data\Content\ContentCreateData:
+Ibexa\ContentForms\Data\Content\ContentCreateData:
     properties:
         fieldsData:
             - Valid: ~
 
-EzSystems\EzPlatformContentForms\Data\Content\ContentUpdateData:
+Ibexa\ContentForms\Data\Content\ContentUpdateData:
     properties:
         fieldsData:
             - Valid: ~
@@ -105,7 +105,7 @@ Ibexa\AdminUi\Form\Data\URLListData:
                     min: 3
                     max: 255
 
-eZ\Publish\API\Repository\Values\URL\URLUpdateStruct:
+Ibexa\Contracts\Core\Repository\Values\URL\URLUpdateStruct:
     constraints:
         - Ibexa\AdminUi\Validator\Constraints\UniqueURL: ~
     properties:

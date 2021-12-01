@@ -9,17 +9,17 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\Controller;
 
 use Exception;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\SectionService;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\API\Repository\Values\User\Limitation\NewSectionLimitation;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
-use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchAdapter;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\NewSectionLimitation;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use Ibexa\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 use Ibexa\AdminUi\Form\Data\Section\SectionContentAssignData;
 use Ibexa\AdminUi\Form\Data\Section\SectionCreateData;
 use Ibexa\AdminUi\Form\Data\Section\SectionDeleteData;
@@ -44,43 +44,43 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SectionController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
 
-    /** @var \eZ\Publish\API\Repository\SectionService */
+    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
     private $sectionService;
 
-    /** @var \eZ\Publish\API\Repository\SearchService */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     private $searchService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataMapper\SectionCreateMapper */
+    /** @var \Ibexa\AdminUi\Form\DataMapper\SectionCreateMapper */
     private $sectionCreateMapper;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataMapper\SectionUpdateMapper */
+    /** @var \Ibexa\AdminUi\Form\DataMapper\SectionUpdateMapper */
     private $sectionUpdateMapper;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Service\PathService */
+    /** @var \Ibexa\AdminUi\UI\Service\PathService */
     private $pathService;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
     private $permissionChecker;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -124,8 +124,8 @@ class SectionController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function listAction(Request $request): Response
     {
@@ -138,7 +138,7 @@ class SectionController extends Controller
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.section_limit'));
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Section[] $sectionList */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section[] $sectionList */
         $sectionList = $pagerfanta->getCurrentPageResults();
         $contentCountBySectionId = [];
         $deletableSections = [];
@@ -180,7 +180,7 @@ class SectionController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -201,15 +201,15 @@ class SectionController extends Controller
     /**
      * Fragment action which renders list of contents assigned to section.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
      * @param int $page Current page
      * @param int $limit Number of items per page
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function viewSectionContentAction(Section $section, int $page = 1, int $limit = 10): Response
     {
@@ -260,7 +260,7 @@ class SectionController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -336,7 +336,7 @@ class SectionController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -417,7 +417,8 @@ class SectionController extends Controller
                     'sectionId' => $section->id,
                 ]));
             } catch (Exception $e) {
-                $this->notificationHandler->error(/** @Ignore */ $e->getMessage());
+                $this->notificationHandler->error(/** @Ignore */
+                $e->getMessage());
             }
         }
 
@@ -428,7 +429,7 @@ class SectionController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -457,7 +458,8 @@ class SectionController extends Controller
                     'sectionId' => $section->id,
                 ]));
             } catch (Exception $e) {
-                $this->notificationHandler->error(/** @Ignore */ $e->getMessage());
+                $this->notificationHandler->error(/** @Ignore */
+                $e->getMessage());
             }
         }
 
@@ -468,7 +470,7 @@ class SectionController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Section[] $sections
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[] $sections
      *
      * @return array
      */
@@ -482,11 +484,11 @@ class SectionController extends Controller
     /**
      * Specifies if the User has access to assigning a given Section to Content.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
      *
      * @return bool
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function canUserAssignSectionToSomeContent(Section $section): bool
     {

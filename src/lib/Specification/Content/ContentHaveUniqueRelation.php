@@ -8,19 +8,19 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification\Content;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\Relation;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Specification\AbstractSpecification;
 
 class ContentHaveUniqueRelation extends AbstractSpecification
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
      */
     public function __construct(ContentService $contentService)
     {
@@ -32,8 +32,8 @@ class ContentHaveUniqueRelation extends AbstractSpecification
      *
      * @return bool
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function isSatisfiedBy($item): bool
     {

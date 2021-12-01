@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\View;
 
-use eZ\Publish\Core\MVC\Symfony\View\ContentView;
+use Ibexa\Core\MVC\Symfony\View\ContentView;
 
 class EditContentOnTheFlySuccessView extends ContentView
 {

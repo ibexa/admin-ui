@@ -17,7 +17,7 @@ class SectionsDeleteData
     protected $sections;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Section[]|null $sections
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null $sections
      */
     public function __construct(array $sections = [])
     {

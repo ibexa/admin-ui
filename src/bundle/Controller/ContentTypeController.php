@@ -8,19 +8,19 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Exceptions\BadStateException;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
-use EzSystems\EzPlatformContentForms\Form\ActionDispatcher\ActionDispatcherInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypeCopyData;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypeEditData;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypesDeleteData;
@@ -47,37 +47,37 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ContentTypeController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \EzSystems\EzPlatformContentForms\Form\ActionDispatcher\ActionDispatcherInterface */
+    /** @var \Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface */
     private $contentTypeActionDispatcher;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\ContentTypeFormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\ContentTypeFormFactory */
     private $contentTypeFormFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Data\FormMapper\ContentTypeDraftMapper */
+    /** @var \Ibexa\AdminUi\Form\Data\FormMapper\ContentTypeDraftMapper */
     private $contentTypeDraftMapper;
     /**
-     * @var \eZ\Publish\Core\MVC\ConfigResolverInterface
+     * @var \Ibexa\Core\MVC\ConfigResolverInterface
      */
     private $configResolver;
 
@@ -113,7 +113,7 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
      * @param string $routeName
      * @param int $page
      *
@@ -142,7 +142,7 @@ class ContentTypeController extends Controller
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.content_type_limit'));
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroupList */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroupList */
         $types = $pagerfanta->getCurrentPageResults();
 
         $deleteContentTypesForm = $this->formFactory->deleteContentTypes(
@@ -171,13 +171,13 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
      *
      * @return \Symfony\Component\HttpFoundation\Response|\Ibexa\AdminUi\View\ContentTypeCreateView
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ContentTypeFieldDefinitionValidationException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentTypeFieldDefinitionValidationException
      */
     public function addAction(ContentTypeGroup $group)
     {
@@ -226,7 +226,7 @@ class ContentTypeController extends Controller
         );
         $form->handleRequest($request);
 
-        /** @var \EzSystems\EzPlatformAdminUi\Form\Data\ContentType\Translation\TranslationAddData $data */
+        /** @var \Ibexa\AdminUi\Form\Data\ContentType\Translation\TranslationAddData $data */
         $data = $form->getData();
         $contentType = $data->getContentType();
         $contentTypeGroup = $data->getContentTypeGroup();
@@ -286,7 +286,7 @@ class ContentTypeController extends Controller
         );
         $form->handleRequest($request);
 
-        /** @var \EzSystems\EzPlatformAdminUi\Form\Data\ContentType\Translation\TranslationRemoveData $data */
+        /** @var \Ibexa\AdminUi\Form\Data\ContentType\Translation\TranslationRemoveData $data */
         $data = $form->getData();
         $contentType = $data->getContentType();
         $contentTypeGroup = $data->getContentTypeGroup();
@@ -336,13 +336,13 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $group
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function editAction(Request $request, ContentTypeGroup $group, ContentType $contentType): Response
     {
@@ -400,12 +400,12 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $group
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function copyAction(Request $request, ContentTypeGroup $group, ContentType $contentType): Response
     {
@@ -458,14 +458,14 @@ class ContentTypeController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $group
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $language
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $baseLanguage
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $baseLanguage
      *
      * @return \Symfony\Component\HttpFoundation\Response|\Ibexa\AdminUi\View\ContentTypeEditView
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function updateAction(
         Request $request,
@@ -584,8 +584,8 @@ class ContentTypeController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $group
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -623,7 +623,7 @@ class ContentTypeController extends Controller
      * Handles removing content types based on submitted form.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -664,12 +664,12 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $group
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function viewAction(ContentTypeGroup $group, ContentType $contentType): Response
     {
@@ -705,10 +705,10 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $language
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $baseLanguage
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $baseLanguage
      *
      * @return \Symfony\Component\Form\FormInterface
      */
@@ -740,8 +740,8 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $group
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
      * @return \Symfony\Component\Form\FormInterface
      */
@@ -759,7 +759,7 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType[] $contentTypes
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[] $contentTypes
      *
      * @return array
      */
@@ -794,11 +794,11 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function getDefaultLanguage(ContentTypeDraft $contentTypeDraft): Language
     {
@@ -816,12 +816,12 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     private function tryToCreateContentTypeDraft(ContentType $contentType): ContentTypeDraft
     {

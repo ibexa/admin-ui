@@ -8,18 +8,18 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\Processor;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\Core\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
-use EzSystems\EzPlatformContentForms\Data\Content\ContentCreateData;
-use EzSystems\EzPlatformContentForms\Data\Content\FieldData;
-use EzSystems\EzPlatformContentForms\Event\FormActionEvent;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\ContentForms\Data\Content\ContentCreateData;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\AdminUi\Form\Event\ContentEditEvents;
 use Ibexa\AdminUi\Form\Processor\PreviewFormProcessor;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
@@ -32,16 +32,16 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PreviewFormProcessorTest extends TestCase
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
     /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
     private $urlGenerator;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
     protected function setUp(): void
@@ -53,12 +53,12 @@ class PreviewFormProcessorTest extends TestCase
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService|null $contentService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService|null $contentService
      * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface|null $urlGenerator
-     * @param \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface|null $notificationHandler
-     * @param \eZ\Publish\API\Repository\LocationService|null $locationService
+     * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface|null $notificationHandler
+     * @param \Ibexa\Contracts\Core\Repository\LocationService|null $locationService
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Processor\PreviewFormProcessor
+     * @return \Ibexa\AdminUi\Form\Processor\PreviewFormProcessor
      */
     private function createPreviewFormProcessor(
         ContentService $contentService = null,
@@ -149,7 +149,7 @@ class PreviewFormProcessorTest extends TestCase
      * @param string $fieldDefinitionIdentifier
      * @param string $fieldDataValue
      *
-     * @return \EzSystems\EzPlatformContentForms\Data\Content\ContentCreateData
+     * @return \Ibexa\ContentForms\Data\Content\ContentCreateData
      */
     private function generateContentStruct(string $mainLanguageCode, string $fieldDefinitionIdentifier, string $fieldDataValue): ContentCreateData
     {
@@ -169,8 +169,8 @@ class PreviewFormProcessorTest extends TestCase
     }
 
     /**
-     * @param \EzSystems\EzPlatformContentForms\Data\Content\ContentCreateData $contentStruct
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $contentDraft
+     * @param \Ibexa\ContentForms\Data\Content\ContentCreateData $contentStruct
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $contentDraft
      *
      * @return \PHPUnit\Framework\MockObject\MockObject
      */
@@ -218,7 +218,7 @@ class PreviewFormProcessorTest extends TestCase
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $contentDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $contentDraft
      * @param string $languageCode
      * @param string $url
      * @param int|null $locationId
@@ -246,7 +246,7 @@ class PreviewFormProcessorTest extends TestCase
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $contentDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $contentDraft
      * @param string $languageCode
      * @param string $url
      *
@@ -272,7 +272,7 @@ class PreviewFormProcessorTest extends TestCase
      * @param $contentDraftId
      * @param $languageCode
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     private function generateContentDraft($contentDraftId, $languageCode, $mainLocationId): APIContent
     {

@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\REST\Input\ContentType;
 
-use EzSystems\EzPlatformAdminUi\REST\Value\ContentType\FieldDefinitionCreate as FieldDefinitionCreateValue;
-use EzSystems\EzPlatformRest\Exceptions;
-use EzSystems\EzPlatformRest\Input\ParsingDispatcher;
+use Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionCreate as FieldDefinitionCreateValue;
+use Ibexa\Rest\Exceptions;
+use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
 use Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionCreate;
 use PHPUnit\Framework\TestCase;
 

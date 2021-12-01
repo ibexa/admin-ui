@@ -6,11 +6,11 @@
  */
 namespace Ibexa\AdminUi\QueryType;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\QueryType\OptionsResolverBasedQueryType;
-use eZ\Publish\Core\QueryType\QueryType;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\QueryType\OptionsResolverBasedQueryType;
+use Ibexa\Core\QueryType\QueryType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class SubtreeQueryType extends OptionsResolverBasedQueryType implements QueryType
@@ -18,10 +18,10 @@ abstract class SubtreeQueryType extends OptionsResolverBasedQueryType implements
     protected const OWNED_OPTION_NAME = 'owned';
     protected const SUBTREE_OPTION_NAME = 'subtree';
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     protected $configResolver;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
     public function __construct(

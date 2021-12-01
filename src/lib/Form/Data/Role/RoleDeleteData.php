@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Role;
 
-use eZ\Publish\API\Repository\Values\User\Role;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
 
 class RoleDeleteData
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\Role */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role */
     private $role;
 
     public function __construct(?Role $role = null)
@@ -21,7 +21,7 @@ class RoleDeleteData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\User\Role
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role
      */
     public function getRole(): ?Role
     {
@@ -29,7 +29,7 @@ class RoleDeleteData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      */
     public function setRole(Role $role)
     {

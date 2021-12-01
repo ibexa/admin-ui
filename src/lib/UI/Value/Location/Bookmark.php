@@ -6,22 +6,22 @@
  */
 namespace Ibexa\AdminUi\UI\Value\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\Repository\Values\Content\Location as CoreLocation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Repository\Values\Content\Location as CoreLocation;
 
 class Bookmark extends CoreLocation
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
     protected $contentType;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
     protected $pathLocations;
 
     /** @var bool */
     protected $userCanEdit;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param array $properties
      */
     public function __construct(Location $location, array $properties = [])

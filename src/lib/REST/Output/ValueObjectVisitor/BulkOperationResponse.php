@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\REST\Output\ValueObjectVisitor;
 
-use EzSystems\EzPlatformRest\Output\Generator;
-use EzSystems\EzPlatformRest\Output\ValueObjectVisitor;
-use EzSystems\EzPlatformRest\Output\Visitor;
+use Ibexa\Contracts\Rest\Output\Generator;
+use Ibexa\Contracts\Rest\Output\ValueObjectVisitor;
+use Ibexa\Contracts\Rest\Output\Visitor;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -21,9 +21,9 @@ class BulkOperationResponse extends ValueObjectVisitor
     /**
      * Visit struct returned by controllers.
      *
-     * @param \EzSystems\EzPlatformRest\Output\Visitor $visitor
-     * @param \EzSystems\EzPlatformRest\Output\Generator $generator
-     * @param \EzSystems\EzPlatformAdminUi\REST\Value\BulkOperationResponse $data
+     * @param \Ibexa\Contracts\Rest\Output\Visitor $visitor
+     * @param \Ibexa\Contracts\Rest\Output\Generator $generator
+     * @param \Ibexa\AdminUi\REST\Value\BulkOperationResponse $data
      */
     public function visit(Visitor $visitor, Generator $generator, $data)
     {

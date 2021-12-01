@@ -6,8 +6,8 @@
  */
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
-use eZ\Publish\API\Repository\FieldType;
-use eZ\Publish\Core\FieldType\Value;
+use Ibexa\Contracts\Core\Repository\FieldType;
+use Ibexa\Core\FieldType\Value;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 /**
@@ -17,18 +17,18 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 abstract class AbstractBinaryBaseTransformer
 {
-    /** @var \eZ\Publish\API\Repository\FieldType */
+    /** @var \Ibexa\Contracts\Core\Repository\FieldType */
     protected $fieldType;
 
-    /** @var \eZ\Publish\Core\FieldType\Value */
+    /** @var \Ibexa\Core\FieldType\Value */
     protected $initialValue;
 
     /** @var string */
     protected $valueClass;
 
     /**
-     * @param \eZ\Publish\API\Repository\FieldType $fieldType
-     * @param \eZ\Publish\Core\FieldType\Value $initialValue
+     * @param \Ibexa\Contracts\Core\Repository\FieldType $fieldType
+     * @param \Ibexa\Core\FieldType\Value $initialValue
      * @param string $valueClass
      */
     public function __construct(FieldType $fieldType, Value $initialValue, $valueClass)
@@ -52,7 +52,7 @@ abstract class AbstractBinaryBaseTransformer
     /**
      * @param array $value
      *
-     * @return \eZ\Publish\Core\FieldType\Value
+     * @return \Ibexa\Core\FieldType\Value
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */

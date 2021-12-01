@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Trash;
 
-use eZ\Publish\API\Repository\TrashService;
+use Ibexa\Contracts\Core\Repository\TrashService;
 use Ibexa\AdminUi\Form\DataTransformer\TrashItemTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

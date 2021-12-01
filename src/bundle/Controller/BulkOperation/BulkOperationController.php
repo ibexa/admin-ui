@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller\BulkOperation;
 
-use EzSystems\EzPlatformRest\Message;
-use EzSystems\EzPlatformRest\Server\Controller as RestController;
+use Ibexa\Rest\Message;
+use Ibexa\Rest\Server\Controller as RestController;
 use Ibexa\AdminUi\REST\Value\BulkOperationResponse;
 use Ibexa\AdminUi\REST\Value\Operation;
 use Ibexa\AdminUi\REST\Value\OperationResponse;
@@ -33,13 +33,13 @@ class BulkOperationController extends RestController
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \EzSystems\EzPlatformAdminUi\REST\Value\BulkOperationResponse
+     * @return \Ibexa\AdminUi\REST\Value\BulkOperationResponse
      *
      * @throws \Exception
      */
     public function bulkAction(Request $request): BulkOperationResponse
     {
-        /** @var \EzSystems\EzPlatformAdminUi\REST\Value\BulkOperation $operationList */
+        /** @var \Ibexa\AdminUi\REST\Value\BulkOperation $operationList */
         $operationList = $this->inputDispatcher->parse(
             new Message(
                 ['Content-Type' => $request->headers->get('Content-Type')],
@@ -66,7 +66,7 @@ class BulkOperationController extends RestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \EzSystems\EzPlatformAdminUi\REST\Value\Operation $operation
+     * @param \Ibexa\AdminUi\REST\Value\Operation $operation
      *
      * @return \Symfony\Component\HttpFoundation\Request
      */

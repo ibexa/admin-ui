@@ -6,14 +6,14 @@
  */
 namespace Ibexa\AdminUi\Menu;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use JMS\TranslationBundle\Model\Message;
@@ -38,16 +38,16 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     const BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
     const BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
     public function __construct(
@@ -81,18 +81,18 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
      *
      * @return \Knp\Menu\ItemInterface
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $parentLocation */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation */
         $parentLocation = $options['parent_location'];
-        /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
         $contentType = $options['content_type'];
         $parentContentType = $parentLocation->getContent()->getContentType();
-        /** @var \eZ\Publish\API\Repository\Values\Content\Language $language */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language $language */
         $language = $options['language'];
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
@@ -182,11 +182,11 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentCreateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct
      */
     private function createContentCreateStruct(Location $location, ContentType $contentType, Language $language): ContentCreateStruct
     {

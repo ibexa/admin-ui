@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\SectionService;
-use eZ\Publish\API\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Ibexa\Bundle\AdminUi\ParamConverter\SectionParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -18,7 +18,7 @@ class SectionParamConverterTest extends AbstractParamConverterTest
     const SUPPORTED_CLASS = Section::class;
     const PARAMETER_NAME = 'section';
 
-    /** @var \EzSystems\EzPlatformAdminUiBundle\ParamConverter\SectionParamConverter */
+    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\SectionParamConverter */
     protected $converter;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject */

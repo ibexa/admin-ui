@@ -6,7 +6,7 @@
  */
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
-use eZ\Publish\Core\FieldType\Date\Value;
+use Ibexa\Core\FieldType\Date\Value;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -44,9 +44,9 @@ class DateValueTransformer implements DataTransformerInterface
     /**
      * @param int|mixed $value
      *
-     * @return \eZ\Publish\Core\FieldType\Date\Value|null
+     * @return \Ibexa\Core\FieldType\Date\Value|null
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
     public function reverseTransform($value)

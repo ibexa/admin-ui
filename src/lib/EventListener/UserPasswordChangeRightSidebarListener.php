@@ -37,7 +37,7 @@ class UserPasswordChangeRightSidebarListener implements EventSubscriberInterface
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent $event
+     * @param \Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent $event
      */
     public function onUserPasswordChangeRightSidebarConfigure(ConfigureMenuEvent $event): void
     {

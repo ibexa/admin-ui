@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\AdminUi\Limitation\Templating\LimitationBlockRendererInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -16,7 +16,7 @@ use Twig\TwigFunction;
 
 class LimitationValueRenderingExtension extends AbstractExtension
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Limitation\Templating\LimitationBlockRenderer */
+    /** @var \Ibexa\AdminUi\Limitation\Templating\LimitationBlockRenderer */
     private $limitationRenderer;
 
     public function __construct(LimitationBlockRendererInterface $limitationRenderer)

@@ -35,8 +35,8 @@ class DateIntervalTransformer implements DataTransformerInterface
      *
      * @throws \Exception
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function reverseTransform($value)
     {

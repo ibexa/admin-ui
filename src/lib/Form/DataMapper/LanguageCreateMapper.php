@@ -6,8 +6,8 @@
  */
 namespace Ibexa\AdminUi\Form\DataMapper;
 
-use eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct;
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Form\Data\Language\LanguageCreateData;
 use Ibexa\Contracts\AdminUi\Form\DataMapper\DataMapperInterface;
@@ -20,11 +20,11 @@ class LanguageCreateMapper implements DataMapperInterface
     /**
      * Maps given LanguageCreateStruct object to a LanguageCreateData object.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct|\eZ\Publish\API\Repository\Values\ValueObject $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageCreateData
+     * @return \Ibexa\AdminUi\Form\Data\Language\LanguageCreateData
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function map(ValueObject $value): LanguageCreateData
     {
@@ -44,11 +44,11 @@ class LanguageCreateMapper implements DataMapperInterface
     /**
      * Maps given LanguageCreateData object to a LanguageCreateStruct object.
      *
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageCreateData $data
+     * @param \Ibexa\AdminUi\Form\Data\Language\LanguageCreateData $data
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function reverseMap($data): LanguageCreateStruct
     {

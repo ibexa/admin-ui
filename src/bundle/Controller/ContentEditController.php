@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\AdminUi\Event\CancelEditVersionDraftEvent;
 use Ibexa\AdminUi\View\ContentTranslateSuccessView;
 use Ibexa\AdminUi\View\ContentTranslateView;
@@ -18,10 +18,10 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ContentEditController extends Controller
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
     /** @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface */
@@ -43,7 +43,7 @@ class ContentEditController extends Controller
         string $toLanguageCode,
         ?int $locationId = null
     ): Response {
-        /** @var \EzSystems\EzPlatformAdminUi\Event\ContentProxyTranslateEvent $event */
+        /** @var \Ibexa\Contracts\AdminUi\Event\ContentProxyTranslateEvent $event */
         $event = $this->eventDispatcher->dispatch(
             new ContentProxyTranslateEvent(
                 $contentId,
@@ -67,9 +67,9 @@ class ContentEditController extends Controller
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\View\ContentTranslateView $view
+     * @param \Ibexa\AdminUi\View\ContentTranslateView $view
      *
-     * @return \EzSystems\EzPlatformAdminUi\View\ContentTranslateView
+     * @return \Ibexa\AdminUi\View\ContentTranslateView
      */
     public function translateAction(ContentTranslateView $view): ContentTranslateView
     {
@@ -77,9 +77,9 @@ class ContentEditController extends Controller
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\View\ContentTranslateSuccessView $view
+     * @param \Ibexa\AdminUi\View\ContentTranslateSuccessView $view
      *
-     * @return \EzSystems\EzPlatformAdminUi\View\ContentTranslateSuccessView
+     * @return \Ibexa\AdminUi\View\ContentTranslateSuccessView
      */
     public function translationSuccessAction(ContentTranslateSuccessView $view): ContentTranslateSuccessView
     {

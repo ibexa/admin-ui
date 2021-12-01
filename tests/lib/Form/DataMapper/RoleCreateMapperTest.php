@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\DataMapper;
 
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\Core\Repository\Values\User\RoleCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Core\Repository\Values\User\RoleCreateStruct;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Form\Data\Language\LanguageCreateData;
 use Ibexa\AdminUi\Form\Data\Role\RoleCreateData;
@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 class RoleCreateMapperTest extends TestCase
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataMapper\RoleCreateMapper */
+    /** @var \Ibexa\AdminUi\Form\DataMapper\RoleCreateMapper */
     private $mapper;
 
     protected function setUp(): void
@@ -79,7 +79,7 @@ class RoleCreateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \eZ\Publish\Core\Repository\Values\User\RoleCreateStruct
+     * @return \Ibexa\Core\Repository\Values\User\RoleCreateStruct
      */
     private function createStruct(array $properties): RoleCreateStruct
     {
@@ -89,7 +89,7 @@ class RoleCreateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleCreateData
+     * @return \Ibexa\AdminUi\Form\Data\Role\RoleCreateData
      */
     private function createData(array $properties): RoleCreateData
     {

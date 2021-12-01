@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Service\Role;
 
-use eZ\Publish\API\Repository;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ContentId;
-use eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\SubtreeLimitation;
-use eZ\Publish\API\Repository\Values\User\Policy;
-use eZ\Publish\API\Repository\Values\User\Role;
-use eZ\Publish\API\Repository\Values\User\RoleAssignment;
+use Ibexa\Core\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentId;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Policy;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
 use Ibexa\AdminUi\Form\Data\PolicyData;
 use Ibexa\AdminUi\Form\Data\RoleAssignmentData;
 use Ibexa\AdminUi\Form\Data\RoleData;

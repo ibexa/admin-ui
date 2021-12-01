@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification\Location;
 
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\AdminUi\Specification\AbstractSpecification;
 
 class IsWithinCopySubtreeLimit extends AbstractSpecification
@@ -18,12 +18,12 @@ class IsWithinCopySubtreeLimit extends AbstractSpecification
     /** @var int */
     private $copyLimit;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $searchService;
 
     /**
      * @param int $copyLimit
-     * @param \eZ\Publish\API\Repository\SearchService $searchService
+     * @param \Ibexa\Contracts\Core\Repository\SearchService $searchService
      */
     public function __construct(
         int $copyLimit,
@@ -34,11 +34,11 @@ class IsWithinCopySubtreeLimit extends AbstractSpecification
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $item
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
      *
      * @return bool
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function isSatisfiedBy($item): bool
     {

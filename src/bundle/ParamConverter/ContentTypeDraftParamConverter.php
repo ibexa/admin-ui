@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Bundle\AdminUi\ParamConverter;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,13 +16,13 @@ class ContentTypeDraftParamConverter implements ParamConverterInterface
 {
     const PARAMETER_CONTENT_TYPE_ID = 'contentTypeId';
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
     /**
      * ContentTypeGroupParamConverter constructor.
      *
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeGroupService
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeGroupService
      */
     public function __construct(ContentTypeService $contentTypeGroupService)
     {

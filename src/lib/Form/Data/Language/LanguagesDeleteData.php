@@ -17,7 +17,7 @@ class LanguagesDeleteData
     protected $languages;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language[]|null $languages
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language[]|null $languages
      */
     public function __construct(array $languages = [])
     {

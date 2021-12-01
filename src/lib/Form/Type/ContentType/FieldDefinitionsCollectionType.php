@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ContentType;
 
-use eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList;
-use EzSystems\EzPlatformAdminUi\Form\Type\FieldDefinition\FieldDefinitionType;
+use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
+use Ibexa\AdminUi\Form\Type\FieldDefinition\FieldDefinitionType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,11 +17,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class FieldDefinitionsCollectionType extends AbstractType
 {
-    /** @var \eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList */
+    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
     private $fieldsGroupsList;
 
     /**
-     * @param \eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList $fieldsGroupsListHelper
+     * @param \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList $fieldsGroupsListHelper
      */
     public function __construct(FieldsGroupsList $fieldsGroupsListHelper)
     {

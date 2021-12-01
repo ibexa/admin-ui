@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Service;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Symfony\Component\Asset\Packages;
 
 final class ContentTypeIconResolver
@@ -18,14 +18,14 @@ final class ContentTypeIconResolver
 
     private const ICON_KEY = 'thumbnail';
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Symfony\Component\Asset\Packages */
     private $packages;
 
     /**
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Core\MVC\ConfigResolverInterface $configResolver
      * @param \Symfony\Component\Asset\Packages $packages
      */
     public function __construct(ConfigResolverInterface $configResolver, Packages $packages)
@@ -40,7 +40,7 @@ final class ContentTypeIconResolver
      * Path is resolved based on configuration (ezpublish.system.<SCOPE>.content_type.<IDENTIFIER>). If there isn't
      * corresponding entry for given content type, then path to default icon will be returned.
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\ContentTypeIconNotFoundException
+     * @throws \Ibexa\AdminUi\Exception\ContentTypeIconNotFoundException
      */
     public function getContentTypeIcon(string $identifier): string
     {
@@ -55,7 +55,7 @@ final class ContentTypeIconResolver
     }
 
     /**
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\ContentTypeIconNotFoundException
+     * @throws \Ibexa\AdminUi\Exception\ContentTypeIconNotFoundException
      */
     private function resolveIcon(string $identifier): string
     {

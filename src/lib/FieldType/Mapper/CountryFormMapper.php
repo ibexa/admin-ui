@@ -6,7 +6,7 @@
  */
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
-use EzSystems\EzPlatformContentForms\Form\Type\FieldType\CountryFieldType;
+use Ibexa\ContentForms\Form\Type\FieldType\CountryFieldType;
 use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

@@ -6,9 +6,9 @@
  */
 namespace Ibexa\AdminUi\Validator\Constraints;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\SPI\FieldType\Value;
-use EzSystems\EzPlatformContentForms\Validator\Constraints\FieldTypeValidator;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\FieldType\Value;
+use Ibexa\ContentForms\Validator\Constraints\FieldTypeValidator;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Symfony\Component\Validator\Constraint;
 

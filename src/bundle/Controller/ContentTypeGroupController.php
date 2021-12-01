@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupCreateData;
 use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupDeleteData;
 use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupsDeleteData;
@@ -28,19 +28,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ContentTypeGroupController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -76,7 +76,7 @@ class ContentTypeGroupController extends Controller
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.content_type_group_limit'));
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroupList */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroupList */
         $contentTypeGroupList = $pagerfanta->getCurrentPageResults();
 
         $deleteContentTypeGroupsForm = $this->formFactory->deleteContentTypeGroups(
@@ -144,7 +144,7 @@ class ContentTypeGroupController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -189,7 +189,7 @@ class ContentTypeGroupController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -262,7 +262,7 @@ class ContentTypeGroupController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
      * @param int $page
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -277,7 +277,7 @@ class ContentTypeGroupController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroups
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroups
      *
      * @return array
      */

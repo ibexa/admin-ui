@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\URL;
 
-use eZ\Publish\API\Repository\Values\URL\URLUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLUpdateStruct;
 
 class URLUpdateData extends URLUpdateStruct
 {

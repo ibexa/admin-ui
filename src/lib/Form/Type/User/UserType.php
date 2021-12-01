@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\User;
 
-use eZ\Publish\API\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\AdminUi\Form\DataTransformer\UserTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -16,11 +16,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class UserType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     protected $userService;
 
     /**
-     * @param \eZ\Publish\API\Repository\UserService $userService
+     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
      */
     public function __construct(UserService $userService)
     {

@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UserSetting;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzPlatformUser\UserSetting\FormMapperInterface;
-use EzSystems\EzPlatformUser\UserSetting\ValueDefinitionInterface;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\User\UserSetting\FormMapperInterface;
+use Ibexa\Contracts\User\UserSetting\ValueDefinitionInterface;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +21,7 @@ class AutosaveInterval implements ValueDefinitionInterface, FormMapperInterface
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(

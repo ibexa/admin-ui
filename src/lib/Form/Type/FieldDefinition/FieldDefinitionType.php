@@ -6,10 +6,10 @@
  */
 namespace Ibexa\AdminUi\Form\Type\FieldDefinition;
 
-use eZ\Publish\API\Repository\FieldTypeService;
-use eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList;
-use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy;
-use EzSystems\EzPlatformAdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface;
+use Ibexa\Contracts\Core\Repository\FieldTypeService;
+use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy;
+use Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\AdminUi\Form\DataTransformer\TranslatablePropertyTransformer;
 use Symfony\Component\Form\AbstractType;
@@ -27,16 +27,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class FieldDefinitionType extends AbstractType
 {
-    /** @var \EzSystems\EzPlatformAdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface */
+    /** @var \Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface */
     private $fieldTypeMapperDispatcher;
 
-    /** @var \eZ\Publish\API\Repository\FieldTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\FieldTypeService */
     private $fieldTypeService;
 
-    /** @var \eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList */
+    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
     private $groupsList;
 
-    /** @var \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy */
+    /** @var \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy */
     private $thumbnailStrategy;
 
     public function __construct(FieldTypeDefinitionFormMapperDispatcherInterface $fieldTypeMapperDispatcher, FieldTypeService $fieldTypeService, ThumbnailStrategy $thumbnailStrategy)
@@ -125,7 +125,7 @@ class FieldDefinitionType extends AbstractType
 
         // Hook on form generation for specific FieldType needs
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            /** @var \EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData $data */
+            /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData $data */
             $data = $event->getData();
             $form = $event->getForm();
             $fieldTypeIdentifier = $data->getFieldTypeIdentifier();

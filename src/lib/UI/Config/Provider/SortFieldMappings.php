@@ -13,7 +13,7 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 /**
  * Provides information about mapping between serialized sort field and the value accepted by sort clause.
  *
- * @see \EzSystems\EzPlatformRest\Output\ValueObjectVisitor::serializeSortField
+ * @see \Ibexa\Contracts\Rest\Output\ValueObjectVisitor::serializeSortField
  */
 class SortFieldMappings implements ProviderInterface
 {

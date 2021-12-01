@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
-use eZ\Publish\API\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use JMS\TranslationBundle\Model\Message;
@@ -33,7 +33,7 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
     private $tokenStorage;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
     public function __construct(

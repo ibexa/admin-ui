@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\AdminUi\Event;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -20,13 +20,13 @@ class FieldDefinitionMappingEvent extends Event
      */
     public const NAME = 'field_definition.mapping';
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData */
+    /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData */
     private $fieldDefinitionData;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
     private $baseLanguage;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
     private $targetLanguage;
 
     public function __construct(

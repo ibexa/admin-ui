@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
-use eZ\Publish\API\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\SectionService;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
 /**
@@ -16,7 +16,7 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
  */
 class Sections implements ProviderInterface
 {
-    /** @var \eZ\Publish\API\Repository\SectionService */
+    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
     private $sectionService;
 
     public function __construct(
@@ -30,7 +30,7 @@ class Sections implements ProviderInterface
         $sections = $this->sectionService->loadSections();
         $config = [];
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Section $section */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section $section */
         foreach ($sections as $section) {
             $config[$section->identifier] = $section->name;
         }

@@ -6,7 +6,7 @@
  */
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
-use eZ\Publish\Core\FieldType\Keyword\Value;
+use Ibexa\Core\FieldType\Keyword\Value;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**

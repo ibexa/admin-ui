@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 
-use eZ\Bundle\EzPublishCoreBundle\Tests\Converter\AbstractParamConverterTest as CoreAbstractParamConverterTest;
+use Ibexa\Tests\Bundle\Core\Converter\AbstractParamConverterTest as CoreAbstractParamConverterTest;
 
 abstract class AbstractParamConverterTest extends CoreAbstractParamConverterTest
 {

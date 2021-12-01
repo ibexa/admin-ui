@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\SPI\Limitation\Target;
-use eZ\Publish\SPI\Limitation\Target\Builder\VersionBuilder;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
@@ -46,22 +46,22 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     const ITEM__HIDE = 'content__sidebar_right__hide';
     const ITEM__REVEAL = 'content__sidebar_right__reveal';
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UniversalDiscovery\ConfigResolver */
+    /** @var \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver */
     private $udwConfigResolver;
 
-    /** @var \eZ\Publish\API\Repository\SearchService */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     private $searchService;
 
-    /** @var \EzSystems\EzPlatformAdminUiBundle\Templating\Twig\UniversalDiscoveryExtension */
+    /** @var \Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension */
     private $udwExtension;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
     private $permissionChecker;
 
     public function __construct(
@@ -97,19 +97,19 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
      *
      * @return \Knp\Menu\ItemInterface
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
         $location = $options['location'];
-        /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
         $contentType = $options['content_type'];
-        /** @var \eZ\Publish\API\Repository\Values\Content\Content $content */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
         $content = $options['content'];
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');

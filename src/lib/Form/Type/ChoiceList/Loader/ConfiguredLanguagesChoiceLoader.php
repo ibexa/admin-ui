@@ -8,22 +8,22 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
 class ConfiguredLanguagesChoiceLoader implements ChoiceLoaderInterface
 {
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     /**
-     * @param \eZ\Publish\API\Repository\LanguageService $languageService
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
+     * @param \Ibexa\Core\MVC\ConfigResolverInterface $configResolver
      */
     public function __construct(LanguageService $languageService, ConfigResolverInterface $configResolver)
     {
@@ -80,7 +80,7 @@ class ConfiguredLanguagesChoiceLoader implements ChoiceLoaderInterface
     /**
      * Sort languages based on siteaccess languages order.
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
      */
     private function getPriorityOrderedLanguages(): array
     {

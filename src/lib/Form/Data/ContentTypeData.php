@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeUpdateStruct;
 
 /**
  * Base data class for ContentType update form, with FieldDefinitions data and ContentTypeDraft.
@@ -22,7 +22,7 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
      */
     use NewnessChecker;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData[][] */
+    /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData[][] */
     public $fieldDefinitionsData = [];
 
     /**
@@ -32,7 +32,7 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
      */
     public $languageCode = null;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft */
     protected $contentTypeDraft;
 
     protected function getIdentifierValue(): string

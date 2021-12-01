@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data;
 
-use eZ\Publish\API\Repository\Values\User\Role;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
 
 class RoleData
 {

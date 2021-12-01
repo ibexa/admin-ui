@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Permission;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\SubtreeLimitation;
-use eZ\Publish\API\Repository\Values\User\LookupLimitationResult;
-use eZ\Publish\API\Repository\Values\User\LookupPolicyLimitations;
-use eZ\Publish\Core\Repository\Values\User\Policy;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult;
+use Ibexa\Contracts\Core\Repository\Values\User\LookupPolicyLimitations;
+use Ibexa\Core\Repository\Values\User\Policy;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use PHPUnit\Framework\TestCase;

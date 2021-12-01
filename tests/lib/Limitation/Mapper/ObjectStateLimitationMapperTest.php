@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\ObjectStateService;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
-use eZ\Publish\API\Repository\Values\User\Limitation\ObjectStateLimitation;
-use eZ\Publish\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\ObjectStateService;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ObjectStateLimitation;
+use Ibexa\Core\Repository\Values\ObjectState\ObjectState;
 use Ibexa\AdminUi\Limitation\Mapper\ObjectStateLimitationMapper;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -21,13 +21,13 @@ class ObjectStateLimitationMapperTest extends TestCase
     private const EXAMPLE_OBJECT_STATE_ID_B = 2;
     private const EXAMPLE_OBJECT_STATE_ID_C = 3;
 
-    /** @var \eZ\Publish\API\Repository\ObjectStateService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService|\PHPUnit\Framework\MockObject\MockObject */
     private $objectStateService;
 
     /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $logger;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Limitation\Mapper\ObjectStateLimitationMapper */
+    /** @var \Ibexa\AdminUi\Limitation\Mapper\ObjectStateLimitationMapper */
     private $mapper;
 
     protected function setUp(): void

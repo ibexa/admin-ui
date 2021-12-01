@@ -6,7 +6,7 @@
  */
 namespace Ibexa\AdminUi\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
 /**
  * Interface for Limitation Value mappers.
@@ -16,7 +16,7 @@ interface LimitationValueMapperInterface
     /**
      * Map the limitation values, in order to pass them as context of limitation value rendering.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
      *
      * @return mixed[]
      */

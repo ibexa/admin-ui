@@ -6,11 +6,11 @@
  */
 namespace Ibexa\AdminUi\Form\Data\Language;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 
 class LanguageDeleteData
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
     private $language;
 
     public function __construct(?Language $language = null)
@@ -19,7 +19,7 @@ class LanguageDeleteData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      */
     public function getLanguage(): ?Language
     {
@@ -27,7 +27,7 @@ class LanguageDeleteData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      */
     public function setLanguage(Language $language)
     {

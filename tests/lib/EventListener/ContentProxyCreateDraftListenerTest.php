@@ -8,17 +8,17 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\EventListener;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinitionCollection;
-use eZ\Publish\SPI\FieldType\Value;
-use EzSystems\EzPlatformUser\UserSetting\UserSetting;
-use EzSystems\EzPlatformUser\UserSetting\UserSettingService;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
+use Ibexa\Contracts\Core\FieldType\Value;
+use Ibexa\User\UserSetting\UserSetting;
+use Ibexa\User\UserSetting\UserSettingService;
 use Ibexa\AdminUi\Event\Options;
 use Ibexa\AdminUi\EventListener\ContentProxyCreateDraftListener;
 use Ibexa\AdminUi\UserSetting\Autosave;

@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\REST\Value;
 
-use EzSystems\EzPlatformRest\Value as RestValue;
+use Ibexa\Rest\Value as RestValue;
 
 class BulkOperationResponse extends RestValue
 {
-    /** @var \EzSystems\EzPlatformAdminUi\REST\Value\OperationResponse[] */
+    /** @var \Ibexa\AdminUi\REST\Value\OperationResponse[] */
     public $operations;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\REST\Value\OperationResponse[] $operations
+     * @param \Ibexa\AdminUi\REST\Value\OperationResponse[] $operations
      */
     public function __construct($operations)
     {

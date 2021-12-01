@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Policy;
 
-use eZ\Publish\API\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData;
 use Ibexa\AdminUi\Form\Type\Role\LimitationType;
 use Symfony\Component\Form\AbstractType;
@@ -21,13 +21,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PolicyUpdateType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\RoleService */
+    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
     private $roleService;
 
     /**
      * PolicyLimitationsType constructor.
      *
-     * @param \eZ\Publish\API\Repository\RoleService $roleService
+     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
      */
     public function __construct(RoleService $roleService)
     {
@@ -92,10 +92,10 @@ class PolicyUpdateType extends AbstractType
      * Generates the limitation list from existing limitations (already configured for current policy) and
      * available limitation types available for current policy (i.e. current module/function combination).
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation[] $existingLimitations
-     * @param \eZ\Publish\SPI\Limitation\Type[] $availableLimitationTypes
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] $existingLimitations
+     * @param \Ibexa\Contracts\Core\Limitation\Type[] $availableLimitationTypes
      *
-     * @return array|\eZ\Publish\API\Repository\Values\User\Limitation[]
+     * @return array|\Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
      */
     private function generateLimitationList(array $existingLimitations, array $availableLimitationTypes): array
     {

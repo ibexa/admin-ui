@@ -18,7 +18,7 @@ class UniqueFieldDefinitionIdentifierValidator extends ConstraintValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData $value The value that should be validated
+     * @param \Ibexa\AdminUi\Form\Data\FieldDefinitionData $value The value that should be validated
      * @param \Symfony\Component\Validator\Constraint|UniqueFieldDefinitionIdentifier $constraint The constraint for the validation
      *
      * @api

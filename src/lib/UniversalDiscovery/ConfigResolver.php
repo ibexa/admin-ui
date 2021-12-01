@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UniversalDiscovery;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -21,11 +21,11 @@ class ConfigResolver
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
     protected $eventDispatcher;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     protected $configResolver;
 
     /**
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Core\MVC\ConfigResolverInterface $configResolver
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
@@ -55,7 +55,7 @@ class ConfigResolver
         $configResolveEvent->setContext($context);
         $configResolveEvent->setConfig($config);
 
-        /** @var \EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event */
+        /** @var \Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event */
         $event = $this->eventDispatcher->dispatch($configResolveEvent, ConfigResolveEvent::NAME);
 
         return $event->getConfig();

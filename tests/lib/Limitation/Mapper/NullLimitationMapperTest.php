@@ -6,7 +6,7 @@
  */
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use Ibexa\AdminUi\Limitation\Mapper\NullLimitationMapper;
 use PHPUnit\Framework\TestCase;
 

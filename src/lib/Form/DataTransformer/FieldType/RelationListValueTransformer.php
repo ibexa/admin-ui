@@ -6,7 +6,7 @@
  */
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
-use eZ\Publish\Core\FieldType\RelationList\Value;
+use Ibexa\Core\FieldType\RelationList\Value;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**

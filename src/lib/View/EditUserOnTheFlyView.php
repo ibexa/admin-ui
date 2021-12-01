@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\View;
 
-use EzSystems\EzPlatformContentForms\Content\View\ContentEditView;
+use Ibexa\ContentForms\Content\View\ContentEditView;
 
 class EditUserOnTheFlyView extends ContentEditView
 {

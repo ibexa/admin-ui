@@ -6,10 +6,10 @@
  */
 namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
-use eZ\Publish\API\Repository\FieldType;
-use eZ\Publish\API\Repository\FieldTypeService;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\FieldType;
+use Ibexa\Contracts\Core\Repository\FieldTypeService;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\AdminUi\Validator\Constraints\FieldSettings;
 use Ibexa\AdminUi\Validator\Constraints\FieldSettingsValidator;
@@ -30,7 +30,7 @@ class FieldSettingsValidatorTest extends TestCase
     private $fieldTypeService;
 
     /**
-     * @var \EzSystems\EzPlatformAdminUi\Validator\Constraints\FieldSettingsValidator
+     * @var \Ibexa\AdminUi\Validator\Constraints\FieldSettingsValidator
      */
     private $validator;
 

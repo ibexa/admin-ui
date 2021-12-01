@@ -13,7 +13,7 @@ use Ibexa\AdminUi\UI\Value\ValueFactory;
 
 final class Mapper
 {
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory */
+    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
     private $valueFactory;
 
     public function __construct(
@@ -23,7 +23,7 @@ final class Mapper
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location[] $locations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
      *
      * @return Value\Content\Location[]
      */
@@ -38,7 +38,7 @@ final class Mapper
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location[] $locations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
      *
      * @return Value\Content\Location[]
      */

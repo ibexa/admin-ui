@@ -8,20 +8,20 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\EventListener;
 
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\URLAliasService;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\URLAliasService;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Symfony\Component\Form\FormEvent;
 
 class BuildPathFromRootListener
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\URLAliasService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
     private $urlAliasService;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -37,8 +37,8 @@ class BuildPathFromRootListener
     /**
      * @param \Symfony\Component\Form\FormEvent $event
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function onPreSubmitData(FormEvent $event)
     {

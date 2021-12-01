@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Siteaccess;
 
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 
 abstract class AbstractSiteaccessPreviewVoter implements SiteaccessPreviewVoterInterface
 {
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     protected $configResolver;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider */
+    /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */
     protected $repositoryConfigurationProvider;
 
     public function __construct(

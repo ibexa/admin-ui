@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\ContentTypeGroup;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
 class ContentTypeGroupDeleteData
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup */
     private $contentTypeGroup;
 
     public function __construct(?ContentTypeGroup $contentTypeGroup = null)
@@ -21,7 +21,7 @@ class ContentTypeGroupDeleteData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup
      */
     public function getContentTypeGroup(): ContentTypeGroup
     {
@@ -29,7 +29,7 @@ class ContentTypeGroupDeleteData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
      */
     public function setContentTypeGroup(ContentTypeGroup $contentTypeGroup)
     {

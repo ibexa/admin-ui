@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\LocationView;
 
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\SPI\Limitation\Target;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\AdminUi\Form\Data\Content\Translation\MainTranslationUpdateData;
 use Ibexa\AdminUi\Form\Data\Content\Translation\TranslationAddData;
 use Ibexa\AdminUi\Form\Data\Content\Translation\TranslationDeleteData;
@@ -33,7 +33,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
 {
     const URI_FRAGMENT = 'ibexa-tab-location-view-translations';
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory */
+    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     protected $datasetFactory;
 
     /** @var \Symfony\Component\Form\FormFactoryInterface */
@@ -42,20 +42,20 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
     protected $urlGenerator;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
 
     /**
      * @param \Twig\Environment $twig
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory $datasetFactory
+     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
      * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
+     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
      */
     public function __construct(
         Environment $twig,
@@ -105,9 +105,9 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
         $location = $contextParameters['location'];
-        /** @var \eZ\Publish\API\Repository\Values\Content\Content $content */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
         $content = $contextParameters['content'];
         $versionInfo = $content->getVersionInfo();
         $translationsDataset = $this->datasetFactory->translations();
@@ -147,7 +147,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      *
      * @return \Symfony\Component\Form\FormInterface
      *
@@ -161,7 +161,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param array $languageCodes
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -179,7 +179,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param string $languageCode
      *
      * @return \Symfony\Component\Form\FormInterface

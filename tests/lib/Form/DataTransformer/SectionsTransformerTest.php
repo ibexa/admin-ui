@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
-use eZ\Publish\API\Repository\SectionService;
-use eZ\Publish\API\Repository\Values\Content\Section as APISection;
+use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section as APISection;
 use Ibexa\AdminUi\Form\DataTransformer\SectionsTransformer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;

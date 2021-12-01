@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\REST\Value\ContentType;
+namespace Ibexa\AdminUi\REST\Value\ContentType;
 
-use EzSystems\EzPlatformRest\Value as RestValue;
+use Ibexa\Rest\Value as RestValue;
 
 final class FieldDefinitionCreate extends RestValue
 {

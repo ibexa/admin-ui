@@ -8,17 +8,17 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber;
 
-use eZ\Publish\Core\FieldType\ImageAsset\AssetMapper;
+use Ibexa\Core\FieldType\ImageAsset\AssetMapper;
 use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ImageAssetDefaultLocationId implements EventSubscriberInterface
 {
-    /** @var \eZ\Publish\Core\FieldType\ImageAsset\AssetMapper */
+    /** @var \Ibexa\Core\FieldType\ImageAsset\AssetMapper */
     private $assetMapper;
 
     /**
-     * @param \eZ\Publish\Core\FieldType\ImageAsset\AssetMapper $assetMapper
+     * @param \Ibexa\Core\FieldType\ImageAsset\AssetMapper $assetMapper
      */
     public function __construct(AssetMapper $assetMapper)
     {
@@ -36,7 +36,7 @@ class ImageAssetDefaultLocationId implements EventSubscriberInterface
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event
+     * @param \Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event
      */
     public function onUdwConfigResolve(ConfigResolveEvent $event): void
     {

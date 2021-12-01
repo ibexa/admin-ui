@@ -18,12 +18,12 @@ class TrashItemDeleteData
     /**
      * @Assert\NotBlank()
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\TrashItem[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[]
      */
     public $trashItems;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\TrashItem[] $trashItems
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[] $trashItems
      */
     public function __construct(array $trashItems = [])
     {
@@ -31,7 +31,7 @@ class TrashItemDeleteData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\TrashItem[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[]
      */
     public function getTrashItems(): array
     {
@@ -39,7 +39,7 @@ class TrashItemDeleteData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\TrashItem[] $trashItems
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[] $trashItems
      */
     public function setTrashItems(array $trashItems): void
     {

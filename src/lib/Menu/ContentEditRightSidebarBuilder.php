@@ -6,13 +6,13 @@
  */
 namespace Ibexa\AdminUi\Menu;
 
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\SPI\Limitation\Target;
+use Ibexa\Core\Repository\Exceptions as ApiExceptions;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
@@ -38,13 +38,13 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
     const BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
     const BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
 
-    /** @var \EzSystems\EzPlatformAdminUi\Siteaccess\NonAdminSiteaccessResolver */
+    /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
     private $siteaccessResolver;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
@@ -88,13 +88,13 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
         $location = $options['location'];
-        /** @var \eZ\Publish\API\Repository\Values\Content\Content $content */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
         $content = $options['content'];
-        /** @var \eZ\Publish\API\Repository\Values\Content\Language $language */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language $language */
         $language = $options['language'];
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $parentLocation */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation */
         $parentLocation = $options['parent_location'];
 
         $target = (new Target\Builder\VersionBuilder())->translateToAnyLanguageOf([$language->languageCode])->build();
@@ -178,15 +178,15 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $parentLocation
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation
      *
      * @return \Knp\Menu\ItemInterface
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function getContentPreviewItem(
         ?Location $location,

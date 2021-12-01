@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\URLWildcard;
 
-use eZ\Publish\API\Repository\Values\Content\URLWildcard;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 
 class URLWildcardUpdateData extends URLWildcardData
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\URLWildcard|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|null */
     private $urlWildcard;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\URLWildcard|null $urlWildcard
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|null $urlWildcard
      */
     public function __construct(?URLWildcard $urlWildcard = null)
     {
@@ -26,13 +26,13 @@ class URLWildcardUpdateData extends URLWildcardData
         }
     }
 
-    /** @return \eZ\Publish\API\Repository\Values\Content\URLWildcard|null */
+    /** @return \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|null */
     public function getUrlWildcard(): ?URLWildcard
     {
         return $this->urlWildcard;
     }
 
-    /** @param \eZ\Publish\API\Repository\Values\Content\URLWildcard|null $urlWildcard */
+    /** @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|null $urlWildcard */
     public function setUrlWildcard(?URLWildcard $urlWildcard): void
     {
         $this->urlWildcard = $urlWildcard;

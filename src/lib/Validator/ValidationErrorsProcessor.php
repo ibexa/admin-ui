@@ -8,17 +8,17 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Validator;
 
-use EzSystems\EzPlatformContentForms\Validator\ValidationErrorsProcessor as BaseValidationErrorProcessor;
+use Ibexa\ContentForms\Validator\ValidationErrorsProcessor as BaseValidationErrorProcessor;
 
 /**
  * @internal
  *
  * @deprecated Since eZ Platform 3.0.2 class moved to EzPlatformContentForms Bundle.
- * @see \EzSystems\EzPlatformContentForms\Validator\ValidationErrorsProcessor.
+ * @see \Ibexa\ContentForms\Validator\ValidationErrorsProcessor.
  */
 final class ValidationErrorsProcessor
 {
-    /** @var \EzSystems\EzPlatformContentForms\Validator\ValidationErrorsProcessor */
+    /** @var \Ibexa\ContentForms\Validator\ValidationErrorsProcessor */
     private $validationErrorsProcessor;
 
     public function __construct(BaseValidationErrorProcessor $validationErrorsProcessor)
@@ -29,7 +29,7 @@ final class ValidationErrorsProcessor
     /**
      * Builds constraint violations based on given SPI validation errors.
      *
-     * @param \eZ\Publish\SPI\FieldType\ValidationError[] $validationErrors
+     * @param \Ibexa\Contracts\Core\FieldType\ValidationError[] $validationErrors
      */
     public function processValidationErrors(array $validationErrors): void
     {

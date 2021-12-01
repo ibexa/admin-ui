@@ -6,11 +6,11 @@
  */
 namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\RoleService;
-use eZ\Publish\API\Repository\Values\User\Policy;
-use eZ\Publish\API\Repository\Values\User\Role;
-use eZ\Publish\Core\Repository\Values\User\Policy as UserPolicy;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\Values\User\Policy;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
+use Ibexa\Core\Repository\Values\User\Policy as UserPolicy;
 use Ibexa\Bundle\AdminUi\ParamConverter\PolicyParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -20,7 +20,7 @@ class PolicyParamConverterTest extends AbstractParamConverterTest
     const SUPPORTED_CLASS = Policy::class;
     const PARAMETER_NAME = 'policy';
 
-    /** @var \EzSystems\EzPlatformAdminUiBundle\ParamConverter\PolicyParamConverter */
+    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\PolicyParamConverter */
     protected $converter;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject */

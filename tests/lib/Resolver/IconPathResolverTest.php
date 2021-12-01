@@ -8,14 +8,14 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Resolver;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\AdminUi\Resolver\IconPathResolver;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Asset\Packages;
 
 final class IconPathResolverTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $configResolver;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Asset\Packages */

@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
-use eZ\Publish\API\Repository\FieldType;
-use eZ\Publish\SPI\FieldType\Value;
+use Ibexa\Contracts\Core\Repository\FieldType;
+use Ibexa\Contracts\Core\FieldType\Value;
 use Ibexa\AdminUi\Form\DataTransformer\FieldType\FieldValueTransformer;
 use PHPUnit\Framework\TestCase;
 use stdClass;

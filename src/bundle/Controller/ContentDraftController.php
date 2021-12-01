@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\AdminUi\Form\Data\Content\Draft\ContentRemoveData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
@@ -25,19 +25,19 @@ class ContentDraftController extends Controller
 {
     private const PAGINATION_PARAM_NAME = 'page';
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory */
+    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     private $datasetFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -116,12 +116,12 @@ class ContentDraftController extends Controller
     /**
      * @param \Pagerfanta\Pagerfanta $pagerfanta
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentRemoveData
+     * @return \Ibexa\AdminUi\Form\Data\Content\Draft\ContentRemoveData
      */
     private function createContentRemoveData(Pagerfanta $pagerfanta): ContentRemoveData
     {
         $versions = [];
-        /** @var \EzSystems\EzPlatformAdminUi\UI\Value\Content\ContentDraftInterface $contentDraft */
+        /** @var \Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface $contentDraft */
         foreach ($pagerfanta->getCurrentPageResults() as $contentDraft) {
             if ($contentDraft->isAccessible()) {
                 $versions[] = $contentDraft->getVersionId();

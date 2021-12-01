@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config\Provider\FieldType\ImageAsset;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
 /**
@@ -16,11 +16,11 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
  */
 class Mapping implements ProviderInterface
 {
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     /**
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Core\MVC\ConfigResolverInterface $configResolver
      */
     public function __construct(ConfigResolverInterface $configResolver)
     {

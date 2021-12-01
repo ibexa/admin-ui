@@ -6,7 +6,7 @@
  */
 namespace Ibexa\Contracts\AdminUi\Form\DataMapper;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * Data Mapper provide interface to bidirectional transfer of data between a Struct objects and a Data objects.
@@ -16,7 +16,7 @@ interface DataMapperInterface
     /**
      * Maps Struct object to Data object.
      *
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $value
      *
      * @return mixed
      */

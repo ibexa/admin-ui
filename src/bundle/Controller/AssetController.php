@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\Controller;
 
 use Exception;
-use eZ\Publish\Core\FieldType\Image\Value as ImageValue;
-use eZ\Publish\Core\FieldType\ImageAsset\AssetMapper as ImageAssetMapper;
+use Ibexa\Core\FieldType\Image\Value as ImageValue;
+use Ibexa\Core\FieldType\ImageAsset\AssetMapper as ImageAssetMapper;
 use Ibexa\AdminUi\Form\Data\Asset\ImageAssetUploadData;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -35,7 +35,7 @@ class AssetController extends Controller
     /** @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface */
     private $csrfTokenManager;
 
-    /** @var \eZ\Publish\Core\FieldType\ImageAsset\AssetMapper */
+    /** @var \Ibexa\Core\FieldType\ImageAsset\AssetMapper */
     private $imageAssetMapper;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
@@ -44,7 +44,7 @@ class AssetController extends Controller
     /**
      * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
      * @param \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $csrfTokenManager
-     * @param \eZ\Publish\Core\FieldType\ImageAsset\AssetMapper $imageAssetMapper
+     * @param \Ibexa\Core\FieldType\ImageAsset\AssetMapper $imageAssetMapper
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
      */
     public function __construct(
@@ -64,7 +64,7 @@ class AssetController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      */
     public function uploadImageAction(Request $request): Response
     {
@@ -115,7 +115,8 @@ class AssetController extends Controller
     private function createInvalidCsrfResponse(): JsonResponse
     {
         $errorMessage = $this->translator->trans(
-/** @Desc("Missing or invalid CSRF token") */ 'asset.upload.invalid_csrf', [], 'assets'
+/** @Desc("Missing or invalid CSRF token") */
+'asset.upload.invalid_csrf', [], 'assets'
         );
 
         return $this->createGenericErrorResponse($errorMessage);

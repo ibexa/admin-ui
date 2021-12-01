@@ -13,11 +13,11 @@ namespace Ibexa\AdminUi\Form\Data\ContentTypeGroup;
  */
 class ContentTypeGroupsDeleteData
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup[]|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[]|null */
     protected $contentTypeGroups;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup[]|null $contentTypeGroups
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[]|null $contentTypeGroups
      */
     public function __construct(array $contentTypeGroups = [])
     {

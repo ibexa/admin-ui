@@ -6,7 +6,7 @@
  */
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
-use EzSystems\EzPlatformContentForms\Form\Type\FieldType\CheckboxFieldType;
+use Ibexa\ContentForms\Form\Type\FieldType\CheckboxFieldType;
 use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Symfony\Component\Form\FormInterface;

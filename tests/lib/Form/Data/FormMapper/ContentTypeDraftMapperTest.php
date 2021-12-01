@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\Data\FormMapper;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\FieldType\Value;
-use eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentTypeDraft;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\FieldType\Value;
+use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\AdminUi\Form\Data\FormMapper\ContentTypeDraftMapper;

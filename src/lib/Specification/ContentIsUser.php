@@ -8,16 +8,16 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification;
 
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 
 class ContentIsUser implements ContentSpecification
 {
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
     /**
-     * @param \eZ\Publish\API\Repository\UserService $userService
+     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
      */
     public function __construct(UserService $userService)
     {
@@ -27,7 +27,7 @@ class ContentIsUser implements ContentSpecification
     /**
      * Checks if $contentId is an existing User content.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
      * @return bool
      */

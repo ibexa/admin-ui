@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter;
 use stdClass;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,10 +19,10 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
     const SUPPORTED_CLASS = Language::class;
     const PARAMETER_NAME = 'language';
 
-    /** @var \EzSystems\EzPlatformAdminUiBundle\ParamConverter\LanguageParamConverter */
+    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter */
     protected $converter;
 
-    /** @var \eZ\Publish\API\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject */
     protected $serviceMock;
 
     protected function setUp(): void

@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\REST\Security;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\AdminUi\REST\Security\NonAdminRESTRequestMatcher;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;

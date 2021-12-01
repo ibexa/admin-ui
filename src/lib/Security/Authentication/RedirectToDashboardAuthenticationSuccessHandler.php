@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Security\Authentication;
 
-use eZ\Publish\Core\MVC\Symfony\Security\Authentication\DefaultAuthenticationSuccessHandler;
+use Ibexa\Core\MVC\Symfony\Security\Authentication\DefaultAuthenticationSuccessHandler;
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\HttpUtils;
@@ -49,7 +49,7 @@ class RedirectToDashboardAuthenticationSuccessHandler extends DefaultAuthenticat
      *
      * @return string
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     protected function determineTargetUrl(Request $request)
     {

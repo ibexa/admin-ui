@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Section;
 
-use eZ\Publish\API\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SectionUpdateData
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Section|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null */
     protected $section;
 
     /**
@@ -38,7 +38,7 @@ class SectionUpdateData
     protected $name;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Section|null $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
      */
     public function __construct(?Section $section = null)
     {

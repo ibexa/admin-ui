@@ -18,7 +18,7 @@ interface FormUiActionMapperInterface
      *
      * @param \Symfony\Component\Form\FormInterface $form
      *
-     * @return \EzSystems\EzPlatformAdminUi\UI\Action\UiActionEvent
+     * @return \Ibexa\AdminUi\UI\Action\UiActionEvent
      */
     public function map(FormInterface $form): UiActionEvent;
 

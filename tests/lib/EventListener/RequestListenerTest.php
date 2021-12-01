@@ -6,7 +6,7 @@
  */
 namespace Ibexa\Tests\AdminUi\EventListener;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\AdminUi\EventListener\RequestListener;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class RequestListenerTest extends TestCase
 {
-    /** @var \EzSystems\EzPlatformAdminUi\EventListener\RequestListener */
+    /** @var \Ibexa\AdminUi\EventListener\RequestListener */
     private $requestListener;
 
     /** @var \Symfony\Component\HttpFoundation\Request */

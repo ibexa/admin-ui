@@ -17,7 +17,7 @@ class LocationIsNotRootValidator extends ConstraintValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location The value that should be validated
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location The value that should be validated
      * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
      */
     public function validate($location, Constraint $constraint)

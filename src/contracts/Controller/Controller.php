@@ -6,7 +6,7 @@
  */
 namespace Ibexa\Contracts\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -18,7 +18,7 @@ abstract class Controller extends AbstractController
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param string $uriFragment
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse

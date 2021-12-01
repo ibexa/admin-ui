@@ -13,7 +13,7 @@ use Ibexa\AdminUi\Specification\AbstractSpecification;
 class IsContainer extends AbstractSpecification
 {
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $item
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
      *
      * @return bool
      */

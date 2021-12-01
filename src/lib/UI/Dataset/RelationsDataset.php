@@ -8,17 +8,17 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Dataset;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\AdminUi\UI\Value as UIValue;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 
 class RelationsDataset
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     protected $contentService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory */
+    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
     protected $valueFactory;
 
     /** @var UIValue\Content\Relation[] */
@@ -28,8 +28,8 @@ class RelationsDataset
     protected $reverseRelations;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory $valueFactory
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
      */
     public function __construct(ContentService $contentService, ValueFactory $valueFactory)
     {
@@ -44,7 +44,7 @@ class RelationsDataset
      *
      * @return RelationsDataset
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function load(Content $content): self
     {

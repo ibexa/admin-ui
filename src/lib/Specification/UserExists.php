@@ -8,16 +8,16 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\UserService;
 
 class UserExists implements UserSpecification
 {
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
     /**
-     * @param \eZ\Publish\API\Repository\UserService $userService
+     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
      */
     public function __construct(UserService $userService)
     {

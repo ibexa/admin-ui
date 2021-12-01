@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Processor\ContentType;
 
-use EzSystems\EzPlatformContentForms\Event\FormActionEvent;
+use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\Contracts\AdminUi\Event\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -43,7 +43,7 @@ class ContentTypeDiscardChangesFormProcessor implements EventSubscriberInterface
 
     public function processDiscardChanges(FormActionEvent $event)
     {
-        /** @var \EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData $data */
+        /** @var \Ibexa\AdminUi\Form\Data\ContentTypeData $data */
         $data = $event->getData();
         $contentTypeDraft = $data->contentTypeDraft;
 

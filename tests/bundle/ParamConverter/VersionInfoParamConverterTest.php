@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Bundle\AdminUi\ParamConverter\VersionInfoParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -17,7 +17,7 @@ class VersionInfoParamConverterTest extends AbstractParamConverterTest
     const SUPPORTED_CLASS = VersionInfo::class;
     const PARAMETER_NAME = 'versionInfo';
 
-    /** @var \EzSystems\EzPlatformAdminUiBundle\ParamConverter\VersionInfoParamConverter */
+    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\VersionInfoParamConverter */
     protected $converter;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject */
@@ -38,8 +38,8 @@ class VersionInfoParamConverterTest extends AbstractParamConverterTest
      * @param mixed $contentId
      * @param int $contentIdToLoad
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function testApply($versionNo, int $versionNoToload, $contentId, int $contentIdToLoad)
     {

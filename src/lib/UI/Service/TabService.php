@@ -14,11 +14,11 @@ use Ibexa\Contracts\AdminUi\Tab\TabInterface;
 
 class TabService
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Tab\TabRegistry */
+    /** @var \Ibexa\AdminUi\Tab\TabRegistry */
     protected $tabRegistry;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Tab\TabRegistry $tabRegistry
+     * @param \Ibexa\AdminUi\Tab\TabRegistry $tabRegistry
      */
     public function __construct(TabRegistry $tabRegistry)
     {
@@ -28,7 +28,7 @@ class TabService
     /**
      * @param string $groupIdentifier
      *
-     * @return \EzSystems\EzPlatformAdminUi\Tab\TabGroup
+     * @return \Ibexa\AdminUi\Tab\TabGroup
      */
     public function getTabGroup(string $groupIdentifier): TabGroup
     {
@@ -51,7 +51,7 @@ class TabService
      * @param string $tabIdentifier
      * @param string $groupIdentifier
      *
-     * @return \EzSystems\EzPlatformAdminUi\Tab\TabInterface
+     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface
      */
     public function getTabFromGroup(string $tabIdentifier, string $groupIdentifier): TabInterface
     {

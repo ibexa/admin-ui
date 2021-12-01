@@ -6,7 +6,7 @@
  */
 namespace Ibexa\Contracts\AdminUi\Form\ActionDispatcher;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Symfony\Component\Form\FormInterface;
 
 /**
@@ -22,7 +22,7 @@ interface ActionDispatcherInterface
      * Dispatches the action of a given form.
      *
      * @param \Symfony\Component\Form\FormInterface $form the form that has been submitted
-     * @param \eZ\Publish\API\Repository\Values\ValueObject $data Underlying data for the form. Most likely a create or update struct.
+     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $data Underlying data for the form. Most likely a create or update struct.
      * @param string|null $actionName The form action itself. Typically the form clicked button name,
      *                                or null if the default action is used (e.g. when pressing enter).
      * @param array $options arbitrary hash of options

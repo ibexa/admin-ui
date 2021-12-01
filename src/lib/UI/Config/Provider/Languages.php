@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
 /**
@@ -18,21 +18,21 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
  */
 class Languages implements ProviderInterface
 {
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     /** @var string[] */
     private $siteAccesses;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface */
     private $siteAccessService;
 
     /**
-     * @param \eZ\Publish\API\Repository\LanguageService $languageService
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
+     * @param \Ibexa\Core\MVC\ConfigResolverInterface $configResolver
      * @param string[]
      */
     public function __construct(

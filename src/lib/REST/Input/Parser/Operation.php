@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\REST\Input\Parser;
 
-use EzSystems\EzPlatformRest\Exceptions;
-use EzSystems\EzPlatformRest\Input\BaseParser;
-use EzSystems\EzPlatformRest\Input\ParsingDispatcher;
+use Ibexa\Rest\Exceptions;
+use Ibexa\Rest\Input\BaseParser;
+use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
 use Ibexa\AdminUi\REST\Value\Operation as OperationValue;
 
 class Operation extends BaseParser
@@ -19,9 +19,9 @@ class Operation extends BaseParser
      * Parse input structure.
      *
      * @param array $data
-     * @param \EzSystems\EzPlatformRest\Input\ParsingDispatcher $parsingDispatcher
+     * @param \Ibexa\Contracts\Rest\Input\ParsingDispatcher $parsingDispatcher
      *
-     * @return \EzSystems\EzPlatformAdminUi\REST\Value\Operation
+     * @return \Ibexa\AdminUi\REST\Value\Operation
      */
     public function parse(array $data, ParsingDispatcher $parsingDispatcher)
     {

@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\Data\Content\CustomUrl;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Core\Repository\Values\Content\Location;
 use Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData;
 use PHPUnit\Framework\TestCase;
 

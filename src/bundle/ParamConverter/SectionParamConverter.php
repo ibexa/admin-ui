@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\ParamConverter;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\SectionService;
-use eZ\Publish\API\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,14 +21,14 @@ class SectionParamConverter implements ParamConverterInterface
     const PARAMETER_SECTION_ID = 'sectionId';
 
     /**
-     * @var \eZ\Publish\API\Repository\SectionService
+     * @var \Ibexa\Contracts\Core\Repository\SectionService
      */
     private $sectionService;
 
     /**
      * SectionParamConverter constructor.
      *
-     * @param \eZ\Publish\API\Repository\SectionService $sectionService
+     * @param \Ibexa\Contracts\Core\Repository\SectionService $sectionService
      */
     public function __construct(SectionService $sectionService)
     {

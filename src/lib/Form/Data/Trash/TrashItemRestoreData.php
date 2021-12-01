@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Trash;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -19,16 +19,16 @@ class TrashItemRestoreData
     /**
      * @Assert\NotBlank()
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\TrashItem[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[]
      */
     public $trashItems;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
     public $location;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\TrashItem[] $trashItems
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[] $trashItems
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      */
     public function __construct(array $trashItems = [], ?Location $location = null)
     {
@@ -37,7 +37,7 @@ class TrashItemRestoreData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\TrashItem[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[]
      */
     public function getTrashItems(): array
     {
@@ -45,7 +45,7 @@ class TrashItemRestoreData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\TrashItem[] $trashItems
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[] $trashItems
      */
     public function setTrashItems(array $trashItems)
     {
@@ -53,7 +53,7 @@ class TrashItemRestoreData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     public function getLocation(): ?Location
     {
@@ -61,7 +61,7 @@ class TrashItemRestoreData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      */
     public function setLocation(?Location $location)
     {

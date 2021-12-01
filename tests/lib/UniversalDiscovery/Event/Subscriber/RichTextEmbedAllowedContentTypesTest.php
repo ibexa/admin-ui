@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\UniversalDiscovery\Event\Subscriber;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
 use Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber\RichTextEmbedAllowedContentTypes;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
@@ -26,16 +26,16 @@ final class RichTextEmbedAllowedContentTypesTest extends TestCase
     private const ALLOWED_CONTENT_TYPES_IDS = [2, 4];
     private const ALLOWED_CONTENT_TYPES = ['article', 'folder'];
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
     private $permissionResolver;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $permissionChecker;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
     private $contentTypeService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\RichTextEmbedAllowedContentTypes */
+    /** @var \Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber\RichTextEmbedAllowedContentTypes */
     private $subscriber;
 
     protected function setUp(): void

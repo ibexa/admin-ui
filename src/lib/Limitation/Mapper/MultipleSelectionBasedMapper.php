@@ -6,7 +6,7 @@
  */
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
 use Ibexa\AdminUi\Translation\Extractor\LimitationTranslationExtractor;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

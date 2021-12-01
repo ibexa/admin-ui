@@ -35,7 +35,7 @@ class ContentTypeFormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\ContentType\Translation\TranslationAddData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\ContentType\Translation\TranslationAddData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -50,7 +50,7 @@ class ContentTypeFormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\ContentType\Translation\TranslationRemoveData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\ContentType\Translation\TranslationRemoveData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -65,7 +65,7 @@ class ContentTypeFormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\ContentType\ContentTypeEditData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\ContentType\ContentTypeEditData|null $data
      * @param string|null $name
      * @param array $options
      *
@@ -82,7 +82,7 @@ class ContentTypeFormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\ContentType\ContentTypeEditData
+     * @param \Ibexa\AdminUi\Form\Data\ContentType\ContentTypeEditData
      * @param string|null $name
      * @param array $options
      *

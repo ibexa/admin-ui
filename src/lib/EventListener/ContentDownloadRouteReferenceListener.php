@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\EventListener;
 
-use eZ\Publish\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -46,7 +46,7 @@ final class ContentDownloadRouteReferenceListener implements EventSubscriberInte
             return;
         }
 
-        /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess $siteaccess */
+        /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteaccess */
         $siteaccess = $event->getRequest()->attributes->get('siteaccess');
         if ($this->isAdminSiteAccess($siteaccess)) {
             $routeReference->set('siteaccess', $siteaccess->name);

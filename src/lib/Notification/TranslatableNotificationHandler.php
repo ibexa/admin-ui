@@ -8,14 +8,14 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Notification;
 
-use EzSystems\EzPlatformUser\ExceptionHandler\ActionResultHandler;
+use Ibexa\User\ExceptionHandler\ActionResultHandler;
 use Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class TranslatableNotificationHandler implements TranslatableNotificationHandlerInterface, ActionResultHandler
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface */
     private $notificationHandler;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
@@ -38,7 +38,8 @@ final class TranslatableNotificationHandler implements TranslatableNotificationH
             $domain,
             $locale
         );
-        $this->notificationHandler->info(/** @Ignore */ $translatedMessage);
+        $this->notificationHandler->info(/** @Ignore */
+        $translatedMessage);
     }
 
     public function success(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void
@@ -50,7 +51,8 @@ final class TranslatableNotificationHandler implements TranslatableNotificationH
             $domain,
             $locale
         );
-        $this->notificationHandler->success(/** @Ignore */ $translatedMessage);
+        $this->notificationHandler->success(/** @Ignore */
+        $translatedMessage);
     }
 
     public function warning(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void
@@ -62,7 +64,8 @@ final class TranslatableNotificationHandler implements TranslatableNotificationH
             $domain,
             $locale
         );
-        $this->notificationHandler->warning(/** @Ignore */ $translatedMessage);
+        $this->notificationHandler->warning(/** @Ignore */
+        $translatedMessage);
     }
 
     public function error(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void
@@ -74,7 +77,8 @@ final class TranslatableNotificationHandler implements TranslatableNotificationH
             $domain,
             $locale
         );
-        $this->notificationHandler->error(/** @Ignore */ $translatedMessage);
+        $this->notificationHandler->error(/** @Ignore */
+        $translatedMessage);
     }
 }
 
