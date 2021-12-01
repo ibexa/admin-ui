@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\FormMapper;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use EzSystems\EzPlatformContentForms\Data\Content\FieldData;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
 use Ibexa\AdminUi\Form\Data\ContentTranslationData;
 use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,10 +22,10 @@ class ContentTranslationMapper implements FormDataMapperInterface
      * Maps a ValueObject from eZ content repository to a data usable as underlying form data (e.g. create/update
      * struct).
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content|\eZ\Publish\API\Repository\Values\ValueObject $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content|\Ibexa\Contracts\Core\Repository\Values\ValueObject $content
      * @param array $params
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\ContentTranslationData
+     * @return \Ibexa\AdminUi\Form\Data\ContentTranslationData
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
      * @throws \Symfony\Component\OptionsResolver\Exception\OptionDefinitionException
@@ -40,14 +40,14 @@ class ContentTranslationMapper implements FormDataMapperInterface
         $this->configureOptions($optionsResolver);
         $params = $optionsResolver->resolve($params);
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Language $language */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language $language */
         $language = $params['language'];
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Language|null $baseLanguage */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $baseLanguage */
         $baseLanguage = $params['baseLanguage'];
         $baseLanguageCode = $baseLanguage ? $baseLanguage->languageCode : null;
 
-        /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
         $contentType = $params['contentType'];
 
         $data = new ContentTranslationData(['content' => $content, 'contentType' => $contentType]);

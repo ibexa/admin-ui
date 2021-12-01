@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\REST\Value\ContentTree;
 
-use EzSystems\EzPlatformRest\Value as RestValue;
+use Ibexa\Rest\Value as RestValue;
 
 class LoadSubtreeRequestNode extends RestValue
 {
@@ -21,14 +21,14 @@ class LoadSubtreeRequestNode extends RestValue
     /** @var int */
     public $offset;
 
-    /** @var \EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode[] */
+    /** @var \Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode[] */
     public $children;
 
     /**
      * @param int $locationId
      * @param int $limit
      * @param int $offset
-     * @param \EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode[] $children
+     * @param \Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode[] $children
      */
     public function __construct(
         int $locationId,

@@ -24,7 +24,7 @@ interface FieldDefinitionFormMapperInterface
      * - default value.
      *
      * @param \Symfony\Component\Form\FormInterface $fieldDefinitionForm form for current FieldDefinition
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData $data underlying data for current FieldDefinition form
+     * @param \Ibexa\AdminUi\Form\Data\FieldDefinitionData $data underlying data for current FieldDefinition form
      */
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void;
 }

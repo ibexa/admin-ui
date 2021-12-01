@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class UniqueURLTest extends TestCase
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Validator\Constraints\UniqueURL */
+    /** @var \Ibexa\AdminUi\Validator\Constraints\UniqueURL */
     private $constraint;
 
     protected function setUp(): void

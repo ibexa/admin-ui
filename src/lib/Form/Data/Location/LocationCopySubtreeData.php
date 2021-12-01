@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class LocationCopySubtreeData extends AbstractLocationCopyData
 {
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      *
      * @AdminUiAssert\LocationIsWithinCopySubtreeLimit()
      * @AdminUiAssert\LocationIsNotRoot()
@@ -21,7 +21,7 @@ class LocationCopySubtreeData extends AbstractLocationCopyData
     protected $location;
 
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      *
      * @AdminUiAssert\LocationIsContainer()
      * @Assert\NotNull()

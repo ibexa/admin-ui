@@ -25,7 +25,7 @@ final class URLWildcardEditRightSidebarBuilder extends AbstractBuilder implement
     private $translator;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Menu\MenuItemFactory $menuItemFactory
+     * @param \Ibexa\AdminUi\Menu\MenuItemFactory $menuItemFactory
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
      */

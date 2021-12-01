@@ -8,16 +8,16 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Processor\Content;
 
-use eZ\Publish\API\Repository\Exceptions\Exception as APIException;
-use EzSystems\EzPlatformContentForms\Event\FormActionEvent;
-use EzSystems\EzPlatformContentForms\Form\Processor\ContentFormProcessor;
+use Ibexa\Contracts\Core\Repository\Exceptions\Exception as APIException;
+use Ibexa\ContentForms\Event\FormActionEvent;
+use Ibexa\ContentForms\Form\Processor\ContentFormProcessor;
 use Ibexa\Contracts\AdminUi\Event\AutosaveEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class AutosaveProcessor implements EventSubscriberInterface
 {
-    /** @var \EzSystems\EzPlatformContentForms\Form\Processor\ContentFormProcessor */
+    /** @var \Ibexa\ContentForms\Form\Processor\ContentFormProcessor */
     private $innerContentFormProcessor;
 
     public function __construct(

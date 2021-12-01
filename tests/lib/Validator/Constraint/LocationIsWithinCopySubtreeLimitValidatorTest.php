@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimit;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimitValidator;
 use PHPUnit\Framework\TestCase;
@@ -23,16 +23,16 @@ class LocationIsWithinCopySubtreeLimitValidatorTest extends TestCase
     /** @var int */
     private $copyLimit;
 
-    /** @var \eZ\Publish\API\Repository\SearchService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService|\PHPUnit\Framework\MockObject\MockObject */
     private $searchService;
 
     /** @var \Symfony\Component\Validator\Context\ExecutionContextInterface */
     private $executionContext;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationIsContainerValidator */
+    /** @var \Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator */
     private $validator;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|\PHPUnit\Framework\MockObject\MockObject */
     private $location;
 
     protected function setUp(): void

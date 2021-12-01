@@ -8,18 +8,18 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Section;
 
-use eZ\Publish\API\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 
 /**
  * @todo add validation
  */
 class SectionDeleteData
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Section|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null */
     protected $section;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Section|null $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
      */
     public function __construct(?Section $section = null)
     {
@@ -27,7 +27,7 @@ class SectionDeleteData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Section|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section|null
      */
     public function getSection(): ?Section
     {
@@ -35,7 +35,7 @@ class SectionDeleteData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Section|null $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
      */
     public function setSection(?Section $section)
     {

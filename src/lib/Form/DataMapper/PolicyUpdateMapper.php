@@ -6,8 +6,8 @@
  */
 namespace Ibexa\AdminUi\Form\DataMapper;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\Repository\Values\User\PolicyUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Repository\Values\User\PolicyUpdateStruct;
 use Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData;
 use Ibexa\Contracts\AdminUi\Form\DataMapper\DataMapperInterface;
 
@@ -19,9 +19,9 @@ class PolicyUpdateMapper implements DataMapperInterface
     /**
      * Maps given PolicyUpdateStruct object to a PolicyUpdateData object.
      *
-     * @param \eZ\Publish\Core\Repository\Values\User\PolicyUpdateStruct|\eZ\Publish\API\Repository\Values\ValueObject $value
+     * @param \Ibexa\Core\Repository\Values\User\PolicyUpdateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyUpdateData
+     * @return \Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData
      */
     public function map(ValueObject $value): PolicyUpdateData
     {
@@ -37,9 +37,9 @@ class PolicyUpdateMapper implements DataMapperInterface
     /**
      * Maps given PolicyUpdateData object to a PolicyUpdateStruct object.
      *
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyUpdateData $data
+     * @param \Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData $data
      *
-     * @return \eZ\Publish\Core\Repository\Values\User\PolicyUpdateStruct
+     * @return \Ibexa\Core\Repository\Values\User\PolicyUpdateStruct
      */
     public function reverseMap($data): PolicyUpdateStruct
     {

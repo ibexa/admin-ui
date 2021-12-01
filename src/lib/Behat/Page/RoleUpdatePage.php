@@ -52,6 +52,7 @@ class RoleUpdatePage extends AdminUpdateItemPage
             }
         } catch (Exception $e) {
             // no need to remove current selection
+            
         }
 
         $this->getHTMLPage()

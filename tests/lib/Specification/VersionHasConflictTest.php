@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Specification;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\AdminUi\Specification\Version\VersionHasConflict;
 use PHPUnit\Framework\TestCase;
 
@@ -18,7 +18,7 @@ class VersionHasConflictTest extends TestCase
 {
     public function testVersionWithStatusDraft()
     {
-        /** @var \eZ\Publish\API\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject $contentServiceMock */
+        /** @var \Ibexa\Contracts\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject $contentServiceMock */
         $contentServiceMock = $this->createMock(ContentService::class);
         $contentServiceMock
             ->method('loadVersions')
@@ -36,7 +36,7 @@ class VersionHasConflictTest extends TestCase
 
     public function testVersionWithStatusDraftAndVersionConflict()
     {
-        /** @var \eZ\Publish\API\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject $contentServiceMock */
+        /** @var \Ibexa\Contracts\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject $contentServiceMock */
         $contentServiceMock = $this->createMock(ContentService::class);
         $contentServiceMock
             ->method('loadVersions')
@@ -74,7 +74,7 @@ class VersionHasConflictTest extends TestCase
      * @param int $versionNo
      * @param string $languageCode
      *
-     * @return \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\API\Repository\Values\Content\VersionInfo
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo
      */
     private function createVersionInfo(bool $isPublished = false, int $versionNo = 1, string $languageCode = 'eng-GB'): VersionInfo
     {

@@ -14,11 +14,11 @@ use Twig\TwigFunction;
 
 class ContentTypeIconExtension extends AbstractExtension
 {
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Service\ContentTypeIconResolver */
+    /** @var \Ibexa\AdminUi\UI\Service\ContentTypeIconResolver */
     private $contentTypeIconResolver;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\UI\Service\ContentTypeIconResolver $contentTypeIconResolver
+     * @param \Ibexa\AdminUi\UI\Service\ContentTypeIconResolver $contentTypeIconResolver
      */
     public function __construct(ContentTypeIconResolver $contentTypeIconResolver)
     {

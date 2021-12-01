@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\UniversalDiscovery\Event\Subscriber;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\LanguageLimitation;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
 use Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber\ContentCreate;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
@@ -24,13 +24,13 @@ class ContentCreateTest extends TestCase
     private const ALLOWED_LANGUAGE_CODE = 'eng-GB';
     private const ALLOWED_CONTENT_TYPE_ID = 1;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface|PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface|PHPUnit\Framework\MockObject\MockObject */
     private $permissionChecker;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService|PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|PHPUnit\Framework\MockObject\MockObject */
     private $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver|PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver|PHPUnit\Framework\MockObject\MockObject */
     private $permissionResolver;
 
     public function setUp(): void

@@ -136,7 +136,7 @@ class TabRegistryTest extends TestCase
      * @param string $name
      * @param array $tabs
      *
-     * @return \EzSystems\EzPlatformAdminUi\Tab\TabGroup
+     * @return \Ibexa\AdminUi\Tab\TabGroup
      */
     private function createTabGroup(string $name = 'lorem', array $tabs = []): TabGroup
     {
@@ -150,7 +150,7 @@ class TabRegistryTest extends TestCase
      * @param \Twig\Environment|\PHPUnit\Framework\MockObject\MockObject $twig
      * @param \PHPUnit\Framework\MockObject\MockObject|\Symfony\Contracts\Translation\TranslatorInterface $translator
      *
-     * @return \EzSystems\EzPlatformAdminUi\Tab\TabInterface
+     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface
      */
     private function createTab(string $name, Environment $twig, TranslatorInterface $translator): TabInterface
     {

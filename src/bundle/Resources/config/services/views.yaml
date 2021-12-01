@@ -25,12 +25,12 @@ services:
     ezplatform.admin_ui.view.content_translate.matcher_factory:
         class: '%ezpublish.view.matcher_factory.class%'
         arguments:
-            - '@eZ\Bundle\EzPublishCoreBundle\Matcher\ViewMatcherRegistry'
+            - '@Ibexa\Bundle\Core\Matcher\ViewMatcherRegistry'
             - '@ezpublish.api.repository'
-            - 'eZ\Publish\Core\MVC\Symfony\Matcher\ContentBased'
+            - 'Ibexa\Core\MVC\Symfony\Matcher\ContentBased'
 
     ezpublish.content_translate.matcher_factory.dynamically_configured:
-        class: eZ\Publish\Core\MVC\Symfony\Matcher\DynamicallyConfiguredMatcherFactoryDecorator
+        class: Ibexa\Core\MVC\Symfony\Matcher\DynamicallyConfiguredMatcherFactoryDecorator
         decorates: ezplatform.admin_ui.view.content_translate.matcher_factory
         arguments:
             $innerConfigurableMatcherFactory: '@ezpublish.content_view.matcher_factory.dynamically_configured.inner'
@@ -48,7 +48,7 @@ services:
             $configResolver: '@ezpublish.config.resolver'
 
     Ibexa\AdminUi\View\Filter\AdminSearchViewFilter:
-        decorates: Ibexa\Platform\Search\View\SearchViewFilter
+        decorates: Ibexa\Search\View\SearchViewFilter
         arguments:
             $configResolver: '@ezpublish.config.resolver'
             $formFactory: '@Symfony\Component\Form\FormFactoryInterface'

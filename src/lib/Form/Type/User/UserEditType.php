@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\User;
 
-use eZ\Publish\API\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\AdminUi\Form\Data\User\UserEditData;
 use Ibexa\AdminUi\Form\Type\Content\ContentInfoType;
 use Ibexa\AdminUi\Form\Type\Content\LocationType;
@@ -22,11 +22,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserEditType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     protected $languageService;
 
     /**
-     * @param \eZ\Publish\API\Repository\LanguageService $languageService
+     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
      */
     public function __construct(LanguageService $languageService)
     {

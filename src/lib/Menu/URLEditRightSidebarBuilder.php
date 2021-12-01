@@ -40,7 +40,7 @@ class URLEditRightSidebarBuilder extends AbstractBuilder implements TranslationC
 
     protected function createStructure(array $options): ItemInterface
     {
-        /** @var \eZ\Publish\API\Repository\Values\URL\URL $url */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\URL\URL $url */
         $url = $options['url'];
 
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */

@@ -6,8 +6,8 @@
  */
 namespace Ibexa\AdminUi\Validator\Constraints;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -18,7 +18,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 class UniqueContentTypeIdentifierValidator extends ConstraintValidator
 {
     /**
-     * @var \eZ\Publish\API\Repository\ContentTypeService
+     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService
      */
     private $contentTypeService;
 
@@ -30,7 +30,7 @@ class UniqueContentTypeIdentifierValidator extends ConstraintValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData $value The value that should be validated
+     * @param \Ibexa\AdminUi\Form\Data\ContentTypeData $value The value that should be validated
      * @param \Symfony\Component\Validator\Constraint|UniqueFieldDefinitionIdentifier $constraint The constraint for the validation
      *
      * @api
@@ -54,6 +54,7 @@ class UniqueContentTypeIdentifierValidator extends ConstraintValidator
                 ->addViolation();
         } catch (NotFoundException $e) {
             // Do nothing
+            
         }
     }
 }

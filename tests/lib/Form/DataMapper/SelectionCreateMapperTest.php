@@ -6,8 +6,8 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\DataMapper;
 
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\SectionCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Form\Data\Language\LanguageCreateData;
 use Ibexa\AdminUi\Form\Data\Section\SectionCreateData;
@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 class SelectionCreateMapperTest extends TestCase
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataMapper\SectionCreateMapper */
+    /** @var \Ibexa\AdminUi\Form\DataMapper\SectionCreateMapper */
     private $mapper;
 
     protected function setUp(): void
@@ -82,7 +82,7 @@ class SelectionCreateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\SectionCreateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct
      */
     private function createStruct(array $properties): SectionCreateStruct
     {
@@ -92,7 +92,7 @@ class SelectionCreateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionCreateData
+     * @return \Ibexa\AdminUi\Form\Data\Section\SectionCreateData
      */
     private function createData(array $properties): SectionCreateData
     {

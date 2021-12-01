@@ -14,15 +14,15 @@ use Traversable;
 
 class FormUiActionMappingDispatcher
 {
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Action\FormUiActionMapperInterface[] */
+    /** @var \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface[] */
     protected $mappers;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Action\FormUiActionMapperInterface */
+    /** @var \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface */
     protected $defaultMapper;
 
     /**
      * @param \Traversable $mappers
-     * @param \EzSystems\EzPlatformAdminUi\UI\Action\FormUiActionMapperInterface $defaultMapper
+     * @param \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface $defaultMapper
      */
     public function __construct(
         Traversable $mappers,
@@ -33,7 +33,7 @@ class FormUiActionMappingDispatcher
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Action\FormUiActionMapperInterface[]
+     * @return \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface[]
      */
     public function getMappers(): array
     {
@@ -41,7 +41,7 @@ class FormUiActionMappingDispatcher
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\UI\Action\FormUiActionMapperInterface[] $mappers
+     * @param \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface[] $mappers
      */
     public function setMappers(array $mappers): void
     {
@@ -49,7 +49,7 @@ class FormUiActionMappingDispatcher
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Action\FormUiActionMapperInterface
+     * @return \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface
      */
     public function getDefaultMapper(): FormUiActionMapperInterface
     {
@@ -57,7 +57,7 @@ class FormUiActionMappingDispatcher
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\UI\Action\FormUiActionMapperInterface $defaultMapper
+     * @param \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface $defaultMapper
      */
     public function setDefaultMapper(FormUiActionMapperInterface $defaultMapper): void
     {
@@ -67,11 +67,11 @@ class FormUiActionMappingDispatcher
     /**
      * @param \Symfony\Component\Form\FormInterface $form
      *
-     * @return \EzSystems\EzPlatformAdminUi\UI\Action\UiActionEvent
+     * @return \Ibexa\AdminUi\UI\Action\UiActionEvent
      */
     public function dispatch(FormInterface $form): UiActionEvent
     {
-        /** @var \EzSystems\EzPlatformAdminUi\UI\Action\FormUiActionMapperInterface[] $mappers */
+        /** @var \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface[] $mappers */
         foreach ($this->mappers as $mapper) {
             if ($mapper === $this->defaultMapper) {
                 continue;

@@ -65,7 +65,6 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
             $this->getHTMLPage()->findAll($this->getLocator('availableFieldLabelList'))->mapBy(new ElementTextMapper()),
             true
         ) + 1; // CSS selectors are 1-indexed
-
         $availableFieldLabelsScript = "document.querySelector('.ibexa-available-field-types__list > li:nth-child(%d) > .ibexa-available-field-type__label')";
         $scriptToExecute = sprintf($availableFieldLabelsScript, $fieldPosition);
         $this->getSession()->executeScript($scriptToExecute);
@@ -73,6 +72,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
         $workspace = sprintf('document.querySelector(\'%s\')', $this->getLocator('workspace')->getSelector());
         $this->getHTMLPage()->dragAndDrop($scriptToExecute, $workspace, $workspace);
         usleep(1500000); //TODO: add proper wait condition
+        
     }
 
     public function clickAddButton(): void

@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Role;
 
-use eZ\Publish\API\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\AdminUi\Form\DataTransformer\RoleAssignmentTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -16,11 +16,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class RoleAssignmentType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\RoleService */
+    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
     protected $roleService;
 
     /**
-     * @param \eZ\Publish\API\Repository\RoleService $roleService
+     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
      */
     public function __construct(RoleService $roleService)
     {

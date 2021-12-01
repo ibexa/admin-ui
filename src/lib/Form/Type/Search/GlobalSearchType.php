@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Search;
 
-use Ibexa\Platform\Bundle\Search\Form\Data\SearchData;
+use Ibexa\Bundle\Search\Form\Data\SearchData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;

@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
 
 /**
  * Base class for FieldDefinition forms, with corresponding FieldDefinition object.
@@ -19,7 +19,7 @@ use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
 class FieldDefinitionData extends FieldDefinitionUpdateStruct
 {
     /**
-     * @var \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition
+     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition
      */
     protected $fieldDefinition;
 
@@ -27,7 +27,7 @@ class FieldDefinitionData extends FieldDefinitionUpdateStruct
      * ContentTypeData holding current FieldDefinitionData.
      * Mainly used for validation.
      *
-     * @var \EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData
+     * @var \Ibexa\AdminUi\Form\Data\ContentTypeData
      */
     protected $contentTypeData;
 

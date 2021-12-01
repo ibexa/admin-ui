@@ -6,19 +6,19 @@
  */
 namespace Ibexa\Tests\AdminUi\Pagination\Pagerfanta;
 
-use eZ\Publish\API\Repository\TrashService;
-use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\CriterionInterface;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Trash\SearchResult;
+use Ibexa\Contracts\Core\Repository\TrashService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content as APIContent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Trash\SearchResult;
 use Ibexa\AdminUi\Pagination\Pagerfanta\TrashItemAdapter;
 use PHPUnit\Framework\TestCase;
 
 class TrashItemAdapterTest extends TestCase
 {
     /**
-     * @var \eZ\Publish\API\Repository\TrashService|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Ibexa\Contracts\Core\Repository\TrashService|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $trashService;
 
@@ -31,10 +31,10 @@ class TrashItemAdapterTest extends TestCase
     /**
      * Returns the adapter to test.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Query $query
-     * @param \eZ\Publish\API\Repository\TrashService $trashService
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Query $query
+     * @param \Ibexa\Contracts\Core\Repository\TrashService $trashService
      *
-     * @return \EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\TrashItemAdapter
+     * @return \Ibexa\AdminUi\Pagination\Pagerfanta\TrashItemAdapter
      */
     protected function getAdapter(Query $query, TrashService $trashService): TrashItemAdapter
     {

@@ -19,12 +19,12 @@ class FieldTypeDefinitionFormMapperDispatcher implements FieldTypeDefinitionForm
     /**
      * FieldType form mappers, indexed by FieldType identifier.
      *
-     * @var \EzSystems\EzPlatformAdminUi\FieldType\FieldDefinitionFormMapperInterface[]
+     * @var \Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface[]
      */
     private $mappers = [];
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\FieldType\FieldDefinitionFormMapperInterface[] $mappers
+     * @param \Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface[] $mappers
      */
     public function __construct(array $mappers = [])
     {

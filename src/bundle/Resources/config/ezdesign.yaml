@@ -2,7 +2,7 @@ ezdesign:
     design_list:
         admin: [admin, standard]
 
-ezpublish:
+ibexa:
     system:
         admin_group:
             design: admin

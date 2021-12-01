@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsNotRoot;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsNotRootValidator;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +19,7 @@ class LocationIsNotRootValidatorTest extends TestCase
     /** @var \Symfony\Component\Validator\Context\ExecutionContextInterface */
     private $executionContext;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationIsContainerValidator */
+    /** @var \Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator */
     private $validator;
 
     protected function setUp(): void

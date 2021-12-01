@@ -76,7 +76,6 @@ class UniversalDiscoveryWidget extends Component
 
         if ($itemName === $alreadySelectedItemName) {
             // don't do anything, this level is already selected
-
             return;
         }
 

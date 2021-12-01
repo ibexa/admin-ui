@@ -28,8 +28,8 @@ class IbexaAdminUiBundle extends Bundle
      */
     public function build(ContainerBuilder $container)
     {
-        /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\EzPublishCoreExtension $core */
-        $core = $container->getExtension('ezpublish');
+        /** @var \Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension $core */
+        $core = $container->getExtension('ibexa');
 
         $configParsers = $this->getConfigParsers();
         array_walk($configParsers, [$core, 'addConfigParser']);
@@ -54,7 +54,7 @@ class IbexaAdminUiBundle extends Bundle
     }
 
     /**
-     * @return \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ParserInterface[]
+     * @return \Ibexa\Bundle\Core\DependencyInjection\Configuration\ParserInterface[]
      */
     private function getConfigParsers(): array
     {

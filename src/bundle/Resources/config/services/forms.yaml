@@ -127,7 +127,7 @@ services:
     Ibexa\AdminUi\Form\Type\ContentType\ContentTypesDeleteType: ~
 
     Ibexa\AdminUi\Form\Type\ContentType\FieldTypeChoiceType:
-        arguments: ['@eZ\Publish\Core\FieldType\FieldTypeRegistry', '@translator']
+        arguments: ['@Ibexa\Core\FieldType\FieldTypeRegistry', '@translator']
         tags:
             - { name: form.type, alias: ezplatform_content_forms_contenttype_field_type_choice }
 
@@ -170,7 +170,7 @@ services:
     Ibexa\AdminUi\Form\Type\FieldDefinition\FieldDefinitionType:
         arguments:
             $fieldTypeService: "@ezpublish.api.service.field_type"
-            $thumbnailStrategy: '@eZ\Publish\Core\Repository\Strategy\ContentThumbnail\Field\ContentFieldStrategy'
+            $thumbnailStrategy: '@Ibexa\Core\Repository\Strategy\ContentThumbnail\Field\ContentFieldStrategy'
         calls:
             - [setGroupsList, ["@ezpublish.fields_groups.list"]]
         tags:
@@ -281,7 +281,7 @@ services:
 
     Ibexa\AdminUi\Form\Type\Search\SearchType:
         arguments:
-            $baseType: '@Ibexa\Platform\Bundle\Search\Form\Type\SearchType'
+            $baseType: '@Ibexa\Bundle\Search\Form\Type\SearchType'
             $translator: '@translator'
         tags:
             - { name: form.type, alias: Ibexa\AdminUi\Form\Type\Search\SearchType }

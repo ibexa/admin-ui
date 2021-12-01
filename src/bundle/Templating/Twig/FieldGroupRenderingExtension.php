@@ -8,17 +8,17 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
-use eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList;
+use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
 final class FieldGroupRenderingExtension extends AbstractExtension
 {
-    /** @var \eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList */
+    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
     private $fieldsGroupsList;
 
     /**
-     * @param \eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList $fieldsGroupsListHelper
+     * @param \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList $fieldsGroupsListHelper
      */
     public function __construct(FieldsGroupsList $fieldsGroupsListHelper)
     {

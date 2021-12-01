@@ -6,7 +6,7 @@
  */
 namespace Ibexa\AdminUi\Menu\Admin\ContentType;
 
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
+use Ibexa\Core\Repository\Exceptions as ApiExceptions;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Menu\MenuItemFactory;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
@@ -59,7 +59,7 @@ class ContentTypeCreateRightSidebarBuilder extends AbstractBuilder implements Tr
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $section */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $section */
         $group = $options['group'];
 
         $saveId = $options['save_id'];

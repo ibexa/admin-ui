@@ -22,7 +22,7 @@ class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
     private $executionContext;
 
     /**
-     * @var \EzSystems\EzPlatformAdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifierValidator
+     * @var \Ibexa\AdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifierValidator
      */
     private $validator;
 

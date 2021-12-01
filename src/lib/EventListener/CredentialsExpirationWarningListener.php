@@ -10,8 +10,8 @@ namespace Ibexa\AdminUi\EventListener;
 
 use DateTime;
 use DateTimeInterface;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\Core\MVC\Symfony\Security\UserInterface;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Core\MVC\Symfony\Security\UserInterface;
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -23,7 +23,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class CredentialsExpirationWarningListener implements EventSubscriberInterface
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface */
     private $notificationHandler;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
@@ -32,7 +32,7 @@ final class CredentialsExpirationWarningListener implements EventSubscriberInter
     /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
     private $urlGenerator;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
     /** @var string[][] */

@@ -56,7 +56,7 @@ class VersionId
     /**
      * @param string $id
      *
-     * @return \EzSystems\EzPlatformAdminUi\UI\Value\Content\VersionId
+     * @return \Ibexa\AdminUi\UI\Value\Content\VersionId
      */
     public static function fromString(string $id): self
     {

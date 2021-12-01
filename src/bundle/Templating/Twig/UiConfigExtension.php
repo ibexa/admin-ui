@@ -24,12 +24,12 @@ class UiConfigExtension extends AbstractExtension implements GlobalsInterface
     /** @var \Twig\Environment */
     protected $twig;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Config\Aggregator */
+    /** @var \Ibexa\AdminUi\UI\Config\Aggregator */
     protected $aggregator;
 
     /**
      * @param \Twig\Environment $twig
-     * @param \EzSystems\EzPlatformAdminUi\UI\Config\Aggregator $aggregator
+     * @param \Ibexa\AdminUi\UI\Config\Aggregator $aggregator
      */
     public function __construct(Environment $twig, Aggregator $aggregator)
     {
@@ -50,7 +50,7 @@ class UiConfigExtension extends AbstractExtension implements GlobalsInterface
     /**
      * Create lazy loaded configuration.
      *
-     * @return \EzSystems\EzPlatformAdminUi\UI\Config\ConfigWrapper
+     * @return \Ibexa\AdminUi\UI\Config\ConfigWrapper
      */
     private function createConfigWrapper(): ConfigWrapper
     {

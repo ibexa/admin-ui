@@ -6,7 +6,7 @@
  */
 namespace Ibexa\Tests\AdminUi\Event;
 
-use EzSystems\EzPlatformContentForms\Event\FormActionEvent;
+use Ibexa\ContentForms\Event\FormActionEvent;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Form\FormInterface;

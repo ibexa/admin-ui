@@ -8,16 +8,16 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Module\Subitems\ValueObjectVisitor;
 
-use EzSystems\EzPlatformRest\Output\Generator;
-use EzSystems\EzPlatformRest\Output\ValueObjectVisitor;
-use EzSystems\EzPlatformRest\Output\Visitor;
+use Ibexa\Contracts\Rest\Output\Generator;
+use Ibexa\Contracts\Rest\Output\ValueObjectVisitor;
+use Ibexa\Contracts\Rest\Output\Visitor;
 
 class SubitemsList extends ValueObjectVisitor
 {
     /**
-     * @param \EzSystems\EzPlatformRest\Output\Visitor $visitor
-     * @param \EzSystems\EzPlatformRest\Output\Generator $generator
-     * @param \EzSystems\EzPlatformAdminUi\UI\Module\Subitems\Values\SubitemsList $data
+     * @param \Ibexa\Contracts\Rest\Output\Visitor $visitor
+     * @param \Ibexa\Contracts\Rest\Output\Generator $generator
+     * @param \Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsList $data
      */
     public function visit(Visitor $visitor, Generator $generator, $data)
     {

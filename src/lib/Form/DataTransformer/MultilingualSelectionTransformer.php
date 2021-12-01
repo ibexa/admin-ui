@@ -16,12 +16,12 @@ class MultilingualSelectionTransformer implements DataTransformerInterface
     /** @var string */
     protected $languageCode;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData */
+    /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData */
     private $data;
 
     /**
      * @param string $languageCode
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData $data
+     * @param \Ibexa\AdminUi\Form\Data\FieldDefinitionData $data
      */
     public function __construct(string $languageCode, FieldDefinitionData $data)
     {

@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Event;
 
-use eZ\Publish\SPI\Options\OptionsBag;
+use Ibexa\Contracts\Core\Options\OptionsBag;
 
 final class Options implements OptionsBag
 {

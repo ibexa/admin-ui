@@ -13,11 +13,11 @@ namespace Ibexa\AdminUi\Form\Data\ContentType;
  */
 class ContentTypesDeleteData
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType[]|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[]|null */
     protected $contentTypes;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType[]|null $contentTypes
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[]|null $contentTypes
      */
     public function __construct(array $contentTypes = [])
     {
@@ -33,7 +33,7 @@ class ContentTypesDeleteData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType[]|null $contentTypes
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[]|null $contentTypes
      */
     public function setContentTypes(?array $contentTypes)
     {

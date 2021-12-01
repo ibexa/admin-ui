@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\TrashLocationOptionProvider;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Form\FormInterface;
 
 final class OptionsFactory
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Form\TrashLocationOptionProvider\TrashLocationOptionProvider[] */
+    /** @var \Ibexa\AdminUi\Form\TrashLocationOptionProvider\TrashLocationOptionProvider[] */
     private $providers;
 
     public function __construct(iterable $providers)

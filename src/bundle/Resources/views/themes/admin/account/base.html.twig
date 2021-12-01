@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>Ibexa DXP</title>
-        {{ encore_entry_link_tags('ezplatform-admin-ui-security-base-css', null, 'ezplatform') }}
+        {{ encore_entry_link_tags('ezplatform-admin-ui-security-base-css', null, 'ibexa') }}
         <link rel="icon" type="image/x-icon" href="{{ asset('bundles/ibexaadminui/img/favicon.ico') }}" />
 
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/@popperjs/core/dist/umd/popper.min.js') }}"></script>
@@ -38,7 +38,7 @@
         {% if app.request.locale == 'ach_UG' %}
             <script type="text/javascript">
                 var _jipt = [];
-                _jipt.push(['project', 'ezplatform']);
+                _jipt.push(['project', 'ibexa']);
             </script>
             <script type="text/javascript" src="//cdn.crowdin.com/jipt/jipt.js"></script>
         {% endif %}

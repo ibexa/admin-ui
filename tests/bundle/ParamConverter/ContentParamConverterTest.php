@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Bundle\AdminUi\ParamConverter\ContentParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -21,7 +21,7 @@ class ContentParamConverterTest extends AbstractParamConverterTest
     const SUPPORTED_CLASS = Content::class;
     const PARAMETER_NAME = 'content';
 
-    /** @var \EzSystems\EzPlatformAdminUiBundle\ParamConverter\ContentParamConverter */
+    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\ContentParamConverter */
     protected $converter;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject */

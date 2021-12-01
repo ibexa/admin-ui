@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Specification\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentType as APIContentType;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType as APIContentType;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use PHPUnit\Framework\TestCase;
@@ -76,7 +76,7 @@ class ContentTypeIsUserTest extends TestCase
      * @param string $identifier
      * @param array $fieldsType
      *
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
      */
     private function createContentType(string $identifier, array $fieldsType = []): APIContentType
     {

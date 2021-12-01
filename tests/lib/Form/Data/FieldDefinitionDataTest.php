@@ -6,7 +6,7 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\Data;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use PHPUnit\Framework\TestCase;
 

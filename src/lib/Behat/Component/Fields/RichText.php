@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component\Fields;
 
 use Behat\Mink\Session;
-use EzSystems\EzPlatformRichText\Configuration\Provider\CustomStyle;
+use Ibexa\FieldTypeRichText\Configuration\Provider\CustomStyle;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Element\Mapper\ElementTextMapper;
@@ -28,7 +28,7 @@ class RichText extends FieldTypeComponent
         'Heading 6' => 'h6',
     ];
 
-    /** @var \EzSystems\EzPlatformRichText\Configuration\Provider\CustomStyle */
+    /** @var \Ibexa\FieldTypeRichText\Configuration\Provider\CustomStyle */
     private $customStyleProvider;
 
     public function __construct(Session $session, CustomStyle $customStyleProvider)

@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\SiteAccessLimitation;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SiteAccessLimitation;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use Ibexa\AdminUi\Limitation\Mapper\SiteAccessLimitationMapper;
 use Ibexa\AdminUi\Siteaccess\SiteAccessKeyGenerator;
 use Ibexa\AdminUi\Siteaccess\SiteAccessKeyGeneratorInterface;

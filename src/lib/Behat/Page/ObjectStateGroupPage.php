@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use eZ\Publish\API\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
@@ -31,7 +31,7 @@ class ObjectStateGroupPage extends Page
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private $objectStates;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
     /** @var mixed */
@@ -60,7 +60,7 @@ class ObjectStateGroupPage extends Page
     {
         $this->expectedObjectStateGroupName = $objectStateGroupName;
 
-        /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup[] $objectStateGroups */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[] $objectStateGroups */
         $objectStateGroups = $this->repository->sudo(function () {
             return $this->repository->getObjectStateService()->loadObjectStateGroups();
         });

@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Siteaccess;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 
 /**
@@ -17,14 +17,14 @@ use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
  */
 class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessResolver */
+    /** @var \Ibexa\AdminUi\Siteaccess\SiteaccessResolver */
     private $siteaccessResolver;
 
     /** @var string[] */
     private $siteAccessGroups;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessResolver $siteaccessResolver
+     * @param \Ibexa\AdminUi\Siteaccess\SiteaccessResolver $siteaccessResolver
      * @param string[] $siteAccessGroups
      */
     public function __construct(SiteaccessResolver $siteaccessResolver, array $siteAccessGroups)
@@ -44,7 +44,7 @@ class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\SiteAccess[]
+     * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
      */
     public function getSiteAccessesListForLocation(
         Location $location,

@@ -16,7 +16,7 @@ use Symfony\Component\Form\DataTransformerInterface;
 class MediaValueTransformer extends AbstractBinaryBaseTransformer implements DataTransformerInterface
 {
     /**
-     * @param \eZ\Publish\Core\FieldType\Media\Value $value
+     * @param \Ibexa\Core\FieldType\Media\Value $value
      *
      * @return array
      */
@@ -41,13 +41,13 @@ class MediaValueTransformer extends AbstractBinaryBaseTransformer implements Dat
     /**
      * @param array $value
      *
-     * @return \eZ\Publish\Core\FieldType\Media\Value
+     * @return \Ibexa\Core\FieldType\Media\Value
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
     public function reverseTransform($value)
     {
-        /** @var \eZ\Publish\Core\FieldType\Media\Value $valueObject */
+        /** @var \Ibexa\Core\FieldType\Media\Value $valueObject */
         $valueObject = $this->getReverseTransformedValue($value);
 
         if ($this->fieldType->isEmptyValue($valueObject)) {

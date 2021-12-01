@@ -6,14 +6,14 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\Data;
 
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
-use EzSystems\EzPlatformContentForms\Data\Content\FieldData;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
 use Ibexa\AdminUi\Form\Data\ContentTranslationData;
 use PHPUnit\Framework\TestCase;
 
 class ContentTranslationDataTest extends TestCase
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Data\ContentTranslationData */
+    /** @var \Ibexa\AdminUi\Form\Data\ContentTranslationData */
     private $contentTranslationData;
 
     protected function setUp(): void
@@ -47,7 +47,7 @@ class ContentTranslationDataTest extends TestCase
     /**
      * @param string $identifier
      *
-     * @return \eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition
+     * @return \Ibexa\Core\Repository\Values\ContentType\FieldDefinition
      */
     private function getFieldDefinition(string $identifier = 'identifier'): FieldDefinition
     {

@@ -6,7 +6,7 @@
  */
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
-use eZ\Publish\Core\FieldType\Relation\Value;
+use Ibexa\Core\FieldType\Relation\Value;
 use Symfony\Component\Form\DataTransformerInterface;
 
 class RelationValueTransformer implements DataTransformerInterface

@@ -6,7 +6,7 @@
  */
 namespace Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\Parser\Templates;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\Templates;
 
 class LimitationValueTemplates extends Templates
 {

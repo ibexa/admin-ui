@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\QueryType;
 
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\AdminUi\Form\Data\Search\SearchData;
 use Ibexa\AdminUi\QueryType\SearchQueryType;
 use PHPUnit\Framework\TestCase;
@@ -28,10 +28,10 @@ final class SearchQueryTypeTest extends TestCase
     private const EXPECTED_SUBTREE = '/13/17/19/';
     private const EXPECTED_DATE_RANGE = [1431993600, 1587340800];
 
-    /** @var \eZ\Publish\API\Repository\SearchService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService|\PHPUnit\Framework\MockObject\MockObject */
     private $searchService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\QueryType\SearchQueryType */
+    /** @var \Ibexa\AdminUi\QueryType\SearchQueryType */
     private $queryType;
 
     protected function setUp(): void

@@ -13,7 +13,7 @@ interface SiteaccessPreviewVoterInterface
     /**
      * Votes whether the Content item can be previewed in given siteaccess.
      *
-     * @param \EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessPreviewVoterContext $context
+     * @param \Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterContext $context
      *
      * @return bool
      */

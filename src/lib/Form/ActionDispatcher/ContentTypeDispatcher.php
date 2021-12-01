@@ -6,7 +6,7 @@
  */
 namespace Ibexa\AdminUi\Form\ActionDispatcher;
 
-use EzSystems\EzPlatformContentForms\Form\ActionDispatcher\AbstractActionDispatcher;
+use Ibexa\ContentForms\Form\ActionDispatcher\AbstractActionDispatcher;
 use Ibexa\Contracts\AdminUi\Event\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

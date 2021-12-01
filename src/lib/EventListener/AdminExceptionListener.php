@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\EventListener;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
 use Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface;
 use SplFileInfo;
@@ -24,7 +24,7 @@ use Twig\Error\RuntimeError;
 
 class AdminExceptionListener
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface */
     protected $notificationHandler;
 
     /** @var \Twig\Environment */
@@ -47,7 +47,7 @@ class AdminExceptionListener
 
     /**
      * @param \Twig\Environment $twig
-     * @param \EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface $notificationHandler
+     * @param \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface $notificationHandler
      * @param \Symfony\WebpackEncoreBundle\Asset\TagRenderer $encoreTagRenderer
      * @param \Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface $entrypointLookupCollection
      * @param array $siteAccessGroups
@@ -98,7 +98,8 @@ class AdminExceptionListener
         $code = $response->getStatusCode();
 
         // map exception to UI notification
-        $this->notificationHandler->error(/** @Ignore */ $this->getNotificationMessage($exception));
+        $this->notificationHandler->error(/** @Ignore */
+        $this->getNotificationMessage($exception));
 
         if ($exception instanceof RuntimeError) {
             // If exception is coming from the template where encore already
@@ -133,7 +134,7 @@ class AdminExceptionListener
     {
         $request = $event->getRequest();
 
-        /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess $siteAccess */
+        /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteAccess */
         $siteAccess = $request->get('siteaccess', new SiteAccess('default'));
 
         return \in_array($siteAccess->name, $this->siteAccessGroups[IbexaAdminUiBundle::ADMIN_GROUP_NAME]);

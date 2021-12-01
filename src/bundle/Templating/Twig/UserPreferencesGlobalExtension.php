@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
-use EzSystems\EzPlatformUser\UserSetting\UserSettingArrayAccessor;
+use Ibexa\User\UserSetting\UserSettingArrayAccessor;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 
@@ -19,11 +19,11 @@ use Twig\Extension\GlobalsInterface;
  */
 class UserPreferencesGlobalExtension extends AbstractExtension implements GlobalsInterface
 {
-    /** @var \EzSystems\EzPlatformUser\UserSetting\UserSettingArrayAccessor */
+    /** @var \Ibexa\User\UserSetting\UserSettingArrayAccessor */
     protected $userSettingArrayAccessor;
 
     /**
-     * @param \EzSystems\EzPlatformUser\UserSetting\UserSettingArrayAccessor $userSettingArrayAccessor
+     * @param \Ibexa\User\UserSetting\UserSettingArrayAccessor $userSettingArrayAccessor
      */
     public function __construct(
         UserSettingArrayAccessor $userSettingArrayAccessor
@@ -37,7 +37,6 @@ class UserPreferencesGlobalExtension extends AbstractExtension implements Global
     public function getGlobals(): array
     {
         // has to use \ArrayAccess object due to BC promise
-
         return [
             'ez_user_settings' => $this->userSettingArrayAccessor,
         ];

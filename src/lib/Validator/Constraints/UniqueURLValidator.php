@@ -6,21 +6,21 @@
  */
 namespace Ibexa\AdminUi\Validator\Constraints;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\URLService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\URLService;
 use Ibexa\AdminUi\Form\Data\URL\URLUpdateData;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class UniqueURLValidator extends ConstraintValidator
 {
-    /** @var \eZ\Publish\API\Repository\URLService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLService */
     private $urlService;
 
     /**
      * UniqueURLValidator constructor.
      *
-     * @param \eZ\Publish\API\Repository\URLService $urlService
+     * @param \Ibexa\Contracts\Core\Repository\URLService $urlService
      */
     public function __construct(URLService $urlService)
     {
@@ -49,6 +49,7 @@ class UniqueURLValidator extends ConstraintValidator
                 ->addViolation();
         } catch (NotFoundException $e) {
             // Do nothing
+            
         }
     }
 }

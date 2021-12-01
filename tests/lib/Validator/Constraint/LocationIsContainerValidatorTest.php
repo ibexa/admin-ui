@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsContainer;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator;
 use PHPUnit\Framework\TestCase;
@@ -21,13 +21,13 @@ class LocationIsContainerValidatorTest extends TestCase
     /** @var \Symfony\Component\Validator\Context\ExecutionContextInterface */
     private $executionContext;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationIsContainerValidator */
+    /** @var \Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator */
     private $validator;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|\PHPUnit\Framework\MockObject\MockObject */
     private $location;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|\PHPUnit\Framework\MockObject\MockObject */
     private $contentType;
 
     protected function setUp(): void
