@@ -35,6 +35,7 @@ class FieldEditRenderingExtension extends AbstractExtension
 
             return $this->renderFieldDefinitionEdit($fieldDefinitionData, $params);
         };
+
         return [
             new TwigFunction(
                 'ez_render_field_definition_edit',

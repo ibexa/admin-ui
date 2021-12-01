@@ -43,6 +43,7 @@ class UiConfigExtension extends AbstractExtension implements GlobalsInterface
     public function getGlobals(): array
     {
         $configWrapper = $this->createConfigWrapper();
+
         return [
             /** @deprecated ez_admin_ui_config is deprecated since 4.0, use ibexa_admin_ui_config instead */
             'ez_admin_ui_config' => $configWrapper,
