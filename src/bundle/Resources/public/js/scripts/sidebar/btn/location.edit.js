@@ -46,7 +46,7 @@
         }
     };
     const showModal = (modalHtml) => {
-        const wrapper = doc.querySelector('.ez-modal-wrapper');
+        const wrapper = doc.querySelector('.ibexa-modal-wrapper');
 
         wrapper.innerHTML = modalHtml;
         attachModalListeners(wrapper);

@@ -30,7 +30,7 @@
             bootstrap.Modal.getOrCreateInstance(doc.querySelector('#version-draft-conflict-modal')).hide();
         };
         const showModal = (modalHtml) => {
-            const wrapper = doc.querySelector('.ez-modal-wrapper');
+            const wrapper = doc.querySelector('.ibexa-modal-wrapper');
 
             wrapper.innerHTML = modalHtml;
 

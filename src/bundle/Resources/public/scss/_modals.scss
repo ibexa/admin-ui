@@ -1,4 +1,4 @@
-.ez-modal {
+.ibexa-modal {
     .modal-dialog {
         @include modal-main();
     }
@@ -30,7 +30,7 @@
     &--table-content {
         .modal-header {
             border-width: 0;
-        }        
+        }
 
         .modal-body {
             padding-top: 0;
@@ -53,8 +53,8 @@
 
     &--wide {
         .modal-dialog {
-            max-width: calculateRem(800px); 
-            width: calculateRem(800px);       
+            max-width: calculateRem(800px);
+            width: calculateRem(800px);
         }
     }
 }

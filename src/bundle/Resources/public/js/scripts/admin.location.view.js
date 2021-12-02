@@ -53,7 +53,7 @@
             }
         };
         const showModal = (modalHtml) => {
-            const wrapper = doc.querySelector('.ez-modal-wrapper');
+            const wrapper = doc.querySelector('.ibexa-modal-wrapper');
 
             wrapper.innerHTML = modalHtml;
             attachModalListeners(wrapper);
@@ -106,9 +106,7 @@
 
         failedItemsData.forEach(({ contentName, contentTypeName }) => {
             const container = doc.createElement('tbody');
-            const renderedItem = rowTemplate
-                .replace('{{ content_name }}', contentName)
-                .replace('{{ content_type_name }}', contentTypeName);
+            const renderedItem = rowTemplate.replace('{{ content_name }}', contentName).replace('{{ content_type_name }}', contentTypeName);
 
             container.insertAdjacentHTML('beforeend', renderedItem);
 

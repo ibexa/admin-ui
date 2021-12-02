@@ -10,7 +10,5 @@
     {% if disabled %}
         {% set attr = attr|merge({'disabled': disabled}) %}
     {% endif %}
-    <div class="ez-field-edit--ezboolean">
-        {{ block('toggle_widget') }}
-    </div>
+    {{ block('toggle_widget') }}
 {%- endblock -%}

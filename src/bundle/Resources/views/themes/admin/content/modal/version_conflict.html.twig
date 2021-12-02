@@ -1,30 +1,30 @@
 {% trans_default_domain 'version_conflict' %}
 
-<div class="modal fade ez-modal ez-modal--version-conflict" id="version-conflict-modal" tabindex="-1" role="dialog">
+<div class="modal fade ibexa-modal ibexa-modal--version-conflict" id="version-conflict-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">{{ 'version.conflict.header'|trans|desc('Version conflict') }}</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <svg class="ibexa-icon ibexa-icon--medium" aria-hidden="true">
+                    <svg class="ibexa-icon ibexa-icon--small-medium" aria-hidden="true">
                         <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
                     </svg>
                 </button>
             </div>
             <div class="modal-body">
-                <p class="ez-modal-body__explanation">
+                <p class="ibexa-modal-body__explanation">
                     <strong>
                         {{ 'version.conflict.are_you_sure'|trans|desc(
                         'Are you sure you want to continue and overwrite the published version?'
                         ) }}
                     </strong>
                 </p>
-                <p class="ez-modal-body__explanation">
+                <p class="ibexa-modal-body__explanation">
                     {{ 'version.conflict.consequences'|trans|desc(
                     'If you continue, the published version will be overwritten.'
                     ) }}
                 </p>
-                <p class="ez-modal-body__explanation">
+                <p class="ibexa-modal-body__explanation">
                     {{ 'version.conflict.choices'|trans|desc(
                     'To resolve the conflict, click Cancel and delete the draft. Then edit the published version.'
                     ) }}

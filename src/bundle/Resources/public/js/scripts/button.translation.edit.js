@@ -22,7 +22,7 @@
         hideTranslationsList(event) {
             const closestTranslationSelector = event.target.closest('.ez-translation-selector');
             const clickedOnTranslationsList = closestTranslationSelector && closestTranslationSelector.isSameNode(this.container);
-            const clickedOnDraftConflictModal = event.target.closest('.ez-modal--version-draft-conflict');
+            const clickedOnDraftConflictModal = event.target.closest('.ibexa-modal--version-draft-conflict');
 
             if (clickedOnTranslationsList || clickedOnDraftConflictModal) {
                 return;
