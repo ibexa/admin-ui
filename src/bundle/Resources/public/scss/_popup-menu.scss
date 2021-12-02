@@ -28,6 +28,12 @@
             align-items: initial;
             border-top: calculateRem(1px) solid $ibexa-color-info-800;
         }
+
+        &--with-border {
+            border-top: calculateRem(1px) solid $ibexa-color-light;
+            margin-top: calculateRem(8px);
+            padding-top: calculateRem(8px);
+        }
     }
 
     .ibexa-popup-menu__item-content {

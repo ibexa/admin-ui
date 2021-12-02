@@ -89,9 +89,14 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             );
 
             $menu->addChild(
-                $this->createMenuItem(self::ITEM_LOGOUT, ['route' => 'logout', 'extras' => [
+                $this->createMenuItem(self::ITEM_LOGOUT, [
+                    'route' => 'logout',
+                    'attributes' => [
+                        'class' => 'ibexa-popup-menu__item--with-border',
+                    ],
+                    'extras' => [
                     'orderNumber' => 60,
-                ]])
+                    ], ])
             );
         }
 

@@ -5,10 +5,10 @@
         return;
     }
 
-    const userNameElement = userMenuContainer.querySelector('.ibexa-header-user-menu__name');
+    const togglerElement = userMenuContainer.querySelector('.ibexa-header-user-menu__toggler');
     const popupMenuElement = userMenuContainer.querySelector('.ibexa-popup-menu');
     const popupMenu = new eZ.core.PopupMenu({
-        triggerElement: userNameElement,
+        triggerElement: togglerElement,
         popupMenuElement,
     });
 })(window, window.document);
