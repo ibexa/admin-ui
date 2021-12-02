@@ -34,7 +34,7 @@
 {% endblock %}
 
 {% block form_before %}
-    {{ ez_render_component_group('content-create-form-before', {
+    {{ ibexa_render_component_group('content-create-form-before', {
         'parent_location': parent_location,
         'content_type': content_type,
         'language': language
@@ -42,7 +42,7 @@
 {% endblock %}
 
 {% block form_after %}
-    {{ ez_render_component_group('content-create-form-after', {
+    {{ ibexa_render_component_group('content-create-form-after', {
         'parent_location': parent_location,
         'content_type': content_type,
         'language': language

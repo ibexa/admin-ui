@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="CSRF-Token" content="{{ csrf_token('authenticate') }}" />
         <meta name="SiteAccess" content="{{ app.request.get('siteaccess').name }}" />
-        <meta name="UserId" content="{{ ez_admin_ui_config.user.user.id }}" />
+        <meta name="UserId" content="{{ ibexa_admin_ui_config.user.user.id }}" />
         <script>
             const userAgent = navigator.userAgent.toLowerCase();
 
@@ -58,8 +58,8 @@
         {% block meta %}
         {% endblock %}
         <script>
-            window.eZ.addConfig('adminUiConfig', {{ ez_admin_ui_config|json_encode|raw }});
-            window.eZ.addConfig('richText', {{ ez_richtext_config|json_encode|raw }});
+            window.eZ.addConfig('adminUiConfig', {{ ibexa_admin_ui_config|json_encode|raw }});
+            window.eZ.addConfig('richText', {{ ibexa_richtext_config|json_encode|raw }});
             window.eZ.addConfig('errors', {
                 emailRegexp: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                 emptyField: '{{ 'js.error.empty.field'|trans({}, 'validators')|desc('{fieldName} Field is required') }}',
@@ -98,8 +98,8 @@
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('bundles/ibexaadminui/img/favicon-16x16.png') }}" />
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('bundles/ibexaadminui/img/favicon-32x32.png') }}" />
 
-        {{ ez_render_component_group('stylesheet-head') }}
-        {{ ez_render_component_group('script-head') }}
+        {{ ibexa_render_component_group('stylesheet-head') }}
+        {{ ibexa_render_component_group('script-head') }}
 
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/react/umd/react.production.min.js') }}"></script>
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/react-dom/umd/react-dom.production.min.js') }}"></script>
@@ -116,7 +116,7 @@
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/js-md5/build/md5.min.js') }}"></script>
     </head>
     <body class="{% block body_class %}{% endblock %}">
-        <div id="react-udw" data-filter-subtree-udw-config="{{ ez_udw_config('single_container', {}) }}"></div>
+        <div id="react-udw" data-filter-subtree-udw-config="{{ ibexa_udw_config('single_container', {}) }}"></div>
 
         {% block header_row %}
             <div class="ibexa-main-header">
@@ -126,7 +126,7 @@
                     </a>
                 </div>
                 <div class="ibexa-main-header__search-column">
-                    {{ ez_render_component_group('global-search') }}
+                    {{ ibexa_render_component_group('global-search') }}
                 </div>
                 <div class="ibexa-main-header__user-menu-column">
                     {{ knp_menu_render('ezplatform_admin_ui.menu.user', {
@@ -206,7 +206,7 @@
 
         {% block react_modules %}{% endblock %}
         {% block javascripts %}{% endblock %}
-        {{ ez_render_component_group('stylesheet-body') }}
-        {{ ez_render_component_group('script-body') }}
+        {{ ibexa_render_component_group('stylesheet-body') }}
+        {{ ibexa_render_component_group('script-body') }}
     </body>
 </html>

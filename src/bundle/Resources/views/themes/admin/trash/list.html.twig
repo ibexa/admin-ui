@@ -53,7 +53,7 @@
                                     type="text"
                                     class="form-control ez-trash-search-form__input"
                                     data-content-type-identifiers="{{ user_content_type_identifier|join(',') }}"
-                                    value="{{ creatorExists ? ez_content_name(creator) }}"
+                                    value="{{ creatorExists ? ibexa_content_name(creator) }}"
                                     placeholder="{{ 'search.creator_input.placeholder'|trans|desc('Type creator\'s name') }}"
                                     {{ creatorExists ? 'disabled'  }}
                                 >
@@ -97,7 +97,7 @@
                     {% set body_row_cols = [] %}
                     {% set trash_item = trash_items[key] %}
                     {% set is_parent_in_trash = trash_item.parentInTrash %}
-                    {% set trash_item_name = ez_content_name(trash_item.location.contentInfo) %}
+                    {% set trash_item_name = ibexa_content_name(trash_item.location.contentInfo) %}
 
                     {% set col_raw %}
                         <div class="form-check">
@@ -115,7 +115,7 @@
 
                     {% set col_raw %}
                         <svg class="ibexa-icon ibexa-icon--small">
-                            <use xlink:href="{{ ez_content_type_icon(trash_item.contentType.identifier) }}"></use>
+                            <use xlink:href="{{ ibexa_content_type_icon(trash_item.contentType.identifier) }}"></use>
                         </svg>
                     {% endset %}
                     {% set body_row_cols = body_row_cols|merge([{
@@ -137,7 +137,7 @@
                     {% set body_row_cols = body_row_cols|merge([
                         { content: trash_item.contentType.name },
                         { content: trash_item.creator is not empty
-                            ? ez_content_name(trash_item.creator.content) :
+                            ? ibexa_content_name(trash_item.creator.content) :
                             'trash.item.deleted_user'|trans|desc('Deleted user') },
                         { content: trash_item.location.contentInfo.section.name },
                     ]) %}
@@ -155,7 +155,7 @@
                     }]) %}
 
                     {% set body_row_cols = body_row_cols|merge([
-                        { content: trash_item.location.trashed|ez_full_datetime },
+                        { content: trash_item.location.trashed|ibexa_full_datetime },
                     ]) %}
 
                     {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
@@ -220,7 +220,7 @@
                                 {% if can_restore and form_trash_item_restore.trash_items is not empty %}
                                     {% set restore_under_new_parent_button_attr = form_trash_item_restore.location.select_content.vars.attr|merge({
                                         'attr': {
-                                            'data-udw-config': ez_udw_config('single_container', {}),
+                                            'data-udw-config': ibexa_udw_config('single_container', {}),
                                             'class': (form_trash_item_restore.location.select_content.vars.attr.class|default('') ~ ' btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text')|trim,
                                             'disabled': true
                                         }

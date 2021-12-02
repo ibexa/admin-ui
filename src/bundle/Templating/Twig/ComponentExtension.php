@@ -33,10 +33,28 @@ class ComponentExtension extends AbstractExtension
             new TwigFunction(
                 'ez_render_component_group',
                 [$this, 'renderComponentGroup'],
-                ['is_safe' => ['html']]
+                [
+                    'is_safe' => ['html'],
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_render_component_group',
+                ]
             ),
             new TwigFunction(
                 'ez_render_component',
+                [$this, 'renderComponent'],
+                [
+                    'is_safe' => ['html'],
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_render_component',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_render_component_group',
+                [$this, 'renderComponentGroup'],
+                ['is_safe' => ['html']]
+            ),
+            new TwigFunction(
+                'ibexa_render_component',
                 [$this, 'renderComponent'],
                 ['is_safe' => ['html']]
             ),

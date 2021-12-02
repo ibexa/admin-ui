@@ -47,7 +47,7 @@
         {%- else -%}
             <div class="ez-instant-filter__group-item">
                 <svg class="ibexa-icon ibexa-icon--small">
-                    <use xlink:href="{{ ez_content_type_icon(choice.value) }}"></use>
+                    <use xlink:href="{{ ibexa_content_type_icon(choice.value) }}"></use>
                 </svg>
                 {{ form_widget(form[choice.value]) }}
             </div>
@@ -222,12 +222,12 @@
 
     <div class="ez-data-source">
         <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
-        <div class="hidden" data-udw-config-name="richtext_embed" data-udw-config="{{ ez_udw_config('richtext_embed', udw_context) }}"></div>
-        <div class="hidden" data-udw-config-name="richtext_embed_image" data-udw-config="{{ ez_udw_config('richtext_embed_image', udw_context) }}"></div>
+        <div class="hidden" data-udw-config-name="richtext_embed" data-udw-config="{{ ibexa_udw_config('richtext_embed', udw_context) }}"></div>
+        <div class="hidden" data-udw-config-name="richtext_embed_image" data-udw-config="{{ ibexa_udw_config('richtext_embed_image', udw_context) }}"></div>
         <div class="ibexa-data-source__richtext" id="{{ form.vars.id }}__editable"></div>
         <div class="ibexa-richtext-tools">
             <ul class="ibexa-elements-path"></ul>
-            {% if ez_user_settings['character_counter'] == 'enabled' %}
+            {% if ibexa_user_settings['character_counter'] == 'enabled' %}
                 <div class="ibexa-character-counter">
                     <span class="ibexa-character-counter__word-count">0</span> {{ 'character_counter.words'|trans|desc('words') }}
                     <span class="ibexa-character-counter__character-count">0</span> {{ 'character_counter.characters'|trans|desc('characters') }}

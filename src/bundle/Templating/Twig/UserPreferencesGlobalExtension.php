@@ -39,7 +39,9 @@ class UserPreferencesGlobalExtension extends AbstractExtension implements Global
         // has to use \ArrayAccess object due to BC promise
 
         return [
+            /** @deprecated ez_user_settings is deprecated since 4.0, use ibexa_user_settings instead */
             'ez_user_settings' => $this->userSettingArrayAccessor,
+            'ibexa_user_settings' => $this->userSettingArrayAccessor,
         ];
     }
 }

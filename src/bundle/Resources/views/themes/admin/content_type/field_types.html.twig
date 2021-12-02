@@ -136,8 +136,8 @@
                 class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--udw-relation-default-location"
                 data-relation-root-input-selector="#{{ form.selectionRoot.vars.id }}"
                 data-relation-selected-root-name-selector="#{{ form.selectionRoot.vars.id }}-selected-root-name"
-                data-starting-location-id="{{ ez_admin_ui_config.universalDiscoveryWidget.startingLocationId|default(1) }}"
-                data-udw-config="{{ ez_udw_config('single', {}) }}"
+                data-starting-location-id="{{ ibexa_admin_ui_config.universalDiscoveryWidget.startingLocationId|default(1) }}"
+                data-udw-config="{{ ibexa_udw_config('single', {}) }}"
                 {{ is_translation ? 'disabled' : '' }}
             >{{ "field_definition.ezobjectrelation.selection_root_udw_button"
                 |trans({}, "content_type")
@@ -159,7 +159,7 @@
         </div>
         <div id="{{ form.selectionRoot.vars.id }}-selected-root-name">
             {% if form.selectionRoot.vars.destination_location is not null %}
-                {{ ez_content_name(form.selectionRoot.vars.destination_location.contentInfo) }}
+                {{ ibexa_content_name(form.selectionRoot.vars.destination_location.contentInfo) }}
             {% endif %}
         </div>
     </div>
@@ -182,8 +182,8 @@
                 class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--udw-relation-default-location"
                 data-relation-root-input-selector="#{{ form.selectionDefaultLocation.vars.id }}"
                 data-relation-selected-root-name-selector="#{{ form.selectionDefaultLocation.vars.id }}-selected-root-name"
-                data-starting-location-id="{{ ez_admin_ui_config.universalDiscoveryWidget.startingLocationId|default(1) }}"
-                data-udw-config="{{ ez_udw_config('single_container', {}) }}"
+                data-starting-location-id="{{ ibexa_admin_ui_config.universalDiscoveryWidget.startingLocationId|default(1) }}"
+                data-udw-config="{{ ibexa_udw_config('single_container', {}) }}"
                 {{ is_translation ? 'disabled' : '' }}
             >{{ "field_definition.ezobjectrelationlist.selection_root_udw_button"
                 |trans({}, "content_type")
@@ -205,7 +205,7 @@
         </div>
         <div id="{{ form.selectionDefaultLocation.vars.id }}-selected-root-name">
             {% if form.selectionDefaultLocation.vars.destination_location is not null %}
-                {{ ez_content_name(form.selectionDefaultLocation.vars.destination_location.contentInfo) }}
+                {{ ibexa_content_name(form.selectionDefaultLocation.vars.destination_location.contentInfo) }}
             {% endif %}
         </div>
     </div>

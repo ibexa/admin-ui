@@ -29,20 +29,27 @@ class LimitationValueRenderingExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
+        $limitationValueCallable = function (Environment $twig, Limitation $limitation, array $params = []) {
+            return $this->limitationRenderer->renderLimitationValue($limitation, $params);
+        };
+
         return [
             new TwigFunction(
                 'ez_render_limitation_value',
-                function (Environment $twig, Limitation $limitation, array $params = []) {
-                    return $this->limitationRenderer->renderLimitationValue($limitation, $params);
-                },
+                $limitationValueCallable,
+                [
+                    'is_safe' => ['html'],
+                    'needs_environment' => true,
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_render_limitation_value',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_render_limitation_value',
+                $limitationValueCallable,
                 ['is_safe' => ['html'], 'needs_environment' => true]
             ),
         ];
-    }
-
-    public function getName(): string
-    {
-        return 'ezplatform.content_forms.limitation_value_rendering';
     }
 }
 

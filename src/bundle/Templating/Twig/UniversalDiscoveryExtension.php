@@ -35,6 +35,15 @@ class UniversalDiscoveryExtension extends AbstractExtension
             new TwigFunction(
                 'ez_udw_config',
                 [$this, 'renderUniversalDiscoveryWidgetConfig'],
+                [
+                    'is_safe' => ['json'],
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_udw_config',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_udw_config',
+                [$this, 'renderUniversalDiscoveryWidgetConfig'],
                 ['is_safe' => ['json']]
             ),
         ];

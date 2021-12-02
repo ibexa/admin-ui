@@ -17,7 +17,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 
 /**
- * Exports `ez_admin_ui_config` providing UI Config as a global Twig variable.
+ * Exports `ibexa_admin_ui_config` providing UI Config as a global Twig variable.
  */
 class UiConfigExtension extends AbstractExtension implements GlobalsInterface
 {
@@ -42,8 +42,12 @@ class UiConfigExtension extends AbstractExtension implements GlobalsInterface
      */
     public function getGlobals(): array
     {
+        $configWrapper = $this->createConfigWrapper();
+
         return [
-            'ez_admin_ui_config' => $this->createConfigWrapper(),
+            /** @deprecated ez_admin_ui_config is deprecated since 4.0, use ibexa_admin_ui_config instead */
+            'ez_admin_ui_config' => $configWrapper,
+            'ibexa_admin_ui_config' => $configWrapper,
         ];
     }
 

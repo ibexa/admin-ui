@@ -37,7 +37,7 @@
 
                         {% set col_raw %}
                             <svg class="ibexa-icon ibexa-icon--small">
-                                <use xlink:href="{{ ez_content_type_icon(row.contentType.identifier) }}"></use>
+                                <use xlink:href="{{ ibexa_content_type_icon(row.contentType.identifier) }}"></use>
                             </svg>
                         {% endset %}
                         {% set body_row_cols = body_row_cols|merge([{
@@ -58,9 +58,9 @@
 
                         {% set body_row_cols = body_row_cols|merge([
                             { content: row.contentType.name },
-                            { content: ez_admin_ui_config.languages.mappings[row.versionInfo.initialLanguageCode].name },
+                            { content: ibexa_admin_ui_config.languages.mappings[row.versionInfo.initialLanguageCode].name },
                             { content: row.versionInfo.versionNo },
-                            { content: row.versionInfo.modificationDate|ez_full_datetime },
+                            { content: row.versionInfo.modificationDate|ibexa_full_datetime },
                         ]) %}
 
                         {% set col_raw %}

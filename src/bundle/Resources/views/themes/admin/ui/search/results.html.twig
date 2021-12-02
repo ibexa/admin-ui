@@ -35,7 +35,7 @@
                 {% set body_row_cols = [] %}
                 {% set col_raw %}
                     <svg class="ibexa-icon ibexa-icon--small">
-                        <use xlink:href="{{ ez_content_type_icon(result.content_type.identifier) }}"></use>
+                        <use xlink:href="{{ ibexa_content_type_icon(result.content_type.identifier) }}"></use>
                     </svg>
                 {% endset %}
                 {% set body_row_cols = body_row_cols|merge([{
@@ -65,16 +65,16 @@
                 }]) %}
 
                 {% set body_row_cols = body_row_cols|merge([
-                    { content: result.modified|ez_full_datetime },
+                    { content: result.modified|ibexa_full_datetime },
                     { content: result.type },
                 ]) %}
 
                 {% set col_raw %}
-                    {% set path_locations = ez_path_to_locations(result.resolvedLocation.pathString) %}
+                    {% set path_locations = ibexa_path_to_locations(result.resolvedLocation.pathString) %}
                     {% set result_breadcrumbs = '' %}
 
                     {% for location in path_locations %}
-                        {% set result_breadcrumbs = result_breadcrumbs ~ ez_content_name(location.contentInfo) %}
+                        {% set result_breadcrumbs = result_breadcrumbs ~ ibexa_content_name(location.contentInfo) %}
                         {% if not loop.last %}
                             {% set result_breadcrumbs = result_breadcrumbs ~ ' / ' %}
                         {% endif %}

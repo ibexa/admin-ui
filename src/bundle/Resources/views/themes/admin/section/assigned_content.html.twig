@@ -25,7 +25,7 @@
                 {% for location in content.path %}
                     {% if loop.revindex > 1 %}
                         <a href="{{ path('_ez_content_view', {'contentId': location.contentId, 'locationId': location.id}) }}">
-                            {{ ez_content_name(location.contentInfo) }}
+                            {{ ibexa_content_name(location.contentInfo) }}
                         </a>
 
                         {% if loop.revindex > 2 %}/{% endif %}
@@ -69,7 +69,7 @@
                             {{ form_widget(form_section_content_assign.locations.select_content,
                                 {'attr': {
                                     'class': 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--open-udw',
-                                    'data-udw-config': ez_udw_config('multiple', {'type': 'section_assign'})
+                                    'data-udw-config': ibexa_udw_config('multiple', {'type': 'section_assign'})
                                 }}
                             ) }}
                         {{ form_end(form_section_content_assign) }}

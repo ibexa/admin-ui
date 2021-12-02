@@ -38,7 +38,7 @@
 
                         {% set items = form.users.vars.data|map((user) => {
                             id: user.content.versionInfo.contentInfo.id,
-                            name: ez_content_name(user)
+                            name: ibexa_content_name(user)
                         }) %}
                         {% set items_map = form.users.vars.data|reduce((output, user) => output|merge({
                             "{{user.content.versionInfo.contentInfo.id}}": user.id
@@ -55,7 +55,7 @@
                                 'data-universaldiscovery-title': users_udw_title,
                                 'data-input-selector': '#' ~ form.users.vars.id,
                                 'data-selected-content-list-selector': '#' ~ form.users.vars.id ~ '-selected-content',
-                                'data-udw-config': ez_udw_config('multiple_user', {}),
+                                'data-udw-config': ibexa_udw_config('multiple_user', {}),
                                 'data-items-map': items_map|json_encode(),
                             },
                             is_single_select: false,
@@ -71,7 +71,7 @@
 
                         {% set items = form.groups.vars.data|map((group) => {
                             id: group.content.versionInfo.contentInfo.id,
-                            name: ez_content_name(group.content)
+                            name: ibexa_content_name(group.content)
                         }) %}
                         {% set items_map = form.groups.vars.data|reduce((output, group) => output|merge({
                             "{{group.content.versionInfo.contentInfo.i}}": group.id
@@ -88,7 +88,7 @@
                                 'data-universaldiscovery-title': groups_udw_title,
                                 'data-input-selector': '#' ~ form.groups.vars.id,
                                 'data-selected-content-list-selector': '#' ~ form.groups.vars.id ~ '-selected-content',
-                                'data-udw-config': ez_udw_config('multiple_user_group', {}),
+                                'data-udw-config': ibexa_udw_config('multiple_user_group', {}),
                                 'data-items-map': items_map|json_encode(),
                             },
                             is_single_select: false,
@@ -122,7 +122,7 @@
                         <div class="ez-limitations__item-subtree">
                             {% set items = form.locations.vars.data|map((location) => {
                                 id: location.id,
-                                name: ez_content_name(location.content)
+                                name: ibexa_content_name(location.content)
                             }) %}
 
                             {{ include('@ezdesign/ui/component/tag_view_select/tag_view_select.html.twig', {
@@ -133,7 +133,7 @@
                                     'class': 'ez-limitations__btn-select-subtree',
                                     'disabled': not form.limitation_type.location.vars.checked,
                                     'data-input-selector': '#' ~ form.locations.vars.id,
-                                    'data-udw-config': ez_udw_config('single', {})
+                                    'data-udw-config': ibexa_udw_config('single', {})
                                 },
                                 is_single_select: false,
                                 can_be_empty: true,

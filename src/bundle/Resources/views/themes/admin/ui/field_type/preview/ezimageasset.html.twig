@@ -1,10 +1,10 @@
 {% trans_default_domain 'fieldtypes_preview' %}
 
-{% set field = ez_field(content, ez_content_field_identifier_image_asset()) %}
+{% set field = ibexa_field(content, ibexa_content_field_identifier_image_asset()) %}
 {% set versionInfo = content.versionInfo  %}
 
-{% if not ez_field_is_empty(content, field) %}
-    {% set imageAlias = ez_image_alias( field, versionInfo, parameters.alias|default( 'original' ) ) %}
+{% if not ibexa_field_is_empty(content, field) %}
+    {% set imageAlias = ibexa_image_alias( field, versionInfo, parameters.alias|default( 'original' ) ) %}
     {% set src = imageAlias ? asset( imageAlias.uri ) : "//:0" %}
 
     <div class="ez-field-preview__image-wrapper">
@@ -27,7 +27,7 @@
                     </tr>
                     <tr class="ez-field-preview__meta-value-row">
                         <td>{{ 'ezimageasset.size'|trans|desc('Size') }}:</td>
-                        <td>{{ field.value.fileSize|ez_file_size(1) }}</td>
+                        <td>{{ field.value.fileSize|ibexa_file_size(1) }}</td>
                     </tr>
                     <tr class="ez-field-preview__meta-value-row">
                         <td>{{ 'ezimageasset.alternative_text'|trans|desc('Alternative text') }}:</td>
@@ -62,6 +62,6 @@
     </div>
 {% else %}
     <a href="{{ path('_ez_content_view', { 'contentId': content.id, 'locationId': content.contentInfo.mainLocationId }) }}" target="_blank">
-        {{ ez_content_name(content) }}
+        {{ ibexa_content_name(content) }}
     </a>
 {% endif %}

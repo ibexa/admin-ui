@@ -24,7 +24,7 @@
 
         {% set col_raw %}
             <svg class="ibexa-icon ibexa-icon--small">
-                <use xlink:href="{{ ez_content_type_icon(content_type.identifier) }}"></use>
+                <use xlink:href="{{ ibexa_content_type_icon(content_type.identifier) }}"></use>
             </svg>
         {% endset %}
         {% set body_row_cols = body_row_cols|merge([{
@@ -49,7 +49,7 @@
         {% set body_row_cols = body_row_cols|merge([
             { content: content_type.identifier },
             { content: content_type.id },
-            { content: content_type.modificationDate|ez_full_datetime },
+            { content: content_type.modificationDate|ibexa_full_datetime },
         ]) %}
 
         {% set col_raw %}

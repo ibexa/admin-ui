@@ -163,7 +163,7 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
 
     protected function getFixturesDir()
     {
-        return __DIR__ . '/_fixtures/ez_render_limitation_value/';
+        return __DIR__ . '/_fixtures/render_limitation_value/';
     }
 
     private function createConfigResolverMock(): ConfigResolverInterface

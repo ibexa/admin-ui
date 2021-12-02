@@ -35,7 +35,7 @@
                         </svg>
                         <span class="ibexa-btn__label">{{ 'content.field_type.ezimage.preview'|trans|desc('Preview') }}</span>
                     </a>
-                    {{ ez_render_component_group(
+                    {{ ibexa_render_component_group(
                         'image-edit-actions-after',
                         {
                             'fieldDefinitionIdentifier' : form.parent.vars.value.fieldDefinition.identifier,
@@ -67,7 +67,7 @@
                 </div>
                 <div class="ibexa-field-edit-preview__file-size-wrapper">
                     <label class="ibexa-label form-label">{{ 'content.field_type.ezimage.file_size.label'|trans|desc('Size') }}</label>
-                    <p class="ibexa-field-edit-preview__file-size">{{ form.parent.vars.value.value.fileSize|ez_file_size(2) }}</p>
+                    <p class="ibexa-field-edit-preview__file-size">{{ form.parent.vars.value.value.fileSize|ibexa_file_size(2) }}</p>
                 </div>
             </div>
             <div class="ibexa-field-edit-preview__image-alt">

@@ -52,7 +52,7 @@
                 <input type="text"
                     class="form-control ibexa-filters__input"
                     data-content-type-identifiers="{{ user_content_type_identifier|join(',') }}"
-                    value="{{ creator is not empty ? ez_content_name(creator) }}"
+                    value="{{ creator is not empty ? ibexa_content_name(creator) }}"
                     placeholder="{{ 'search.creator_input.placeholder'|trans|desc('Type creator\'s name') }}"
                     {{ creator is not empty ? 'disabled'  }}
                 >
@@ -80,7 +80,7 @@
                     'id': form.subtree.vars.id ~ '__btn',
                     'data-input-selector': '#' ~ form.subtree.vars.id,
                     'data-selected-content-list-selector': '#' ~ form.subtree.vars.id ~ '-selected-content',
-                    'data-udw-config': ez_udw_config('single_container', {}),
+                    'data-udw-config': ibexa_udw_config('single_container', {}),
                 },
                 is_single_select: true,
                 can_be_empty: true,

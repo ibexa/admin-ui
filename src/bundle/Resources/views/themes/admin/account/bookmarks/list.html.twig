@@ -26,13 +26,13 @@
 
                     {% set col_icon %}
                         <svg class="ibexa-icon ibexa-icon--small">
-                            <use xlink:href="{{ ez_content_type_icon(bookmark.contentType.identifier) }}"></use>
+                            <use xlink:href="{{ ibexa_content_type_icon(bookmark.contentType.identifier) }}"></use>
                         </svg>
                     {% endset %}
 
                     {% set col_name %}
                         <a href="{{ path('_ez_content_view', { 'contentId': bookmark.contentInfo.id, 'locationId': bookmark.id }) }}">
-                            {{ ez_content_name(bookmark.contentInfo) }}
+                            {{ ibexa_content_name(bookmark.contentInfo) }}
                         </a>
                     {% endset %}
 
@@ -41,7 +41,7 @@
                             {% for location in bookmark.pathLocations %}
                                 {% if loop.revindex > 1 %}
                                     <a href="{{ path('_ez_content_view', { 'contentId': location.contentId, 'locationId': location.id}) }}">
-                                        {{ ez_content_name(location.contentInfo) }}
+                                        {{ ibexa_content_name(location.contentInfo) }}
                                     </a>
                                     {% if loop.revindex > 2 %}/{% endif %}
                                 {% endif %}

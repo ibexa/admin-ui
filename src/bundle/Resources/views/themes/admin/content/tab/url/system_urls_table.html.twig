@@ -10,7 +10,7 @@
         ]) %}
 
         {% set col_raw %}
-            {% for language_code in system_url.languageCodes %}{{ ez_admin_ui_config.languages.mappings[language_code].name }}<br>{% endfor %}
+            {% for language_code in system_url.languageCodes %}{{ ibexa_admin_ui_config.languages.mappings[language_code].name }}<br>{% endfor %}
         {% endset %}
         {% set body_row_cols = body_row_cols|merge([{
             content: col_raw,

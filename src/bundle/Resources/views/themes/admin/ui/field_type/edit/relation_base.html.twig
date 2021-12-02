@@ -108,11 +108,11 @@
 
                 {% set body_row_cols = body_row_cols|merge([
                     {
-                        content: ez_content_name(relation.contentInfo),
+                        content: ibexa_content_name(relation.contentInfo),
                         attr: { class: 'ibexa-relations__item-name' },
                     },
                     { content: relation.contentType.name },
-                    { content: relation.contentInfo.publishedDate|ez_short_datetime },
+                    { content: relation.contentInfo.publishedDate|ibexa_short_datetime },
                 ]) %}
 
                 {% if limit != 1 %}
@@ -223,7 +223,7 @@
                     {% block actions %}
                         {% if limit != 1 %}
                             <button
-                                data-udw-config="{{ ez_udw_config('multiple', {
+                                data-udw-config="{{ ibexa_udw_config('multiple', {
                                     'type': 'object_relation',
                                     'starting_location_id' : default_location,
                                     'allowed_content_types': allowed_content_types
@@ -255,13 +255,13 @@
     <div class="ibexa-relations__cta" {% if has_relations %}hidden="true"{% endif %}>
         <button
             {% if limit == 1 %}
-                data-udw-config="{{ ez_udw_config('single', {
+                data-udw-config="{{ ibexa_udw_config('single', {
                     'type': 'object_relation',
                     'starting_location_id' : default_location,
                     'allowed_content_types': allowed_content_types
                 }) }}"
             {% else %}
-                data-udw-config="{{ ez_udw_config('multiple', {
+                data-udw-config="{{ ibexa_udw_config('multiple', {
                     'type': 'object_relation',
                     'starting_location_id' : default_location,
                     'allowed_content_types': allowed_content_types

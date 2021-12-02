@@ -20,7 +20,7 @@
     {% set content_tree_width_style = "width: #{content_tree_width}px;" %}
 
     <div class="ibexa-content-tree-container"
-        data-tree-root-location-id="{{ content_tree_module_root|default(ez_admin_ui_config['contentTree']['treeRootLocationId']) }}"
+        data-tree-root-location-id="{{ content_tree_module_root|default(ibexa_admin_ui_config['contentTree']['treeRootLocationId']) }}"
         data-current-location-path="{{ location_path|default('') }}"
         style="{{ content_tree_width_style }}"
     >
@@ -33,7 +33,7 @@
     {% for path_location in path_locations %}
         {% if not loop.last %}
             {% set items = items|merge([{
-                'value': ez_content_name(path_location.contentInfo),
+                'value': ibexa_content_name(path_location.contentInfo),
                 'url': path('_ez_content_view', {
                     'contentId': path_location.contentId,
                     'locationId': path_location.id
@@ -42,7 +42,7 @@
         {% endif %}
     {% endfor %}
 
-    {% set items = items|merge([{ 'value': ez_content_name(content) }]) %}
+    {% set items = items|merge([{ 'value': ibexa_content_name(content) }]) %}
 
     {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: items } %}
 {% endblock %}
@@ -63,7 +63,7 @@
     {% if form_location_trash is defined and form_user_delete is not defined %}
         {% include '@ezdesign/content/modal/location_trash.html.twig' with {
             'form': form_location_trash,
-            'content_name': ez_content_name(content)
+            'content_name': ibexa_content_name(content)
         } only %}
     {% endif %}
     {% if form_user_delete is defined %}
@@ -79,7 +79,7 @@
     {% set icon_name = content_type.identifier %}
     {% set content_type_name = content_type.name %}
     {% embed '@ezdesign/ui/page_title.html.twig' with {
-        title: ez_content_name(content),
+        title: ibexa_content_name(content),
     } %}
         {% block top_side %}
             {% if location is defined and location_is_bookmarked is defined %}
@@ -98,7 +98,7 @@
                         </svg>
                     {% elseif content_type_identifier is defined %}
                         <svg class="ibexa-icon ibexa-icon--small ibexa-icon--base-dark ibexa-icon--{{ content_type_identifier }}">
-                            <use xlink:href="{{ ez_content_type_icon(content_type_identifier) }}"></use>
+                            <use xlink:href="{{ ibexa_content_type_icon(content_type_identifier) }}"></use>
                         </svg>
                     {% endif %}
                     {{ content_type_name }}
@@ -118,7 +118,7 @@
                 } only %}
             </div>
         {% endif %}
-        {{ ez_render_component_group(
+        {{ ibexa_render_component_group(
             'location-view-content-alerts',
             {
                 'versionInfo': content.versionInfo,
@@ -141,7 +141,7 @@
             <div class="panel panel-primary">
                 <div class="panel-body">
                     {# 'is_location_visible': location.invisible - param deprecated since EZP-32395 #}
-                    {{ ez_render_component_group('location-view-tab-groups', {
+                    {{ ibexa_render_component_group('location-view-tab-groups', {
                         'content': content,
                         'location': location,
                         'contentType': content_type,
@@ -157,7 +157,7 @@
                     {% if content_type.isContainer %}
                     {{ form_start(form_subitems_content_edit, { 'action': path('ezplatform.content.edit'), 'attr': { 'hidden': 'hidden' }}) }}
                     {{ form_end(form_subitems_content_edit) }}
-                    {% set udwConfigSingle = ez_udw_config('single_container', {}) %}
+                    {% set udwConfigSingle = ibexa_udw_config('single_container', {}) %}
                     <div class="ez-sil"
                         data-location="{{ location.id }}"
                         data-mfu-create-permissions-config="{{ subitems_module.content_create_permissions_for_mfu|json_encode() }}"

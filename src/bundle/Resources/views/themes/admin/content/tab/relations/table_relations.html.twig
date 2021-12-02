@@ -11,10 +11,10 @@
         {% set col_raw %}
             {% if destination.mainLocationId is not null %}
                 <a href="{{ path('_ez_content_view', { 'contentId': destination.id, 'locationId': relation.resolvedDestinationLocation.id }) }}">
-                    {{ ez_content_name(destination) }}
+                    {{ ibexa_content_name(destination) }}
                 </a>
             {% else %}
-                {{ ez_content_name(destination) }}
+                {{ ibexa_content_name(destination) }}
             {% endif %}
         {% endset %}
         {% set body_row_cols = body_row_cols|merge([{
@@ -43,7 +43,7 @@
 
 {% include '@ezdesign/ui/component/table/table.html.twig' with {
     headline: 'tab.relations.related_content'|trans({
-            '%contentName%' : ez_content_name(content)
+            '%contentName%' : ibexa_content_name(content)
         })|desc('Related content (Content items used by %contentName%)'),
     head_cols: [
         { content: 'tab.relations.table.name'|trans()|desc('Name') },
