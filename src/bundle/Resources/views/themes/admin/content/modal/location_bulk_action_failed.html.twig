@@ -1,7 +1,7 @@
 {% trans_default_domain 'locationview' %}
 
 <div
-    class="modal fade ez-modal ez-modal--table-content ez-modal--bulk-action-failed ez-bulk-action-failed-modal"
+    class="modal fade ibexa-modal ibexa-modal--table-content ibexa-modal--bulk-action-failed ez-bulk-action-failed-modal"
     id="bulk-action-failed-modal"
     tabindex="-1"
     role="dialog">
@@ -10,7 +10,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">{{ 'content.view.subitems.bulk_action.limited_permissions'|trans|desc('Limited user permissions') }}</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <svg class="ibexa-icon ibexa-icon--medium" aria-hidden="true">
+                    <svg class="ibexa-icon ibexa-icon--small-medium" aria-hidden="true">
                         <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
                     </svg>
                 </button>

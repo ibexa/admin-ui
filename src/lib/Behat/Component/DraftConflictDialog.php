@@ -42,7 +42,7 @@ class DraftConflictDialog extends Component
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('dialog', '#version-draft-conflict-modal.ez-modal--version-draft-conflict.show .modal-content'),
+            new VisibleCSSLocator('dialog', '#version-draft-conflict-modal.ibexa-modal--version-draft-conflict.show .modal-content'),
             new VisibleCSSLocator('addDraft', '.ibexa-btn--add-draft'),
             new VisibleCSSLocator('table', '#version-draft-conflict-modal .modal-content'),
         ];

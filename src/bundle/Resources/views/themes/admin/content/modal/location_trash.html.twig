@@ -1,7 +1,7 @@
 {% form_theme form '@ezdesign/ui/form_fields.html.twig' %}
 
 <div
-    class="modal fade ez-modal ez-modal--no-header ez-modal--send-to-trash ez-modal--trash-location"
+    class="modal fade ibexa-modal ibexa-modal--no-header ibexa-modal--send-to-trash ibexa-modal--trash-location"
     id="trash-location-modal"
     tabindex="-1"
     role="dialog"
@@ -20,13 +20,13 @@
                 {{ 'trash.modal.send_to_trash.message'|trans|desc('Are you sure you want to send this Content item to Trash?') }}
 
                 {% for option in form.trash_options %}
-                    <div class="ez-modal__trash-option">
-                        <p class="ez-modal__option-label">
+                    <div class="ibexa-modal__trash-option">
+                        <p class="ibexa-modal__option-label">
                             {{ form_label(option) }}
                         </p>
                         {% if option.vars.help_multiline ?? false %}
                             {% for help in option.vars.help_multiline %}
-                                <p class="ez-modal__option-description">
+                                <p class="ibexa-modal__option-description">
                                     {{ help }}
                                 </p>
                             {% endfor %}

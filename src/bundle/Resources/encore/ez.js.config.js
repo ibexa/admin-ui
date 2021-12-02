@@ -27,6 +27,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/admin.notifications.js'),
     path.resolve(__dirname, '../public/js/scripts/button.trigger.js'),
     path.resolve(__dirname, '../public/js/scripts/button.prevent.default.js'),
+    path.resolve(__dirname, '../public/js/scripts/toggle.button.state.toggle.js'),
     path.resolve(__dirname, '../public/js/scripts/udw/browse.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.user.menu.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.prevent.click.js'),
@@ -177,7 +178,6 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/fieldType/base/multi-input-field.js'),
             ...fieldTypes,
             path.resolve(__dirname, '../public/js/scripts/sidebar/extra.actions.js'),
-            path.resolve(__dirname, '../public/js/scripts/toggle.button.state.toggle.js'),
             path.resolve(__dirname, '../public/js/scripts/edit.header.js'),
         ])
         .addEntry('ezplatform-admin-ui-settings-datetime-format-update-js', [
@@ -207,7 +207,7 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/components/view-switcher/view.switcher.js'),
             path.resolve(
                 __dirname,
-                '../../ui-dev/src/modules/universal-discovery/components/tree-item-toggle-selection/tree.item.toggle.selection.js',
+                '../../ui-dev/src/modules/universal-discovery/components/tree-item-toggle-selection/tree.item.toggle.selection.js'
             ),
         ])
         .addEntry('ezplatform-admin-ui-mfu-js', [
@@ -220,17 +220,11 @@ module.exports = (Encore) => {
         .addEntry('ezplatform-admin-ui-url-management-js', [
             path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.url.wildcards.create.js'),
-            path.resolve(__dirname, '../public/js/scripts/toggle.button.state.toggle.js'),
-        ])
-        .addEntry('ezplatform-admin-ui-url-management-update-js', [
-            path.resolve(__dirname, '../public/js/scripts/toggle.button.state.toggle.js'),
         ])
         .addEntry('ezplatform-admin-ui-login-js', [path.resolve(__dirname, '../public/js/scripts/login.js')])
         .addEntry('ezplatform-admin-ui-tabs-js', [
             path.resolve(__dirname, '../public/js/scripts/admin.location.tab.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.location.adaptive.tabs.js'),
         ])
-        .addEntry('ezplatform-admin-ui-edit-base-js', [
-            path.resolve(__dirname, '../public/js/scripts/edit.header.js'),
-        ]);
+        .addEntry('ezplatform-admin-ui-edit-base-js', [path.resolve(__dirname, '../public/js/scripts/edit.header.js')]);
 };
