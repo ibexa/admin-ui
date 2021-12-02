@@ -29,7 +29,7 @@ class UpperMenu extends Component
 
     public function openNotifications(): void
     {
-        $this->getHTMLPage()->find($this->getLocator('userImage'))->click();
+        $this->getHTMLPage()->find($this->getLocator('userNotifications'))->click();
     }
 
     public function chooseFromUserDropdown(string $option): void
@@ -49,7 +49,7 @@ class UpperMenu extends Component
             new VisibleCSSLocator('dashboardLink', '.ibexa-main-header__brand'),
             new VisibleCSSLocator('pendingNotification', '.ibexa-header-user-menu__notice-dot'),
             new VisibleCSSLocator('userSettingsToggle', '.ibexa-header-user-menu'),
-            new VisibleCSSLocator('userImage', '.ibexa-header-user-menu__image'),
+            new VisibleCSSLocator('userNotifications', '.ibexa-header-user-menu__notifications-toggler'),
             new VisibleCSSLocator('userSettingsItem', '.ibexa-popup-menu__item'),
         ];
     }
