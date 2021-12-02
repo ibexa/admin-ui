@@ -61,6 +61,12 @@
     {{ block('form_widget_simple') }}
 {%- endblock -%}
 
+{%- block _search_data_searchQuery_widget -%}
+    {% set has_search = true %}
+
+    {{ block('form_widget_simple') }}
+{%- endblock -%}
+
 {%- block _search_content_types_widget -%}
     <div class="ibexa-content-type-selector accordion">
         {%- set groups = choices -%}

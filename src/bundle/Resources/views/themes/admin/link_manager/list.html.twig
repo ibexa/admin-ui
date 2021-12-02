@@ -4,22 +4,17 @@
 
 {%- block content -%}
     <section class="container">
-        {{ form_start(form, {'attr': {'class': 'form-inline justify-content-between'}}) }}
-            <div class="input-group">
+        {{ form_start(form, {'attr': {'class': 'ibexa-search-links-form'}}) }}
+            <div class="ibexa-search-links-form__input-wrapper">
                 {{ form_widget(form.searchQuery, { attr: {
                     'placeholder': 'url.search.placeholder'|trans,
                 }}) }}
-
-                <button class="btn ibexa-btn ibexa-btn--primary ml-2">
-                    {{ 'url.search'|trans|desc("Search") }}
-                </button>
             </div>
-            <div class="d-inline-flex">
-                {{ form_label(form.status) }} &nbsp;
+            <div class="ibexa-search-links-form__status-wrapper">
+                {{ form_label(form.status) }}
                 {{ form_widget(form.status) }}
             </div>
-
-        {{ form_widget(form.page, { attr: { value: '1' }}) }}
+            {{ form_widget(form.page, { attr: { value: '1' }}) }}
         {{ form_end(form) }}
     </section>
 
@@ -32,7 +27,11 @@
 
             {% set col_raw %}
                 <a href="{{ view_url }}">{{ url.url|u.truncate(50) }}</a>
-                (<a href="{{ url.url }}" target="_blank">{{ 'url.open'|trans }}</a>)
+                <a href="{{ url.url }}" target="_blank">
+                    <svg class="ibexa-icon ibexa-icon--small">
+                        <use xlink:href="{{ ibexa_icon_path('open-newtab') }}"></use>
+                    </svg>
+                </a>
             {% endset %}
             {% set body_row_cols = body_row_cols|merge([{
                 content: col_raw,
@@ -81,9 +80,10 @@
         } %}
 
         {% if urls.haveToPaginate %}
-            <div class="row justify-content-center align-items-center ez-pagination__spacing mb-5">
-                {{ pagerfanta(urls, 'ez', {'pageParameter': '[search_data][page]'}) }}
-            </div>
+            {% include '@ezdesign/ui/pagination.html.twig' with {
+                'pager': urls,
+                'paginaton_params' : {'pageParameter': '[search_data][page]'}
+            } %}
         {% endif %}
     </section>
 {%- endblock -%}
