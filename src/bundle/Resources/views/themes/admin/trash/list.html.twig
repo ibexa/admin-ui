@@ -139,8 +139,13 @@
                         { content: trash_item.creator is not empty
                             ? ibexa_content_name(trash_item.creator.content) :
                             'trash.item.deleted_user'|trans|desc('Deleted user') },
-                        { content: trash_item.location.contentInfo.section.name },
                     ]) %}
+
+                    {% if can_view_section %}
+                        {% set body_row_cols = body_row_cols|merge([
+                            { content: trash_item.location.contentInfo.section.name }
+                        ]) %}
+                    {% endif %}
 
                     {% set col_raw %}
                         {% if not is_parent_in_trash %}
@@ -161,35 +166,37 @@
                     {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
                 {% endfor %}
 
-                {% embed '@ezdesign/ui/component/table/table.html.twig' with {
-                    headline: 'trash.table.header'|trans|desc('Trash'),
-                    head_cols: [
-                        { has_checkbox: true },
-                        { has_icon: true },
-                        {
-                            content: 'trash.name'|trans|desc('Name'),
-                            sort_column: 'name',
-                            wrapper_attr: {
-                                'data-field': 'name',
-                                'data-direction': sort_directions.name,
-                            },
+                {% set head_cols = [
+                    { has_checkbox: true },
+                    { has_icon: true },
+                    {
+                        content: 'trash.name'|trans|desc('Name'),
+                        sort_column: 'name',
+                        wrapper_attr: {
+                            'data-field': 'name',
+                            'data-direction': sort_directions.name,
                         },
-                        {
-                            content: 'trash.content_type'|trans|desc('Content type'),
-                            sort_column: 'content_type',
-                            wrapper_attr: {
-                                'data-field': 'content_type',
-                                'data-direction': sort_directions.content_type,
-                            },
+                    },
+                    {
+                        content: 'trash.content_type'|trans|desc('Content type'),
+                        sort_column: 'content_type',
+                        wrapper_attr: {
+                            'data-field': 'content_type',
+                            'data-direction': sort_directions.content_type,
                         },
-                        {
-                            content: 'trash.creator'|trans|desc('Creator'),
-                            sort_column: 'creator',
-                            wrapper_attr: {
-                                'data-field': 'creator',
-                                'data-direction': sort_directions.creator,
-                            },
+                    },
+                    {
+                        content: 'trash.creator'|trans|desc('Creator'),
+                        sort_column: 'creator',
+                        wrapper_attr: {
+                            'data-field': 'creator',
+                            'data-direction': sort_directions.creator,
                         },
+                    }
+                ] %}
+
+                {% if can_view_section %}
+                    {% set head_cols = head_cols|merge([
                         {
                             content: 'trash.section'|trans|desc('Section'),
                             sort_column: 'section',
@@ -198,16 +205,24 @@
                                 'data-direction': sort_directions.section,
                             },
                         },
-                        { content: 'trash.original_location'|trans|desc('Original Location') },
-                        {
-                            content: 'trash.date'|trans|desc('Sent to trash date'),
-                            sort_column: 'trashed',
-                            wrapper_attr: {
-                                'data-field': 'trashed',
-                                'data-direction': sort_directions.trashed,
-                            }
-                        },
-                    ],
+                    ]) %}
+                {% endif %}
+
+                {% set head_cols = head_cols|merge([
+                    { content: 'trash.original_location'|trans|desc('Original Location') },
+                    {
+                        content: 'trash.date'|trans|desc('Sent to trash date'),
+                        sort_column: 'trashed',
+                        wrapper_attr: {
+                            'data-field': 'trashed',
+                            'data-direction': sort_directions.trashed,
+                        }
+                    },
+                ]) %}
+
+                {% embed '@ezdesign/ui/component/table/table.html.twig' with {
+                    headline: 'trash.table.header'|trans|desc('Trash'),
+                    head_cols,
                     body_rows,
                     empty_table_info_text: 'trash.empty'|trans|desc('Trash is empty. Content you send to Trash will show up here.'),
                 } %}
