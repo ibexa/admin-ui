@@ -5,6 +5,20 @@
         }
     }
 
+    .ibexa-data-source {
+        &__btn-add {
+            border: none;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        &__actions {
+            .ibexa-btn:not(:first-child) {
+                margin-left: calculateRem(16px);
+            }
+        }
+    }
+
     .ibexa-field-edit-preview {
         &__file-name-wrapper {
             .ibexa-label {

@@ -38,7 +38,7 @@
 
 {% block ezplatform_fieldtype_ezimageasset_widget %}
     <div class="ibexa-data-source__message--main">
-        {{ 'fieldtype.binary_base.drag_drop'|trans|desc('Drag and drop file') }}
+        {{ 'fieldtype.imageasset.drag_drop'|trans|raw|desc('Drag and drop image here or <br /><button class="ibexa-data-source__btn-add">Browse</button> to choose a file') }}
     </div>
     <div class="ibexa-data-source__message--separator">{{ 'fieldtype.binary_base.drag_drop.or'|trans|desc('or') }}</div>
     <div class="ibexa-data-source__actions">
@@ -61,9 +61,6 @@
 {% endblock %}
 
 {% block ezimageasset_source_buttons %}
-    <button class="btn ibexa-btn ibexa-btn--secondary ibexa-data-source__btn-add">
-        {{ 'fieldtype.ezimageasset.upload.label'|trans|desc('Upload image') }}
-    </button>
     <button
         class="btn ibexa-btn ibexa-btn--secondary ibexa-data-source__btn-select"
         data-udw-config="{{ ibexa_udw_config('image_asset', {}) }}"
