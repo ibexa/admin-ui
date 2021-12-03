@@ -1,12 +1,12 @@
 {% trans_default_domain 'role' %}
 {% import _self as tab %}
 
-{{  include('@ezdesign/content/tab/roles/table.html.twig', {
+{{  include('@ibexadesign/content/tab/roles/table.html.twig', {
         'roles_pager': roles_pager,
 }) }}
 
 {% if roles_pager.haveToPaginate %}
-    {% include '@ezdesign/ui/pagination.html.twig' with {
+    {% include '@ibexadesign/ui/pagination.html.twig' with {
        'pager': roles_pager,
         'paginaton_params': {
             'routeName': roles_pagination_params.route_name,

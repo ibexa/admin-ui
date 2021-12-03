@@ -1,13 +1,13 @@
-{% extends "@ezdesign/ui/layout.html.twig" %}
+{% extends "@ibexadesign/ui/layout.html.twig" %}
 
-{% form_theme deleteForm '@ezdesign/ui/form_fields.html.twig'  %}
+{% form_theme deleteForm '@ibexadesign/ui/form_fields.html.twig'  %}
 
 {% trans_default_domain 'language' %}
 
 {% block body_class %}ez-language-view{% endblock %}
 
 {% block breadcrumbs %}
-    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
         { url: path('ezplatform.language.list'), value: 'language.list'|trans|desc('Languages') },
         { value: 'language.view.identifier'|trans({ '%language%': language.name })|desc('%language%') }
@@ -17,7 +17,7 @@
 {% block title %}{{ 'language.view.title.identifier'|trans({ '%language%': language.name })|desc('Language "%language%"') }}{% endblock %}
 
 {% block header %}
-    {% include '@ezdesign/ui/page_title.html.twig' with {
+    {% include '@ibexadesign/ui/page_title.html.twig' with {
         title: 'language.view.title.identifier'|trans({ '%language%': language.name })|desc('Language "%language%"'),
     } %}
 {% endblock %}
@@ -64,7 +64,7 @@
             raw: true,
         }]) %}
 
-        {% embed '@ezdesign/ui/component/table/table.html.twig' with {
+        {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
             headline: 'language.information.header'|trans|desc('Language information'),
             head_cols: [
                 { content: 'language.name.label'|trans|desc('Name') },
@@ -76,7 +76,7 @@
             body_rows: [{ cols: body_row_cols }],
         } %}
             {% block header %}
-                {% embed '@ezdesign/ui/component/table/table_header.html.twig' %}
+                {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
                     {% block actions %}
                         {% if can_administrate %}
                             {{ form_start(deleteForm, {"action": path("ezplatform.language.delete", {"languageId": language.id, "redirectErrorsTo": "view"})}) }}
@@ -94,7 +94,7 @@
                                 </svg>
                             </button>
 
-                            {% include '@ezdesign/language/modal/delete_confirmation.html.twig' with {'deleteForm': deleteForm} %}
+                            {% include '@ibexadesign/language/modal/delete_confirmation.html.twig' with {'deleteForm': deleteForm} %}
 
                             {{ form_end(deleteForm) }}
                         {% endif %}

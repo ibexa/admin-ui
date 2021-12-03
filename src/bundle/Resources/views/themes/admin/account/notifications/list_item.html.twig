@@ -23,7 +23,7 @@
 
 {% set message %}
     {% block message %}
-        {% embed '@ezdesign/ui/component/table/table_body_cell.html.twig' with { class: 'ez-notifications-modal__description' } %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ez-notifications-modal__description' } %}
             {% block content %}
                 <p class="description__title">{{ 'notification.title'|trans|desc('Title:') }} <span class="description__title__item">{{ title }}</span></p>
                 <p class="description__text">{{ message }}</p>
@@ -34,14 +34,14 @@
 
 {% set date %}
     {% block date %}
-        {% include '@ezdesign/ui/component/table/table_body_cell.html.twig' with {
+        {% include '@ibexadesign/ui/component/table/table_body_cell.html.twig' with {
             class: 'ez-notifications-modal__description',
             content: notification.created|ibexa_full_datetime,
         } %}
     {% endblock %}
 {% endset %}
 
-{% embed '@ezdesign/ui/component/table/table_body_row.html.twig' with {
+{% embed '@ibexadesign/ui/component/table/table_body_row.html.twig' with {
     class: wrapper_class_list ~ (wrapper_additional_classes is defined ? ' ' ~ wrapper_additional_classes),
     attr: {
         'data-notification-id': notification.id,
@@ -49,7 +49,7 @@
     }
 } %}
     {% block body_row_cells %}
-        {% embed '@ezdesign/ui/component/table/table_body_cell.html.twig' with { class: 'ez-notifications-modal__type' } %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ez-notifications-modal__type' } %}
             {% block content %}
                 {{ icon }}
                 {{ notification_type }}

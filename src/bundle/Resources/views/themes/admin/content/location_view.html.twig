@@ -1,17 +1,17 @@
 {% set location_path = location.pathString %}
 
-{% extends "@ezdesign/ui/layout.html.twig" %}
+{% extends "@ibexadesign/ui/layout.html.twig" %}
 
 {% trans_default_domain 'locationview' %}
-{% form_theme form_location_copy '@ezdesign/ui/form/flat_widgets.html.twig' %}
-{% form_theme form_location_move '@ezdesign/ui/form/flat_widgets.html.twig' %}
+{% form_theme form_location_copy '@ibexadesign/ui/form/flat_widgets.html.twig' %}
+{% form_theme form_location_move '@ibexadesign/ui/form/flat_widgets.html.twig' %}
 {% if form_content_edit is defined %}
-    {% form_theme form_content_edit '@ezdesign/ui/form_fields.html.twig' %}
+    {% form_theme form_content_edit '@ibexadesign/ui/form_fields.html.twig' %}
 {% endif %}
 {% if form_user_edit is defined %}
-    {% form_theme form_user_edit '@ezdesign/ui/form_fields.html.twig' %}
+    {% form_theme form_user_edit '@ibexadesign/ui/form_fields.html.twig' %}
 {% endif %}
-{% form_theme form_content_create '@ezdesign/ui/form_fields.html.twig' %}
+{% form_theme form_content_create '@ibexadesign/ui/form_fields.html.twig' %}
 
 {% block body_class %}ez-content-view{% endblock %}
 
@@ -44,30 +44,30 @@
 
     {% set items = items|merge([{ 'value': ibexa_content_name(content) }]) %}
 
-    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: items } %}
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: items } %}
 {% endblock %}
 
 {% block context_menu %}
     {% set content_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.content.sidebar_right', [], {'location': location, 'content': content, 'content_type': content_type}) %}
-    {{ knp_menu_render(content_sidebar_right, {'template': '@ezdesign/ui/menu/context_menu.html.twig'}) }}
+    {{ knp_menu_render(content_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
 
     <div class="ibexa-extra-actions-container">
-        {% include '@ezdesign/content/widget/content_create.html.twig' with {'form': form_content_create, content } only %}
+        {% include '@ibexadesign/content/widget/content_create.html.twig' with {'form': form_content_create, content } only %}
         {% if form_content_edit is defined and form_user_edit is not defined %}
-            {% include '@ezdesign/content/widget/content_edit.html.twig' with {'form': form_content_edit} only %}
+            {% include '@ibexadesign/content/widget/content_edit.html.twig' with {'form': form_content_edit} only %}
         {% endif %}
         {% if form_user_edit is defined %}
-            {% include '@ezdesign/content/widget/user_edit.html.twig' with {'form': form_user_edit} only %}
+            {% include '@ibexadesign/content/widget/user_edit.html.twig' with {'form': form_user_edit} only %}
         {% endif %}
     </div>
     {% if form_location_trash is defined and form_user_delete is not defined %}
-        {% include '@ezdesign/content/modal/location_trash.html.twig' with {
+        {% include '@ibexadesign/content/modal/location_trash.html.twig' with {
             'form': form_location_trash,
             'content_name': ibexa_content_name(content)
         } only %}
     {% endif %}
     {% if form_user_delete is defined %}
-        {% include '@ezdesign/content/modal/user_delete.html.twig' with {'form': form_user_delete} only %}
+        {% include '@ibexadesign/content/modal/user_delete.html.twig' with {'form': form_user_delete} only %}
     {% endif %}
     {{ form(form_location_copy, {'action': path('ezplatform.location.copy')}) }}
     {{ form(form_location_move, {'action': path('ezplatform.location.move')}) }}
@@ -78,12 +78,12 @@
 {% block header %}
     {% set icon_name = content_type.identifier %}
     {% set content_type_name = content_type.name %}
-    {% embed '@ezdesign/ui/page_title.html.twig' with {
+    {% embed '@ibexadesign/ui/page_title.html.twig' with {
         title: ibexa_content_name(content),
     } %}
         {% block top_side %}
             {% if location is defined and location_is_bookmarked is defined %}
-                {% include '@ezdesign/account/bookmarks/toggle_switch.html.twig' with {
+                {% include '@ibexadesign/account/bookmarks/toggle_switch.html.twig' with {
                     location: location,
                     location_is_bookmarked: location_is_bookmarked
                 } %}
@@ -110,7 +110,7 @@
     <div class="container">
         {% if location.hidden or location.invisible %}
             <div class="pb-4">
-                {% include '@ezdesign/ui/component/alert/alert.html.twig' with {
+                {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
                     type: 'info',
                     title: 'content.hidden.message'|trans()|desc('This Content item or its Location is hidden.'),
                     icon_path: ibexa_icon_path('hide'),
@@ -166,13 +166,13 @@
                         data-udw-config-bulk-move-items="{{ udwConfigSingle }}"
                         data-udw-config-bulk-add-location="{{ udwConfigSingle }}"
                     ></div>
-                    {% include '@ezdesign/content/modal/location_bulk_action_failed.html.twig' only %}
+                    {% include '@ibexadesign/content/modal/location_bulk_action_failed.html.twig' only %}
                     {% endif %}
                 </div>
             </div>
         </div>
     {% if content_has_reverse_relations and not location.contentInfo.isHidden %}
-        {% include '@ezdesign/content/modal/hide_confirmation.html.twig' %}
+        {% include '@ibexadesign/content/modal/hide_confirmation.html.twig' %}
     {% endif %}
 
 {% endblock %}

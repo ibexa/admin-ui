@@ -70,7 +70,7 @@
         {% set field_value = field.value.value|ibexa_full_datetime %}
         {{ block( 'simple_block_field' ) }}
         {% if fieldSettings.useSeconds %}
-            {% include '@ezdesign/ui/component/alert/alert.html.twig' with {
+            {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
                 type: 'info',
                 title: 'ezdatetime.useseconds.enabled'|trans()|desc('`The date format is based on your user preferences and does not include seconds even if the Field allows it`'),
                 class: 'mt-2',
@@ -95,7 +95,7 @@
         {% set field_value = field.value.time|ibexa_full_time('UTC') %}
         {{ block( 'simple_block_field' ) }}
         {% if fieldSettings.useSeconds %}
-            {% include '@ezdesign/ui/component/alert/alert.html.twig' with {
+            {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
                 type: 'info',
                 title: 'ezdatetime.useseconds.enabled'|trans()|desc('`The date format is based on your user preferences and does not include seconds even if the Field allows it`'),
                 class: 'mt-2',
@@ -336,7 +336,7 @@
     {% if not ibexa_field_is_empty( content, field ) %}
     {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ez-field-preview ez-field-preview--ezobjectrelationlist')|trim}) %}
     <div {{ block( 'field_attributes' ) }}>
-        {% embed '@ezdesign/ui/component/table/table.html.twig' with {
+        {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
             headline: 'ezobjectrelationlist.multiple_relations'|trans|desc('Multiple relations'),
             head_cols: [
                 { content: 'ezobjectrelationlist.name'|trans|desc('Name') },
@@ -346,7 +346,7 @@
         } %}
             {% block tbody %}
                 {% for contentId in field.value.destinationContentIds %}
-                    {% embed '@ezdesign/ui/component/table/table_body_row.html.twig' %}
+                    {% embed '@ibexadesign/ui/component/table/table_body_row.html.twig' %}
                         {% block body_row_cells %}
                             {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\ContentController::relationViewAction', {
                                     'contentId': contentId,
@@ -481,7 +481,7 @@
 {% if not ibexa_field_is_empty( content, field ) %}
     {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ez-field-preview ez-field-preview--ezobjectrelationlist')|trim}) %}
     <div {{ block( 'field_attributes' ) }}>
-        {% embed '@ezdesign/ui/component/table/table.html.twig' with {
+        {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
             headline: 'ezobjectrelation.single_relation'|trans|desc('Single relation'),
             head_cols: [
                 { content: 'ezobjectrelation.name'|trans|desc('Name') },
@@ -490,7 +490,7 @@
             ],
         } %}
             {% block tbody %}
-                {% embed '@ezdesign/ui/component/table/table_body_row.html.twig' with { field: field } %}
+                {% embed '@ibexadesign/ui/component/table/table_body_row.html.twig' with { field: field } %}
                     {% block body_row_cells %}
                         {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\ContentController::relationViewAction', {
                             'contentId': field.value.destinationContentId,

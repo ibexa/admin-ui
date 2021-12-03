@@ -1,4 +1,4 @@
-{% extends '@ezdesign/ui/layout.html.twig' %}
+{% extends '@ibexadesign/ui/layout.html.twig' %}
 
 {% trans_default_domain 'dashboard' %}
 
@@ -37,7 +37,7 @@
         {{ form_widget(form_edit.language, {'attr': {'hidden': 'hidden', 'class': 'language-input'}}) }}
         {{ form_end(form_edit) }}
     </div>
-    {% include '@ezdesign/content/modal/version_conflict.html.twig' %}
+    {% include '@ibexadesign/content/modal/version_conflict.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}

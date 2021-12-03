@@ -1,11 +1,11 @@
-{% extends '@ezdesign/user/role/base.html.twig' %}
+{% extends '@ibexadesign/user/role/base.html.twig' %}
 
-{% form_theme form '@ezdesign/ui/form_fields.html.twig'  %}
+{% form_theme form '@ibexadesign/ui/form_fields.html.twig'  %}
 
 {% trans_default_domain 'role' %}
 
 {% block breadcrumbs_admin %}
-    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
         { url: path('ezplatform.role.list'), value: 'role.breadcrumb.list'|trans|desc('Roles') },
         { value: 'role.breadcrumb.edit'|trans({'%identifier%': role.identifier })|desc('Editing Role \'%identifier%\'') }
@@ -14,11 +14,11 @@
 
 {% block context_menu_admin %}
     {% set role_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.role_edit.sidebar_right', [], {'role': role}) %}
-    {{ knp_menu_render(role_edit_sidebar_right, {'template': '@ezdesign/ui/menu/context_menu.html.twig'}) }}
+    {{ knp_menu_render(role_edit_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
 {% endblock %}
 
 {% block header_admin %}
-    {% include '@ezdesign/ui/page_title.html.twig' with {
+    {% include '@ibexadesign/ui/page_title.html.twig' with {
         title: 'role.view.edit.title'|trans({'%identifier%': role.identifier})|desc('Editing Role \'%identifier%\''),
     } %}
 {% endblock %}

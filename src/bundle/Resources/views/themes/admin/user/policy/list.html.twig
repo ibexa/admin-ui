@@ -1,6 +1,6 @@
 {% trans_default_domain 'role' %}
 
-{% form_theme form_policies_delete '@ezdesign/ui/form_fields.html.twig'  %}
+{% form_theme form_policies_delete '@ibexadesign/ui/form_fields.html.twig'  %}
 
 <section class="container ez-container">
     {% set body_rows = [] %}
@@ -71,7 +71,7 @@
         {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
     {% endfor %}
 
-    {% embed '@ezdesign/ui/component/table/table.html.twig' with {
+    {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
         headline: 'policy.view.list.title.count'|trans({'%count%': role.policies|length})|desc('Policies (%count%)'),
         head_cols: [
             { has_checkbox: true },
@@ -83,7 +83,7 @@
         body_rows,
     } %}
         {% block header %}
-            {% embed '@ezdesign/ui/component/table/table_header.html.twig' %}
+            {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
                 {% block actions %}
                     {% if can_update %}
                         <a
@@ -109,7 +109,7 @@
                                 <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
                             </svg>
                         </button>
-                        {% include '@ezdesign/ui/modal/bulk_delete_confirmation.html.twig' with {
+                        {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                             'id': modal_data_target,
                             'message': 'policy.modal.message'|trans|desc('Do you want to delete the Policy?'),
                             'data_click': '#policies_delete_delete',
@@ -129,7 +129,7 @@
     {{ form_end(form_policies_delete) }}
 
     {% if pager.haveToPaginate %}
-        {% include '@ezdesign/ui/pagination.html.twig' with {
+        {% include '@ibexadesign/ui/pagination.html.twig' with {
             'pager': pager,
             'paginaton_params' : {
                 'routeName': route_name,

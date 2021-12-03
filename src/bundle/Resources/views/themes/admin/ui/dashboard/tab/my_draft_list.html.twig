@@ -66,7 +66,7 @@
     {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
 {% endfor %}
 
-{% include '@ezdesign/ui/component/table/table.html.twig' with {
+{% include '@ibexadesign/ui/component/table/table.html.twig' with {
     head_cols: [
         { has_icon: true },
         { content: 'dashboard.table.name'|trans|desc('Name') },
@@ -81,7 +81,7 @@
 } %}
 
 {% if pager.haveToPaginate %}
-    {% include '@ezdesign/ui/pagination.html.twig' with {
+    {% include '@ibexadesign/ui/pagination.html.twig' with {
         'pager': pager,
         'paginaton_params' : pager_options|merge({
             'routeParams': {

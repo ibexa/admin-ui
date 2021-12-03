@@ -1,5 +1,5 @@
 <ul class="ibexa-popup-menu ibexa-popup-menu--hidden {{ class|default('') }}"
-    data-item-template="{{ include('@ezdesign/ui/component/popup_menu/popup_menu_item.html.twig', {
+    data-item-template="{{ include('@ibexadesign/ui/component/popup_menu/popup_menu_item.html.twig', {
         'class': '',
         'label': '{{ label }}'
     })|e('html_attr') }}"
@@ -8,7 +8,7 @@
         {% for item in items %}
             {% set label = item.label %}
 
-            {{ include('@ezdesign/ui/component/popup_menu/popup_menu_item.html.twig', {
+            {{ include('@ibexadesign/ui/component/popup_menu/popup_menu_item.html.twig', {
                 'label': label,
                 'class': item.class|default(''),
                 'content_class': item.content_class|default(''),

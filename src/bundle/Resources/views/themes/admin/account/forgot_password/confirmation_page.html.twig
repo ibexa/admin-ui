@@ -1,4 +1,4 @@
-{% extends '@ezdesign/account/base.html.twig' %}
+{% extends '@ibexadesign/account/base.html.twig' %}
 
 {%- block content -%}
     <a href="{{ path('login') }}" class="btn ibexa-btn ibexa-btn--ghost ibexa-login__btn--back">
@@ -8,7 +8,7 @@
         <span class="ibexa-btn__label">{{ 'authentication.reset_your_password.back'|trans|desc('Back') }}
     </a>
     <h2 class="ibexa-login__actions-headline">{{ 'ezplatform.forgot_user_password.reset_your_password'|trans|desc('Reset your password') }}</h2>
-    {% embed '@ezdesign/ui/component/alert/alert.html.twig' with {
+    {% embed '@ibexadesign/ui/component/alert/alert.html.twig' with {
         type: 'success',
         title: 'ezplatform.forgot_user_password.success.alert'|trans|desc('We’ve sent to your email account a link to reset your password.'),
         icon_path: ibexa_icon_path('checkmark'),

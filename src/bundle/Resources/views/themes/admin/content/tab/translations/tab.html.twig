@@ -1,6 +1,6 @@
 {% trans_default_domain 'locationview' %}
 
-{% form_theme form_translation_remove with ['@ezdesign/ui/form/flat_widgets.html.twig', '@ezdesign/ui/form_fields.html.twig'] %}
+{% form_theme form_translation_remove with ['@ibexadesign/ui/form/flat_widgets.html.twig', '@ibexadesign/ui/form_fields.html.twig'] %}
 
 {% import _self as tab %}
 {% set can_translate = can_translate is defined ? can_translate : true %}
@@ -63,7 +63,7 @@
         }]) %}
     {% endif %}
 
-    {% include '@ezdesign/ui/component/table/table.html.twig' with {
+    {% include '@ibexadesign/ui/component/table/table.html.twig' with {
         headline: 'tab.translations.translation_manger'|trans|desc('Translation manager'),
         head_cols,
         body_rows,
@@ -73,7 +73,7 @@
     {% if can_translate %}
         {{ form_end(form_translation_remove) }}
         {% block modal_add_translation %}
-            {% include '@ezdesign/content/modal/add_translation.html.twig' with {'form': form_translation_add} only %}
+            {% include '@ibexadesign/content/modal/add_translation.html.twig' with {'form': form_translation_add} only %}
         {% endblock %}
     {% endif %}
 
@@ -98,7 +98,7 @@
                 <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
             </svg>
         </button>
-        {% include '@ezdesign/ui/modal/bulk_delete_confirmation.html.twig' with {
+        {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
             'id': modal_data_target,
             'message': 'tab.translations.modal.message'|trans|desc('Do you want to delete the translation?'),
             'data_click': '#' ~ form_translation_remove.remove.vars.id,

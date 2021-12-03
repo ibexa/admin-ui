@@ -1,20 +1,20 @@
-{% extends "@ezdesign/ui/layout.html.twig" %}
+{% extends "@ibexadesign/ui/layout.html.twig" %}
 
 {% trans_default_domain 'role' %}
 
-{% form_theme form_roles_delete '@ezdesign/ui/form_fields.html.twig'  %}
+{% form_theme form_roles_delete '@ibexadesign/ui/form_fields.html.twig'  %}
 
 {% block body_class %}ez-role-list-view{% endblock %}
 
 {% block breadcrumbs %}
-    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
         { value: 'role.breadcrumb.list'|trans|desc('Roles') }
     ]} %}
 {% endblock %}
 
 {% block header %}
-    {% include '@ezdesign/ui/page_title.html.twig' with {
+    {% include '@ibexadesign/ui/page_title.html.twig' with {
         title: 'role.breadcrumb.list'|trans|desc('Roles'),
     } %}
 {% endblock %}
@@ -85,7 +85,7 @@
             ] }]) %}
         {% endfor %}
 
-        {% embed '@ezdesign/ui/component/table/table.html.twig' with {
+        {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
             headline: 'role.view.list.title'|trans|desc('Roles'),
             head_cols: [
                 { has_checkbox: true },
@@ -96,7 +96,7 @@
             body_rows,
         } %}
             {% block header %}
-                {% embed '@ezdesign/ui/component/table/table_header.html.twig' %}
+                {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
                     {% block actions %}
                         {% if can_create %}
                             <a
@@ -124,7 +124,7 @@
                                     <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
                                 </svg>
                             </button>
-                            {% include '@ezdesign/ui/modal/bulk_delete_confirmation.html.twig' with {
+                            {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                                 'id': modal_data_target,
                                 'message': 'role.modal.message'|trans|desc('Do you want to delete the Role(s)?'),
                                 'data_click': '#delete-roles_delete',
@@ -137,7 +137,7 @@
 
         {{ form_end(form_roles_delete) }}
         {% if pager.haveToPaginate %}
-            {% include '@ezdesign/ui/pagination.html.twig' with {
+            {% include '@ibexadesign/ui/pagination.html.twig' with {
                 'pager': pager,
             } %}
         {% endif %}

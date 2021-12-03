@@ -1,4 +1,4 @@
-{% form_theme form_states_delete '@ezdesign/ui/form_fields.html.twig'  %}
+{% form_theme form_states_delete '@ibexadesign/ui/form_fields.html.twig'  %}
 
 {% trans_default_domain 'object_state' %}
 
@@ -58,7 +58,7 @@
             {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
         {% endfor %}
 
-        {% embed '@ezdesign/ui/component/table/table.html.twig' with {
+        {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
             headline: 'object_state.view.list.title'|trans({'%count%': object_states|length})|desc('Object states (%count%)'),
             head_cols: [
                 { has_checkbox: true },
@@ -71,7 +71,7 @@
             empty_table_info_text: 'object_state.list.empty'|trans|desc('There are no Object states yet. Object states you create will show up here.'),
         } %}
             {% block header %}
-                {% embed '@ezdesign/ui/component/table/table_header.html.twig' %}
+                {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
                     {% block actions %}
                         {% if can_administrate %}
                             <a
@@ -98,7 +98,7 @@
                                     <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
                                 </svg>
                             </button>
-                            {% include '@ezdesign/ui/modal/bulk_delete_confirmation.html.twig' with {
+                            {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                                 'id': modal_data_target,
                                 'message': 'object_state.modal.message'|trans|desc('Do you want to delete the Object state(s)?'),
                                 'data_click': '#object_states_delete_delete',

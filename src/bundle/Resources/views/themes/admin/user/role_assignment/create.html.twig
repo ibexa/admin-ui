@@ -1,11 +1,11 @@
-{% extends '@ezdesign/user/role_assignment/base.html.twig' %}
+{% extends '@ibexadesign/user/role_assignment/base.html.twig' %}
 
-{% form_theme form '@ezdesign/ui/form_fields.html.twig'  %}
+{% form_theme form '@ibexadesign/ui/form_fields.html.twig'  %}
 
 {% trans_default_domain 'role' %}
 
 {% block breadcrumbs_admin %}
-    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
         { url: path('ezplatform.role.list'), value: 'role.breadcrumb.list'|trans|desc('Roles') },
         { url: path('ezplatform.role.view', {roleId: role.id}), value: 'role.breadcrumb.view.identifier'|trans({ '%identifier%': role.identifier })|desc('Role "%identifier%"') },
@@ -15,11 +15,11 @@
 
 {% block context_menu_admin %}
     {% set role_assignment_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.role_assignment_create.sidebar_right', [], {'role': role}) %}
-    {{ knp_menu_render(role_assignment_create_sidebar_right, {'template': '@ezdesign/ui/menu/context_menu.html.twig'}) }}
+    {{ knp_menu_render(role_assignment_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
 {% endblock %}
 
 {% block header_admin %}
-    {% include '@ezdesign/ui/page_title.html.twig' with {
+    {% include '@ibexadesign/ui/page_title.html.twig' with {
         title: 'role_assignment.view.add.title'|trans|desc('Assigning users and groups'),
     } %}
 {% endblock %}
@@ -47,7 +47,7 @@
                             |trans({}, "role")
                             |desc("Select Users to assign to the Role") %}
 
-                        {{ include('@ezdesign/ui/component/tag_view_select/tag_view_select.html.twig', {
+                        {{ include('@ibexadesign/ui/component/tag_view_select/tag_view_select.html.twig', {
                             form: form.users,
                             items,
                             attr: {
@@ -80,7 +80,7 @@
                             |trans({}, "role")
                             |desc("Select User Groups to assign to the Role") %}
 
-                        {{ include('@ezdesign/ui/component/tag_view_select/tag_view_select.html.twig', {
+                        {{ include('@ibexadesign/ui/component/tag_view_select/tag_view_select.html.twig', {
                             form: form.groups,
                             items,
                             attr: {
@@ -125,7 +125,7 @@
                                 name: ibexa_content_name(location.content)
                             }) %}
 
-                            {{ include('@ezdesign/ui/component/tag_view_select/tag_view_select.html.twig', {
+                            {{ include('@ibexadesign/ui/component/tag_view_select/tag_view_select.html.twig', {
                                 form: form.locations,
                                 items,
                                 attr: {

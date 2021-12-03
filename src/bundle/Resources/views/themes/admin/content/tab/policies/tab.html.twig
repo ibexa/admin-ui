@@ -44,7 +44,7 @@
                             >
                                 {{ ('policy.limitation.identifier.' ~ limitation.identifier|lower)|trans({'%identifier%': limitation.identifier}, 'ezplatform_content_forms_policies')|desc('%identifier%') }}:
                             </span>
-                            {{ ibexa_render_limitation_value(limitation, {'template': '@ezdesign/content/tab/policies/limitation_values.html.twig'}) }}
+                            {{ ibexa_render_limitation_value(limitation, {'template': '@ibexadesign/content/tab/policies/limitation_values.html.twig'}) }}
                         </li>
                     {%- endfor -%}
                 </ul>
@@ -61,7 +61,7 @@
     {% endfor %}
 {% endif %}
 
-{% include '@ezdesign/ui/component/table/table.html.twig' with {
+{% include '@ibexadesign/ui/component/table/table.html.twig' with {
     headline: 'tab.policies.policies'|trans|desc('Policies'),
     head_cols: [
         { content: 'tab.policies.role'|trans|desc('Role') },
@@ -75,7 +75,7 @@
 } %}
 
 {% if policies_pager.haveToPaginate %}
-    {% include '@ezdesign/ui/pagination.html.twig' with {
+    {% include '@ibexadesign/ui/pagination.html.twig' with {
         'pager': policies_pager,
         'paginaton_params': {
             'routeName': policies_pagination_params.route_name,

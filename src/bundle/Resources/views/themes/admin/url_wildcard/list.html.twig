@@ -1,6 +1,6 @@
 {% trans_default_domain "ezplatform_url_wildcard" %}
 
-{% form_theme form '@ezdesign/ui/form_fields.html.twig' %}
+{% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
 
 {%
     set wildcard_types = {
@@ -11,7 +11,7 @@
 
 <section class="container mt-4">
     {% if not url_wildcards_enabled %}
-        {% include '@ezdesign/ui/component/alert/alert.html.twig' with {
+        {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
             type: 'warning',
             title: 'url_wildcard.disabled'|trans|desc('URL wildcards are disabled. Contact your Administrator.'),
             class: 'mb-4',
@@ -71,7 +71,7 @@
         {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
     {% endfor %}
 
-    {% embed '@ezdesign/ui/component/table/table.html.twig' with {
+    {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
         headline: 'url_wildcard.list.title'|trans|desc('URL wildcards'),
         head_cols: [
             { has_checkbox: true },
@@ -87,7 +87,7 @@
         {% set modal_delete_data_target = 'delete-wildcards-modal' %}
 
         {% block header %}
-            {% embed '@ezdesign/ui/component/table/table_header.html.twig' %}
+            {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
                 {% block actions %}
                     <button
                         id="create-wildcards"
@@ -120,11 +120,11 @@
         {% endblock %}
 
         {% block between_header_and_table %}
-            {% include '@ezdesign/url_wildcard/modal_create.html.twig' with {
+            {% include '@ibexadesign/url_wildcard/modal_create.html.twig' with {
                 'id': modal_create_data_target,
                 'form': form_add,
             }%}
-            {% include '@ezdesign/ui/modal/bulk_delete_confirmation.html.twig' with {
+            {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                 'id': modal_delete_data_target,
                 'message': 'url_wildcard.modal.message'|trans|desc('Are you sure you want to delete selected URL wildcard(s)?'),
                 'data_click': '#url_wildcard_delete_delete',

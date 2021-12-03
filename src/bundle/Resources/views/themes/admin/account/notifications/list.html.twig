@@ -1,6 +1,6 @@
 {% trans_default_domain 'notifications' %}
 
-{% embed '@ezdesign/ui/component/table/table.html.twig' with {
+{% embed '@ibexadesign/ui/component/table/table.html.twig' with {
     head_cols: [
         { content: 'notification.type'|trans|desc('Type') },
         { content: 'notification.description'|trans|desc('Description') },
@@ -15,7 +15,7 @@
 } %}
     {% block tbody %}
         {% if pager.count is same as(0) %}
-            {% include '@ezdesign/ui/component/table/empty_table_body_row.html.twig' with {
+            {% include '@ibexadesign/ui/component/table/empty_table_body_row.html.twig' with {
                 colspan: 3,
                 empty_table_info_text: 'bookmark.list.empty'|trans|desc('You have no notifications.'),
             } %}

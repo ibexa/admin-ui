@@ -1,4 +1,4 @@
-{% import "@ezdesign/content_type/macros.html.twig" as macros %}
+{% import "@ibexadesign/content_type/macros.html.twig" as macros %}
 
 {% trans_default_domain 'content_type' %}
 {% set current_language = app.request.get('languageCode') ?: language_code %}
@@ -26,7 +26,7 @@
             </form>
         {% endif %}
         <div class="ez-fieldgroup__content">
-            {% include '@ezdesign/ui/component/table/table.html.twig' with {
+            {% include '@ibexadesign/ui/component/table/table.html.twig' with {
                 headline: "content_type.content_type"|trans|desc("Content Type"),
                 head_cols: [
                     { content: "content_type.name"|trans|desc("Name") },
@@ -110,7 +110,7 @@
                     }]) %}
                 {% endfor %}
 
-                {% include '@ezdesign/ui/component/table/table.html.twig' with {
+                {% include '@ibexadesign/ui/component/table/table.html.twig' with {
                     headline: group|capitalize,
                     head_cols: [
                         { content: 'Name', class: 'ibexa-table__head-cell--field-definitions-head' },

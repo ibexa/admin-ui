@@ -1,7 +1,7 @@
 {% set value = field_definition.vars.value %}
 {% set name = value.names[language_code] ?? value.names[content_type.mainLanguageCode]  %}
 
-{%- embed "@ezdesign/ui/component/collapse.html.twig" with {
+{%- embed "@ibexadesign/ui/component/collapse.html.twig" with {
     'is_expanded': false,
     'is_draggable': true,
     'class': 'ibexa-collapse--field-definition',

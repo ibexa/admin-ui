@@ -1,11 +1,11 @@
 {% trans_default_domain 'locationview' %}
 
 {% import _self as tab %}
-{% form_theme form_archived_version_restore '@ezdesign/ui/form/flat_widgets.html.twig' %}
-{% form_theme form_version_remove_draft '@ezdesign/ui/form_fields.html.twig' %}
-{% form_theme form_version_remove_archived '@ezdesign/ui/form_fields.html.twig' %}
+{% form_theme form_archived_version_restore '@ibexadesign/ui/form/flat_widgets.html.twig' %}
+{% form_theme form_version_remove_draft '@ibexadesign/ui/form_fields.html.twig' %}
+{% form_theme form_version_remove_archived '@ibexadesign/ui/form_fields.html.twig' %}
 
-{% set table_template_path = table_template_path|default('@ezdesign/content/tab/versions/table.html.twig') %}
+{% set table_template_path = table_template_path|default('@ibexadesign/content/tab/versions/table.html.twig') %}
 {% set show_drafts_table = show_drafts_table|default(draft_pager.currentPageResults is not empty) %}
 
 {% block tab_content %}
@@ -17,7 +17,7 @@
                     'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-translations-' ~ form_version_remove_draft.remove.vars.id }
                 }) }}
                 {% block table_drafts %}
-                    {% include '@ezdesign/ui/component/table/table_header.html.twig' with {
+                    {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
                         headline: 'tab.versions.draft_under_edit'|trans()|desc('Open drafts'),
                         actions: tab.table_header_tools(form_version_remove_draft),
                     } %}
@@ -30,7 +30,7 @@
                     } %}
 
                     {% if draft_pager.haveToPaginate %}
-                        {% include '@ezdesign/ui/pagination.html.twig' with {
+                        {% include '@ibexadesign/ui/pagination.html.twig' with {
                             'pager': draft_pager,
                             'paginaton_params' : {
                                 'routeName': draft_pagination_params.route_name,
@@ -44,7 +44,7 @@
                 {% endblock %}
                 {{ form_end(form_version_remove_draft) }}
             </section>
-            {% include '@ezdesign/content/modal/version_conflict.html.twig' %}
+            {% include '@ibexadesign/content/modal/version_conflict.html.twig' %}
         {% endif %}
     {% endblock %}
 
@@ -52,7 +52,7 @@
         {% if published_versions is not empty %}
             <section>
                 {% block table_published %}
-                    {% include '@ezdesign/ui/component/table/table_header.html.twig' with {
+                    {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
                         headline: 'tab.versions.published_version'|trans()|desc('Published version'),
                     } %}
                     {% include table_template_path with { 'versions': published_versions } %}
@@ -69,7 +69,7 @@
                     'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-translations-' ~ form_version_remove_archived.remove.vars.id }
                 }) }}
                 {% block table_archived %}
-                    {% include '@ezdesign/ui/component/table/table_header.html.twig' with {
+                    {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
                         headline: 'tab.versions.archived_versions'|trans()|desc('Archived versions'),
                         actions: tab.table_header_tools(form_version_remove_archived),
                     } %}
@@ -109,7 +109,7 @@
             <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
         </svg>
     </button>
-    {% include '@ezdesign/ui/modal/bulk_delete_confirmation.html.twig' with {
+    {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
     'id': modal_data_target,
     'message': 'tab.versions.modal.message'|trans|desc('Do you want to delete the version(s)?'),
     'data_click': '#' ~ form.remove.vars.id,

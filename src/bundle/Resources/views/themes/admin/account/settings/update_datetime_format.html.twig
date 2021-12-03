@@ -1,10 +1,10 @@
-{% extends '@ezdesign/account/settings/update.html.twig' %}
+{% extends '@ibexadesign/account/settings/update.html.twig' %}
 
 {% trans_default_domain 'user_settings' %}
 
 {% block form %}
     {{ parent() }}
-    {% embed '@ezdesign/ui/component/alert/alert.html.twig' with {
+    {% embed '@ibexadesign/ui/component/alert/alert.html.twig' with {
         type: 'info',
         title: 'settings.datetime_format.preview_label'|trans|desc('Date and Time will be displayed in this format:'),
         icon_path: ibexa_icon_path('hide'),

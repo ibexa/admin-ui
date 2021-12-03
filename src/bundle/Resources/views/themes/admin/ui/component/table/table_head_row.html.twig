@@ -1,7 +1,7 @@
 <tr class="ibexa-table__head-row">
     {% block cells %}
         {% for head_col in head_cols %}
-            {% include '@ezdesign/ui/component/table/table_head_cell.html.twig' with {
+            {% include '@ibexadesign/ui/component/table/table_head_cell.html.twig' with {
                 has_checkbox: head_col.has_checkbox|default(false),
                 has_icon: head_col.has_icon|default(false),
                 is_close_left: head_col.is_close_left is defined ? head_col.is_close_left : next_is_close_left|default(false),

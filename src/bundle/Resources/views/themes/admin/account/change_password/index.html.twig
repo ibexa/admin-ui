@@ -1,11 +1,11 @@
-{% extends '@ezdesign/ui/base.html.twig' %}
+{% extends '@ibexadesign/ui/base.html.twig' %}
 
-{% form_theme form_change_user_password '@ezdesign/account/change_password/form_fields.html.twig'  %}
+{% form_theme form_change_user_password '@ibexadesign/account/change_password/form_fields.html.twig'  %}
 
 {% trans_default_domain 'user_change_password' %}
 
 {% block breadcrumbs_admin %}
-    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { 'items': [
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { 'items': [
     { value: 'breadcrumb.user_preferences'|trans(domain='messages')|desc('User Preferences') },
     { value: 'user_change_password.change_password'|trans|desc('Change Password') }
     ]} %}
@@ -13,11 +13,11 @@
 
 {% block context_menu_admin %}
     {% set user_password_change_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_password_change.sidebar_right') %}
-    {{ knp_menu_render(user_password_change_sidebar_right, {'template': '@ezdesign/ui/menu/context_menu.html.twig'}) }}
+    {{ knp_menu_render(user_password_change_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
 {% endblock %}
 
 {% block header_admin %}
-    {% include '@ezdesign/ui/page_title.html.twig' with {
+    {% include '@ibexadesign/ui/page_title.html.twig' with {
         title: 'user_change_password.title'|trans|desc('Change my password'),
     } %}
 {% endblock %}

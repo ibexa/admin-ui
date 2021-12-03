@@ -1,7 +1,7 @@
 {% trans_default_domain 'locationview' %}
 {% import _self as tab %}
-{% form_theme form_content_location_add '@ezdesign/ui/form/flat_widgets.html.twig' %}
-{% form_theme form_content_location_remove with ['@ezdesign/ui/form/flat_widgets.html.twig', '@ezdesign/ui/form_fields.html.twig'] %}
+{% form_theme form_content_location_add '@ibexadesign/ui/form/flat_widgets.html.twig' %}
+{% form_theme form_content_location_remove with ['@ibexadesign/ui/form/flat_widgets.html.twig', '@ibexadesign/ui/form_fields.html.twig'] %}
 
 <section>
     {{ form(form_content_location_add, {'action': path('ezplatform.location.add')}) }}
@@ -20,7 +20,7 @@
             }]) %}
 
             {% set col_raw %}
-                {% include '@ezdesign/ui/location_path.html.twig' with {'locations': location.pathLocations, 'link_last_element': true} %}
+                {% include '@ibexadesign/ui/location_path.html.twig' with {'locations': location.pathLocations, 'link_last_element': true} %}
             {% endset %}
             {% set body_row_cols = body_row_cols|merge([{
                 content: col_raw,
@@ -85,7 +85,7 @@
         {% endfor %}
     {% endif %}
 
-    {% embed '@ezdesign/ui/component/table/table.html.twig' with {
+    {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
         headline: 'tab.locations.content_locations'|trans|desc('Content Locations'),
         head_cols: [
             { has_checkbox: true },
@@ -128,7 +128,7 @@
 
 </section>
 
-{% include '@ezdesign/content/tab/locations/panel_swap.html.twig' with {
+{% include '@ibexadesign/content/tab/locations/panel_swap.html.twig' with {
     'form': form_content_location_swap,
     'can_swap': can_swap
 } %}
@@ -159,7 +159,7 @@
             <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
         </svg>
     </button>
-    {% include '@ezdesign/ui/modal/bulk_delete_confirmation.html.twig' with {
+    {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
         'id': modal_data_target,
         'message': 'tab.locations.modal.message'|trans|desc('Do you want to delete the Location? All its sub-items will be sent to Trash.'),
         'data_click': '#' ~ form_remove.remove.vars.id,

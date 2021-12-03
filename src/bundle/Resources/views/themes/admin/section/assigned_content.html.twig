@@ -1,6 +1,6 @@
 {% trans_default_domain 'section' %}
 
-{% form_theme form_section_content_assign '@ezdesign/ui/form_fields.html.twig' '@ezdesign/ui/form/assign_section_widget.html.twig'  %}
+{% form_theme form_section_content_assign '@ibexadesign/ui/form_fields.html.twig' '@ibexadesign/ui/form/assign_section_widget.html.twig'  %}
 
 <section class="container ez-container">
     {% set body_rows = [] %}
@@ -43,7 +43,7 @@
         {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
     {% endfor %}
 
-    {% embed '@ezdesign/ui/component/table/table.html.twig' with {
+    {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
         headline: 'section.assigned_content.header'|trans({
                 '%name%': section.name,
                 '%count%': pagerfanta.nbResults
@@ -58,7 +58,7 @@
         empty_table_action_text: 'section.assigned_content.empty_desc'|trans|desc('Content items you assign to this Section will show up here.'),
     } %}
         {% block header %}
-            {% embed '@ezdesign/ui/component/table/table_header.html.twig' %}
+            {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
                 {% block actions %}
                     {% if can_assign %}
                         {{ form_start(form_section_content_assign, {

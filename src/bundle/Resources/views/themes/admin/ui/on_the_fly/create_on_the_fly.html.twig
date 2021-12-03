@@ -1,4 +1,4 @@
-{% extends '@ezdesign/content/edit_base.html.twig' %}
+{% extends '@ibexadesign/content/edit_base.html.twig' %}
 
 {% trans_default_domain 'content_create' %}
 
@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block page_title %}
-    {% include '@ezdesign/content/edit/content_header.html.twig' with {
+    {% include '@ibexadesign/content/edit/content_header.html.twig' with {
         class: 'ez-content-edit-page-title--increased-left-margin',
         action_name: 'creating'|trans|desc('Creating'),
         title: 'new_content_item'|trans({'%contentType%': content_type.name})|desc('New %contentType%'),

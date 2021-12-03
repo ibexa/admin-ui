@@ -1,6 +1,6 @@
 {% trans_default_domain 'dashboard' %}
 
-{% import "@ezdesign/ui/dashboard/macros.html.twig" as macros %}
+{% import "@ibexadesign/ui/dashboard/macros.html.twig" as macros %}
 
 {% set body_rows = [] %}
 {% for row in data %}
@@ -37,7 +37,7 @@
     {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
 {% endfor %}
 
-{% include '@ezdesign/ui/component/table/table.html.twig' with {
+{% include '@ibexadesign/ui/component/table/table.html.twig' with {
     head_cols: [
         { has_icon: true },
         { content: 'dashboard.table.name'|trans|desc('Name') },
