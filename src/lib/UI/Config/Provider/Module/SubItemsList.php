@@ -8,19 +8,19 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config\Provider\Module;
 
-use EzSystems\EzPlatformUser\UserSetting\UserSettingService;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\User\UserSetting\UserSettingService;
 
 /**
  * Provides information about current setting for sub-items list.
  */
 class SubItemsList implements ProviderInterface
 {
-    /** @var \EzSystems\EzPlatformUser\UserSetting\UserSettingService */
+    /** @var \Ibexa\User\UserSetting\UserSettingService */
     private $userSettingService;
 
     /**
-     * @param \EzSystems\EzPlatformUser\UserSetting\UserSettingService $userSettingService
+     * @param \Ibexa\User\UserSetting\UserSettingService $userSettingService
      */
     public function __construct(UserSettingService $userSettingService)
     {
@@ -30,8 +30,8 @@ class SubItemsList implements ProviderInterface
     /**
      * @return array
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function getConfig(): array
     {

@@ -8,11 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\URLManagement;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\URLService;
-use eZ\Publish\API\Repository\Values\URL\Query\Criterion;
-use eZ\Publish\API\Repository\Values\URL\Query\SortClause;
-use eZ\Publish\API\Repository\Values\URL\URLQuery;
 use Ibexa\AdminUi\Form\Data\URL\URLListData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
@@ -21,6 +16,11 @@ use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterfac
 use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\URLService;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -33,23 +33,23 @@ class LinkManagerTab extends AbstractTab implements OrderedTabInterface, Conditi
     public const URI_FRAGMENT = 'ibexa-tab-link-manager-link-manager';
     private const DEFAULT_MAX_PER_PAGE = 10;
 
-    /** @var \eZ\Publish\API\Repository\URLService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLService */
     private $urlService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
     /** @var \Symfony\Component\HttpFoundation\RequestStack */
     private $requestStack;
 
     /**
-     * @var \eZ\Publish\API\Repository\PermissionResolver
+     * @var \Ibexa\Contracts\Core\Repository\PermissionResolver
      */
     private $permissionResolver;
 
@@ -94,7 +94,7 @@ class LinkManagerTab extends AbstractTab implements OrderedTabInterface, Conditi
      *
      * @return bool
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function evaluate(array $parameters): bool
     {
@@ -134,9 +134,9 @@ class LinkManagerTab extends AbstractTab implements OrderedTabInterface, Conditi
     /**
      * Builds URL criteria from list data.
      *
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\URL\URLListData $data
+     * @param \Ibexa\AdminUi\Form\Data\URL\URLListData $data
      *
-     * @return \eZ\Publish\API\Repository\Values\URL\URLQuery
+     * @return \Ibexa\Contracts\Core\Repository\Values\URL\URLQuery
      */
     private function buildListQuery(URLListData $data): URLQuery
     {

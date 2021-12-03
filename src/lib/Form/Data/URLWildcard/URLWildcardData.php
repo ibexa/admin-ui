@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\URLWildcard;
 
-use eZ\Publish\API\Repository\Values\Content\URLWildcard;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 
 class URLWildcardData
 {
@@ -22,7 +22,7 @@ class URLWildcardData
     private $forward = false;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\URLWildcard|null $urlWildcard
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|null $urlWildcard
      */
     public function __construct(?URLWildcard $urlWildcard = null)
     {

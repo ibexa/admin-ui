@@ -8,16 +8,16 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
-use eZ\Publish\Core\MVC\Symfony\Templating\Exception\MissingFieldBlockException;
-use eZ\Publish\Core\MVC\Symfony\Templating\FieldBlockRendererInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\Core\MVC\Symfony\Templating\Exception\MissingFieldBlockException;
+use Ibexa\Core\MVC\Symfony\Templating\FieldBlockRendererInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class FieldEditRenderingExtension extends AbstractExtension
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Templating\FieldBlockRendererInterface|\eZ\Publish\Core\MVC\Symfony\Templating\Twig\FieldBlockRenderer */
+    /** @var \Ibexa\Core\MVC\Symfony\Templating\FieldBlockRendererInterface|\Ibexa\Core\MVC\Symfony\Templating\Twig\FieldBlockRenderer */
     private $fieldBlockRenderer;
 
     public function __construct(FieldBlockRendererInterface $fieldBlockRenderer)

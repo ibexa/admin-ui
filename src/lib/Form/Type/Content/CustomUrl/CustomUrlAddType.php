@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Content\CustomUrl;
 
-use eZ\Publish\API\Repository\LanguageService;
 use Ibexa\AdminUi\Form\EventListener\AddLanguageFieldBasedOnContentListener;
 use Ibexa\AdminUi\Form\EventListener\BuildPathFromRootListener;
 use Ibexa\AdminUi\Form\EventListener\DisableSiteRootCheckboxIfRootLocationListener;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\SiteAccessChoiceLoader;
 use Ibexa\AdminUi\Form\Type\Content\LocationType;
 use Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver;
+use Ibexa\Contracts\Core\Repository\LanguageService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -26,19 +26,19 @@ use Symfony\Component\Form\FormEvents;
 
 class CustomUrlAddType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\EventListener\AddLanguageFieldBasedOnContentListener */
+    /** @var \Ibexa\AdminUi\Form\EventListener\AddLanguageFieldBasedOnContentListener */
     private $addLanguageFieldBasedOnContentListener;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\EventListener\BuildPathFromRootListener */
+    /** @var \Ibexa\AdminUi\Form\EventListener\BuildPathFromRootListener */
     private $buildPathFromRootListener;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\EventListener\DisableSiteRootCheckboxIfRootLocationListener */
+    /** @var \Ibexa\AdminUi\Form\EventListener\DisableSiteRootCheckboxIfRootLocationListener */
     private $checkboxIfRootLocationListener;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Siteaccess\NonAdminSiteaccessResolver */
+    /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
     private $nonAdminSiteaccessResolver;
 
     public function __construct(

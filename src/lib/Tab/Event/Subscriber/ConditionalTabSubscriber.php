@@ -18,12 +18,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Evaluates if tabs should be visible (Tabs implementing ConditionalTabInterface).
  *
- * @see ConditionalTabInterface
+ * @see \Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface
  */
 class ConditionalTabSubscriber implements EventSubscriberInterface
 {
     /**
-     * @var \EzSystems\EzPlatformAdminUi\UI\Service\TabService
+     * @var \Ibexa\AdminUi\UI\Service\TabService
      */
     private $tabService;
 
@@ -43,7 +43,7 @@ class ConditionalTabSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Tab\Event\TabGroupEvent $tabGroupEvent
+     * @param \Ibexa\AdminUi\Tab\Event\TabGroupEvent $tabGroupEvent
      */
     public function onTabGroupInitialize(TabGroupEvent $tabGroupEvent)
     {

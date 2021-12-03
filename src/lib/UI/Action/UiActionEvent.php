@@ -42,7 +42,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName(): string
     {
@@ -50,7 +50,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setName(string $name): void
     {
@@ -58,7 +58,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getType(): string
     {
@@ -66,7 +66,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setType(string $type): void
     {
@@ -74,7 +74,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getForm(): FormInterface
     {
@@ -82,7 +82,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setForm(FormInterface $form): void
     {
@@ -90,7 +90,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getResponse(): ?Response
     {
@@ -98,7 +98,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setResponse(?Response $response): void
     {

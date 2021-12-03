@@ -6,8 +6,8 @@
  */
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class GroupLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
@@ -25,14 +25,22 @@ class GroupLimitationMapper extends MultipleSelectionBasedMapper implements Limi
     protected function getSelectionChoices()
     {
         return [
-            1 => $this->translator->trans(/** @Desc("Self") */ 'policy.limitation.group.self', [], 'ezplatform_content_forms_role'),
+            1 => $this->translator->trans(/** @Desc("Self") */
+            'policy.limitation.group.self',
+                [],
+                'ezplatform_content_forms_role'
+            ),
         ];
     }
 
     public function mapLimitationValue(Limitation $limitation)
     {
         return [
-            $this->translator->trans(/** @Desc("Self") */ 'policy.limitation.group.self', [], 'ezplatform_content_forms_role'),
+            $this->translator->trans(/** @Desc("Self") */
+            'policy.limitation.group.self',
+                [],
+                'ezplatform_content_forms_role'
+            ),
         ];
     }
 }

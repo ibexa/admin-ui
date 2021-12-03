@@ -6,7 +6,7 @@
  */
 namespace Ibexa\AdminUi\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use InvalidArgumentException;
 
 /**

@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\REST\Input\Parser\ContentTree;
 
-use EzSystems\EzPlatformRest\Exceptions;
-use EzSystems\EzPlatformRest\Input\BaseParser;
-use EzSystems\EzPlatformRest\Input\ParsingDispatcher;
 use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode as LoadSubtreeRequestNodeValue;
+use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
+use Ibexa\Rest\Exceptions;
+use Ibexa\Rest\Input\BaseParser;
 
 class LoadSubtreeRequestNode extends BaseParser
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function parse(array $data, ParsingDispatcher $parsingDispatcher): LoadSubtreeRequestNodeValue
     {
@@ -25,18 +25,24 @@ class LoadSubtreeRequestNode extends BaseParser
         }
 
         if (!array_key_exists('limit', $data) || !is_numeric($data['limit'])) {
-            throw new Exceptions\Parser(sprintf("Missing or invalid 'limit' property for %s.",
-                self::class));
+            throw new Exceptions\Parser(sprintf(
+                "Missing or invalid 'limit' property for %s.",
+                self::class
+            ));
         }
 
         if (!array_key_exists('offset', $data) || !is_numeric($data['offset'])) {
-            throw new Exceptions\Parser(sprintf("Missing or invalid 'offset' property for %s.",
-                self::class));
+            throw new Exceptions\Parser(sprintf(
+                "Missing or invalid 'offset' property for %s.",
+                self::class
+            ));
         }
 
         if (!array_key_exists('children', $data) || !is_array($data['children'])) {
-            throw new Exceptions\Parser(sprintf("Missing or invalid 'children' property for %s.",
-                self::class));
+            throw new Exceptions\Parser(sprintf(
+                "Missing or invalid 'children' property for %s.",
+                self::class
+            ));
         }
 
         $children = [];

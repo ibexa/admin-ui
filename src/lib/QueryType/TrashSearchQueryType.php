@@ -8,14 +8,14 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\QueryType;
 
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\Core\QueryType\OptionsResolverBasedQueryType;
 use Ibexa\AdminUi\Form\Data\Search\TrashSearchData;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Core\QueryType\OptionsResolverBasedQueryType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class TrashSearchQueryType extends OptionsResolverBasedQueryType
@@ -30,7 +30,7 @@ final class TrashSearchQueryType extends OptionsResolverBasedQueryType
 
     protected function doGetQuery(array $parameters): Query
     {
-        /** @var \EzSystems\EzPlatformAdminUi\Form\Data\Search\TrashSearchData $searchData */
+        /** @var \Ibexa\AdminUi\Form\Data\Search\TrashSearchData $searchData */
         $searchData = $parameters['search_data'];
         $query = new Query();
 

@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Value\Content;
 
-use eZ\Publish\API\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem;
 
 class UnauthorizedContentDraft implements ContentDraftInterface
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem */
     private $unauthorizedContentDraft;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem $unauthorizedContentDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem $unauthorizedContentDraft
      */
     public function __construct(UnauthorizedContentDraftListItem $unauthorizedContentDraft)
     {
@@ -24,7 +24,7 @@ class UnauthorizedContentDraft implements ContentDraftInterface
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem
      */
     public function getUnauthorizedContentDraft(): UnauthorizedContentDraftListItem
     {

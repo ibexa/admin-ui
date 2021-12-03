@@ -9,22 +9,22 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\Controller;
 
 use Exception;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
-use EzSystems\EzPlatformRest\Exceptions;
-use EzSystems\EzPlatformRest\Message;
-use EzSystems\EzPlatformRest\Server\Controller as RestController;
-use EzSystems\EzPlatformRest\Server\Values;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Rest\Exceptions;
+use Ibexa\Rest\Message;
+use Ibexa\Rest\Server\Controller as RestController;
+use Ibexa\Rest\Server\Values;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class FieldDefinitionController extends RestController
 {
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
     /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
@@ -43,7 +43,7 @@ final class FieldDefinitionController extends RestController
         Language $language,
         ?Language $baseLanguage = null
     ): RedirectResponse {
-        /** @var \EzSystems\EzPlatformAdminUi\REST\Value\ContentType\FieldDefinitionCreate $input */
+        /** @var \Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionCreate $input */
         $input = $this->inputDispatcher->parse(
             new Message(
                 ['Content-Type' => $request->headers->get('Content-Type')],
@@ -91,7 +91,7 @@ final class FieldDefinitionController extends RestController
         ContentTypeGroup $group,
         ContentTypeDraft $contentTypeDraft
     ): Values\OK {
-        /** @var \EzSystems\EzPlatformAdminUi\REST\Value\ContentType\FieldDefinitionDelete $input */
+        /** @var \Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionDelete $input */
         $input = $this->inputDispatcher->parse(
             new Message(
                 ['Content-Type' => $request->headers->get('Content-Type')],
@@ -131,7 +131,7 @@ final class FieldDefinitionController extends RestController
         ContentTypeGroup $group,
         ContentTypeDraft $contentTypeDraft
     ): Values\OK {
-        /** @var \EzSystems\EzPlatformAdminUi\REST\Value\ContentType\FieldDefinitionReorder $input */
+        /** @var \Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionReorder $input */
         $input = $this->inputDispatcher->parse(
             new Message(
                 ['Content-Type' => $request->headers->get('Content-Type')],

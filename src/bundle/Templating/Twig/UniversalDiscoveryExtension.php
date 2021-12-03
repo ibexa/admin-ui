@@ -14,11 +14,11 @@ use Twig\TwigFunction;
 
 class UniversalDiscoveryExtension extends AbstractExtension
 {
-    /** @var \EzSystems\EzPlatformAdminUi\UniversalDiscovery\ConfigResolver */
+    /** @var \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver */
     protected $udwConfigResolver;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\UniversalDiscovery\ConfigResolver $udwConfigResolver
+     * @param \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver $udwConfigResolver
      */
     public function __construct(
         ConfigResolver $udwConfigResolver

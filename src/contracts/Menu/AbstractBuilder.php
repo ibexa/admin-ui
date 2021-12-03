@@ -58,7 +58,7 @@ abstract class AbstractBuilder
     /**
      * @param \Knp\Menu\ItemInterface $menu
      *
-     * @return \EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent
+     * @return \Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent
      */
     protected function createConfigureMenuEvent(ItemInterface $menu, array $options = []): ConfigureMenuEvent
     {

@@ -8,19 +8,19 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\EventListener;
 
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content as API;
-use eZ\Publish\API\Repository\Values\User\User as APIUser;
-use eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\View\View;
-use eZ\Publish\Core\Repository\Values\Content as Core;
-use eZ\Publish\Core\Repository\Values\User\User as CoreUser;
-use EzSystems\EzPlatformContentForms\Content\View\ContentEditView;
-use EzSystems\EzPlatformContentForms\User\View\UserUpdateView;
 use Ibexa\AdminUi\EventListener\SetViewParametersListener;
+use Ibexa\ContentForms\Content\View\ContentEditView;
+use Ibexa\ContentForms\User\View\UserUpdateView;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
+use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\MVC\Symfony\View\View;
+use Ibexa\Core\Repository\Values\Content as API;
+use Ibexa\Core\Repository\Values\Content as Core;
+use Ibexa\Core\Repository\Values\User\User as CoreUser;
 use PHPUnit\Framework\TestCase;
 
 final class SetViewParametersListenerTest extends TestCase
@@ -29,19 +29,19 @@ final class SetViewParametersListenerTest extends TestCase
     private const EXAMPLE_LOCATION_B_ID = 2;
     private const EXAMPLE_OWNER_ID = 14;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent */
+    /** @var \Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent */
     private $event;
 
-    /** @var \EzSystems\EzPlatformAdminUi\EventListener\SetViewParametersListener */
+    /** @var \Ibexa\AdminUi\EventListener\SetViewParametersListener */
     private $viewParametersListener;
 
-    /** @var \eZ\Publish\API\Repository\LocationService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService|\PHPUnit\Framework\MockObject\MockObject */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject */
     private $userService;
 
-    /** @var \eZ\Publish\API\Repository\Repository|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository|\PHPUnit\Framework\MockObject\MockObject */
     private $repository;
 
     public function setUp(): void
@@ -101,7 +101,7 @@ final class SetViewParametersListenerTest extends TestCase
     /**
      * @param int|null $parentLocationId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
      */
     private function generateLocation(int $parentLocationId = null): API\Location
     {
@@ -223,7 +223,7 @@ final class SetViewParametersListenerTest extends TestCase
      * @param int $mainLocationId
      * @param bool $published
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
      */
     private function generateContentInfo(int $mainLocationId = null, bool $published = false): API\ContentInfo
     {
@@ -235,9 +235,9 @@ final class SetViewParametersListenerTest extends TestCase
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo
      */
     private function generateVersionInfo(API\ContentInfo $contentInfo): API\VersionInfo
     {
@@ -245,9 +245,9 @@ final class SetViewParametersListenerTest extends TestCase
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     private function generateContent(API\VersionInfo $versionInfo): API\Content
     {
@@ -257,7 +257,7 @@ final class SetViewParametersListenerTest extends TestCase
     /**
      * @param int $ownerId
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     private function generateUser(int $ownerId): APIUser
     {

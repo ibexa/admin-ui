@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu\Voter;
 
-use eZ\Publish\Core\MVC\Symfony\View\ContentView;
+use Ibexa\Core\MVC\Symfony\View\ContentView;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\Matcher\Voter\VoterInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -31,7 +31,7 @@ class LocationVoter implements VoterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function matchItem(ItemInterface $item): ?bool
     {

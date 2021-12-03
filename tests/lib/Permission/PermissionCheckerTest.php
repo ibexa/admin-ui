@@ -8,44 +8,44 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Permission;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\Core\Repository\Values\Content as CoreContent;
-use eZ\Publish\Core\Repository\Values\User\Policy;
-use eZ\Publish\Core\Repository\Values\User\User as CoreUser;
 use Ibexa\AdminUi\Permission\PermissionChecker;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Core\Repository\Values\Content;
+use Ibexa\Core\Repository\Values\Content as CoreContent;
+use Ibexa\Core\Repository\Values\User\Policy;
+use Ibexa\Core\Repository\Values\User\User as CoreUser;
 use PHPUnit\Framework\TestCase;
 
 class PermissionCheckerTest extends TestCase
 {
     private const USER_ID = 14;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\PermissionChecker */
+    /** @var \Ibexa\AdminUi\Permission\PermissionChecker */
     private $permissionChecker;
 
     public function setUp(): void
@@ -200,7 +200,7 @@ class PermissionCheckerTest extends TestCase
     /**
      * @param int $id
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     private function generateUser(int $id): User
     {

@@ -23,8 +23,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class RoleCopyRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__SAVE = 'role_copy__sidebar_right__save';
-    const ITEM__CANCEL = 'role_copy__sidebar_right__cancel';
+    public const ITEM__SAVE = 'role_copy__sidebar_right__save';
+    public const ITEM__CANCEL = 'role_copy__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
@@ -62,7 +62,8 @@ class RoleCopyRightSidebarBuilder extends AbstractBuilder implements Translation
                         'data-extra-classes' => 'ez-tooltip--medium',
                         'data-placement' => 'left',
                         'title' => $this->translator->trans(
-/** @Ignore */ self::ITEM__SAVE,
+/** @Ignore */
+self::ITEM__SAVE,
                             [],
                             'menu'
                         ),
@@ -76,7 +77,8 @@ class RoleCopyRightSidebarBuilder extends AbstractBuilder implements Translation
                         'data-extra-classes' => 'ez-tooltip--medium',
                         'data-placement' => 'left',
                         'title' => $this->translator->trans(
-/** @Ignore */ self::ITEM__CANCEL,
+/** @Ignore */
+self::ITEM__CANCEL,
                             [],
                             'menu'
                         ),

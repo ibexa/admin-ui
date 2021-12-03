@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Value\Content;
 
-use eZ\Publish\API\Repository\Values\Content\URLAlias as CoreURLAlias;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias as CoreURLAlias;
 
 class UrlAlias extends CoreURLAlias
 {
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\URLAlias $urlAlias
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLAlias $urlAlias
      * @param array $properties
      */
     public function __construct(CoreURLAlias $urlAlias, array $properties = [])

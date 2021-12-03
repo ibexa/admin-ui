@@ -8,16 +8,16 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Query;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class UniversalDiscoveryController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\UniversalDiscovery\Provider */
+    /** @var \Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider */
     private $provider;
 
     public function __construct(

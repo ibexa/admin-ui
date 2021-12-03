@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\REST\Value\ContentTree;
 
-use EzSystems\EzPlatformRest\Value as RestValue;
+use Ibexa\Rest\Value as RestValue;
 
 class Root extends RestValue
 {
-    /** @var \EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\Node[] */
+    /** @var \Ibexa\AdminUi\REST\Value\ContentTree\Node[] */
     public $elements;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\Node[] $elements
+     * @param \Ibexa\AdminUi\REST\Value\ContentTree\Node[] $elements
      */
     public function __construct(array $elements = [])
     {

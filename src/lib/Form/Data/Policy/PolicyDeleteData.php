@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Policy;
 
-use eZ\Publish\API\Repository\Values\User\Policy;
+use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 
 class PolicyDeleteData
 {

@@ -6,14 +6,14 @@
  */
 namespace Ibexa\AdminUi\Specification;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 
 interface ContentSpecification
 {
     /**
      * Check to see if the specification is satisfied.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
      * @return bool
      */

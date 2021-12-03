@@ -8,12 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\SPI\Limitation\Target;
-use eZ\Publish\SPI\Limitation\Target\Builder\VersionBuilder;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
@@ -23,6 +17,12 @@ use Ibexa\AdminUi\UniversalDiscovery\ConfigResolver;
 use Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -36,32 +36,32 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__CREATE = 'content__sidebar_right__create';
-    const ITEM__EDIT = 'content__sidebar_right__edit';
-    const ITEM__SEND_TO_TRASH = 'content__sidebar_right__send_to_trash';
-    const ITEM__COPY = 'content__sidebar_right__copy';
-    const ITEM__COPY_SUBTREE = 'content__sidebar_right__copy_subtree';
-    const ITEM__MOVE = 'content__sidebar_right__move';
-    const ITEM__DELETE = 'content__sidebar_right__delete';
-    const ITEM__HIDE = 'content__sidebar_right__hide';
-    const ITEM__REVEAL = 'content__sidebar_right__reveal';
+    public const ITEM__CREATE = 'content__sidebar_right__create';
+    public const ITEM__EDIT = 'content__sidebar_right__edit';
+    public const ITEM__SEND_TO_TRASH = 'content__sidebar_right__send_to_trash';
+    public const ITEM__COPY = 'content__sidebar_right__copy';
+    public const ITEM__COPY_SUBTREE = 'content__sidebar_right__copy_subtree';
+    public const ITEM__MOVE = 'content__sidebar_right__move';
+    public const ITEM__DELETE = 'content__sidebar_right__delete';
+    public const ITEM__HIDE = 'content__sidebar_right__hide';
+    public const ITEM__REVEAL = 'content__sidebar_right__reveal';
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UniversalDiscovery\ConfigResolver */
+    /** @var \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver */
     private $udwConfigResolver;
 
-    /** @var \eZ\Publish\API\Repository\SearchService */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     private $searchService;
 
-    /** @var \EzSystems\EzPlatformAdminUiBundle\Templating\Twig\UniversalDiscoveryExtension */
+    /** @var \Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension */
     private $udwExtension;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
     private $permissionChecker;
 
     public function __construct(
@@ -97,19 +97,19 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
      *
      * @return \Knp\Menu\ItemInterface
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
         $location = $options['location'];
-        /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
         $contentType = $options['content_type'];
-        /** @var \eZ\Publish\API\Repository\Values\Content\Content $content */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
         $content = $options['content'];
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');

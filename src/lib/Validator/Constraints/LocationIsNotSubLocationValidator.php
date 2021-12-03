@@ -15,8 +15,8 @@ class LocationIsNotSubLocationValidator extends AbstractComparisonValidator
     /**
      * Compares the two given values to find if their relationship is valid.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $targetLocation
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $sourceLocation
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $targetLocation
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $sourceLocation
      *
      * @return bool true if the relationship is valid, false otherwise
      */

@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\View\Provider\ContentTranslateView;
 
-use eZ\Publish\Core\MVC\Symfony\Matcher\MatcherFactoryInterface;
-use eZ\Publish\Core\MVC\Symfony\View\View;
-use eZ\Publish\Core\MVC\Symfony\View\ViewProvider;
 use Ibexa\AdminUi\View\ContentTranslateView;
+use Ibexa\Core\MVC\Symfony\Matcher\MatcherFactoryInterface;
+use Ibexa\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Symfony\View\ViewProvider;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
 /**
@@ -20,12 +20,12 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
 class Configured implements ViewProvider
 {
     /**
-     * @var \eZ\Publish\Core\MVC\Symfony\Matcher\MatcherFactoryInterface
+     * @var \Ibexa\Core\MVC\Symfony\Matcher\MatcherFactoryInterface
      */
     protected $matcherFactory;
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\Matcher\MatcherFactoryInterface $matcherFactory
+     * @param \Ibexa\Core\MVC\Symfony\Matcher\MatcherFactoryInterface $matcherFactory
      */
     public function __construct(MatcherFactoryInterface $matcherFactory)
     {
@@ -33,9 +33,9 @@ class Configured implements ViewProvider
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      */
     public function getView(View $view)
     {
@@ -51,9 +51,9 @@ class Configured implements ViewProvider
      *
      * @param array $viewConfig
      *
-     * @return \EzSystems\EzPlatformAdminUi\View\ContentTranslateView
+     * @return \Ibexa\AdminUi\View\ContentTranslateView
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      */
     protected function buildContentTranslateView(array $viewConfig): ContentTranslateView
     {

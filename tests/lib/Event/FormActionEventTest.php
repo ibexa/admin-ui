@@ -6,7 +6,7 @@
  */
 namespace Ibexa\Tests\AdminUi\Event;
 
-use EzSystems\EzPlatformContentForms\Event\FormActionEvent;
+use Ibexa\ContentForms\Event\FormActionEvent;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Form\FormInterface;
@@ -32,7 +32,8 @@ class FormActionEventTest extends TestCase
     {
         $event = new FormActionEvent(
             $this->createMock(FormInterface::class),
-            new stdClass(), 'fooButton'
+            new stdClass(),
+            'fooButton'
         );
         self::assertFalse($event->hasResponse());
         self::assertNull($event->getResponse());
@@ -42,7 +43,8 @@ class FormActionEventTest extends TestCase
     {
         $event = new FormActionEvent(
             $this->createMock(FormInterface::class),
-            new stdClass(), 'fooButton'
+            new stdClass(),
+            'fooButton'
         );
         self::assertFalse($event->hasResponse());
         self::assertNull($event->getResponse());
@@ -60,7 +62,9 @@ class FormActionEventTest extends TestCase
 
         $event = new FormActionEvent(
             $this->createMock(FormInterface::class),
-            new stdClass(), 'fooButton', $options
+            new stdClass(),
+            'fooButton',
+            $options
         );
         self::assertTrue($event->hasOption('languageCode'));
         self::assertTrue($event->hasOption('foo'));

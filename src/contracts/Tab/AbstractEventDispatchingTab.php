@@ -40,7 +40,7 @@ abstract class AbstractEventDispatchingTab extends AbstractTab
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function renderView(array $parameters): string
     {

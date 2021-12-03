@@ -9,14 +9,14 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form;
 
 use Exception;
-use eZ\Publish\API\Repository\Exceptions\ForbiddenException;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use EzSystems\EzPlatformUser\Form\SubmitHandler as UserActionsSubmitHandler;
 use Ibexa\AdminUi\UI\Action\FormUiActionMappingDispatcher;
 use Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface;
 use Ibexa\Contracts\AdminUi\UI\Action\EventDispatcherInterface;
 use Ibexa\Contracts\AdminUi\UI\Action\UiActionEventInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\User\Form\SubmitHandler as UserActionsSubmitHandler;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,16 +25,16 @@ use Symfony\Component\Routing\RouterInterface;
 
 class SubmitHandler implements UserActionsSubmitHandler
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface */
     protected $notificationHandler;
 
     /** @var \Symfony\Component\Routing\RouterInterface */
     protected $router;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Action\EventDispatcherInterface */
+    /** @var \Ibexa\Contracts\AdminUi\UI\Action\EventDispatcherInterface */
     protected $uiActionEventDispatcher;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Action\FormUiActionMappingDispatcher */
+    /** @var \Ibexa\AdminUi\UI\Action\FormUiActionMappingDispatcher */
     protected $formUiActionMappingDispatcher;
 
     /** @var \Psr\Log\LoggerInterface */
@@ -83,15 +83,21 @@ class SubmitHandler implements UserActionsSubmitHandler
                     return $event->getResponse();
                 }
             } catch (ForbiddenException | NotFoundException | UnauthorizedException $e) {
-                $this->notificationHandler->error(/** @Ignore */ $e->getMessage());
+                $this->notificationHandler->error(/** @Ignore */
+                $e->getMessage()
+                );
             } catch (Exception $e) {
                 $this->logException($e);
 
-                $this->notificationHandler->error(/** @Ignore */ $e->getMessage());
+                $this->notificationHandler->error(/** @Ignore */
+                $e->getMessage()
+                );
             }
         } else {
             foreach ($form->getErrors(true, true) as $formError) {
-                $this->notificationHandler->warning(/** @Ignore */ $formError->getMessage());
+                $this->notificationHandler->warning(/** @Ignore */
+                $formError->getMessage()
+                );
             }
         }
 

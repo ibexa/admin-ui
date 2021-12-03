@@ -9,13 +9,13 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use eZ\Publish\API\Repository\Repository;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
+use Ibexa\Contracts\Core\Repository\Repository;
 
 class SectionPage extends Page
 {
@@ -46,15 +46,16 @@ class SectionPage extends Page
     /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
     private $dialog;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
     public function __construct(
-        Session $session, Router $router,
+        Session $session,
+        Router $router,
         TableBuilder $tableBuilder,
         Dialog $dialog,
-        Repository $repository)
-    {
+        Repository $repository
+    ) {
         parent::__construct($session, $router);
         $this->contentItemsTable = $tableBuilder->newTable()->withParentLocator($this->getLocator('contentItemsTable'))->build();
         $this->sectionInformationTable = $tableBuilder->newTable()->withParentLocator($this->getLocator('sectionInfoTable'))->build();
@@ -102,7 +103,8 @@ class SectionPage extends Page
     protected function getRoute(): string
     {
         return sprintf(
-            '/section/view/%d', $this->expectedSectionId
+            '/section/view/%d',
+            $this->expectedSectionId
         );
     }
 

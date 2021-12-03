@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\FormMapper;
 
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use EzSystems\EzPlatformContentForms\Data\Content\FieldData;
-use EzSystems\EzPlatformContentForms\Data\User\UserCreateData;
+use Ibexa\ContentForms\Data\User\UserCreateData;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -20,11 +20,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class UserCreateMapper
 {
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
-     * @param \eZ\Publish\API\Repository\Values\User\UserGroup[] $parentGroups
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[] $parentGroups
      * @param array $params
      *
-     * @return \EzSystems\EzPlatformContentForms\Data\User\UserCreateData
+     * @return \Ibexa\ContentForms\Data\User\UserCreateData
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
      * @throws \Symfony\Component\OptionsResolver\Exception\OptionDefinitionException

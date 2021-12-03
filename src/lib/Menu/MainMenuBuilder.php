@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -26,27 +26,27 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Main Menu / Dashboard */
-    const ITEM_DASHBOARD = 'main__dashboard';
+    public const ITEM_DASHBOARD = 'main__dashboard';
 
     /* Main Menu / Content */
-    const ITEM_CONTENT = 'main__content';
-    const ITEM_CONTENT_GROUP_SETTINGS = 'main__content__group_settings';
-    const ITEM_CONTENT__CONTENT_STRUCTURE = 'main__content__content_structure';
-    const ITEM_CONTENT__MEDIA = 'main__content__media';
+    public const ITEM_CONTENT = 'main__content';
+    public const ITEM_CONTENT_GROUP_SETTINGS = 'main__content__group_settings';
+    public const ITEM_CONTENT__CONTENT_STRUCTURE = 'main__content__content_structure';
+    public const ITEM_CONTENT__MEDIA = 'main__content__media';
 
     /* Main Menu / Admin */
-    const ITEM_ADMIN__SECTIONS = 'main__admin__sections';
-    const ITEM_ADMIN__ROLES = 'main__admin__roles';
-    const ITEM_ADMIN__LANGUAGES = 'main__admin__languages';
-    const ITEM_ADMIN__CONTENT_TYPES = 'main__admin__content_types';
-    const ITEM_ADMIN__USERS = 'main__admin__users';
-    const ITEM_ADMIN__OBJECT_STATES = 'main__admin__object_states';
-    const ITEM_ADMIN__URL_MANAGEMENT = 'main__admin__url_management';
+    public const ITEM_ADMIN__SECTIONS = 'main__admin__sections';
+    public const ITEM_ADMIN__ROLES = 'main__admin__roles';
+    public const ITEM_ADMIN__LANGUAGES = 'main__admin__languages';
+    public const ITEM_ADMIN__CONTENT_TYPES = 'main__admin__content_types';
+    public const ITEM_ADMIN__USERS = 'main__admin__users';
+    public const ITEM_ADMIN__OBJECT_STATES = 'main__admin__object_states';
+    public const ITEM_ADMIN__URL_MANAGEMENT = 'main__admin__url_management';
 
     /* Main Menu / Bottom items */
-    const ITEM_ADMIN = 'main__admin';
-    const ITEM_BOOKMARKS = 'main__bookmarks';
-    const ITEM_TRASH = 'main__trash';
+    public const ITEM_ADMIN = 'main__admin';
+    public const ITEM_BOOKMARKS = 'main__bookmarks';
+    public const ITEM_TRASH = 'main__trash';
 
     public const ITEM_ADMIN_OPTIONS = [
         self::ITEM_ADMIN__SECTIONS => [
@@ -129,20 +129,20 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         ],
     ];
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
     /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
     private $tokenStorage;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Menu\MenuItemFactory $factory
+     * @param \Ibexa\AdminUi\Menu\MenuItemFactory $factory
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
+     * @param \Ibexa\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
      */
     public function __construct(
         MenuItemFactory $factory,
@@ -168,7 +168,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
      *
      * @return \Knp\Menu\ItemInterface
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function createStructure(array $options): ItemInterface
     {
@@ -250,7 +250,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     /**
      * @param \Knp\Menu\ItemInterface $menu
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function addContentMenuItems(ItemInterface $menu): void
     {
@@ -319,7 +319,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     /**
      * @param \Knp\Menu\ItemInterface $menu
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function addAdminMenuItems(ItemInterface $menu): void
     {

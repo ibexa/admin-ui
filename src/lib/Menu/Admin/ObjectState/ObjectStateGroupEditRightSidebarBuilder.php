@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu\Admin\ObjectState;
 
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Menu\MenuItemFactory;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -26,8 +26,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ObjectStateGroupEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__SAVE = 'object_state_group_edit__sidebar_right__save';
-    const ITEM__CANCEL = 'object_state_group_edit__sidebar_right__cancel';
+    public const ITEM__SAVE = 'object_state_group_edit__sidebar_right__save';
+    public const ITEM__CANCEL = 'object_state_group_edit__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;

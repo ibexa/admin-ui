@@ -28,7 +28,7 @@ class Value implements ProviderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @return mixed
      */

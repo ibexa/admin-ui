@@ -8,19 +8,19 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Language;
 
-use eZ\Publish\API\Repository\LanguageService;
 use Ibexa\AdminUi\Form\DataTransformer\LanguageTransformer;
+use Ibexa\Contracts\Core\Repository\LanguageService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class LanguageType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     protected $languageService;
 
     /**
-     * @param \eZ\Publish\API\Repository\LanguageService $languageService
+     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
      */
     public function __construct(LanguageService $languageService)
     {

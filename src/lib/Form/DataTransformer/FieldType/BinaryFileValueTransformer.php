@@ -16,7 +16,7 @@ use Symfony\Component\Form\DataTransformerInterface;
 class BinaryFileValueTransformer extends AbstractBinaryBaseTransformer implements DataTransformerInterface
 {
     /**
-     * @param \eZ\Publish\Core\FieldType\BinaryFile\Value $value
+     * @param \Ibexa\Core\FieldType\BinaryFile\Value $value
      *
      * @return array
      */
@@ -35,13 +35,13 @@ class BinaryFileValueTransformer extends AbstractBinaryBaseTransformer implement
     /**
      * @param array $value
      *
-     * @return \eZ\Publish\Core\FieldType\BinaryFile\Value
+     * @return \Ibexa\Core\FieldType\BinaryFile\Value
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
     public function reverseTransform($value)
     {
-        /** @var \eZ\Publish\Core\FieldType\BinaryFile\Value $valueObject */
+        /** @var \Ibexa\Core\FieldType\BinaryFile\Value $valueObject */
         $valueObject = $this->getReverseTransformedValue($value);
 
         if ($this->fieldType->isEmptyValue($valueObject)) {

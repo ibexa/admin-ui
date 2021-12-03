@@ -6,9 +6,9 @@
  */
 namespace Ibexa\AdminUi\Form\Type\Role;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
 use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
 use Ibexa\AdminUi\Limitation\LimitationFormMapperRegistryInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -20,12 +20,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class LimitationType extends AbstractType
 {
     /**
-     * @var \EzSystems\EzPlatformAdminUi\Limitation\LimitationFormMapperRegistryInterface
+     * @var \Ibexa\AdminUi\Limitation\LimitationFormMapperRegistryInterface
      */
     private $limitationFormMapperRegistry;
 
     /**
-     * @var \EzSystems\EzPlatformAdminUi\Limitation\LimitationFormMapperInterface
+     * @var \Ibexa\AdminUi\Limitation\LimitationFormMapperInterface
      */
     private $nullMapper;
 
@@ -38,7 +38,7 @@ class LimitationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            /** @var \eZ\Publish\API\Repository\Values\User\Limitation $data */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation $data */
             $data = $event->getData();
             $form = $event->getForm();
 
@@ -48,7 +48,7 @@ class LimitationType extends AbstractType
         });
 
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
-            /** @var \eZ\Publish\API\Repository\Values\User\Limitation $data */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation $data */
             $data = $event->getData();
             if ($this->limitationFormMapperRegistry->hasMapper($data->getIdentifier())) {
                 $this->limitationFormMapperRegistry->getMapper($data->getIdentifier())->filterLimitationValues($data);

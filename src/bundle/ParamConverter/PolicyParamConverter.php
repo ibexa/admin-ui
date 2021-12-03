@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\ParamConverter;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\RoleService;
-use eZ\Publish\API\Repository\Values\User\Policy;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,16 +18,16 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PolicyParamConverter implements ParamConverterInterface
 {
-    const PARAMETER_ROLE_ID = 'roleId';
-    const PARAMETER_POLICY_ID = 'policyId';
+    public const PARAMETER_ROLE_ID = 'roleId';
+    public const PARAMETER_POLICY_ID = 'policyId';
 
-    /** @var \eZ\Publish\API\Repository\RoleService */
+    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
     private $roleService;
 
     /**
      * RoleParamConverter constructor.
      *
-     * @param \eZ\Publish\API\Repository\RoleService $roleService
+     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
      */
     public function __construct(RoleService $roleService)
     {
@@ -35,7 +35,7 @@ class PolicyParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
@@ -65,7 +65,7 @@ class PolicyParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(ParamConverter $configuration)
     {

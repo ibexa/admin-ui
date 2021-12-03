@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup as APIContentTypeGroup;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Ibexa\AdminUi\Form\DataTransformer\ContentTypeGroupTransformer;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup as APIContentTypeGroup;
+use Ibexa\Core\Repository\Values\ContentType\ContentTypeGroup;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -21,10 +21,10 @@ final class ContentTypeGroupTransformerTest extends TestCase
 {
     private const EXAMPLE_CONTENT_TYPE_GROUP_ID = 1;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
     private $contentService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataTransformer\ContentTypeGroupTransformer */
+    /** @var \Ibexa\AdminUi\Form\DataTransformer\ContentTypeGroupTransformer */
     private $transformer;
 
     protected function setUp(): void

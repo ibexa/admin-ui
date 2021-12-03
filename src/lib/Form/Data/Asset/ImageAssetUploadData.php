@@ -49,7 +49,7 @@ class ImageAssetUploadData
     /**
      * @param \Symfony\Component\HttpFoundation\File\UploadedFile $file|null
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Asset\ImageAssetUploadData
+     * @return \Ibexa\AdminUi\Form\Data\Asset\ImageAssetUploadData
      */
     public function setFile(?UploadedFile $file): self
     {
@@ -69,7 +69,7 @@ class ImageAssetUploadData
     /**
      * @param string|null $languageCode
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Asset\ImageAssetUploadData
+     * @return \Ibexa\AdminUi\Form\Data\Asset\ImageAssetUploadData
      */
     public function setLanguageCode(?string $languageCode): self
     {

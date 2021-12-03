@@ -13,9 +13,9 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class RenderGroupEvent extends Event
 {
-    const NAME = 'ezplatform_admin_ui.component.render_group';
+    public const NAME = 'ezplatform_admin_ui.component.render_group';
 
-    /** @var \EzSystems\EzPlatformAdminUi\Component\Registry */
+    /** @var \Ibexa\AdminUi\Component\Registry */
     private $registry;
 
     /** @var string */
@@ -25,7 +25,7 @@ class RenderGroupEvent extends Event
     private $parameters;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Component\Registry $registry
+     * @param \Ibexa\AdminUi\Component\Registry $registry
      * @param string $groupName
      * @param array $parameters
      */

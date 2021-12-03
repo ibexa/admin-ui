@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\AdminUi\Util;
 
-use eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\AdminUi\Util\FieldDefinitionGroupsUtil;
+use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use PHPUnit\Framework\TestCase;
 
 class FieldDefinitionGroupsUtilTest extends TestCase

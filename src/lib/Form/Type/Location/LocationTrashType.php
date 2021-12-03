@@ -26,7 +26,7 @@ class LocationTrashType extends AbstractType
 {
     public const CONFIRM_SEND_TO_TRASH = 'confirm_send_to_trash';
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\TrashLocationOptionProvider\OptionsFactory */
+    /** @var \Ibexa\AdminUi\Form\TrashLocationOptionProvider\OptionsFactory */
     private $trashTypeStrategy;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
@@ -88,7 +88,7 @@ class LocationTrashType extends AbstractType
     {
         $form->add(
             'confirm',
-                ChoiceType::class,
+            ChoiceType::class,
             [
                 'expanded' => true,
                 'multiple' => true,

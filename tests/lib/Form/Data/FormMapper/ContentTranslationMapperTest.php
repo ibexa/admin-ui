@@ -8,19 +8,19 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\Data\FormMapper;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType as ApiContentType;
-use eZ\Publish\Core\Repository\Values\Content\Content;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinitionCollection;
-use eZ\Publish\SPI\FieldType\Value;
-use EzSystems\EzPlatformContentForms\Data\Content\FieldData;
 use Ibexa\AdminUi\Form\Data\ContentTranslationData;
 use Ibexa\AdminUi\Form\Data\FormMapper\ContentTranslationMapper;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\Contracts\Core\FieldType\Value;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType as ApiContentType;
+use Ibexa\Core\Repository\Values\Content\Content;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -29,7 +29,7 @@ final class ContentTranslationMapperTest extends TestCase
 {
     public const LANGUAGE_CODE = 'cyb-CY';
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Data\FormMapper\ContentTranslationMapper */
+    /** @var \Ibexa\AdminUi\Form\Data\FormMapper\ContentTranslationMapper */
     private $mapper;
 
     protected function setUp(): void

@@ -6,14 +6,14 @@
  */
 namespace Ibexa\AdminUi\Form\Processor\ContentType;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList;
-use EzSystems\EzPlatformContentForms\Event\FormActionEvent;
+use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\Contracts\AdminUi\Event\FormEvents;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
@@ -21,7 +21,7 @@ use Symfony\Component\Routing\RouterInterface;
 class ContentTypeFormProcessor implements EventSubscriberInterface
 {
     /**
-     * @var \eZ\Publish\API\Repository\ContentTypeService
+     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService
      */
     private $contentTypeService;
 
@@ -36,7 +36,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
     private $options;
 
     /**
-     * @var \eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList
+     * @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList
      */
     private $groupsList;
 
@@ -76,7 +76,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         }
 
         // Always update FieldDefinitions and ContentTypeDraft
-        /** @var \EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData $contentTypeData */
+        /** @var \Ibexa\AdminUi\Form\Data\ContentTypeData $contentTypeData */
         $contentTypeData = $event->getData();
         $contentTypeDraft = $contentTypeData->contentTypeDraft;
         foreach ($contentTypeData->getFlatFieldDefinitionsData() as $fieldDefData) {
@@ -127,7 +127,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
 
     public function processRemoveFieldDefinition(FormActionEvent $event)
     {
-        /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft */
         $contentTypeDraft = $event->getData()->contentTypeDraft;
 
         // Accessing FieldDefinition user selection through the form and not the data,
@@ -165,7 +165,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
     /**
      * Resolves unique field definition identifier.
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
      * @param int $startIndex
      * @param string $fieldTypeIdentifier
      *

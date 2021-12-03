@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\ObjectState;
 
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
 class ObjectStateGroupUpdateData
 {
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup|null */
     private $objectStateGroup;
 
     /** @var string */
@@ -22,7 +22,7 @@ class ObjectStateGroupUpdateData
     private $name;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup|null $objectStateGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup|null $objectStateGroup
      */
     public function __construct(?ObjectStateGroup $objectStateGroup = null)
     {
@@ -66,7 +66,7 @@ class ObjectStateGroupUpdateData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup
+     * @return \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup
      */
     public function getObjectStateGroup(): ObjectStateGroup
     {
@@ -74,7 +74,7 @@ class ObjectStateGroupUpdateData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
      */
     public function setObjectStateGroup(ObjectStateGroup $objectStateGroup)
     {

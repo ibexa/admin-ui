@@ -13,7 +13,7 @@ use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 
 class ViewTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    const URI_FRAGMENT = 'ibexa-tab-content-type-view-details';
+    public const URI_FRAGMENT = 'ibexa-tab-content-type-view-details';
 
     /**
      * @return string

@@ -6,9 +6,9 @@
  */
 namespace Ibexa\AdminUi\Menu\Admin\Role;
 
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -21,8 +21,8 @@ use Knp\Menu\ItemInterface;
 class PolicyCreateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__CREATE = 'policy_create__sidebar_right__create';
-    const ITEM__CANCEL = 'policy_create__sidebar_right__cancel';
+    public const ITEM__CREATE = 'policy_create__sidebar_right__create';
+    public const ITEM__CANCEL = 'policy_create__sidebar_right__cancel';
 
     /**
      * @return string
@@ -43,7 +43,7 @@ class PolicyCreateRightSidebarBuilder extends AbstractBuilder implements Transla
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \eZ\Publish\API\Repository\Values\User\Role $section */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role $section */
         $role = $options['role'];
 
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */

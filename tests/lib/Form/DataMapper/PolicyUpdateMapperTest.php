@@ -6,17 +6,17 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\DataMapper;
 
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
-use eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation;
-use eZ\Publish\Core\Repository\Values\User\PolicyUpdateStruct;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData;
 use Ibexa\AdminUi\Form\DataMapper\PolicyUpdateMapper;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
+use Ibexa\Core\Repository\Values\User\PolicyUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
 class PolicyUpdateMapperTest extends TestCase
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataMapper\PolicyUpdateMapper */
+    /** @var \Ibexa\AdminUi\Form\DataMapper\PolicyUpdateMapper */
     private $mapper;
 
     protected function setUp(): void
@@ -73,7 +73,7 @@ class PolicyUpdateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \eZ\Publish\Core\Repository\Values\User\PolicyUpdateStruct
+     * @return \Ibexa\Core\Repository\Values\User\PolicyUpdateStruct
      */
     private function createStruct(array $properties): PolicyUpdateStruct
     {
@@ -86,7 +86,7 @@ class PolicyUpdateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyUpdateData
+     * @return \Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData
      */
     private function createData(array $properties): PolicyUpdateData
     {

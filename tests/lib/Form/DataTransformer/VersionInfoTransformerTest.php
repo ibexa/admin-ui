@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use Ibexa\AdminUi\Form\DataTransformer\VersionInfoTransformer;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -22,10 +22,10 @@ final class VersionInfoTransformerTest extends TestCase
     private const EXAMPLE_CONTENT_ID = 123456;
     private const EXAMPLE_VERSION_NO = 7;
 
-    /** @var \eZ\Publish\API\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject */
     private $contentService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataTransformer\VersionInfoTransformer */
+    /** @var \Ibexa\AdminUi\Form\DataTransformer\VersionInfoTransformer */
     private $transformer;
 
     protected function setUp(): void

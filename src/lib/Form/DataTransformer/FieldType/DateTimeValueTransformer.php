@@ -6,7 +6,7 @@
  */
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
-use eZ\Publish\Core\FieldType\DateAndTime\Value;
+use Ibexa\Core\FieldType\DateAndTime\Value;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -44,7 +44,7 @@ class DateTimeValueTransformer implements DataTransformerInterface
     /**
      * @param mixed $value
      *
-     * @return \eZ\Publish\Core\FieldType\DateAndTime\Value|null
+     * @return \Ibexa\Core\FieldType\DateAndTime\Value|null
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */

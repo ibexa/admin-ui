@@ -8,9 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\URLWildcardService;
-use eZ\Publish\API\Repository\Values\Content\URLWildcard;
-use eZ\Publish\API\Repository\Values\Content\URLWildcardUpdateStruct;
 use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardData;
 use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
 use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardUpdateData;
@@ -19,21 +16,24 @@ use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Tab\URLManagement\URLWildcardsTab;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\URLWildcardService;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class URLWildcardController extends Controller
 {
-    /** @var \eZ\Publish\API\Repository\URLWildcardService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLWildcardService */
     private $urlWildcardService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
     public function __construct(
@@ -82,7 +82,7 @@ final class URLWildcardController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\URLWildcard $urlWildcard
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard $urlWildcard
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -96,7 +96,8 @@ final class URLWildcardController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form,
+            $result = $this->submitHandler->handle(
+                $form,
                 function (URLWildcardUpdateData $data) use ($urlWildcard) {
                     $urlWildcardUpdateStruct = new URLWildcardUpdateStruct();
                     $urlWildcardUpdateStruct->destinationUrl = $data->getDestinationUrl();

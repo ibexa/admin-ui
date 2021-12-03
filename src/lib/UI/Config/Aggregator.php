@@ -45,7 +45,7 @@ class Aggregator
      *
      * @return \Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function removeProvider(string $key): ProviderInterface
     {

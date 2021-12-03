@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use Ibexa\AdminUi\Form\DataTransformer\ContentInfoTransformer;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -19,12 +19,12 @@ final class ContentInfoTransformerTest extends TestCase
 {
     private const EXAMPLE_CONTENT_ID = 123456;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataTransformer\ContentInfoTransformer */
+    /** @var \Ibexa\AdminUi\Form\DataTransformer\ContentInfoTransformer */
     private $contentInfoTransformer;
 
     protected function setUp(): void
     {
-        /** @var \eZ\Publish\API\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject $contentService */
+        /** @var \Ibexa\Contracts\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject $contentService */
         $contentService = $this->createMock(ContentService::class);
         $contentService
             ->method('loadContentInfo')
@@ -90,7 +90,7 @@ final class ContentInfoTransformerTest extends TestCase
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('ContentInfo not found');
 
-        /** @var \eZ\Publish\API\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject $service */
+        /** @var \Ibexa\Contracts\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject $service */
         $service = $this->createMock(ContentService::class);
         $service->method('loadContentInfo')
             ->will($this->throwException(new class('ContentInfo not found') extends NotFoundException {

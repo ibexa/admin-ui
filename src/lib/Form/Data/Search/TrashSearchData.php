@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Search;
 
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 
 class TrashSearchData
 {
@@ -20,10 +20,10 @@ class TrashSearchData
     /** @var int|null */
     private $page;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Section|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null */
     private $section;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null */
     private $contentType;
 
     /** @var array|null */
@@ -32,7 +32,7 @@ class TrashSearchData
     /** @var string|null */
     private $trashed;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\User|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User|null */
     private $creator;
 
     /** @var array|null */

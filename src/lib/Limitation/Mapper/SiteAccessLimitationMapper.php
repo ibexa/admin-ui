@@ -6,17 +6,17 @@
  */
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\AdminUi\Siteaccess\SiteAccessKeyGeneratorInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 
 class SiteAccessLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface */
     private $siteAccessService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Siteaccess\SiteAccessKeyGeneratorInterface */
+    /** @var \Ibexa\AdminUi\Siteaccess\SiteAccessKeyGeneratorInterface */
     private $siteAccessKeyGenerator;
 
     public function __construct(

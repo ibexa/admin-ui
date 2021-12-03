@@ -13,14 +13,14 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class TabGroupEvent extends Event
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Tab\TabGroup */
+    /** @var \Ibexa\AdminUi\Tab\TabGroup */
     private $data;
 
     /** @var array */
     private $parameters;
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\Tab\TabGroup
+     * @return \Ibexa\AdminUi\Tab\TabGroup
      */
     public function getData(): TabGroup
     {
@@ -28,7 +28,7 @@ class TabGroupEvent extends Event
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Tab\TabGroup $data
+     * @param \Ibexa\AdminUi\Tab\TabGroup $data
      */
     public function setData(TabGroup $data)
     {

@@ -21,7 +21,7 @@ class UniqueURL extends Constraint
     public $message = 'ez.url.unique';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validatedBy()
     {
@@ -29,7 +29,7 @@ class UniqueURL extends Constraint
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTargets()
     {

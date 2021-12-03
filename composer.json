@@ -27,7 +27,7 @@
         }
     },
     "require": {
-        "php": "^7.3",
+        "php": "^7.4",
         "ext-json": "*",
         "symfony/http-foundation": "^5.0",
         "symfony/security-core": "^5.0",
@@ -46,13 +46,13 @@
         "symfony/asset": "^5.0",
         "symfony/yaml": "^5.0",
         "jms/translation-bundle": "^1.5",
-        "ezsystems/ezplatform-kernel": "^4.0@dev",
-        "ezsystems/ezplatform-content-forms": "^4.0@dev",
-        "ezsystems/ezplatform-design-engine": "^4.0@dev",
-        "ezsystems/ezplatform-user": "^4.0@dev",
-        "ezsystems/ezplatform-richtext": "^4.0@dev",
-        "ezsystems/ezplatform-rest": "^4.0@dev",
-        "ezsystems/ezplatform-search": "^4.0@dev",
+        "ibexa/core": "^4.0@dev",
+        "ibexa/content-forms": "^4.0@dev",
+        "ibexa/design-engine": "^4.0@dev",
+        "ibexa/user": "^4.0@dev",
+        "ibexa/fieldtype-richtext": "^4.0@dev",
+        "ibexa/rest": "^4.0@dev",
+        "ibexa/search": "^4.0@dev",
         "babdev/pagerfanta-bundle": "^2.1",
         "knplabs/knp-menu-bundle": "^3.0",
         "mck89/peast": "^1.9",
@@ -64,15 +64,15 @@
     "require-dev": {
         "ibexa/ci-scripts": "^0.2@dev",
         "ezsystems/behatbundle": "^9.0@dev",
-        "friendsofphp/php-cs-fixer": "^2.16.0",
+        "friendsofphp/php-cs-fixer": "^3.0",
         "phpunit/phpunit": "^8.1",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
-        "ezsystems/doctrine-dbal-schema": "^4.0@dev",
-        "ezsystems/ezplatform-http-cache": "^4.0@dev",
-        "ezsystems/ezplatform-code-style": "^1.0"
+        "ibexa/doctrine-schema": "^4.0@dev",
+        "ibexa/http-cache": "^4.0@dev",
+        "ibexa/code-style": "^1.0"
     },
     "scripts": {
-        "fix-cs": "php-cs-fixer fix --config=.php-cs-fixer.php --show-progress=dots",
+        "fix-cs": "php-cs-fixer fix --config=.php-cs-fixer.php -v --show-progress=dots",
         "check-cs": "@fix-cs --dry-run",
         "test": "phpunit -c phpunit.xml"
     },

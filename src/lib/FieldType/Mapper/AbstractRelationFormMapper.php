@@ -6,16 +6,16 @@
  */
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\LocationService;
 use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\LocationService;
 
 abstract class AbstractRelationFormMapper implements FieldDefinitionFormMapperInterface
 {
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     protected $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     protected $locationService;
 
     public function __construct(ContentTypeService $contentTypeService, LocationService $locationService)

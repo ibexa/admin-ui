@@ -78,7 +78,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
     {
         $configFile = __DIR__ . '/../Resources/config/views.yaml';
         $config = Yaml::parse(file_get_contents($configFile));
-        $container->prependExtensionConfig('ezpublish', $config);
+        $container->prependExtensionConfig('ibexa', $config);
         $container->addResource(new FileResource($configFile));
     }
 
@@ -86,7 +86,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
     {
         $imageConfigFile = __DIR__ . '/../Resources/config/image_variations.yaml';
         $config = Yaml::parse(file_get_contents($imageConfigFile));
-        $container->prependExtensionConfig('ezpublish', $config);
+        $container->prependExtensionConfig('ibexa', $config);
         $container->addResource(new FileResource($imageConfigFile));
     }
 
@@ -94,7 +94,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
     {
         $udwConfigFile = __DIR__ . '/../Resources/config/universal_discovery_widget.yaml';
         $config = Yaml::parse(file_get_contents($udwConfigFile));
-        $container->prependExtensionConfig('ezpublish', $config);
+        $container->prependExtensionConfig('ibexa', $config);
         $container->addResource(new FileResource($udwConfigFile));
     }
 
@@ -103,7 +103,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
         $eZDesignConfigFile = __DIR__ . '/../Resources/config/ezdesign.yaml';
         $config = Yaml::parseFile($eZDesignConfigFile);
         $container->prependExtensionConfig('ezdesign', $config['ezdesign']);
-        $container->prependExtensionConfig('ezpublish', $config['ezpublish']);
+        $container->prependExtensionConfig('ibexa', $config['ibexa']);
         $container->addResource(new FileResource($eZDesignConfigFile));
     }
 
@@ -111,7 +111,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
     {
         $adminUiFormsConfigFile = __DIR__ . '/../Resources/config/admin_ui_forms.yaml';
         $config = Yaml::parseFile($adminUiFormsConfigFile);
-        $container->prependExtensionConfig('ezpublish', $config);
+        $container->prependExtensionConfig('ibexa', $config);
         $container->addResource(new FileResource($adminUiFormsConfigFile));
     }
 

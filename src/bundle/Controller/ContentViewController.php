@@ -8,21 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\BookmarkService;
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
-use eZ\Publish\Core\MVC\Symfony\View\ContentView;
 use Ibexa\AdminUi\Form\Data\Content\ContentVisibilityUpdateData;
 use Ibexa\AdminUi\Form\Data\Content\Draft\ContentCreateData;
 use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
@@ -40,73 +25,88 @@ use Ibexa\AdminUi\Specification\ContentIsUser;
 use Ibexa\AdminUi\UI\Module\Subitems\ContentViewParameterSupplier as SubitemsContentViewParameterSupplier;
 use Ibexa\AdminUi\UI\Service\PathService;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\Core\Repository\BookmarkService;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
+use Ibexa\Core\MVC\Symfony\View\ContentView;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class ContentViewController extends Controller
 {
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Service\PathService */
+    /** @var \Ibexa\AdminUi\UI\Service\PathService */
     private $pathService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Module\Subitems\ContentViewParameterSupplier */
+    /** @var \Ibexa\AdminUi\UI\Module\Subitems\ContentViewParameterSupplier */
     private $subitemsContentViewParameterSupplier;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
-    /** @var \eZ\Publish\API\Repository\BookmarkService */
+    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
     private $bookmarkService;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
     private $userLanguagePreferenceProvider;
 
     /** @var \Symfony\Component\Form\FormFactoryInterface */
     private $sfFormFactory;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\LookupLimitationsTransformer */
+    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
     private $lookupLimitationsTransformer;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
-     * @param \eZ\Publish\API\Repository\LanguageService $languageService
-     * @param \EzSystems\EzPlatformAdminUi\UI\Service\PathService $pathService
-     * @param \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory $formFactory
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
+     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
+     * @param \Ibexa\AdminUi\UI\Service\PathService $pathService
+     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
      * @param \Symfony\Component\Form\FormFactoryInterface $sfFormFactory
-     * @param \EzSystems\EzPlatformAdminUi\UI\Module\Subitems\ContentViewParameterSupplier $subitemsContentViewParameterSupplier
-     * @param \eZ\Publish\API\Repository\UserService $userService
-     * @param \eZ\Publish\API\Repository\BookmarkService $bookmarkService
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \eZ\Publish\API\Repository\LocationService $locationService
-     * @param \eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
-     * @param \EzSystems\EzPlatformAdminUi\Permission\LookupLimitationsTransformer $lookupLimitationsTransformer
+     * @param \Ibexa\AdminUi\UI\Module\Subitems\ContentViewParameterSupplier $subitemsContentViewParameterSupplier
+     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
+     * @param \Ibexa\Contracts\Core\Repository\BookmarkService $bookmarkService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
+     * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
+     * @param \Ibexa\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
+     * @param \Ibexa\AdminUi\Permission\LookupLimitationsTransformer $lookupLimitationsTransformer
      */
     public function __construct(
         ContentTypeService $contentTypeService,
@@ -144,14 +144,14 @@ class ContentViewController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\View\ContentView
+     * @return \Ibexa\Core\MVC\Symfony\View\ContentView
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function locationViewAction(Request $request, ContentView $view): ContentView
     {
@@ -180,11 +180,11 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\View\ContentView
+     * @return \Ibexa\Core\MVC\Symfony\View\ContentView
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function embedViewAction(ContentView $view): ContentView
     {
@@ -199,7 +199,7 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      */
     private function supplyPathLocations(ContentView $view): void
     {
@@ -209,9 +209,9 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function supplyContentType(ContentView $view): void
     {
@@ -223,11 +223,11 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     private function supplyContentActionForms(ContentView $view): void
     {
@@ -303,10 +303,10 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo|null $contentInfo
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo|null $versionInfo
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $language
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      *
      * @return \Symfony\Component\Form\FormInterface
      */
@@ -336,7 +336,7 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      * @param \Symfony\Component\HttpFoundation\Request $request
      */
     private function supplyDraftPagination(ContentView $view, Request $request): void
@@ -355,7 +355,7 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      * @param \Symfony\Component\HttpFoundation\Request $request
      */
     private function supplyReverseRelationPagination(ContentView $view, Request $request): void
@@ -374,7 +374,7 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      * @param \Symfony\Component\HttpFoundation\Request $request
      */
     private function supplyCustomUrlPagination(ContentView $view, Request $request): void
@@ -392,7 +392,7 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      * @param \Symfony\Component\HttpFoundation\Request $request
      */
     private function supplySystemUrlPagination(ContentView $view, Request $request): void
@@ -410,7 +410,7 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      * @param \Symfony\Component\HttpFoundation\Request $request
      */
     private function supplyRolePagination(ContentView $view, Request $request): void
@@ -428,7 +428,7 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      * @param \Symfony\Component\HttpFoundation\Request $request
      */
     private function supplyPolicyPagination(ContentView $view, Request $request): void
@@ -446,7 +446,7 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      */
     private function supplyContentTreeParameters(ContentView $view): void
     {
@@ -456,11 +456,11 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      *
      * @return int
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function resolveTreeRootLocationId(?Location $location): int
     {
@@ -485,9 +485,9 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentCreateData
+     * @return \Ibexa\AdminUi\Form\Data\Content\Draft\ContentCreateData
      */
     private function getContentCreateData(?Location $location): ContentCreateData
     {
@@ -500,7 +500,7 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      */
     private function supplyIsLocationBookmarked(ContentView $view): void
     {
@@ -510,7 +510,7 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      */
     private function supplyContentReverseRelations(ContentView $view): void
     {

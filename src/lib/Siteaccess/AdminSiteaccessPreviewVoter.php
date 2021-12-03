@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Siteaccess;
 class AdminSiteaccessPreviewVoter extends AbstractSiteaccessPreviewVoter
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRootLocationIds(string $siteaccess): array
     {

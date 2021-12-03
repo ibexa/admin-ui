@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\URLService;
-use eZ\Publish\API\Repository\Values\URL\URL;
 use Ibexa\AdminUi\Form\Data\URL\URLUpdateData;
 use Ibexa\AdminUi\Validator\Constraints\UniqueURL;
 use Ibexa\AdminUi\Validator\Constraints\UniqueURLValidator;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\URLService;
+use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -19,13 +19,13 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class UniqueURLValidatorTest extends TestCase
 {
-    /** @var \eZ\Publish\API\Repository\URLService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\URLService|\PHPUnit\Framework\MockObject\MockObject */
     private $urlService;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Validator\Context\ExecutionContextInterface */
     private $executionContext;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Validator\Constraints\UniqueURLValidator */
+    /** @var \Ibexa\AdminUi\Validator\Constraints\UniqueURLValidator */
     private $validator;
 
     protected function setUp(): void

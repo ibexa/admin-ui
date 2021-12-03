@@ -29,7 +29,8 @@ class LanguageUpdateType extends AbstractType
                 TextType::class,
                 ['label' => /** @Desc("Name") */ 'ezplatform.language.update.name']
             )
-            ->add('enabled',
+            ->add(
+                'enabled',
                 CheckboxType::class,
                 [
                     'label' => /** @Desc("Enabled") */ 'ezplatform.language.update.enabled',

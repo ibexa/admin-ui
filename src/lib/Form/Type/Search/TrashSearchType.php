@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Search;
 
-use eZ\Publish\API\Repository\PermissionResolver;
 use Ibexa\AdminUi\Form\Data\Search\TrashSearchData;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\DatePeriodChoiceLoader;
 use Ibexa\AdminUi\Form\Type\Content\SortType;
 use Ibexa\AdminUi\Form\Type\Section\SectionChoiceType;
 use Ibexa\AdminUi\Form\Type\Trash\ChoiceList\Loader\SearchContentTypeChoiceLoader;
 use Ibexa\AdminUi\Form\Type\User\UserType;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -28,13 +28,13 @@ class TrashSearchType extends AbstractType
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\DatePeriodChoiceLoader */
+    /** @var \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\DatePeriodChoiceLoader */
     private $datePeriodChoiceLoader;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Type\Trash\ChoiceList\Loader\SearchContentTypeChoiceLoader */
+    /** @var \Ibexa\AdminUi\Form\Type\Trash\ChoiceList\Loader\SearchContentTypeChoiceLoader */
     private $searchContentTypeChoiceLoader;
 
     public function __construct(
@@ -50,7 +50,7 @@ class TrashSearchType extends AbstractType
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -88,7 +88,7 @@ class TrashSearchType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */

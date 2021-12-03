@@ -9,13 +9,13 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use eZ\Publish\API\Repository\Repository;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\TableNavigationTab;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
+use Ibexa\Contracts\Core\Repository\Repository;
 use PHPUnit\Framework\Assert;
 
 class RolePage extends Page
@@ -29,7 +29,7 @@ class RolePage extends Page
     /** @var \Ibexa\AdminUi\Behat\Component\TableNavigationTab */
     private $tableNavigationTab;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
     private $expectedRoleId;
@@ -41,7 +41,8 @@ class RolePage extends Page
     private $assignments;
 
     public function __construct(
-        Session $session, Router $router,
+        Session $session,
+        Router $router,
         TableNavigationTab $tableNavigationTab,
         Dialog $dialog,
         Repository $repository,
@@ -119,7 +120,7 @@ class RolePage extends Page
     {
         $this->expectedRoleName = $roleName;
 
-        /** @var \eZ\Publish\API\Repository\Values\User\Role[] $roles */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role[] $roles */
         $roles = $this->repository->sudo(static function (Repository $repository) {
             return $repository->getRoleService()->loadRoles();
         });

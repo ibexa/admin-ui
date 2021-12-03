@@ -29,7 +29,7 @@ class ContentProxyTranslateEvent extends Event
     /** @var string */
     private $toLanguageCode;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Event\Options */
+    /** @var \Ibexa\AdminUi\Event\Options */
     private $options;
 
     /** @var int|null */

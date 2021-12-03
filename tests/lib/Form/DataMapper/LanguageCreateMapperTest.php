@@ -6,17 +6,17 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\DataMapper;
 
-use eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\LocationCreateStruct;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Form\Data\Language\LanguageCreateData;
 use Ibexa\AdminUi\Form\Data\Language\LanguageDeleteData;
 use Ibexa\AdminUi\Form\DataMapper\LanguageCreateMapper;
+use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use PHPUnit\Framework\TestCase;
 
 class LanguageCreateMapperTest extends TestCase
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataMapper\LanguageCreateMapper */
+    /** @var \Ibexa\AdminUi\Form\DataMapper\LanguageCreateMapper */
     private $mapper;
 
     protected function setUp(): void
@@ -80,7 +80,7 @@ class LanguageCreateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\LanguageCreateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct
      */
     private function createStruct(array $properties): LanguageCreateStruct
     {
@@ -90,7 +90,7 @@ class LanguageCreateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageCreateData
+     * @return \Ibexa\AdminUi\Form\Data\Language\LanguageCreateData
      */
     private function createData(array $properties): LanguageCreateData
     {

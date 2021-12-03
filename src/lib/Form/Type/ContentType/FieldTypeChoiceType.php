@@ -6,7 +6,7 @@
  */
 namespace Ibexa\AdminUi\Form\Type\ContentType;
 
-use eZ\Publish\Core\FieldType\FieldTypeRegistry;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,7 +18,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class FieldTypeChoiceType extends AbstractType
 {
     /**
-     * @var \eZ\Publish\Core\FieldType\FieldTypeRegistry
+     * @var \Ibexa\Core\FieldType\FieldTypeRegistry
      */
     private $fieldTypeRegistry;
 
@@ -81,7 +81,11 @@ class FieldTypeChoiceType extends AbstractType
      */
     private function getFieldTypeLabel($fieldTypeIdentifier)
     {
-        return $this->translator->trans(/** @Ignore */$fieldTypeIdentifier . '.name', [], 'fieldtypes');
+        return $this->translator->trans(/** @Ignore */
+        $fieldTypeIdentifier . '.name',
+            [],
+            'fieldtypes'
+        );
     }
 }
 

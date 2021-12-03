@@ -8,14 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\RoleService;
-use eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\SubtreeLimitation;
-use eZ\Publish\API\Repository\Values\User\Role;
-use eZ\Publish\API\Repository\Values\User\RoleAssignment;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Ibexa\AdminUi\Form\Data\Role\RoleAssignmentCreateData;
 use Ibexa\AdminUi\Form\Data\Role\RoleAssignmentDeleteData;
 use Ibexa\AdminUi\Form\Data\Role\RoleAssignmentsDeleteData;
@@ -23,6 +15,14 @@ use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -31,19 +31,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RoleAssignmentController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \eZ\Publish\API\Repository\RoleService */
+    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
     private $roleService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -61,7 +61,7 @@ class RoleAssignmentController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      * @param string $routeName
      * @param int $assignmentPage
      *
@@ -83,7 +83,7 @@ class RoleAssignmentController extends Controller
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.role_assignment_limit'));
         $pagerfanta->setCurrentPage(min($assignmentPage, $pagerfanta->getNbPages()));
 
-        /** @var \eZ\Publish\API\Repository\Values\User\RoleAssignment[] $assignments */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment[] $assignments */
         $assignments = $pagerfanta->getCurrentPageResults();
 
         $deleteRoleAssignmentsForm = $this->formFactory->deleteRoleAssignments(
@@ -101,7 +101,7 @@ class RoleAssignmentController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -147,8 +147,8 @@ class RoleAssignmentController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
-     * @param \eZ\Publish\API\Repository\Values\User\RoleAssignment $roleAssignment
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment $roleAssignment
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -191,7 +191,7 @@ class RoleAssignmentController extends Controller
      * Handles removing role assignments based on submitted form.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -233,7 +233,7 @@ class RoleAssignmentController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\RoleAssignment[] $roleAssignments
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment[] $roleAssignments
      *
      * @return array
      */
@@ -245,9 +245,9 @@ class RoleAssignmentController extends Controller
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleAssignmentCreateData $data
+     * @param \Ibexa\AdminUi\Form\Data\Role\RoleAssignmentCreateData $data
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation[]
      */
     private function createLimitations(RoleAssignmentCreateData $data): array
     {

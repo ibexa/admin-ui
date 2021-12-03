@@ -21,7 +21,7 @@ interface LimitationValueMapperRegistryInterface
     /**
      * Returns mapper corresponding to given Limitation Type.
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\ValueMapperNotFoundException if no mapper exists for $limitationType
+     * @throws \Ibexa\AdminUi\Exception\ValueMapperNotFoundException if no mapper exists for $limitationType
      *
      * @param string $limitationType
      *

@@ -6,8 +6,8 @@
  */
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
-use EzSystems\EzPlatformContentForms\Form\Type\LocationType;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\Form\Type\LocationType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

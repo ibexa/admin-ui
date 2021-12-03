@@ -8,24 +8,24 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content as API;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\Core\Repository\Values\Content as Core;
-use eZ\Publish\Core\Repository\Values\User\User as CoreUser;
 use Ibexa\AdminUi\Form\DataTransformer\UserTransformer;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Core\Repository\Values\Content as API;
+use Ibexa\Core\Repository\Values\Content as Core;
+use Ibexa\Core\Repository\Values\User\User as CoreUser;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class UserTransformerTest extends TestCase
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataTransformer\UserTransformer */
+    /** @var \Ibexa\AdminUi\Form\DataTransformer\UserTransformer */
     private $userTransformer;
 
     protected function setUp(): void
     {
-        /** @var \eZ\Publish\API\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject $userService */
+        /** @var \Ibexa\Contracts\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject $userService */
         $userService = $this->createMock(UserService::class);
         $userService->expects(self::any())
             ->method('loadUser')
@@ -92,7 +92,7 @@ class UserTransformerTest extends TestCase
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('User not found');
 
-        /** @var \eZ\Publish\API\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject $service */
+        /** @var \Ibexa\Contracts\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject $service */
         $service = $this->createMock(UserService::class);
         $service->method('loadUser')
             ->will($this->throwException(new class('User not found') extends NotFoundException {
@@ -161,7 +161,7 @@ class UserTransformerTest extends TestCase
     /**
      * @param int $id
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     private function generateUser(int $id = null): User
     {

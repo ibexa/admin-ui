@@ -23,7 +23,7 @@ services:
 
     Ibexa\AdminUi\Form\Processor\Content\UrlRedirectProcessor:
         public: true
-        decorates: EzSystems\EzPlatformContentForms\Form\Processor\SystemUrlRedirectProcessor
+        decorates: Ibexa\ContentForms\Form\Processor\SystemUrlRedirectProcessor
         arguments:
             $siteaccessGroups: '%ezpublish.siteaccess.groups%'
             $systemUrlRedirectProcessor: '@Ibexa\AdminUi\Form\Processor\Content\UrlRedirectProcessor.inner'

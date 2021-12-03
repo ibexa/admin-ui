@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\FormMapper;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\Contracts\AdminUi\Event\FieldDefinitionMappingEvent;
 use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,7 +23,7 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
     private $eventDispatcher;
 
-    /** @var \eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList */
+    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
     private $fieldsGroupsList;
 
     /**
@@ -40,10 +40,10 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
     /**
      * Maps a ValueObject from eZ content repository to a data usable as underlying form data (e.g. create/update struct).
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft|\eZ\Publish\API\Repository\Values\ValueObject $contentTypeDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft|\Ibexa\Contracts\Core\Repository\Values\ValueObject $contentTypeDraft
      * @param array $params
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData
+     * @return \Ibexa\AdminUi\Form\Data\ContentTypeData
      */
     public function mapToFormData(ValueObject $contentTypeDraft, array $params = [])
     {
@@ -51,10 +51,10 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
         $this->configureOptions($optionsResolver);
         $params = $optionsResolver->resolve($params);
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Language $language */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language $language */
         $language = $params['language'] ?? null;
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Language|null $baseLanguage */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $baseLanguage */
         $baseLanguage = $params['baseLanguage'] ?? null;
 
         $contentTypeData = new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]);

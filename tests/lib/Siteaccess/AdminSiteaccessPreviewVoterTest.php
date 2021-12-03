@@ -8,26 +8,26 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Siteaccess;
 
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\Repository\Values\Content\Location;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\AdminUi\Siteaccess\AdminSiteaccessPreviewVoter;
 use Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterContext;
+use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use PHPUnit\Framework\TestCase;
 
 class AdminSiteaccessPreviewVoterTest extends TestCase
 {
     private const LANGUAGE_CODE = 'eng-GB';
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider */
+    /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */
     private $repositoryConfigurationProvider;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Siteaccess\AdminSiteaccessPreviewVoter */
+    /** @var \Ibexa\AdminUi\Siteaccess\AdminSiteaccessPreviewVoter */
     private $adminSiteaccessPreviewVoter;
 
     public function setUp(): void

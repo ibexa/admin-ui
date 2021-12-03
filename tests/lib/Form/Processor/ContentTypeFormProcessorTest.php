@@ -6,18 +6,18 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\Processor;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionCreateStruct;
-use eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\Repository\Values\ContentType\ContentTypeDraft;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinitionCollection;
-use EzSystems\EzPlatformContentForms\Event\FormActionEvent;
 use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor;
+use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\Contracts\AdminUi\Event\FormEvents;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
+use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormConfigInterface;
 use Symfony\Component\Form\FormInterface;
@@ -29,7 +29,7 @@ class ContentTypeFormProcessorTest extends TestCase
     private const EXAMPLE_CONTENT_TYPE_ID = 1;
 
     /**
-     * @var \eZ\Publish\API\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject
      */
     private $contentTypeService;
 
@@ -39,12 +39,12 @@ class ContentTypeFormProcessorTest extends TestCase
     private $router;
 
     /**
-     * @var \EzSystems\EzPlatformAdminUi\Form\Processor\ContentType\ContentTypeFormProcessor
+     * @var \Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor
      */
     private $formProcessor;
 
     /**
-     * @var \eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList|\PHPUnit\Framework\MockObject\MockObject
+     * @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList|\PHPUnit\Framework\MockObject\MockObject
      */
     private $groupsList;
 
@@ -192,7 +192,8 @@ class ContentTypeFormProcessorTest extends TestCase
         $event = new FormActionEvent(
             $this->createMock(FormInterface::class),
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
-            'publishContentType', ['languageCode' => 'eng-GB']
+            'publishContentType',
+            ['languageCode' => 'eng-GB']
         );
         $this->contentTypeService
             ->expects($this->once())
@@ -210,7 +211,8 @@ class ContentTypeFormProcessorTest extends TestCase
         $event = new FormActionEvent(
             $this->createMock(FormInterface::class),
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
-            'publishContentType', ['languageCode' => 'eng-GB']
+            'publishContentType',
+            ['languageCode' => 'eng-GB']
         );
         $this->contentTypeService
             ->expects($this->once())
@@ -223,7 +225,7 @@ class ContentTypeFormProcessorTest extends TestCase
             ->with($redirectRoute)
             ->willReturn($redirectUrl);
         $expectedRedirectResponse = new RedirectResponse($redirectUrl);
-        $formProcessor = new \EzSystems\EzPlatformAdminUi\Form\Processor\ContentType\ContentTypeFormProcessor($this->contentTypeService, $this->router, ['redirectRouteAfterPublish' => $redirectRoute]);
+        $formProcessor = new \Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor($this->contentTypeService, $this->router, ['redirectRouteAfterPublish' => $redirectRoute]);
         $formProcessor->processPublishContentType($event);
         self::assertTrue($event->hasResponse());
         self::assertEquals($expectedRedirectResponse, $event->getResponse());
@@ -298,7 +300,8 @@ class ContentTypeFormProcessorTest extends TestCase
         $event = new FormActionEvent(
             $mainForm,
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
-            'removeFieldDefinition', ['languageCode' => 'eng-GB']
+            'removeFieldDefinition',
+            ['languageCode' => 'eng-GB']
         );
         $this->formProcessor->processRemoveFieldDefinition($event);
     }
@@ -309,7 +312,8 @@ class ContentTypeFormProcessorTest extends TestCase
         $event = new FormActionEvent(
             $this->createMock(FormInterface::class),
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
-            'removeDraft', ['languageCode' => 'eng-GB']
+            'removeDraft',
+            ['languageCode' => 'eng-GB']
         );
         $this->contentTypeService
             ->expects($this->once())
@@ -327,7 +331,8 @@ class ContentTypeFormProcessorTest extends TestCase
         $event = new FormActionEvent(
             $this->createMock(FormInterface::class),
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
-            'removeDraft', ['languageCode' => 'eng-GB']
+            'removeDraft',
+            ['languageCode' => 'eng-GB']
         );
         $this->contentTypeService
             ->expects($this->once())

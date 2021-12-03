@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Specification\AbstractSpecification;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
 class ContentTypeIsUserGroup extends AbstractSpecification
 {
@@ -28,11 +28,11 @@ class ContentTypeIsUserGroup extends AbstractSpecification
     /**
      * Checks if $contentType is an existing User content.
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
      * @return bool
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function isSatisfiedBy($contentType): bool
     {

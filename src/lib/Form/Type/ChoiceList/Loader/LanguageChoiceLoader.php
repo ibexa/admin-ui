@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 class LanguageChoiceLoader extends ConfiguredLanguagesChoiceLoader
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getChoiceList(): array
     {

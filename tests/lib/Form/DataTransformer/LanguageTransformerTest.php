@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\Values\Content\Language;
 use Ibexa\AdminUi\Form\DataTransformer\LanguageTransformer;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -25,7 +25,7 @@ class LanguageTransformerTest extends TestCase
      */
     public function testTransform($value, $expected)
     {
-        /** @var \eZ\Publish\API\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject $languageService */
+        /** @var \Ibexa\Contracts\Core\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject $languageService */
         $languageService = $this->createMock(LanguageService::class);
         $transformer = new LanguageTransformer($languageService);
 
@@ -41,7 +41,7 @@ class LanguageTransformerTest extends TestCase
      */
     public function testTransformWithInvalidInput($value)
     {
-        /** @var \eZ\Publish\API\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject $languageService */
+        /** @var \Ibexa\Contracts\Core\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject $languageService */
         $languageService = $this->createMock(LanguageService::class);
         $transformer = new LanguageTransformer($languageService);
 
@@ -53,7 +53,7 @@ class LanguageTransformerTest extends TestCase
 
     public function testReverseTransformWithLanguageCode()
     {
-        /** @var \eZ\Publish\API\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject $languageService */
+        /** @var \Ibexa\Contracts\Core\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject $languageService */
         $languageService = $this->createMock(LanguageService::class);
         $languageService->expects(self::once())
             ->method('loadLanguage')
@@ -69,7 +69,7 @@ class LanguageTransformerTest extends TestCase
 
     public function testReverseTransformWithNull()
     {
-        /** @var \eZ\Publish\API\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject $languageService */
+        /** @var \Ibexa\Contracts\Core\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject $languageService */
         $languageService = $this->createMock(LanguageService::class);
         $languageService->expects(self::never())
             ->method('loadLanguageById');
@@ -86,7 +86,7 @@ class LanguageTransformerTest extends TestCase
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Language not found');
 
-        /** @var \eZ\Publish\API\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject $languageService */
+        /** @var \Ibexa\Contracts\Core\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject $languageService */
         $languageService = $this->createMock(LanguageService::class);
         $languageService->method('loadLanguage')
             ->will($this->throwException(new class('Language not found') extends NotFoundException {

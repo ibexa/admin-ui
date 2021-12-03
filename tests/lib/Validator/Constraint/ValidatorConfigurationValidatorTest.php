@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
-use eZ\Publish\API\Repository\FieldType;
-use eZ\Publish\API\Repository\FieldTypeService;
-use eZ\Publish\Core\FieldType\ValidationError;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\AdminUi\Validator\Constraints\ValidatorConfiguration;
 use Ibexa\AdminUi\Validator\Constraints\ValidatorConfigurationValidator;
+use Ibexa\Contracts\Core\Repository\FieldType;
+use Ibexa\Contracts\Core\Repository\FieldTypeService;
+use Ibexa\Core\FieldType\ValidationError;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
@@ -30,7 +30,7 @@ class ValidatorConfigurationValidatorTest extends TestCase
     private $fieldTypeService;
 
     /**
-     * @var \EzSystems\EzPlatformAdminUi\Validator\Constraints\ValidatorConfigurationValidator
+     * @var \Ibexa\AdminUi\Validator\Constraints\ValidatorConfigurationValidator
      */
     private $validator;
 

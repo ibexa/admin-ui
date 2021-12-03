@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\ParamConverter;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\URLWildcardService;
-use eZ\Publish\API\Repository\Values\Content\URLWildcard;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\URLWildcardService;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,11 +20,11 @@ class URLWildcardParamConverter implements ParamConverterInterface
 {
     private const PARAMETER_URL_WILDCARD_ID = 'urlWildcardId';
 
-    /** @var \eZ\Publish\API\Repository\URLWildcardService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLWildcardService */
     private $urlWildcardService;
 
     /**
-     * @param \eZ\Publish\API\Repository\URLWildcardService $urlWildcardService
+     * @param \Ibexa\Contracts\Core\Repository\URLWildcardService $urlWildcardService
      */
     public function __construct(URLWildcardService $urlWildcardService)
     {
@@ -32,7 +32,7 @@ class URLWildcardParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function apply(Request $request, ParamConverter $configuration): bool
     {
@@ -54,7 +54,7 @@ class URLWildcardParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(ParamConverter $configuration): bool
     {

@@ -6,12 +6,12 @@
  */
 namespace Ibexa\Tests\Bundle\AdminUi\Templating\Twig;
 
-use eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension\FileSystemTwigIntegrationTestCase;
-use eZ\Publish\Core\MVC\Symfony\Templating\Twig\FieldBlockRenderer;
-use eZ\Publish\Core\MVC\Symfony\Templating\Twig\ResourceProviderInterface;
-use eZ\Publish\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\Bundle\AdminUi\Templating\Twig\FieldEditRenderingExtension;
+use Ibexa\Core\MVC\Symfony\Templating\Twig\FieldBlockRenderer;
+use Ibexa\Core\MVC\Symfony\Templating\Twig\ResourceProviderInterface;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension\FileSystemTwigIntegrationTestCase;
 use Twig\Environment;
 
 class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase

@@ -6,14 +6,14 @@
  */
 namespace Ibexa\AdminUi\Limitation\Templating;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
 interface LimitationBlockRendererInterface
 {
     /**
      * Returns limitation value in human readable format.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
      * @param array $parameters
      *
      * @return string

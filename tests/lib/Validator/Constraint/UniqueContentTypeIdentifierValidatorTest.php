@@ -6,13 +6,13 @@
  */
 namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\AdminUi\Validator\Constraints\UniqueContentTypeIdentifier;
 use Ibexa\AdminUi\Validator\Constraints\UniqueContentTypeIdentifierValidator;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -31,7 +31,7 @@ class UniqueContentTypeIdentifierValidatorTest extends TestCase
     private $executionContext;
 
     /**
-     * @var \EzSystems\EzPlatformAdminUi\Validator\Constraints\UniqueContentTypeIdentifierValidator
+     * @var \Ibexa\AdminUi\Validator\Constraints\UniqueContentTypeIdentifierValidator
      */
     private $validator;
 

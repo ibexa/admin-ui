@@ -9,9 +9,6 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\URLAlias;
 use EzSystems\Behat\Core\Behat\ArgumentParser;
 use Ibexa\AdminUi\Behat\Component\Breadcrumb;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
@@ -25,6 +22,9 @@ use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 use PHPUnit\Framework\Assert;
 
 class ContentViewPage extends Page
@@ -67,7 +67,7 @@ class ContentViewPage extends Page
     /** @var \Ibexa\AdminUi\Behat\Page\UserUpdatePage */
     private $userUpdatePage;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
     /** @var bool */
@@ -272,7 +272,7 @@ class ContentViewPage extends Page
         $this->getHTMLPage()->setTimeout(3)->waitUntil(static function () use ($repository, $locationPath) {
             $urlAlias = $repository->getURLAliasService()->lookup($locationPath);
 
-            return URLALias::LOCATION === $urlAlias->type;
+            return URLAlias::LOCATION === $urlAlias->type;
         }, sprintf('URLAlias: %s not found in 3 seconds', $locationPath));
 
         $urlAlias = $repository->getURLAliasService()->lookup($locationPath);

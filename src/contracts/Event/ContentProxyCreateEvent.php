@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\AdminUi\Event;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use Ibexa\AdminUi\Event\Options;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -21,7 +21,7 @@ class ContentProxyCreateEvent extends Event
     /** @var \Symfony\Component\HttpFoundation\Response|null */
     private $response;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
     private $contentType;
 
     /** @var string */
@@ -30,7 +30,7 @@ class ContentProxyCreateEvent extends Event
     /** @var int */
     private $parentLocationId;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Event\Options */
+    /** @var \Ibexa\AdminUi\Event\Options */
     private $options;
 
     public function __construct(

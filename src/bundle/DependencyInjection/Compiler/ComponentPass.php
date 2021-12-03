@@ -18,13 +18,13 @@ class ComponentPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    const TAG_NAME = 'ezplatform.admin_ui.component';
+    public const TAG_NAME = 'ezplatform.admin_ui.component';
 
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      *
      * @throws \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException When a service is abstract
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException When a tag is missing 'group' attribute
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException When a tag is missing 'group' attribute
      */
     public function process(ContainerBuilder $container): void
     {

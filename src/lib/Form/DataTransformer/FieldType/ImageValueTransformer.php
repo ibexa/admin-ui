@@ -16,7 +16,7 @@ use Symfony\Component\Form\DataTransformerInterface;
 class ImageValueTransformer extends AbstractBinaryBaseTransformer implements DataTransformerInterface
 {
     /**
-     * @param \eZ\Publish\Core\FieldType\Image\Value $value
+     * @param \Ibexa\Core\FieldType\Image\Value $value
      *
      * @return array
      */
@@ -35,13 +35,13 @@ class ImageValueTransformer extends AbstractBinaryBaseTransformer implements Dat
     /**
      * @param array $value
      *
-     * @return \eZ\Publish\Core\FieldType\Image\Value
+     * @return \Ibexa\Core\FieldType\Image\Value
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
     public function reverseTransform($value)
     {
-        /** @var \eZ\Publish\Core\FieldType\Image\Value $valueObject */
+        /** @var \Ibexa\Core\FieldType\Image\Value $valueObject */
         $valueObject = $this->getReverseTransformedValue($value);
 
         if ($this->fieldType->isEmptyValue($valueObject)) {

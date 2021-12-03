@@ -6,12 +6,12 @@
  */
 namespace Ibexa\AdminUi\Form\Processor;
 
-use eZ\Publish\API\Repository\ContentService;
-use EzSystems\EzPlatformContentForms\Data\Content\ContentUpdateData;
-use EzSystems\EzPlatformContentForms\Data\Content\FieldData;
-use EzSystems\EzPlatformContentForms\Event\ContentFormEvents;
-use EzSystems\EzPlatformContentForms\Event\FormActionEvent;
 use Ibexa\AdminUi\Form\Data\ContentTranslationData;
+use Ibexa\ContentForms\Data\Content\ContentUpdateData;
+use Ibexa\ContentForms\Event\ContentFormEvents;
+use Ibexa\ContentForms\Event\FormActionEvent;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\Contracts\Core\Repository\ContentService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -19,7 +19,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class TranslationFormProcessor implements EventSubscriberInterface
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
     public function __construct(
@@ -43,11 +43,11 @@ class TranslationFormProcessor implements EventSubscriberInterface
      *
      * This step is required to achieve compatibility with other FormProcessors.
      *
-     * @param \EzSystems\EzPlatformContentForms\Event\FormActionEvent $event
+     * @param \Ibexa\ContentForms\Event\FormActionEvent $event
      */
     public function createContentDraft(FormActionEvent $event): void
     {
-        /** @var \EzSystems\EzPlatformAdminUi\Form\Data\ContentTranslationData $data */
+        /** @var \Ibexa\AdminUi\Form\Data\ContentTranslationData $data */
         $data = $event->getData();
 
         if (!$data instanceof ContentTranslationData) {

@@ -20,20 +20,20 @@ use Twig\Environment;
 
 class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    const URI_FRAGMENT = 'ibexa-tab-content-type-view-translations';
+    public const URI_FRAGMENT = 'ibexa-tab-content-type-view-translations';
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory */
+    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     protected $datasetFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\ContentTypeFormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\ContentTypeFormFactory */
     protected $formFactory;
 
     /**
      * @param \Twig\Environment $twig
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \EzSystems\EzPlatformAdminUi\Form\Factory\ContentTypeFormFactory $formFactory
+     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
+     * @param \Ibexa\AdminUi\Form\Factory\ContentTypeFormFactory $formFactory
      */
     public function __construct(
         Environment $twig,
@@ -86,11 +86,11 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
      *
      * @return mixed[]
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
         $contentType = $contextParameters['content_type'];
         $contentTypeGroup = $contextParameters['content_type_group'];
 

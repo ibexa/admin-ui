@@ -9,7 +9,7 @@ namespace Ibexa\AdminUi\Form\Type\Search;
 use function class_alias;
 
 class_alias(
-    \EzSystems\EzPlatformAdminUi\Form\Type\Date\DateIntervalType::class,
+    \Ibexa\AdminUi\Form\Type\Date\DateIntervalType::class,
     __NAMESPACE__ . '\DateIntervalType'
 );
 
@@ -18,7 +18,7 @@ if (false) {
      * @deprecated since 3.1, to be removed in 3.2.
      * Use \EzSystems\EzPlatformAdminUi\Form\Type\Date\DateIntervalType instead
      */
-    class DateIntervalType extends \EzSystems\EzPlatformAdminUi\Form\Type\Date\DateIntervalType
+    class DateIntervalType extends \Ibexa\AdminUi\Form\Type\Date\DateIntervalType
     {
     }
 }

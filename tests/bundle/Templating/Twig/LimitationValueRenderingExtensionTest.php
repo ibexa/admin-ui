@@ -7,13 +7,13 @@
 namespace Ibexa\Tests\Bundle\AdminUi\Templating\Twig;
 
 use Exception;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension\FileSystemTwigIntegrationTestCase;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperRegistryInterface;
 use Ibexa\AdminUi\Limitation\Templating\LimitationBlockRenderer;
 use Ibexa\Bundle\AdminUi\Templating\Twig\LimitationValueRenderingExtension;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension\FileSystemTwigIntegrationTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionProperty;
 use Twig\Environment;
@@ -62,7 +62,7 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
     }
 
     /**
-     * @see \eZ\Publish\Core\MVC\Symfony\Templating\Tests\Twig\Extension\FileSystemTwigIntegrationTestCase::doIntegrationTest
+     * @see \Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension\FileSystemTwigIntegrationTestCase::doIntegrationTest
      */
     protected function doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation = ''): void
     {

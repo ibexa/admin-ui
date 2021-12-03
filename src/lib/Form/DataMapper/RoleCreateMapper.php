@@ -6,11 +6,11 @@
  */
 namespace Ibexa\AdminUi\Form\DataMapper;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\Repository\Values\User\RoleCreateStruct;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Form\Data\Role\RoleCreateData;
 use Ibexa\Contracts\AdminUi\Form\DataMapper\DataMapperInterface;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Repository\Values\User\RoleCreateStruct;
 
 /**
  * Maps between RoleCreateStruct and RoleCreateData objects.
@@ -20,11 +20,11 @@ class RoleCreateMapper implements DataMapperInterface
     /**
      * Maps given RoleCreateStruct object to a RoleCreateData object.
      *
-     * @param \eZ\Publish\Core\Repository\Values\User\RoleCreateStruct|\eZ\Publish\API\Repository\Values\ValueObject $value
+     * @param \Ibexa\Core\Repository\Values\User\RoleCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleCreateData
+     * @return \Ibexa\AdminUi\Form\Data\Role\RoleCreateData
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function map(ValueObject $value): RoleCreateData
     {
@@ -42,11 +42,11 @@ class RoleCreateMapper implements DataMapperInterface
     /**
      * Maps given RoleCreateData object to a RoleCreateStruct object.
      *
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleCreateData $data
+     * @param \Ibexa\AdminUi\Form\Data\Role\RoleCreateData $data
      *
-     * @return \eZ\Publish\Core\Repository\Values\User\RoleCreateStruct
+     * @return \Ibexa\Core\Repository\Values\User\RoleCreateStruct
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function reverseMap($data): RoleCreateStruct
     {

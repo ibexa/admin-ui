@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
-use eZ\Publish\API\Repository\PermissionResolver;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\UniversalDiscovery\ConfigResolver;
 use Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -27,19 +27,19 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__SEARCH = 'sidebar_left__search';
-    const ITEM__BROWSE = 'sidebar_left__browse';
-    const ITEM__BOOKMARK = 'sidebar_left__bookmark';
-    const ITEM__TRASH = 'sidebar_left__trash';
-    const ITEM__TREE = 'sidebar_left__tree';
+    public const ITEM__SEARCH = 'sidebar_left__search';
+    public const ITEM__BROWSE = 'sidebar_left__browse';
+    public const ITEM__BOOKMARK = 'sidebar_left__bookmark';
+    public const ITEM__TRASH = 'sidebar_left__trash';
+    public const ITEM__TREE = 'sidebar_left__tree';
 
-    /** @var \EzSystems\EzPlatformAdminUi\UniversalDiscovery\ConfigResolver */
+    /** @var \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver */
     private $configResolver;
 
-    /** @var \EzSystems\EzPlatformAdminUiBundle\Templating\Twig\UniversalDiscoveryExtension */
+    /** @var \Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension */
     private $udwExtension;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
@@ -74,7 +74,7 @@ class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainer
      *
      * @return \Knp\Menu\ItemInterface
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function createStructure(array $options): ItemInterface
     {

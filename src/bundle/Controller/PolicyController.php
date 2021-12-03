@@ -8,12 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\RoleService;
-use eZ\Publish\API\Repository\Values\User\Policy;
-use eZ\Publish\API\Repository\Values\User\Role;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Ibexa\AdminUi\Form\Data\Policy\PoliciesDeleteData;
 use Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData;
 use Ibexa\AdminUi\Form\Data\Policy\PolicyDeleteData;
@@ -24,6 +18,12 @@ use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\Values\User\Policy;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -32,25 +32,25 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PolicyController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \eZ\Publish\API\Repository\RoleService */
+    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
     private $roleService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataMapper\PolicyCreateMapper */
+    /** @var \Ibexa\AdminUi\Form\DataMapper\PolicyCreateMapper */
     private $policyCreateMapper;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataMapper\PolicyUpdateMapper */
+    /** @var \Ibexa\AdminUi\Form\DataMapper\PolicyUpdateMapper */
     private $policyUpdateMapper;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -72,14 +72,14 @@ class PolicyController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      * @param string $routeName
      * @param int $policyPage
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Pagerfanta\Exception\OutOfRangeCurrentPageException
      * @throws \Pagerfanta\Exception\NotIntegerCurrentPageException
      * @throws \Pagerfanta\Exception\LessThan1CurrentPageException
@@ -95,7 +95,7 @@ class PolicyController extends Controller
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.policy_limit'));
         $pagerfanta->setCurrentPage(min($policyPage, $pagerfanta->getNbPages()));
 
-        /** @var \eZ\Publish\API\Repository\Values\User\Policy[] $policies */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\Policy[] $policies */
         $policies = $pagerfanta->getCurrentPageResults();
 
         $isEditable = [];
@@ -123,7 +123,7 @@ class PolicyController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -197,13 +197,13 @@ class PolicyController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
-     * @param \eZ\Publish\API\Repository\Values\User\Policy $policy
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Policy $policy
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \InvalidArgumentException
      */
     public function updateAction(Request $request, Role $role, Policy $policy): Response
@@ -273,7 +273,7 @@ class PolicyController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      * @param string $policyModule
      * @param string $policyFunction
      *
@@ -322,8 +322,8 @@ class PolicyController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
-     * @param \eZ\Publish\API\Repository\Values\User\Policy $policy
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Policy $policy
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -375,7 +375,7 @@ class PolicyController extends Controller
      * Handles removing policies based on submitted form.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -428,7 +428,7 @@ class PolicyController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\Policy[] $policies
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Policy[] $policies
      *
      * @return array
      */

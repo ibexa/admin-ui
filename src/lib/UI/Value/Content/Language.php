@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Value\Content;
 
-use eZ\Publish\API\Repository\Values\Content\Language as APILanguage;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language as APILanguage;
 
 /**
  * Extends original value object in order to provide additional fields.
@@ -36,7 +36,7 @@ class Language extends APILanguage
     protected $userCanEdit = false;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      * @param array $properties
      */
     public function __construct(APILanguage $language, array $properties = [])

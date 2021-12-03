@@ -18,8 +18,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UniversalDiscoveryWidgetType extends AbstractType
 {
-    const TAB_BROWSE = 'browse';
-    const TAB_SEARCH = 'search';
+    public const TAB_BROWSE = 'browse';
+    public const TAB_SEARCH = 'search';
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

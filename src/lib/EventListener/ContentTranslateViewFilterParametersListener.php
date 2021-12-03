@@ -6,22 +6,22 @@
  */
 namespace Ibexa\AdminUi\EventListener;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewParametersEvent;
-use eZ\Publish\Core\MVC\Symfony\View\ViewEvents;
 use Ibexa\AdminUi\View\ContentTranslateView;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Core\MVC\Symfony\View\Event\FilterViewParametersEvent;
+use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * @inheritdoc
+ * {@inheritdoc}
  */
 class ContentTranslateViewFilterParametersListener implements EventSubscriberInterface
 {
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     protected $contentTypeService;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
      */
     public function __construct(
         ContentTypeService $contentTypeService
@@ -40,9 +40,9 @@ class ContentTranslateViewFilterParametersListener implements EventSubscriberInt
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewParametersEvent $event
+     * @param \Ibexa\Core\MVC\Symfony\View\Event\FilterViewParametersEvent $event
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function onFilterViewParameters(FilterViewParametersEvent $event)
     {

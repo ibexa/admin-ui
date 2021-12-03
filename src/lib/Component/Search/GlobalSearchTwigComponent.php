@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Component\Search;
 
-use EzSystems\EzPlatformAdminUi\Component\Renderable;
 use Ibexa\AdminUi\Form\Type\Search\GlobalSearchType;
+use Ibexa\Contracts\AdminUi\Component\Renderable;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

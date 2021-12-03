@@ -8,20 +8,20 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\UI\Config\Service;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use Ibexa\AdminUi\UI\Service\ContentTypeIconResolver;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Asset\Packages;
 
 class ContentTypeIconResolverTest extends TestCase
 {
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $configResolver;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Asset\Packages */
     private $packages;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Service\ContentTypeIconResolver */
+    /** @var \Ibexa\AdminUi\UI\Service\ContentTypeIconResolver */
     private $contentTypeIconResolver;
 
     protected function setUp(): void

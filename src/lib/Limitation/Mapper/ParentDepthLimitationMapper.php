@@ -6,8 +6,8 @@
  */
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
 class ParentDepthLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
 {
