@@ -1,5 +1,5 @@
 {% if form_content_type_edit is defined %}
-    {% form_theme form_content_type_edit '@ezdesign/ui/form_fields.html.twig' %}
+    {% form_theme form_content_type_edit '@ibexadesign/ui/form_fields.html.twig' %}
 {% endif %}
 
 <div class="row align-items-stretch ibexa-main-row">
@@ -12,7 +12,7 @@
                     content: tab.view,
                     active: index == 0,
                 }) %}
-                {% include '@ezdesign/ui/component/tab/tabs.html.twig' with {
+                {% include '@ibexadesign/ui/component/tab/tabs.html.twig' with {
                     tabs: tabs_to_show,
                 } %}
             </div>

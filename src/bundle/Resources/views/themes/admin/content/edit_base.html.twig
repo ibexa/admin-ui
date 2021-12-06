@@ -1,4 +1,4 @@
-{% extends '@ezdesign/ui/edit_base.html.twig' %}
+{% extends '@ibexadesign/ui/edit_base.html.twig' %}
 
 {% trans_default_domain 'content_edit' %}
 
@@ -93,11 +93,11 @@
 {% block javascripts %}
     {{ parent() }}
 
-    {% include '@ezdesign/content/edit/javascripts.html.twig' %}
+    {% include '@ibexadesign/content/edit/javascripts.html.twig' %}
     {{ encore_entry_script_tags('ezplatform-admin-ui-tabs-js', null, 'ibexa') }}
     {{ encore_entry_script_tags('ezplatform-admin-ui-edit-base-js', null, 'ibexa') }}
 {% endblock %}
 
 {% block stylesheets %}
-    {% include '@ezdesign/content/edit/stylesheets.html.twig' %}
+    {% include '@ibexadesign/content/edit/stylesheets.html.twig' %}
 {% endblock %}

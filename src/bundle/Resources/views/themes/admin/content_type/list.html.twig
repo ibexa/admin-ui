@@ -1,8 +1,8 @@
 {% trans_default_domain 'content_type' %}
 
-{% import "@ezdesign/content_type/macros.html.twig" as macros %}
+{% import "@ibexadesign/content_type/macros.html.twig" as macros %}
 
-{% form_theme form_content_types_delete '@ezdesign/ui/form_fields.html.twig'  %}
+{% form_theme form_content_types_delete '@ibexadesign/ui/form_fields.html.twig'  %}
 
 <section class="container ez-container">
     {% set body_rows = [] %}
@@ -69,7 +69,7 @@
         {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
     {% endfor %}
 
-    {% embed '@ezdesign/ui/component/table/table.html.twig' with {
+    {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
         headline: 'content_type.view.list.title'|trans({ '%identifier%': content_type_group.identifier })|desc('Content Types in \'%identifier%\''),
         head_cols: [
             { has_checkbox: true },
@@ -83,7 +83,7 @@
         body_rows,
     } %}
         {% block header %}
-            {% embed '@ezdesign/ui/component/table/table_header.html.twig' %}
+            {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
                 {% block actions %}
                     {% if can_create %}
                         <a
@@ -111,7 +111,7 @@
                                 <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
                             </svg>
                         </button>
-                        {% include '@ezdesign/ui/modal/bulk_delete_confirmation.html.twig' with {
+                        {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                             'id': modal_data_target,
                             'message': 'content_type.modal.message'|trans|desc('Do you want to delete the Content Type?'),
                             'data_click': '#content_types_delete_delete',
@@ -134,7 +134,7 @@
     {{ form_end(content_type_copy_form) }}
 
     {% if pager.haveToPaginate %}
-        {% include '@ezdesign/ui/pagination.html.twig' with {
+        {% include '@ibexadesign/ui/pagination.html.twig' with {
             'pager': pager,
             'paginaton_params': {
                 'routeName': route_name,

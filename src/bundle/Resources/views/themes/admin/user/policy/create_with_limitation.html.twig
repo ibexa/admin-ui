@@ -1,11 +1,11 @@
-{% extends "@ezdesign/user/policy/base.html.twig" %}
+{% extends "@ibexadesign/user/policy/base.html.twig" %}
 
-{% form_theme form '@ezdesign/ui/form_fields.html.twig'  %}
+{% form_theme form '@ibexadesign/ui/form_fields.html.twig'  %}
 
 {% trans_default_domain 'role' %}
 
 {% block breadcrumbs_admin %}
-    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
         { url: path('ezplatform.role.list'), value: 'role.breadcrumb.list'|trans|desc('Roles') },
         { url: path('ezplatform.role.view', {roleId: role.id}), value: 'role.breadcrumb.view.identifier'|trans({ '%identifier%': role.identifier })|desc('Role "%identifier%"') },
@@ -15,11 +15,11 @@
 
 {% block context_menu_admin %}
     {% set policy_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.policy_edit.sidebar_right', [], {'role': role, 'save_id': form.save.vars.id}) %}
-    {{ knp_menu_render(policy_edit_sidebar_right, {'template': '@ezdesign/ui/menu/context_menu.html.twig'}) }}
+    {{ knp_menu_render(policy_edit_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
 {% endblock %}
 
 {% block header_admin %}
-    {% include '@ezdesign/ui/page_title.html.twig' with {
+    {% include '@ibexadesign/ui/page_title.html.twig' with {
         title: 'policy.view.edit.title'|trans()|desc('Edit Limitations'),
     } %}
 {% endblock %}

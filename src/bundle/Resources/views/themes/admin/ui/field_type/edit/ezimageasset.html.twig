@@ -1,6 +1,6 @@
 {% trans_default_domain 'ezplatform_content_forms_content' %}
 
-{% use '@ezdesign/ui/field_type/edit/binary_base.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/binary_base.html.twig' %}
 
 {%- block ezplatform_fieldtype_ezimageasset_row -%}
     {% set preview_block_name = 'ezimageasset_preview' %}
@@ -70,7 +70,7 @@
 {% endblock %}
 
 {% block ezimageasset_preview %}
-    {% form_theme form '@ezdesign/ui/field_type/edit/binary_base_fields.html.twig' %}
+    {% form_theme form '@ibexadesign/ui/field_type/edit/binary_base_fields.html.twig' %}
 
     {% set destination_content_url = destination_content_url ?? '//:0' %}
     {% set destination_content_name = destination_content_name ?? '' %}

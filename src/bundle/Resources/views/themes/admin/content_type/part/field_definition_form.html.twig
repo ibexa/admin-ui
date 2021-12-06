@@ -1,6 +1,6 @@
 {% trans_default_domain 'content_type' %}
 
-{% form_theme form '@ezdesign/ui/form_fields.html.twig' %}
+{% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
 
 {% set name = '' %}
 {% set value = form.vars.value %}
@@ -9,7 +9,7 @@
     {% set name = value.names[content_type.mainLanguageCode] %}
 {% endif %}
 
-{%- embed "@ezdesign/ui/component/collapse.html.twig" with {
+{%- embed "@ibexadesign/ui/component/collapse.html.twig" with {
     'body_id': form.vars.id ~ '_collapse',
     'header_label': name,
     'is_expanded': false,

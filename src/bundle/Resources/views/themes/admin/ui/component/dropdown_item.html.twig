@@ -6,7 +6,7 @@
         <label class="ibexa-dropdown__item-group-label">{{ item_label }}</label>
         <ul class="ibexa-dropdown__item-group-list">
             {% for child in choice.choices %}
-                {% include '@ezdesign/ui/component/dropdown_item.html.twig' with { choice: child, preferred_choice, custom_form } %}
+                {% include '@ibexadesign/ui/component/dropdown_item.html.twig' with { choice: child, preferred_choice, custom_form } %}
             {% endfor %}
         </ul>
     </li>

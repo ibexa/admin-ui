@@ -1,4 +1,4 @@
-{% extends "@ezdesign/content_type/edit_base.html.twig" %}
+{% extends "@ibexadesign/content_type/edit_base.html.twig" %}
 
 {% set language_code = language_code|default(content_type.mainLanguageCode) %}
 
@@ -8,12 +8,12 @@
         'content_type': content_type
     }) %}
 
-    {% include '@ezdesign/ui/edit_header.html.twig' with {
+    {% include '@ibexadesign/ui/edit_header.html.twig' with {
         action_name: 'editing'|trans|desc('Editing'),
         icon_name: 'file',
         title: 'editing.title'|trans({ '%identifier%': content_type.name })|desc('Editing Content type %identifier%'),
         show_autosave_status: false,
-        context_actions: knp_menu_render(content_type_edit_sidebar_right, {'template': '@ezdesign/ui/menu/context_menu.html.twig'})
+        context_actions: knp_menu_render(content_type_edit_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
 {% endblock %}
 
@@ -22,7 +22,7 @@
         {% set is_translation = form.vars.data.languageCode != content_type.mainLanguageCode %}
 
         {% if is_translation %}
-            {% include '@ezdesign/content_type/part/nontranslatable_fields_disabled.html.twig' %}
+            {% include '@ibexadesign/content_type/part/nontranslatable_fields_disabled.html.twig' %}
         {% endif %}
 
         <div
@@ -32,7 +32,7 @@
             data-content-type-id="{{ content_type.id }}"
         >
             {% block form_sections %}
-                {% embed "@ezdesign/content_type/edit_section.html.twig" with { section_id: '#Global-properties', is_active: true } %}
+                {% embed "@ibexadesign/content_type/edit_section.html.twig" with { section_id: '#Global-properties', is_active: true } %}
                     {% block title %}
                         {{ 'content_type.view.edit.global_properties'|trans|desc('Global properties') }}
                     {% endblock %}
@@ -50,7 +50,7 @@
                     {% endblock %}
                 {% endembed %}
 
-                {% embed "@ezdesign/content_type/edit_section.html.twig" with {
+                {% embed "@ibexadesign/content_type/edit_section.html.twig" with {
                     section_id: '#Field-definitions',
                     left_column_class: 'ibexa-content-type-edit__section-column--field-definitions',
                     right_column_class: 'ibexa-content-type-edit__section-column--available-fields'
@@ -60,11 +60,11 @@
                     {% endblock %}
 
                     {% block left_column %}
-                        {{ include('@ezdesign/content_type/field_definitions.html.twig', { grouped_field_defintions: form.fieldDefinitionsData }) }}
+                        {{ include('@ibexadesign/content_type/field_definitions.html.twig', { grouped_field_defintions: form.fieldDefinitionsData }) }}
                     {% endblock %}
 
                     {% block right_column %}
-                        {{ include('@ezdesign/content_type/available_field_types.html.twig') }}
+                        {{ include('@ibexadesign/content_type/available_field_types.html.twig') }}
                     {% endblock %}
                 {% endembed %}
             {% endblock %}

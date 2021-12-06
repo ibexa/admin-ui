@@ -18,7 +18,7 @@
         {% set col_raw %}
             {%- set limitation = role_assignment.rolelimitation -%}
             {%- if limitation -%}
-                {{ ibexa_render_limitation_value(limitation, {'template': '@ezdesign/content/tab/roles/limitation_values.html.twig'}) }}
+                {{ ibexa_render_limitation_value(limitation, {'template': '@ibexadesign/content/tab/roles/limitation_values.html.twig'}) }}
                 <span title="{{ 'policy.limitation.identifier_tooltip' | trans({'%identifier%': limitation.identifier})|desc('"%identifier%" Limitation') }}">
                     ({{ ('policy.limitation.identifier.' ~ limitation.identifier|lower)|trans({'%identifier%': limitation.identifier}, 'ezplatform_content_forms_policies')|desc('%identifier%') }})
                 </span>
@@ -35,7 +35,7 @@
     {% endfor %}
 {% endif %}
 
-{% include '@ezdesign/ui/component/table/table.html.twig' with {
+{% include '@ibexadesign/ui/component/table/table.html.twig' with {
     headline: 'tab.roles.roles'|trans|desc('Roles'),
     head_cols: [
         { content: 'tab.roles.name'|trans|desc('Name') },

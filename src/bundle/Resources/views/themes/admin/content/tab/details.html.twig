@@ -1,6 +1,6 @@
 {% trans_default_domain 'locationview' %}
 
-{% form_theme form_location_update '@ezdesign/ui/form_fields.html.twig' %}
+{% form_theme form_location_update '@ibexadesign/ui/form_fields.html.twig' %}
 
 {% set body_row_cols = [
     { content: creator is not empty ? ibexa_content_name(creator) : 'tab.details.creator.not_found'|trans|desc('Can\'t fetch creator') },
@@ -13,7 +13,7 @@
     {% endfor %}
 {% endset %}
 {% set body_row_cols = body_row_cols|merge([{ content: col_raw, raw: true }]) %}
-{% include '@ezdesign/ui/component/table/table.html.twig' with {
+{% include '@ibexadesign/ui/component/table/table.html.twig' with {
     headline: 'tab.details.content_details'|trans()|desc('Content details'),
     head_cols: [
         { content: 'tab.details.creator'|trans()|desc('Creator') },
@@ -26,7 +26,7 @@
     }],
 } %}
 
-{% include '@ezdesign/ui/component/table/table.html.twig' with {
+{% include '@ibexadesign/ui/component/table/table.html.twig' with {
     headline: 'tab.details.technical_details'|trans()|desc('Technical details'),
     head_cols: [
         { content: 'tab.details.content_id'|trans()|desc('Content ID') },
@@ -50,7 +50,7 @@
     ] %}
     {% set col_raw %}
         {% if form_assign_section %}
-            {% form_theme form_assign_section '@ezdesign/ui/form_fields.html.twig' %}
+            {% form_theme form_assign_section '@ibexadesign/ui/form_fields.html.twig' %}
 
             {{ form_start(form_assign_section, {
                 'action': path('ezplatform.location.assign_section'),
@@ -65,7 +65,7 @@
         {% endif %}
     {% endset %}
     {% set body_row_cols = body_row_cols|merge([{ content: col_raw, raw: true }]) %}
-    {% include '@ezdesign/ui/component/table/table.html.twig' with {
+    {% include '@ibexadesign/ui/component/table/table.html.twig' with {
         headline: 'tab.details.section_details'|trans()|desc('Section details'),
         head_cols: [
             { content: 'tab.details.section_name'|trans()|desc('Section name') },
@@ -88,7 +88,7 @@
 
     {% set col_raw %}
         {% if can_assign and form_state_update[object_state.objectStateGroup.id].objectState.vars.choices|length != 0 %}
-            {% form_theme form_state_update[object_state.objectStateGroup.id] '@ezdesign/ui/form_fields.html.twig' %}
+            {% form_theme form_state_update[object_state.objectStateGroup.id] '@ibexadesign/ui/form_fields.html.twig' %}
             {{ form_start(form_state_update[object_state.objectStateGroup.id], {
                 'method': 'POST',
                 'action': path('ezplatform.object_state.contentstate.update', {
@@ -112,7 +112,7 @@
     {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
 {% endfor %}
 
-{% include '@ezdesign/ui/component/table/table.html.twig' with {
+{% include '@ibexadesign/ui/component/table/table.html.twig' with {
     headline: 'tab.details.state_details'|trans()|desc('Object state details'),
     head_cols: [
         { content: 'tab.details.state_group_name'|trans()|desc('Group name') },
@@ -122,7 +122,7 @@
     body_rows,
 } %}
 
-{% include '@ezdesign/ui/component/table/table_header.html.twig' with {
+{% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
     headline: 'tab.details.sub_items_sorting_order'|trans|desc('Sub-item sorting order'),
 } only %}
 

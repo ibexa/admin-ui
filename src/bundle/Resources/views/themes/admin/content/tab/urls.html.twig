@@ -1,7 +1,7 @@
 {% trans_default_domain 'content_url' %}
 {% import _self as tab %}
 
-{{  include('@ezdesign/content/tab/url/custom_urls_table.html.twig', {
+{{  include('@ibexadesign/content/tab/url/custom_urls_table.html.twig', {
         'custom_urls_pager': custom_urls_pager,
         'form_custom_url_remove': form_custom_url_remove,
         'can_edit_custom_url': can_edit_custom_url,
@@ -9,7 +9,7 @@
 }) }}
 
 {% if custom_urls_pager.haveToPaginate %}
-    {% include '@ezdesign/ui/pagination.html.twig' with {
+    {% include '@ibexadesign/ui/pagination.html.twig' with {
         'pager': custom_urls_pager,
         'paginaton_params': {
             'routeName': custom_urls_pagination_params.route_name,
@@ -22,12 +22,12 @@
     } %}
 {% endif %}
 
-{{  include('@ezdesign/content/tab/url/system_urls_table.html.twig', {
+{{  include('@ibexadesign/content/tab/url/system_urls_table.html.twig', {
         'system_urls_pager': system_urls_pager,
 }) }}
 
 {% if system_urls_pager.haveToPaginate %}
-    {% include '@ezdesign/ui/pagination.html.twig' with {
+    {% include '@ibexadesign/ui/pagination.html.twig' with {
         'pager': system_urls_pager,
         'paginaton_params': {
             'routeName': system_urls_pagination_params.route_name,
@@ -41,7 +41,7 @@
 {% endif %}
 
 {% if can_edit_custom_url %}
-    {% include '@ezdesign/content/tab/url/modal_add_custom_url.html.twig' with {
+    {% include '@ibexadesign/content/tab/url/modal_add_custom_url.html.twig' with {
         'form': form_custom_url_add,
         'parent_name': parent_name
     } only %}
@@ -72,7 +72,7 @@
                 <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
             </svg>
         </button>
-        {% include '@ezdesign/ui/modal/bulk_delete_confirmation.html.twig' with {
+        {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
             'id': modal_data_target,
             'message': 'tab.urls.modal.message'|trans|desc('Do you want to delete the selected custom URL alias(es)?'),
             'data_click': '#' ~ form_custom_url_remove.remove.vars.id,

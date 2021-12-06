@@ -1,18 +1,18 @@
 {% trans_default_domain 'locationview' %}
 
 <section>
-    {{ include('@ezdesign/content/tab/relations/table_relations.html.twig', {
+    {{ include('@ibexadesign/content/tab/relations/table_relations.html.twig', {
         relations: relations,
         content: content,
     }) }}
 
     {% if reverse_relation_pager is defined %}
-        {{ include('@ezdesign/content/tab/relations/table_relations_reverse.html.twig', {
+        {{ include('@ibexadesign/content/tab/relations/table_relations_reverse.html.twig', {
             relations: reverse_relation_pager.currentPageResults,
             content: content,
         }) }}
         {% if reverse_relation_pager.haveToPaginate %}
-            {% include '@ezdesign/ui/pagination.html.twig' with {
+            {% include '@ibexadesign/ui/pagination.html.twig' with {
                 'pager': reverse_relation_pager,
                 'paginaton_params': {
                     'routeName': reverse_relation_pagination_params.route_name,

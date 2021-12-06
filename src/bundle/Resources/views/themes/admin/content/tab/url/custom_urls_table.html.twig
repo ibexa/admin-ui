@@ -1,5 +1,5 @@
 {% trans_default_domain 'content_url' %}
-{% form_theme form_custom_url_remove with ['@ezdesign/ui/form/flat_widgets.html.twig', '@ezdesign/ui/form_fields.html.twig'] %}
+{% form_theme form_custom_url_remove with ['@ibexadesign/ui/form/flat_widgets.html.twig', '@ibexadesign/ui/form_fields.html.twig'] %}
 
 {% set body_rows = [] %}
 {% if custom_urls_pager.currentPageResults is not empty %}
@@ -40,7 +40,7 @@
     {% endfor %}
 {% endif %}
 
-{% embed '@ezdesign/ui/component/table/table.html.twig' with {
+{% embed '@ibexadesign/ui/component/table/table.html.twig' with {
     headline: 'tab.urls.custom_url_aliases'|trans({'%contentName%' : ibexa_content_name(content)})|desc('Custom URL aliases for %contentName%'),
     head_cols: [
         { has_checkbox: true },

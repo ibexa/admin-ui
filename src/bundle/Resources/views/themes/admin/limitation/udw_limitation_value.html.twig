@@ -10,7 +10,7 @@
         data-location-input-selector="#{{ form.limitationValues.vars.id }}"
         data-selected-location-list-selector="#{{ form.limitationValues.vars.id }}-selected-location"
         data-udw-config="{{ ibexa_udw_config('multiple', {}) }}"
-        data-value-template="{{ include('@ezdesign/limitation/udw_limitation_value_list_item.html.twig', {
+        data-value-template="{{ include('@ibexadesign/limitation/udw_limitation_value_list_item.html.twig', {
             'content_breadcrumbs': '',
             'location_id': '{{ location_id }}',
             'is_loading_state': true
@@ -30,7 +30,7 @@
                     {% endif %}
                 {% endfor %}
                 
-                {{ include('@ezdesign/limitation/udw_limitation_value_list_item.html.twig', {
+                {{ include('@ibexadesign/limitation/udw_limitation_value_list_item.html.twig', {
                     'content_breadcrumbs': content_breadcrumbs,
                     'location_id': limitationValue.id,
                     'is_loading_state': false

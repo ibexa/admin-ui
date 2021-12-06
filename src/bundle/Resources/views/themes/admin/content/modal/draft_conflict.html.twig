@@ -35,11 +35,11 @@
                     {% endif %}
                 </div>
                 {% set show_add_draft_button = (not content_is_user) %}
-                {% include '@ezdesign/ui/component/table/table_header.html.twig' with {
+                {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
                     headline: '',
                     actions: version_modal_draft_conflict.table_header_tools(show_add_draft_button),
                 } only %}
-                {{ include('@ezdesign/content/tab/versions/table.html.twig', {
+                {{ include('@ibexadesign/content/tab/versions/table.html.twig', {
                     'versions': conflicted_drafts,
                     'location': location,
                     'is_draft': true,

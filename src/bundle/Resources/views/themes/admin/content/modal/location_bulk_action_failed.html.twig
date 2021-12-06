@@ -17,7 +17,7 @@
             </div>
             <div class="modal-body">
                 {% set table_row_template %}
-                    {{ include('@ezdesign/ui/component/table/table_body_row.html.twig', {
+                    {{ include('@ibexadesign/ui/component/table/table_body_row.html.twig', {
                         body_row_cols: [
                             { content: '{{ content_name }}' },
                             { content: '{{ content_type_name }}' },
@@ -25,7 +25,7 @@
                     }) }}
                 {% endset %}
 
-                {% embed '@ezdesign/ui/component/table/table.html.twig' with {
+                {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
                     headline: ' ',
                     head_cols: [
                         { content: 'bulk_action.failed.modal.content_name'|trans|desc('Name') },

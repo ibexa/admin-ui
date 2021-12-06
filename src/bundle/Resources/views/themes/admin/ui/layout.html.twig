@@ -131,7 +131,7 @@
                 <div class="ibexa-main-header__user-menu-column">
                     {{ knp_menu_render('ezplatform_admin_ui.menu.user', {
                         'depth': 1,
-                        'template': '@ezdesign/ui/menu/user.html.twig'
+                        'template': '@ibexadesign/ui/menu/user.html.twig'
                     }) }}
                 </div>
             </div>
@@ -150,14 +150,14 @@
                         <nav class="ibexa-main-menu">
                             {{ knp_menu_render(main_menu, {
                                 'depth': 1,
-                                'template': '@ezdesign/ui/menu/main.html.twig',
+                                'template': '@ibexadesign/ui/menu/main.html.twig',
                                 'currentClass': 'active',
                                 'ancestorClass': 'active'
                             }) }}
                         
                             {{ knp_menu_render(main_menu, {
                                 'depth': 2,
-                                'template': '@ezdesign/ui/menu/main_2nd_level.html.twig',
+                                'template': '@ibexadesign/ui/menu/main_2nd_level.html.twig',
                                 'currentClass': 'active',
                                 'ancestorClass': 'active'
                             }) }}
@@ -193,7 +193,7 @@
         <div
             class="ibexa-notifications-container"
             data-notifications="{{ app.flashes|json_encode() }}"
-            data-template="{{ include('@ezdesign/ui/notification.html.twig', {
+            data-template="{{ include('@ibexadesign/ui/notification.html.twig', {
                 label: '{{ label }}',
                 message: '{{ message }}',
             })|e('html_attr')  }}"></div>

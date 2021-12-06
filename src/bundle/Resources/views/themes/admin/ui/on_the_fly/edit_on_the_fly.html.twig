@@ -1,4 +1,4 @@
-{% extends '@ezdesign/content/edit_base.html.twig' %}
+{% extends '@ibexadesign/content/edit_base.html.twig' %}
 
 {% trans_default_domain 'content_edit' %}
 
@@ -11,7 +11,7 @@
 {% set without_close_button = true %}
 
 {% block header %}
-    {% include '@ezdesign/ui/edit_header.html.twig' with {
+    {% include '@ibexadesign/ui/edit_header.html.twig' with {
         action_name: 'editing'|trans|desc('Editing'),
         title: content.name,
         icon_name: 'content-type',

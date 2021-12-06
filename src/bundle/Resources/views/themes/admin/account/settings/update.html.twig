@@ -1,20 +1,20 @@
-{% extends '@ezdesign/ui/base.html.twig' %}
+{% extends '@ibexadesign/ui/base.html.twig' %}
 
 {% trans_default_domain 'user_settings' %}
 
 {% block breadcrumbs_admin %}
-    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'list.title'|trans|desc('User Settings') }
     ]} %}
 {% endblock %}
 
 {% block context_menu_admin %}
     {% set user_setting_update_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_setting_update.sidebar_right', [], {'user_setting': user_setting}) %}
-    {{ knp_menu_render(user_setting_update_sidebar_right, {'template': '@ezdesign/ui/menu/context_menu.html.twig'}) }}
+    {{ knp_menu_render(user_setting_update_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
 {% endblock %}
 
 {% block header_admin %}
-    {% include '@ezdesign/ui/page_title.html.twig' with {
+    {% include '@ibexadesign/ui/page_title.html.twig' with {
         title: 'list.title'|trans|desc('User Settings'),
     } %}
 {% endblock %}
@@ -22,11 +22,11 @@
 {% block body_class %}ez-user-settings-update-view{% endblock %}
 
 {% block form %}
-    {% form_theme form '@ezdesign/ui/form_fields.html.twig' %}
+    {% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
     <section class="container ez-container">
         {{ form_start(form) }}
         {{ form_widget(form.identifier, {'attr': {'hidden': 'hidden'}}) }}
-        {% include '@ezdesign/ui/component/table/table_header.html.twig' with {
+        {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
             headline: user_setting.name,
         } %}
         <div class="bg-white p-4">

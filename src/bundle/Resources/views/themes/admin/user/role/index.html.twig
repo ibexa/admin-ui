@@ -1,11 +1,11 @@
-{% extends "@ezdesign/ui/layout.html.twig" %}
+{% extends "@ibexadesign/ui/layout.html.twig" %}
 
 {% trans_default_domain 'role' %}
 
 {% block body_class %}ez-role-view{% endblock %}
 
 {% block breadcrumbs %}
-    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
         { url: path('ezplatform.role.list'), value: 'role.breadcrumb.list'|trans|desc('Roles') },
         { value: 'role.breadcrumb.view.identifier'|trans({'%identifier%': role.identifier })|desc('Role "%identifier%"') }
@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block header %}
-    {% include '@ezdesign/ui/page_title.html.twig' with {
+    {% include '@ibexadesign/ui/page_title.html.twig' with {
         title: 'role.view.view.title'|trans({'%identifier%': role.identifier})|desc('Role "%identifier%"'),
     } %}
 {% endblock %}
@@ -22,14 +22,14 @@
 
     <div class="panel panel-primary">
         <div class="panel-body">
-            {% embed '@ezdesign/ui/component/tab/tabs.html.twig' with {
+            {% embed '@ibexadesign/ui/component/tab/tabs.html.twig' with {
                 tabs: [
                     { id: 'policies', label: 'policy.view.list.title'|trans|desc('Policies'), active: true },
                     { id: 'users-and-groups', label: 'role_assignment.view.list.title.count'|trans({'%count%': assignments|length})|desc('Assignments (%count%)') },
                 ]
             } %}
                 {% block tab_content %}
-                    {% embed '@ezdesign/ui/component/tab/tab_pane.html.twig' with { id: 'policies', active: true } %}
+                    {% embed '@ibexadesign/ui/component/tab/tab_pane.html.twig' with { id: 'policies', active: true } %}
                         {% block content %}
                             {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\PolicyController::listAction', {
                                 roleId: role.id,
@@ -38,7 +38,7 @@
                             })) }}
                         {% endblock %}
                     {% endembed %}
-                    {% embed '@ezdesign/ui/component/tab/tab_pane.html.twig' with { id: 'users-and-groups', active: false } %}
+                    {% embed '@ibexadesign/ui/component/tab/tab_pane.html.twig' with { id: 'users-and-groups', active: false } %}
                         {% block content %}
                             {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\RoleAssignmentController::listAction', {
                                 roleId: role.id,

@@ -11,33 +11,33 @@
         <thead>
             <tr class="ibexa-table__head-row">
                 {% if form is defined %}
-                    {% include '@ezdesign/ui/component/table/table_head_cell.html.twig' with {
+                    {% include '@ibexadesign/ui/component/table/table_head_cell.html.twig' with {
                         has_checkbox: true,
                         content: null,
                     } %}
                 {% endif %}
-                {% include '@ezdesign/ui/component/table/table_head_cell.html.twig' with {
+                {% include '@ibexadesign/ui/component/table/table_head_cell.html.twig' with {
                     is_close_left: form is defined,
                     content: 'tab.versions.table.version'|trans()|desc('Version'),
                 } %}
-                {% include '@ezdesign/ui/component/table/table_head_cell.html.twig' with {
+                {% include '@ibexadesign/ui/component/table/table_head_cell.html.twig' with {
                     content: 'tab.versions.table.modified_language'|trans()|desc('Modified language'),
                 } %}
                 {% block custom_column_headers %}{% endblock %}
-                {% include '@ezdesign/ui/component/table/table_head_cell.html.twig' with {
+                {% include '@ibexadesign/ui/component/table/table_head_cell.html.twig' with {
                     content: 'tab.versions.table.contributor'|trans()|desc('Contributor'),
                 } %}
                 {% if not is_draft_conflict %}
-                    {% include '@ezdesign/ui/component/table/table_head_cell.html.twig' with {
+                    {% include '@ibexadesign/ui/component/table/table_head_cell.html.twig' with {
                         content: 'tab.versions.table.created'|trans()|desc('Created'),
                     } %}
                 {% endif %}
-                {% include '@ezdesign/ui/component/table/table_head_cell.html.twig' with {
+                {% include '@ibexadesign/ui/component/table/table_head_cell.html.twig' with {
                     content: 'tab.versions.table.last_saved'|trans()|desc('Last saved'),
                 } %}
                 {% block custom_actions_column_headers %}{% endblock %}
                 {% if have_actions %}
-                    {% include '@ezdesign/ui/component/table/table_head_cell.html.twig' with { content: null } %}
+                    {% include '@ibexadesign/ui/component/table/table_head_cell.html.twig' with { content: null } %}
                 {% endif %}
             </tr>
         </thead>
@@ -64,39 +64,39 @@
                     {% block custom_actions_column %}{% endblock %}
                 {% endset %}
 
-                {% embed '@ezdesign/ui/component/table/table_body_row.html.twig' %}
+                {% embed '@ibexadesign/ui/component/table/table_body_row.html.twig' %}
                     {% block body_row_cells %}
                         {% if form is defined %}
-                            {% embed '@ezdesign/ui/component/table/table_body_cell.html.twig' with { has_checkbox: true } %}
+                            {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { has_checkbox: true } %}
                                 {% block content %}
                                     {{ form_widget(form.versions[version.versionNo], {'attr': {'disabled': not version.canDelete}}) }}
                                 {% endblock %}
                             {% endembed %}
                         {% endif %}
-                        {% include '@ezdesign/ui/component/table/table_body_cell.html.twig' with {
+                        {% include '@ibexadesign/ui/component/table/table_body_cell.html.twig' with {
                             is_close_left: form is defined,
                             content: version.versionNo,
                         } %}
-                        {% include '@ezdesign/ui/component/table/table_body_cell.html.twig' with {
+                        {% include '@ibexadesign/ui/component/table/table_body_cell.html.twig' with {
                             content: ibexa_admin_ui_config.languages.mappings[version.initialLanguageCode].name,
                         } %}
                         {{ custom_columns }}
-                        {% include '@ezdesign/ui/component/table/table_body_cell.html.twig' with {
+                        {% include '@ibexadesign/ui/component/table/table_body_cell.html.twig' with {
                             content: version.author is not empty
                                 ? ibexa_content_name(version.author)
                                 : 'tab.versions.table.author.not_found'|trans|desc('Can\'t fetch contributor'),
                         } %}
                         {% if not is_draft_conflict %}
-                            {% include '@ezdesign/ui/component/table/table_body_cell.html.twig' with {
+                            {% include '@ibexadesign/ui/component/table/table_body_cell.html.twig' with {
                                 content: version.creationDate|ibexa_full_datetime,
                             } %}
                         {% endif %}
-                        {% include '@ezdesign/ui/component/table/table_body_cell.html.twig' with {
+                        {% include '@ibexadesign/ui/component/table/table_body_cell.html.twig' with {
                             content: version.modificationDate|ibexa_full_datetime,
                         } %}
 
                         {% if have_actions %}
-                            {% embed '@ezdesign/ui/component/table/table_body_cell.html.twig' with { has_action_btns: true } %}
+                            {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { has_action_btns: true } %}
                                 {% block action_btns_content %}
                                     {{ custom_actions_column }}
                                     {% if is_draft_conflict %}

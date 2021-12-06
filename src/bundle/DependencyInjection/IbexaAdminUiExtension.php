@@ -102,7 +102,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
     {
         $eZDesignConfigFile = __DIR__ . '/../Resources/config/ezdesign.yaml';
         $config = Yaml::parseFile($eZDesignConfigFile);
-        $container->prependExtensionConfig('ezdesign', $config['ezdesign']);
+        $container->prependExtensionConfig('ibexa_design_engine', $config['ibexa_design_engine']);
         $container->prependExtensionConfig('ibexa', $config['ibexa']);
         $container->addResource(new FileResource($eZDesignConfigFile));
     }

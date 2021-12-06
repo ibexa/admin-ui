@@ -1,13 +1,13 @@
-{% extends "@ezdesign/ui/layout.html.twig" %}
+{% extends "@ibexadesign/ui/layout.html.twig" %}
 
 {% trans_default_domain 'bookmark' %}
 
-{% form_theme form_remove '@ezdesign/ui/form_fields.html.twig' %}
+{% form_theme form_remove '@ibexadesign/ui/form_fields.html.twig' %}
 
 {% block body_class %}ez-bookmark-list-view{% endblock %}
 
 {% block header %}
-    {% include '@ezdesign/ui/page_title.html.twig' with {
+    {% include '@ibexadesign/ui/page_title.html.twig' with {
         title: 'bookmark.headline'|trans|desc('Bookmarks')
     } %}
 {% endblock %}
@@ -80,7 +80,7 @@
                     'action': path('ezplatform.bookmark.remove'),
                     'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#bookmark_remove_remove' }
                 }) }}
-                {% include '@ezdesign/ui/component/table/table.html.twig' with {
+                {% include '@ibexadesign/ui/component/table/table.html.twig' with {
                     headline: 'bookmark.table.header'|trans|desc('Bookmarks') ~ ' (' ~ pager.count ~ ')',
                     head_cols: [
                         { has_checkbox: true },
@@ -97,7 +97,7 @@
                 {{ form_end(form_remove) }}
 
                 {% if pager.haveToPaginate %}
-                    {% include '@ezdesign/ui/pagination.html.twig' with {
+                    {% include '@ibexadesign/ui/pagination.html.twig' with {
                         'pager': pager
                     } %}
                 {% endif %}

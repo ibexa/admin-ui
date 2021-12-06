@@ -89,7 +89,7 @@
                 }]) %}
                 {% set col_raw %}
                     {% if result.mainLocationId is not null %}
-                        {% include '@ezdesign/ui/edit_translation_button.html.twig' with {
+                        {% include '@ibexadesign/ui/edit_translation_button.html.twig' with {
                             'contentId': result.contentId,
                             'translations': result.available_enabled_translations,
                             'top_offset': 100
@@ -114,18 +114,18 @@
             ] %}
             {% set head_cols = head_cols|merge([{ }]) %}
 
-            {% embed '@ezdesign/ui/component/table/table.html.twig' with {
+            {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
                 headline: 'search.header'|trans({'%total%': pager.nbResults})|desc('Search results (%total%)'),
                 head_cols: head_cols,
                 body_rows: body_rows,
             } %}
                 {% block between_header_and_table %}
-                    {% include '@ezdesign/ui/search/criteria_tags.html.twig' %}
+                    {% include '@ibexadesign/ui/search/criteria_tags.html.twig' %}
                 {% endblock %}
             {% endembed %}
 
             {% if pager.haveToPaginate %}
-                {% include '@ezdesign/ui/pagination.html.twig' with {
+                {% include '@ibexadesign/ui/pagination.html.twig' with {
                     'pager': pager,
                     'paginaton_params' : {
                         'pageParameter': '[search][page]'

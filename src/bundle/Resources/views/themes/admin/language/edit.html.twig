@@ -1,11 +1,11 @@
-{% extends '@ezdesign/language/base.html.twig' %}
+{% extends '@ibexadesign/language/base.html.twig' %}
 
-{% form_theme form '@ezdesign/ui/form_fields.html.twig'  %}
+{% form_theme form '@ibexadesign/ui/form_fields.html.twig'  %}
 
 {% trans_default_domain 'language' %}
 
 {% block breadcrumbs_admin %}
-    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
         { url: path('ezplatform.language.list'), value: 'language.list'|trans|desc('Languages') },
         { value: 'language.edit.identifier'|trans({ '%language%': language.name })|desc('Editing language \'%language%\'') }
@@ -14,11 +14,11 @@
 
 {% block context_menu_admin %}
     {% set language_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.language_edit.sidebar_right', [], {'save_id': form.save.vars.id}) %}
-    {{ knp_menu_render(language_edit_sidebar_right, {'template': '@ezdesign/ui/menu/context_menu.html.twig'}) }}
+    {{ knp_menu_render(language_edit_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
 {% endblock %}
 
 {% block header_admin %}
-    {% include '@ezdesign/ui/page_title.html.twig' with {
+    {% include '@ibexadesign/ui/page_title.html.twig' with {
         title: 'language.edit.identifier'|trans({ '%language%': language.name })|desc('Editing language \'%language%\''),
     } %}
 {% endblock %}
