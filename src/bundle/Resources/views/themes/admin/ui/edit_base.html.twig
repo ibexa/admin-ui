@@ -5,7 +5,7 @@
 {% block header_row %}{% endblock %}
 
 {% block left_sidebar %}
-    {% include '@ibexadesign/ui/anchor_navigation_menu.html.twig' with anchor_params %}
+    {% include '@ibexadesign/ui/anchor_navigation_menu.html.twig' with anchor_params|default({}) %}
 {% endblock %}
 
 {% block content_column %}
