@@ -1,0 +1,30 @@
+<div class="ibexa-available-field-types">
+    <div class="ibexa-available-field-types__action-bar"></div>
+    <div class="ibexa-available-field-types__title-bar">
+        <h3 class="ibexa-available-field-types__title">{{ 'content_type.view.edit.content_field_types'|trans|desc('Field types') }}</h3>
+    </div>
+    <div class="ibexa-available-field-types__search-bar">
+        <input type="text" class="ibexa-input ibexa-input--text ibexa-available-field-types__sidebar-filter form-control" />
+    </div>
+    <ul class="ibexa-available-field-types__list">    
+        {% for item in field_type_toolbar %}
+            <li 
+                draggable="true" 
+                class="ibexa-available-field-type" 
+                data-item-identifier="{{ item.identifier }}"
+            >
+                <div class="ibexa-available-field-type__drag">
+                    <svg class="ibexa-icon ibexa-available-field-type__drag-icon ibexa-icon--tiny-small">
+                        <use xlink:href="{{ ibexa_icon_path('drag') }}"></use>
+                    </svg>
+                </div>
+                <div class="ibexa-available-field-type__type">
+                    <svg class="ibexa-icon ibexa-available-field-type__type-icon ibexa-icon--small">
+                        <use xlink:href="{{ ibexa_icon_path('input-number') }}"></use>
+                    </svg>
+                </div>
+                <div class="ibexa-available-field-type__label">{{ item.name }}</div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

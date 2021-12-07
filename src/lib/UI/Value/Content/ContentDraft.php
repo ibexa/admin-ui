@@ -6,26 +6,26 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Value\Content;
+namespace Ibexa\AdminUi\UI\Value\Content;
 
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
 class ContentDraft implements ContentDraftInterface
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\VersionInfo */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo */
     private $versionInfo;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\Content\VersionId */
+    /** @var \Ibexa\AdminUi\UI\Value\Content\VersionId */
     private $versionId;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
     private $contentType;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
-     * @param \EzSystems\EzPlatformAdminUi\UI\Value\Content\VersionId $versionId
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\AdminUi\UI\Value\Content\VersionId $versionId
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      */
     public function __construct(
         VersionInfo $versionInfo,
@@ -38,7 +38,7 @@ class ContentDraft implements ContentDraftInterface
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo
      */
     public function getVersionInfo(): VersionInfo
     {
@@ -46,7 +46,7 @@ class ContentDraft implements ContentDraftInterface
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Value\Content\VersionId
+     * @return \Ibexa\AdminUi\UI\Value\Content\VersionId
      */
     public function getVersionId(): VersionId
     {
@@ -54,7 +54,7 @@ class ContentDraft implements ContentDraftInterface
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
      */
     public function getContentType(): ContentType
     {
@@ -69,3 +69,5 @@ class ContentDraft implements ContentDraftInterface
         return true;
     }
 }
+
+class_alias(ContentDraft::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\ContentDraft');

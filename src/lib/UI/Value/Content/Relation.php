@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Value\Content;
+namespace Ibexa\AdminUi\UI\Value\Content;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Relation as APIRelation;
-use eZ\Publish\Core\Repository\Values\Content\Relation as CoreRelation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation as APIRelation;
+use Ibexa\Core\Repository\Values\Content\Relation as CoreRelation;
 
 /**
  * Extends original value object in order to provide additional fields.
@@ -37,7 +37,7 @@ class Relation extends CoreRelation implements RelationInterface
      * Main location for the relation.
      * This will either come from destinationContentInfo OR sourceContentInfo depending upon if reverse relation or normal relation.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Location
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location
      */
     protected $relationLocation;
 
@@ -52,19 +52,19 @@ class Relation extends CoreRelation implements RelationInterface
     /**
      * Source location for the relation.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Location
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location
      */
     protected $resolvedSourceLocation;
 
     /**
      * Destination location for the relation.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Location
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location
      */
     protected $resolvedDestinationLocation;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Relation $relation
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Relation $relation
      * @param array $properties
      */
     public function __construct(APIRelation $relation, array $properties = [])
@@ -80,3 +80,5 @@ class Relation extends CoreRelation implements RelationInterface
         return true;
     }
 }
+
+class_alias(Relation::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\Relation');

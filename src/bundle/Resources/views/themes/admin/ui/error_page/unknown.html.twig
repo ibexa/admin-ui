@@ -1,4 +1,4 @@
-{% extends '@ezdesign/ui/layout.html.twig' %}
+{% extends '@ibexadesign/ui/layout.html.twig' %}
 
 {% block navigation %}{% endblock %}
 
@@ -8,12 +8,12 @@
     <div class="ez-error-page-wrapper">
         <div class="ez-error-page ez-error-page--top-section">
             <a href="{{ url('ezplatform.dashboard') }}" class="ez-error-page__logo-link">
-                <img class="ez-error-page__logo-image" src="/bundles/ezplatformadminui/img/ibexa-logo.svg" alt="Ibexa" />
+                <img class="ez-error-page__logo-image" src="/bundles/ibexaadminui/img/ibexa-logo.svg" alt="Ibexa" />
             </a>
             <div class="ez-error-page__messages-container">
                 <div class="ez-error-page__icon-wrapper">
                     <svg class="ez-error-page__icon">
-                        <use xlink:href="{{ ez_icon_path('error-icon') }}"></use>
+                        <use xlink:href="{{ ibexa_icon_path('error-icon') }}"></use>
                     </svg>
                 </div>
                 <h2 class="ez-error-page__title">{{ 'error.page.default.title'|trans|desc('Something went wrong') }}</h2>

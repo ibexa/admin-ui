@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\TrashLocationOptionProvider;
+namespace Ibexa\AdminUi\Form\TrashLocationOptionProvider;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use EzSystems\EzPlatformAdminUi\Specification\Content\ContentHaveAssetRelation;
-use EzSystems\EzPlatformAdminUi\Specification\Content\ContentHaveUniqueRelation;
+use Ibexa\AdminUi\Specification\Content\ContentHaveAssetRelation;
+use Ibexa\AdminUi\Specification\Content\ContentHaveUniqueRelation;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -22,7 +22,7 @@ final class HasUniqueAssetRelation implements TrashLocationOptionProvider
     public const RADIO_SELECT_TRASH_WITH_ASSETS = 'trash_with_assets';
     public const RADIO_SELECT_DEFAULT_TRASH = 'trash_default';
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
@@ -68,3 +68,5 @@ final class HasUniqueAssetRelation implements TrashLocationOptionProvider
         ]);
     }
 }
+
+class_alias(HasUniqueAssetRelation::class, 'EzSystems\EzPlatformAdminUi\Form\TrashLocationOptionProvider\HasUniqueAssetRelation');

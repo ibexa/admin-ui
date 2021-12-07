@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data;
+namespace Ibexa\AdminUi\Form\Data;
 
-use eZ\Publish\API\Repository\Values\User\Role;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
 
 class RoleData
 {
@@ -40,3 +40,5 @@ class RoleData
         return new self($role->identifier);
     }
 }
+
+class_alias(RoleData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\RoleData');

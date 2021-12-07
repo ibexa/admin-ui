@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType;
+namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
-use eZ\Publish\Core\FieldType\Time\Value;
+use Ibexa\Core\FieldType\Time\Value;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -16,7 +16,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class TimeValueTransformer implements DataTransformerInterface
 {
     /**
-     * @param mixed|\eZ\Publish\Core\FieldType\Time\Value $value
+     * @param mixed|\Ibexa\Core\FieldType\Time\Value $value
      *
      * @return int|null
      *
@@ -40,9 +40,9 @@ class TimeValueTransformer implements DataTransformerInterface
     /**
      * @param int|mixed $value
      *
-     * @return \eZ\Publish\Core\FieldType\Time\Value|null
+     * @return \Ibexa\Core\FieldType\Time\Value|null
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
     public function reverseTransform($value)
@@ -60,3 +60,5 @@ class TimeValueTransformer implements DataTransformerInterface
         return new Value($value);
     }
 }
+
+class_alias(TimeValueTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType\TimeValueTransformer');

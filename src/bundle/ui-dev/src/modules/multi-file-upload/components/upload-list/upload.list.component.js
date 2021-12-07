@@ -152,9 +152,6 @@ export default class UploadListComponent extends Component {
 
         return (
             <div className="c-upload-list">
-                <div className="c-upload-list__title">
-                    {this.props.uploadedItemsListTitle} ({uploaded}/{total})
-                </div>
                 <div className="c-upload-list__items">
                     {itemsToUpload.map(this.renderItemToUpload.bind(this))}
                     {items.map(this.renderUploadedItem.bind(this))}
@@ -187,7 +184,6 @@ UploadListComponent.propTypes = {
         locationPath: PropTypes.string.isRequired,
         language: PropTypes.string.isRequired,
     }).isRequired,
-    uploadedItemsListTitle: PropTypes.string.isRequired,
     contentCreatePermissionsConfig: PropTypes.object.isRequired,
     contentTypesMap: PropTypes.object.isRequired,
     currentLanguage: PropTypes.string,

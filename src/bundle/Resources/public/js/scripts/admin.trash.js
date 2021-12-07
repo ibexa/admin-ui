@@ -1,7 +1,7 @@
 (function(global, doc) {
     const form = doc.querySelector('form[name="location_trash"]');
     const submitButton = form.querySelector('button[type="submit"]');
-    const allOptions = form.querySelectorAll('.ez-modal__trash-option');
+    const allOptions = form.querySelectorAll('.ibexa-modal__trash-option');
     const confirmCheckbox = form.querySelector('input[name="location_trash[confirm][]"]');
     const enableButton = (button) => {
         button.disabled = false;
@@ -13,9 +13,9 @@
     };
     const refreshTrashModal = (event) => {
         const { numberOfSubitems } = event.detail;
-        const sendToTrashModal = document.querySelector('.ez-modal--trash-location');
+        const sendToTrashModal = document.querySelector('.ibexa-modal--trash-location');
         const modalBody = sendToTrashModal.querySelector('.modal-body');
-        const modalSendToTrashButton = sendToTrashModal.querySelector('.modal-footer .ez-modal-button--send-to-trash');
+        const modalSendToTrashButton = sendToTrashModal.querySelector('.modal-footer .ibexa-btn--confirm-send-to-trash');
         const { contentName } = sendToTrashModal.dataset;
 
         if (numberOfSubitems) {
@@ -28,7 +28,7 @@
                 'content'
             );
 
-            modalBody.querySelector('.ez-modal__option-description').innerHTML = message;
+            modalBody.querySelector('.ibexa-modal__option-description').innerHTML = message;
         } else {
             const message = Translator.trans(
                 /*@Desc("Are you sure you want to send this Content item to Trash?")*/ 'trash.modal.message',

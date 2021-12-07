@@ -11,12 +11,25 @@ class ListItem extends Component {
         this.loadMoreSubitems = this.loadMoreSubitems.bind(this);
         this.handleAfterExpandedStateChange = this.handleAfterExpandedStateChange.bind(this);
 
+        this.secondaryItemActions = this.getSecondaryItemActions();
         this.sortedActions = this.getSortedActions();
 
         this.state = {
             isExpanded: !!props.subitems.length,
             isLoading: false,
         };
+    }
+
+    getSecondaryItemActions() {
+        const { secondaryItemActions } = window.eZ.adminUiConfig.contentTreeWidget;
+
+        if (!secondaryItemActions) {
+            return [];
+        }
+
+        return [...secondaryItemActions].sort((prefixActionA, prefixActionB) => {
+            return prefixActionB.priority - prefixActionA.priority;
+        });
     }
 
     getSortedActions() {
@@ -99,9 +112,9 @@ class ListItem extends Component {
     }
 
     renderIcon() {
-        const { contentTypeIdentifier, selected, locationId } = this.props;
+        const { contentTypeIdentifier, locationId } = this.props;
         const iconAttrs = {
-            extraClasses: `ez-icon--small ez-icon--${selected ? 'primary' : 'dark'}`,
+            extraClasses: 'ibexa-icon--small ibexa-icon--dark',
         };
 
         if (!this.state.isLoading || this.props.subitems.length) {
@@ -114,7 +127,7 @@ class ListItem extends Component {
             }
         } else {
             iconAttrs.name = 'spinner';
-            iconAttrs.extraClasses = `${iconAttrs.extraClasses} ez-spin`;
+            iconAttrs.extraClasses = `${iconAttrs.extraClasses} ibexa-spin`;
         }
 
         return (
@@ -133,17 +146,17 @@ class ListItem extends Component {
         }
 
         const { isLoading } = this.state;
-        const showMoreLabel = Translator.trans(/*@Desc("Show more")*/ 'show_more', {}, 'content_tree');
+        const seeMoreLabel = Translator.trans(/*@Desc("See more")*/ 'see_more', {}, 'content_tree');
         const loadingMoreLabel = Translator.trans(/*@Desc("Loading more...")*/ 'loading_more', {}, 'content_tree');
-        const btnLabel = isLoading ? loadingMoreLabel : showMoreLabel;
+        const btnLabel = isLoading ? loadingMoreLabel : seeMoreLabel;
         let loadingSpinner = null;
 
         if (isLoading) {
-            loadingSpinner = <Icon name="spinner" extraClasses="ez-spin ez-icon--small c-list-item__load-more-btn-spinner" />;
+            loadingSpinner = <Icon name="spinner" extraClasses="ibexa-spin ibexa-icon--small c-list-item__load-more-btn-spinner" />;
         }
 
         return (
-            <button type="button" className="c-list-item__load-more-btn btn ez-btn" onClick={this.loadMoreSubitems}>
+            <button type="button" className="c-list-item__load-more-btn" onClick={this.loadMoreSubitems}>
                 {loadingSpinner} {btnLabel}
             </button>
         );
@@ -163,7 +176,7 @@ class ListItem extends Component {
     }
 
     renderItemLabel() {
-        const { totalSubitemsCount, href, name, selected, locationId, onClick } = this.props;
+        const { totalSubitemsCount, href, name, locationId, indent, onClick } = this.props;
 
         if (locationId === 1) {
             return null;
@@ -177,21 +190,37 @@ class ListItem extends Component {
             tabIndex: -1,
         };
 
-        if (selected) {
-            togglerAttrs.className = `${togglerAttrs.className} ${togglerClassName}--light`;
-        }
-
         return (
-            <div className="c-list-item__label">
-                <span {...togglerAttrs} />
-                <a className="c-list-item__link" href={href} onClick={onClick}>
-                    {this.renderIcon()} {name}
-                </a>
-                {this.sortedActions.map((action) => {
-                    const Component = action.component;
+            <div className="c-list-item__row" style={{'--indent': indent}}>
+                <div class="c-list-item__prefix-actions">
+                    {this.secondaryItemActions.map((action) => {
+                        const ActionComponent = action.component;
 
-                    return <Component key={action.id} {...this.props} />;
-                })}
+                        return (
+                            <div class="c-list-item__prefix-actions-item">
+                                <ActionComponent key={action.id} {...this.props} />
+                            </div>
+                        );
+                    })}
+                </div>
+                <span {...togglerAttrs} />
+                <a className="c-list-item__label" href={href} onClick={onClick}>
+                    {this.renderIcon()}
+                    <span class="c-list-item__label-content" title={name}>
+                        {name}
+                    </span>
+                </a>
+                <div class="c-list-item__actions">
+                    {this.sortedActions.map((action) => {
+                        const ActionComponent = action.component;
+
+                        return (
+                            <div class="c-list-item__actions-item">
+                                <ActionComponent key={action.id} {...this.props} />
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
         );
     }
