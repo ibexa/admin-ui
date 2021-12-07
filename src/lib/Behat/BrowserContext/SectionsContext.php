@@ -58,7 +58,8 @@ class SectionsContext implements Context
             Assert::assertTrue(
                 $this->sectionPage->hasAssignedItem(
                     ['Name' => $expectedName, 'Content Type' => $expectedContentType, 'Path' => $expectedPath]
-                ));
+                )
+            );
         }
     }
 

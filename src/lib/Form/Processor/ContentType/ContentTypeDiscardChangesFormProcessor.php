@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Processor\ContentType;
+namespace Ibexa\AdminUi\Form\Processor\ContentType;
 
-use EzSystems\EzPlatformAdminUi\Event\FormEvents;
-use EzSystems\EzPlatformContentForms\Event\FormActionEvent;
+use Ibexa\ContentForms\Event\FormActionEvent;
+use Ibexa\Contracts\AdminUi\Event\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -32,7 +32,7 @@ class ContentTypeDiscardChangesFormProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents(): array
     {
@@ -43,7 +43,7 @@ class ContentTypeDiscardChangesFormProcessor implements EventSubscriberInterface
 
     public function processDiscardChanges(FormActionEvent $event)
     {
-        /** @var \EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData $data */
+        /** @var \Ibexa\AdminUi\Form\Data\ContentTypeData $data */
         $data = $event->getData();
         $contentTypeDraft = $data->contentTypeDraft;
 
@@ -61,3 +61,5 @@ class ContentTypeDiscardChangesFormProcessor implements EventSubscriberInterface
         );
     }
 }
+
+class_alias(ContentTypeDiscardChangesFormProcessor::class, 'EzSystems\EzPlatformAdminUi\Form\Processor\ContentType\ContentTypeDiscardChangesFormProcessor');

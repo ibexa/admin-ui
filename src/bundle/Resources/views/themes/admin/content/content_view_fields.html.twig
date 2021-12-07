@@ -13,19 +13,19 @@
                     {% set collapse_class_name = 'ez-content-preview-collapse--' ~ group_name %}
 
                     <section class="ez-fieldgroup container">
-                        <a data-toggle="collapse" href=".{{ collapse_class_name }}" class="ez-fieldgroup__toggler">
+                        <a data-bs-toggle="collapse" href=".{{ collapse_class_name }}" class="ez-fieldgroup__toggler">
                             {{ group.name|capitalize }}
                         </a>
                         <div class="{{ collapse_class_name }} ez-content-preview-collapse collapse show" data-collapse-state-key="{{ collapse_state_key }}">
                             {% for field_definition in group.fieldDefinitions %}
                                 {% block field %}
-                                    <div class="ez-content-field">
-                                        <div class="ez-content-field-name">{{ field_definition.name }}:</div>
-                                        <div class="ez-content-field-value">
-                                            {% if ez_field_is_empty(content, field_definition.identifier) and field_definition.fieldTypeIdentifier is not same as('ezboolean') %}
+                                    <div class="ibexa-content-field">
+                                        <div class="ibexa-content-field__name">{{ field_definition.name }}:</div>
+                                        <div class="ibexa-content-field__value">
+                                            {% if ibexa_field_is_empty(content, field_definition.identifier) and field_definition.fieldTypeIdentifier is not same as('ezboolean') %}
                                                 <em>{{ 'fieldview.field.empty'|trans({}, 'fieldview')|desc('This field is empty') }}</em>
                                             {% else %}
-                                                {{ ez_render_field(content, field_definition.identifier, {location: location}) }}
+                                                {{ ibexa_render_field(content, field_definition.identifier, {location: location}) }}
                                             {% endif %}
                                         </div>
                                     </div>

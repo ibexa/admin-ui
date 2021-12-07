@@ -1,10 +1,7 @@
 (function(global, doc, eZ, React, ReactDOM, Translator) {
     const SELECTOR_LOCATION_LIMITATION_BTN = '.ez-pick-location-limitation-button';
-    const SELECTOR_EZ_TAG = '.ez-tag';
+    const SELECTOR_EZ_TAG = '.ibexa-tag';
     const IDS_SEPARATOR = ',';
-    const SELECTOR_CUSTOM_DROPDOWN_CONTAINER = '.ez-update-policy__action-wrapper';
-    const SELECTOR_SOURCE_INPUT = '.ez-update-policy__source-input';
-    const SELECTOR_ITEMS = '.ez-custom-dropdown__items';
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const udwContainer = doc.getElementById('react-udw');
@@ -119,8 +116,8 @@
             Object.entries(operations).forEach(([locationId, { content }]) => {
                 const viewData = JSON.parse(content);
                 const tag = tagsList.querySelector(`[data-location-id="${locationId}"]`);
-                const tagContent = tag.querySelector('.ez-tag__content');
-                const tagSpinner = tag.querySelector('.ez-tag__spinner');
+                const tagContent = tag.querySelector('.ibexa-tag__content');
+                const tagSpinner = tag.querySelector('.ibexa-tag__spinner');
 
                 tagContent.innerText = buildContentBreadcrumbs(viewData);
 
@@ -143,7 +140,7 @@
         tag.remove();
     };
     const attachTagEventHandlers = (limitationBtn, tag) => {
-        const removeTagBtn = tag.querySelector('.ez-tag__remove-btn');
+        const removeTagBtn = tag.querySelector('.ibexa-tag__remove-btn');
 
         removeTagBtn.addEventListener('click', () => handleTagRemove(limitationBtn, tag), false);
     };
@@ -187,16 +184,5 @@
 
         tags.forEach(attachTagEventHandlers.bind(null, limitationBtn));
         limitationBtn.addEventListener('click', openUDW, false);
-    });
-
-    doc.querySelectorAll(SELECTOR_CUSTOM_DROPDOWN_CONTAINER).forEach((container) => {
-        const sourceInput = container.querySelector(SELECTOR_SOURCE_INPUT);
-        const dropdown = new eZ.core.CustomDropdown({
-            container,
-            sourceInput,
-            itemsContainer: container.querySelector(SELECTOR_ITEMS)
-        });
-
-        dropdown.init();
     });
 })(window, window.document, window.eZ, window.React, window.ReactDOM, window.Translator);

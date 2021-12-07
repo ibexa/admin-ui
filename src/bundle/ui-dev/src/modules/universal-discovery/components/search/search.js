@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useReducer, useContext, createContext } from 'react';
+import React, { useState, useEffect, useReducer, useContext, createContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+export const SelectedLanguageContext = createContext();
 export const SelectedContentTypesContext = createContext();
 export const SelectedSectionContext = createContext();
 export const SelectedSubtreeContext = createContext();
 
 import Icon from '../../../common/icon/icon';
+import InputSearch from '../input-search/input.search';
 import ContentTable from '../content-table/content.table';
 import Filters from '../filters/filters';
 import { useSearchByQueryFetch } from '../../hooks/useSearchByQueryFetch';
-import { AllowedContentTypesContext } from '../../universal.discovery.module';
-
-const ENTER_CHAR_CODE = 13;
+import { AllowedContentTypesContext, SearchTextContext } from '../../universal.discovery.module';
 
 const selectedContentTypesReducer = (state, action) => {
     switch (action.type) {
@@ -32,27 +32,29 @@ const languages = configLanguages.priority.map((value) => {
 });
 
 const Search = ({ itemsPerPage }) => {
-    const filtersLabel = Translator.trans(/*@Desc("Filters")*/ 'search.filters', {}, 'universal_discovery_widget');
     const searchLabel = Translator.trans(/*@Desc("Search")*/ 'search.search', {}, 'universal_discovery_widget');
     const allowedContentTypes = useContext(AllowedContentTypesContext);
-    const [searchText, setSearchText] = useState('');
+    const [searchText, setSearchText] = useContext(SearchTextContext);
     const [offset, setOffset] = useState(0);
-    const [filtersCollapsed, setFiltersCollapsed] = useState(true);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useReducer(selectedContentTypesReducer, []);
     const [selectedSection, setSelectedSection] = useState('');
     const [selectedSubtree, setSelectedSubtree] = useState('');
     const firstLanguageCode = languages.length ? languages[0].languageCode : '';
     const [selectedLanguage, setSelectedLanguage] = useState(firstLanguageCode);
-    const updateSelectedLanguage = (event) => setSelectedLanguage(event.target.value);
+    const prevSearchText = useRef(null);
+    const searchActionRef = useRef(null);
     const [isLoading, data, searchByQuery] = useSearchByQueryFetch();
-    const updateSearchQuery = ({ target: { value } }) => setSearchText(value);
-    const search = (forcedOffset) => {
+    const search = () => {
+        const shouldResetOffset = prevSearchText.current !== searchText && offset !== 0;
+
+        prevSearchText.current = searchText;
+
         if (!searchText) {
             return;
         }
 
-        if (forcedOffset !== undefined && forcedOffset !== offset) {
-            setOffset(forcedOffset);
+        if (shouldResetOffset) {
+            setOffset(0);
 
             return;
         }
@@ -61,41 +63,12 @@ const Search = ({ itemsPerPage }) => {
 
         searchByQuery(searchText, contentTypes, selectedSection, selectedSubtree, itemsPerPage, offset, selectedLanguage);
     };
-    const handleKeyPressed = ({ charCode }) => {
-        if (charCode === ENTER_CHAR_CODE) {
-            search(0);
-        }
-    };
+    const searchSubmit = () => {
+        searchActionRef.current();
+    }
     const changePage = (pageIndex) => setOffset(pageIndex * itemsPerPage);
-    const toggleFiltersCollapsed = () => setFiltersCollapsed((prevState) => !prevState);
     const renderSearchResults = () => {
         const searchResultsLabel = Translator.trans(/*@Desc("Search results")*/ 'search.search_results', {}, 'universal_discovery_widget');
-        const noResultsLabel = Translator.trans(
-            /*@Desc("Sorry, no results were found for")*/ 'search.no_results',
-            {},
-            'universal_discovery_widget'
-        );
-        const tipsLabel = Translator.trans(/*@Desc("Some helpful search tips")*/ 'search.tips', {}, 'universal_discovery_widget');
-        const checkSpellingLabel = Translator.trans(
-            /*@Desc("Check spelling of keywords.")*/ 'search.check_spelling',
-            {},
-            'universal_discovery_widget'
-        );
-        const differentKeywordsLabel = Translator.trans(
-            /*@Desc("Try different keywords.")*/ 'search.different_keywords',
-            {},
-            'universal_discovery_widget'
-        );
-        const moreGeneralLabel = Translator.trans(
-            /*@Desc("Try more general keywords.")*/ 'search.more_general',
-            {},
-            'universal_discovery_widget'
-        );
-        const fewerKeywordsLabel = Translator.trans(
-            /*@Desc("Try fewer keywords. Reducing keywords result in more matches.")*/ 'search.fewer_keywords',
-            {},
-            'universal_discovery_widget'
-        );
         const title = `${searchResultsLabel} (${data.count})`;
 
         if (data.count) {
@@ -110,81 +83,86 @@ const Search = ({ itemsPerPage }) => {
                 />
             );
         } else if (!!data.items) {
+            const noResultsLabel = Translator.trans(
+                /*@Desc("No results found for %query%")*/ 'search.no_results',
+                { query: searchText },
+                'universal_discovery_widget'
+            );
+            const noResultsHints = [
+                Translator.trans(
+                    /*@Desc("Check the spelling of keywords.")*/'search.no_results.hint.check_spelling',
+                    {},
+                    'universal_discovery_widget',
+                ),
+                Translator.trans(
+                    /*@Desc("Try more general keywords.")*/'search.no_results.hint.more_general',
+                    {},
+                    'universal_discovery_widget',
+                ),
+                Translator.trans(
+                    /*@Desc("Try different keywords.")*/'search.no_results.hint.different_kewords',
+                    {},
+                    'universal_discovery_widget',
+                ),
+                Translator.trans(
+                    /*@Desc("Try fewer keywords. Reducing keywords results in more matches.")*/'search.no_results.hint.fewer_keywords',
+                    {},
+                    'universal_discovery_widget',
+                ),
+            ];
+
             return (
                 <div className="c-search__no-results">
-                    <div className="c-search__no-results-title">{title}</div>
-                    <table className="table table-hover">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <span>{`${noResultsLabel} "${searchText}".`}</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <h6>{tipsLabel}:</h6>
-                    <ul>
-                        <li>{checkSpellingLabel}</li>
-                        <li>{differentKeywordsLabel}</li>
-                        <li>{moreGeneralLabel}</li>
-                        <li>{fewerKeywordsLabel}</li>
-                    </ul>
+                    <img
+                        className=""
+                        src="/bundles/ibexaadminui/img/no-results.svg"
+                    />
+                    <h2 className="c-search__no-results-title">
+                        {noResultsLabel}
+                    </h2>
+                    <div className="c-search__no-results-subtitle">
+                        {noResultsHints.map((hint) => (
+                            <div className="c-search__no-results-hint">
+                                <div className="c-search__no-results-hint-icon-wrapper">
+                                    <Icon name="approved" extraClasses="ibexa-icon--small-medium" />
+                                </div>
+                                <div class="c-search__no-results-hint-text">{hint}</div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             );
         }
     };
 
-    useEffect(search, [offset]);
+    useEffect(search, [searchText, offset]);
 
     return (
         <div className="c-search">
-            <div className="c-search__tools-wrapper">
+            <div className="c-search__top-bar">
                 <div className="c-search__input-wrapper">
-                    <input
-                        type="search"
-                        className="c-search__input form-control"
-                        onChange={updateSearchQuery}
-                        onKeyPress={handleKeyPressed}
-                        value={searchText}
-                    />
+                    <InputSearch small={false} ref={searchActionRef} />
                 </div>
-                {languages.length > 1 ? (
-                    <div className="c-search__selector-wrapper">
-                        <select
-                            className="form-control c-search__select-language"
-                            onChange={updateSelectedLanguage}
-                            value={selectedLanguage}>
-                            {languages.map((language) => {
-                                if (!language.enabled) {
-                                    return null;
-                                }
-
-                                return (
-                                    <option key={language.id} value={language.languageCode} onChange={updateSelectedLanguage}>
-                                        {language.name}
-                                    </option>
-                                );
-                            })}
-                        </select>
-                    </div>
-                ) : null}
-                <button className="c-search__search-btn btn btn-primary" onClick={search.bind(this, 0)}>
+                <button className="c-search__search-btn btn ibexa-btn ibexa-btn--primary" onClick={searchSubmit}>
                     {searchLabel}
                 </button>
-                <div className="c-search__filters-btn-wrapper">
-                    <button className="c-search__toggle-filters-btn btn btn-secondary" onClick={toggleFiltersCollapsed}>
-                        {filtersLabel}
-                    </button>
+            </div>
+            <div className="c-search__main">
+                <div class="c-search__sidebar">
+                    <SelectedContentTypesContext.Provider value={[selectedContentTypes, dispatchSelectedContentTypesAction]}>
+                        <SelectedSectionContext.Provider value={[selectedSection, setSelectedSection]}>
+                            <SelectedSubtreeContext.Provider value={[selectedSubtree, setSelectedSubtree]}>
+                                <SelectedLanguageContext.Provider value={[selectedLanguage, setSelectedLanguage]}>
+                                    <Filters isCollapsed={false} search={search} />
+                                </SelectedLanguageContext.Provider>
+                            </SelectedSubtreeContext.Provider>
+                        </SelectedSectionContext.Provider>
+                    </SelectedContentTypesContext.Provider>
+                </div>
+                <div class="c-search__content">
+                    {renderSearchResults()}
                 </div>
             </div>
-            <SelectedContentTypesContext.Provider value={[selectedContentTypes, dispatchSelectedContentTypesAction]}>
-                <SelectedSectionContext.Provider value={[selectedSection, setSelectedSection]}>
-                    <SelectedSubtreeContext.Provider value={[selectedSubtree, setSelectedSubtree]}>
-                        <Filters isCollapsed={filtersCollapsed} search={search} />
-                    </SelectedSubtreeContext.Provider>
-                </SelectedSectionContext.Provider>
-            </SelectedContentTypesContext.Provider>
-            {renderSearchResults()}
         </div>
     );
 };

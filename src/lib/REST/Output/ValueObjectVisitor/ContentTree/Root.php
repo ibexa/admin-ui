@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\REST\Output\ValueObjectVisitor\ContentTree;
+namespace Ibexa\AdminUi\REST\Output\ValueObjectVisitor\ContentTree;
 
-use EzSystems\EzPlatformRest\Output\Generator;
-use EzSystems\EzPlatformRest\Output\ValueObjectVisitor;
-use EzSystems\EzPlatformRest\Output\Visitor;
+use Ibexa\Contracts\Rest\Output\Generator;
+use Ibexa\Contracts\Rest\Output\ValueObjectVisitor;
+use Ibexa\Contracts\Rest\Output\Visitor;
 use Symfony\Component\HttpFoundation\Response;
 
 class Root extends ValueObjectVisitor
@@ -18,9 +18,9 @@ class Root extends ValueObjectVisitor
     /**
      * Visit struct returned by controllers.
      *
-     * @param \EzSystems\EzPlatformRest\Output\Visitor $visitor
-     * @param \EzSystems\EzPlatformRest\Output\Generator $generator
-     * @param \EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\Root $data
+     * @param \Ibexa\Contracts\Rest\Output\Visitor $visitor
+     * @param \Ibexa\Contracts\Rest\Output\Generator $generator
+     * @param \Ibexa\AdminUi\REST\Value\ContentTree\Root $data
      */
     public function visit(Visitor $visitor, Generator $generator, $data)
     {
@@ -39,3 +39,5 @@ class Root extends ValueObjectVisitor
         $generator->endObjectElement('ContentTreeRoot');
     }
 }
+
+class_alias(Root::class, 'EzSystems\EzPlatformAdminUi\REST\Output\ValueObjectVisitor\ContentTree\Root');

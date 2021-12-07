@@ -6,27 +6,27 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Strategy;
+namespace Ibexa\AdminUi\Strategy;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Repository;
-use EzSystems\EzPlatformAdminUi\Exception\NoValidResultException;
+use Ibexa\AdminUi\Exception\NoValidResultException;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Repository;
 
 class NotificationTwigStrategy
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
     /** @var string */
     private $defaultTemplate;
 
     /**
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
      */
     public function __construct(
         Repository $repository,
@@ -96,3 +96,5 @@ class NotificationTwigStrategy
         return $contentInfo->isTrashed();
     }
 }
+
+class_alias(NotificationTwigStrategy::class, 'EzSystems\EzPlatformAdminUi\Strategy\NotificationTwigStrategy');

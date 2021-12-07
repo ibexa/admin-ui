@@ -6,26 +6,26 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Processor\User;
+namespace Ibexa\AdminUi\Form\Processor\User;
 
-use eZ\Publish\API\Repository\UserService;
-use EzSystems\EzPlatformAdminUi\Event\UserOnTheFlyEvents;
-use EzSystems\EzPlatformContentForms\Data\User\UserCreateData;
-use EzSystems\EzPlatformContentForms\Event\FormActionEvent;
-use EzSystems\EzPlatformContentForms\Form\Processor\User\UserUpdateFormProcessor;
+use Ibexa\ContentForms\Data\User\UserCreateData;
+use Ibexa\ContentForms\Event\FormActionEvent;
+use Ibexa\ContentForms\Form\Processor\User\UserUpdateFormProcessor;
+use Ibexa\Contracts\AdminUi\Event\UserOnTheFlyEvents;
+use Ibexa\Contracts\Core\Repository\UserService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
 class UserOnTheFlyProcessor implements EventSubscriberInterface
 {
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
     /** @var \Twig\Environment */
     private $twig;
 
-    /** @var \EzSystems\EzPlatformContentForms\Form\Processor\User\UserUpdateFormProcessor */
+    /** @var \Ibexa\ContentForms\Form\Processor\User\UserUpdateFormProcessor */
     private $innerUserUpdateFormProcessor;
 
     public function __construct(
@@ -92,7 +92,7 @@ class UserOnTheFlyProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \EzSystems\EzPlatformContentForms\Data\User\UserCreateData $data
+     * @param \Ibexa\ContentForms\Data\User\UserCreateData $data
      * @param string $languageCode
      */
     private function setContentFields(UserCreateData $data, string $languageCode): void
@@ -102,3 +102,5 @@ class UserOnTheFlyProcessor implements EventSubscriberInterface
         }
     }
 }
+
+class_alias(UserOnTheFlyProcessor::class, 'EzSystems\EzPlatformAdminUi\Form\Processor\User\UserOnTheFlyProcessor');

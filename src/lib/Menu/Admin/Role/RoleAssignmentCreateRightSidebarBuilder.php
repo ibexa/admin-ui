@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu\Admin\Role;
+namespace Ibexa\AdminUi\Menu\Admin\Role;
 
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
-use EzSystems\EzPlatformAdminUi\Menu\AbstractBuilder;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -21,8 +21,8 @@ use Knp\Menu\ItemInterface;
 class RoleAssignmentCreateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__SAVE = 'role_assignment_create__sidebar_right__save';
-    const ITEM__CANCEL = 'role_assignment_create__sidebar_right__cancel';
+    public const ITEM__SAVE = 'role_assignment_create__sidebar_right__save';
+    public const ITEM__CANCEL = 'role_assignment_create__sidebar_right__cancel';
 
     /**
      * @return string
@@ -43,7 +43,7 @@ class RoleAssignmentCreateRightSidebarBuilder extends AbstractBuilder implements
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \eZ\Publish\API\Repository\Values\User\Role $role */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role $role */
         $role = $options['role'];
 
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
@@ -54,10 +54,9 @@ class RoleAssignmentCreateRightSidebarBuilder extends AbstractBuilder implements
                 self::ITEM__SAVE,
                 [
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => '#role_assignment_create_save',
                     ],
-                    'extras' => ['icon' => 'save'],
                 ]
             ),
             self::ITEM__CANCEL => $this->createMenuItem(
@@ -67,7 +66,6 @@ class RoleAssignmentCreateRightSidebarBuilder extends AbstractBuilder implements
                     'routeParameters' => [
                         'roleId' => $role->id,
                     ],
-                    'extras' => ['icon' => 'circle-close'],
                 ]
             ),
         ]);
@@ -86,3 +84,5 @@ class RoleAssignmentCreateRightSidebarBuilder extends AbstractBuilder implements
         ];
     }
 }
+
+class_alias(RoleAssignmentCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\Role\RoleAssignmentCreateRightSidebarBuilder');

@@ -6,49 +6,50 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\ObjectStateService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
-use EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStatesDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ContentObjectStateUpdateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateCreateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStatesDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateUpdateType;
-use EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData;
+use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateCreateData;
+use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateDeleteData;
+use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStatesDeleteData;
+use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateUpdateData;
+use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\AdminUi\Form\Type\ObjectState\ContentObjectStateUpdateType;
+use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateCreateType;
+use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateDeleteType;
+use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStatesDeleteType;
+use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateUpdateType;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\ObjectStateService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ObjectStateController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \eZ\Publish\API\Repository\ObjectStateService */
+    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
     private $objectStateService;
 
     /** @var \Symfony\Component\Form\FormFactoryInterface */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -68,13 +69,13 @@ class ObjectStateController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listAction(ObjectStateGroup $objectStateGroup): Response
     {
-        /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectState[] $objectStates */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[] $objectStates */
         $objectStates = $this->objectStateService->loadObjectStates($objectStateGroup);
 
         $deleteObjectStatesForm = $this->formFactory->create(
@@ -98,7 +99,7 @@ class ObjectStateController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectState $objectState
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState $objectState
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -119,7 +120,7 @@ class ObjectStateController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -136,7 +137,8 @@ class ObjectStateController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form,
+            $result = $this->submitHandler->handle(
+                $form,
                 function (ObjectStateCreateData $data) use ($defaultLanguageCode, $objectStateGroup) {
                     $createStruct = $this->objectStateService->newObjectStateCreateStruct(
                         $data->getIdentifier()
@@ -148,14 +150,15 @@ class ObjectStateController extends Controller
                     $this->notificationHandler->success(
                             /** @Desc("Object state '%name%' created.") */
                             'object_state.create.success',
-                            ['%name%' => $data->getName()],
-                            'object_state'
+                        ['%name%' => $data->getName()],
+                        'object_state'
                     );
 
                     return $this->redirectToRoute('ezplatform.object_state.state.view', [
                         'objectStateId' => $objectState->id,
                     ]);
-                });
+                }
+            );
             if ($result instanceof Response) {
                 return $result;
             }
@@ -169,7 +172,7 @@ class ObjectStateController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectState $objectState
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState $objectState
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -249,7 +252,7 @@ class ObjectStateController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectState $objectState
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState $objectState
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -297,12 +300,12 @@ class ObjectStateController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function updateContentStateAction(
         Request $request,
@@ -346,7 +349,7 @@ class ObjectStateController extends Controller
         return $this->redirectToRoute('_ez_content_view', [
             'contentId' => $contentInfo->id,
             'locationId' => $contentInfo->mainLocationId,
-            '_fragment' => 'ez-tab-location-view-details',
+            '_fragment' => 'ibexa-tab-location-view-details',
         ]);
     }
 
@@ -362,3 +365,5 @@ class ObjectStateController extends Controller
         return array_combine($statesIds, array_fill_keys($statesIds, false));
     }
 }
+
+class_alias(ObjectStateController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ObjectStateController');
