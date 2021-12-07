@@ -26,7 +26,8 @@
     &__section-column {
         padding: 0;
 
-        &--field-definitions {
+        &--field-definitions,
+        &--added-attributes {
             min-height: calculateRem(700px);
             padding: calculateRem(16px) calculateRem(34px);
             background: $ibexa-color-light-300;
@@ -138,21 +139,5 @@
 }
 
 .ibexa-field-definitions-empty-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: calculateRem(50px);
-
-    &__image {
-        margin-top: calculateRem(90px);
-    }
-
-    &__label {
-        color: $ibexa-color-dark-400;
-        margin: calculateRem(45px) auto calculateRem(15px);
-    }
-
-    &--hidden {
-        display: none;
-    }
+    @include empty-drop-zone;
 }

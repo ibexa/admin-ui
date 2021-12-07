@@ -251,3 +251,23 @@
         display: none;
     }
 }
+
+@mixin empty-drop-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: calculateRem(50px);
+
+    &__image {
+        margin-top: calculateRem(90px);
+    }
+
+    &__label {
+        color: $ibexa-color-dark-400;
+        margin: calculateRem(45px) auto calculateRem(15px);
+    }
+
+    &--hidden {
+        display: none;
+    }
+}
