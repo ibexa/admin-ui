@@ -15,7 +15,7 @@ use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class RichTextEmbedAllowedContentTypes implements EventSubscriberInterface
+final class ReadAllowedContentTypes implements EventSubscriberInterface
 {
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
@@ -79,7 +79,7 @@ final class RichTextEmbedAllowedContentTypes implements EventSubscriberInterface
     {
         $config = $event->getConfig();
 
-        if (!in_array($event->getConfigName(), ['richtext_embed', 'richtext_embed_image'])) {
+        if (!$event->isReadOnlyEvent()) {
             return;
         }
 
@@ -93,4 +93,4 @@ final class RichTextEmbedAllowedContentTypes implements EventSubscriberInterface
     }
 }
 
-class_alias(RichTextEmbedAllowedContentTypes::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\RichTextEmbedAllowedContentTypes');
+class_alias(ReadAllowedContentTypes::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\ReadAllowedContentTypes');

@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Tests\AdminUi\UniversalDiscovery\Event\Subscriber;
 
 use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
-use Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber\RichTextEmbedAllowedContentTypes;
+use Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber\ReadAllowedContentTypes;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
@@ -17,7 +17,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use PHPUnit\Framework\TestCase;
 
-final class RichTextEmbedAllowedContentTypesTest extends TestCase
+final class ReadAllowedContentTypesTest extends TestCase
 {
     private const EXAMPLE_LIMITATIONS = [/* Some limitations */];
 
@@ -35,7 +35,7 @@ final class RichTextEmbedAllowedContentTypesTest extends TestCase
     /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
     private $contentTypeService;
 
-    /** @var \Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber\RichTextEmbedAllowedContentTypes */
+    /** @var \Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber\ReadAllowedContentTypes */
     private $subscriber;
 
     protected function setUp(): void
@@ -44,7 +44,7 @@ final class RichTextEmbedAllowedContentTypesTest extends TestCase
         $this->permissionChecker = $this->createMock(PermissionCheckerInterface::class);
         $this->contentTypeService = $this->createMock(ContentTypeService::class);
 
-        $this->subscriber = new RichTextEmbedAllowedContentTypes(
+        $this->subscriber = new ReadAllowedContentTypes(
             $this->permissionResolver,
             $this->permissionChecker,
             $this->contentTypeService
@@ -141,4 +141,4 @@ final class RichTextEmbedAllowedContentTypesTest extends TestCase
     }
 }
 
-class_alias(RichTextEmbedAllowedContentTypesTest::class, 'EzSystems\EzPlatformAdminUi\Tests\UniversalDiscovery\Event\Subscriber\RichTextEmbedAllowedContentTypesTest');
+class_alias(ReadAllowedContentTypesTest::class, 'EzSystems\EzPlatformAdminUi\Tests\UniversalDiscovery\Event\Subscriber\RichTextEmbedAllowedContentTypesTest');
