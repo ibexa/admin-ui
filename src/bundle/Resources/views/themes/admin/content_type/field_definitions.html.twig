@@ -1,9 +1,17 @@
 <div class="ibexa-content-type-edit__field-definitions-group">
     <div class="ibexa-content-type-edit__field-definitions-group-list">
+        {% set should_show_first = true %}
+
+        {% for field_defintions in grouped_field_defintions %}
+            {% if field_defintions is not empty %}
+                {% set should_show_first = false %}
+            {% endif %}
+        {% endfor %}
+
         {% for id, field_defintions in grouped_field_defintions %}
             {% set field_definitions_group_class = [
                 'ibexa-collapse--field-definitions-group ibexa-field-definitions-group-%s'|format(id),
-                field_defintions is empty ? 'ibexa-collapse--hidden'
+                field_defintions is empty and not loop.first or loop.first and not should_show_first and field_defintions is empty ? 'ibexa-collapse--hidden'
             ] %}
 
             {%- embed "@ibexadesign/ui/component/collapse.html.twig" with {
