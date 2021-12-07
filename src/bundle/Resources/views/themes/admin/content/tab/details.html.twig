@@ -2,53 +2,61 @@
 
 {% form_theme form_location_update '@ibexadesign/ui/form_fields.html.twig' %}
 
-{% set body_row_cols = [
-    { content: creator is not empty ? ibexa_content_name(creator) : 'tab.details.creator.not_found'|trans|desc('Can\'t fetch creator') },
-    { content: last_contributor is not empty ? ibexa_content_name(last_contributor) : 'tab.details.last_contributor.not_found'|trans|desc('Can\'t fetch last contributor') },
-    { content: version_info.versionNo },
-] %}
-{% set col_raw %}
+{% set content_details_translations %}
     {% for translation in translations %}
         {{ translation.name }}<br>
     {% endfor %}
 {% endset %}
-{% set body_row_cols = body_row_cols|merge([{ content: col_raw, raw: true }]) %}
-{% include '@ibexadesign/ui/component/table/table.html.twig' with {
-    headline: 'tab.details.content_details'|trans()|desc('Content details'),
-    head_cols: [
-        { content: 'tab.details.creator'|trans()|desc('Creator') },
-        { content: 'tab.details.last_contributor'|trans()|desc('Last contributor') },
-        { content: 'tab.details.published_version'|trans()|desc('Published version') },
-        { content: 'tab.details.translations'|trans()|desc('Translations') },
-    ],
-    body_rows: [{
-        cols: body_row_cols
-    }],
-} %}
+{% set content_details_items = [
+    {
+        label: 'tab.details.creator'|trans()|desc('Creator'),
+        content: creator is not empty ? ibexa_content_name(creator) : 'tab.details.creator.not_found'|trans|desc('Can\'t fetch creator'),
+    },
+    {
+        label: 'tab.details.last_contributor'|trans()|desc('Last contributor'),
+        content: last_contributor is not empty ? ibexa_content_name(last_contributor) : 'tab.details.last_contributor.not_found'|trans|desc('Can\'t fetch last contributor'),
+    },
+    {
+        label: 'tab.details.published_version'|trans()|desc('Published version'),
+        content: version_info.versionNo,
+    },
+    {
+        label: 'tab.details.translations'|trans()|desc('Translations'),
+        content: content_details_translations,
+    },
+] %}
 
-{% include '@ibexadesign/ui/component/table/table.html.twig' with {
+{% include '@ibexadesign/ui/component/details/details.html.twig' with {
+    headline: 'tab.details.content_details'|trans()|desc('Content details'),
+    items: content_details_items,
+} only %}
+
+{% set technical_details_items = [
+    {
+        label: 'tab.details.content_id'|trans()|desc('Content ID'),
+        content: content_info.id,
+    },
+    {
+        label: 'tab.details.location_id'|trans()|desc('Location ID'),
+        content: location.id,
+    },
+    {
+        label: 'tab.details.content_remote_id'|trans()|desc('Content remote ID'),
+        content: content_info.remoteId,
+    },
+    {
+        label: 'tab.details.location_remote_id'|trans()|desc('Location remote ID'),
+        content: location.remoteId
+    },
+] %}
+
+{% include '@ibexadesign/ui/component/details/details.html.twig' with {
     headline: 'tab.details.technical_details'|trans()|desc('Technical details'),
-    head_cols: [
-        { content: 'tab.details.content_id'|trans()|desc('Content ID') },
-        { content: 'tab.details.location_id'|trans()|desc('Location ID') },
-        { content: 'tab.details.content_remote_id'|trans()|desc('Content remote ID') },
-        { content: 'tab.details.location_remote_id'|trans()|desc('Location remote ID') },
-    ],
-    body_rows: [{
-        cols: [
-            { content: content_info.id },
-            { content: location.id },
-            { content: content_info.remoteId },
-            { content: location.remoteId },
-        ]
-    }],
-} %}
+    items: technical_details_items,
+} only %}
 
 {% if can_see_section %}
-    {% set body_row_cols = [
-        { content: section.name },
-    ] %}
-    {% set col_raw %}
+    {% set section_details_change %}
         {% if form_assign_section %}
             {% form_theme form_assign_section '@ibexadesign/ui/form_fields.html.twig' %}
 
@@ -64,18 +72,34 @@
             {{ form_end(form_assign_section) }}
         {% endif %}
     {% endset %}
-    {% set body_row_cols = body_row_cols|merge([{ content: col_raw, raw: true }]) %}
-    {% include '@ibexadesign/ui/component/table/table.html.twig' with {
+    {% set section_details_items = [
+        {
+            label: 'tab.details.section_name'|trans()|desc('Section name'),
+            content: section.name,
+        },
+        {
+            label: 'tab.details.change_section '|trans()|desc('Change Section'),
+            content: section_details_change
+        },
+    ] %}
+
+    {% include '@ibexadesign/ui/component/details/details.html.twig' with {
         headline: 'tab.details.section_details'|trans()|desc('Section details'),
-        head_cols: [
-            { content: 'tab.details.section_name'|trans()|desc('Section name') },
-            { content: 'tab.details.change_section '|trans()|desc('Change Section') },
-        ],
-        body_rows: [{
-            cols: body_row_cols
-        }],
-    } %}
+        items: section_details_items,
+    } only %}
 {% endif %}
+
+{% set object_state_details_items = [
+    {
+        label: 'tab.details.state_group_name'|trans()|desc('Group name'),
+    },
+    {
+        label: 'tab.details.state_name'|trans()|desc('Current Object state'),
+    },
+    {
+        label: 'tab.details.change_state'|trans()|desc('Change Object state'),
+    },
+] %}
 
 {% set body_rows = [] %}
 {% for object_state in object_states %}
