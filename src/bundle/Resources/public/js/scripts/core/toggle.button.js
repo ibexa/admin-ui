@@ -1,9 +1,8 @@
-(function(global, doc, eZ) {
+(function (global, doc, eZ) {
     class ToggleButton {
         constructor(config) {
-            this.container = config?.container || doc;
-            this.fieldsSelector = config?.fieldsSelector || '.ibexa-toggle';
-            this.inputsSelector = config?.inputsSelector || '.ibexa-toggle input';
+            this.toggleNode = config.toggleNode;
+            this.inputsSelector = config?.inputsSelector || 'input';
 
             this.toggleState = this.toggleState.bind(this);
             this.addFocus = this.addFocus.bind(this);
@@ -13,18 +12,18 @@
 
         toggleState(event) {
             event.preventDefault();
-    
+
             const toggler = event.currentTarget;
-    
+
             if (toggler.classList.contains('ibexa-toggle--is-disabled')) {
                 return;
             }
 
             const isChecked = toggler.classList.toggle('ibexa-toggle--is-checked');
-    
+
             if (toggler.classList.contains('ibexa-toggle--radio')) {
                 const valueToSet = isChecked ? 1 : 0;
-    
+
                 toggler.querySelector(`.form-check input[value="${valueToSet}"]`).checked = true;
             } else {
                 toggler.querySelector('.ibexa-toggle__input').checked = isChecked;
@@ -33,33 +32,32 @@
 
         addFocus(event) {
             event.preventDefault();
-    
+
             const toggler = event.currentTarget.closest('.ibexa-toggle');
-    
+
             if (toggler.classList.contains('ibexa-toggle--is-disabled')) {
                 return;
             }
-    
+
             toggler.classList.add('ibexa-toggle--is-focused');
         }
-        
+
         removeFocus(event) {
             event.preventDefault();
-    
+
             const toggler = event.currentTarget.closest('.ibexa-toggle');
-    
+
             if (toggler.classList.contains('ibexa-toggle--is-disabled')) {
                 return;
             }
-    
+
             toggler.classList.remove('ibexa-toggle--is-focused');
-        };
+        }
 
         init() {
-            const toggleFields = this.container.querySelectorAll(this.fieldsSelector);
-            const toggleInputs = this.container.querySelectorAll(this.inputsSelector);
+            const toggleInputs = this.toggleNode.querySelectorAll(this.inputsSelector);
 
-            toggleFields.forEach((toggleField) => toggleField.addEventListener('click', this.toggleState, false));
+            this.toggleNode.addEventListener('click', this.toggleState, false);
             toggleInputs.forEach((toggleInput) => toggleInput.addEventListener('focus', this.addFocus, false));
             toggleInputs.forEach((toggleInput) => toggleInput.addEventListener('blur', this.removeFocus, false));
         }

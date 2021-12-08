@@ -1,5 +1,7 @@
 (function(global, doc, eZ) {
-    const toggleButtons = new eZ.core.ToggleButton();
+    doc.querySelectorAll('.ibexa-toggle').forEach((toggleNode) => {
+        const toggleButton = new eZ.core.ToggleButton({ toggleNode });
 
-    toggleButtons.init();
+        toggleButton.init();
+    });
 })(window, window.document, window.eZ);
