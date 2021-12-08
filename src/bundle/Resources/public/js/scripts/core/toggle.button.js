@@ -55,11 +55,11 @@
         }
 
         init() {
-            const toggleInputs = this.toggleNode.querySelectorAll(this.inputsSelector);
+            const toggleInput = this.toggleNode.querySelector(this.inputsSelector);
 
             this.toggleNode.addEventListener('click', this.toggleState, false);
-            toggleInputs.forEach((toggleInput) => toggleInput.addEventListener('focus', this.addFocus, false));
-            toggleInputs.forEach((toggleInput) => toggleInput.addEventListener('blur', this.removeFocus, false));
+            toggleInput.addEventListener('focus', this.addFocus, false);
+            toggleInput.addEventListener('blur', this.removeFocus, false);
         }
     }
 
