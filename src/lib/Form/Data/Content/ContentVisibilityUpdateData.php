@@ -6,27 +6,27 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Content;
+namespace Ibexa\AdminUi\Form\Data\Content;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class ContentVisibilityUpdateData
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
     private $contentInfo;
 
     /** @var bool|null */
     private $visible;
 
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     private $location;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo|null $contentInfo
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      * @param bool|null $visible
      */
     public function __construct(
@@ -40,7 +40,7 @@ class ContentVisibilityUpdateData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
      */
     public function getContentInfo(): ?ContentInfo
     {
@@ -56,7 +56,7 @@ class ContentVisibilityUpdateData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      */
     public function setContentInfo(ContentInfo $contentInfo): void
     {
@@ -72,7 +72,7 @@ class ContentVisibilityUpdateData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     public function getLocation(): ?Location
     {
@@ -80,10 +80,12 @@ class ContentVisibilityUpdateData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      */
     public function setLocation(?Location $location): void
     {
         $this->location = $location;
     }
 }
+
+class_alias(ContentVisibilityUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\ContentVisibilityUpdateData');

@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Type\FieldDefinition;
+namespace Ibexa\AdminUi\Form\Type\FieldDefinition;
 
-use eZ\Publish\API\Repository\FieldTypeService;
-use eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList;
-use eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy;
-use EzSystems\EzPlatformAdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface;
-use EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData;
-use EzSystems\EzPlatformAdminUi\Form\DataTransformer\TranslatablePropertyTransformer;
+use Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface;
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\AdminUi\Form\DataTransformer\TranslatablePropertyTransformer;
+use Ibexa\Contracts\Core\Repository\FieldTypeService;
+use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy;
+use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -27,16 +27,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class FieldDefinitionType extends AbstractType
 {
-    /** @var \EzSystems\EzPlatformAdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface */
+    /** @var \Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface */
     private $fieldTypeMapperDispatcher;
 
-    /** @var \eZ\Publish\API\Repository\FieldTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\FieldTypeService */
     private $fieldTypeService;
 
-    /** @var \eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList */
+    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
     private $groupsList;
 
-    /** @var \eZ\Publish\SPI\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy */
+    /** @var \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy */
     private $thumbnailStrategy;
 
     public function __construct(FieldTypeDefinitionFormMapperDispatcherInterface $fieldTypeMapperDispatcher, FieldTypeService $fieldTypeService, ThumbnailStrategy $thumbnailStrategy)
@@ -76,12 +76,14 @@ class FieldDefinitionType extends AbstractType
 
         $builder
             ->add(
-                $builder->create('name',
+                $builder->create(
+                    'name',
                     TextType::class,
                     [
                         'property_path' => 'names',
                         'label' => /** @Desc("Name") */ 'field_definition.name',
-                    ])
+                    ]
+                )
                     ->addModelTransformer($translatablePropertyTransformer)
             )
             ->add(
@@ -111,7 +113,9 @@ class FieldDefinitionType extends AbstractType
                 'disabled' => $isTranslation,
             ])
             ->add(
-                'fieldGroup', ChoiceType::class, [
+                'fieldGroup',
+                ChoiceType::class,
+                [
                     'choices' => $fieldsGroups,
                     'required' => false,
                     'label' => /** @Desc("Category") */ 'field_definition.field_group',
@@ -121,16 +125,11 @@ class FieldDefinitionType extends AbstractType
             ->add('position', IntegerType::class, [
                 'label' => /** @Desc("Position") */ 'field_definition.position',
                 'disabled' => $isTranslation,
-            ])
-            ->add('selected', CheckboxType::class, [
-                'required' => false,
-                'mapped' => false,
-                'disabled' => $isTranslation,
             ]);
 
         // Hook on form generation for specific FieldType needs
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            /** @var \EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData $data */
+            /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData $data */
             $data = $event->getData();
             $form = $event->getForm();
             $fieldTypeIdentifier = $data->getFieldTypeIdentifier();
@@ -164,3 +163,5 @@ class FieldDefinitionType extends AbstractType
         return 'ezplatform_content_forms_fielddefinition_update';
     }
 }
+
+class_alias(FieldDefinitionType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\FieldDefinition\FieldDefinitionType');

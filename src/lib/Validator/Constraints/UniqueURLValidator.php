@@ -4,23 +4,23 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Validator\Constraints;
+namespace Ibexa\AdminUi\Validator\Constraints;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\URLService;
-use EzSystems\EzPlatformAdminUi\Form\Data\URL\URLUpdateData;
+use Ibexa\AdminUi\Form\Data\URL\URLUpdateData;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\URLService;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class UniqueURLValidator extends ConstraintValidator
 {
-    /** @var \eZ\Publish\API\Repository\URLService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLService */
     private $urlService;
 
     /**
      * UniqueURLValidator constructor.
      *
-     * @param \eZ\Publish\API\Repository\URLService $urlService
+     * @param \Ibexa\Contracts\Core\Repository\URLService $urlService
      */
     public function __construct(URLService $urlService)
     {
@@ -28,7 +28,7 @@ class UniqueURLValidator extends ConstraintValidator
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validate($value, Constraint $constraint)
     {
@@ -52,3 +52,5 @@ class UniqueURLValidator extends ConstraintValidator
         }
     }
 }
+
+class_alias(UniqueURLValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\UniqueURLValidator');

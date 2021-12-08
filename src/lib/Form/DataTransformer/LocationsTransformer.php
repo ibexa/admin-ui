@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\DataTransformer;
+namespace Ibexa\AdminUi\Form\DataTransformer;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -19,11 +19,11 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class LocationsTransformer implements DataTransformerInterface
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     protected $locationService;
 
     /**
-     * @param \eZ\Publish\API\Repository\LocationService $locationService
+     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
      */
     public function __construct(LocationService $locationService)
     {
@@ -52,7 +52,7 @@ class LocationsTransformer implements DataTransformerInterface
      *
      * @param mixed $value
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
@@ -75,3 +75,5 @@ class LocationsTransformer implements DataTransformerInterface
         }
     }
 }
+
+class_alias(LocationsTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\LocationsTransformer');

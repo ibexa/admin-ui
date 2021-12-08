@@ -9,13 +9,13 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use eZ\Publish\API\Repository\Repository;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
-use PHPUnit\Framework\Assert;
+use Ibexa\Contracts\Core\Repository\Repository;
 
 class ObjectStateGroupPage extends Page
 {
@@ -31,7 +31,7 @@ class ObjectStateGroupPage extends Page
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private $objectStates;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
     /** @var mixed */
@@ -60,7 +60,7 @@ class ObjectStateGroupPage extends Page
     {
         $this->expectedObjectStateGroupName = $objectStateGroupName;
 
-        /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup[] $objectStateGroups */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[] $objectStateGroups */
         $objectStateGroups = $this->repository->sudo(function () {
             return $this->repository->getObjectStateService()->loadObjectStateGroups();
         });
@@ -107,10 +107,11 @@ class ObjectStateGroupPage extends Page
 
     public function verifyIsLoaded(): void
     {
-        Assert::assertEquals(
-            sprintf('Object state group: %s', $this->expectedObjectStateGroupName),
-            $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText()
-        );
+        $this->getHTMLPage()
+            ->setTimeout(3)
+            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('objectStatesTable')))
+            ->find($this->getLocator('pageTitle'))
+            ->assert()->textEquals(sprintf('Object state group: %s', $this->expectedObjectStateGroupName));
     }
 
     public function getName(): string
@@ -121,11 +122,11 @@ class ObjectStateGroupPage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-header h1'),
-            new VisibleCSSLocator('propertiesTable', '.ez-container:nth-of-type(1)'),
-            new VisibleCSSLocator('objectStatesTable', '.ez-container:nth-of-type(2)'),
-            new VisibleCSSLocator('createButton', '.ez-icon-create'),
-            new VisibleCSSLocator('deleteButton', '.ez-icon-trash'),
+            new VisibleCSSLocator('pageTitle', '.ez-page-title h1'),
+            new VisibleCSSLocator('propertiesTable', '.ez-container .ibexa-table'),
+            new VisibleCSSLocator('objectStatesTable', '[name="object_states_delete"]'),
+            new VisibleCSSLocator('createButton', '.ibexa-icon--create'),
+            new VisibleCSSLocator('deleteButton', '.ibexa-icon--trash'),
         ];
     }
 }

@@ -4,41 +4,42 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Exceptions as ApiException;
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\Core\Helper\TranslationHelper;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\SPI\Limitation\Target;
-use EzSystems\EzPlatformAdminUi\Event\ContentProxyCreateEvent;
-use EzSystems\EzPlatformAdminUi\Event\Options;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\ContentVisibilityUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentEditData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\MainTranslationUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\DataMapper\ContentMainLocationUpdateMapper;
-use EzSystems\EzPlatformAdminUi\Form\DataMapper\MainTranslationUpdateMapper;
-use EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\ContentVisibilityUpdateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\Translation\MainTranslationUpdateType;
-use EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface;
-use EzSystems\EzPlatformAdminUi\Permission\LookupLimitationsTransformer;
-use EzSystems\EzPlatformAdminUi\Siteaccess\SiteAccessNameGeneratorInterface;
-use EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessResolverInterface;
-use EzSystems\EzPlatformAdminUi\Specification\ContentIsUser;
-use EzSystems\EzPlatformAdminUi\Specification\ContentType\ContentTypeIsUser;
+use Ibexa\AdminUi\Event\Options;
+use Ibexa\AdminUi\Form\Data\Content\ContentVisibilityUpdateData;
+use Ibexa\AdminUi\Form\Data\Content\Draft\ContentCreateData;
+use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
+use Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData;
+use Ibexa\AdminUi\Form\Data\Content\Translation\MainTranslationUpdateData;
+use Ibexa\AdminUi\Form\DataMapper\ContentMainLocationUpdateMapper;
+use Ibexa\AdminUi\Form\DataMapper\MainTranslationUpdateMapper;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\AdminUi\Form\Type\Content\ContentVisibilityUpdateType;
+use Ibexa\AdminUi\Form\Type\Content\Translation\MainTranslationUpdateType;
+use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
+use Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface;
+use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
+use Ibexa\AdminUi\Specification\ContentIsUser;
+use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Helper\TranslationHelper;
+use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Core\Repository\Exceptions as ApiException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,43 +48,43 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ContentController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataMapper\ContentMainLocationUpdateMapper */
+    /** @var \Ibexa\AdminUi\Form\DataMapper\ContentMainLocationUpdateMapper */
     private $contentMainLocationUpdateMapper;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessResolverInterface */
+    /** @var \Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface */
     private $siteaccessResolver;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\LookupLimitationsTransformer */
+    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
     private $lookupLimitationsTransformer;
 
-    /** @var \eZ\Publish\Core\Helper\TranslationHelper */
+    /** @var \Ibexa\Core\Helper\TranslationHelper */
     private $translationHelper;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Siteaccess\SiteAccessNameGeneratorInterface */
+    /** @var \Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface */
     private $siteAccessNameGenerator;
 
     /** @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface */
@@ -128,7 +129,7 @@ class ContentController extends Controller
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      * @throws ApiException\ContentValidationException
      * @throws ApiException\ContentFieldValidationException
@@ -172,7 +173,7 @@ class ContentController extends Controller
         string $languageCode,
         int $parentLocationId
     ): Response {
-        /** @var \EzSystems\EzPlatformAdminUi\Event\ContentProxyCreateEvent $event */
+        /** @var \Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent $event */
         $event = $this->eventDispatcher->dispatch(
             new ContentProxyCreateEvent(
                 $contentType,
@@ -200,7 +201,7 @@ class ContentController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function editAction(Request $request): Response
@@ -257,7 +258,7 @@ class ContentController extends Controller
             }
         }
 
-        /** @var \EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentEditData $data */
+        /** @var \Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData $data */
         $data = $form->getData();
         $contentInfo = $data->getContentInfo();
 
@@ -276,11 +277,11 @@ class ContentController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      * @throws \InvalidArgumentException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function updateMainLocationAction(Request $request): Response
@@ -306,7 +307,7 @@ class ContentController extends Controller
                 return new RedirectResponse($this->generateUrl('_ez_content_view', [
                     'contentId' => $contentInfo->id,
                     'locationId' => $contentInfo->mainLocationId,
-                    '_fragment' => 'ez-tab-location-view-locations',
+                    '_fragment' => 'ibexa-tab-location-view-locations',
                 ]));
             });
 
@@ -315,7 +316,7 @@ class ContentController extends Controller
             }
         }
 
-        /** @var \EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentEditData $data */
+        /** @var \Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData $data */
         $data = $form->getData();
         $contentInfo = $data->getContentInfo();
 
@@ -323,7 +324,7 @@ class ContentController extends Controller
             return new RedirectResponse($this->generateUrl('_ez_content_view', [
                 'contentId' => $contentInfo->id,
                 'locationId' => $contentInfo->mainLocationId,
-                '_fragment' => 'ez-tab-location-view-locations',
+                '_fragment' => 'ibexa-tab-location-view-locations',
             ]));
         }
 
@@ -331,10 +332,10 @@ class ContentController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param string|null $languageCode
      * @param int|null $versionNo
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -410,21 +411,21 @@ class ContentController extends Controller
                 return new RedirectResponse($this->generateUrl('_ez_content_view', [
                     'contentId' => $contentInfo->id,
                     'locationId' => $contentInfo->mainLocationId,
-                    '_fragment' => 'ez-tab-location-view-translations',
+                    '_fragment' => 'ibexa-tab-location-view-translations',
                 ]));
             });
             if ($result instanceof Response) {
                 return $result;
             }
         }
-        /** @var \EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\MainTranslationUpdateData $data */
+        /** @var \Ibexa\AdminUi\Form\Data\Content\Translation\MainTranslationUpdateData $data */
         $data = $form->getData();
         $contentInfo = $data->getContentInfo();
         if (null !== $contentInfo) {
             return new RedirectResponse($this->generateUrl('_ez_content_view', [
                 'contentId' => $contentInfo->id,
                 'locationId' => $contentInfo->mainLocationId,
-                '_fragment' => 'ez-tab-location-view-translations',
+                '_fragment' => 'ibexa-tab-location-view-translations',
             ]));
         }
 
@@ -497,13 +498,13 @@ class ContentController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param string|null $languageCode
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function checkEditPermissionAction(Content $content, ?string $languageCode): JsonResponse
     {
@@ -562,3 +563,5 @@ class ContentController extends Controller
         ]);
     }
 }
+
+class_alias(ContentController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentController');

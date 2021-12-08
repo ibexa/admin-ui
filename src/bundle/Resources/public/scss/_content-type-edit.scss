@@ -1,0 +1,158 @@
+.ibexa-available-field-types {
+    @include sidebar-drag-items();
+
+    min-height: calculateRem(700px);
+    max-height: calc(100vh - #{calculateRem(200px)});
+    margin-left: calculateRem(32px);
+}
+
+.ibexa-available-field-type {
+    @include sidebar-drag-item;
+}
+
+.ibexa-content-type-edit {
+    &__sections {
+        padding: 0;
+    }
+
+    &__section {
+        margin: 0 0 calculateRem(50px) 0;
+    }
+
+    &__section-column-header {
+        margin-bottom: calculateRem(17px);
+    }
+
+    &__section-column {
+        padding: 0;
+
+        &--field-definitions {
+            min-height: calculateRem(700px);
+            padding: calculateRem(16px) calculateRem(34px);
+            background: $ibexa-color-light-300;
+            border-radius: $ibexa-border-radius;
+        }
+
+        .ibexa-collapse {
+            &--field-definitions-group {
+                margin-bottom: calculateRem(32px);
+
+                .ibexa-collapse {
+                    &__header {
+                        padding: 0 calculateRem(12px);
+
+                        .ibexa-btn {
+                            padding: calculateRem(10px);
+                        }
+                    }
+
+                    &__body-content {
+                        padding: 0 calculateRem(24px) calculateRem(20px);
+                    }
+                }
+            }
+
+            &--field-definition {
+                position: relative;
+                margin-bottom: calculateRem(12px);
+                border-radius: $ibexa-border-radius;
+                border: calculateRem(1px) solid $ibexa-color-light;
+                box-shadow: $ibexa-content-type-edit-field-shadow;
+
+                .ibexa-collapse {
+                    &__header {
+                        .ibexa-btn {
+                            padding: calculateRem(10px);
+                        }
+
+                        &:hover {
+                            cursor: grab;
+                        }
+                    }
+
+                    &__header-label {
+                        font-size: $ibexa-text-font-size !important;
+                        font-weight: normal;
+                    }
+
+                    &__toggle--status {
+                        margin-left: 0;
+                    }
+
+                    &__extra-action-button--remove-field-definitions {
+                        margin-left: auto;
+                    }
+
+                    &__toggle-btn:not(.ibexa-collapse__toggle-btn--status) {
+                        cursor: grab;
+                    }
+
+                    &__draggable-btn {
+                        cursor: grab;
+
+                        .ibexa-icon {
+                            fill: $ibexa-color-light;
+                        }
+                    }
+                }
+            }
+        }
+
+        .ibexa-popup-menu {
+            top: calculateRem(70px);
+        }
+    }
+
+    &__field-definition-content {
+        padding: calculateRem(20px);
+    }
+
+    &__add-field-definitions-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: calculateRem(80px);
+        margin: calculateRem(24px) 0;
+        border: calculateRem(1px) dashed $ibexa-color-light-600;
+        border-radius: $ibexa-border-radius;
+    }
+
+    &__add-field-definitions-group-btn {
+        min-width: calculateRem(210px);
+        justify-content: center;
+    }
+
+    &__empty-group-image {
+        margin: calculateRem(32px) auto calculateRem(48px);
+    }
+
+    &__empty-group-label {
+        color: $ibexa-color-dark-400;
+        margin-bottom: calculateRem(16px);
+    }
+}
+
+.ibexa-field-definitions-placeholder {
+    @include drag-item-placeholder;
+}
+
+.ibexa-field-definitions-empty-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: calculateRem(50px);
+
+    &__image {
+        margin-top: calculateRem(90px);
+    }
+
+    &__label {
+        color: $ibexa-color-dark-400;
+        margin: calculateRem(45px) auto calculateRem(15px);
+    }
+
+    &--hidden {
+        display: none;
+    }
+}

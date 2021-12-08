@@ -6,23 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta;
+namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
-use eZ\Publish\API\Repository\BookmarkService;
-use EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Pagerfanta\Adapter\AdapterInterface;
 
 class BookmarkAdapter implements AdapterInterface
 {
-    /** @var \eZ\Publish\API\Repository\BookmarkService */
+    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
     private $bookmarkService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory */
+    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     private $datasetFactory;
 
     /**
-     * @param \eZ\Publish\API\Repository\BookmarkService $bookmarkService
-     * @param \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory $datasetFactory
+     * @param \Ibexa\Contracts\Core\Repository\BookmarkService $bookmarkService
+     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
      */
     public function __construct(BookmarkService $bookmarkService, DatasetFactory $datasetFactory)
     {
@@ -35,7 +35,7 @@ class BookmarkAdapter implements AdapterInterface
      *
      * @return int the number of results
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function getNbResults()
     {
@@ -50,7 +50,7 @@ class BookmarkAdapter implements AdapterInterface
      *
      * @return array|\Traversable the slice
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function getSlice($offset, $length)
     {
@@ -60,3 +60,5 @@ class BookmarkAdapter implements AdapterInterface
             ->getBookmarks();
     }
 }
+
+class_alias(BookmarkAdapter::class, 'EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\BookmarkAdapter');

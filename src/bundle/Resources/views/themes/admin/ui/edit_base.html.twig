@@ -1,0 +1,26 @@
+{% extends view_base_layout is defined ? view_base_layout : '@ibexadesign/ui/layout.html.twig' %}
+
+{% block main_container_class %}ibexa-main-container--edit-container{% endblock %}
+
+{% block header_row %}{% endblock %}
+
+{% block left_sidebar %}
+    {% include '@ibexadesign/ui/anchor_navigation_menu.html.twig' with anchor_params|default({}) %}
+{% endblock %}
+
+{% block content_column %}
+    <div class="ibexa-main-container__content-column">
+        {% block header %}{% endblock %}
+
+        <div class="ibexa-edit-content">
+            <div class="container">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('ezplatform-admin-ui-edit-base-js', null, 'ibexa') }}
+{% endblock %}

@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\AdminUi\DependencyInjection\Compiler;
 
 use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -16,8 +16,8 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class LimitationValueMapperPass implements CompilerPassInterface
 {
-    const LIMITATION_VALUE_MAPPER_REGISTRY = 'ezplatform.content_forms.limitation_value_mapper.registry';
-    const LIMITATION_VALUE_MAPPER_TAG = 'ez.limitation.valueMapper';
+    public const LIMITATION_VALUE_MAPPER_REGISTRY = 'ezplatform.content_forms.limitation_value_mapper.registry';
+    public const LIMITATION_VALUE_MAPPER_TAG = 'ez.limitation.valueMapper';
 
     public function process(ContainerBuilder $container)
     {
@@ -41,3 +41,5 @@ class LimitationValueMapperPass implements CompilerPassInterface
         }
     }
 }
+
+class_alias(LimitationValueMapperPass::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Compiler\LimitationValueMapperPass');

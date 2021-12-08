@@ -81,16 +81,6 @@
         <target state="new">Links (%count%)</target>
         <note>key: url.list.title</note>
       </trans-unit>
-      <trans-unit id="126d1ac5ef68809c1a2bfdd3872470d7aafaacc3" resname="url.open">
-        <source>Open</source>
-        <target state="new">Open</target>
-        <note>key: url.open</note>
-      </trans-unit>
-      <trans-unit id="226d3de8d2685074e329b9eca1657c96d9c89ead" resname="url.search">
-        <source>Search</source>
-        <target state="new">Search</target>
-        <note>key: url.search</note>
-      </trans-unit>
       <trans-unit id="960c2d7573696185d28d8e385eabe01dbe9dacf3" resname="url.search.placeholder">
         <source>Search for URLs</source>
         <target state="new">Search for URLs</target>

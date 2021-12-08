@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Specification\Location;
+namespace Ibexa\AdminUi\Specification\Location;
 
-use eZ\Publish\API\Repository\LocationService;
-use EzSystems\EzPlatformAdminUi\Specification\AbstractSpecification;
+use Ibexa\AdminUi\Specification\AbstractSpecification;
+use Ibexa\Contracts\Core\Repository\LocationService;
 
 class HasChildren extends AbstractSpecification
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
     /**
-     * @param \eZ\Publish\API\Repository\LocationService $locationService
+     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
      */
     public function __construct(LocationService $locationService)
     {
@@ -25,7 +25,7 @@ class HasChildren extends AbstractSpecification
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $item
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
      *
      * @return bool
      */
@@ -36,3 +36,5 @@ class HasChildren extends AbstractSpecification
         return 0 < $childCount;
     }
 }
+
+class_alias(HasChildren::class, 'EzSystems\EzPlatformAdminUi\Specification\Location\HasChildren');

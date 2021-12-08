@@ -4,42 +4,43 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\Core\Helper\TranslationHelper;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\TranslationAddData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\TranslationDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface;
-use EzSystems\EzPlatformAdminUi\Tab\LocationView\TranslationsTab;
+use Ibexa\AdminUi\Form\Data\Content\Translation\TranslationAddData;
+use Ibexa\AdminUi\Form\Data\Content\Translation\TranslationDeleteData;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\AdminUi\Tab\LocationView\TranslationsTab;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Core\Helper\TranslationHelper;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class TranslationController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \eZ\Publish\Core\Helper\TranslationHelper */
+    /** @var \Ibexa\Core\Helper\TranslationHelper */
     private $translationHelper;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory $formFactory
-     * @param \EzSystems\EzPlatformAdminUi\Form\SubmitHandler $submitHandler
+     * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
+     * @param \Ibexa\AdminUi\Form\SubmitHandler $submitHandler
      */
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
@@ -65,7 +66,7 @@ class TranslationController extends Controller
         $form = $this->formFactory->addTranslation();
         $form->handleRequest($request);
 
-        /** @var \EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\TranslationAddData $data */
+        /** @var \Ibexa\AdminUi\Form\Data\Content\Translation\TranslationAddData $data */
         $data = $form->getData();
         $location = $data->getLocation();
 
@@ -109,7 +110,7 @@ class TranslationController extends Controller
         $form = $this->formFactory->deleteTranslation();
         $form->handleRequest($request);
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo */
         $contentInfo = $form->getData()->getContentInfo();
 
         if ($form->isSubmitted()) {
@@ -149,3 +150,5 @@ class TranslationController extends Controller
         ]));
     }
 }
+
+class_alias(TranslationController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\TranslationController');
