@@ -186,6 +186,26 @@
         <target>Content Type / Update</target>
         <note>key: role.policy.class.update</note>
       </trans-unit>
+      <trans-unit id="3551d9a7a066b2a0941f244fa91f766c089fd063" resname="role.policy.commerce">
+        <source>Commerce</source>
+        <target>Commerce</target>
+        <note>key: role.policy.commerce</note>
+      </trans-unit>
+      <trans-unit id="b5a03c317caa2abbc2a833f7a1bd96dabe75f707" resname="role.policy.commerce.all_functions">
+        <source>Commerce / All functions</source>
+        <target>Commerce / All functions</target>
+        <note>key: role.policy.commerce.all_functions</note>
+      </trans-unit>
+      <trans-unit id="2bec0e366dfe740a1a13ef2b4186513711075983" resname="role.policy.commerce.currency">
+        <source>Commerce / Currency</source>
+        <target>Commerce / Currency</target>
+        <note>key: role.policy.commerce.currency</note>
+      </trans-unit>
+      <trans-unit id="fbf8fcb1c05ac737e68351c0a85682ac6a4bef6e" resname="role.policy.commerce.region">
+        <source>Commerce / Region</source>
+        <target>Commerce / Region</target>
+        <note>key: role.policy.commerce.region</note>
+      </trans-unit>
       <trans-unit id="504ce9f80e074eeb880d5ae5f54d4811e2ab6862" resname="role.policy.comparison">
         <source>Comparison</source>
         <target>Comparison</target>

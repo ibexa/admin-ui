@@ -366,16 +366,6 @@
         <target state="new">%name%</target>
         <note>key: content_type.view.view.title</note>
       </trans-unit>
-      <trans-unit id="d74d01091280ceabfb457980ddd459dc841ad957" resname="content_type_group.breadcrumb.add">
-        <source>Creating a new Content Type group</source>
-        <target state="new">Creating a new Content Type group</target>
-        <note>key: content_type_group.breadcrumb.add</note>
-      </trans-unit>
-      <trans-unit id="20ee2fba1b6d560dd296bbe696975e92b78ce578" resname="content_type_group.breadcrumb.edit">
-        <source>Editing Content Type group '%identifier%'</source>
-        <target state="new">Editing Content Type group '%identifier%'</target>
-        <note>key: content_type_group.breadcrumb.edit</note>
-      </trans-unit>
       <trans-unit id="83a16866c8ff14a4966553088657aafbb9db8edb" resname="content_type_group.breadcrumb.list">
         <source>Content Types</source>
         <target state="new">Content Types</target>
@@ -400,6 +390,11 @@
         <source>Created Content Type group '%name%'.</source>
         <target state="new">Created Content Type group '%name%'.</target>
         <note>key: content_type_group.create.success</note>
+      </trans-unit>
+      <trans-unit id="59f3d7c7674d76f2854970e9c63a8db856b1229f" resname="content_type_group.creating">
+        <source>Creating</source>
+        <target state="new">Creating</target>
+        <note>key: content_type_group.creating</note>
       </trans-unit>
       <trans-unit id="eec79e4a9109f28892797768f085eab39eaedc31" resname="content_type_group.delete.submit">
         <source>Delete</source>
@@ -465,6 +460,11 @@
         <source>%identifier%</source>
         <target state="new">%identifier%</target>
         <note>key: content_type_group.view.view.title</note>
+      </trans-unit>
+      <trans-unit id="f34946beab1da2af6535a8e4a88145e9557de0aa" resname="editing">
+        <source>Editing</source>
+        <target state="new">Editing</target>
+        <note>key: editing</note>
       </trans-unit>
       <trans-unit id="f99cc628dc4d82c5ee69eae79039a2f449eec064" resname="field_definition.description">
         <source>Description</source>
