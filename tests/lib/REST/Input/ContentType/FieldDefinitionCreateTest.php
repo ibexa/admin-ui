@@ -10,8 +10,8 @@ namespace Ibexa\Tests\AdminUi\REST\Input\ContentType;
 
 use Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionCreate;
 use Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionCreate as FieldDefinitionCreateValue;
-use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
 use Ibexa\Contracts\Rest\Exceptions;
+use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
 use PHPUnit\Framework\TestCase;
 
 final class FieldDefinitionCreateTest extends TestCase

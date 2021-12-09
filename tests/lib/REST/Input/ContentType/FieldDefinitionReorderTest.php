@@ -10,8 +10,8 @@ namespace Ibexa\Tests\AdminUi\REST\Input\ContentType;
 
 use Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionReorder;
 use Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionReorder as FieldDefinitionReorderValue;
-use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
 use Ibexa\Contracts\Rest\Exceptions;
+use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
 use PHPUnit\Framework\TestCase;
 
 final class FieldDefinitionReorderTest extends TestCase

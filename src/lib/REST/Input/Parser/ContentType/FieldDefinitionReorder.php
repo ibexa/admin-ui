@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\REST\Input\Parser\ContentType;
 
 use Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionReorder as FieldDefinitionReorderValue;
-use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
 use Ibexa\Contracts\Rest\Exceptions;
+use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
 use Ibexa\Rest\Input\BaseParser;
 
 final class FieldDefinitionReorder extends BaseParser
