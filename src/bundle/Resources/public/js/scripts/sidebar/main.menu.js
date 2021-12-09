@@ -110,5 +110,13 @@
     secondLevelMenuNode.querySelector('.ibexa-main-menu__toggler').addEventListener('click', toggleSecondLevelMenu, false);
     secondLevelMenuNode.querySelector('.ibexa-main-menu__resizer').addEventListener('mousedown', addResizeListeners, false);
     secondLevelMenuNode.querySelectorAll('.ibexa-main-menu__tooltip-trigger').forEach(parsePopup);
-    secondLevelMenuNode.addEventListener('transitionend', () => doc.body.dispatchEvent(new CustomEvent('ibexa-main-menu-resized')), false);
+    secondLevelMenuNode.addEventListener(
+        'transitionend',
+        (event) => {
+            if (event.propertyName === 'width') {
+                doc.body.dispatchEvent(new CustomEvent('ibexa-main-menu-resized'));
+            }
+        },
+        false
+    );
 })(window, window.document, window.eZ, window.localStorage);
