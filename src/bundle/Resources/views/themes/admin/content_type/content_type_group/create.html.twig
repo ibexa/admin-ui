@@ -11,7 +11,6 @@
         action_name: 'content_type_group.creating'|trans|desc('Creating'),
         icon_name: 'file',
         title: 'content_type_group.view.add.title'|trans|desc('Creating a new Content Type group'),
-        show_autosave_status: false,
         context_actions: knp_menu_render(content_type_group_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
 {% endblock %}
