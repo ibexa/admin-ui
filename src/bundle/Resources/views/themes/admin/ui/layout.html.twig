@@ -137,58 +137,60 @@
             </div>
         {% endblock %}
 
-        <div class="ibexa-main-container {% block main_container_class %}{% endblock %}">
-            {% block side_column %}
-                <div class="ibexa-main-container__side-column {% block side_column_class %}{% endblock %}">
-                    {% block left_sidebar %}
-                        {% set main_menu_context = {
-                            'location': location ?? null,
-                            'content': content ?? null
-                        } %}
-                        {% set main_menu = knp_menu_get('ezplatform_admin_ui.menu.main', [], main_menu_context) %}
+        {% block main_container %}
+            <div class="ibexa-main-container {% block main_container_class %}{% endblock %}">
+                {% block side_column %}
+                    <div class="ibexa-main-container__side-column {% block side_column_class %}{% endblock %}">
+                        {% block left_sidebar %}
+                            {% set main_menu_context = {
+                                'location': location ?? null,
+                                'content': content ?? null
+                            } %}
+                            {% set main_menu = knp_menu_get('ezplatform_admin_ui.menu.main', [], main_menu_context) %}
 
-                        <nav class="ibexa-main-menu">
-                            {{ knp_menu_render(main_menu, {
-                                'depth': 1,
-                                'template': '@ibexadesign/ui/menu/main.html.twig',
-                                'currentClass': 'active',
-                                'ancestorClass': 'active'
-                            }) }}
-                        
-                            {{ knp_menu_render(main_menu, {
-                                'depth': 2,
-                                'template': '@ibexadesign/ui/menu/main_2nd_level.html.twig',
-                                'currentClass': 'active',
-                                'ancestorClass': 'active'
-                            }) }}
+                            <nav class="ibexa-main-menu">
+                                {{ knp_menu_render(main_menu, {
+                                    'depth': 1,
+                                    'template': '@ibexadesign/ui/menu/main.html.twig',
+                                    'currentClass': 'active',
+                                    'ancestorClass': 'active'
+                                }) }}
                             
-                            {% block content_tree %}{% endblock %}
-                        </nav>
-                    {% endblock %}
-                </div>
-            {% endblock %}
-
-            {% block content_column %}
-                <div class="ibexa-main-container__content-column">
-                    <div class="container">
-                        {% block content_header %}
-                            <div class="ibexa-page-header-wrapper">
-                                <div class="ibexa-breadcrums-wrapper">
-                                    {% block breadcrumbs %}{% endblock %}
-                                </div>
-                                <div class="ibexa-content-menu-wrapper">
-                                    {% block context_menu %}{% endblock %}
-                                </div>
-                                <div class="ibexa-header-wrapper">
-                                    {% block header %}{% endblock %}
-                                </div>
-                            </div>
+                                {{ knp_menu_render(main_menu, {
+                                    'depth': 2,
+                                    'template': '@ibexadesign/ui/menu/main_2nd_level.html.twig',
+                                    'currentClass': 'active',
+                                    'ancestorClass': 'active'
+                                }) }}
+                                
+                                {% block content_tree %}{% endblock %}
+                            </nav>
                         {% endblock %}
-                        {% block content %}{% endblock %}
                     </div>
-                </div>
-            {% endblock %}
-        </div>
+                {% endblock %}
+
+                {% block content_column %}
+                    <div class="ibexa-main-container__content-column">
+                        <div class="container">
+                            {% block content_header %}
+                                <div class="ibexa-page-header-wrapper">
+                                    <div class="ibexa-breadcrums-wrapper">
+                                        {% block breadcrumbs %}{% endblock %}
+                                    </div>
+                                    <div class="ibexa-content-menu-wrapper">
+                                        {% block context_menu %}{% endblock %}
+                                    </div>
+                                    <div class="ibexa-header-wrapper">
+                                        {% block header %}{% endblock %}
+                                    </div>
+                                </div>
+                            {% endblock %}
+                            {% block content %}{% endblock %}
+                        </div>
+                    </div>
+                {% endblock %}
+            </div>
+        {% endblock %}
 
         <div
             class="ibexa-notifications-container"
