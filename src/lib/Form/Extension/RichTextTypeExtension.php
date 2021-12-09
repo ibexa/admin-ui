@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Extension;
+namespace Ibexa\AdminUi\Form\Extension;
 
-use EzSystems\EzPlatformRichText\Form\Type\RichTextType;
+use Ibexa\FieldTypeRichText\Form\Type\RichTextType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -17,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class RichTextTypeExtension extends AbstractTypeExtension
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -29,7 +29,7 @@ class RichTextTypeExtension extends AbstractTypeExtension
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
@@ -43,3 +43,5 @@ class RichTextTypeExtension extends AbstractTypeExtension
         return [RichTextType::class];
     }
 }
+
+class_alias(RichTextTypeExtension::class, 'EzSystems\EzPlatformAdminUi\Form\Extension\RichTextTypeExtension');

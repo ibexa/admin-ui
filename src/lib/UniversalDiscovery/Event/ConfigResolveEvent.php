@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event;
+namespace Ibexa\AdminUi\UniversalDiscovery\Event;
 
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -78,3 +78,5 @@ class ConfigResolveEvent extends Event
         return in_array($this->getConfigName(), self::READ_SPECIFIC_CONFIGURATIONS, true);
     }
 }
+
+class_alias(ConfigResolveEvent::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\ConfigResolveEvent');

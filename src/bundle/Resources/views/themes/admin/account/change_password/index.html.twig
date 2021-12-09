@@ -1,20 +1,24 @@
-{% extends '@ezdesign/ui/base.html.twig' %}
+{% extends '@ibexadesign/ui/base.html.twig' %}
 
-{% form_theme form_change_user_password '@ezdesign/account/change_password/form_fields.html.twig'  %}
+{% form_theme form_change_user_password '@ibexadesign/account/change_password/form_fields.html.twig'  %}
 
 {% trans_default_domain 'user_change_password' %}
 
 {% block breadcrumbs_admin %}
-    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { 'items': [
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { 'items': [
     { value: 'breadcrumb.user_preferences'|trans(domain='messages')|desc('User Preferences') },
     { value: 'user_change_password.change_password'|trans|desc('Change Password') }
     ]} %}
 {% endblock %}
 
-{% block page_title_admin %}
-    {% include '@ezdesign/ui/page_title.html.twig' with {
-    title: 'user_change_password.title'|trans|desc('Change my password'),
-    icon_name: 'edit'
+{% block context_menu_admin %}
+    {% set user_password_change_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_password_change.sidebar_right') %}
+    {{ knp_menu_render(user_password_change_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
+{% endblock %}
+
+{% block header_admin %}
+    {% include '@ibexadesign/ui/page_title.html.twig' with {
+        title: 'user_change_password.title'|trans|desc('Change my password'),
     } %}
 {% endblock %}
 
@@ -22,10 +26,10 @@
     {{ form_start(form_change_user_password, {'attr': {'class': 'ez-form-validate'}}) }}
 
     <section class="container ez-container mt-4">
-        <div class="card ez-card ez-card--light">
+        <div class="card ibexa-card ibexa-card--light">
             <div class="card-body">
-                {{ form_row(form_change_user_password.oldPassword, {'label_attr': {'class': 'ez-label'}}) }}
-                {{ form_row(form_change_user_password.newPassword, {'label_attr': {'class': 'ez-label'}}) }}
+                {{ form_row(form_change_user_password.oldPassword) }}
+                {{ form_row(form_change_user_password.newPassword) }}
             </div>
         </div>
     </section>
@@ -35,11 +39,6 @@
     {{ form_end(form_change_user_password) }}
 {% endblock %}
 
-{% block right_sidebar %}
-    {% set user_password_change_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_password_change.sidebar_right') %}
-    {{ knp_menu_render(user_password_change_sidebar_right, {'template': '@ezdesign/ui/menu/sidebar_right.html.twig'}) }}
-{% endblock %}
-
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-change-user-password-js', null, 'ezplatform') }}
+    {{ encore_entry_script_tags('ezplatform-admin-ui-change-user-password-js', null, 'ibexa') }}
 {% endblock %}

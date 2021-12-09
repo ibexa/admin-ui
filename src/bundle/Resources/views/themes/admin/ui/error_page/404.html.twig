@@ -1,7 +1,7 @@
-{% extends '@ezdesign/ui/layout.html.twig' %}
+{% extends '@ibexadesign/ui/layout.html.twig' %}
 
 {% block navigation %}
-    {% if ez_admin_ui_config.user.user is not empty %}
+    {% if ibexa_admin_ui_config.user.user is not empty %}
         {{ parent() }}
     {% endif %}
 {% endblock %}
@@ -14,7 +14,7 @@
             <div class="ez-error-page__messages-container">
                 <div class="ez-error-page__icon-wrapper">
                     <svg class="ez-error-page__icon">
-                        <use xlink:href="{{ ez_icon_path('error-icon') }}"></use>
+                        <use xlink:href="{{ ibexa_icon_path('error-icon') }}"></use>
                     </svg>
                 </div>
                 <h2 class="ez-error-page__title">{{ 'error.page.404.title'|trans|desc('Page not found') }}</h2>

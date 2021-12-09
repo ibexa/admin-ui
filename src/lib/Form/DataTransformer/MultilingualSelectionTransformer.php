@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\DataTransformer;
+namespace Ibexa\AdminUi\Form\DataTransformer;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Symfony\Component\Form\DataTransformerInterface;
 
 class MultilingualSelectionTransformer implements DataTransformerInterface
@@ -16,12 +16,12 @@ class MultilingualSelectionTransformer implements DataTransformerInterface
     /** @var string */
     protected $languageCode;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData */
+    /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData */
     private $data;
 
     /**
      * @param string $languageCode
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData $data
+     * @param \Ibexa\AdminUi\Form\Data\FieldDefinitionData $data
      */
     public function __construct(string $languageCode, FieldDefinitionData $data)
     {
@@ -30,7 +30,7 @@ class MultilingualSelectionTransformer implements DataTransformerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function transform($value)
     {
@@ -38,7 +38,7 @@ class MultilingualSelectionTransformer implements DataTransformerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function reverseTransform($value)
     {
@@ -49,3 +49,5 @@ class MultilingualSelectionTransformer implements DataTransformerInterface
         return array_merge($this->data->fieldSettings['multilingualOptions'], [$this->languageCode => $value]);
     }
 }
+
+class_alias(MultilingualSelectionTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\MultilingualSelectionTransformer');

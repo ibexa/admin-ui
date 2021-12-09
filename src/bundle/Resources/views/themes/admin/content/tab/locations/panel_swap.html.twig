@@ -1,17 +1,16 @@
-{% form_theme form '@ezdesign/ui/form_fields.html.twig' %}
+{% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
 
-{% include '@ezdesign/ui/table_header.html.twig' with {
-    header_text: 'tab.locations.location_content_swap'|trans()|desc('Swap Locations'),
-    ground: 'ground-base'
-} %}
+{% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
+    headline: 'tab.locations.location_content_swap'|trans()|desc('Swap Locations'),
+} only %}
 
 {{ form_start(form, {'action': path('ezplatform.location.swap')}) }}
 <div class="bg-white ml-4">
     {{ 'tab.locations.swap_with_another'|trans()|desc('Swap the Content item at this Location with another') }}
     {{ form_widget(form.swap, {'attr': {
         'disabled': not can_swap,
-        'class': 'btn btn-secondary btn--udw-swap ml-5',
-        'data-udw-config': ez_udw_config('single_container', {})
+        'class': 'btn ibexa-btn ibexa-btn--secondary ibexa-btn--udw-swap ml-5',
+        'data-udw-config': ibexa_udw_config('single_container', {})
     }}) }}
     {{ form_widget(form.current_location) }}
     {{ form_widget(form.new_location) }}
