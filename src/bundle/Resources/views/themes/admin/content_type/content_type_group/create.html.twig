@@ -4,37 +4,26 @@
 
 {% trans_default_domain 'content_type' %}
 
-{% block breadcrumbs_admin %}
-    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
-        { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
-        { url: path('ezplatform.content_type_group.list'), value: 'content_type_group.breadcrumb.list'|trans|desc('Content Types') },
-        { value: 'content_type_group.breadcrumb.add'|trans|desc('Creating a new Content Type group') }
-    ]} %}
-{% endblock %}
-
-{% block context_menu_admin %}
-    {% set content_type_group_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.content_type_group_create.sidebar_right') %}
-    {{ knp_menu_render(content_type_group_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
-{% endblock %}
-
 {% block header_admin %}
-    {% include '@ibexadesign/ui/page_title.html.twig' with {
+    {% set content_type_group_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.content_type_group_create.sidebar_right') %}
+
+    {% include '@ibexadesign/ui/edit_header.html.twig' with {
+        action_name: 'content_type_group.creating'|trans|desc('Creating'),
+        icon_name: 'file',
         title: 'content_type_group.view.add.title'|trans|desc('Creating a new Content Type group'),
+        context_actions: knp_menu_render(content_type_group_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
 {% endblock %}
 
 {% block form %}
     {{ form_start(form) }}
-
-    <section>
-        <div class="card ibexa-card ibexa-card--light">
-            <div class="card-body ibexa-card__body">
-                {{ form_row(form.identifier, {'attr': {'autofocus': 'autofocus'}}) }}
+        <section>
+            <div class="card ibexa-card ibexa-card--light">
+                <div class="card-body ibexa-card__body">
+                    {{ form_row(form.identifier, {'attr': {'autofocus': 'autofocus'}}) }}
+                </div>
             </div>
-        </div>
-    </section>
-
-    {{ form_widget(form.create, {'attr': {'hidden': 'hidden'}}) }}
-
+        </section>
+        {{ form_widget(form.create, {'attr': {'hidden': 'hidden'}}) }}
     {{ form_end(form) }}
 {% endblock %}
