@@ -52,7 +52,7 @@ final class FieldDefinitionCreateTest extends TestCase
     public function testInvalidInput(): void
     {
         $this->expectException(Exceptions\Parser::class);
-        $this->expectExceptionMessage("Missing or invalid 'fieldTypeIdentifier' property for EzSystems\EzPlatformAdminUi\REST\Value\ContentType\FieldDefinitionCreate.");
+        $this->expectExceptionMessage("Missing or invalid 'fieldTypeIdentifier' property for Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionCreate.");
 
         $this->parser->parse(
             [],

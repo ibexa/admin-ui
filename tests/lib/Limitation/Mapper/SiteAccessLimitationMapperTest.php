@@ -7,7 +7,6 @@
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
 use Ibexa\AdminUi\Limitation\Mapper\SiteAccessLimitationMapper;
-use Ibexa\AdminUi\Siteaccess\SiteAccessKeyGenerator;
 use Ibexa\AdminUi\Siteaccess\SiteAccessKeyGeneratorInterface;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SiteAccessLimitation;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
@@ -40,7 +39,7 @@ class SiteAccessLimitationMapperTest extends TestCase
         $siteAccessesGeneratorInterface = $this->createMock(SiteAccessKeyGeneratorInterface::class);
         $siteAccessesGeneratorInterface
             ->method('generate')
-            ->willReturn(new SiteAccessKeyGenerator());
+            ->willReturn('2356372769');
 
         $siteAccessService = $this->createMock(SiteAccessServiceInterface::class);
         $siteAccessService->method('getAll')->willReturn($siteAccesses);
