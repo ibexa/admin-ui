@@ -22,7 +22,7 @@ class ContentTypeIsUserTest extends TestCase
     public function testIsSatisfiedByInvalidArgument()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Argument \'$contentType\' is invalid: Must be an instance of eZ\Publish\API\Repository\Values\ContentType\ContentType');
+        $this->expectExceptionMessage('Argument \'$contentType\' is invalid: Must be an instance of Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType');
 
         $specification = new ContentTypeIsUser([]);
         $specification->isSatisfiedBy(new \stdClass());

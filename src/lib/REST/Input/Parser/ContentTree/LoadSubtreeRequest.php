@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\REST\Input\Parser\ContentTree;
 
 use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequest as LoadSubtreeRequestValue;
+use Ibexa\Contracts\Rest\Exceptions;
 use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
-use Ibexa\Rest\Exceptions;
 use Ibexa\Rest\Input\BaseParser;
 
 class LoadSubtreeRequest extends BaseParser

@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\REST\Input\Parser;
 
 use Ibexa\AdminUi\REST\Value\BulkOperation as BulkOperationValue;
+use Ibexa\Contracts\Rest\Exceptions;
 use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
-use Ibexa\Rest\Exceptions;
 use Ibexa\Rest\Input\BaseParser;
 
 class BulkOperation extends BaseParser

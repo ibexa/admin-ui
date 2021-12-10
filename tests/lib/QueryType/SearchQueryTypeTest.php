@@ -8,8 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\QueryType;
 
-use Ibexa\AdminUi\Form\Data\Search\SearchData;
-use Ibexa\AdminUi\QueryType\SearchQueryType;
+use Ibexa\Bundle\Search\Form\Data\SearchData;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
@@ -17,6 +16,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Search\QueryType\SearchQueryType;
 use PHPUnit\Framework\TestCase;
 
 final class SearchQueryTypeTest extends TestCase

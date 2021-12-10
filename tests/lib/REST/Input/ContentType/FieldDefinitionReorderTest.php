@@ -10,8 +10,8 @@ namespace Ibexa\Tests\AdminUi\REST\Input\ContentType;
 
 use Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionReorder;
 use Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionReorder as FieldDefinitionReorderValue;
+use Ibexa\Contracts\Rest\Exceptions;
 use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
-use Ibexa\Rest\Exceptions;
 use PHPUnit\Framework\TestCase;
 
 final class FieldDefinitionReorderTest extends TestCase
@@ -40,7 +40,7 @@ final class FieldDefinitionReorderTest extends TestCase
     public function testInvalidInput(): void
     {
         $this->expectException(Exceptions\Parser::class);
-        $this->expectExceptionMessage("Missing or invalid 'fieldDefinitionIdentifiers' property for EzSystems\EzPlatformAdminUi\REST\Value\ContentType\FieldDefinitionReorder.");
+        $this->expectExceptionMessage("Missing or invalid 'fieldDefinitionIdentifiers' property for Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionReorder.");
 
         $this->parser->parse(
             [],
