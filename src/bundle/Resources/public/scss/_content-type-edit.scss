@@ -27,7 +27,7 @@
         padding: 0;
 
         &--field-definitions,
-        &--added-attributes {
+        &--assigned-attributes {
             min-height: calculateRem(700px);
             padding: calculateRem(16px) calculateRem(34px);
             background: $ibexa-color-light-300;
