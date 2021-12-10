@@ -1081,6 +1081,11 @@
         <target state="new">Select Content item</target>
         <note>key: swap_location_form.swap</note>
       </trans-unit>
+      <trans-unit id="f41c864f5e47e9829cac16492d544b9c7bce9f01" resname="translation.base_language.choose">
+        <source>Choose a Language</source>
+        <target state="new">Choose a Language</target>
+        <note>key: translation.base_language.choose</note>
+      </trans-unit>
       <trans-unit id="30b0c3c3e5e096a078005be2cc34bca6227ae381" resname="trash_empty_form.empty">
         <source>Delete permanently</source>
         <target state="new">Delete permanently</target>
