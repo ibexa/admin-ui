@@ -37,8 +37,8 @@
         <note>key: authentication.credentials_expired.reset_password</note>
       </trans-unit>
       <trans-unit id="d2293b387ecddbc6173fd579abd37873fcbc5e97" resname="authentication.forgot_password">
-        <source>Forgot password?</source>
-        <target state="new">Forgot password?</target>
+        <source>Forgot your password?</source>
+        <target state="new">Forgot your password?</target>
         <note>key: authentication.forgot_password</note>
       </trans-unit>
       <trans-unit id="a56a6630cc335b8a63f8632263aef6625f731929" resname="authentication.login">
@@ -312,53 +312,43 @@
         <note>key: editing.title</note>
       </trans-unit>
       <trans-unit id="7cb40cbc703336ab1285e81ebf100b82b05a0e27" resname="error.page.403.actions">
-        <source><![CDATA[Please contact your Administrator to request access to this content or modify your profile.<br/>Otherwise, go back to <a class="error-page__link" href="%dashboard%">dashboard</a> or <a class="error-page__link" href="%search%">search</a> for another Content item.]]></source>
-        <target state="new"><![CDATA[Please contact your Administrator to request access to this content or modify your profile.<br/>Otherwise, go back to <a class="error-page__link" href="%dashboard%">dashboard</a> or <a class="error-page__link" href="%search%">search</a> for another Content item.]]></target>
+        <source><![CDATA[Contact your administrator to request access.<br/>Go back to the <a href="%dashboard%">dashboard</a> or <a href="%search%">search</a> for another item.]]></source>
+        <target state="new"><![CDATA[Contact your administrator to request access.<br/>Go back to the <a href="%dashboard%">dashboard</a> or <a href="%search%">search</a> for another item.]]></target>
         <note>key: error.page.403.actions</note>
       </trans-unit>
       <trans-unit id="d0b5337e551b64f59973449bbdcf7914c2102a6c" resname="error.page.403.sub_title">
-        <source>Not possible to retrieve or access this page.</source>
-        <target state="new">Not possible to retrieve or access this page.</target>
+        <source>Sorry but you don't have permission to access this page.</source>
+        <target state="new">Sorry but you don't have permission to access this page.</target>
         <note>key: error.page.403.sub_title</note>
       </trans-unit>
       <trans-unit id="b1712cfa4c13874debdcc0f1f4a3b9fa4af3c966" resname="error.page.403.title">
-        <source>You don't have permission</source>
-        <target state="new">You don't have permission</target>
+        <source>Access denied</source>
+        <target state="new">Access denied</target>
         <note>key: error.page.403.title</note>
       </trans-unit>
       <trans-unit id="638be721c063eee72e70484fe99a25b2a990bb18" resname="error.page.404.actions">
-        <source><![CDATA[Check the URL for a typo and try again.<br/>Otherwise, go back to the <a class="error-page__link" href="%dashboard%">dashboard</a> or <a class="error-page__link" href="%search%">search</a> for another Content item.]]></source>
-        <target state="new"><![CDATA[Check the URL for a typo and try again.<br/>Otherwise, go back to the <a class="error-page__link" href="%dashboard%">dashboard</a> or <a class="error-page__link" href="%search%">search</a> for another Content item.]]></target>
+        <source><![CDATA[Check the URL is spelled correctly and try again.<br/>Go back to the <a href="%dashboard%">dashboard</a> or <a href="%search%">search</a> for another item.]]></source>
+        <target state="new"><![CDATA[Check the URL is spelled correctly and try again.<br/>Go back to the <a href="%dashboard%">dashboard</a> or <a href="%search%">search</a> for another item.]]></target>
         <note>key: error.page.404.actions</note>
       </trans-unit>
-      <trans-unit id="7027b2adcf028b82111334763e40823cd85a52fa" resname="error.page.404.message">
-        <source><![CDATA[The page you requested was not found.<br/> It might have been deleted or it is temporarily unavailable.]]></source>
-        <target state="new"><![CDATA[The page you requested was not found.<br/> It might have been deleted or it is temporarily unavailable.]]></target>
-        <note>key: error.page.404.message</note>
-      </trans-unit>
       <trans-unit id="ffa7f20226d38a989f6c931264bd4cf485b435e6" resname="error.page.404.sub_title">
-        <source>You probably weren't expecting to land here.</source>
-        <target state="new">You probably weren't expecting to land here.</target>
+        <source>The link may be broken, or the page may have been removed.</source>
+        <target state="new">The link may be broken, or the page may have been removed.</target>
         <note>key: error.page.404.sub_title</note>
       </trans-unit>
       <trans-unit id="156b8a7f797412e60bdba432064e2dade6d4a7af" resname="error.page.404.title">
-        <source>Page not found</source>
-        <target state="new">Page not found</target>
+        <source>Sorry, this page isn't available</source>
+        <target state="new">Sorry, this page isn't available</target>
         <note>key: error.page.404.title</note>
       </trans-unit>
       <trans-unit id="a599d59a63814826906caa9842f0b3c33db24d09" resname="error.page.default.actions">
-        <source><![CDATA[<b>Contact your Administrator and inform them about</b><br/> the time the error occurred, the URL in your browser window, and anything related<br/>that you think may have caused the error.<br/>You can also go back or try to reload the application.]]></source>
-        <target state="new"><![CDATA[<b>Contact your Administrator and inform them about</b><br/> the time the error occurred, the URL in your browser window, and anything related<br/>that you think may have caused the error.<br/>You can also go back or try to reload the application.]]></target>
+        <source><![CDATA[Contact you Administrator to report the problem.<br/>Go back to the <a href="%dashboard%">dashboard</a> or reload the application.]]></source>
+        <target state="new"><![CDATA[Contact you Administrator to report the problem.<br/>Go back to the <a href="%dashboard%">dashboard</a> or reload the application.]]></target>
         <note>key: error.page.default.actions</note>
       </trans-unit>
-      <trans-unit id="8338c190462d420926edf71e8d4cddcae710d361" resname="error.page.default.message">
-        <source>The server was unable to complete your request because of an internal problem.</source>
-        <target state="new">The server was unable to complete your request because of an internal problem.</target>
-        <note>key: error.page.default.message</note>
-      </trans-unit>
       <trans-unit id="37404d823f9c9b5ee00f26e4783e5e98d2955750" resname="error.page.default.sub_title">
-        <source>We apologize for the internal server error.</source>
-        <target state="new">We apologize for the internal server error.</target>
+        <source>Sorry, we are having a problem with our system.</source>
+        <target state="new">Sorry, we are having a problem with our system.</target>
         <note>key: error.page.default.sub_title</note>
       </trans-unit>
       <trans-unit id="889ba15bcc2f87bfac9b80282f659eaeb7c175d4" resname="error.page.default.title">
@@ -764,8 +754,8 @@
         <note>key: trash.modal.close</note>
       </trans-unit>
       <trans-unit id="2720e3018fc8b1158cb728b1d5dc377ef7293b57" resname="trash.modal.message">
-        <source>Are you sure you want to send this Content item to Trash?</source>
-        <target state="new">Are you sure you want to send this Content item to Trash?</target>
+        <source>Do you want to delete the selected item(s) from Trash?</source>
+        <target state="new">Do you want to delete the selected item(s) from Trash?</target>
         <note>key: trash.modal.message</note>
       </trans-unit>
       <trans-unit id="bf721bb2cc736984908badd0489116d289171d33" resname="trash.modal.send_to_trash.message">
