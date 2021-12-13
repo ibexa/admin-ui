@@ -4,6 +4,7 @@
             <div class="ibexa-details__header">
                 {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
                     headline,
+                    actions: headline_items|default([])
                 } %}
             </div>
         {% endif %}

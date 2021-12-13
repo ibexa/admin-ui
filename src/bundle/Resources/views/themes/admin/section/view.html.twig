@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'section' %}
 
-{% block body_class %}ez-section-view{% endblock %}
+{% block body_class %}ibexa-section-view{% endblock %}
 
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
@@ -19,68 +19,55 @@
 {% endblock %}
 
 {% block content %}
-    <section class="container ez-container">
-        {% set body_row_cols = [] %}
-
-        {% set body_row_cols = body_row_cols|merge([
-            { content: section.name },
-            { content: section.identifier },
-            { content: section.id },
-        ]) %}
-
-        {% set col_raw %}
-            {% if can_edit %}
-                <a
-                    href="{{ path('ezplatform.section.update', {'sectionId': section.id}) }}"
-                    title="{{ 'section.edit'|trans|desc('Edit') }}"
-                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
-                >
-                    <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
-                        <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                    </svg>
-                </a>
+    {% set information_items = [
+        {
+            label: 'section.name'|trans|desc('Name'),
+            content: section.name,
+        },
+        {
+            label: 'section.identifier'|trans|desc('Identifier'),
+            content: section.identifier,
+        },
+        {
+            label: 'section.id'|trans|desc('ID'),
+            content: section.id,
+        },
+    ] %}
+    {% set information_headline_items %}
+        {% if can_edit %}
+            {% set modalDataAttributes = deletable ? 'data-bs-toggle=modal data-bs-target=#delete-section-modal' : '' %}
+            <button
+                type="button"
+                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text {% if not deletable %}disabled{% endif %}"
+                {{ modalDataAttributes }}
+                title="{{ 'section.action.delete'|trans|desc('Delete Section') }}"
+            >
+                <svg class="ibexa-icon ibexa-icon--small">
+                    <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
+                </svg>
+            </button>
+            {% if deletable %}
+                {% include '@ibexadesign/section/modal/delete_confirmation.html.twig' with {'form': form_section_delete} %}
             {% endif %}
-        {% endset %}
-        {% set body_row_cols = body_row_cols|merge([{
-            has_action_btns: true,
-            content: col_raw,
-            raw: true,
-        }]) %}
+        {% endif %}
+        {% if can_edit %}
+            <a
+                href="{{ path('ezplatform.section.update', {'sectionId': section.id}) }}"
+                title="{{ 'section.edit'|trans|desc('Edit') }}"
+                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+            >
+                <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
+                    <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
+                </svg>
+            </a>
+        {% endif %}
+    {% endset %}
 
-        {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-            headline: 'section.information.header'|trans|desc('Section information'),
-            head_cols: [
-                { content: 'section.name'|trans|desc('Name') },
-                { content: 'section.identifier'|trans|desc('Identifier') },
-                { content: 'section.id'|trans|desc('ID') },
-                { },
-            ],
-            body_rows: [{ cols: body_row_cols }],
-        } %}
-            {% block header %}
-                {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
-                    {% block actions %}
-                        {% if can_edit %}
-                            {% set modalDataAttributes = deletable ? 'data-bs-toggle=modal data-bs-target=#delete-section-modal' : '' %}
-                            <button
-                                type="button"
-                                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text {% if not deletable %}disabled{% endif %}"
-                                {{ modalDataAttributes }}
-                                title="{{ 'section.action.delete'|trans|desc('Delete Section') }}"
-                            >
-                                <svg class="ibexa-icon ibexa-icon--small">
-                                    <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                                </svg>
-                            </button>
-                            {% if deletable %}
-                                {% include '@ibexadesign/section/modal/delete_confirmation.html.twig' with {'form': form_section_delete} %}
-                            {% endif %}
-                        {% endif %}
-                    {% endblock %}
-                {% endembed %}
-            {% endblock %}
-        {% endembed %}
-    </section>
+    {% include '@ibexadesign/ui/component/details/details.html.twig' with {
+        headline: 'tab.details.technical_details'|trans()|desc('Technical details'),
+        headline_items: information_headline_items,
+        items: information_items,
+    } only %}
 
     {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\SectionController::viewSectionContentAction', {
         'section': section,
