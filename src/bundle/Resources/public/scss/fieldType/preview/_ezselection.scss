@@ -1,4 +1,4 @@
-.ez-field-preview--ezselection-multiple {
+.ibexa-field-preview--ezselection-multiple {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
@@ -6,7 +6,7 @@
     align-items: center;
     flex-wrap: wrap;
 
-    .ez-selection__item {
+    .ibexa-selection__item {
         display: inline-block;
         padding: calculateRem(8px) calculateRem(16px);
         background: $ibexa-white;
@@ -16,7 +16,7 @@
     }
 }
 
-.ez-field-preview--ezselection-single {
+.ibexa-field-preview--ezselection-single {
     display: inline-block;
     padding: calculateRem(8px) calculateRem(16px);
     background: $ibexa-white;

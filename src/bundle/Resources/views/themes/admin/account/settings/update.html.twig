@@ -19,11 +19,11 @@
     } %}
 {% endblock %}
 
-{% block body_class %}ez-user-settings-update-view{% endblock %}
+{% block body_class %}ibexa-user-settings-update-view{% endblock %}
 
 {% block form %}
     {% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
-    <section class="container ez-container">
+    <section class="container ibexa-container">
         {{ form_start(form) }}
         {{ form_widget(form.identifier, {'attr': {'hidden': 'hidden'}}) }}
         {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {

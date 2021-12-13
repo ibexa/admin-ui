@@ -42,7 +42,7 @@
         }
     };
 
-    doc.body.addEventListener('ez-trash-modal-refresh', refreshTrashModal, false);
+    doc.body.addEventListener('ibexa-trash-modal-refresh', refreshTrashModal, false);
 
     if (!confirmCheckbox) {
         enableButton(submitButton);

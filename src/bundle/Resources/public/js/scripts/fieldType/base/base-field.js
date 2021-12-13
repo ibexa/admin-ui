@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     class BaseFieldValidator {
         constructor(config) {
             this.classInvalid = config.classInvalid;
@@ -247,5 +247,5 @@
         }
     }
 
-    eZ.addConfig('BaseFieldValidator', BaseFieldValidator);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('BaseFieldValidator', BaseFieldValidator);
+})(window, window.document, window.ibexa);

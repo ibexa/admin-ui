@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const SELECTOR_REMOVE_AUTHOR = '.ibexa-btn--remove-author';
     const SELECTOR_AUTHOR = '.ibexa-data-source__author';
     const SELECTOR_FIELD = '.ibexa-field-edit--ezauthor';
@@ -6,7 +6,7 @@
     const SELECTOR_FIELD_EMAIL = '.ibexa-data-source__field--email';
     const SELECTOR_FIELD_NAME = '.ibexa-data-source__field--name';
 
-    class EzAuthorValidator extends eZ.MultiInputFieldValidator {
+    class EzAuthorValidator extends ibexa.MultiInputFieldValidator {
         /**
          * Validates the 'name' input field value
          *
@@ -18,7 +18,7 @@
         validateName(event) {
             const isError = !event.target.value.trim() && event.target.required;
             const fieldNode = event.target.closest(SELECTOR_FIELD_NAME);
-            const errorMessage = eZ.errors.emptyField.replace('{fieldName}', fieldNode.querySelector(SELECTOR_LABEL).innerHTML);
+            const errorMessage = ibexa.errors.emptyField.replace('{fieldName}', fieldNode.querySelector(SELECTOR_LABEL).innerHTML);
 
             return {
                 isError: isError,
@@ -38,15 +38,15 @@
             const input = event.currentTarget;
             const isRequired = input.required;
             const isEmpty = !input.value.trim();
-            const isValid = eZ.errors.emailRegexp.test(input.value);
+            const isValid = ibexa.errors.emailRegexp.test(input.value);
             const isError = (isRequired && isEmpty) || (!isEmpty && !isValid);
             const label = input.closest(SELECTOR_FIELD_EMAIL).querySelector(SELECTOR_LABEL).innerHTML;
             const result = { isError };
 
             if (isRequired && isEmpty) {
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             } else if (!isEmpty && !isValid) {
-                result.errorMessage = eZ.errors.invalidEmail;
+                result.errorMessage = ibexa.errors.invalidEmail;
             }
 
             return result;
@@ -139,8 +139,8 @@
 
             this.reinit();
             this.updateDisabledState(authorNode);
-            eZ.helpers.tooltips.parse(node);
-            eZ.helpers.tooltips.hideAll();
+            ibexa.helpers.tooltips.parse(node);
+            ibexa.helpers.tooltips.hideAll();
         }
 
         /**
@@ -259,5 +259,5 @@
 
     validator.init();
 
-    eZ.addConfig('fieldTypeValidators', [validator], true);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('fieldTypeValidators', [validator], true);
+})(window, window.document, window.ibexa);

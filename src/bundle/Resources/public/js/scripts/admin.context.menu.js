@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const adapatItemsContainer = doc.querySelector('.ibexa-context-menu');
 
     if (!adapatItemsContainer) {
@@ -13,7 +13,7 @@
         return;
     }
 
-    const adaptiveItems = new eZ.core.AdaptiveItems({
+    const adaptiveItems = new ibexa.core.AdaptiveItems({
         itemHiddenClass: 'ibexa-context-menu__item--hidden',
         container: adapatItemsContainer,
         getActiveItem: () => {
@@ -25,7 +25,7 @@
             popupMenu.toggleItems((popupMenuItem) => !hiddenButtonsIds.includes(popupMenuItem.dataset.relatedButtonId));
         },
     });
-    const popupMenu = new eZ.core.PopupMenu({
+    const popupMenu = new ibexa.core.PopupMenu({
         popupMenuElement,
         triggerElement: showPopupButton,
         onItemClick: (event) => {
@@ -53,4 +53,4 @@
 
     global.addEventListener('resize', () => adaptiveItems.adapt(), false);
     doc.body.addEventListener('ibexa-main-menu-resized', () => adaptiveItems.adapt(), false);
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

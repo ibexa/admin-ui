@@ -6,7 +6,7 @@ const GridViewItemComponent = ({ item, generateLink }) => {
     const { id: locationId, content } = item;
     const imageClassName = 'ibexa-grid-view-item__image';
     const contentTypeIdentifier = content._info.contentType.identifier;
-    const contentTypeIconUrl = eZ.helpers.contentType.getContentTypeIconUrl(contentTypeIdentifier);
+    const contentTypeIconUrl = ibexa.helpers.contentType.getContentTypeIconUrl(contentTypeIdentifier);
     let image = null;
     let contentTypeIcon = null;
 

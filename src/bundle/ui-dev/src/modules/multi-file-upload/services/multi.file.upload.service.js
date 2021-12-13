@@ -140,7 +140,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
 
     return getContentTypeByIdentifier(config, mapping.contentTypeIdentifier)
         .then((response) => response.json())
-        .catch(() => window.eZ.helpers.notification.showErrorNotification('Cannot get content type by identifier'))
+        .catch(() => window.ibexa.helpers.notification.showErrorNotification('Cannot get content type by identifier'))
         .then((response) => {
             const fileValue = {
                 fileName: data.file.name,
@@ -171,7 +171,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
 
             return struct;
         })
-        .catch(() => window.eZ.helpers.notification.showErrorNotification('Cannot create content structure'));
+        .catch(() => window.ibexa.helpers.notification.showErrorNotification('Cannot create content structure'));
 };
 
 /**
@@ -324,7 +324,7 @@ export const publishFile = (data, requestEventHandlers, callback) => {
     createDraft(data, requestEventHandlers)
         .then(publishDraft.bind(null, data))
         .then(callback)
-        .catch(() => window.eZ.helpers.notification.showErrorNotification('An error occurred while publishing a file'));
+        .catch(() => window.ibexa.helpers.notification.showErrorNotification('An error occurred while publishing a file'));
 };
 
 /**
@@ -349,5 +349,5 @@ export const deleteFile = ({ token, siteaccess }, struct, callback) => {
     fetch(request)
         .then(handleRequestResponse)
         .then(callback)
-        .catch(() => window.eZ.helpers.notification.showErrorNotification('An error occurred while deleting a file'));
+        .catch(() => window.ibexa.helpers.notification.showErrorNotification('An error occurred while deleting a file'));
 };

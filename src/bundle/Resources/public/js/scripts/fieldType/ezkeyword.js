@@ -1,10 +1,10 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezkeyword';
     const SELECTOR_TAGGIFY = '.ibexa-data-source__taggify';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
     const CLASS_TAGGIFY_FOCUS = 'ibexa-data-source__taggify--focused';
 
-    class EzKeywordValidator extends eZ.BaseFieldValidator {
+    class EzKeywordValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the keywords input
          *
@@ -23,7 +23,7 @@
             const result = { isError };
 
             if (isError) {
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             }
 
             return result;
@@ -99,6 +99,6 @@
         taggifyInput.addEventListener('focus', addFocusState, false);
         taggifyInput.addEventListener('blur', removeFocusState, false);
 
-        eZ.addConfig('fieldTypeValidators', [validator], true);
+        ibexa.addConfig('fieldTypeValidators', [validator], true);
     });
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

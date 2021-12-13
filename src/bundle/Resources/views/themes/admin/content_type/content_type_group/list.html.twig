@@ -4,7 +4,7 @@
 
 {% trans_default_domain 'content_type' %}
 
-{% block body_class %}ez-content-type-group-list-view{% endblock %}
+{% block body_class %}ibexa-content-type-group-list-view{% endblock %}
 
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
@@ -20,7 +20,7 @@
 {% endblock %}
 
 {% block content %}
-    <section class="container ez-container">
+    <section class="container ibexa-container">
         {% set body_rows = [] %}
         {% for content_type_group in pager.currentPageResults %}
             {% set body_row_cols = [] %}
@@ -135,7 +135,7 @@
             {% block between_header_and_table %}
                 {{ form_start(form_content_type_groups_delete, {
                     'action': path('ezplatform.content_type_group.bulk_delete'),
-                    'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-content-type-groups' }
+                    'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-content-type-groups' }
                 }) }}
             {% endblock %}
         {% endembed %}
@@ -150,5 +150,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-content-type-group-list-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-content-type-group-list-js', null, 'ibexa') }}
 {% endblock %}

@@ -1,4 +1,4 @@
-(function(global, doc, eZ, localStorage) {
+(function(global, doc, ibexa, localStorage) {
     const RESIZER_WIDTH = 10;
     const SECOND_LEVEL_COLLAPSED_WIDTH = 48;
     const SECOND_LEVEL_EXPANDED_WIDTH = 220;
@@ -25,7 +25,7 @@
         setWidthOfSecondLevelMenu();
     };
     const setWidthOfSecondLevelMenu = () => {
-        const secondLevelMenuWidth = eZ.helpers.cookies.getCookie('second_menu_width');
+        const secondLevelMenuWidth = ibexa.helpers.cookies.getCookie('second_menu_width');
         const isSecondLevelMenuHidden = secondLevelMenuNode.classList.contains('ibexa-main-menu__navbar--hidden');
 
         if (!secondLevelMenuWidth || isSecondLevelMenuHidden) {
@@ -49,7 +49,7 @@
         const isSecondLevelMenuCollapsed = secondLevelMenuNode.classList.contains('ibexa-main-menu__navbar--collapsed');
         const newMenuWidth = isSecondLevelMenuCollapsed ? SECOND_LEVEL_EXPANDED_WIDTH : SECOND_LEVEL_COLLAPSED_WIDTH;
 
-        eZ.helpers.cookies.setCookie('second_menu_width', newMenuWidth);
+        ibexa.helpers.cookies.setCookie('second_menu_width', newMenuWidth);
         setWidthOfSecondLevelMenu();
     };
     const parsePopup = (button) => {
@@ -60,13 +60,13 @@
             return;
         }
 
-        const popup = new eZ.core.PopupMenu({
+        const popup = new ibexa.core.PopupMenu({
             popupMenuElement: popupNode,
             triggerElement: button,
         });
     };
     const parseMenuTitles = () => {
-        eZ.helpers.tooltips.hideAll();
+        ibexa.helpers.tooltips.hideAll();
 
         firstLevelMenuNode.querySelectorAll('.ibexa-main-menu__item').forEach((item) => {
             const label = item.querySelector('.ibexa-main-menu__item-text-column').textContent;
@@ -77,7 +77,7 @@
                 item.removeAttribute('data-original-title');
             }
 
-            eZ.helpers.tooltips.parse(mainMenuNode);
+            ibexa.helpers.tooltips.parse(mainMenuNode);
         });
     };
     const addResizeListeners = ({ clientX }) => {
@@ -97,7 +97,7 @@
         const resizeValue = secondMenuLevelCurrentWidth + (clientX - resizeStartPositionX);
         const newMenuWidth = resizeValue > SECOND_LEVEL_MANUAL_RESIZE_MIN_WIDTH ? resizeValue : SECOND_LEVEL_COLLAPSED_WIDTH;
 
-        eZ.helpers.cookies.setCookie('second_menu_width', newMenuWidth);
+        ibexa.helpers.cookies.setCookie('second_menu_width', newMenuWidth);
         setWidthOfSecondLevelMenu();
     };
 
@@ -119,4 +119,4 @@
         },
         false
     );
-})(window, window.document, window.eZ, window.localStorage);
+})(window, window.document, window.ibexa, window.localStorage);

@@ -4,7 +4,7 @@
 
 {% form_theme form_roles_delete '@ibexadesign/ui/form_fields.html.twig'  %}
 
-{% block body_class %}ez-role-list-view{% endblock %}
+{% block body_class %}ibexa-role-list-view{% endblock %}
 
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
@@ -20,10 +20,10 @@
 {% endblock %}
 
 {% block content %}
-    <section class="container ez-container">
+    <section class="container ibexa-container">
         {{ form_start(form_roles_delete, {
             'action': path('ezplatform.role.bulk_delete'),
-            'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-roles' }
+            'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-roles' }
         }) }}
         {% set body_rows = [] %}
         {% for role in pager.currentPageResults %}
@@ -145,5 +145,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-role-list-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-role-list-js', null, 'ibexa') }}
 {% endblock %}

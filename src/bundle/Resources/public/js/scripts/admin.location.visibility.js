@@ -1,5 +1,5 @@
-(function(global, doc, eZ) {
-    const SELECTOR_VISIBILITY_CHECKBOXES = '#ibexa-tab-location-view-locations .ez-checkbox-icon__checkbox';
+(function(global, doc, ibexa) {
+    const SELECTOR_VISIBILITY_CHECKBOXES = '#ibexa-tab-location-view-locations .ibexa-checkbox-icon__checkbox';
     const SELECTOR_VISIBILITY_FORM = 'form[name="location_update_visibility_data"]';
     const form = doc.querySelector(SELECTOR_VISIBILITY_FORM);
     const visibilityCheckboxes = doc.querySelectorAll(SELECTOR_VISIBILITY_CHECKBOXES);
@@ -9,12 +9,12 @@
     const onVisibilityUpdated = ({ target }) => {
         const { checked: isVisible } = target;
 
-        target.closest('.ez-checkbox-icon').classList.toggle('is-checked', isVisible);
+        target.closest('.ibexa-checkbox-icon').classList.toggle('is-checked', isVisible);
     };
-    const handleUpdateError = eZ.helpers.notification.showErrorNotification;
+    const handleUpdateError = ibexa.helpers.notification.showErrorNotification;
     const handleUpdateSuccess = (event, { message }) => {
         onVisibilityUpdated(event);
-        eZ.helpers.notification.showSuccessNotification(message);
+        ibexa.helpers.notification.showSuccessNotification(message);
         refreshContentTree();
     };
     const handleUpdateResponse = (response) => {
@@ -44,4 +44,4 @@
     visibilityCheckboxes.forEach((checkbox) => {
         checkbox.addEventListener('change', updateVisibility, false);
     });
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

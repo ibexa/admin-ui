@@ -97,7 +97,7 @@ class RolesPage extends Page
     {
         return [
             new VisibleCSSLocator('createButton', '.ibexa-icon--create'),
-            new VisibleCSSLocator('pageTitle', '.ez-page-title h1'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
             new VisibleCSSLocator('deleteRoleButton', '#delete-roles'),
             new VisibleCSSLocator('roleLabel', '.ibexa-table__cell--close-left > a'),
         ];

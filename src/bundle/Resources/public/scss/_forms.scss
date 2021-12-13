@@ -22,7 +22,7 @@ form:not(.form-inline) {
     }
 }
 
-.ez-form-inline {
+.ibexa-form-inline {
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-end;
@@ -33,13 +33,13 @@ form:not(.form-inline) {
 
     .col-form-label,
     .form-control,
-    .ez-field-edit__label {
+    .ibexa-field-edit__label {
         margin-right: calculateRem(8px);
     }
 }
 
-.ez-table--no-border {
-    .ez-form-inline {
+.ibexa-table--no-border {
+    .ibexa-form-inline {
         display: flex;
         flex-flow: row wrap;
         justify-content: flex-start;
@@ -52,13 +52,13 @@ form:not(.form-inline) {
     }
 }
 
-.ez-trash-with-asset-checkbox-list {
+.ibexa-trash-with-asset-checkbox-list {
     .form-check-input {
         position: absolute;
     }
 }
 
-.ez-content-create[readonly] {
+.ibexa-content-create[readonly] {
     pointer-events: none;
 }
 

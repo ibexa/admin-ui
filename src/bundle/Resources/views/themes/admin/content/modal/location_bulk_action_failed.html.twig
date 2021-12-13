@@ -1,7 +1,7 @@
 {% trans_default_domain 'locationview' %}
 
 <div
-    class="modal fade ibexa-modal ibexa-modal--table-content ibexa-modal--bulk-action-failed ez-bulk-action-failed-modal"
+    class="modal fade ibexa-modal ibexa-modal--table-content ibexa-modal--bulk-action-failed ibexa-bulk-action-failed-modal"
     id="bulk-action-failed-modal"
     tabindex="-1"
     role="dialog">
@@ -31,8 +31,8 @@
                         { content: 'bulk_action.failed.modal.content_name'|trans|desc('Name') },
                         { content: 'bulk_action.failed.modal.content_type_name'|trans|desc('Content Type') },
                     ],
-                    class: 'ez-bulk-action-failed-modal__table',
-                    table_body_class: 'ez-bulk-action-failed-modal__table-body',
+                    class: 'ibexa-bulk-action-failed-modal__table',
+                    table_body_class: 'ibexa-bulk-action-failed-modal__table-body',
                     attr: {
                         'data-row-template': table_row_template,
                     },

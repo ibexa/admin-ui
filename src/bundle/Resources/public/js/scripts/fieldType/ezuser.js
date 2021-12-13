@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezuser';
     const SELECTOR_INNER_FIELD = '.ibexa-data-source__field';
     const SELECTOR_LABEL = '.ibexa-data-source__label';
@@ -9,7 +9,7 @@
     const SELECTOR_INPUT = '.ibexa-data-source__input';
     const SELECTOR_ERROR_WRAPPER = '.ibexa-form-error';
 
-    class EzUserValidator extends eZ.BaseFieldValidator {
+    class EzUserValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input field value
          *
@@ -22,7 +22,7 @@
             const fieldContainer = target.closest(SELECTOR_INNER_FIELD);
             const label = fieldContainer.querySelector(SELECTOR_LABEL).innerHTML;
             const isError = target.required && !target.value.trim().length;
-            const errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+            const errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
 
             return {
                 isError,
@@ -41,15 +41,15 @@
         validateEmailInput({ target }) {
             const isRequired = target.required;
             const isEmpty = !target.value.trim();
-            const isValid = eZ.errors.emailRegexp.test(target.value);
+            const isValid = ibexa.errors.emailRegexp.test(target.value);
             const isError = (isRequired && isEmpty) || !isValid;
             const fieldContainer = target.closest(SELECTOR_INNER_FIELD);
             const result = { isError };
 
             if (isEmpty) {
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', fieldContainer.querySelector(SELECTOR_LABEL).innerHTML);
+                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', fieldContainer.querySelector(SELECTOR_LABEL).innerHTML);
             } else if (!isValid) {
-                result.errorMessage = eZ.errors.invalidEmail;
+                result.errorMessage = ibexa.errors.invalidEmail;
             }
 
             return result;
@@ -83,7 +83,7 @@
 
             if (requiredNotMatch || notRequiredNotMatch) {
                 isError = true;
-                errorMessage = eZ.errors.notSamePasswords;
+                errorMessage = ibexa.errors.notSamePasswords;
             }
 
             return {
@@ -130,5 +130,5 @@
 
     validator.init();
 
-    eZ.addConfig('fieldTypeValidators', [validator], true);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('fieldTypeValidators', [validator], true);
+})(window, window.document, window.ibexa);

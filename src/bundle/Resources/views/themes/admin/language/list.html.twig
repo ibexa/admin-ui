@@ -4,7 +4,7 @@
 
 {% trans_default_domain 'language' %}
 
-{% block body_class %}ez-language-list-view{% endblock %}
+{% block body_class %}ibexa-language-list-view{% endblock %}
 
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block content %}
-    <section class="container ez-container">
+    <section class="container ibexa-container">
         {% set body_rows = [] %}
         {% for language in pager.currentPageResults %}
             {% set body_row_cols = [] %}
@@ -143,7 +143,7 @@
             {% block between_header_and_table %}
                 {{ form_start(form_languages_delete, {
                     'action': path('ezplatform.language.bulk_delete'),
-                    'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-languages' }
+                    'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-languages' }
                 }) }}
             {% endblock %}
         {% endembed %}
@@ -158,5 +158,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-language-list-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-language-list-js', null, 'ibexa') }}
 {% endblock %}

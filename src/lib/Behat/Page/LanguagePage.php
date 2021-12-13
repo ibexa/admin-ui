@@ -106,7 +106,7 @@ class LanguagePage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-page-title h1'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
             new VisibleCSSLocator('deleteButton', 'button[data-bs-original-title="Delete language"]'),
             new VisibleCSSLocator('editButton', '[data-bs-original-title="Edit"]'),
             new VisibleCSSLocator('enabledField', 'input[data-bs-original-title="Enabled"]'),

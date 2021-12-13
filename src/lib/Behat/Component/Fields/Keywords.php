@@ -79,7 +79,7 @@ SCRIPT;
     {
         return [
             new VisibleCSSLocator('fieldInput', 'input'),
-            new VisibleCSSLocator('keywordItem', '.ez-keyword__item'),
+            new VisibleCSSLocator('keywordItem', '.ibexa-keyword__item'),
         ];
     }
 

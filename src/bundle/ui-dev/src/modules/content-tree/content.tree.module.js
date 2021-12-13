@@ -371,7 +371,7 @@ export default class ContentTreeModule extends Component {
     }
 }
 
-eZ.addConfig('modules.ContentTree', ContentTreeModule);
+ibexa.addConfig('modules.ContentTree', ContentTreeModule);
 
 ContentTreeModule.propTypes = {
     rootLocationId: PropTypes.number.isRequired,
@@ -397,10 +397,10 @@ ContentTreeModule.propTypes = {
 
 ContentTreeModule.defaultProps = {
     preloadedLocations: [],
-    rootLocationId: window.eZ.adminUiConfig.contentTree.treeRootLocationId,
-    subitemsLimit: window.eZ.adminUiConfig.contentTree.childrenLoadMaxLimit,
-    subitemsLoadLimit: window.eZ.adminUiConfig.contentTree.loadMoreLimit,
-    treeMaxDepth: window.eZ.adminUiConfig.contentTree.treeMaxDepth,
+    rootLocationId: window.ibexa.adminUiConfig.contentTree.treeRootLocationId,
+    subitemsLimit: window.ibexa.adminUiConfig.contentTree.childrenLoadMaxLimit,
+    subitemsLoadLimit: window.ibexa.adminUiConfig.contentTree.loadMoreLimit,
+    treeMaxDepth: window.ibexa.adminUiConfig.contentTree.treeMaxDepth,
     afterItemToggle: () => {},
     sort: {},
     resizable: true,

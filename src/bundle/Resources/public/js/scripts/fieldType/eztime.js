@@ -1,11 +1,11 @@
-(function(global, doc, eZ, flatpickr) {
+(function(global, doc, ibexa, flatpickr) {
     const SELECTOR_FIELD = '.ibexa-field-edit--eztime';
     const SELECTOR_INPUT = '.ibexa-data-source__input:not(.flatpickr-input)';
     const SELECTOR_FLATPICKR_INPUT = '.flatpickr-input';
     const SELECTOR_ERROR_NODE = '.ibexa-data-source';
     const EVENT_VALUE_CHANGED = 'change';
 
-    class EzTimeValidator extends eZ.BaseFieldValidator {
+    class EzTimeValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
@@ -24,7 +24,7 @@
 
             if (isRequired && isEmpty) {
                 isError = true;
-                errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             }
 
             return {
@@ -57,14 +57,14 @@
 
     validator.init();
 
-    eZ.addConfig('fieldTypeValidators', [validator], true);
+    ibexa.addConfig('fieldTypeValidators', [validator], true);
 
     const timeFields = doc.querySelectorAll(SELECTOR_FIELD);
     const timeConfig = {
         enableTime: true,
         noCalendar: true,
         time_24hr: true,
-        formatDate: (date) => eZ.helpers.timezone.formatFullDateTime(date, null, eZ.adminUiConfig.dateFormat.fullTime),
+        formatDate: (date) => ibexa.helpers.timezone.formatFullDateTime(date, null, ibexa.adminUiConfig.dateFormat.fullTime),
     };
     const updateInputValue = (sourceInput, date) => {
         const event = new CustomEvent(EVENT_VALUE_CHANGED);
@@ -126,4 +126,4 @@
     };
 
     timeFields.forEach(initFlatPickr);
-})(window, window.document, window.eZ, window.flatpickr);
+})(window, window.document, window.ibexa, window.flatpickr);

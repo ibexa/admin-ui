@@ -1,4 +1,4 @@
-.ez-add-to-bookmarks {
+.ibexa-add-to-bookmarks {
     position: relative;
     width: calculateRem(36px);
     height: calculateRem(36px);
@@ -18,8 +18,8 @@
         }
     }
 
-    &--checked .ez-add-to-bookmarks__icon-wrapper--add,
-    &:not(.ez-add-to-bookmarks--checked) .ez-add-to-bookmarks__icon-wrapper--remove {
+    &--checked .ibexa-add-to-bookmarks__icon-wrapper--add,
+    &:not(.ibexa-add-to-bookmarks--checked) .ibexa-add-to-bookmarks__icon-wrapper--remove {
         opacity: 0;
         transform: scale(0);
     }

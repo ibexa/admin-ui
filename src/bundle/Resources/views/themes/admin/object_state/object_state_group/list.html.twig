@@ -4,7 +4,7 @@
 
 {% trans_default_domain 'object_state' %}
 
-{% block body_class %}ez-object-state-group-list-view{% endblock %}
+{% block body_class %}ibexa-object-state-group-list-view{% endblock %}
 
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block content %}
-    <section class="container ez-container">
+    <section class="container ibexa-container">
         {% set body_rows = [] %}
         {% for object_state_group in object_state_groups %}
             {% set body_row_cols = [] %}
@@ -129,7 +129,7 @@
             {% block between_header_and_table %}
                 {{ form_start(form_state_groups_delete, {
                     'action': path('ezplatform.object_state.group.bulk_delete'),
-                    'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-object-state-groups' }
+                    'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-object-state-groups' }
                 }) }}
             {% endblock %}
         {% endembed %}
@@ -138,5 +138,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-object-state-group-list-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-object-state-group-list-js', null, 'ibexa') }}
 {% endblock %}

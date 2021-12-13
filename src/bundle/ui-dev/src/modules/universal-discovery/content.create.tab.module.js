@@ -82,8 +82,8 @@ const ContentCreateTabModule = () => {
         const iframeBody = iframeRef.current.contentWindow.document.body;
         const iframeCancelButton = iframeBody.querySelector('.ibexa-anchor-navigation-menu__back');
 
-        iframeBody.addEventListener('ez-udw-opened', hideFooter, false);
-        iframeBody.addEventListener('ez-udw-closed', showFooter, false);
+        iframeBody.addEventListener('ibexa-udw-opened', hideFooter, false);
+        iframeBody.addEventListener('ibexa-udw-closed', showFooter, false);
         iframeCancelButton.addEventListener('click', cancelContentCreate, false);
     };
     const hideFooter = () => setFooterVisible(false);
@@ -96,12 +96,12 @@ const ContentCreateTabModule = () => {
     });
 
     useEffect(() => {
-        window.document.body.addEventListener('ez-udw-hide-footer', hideFooter, false);
-        window.document.body.addEventListener('ez-udw-show-footer', showFooter, false);
+        window.document.body.addEventListener('ibexa-udw-hide-footer', hideFooter, false);
+        window.document.body.addEventListener('ibexa-udw-show-footer', showFooter, false);
 
         return () => {
-            window.document.body.removeEventListener('ez-udw-hide-footer', hideFooter, false);
-            window.document.body.removeEventListener('ez-udw-show-footer', showFooter, false);
+            window.document.body.removeEventListener('ibexa-udw-hide-footer', hideFooter, false);
+            window.document.body.removeEventListener('ibexa-udw-show-footer', showFooter, false);
         };
     });
 
@@ -120,14 +120,14 @@ const ContentCreateTabModule = () => {
     );
 };
 
-eZ.addConfig(
+ibexa.addConfig(
     'adminUiConfig.universalDiscoveryWidget.tabs',
     [
         {
             id: 'content-create',
             component: ContentCreateTabModule,
             label: Translator.trans(/*@Desc("Content create")*/ 'content_create.label', {}, 'universal_discovery_widget'),
-            icon: window.eZ.helpers.icon.getIconPath('search'),
+            icon: window.ibexa.helpers.icon.getIconPath('search'),
             isHiddenOnList: true,
         },
     ],

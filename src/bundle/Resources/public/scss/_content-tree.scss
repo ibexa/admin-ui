@@ -1,9 +1,9 @@
-.ez-content-view,
-.ez-bookmark-list-view,
-.ez-search-view,
-.ez-trash-list-view,
-.ez-drafts-list-view {
-    .ez-content-container {
+.ibexa-content-view,
+.ibexa-bookmark-list-view,
+.ibexa-search-view,
+.ibexa-trash-list-view,
+.ibexa-drafts-list-view {
+    .ibexa-content-container {
         min-width: 0;
     }
 
@@ -23,7 +23,7 @@
         }
     }
 
-    .ez-view-container {
+    .ibexa-view-container {
         flex: 1 1 auto;
         min-width: 0;
     }

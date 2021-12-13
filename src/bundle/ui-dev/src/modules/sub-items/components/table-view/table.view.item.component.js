@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Icon from '../../../common/icon/icon';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
-const { formatShortDateTime } = window.eZ.helpers.timezone;
+const { formatShortDateTime } = window.ibexa.helpers.timezone;
 
 export default class TableViewItemComponent extends PureComponent {
     constructor(props) {
@@ -159,7 +159,7 @@ export default class TableViewItemComponent extends PureComponent {
         const { item, generateLink } = this.props;
         const contentName = item.content._name;
         const contentTypeIdentifier = item.content._info.contentType.identifier;
-        const contentTypeIconUrl = eZ.helpers.contentType.getContentTypeIconUrl(contentTypeIdentifier);
+        const contentTypeIconUrl = ibexa.helpers.contentType.getContentTypeIconUrl(contentTypeIdentifier);
         const linkAttrs = {
             className: 'c-table-view-item__link c-table-view-item__text-wrapper',
             href: generateLink(item.id, item.content._info.id),
@@ -362,7 +362,7 @@ export default class TableViewItemComponent extends PureComponent {
     }
 
     componentDidMount() {
-        eZ.helpers.table.parseCheckbox('.c-table-view-item__cell .ibexa-input--checkbox', 'c-table-view-item--active');
+        ibexa.helpers.table.parseCheckbox('.c-table-view-item__cell .ibexa-input--checkbox', 'c-table-view-item--active');
     }
 
     render() {

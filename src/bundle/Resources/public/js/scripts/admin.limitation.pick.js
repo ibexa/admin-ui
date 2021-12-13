@@ -1,5 +1,5 @@
-(function(global, doc, eZ, React, ReactDOM, Translator) {
-    const SELECTOR_LOCATION_LIMITATION_BTN = '.ez-pick-location-limitation-button';
+(function(global, doc, ibexa, React, ReactDOM, Translator) {
+    const SELECTOR_LOCATION_LIMITATION_BTN = '.ibexa-pick-location-limitation-button';
     const SELECTOR_EZ_TAG = '.ibexa-tag';
     const IDS_SEPARATOR = ',';
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
@@ -31,9 +31,9 @@
         );
 
         fetch(request)
-            .then(eZ.helpers.request.getJsonFromResponse)
+            .then(ibexa.helpers.request.getJsonFromResponse)
             .then(callback)
-            .catch(() => eZ.helpers.notification.showErrorNotification(errorMessage));
+            .catch(() => ibexa.helpers.notification.showErrorNotification(errorMessage));
     };
     const getBulkOperations = (pathArraysWithoutRoot) =>
         pathArraysWithoutRoot.reduce((operations, pathArray) => {
@@ -166,7 +166,7 @@
         const title = Translator.trans(/*@Desc("Choose Locations")*/ 'subtree_limitation.title', {}, 'universal_discovery_widget');
 
         ReactDOM.render(
-            React.createElement(eZ.modules.UniversalDiscovery, {
+            React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: handleUdwConfirm.bind(this, event.target),
                 onCancel: closeUDW,
                 title,
@@ -185,4 +185,4 @@
         tags.forEach(attachTagEventHandlers.bind(null, limitationBtn));
         limitationBtn.addEventListener('click', openUDW, false);
     });
-})(window, window.document, window.eZ, window.React, window.ReactDOM, window.Translator);
+})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator);

@@ -16,7 +16,7 @@ const TreeItemToggleSelection = ({ locationId, isContainer, contentTypeIdentifie
     const isUDW = useContext(UDWContext);
 
     useEffect(() => {
-        window.eZ.helpers.tooltips.parse(window.document.querySelector('.c-list'));
+        window.ibexa.helpers.tooltips.parse(window.document.querySelector('.c-list'));
     }, []);
 
     if (!isUDW) {
@@ -56,7 +56,7 @@ const TreeItemToggleSelection = ({ locationId, isContainer, contentTypeIdentifie
     );
 };
 
-eZ.addConfig(
+ibexa.addConfig(
     'adminUiConfig.contentTreeWidget.secondaryItemActions',
     [
         {

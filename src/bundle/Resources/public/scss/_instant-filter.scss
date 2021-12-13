@@ -1,7 +1,7 @@
-// TODO: remove ez-instant-filter class after redesign in all places
+// TODO: remove ibexa-instant-filter class after redesign in all places
 
 .ibexa-instant-filter,
-.ez-instant-filter {
+.ibexa-instant-filter {
     &__input {
         display: block;
         width: 100%;
@@ -10,7 +10,7 @@
 
 .ibexa-extra-actions--create {
     .ibexa-instant-filter,
-    .ez-instant-filter {
+    .ibexa-instant-filter {
         &__desc {
             color: $ibexa-color-dark-400;
             font-size: $ibexa-text-font-size-small;

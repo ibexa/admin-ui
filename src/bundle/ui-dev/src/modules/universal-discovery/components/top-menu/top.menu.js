@@ -10,7 +10,7 @@ const TopMenu = ({ actionsDisabledMap }) => {
     const title = useContext(TitleContext);
     const cancelUDW = useContext(CancelContext);
     const sortedActions = useMemo(() => {
-        const actions = [...window.eZ.adminUiConfig.universalDiscoveryWidget.topMenuActions];
+        const actions = [...window.ibexa.adminUiConfig.universalDiscoveryWidget.topMenuActions];
 
         return actions.sort((actionA, actionB) => {
             return actionB.priority - actionA.priority;

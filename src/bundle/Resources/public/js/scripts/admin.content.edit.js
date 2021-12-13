@@ -1,4 +1,4 @@
-(function(global, doc, eZ, Translator) {
+(function(global, doc, ibexa, Translator) {
     const ENTER_KEY_CODE = 13;
     const SIMPLIFIED_MESSAGE_TIMEOUT = 3000;
     const STATUS_ERROR = 'error';
@@ -27,10 +27,10 @@
         'time',
         'url',
     ];
-    const form = doc.querySelector('.ez-form-validate');
+    const form = doc.querySelector('.ibexa-form-validate');
     const submitBtns = form.querySelectorAll('[type="submit"]:not([formnovalidate])');
     const menuButtonsToValidate = doc.querySelectorAll('button[data-validate]');
-    const fields = doc.querySelectorAll('.ez-field-edit');
+    const fields = doc.querySelectorAll('.ibexa-field-edit');
     const autosave = doc.querySelector('.ibexa-autosave');
     const autosaveStatusSavedNode = autosave.querySelector('.ibexa-autosave__status-saved');
     let currentAutosaveStatus = autosave.classList.contains('ibexa-autosave--on') ? STATUS_ON : STATUS_OFF;
@@ -54,7 +54,7 @@
         }, new Set());
     };
     const focusOnFirstError = () => {
-        const invalidFields = doc.querySelectorAll('.ez-field-edit.is-invalid');
+        const invalidFields = doc.querySelectorAll('.ibexa-field-edit.is-invalid');
         const invalidSection = invalidFields[0].closest('.ibexa-anchor-navigation-sections__section');
 
         fields.forEach((field) => field.removeAttribute('tabindex'));
@@ -94,7 +94,7 @@
         isFormValid(btn);
     };
     const isFormValid = (btn) => {
-        const validators = eZ.fieldTypeValidators;
+        const validators = ibexa.fieldTypeValidators;
         const validationResults = validators.map(getValidationResults);
         const isFormValid = validationResults.every((result) => result.isValid);
         const invalidSections = validators.map(getInvalidSections);
@@ -127,7 +127,7 @@
         return false;
     };
     const isAutosaveEnabled = () => {
-        return eZ.adminUiConfig.autosave.enabled && form.querySelector('[name="ezplatform_content_forms_content_edit[autosave]"]');
+        return ibexa.adminUiConfig.autosave.enabled && form.querySelector('[name="ezplatform_content_forms_content_edit[autosave]"]');
     };
     const fitSections = () => {
         const contentColumn = doc.querySelector('.ibexa-main-container__content-column');
@@ -164,8 +164,8 @@
             return;
         }
 
-        const userPreferredTimezone = eZ.adminUiConfig.timezone;
-        const saveDate = eZ.helpers.timezone.convertDateToTimezone(new Date(), userPreferredTimezone);
+        const userPreferredTimezone = ibexa.adminUiConfig.timezone;
+        const saveDate = ibexa.helpers.timezone.convertDateToTimezone(new Date(), userPreferredTimezone);
         const saveTime = moment(saveDate).formatICU('HH:mm');
         const saveMessage = Translator.trans(
             /*@Desc("Draft saved %time%")*/ 'content_edit.autosave.status_saved.message.full',
@@ -200,7 +200,7 @@
             setAutosaveStatus(STATUS_SAVING);
 
             fetch(form.target || window.location.href, { method: 'POST', body: formData })
-                .then(eZ.helpers.request.getStatusFromResponse)
+                .then(ibexa.helpers.request.getStatusFromResponse)
                 .then(() => {
                     setAutosaveStatus(STATUS_SAVED);
                     setDraftSavedMessage();
@@ -208,7 +208,7 @@
                 .catch(() => {
                     setAutosaveStatus(STATUS_ERROR);
                 });
-        }, eZ.adminUiConfig.autosave.interval);
+        }, ibexa.adminUiConfig.autosave.interval);
     }
 
     form.setAttribute('novalidate', true);
@@ -231,4 +231,4 @@
     menuButtonsToValidate.forEach((btn) => {
         btn.addEventListener('click', validateHandler, false);
     });
-})(window, window.document, window.eZ, window.Translator);
+})(window, window.document, window.ibexa, window.Translator);

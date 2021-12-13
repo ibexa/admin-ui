@@ -1,4 +1,4 @@
-(function (global, doc, eZ, React, ReactDOM) {
+(function (global, doc, ibexa, React, ReactDOM) {
     const SELECTOR_RESET_STARTING_LOCATION_BTN = '.ibexa-btn--reset-starting-location';
     const resetStartingLocationBtns = doc.querySelectorAll(SELECTOR_RESET_STARTING_LOCATION_BTN);
     const udwBtns = doc.querySelectorAll('.ibexa-btn--udw-relation-default-location');
@@ -29,7 +29,7 @@
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
 
         ReactDOM.render(
-            React.createElement(eZ.modules.UniversalDiscovery, {
+            React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(null, event.currentTarget),
                 onCancel,
                 title: event.currentTarget.dataset.universaldiscoveryTitle,
@@ -77,4 +77,4 @@
     );
 
     resetStartingLocationBtns.forEach((btn) => btn.addEventListener('click', resetStartingLocation, false));
-})(window, window.document, window.eZ, window.React, window.ReactDOM);
+})(window, window.document, window.ibexa, window.React, window.ReactDOM);

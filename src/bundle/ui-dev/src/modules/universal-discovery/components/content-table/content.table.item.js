@@ -32,7 +32,7 @@ const ContentTableItem = ({ location }) => {
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
     const rootLocationId = useContext(RootLocationIdContext);
-    const { formatShortDateTime } = window.eZ.helpers.timezone;
+    const { formatShortDateTime } = window.ibexa.helpers.timezone;
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
     const containersOnly = useContext(ContainersOnlyContext);

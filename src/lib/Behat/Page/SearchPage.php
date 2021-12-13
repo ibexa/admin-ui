@@ -65,7 +65,7 @@ class SearchPage extends Page
         return [
             new VisibleCSSLocator('inputField', '.ibexa-search-form #search_query'),
             new VisibleCSSLocator('buttonSearch', '.ibexa-btn--search'),
-            new VisibleCSSLocator('pageTitle', '.ez-page-title h1'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
             new VisibleCSSLocator('table', '.ibexa-search'),
         ];
     }

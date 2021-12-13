@@ -1,8 +1,8 @@
-.ez-view-rawcontentview {
+.ibexa-view-rawcontentview {
     margin-bottom: calculateRem(25px);
     background-color: $ibexa-white;
 
-    .ez-raw-content-title {
+    .ibexa-raw-content-title {
         padding: calculateRem(24px);
         color: $ibexa-black;
         align-items: center;
@@ -24,7 +24,7 @@
     }
 }
 
-.ez-fieldgroup {
+.ibexa-fieldgroup {
     &__name {
         color: $ibexa-color-font;
         border-bottom: calculateRem(1px) solid $ibexa-color-base;
@@ -104,7 +104,7 @@
         }
     }
 
-    .ez-field-preview {
+    .ibexa-field-preview {
         &--ezobjectrelationlist {
             .table {
                 margin-bottom: 0;

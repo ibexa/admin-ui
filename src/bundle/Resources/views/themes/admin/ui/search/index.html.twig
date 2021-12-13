@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'search' %}
 
-{% block body_class %}ez-search-view{% endblock %}
+{% block body_class %}ibexa-search-view{% endblock %}
 
 {% block title %}{{ 'search'|trans|desc('Search') }}{% endblock %}
 
@@ -31,7 +31,7 @@
                 {% form_theme form_edit '@ibexadesign/ui/form/flat_widgets.html.twig' %}
                 {{ form_start(form_edit, {
                     'action': path('ezplatform.content.edit'),
-                    'attr': { 'class': 'ez-edit-content-form'}
+                    'attr': { 'class': 'ibexa-edit-content-form'}
                 }) }}
                 {{ form_widget(form_edit.language, {'attr': {'hidden': 'hidden', 'class': 'language-input'}}) }}
                 {{ form_end(form_edit) }}
@@ -41,9 +41,9 @@
 {% endblock %}
 
 {% block react_modules %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-content-tree-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-content-tree-js', null, 'ibexa') }}
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-search-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-search-js', null, 'ibexa') }}
 {% endblock %}

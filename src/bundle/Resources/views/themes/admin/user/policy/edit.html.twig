@@ -26,17 +26,17 @@
 
 {% block form %}
     {{ form_start(form) }}
-    <section class="ez-fieldgroup">
-        <h2 class="ez-fieldgroup__name">
+    <section class="ibexa-fieldgroup">
+        <h2 class="ibexa-fieldgroup__name">
             <b>{{ 'policy.view.policy.title'|trans|desc('Policy type:') }}</b>
             {{ policy.module|capitalize ~ ' / ' ~ policy.function|capitalize }}
         </h2>
         {% do form.policy.setRendered %}
     </section>
 
-    <section class="ez-fieldgroup">
-        <h2 class="ez-fieldgroup__name"><b>{{ 'policy.view.limitations.title'|trans|desc('Edit Limitations') }}</b></h2>
-        <div class="ez-fieldgroup__content">
+    <section class="ibexa-fieldgroup">
+        <h2 class="ibexa-fieldgroup__name"><b>{{ 'policy.view.limitations.title'|trans|desc('Edit Limitations') }}</b></h2>
+        <div class="ibexa-fieldgroup__content">
             {% for limitation_form in form.limitations %}
                 {{ include(limitation_form.vars.template, {form: limitation_form}, with_context = false) }}
             {% endfor %}
@@ -49,5 +49,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-policy-edit-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-policy-edit-js', null, 'ibexa') }}
 {% endblock %}

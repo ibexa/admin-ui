@@ -1,5 +1,5 @@
 (function(global, doc, Leaflet) {
-    doc.querySelectorAll('.ez-gmaplocation__map').forEach((mapLocation) => {
+    doc.querySelectorAll('.ibexa-gmaplocation__map').forEach((mapLocation) => {
         const latitude = parseFloat(mapLocation.dataset.latitude);
         const longitude = parseFloat(mapLocation.dataset.longitude);
         const map = Leaflet.map(mapLocation, {

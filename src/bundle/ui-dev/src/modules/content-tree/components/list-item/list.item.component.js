@@ -21,7 +21,7 @@ class ListItem extends Component {
     }
 
     getSecondaryItemActions() {
-        const { secondaryItemActions } = window.eZ.adminUiConfig.contentTreeWidget;
+        const { secondaryItemActions } = window.ibexa.adminUiConfig.contentTreeWidget;
 
         if (!secondaryItemActions) {
             return [];
@@ -33,7 +33,7 @@ class ListItem extends Component {
     }
 
     getSortedActions() {
-        const { itemActions } = window.eZ.adminUiConfig.contentTreeWidget;
+        const { itemActions } = window.ibexa.adminUiConfig.contentTreeWidget;
         const actions = itemActions ? [...itemActions] : [];
 
         return actions.sort((actionA, actionB) => {
@@ -56,7 +56,7 @@ class ListItem extends Component {
                 'content_tree'
             );
 
-            window.eZ.helpers.notification.showWarningNotification(notificationMessage);
+            window.ibexa.helpers.notification.showWarningNotification(notificationMessage);
 
             return;
         }
@@ -119,11 +119,11 @@ class ListItem extends Component {
 
         if (!this.state.isLoading || this.props.subitems.length) {
             if (locationId === 1) {
-                iconAttrs.customPath = eZ.helpers.contentType.getContentTypeIconUrl('folder');
+                iconAttrs.customPath = ibexa.helpers.contentType.getContentTypeIconUrl('folder');
             } else {
                 iconAttrs.customPath =
-                    eZ.helpers.contentType.getContentTypeIconUrl(contentTypeIdentifier) ||
-                    eZ.helpers.contentType.getContentTypeIconUrl('file');
+                    ibexa.helpers.contentType.getContentTypeIconUrl(contentTypeIdentifier) ||
+                    ibexa.helpers.contentType.getContentTypeIconUrl('file');
             }
         } else {
             iconAttrs.name = 'spinner';

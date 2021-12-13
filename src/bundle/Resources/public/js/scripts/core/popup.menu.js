@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const CLASS_POPUP_MENU_HIDDEN = 'ibexa-popup-menu--hidden';
     class PopupMenu {
         constructor(config) {
@@ -103,5 +103,5 @@
         }
     }
 
-    eZ.addConfig('core.PopupMenu', PopupMenu);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('core.PopupMenu', PopupMenu);
+})(window, window.document, window.ibexa);

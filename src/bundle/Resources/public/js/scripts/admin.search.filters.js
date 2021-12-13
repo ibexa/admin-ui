@@ -1,4 +1,4 @@
-(function(global, doc, eZ, flatpickr, React, ReactDOM) {
+(function(global, doc, ibexa, flatpickr, React, ReactDOM) {
     let getUsersTimeout;
     const CLASS_DATE_RANGE = 'ibexa-filters__range-wrapper';
     const CLASS_VISIBLE_DATE_RANGE = 'ibexa-filters__range-wrapper--visible';
@@ -28,7 +28,7 @@
         locale: {
             rangeSeparator: ' - ',
         },
-        formatDate: (date) => eZ.helpers.timezone.formatShortDateTime(date, null, eZ.adminUiConfig.dateFormat.shortDate),
+        formatDate: (date) => ibexa.helpers.timezone.formatShortDateTime(date, null, ibexa.adminUiConfig.dateFormat.shortDate),
     };
     const clearFilters = (event) => {
         event.preventDefault();
@@ -251,7 +251,7 @@
         const tag = event.currentTarget.closest(SELECTOR_TAG);
         const form = event.currentTarget.closest('form');
 
-        eZ.helpers.tooltips.hideAll();
+        ibexa.helpers.tooltips.hideAll();
         tag.remove();
         form.submit();
     };
@@ -302,7 +302,7 @@
         btn.setAttribute('hidden', true);
         contentTypesList.removeAttribute('hidden');
     };
-    const selectSubtreeWidget = new eZ.core.TagViewSelect({
+    const selectSubtreeWidget = new ibexa.core.TagViewSelect({
         fieldContainer: doc.querySelector('.ibexa-filters__item--subtree'),
     });
     const udwContainer = doc.getElementById('react-udw');
@@ -310,7 +310,7 @@
     const confirmSubtreeUDW = (data) => {
         const items = data.map((item) => ({
             id: item.pathString,
-            name: eZ.helpers.text.escapeHTML(item.ContentInfo.Content.TranslatedName),
+            name: ibexa.helpers.text.escapeHTML(item.ContentInfo.Content.TranslatedName),
         }));
 
         selectSubtreeWidget.addItems(items, true);
@@ -323,7 +323,7 @@
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
 
         ReactDOM.render(
-            React.createElement(eZ.modules.UniversalDiscovery, {
+            React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: confirmSubtreeUDW.bind(this),
                 onCancel: closeUDW,
                 multiple: true,
@@ -357,4 +357,4 @@
     contentTypeCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', filterByContentType, false));
     showMoreBtns.forEach((showMoreBtn) => showMoreBtn.addEventListener('click', showMoreContentTypes, false));
     selectSubtreeBtn.addEventListener('click', openSubtreeUDW, false);
-})(window, window.document, window.eZ, window.flatpickr, window.React, window.ReactDOM);
+})(window, window.document, window.ibexa, window.flatpickr, window.React, window.ReactDOM);

@@ -5,7 +5,7 @@
 
 {% trans_default_domain 'section' %}
 
-{% block body_class %}ez-section-list-view{% endblock %}
+{% block body_class %}ibexa-section-list-view{% endblock %}
 
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
@@ -21,7 +21,7 @@
 {% endblock %}
 
 {% block content %}
-    <section class="container ez-container">
+    <section class="container ibexa-container">
         {% set body_rows = [] %}
         {% for section in pager.currentPageResults %}
             {% set body_row_cols = [] %}
@@ -148,7 +148,7 @@
             {% block between_header_and_table %}
                 {{ form_start(form_sections_delete, {
                     'action': path('ezplatform.section.bulk_delete'),
-                    'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-sections' }
+                    'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-sections' }
                 }) }}
             {% endblock %}
         {% endembed %}
@@ -170,5 +170,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-section-list-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-section-list-js', null, 'ibexa') }}
 {% endblock %}

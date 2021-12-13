@@ -1,4 +1,4 @@
-(function(global, doc, eZ, bootstrap) {
+(function(global, doc, ibexa, bootstrap) {
     const notificationsContainer = doc.querySelector('.ibexa-notifications-container');
     const notifications = JSON.parse(notificationsContainer.dataset.notifications);
     const template = notificationsContainer.dataset.template;
@@ -10,11 +10,11 @@
     };
     const addNotification = ({ detail }) => {
         const { onShow, label, message, customIconPath, rawPlaceholdersMap = {} } = detail;
-        const config = eZ.adminUiConfig.notifications[label];
+        const config = ibexa.adminUiConfig.notifications[label];
         const timeout = config ? config.timeout : 0;
         const container = doc.createElement('div');
-        const iconPath = customIconPath ?? eZ.helpers.icon.getIconPath(iconsMap[label]);
-        let finalMessage = eZ.helpers.text.escapeHTML(message);
+        const iconPath = customIconPath ?? ibexa.helpers.icon.getIconPath(iconsMap[label]);
+        let finalMessage = ibexa.helpers.text.escapeHTML(message);
 
         Object.entries(rawPlaceholdersMap).forEach(([placeholder, rawText]) => {
             finalMessage = finalMessage.replace(`{{ ${placeholder} }}`, rawText);
@@ -45,4 +45,4 @@
     });
 
     doc.body.addEventListener('ibexa-notify', addNotification, false);
-})(window, window.document, window.eZ, window.bootstrap);
+})(window, window.document, window.ibexa, window.bootstrap);

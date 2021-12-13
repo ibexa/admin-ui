@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const barDefaultOptions = {
         scales: {
             xAxes: [
@@ -12,7 +12,7 @@
         },
     };
 
-    class BarChart extends eZ.core.BaseChart {
+    class BarChart extends ibexa.core.BaseChart {
         constructor(data, options = {}) {
             super(data, {
                 ...barDefaultOptions,
@@ -27,5 +27,5 @@
         }
     }
 
-    eZ.addConfig('core.chart.BarChart', BarChart);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('core.chart.BarChart', BarChart);
+})(window, window.document, window.ibexa);

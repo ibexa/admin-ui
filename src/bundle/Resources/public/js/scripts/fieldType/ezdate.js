@@ -1,11 +1,11 @@
-(function(global, doc, eZ, flatpickr) {
+(function(global, doc, ibexa, flatpickr) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezdate';
     const SELECTOR_INPUT = '.ibexa-data-source__input:not(.flatpickr-input)';
     const SELECTOR_FLATPICKR_INPUT = '.flatpickr-input';
     const EVENT_VALUE_CHANGED = 'change';
     const SELECTOR_ERROR_NODE = '.ibexa-data-source';
 
-    class EzDateValidator extends eZ.BaseFieldValidator {
+    class EzDateValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
@@ -24,7 +24,7 @@
 
             if (isRequired && isEmpty) {
                 isError = true;
-                errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             }
 
             return {
@@ -57,11 +57,11 @@
 
     validator.init();
 
-    eZ.addConfig('fieldTypeValidators', [validator], true);
+    ibexa.addConfig('fieldTypeValidators', [validator], true);
 
     const dateFields = doc.querySelectorAll(SELECTOR_FIELD);
     const dateConfig = {
-        formatDate: (date) => eZ.helpers.timezone.formatFullDateTime(date, null, eZ.adminUiConfig.dateFormat.fullDate),
+        formatDate: (date) => ibexa.helpers.timezone.formatFullDateTime(date, null, ibexa.adminUiConfig.dateFormat.fullDate),
     };
     const updateInputValue = (sourceInput, date) => {
         const event = new CustomEvent(EVENT_VALUE_CHANGED);
@@ -73,7 +73,7 @@
             return;
         }
 
-        const selectedDateWithUserTimezone = eZ.helpers.timezone.convertDateToTimezone(date[0], eZ.adminUiConfig.timezone, true);
+        const selectedDateWithUserTimezone = ibexa.helpers.timezone.convertDateToTimezone(date[0], ibexa.adminUiConfig.timezone, true);
 
         sourceInput.value = Math.floor(selectedDateWithUserTimezone.valueOf() / 1000);
         sourceInput.dispatchEvent(event);
@@ -119,4 +119,4 @@
     };
 
     dateFields.forEach(initFlatPickr);
-})(window, window.document, window.eZ, window.flatpickr);
+})(window, window.document, window.ibexa, window.flatpickr);

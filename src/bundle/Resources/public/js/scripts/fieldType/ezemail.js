@@ -1,8 +1,8 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezemail';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
 
-    class EzEmailValidator extends eZ.BaseFieldValidator {
+    class EzEmailValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
@@ -15,15 +15,15 @@
             const input = event.currentTarget;
             const isRequired = input.required;
             const isEmpty = !input.value.trim();
-            const isValid = eZ.errors.emailRegexp.test(input.value);
+            const isValid = ibexa.errors.emailRegexp.test(input.value);
             const isError = (isRequired && isEmpty) || (!isEmpty && !isValid);
             const label = input.closest(SELECTOR_FIELD).querySelector('.ibexa-field-edit__label').innerHTML;
             const result = { isError };
 
             if (isRequired && isEmpty) {
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             } else if (!isEmpty && !isValid) {
-                result.errorMessage = eZ.errors.invalidEmail;
+                result.errorMessage = ibexa.errors.invalidEmail;
             }
 
             return result;
@@ -45,5 +45,5 @@
 
     validator.init();
 
-    eZ.addConfig('fieldTypeValidators', [validator], true);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('fieldTypeValidators', [validator], true);
+})(window, window.document, window.ibexa);

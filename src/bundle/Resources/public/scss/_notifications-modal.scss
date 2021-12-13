@@ -1,4 +1,4 @@
-.ez-notifications-modal {
+.ibexa-notifications-modal {
     cursor: auto;
 
     .modal-dialog {
@@ -110,11 +110,11 @@
     }
 
     &--loading {
-        .ez-notifications-modal__spinner {
+        .ibexa-notifications-modal__spinner {
             display: block;
         }
 
-        .ez-notifications-modal__results {
+        .ibexa-notifications-modal__results {
             visibility: hidden;
         }
     }

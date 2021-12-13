@@ -1,5 +1,5 @@
-// TODO: should be remove when ez-table--list is redesigned
-.ez-table {
+// TODO: should be remove when ibexa-table--list is redesigned
+.ibexa-table {
     border-spacing: 0 calculateRem(1px);
 
     &__header {
@@ -124,7 +124,7 @@
     }
 }
 
-.ez-table-header {
+.ibexa-table-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -154,11 +154,11 @@
     }
 }
 
-.ez-table-header.ground-base {
+.ibexa-table-header.ground-base {
     background-color: $ibexa-white;
 }
 
-.ez-table-no-content {
+.ibexa-table-no-content {
     margin: 0;
     padding: 0 calculateRem(24px) calculateRem(24px);
     overflow-x: auto;
@@ -168,7 +168,7 @@
     color: $ibexa-color-font;
 }
 
-.ez-table {
+.ibexa-table {
     &--no-border {
         td {
             border: none;
@@ -185,7 +185,7 @@
         background: none;
         margin-bottom: calculateRem(48px);
 
-        .ez-table {
+        .ibexa-table {
             &__cell {
                 font-size: calculateRem(16px);
                 border: none;
@@ -203,15 +203,15 @@
     }
 }
 
-.ez-checkbox-cell {
+.ibexa-checkbox-cell {
     width: 5%;
 }
 
-.ez-limitation-cell {
+.ibexa-limitation-cell {
     width: 70%;
 }
 
-.ez-scrollable-table-wrapper {
+.ibexa-scrollable-table-wrapper {
     overflow-x: auto;
     margin-bottom: calculateRem(48px);
 
@@ -220,9 +220,9 @@
     }
 }
 
-.ez-link-manager-view {
-    .ez-table__row {
-        .ez-table__cell {
+.ibexa-link-manager-view {
+    .ibexa-table__row {
+        .ibexa-table__cell {
             &--has-action-btns {
                 display: flex;
                 justify-content: space-between;

@@ -1,4 +1,4 @@
-(function(global, doc, eZ, bootstrap) {
+(function(global, doc, ibexa, bootstrap) {
     const EVENT_VALUE_CHANGED = 'change';
     const RESTRICTED_AREA_ITEMS_CONTAINER = 190;
     const MINIMUM_LETTERS_TO_FILTER = 3;
@@ -305,5 +305,5 @@
         }
     }
 
-    eZ.addConfig('core.Dropdown', Dropdown);
-})(window, window.document, window.eZ, window.bootstrap);
+    ibexa.addConfig('core.Dropdown', Dropdown);
+})(window, window.document, window.ibexa, window.bootstrap);

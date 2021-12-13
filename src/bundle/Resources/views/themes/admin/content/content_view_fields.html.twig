@@ -1,22 +1,22 @@
-<section class="ez-view-rawcontentview">
-    <div class="ez-raw-content-title d-flex">
+<section class="ibexa-view-rawcontentview">
+    <div class="ibexa-raw-content-title d-flex">
         <h2>{{ 'tab.view.preview'|trans()|desc('Preview') }}</h2>
         {% block extras %}{% endblock %}
     </div>
 
     {% block fields %}
-        <div class="ez-content-preview">
+        <div class="ibexa-content-preview">
             {% for group in field_definitions_by_group %}
                 {% if group.fieldDefinitions|length > 0 %}
                     {% set group_name = group.name|lower|replace({' ': ''}) %}
                     {% set collapse_state_key = 'collapse-' ~ group_name ~ location.id %}
-                    {% set collapse_class_name = 'ez-content-preview-collapse--' ~ group_name %}
+                    {% set collapse_class_name = 'ibexa-content-preview-collapse--' ~ group_name %}
 
-                    <section class="ez-fieldgroup container">
-                        <a data-bs-toggle="collapse" href=".{{ collapse_class_name }}" class="ez-fieldgroup__toggler">
+                    <section class="ibexa-fieldgroup container">
+                        <a data-bs-toggle="collapse" href=".{{ collapse_class_name }}" class="ibexa-fieldgroup__toggler">
                             {{ group.name|capitalize }}
                         </a>
-                        <div class="{{ collapse_class_name }} ez-content-preview-collapse collapse show" data-collapse-state-key="{{ collapse_state_key }}">
+                        <div class="{{ collapse_class_name }} ibexa-content-preview-collapse collapse show" data-collapse-state-key="{{ collapse_state_key }}">
                             {% for field_definition in group.fieldDefinitions %}
                                 {% block field %}
                                     <div class="ibexa-content-field">

@@ -2,7 +2,7 @@
 
 {% form_theme form_policies_delete '@ibexadesign/ui/form_fields.html.twig'  %}
 
-<section class="container ez-container">
+<section class="container ibexa-container">
     {% set body_rows = [] %}
     {% for policy in pager.currentPageResults %}
         {% set body_row_cols = [] %}
@@ -121,7 +121,7 @@
         {% block between_header_and_table %}
             {{ form_start(form_policies_delete, {
                 'action': path('ezplatform.policy.bulk_delete', {"roleId": role.id} ),
-                'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-policies' }
+                'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-policies' }
             }) }}
         {% endblock %}
     {% endembed %}

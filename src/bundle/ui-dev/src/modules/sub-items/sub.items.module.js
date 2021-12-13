@@ -114,7 +114,7 @@ export default class SubItemsModule extends Component {
             this.loadPage(activePageIndex);
         }
 
-        eZ.helpers.tooltips.parse();
+        ibexa.helpers.tooltips.parse();
     }
 
     componentWillUnmount() {
@@ -267,8 +267,8 @@ export default class SubItemsModule extends Component {
         this.setState(
             () => ({ activeView }),
             () => {
-                eZ.helpers.tooltips.hideAll();
-                window.localStorage.setItem(`ez-subitems-active-view-location-${this.props.parentLocationId}`, activeView);
+                ibexa.helpers.tooltips.hideAll();
+                window.localStorage.setItem(`ibexa-subitems-active-view-location-${this.props.parentLocationId}`, activeView);
             }
         );
     }
@@ -396,7 +396,7 @@ export default class SubItemsModule extends Component {
             );
             const rawPlaceholdersMap = {
                 moreInformationLink: Translator.trans(
-                    /*@Desc("<u><a class='ez-notification-btn ez-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
+                    /*@Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
                     'bulk_action.error.more_info',
                     {},
                     'sub_items'
@@ -418,14 +418,14 @@ export default class SubItemsModule extends Component {
                     /*@Desc("<u><a href='%locationHref%'>%locationName%</a></u>")*/
                     'bulk_action.success.link_to_location',
                     {
-                        locationName: eZ.helpers.text.escapeHTML(location.ContentInfo.Content.Name),
+                        locationName: ibexa.helpers.text.escapeHTML(location.ContentInfo.Content.Name),
                         locationHref: this.props.generateLink(location.id, location.ContentInfo.Content._id),
                     },
                     'sub_items'
                 ),
             };
 
-            window.eZ.helpers.notification.showSuccessNotification(message, () => {}, rawPlaceholdersMap);
+            window.ibexa.helpers.notification.showSuccessNotification(message, () => {}, rawPlaceholdersMap);
         }
     }
 
@@ -452,7 +452,7 @@ export default class SubItemsModule extends Component {
             );
             const rawPlaceholdersMap = {
                 moreInformationLink: Translator.trans(
-                    /*@Desc("<u><a class='ez-notification-btn ez-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
+                    /*@Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
                     'bulk_action.error.more_info',
                     {},
                     'sub_items'
@@ -470,7 +470,7 @@ export default class SubItemsModule extends Component {
                 'sub_items'
             );
 
-            window.eZ.helpers.notification.showSuccessNotification(message);
+            window.ibexa.helpers.notification.showSuccessNotification(message);
         }
     }
 
@@ -497,7 +497,7 @@ export default class SubItemsModule extends Component {
             );
             const rawPlaceholdersMap = {
                 moreInformationLink: Translator.trans(
-                    /*@Desc("<u><a class='ez-notification-btn ez-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
+                    /*@Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
                     'bulk_action.error.more_info',
                     {},
                     'sub_items'
@@ -515,7 +515,7 @@ export default class SubItemsModule extends Component {
                 'sub_items'
             );
 
-            window.eZ.helpers.notification.showSuccessNotification(message);
+            window.ibexa.helpers.notification.showSuccessNotification(message);
         }
     }
 
@@ -542,7 +542,7 @@ export default class SubItemsModule extends Component {
             );
             const rawPlaceholdersMap = {
                 moreInformationLink: Translator.trans(
-                    /*@Desc("<u><a class='ez-notification-btn ez-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
+                    /*@Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
                     'bulk_action.error.more_info',
                     {},
                     'sub_items'
@@ -564,14 +564,14 @@ export default class SubItemsModule extends Component {
                     /*@Desc("<u><a href='%locationHref%'>%locationName%</a></u>")*/
                     'bulk_action.success.link_to_location',
                     {
-                        locationName: eZ.helpers.text.escapeHTML(location.ContentInfo.Content.TranslatedName),
+                        locationName: ibexa.helpers.text.escapeHTML(location.ContentInfo.Content.TranslatedName),
                         locationHref: this.props.generateLink(location.id, location.ContentInfo.id),
                     },
                     'sub_items'
                 ),
             };
 
-            window.eZ.helpers.notification.showSuccessNotification(message, () => {}, rawPlaceholdersMap);
+            window.ibexa.helpers.notification.showSuccessNotification(message, () => {}, rawPlaceholdersMap);
         }
     }
 
@@ -603,7 +603,7 @@ export default class SubItemsModule extends Component {
             return null;
         }
 
-        const UniversalDiscovery = window.eZ.modules.UniversalDiscovery;
+        const UniversalDiscovery = window.ibexa.modules.UniversalDiscovery;
         const { restInfo, parentLocationId, udwConfigBulkMoveItems, udwConfigBulkAddLocation } = this.props;
         const { selectedItems } = this.state;
         const selectedItemsLocationsIds = [...selectedItems.values()].map(({ id }) => id);
@@ -668,7 +668,7 @@ export default class SubItemsModule extends Component {
 
     afterBulkDelete(deletedItems, notDeletedItems) {
         const { totalCount } = this.state;
-        const isUser = ({ content }) => window.eZ.adminUiConfig.userContentTypes.includes(content._info.contentType.identifier);
+        const isUser = ({ content }) => window.ibexa.adminUiConfig.userContentTypes.includes(content._info.contentType.identifier);
 
         this.refreshContentTree();
         this.updateTotalCountState(totalCount - deletedItems.length);
@@ -685,7 +685,7 @@ export default class SubItemsModule extends Component {
             let message = null;
             const rawPlaceholdersMap = {
                 moreInformationLink: Translator.trans(
-                    /*@Desc("<u><a class='ez-notification-btn ez-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
+                    /*@Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
                     'bulk_action.error.more_info',
                     {},
                     'sub_items'
@@ -764,7 +764,7 @@ export default class SubItemsModule extends Component {
                 );
             }
 
-            window.eZ.helpers.notification.showSuccessNotification(message);
+            window.ibexa.helpers.notification.showSuccessNotification(message);
         }
     }
 
@@ -829,10 +829,10 @@ export default class SubItemsModule extends Component {
             contentName: content._name,
         }));
 
-        window.eZ.helpers.notification.showWarningNotification(
+        window.ibexa.helpers.notification.showWarningNotification(
             notificationMessage,
             (notificationNode) => {
-                const showModalBtn = notificationNode.querySelector('.ez-notification-btn--show-modal');
+                const showModalBtn = notificationNode.querySelector('.ibexa-notification-btn--show-modal');
 
                 if (!showModalBtn) {
                     return;
@@ -931,7 +931,7 @@ export default class SubItemsModule extends Component {
                 break;
             }
 
-            const isUserContentItem = window.eZ.adminUiConfig.userContentTypes.includes(content._info.contentType.identifier);
+            const isUserContentItem = window.ibexa.adminUiConfig.userContentTypes.includes(content._info.contentType.identifier);
 
             if (isUserContentItem) {
                 isUserContentItemSelected = true;
@@ -1225,7 +1225,7 @@ export default class SubItemsModule extends Component {
 
     updateTrashModal() {
         document.body.dispatchEvent(
-            new CustomEvent('ez-trash-modal-refresh', {
+            new CustomEvent('ibexa-trash-modal-refresh', {
                 detail: {
                     numberOfSubitems: this.state.totalCount,
                 },
@@ -1289,7 +1289,7 @@ export default class SubItemsModule extends Component {
     }
 }
 
-eZ.addConfig('modules.SubItems', SubItemsModule);
+ibexa.addConfig('modules.SubItems', SubItemsModule);
 
 SubItemsModule.propTypes = {
     parentLocationId: PropTypes.number.isRequired,
@@ -1326,9 +1326,9 @@ SubItemsModule.defaultProps = {
     updateLocationPriority,
     activeView: VIEW_MODE_TABLE,
     extraActions: [],
-    languages: window.eZ.adminUiConfig.languages,
+    languages: window.ibexa.adminUiConfig.languages,
     items: [],
-    limit: parseInt(window.eZ.adminUiConfig.subItems.limit, 10),
+    limit: parseInt(window.ibexa.adminUiConfig.subItems.limit, 10),
     offset: 0,
     totalCount: 0,
     languageContainerSelector: '.ibexa-extra-actions-container',

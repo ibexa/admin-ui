@@ -9,5 +9,5 @@
 
     togglers.forEach((btn) => attachToggleField(btn));
 
-    doc.body.addEventListener('ez-initialize-card-toggle-group', (event) => attachToggleField(event.detail.button));
+    doc.body.addEventListener('ibexa-initialize-card-toggle-group', (event) => attachToggleField(event.detail.button));
 })(window, window.document);

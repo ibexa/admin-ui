@@ -12,7 +12,7 @@ import Collapsible from '../collapsible/collapsible';
 import ContentTypeSelector from '../content-type-selector/content.type.selector';
 import Icon from '../../../common/icon/icon';
 
-const languages = Object.values(window.eZ.adminUiConfig.languages.mappings);
+const languages = Object.values(window.ibexa.adminUiConfig.languages.mappings);
 
 const Filters = ({ search }) => {
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
@@ -37,7 +37,7 @@ const Filters = ({ search }) => {
     };
     const wrapperClassName = createCssClassNames({
         'c-filters': true,
-        'ez-filters': true,
+        'ibexa-filters': true,
     });
     const updateSection = (value) => setSelectedSection(value);
     const openUdw = () => {
@@ -68,12 +68,12 @@ const Filters = ({ search }) => {
         const mergedConfig = {
             onConfirm,
             onCancel: closeUDW,
-            tabs: window.eZ.adminUiConfig.universalDiscoveryWidget.tabs,
+            tabs: window.ibexa.adminUiConfig.universalDiscoveryWidget.tabs,
             title: 'Browsing content',
             ...config,
         };
 
-        ReactDOM.render(React.createElement(eZ.modules.UniversalDiscovery, mergedConfig), udwContainer);
+        ReactDOM.render(React.createElement(ibexa.modules.UniversalDiscovery, mergedConfig), udwContainer);
     };
     const makeSearch = useCallback(() => search(0), [search]);
     const isApplyButtonEnabled = !!selectedContentTypes.length || !!selectedSection || !!selectedSubtree || prevSelectedLanguage.current !== selectedLanguage;
@@ -122,7 +122,7 @@ const Filters = ({ search }) => {
         value: language.languageCode,
         label: language.name,
     }));
-    const sectionOptions = Object.entries(window.eZ.adminUiConfig.sections).map(([sectionIdentifier, sectionName]) => ({
+    const sectionOptions = Object.entries(window.ibexa.adminUiConfig.sections).map(([sectionIdentifier, sectionName]) => ({
         value: sectionIdentifier,
         label: sectionName,
     }));

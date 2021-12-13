@@ -23,14 +23,14 @@ const BrowseTabModule = () => {
     );
 };
 
-eZ.addConfig(
+ibexa.addConfig(
     'adminUiConfig.universalDiscoveryWidget.tabs',
     [
         {
             id: 'browse',
             component: BrowseTabModule,
             label: Translator.trans(/*@Desc("Browse")*/ 'browse.label', {}, 'universal_discovery_widget'),
-            icon: window.eZ.helpers.icon.getIconPath('browse'),
+            icon: window.ibexa.helpers.icon.getIconPath('browse'),
         },
     ],
     true

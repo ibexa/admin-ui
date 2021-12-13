@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const SELECTOR_DATA = '.ibexa-field-edit__data';
     const SELECTOR_PREVIEW = '.ibexa-field-edit__preview';
     const SELECTOR_BTN_REMOVE = '.ibexa-field-edit-preview__action--remove';
@@ -280,5 +280,5 @@
         }
     }
 
-    eZ.addConfig('BasePreviewField', BasePreviewField);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('BasePreviewField', BasePreviewField);
+})(window, window.document, window.ibexa);

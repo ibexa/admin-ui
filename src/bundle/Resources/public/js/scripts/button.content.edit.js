@@ -1,6 +1,6 @@
-(function(global, doc, bootstrap, eZ, Translator, Routing) {
-    const FORM_EDIT = 'form.ez-edit-content-form';
-    const showErrorNotification = eZ.helpers.notification.showErrorNotification;
+(function(global, doc, bootstrap, ibexa, Translator, Routing) {
+    const FORM_EDIT = 'form.ibexa-edit-content-form';
+    const showErrorNotification = ibexa.helpers.notification.showErrorNotification;
     const editVersion = (event) => {
         const versionEditForm = doc.querySelector(FORM_EDIT);
         const versionEditFormName = versionEditForm.name;
@@ -67,11 +67,11 @@
         event.preventDefault();
 
         fetch(checkEditPermissionLink, { mode: 'same-origin', credentials: 'same-origin' })
-            .then(eZ.helpers.request.getJsonFromResponse)
+            .then(ibexa.helpers.request.getJsonFromResponse)
             .then(handleCanEditCheck)
             .then(handleDraftConflict)
             .catch(showErrorNotification);
     };
 
     doc.querySelectorAll('.ibexa-btn--content-edit').forEach((button) => button.addEventListener('click', editVersion, false));
-})(window, window.document, window.bootstrap, window.eZ, window.Translator, window.Routing);
+})(window, window.document, window.bootstrap, window.ibexa, window.Translator, window.Routing);

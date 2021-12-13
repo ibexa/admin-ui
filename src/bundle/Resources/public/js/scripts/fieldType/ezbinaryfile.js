@@ -1,8 +1,8 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezbinaryfile';
     const SELECTOR_FILESIZE_NOTICE = '.ibexa-data-source__message--filesize';
 
-    class EzBinaryFilePreviewField extends eZ.BasePreviewField {
+    class EzBinaryFilePreviewField extends ibexa.BasePreviewField {
         /**
          * Loads dropped file preview
          *
@@ -24,7 +24,7 @@
         }
     }
 
-    class EzBinaryFileFieldValidator extends eZ.BaseFileFieldValidator {
+    class EzBinaryFileFieldValidator extends ibexa.BaseFileFieldValidator {
         validateFileSize(event) {
             event.currentTarget.dispatchEvent(new CustomEvent('ibexa-invalid-file-size'));
 
@@ -61,6 +61,6 @@
 
         previewField.init();
 
-        eZ.addConfig('fieldTypeValidators', [validator], true);
+        ibexa.addConfig('fieldTypeValidators', [validator], true);
     });
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

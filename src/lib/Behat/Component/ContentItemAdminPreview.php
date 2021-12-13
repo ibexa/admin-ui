@@ -80,7 +80,7 @@ class ContentItemAdminPreview extends Component
             ->find(CSSLocatorBuilder::base($fieldValueLocator)->withDescendant($this->getLocator('fieldValueContainer'))->build())
             ->getAttribute('class');
 
-        if ('ez-scrollable-table-wrapper mb-0' === $fieldClass) {
+        if ('ibexa-scrollable-table-wrapper mb-0' === $fieldClass) {
             return 'ezuser';
         }
 
@@ -92,7 +92,7 @@ class ContentItemAdminPreview extends Component
             return 'ezboolean';
         }
 
-        $fieldTypeIdentifierRegex = '/ez[a-z]*-field/';
+        $fieldTypeIdentifierRegex = '/ibexa[a-z]*-field/';
         preg_match($fieldTypeIdentifierRegex, $fieldClass, $matches);
 
         return explode('-', $matches[0])[0];

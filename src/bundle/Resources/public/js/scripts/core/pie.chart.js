@@ -1,5 +1,5 @@
-(function(global, doc, eZ) {
-    class PieChart extends eZ.core.BaseChart {
+(function(global, doc, ibexa) {
+    class PieChart extends ibexa.core.BaseChart {
         constructor(data) {
             super(data);
 
@@ -11,5 +11,5 @@
         }
     }
 
-    eZ.addConfig('core.chart.PieChart', PieChart);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('core.chart.PieChart', PieChart);
+})(window, window.document, window.ibexa);

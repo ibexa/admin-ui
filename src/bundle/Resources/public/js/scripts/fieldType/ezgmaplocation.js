@@ -1,4 +1,4 @@
-(function(global, doc, eZ, Leaflet) {
+(function(global, doc, ibexa, Leaflet) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezgmaplocation';
     const SELECTOR_ADDRESS_INPUT = '.ibexa-data-source__field--address .ibexa-data-source__input';
     const SELECTOR_LAT_FIELD = '.ibexa-data-source__field--latitude';
@@ -18,7 +18,7 @@
     const VALIDATE_LATITUDE = 'validateLatitude';
     const VALIDATE_ADDRESS = 'validateAddress';
 
-    class EzGMapLocationValidator extends eZ.BaseFieldValidator {
+    class EzGMapLocationValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates latitude/longitude input value
          *
@@ -40,7 +40,7 @@
 
             if (isNumber && !isInRange) {
                 result.isError = true;
-                result.errorMessage = eZ.errors.outOfRangeValue
+                result.errorMessage = ibexa.errors.outOfRangeValue
                     .replace('{fieldName}', label)
                     .replace('{min}', min)
                     .replace('{max}', max);
@@ -50,7 +50,7 @@
 
             if (input.required && !isNumber) {
                 result.isError = true;
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             }
 
             return result;
@@ -138,10 +138,10 @@
             let invalidInputType = null;
 
             if (lonInputFilledlatInputEmpty) {
-                errorMessage = eZ.errors.provideLatitudeValue;
+                errorMessage = ibexa.errors.provideLatitudeValue;
                 invalidInputType = POSITION_TYPE_LATITUDE;
             } else if (latInputFilledlonInputEmpty) {
-                errorMessage = eZ.errors.provideLongitudeValue;
+                errorMessage = ibexa.errors.provideLongitudeValue;
                 invalidInputType = POSITION_TYPE_LONGITUDE;
             }
 
@@ -209,7 +209,7 @@
          * @returns {Object}
          */
         showNotFoundError() {
-            return { isError: true, errorMessage: eZ.errors.addressNotFound };
+            return { isError: true, errorMessage: ibexa.errors.addressNotFound };
         }
 
         /**
@@ -229,7 +229,7 @@
             }
 
             if (!latInput.value.trim().length || !lonInput.value.trim().length) {
-                return { isError: true, errorMessage: eZ.errors.addressNotFound };
+                return { isError: true, errorMessage: ibexa.errors.addressNotFound };
             }
 
             return { isError: false };
@@ -414,7 +414,7 @@
                     notFoundCallback();
                 }
             })
-            .catch(eZ.helpers.notification.showErrorNotification);
+            .catch(ibexa.helpers.notification.showErrorNotification);
     };
 
     /**
@@ -587,7 +587,7 @@
 
             navigator.geolocation.getCurrentPosition(
                 (position) => updateMapState(position.coords.latitude, position.coords.longitude),
-                (error) => eZ.helpers.notification.showErrorNotification(error)
+                (error) => ibexa.helpers.notification.showErrorNotification(error)
             );
         };
         let locationMarker;
@@ -617,5 +617,5 @@
         }
     });
 
-    eZ.addConfig('fieldTypeValidators', [validator], true);
-})(window, window.document, window.eZ, window.L);
+    ibexa.addConfig('fieldTypeValidators', [validator], true);
+})(window, window.document, window.ibexa, window.L);

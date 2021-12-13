@@ -1,4 +1,4 @@
-(function (global, doc, eZ, bootstrap) {
+(function (global, doc, ibexa, bootstrap) {
     let lastInsertTooltipTarget = null;
     const TOOLTIPS_SELECTOR = '[title]';
     const observerConfig = {
@@ -118,8 +118,8 @@
 
     observer.observe(doc.querySelector('body'), observerConfig);
 
-    eZ.addConfig('helpers.tooltips', {
+    ibexa.addConfig('helpers.tooltips', {
         parse,
         hideAll,
     });
-})(window, window.document, window.eZ, window.bootstrap);
+})(window, window.document, window.ibexa, window.bootstrap);

@@ -15,8 +15,8 @@ import {
 } from '../../universal.discovery.module';
 import Dropdown from '../../../common/dropdown/dropdown';
 
-const languages = Object.values(window.eZ.adminUiConfig.languages.mappings);
-const contentTypes = Object.entries(window.eZ.adminUiConfig.contentTypes);
+const languages = Object.values(window.ibexa.adminUiConfig.languages.mappings);
+const contentTypes = Object.entries(window.ibexa.adminUiConfig.contentTypes);
 
 const ContentCreateWidget = () => {
     const refContentTree = useRef(null);
@@ -93,7 +93,7 @@ const ContentCreateWidget = () => {
     }));
 
     useEffect(() => {
-        window.eZ.helpers.tooltips.parse(refContentTree.current);
+        window.ibexa.helpers.tooltips.parse(refContentTree.current);
     }, []);
 
     return (

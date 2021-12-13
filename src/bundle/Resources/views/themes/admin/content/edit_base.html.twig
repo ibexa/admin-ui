@@ -27,7 +27,7 @@
     {% block form_before %}{% endblock %}
 
     {% block form %}
-        {{ form_start(form, {'attr': {'class': 'ez-form-validate ibexa-form'}}) }}
+        {{ form_start(form, {'attr': {'class': 'ibexa-form-validate ibexa-form'}}) }}
             {% block form_fields %}
                 {% if grouped_fields|length > 1 %}
                     <div class="ibexa-anchor-navigation-sections">
@@ -92,8 +92,8 @@
     {{ parent() }}
 
     {% include '@ibexadesign/content/edit/javascripts.html.twig' %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-tabs-js', null, 'ibexa') }}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-edit-base-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-tabs-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-edit-base-js', null, 'ibexa') }}
 {% endblock %}
 
 {% block stylesheets %}

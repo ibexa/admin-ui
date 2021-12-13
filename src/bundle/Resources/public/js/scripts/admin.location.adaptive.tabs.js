@@ -1,4 +1,4 @@
-(function(global, doc, eZ, bootstrap) {
+(function(global, doc, ibexa, bootstrap) {
     const TABS_SELECTOR = '.ibexa-tabs';
     const SELECTOR_TABS_LIST = '.ibexa-tabs__list';
     const SELECTOR_TAB_MORE = '.ibexa-tabs__tab--more';
@@ -22,7 +22,7 @@
     };
     const toggleContainer = (event) => {
         const toggler = event.target;
-        const header = toggler.closest('.ez-header');
+        const header = toggler.closest('.ibexa-header');
         const headerContainer = header.parentElement;
         const tabContent = headerContainer.querySelector('.ibexa-tab-content');
         const isTabContentRolledUp = toggler.classList.contains('ibexa-tabs__toggler--rolled-up');
@@ -44,7 +44,7 @@
             const tabsLinks = [...tabsList.querySelectorAll('.ibexa-tabs__link:not(.ibexa-tabs__tab--more)')];
             const popupMenuElement = tabsContainer.querySelector('.ibexa-popup-menu');
 
-            const popupMenu = new eZ.core.PopupMenu({
+            const popupMenu = new ibexa.core.PopupMenu({
                 popupMenuElement,
                 triggerElement: tabMore,
                 onItemClick: (event) => {
@@ -78,7 +78,7 @@
             allPopupMenus.push(popupMenu);
             popupMenu.updatePosition();
 
-            const adaptiveItems = new eZ.core.AdaptiveItems({
+            const adaptiveItems = new ibexa.core.AdaptiveItems({
                 itemHiddenClass: 'ibexa-tabs__tab--hidden',
                 container: tabsList,
                 getActiveItem: () => {
@@ -113,6 +113,6 @@
         });
     });
 
-    doc.body.addEventListener('ez-content-tree-resized', handleTabsConainterChange, false);
+    doc.body.addEventListener('ibexa-content-tree-resized', handleTabsConainterChange, false);
     window.addEventListener('resize', handleTabsConainterChange, false);
-})(window, window.document, window.eZ, window.bootstrap);
+})(window, window.document, window.ibexa, window.bootstrap);

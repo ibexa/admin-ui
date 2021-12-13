@@ -1,4 +1,4 @@
-(function(global, doc, $, eZ) {
+(function(global, doc, $, ibexa) {
     const tablesWithBulkCheckbox = doc.querySelectorAll('.ibexa-table.ibexa-table--has-bulk-checkbox');
     const setMainCheckboxState = (mainCheckbox, subCheckboxes, event) => {
         const isFromJS = event?.detail?.isFromJS ?? false;
@@ -102,4 +102,4 @@
             false
         );
     });
-})(window, window.document, window.jQuery, window.eZ);
+})(window, window.document, window.jQuery, window.ibexa);

@@ -1,4 +1,4 @@
-.ez-tabs {
+.ibexa-tabs {
     background-color: $ibexa-white;
     border-bottom: calculateRem(1px) solid $ibexa-color-base;
     border-top-left-radius: $ibexa-border-radius;
@@ -116,7 +116,7 @@
     }
 }
 
-.ez-tab-content {
+.ibexa-tab-content {
     &__pane {
         padding: calculateRem(16px);
         background: $ibexa-white;

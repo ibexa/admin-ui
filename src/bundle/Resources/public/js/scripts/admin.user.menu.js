@@ -7,7 +7,7 @@
 
     const togglerElement = userMenuContainer.querySelector('.ibexa-header-user-menu__toggler');
     const popupMenuElement = userMenuContainer.querySelector('.ibexa-popup-menu');
-    const popupMenu = new eZ.core.PopupMenu({
+    const popupMenu = new ibexa.core.PopupMenu({
         triggerElement: togglerElement,
         popupMenuElement,
     });

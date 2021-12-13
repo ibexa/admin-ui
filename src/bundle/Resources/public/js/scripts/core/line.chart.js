@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const MAX_NUMBER_OF_LABELS = 16;
     const lineDefaultOptions = {
         elements: {
@@ -48,7 +48,7 @@
         },
     };
 
-    class LineChart extends eZ.core.BaseChart {
+    class LineChart extends ibexa.core.BaseChart {
         constructor(data, options = {}) {
             super(data, {
                 ...lineDefaultOptions,
@@ -69,5 +69,5 @@
         }
     }
 
-    eZ.addConfig('core.chart.LineChart', LineChart);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('core.chart.LineChart', LineChart);
+})(window, window.document, window.ibexa);

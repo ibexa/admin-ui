@@ -4,7 +4,7 @@
 
 {% form_theme form_remove '@ibexadesign/ui/form_fields.html.twig' %}
 
-{% block body_class %}ez-bookmark-list-view{% endblock %}
+{% block body_class %}ibexa-bookmark-list-view{% endblock %}
 
 {% block header %}
     {% include '@ibexadesign/ui/page_title.html.twig' with {
@@ -13,9 +13,9 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row align-items-stretch ez-main-row">
-        <div class="container ez-content-container">
-            <section class="container ez-container">
+    <div class="row align-items-stretch ibexa-main-row">
+        <div class="container ibexa-content-container">
+            <section class="container ibexa-container">
                 {% set body_rows = [] %}
                 {% for bookmark in pager.currentPageResults %}
                     {% set body_row_cols = [] %}
@@ -78,7 +78,7 @@
 
                 {{ form_start(form_remove, {
                     'action': path('ezplatform.bookmark.remove'),
-                    'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#bookmark_remove_remove' }
+                    'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#bookmark_remove_remove' }
                 }) }}
                 {% include '@ibexadesign/ui/component/table/table.html.twig' with {
                     headline: 'bookmark.table.header'|trans|desc('Bookmarks') ~ ' (' ~ pager.count ~ ')',
@@ -106,7 +106,7 @@
 
         {{ form_start(form_edit, {
             'action': path('ezplatform.content.edit'),
-            'attr': { 'class': 'ez-edit-content-form'}
+            'attr': { 'class': 'ibexa-edit-content-form'}
         }) }}
         {{ form_widget(form_edit.language, {'attr': {'hidden': 'hidden', 'class': 'language-input'}}) }}
         {{ form_end(form_edit) }}
@@ -114,9 +114,9 @@
 {% endblock %}
 
 {% block react_modules %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-content-tree-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-content-tree-js', null, 'ibexa') }}
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-bookmark-list-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-bookmark-list-js', null, 'ibexa') }}
 {% endblock %}

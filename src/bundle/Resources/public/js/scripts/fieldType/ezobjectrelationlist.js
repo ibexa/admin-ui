@@ -1,4 +1,4 @@
-(function(global, doc, eZ, React, ReactDOM, Translator) {
+(function(global, doc, ibexa, React, ReactDOM, Translator) {
     const CLASS_FIELD_SINGLE = 'ibexa-field-edit--ezobjectrelation';
     const SELECTOR_FIELD_MULTIPLE = '.ibexa-field-edit--ezobjectrelationlist';
     const SELECTOR_FIELD_SINGLE = '.ibexa-field-edit--ezobjectrelation';
@@ -7,7 +7,7 @@
     const SELECTOR_ROW = '.ibexa-relations__item';
     const EVENT_CUSTOM = 'validateInput';
 
-    class EzObjectRelationListValidator extends eZ.BaseFieldValidator {
+    class EzObjectRelationListValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
@@ -26,10 +26,10 @@
 
             if (isRequired && isEmpty) {
                 result.isError = true;
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             } else if (!isEmpty && !hasCorrectValues) {
                 result.isError = true;
-                result.errorMessage = eZ.errors.invalidValue.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.invalidValue.replace('{fieldName}', label);
             }
 
             return result;
@@ -73,7 +73,7 @@
             items.forEach((item, index) => {
                 relationsContainer.insertAdjacentHTML('beforeend', renderRow(item, index));
 
-                const { escapeHTML } = eZ.helpers.text;
+                const { escapeHTML } = ibexa.helpers.text;
                 const itemNodes = relationsContainer.querySelectorAll('.ibexa-relations__item');
                 const itemNode = itemNodes[itemNodes.length - 1];
 
@@ -81,7 +81,7 @@
                 itemNode.querySelector('.ibexa-relations__table-action--remove-item').addEventListener('click', removeItem, false);
             });
 
-            eZ.helpers.tooltips.parse();
+            ibexa.helpers.tooltips.parse();
         };
         const updateInputValue = (items) => {
             sourceInput.value = items.join();
@@ -119,7 +119,7 @@
                       );
 
             ReactDOM.render(
-                React.createElement(eZ.modules.UniversalDiscovery, {
+                React.createElement(ibexa.modules.UniversalDiscovery, {
                     onConfirm,
                     onCancel: closeUDW,
                     title,
@@ -137,9 +137,9 @@
             return items.filter((item) => selectedItemsMap[item.ContentInfo.Content._id]);
         };
         const renderRow = (item, index) => {
-            const { escapeHTML } = eZ.helpers.text;
-            const { formatShortDateTime } = eZ.helpers.timezone;
-            const contentTypeName = eZ.helpers.contentType.getContentTypeName(item.ContentInfo.Content.ContentTypeInfo.identifier);
+            const { escapeHTML } = ibexa.helpers.text;
+            const { formatShortDateTime } = ibexa.helpers.timezone;
+            const contentTypeName = ibexa.helpers.contentType.getContentTypeName(item.ContentInfo.Content.ContentTypeInfo.identifier);
             const contentName = escapeHTML(item.ContentInfo.Content.TranslatedName);
             const { rowTemplate } = relationsWrapper.dataset;
 
@@ -294,6 +294,6 @@
 
         validator.init();
 
-        eZ.addConfig('fieldTypeValidators', [validator], true);
+        ibexa.addConfig('fieldTypeValidators', [validator], true);
     });
-})(window, window.document, window.eZ, window.React, window.ReactDOM, window.Translator);
+})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator);

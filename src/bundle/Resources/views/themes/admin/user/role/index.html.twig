@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'role' %}
 
-{% block body_class %}ez-role-view{% endblock %}
+{% block body_class %}ibexa-role-view{% endblock %}
 
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
@@ -54,6 +54,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-role-view-js', null, 'ibexa') }}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-tabs-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-role-view-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-tabs-js', null, 'ibexa') }}
 {% endblock %}

@@ -77,7 +77,7 @@
     margin: 0 auto;
 }
 
-.ez-preview__action {
+.ibexa-preview__action {
     .ibexa-icon {
         width: calculateRem(24px);
         height: calculateRem(24px);
@@ -91,7 +91,7 @@
         }
     }
 
-    &.ez-preview__action--selected {
+    &.ibexa-preview__action--selected {
         .ibexa-icon {
             fill: $ibexa-white;
         }

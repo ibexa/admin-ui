@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'role' %}
 
-<section class="container ez-container">
+<section class="container ibexa-container">
     {% set body_rows = [] %}
     {% for role_assignment in pager.currentPageResults %}
         {% set body_row_cols = [] %}
@@ -94,7 +94,7 @@
         {% block between_header_and_table %}
             {{ form_start(form_role_assignments_delete, {
                 'action': path('ezplatform.role_assignment.bulk_delete', {"roleId": role.id} ),
-                'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-role-assignments' }
+                'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-role-assignments' }
             }) }}
         {% endblock %}
     {% endembed %}

@@ -1,7 +1,7 @@
 {% trans_default_domain 'notifications' %}
 
 <div
-    class="modal fade ez-notifications-modal ibexa-modal ibexa-modal--table-content"
+    class="modal fade ibexa-notifications-modal ibexa-modal ibexa-modal--table-content"
     id="view-notifications"
     tabindex="-1"
     role="dialog">
@@ -29,12 +29,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="ez-notifications-modal__spinner">
+                <div class="ibexa-notifications-modal__spinner">
                     <svg class="ibexa-icon ibexa-spin">
                         <use xlink:href="{{ ibexa_icon_path('spinner') }}"></use>
                     </svg>
                 </div>
-                <div class="ez-notifications-modal__results">
+                <div class="ibexa-notifications-modal__results">
                     {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\NotificationController::renderNotificationsPageAction', {
                         'page': 1,
                     })) }}

@@ -11,12 +11,12 @@
         class: 'mt-4',
     } only %}
         {% block extra_content %}
-            <span class="ez-datetime-format-preview-value" />
+            <span class="ibexa-datetime-format-preview-value" />
         {% endblock %}
     {% endembed %}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-settings-datetime-format-update-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-settings-datetime-format-update-js', null, 'ibexa') }}
 {% endblock %}

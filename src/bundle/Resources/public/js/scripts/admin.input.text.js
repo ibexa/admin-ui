@@ -1,4 +1,4 @@
-(function (global, doc, $, eZ) {
+(function (global, doc, $, ibexa) {
     const textInputClearBtns = doc.querySelectorAll('.ibexa-input-text-wrapper__action-btn--clear');
     const clearText = (event) => {
         const inputWrapper = event.target.closest('.ibexa-input-text-wrapper');
@@ -24,4 +24,4 @@
         },
         false
     );
-})(window, window.document, window.jQuery, window.eZ);
+})(window, window.document, window.jQuery, window.ibexa);

@@ -1,5 +1,5 @@
 // TODO: remove when commerce is redesigned
-.ez-filters {
+.ibexa-filters {
     transform: scaleY(1);
     transform-origin: top center;
     transition: all 0.2s $ibexa-admin-transition;
@@ -47,7 +47,7 @@
         &--creator {
             position: relative;
 
-            .ez-filters {
+            .ibexa-filters {
                 &__input-wrapper {
                     position: relative;
                 }

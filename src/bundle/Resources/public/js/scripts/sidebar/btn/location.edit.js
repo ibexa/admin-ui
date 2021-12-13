@@ -1,4 +1,4 @@
-(function(global, doc, eZ, bootstrap, Routing) {
+(function(global, doc, ibexa, bootstrap, Routing) {
     const editActions = doc.querySelector('.ibexa-extra-actions--edit') || doc.querySelector('.ibexa-extra-actions--edit-user');
     const btns = [...editActions.querySelectorAll('.form-check [type="radio"]')];
     const form = editActions.querySelector('form');
@@ -22,7 +22,7 @@
     const onModalHidden = () => {
         resetRadioButtons();
 
-        const event = new CustomEvent('ez-draft-conflict-modal-hidden');
+        const event = new CustomEvent('ibexa-draft-conflict-modal-hidden');
 
         doc.body.dispatchEvent(event);
     };
@@ -42,7 +42,7 @@
             bootstrap.Modal.getOrCreateInstance(conflictModal).show();
 
             conflictModal.addEventListener('hidden.bs.modal', onModalHidden);
-            conflictModal.addEventListener('shown.bs.modal', () => eZ.helpers.tooltips.parse());
+            conflictModal.addEventListener('shown.bs.modal', () => ibexa.helpers.tooltips.parse());
         }
     };
     const showModal = (modalHtml) => {
@@ -74,4 +74,4 @@
     };
 
     btns.forEach((btn) => btn.addEventListener('change', changeHandler, false));
-})(window, window.document, window.eZ, window.bootstrap, window.Routing);
+})(window, window.document, window.ibexa, window.bootstrap, window.Routing);
