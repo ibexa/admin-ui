@@ -13,12 +13,6 @@
 
             btn.classList.toggle('ibexa-anchor-navigation-menu__item-btn--active', anchorTargetSectionId === sectionId);
         });
-
-        doc.querySelectorAll('.ibexa-anchor-navigation-sections__section').forEach((section) => {
-            const { anchorSectionId } = section.dataset;
-
-            section.classList.toggle('ibexa-anchor-navigation-sections__section--active', anchorSectionId === sectionId);
-        });
     };
     const navigateTo = (event) => {
         const { anchorTargetSectionId } = event.currentTarget.dataset;
