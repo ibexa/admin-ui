@@ -153,6 +153,12 @@
                 right: calculateRem(16px);
             }
         }
+
+        &--search-hidden {
+            .ibexa-input-text-wrapper {
+                display: none;
+            }
+        }
     }
 
     & &__items {

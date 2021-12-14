@@ -8,7 +8,7 @@
 {% set custom_form = custom_form is defined ? custom_form : true %}
 {% set translation_domain = translation_domain|default(false) %}
 {% set value = value is defined ? value : null %}
-{% set multiple = multiple is defined ? multiple : false %}
+{% set multiple = multiple|default(false) %}
 {% set no_items = choices_flat|length == 0 %}
 
 {% macro get_translated_label(label, translation_domain) %}
@@ -16,11 +16,11 @@
 {% endmacro %}
 
 {% macro get_translated_placeholder(placeholder, translation_domain) %}
-    {% set default_placeholder = 'dropdown.placeholder'|trans|desc("Choose an option") %}
-    {% set placeholder = placeholder|default(default_placeholder) %}
-    {% set label = placeholder %}
-
-    {{ _self.get_translated_label(placeholder, translation_domain )}}
+    {% if placeholder is defined %}
+        {{ _self.get_translated_label(placeholder, translation_domain )}}
+    {% else %}
+        {{ 'dropdown.placeholder'|trans|desc("Choose an option") }}
+    {% endif %}
 {% endmacro %}
 
 <div
@@ -41,7 +41,6 @@
                 value: '{{ value }}',
                 label: '{{ label }}',
             })|e('html_attr') }}"
-
         >
             {% if no_items %}
                 <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder">
@@ -82,18 +81,16 @@
 
             <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-overflow-number" hidden></li>
         </ul>
-        <div class="ibexa-dropdown__items">
-            {% if choices_flat|length >= min_search_items %}
-                {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true } -%}
-                    {% block content %}
-                        <input
-                            type="text"
-                            placeholder="{{ 'dropdown.search'|trans|desc('Search...') }}"
-                            class="ibexa-dropdown__items-filter ibexa-input ibexa-input--text ibexa-input--small form-control"
-                        />
-                    {% endblock %}
-                {%- endembed -%}
-            {% endif %}
+        <div class="ibexa-dropdown__items {{ choices_flat|length < min_search_items ? 'ibexa-dropdown__items--search-hidden' }}">
+            {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true } -%}
+                {% block content %}
+                    <input
+                        type="text"
+                        placeholder="{{ 'dropdown.search'|trans|desc('Search...') }}"
+                        class="ibexa-dropdown__items-filter ibexa-input ibexa-input--text ibexa-input--small form-control"
+                    />
+                {% endblock %}
+            {%- endembed -%}
             <ul
                 class="ibexa-dropdown__items-list"
                 data-template="{{ include('@ibexadesign/ui/component/dropdown/dropdown_item.html.twig', {
