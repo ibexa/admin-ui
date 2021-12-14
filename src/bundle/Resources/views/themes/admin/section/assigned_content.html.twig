@@ -2,86 +2,84 @@
 
 {% form_theme form_section_content_assign '@ibexadesign/ui/form_fields.html.twig' '@ibexadesign/ui/form/assign_section_widget.html.twig'  %}
 
-<section class="container ez-container">
-    {% set body_rows = [] %}
-    {% for content in assigned_content %}
-        {% set body_row_cols = [] %}
-        {% set view_url = path('_ez_content_view', { 'contentId': content.id }) %}
+{% set body_rows = [] %}
+{% for content in assigned_content %}
+    {% set body_row_cols = [] %}
+    {% set view_url = path('_ez_content_view', { 'contentId': content.id }) %}
 
-        {% set col_raw %}
-            <a href="{{ view_url }}">
-                {{ content.name }}
-            </a>
-        {% endset %}
-        {% set body_row_cols = body_row_cols|merge([{
-            content: col_raw,
-            raw: true,
-        }]) %}
+    {% set col_raw %}
+        <a href="{{ view_url }}">
+            {{ content.name }}
+        </a>
+    {% endset %}
+    {% set body_row_cols = body_row_cols|merge([{
+        content: col_raw,
+        raw: true,
+    }]) %}
 
-        {% set body_row_cols = body_row_cols|merge([ { content: content.type } ]) %}
+    {% set body_row_cols = body_row_cols|merge([ { content: content.type } ]) %}
 
-        {% set col_raw %}
-            {% if content.path|length > 1 %}
-                {% for location in content.path %}
-                    {% if loop.revindex > 1 %}
-                        <a href="{{ path('_ez_content_view', {'contentId': location.contentId, 'locationId': location.id}) }}">
-                            {{ ibexa_content_name(location.contentInfo) }}
-                        </a>
+    {% set col_raw %}
+        {% if content.path|length > 1 %}
+            {% for location in content.path %}
+                {% if loop.revindex > 1 %}
+                    <a href="{{ path('_ez_content_view', {'contentId': location.contentId, 'locationId': location.id}) }}">
+                        {{ ibexa_content_name(location.contentInfo) }}
+                    </a>
 
-                        {% if loop.revindex > 2 %}/{% endif %}
-                    {% endif %}
-                {% endfor %}
-            {% else %}
-                -
-            {% endif %}
-        {% endset %}
-        {% set body_row_cols = body_row_cols|merge([{
-            content: col_raw,
-            raw: true,
-        }]) %}
-
-        {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
-    {% endfor %}
-
-    {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-        headline: 'section.assigned_content.header'|trans({
-                '%name%': section.name,
-                '%count%': pagerfanta.nbResults
-            })|desc('Content items in \'%name%\' (%count%)'),
-        head_cols: [
-            { content: 'section.assigned_content.name'|trans|desc('Name') },
-            { content: 'section.assigned_content.type'|trans|desc('Content Type') },
-            { content: 'section.assigned_content.path'|trans|desc('Path') },
-        ],
-        body_rows,
-        empty_table_info_text: 'section.assigned_content.empty'|trans|desc('No Content items.'),
-        empty_table_action_text: 'section.assigned_content.empty_desc'|trans|desc('Content items you assign to this Section will show up here.'),
-    } %}
-        {% block header %}
-            {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
-                {% block actions %}
-                    {% if can_assign %}
-                        {{ form_start(form_section_content_assign, {
-                            'action': path("ezplatform.section.assign_content", {"sectionId": section.id}),
-                            'attr': {'class': 'd-inline-block'}
-                        }) }}
-                            {{ form_widget(form_section_content_assign.locations.location) }}
-                            {{ form_widget(form_section_content_assign.locations.select_content,
-                                {'attr': {
-                                    'class': 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--open-udw',
-                                    'data-udw-config': ibexa_udw_config('multiple', {'type': 'section_assign'})
-                                }}
-                            ) }}
-                        {{ form_end(form_section_content_assign) }}
-                    {% endif %}
-                {% endblock %}
-            {% endembed %}
-        {% endblock %}
-    {% endembed %}
-
-    <div class="row justify-content-end ez-pagination__spacing mr-2">
-        {% if pagerfanta.haveToPaginate %}
-            {{ pagination|raw }}
+                    {% if loop.revindex > 2 %}/{% endif %}
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            -
         {% endif %}
-    </div>
-</section>
+    {% endset %}
+    {% set body_row_cols = body_row_cols|merge([{
+        content: col_raw,
+        raw: true,
+    }]) %}
+
+    {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
+{% endfor %}
+
+{% embed '@ibexadesign/ui/component/table/table.html.twig' with {
+    headline: 'section.assigned_content.header'|trans({
+            '%name%': section.name,
+            '%count%': pagerfanta.nbResults
+        })|desc('Content items in \'%name%\' (%count%)'),
+    head_cols: [
+        { content: 'section.assigned_content.name'|trans|desc('Name') },
+        { content: 'section.assigned_content.type'|trans|desc('Content Type') },
+        { content: 'section.assigned_content.path'|trans|desc('Path') },
+    ],
+    body_rows,
+    empty_table_info_text: 'section.assigned_content.empty'|trans|desc('No Content items.'),
+    empty_table_action_text: 'section.assigned_content.empty_desc'|trans|desc('Content items you assign to this Section will show up here.'),
+} %}
+    {% block header %}
+        {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
+            {% block actions %}
+                {% if can_assign %}
+                    {{ form_start(form_section_content_assign, {
+                        'action': path("ezplatform.section.assign_content", {"sectionId": section.id}),
+                        'attr': {'class': 'd-inline-block'}
+                    }) }}
+                        {{ form_widget(form_section_content_assign.locations.location) }}
+                        {{ form_widget(form_section_content_assign.locations.select_content,
+                            {'attr': {
+                                'class': 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--open-udw',
+                                'data-udw-config': ibexa_udw_config('multiple', {'type': 'section_assign'})
+                            }}
+                        ) }}
+                    {{ form_end(form_section_content_assign) }}
+                {% endif %}
+            {% endblock %}
+        {% endembed %}
+    {% endblock %}
+{% endembed %}
+
+<div class="row justify-content-end ez-pagination__spacing mr-2">
+    {% if pagerfanta.haveToPaginate %}
+        {{ pagination|raw }}
+    {% endif %}
+</div>
