@@ -12,6 +12,7 @@ use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
+use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
@@ -19,18 +20,6 @@ use Ibexa\Contracts\Core\Repository\Repository;
 
 class SectionPage extends Page
 {
-    /** @var string locator for container of Content list */
-    public $secondListContainerLocator = 'section:nth-of-type(2)';
-
-    /** @var \Ibexa\AdminUi\Behat\Component\AdminList[] */
-    public $adminLists;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\AdminList */
-    public $adminList;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog[] */
-    public $dialogs;
-
     /** @var string */
     private $expectedSectionName;
 
@@ -39,9 +28,6 @@ class SectionPage extends Page
 
     /** @var \Ibexa\AdminUi\Behat\Component\Table\TableInterface */
     private $contentItemsTable;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\TableInterface */
-    private $sectionInformationTable;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
     private $dialog;
@@ -58,7 +44,6 @@ class SectionPage extends Page
     ) {
         parent::__construct($session, $router);
         $this->contentItemsTable = $tableBuilder->newTable()->withParentLocator($this->getLocator('contentItemsTable'))->build();
-        $this->sectionInformationTable = $tableBuilder->newTable()->withParentLocator($this->getLocator('sectionInfoTable'))->build();
         $this->dialog = $dialog;
         $this->repository = $repository;
     }
@@ -70,7 +55,19 @@ class SectionPage extends Page
 
     public function hasProperties(array $sectionProperties): bool
     {
-        return $this->sectionInformationTable->hasElement($sectionProperties);
+        foreach ($sectionProperties as $label => $value) {
+            $isExpectedValuePresent = $this->getHTMLPage()
+                    ->findAll($this->getLocator('sectionPropertiesItem'))
+                    ->getByCriterion(new ChildElementTextCriterion($this->getLocator('sectionPropertiesLabel'), $label))
+                    ->find($this->getLocator('sectionPropertiesValue'))
+                    ->getText() === $value;
+
+            if (!$isExpectedValuePresent) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function hasAssignedItem(array $elementData): bool
@@ -80,7 +77,7 @@ class SectionPage extends Page
 
     public function edit()
     {
-        $this->sectionInformationTable->getTableRow(['Name' => $this->expectedSectionName])->edit();
+        $this->getHTMLPage()->find($this->getLocator('editButton'))->click();
     }
 
     public function assignContentItems()
@@ -143,10 +140,14 @@ class SectionPage extends Page
     {
         return [
             new VisibleCSSLocator('pageTitle', '.ez-page-title h1'),
-            new VisibleCSSLocator('contentItemsTable', '.ez-container ~ .ez-container'),
+            new VisibleCSSLocator('contentItemsTable', '.ibexa-main-container__content-column .ibexa-table'),
             new VisibleCSSLocator('assignButton', '#section_content_assign_locations_select_content'),
             new VisibleCSSLocator('sectionInfoTable', '.ez-container .ibexa-table'),
             new VisibleCSSLocator('deleteButton', 'button[data-bs-original-title="Delete Section"]'),
+            new VisibleCSSLocator('editButton', 'a[data-bs-original-title="Edit"]'),
+            new VisibleCSSLocator('sectionPropertiesItem', '.ibexa-details__item'),
+            new VisibleCSSLocator('sectionPropertiesLabel', '.ibexa-details__item-label'),
+            new VisibleCSSLocator('sectionPropertiesValue', '.ibexa-details__item-content'),
         ];
     }
 }

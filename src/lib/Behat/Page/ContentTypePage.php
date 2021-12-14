@@ -31,9 +31,6 @@ class ContentTypePage extends Page
     private $expectedContenTypeId;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $contentTypeDataTable;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private $fieldTable;
 
     public function __construct(
@@ -44,18 +41,13 @@ class ContentTypePage extends Page
     ) {
         parent::__construct($session, $router);
         $this->contentTypeService = $contentTypeService;
-        $this->contentTypeDataTable = $tableBuilder->newTable()->withParentLocator($this->getLocator('contentTypeDataTable'))->build();
         $this->fieldTable = $tableBuilder->newTable()->withParentLocator($this->getLocator('contentFieldsTable'))->build();
     }
 
     public function hasProperty($label, $value): bool
     {
-        if (in_array($label, ['Name', 'Identifier', 'Description'])) {
-            return $this->contentTypeDataTable->hasElement([$label => $value]);
-        }
-
         return $this->getHTMLPage()
-            ->findAll($this->getLocator('globalPropertiesRow'))
+            ->findAll($this->getLocator('globalPropertiesItem'))
             ->getByCriterion(new ChildElementTextCriterion($this->getLocator('globalPropertiesLabel'), $label))
             ->find($this->getLocator('globalPropertiesValue'))
             ->getText() === $value;
@@ -108,11 +100,11 @@ class ContentTypePage extends Page
         return [
             new VisibleCSSLocator('createButton', '.btn-icon .ibexa-icon--create'),
             new VisibleCSSLocator('pageTitle', '.ez-page-title h1'),
-            new VisibleCSSLocator('contentTypeDataTable', '.ez-fieldgroup .ez-fieldgroup__content .ibexa-table'),
+            new VisibleCSSLocator('contentTypeDataTable', '.ibexa-details .ibexa-table'),
             new VisibleCSSLocator('contentFieldsTable', '.ez-fieldgroup:nth-of-type(2)'),
-            new VisibleCSSLocator('globalPropertiesRow', '.ez-fieldgroup__content .ez-table__row'),
-            new VisibleCSSLocator('globalPropertiesLabel', '.ez-table__cell:nth-of-type(1)'),
-            new VisibleCSSLocator('globalPropertiesValue', '.ez-table__cell:nth-of-type(2)'),
+            new VisibleCSSLocator('globalPropertiesItem', '.ibexa-details__item'),
+            new VisibleCSSLocator('globalPropertiesLabel', '.ibexa-details__item-label'),
+            new VisibleCSSLocator('globalPropertiesValue', '.ibexa-details__item-content'),
         ];
     }
 }
