@@ -94,7 +94,6 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator('pageTitle', '.ibexa-edit-header__title'),
             new VisibleCSSLocator('formElement', '[name=ezplatform_content_forms_content_edit]'),
             new VisibleCSSLocator('closeButton', '.ibexa-anchor-navigation-menu__back'),
-            new VisibleCSSLocator('fieldLabel', '.ibexa-anchor-navigation-sections__section--active .ibexa-field-edit__label-wrapper label.ibexa-field-edit__label, .card-body > .row .ez-field-edit__label-wrapper label.ez-field-edit__label, .ez-field-edit__label-wrapper legend, .ez-card > .card-body > div > div > legend, .ibexa-field-edit--eznoneditable > legend.col-form-label'),
             new VisibleCSSLocator('nthField', '.ibexa-field-edit:nth-of-type(%s)'),
             new VisibleCSSLocator('noneditableFieldClass', 'ibexa-field-edit--eznoneditable'),
             new VisibleCSSLocator('fieldOfType', '.ibexa-field-edit--%s'),
@@ -110,10 +109,10 @@ class ContentUpdateItemPage extends Page
     public function getField(string $fieldName): FieldTypeComponent
     {
         $fieldLocator = new VisibleCSSLocator('', sprintf($this->getLocator('nthField')->getSelector(), $this->getFieldPosition($fieldName)));
-        $fieldtypeIdentifier = $this->getFieldtypeIdentifier($fieldLocator, $fieldName);
+        $fieldTypeIdentifier = $this->getFieldtypeIdentifier($fieldLocator, $fieldName);
 
         foreach ($this->fieldTypeComponents as $fieldTypeComponent) {
-            if ($fieldTypeComponent->getFieldTypeIdentifier() === $fieldtypeIdentifier) {
+            if ($fieldTypeComponent->getFieldTypeIdentifier() === $fieldTypeIdentifier) {
                 $fieldTypeComponent->setParentLocator($fieldLocator);
 
                 return $fieldTypeComponent;
@@ -123,7 +122,18 @@ class ContentUpdateItemPage extends Page
 
     protected function getFieldPosition(string $fieldName): int
     {
-        $fieldElements = $this->getHTMLPage()->setTimeout(5)->findAll($this->getLocator('fieldLabel'));
+        $activeSections = $this->getHTMLPage()->findAll(new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__item-btn--active'));
+        $fieldLabelLocator = $activeSections->any() ?
+            new VisibleCSSLocator(
+                'fieldLabelWithCategories',
+                sprintf(
+                    '[data-anchor-section-id="%1$s"] .ibexa-field-edit .ibexa-field-edit__label, [data-anchor-section-id="%1$s"] .ibexa-field-edit--eznoneditable .ibexa-label',
+                    $activeSections->single()->getAttribute('data-anchor-target-section-id')
+                )
+            ) :
+            new VisibleCSSLocator('fieldLabel', ' .ibexa-field-edit .ibexa-field-edit__label, .ibexa-field-edit--eznoneditable .ibexa-label');
+
+        $fieldElements = $this->getHTMLPage()->setTimeout(5)->findAll($fieldLabelLocator);
 
         $foundFields = [];
         foreach ($fieldElements as $fieldPosition => $fieldElement) {
