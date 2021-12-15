@@ -46,3 +46,8 @@ Feature: System info verification
         | IbexaAdminUiAssetsBundle |
         | IbexaAdminUiBundle       |
         | IbexaCoreBundle          |
+
+  @javascript
+  Scenario: Check services
+    When I go to "Services" tab in System Information
+    Then I see "Services" system information table
