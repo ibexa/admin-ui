@@ -144,7 +144,7 @@
 
             emptyGroupPlaceholder.classList.toggle('ibexa-field-definitions-empty-group--hidden', groupFieldsDefinitionCount !== 0);
             anchoredPlaceholder.classList.toggle('ibexa-field-definitions-placeholder--hidden', groupFieldsDefinitionCount === 0);
-            removeButton.toggleAttribute('disabled', groupFieldsDefinitionCount > 0);
+            removeBtn.disabled = groupFieldsDefinitionCount > 0;
         });
 
         itemsAction.forEach((itemAction) => {
