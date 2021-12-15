@@ -1,4 +1,4 @@
-(function (global, doc, eZ, Routing, Translator) {
+(function(global, doc, eZ, Routing, Translator) {
     const TIMEOUT_REMOVE_PLACEHOLDERS = 1500;
     let targetContainer = null;
     let sourceContainer = null;
@@ -78,7 +78,7 @@
             targetPlace = [...items].find((item, index) => index === draggedItemPosition);
         }
 
-        const fieldGroupInput =  fieldNode.querySelector('.ibexa-input--field-group');
+        const fieldGroupInput = fieldNode.querySelector('.ibexa-input--field-group');
         const removeFieldsBtn = fieldNode.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions');
 
         removeDragPlaceholders();
@@ -140,9 +140,11 @@
             const groupFieldsDefinitionCount = group.querySelectorAll('.ibexa-collapse--field-definition').length;
             const emptyGroupPlaceholder = group.querySelector('.ibexa-field-definitions-empty-group');
             const anchoredPlaceholder = group.querySelector('.ibexa-field-definitions-placeholder--anchored');
+            const removeBtn = group.querySelector('.ibexa-collapse__extra-action-button--remove-field-definitions-group');
 
             emptyGroupPlaceholder.classList.toggle('ibexa-field-definitions-empty-group--hidden', groupFieldsDefinitionCount !== 0);
             anchoredPlaceholder.classList.toggle('ibexa-field-definitions-placeholder--hidden', groupFieldsDefinitionCount === 0);
+            removeBtn.disabled = groupFieldsDefinitionCount > 0;
         });
 
         itemsAction.forEach((itemAction) => {
@@ -208,6 +210,10 @@
             .catch(eZ.helpers.notification.showErrorNotification);
     };
     const removeFieldsGroup = (event) => {
+        if (event.currentTarget.hasAttribute('disabled')) {
+            return;
+        }
+
         const collapseNode = event.currentTarget.closest('.ibexa-collapse');
         const fieldsToDelete = [...collapseNode.querySelectorAll('.ibexa-collapse--field-definition')].map(
             (fieldDefinition) => fieldDefinition.dataset.fieldDefinitionIdentifier
@@ -287,6 +293,11 @@
     });
     doc.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions-group').forEach(
         (removeFieldDefinitionsGroupButton) => {
+            const groupFieldsDefinitionCount = removeFieldDefinitionsGroupButton
+                .closest('.ibexa-collapse--field-definitions-group')
+                .querySelectorAll('.ibexa-collapse--field-definition').length;
+
+            removeFieldDefinitionsGroupButton.toggleAttribute('disabled', groupFieldsDefinitionCount > 0);
             removeFieldDefinitionsGroupButton.addEventListener('click', removeFieldsGroup, false);
         }
     );
