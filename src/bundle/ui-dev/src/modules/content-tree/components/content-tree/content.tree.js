@@ -89,18 +89,28 @@ export default class ContentTree extends Component {
     changeContainerWidth({ clientX }) {
         const currentPositionX = clientX;
 
-        this.setState((state) => ({
-            resizedContainerWidth: state.containerWidth + (currentPositionX - state.resizeStartPositionX),
-        }));
+        this.setState(
+            (state) => ({
+                resizedContainerWidth: state.containerWidth + (currentPositionX - state.resizeStartPositionX),
+            }),
+            () => {
+                document.body.dispatchEvent(new CustomEvent('ibexa-main-menu-resized'));
+            }
+        );
     }
 
     toggleCollapseTree() {
         const width = this.checkIsTreeCollapsed() ? EXPANDED_WIDTH : COLLAPSED_WIDTH;
 
-        this.setState(() => ({
-            resizedContainerWidth: width,
-            containerWidth: width,
-        }));
+        this.setState(
+            () => ({
+                resizedContainerWidth: width,
+                containerWidth: width,
+            }),
+            () => {
+                document.body.dispatchEvent(new CustomEvent('ibexa-main-menu-resized'));
+            }
+        );
     }
 
     addWidthChangeListener({ nativeEvent }) {
@@ -117,11 +127,16 @@ export default class ContentTree extends Component {
     handleResizeEnd() {
         this.clearDocumentResizingListeners();
 
-        this.setState((state) => ({
-            resizeStartPositionX: 0,
-            containerWidth: state.resizedContainerWidth,
-            isResizing: false,
-        }));
+        this.setState(
+            (state) => ({
+                resizeStartPositionX: 0,
+                containerWidth: state.resizedContainerWidth,
+                isResizing: false,
+            }),
+            () => {
+                document.body.dispatchEvent(new CustomEvent('ibexa-main-menu-resized'));
+            }
+        );
     }
 
     clearDocumentResizingListeners() {
@@ -134,22 +149,20 @@ export default class ContentTree extends Component {
         const CollapseAction = () => {
             const collapseAllLabel = Translator.trans(/*@Desc("Collapse all")*/ 'collapse_all', {}, 'content_tree');
 
-            return (
-                <div onClick={this.props.onCollapseAllItems}>
-                    {collapseAllLabel}
-                </div>
-            );
-        }
+            return <div onClick={this.props.onCollapseAllItems}>{collapseAllLabel}</div>;
+        };
 
         return CollapseAction;
     }
 
     renderHeader() {
-        const actions = [{
-            id: 'collapse-all',
-            priority: 0,
-            component: this.getCollapseAllBtn(),
-        }];
+        const actions = [
+            {
+                id: 'collapse-all',
+                priority: 0,
+                component: this.getCollapseAllBtn(),
+            },
+        ];
 
         return (
             <Header
@@ -158,7 +171,7 @@ export default class ContentTree extends Component {
                 popupRef={this._refPopupContainer}
                 actions={actions}
             />
-        )
+        );
     }
 
     renderList() {
