@@ -4,16 +4,11 @@
         <h3 class="ibexa-available-field-types__title">{{ 'content_type.view.edit.content_field_types'|trans|desc('Field types') }}</h3>
     </div>
     <div class="ibexa-available-field-types__search-bar">
-        <div class='ibexa-input-text-wrapper'>
-            <input type="text" class="ibexa-input ibexa-input--text ibexa-available-field-types__sidebar-filter form-control" />
-            <div class="ibexa-input-text-wrapper__actions">
-                <button type="button" class="btn ibexa-input-text-wrapper__action-btn" tabindex="-1">
-                    <svg class="ibexa-icon ibexa-icon--small">
-                        <use xlink:href="{{ ibexa_icon_path('search')}}"></use>
-                    </svg>
-                </button>
-            </div>
-        </div>
+        {% embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true } %}
+            {% block content %}
+                <input type="text" class="ibexa-input ibexa-input--text ibexa-available-field-types__sidebar-filter form-control" />
+            {% endblock %}
+        {% endembed %}
     </div>
     <ul class="ibexa-available-field-types__list">    
         {% for item in field_type_toolbar %}
