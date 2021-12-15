@@ -110,9 +110,9 @@
         }
 
         selectOption(value) {
-            const option = this.itemsListContainer.querySelector(`.ibexa-dropdown__item[data-value="${value}"`);
+            const optionToSelect = this.itemsListContainer.querySelector(`.ibexa-dropdown__item[data-value="${value}"`);
 
-            return this.onSelect(option, true);
+            return this.onSelect(optionToSelect, true);
         }
 
         onSelect(element, selected) {
