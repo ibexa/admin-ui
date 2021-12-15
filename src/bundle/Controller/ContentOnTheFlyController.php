@@ -215,7 +215,7 @@ class ContentOnTheFlyController extends Controller
             }
         }
 
-        return new CreateContentOnTheFlyView('@ezdesign/ui/on_the_fly/content_create_on_the_fly.html.twig', [
+        return new CreateContentOnTheFlyView('@ibexadesign/ui/on_the_fly/content_create_on_the_fly.html.twig', [
             'form' => $form->createView(),
             'language' => $language,
             'content_type' => $contentType,
@@ -321,7 +321,7 @@ class ContentOnTheFlyController extends Controller
             }
 
             if ($actionDispatcher->getResponse()) {
-                $view = new EditContentOnTheFlySuccessView('@ezdesign/ui/on_the_fly/content_edit_response.html.twig');
+                $view = new EditContentOnTheFlySuccessView('@ibexadesign/ui/on_the_fly/content_edit_response.html.twig');
                 $view->addParameters([
                     'locationId' => $location instanceof Location ? $location->id : null,
                 ]);
@@ -351,7 +351,7 @@ class ContentOnTheFlyController extends Controller
         FormInterface $form,
         ContentType $contentType
     ): EditContentOnTheFlyView {
-        $view = new EditContentOnTheFlyView('@ezdesign/ui/on_the_fly/content_edit_on_the_fly.html.twig');
+        $view = new EditContentOnTheFlyView('@ibexadesign/ui/on_the_fly/content_edit_on_the_fly.html.twig');
 
         $view->setContent($content);
         $view->setLanguage($language);

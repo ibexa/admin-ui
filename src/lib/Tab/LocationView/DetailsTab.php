@@ -111,7 +111,7 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
      */
     public function getTemplate(): string
     {
-        return '@ezdesign/content/tab/details.html.twig';
+        return '@ibexadesign/content/tab/details.html.twig';
     }
 
     /**

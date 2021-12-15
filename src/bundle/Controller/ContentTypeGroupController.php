@@ -89,7 +89,7 @@ class ContentTypeGroupController extends Controller
             $count[$contentTypeGroup->id] = $contentTypesCount;
         }
 
-        return $this->render('@ezdesign/content_type/content_type_group/list.html.twig', [
+        return $this->render('@ibexadesign/content_type/content_type_group/list.html.twig', [
             'pager' => $pagerfanta,
             'form_content_type_groups_delete' => $deleteContentTypeGroupsForm->createView(),
             'deletable' => $deletableContentTypeGroup,
@@ -137,7 +137,7 @@ class ContentTypeGroupController extends Controller
             }
         }
 
-        return $this->render('@ezdesign/content_type/content_type_group/create.html.twig', [
+        return $this->render('@ibexadesign/content_type/content_type_group/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -181,7 +181,7 @@ class ContentTypeGroupController extends Controller
             }
         }
 
-        return $this->render('@ezdesign/content_type/content_type_group/edit.html.twig', [
+        return $this->render('@ibexadesign/content_type/content_type_group/edit.html.twig', [
             'content_type_group' => $group,
             'form' => $form->createView(),
         ]);
@@ -269,7 +269,7 @@ class ContentTypeGroupController extends Controller
      */
     public function viewAction(Request $request, ContentTypeGroup $group, int $page = 1): Response
     {
-        return $this->render('@ezdesign/content_type/content_type_group/index.html.twig', [
+        return $this->render('@ibexadesign/content_type/content_type_group/index.html.twig', [
             'content_type_group' => $group,
             'page' => $page,
             'route_name' => $request->get('_route'),

@@ -123,7 +123,7 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
      */
     public function getTemplate(): string
     {
-        return '@ezdesign/content/tab/locations/tab.html.twig';
+        return '@ibexadesign/content/tab/locations/tab.html.twig';
     }
 
     /**

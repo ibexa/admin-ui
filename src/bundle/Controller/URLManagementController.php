@@ -15,7 +15,7 @@ final class URLManagementController extends Controller
 {
     public function urlManagementAction(): Response
     {
-        return $this->render('@ezdesign/url_management/url_management.html.twig');
+        return $this->render('@ibexadesign/url_management/url_management.html.twig');
     }
 }
 

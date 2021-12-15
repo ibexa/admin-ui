@@ -1,6 +1,6 @@
 (function(global, doc, ibexa, React, ReactDOM, Translator) {
     const SELECTOR_LOCATION_LIMITATION_BTN = '.ibexa-pick-location-limitation-button';
-    const SELECTOR_EZ_TAG = '.ibexa-tag';
+    const SELECTOR_IBEXA_TAG = '.ibexa-tag';
     const IDS_SEPARATOR = ',';
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
@@ -96,7 +96,7 @@
             container.insertAdjacentHTML('beforeend', renderedItem);
 
             const listItemNode = container.querySelector('li');
-            const tagNode = listItemNode.querySelector(SELECTOR_EZ_TAG);
+            const tagNode = listItemNode.querySelector(SELECTOR_IBEXA_TAG);
 
             attachTagEventHandlers(limitationBtn, tagNode);
             fragment.append(listItemNode);
@@ -180,7 +180,7 @@
 
     limitationBtns.forEach((limitationBtn) => {
         const tagsList = doc.querySelector(limitationBtn.dataset.selectedLocationListSelector);
-        const tags = tagsList.querySelectorAll(SELECTOR_EZ_TAG);
+        const tags = tagsList.querySelectorAll(SELECTOR_IBEXA_TAG);
 
         tags.forEach(attachTagEventHandlers.bind(null, limitationBtn));
         limitationBtn.addEventListener('click', openUDW, false);

@@ -122,7 +122,7 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
      */
     public function getTemplate(): string
     {
-        return '@ezdesign/content/tab/versions/tab.html.twig';
+        return '@ibexadesign/content/tab/versions/tab.html.twig';
     }
 
     /**

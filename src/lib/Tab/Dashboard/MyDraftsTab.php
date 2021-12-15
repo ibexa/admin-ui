@@ -126,7 +126,7 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
         $pagination->setMaxPerPage($this->configResolver->getParameter('pagination.content_draft_limit'));
         $pagination->setCurrentPage(min(max($currentPage, 1), $pagination->getNbPages()));
 
-        return $this->twig->render('@ezdesign/ui/dashboard/tab/my_draft_list.html.twig', [
+        return $this->twig->render('@ibexadesign/ui/dashboard/tab/my_draft_list.html.twig', [
             'data' => $pagination->getCurrentPageResults(),
             'pager' => $pagination,
             'pager_options' => [

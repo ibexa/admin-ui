@@ -91,7 +91,7 @@ final class LinkManagerController extends Controller
             }
         }
 
-        return $this->render('@ezdesign/link_manager/edit.html.twig', [
+        return $this->render('@ibexadesign/link_manager/edit.html.twig', [
             'form' => $form->createView(),
             'url' => $url,
         ]);
@@ -118,7 +118,7 @@ final class LinkManagerController extends Controller
             new ContentEditData()
         );
 
-        return $this->render('@ezdesign/link_manager/view.html.twig', [
+        return $this->render('@ibexadesign/link_manager/view.html.twig', [
             'url' => $url,
             'can_edit' => $this->isGranted(new Attribute('url', 'update')),
             'usages' => $usages,

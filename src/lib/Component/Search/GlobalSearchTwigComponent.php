@@ -49,7 +49,7 @@ final class GlobalSearchTwigComponent implements Renderable
             ]
         );
 
-        return $this->twig->render('@ezdesign/ui/global_search.html.twig', [
+        return $this->twig->render('@ibexadesign/ui/global_search.html.twig', [
             'form' => $form->createView(),
         ]);
     }

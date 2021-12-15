@@ -68,7 +68,7 @@ class ScriptComponent implements Renderable
      */
     public function render(array $parameters = []): string
     {
-        return $this->twig->render('@ezdesign/ui/component/script.html.twig', [
+        return $this->twig->render('@ibexadesign/ui/component/script.html.twig', [
             'src' => $this->src,
             'type' => $this->type,
             'async' => $this->async,

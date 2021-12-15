@@ -7,10 +7,10 @@
         </svg>
         <span class="ibexa-btn__label">{{ 'authentication.reset_your_password.back'|trans|desc('Back') }}
     </a>
-    <h2 class="ibexa-login__actions-headline">{{ 'ezplatform.forgot_user_password.reset_your_password'|trans|desc('Reset your password') }}</h2>
+    <h2 class="ibexa-login__actions-headline">{{ 'ibexa.forgot_user_password.reset_your_password'|trans|desc('Reset your password') }}</h2>
     {% embed '@ibexadesign/ui/component/alert/alert.html.twig' with {
         type: 'success',
-        title: 'ezplatform.forgot_user_password.success.alert'|trans|desc('We’ve sent to your email account a link to reset your password.'),
+        title: 'ibexa.forgot_user_password.success.alert'|trans|desc('We’ve sent to your email account a link to reset your password.'),
         icon_path: ibexa_icon_path('checkmark'),
         class: 'mt-4',
     } only %}
@@ -19,7 +19,7 @@
         {% endblock %}
     {% endembed %}
     <p class="ibexa-login__actions-subheadline">
-        {{ 'ezplatform.forgot_user_password.success'|trans|raw
+        {{ 'ibexa.forgot_user_password.success'|trans|raw
         |desc('<p>If you don’t receive the email, double check that you entered the correct email address and check your spam folder.</p>') }}
     </p>
     <div class="ibexa-login__actions">

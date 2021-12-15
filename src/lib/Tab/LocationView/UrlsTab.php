@@ -112,7 +112,7 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
      */
     public function getTemplate(): string
     {
-        return '@ezdesign/content/tab/urls.html.twig';
+        return '@ibexadesign/content/tab/urls.html.twig';
     }
 
     /**

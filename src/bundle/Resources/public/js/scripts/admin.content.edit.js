@@ -127,7 +127,7 @@
         return false;
     };
     const isAutosaveEnabled = () => {
-        return ibexa.adminUiConfig.autosave.enabled && form.querySelector('[name="ezplatform_content_forms_content_edit[autosave]"]');
+        return ibexa.adminUiConfig.autosave.enabled && form.querySelector('[name="ibexa_content_forms_content_edit[autosave]"]');
     };
     const fitSections = () => {
         const contentColumn = doc.querySelector('.ibexa-main-container__content-column');
@@ -190,7 +190,7 @@
     };
 
     if (isAutosaveEnabled()) {
-        const AUTOSAVE_SUBMIT_BUTTON_NAME = 'ezplatform_content_forms_content_edit[autosave]';
+        const AUTOSAVE_SUBMIT_BUTTON_NAME = 'ibexa_content_forms_content_edit[autosave]';
 
         setInterval(() => {
             const formData = new FormData(form);

@@ -375,7 +375,7 @@ class ContentController extends Controller
             $siteAccessesList[$siteAccess->name] = $this->siteAccessNameGenerator->generate($siteAccess);
         }
 
-        return $this->render('@ezdesign/content/content_preview.html.twig', [
+        return $this->render('@ibexadesign/content/content_preview.html.twig', [
             'location' => $location,
             'content' => $content,
             'language_code' => $languageCode,
@@ -552,12 +552,12 @@ class ContentController extends Controller
         try {
             $content = $this->contentService->loadContent($contentId);
         } catch (UnauthorizedException $exception) {
-            return $this->render('@ezdesign/content/relation_unauthorized.html.twig', [
+            return $this->render('@ibexadesign/content/relation_unauthorized.html.twig', [
                 'contentId' => $contentId,
             ]);
         }
 
-        return $this->render('@ezdesign/content/relation.html.twig', [
+        return $this->render('@ibexadesign/content/relation.html.twig', [
             'content' => $content,
             'contentType' => $content->getContentType(),
         ]);

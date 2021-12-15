@@ -69,7 +69,7 @@ class ContentOnTheFlyProcessor implements EventSubscriberInterface
         // We only need to change the response so it's compatible with UDW
         $event->setResponse(
             new Response(
-                $this->twig->render('@ezdesign/ui/on_the_fly/content_create_response.html.twig', [
+                $this->twig->render('@ibexadesign/ui/on_the_fly/content_create_response.html.twig', [
                     'locationId' => $locationId,
                 ])
             )
@@ -89,7 +89,7 @@ class ContentOnTheFlyProcessor implements EventSubscriberInterface
         // We only need to change the response so it's compatible with UDW
         $event->setResponse(
             new Response(
-                $this->twig->render('@ezdesign/ui/on_the_fly/content_edit_response.html.twig', [
+                $this->twig->render('@ibexadesign/ui/on_the_fly/content_edit_response.html.twig', [
                     'locationId' => $locationId,
                 ])
             )

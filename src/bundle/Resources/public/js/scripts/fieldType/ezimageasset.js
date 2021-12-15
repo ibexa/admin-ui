@@ -63,7 +63,7 @@
 
             showSuccessNotification(
                 Translator.trans(
-                    /* @Desc("The image has been published and can now be reused") */ 'ezimageasset.create.message.success',
+                    /* @Desc("The image has been published and can now be reused") */ 'ibexaimageasset.create.message.success',
                     {},
                     'fieldtypes_edit'
                 )
@@ -77,7 +77,7 @@
          */
         onAssetCreateFailure(error) {
             const message = Translator.trans(
-                /* @Desc("Error while creating Image Asset: %error%") */ 'ezimageasset.create.message.error',
+                /* @Desc("Error while creating Image Asset: %error%") */ 'ibexaimageasset.create.message.error',
                 { error: error.message },
                 'fieldtypes_edit'
             );
@@ -161,7 +161,7 @@
 
             const udwContainer = doc.getElementById('react-udw');
             const config = JSON.parse(event.currentTarget.dataset.udwConfig);
-            const title = Translator.trans(/*@Desc("Select Image Asset")*/ 'ezimageasset.title', {}, 'universal_discovery_widget');
+            const title = Translator.trans(/*@Desc("Select Image Asset")*/ 'ibexaimageasset.title', {}, 'universal_discovery_widget');
             const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
             const onCancel = closeUDW;
             const onConfirm = (items) => {

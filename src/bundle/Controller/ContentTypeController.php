@@ -157,7 +157,7 @@ class ContentTypeController extends Controller
         $copyData = new ContentTypeCopyData(null, $group);
         $contentTypeCopyForm = $this->contentTypeFormFactory->contentTypeCopy($copyData, null)->createView();
 
-        return $this->render('@ezdesign/content_type/list.html.twig', [
+        return $this->render('@ibexadesign/content_type/list.html.twig', [
             'content_type_group' => $group,
             'pager' => $pagerfanta,
             'deletable' => $deletableTypes,
@@ -207,7 +207,7 @@ class ContentTypeController extends Controller
         $language = $this->languageService->loadLanguage($mainLanguageCode);
         $form = $this->createUpdateForm($group, $contentTypeDraft, $language);
 
-        $view = new ContentTypeCreateView('@ezdesign/content_type/create.html.twig', $group, $contentTypeDraft, $form);
+        $view = new ContentTypeCreateView('@ibexadesign/content_type/create.html.twig', $group, $contentTypeDraft, $form);
         $view->setParameters([
             'field_type_toolbar' => $this->fieldTypeToolbarFactory->create(),
         ]);
@@ -530,7 +530,7 @@ class ContentTypeController extends Controller
         }
 
         $view = new ContentTypeEditView(
-            '@ezdesign/content_type/edit.html.twig',
+            '@ibexadesign/content_type/edit.html.twig',
             $group,
             $contentTypeDraft,
             $baseLanguage ?? $language,
@@ -571,7 +571,7 @@ class ContentTypeController extends Controller
                 continue;
             }
 
-            return $this->render('@ezdesign/content_type/part/field_definition_form.html.twig', [
+            return $this->render('@ibexadesign/content_type/part/field_definition_form.html.twig', [
                 'form' => $fieldDefinitionsGroupForm[$fieldDefinitionIdentifier]->createView(),
                 'content_type_group' => $group,
                 'content_type' => $contentTypeDraft,
@@ -695,7 +695,7 @@ class ContentTypeController extends Controller
         $canUpdate = $this->isGranted(new Attribute('class', 'update')) &&
             $this->isGranted(new Attribute('class', 'create'));
 
-        return $this->render('@ezdesign/content_type/index.html.twig', [
+        return $this->render('@ibexadesign/content_type/index.html.twig', [
             'content_type_group' => $group,
             'content_type' => $contentType,
             'field_definitions_by_group' => $fieldDefinitionsByGroup,
