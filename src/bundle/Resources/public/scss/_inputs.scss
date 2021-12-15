@@ -22,7 +22,6 @@
     outline: none;
     transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
     border: calculateRem(1px) solid $ibexa-color-dark-300;
-    background-color: $ibexa-white;
 
     &:hover {
         border-color: $ibexa-color-primary;
@@ -97,6 +96,7 @@
         height: calculateRem(32px);
         padding-top: 0;
         padding-bottom: 0;
+        border-radius: $ibexa-border-radius-small;
     }
 
     &--textarea {

@@ -20,7 +20,7 @@
     <div class="ibexa-dropdown__wrapper">
         <ul
             class="ibexa-dropdown__selection-info"
-            data-template="{{ include('@ibexadesign/ui/component/dropdown_selected_item.html.twig', {
+            data-selected-item-template="{{ include('@ibexadesign/ui/component/dropdown_selected_item.html.twig', {
                 value: '{{ value }}',
                 label: '{{ label }}',
             })|e('html_attr') }}"
@@ -60,7 +60,15 @@
                     />
                 {% endblock %}
             {%- endembed -%}
-            <ul class="ibexa-dropdown__items-list">
+            <ul
+                class="ibexa-dropdown__items-list"
+                data-item-template="{{ include('@ibexadesign/ui/component/dropdown_item.html.twig', {
+                    choice: {
+                        value: '{{ value }}',
+                        label: '{{ label }}',
+                    },
+                })|e('html_attr') }}"
+            >
                 {% for choice in preferred_choices %}
                     {% include '@ibexadesign/ui/component/dropdown_item.html.twig' with { choice, preferred_choice: true, custom_form } %}
                 {% endfor %}

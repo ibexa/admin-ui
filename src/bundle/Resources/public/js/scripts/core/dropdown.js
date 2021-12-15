@@ -41,7 +41,7 @@
 
             this.canSelectOnlyOne = !this.sourceInput?.multiple;
             this.hasDefaultSelection = config.hasDefaultSelection ?? this.canSelectOnlyOne;
-            this.selectedItemTemplate = this.selectedItemsContainer.dataset.template;
+            this.selectedItemTemplate = this.selectedItemsContainer.dataset.selectedItemTemplate;
 
             this.createSelectedItem = this.createSelectedItem.bind(this);
             this.selectFirstItem = this.selectFirstItem.bind(this);
@@ -107,6 +107,12 @@
             doc.body.removeEventListener('click', this.onClickOutside);
 
             this.itemsPopover.hide();
+        }
+
+        selectOption(value) {
+            const option = this.itemsListContainer.querySelector(`.ibexa-dropdown__item[data-value="${value}"`);
+
+            return this.onSelect(option, true);
         }
 
         onSelect(element, selected) {
