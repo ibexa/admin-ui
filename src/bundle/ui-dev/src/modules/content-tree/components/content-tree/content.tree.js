@@ -9,6 +9,7 @@ const CLASS_IS_TREE_RESIZING = 'ibexa-is-tree-resizing';
 const MIN_CONTAINER_WIDTH = 200;
 const COLLAPSED_WIDTH = 96;
 const EXPANDED_WIDTH = 320;
+const DEFAULT_CONTAINER_WIDTH = 300;
 
 export default class ContentTree extends Component {
     constructor(props) {
@@ -26,7 +27,7 @@ export default class ContentTree extends Component {
 
         this.state = {
             resizeStartPositionX: 0,
-            containerWidth: this.getConfig('width'),
+            containerWidth: this.getConfig('width') || DEFAULT_CONTAINER_WIDTH,
             resizedContainerWidth: 0,
             isResizing: false,
         };
