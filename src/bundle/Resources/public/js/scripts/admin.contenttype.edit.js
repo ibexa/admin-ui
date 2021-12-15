@@ -140,7 +140,7 @@
             const groupFieldsDefinitionCount = group.querySelectorAll('.ibexa-collapse--field-definition').length;
             const emptyGroupPlaceholder = group.querySelector('.ibexa-field-definitions-empty-group');
             const anchoredPlaceholder = group.querySelector('.ibexa-field-definitions-placeholder--anchored');
-            const removeButton = group.querySelector('.ibexa-collapse__extra-action-button--remove-field-definitions-group');
+            const removeBtn = group.querySelector('.ibexa-collapse__extra-action-button--remove-field-definitions-group');
 
             emptyGroupPlaceholder.classList.toggle('ibexa-field-definitions-empty-group--hidden', groupFieldsDefinitionCount !== 0);
             anchoredPlaceholder.classList.toggle('ibexa-field-definitions-placeholder--hidden', groupFieldsDefinitionCount === 0);
