@@ -41,7 +41,7 @@
 
             this.canSelectOnlyOne = !this.sourceInput?.multiple;
             this.hasDefaultSelection = config.hasDefaultSelection ?? this.canSelectOnlyOne;
-            this.selectedItemTemplate = this.selectedItemsContainer.dataset.selectedItemTemplate;
+            this.selectedItemTemplate = this.selectedItemsContainer.dataset.template;
 
             this.createSelectedItem = this.createSelectedItem.bind(this);
             this.selectFirstItem = this.selectFirstItem.bind(this);
