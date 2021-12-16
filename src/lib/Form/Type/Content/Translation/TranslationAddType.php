@@ -241,7 +241,7 @@ class TranslationAddType extends AbstractType
                 ChoiceType::class,
                 [
                     'required' => false,
-                    'placeholder' => true,
+                    'placeholder' => /** @Desc("Choose a Language") */ 'translation.base_language.choose',
                     'multiple' => false,
                     'expanded' => false,
                     'choice_loader' => new CallbackChoiceLoader(function () use ($contentLanguages) {
