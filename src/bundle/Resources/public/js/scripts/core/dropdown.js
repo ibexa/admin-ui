@@ -109,6 +109,12 @@
             this.itemsPopover.hide();
         }
 
+        selectOption(value) {
+            const optionToSelect = this.itemsListContainer.querySelector(`.ibexa-dropdown__item[data-value="${value}"`);
+
+            return this.onSelect(optionToSelect, true);
+        }
+
         onSelect(element, selected) {
             const value = element.dataset.value;
 
