@@ -15,14 +15,6 @@
     {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
 {% endmacro %}
 
-{% macro get_translated_placeholder(placeholder, translation_domain) %}
-    {% if placeholder is defined %}
-        {{ _self.get_translated_label(placeholder, translation_domain )}}
-    {% else %}
-        {{ 'dropdown.placeholder'|trans|desc("Choose an option") }}
-    {% endif %}
-{% endmacro %}
-
 <div
     class="ibexa-dropdown
         {{ multiple ? "ibexa-dropdown--multi" : "ibexa-dropdown--single" }}
@@ -59,7 +51,11 @@
                 {% if value is empty %}
                     {% if multiple %}
                         <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder">
-                            {{ _self.get_translated_placeholder(placeholder, translation_domain) }}
+                            {% if placeholder is defined %}
+                                {{ _self.get_translated_label(placeholder, translation_domain )}}
+                            {% else %}
+                                {{ 'dropdown.placeholder'|trans|desc("Choose an option") }}
+                            {% endif %}
                         </li>
                     {% else %}
                         {% if placeholder is not none %}
