@@ -184,54 +184,54 @@ $ibexa-color-warning-pale: $ibexa-color-warning-100;
 $ibexa-color-primary-hover: $ibexa-color-primary-500;
 
 /* eZ variables: These variables are deprecated, please use variables with the "ibexa" prefix */
-$ibexa-admin-transition: $ibexa-admin-transition;
-$ibexa-admin-widget-open-transition: $ibexa-admin-widget-open-transition;
-$ibexa-admin-widget-close-transition: $ibexa-admin-widget-close-transition;
+$ez-admin-transition: $ibexa-admin-transition;
+$ez-admin-widget-open-transition: $ibexa-admin-widget-open-transition;
+$ez-admin-widget-close-transition: $ibexa-admin-widget-close-transition;
 
-$ibexa-color-primary: $ibexa-color-primary;
-$ibexa-color-primary-hover: darken($ibexa-color-primary, 15%);
-$ibexa-color-secondary: $ibexa-color-primary;
-$ibexa-color-secondary-hover: darken($ibexa-color-secondary, 15%);
-$ibexa-color-hyperlink: $ibexa-color-primary;
-$ibexa-color-hyperlink-hover: darken($ibexa-color-hyperlink, 15%);
-$ibexa-color-positive: $ibexa-color-positive;
-$ibexa-color-warning: $ibexa-color-warning;
-$ibexa-color-danger: $ibexa-color-danger;
-$ibexa-color-danger-hover: darken($ibexa-color-danger, 15%);
+$ez-color-primary: $ibexa-color-primary;
+$ez-color-primary-hover: darken($ibexa-color-primary, 15%);
+$ez-color-secondary: $ibexa-color-primary;
+$ez-color-secondary-hover: darken($ibexa-color-secondary, 15%);
+$ez-color-hyperlink: $ibexa-color-primary;
+$ez-color-hyperlink-hover: darken($ibexa-color-hyperlink, 15%);
+$ez-color-positive: $ibexa-color-positive;
+$ez-color-warning: $ibexa-color-warning;
+$ez-color-danger: $ibexa-color-danger;
+$ez-color-danger-hover: darken($ibexa-color-danger, 15%);
 
-$ibexa-white: $ibexa-white;
-$ibexa-ground-base-pale: $ibexa-color-base-light;
-$ibexa-ground-base-light: $ibexa-color-base-pale;
-$ibexa-ground-base: $ibexa-color-base-pale;
-$ibexa-ground-base-medium: $ibexa-white;
-$ibexa-ground-base-dark: $ibexa-color-base-light;
-$ibexa-ground-base-dark-hover: darken($ibexa-color-base-light, 15%);
-$ibexa-color-base-pale: $ibexa-white;
-$ibexa-color-base-light: $ibexa-color-base-dark;
-$ibexa-color-base-light-hover: darken($ibexa-color-base-dark, 15%);
-$ibexa-color-base-medium: $ibexa-color-base-dark;
-$ibexa-color-base-medium-hover: darken($ibexa-color-base-dark, 15%);
-$ibexa-color-base-dark: $ibexa-black;
-$ibexa-black: $ibexa-black;
+$ez-white: $ibexa-white;
+$ez-ground-base-pale: $ibexa-color-base-light;
+$ez-ground-base-light: $ibexa-color-base-pale;
+$ez-ground-base: $ibexa-color-base-pale;
+$ez-ground-base-medium: $ibexa-white;
+$ez-ground-base-dark: $ibexa-color-base-light;
+$ez-ground-base-dark-hover: darken($ibexa-color-base-light, 15%);
+$ez-color-base-pale: $ibexa-white;
+$ez-color-base-light: $ibexa-color-base-dark;
+$ez-color-base-light-hover: darken($ibexa-color-base-dark, 15%);
+$ez-color-base-medium: $ibexa-color-base-dark;
+$ez-color-base-medium-hover: darken($ibexa-color-base-dark, 15%);
+$ez-color-base-dark: $ibexa-black;
+$ez-black: $ibexa-black;
 
-$ibexa-secondary-ground-pale: $ibexa-color-base;
-$ibexa-ground-primary: $ibexa-white;
-$ibexa-secondary-ground: $ibexa-color-primary;
-$ibexa-secondary-ground-medium: $ibexa-color-primary;
-$ibexa-secondary-ground-dark: $ibexa-color-primary;
+$ez-secondary-ground-pale: $ibexa-color-base;
+$ez-ground-primary: $ibexa-white;
+$ez-secondary-ground: $ibexa-color-primary;
+$ez-secondary-ground-medium: $ibexa-color-primary;
+$ez-secondary-ground-dark: $ibexa-color-primary;
 
-$ibexa-ground-primary-inverted-light: $ibexa-color-complementary-strong;
-$ibexa-ground-primary-inverted: $ibexa-color-base;
+$ez-ground-primary-inverted-light: $ibexa-color-complementary-strong;
+$ez-ground-primary-inverted: $ibexa-color-base;
 
-$ibexa-color-warning-pale: $ibexa-color-warning-pale;
-$ibexa-color-warning-dark: $ibexa-color-warning-dark;
+$ez-color-warning-pale: $ibexa-color-warning-pale;
+$ez-color-warning-dark: $ibexa-color-warning-dark;
 
-$ibexa-alloyeditor-color-hover: $ibexa-color-info-400;
+$ez-alloyeditor-color-hover: $ibexa-color-info-400;
 
-$ibexa-pagination-bg: transparent;
-$ibexa-pagination-margin: 0.25rem;
-$ibexa-pagination-page-link-radius: 50%;
-$ibexa-pagination-border-radius: 0.3rem;
+$ez-pagination-bg: transparent;
+$ez-pagination-margin: 0.25rem;
+$ez-pagination-page-link-radius: 50%;
+$ez-pagination-border-radius: 0.3rem;
 
 /* boostrap variables*/
 $white: $ibexa-white;
