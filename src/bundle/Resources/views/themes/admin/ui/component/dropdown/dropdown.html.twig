@@ -101,7 +101,7 @@
                     },
                 })|e('html_attr') }}"
             >
-                {% if not multiple and placeholder is not none %}
+                {% if not multiple and placeholder is defined %}
                     {% set placeholder_choice = {
                         value: '',
                         label: _self.get_translated_label(placeholder, translation_domain),
