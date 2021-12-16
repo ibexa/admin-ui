@@ -26,6 +26,13 @@
     &__section-column {
         padding: 0;
 
+        &--available-fields {
+            .ibexa-content-type-edit__section-column-body {
+                position: sticky;
+                top: calculateRem(-34px);
+            }
+        }
+
         &--field-definitions,
         &--assigned-attributes {
             min-height: calculateRem(700px);
