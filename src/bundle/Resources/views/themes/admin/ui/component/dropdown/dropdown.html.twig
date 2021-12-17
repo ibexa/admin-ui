@@ -58,7 +58,7 @@
                             {% endif %}
                         </li>
                     {% else %}
-                        {% if placeholder is not none %}
+                        {% if placeholder is defined and placeholder is not none %}
                             {% include '@ibexadesign/ui/component/dropdown/dropdown_selected_item.html.twig' with {
                                 value: '',
                                 label: _self.get_translated_label(placeholder, translation_domain),
