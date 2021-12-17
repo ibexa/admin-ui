@@ -82,18 +82,13 @@ class SystemInfoPage extends Page
     protected function specifyLocators(): array
     {
         return [
-<<<<<<< HEAD
-            new VisibleCSSLocator('packagesTable', '.tab-pane.active .ez-fieldgroup:nth-of-type(2)'),
-=======
-            new VisibleCSSLocator('tableTitle', '.tab-pane.active .ibexa-fieldgroup__name'),
             new VisibleCSSLocator('packagesTable', '.tab-pane.active .ibexa-fieldgroup:nth-of-type(2)'),
->>>>>>> IBX-1689: Change all ez- classes/IDs and eZ variables in frontend part
         ];
     }
 
     private function getHeaderLocator(string $header): LocatorInterface
     {
-        $normalHeader = new VisibleCSSLocator('normalHeader', '.ez-fieldgroup__name');
+        $normalHeader = new VisibleCSSLocator('normalHeader', '.ibexa-fieldgroup__name');
         $boldedHeader = new VisibleCSSLocator('boldedHeader', '.ibexa-table-header__headline');
 
         switch ($header) {
