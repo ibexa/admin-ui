@@ -10,6 +10,7 @@
 {% set value = value is defined ? value : null %}
 {% set multiple = multiple|default(false) %}
 {% set no_items = choices_flat|length == 0 %}
+{% set are_items_loaded_dynamically = are_items_loaded_dynamically|default(false) %}
 
 {% macro get_translated_label(label, translation_domain) %}
     {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
@@ -19,7 +20,7 @@
     class="ibexa-dropdown
         {{ multiple ? "ibexa-dropdown--multi" : "ibexa-dropdown--single" }}
         {{ custom_init|default(false) ? "ibexa-dropdown--custom-init" }}
-        {{ no_items ? "ibexa-dropdown--no-items" }}
+        {{ no_items and not are_items_loaded_dynamically ? "ibexa-dropdown--no-items" }}
         {{ class|default('') }}
     "
 >
@@ -35,9 +36,11 @@
             })|e('html_attr') }}"
         >
             {% if no_items %}
-                <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder">
-                    {{ 'dropdown.placeholder.empty'|trans|desc("No options available") }}
-                </li>
+                {% if not are_items_loaded_dynamically %}
+                    <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder">
+                        {{ 'dropdown.placeholder.empty'|trans|desc("No options available") }}
+                    </li>
+                {% endif %}
             {% else %}
                 {% for choice in choices_flat %}
                     {% if custom_form ? choice.value == value : choice is selectedchoice(value) %}
@@ -68,7 +71,7 @@
 
                             {% include '@ibexadesign/ui/component/dropdown/dropdown_selected_item.html.twig' with {
                                 value: first_choice.value,
-                                label: _self.get_translated_label(first_choice.label),
+                                label: _self.get_translated_label(first_choice.label, false),
                             } %}
                         {% endif %}
                     {% endif %}
