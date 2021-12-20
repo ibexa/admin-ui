@@ -54,7 +54,7 @@
                 {% if value is empty %}
                     {% if multiple %}
                         <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder">
-                            {% if placeholder is defined %}
+                            {% if placeholder is defined and placeholder is not none %}
                                 {{ _self.get_translated_label(placeholder, translation_domain )}}
                             {% else %}
                                 {{ 'dropdown.placeholder'|trans|desc("Choose an option") }}
@@ -100,7 +100,7 @@
                     },
                 })|e('html_attr') }}"
             >
-                {% if not multiple and placeholder is defined %}
+                {% if not multiple and placeholder is defined and placeholder is not none %}
                     {% set placeholder_choice = {
                         value: '',
                         label: _self.get_translated_label(placeholder, translation_domain),
