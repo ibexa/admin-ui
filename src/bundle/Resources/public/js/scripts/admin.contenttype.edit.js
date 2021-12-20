@@ -275,7 +275,7 @@
                 addField();
             }
 
-            currentActiveGroup.classList.remove('ibexa-collapse--active-field-definitions-group');
+            currentActiveGroup?.classList.remove('ibexa-collapse--active-field-definitions-group');
             targetContainerGroup.classList.add('ibexa-collapse--active-field-definitions-group');
 
             removeDragPlaceholders();
