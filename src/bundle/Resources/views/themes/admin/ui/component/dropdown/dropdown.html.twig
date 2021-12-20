@@ -21,6 +21,7 @@
         {{ multiple ? "ibexa-dropdown--multi" : "ibexa-dropdown--single" }}
         {{ custom_init|default(false) ? "ibexa-dropdown--custom-init" }}
         {{ is_dynamic ? "ibexa-dropdown--dynamic" }}
+        {{ is_small|default(false) ? "ibexa-dropdown--small" }}
         {{ class|default('') }}
     "
 >
