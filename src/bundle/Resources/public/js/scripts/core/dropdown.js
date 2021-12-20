@@ -79,7 +79,7 @@
         }
 
         selectFirstOption() {
-            const firstOption = this.container.querySelector('.ibexa-dropdown__source-input option');
+            const firstOption = this.container.querySelector('.ibexa-dropdown__source option');
 
             return this.selectOption(firstOption.value, true);
         }
@@ -277,7 +277,7 @@
 
             this.container.dataset.initialized = true;
 
-            const optionsCount = this.container.querySelectorAll('.ibexa-dropdown__source-input option').length;
+            const optionsCount = this.container.querySelectorAll('.ibexa-dropdown__source option').length;
 
             if (!optionsCount) {
                 return;
