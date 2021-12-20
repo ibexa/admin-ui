@@ -10,6 +10,7 @@
 {% set value = value is defined ? value : null %}
 {% set multiple = multiple|default(false) %}
 {% set no_items = choices_flat|length == 0 %}
+{% set is_dynamic = is_dynamic|default(false) %}
 
 {% macro get_translated_label(label, translation_domain) %}
     {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
@@ -19,7 +20,7 @@
     class="ibexa-dropdown
         {{ multiple ? "ibexa-dropdown--multi" : "ibexa-dropdown--single" }}
         {{ custom_init|default(false) ? "ibexa-dropdown--custom-init" }}
-        {{ no_items ? "ibexa-dropdown--no-items" }}
+        {{ is_dynamic ? "ibexa-dropdown--dynamic" }}
         {{ class|default('') }}
     "
 >
@@ -35,9 +36,11 @@
             })|e('html_attr') }}"
         >
             {% if no_items %}
-                <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder">
-                    {{ 'dropdown.placeholder.empty'|trans|desc("No options available") }}
-                </li>
+                {% if not is_dynamic %}
+                    <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder">
+                        {{ 'dropdown.placeholder.empty'|trans|desc("No options available") }}
+                    </li>
+                {% endif %}
             {% else %}
                 {% for choice in choices_flat %}
                     {% if custom_form ? choice.value == value : choice is selectedchoice(value) %}
@@ -51,7 +54,7 @@
                 {% if value is empty %}
                     {% if multiple %}
                         <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder">
-                            {% if placeholder is defined %}
+                            {% if placeholder is defined and placeholder is not none %}
                                 {{ _self.get_translated_label(placeholder, translation_domain )}}
                             {% else %}
                                 {{ 'dropdown.placeholder'|trans|desc("Choose an option") }}
@@ -68,7 +71,7 @@
 
                             {% include '@ibexadesign/ui/component/dropdown/dropdown_selected_item.html.twig' with {
                                 value: first_choice.value,
-                                label: _self.get_translated_label(first_choice.label),
+                                label: _self.get_translated_label(first_choice.label, translation_domain),
                             } %}
                         {% endif %}
                     {% endif %}
@@ -97,7 +100,7 @@
                     },
                 })|e('html_attr') }}"
             >
-                {% if not multiple and placeholder is defined %}
+                {% if not multiple and placeholder is defined and placeholder is not none %}
                     {% set placeholder_choice = {
                         value: '',
                         label: _self.get_translated_label(placeholder, translation_domain),

@@ -39,7 +39,7 @@
             this.itemsListContainer = this.itemsContainer.querySelector('.ibexa-dropdown__items-list');
             this.itemsFilterInput = this.itemsContainer.querySelector('.ibexa-dropdown__items-filter');
 
-            this.noItems = this.container.classList.contains('ibexa-dropdown--no-items');
+            this.isDynamic = this.container.classList.contains('ibexa-dropdown--dynamic');
             this.canSelectOnlyOne = !this.sourceInput?.multiple;
             this.selectedItemTemplate = this.selectedItemsContainer.dataset.template;
 
@@ -76,6 +76,12 @@
             doc.body.removeEventListener('click', this.onClickOutside);
 
             this.itemsPopover.hide();
+        }
+
+        selectFirstOption() {
+            const firstOption = this.container.querySelector('.ibexa-dropdown__source option');
+
+            return this.selectOption(firstOption.value, true);
         }
 
         selectOption(value) {
@@ -271,7 +277,9 @@
 
             this.container.dataset.initialized = true;
 
-            if (this.noItems) {
+            const optionsCount = this.container.querySelectorAll('.ibexa-dropdown__source option').length;
+
+            if (!optionsCount) {
                 return;
             }
 
@@ -288,6 +296,10 @@
             );
             this.itemsPopover._element.removeAttribute('data-bs-original-title');
             this.itemsPopover._element.removeAttribute('title');
+
+            if (this.isDynamic) {
+                this.selectFirstOption();
+            }
 
             this.hideOptions();
             this.fitItems();
