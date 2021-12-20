@@ -60,6 +60,11 @@
                 }
             }
 
+            &--active-field-definitions-group {
+                border: calculateRem(1px) solid $ibexa-color-info;
+                border-radius: $ibexa-border-radius;
+            }
+
             &--field-definition {
                 position: relative;
                 margin-bottom: calculateRem(12px);

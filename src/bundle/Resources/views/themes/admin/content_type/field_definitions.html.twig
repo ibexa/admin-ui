@@ -11,7 +11,8 @@
         {% for id, field_defintions in grouped_field_defintions %}
             {% set field_definitions_group_class = [
                 'ibexa-collapse--field-definitions-group ibexa-field-definitions-group-%s'|format(id),
-                field_defintions is empty and not loop.first or loop.first and not should_show_first and field_defintions is empty ? 'ibexa-collapse--hidden'
+                field_defintions is empty and not loop.first or loop.first and not should_show_first and field_defintions is empty ? 'ibexa-collapse--hidden',
+                loop.first ? 'ibexa-collapse--active-field-definitions-group',
             ] %}
 
             {%- embed "@ibexadesign/ui/component/collapse.html.twig" with {
