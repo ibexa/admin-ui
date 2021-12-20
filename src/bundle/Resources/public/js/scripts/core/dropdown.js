@@ -39,7 +39,6 @@
             this.itemsListContainer = this.itemsContainer.querySelector('.ibexa-dropdown__items-list');
             this.itemsFilterInput = this.itemsContainer.querySelector('.ibexa-dropdown__items-filter');
 
-            this.noItems = this.container.classList.contains('ibexa-dropdown--no-items');
             this.isDynamic = this.container.classList.contains('ibexa-dropdown--dynamic');
             this.canSelectOnlyOne = !this.sourceInput?.multiple;
             this.selectedItemTemplate = this.selectedItemsContainer.dataset.template;
