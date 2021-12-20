@@ -186,8 +186,20 @@
             display: none;
         }
 
+        &--selected {
+            position: relative;
+
+            .ibexa-dropdown__item-check {
+                display: block;
+            }
+        }
+
         .ibexa-input {
             margin-right: calculateRem(16px);
+        }
+
+        .ibexa-icon {
+            margin-right: calculateRem(8px);
         }
 
         &:hover {
@@ -201,6 +213,20 @@
                 cursor: not-allowed;
             }
         }
+
+        &[data-value=""] {
+            position: relative;
+
+            &:after {
+                display: block;
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                border-bottom: calculateRem(1px) solid $ibexa-color-light;
+            }
+        }
     }
 
     &__item-group-label {
@@ -209,6 +235,12 @@
 
     &__item-group-list {
         padding-left: 0;
+    }
+
+    &__item-check {
+        position: absolute;
+        right: calculateRem(4px);
+        display: none;
     }
 
     &__separator {

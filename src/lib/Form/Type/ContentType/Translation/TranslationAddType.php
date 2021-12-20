@@ -183,6 +183,7 @@ class TranslationAddType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'choice_loader' => new AvailableTranslationLanguageChoiceLoader($this->languageService, $contentLanguages),
+                    'label' => /** @Desc("Target language") */ 'translation.language.label',
                     'choice_value' => 'languageCode',
                     'choice_label' => 'name',
                 ]
@@ -192,10 +193,11 @@ class TranslationAddType extends AbstractType
                 ChoiceType::class,
                 [
                     'required' => false,
-                    'placeholder' => /** @Desc("Choose a Language") */ 'translation.base_language.choose',
+                    'placeholder' => /** @Desc("No language") */ 'translation.base_language.no_language',
                     'multiple' => false,
                     'expanded' => false,
                     'choice_loader' => new BaseTranslationLanguageChoiceLoader($this->languageService, $contentLanguages),
+                    'label' => /** @Desc("Source language") */ 'translation.base_language.label',
                     'choice_value' => 'languageCode',
                     'choice_label' => 'name',
                 ]

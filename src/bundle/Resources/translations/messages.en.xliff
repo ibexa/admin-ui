@@ -643,11 +643,6 @@
         <target state="new">From date - to date</target>
         <note>key: search.date.range</note>
       </trans-unit>
-      <trans-unit id="128df491a522e7af4916cd002d9e11a3d2bc4078" resname="section.action.delete">
-        <source>Delete Section</source>
-        <target state="new">Delete Section</target>
-        <note>key: section.action.delete</note>
-      </trans-unit>
       <trans-unit id="9567771350aff93580f743089937b0c8fe31058e" resname="section.assign,content">
         <source>Assign Content</source>
         <target state="new">Assign Content</target>

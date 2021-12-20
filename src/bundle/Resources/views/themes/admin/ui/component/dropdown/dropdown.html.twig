@@ -105,7 +105,7 @@
                         value: '',
                         label: _self.get_translated_label(placeholder, translation_domain),
                     } %}
-                    {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice: placeholder_choice, custom_form: true } %}
+                    {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice: placeholder_choice, custom_form: true, icon: 'interface-block' } %}
                 {% endif %}
                 {% for choice in preferred_choices %}
                     {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice, preferred_choice: true, custom_form } %}
