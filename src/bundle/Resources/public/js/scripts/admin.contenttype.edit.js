@@ -329,16 +329,20 @@
         availableField.addEventListener(
             'click',
             (event) => {
-                currentDraggedItem = event.currentTarget;
-                sourceContainer = currentDraggedItem.parentNode;
-                draggedItemPosition = -1;
-                targetContainer = doc.querySelector(
+                const activeTargetContainer = doc.querySelector(
                     '.ibexa-collapse--field-definitions-group.ibexa-collapse--active-field-definitions-group .ibexa-content-type-edit__field-definition-drop-zone'
                 );
 
-                if (targetContainer) {
-                    addField(event.currentTarget);
+                if (!activeTargetContainer) {
+                    return;
                 }
+
+                currentDraggedItem = event.currentTarget;
+                sourceContainer = currentDraggedItem.parentNode;
+                draggedItemPosition = -1;
+                targetContainer = activeTargetContainer;
+
+                addField();
             },
             false
         );
