@@ -1,15 +1,15 @@
-(function(global, doc, eZ, React, ReactDOM, Translator, Routing) {
+(function(global, doc, ibexa, React, ReactDOM, Translator, Routing) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezimageasset';
     const SELECTOR_INPUT_FILE = 'input[type="file"]';
     const SELECTOR_INPUT_DESTINATION_CONTENT_ID = '.ibexa-data-source__destination-content-id';
     const SELECTOR_FILESIZE_NOTICE = '.ibexa-data-source__message--filesize';
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
-    const showErrorNotification = eZ.helpers.notification.showErrorNotification;
-    const showSuccessNotification = eZ.helpers.notification.showSuccessNotification;
-    const getJsonFromResponse = eZ.helpers.request.getJsonFromResponse;
-    const imageAssetMapping = eZ.adminUiConfig.imageAssetMapping;
+    const showErrorNotification = ibexa.helpers.notification.showErrorNotification;
+    const showSuccessNotification = ibexa.helpers.notification.showSuccessNotification;
+    const getJsonFromResponse = ibexa.helpers.request.getJsonFromResponse;
+    const imageAssetMapping = ibexa.adminUiConfig.imageAssetMapping;
 
-    class EzImageAssetPreviewField extends eZ.BasePreviewField {
+    class EzImageAssetPreviewField extends ibexa.BasePreviewField {
         constructor(props) {
             super(props);
 
@@ -44,7 +44,7 @@
 
             fetch(assetCreateUri, options)
                 .then(getJsonFromResponse)
-                .then(eZ.helpers.request.handleRequest)
+                .then(ibexa.helpers.request.handleRequest)
                 .then(this.onAssetCreateSuccess.bind(this))
                 .catch(this.onAssetCreateFailure.bind(this));
         }
@@ -170,7 +170,7 @@
             };
 
             ReactDOM.render(
-                React.createElement(eZ.modules.UniversalDiscovery, {
+                React.createElement(ibexa.modules.UniversalDiscovery, {
                     onConfirm,
                     onCancel,
                     title,
@@ -227,7 +227,7 @@
         }
     }
 
-    class EzImageAssetFieldValidator extends eZ.BaseFileFieldValidator {
+    class EzImageAssetFieldValidator extends ibexa.BaseFileFieldValidator {
         validateFileSize(event) {
             event.currentTarget.dispatchEvent(new CustomEvent('ibexa-invalid-file-size'));
 
@@ -266,6 +266,6 @@
 
         previewField.init();
 
-        eZ.addConfig('fieldTypeValidators', [validator], true);
+        ibexa.addConfig('fieldTypeValidators', [validator], true);
     });
-})(window, window.document, window.eZ, window.React, window.ReactDOM, window.Translator, window.Routing);
+})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator, window.Routing);

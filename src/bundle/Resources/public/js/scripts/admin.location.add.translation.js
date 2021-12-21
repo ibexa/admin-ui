@@ -1,7 +1,7 @@
 (function(global, doc) {
     const SELECTOR_MODAL = '.ibexa-modal';
 
-    doc.querySelectorAll('.ez-translation__language-wrapper--language').forEach((select) => {
+    doc.querySelectorAll('.ibexa-translation__language-wrapper--language').forEach((select) => {
         select.addEventListener(
             'change',
             (event) => {

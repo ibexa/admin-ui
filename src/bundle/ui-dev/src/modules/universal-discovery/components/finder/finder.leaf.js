@@ -55,7 +55,7 @@ const FinderLeaf = ({ location }) => {
     });
 
     useEffect(() => {
-        window.eZ.helpers.tooltips.parse(window.document.querySelector('.c-udw-tab'));
+        window.ibexa.helpers.tooltips.parse(window.document.querySelector('.c-udw-tab'));
     }, []);
 
     return (

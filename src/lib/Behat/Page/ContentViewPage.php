@@ -234,10 +234,10 @@ class ContentViewPage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-page-title h1'),
-            new VisibleCSSLocator('contentType', '.ez-page-title .ibexa-icon-tag'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
+            new VisibleCSSLocator('contentType', '.ibexa-page-title .ibexa-icon-tag'),
             new VisibleCSSLocator('mainContainer', '.ibexa-tab-content #ibexa-tab-location-view-content'),
-            new VisibleCSSLocator('tab', '.ez-content-container .ibexa-tabs .ibexa-tabs__link'),
+            new VisibleCSSLocator('tab', '.ibexa-content-container .ibexa-tabs .ibexa-tabs__link'),
             new VisibleCSSLocator('addLocationButton', '#ibexa-tab-location-view-locations .ibexa-table-header__actions .ibexa-btn--udw-add'),
         ];
     }

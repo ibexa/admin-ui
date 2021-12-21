@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const form = doc.querySelector('form[name="user_password_change"]');
     const submitBtns = form.querySelectorAll('[type="submit"]:not([formnovalidate])');
     const oldPasswordInput = form.querySelector('#user_password_change_oldPassword');
@@ -59,7 +59,7 @@
         const confirmPassword = confirmPasswordInput.value.trim();
         const isNotEmptyPassword = checkIsNotEmpty(newPasswordInput) && checkIsNotEmpty(confirmPasswordInput);
         const passwordMatch = newPassword === confirmPassword;
-        const message = eZ.errors.notSamePasswords;
+        const message = ibexa.errors.notSamePasswords;
 
         if (!passwordMatch) {
             toggleError(!passwordMatch, message, confirmPasswordInput);
@@ -80,7 +80,7 @@
         const isEmpty = !target.value.trim();
         const isError = isRequired && isEmpty;
         const fieldContainer = target.closest(SELECTOR_FIELD);
-        const message = eZ.errors.emptyField.replace('{fieldName}', fieldContainer.querySelector(SELECTOR_LABEL).innerHTML);
+        const message = ibexa.errors.emptyField.replace('{fieldName}', fieldContainer.querySelector(SELECTOR_LABEL).innerHTML);
 
         toggleError(isError, message, target);
 
@@ -94,7 +94,7 @@
             if (!parseInt(btn.dataset.isFormValid, 10)) {
                 event.preventDefault();
 
-                const requiredFields = [...form.querySelectorAll('.ez-field input[required]')];
+                const requiredFields = [...form.querySelectorAll('.ibexa-field input[required]')];
                 const isFormValid = requiredFields.map(checkIsNotEmpty).every((result) => result) && comparePasswords();
 
                 if (isFormValid) {
@@ -114,4 +114,4 @@
     newPasswordInput.addEventListener('blur', (event) => checkIsNotEmpty(event.currentTarget), false);
     confirmPasswordInput.addEventListener('blur', (event) => checkIsNotEmpty(event.currentTarget), false);
     confirmPasswordInput.addEventListener('blur', comparePasswords, false);
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

@@ -23,7 +23,7 @@ const ContentCreateButton = ({ isDisabled }) => {
     const contentTypesMap = useContext(ContentTypesMapContext);
     const createLabel = Translator.trans(/*@Desc("Create new")*/ 'create_content.create', {}, 'universal_discovery_widget');
     const toggleContentCreateVisibility = () => {
-        window.eZ.helpers.tooltips.hideAll();
+        window.ibexa.helpers.tooltips.hideAll();
         setCreateContentVisible((prevState) => !prevState);
     };
     let selectedLocation = loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === markedLocationId);
@@ -69,7 +69,7 @@ ContentCreateButton.defaultProps = {
     isDisabled: false,
 };
 
-eZ.addConfig(
+ibexa.addConfig(
     'adminUiConfig.universalDiscoveryWidget.topMenuActions',
     [
         {

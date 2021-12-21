@@ -3,7 +3,7 @@
 {% trans_default_domain 'object_state' %}
 
 {% block content %}
-    <section class="container ez-container">
+    <section class="container ibexa-container">
         {% set body_rows = [] %}
         {% for object_state in object_states %}
             {% set body_row_cols = [] %}
@@ -111,7 +111,7 @@
             {% block between_header_and_table %}
                 {{ form_start(form_states_delete, {
                     'action': path('ezplatform.object_state.state.bulk_delete', {'objectStateGroupId': object_state_group.id}),
-                    'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-object-state' }
+                    'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-object-state' }
                 }) }}
             {% endblock %}
         {% endembed %}
@@ -120,5 +120,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-object-state-list-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-object-state-list-js', null, 'ibexa') }}
 {% endblock %}

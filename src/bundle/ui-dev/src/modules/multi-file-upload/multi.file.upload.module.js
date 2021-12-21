@@ -37,8 +37,8 @@ export default class MultiFileUploadModule extends Component {
     componentDidMount() {
         this.manageDropEvent();
 
-        window.document.body.addEventListener('ez-udw-opened', this.setUdwStateOpened, false);
-        window.document.body.addEventListener('ez-udw-closed', this.setUdwStateClosed, false);
+        window.document.body.addEventListener('ibexa-udw-opened', this.setUdwStateOpened, false);
+        window.document.body.addEventListener('ibexa-udw-closed', this.setUdwStateClosed, false);
     }
 
     componentDidUpdate() {
@@ -46,8 +46,8 @@ export default class MultiFileUploadModule extends Component {
     }
 
     componentWillUnmount() {
-        window.document.body.removeEventListener('ez-udw-opened', this.setUdwStateOpened, false);
-        window.document.body.removeEventListener('ez-udw-closed', this.setUdwStateClosed, false);
+        window.document.body.removeEventListener('ibexa-udw-opened', this.setUdwStateOpened, false);
+        window.document.body.removeEventListener('ibexa-udw-closed', this.setUdwStateClosed, false);
     }
 
     /**
@@ -266,7 +266,7 @@ export default class MultiFileUploadModule extends Component {
     }
 }
 
-eZ.addConfig('modules.MultiFileUpload', MultiFileUploadModule);
+ibexa.addConfig('modules.MultiFileUpload', MultiFileUploadModule);
 
 MultiFileUploadModule.propTypes = {
     adminUiConfig: PropTypes.shape({

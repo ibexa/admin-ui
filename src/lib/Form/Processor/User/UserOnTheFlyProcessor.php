@@ -67,7 +67,7 @@ class UserOnTheFlyProcessor implements EventSubscriberInterface
 
         $event->setResponse(
             new Response(
-                $this->twig->render('@ezdesign/ui/on_the_fly/user_create_response.html.twig', [
+                $this->twig->render('@ibexadesign/ui/on_the_fly/user_create_response.html.twig', [
                     'locationId' => $user->contentInfo->mainLocationId,
                 ])
             )
@@ -84,7 +84,7 @@ class UserOnTheFlyProcessor implements EventSubscriberInterface
         // We only need to change the response so it's compatible with UDW
         $event->setResponse(
             new Response(
-                $this->twig->render('@ezdesign/ui/on_the_fly/user_edit_response.html.twig', [
+                $this->twig->render('@ibexadesign/ui/on_the_fly/user_edit_response.html.twig', [
                     'locationId' => $referrerLocation->id,
                 ])
             )

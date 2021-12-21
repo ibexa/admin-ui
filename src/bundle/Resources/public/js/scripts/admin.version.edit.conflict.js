@@ -1,6 +1,6 @@
-(function(global, doc, bootstrap, eZ, Translator, Routing) {
+(function(global, doc, bootstrap, ibexa, Translator, Routing) {
     const editVersion = (event) => {
-        const showErrorNotification = eZ.helpers.notification.showErrorNotification;
+        const showErrorNotification = ibexa.helpers.notification.showErrorNotification;
         const contentDraftEditUrl = event.currentTarget.dataset.contentDraftEditUrl;
         const versionHasConflictUrl = event.currentTarget.dataset.versionHasConflictUrl;
         const contentId = event.currentTarget.dataset.contentId;
@@ -38,11 +38,11 @@
         event.preventDefault();
 
         fetch(checkEditPermissionLink, { mode: 'same-origin', credentials: 'same-origin' })
-            .then(eZ.helpers.request.getJsonFromResponse)
+            .then(ibexa.helpers.request.getJsonFromResponse)
             .then(handleCanEditCheck)
             .then(handleVersionDraftConflict)
             .catch(showErrorNotification);
     };
 
     doc.querySelectorAll('.ibexa-btn--content-draft-edit').forEach((button) => button.addEventListener('click', editVersion, false));
-})(window, window.document, window.bootstrap, window.eZ, window.Translator, window.Routing);
+})(window, window.document, window.bootstrap, window.ibexa, window.Translator, window.Routing);

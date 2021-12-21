@@ -15,7 +15,7 @@ import {
     SORTING_OPTIONS,
 } from '../../universal.discovery.module';
 
-const CLASS_IS_BRANCH_RESIZING = 'ez-is-branch-resizing';
+const CLASS_IS_BRANCH_RESIZING = 'ibexa-is-branch-resizing';
 const SCROLL_OFFSET = 200;
 
 const FinderBranch = ({ locationData, itemsPerPage }) => {
@@ -87,7 +87,7 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
         const contentName = selectedLocation ? selectedLocation.location.ContentInfo.Content.TranslatedName : '';
         const iconPath = locationData.location
             ? contentTypesMap[locationData.location.ContentInfo.Content.ContentType._href].thumbnail
-            : window.eZ.helpers.icon.getIconPath('folder');
+            : window.ibexa.helpers.icon.getIconPath('folder');
 
         return (
             <div className="c-finder-branch__info-wrapper">

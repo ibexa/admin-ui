@@ -13,7 +13,7 @@
 {% endif %}
 {% form_theme form_content_create '@ibexadesign/ui/form_fields.html.twig' %}
 
-{% block body_class %}ez-content-view{% endblock %}
+{% block body_class %}ibexa-content-view{% endblock %}
 
 {% block content_tree %}
     {% set content_tree_width = app.request.cookies.get('ibexa-tb-ibexa-content-tree-container-width') %}
@@ -129,15 +129,15 @@
 {% endblock %}
 
 {% block content %}
-    <div id="ez-mfu"
+    <div id="ibexa-mfu"
         data-parent-content-language="{{ content.versionInfo.initialLanguageCode }}"
         data-parent-location-path="{{ location.pathString }}"
         data-parent-content-type-identifier="{{ content_type.identifier }}"
         data-parent-content-type-id="{{ content_type.id }}"
         data-current-language="{{ app.request.get('languageCode') ?: content.prioritizedFieldLanguageCode }}"
     ></div>
-    <div class="row align-items-stretch ez-main-row">
-        <div class="px-0 ez-content-container">
+    <div class="row align-items-stretch ibexa-main-row">
+        <div class="px-0 ibexa-content-container">
             <div class="panel panel-primary">
                 <div class="panel-body">
                     {# 'is_location_visible': location.invisible - param deprecated since EZP-32395 #}
@@ -158,7 +158,7 @@
                     {{ form_start(form_subitems_content_edit, { 'action': path('ezplatform.content.edit'), 'attr': { 'hidden': 'hidden' }}) }}
                     {{ form_end(form_subitems_content_edit) }}
                     {% set udwConfigSingle = ibexa_udw_config('single_container', {}) %}
-                    <div class="ez-sil"
+                    <div class="ibexa-sil"
                         data-location="{{ location.id }}"
                         data-mfu-create-permissions-config="{{ subitems_module.content_create_permissions_for_mfu|json_encode() }}"
                         data-items="{{ subitems_module.items }}"
@@ -178,16 +178,16 @@
 {% endblock %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags('ezplatform-admin-ui-location-view-css', null, 'ibexa') }}
+    {{ encore_entry_link_tags('ibexa-admin-ui-location-view-css', null, 'ibexa') }}
 {% endblock %}
 
 {% block react_modules %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-subitems-js', null, 'ibexa') }}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-mfu-js', null, 'ibexa') }}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-content-tree-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-subitems-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-mfu-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-content-tree-js', null, 'ibexa') }}
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-location-view-js', null, 'ibexa') }}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-tabs-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-location-view-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-tabs-js', null, 'ibexa') }}
 {% endblock %}

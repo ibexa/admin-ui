@@ -6,7 +6,7 @@ import { AllowedContentTypesContext } from '../../universal.discovery.module';
 import Collapsible from '../collapsible/collapsible';
 
 const ContentTypeSelector = () => {
-    const { contentTypes: contentTypesMap } = window.eZ.adminUiConfig;
+    const { contentTypes: contentTypesMap } = window.ibexa.adminUiConfig;
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
     const handleContentTypeSelect = ({ nativeEvent }) => {
@@ -47,7 +47,7 @@ const ContentTypeSelector = () => {
                                         <div className="form-check">
                                             <input
                                                 type="checkbox"
-                                                id={`ez-search-content-type-${contentType.identifier}`}
+                                                id={`ibexa-search-content-type-${contentType.identifier}`}
                                                 className="ibexa-input ibexa-input--checkbox"
                                                 value={contentType.identifier}
                                                 data-content-type-identifier={contentType.identifier}
@@ -56,7 +56,7 @@ const ContentTypeSelector = () => {
                                             />
                                             <label
                                                 className="checkbox-inline form-check-label"
-                                                htmlFor={`ez-search-content-type-${contentType.identifier}`}>
+                                                htmlFor={`ibexa-search-content-type-${contentType.identifier}`}>
                                                 {contentType.name}
                                             </label>
                                         </div>

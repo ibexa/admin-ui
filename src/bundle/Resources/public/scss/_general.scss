@@ -41,11 +41,11 @@ img {
     height: auto;
 }
 
-.ez-scroll-disabled {
+.ibexa-scroll-disabled {
     overflow: hidden;
 }
 
-.ez-main-row {
+.ibexa-main-row {
     min-height: calc(100vh - #{calculateRem(58px)});
 
     &--edit {
@@ -53,8 +53,8 @@ img {
     }
 }
 
-.ez-standalone-page {
-    .ez-main-row {
+.ibexa-standalone-page {
+    .ibexa-main-row {
         min-height: 100vh;
     }
 }
@@ -87,17 +87,18 @@ img {
 }
 
 .ibexa-login-view {
-    .ez-main-container {
+    .ibexa-main-container {
         height: 100vh;
+        display: block;
     }
 }
 
-.ez-checkbox-icon {
+.ibexa-checkbox-icon {
     @include checkbox-icon($ibexa-color-base-dark);
 }
 
-.ez-visually-hidden,
-.ez-visually-hidden[readonly] {
+.ibexa-visually-hidden,
+.ibexa-visually-hidden[readonly] {
     height: calculateRem(1px);
     opacity: 0;
     position: relative;
@@ -134,23 +135,23 @@ select {
     }
 }
 
-.ez-info-view,
-.ez-content-view,
-.ez-content-type-view,
-.ez-content-type-group-list-view,
-.ez-language-view,
-.ez-language-list-view,
-.ez-link-manager-view,
-.ez-role-view,
-.ez-role-list-view,
-.ez-search-view,
-.ez-section-view,
-.ez-section-list-view,
-.ez-trash-list-view,
-.ez-bookmark-list-view,
-.ez-object-state-group-list-view,
-.ez-workflow-list-view,
-.ez-segment-group-list-view {
+.ibexa-info-view,
+.ibexa-content-view,
+.ibexa-content-type-view,
+.ibexa-content-type-group-list-view,
+.ibexa-language-view,
+.ibexa-language-list-view,
+.ibexa-link-manager-view,
+.ibexa-role-view,
+.ibexa-role-list-view,
+.ibexa-search-view,
+.ibexa-section-view,
+.ibexa-section-list-view,
+.ibexa-trash-list-view,
+.ibexa-bookmark-list-view,
+.ibexa-object-state-group-list-view,
+.ibexa-workflow-list-view,
+.ibexa-segment-group-list-view {
     background-color: $ibexa-color-white;
 
     .ibexa-main-container {
@@ -158,7 +159,7 @@ select {
     }
 }
 
-.ez-sticky-container {
+.ibexa-sticky-container {
     position: -webkit-sticky;
     position: sticky;
     top: calculateRem(16px);
@@ -179,8 +180,8 @@ select {
     margin-bottom: calculateRem(12px);
 }
 
-.ez-prevent-click,
-.ez-prevent-click * {
+.ibexa-prevent-click,
+.ibexa-prevent-click * {
     pointer-events: none !important;
 }
 
@@ -191,13 +192,13 @@ select {
     user-select: none;
 }
 
-.ez-container {
+.ibexa-container {
     padding: calculateRem(16px);
     background: $ibexa-white;
 }
 
-.ez-error-site {
-    .ez-main-container {
+.ibexa-error-site {
+    .ibexa-main-container {
         padding: 0;
     }
 }

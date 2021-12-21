@@ -11,7 +11,7 @@
 
         if (backdrop) {
             backdrop.remove();
-            doc.body.classList.remove('ez-scroll-disabled');
+            doc.body.classList.remove('ibexa-scroll-disabled');
         }
     };
     const closeExtraActions = (actions) => {
@@ -57,7 +57,7 @@
 
                     doc.body.addEventListener('click', detectClickOutside, false);
                     doc.body.appendChild(backdrop);
-                    doc.body.classList.add('ez-scroll-disabled');
+                    doc.body.classList.add('ibexa-scroll-disabled');
                 } else {
                     doc.body.removeEventListener('click', detectClickOutside);
                     removeBackdrop();

@@ -13,7 +13,7 @@ const Tab = ({ children, actionsDisabledMap }) => {
     const topBarRef = useRef();
     const bottomBarRef = useRef();
     const [contentHeight, setContentHeight] = useState('100%');
-    const ContentMetaPreview = window.eZ.adminUiConfig.universalDiscoveryWidget.contentMetaPreview;
+    const ContentMetaPreview = window.ibexa.adminUiConfig.universalDiscoveryWidget.contentMetaPreview;
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const dropdownPortalRef = useContext(DropdownPortalRefContext);
     const selectedLocationsComponent = !!selectedLocations.length ? <SelectedLocations /> : null;

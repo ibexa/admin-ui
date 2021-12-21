@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'object_state' %}
 
-{% block body_class %}ez-object-state-view{% endblock %}
+{% block body_class %}ibexa-object-state-view{% endblock %}
 
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block content %}
-    <section class="container ez-container">
+    <section class="container ibexa-container">
         {% set body_row_cols = [] %}
 
         {% set body_row_cols = body_row_cols|merge([

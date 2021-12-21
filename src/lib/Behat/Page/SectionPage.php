@@ -139,10 +139,10 @@ class SectionPage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-page-title h1'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
             new VisibleCSSLocator('contentItemsTable', '.ibexa-main-container__content-column .ibexa-table'),
             new VisibleCSSLocator('assignButton', '#section_content_assign_locations_select_content'),
-            new VisibleCSSLocator('sectionInfoTable', '.ez-container .ibexa-table'),
+            new VisibleCSSLocator('sectionInfoTable', '.ibexa-container .ibexa-table'),
             new VisibleCSSLocator('deleteButton', 'button[data-bs-original-title="Delete Section"]'),
             new VisibleCSSLocator('editButton', 'a[data-bs-original-title="Edit"]'),
             new VisibleCSSLocator('sectionPropertiesItem', '.ibexa-details__item'),

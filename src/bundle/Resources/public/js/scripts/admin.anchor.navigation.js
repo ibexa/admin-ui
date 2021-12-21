@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const scrollOffset = 300;
     const formContainerNode = doc.querySelector('.ibexa-edit-content');
     const allSections = [...doc.querySelectorAll('.ibexa-anchor-navigation-sections__section')];
@@ -51,4 +51,4 @@
             }
         });
     }
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

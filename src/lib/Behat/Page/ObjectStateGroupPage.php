@@ -122,8 +122,8 @@ class ObjectStateGroupPage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-page-title h1'),
-            new VisibleCSSLocator('propertiesTable', '.ez-container .ibexa-table'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
+            new VisibleCSSLocator('propertiesTable', '.ibexa-container .ibexa-table'),
             new VisibleCSSLocator('objectStatesTable', '[name="object_states_delete"]'),
             new VisibleCSSLocator('createButton', '.ibexa-icon--create'),
             new VisibleCSSLocator('deleteButton', '.ibexa-icon--trash'),

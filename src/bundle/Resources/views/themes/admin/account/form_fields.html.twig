@@ -5,7 +5,7 @@
 {%- block form_errors -%}
     {%- if errors|length > 0 -%}
         {%- for error in errors -%}
-            <em class="ez-field__error">{{ error.message }}</em>
+            <em class="ibexa-field__error">{{ error.message }}</em>
         {%- endfor -%}
     {%- endif -%}
 {%- endblock -%}
@@ -34,7 +34,7 @@
 
 {% block form_row -%}
     {% set wrapper_class = 'form-group' %}
-    {% if required %}{% set wrapper_class = (wrapper_class|default('') ~ ' ez-field--required')|trim %}{% endif %}
+    {% if required %}{% set wrapper_class = (wrapper_class|default('') ~ ' ibexa-field--required')|trim %}{% endif %}
     {% if errors|length > 0 %}{% set wrapper_class = (wrapper_class|default('') ~ ' is-invalid')|trim %}{% endif %}
 
     {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' ibexa-label')|trim}) %}

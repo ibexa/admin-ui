@@ -1,4 +1,4 @@
-(function(global, doc, eZ, React, ReactDOM, Translator) {
+(function(global, doc, ibexa, React, ReactDOM, Translator) {
     const btns = doc.querySelectorAll('.ibexa-btn--udw-select-location');
     const udwContainer = doc.getElementById('react-udw');
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
@@ -37,9 +37,9 @@
         );
 
         fetch(request)
-            .then(eZ.helpers.request.getJsonFromResponse)
+            .then(ibexa.helpers.request.getJsonFromResponse)
             .then(callback)
-            .catch(() => eZ.helpers.notification.showErrorNotification(errorMessage));
+            .catch(() => ibexa.helpers.notification.showErrorNotification(errorMessage));
     };
     const removeRootFromPathString = (pathString) => {
         const pathArray = pathString.split('/').filter((val) => val);
@@ -101,7 +101,7 @@
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
 
         ReactDOM.render(
-            React.createElement(eZ.modules.UniversalDiscovery, {
+            React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(null, event.currentTarget),
                 onCancel,
                 title: event.currentTarget.dataset.universalDiscoveryTitle,
@@ -126,4 +126,4 @@
             clearBtn.addEventListener('click', clearSelection.bind(null, btn), false);
         }
     });
-})(window, window.document, window.eZ, window.React, window.ReactDOM, window.Translator);
+})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator);

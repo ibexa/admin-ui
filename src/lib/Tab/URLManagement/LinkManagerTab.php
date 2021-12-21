@@ -124,7 +124,7 @@ class LinkManagerTab extends AbstractTab implements OrderedTabInterface, Conditi
         $urls->setCurrentPage($data->page);
         $urls->setMaxPerPage($data->limit ? $data->limit : self::DEFAULT_MAX_PER_PAGE);
 
-        return $this->twig->render('@ezdesign/link_manager/list.html.twig', [
+        return $this->twig->render('@ibexadesign/link_manager/list.html.twig', [
             'form' => $form->createView(),
             'can_edit' => $this->permissionResolver->hasAccess('url', 'update'),
             'urls' => $urls,

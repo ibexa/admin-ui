@@ -47,7 +47,7 @@ class ContentTypeGroupPage extends Page
 
     public function hasContentTypes(): bool
     {
-        return $this->getHTMLPage()->findAll($this->getLocator('tableItem'))->any();
+        return $this->table->isEmpty() === false;
     }
 
     public function edit(string $contentTypeName): void
@@ -126,12 +126,12 @@ class ContentTypeGroupPage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-page-title h1'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
             new VisibleCSSLocator('createButton', '.ibexa-icon--create'),
             new VisibleCSSLocator('listHeader', '.ibexa-table-header .ibexa-table-header__headline, header .ibexa-table__headline, header h5'),
-            new VisibleCSSLocator('tableContainer', '.ez-container'),
+            new VisibleCSSLocator('tableContainer', '.ibexa-container'),
             new VisibleCSSLocator('deleteButton', '.ibexa-icon--trash,button[data-bs-original-title^="Delete"]'),
-            new VisibleCSSLocator('tableItem', '.ez-main-container tbody tr'),
+            new VisibleCSSLocator('tableItem', '.ibexa-main-container tbody tr'),
             new VisibleCSSLocator('contentTypeLabel', '.ibexa-table__cell > a'),
         ];
     }

@@ -1,8 +1,8 @@
 (function(global, doc) {
     let filterTimeout;
-    const SELECTOR_ITEM = '.ez-instant-filter__group-item';
+    const SELECTOR_ITEM = '.ibexa-instant-filter__group-item';
     const timeout = 200;
-    const filters = doc.querySelectorAll('.ez-instant-filter');
+    const filters = doc.querySelectorAll('.ibexa-instant-filter');
     const toggleGroupDisplay = (group) => {
         const areChildrenHidden = [...group.querySelectorAll(SELECTOR_ITEM)].every((item) => item.hasAttribute('hidden'));
 
@@ -22,8 +22,8 @@
         }, timeout);
     };
     const initFilter = (filter) => {
-        const filterInput = filter.querySelector('.ez-instant-filter__input');
-        const groups = [...filter.querySelectorAll('.ez-instant-filter__group')];
+        const filterInput = filter.querySelector('.ibexa-instant-filter__input');
+        const groups = [...filter.querySelectorAll('.ibexa-instant-filter__group')];
         const items = [...filter.querySelectorAll(SELECTOR_ITEM)];
         const itemsMap = items.reduce(
             (total, item) => [

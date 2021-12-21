@@ -34,7 +34,7 @@ SortSwitcher.defaultProps = {
     isDisabled: false,
 };
 
-eZ.addConfig(
+ibexa.addConfig(
     'adminUiConfig.universalDiscoveryWidget.topMenuActions',
     [
         {

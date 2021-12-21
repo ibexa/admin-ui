@@ -76,7 +76,7 @@ class AdminUpdateItemPage extends Page
     {
         return [
             new VisibleCSSLocator('formElement', '.ibexa-main-container '),
-            new VisibleCSSLocator('closeButton', '.ez-content-edit-container__close'),
+            new VisibleCSSLocator('closeButton', '.ibexa-content-edit-container__close'),
             new VisibleCSSLocator('button', '.container button'),
             new VisibleCSSLocator('fieldInput', 'input'),
         ];

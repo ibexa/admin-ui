@@ -20,22 +20,22 @@
     {{ 'url.view'|trans({ '%url%': url.url|u.truncate(60) })|desc('Link %url%') }}
 {% endblock %}
 
-{% block body_class %}ez-link-manager-view{% endblock %}
+{% block body_class %}ibexa-link-manager-view{% endblock %}
 
 {%- block content -%}
-    <section class="container ez-container">
-        <table class="ez-table table ez-table--list">
+    <section class="container ibexa-container">
+        <table class="ibexa-table table ibexa-table--list">
             <thead>
                 <tr>
-                   <th class="ez-table__cell ez-table__cell--header" colspan="2">
+                   <th class="ibexa-table__cell ibexa-table__cell--header" colspan="2">
                        {{ 'url.tab.information'|trans|desc('Details') }}
                    </th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="ez-table__row">
-                    <td class="ez-table__cell">{{ 'url.label.address'|trans }}</td>
-                    <td class="ez-table__cell ez-table__cell--has-action-btns">
+                <tr class="ibexa-table__row">
+                    <td class="ibexa-table__cell">{{ 'url.label.address'|trans }}</td>
+                    <td class="ibexa-table__cell ibexa-table__cell--has-action-btns">
                         <a href="{{ url.url }}" target="_blank">{{ url.url }}</a>
                         <a href="{{ path('ezplatform.link_manager.edit', { urlId: url.id }) }}"
                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2 float-right"
@@ -46,13 +46,13 @@
                         </a>
                     </td>
                 </tr>
-                <tr class="ez-table__row">
-                    <td class="ez-table__cell">{{ 'url.label.status'|trans }}</td>
-                    <td class="ez-table__cell">{{ url.isValid ? 'url.status.valid'|trans : 'url.status.invalid'|trans }}</td>
+                <tr class="ibexa-table__row">
+                    <td class="ibexa-table__cell">{{ 'url.label.status'|trans }}</td>
+                    <td class="ibexa-table__cell">{{ url.isValid ? 'url.status.valid'|trans : 'url.status.invalid'|trans }}</td>
                 </tr>
-                <tr class="ez-table__row">
-                    <td class="ez-table__cell">{{ 'url.label.last_checked'|trans }}</td>
-                    <td class="ez-table__cell">
+                <tr class="ibexa-table__row">
+                    <td class="ibexa-table__cell">{{ 'url.label.last_checked'|trans }}</td>
+                    <td class="ibexa-table__cell">
                         {% if url.lastChecked %}
                             {{ url.lastChecked|ibexa_full_datetime }}
                         {% else %}
@@ -60,19 +60,19 @@
                         {% endif %}
                     </td>
                 </tr>
-                <tr class="ez-table__row">
-                    <td class="ez-table__cell">{{ 'url.label.created'|trans }}</td>
-                    <td class="ez-table__cell">{{ url.created|ibexa_full_datetime }}</td>
+                <tr class="ibexa-table__row">
+                    <td class="ibexa-table__cell">{{ 'url.label.created'|trans }}</td>
+                    <td class="ibexa-table__cell">{{ url.created|ibexa_full_datetime }}</td>
                 </tr>
-                <tr class="ez-table__row">
-                    <td class="ez-table__cell">{{ 'url.label.modified'|trans }}</td>
-                    <td class="ez-table__cell">{{ url.modified|ibexa_full_datetime }}</td>
+                <tr class="ibexa-table__row">
+                    <td class="ibexa-table__cell">{{ 'url.label.modified'|trans }}</td>
+                    <td class="ibexa-table__cell">{{ url.modified|ibexa_full_datetime }}</td>
                 </tr>
             </tbody>
         </table>
     </section>
 
-    <section class="container ez-container mt-5">
+    <section class="container ibexa-container mt-5">
         {% set body_rows = [] %}
         {% for content in usages %}
             {% set body_row_cols = [] %}
@@ -128,14 +128,14 @@
         } %}
 
         {% if usages.haveToPaginate %}
-            <div class="row justify-content-center align-items-center ez-pagination__spacing mb-5">
+            <div class="row justify-content-center align-items-center ibexa-pagination__spacing mb-5">
                 {{ pagerfanta(usages, 'ez') }}
             </div>
         {% endif %}
 
         {{ form_start(form_edit, {
             'action': path('ezplatform.content.edit'),
-            'attr': { 'class': 'ez-edit-content-form'}
+            'attr': { 'class': 'ibexa-edit-content-form'}
         }) }}
             {{ form_widget(form_edit.language, {'attr': {'hidden': 'hidden', 'class': 'language-input'}}) }}
         {{ form_end(form_edit) }}
@@ -143,5 +143,5 @@
 {%- endblock -%}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-link-manager-view-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-link-manager-view-js', null, 'ibexa') }}
 {% endblock %}

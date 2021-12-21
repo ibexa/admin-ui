@@ -108,7 +108,7 @@ class RelationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
      */
     public function getTemplate(): string
     {
-        return '@ezdesign/content/tab/relations/tab.html.twig';
+        return '@ibexadesign/content/tab/relations/tab.html.twig';
     }
 
     /**

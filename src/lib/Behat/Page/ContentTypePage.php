@@ -99,9 +99,9 @@ class ContentTypePage extends Page
     {
         return [
             new VisibleCSSLocator('createButton', '.btn-icon .ibexa-icon--create'),
-            new VisibleCSSLocator('pageTitle', '.ez-page-title h1'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
             new VisibleCSSLocator('contentTypeDataTable', '.ibexa-details .ibexa-table'),
-            new VisibleCSSLocator('contentFieldsTable', '.ez-fieldgroup:nth-of-type(2)'),
+            new VisibleCSSLocator('contentFieldsTable', '.ibexa-fieldgroup:nth-of-type(2)'),
             new VisibleCSSLocator('globalPropertiesItem', '.ibexa-details__item'),
             new VisibleCSSLocator('globalPropertiesLabel', '.ibexa-details__item-label'),
             new VisibleCSSLocator('globalPropertiesValue', '.ibexa-details__item-content'),

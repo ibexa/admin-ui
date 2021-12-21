@@ -63,10 +63,10 @@
             {{ form_start(form_assign_section, {
                 'action': path('ezplatform.location.assign_section'),
                 'attr': {
-                    'class': 'form-inline ez-form-inline ez-form-inline--align-left'
+                    'class': 'form-inline ibexa-form-inline ibexa-form-inline--align-left'
                 }
             }) }}
-            {{ form_row(form_assign_section.section, { 'attr': {'class': 'ez-form-autosubmit'} }) }}
+            {{ form_row(form_assign_section.section, { 'attr': {'class': 'ibexa-form-autosubmit'} }) }}
 
             {% do form_assign_section.assign.setRendered() %}
             {{ form_end(form_assign_section) }}
@@ -119,11 +119,11 @@
                     'contentInfoId': content_info.id,
                     'objectStateGroupId': object_state.objectStateGroup.id
                 }),
-                'attr': {'class': 'form-inline ez-form-inline ez-form-inline--align-left'}
+                'attr': {'class': 'form-inline ibexa-form-inline ibexa-form-inline--align-left'}
             }) }}
                 {{ form_row(form_state_update[object_state.objectStateGroup.id].contentInfo) }}
                 {{ form_row(form_state_update[object_state.objectStateGroup.id].objectStateGroup) }}
-                {{ form_row(form_state_update[object_state.objectStateGroup.id].objectState, { 'attr': {'class': 'ez-form-autosubmit'} }) }}
+                {{ form_row(form_state_update[object_state.objectStateGroup.id].objectState, { 'attr': {'class': 'ibexa-form-autosubmit'} }) }}
                 {% do form_state_update[object_state.objectStateGroup.id].set.setRendered %}
             {{ form_end(form_state_update[object_state.objectStateGroup.id]) }}
         {% endif %}
@@ -154,14 +154,14 @@
     {{ form_start(form_location_update, {
         'method': 'POST',
         'action': path('ezplatform.location.update'),
-        'attr': {'class': 'form-inline ez-form-inline justify-content-start'}
+        'attr': {'class': 'form-inline ibexa-form-inline justify-content-start'}
         }) }}
 
     {{ form_label(form_location_update.sort_field, 'tab.details.sub_items_listing_by.order_by'|trans|desc('Order by')) }}
-    {{ form_widget(form_location_update.sort_field, { 'attr': {'class': 'ez-form-autosubmit ml-2'} }) }}
+    {{ form_widget(form_location_update.sort_field, { 'attr': {'class': 'ibexa-form-autosubmit ml-2'} }) }}
 
     {{ form_label(form_location_update.sort_order, 'tab.details.sub_items_listing_by.in'|trans|desc('in')) }}
-    {{ form_widget(form_location_update.sort_order, { 'attr': {'class': 'ez-form-autosubmit ml-2'} }) }}
+    {{ form_widget(form_location_update.sort_order, { 'attr': {'class': 'ibexa-form-autosubmit ml-2'} }) }}
 
     {% do form_location_update.update.setRendered() %}
     {{ form_end(form_location_update) }}

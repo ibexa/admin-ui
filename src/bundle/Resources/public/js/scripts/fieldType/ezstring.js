@@ -1,8 +1,8 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezstring';
     const SELECTOR_SOURCE_INPUT = '.ibexa-data-source__input';
 
-    class EzStringValidator extends eZ.BaseFieldValidator {
+    class EzStringValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
@@ -21,11 +21,11 @@
             const result = { isError };
 
             if (isEmpty) {
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             } else if (isTooShort) {
-                result.errorMessage = eZ.errors.tooShort.replace('{fieldName}', label).replace('{minLength}', event.target.dataset.min);
+                result.errorMessage = ibexa.errors.tooShort.replace('{fieldName}', label).replace('{minLength}', event.target.dataset.min);
             } else if (isTooLong) {
-                result.errorMessage = eZ.errors.tooLong.replace('{fieldName}', label).replace('{maxLength}', event.target.dataset.max);
+                result.errorMessage = ibexa.errors.tooLong.replace('{fieldName}', label).replace('{maxLength}', event.target.dataset.max);
             }
 
             return result;
@@ -48,5 +48,5 @@
 
     validator.init();
 
-    eZ.addConfig('fieldTypeValidators', [validator], true);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('fieldTypeValidators', [validator], true);
+})(window, window.document, window.ibexa);

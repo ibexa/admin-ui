@@ -3,7 +3,7 @@
 {% trans_default_domain 'content_type' %}
 {% set current_language = app.request.get('languageCode') ?: language_code %}
 
-<div class="container ez-container">
+<div class="container ibexa-container">
     {% set global_properties_items = [
         {
             label: 'content_type.name'|trans|desc('Name'),
@@ -45,7 +45,7 @@
     {% set global_properties_headline_items %}
         {% if languages|length > 1 %}
             <form class="form-inline justify-content-end mb-4">
-                <select class="form-control ez-location-language-change">
+                <select class="form-control ibexa-location-language-change">
                     {% for language in languages %}
                         <option
                             value="{{ path('ezplatform.content_type.view', {
@@ -70,9 +70,9 @@
         items: global_properties_items,
     } only %}
 
-    <section class="ez-fieldgroup">
-        <h2 class="ez-fieldgroup__name">{{ "content_type.content_field_definitions"|trans|desc("Content Field definitions") }}</h2>
-        <div class="ez-fieldgroup__content">
+    <section class="ibexa-fieldgroup">
+        <h2 class="ibexa-fieldgroup__name">{{ "content_type.content_field_definitions"|trans|desc("Content Field definitions") }}</h2>
+        <div class="ibexa-fieldgroup__content">
             {% for group, field_definitions in field_definitions_by_group %}
                 {% set body_rows = [] %}
                 {% for field_definition in field_definitions %}

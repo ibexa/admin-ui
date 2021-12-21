@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const NOTIFICATION_INFO_LABEL = 'info';
     const NOTIFICATION_SUCCESS_LABEL = 'success';
     const NOTIFICATION_WARNING_LABEL = 'warning';
@@ -88,11 +88,11 @@
         });
     };
 
-    eZ.addConfig('helpers.notification', {
+    ibexa.addConfig('helpers.notification', {
         showNotification,
         showInfoNotification,
         showSuccessNotification,
         showWarningNotification,
         showErrorNotification,
     });
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

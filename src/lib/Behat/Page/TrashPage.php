@@ -110,7 +110,7 @@ class TrashPage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-page-title h1'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
             new VisibleCSSLocator('restoreButton', '#trash_item_restore_restore'),
             new VisibleCSSLocator('trashButton', '#delete-trash-items'),
             new VisibleCSSLocator('restoreUnderNewLocationButton', '#trash_item_restore_location_select_content'),

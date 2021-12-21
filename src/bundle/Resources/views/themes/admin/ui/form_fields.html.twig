@@ -39,13 +39,13 @@
 {%- block content_type_choice_widget_options -%}
     {%- for group_label, choice in options -%}
         {%- if choice is iterable -%}
-            <div class="ez-instant-filter__group">
-                <div class="ez-instant-filter__group-name">{{ choice_translation_domain is same as(false) ? group_label : group_label|trans({}, choice_translation_domain) }}</div>
+            <div class="ibexa-instant-filter__group">
+                <div class="ibexa-instant-filter__group-name">{{ choice_translation_domain is same as(false) ? group_label : group_label|trans({}, choice_translation_domain) }}</div>
                 {%- set options = choice -%}
                 {{- block('content_type_choice_widget_options') -}}
             </div>
         {%- else -%}
-            <div class="ez-instant-filter__group-item">
+            <div class="ibexa-instant-filter__group-item">
                 <svg class="ibexa-icon ibexa-icon--small">
                     <use xlink:href="{{ ibexa_content_type_icon(choice.value) }}"></use>
                 </svg>
@@ -206,14 +206,14 @@
 {%- endblock -%}
 
 {%- block date_time_picker_widget -%}
-    <div class="ez-picker">
-        <input type="text" class="ez-picker__input form-control" readonly="readonly">
-        <button type="button" class="ez-picker__btn--clear-input">
+    <div class="ibexa-picker">
+        <input type="text" class="ibexa-picker__input form-control" readonly="readonly">
+        <button type="button" class="ibexa-picker__btn--clear-input">
             <svg class="ibexa-icon ibexa-icon--medium">
                 <use xlink:href="{{ ibexa_icon_path('circle-close') }}"></use>
             </svg>
         </button>
-        {% set attr = attr|merge({ 'hidden': true, 'class': 'ez-picker__form-input' }) %}
+        {% set attr = attr|merge({ 'hidden': true, 'class': 'ibexa-picker__form-input' }) %}
         {{ block('form_widget') }}
     </div>
 {%- endblock -%}
@@ -226,7 +226,7 @@
 {%- block richtext_widget -%}
     {% set attr = attr|merge({ 'hidden': true }) %}
 
-    <div class="ez-data-source">
+    <div class="ibexa-data-source">
         <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
         <div class="hidden" data-udw-config-name="richtext_embed" data-udw-config="{{ ibexa_udw_config('richtext_embed', udw_context) }}"></div>
         <div class="hidden" data-udw-config-name="richtext_embed_image" data-udw-config="{{ ibexa_udw_config('richtext_embed_image', udw_context) }}"></div>
@@ -271,7 +271,7 @@
 {%- block _search_created_select_widget -%}
     {{ form_widget(form, { attr: { dropdown_class: 'ibexa-dropdown--small' }}) }}
     <div 
-        class="ibexa-filters__range-wrapper ibexa-filters__range-wrapper--select-created-range {% if form.vars.data == "custom_range" %}ez-filters__range-wrapper--visible{% endif %}"
+        class="ibexa-filters__range-wrapper ibexa-filters__range-wrapper--select-created-range {% if form.vars.data == "custom_range" %}ibexa-filters__range-wrapper--visible{% endif %}"
         data-period-selector="#search_created_date_interval" 
         data-end-selector="#search_created_end_date"
     >
@@ -289,14 +289,14 @@
 {%- block _trash_search_trashed_widget -%}
     {{ form_widget(form) }}
     <div 
-        class="ez-trash-search-form__range-wrapper ez-trash-search-form__range-wrapper--select-trashed-range {% if form.vars.data == "custom_range" %}ez-trash-search-form__range-wrapper--visible{% endif %}" 
+        class="ibexa-trash-search-form__range-wrapper ibexa-trash-search-form__range-wrapper--select-trashed-range {% if form.vars.data == "custom_range" %}ibexa-trash-search-form__range-wrapper--visible{% endif %}" 
         data-period-selector="#trash_search_trashed_interval_date_interval" 
         data-end-selector="#trash_search_trashed_interval_end_date"
     >
 
         <input 
             type="text"
-            class="ez-trash-search-form__range-select form-control"
+            class="ibexa-trash-search-form__range-select form-control"
             placeholder="{{ 'search.date.range'|trans(domain='search')|desc('From date - to date') }}"
             data-start="{{ form.parent.vars.data.trashedInterval.start_date is defined ? form.parent.vars.data.trashedInterval.start_date|date("Y-m-d") : '' }}"
             data-end="{{ form.parent.vars.data.trashedInterval.end_date is defined ? form.parent.vars.data.trashedInterval.end_date|date("Y-m-d") : '' }}"

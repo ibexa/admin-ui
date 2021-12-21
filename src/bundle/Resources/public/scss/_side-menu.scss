@@ -9,7 +9,7 @@
         fill: $ibexa-white;
     }
 
-    .ez-sticky-container > .btn {
+    .ibexa-sticky-container > .btn {
         width: 100%;
         height: calculateRem(80px);
         padding: calculateRem(2px) calculateRem(4px);
@@ -47,7 +47,7 @@
         }
     }
 
-    .ez-sticky-container {
+    .ibexa-sticky-container {
         max-width: calculateRem(90px);
     }
 }

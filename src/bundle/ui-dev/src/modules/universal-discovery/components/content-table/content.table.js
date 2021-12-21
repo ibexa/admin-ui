@@ -17,7 +17,7 @@ const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPa
     )
 
     useEffect(() => {
-        window.eZ.helpers.tooltips.parse(refContentTable.current);
+        window.ibexa.helpers.tooltips.parse(refContentTable.current);
     }, []);
 
     return (

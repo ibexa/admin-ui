@@ -75,8 +75,8 @@ const ContentEditTabModule = () => {
             handleContentPublished(parseInt(locationId.content, 10));
         }
 
-        iframeRef.current.contentWindow.document.body.addEventListener('ez-udw-opened', hideFooter, false);
-        iframeRef.current.contentWindow.document.body.addEventListener('ez-udw-closed', showFooter, false);
+        iframeRef.current.contentWindow.document.body.addEventListener('ibexa-udw-opened', hideFooter, false);
+        iframeRef.current.contentWindow.document.body.addEventListener('ibexa-udw-closed', showFooter, false);
     };
     const hideFooter = () => setFooterVisible(false);
     const showFooter = () => setFooterVisible(true);
@@ -96,12 +96,12 @@ const ContentEditTabModule = () => {
     });
 
     useEffect(() => {
-        window.document.body.addEventListener('ez-udw-hide-footer', hideFooter, false);
-        window.document.body.addEventListener('ez-udw-show-footer', showFooter, false);
+        window.document.body.addEventListener('ibexa-udw-hide-footer', hideFooter, false);
+        window.document.body.addEventListener('ibexa-udw-show-footer', showFooter, false);
 
         return () => {
-            window.document.body.removeEventListener('ez-udw-hide-footer', hideFooter, false);
-            window.document.body.removeEventListener('ez-udw-show-footer', showFooter, false);
+            window.document.body.removeEventListener('ibexa-udw-hide-footer', hideFooter, false);
+            window.document.body.removeEventListener('ibexa-udw-show-footer', showFooter, false);
         };
     });
 
@@ -120,7 +120,7 @@ const ContentEditTabModule = () => {
     );
 };
 
-eZ.addConfig(
+ibexa.addConfig(
     'adminUiConfig.universalDiscoveryWidget.tabs',
     [
         {

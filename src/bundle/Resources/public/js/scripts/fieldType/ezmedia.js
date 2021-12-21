@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezmedia';
     const SELECTOR_PREVIEW = '.ibexa-field-edit__preview';
     const SELECTOR_MEDIA = '.ibexa-field-edit-preview__media';
@@ -8,7 +8,7 @@
     const CLASS_MEDIA_WRAPPER_LOADING = 'ibexa-field-edit-preview__media-wrapper--loading';
     const SELECTOR_FILESIZE_NOTICE = '.ibexa-data-source__message--filesize';
 
-    class EzMediaValidator extends eZ.BaseFileFieldValidator {
+    class EzMediaValidator extends ibexa.BaseFileFieldValidator {
         validateFileSize(event) {
             event.currentTarget.dispatchEvent(new CustomEvent('ibexa-invalid-file-size'));
 
@@ -36,9 +36,9 @@
             const result = { isError };
 
             if (isEmpty) {
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             } else if (!isInteger) {
-                result.errorMessage = eZ.errors.isNotInteger.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.isNotInteger.replace('{fieldName}', label);
             }
 
             if (!input.closest('.ibexa-field-edit__preview').hasAttribute('hidden')) {
@@ -49,7 +49,7 @@
         }
     }
 
-    class EzMediaPreviewField extends eZ.BasePreviewField {
+    class EzMediaPreviewField extends ibexa.BasePreviewField {
         /**
          * Loads dropped file preview
          *
@@ -170,6 +170,6 @@
 
         previewField.init();
 
-        eZ.addConfig('fieldTypeValidators', [validator], true);
+        ibexa.addConfig('fieldTypeValidators', [validator], true);
     });
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

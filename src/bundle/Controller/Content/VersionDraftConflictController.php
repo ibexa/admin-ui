@@ -103,7 +103,7 @@ class VersionDraftConflictController extends Controller
                 $location = array_shift($availableLocations);
             }
 
-            $modalContent = $this->renderView('@ezdesign/content/modal/draft_conflict.html.twig', [
+            $modalContent = $this->renderView('@ibexadesign/content/modal/draft_conflict.html.twig', [
                 'conflicted_drafts' => $conflictedDrafts,
                 'location' => $location,
                 'content_is_user' => (new ContentIsUser($this->userService))->isSatisfiedBy($content),

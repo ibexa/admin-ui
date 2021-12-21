@@ -1,8 +1,8 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezinteger';
     const SELECTOR_ERROR_NODE = `${SELECTOR_FIELD} .ibexa-form-error`;
 
-    class EzIntegerValidator extends eZ.BaseFieldValidator {
+    class EzIntegerValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
@@ -23,15 +23,15 @@
             const result = { isError };
 
             if (isEmpty) {
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             } else if (!isInteger) {
-                result.errorMessage = eZ.errors.isNotInteger.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.isNotInteger.replace('{fieldName}', label);
             } else if (isLess) {
-                result.errorMessage = eZ.errors.isLess
+                result.errorMessage = ibexa.errors.isLess
                     .replace('{fieldName}', label)
                     .replace('{minValue}', event.target.getAttribute('min'));
             } else if (isGreater) {
-                result.errorMessage = eZ.errors.isGreater
+                result.errorMessage = ibexa.errors.isGreater
                     .replace('{fieldName}', label)
                     .replace('{maxValue}', event.target.getAttribute('max'));
             }
@@ -55,5 +55,5 @@
 
     validator.init();
 
-    eZ.addConfig('fieldTypeValidators', [validator], true);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('fieldTypeValidators', [validator], true);
+})(window, window.document, window.ibexa);

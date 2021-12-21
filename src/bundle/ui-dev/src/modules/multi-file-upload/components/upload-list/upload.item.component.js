@@ -374,7 +374,7 @@ export default class UploadItemComponent extends Component {
             return null;
         }
 
-        const contentTypeIconUrl = eZ.helpers.contentType.getContentTypeIconUrl(contentTypeIdentifier);
+        const contentTypeIconUrl = ibexa.helpers.contentType.getContentTypeIconUrl(contentTypeIdentifier);
 
         return <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small-medium" />;
     }

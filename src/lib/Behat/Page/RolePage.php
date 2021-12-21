@@ -157,7 +157,7 @@ class RolePage extends Page
             new VisibleCSSLocator('createPolicyButton', '[data-bs-original-title="Add a new Policy"]'),
             new VisibleCSSLocator('assignmentTable', '[name="role_assignments_delete"]'),
             new VisibleCSSLocator('policiesTable', '[name="policies_delete"]'),
-            new VisibleCSSLocator('pageTitle', '.ez-page-title h1'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
         ];
     }
 

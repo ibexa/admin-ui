@@ -30,7 +30,7 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
                         key={languageCode}
                         className="c-translation-selector__language"
                         onClick={selectTranslation.bind(this, languageCode)}>
-                        {window.eZ.adminUiConfig.languages.mappings[languageCode].name}
+                        {window.ibexa.adminUiConfig.languages.mappings[languageCode].name}
                     </div>
                 ))}
             </div>

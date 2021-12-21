@@ -109,7 +109,7 @@ class PoliciesTab extends AbstractEventDispatchingTab implements OrderedTabInter
      */
     public function getTemplate(): string
     {
-        return '@ezdesign/content/tab/policies/tab.html.twig';
+        return '@ibexadesign/content/tab/policies/tab.html.twig';
     }
 
     /**

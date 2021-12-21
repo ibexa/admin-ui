@@ -1,6 +1,6 @@
 (function(global, doc, localStorage, bootstrap) {
-    const CONTENT_PREVIEW_COLLAPSE_SELECTOR = '.ez-content-preview-collapse';
-    const DEFAULT_CONTENT_PREVIEW_TOGGLE_STATE_KEY = 'ez-content-preview-collapsed';
+    const CONTENT_PREVIEW_COLLAPSE_SELECTOR = '.ibexa-content-preview-collapse';
+    const DEFAULT_CONTENT_PREVIEW_TOGGLE_STATE_KEY = 'ibexa-content-preview-collapsed';
     const getStateKey = (collapseTarget) => {
         return collapseTarget.dataset.collapseStateKey || DEFAULT_CONTENT_PREVIEW_TOGGLE_STATE_KEY;
     };

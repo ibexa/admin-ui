@@ -8,7 +8,7 @@
     {% if can_translate %}
         {{ form_start(form_translation_remove, {
             'action': form_translation_remove_action|default(path('ezplatform.translation.remove')),
-            'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-translations' }
+            'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-translations' }
         }) }}
     {% endif %}
 

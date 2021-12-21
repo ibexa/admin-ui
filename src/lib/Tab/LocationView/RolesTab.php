@@ -109,7 +109,7 @@ class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterfac
      */
     public function getTemplate(): string
     {
-        return '@ezdesign/content/tab/roles/tab.html.twig';
+        return '@ibexadesign/content/tab/roles/tab.html.twig';
     }
 
     /**

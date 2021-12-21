@@ -45,7 +45,7 @@ class ViewTab extends AbstractEventDispatchingTab implements OrderedTabInterface
      */
     public function getTemplate(): string
     {
-        return '@ezdesign/content_type/tab/view.html.twig';
+        return '@ibexadesign/content_type/tab/view.html.twig';
     }
 
     /**

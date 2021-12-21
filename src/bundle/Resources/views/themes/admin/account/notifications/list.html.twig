@@ -28,13 +28,13 @@
 {% endembed %}
 
 {% if pager.haveToPaginate %}
-    <div class="ez-pagination">
-        <div class="ez-pagination__text">
+    <div class="ibexa-pagination">
+        <div class="ibexa-pagination__text">
             {{ 'pagination.viewing'|trans({
             '%viewing%': pager.currentPageResults|length,
             '%total%': pager.nbResults}, 'pagination')|desc('Viewing %viewing% out of %total% items')|raw }}
         </div>
-        <div class="ez-pagination__navigation">
+        <div class="ibexa-pagination__navigation">
             {{ pagination|raw }}
         </div>
     </div>

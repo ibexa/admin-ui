@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 
-const CLASS_NON_SCROLLABLE = 'ezs-non-scrollable';
+const CLASS_NON_SCROLLABLE = 'ibexa-non-scrollable';
 const CLASS_MODAL_OPEN = 'modal-open';
 const MODAL_CONFIG = {
     backdrop: 'static',

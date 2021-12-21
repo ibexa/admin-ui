@@ -26,7 +26,7 @@ const selectedContentTypesReducer = (state, action) => {
     }
 };
 
-const configLanguages = window.eZ.adminUiConfig.languages;
+const configLanguages = window.ibexa.adminUiConfig.languages;
 const languages = configLanguages.priority.map((value) => {
     return configLanguages.mappings[value];
 });

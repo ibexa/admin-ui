@@ -1,4 +1,4 @@
-(function (global, doc, eZ) {
+(function (global, doc, ibexa) {
     const onChangeHandler = (activeClass, event) => {
         const { checked } = event.target;
         const action = checked ? 'add' : 'remove';
@@ -12,7 +12,7 @@
         });
     };
 
-    eZ.addConfig('helpers.table', {
+    ibexa.addConfig('helpers.table', {
         parseCheckbox,
     });
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

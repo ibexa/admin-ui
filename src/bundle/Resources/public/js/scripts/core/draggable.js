@@ -1,5 +1,5 @@
-(function (global, doc, eZ) {
-    const SELECTOR_PLACEHOLDER = '.ez-draggable__placeholder';
+(function (global, doc, ibexa) {
+    const SELECTOR_PLACEHOLDER = '.ibexa-draggable__placeholder';
     const TIMEOUT_REMOVE_PLACEHOLDERS = 500;
 
     class Draggable {
@@ -98,5 +98,5 @@
         }
     }
 
-    eZ.addConfig('core.Draggable', Draggable);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('core.Draggable', Draggable);
+})(window, window.document, window.ibexa);

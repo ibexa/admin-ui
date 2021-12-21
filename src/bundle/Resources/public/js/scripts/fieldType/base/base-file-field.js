@@ -1,7 +1,7 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const SELECTOR_FIELD_LABEL = '.ibexa-field-edit__label-wrapper .ibexa-field-edit__label';
 
-    class BaseFileFieldValidator extends eZ.BaseFieldValidator {
+    class BaseFileFieldValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
@@ -22,7 +22,7 @@
             if (isRequired && isEmpty) {
                 result = {
                     isError: true,
-                    errorMessage: eZ.errors.emptyField.replace('{fieldName}', label),
+                    errorMessage: ibexa.errors.emptyField.replace('{fieldName}', label),
                 };
             }
 
@@ -47,12 +47,12 @@
             const label = this.fieldContainer.querySelector(SELECTOR_FIELD_LABEL).innerHTML;
             const result = {
                 isError: true,
-                errorMessage: eZ.errors.invalidFileSize.replace('{fieldName}', label),
+                errorMessage: ibexa.errors.invalidFileSize.replace('{fieldName}', label),
             };
 
             return result;
         }
     }
 
-    eZ.addConfig('BaseFileFieldValidator', BaseFileFieldValidator);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('BaseFileFieldValidator', BaseFileFieldValidator);
+})(window, window.document, window.ibexa);

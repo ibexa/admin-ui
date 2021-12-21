@@ -26,13 +26,13 @@
 
 {% block form %}
     {{ form_start(form) }}
-    <div class="container ez-container">
-        <section class="ez-fieldgroup">
-            <h2 class="ez-fieldgroup__name mb-3"><b>{{ 'policy.add.policy.title'|trans|desc('Adding Policy of type:') }}</b> {{ form.vars.value.module|capitalize ~ ' / ' ~ form.vars.value.function|capitalize }}</h2>
+    <div class="container ibexa-container">
+        <section class="ibexa-fieldgroup">
+            <h2 class="ibexa-fieldgroup__name mb-3"><b>{{ 'policy.add.policy.title'|trans|desc('Adding Policy of type:') }}</b> {{ form.vars.value.module|capitalize ~ ' / ' ~ form.vars.value.function|capitalize }}</h2>
         </section>
 
-        <section class="ez-fieldgroup">
-            <div class="ez-fieldgroup__content">
+        <section class="ibexa-fieldgroup">
+            <div class="ibexa-fieldgroup__content">
                 {{ form_widget(form.policy, {"attr": {"hidden": "hidden"}}) }}
 
                 {% for limitation_form in form.limitations %}
@@ -48,5 +48,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-policy-create-with-limitation-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-policy-create-with-limitation-js', null, 'ibexa') }}
 {% endblock %}

@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const OFFSET_ROUNDING_COMPENSATOR = 0.5;
     class AdaptiveItems {
         constructor(config) {
@@ -63,5 +63,5 @@
         }
     }
 
-    eZ.addConfig('core.AdaptiveItems', AdaptiveItems);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('core.AdaptiveItems', AdaptiveItems);
+})(window, window.document, window.ibexa);

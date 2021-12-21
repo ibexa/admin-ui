@@ -234,14 +234,14 @@
         {{ form_label(form.options, 'Options') }}
         {{ form_errors(form.options) }}
         <ul
-            class="ezselection-settings-option-list ez-selection-table list-unstyled"
+            class="ezselection-settings-option-list ibexa-selection-table list-unstyled"
             data-selection-buttons=".ezselection-settings-option-remove"
             data-next-option-id="{{ form.options.vars.value is empty ? 0 : max(form.options.vars.value|keys) + 1 }}">
             {% for option in form.options %}
-                <li class="ezselection-settings-option-value ez-selection-table-row mb-2 d-flex align-items-center">
+                <li class="ezselection-settings-option-value ibexa-selection-table-row mb-2 d-flex align-items-center">
                     <input
                         type="checkbox"
-                        class="ibexa-input ibexa-input--checkbox ezselection-settings-option-checkbox ez-selection-table-checkbox">
+                        class="ibexa-input ibexa-input--checkbox ezselection-settings-option-checkbox ibexa-selection-table-checkbox">
                     {{ form_errors(option) }}
                     {{ form_widget(option, { 'attr': { 'class': 'form-control ml-1 mb-0'}}) }}
                 </li>
@@ -251,8 +251,8 @@
             type="text/template" class="ezselection-settings-option-value-prototype"
             data-ezselection-option-input-name="{{ form.options.vars.prototype.vars.full_name }}"
             data-ezselection-option-input-id="{{ form.options.vars.prototype.vars.id }}">
-            <li class="ezselection-settings-option-value ez-selection-table-row mb-2 d-flex align-items-center">
-                <input type="checkbox" class="ibexa-input ibexa-input--checkbox ezselection-settings-option-checkbox ez-selection-table-checkbox">
+            <li class="ezselection-settings-option-value ibexa-selection-table-row mb-2 d-flex align-items-center">
+                <input type="checkbox" class="ibexa-input ibexa-input--checkbox ezselection-settings-option-checkbox ibexa-selection-table-checkbox">
                 {{ form_widget(form.options.vars.prototype, { 'attr': { 'class': 'form-control ml-1 mb-0'}}) }}
             </li>
         </script>
@@ -294,36 +294,36 @@
 {% endblock %}
 
 {% block ezuser_field_definition_edit %}
-    <div class="ez-field ez-field--user ez-user">
-        <div class="ez-user__settings {% if group_class is not empty %} {{ group_class }}{% endif %}">
+    <div class="ibexa-field ibexa-field--user ibexa-user">
+        <div class="ibexa-user__settings {% if group_class is not empty %} {{ group_class }}{% endif %}">
             {{- form_row(form.requireAtLeastOneUpperCaseCharacter, {'label_attr': {'class': 'checkbox-inline'}}) -}}
         </div>
 
-        <div class="ez-user__settings {% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-user__settings {% if group_class is not empty %} {{ group_class }}{% endif %}">
             {{- form_row(form.requireAtLeastOneLowerCaseCharacter, {'label_attr': {'class': 'checkbox-inline'}}) -}}
         </div>
 
-        <div class="ez-user__settings {% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-user__settings {% if group_class is not empty %} {{ group_class }}{% endif %}">
             {{- form_row(form.requireAtLeastOneNumericCharacter, {'label_attr': {'class': 'checkbox-inline'}}) -}}
         </div>
 
-        <div class="ez-user__settings {% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-user__settings {% if group_class is not empty %} {{ group_class }}{% endif %}">
             {{- form_row(form.requireAtLeastOneNonAlphanumericCharacter, {'label_attr': {'class': 'checkbox-inline'}}) -}}
         </div>
 
-        <div class="ez-user__settings text-rows{% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-user__settings text-rows{% if group_class is not empty %} {{ group_class }}{% endif %}">
             {{- form_row(form.minLength) -}}
         </div>
 
-        <div class="ez-user__settings text-rows{% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-user__settings text-rows{% if group_class is not empty %} {{ group_class }}{% endif %}">
             {{- form_row(form.passwordTTL) -}}
         </div>
 
-        <div class="ez-user__settings text-rows{% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-user__settings text-rows{% if group_class is not empty %} {{ group_class }}{% endif %}">
             {{- form_row(form.passwordTTLWarning) -}}
         </div>
 
-        <div class="ez-user__settings {% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-user__settings {% if group_class is not empty %} {{ group_class }}{% endif %}">
             {{- form_row(form.requireNewPassword, {'label_attr': {'class': 'checkbox-inline'}}) -}}
         </div>
     </div>

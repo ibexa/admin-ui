@@ -33,7 +33,7 @@ const TreeView = ({ itemsPerPage }) => {
     const restInfo = useContext(RestInfoContext);
     const rootLocationId = useContext(RootLocationIdContext);
     const locationData = useMemo(() => getLocationData(loadedLocationsMap, markedLocationId), [markedLocationId, loadedLocationsMap]);
-    const userId = window.eZ.helpers.user.getId();
+    const userId = window.ibexa.helpers.user.getId();
     const expandItem = (item, event) => {
         event.preventDefault();
         event.currentTarget

@@ -1,4 +1,4 @@
-(function(global, doc, eZ, Routing, Translator) {
+(function (global, doc, ibexa, Routing, Translator) {
     const TIMEOUT_REMOVE_PLACEHOLDERS = 1500;
     let targetContainer = null;
     let sourceContainer = null;
@@ -28,7 +28,7 @@
             contentType: 'application/vnd.ez.api.ContentTypeFieldDefinitionReorder+json',
         },
     };
-    const popupMenu = new eZ.core.PopupMenu({
+    const popupMenu = new ibexa.core.PopupMenu({
         popupMenuElement,
         triggerElement: addGroupTriggerBtn,
         onItemClick: (event) => {
@@ -97,7 +97,7 @@
         const dropdowns = fieldNode.querySelectorAll('.ibexa-dropdown');
 
         dropdowns.forEach((dropdownContainer) => {
-            const dropdown = new eZ.core.Dropdown({
+            const dropdown = new ibexa.core.Dropdown({
                 container: dropdownContainer,
             });
 
@@ -184,12 +184,12 @@
         }
 
         fetch(generateRequest('add', bodyData, languageCode))
-            .then(eZ.helpers.request.getTextFromResponse)
+            .then(ibexa.helpers.request.getTextFromResponse)
             .then((response) => {
                 insertFieldDefinitionNode(response);
                 afterChangeGroup();
             })
-            .catch(eZ.helpers.notification.showErrorNotification);
+            .catch(ibexa.helpers.notification.showErrorNotification);
     };
     const reorderFields = () => {
         insertFieldDefinitionNode(currentDraggedItem);
@@ -205,9 +205,9 @@
         const request = generateRequest('reorder', bodyData);
 
         fetch(request)
-            .then(eZ.helpers.request.getTextFromResponse)
+            .then(ibexa.helpers.request.getTextFromResponse)
             .then(() => afterChangeGroup())
-            .catch(eZ.helpers.notification.showErrorNotification);
+            .catch(ibexa.helpers.notification.showErrorNotification);
     };
     const removeFieldsGroup = (event) => {
         if (event.currentTarget.hasAttribute('disabled')) {
@@ -225,7 +225,7 @@
         };
 
         fetch(generateRequest('remove', bodyData))
-            .then(eZ.helpers.request.getTextFromResponse)
+            .then(ibexa.helpers.request.getTextFromResponse)
             .then(() => {
                 collapseNode.classList.add('ibexa-collapse--hidden');
                 collapseNode.querySelectorAll('.ibexa-collapse--field-definition').forEach((fieldDefinition) => {
@@ -233,7 +233,7 @@
                 });
                 afterChangeGroup();
             })
-            .catch(eZ.helpers.notification.showErrorNotification);
+            .catch(ibexa.helpers.notification.showErrorNotification);
     };
     const removeField = (event) => {
         const collapseNode = event.currentTarget.closest('.ibexa-collapse');
@@ -245,15 +245,15 @@
         };
 
         fetch(generateRequest('remove', bodyData))
-            .then(eZ.helpers.request.getTextFromResponse)
+            .then(ibexa.helpers.request.getTextFromResponse)
             .then(() => {
                 collapseNode.remove();
                 afterChangeGroup();
             })
-            .catch(eZ.helpers.notification.showErrorNotification);
+            .catch(ibexa.helpers.notification.showErrorNotification);
     };
 
-    class FieldDefinitionDraggable extends eZ.core.Draggable {
+    class FieldDefinitionDraggable extends ibexa.core.Draggable {
         onDrop(event) {
             targetContainer = event.currentTarget;
 
@@ -339,7 +339,7 @@
                 return;
             }
 
-            eZ.helpers.notification.showErrorNotification(
+            ibexa.helpers.notification.showErrorNotification(
                 Translator.trans(
                     /*@Desc("You have to add at least one field definition")*/ 'content_type.edit.error.no_added_fields_definition',
                     {},
@@ -349,4 +349,4 @@
         },
         false
     );
-})(window, window.document, window.eZ, window.Routing, window.Translator);
+})(window, window.document, window.ibexa, window.Routing, window.Translator);

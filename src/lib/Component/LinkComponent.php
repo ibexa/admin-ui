@@ -62,7 +62,7 @@ class LinkComponent implements Renderable
      */
     public function render(array $parameters = []): string
     {
-        return $this->twig->render('@ezdesign/ui/component/link.html.twig', [
+        return $this->twig->render('@ibexadesign/ui/component/link.html.twig', [
             'href' => $this->href,
             'type' => $this->type,
             'rel' => $this->rel,

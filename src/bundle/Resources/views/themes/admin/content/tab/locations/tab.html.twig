@@ -33,7 +33,7 @@
 
             {% set col_raw %}
                 <label
-                    class="ez-checkbox-icon {{ not location.explicitlyHidden ? 'is-checked' }}{{ not can_hide[location.id] ? 'disabled' }}"
+                    class="ibexa-checkbox-icon {{ not location.explicitlyHidden ? 'is-checked' }}{{ not can_hide[location.id] ? 'disabled' }}"
                     title="{{ 'tab.locations.visibility'|trans|desc('Visibility') }}"
                 >
                     <svg class="ibexa-icon ibexa-icon--view">
@@ -43,7 +43,7 @@
                         <use xlink:href="{{ ibexa_icon_path('view-hide') }}"></use>
                     </svg>
                     <input
-                        class="ez-checkbox-icon__checkbox"
+                        class="ibexa-checkbox-icon__checkbox"
                         {{ not location.explicitlyHidden ? 'checked' }}
                         type="checkbox"
                         name="updateVisibility"
@@ -100,21 +100,21 @@
         {% block between_header_and_table %}
             {{ form_start(form_content_location_remove, {
                 'action': path('ezplatform.location.remove'),
-                'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-locations' }
+                'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-locations' }
             }) }}
         {% endblock %}
     {% endembed %}
     {{ form_end(form_content_location_remove) }}
 
     {% if pager is defined and pager.haveToPaginate %}
-        <div class="row justify-content-center align-items-center mb-2 ez-pagination__spacing">
-                <span class="ez-pagination__text">
+        <div class="row justify-content-center align-items-center mb-2 ibexa-pagination__spacing">
+                <span class="ibexa-pagination__text">
                     {{ 'pagination.viewing'|trans({
                         '%viewing%': pager.currentPageResults|length,
                         '%total%': pager.nbResults}, 'pagination')|desc('Viewing %viewing% out of %total% items')|raw }}
                 </span>
         </div>
-        <div class="row justify-content-center align-items-center ez-pagination__btn mb-5">
+        <div class="row justify-content-center align-items-center ibexa-pagination__btn mb-5">
             {{ pagerfanta(pager, 'ez', pager_options|merge({
                 'routeParams': {
                     '_fragment': 'ibexa-tab-location-view-locations'

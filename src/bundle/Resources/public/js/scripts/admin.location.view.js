@@ -1,7 +1,7 @@
-(function(global, doc, localStorage, bootstrap, React, ReactDOM, eZ, Routing, Translator) {
+(function(global, doc, localStorage, bootstrap, React, ReactDOM, ibexa, Routing, Translator) {
     const SELECTOR_MODAL_BULK_ACTION_FAIL = '#bulk-action-failed-modal';
-    const listContainers = doc.querySelectorAll('.ez-sil');
-    const mfuContainer = doc.querySelector('#ez-mfu');
+    const listContainers = doc.querySelectorAll('.ibexa-sil');
+    const mfuContainer = doc.querySelector('#ibexa-mfu');
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const sortContainer = doc.querySelector('[data-sort-field][data-sort-order]');
@@ -9,7 +9,7 @@
     const sortOrder = sortContainer.getAttribute('data-sort-order');
     const mfuAttrs = {
         adminUiConfig: {
-            ...eZ.adminUiConfig,
+            ...ibexa.adminUiConfig,
             token,
             siteaccess,
         },
@@ -49,7 +49,7 @@
 
             if (conflictModal) {
                 bootstrap.Modal.getOrCreateInstance(conflictModal).show();
-                conflictModal.addEventListener('shown.bs.modal', () => eZ.helpers.tooltips.parse());
+                conflictModal.addEventListener('shown.bs.modal', () => ibexa.helpers.tooltips.parse());
             }
         };
         const showModal = (modalHtml) => {
@@ -76,7 +76,7 @@
         };
 
         fetch(checkEditPermissionLink, { mode: 'same-origin', credentials: 'same-origin' })
-            .then(eZ.helpers.request.getJsonFromResponse)
+            .then(ibexa.helpers.request.getJsonFromResponse)
             .then(handleCanEditCheck)
             .then((response) => {
                 // Status 409 means that a draft conflict has occurred and the modal must be displayed.
@@ -87,7 +87,7 @@
                     submitVersionEditForm();
                 }
             })
-            .catch(eZ.helpers.notification.showErrorNotification);
+            .catch(ibexa.helpers.notification.showErrorNotification);
     };
     const generateLink = (locationId, contentId) => Routing.generate('_ez_content_view', { contentId, locationId });
     const setModalTableTitle = (title) => {
@@ -99,8 +99,8 @@
     };
     const setModalTableBody = (failedItemsData) => {
         const modal = doc.querySelector(SELECTOR_MODAL_BULK_ACTION_FAIL);
-        const table = modal.querySelector('.ez-bulk-action-failed-modal__table');
-        const tableBody = table.querySelector('.ez-bulk-action-failed-modal__table-body');
+        const table = modal.querySelector('.ibexa-bulk-action-failed-modal__table');
+        const tableBody = table.querySelector('.ibexa-bulk-action-failed-modal__table-body');
         const { rowTemplate } = table.dataset;
         const fragment = doc.createDocumentFragment();
 
@@ -130,9 +130,9 @@
         bootstrap.Modal.getOrCreateInstance(doc.querySelector(SELECTOR_MODAL_BULK_ACTION_FAIL)).show();
     };
     const getLocationActiveView = (parentLocationId) => {
-        const mediaLocationId = eZ.adminUiConfig.locations.media;
+        const mediaLocationId = ibexa.adminUiConfig.locations.media;
         const defaultActiveView = parentLocationId === mediaLocationId ? 'grid' : 'table';
-        const activeView = localStorage.getItem(`ez-subitems-active-view-location-${parentLocationId}`);
+        const activeView = localStorage.getItem(`ibexa-subitems-active-view-location-${parentLocationId}`);
 
         return activeView || defaultActiveView;
     };
@@ -153,7 +153,7 @@
         }, {});
         const udwConfigBulkMoveItems = JSON.parse(container.dataset.udwConfigBulkMoveItems);
         const udwConfigBulkAddLocation = JSON.parse(container.dataset.udwConfigBulkAddLocation);
-        const mfuContentTypesMap = Object.values(eZ.adminUiConfig.contentTypes).reduce((contentTypeDataMap, contentTypeGroup) => {
+        const mfuContentTypesMap = Object.values(ibexa.adminUiConfig.contentTypes).reduce((contentTypeDataMap, contentTypeGroup) => {
             for (const contentTypeData of contentTypeGroup) {
                 contentTypeDataMap[contentTypeData.href] = contentTypeData;
             }
@@ -162,7 +162,7 @@
         }, {});
 
         ReactDOM.render(
-            React.createElement(eZ.modules.SubItems, {
+            React.createElement(ibexa.modules.SubItems, {
                 handleEditItem,
                 generateLink,
                 activeView,
@@ -171,7 +171,7 @@
                 restInfo: { token, siteaccess },
                 extraActions: [
                     {
-                        component: eZ.modules.MultiFileUpload,
+                        component: ibexa.modules.MultiFileUpload,
                         attrs: {
                             ...mfuAttrs,
                             onPopupClose: (itemsUploaded) => itemsUploaded.length && global.location.reload(true),
@@ -197,7 +197,7 @@
     window.bootstrap,
     window.React,
     window.ReactDOM,
-    window.eZ,
+    window.ibexa,
     window.Routing,
     window.Translator
 );

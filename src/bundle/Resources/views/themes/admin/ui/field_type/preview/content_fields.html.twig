@@ -5,7 +5,7 @@
 {% block ezauthor_field %}
     {% apply spaceless %}
         {% if field.value.authors|length() > 0 %}
-        {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ez-field-preview ez-field-preview--ezauthor')|trim}) %}
+        {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ezauthor')|trim}) %}
             <ul {{ block( 'field_attributes' ) }}>
                 {% for author in field.value.authors %}
                     <li>
@@ -151,10 +151,10 @@
 {% block ezkeyword_field %}
 {% apply spaceless %}
     {% if not ibexa_field_is_empty( content, field ) %}
-        {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ez-field-preview ez-field-preview--ezkeyword')|trim}) %}
+        {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ezkeyword')|trim}) %}
         <ul {{ block( 'field_attributes' ) }}>
         {% for keyword in field.value.values %}
-            <li class="ez-keyword__item">{{ keyword }}</li>
+            <li class="ibexa-keyword__item">{{ keyword }}</li>
         {% endfor %}
         </ul>
     {% endif %}
@@ -172,14 +172,14 @@
     {% endif %}
 
     {% if fieldSettings.isMultiple and field.value.selection|length() > 0  %}
-        {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ez-field-preview ez-field-preview--ezselection-multiple')|trim}) %}
+        {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ezselection-multiple')|trim}) %}
         <ul {{ block( 'field_attributes' ) }}>
         {% for selectedIndex in field.value.selection %}
-            <li class="ez-selection__item">{{ options[selectedIndex] }}</li>
+            <li class="ibexa-selection__item">{{ options[selectedIndex] }}</li>
         {% endfor %}
         </ul>
     {% elseif not fieldSettings.isMultiple %}
-        {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ez-field-preview ez-field-preview--ezselection-single')|trim}) %}
+        {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ezselection-single')|trim}) %}
 
         {% set field_value = options[field.value.selection|first]|escape %}
 
@@ -194,20 +194,20 @@
  #}
 {% block ezuser_field %}
 {% apply spaceless %}
-{% set attr = attr|merge({'class': (attr.class|default('') ~ ' ez-field-preview ez-field-preview--ezuser')|trim}) %}
-<div class="ez-scrollable-table-wrapper mb-0">
+{% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ezuser')|trim}) %}
+<div class="ibexa-scrollable-table-wrapper mb-0">
     <table {{ block( 'field_attributes' ) }}>
         <tbody>
             <tr>
-                <td class="ez-user__type">{{ 'ezuser.username'|trans|desc('Username') }}:</td>
+                <td class="ibexa-user__type">{{ 'ezuser.username'|trans|desc('Username') }}:</td>
                 <td>{{ field.value.login }}</td>
             </tr>
             <tr>
-                <td class="ez-user__type">{{ 'ezuser.email'|trans|desc('Email') }}:</td>
+                <td class="ibexa-user__type">{{ 'ezuser.email'|trans|desc('Email') }}:</td>
                 <td><a href="mailto:{{ field.value.email|escape( 'url' ) }}">{{ field.value.email }}</a></td>
             </tr>
             <tr>
-                <td class="ez-user__type">{{ 'ezuser.enabled'|trans|desc('Enabled') }}:</td>
+                <td class="ibexa-user__type">{{ 'ezuser.enabled'|trans|desc('Enabled') }}:</td>
                 <td>{{ field.value.enabled ? 'ezuser.yes'|trans|desc('Yes') : 'ezuser.no'|trans|desc('No') }}</td>
             </tr>
         </tbody>
@@ -244,7 +244,7 @@
             'inLanguage': content.prioritizedFieldLanguageCode,
             'version': versionInfo.versionNo
         } ) %}
-        {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ez-field-preview ez-field-preview--ezbinaryfile')|trim}) %}
+        {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ezbinaryfile')|trim}) %}
         <div {{ block( 'field_attributes' ) }}>
             <svg class="ibexa-icon ibexa-icon--file">
                 <use xlink:href="{{ ibexa_icon_path('file') }}"></use>
@@ -264,7 +264,7 @@
 {% block ezmedia_field %}
 {% if not ibexa_field_is_empty( content, field ) %}
 {% apply spaceless %}
-    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ez-field-preview ez-field-preview--ezmedia')|trim}) %}
+    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ezmedia')|trim}) %}
     {% set type = fieldSettings.mediaType %}
     {% set value = field.value %}
     {% set route_reference = ibexa_route( 'ez_content_download', {
@@ -282,14 +282,14 @@
         or type == "quick_time"
         or type == "windows_media_player"
         or type == "real_player" %}
-        <div class="ez-field-preview__media">
-            <div class="ez-field-preview__video-wrapper">
+        <div class="ibexa-field-preview__media">
+            <div class="ibexa-field-preview__video-wrapper">
                 <video src="{{ download }}" width="100%" controls>
                     {{ 'ezmedia.browser_does_not_support_html5_video'|trans|desc('Your browser does not support HTML5 video') }}
                 </video>
             </div>
         </div>
-        <div class="ez-field-preview__media-meta">
+        <div class="ibexa-field-preview__media-meta">
             <table>
                 <thead>
                     <tr>
@@ -334,7 +334,7 @@
 {% block ezobjectrelationlist_field %}
 {% apply spaceless %}
     {% if not ibexa_field_is_empty( content, field ) %}
-    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ez-field-preview ez-field-preview--ezobjectrelationlist')|trim}) %}
+    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ezobjectrelationlist')|trim}) %}
     <div {{ block( 'field_attributes' ) }}>
         {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
             headline: 'ezobjectrelationlist.multiple_relations'|trans|desc('Multiple relations'),
@@ -367,28 +367,28 @@
 {% if field.value is not null %}
     {% set latitude = field.value.latitude %}
     {% set longitude = field.value.longitude %}
-    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ez-field-preview ez-field-preview--ezgmaplocation')|trim}) %}
+    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ezgmaplocation')|trim}) %}
     <div {{ block( 'field_attributes' ) }}>
-        <div class="ez-field-preview__map-wrapper">
-            <div class="ez-gmaplocation__map"  data-longitude="{{ longitude }}" data-latitude="{{ latitude }}"></div>
+        <div class="ibexa-field-preview__map-wrapper">
+            <div class="ibexa-gmaplocation__map"  data-longitude="{{ longitude }}" data-latitude="{{ latitude }}"></div>
         </div>
-        <div class="ez-field-preview__meta-wrapper">
-            <table class="ez-field-preview__meta">
+        <div class="ibexa-field-preview__meta-wrapper">
+            <table class="ibexa-field-preview__meta">
                 <thead>
-                    <tr class="ez-field-preview__meta-title-row">
+                    <tr class="ibexa-field-preview__meta-title-row">
                         <th>{{ 'ezgmaplocation.location_properties'|trans|desc('Location properties') }}:</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="ez-field-preview__meta-value-row">
+                    <tr class="ibexa-field-preview__meta-value-row">
                         <td>{{ 'ezgmaplocation.address'|trans|desc('Address') }}:</td>
                         <td>{{ field.value.address }}</td>
                     </tr>
-                    <tr class="ez-field-preview__meta-value-row">
+                    <tr class="ibexa-field-preview__meta-value-row">
                         <td>{{ 'ezgmaplocation.latitude'|trans|desc('Latitude') }}:</td>
                         <td>{{ field.value.latitude }}</td>
                     </tr>
-                    <tr class="ez-field-preview__meta-value-row">
+                    <tr class="ibexa-field-preview__meta-value-row">
                         <td>{{ 'ezgmaplocation.longitude'|trans|desc('Longitude') }}:</td>
                         <td>{{ field.value.longitude }}</td>
                     </tr>
@@ -406,37 +406,37 @@
 {% if not ibexa_field_is_empty( content, field ) %}
 {% set imageAlias = ibexa_image_alias( field, versionInfo, parameters.alias|default( 'original' ) ) %}
 {% set src = imageAlias ? asset( imageAlias.uri ) : "//:0" %}
-    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ez-field-preview ez-field-preview--ezimage')|trim}) %}
+    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ezimage')|trim}) %}
 <div {{ block( 'field_attributes' ) }}>
-    <div class="ez-field-preview__image-wrapper">
-        <div class="ez-field-preview__image">
+    <div class="ibexa-field-preview__image-wrapper">
+        <div class="ibexa-field-preview__image">
             <img src="{{ src }}">
         </div>
-        <div class="ez-field-preview__meta-wrapper">
+        <div class="ibexa-field-preview__meta-wrapper">
             <table>
                 <thead>
-                    <tr class="ez-field-preview__meta-title-row">
+                    <tr class="ibexa-field-preview__meta-title-row">
                         <th class="">{{ 'ezimage.image_file_properties'|trans|desc('Image file properties') }}:</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="ez-field-preview__meta-value-row">
+                    <tr class="ibexa-field-preview__meta-value-row">
                         <td>{{ 'ezimage.file_name'|trans|desc('File name') }}:</td>
                         <td>{{ field.value.fileName }}</td>
                     </tr>
-                    <tr class="ez-field-preview__meta-value-row">
+                    <tr class="ibexa-field-preview__meta-value-row">
                         <td>{{ 'ezimage.size'|trans|desc('Size') }}:</td>
                         <td>{{ field.value.fileSize|ibexa_file_size( 1 ) }}</td>
                     </tr>
-                    <tr class="ez-field-preview__meta-value-row">
+                    <tr class="ibexa-field-preview__meta-value-row">
                         <td>{{ 'ezimage.alternative_text'|trans|desc('Alternative text') }}:</td>
                         <td>{{ field.value.alternativeText }}</td>
                     </tr>
-                    <tr class="ez-field-preview__meta-value-row">
+                    <tr class="ibexa-field-preview__meta-value-row">
                         <td>{{ 'ezimage.master_dimensions'|trans|desc('Master dimensions') }}:</td>
                         <td>{{ 'ezimage.width_and_height'|trans({'%width%': field.value.width, '%height%': field.value.height})|desc('Width: %width%px height: %height%px') }}</td>
                     </tr>
-                    <tr class="ez-field-preview__meta-value-row">
+                    <tr class="ibexa-field-preview__meta-value-row">
                         <td>{{ 'ezimage.ratio'|trans|desc('Ratio') }}:</td>
                         <td>{{ (field.value.width/field.value.height)|round(2) }}</td>
                     </tr>
@@ -444,8 +444,8 @@
             </table>
         </div>
     </div>
-    <div class="ez-field-preview__actions-wrapper">
-        <a class="ez-field-preview__action ez-field-preview__action--preview" href="{{ field.value.uri }}" target="_blank">
+    <div class="ibexa-field-preview__actions-wrapper">
+        <a class="ibexa-field-preview__action ibexa-field-preview__action--preview" href="{{ field.value.uri }}" target="_blank">
             <svg class="ibexa-icon ibexa-icon--medium ibexa-icon--light">
                 <use xlink:href="{{ ibexa_icon_path('open-newtab') }}"></use>
             </svg>
@@ -459,7 +459,7 @@
 {% block ezimageasset_field %}
 {% apply spaceless %}
 {% if not ibexa_field_is_empty( content, field ) and parameters.available %}
-    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ez-field-preview ez-field-preview--ezimageasset')|trim}) %}
+    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ezimageasset')|trim}) %}
     <div {{ block( 'field_attributes' ) }}>
         {{ render(controller('ez_content:viewAction', {
             contentId: field.value.destinationContentId,
@@ -479,7 +479,7 @@
 {% block ezobjectrelation_field %}
 {% apply spaceless %}
 {% if not ibexa_field_is_empty( content, field ) %}
-    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ez-field-preview ez-field-preview--ezobjectrelationlist')|trim}) %}
+    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ezobjectrelationlist')|trim}) %}
     <div {{ block( 'field_attributes' ) }}>
         {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
             headline: 'ezobjectrelation.single_relation'|trans|desc('Single relation'),

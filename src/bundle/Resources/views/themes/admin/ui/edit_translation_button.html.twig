@@ -17,7 +17,7 @@
     </button>
 {% else %}
     {% set top_offset = top_offset is defined ? top_offset : 120 %}
-    <div class="ez-translation-selector">
+    <div class="ibexa-translation-selector">
         <button
             class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2 ibexa-btn--translations-list-toggler"
             title="{{ title }}"
@@ -27,9 +27,9 @@
                 <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
             </svg>
         </button>
-        <div class="ez-translation-selector__list-wrapper ez-translation-selector__list-wrapper--hidden" data-top-offset={{ top_offset }}>
-            <div class="ez-translation-selector__title">{{ 'edit_translation.list.title'|trans|desc('Select language') }}:</div>
-            <div class="ez-translation-selector__list">
+        <div class="ibexa-translation-selector__list-wrapper ibexa-translation-selector__list-wrapper--hidden" data-top-offset={{ top_offset }}>
+            <div class="ibexa-translation-selector__title">{{ 'edit_translation.list.title'|trans|desc('Select language') }}:</div>
+            <div class="ibexa-translation-selector__list">
                 {% for language in translations %}
                     <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--content-edit"
                         data-content-id="{{ contentId }}"

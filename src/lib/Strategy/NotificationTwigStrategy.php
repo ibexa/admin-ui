@@ -56,10 +56,10 @@ class NotificationTwigStrategy
         $contentId = (int)$contentId;
 
         if ($this->isContentPermanentlyDeleted($contentId)) {
-            return '@ezdesign/account/notifications/list_item_deleted.html.twig';
+            return '@ibexadesign/account/notifications/list_item_deleted.html.twig';
         }
         if ($this->isContentTrashed($contentId)) {
-            return '@ezdesign/account/notifications/list_item_trashed.html.twig';
+            return '@ibexadesign/account/notifications/list_item_trashed.html.twig';
         }
         if (!empty($this->defaultTemplate)) {
             return $this->defaultTemplate;

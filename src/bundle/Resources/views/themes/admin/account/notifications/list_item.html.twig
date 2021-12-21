@@ -1,7 +1,7 @@
 {% trans_default_domain 'notifications' %}
 
 {% if wrapper_class_list is not defined %}
-    {% set wrapper_class_list = 'ez-notifications-modal__item' ~ (notification.isPending == 0 ? ' ez-notifications-modal__item--read') %}
+    {% set wrapper_class_list = 'ibexa-notifications-modal__item' ~ (notification.isPending == 0 ? ' ibexa-notifications-modal__item--read') %}
 {% endif %}
 
 {% set icon %}
@@ -23,7 +23,7 @@
 
 {% set message %}
     {% block message %}
-        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ez-notifications-modal__description' } %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ibexa-notifications-modal__description' } %}
             {% block content %}
                 <p class="description__title">{{ 'notification.title'|trans|desc('Title:') }} <span class="description__title__item">{{ title }}</span></p>
                 <p class="description__text">{{ message }}</p>
@@ -35,7 +35,7 @@
 {% set date %}
     {% block date %}
         {% include '@ibexadesign/ui/component/table/table_body_cell.html.twig' with {
-            class: 'ez-notifications-modal__description',
+            class: 'ibexa-notifications-modal__description',
             content: notification.created|ibexa_full_datetime,
         } %}
     {% endblock %}
@@ -49,7 +49,7 @@
     }
 } %}
     {% block body_row_cells %}
-        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ez-notifications-modal__type' } %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ibexa-notifications-modal__type' } %}
             {% block content %}
                 {{ icon }}
                 {{ notification_type }}

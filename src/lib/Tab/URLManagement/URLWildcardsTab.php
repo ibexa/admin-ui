@@ -102,7 +102,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
         $urlWildcardsEnabled = $this->configResolver->getParameter('url_wildcards.enabled');
         $canManageWildcards = $this->permissionResolver->hasAccess('content', 'urltranslator');
 
-        return $this->twig->render('@ezdesign/url_wildcard/list.html.twig', [
+        return $this->twig->render('@ibexadesign/url_wildcard/list.html.twig', [
             'url_wildcards' => $urlWildcards,
             'form' => $deleteUrlWildcardDeleteForm->createView(),
             'form_add' => $addUrlWildcardForm->createView(),

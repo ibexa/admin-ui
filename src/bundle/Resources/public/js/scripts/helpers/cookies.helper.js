@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const setCookie = (name, value, maxAgeDays = 356, path = '/') => {
         const maxAge = maxAgeDays * 24 * 60 * 60;
 
@@ -18,8 +18,8 @@
         return cookieValue ? cookieValue.split('=')[1] : null;
     };
 
-    eZ.addConfig('helpers.cookies', {
+    ibexa.addConfig('helpers.cookies', {
         getCookie,
         setCookie,
     });
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

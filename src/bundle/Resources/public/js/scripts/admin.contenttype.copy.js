@@ -1,4 +1,4 @@
-(function(global, doc, eZ, Routing) {
+(function(global, doc, ibexa, Routing) {
     const copyButtons = doc.querySelectorAll('.ibexa-btn--copy-content-type');
     const copyContentType = ({ currentTarget }) => {
         const contentTypeCopyForm = doc.querySelector('form[name="content_type_copy"]');
@@ -13,4 +13,4 @@
     };
 
     copyButtons.forEach((copyButton) => copyButton.addEventListener('click', copyContentType, false));
-})(window, window.document, window.eZ, window.Routing);
+})(window, window.document, window.ibexa, window.Routing);

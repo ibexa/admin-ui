@@ -1,32 +1,32 @@
-(function (global, doc, eZ, React, ReactDOM, Translator) {
+(function (global, doc, ibexa, React, ReactDOM, Translator) {
     let getUsersTimeout;
     const CLASS_SORTED_ASC = 'ibexa-table__sort-column--asc';
     const CLASS_SORTED_DESC = 'ibexa-table__sort-column--desc';
-    const CLASS_VISIBLE_DATE_RANGE = 'ez-trash-search-form__range-wrapper--visible';
+    const CLASS_VISIBLE_DATE_RANGE = 'ibexa-trash-search-form__range-wrapper--visible';
     const sortedActiveField = doc.querySelector('#trash_search_sort_field').value;
     const sortedActiveDirection = doc.querySelector('#trash_search_sort_direction').value;
-    const dateFields = doc.querySelectorAll('.ez-trash-search-form__range-select');
+    const dateFields = doc.querySelectorAll('.ibexa-trash-search-form__range-select');
     const trashedTypeInput = doc.querySelector('#trash_search_trashed');
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const formSearch = doc.querySelector('form[name="trash_search"]');
     const sortField = doc.querySelector('#trash_search_sort_field');
     const sortDirection = doc.querySelector('#trash_search_sort_direction');
-    const creatorInput = doc.querySelector('.ez-trash-search-form__item--creator .ez-trash-search-form__input');
-    const usersList = doc.querySelector('.ez-trash-search-form__item--creator .ez-trash-search-form__user-list');
+    const creatorInput = doc.querySelector('.ibexa-trash-search-form__item--creator .ibexa-trash-search-form__input');
+    const usersList = doc.querySelector('.ibexa-trash-search-form__item--creator .ibexa-trash-search-form__user-list');
     const resetCreatorBtn = doc.querySelector('.ibexa-btn--reset-creator');
     const searchCreatorInput = doc.querySelector('#trash_search_creator');
     const sortableColumns = doc.querySelectorAll('.ibexa-table__sort-column');
     const btns = doc.querySelectorAll('.ibexa-btn--open-udw');
     const udwContainer = doc.getElementById('react-udw');
-    const autoSendNodes = doc.querySelectorAll('.ez-trash-search-form__item--auto-send');
+    const autoSendNodes = doc.querySelectorAll('.ibexa-trash-search-form__item--auto-send');
     const errorMessage = Translator.trans(/*@Desc("Cannot fetch user list")*/ 'trash.user_list.error', {}, 'trash_ui');
     const dateConfig = {
         mode: 'range',
         locale: {
             rangeSeparator: ' - ',
         },
-        formatDate: (date) => eZ.helpers.timezone.formatShortDateTime(date, null, eZ.adminUiConfig.dateFormat.shortDate),
+        formatDate: (date) => ibexa.helpers.timezone.formatShortDateTime(date, null, ibexa.adminUiConfig.dateFormat.shortDate),
     };
     const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
     const onConfirm = (form, content) => {
@@ -50,7 +50,7 @@
         );
 
         ReactDOM.render(
-            React.createElement(eZ.modules.UniversalDiscovery, {
+            React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(this, form),
                 onCancel,
                 title,
@@ -105,12 +105,12 @@
         creatorInput.removeAttribute('disabled');
     };
     const handleClickOutsideUserList = (event) => {
-        if (event.target.closest('.ez-trash-search-form__item--creator')) {
+        if (event.target.closest('.ibexa-trash-search-form__item--creator')) {
             return;
         }
 
         creatorInput.value = '';
-        usersList.classList.add('ez-trash-search-form__item__user-list--hidden');
+        usersList.classList.add('ibexa-trash-search-form__item__user-list--hidden');
         doc.querySelector('body').removeEventListener('click', handleClickOutsideUserList, false);
     };
     const getUsersList = (value) => {
@@ -144,12 +144,12 @@
         });
 
         fetch(request)
-            .then(eZ.helpers.request.getJsonFromResponse)
+            .then(ibexa.helpers.request.getJsonFromResponse)
             .then(showUsersList)
-            .catch(() => eZ.helpers.notification.showErrorNotification(errorMessage));
+            .catch(() => ibexa.helpers.notification.showErrorNotification(errorMessage));
     };
     const createUsersListItem = (user) => {
-        return `<li data-id="${user._id}" data-name="${user.TranslatedName}" class="ez-trash-search-form__user-item">${user.TranslatedName}</li>`;
+        return `<li data-id="${user._id}" data-name="${user.TranslatedName}" class="ibexa-trash-search-form__user-item">${user.TranslatedName}</li>`;
     };
     const showUsersList = (data) => {
         const hits = data.View.Result.searchHits.searchHit;
@@ -157,7 +157,7 @@
         const methodName = users ? 'addEventListener' : 'removeEventListener';
 
         usersList.innerHTML = users;
-        usersList.classList.remove('ez-trash-search-form__user-list--hidden');
+        usersList.classList.remove('ibexa-trash-search-form__user-list--hidden');
 
         doc.querySelector('body')[methodName]('click', handleClickOutsideUserList, false);
     };
@@ -169,14 +169,14 @@
         if (value.length > 2) {
             getUsersTimeout = global.setTimeout(getUsersList.bind(null, value), 200);
         } else {
-            usersList.classList.add('ez-trash-search-form__user-list--hidden');
+            usersList.classList.add('ibexa-trash-search-form__user-list--hidden');
             doc.querySelector('body').removeEventListener('click', handleClickOutsideUserList, false);
         }
     };
     const handleSelectUser = (event) => {
         searchCreatorInput.value = event.target.dataset.id;
 
-        usersList.classList.add('ez-trash-search-form__user-list--hidden');
+        usersList.classList.add('ibexa-trash-search-form__user-list--hidden');
 
         creatorInput.value = event.target.dataset.name;
         creatorInput.setAttribute('disabled', true);
@@ -208,7 +208,7 @@
         datesRangeNode.classList.add(CLASS_VISIBLE_DATE_RANGE);
     };
     const setSelectedDateRange = (selectedDates, dateString, instance) => {
-        const dateRange = instance.input.closest('.ez-trash-search-form__range-wrapper');
+        const dateRange = instance.input.closest('.ibexa-trash-search-form__range-wrapper');
 
         if (selectedDates.length === 2) {
             const startDate = getUnixTimestampUTC(selectedDates[0]);
@@ -272,4 +272,4 @@
     updateTrashForm(checkboxes);
     enableButtons();
     checkboxes.forEach((checkbox) => checkbox.addEventListener('change', handleCheckboxChange, false));
-})(window, window.document, window.eZ, window.React, window.ReactDOM, window.Translator);
+})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator);

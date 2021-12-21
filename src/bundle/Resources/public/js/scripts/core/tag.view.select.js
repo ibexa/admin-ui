@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     class TagViewSelect {
         constructor(config) {
             this.inputSelector = config.inputSelector || 'input';
@@ -133,5 +133,5 @@
         }
     }
 
-    eZ.addConfig('core.TagViewSelect', TagViewSelect);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('core.TagViewSelect', TagViewSelect);
+})(window, window.document, window.ibexa);

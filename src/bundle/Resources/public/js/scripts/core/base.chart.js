@@ -1,4 +1,4 @@
-(function(global, doc, eZ, Chart) {
+(function(global, doc, ibexa, Chart) {
     const IBEXA_WHITE = '#fff';
     const IBEXA_COLOR_BASE = '#e0e0e8';
     const IBEXA_COLOR_BASE_DARK = '#878b90';
@@ -88,5 +88,5 @@
         }
     }
 
-    eZ.addConfig('core.BaseChart', BaseChart);
-})(window, window.document, window.eZ, window.Chart);
+    ibexa.addConfig('core.BaseChart', BaseChart);
+})(window, window.document, window.ibexa, window.Chart);

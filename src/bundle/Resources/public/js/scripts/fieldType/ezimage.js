@@ -1,4 +1,4 @@
-(function(global, doc, eZ, Translator) {
+(function(global, doc, ibexa, Translator) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezimage';
     const SELECTOR_INPUT_FILE = 'input[type="file"]';
     const SELECTOR_FILESIZE_NOTICE = '.ibexa-data-source__message--filesize';
@@ -6,7 +6,7 @@
     const SELECTOR_INPUT_ALT = '.ibexa-field-edit-preview__image-alt .ibexa-data-source__input';
     const EVENT_CANCEL_ERROR = 'ibexa-cancel-errors';
 
-    class EzImageFilePreviewField extends eZ.BasePreviewField {
+    class EzImageFilePreviewField extends ibexa.BasePreviewField {
         /**
          * Gets a temporary image URL
          *
@@ -71,7 +71,7 @@
         }
     }
 
-    class EzImageFieldValidator extends eZ.BaseFileFieldValidator {
+    class EzImageFieldValidator extends ibexa.BaseFileFieldValidator {
         toggleInvalidState(isError, config, input) {
             super.toggleInvalidState(isError, config, input);
 
@@ -108,7 +108,7 @@
             const result = { isError };
 
             if (isEmpty) {
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             }
 
             return result;
@@ -158,6 +158,6 @@
 
         previewField.init();
 
-        eZ.addConfig('fieldTypeValidators', [validator], true);
+        ibexa.addConfig('fieldTypeValidators', [validator], true);
     });
-})(window, window.document, window.eZ, window.Translator);
+})(window, window.document, window.ibexa, window.Translator);

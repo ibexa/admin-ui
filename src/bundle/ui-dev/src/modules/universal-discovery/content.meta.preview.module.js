@@ -25,11 +25,11 @@ const ContentMetaPreview = () => {
     const contentTypesMap = useContext(ContentTypesMapContext);
     const restInfo = useContext(RestInfoContext);
     const allowRedirects = useContext(AllowRedirectsContext);
-    const { formatShortDateTime } = window.eZ.helpers.timezone;
+    const { formatShortDateTime } = window.ibexa.helpers.timezone;
     const locationData = useMemo(() => getLocationData(loadedLocationsMap, markedLocationId), [markedLocationId, loadedLocationsMap]);
 
     useEffect(() => {
-        window.eZ.helpers.tooltips.parse(refContentMetaPreview.current);
+        window.ibexa.helpers.tooltips.parse(refContentMetaPreview.current);
     });
 
     if (!locationData || !locationData.location || !locationData.version || markedLocationId === 1) {
@@ -126,7 +126,7 @@ const ContentMetaPreview = () => {
                             {version.VersionInfo.languageCodes.split(',').map((languageCode) => {
                                 return (
                                     <span key={languageCode} className="c-content-meta-preview__translation">
-                                        {window.eZ.adminUiConfig.languages.mappings[languageCode].name}
+                                        {window.ibexa.adminUiConfig.languages.mappings[languageCode].name}
                                     </span>
                                 );
                             })}
@@ -138,6 +138,6 @@ const ContentMetaPreview = () => {
     );
 };
 
-eZ.addConfig('adminUiConfig.universalDiscoveryWidget.contentMetaPreview', ContentMetaPreview);
+ibexa.addConfig('adminUiConfig.universalDiscoveryWidget.contentMetaPreview', ContentMetaPreview);
 
 export default ContentMetaPreview;

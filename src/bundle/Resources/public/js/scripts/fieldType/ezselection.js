@@ -1,10 +1,10 @@
-(function(global, doc, eZ) {
+(function(global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezselection';
     const SELECTOR_SELECTED = '.ibexa-dropdown__selection-info';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
     const EVENT_VALUE_CHANGED = 'change';
 
-    class EzSelectionValidator extends eZ.BaseFieldValidator {
+    class EzSelectionValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the textarea field value
          *
@@ -19,7 +19,7 @@
             const isRequired = fieldContainer.classList.contains('ibexa-field-edit--required');
             const isError = isRequired && !hasSelectedOptions;
             const label = fieldContainer.querySelector('.ibexa-field-edit__label').innerHTML;
-            const errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+            const errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
 
             return {
                 isError,
@@ -44,5 +44,5 @@
 
     validator.init();
 
-    eZ.addConfig('fieldTypeValidators', [validator], true);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('fieldTypeValidators', [validator], true);
+})(window, window.document, window.ibexa);

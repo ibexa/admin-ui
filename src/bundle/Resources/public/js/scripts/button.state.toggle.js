@@ -1,5 +1,5 @@
 (function(global, doc) {
-    const toggleForms = doc.querySelectorAll('.ez-toggle-btn-state');
+    const toggleForms = doc.querySelectorAll('.ibexa-toggle-btn-state');
 
     toggleForms.forEach((toggleForm) => {
         const checkboxes = [...toggleForm.querySelectorAll('.ibexa-table__cell--has-checkbox .ibexa-input--checkbox')];

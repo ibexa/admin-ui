@@ -14,7 +14,7 @@ import {
     loadLocationsWithPermissions,
 } from './services/universal.discovery.service';
 
-const CLASS_SCROLL_DISABLED = 'ez-scroll-disabled';
+const CLASS_SCROLL_DISABLED = 'ibexa-scroll-disabled';
 
 export const SORTING_OPTIONS = [
     {
@@ -71,7 +71,7 @@ const restInfo = {
     token: document.querySelector('meta[name="CSRF-Token"]').content,
     siteaccess: document.querySelector('meta[name="SiteAccess"]').content,
 };
-const contentTypesMap = Object.values(eZ.adminUiConfig.contentTypes).reduce((contentTypesMap, contentTypesGroup) => {
+const contentTypesMap = Object.values(ibexa.adminUiConfig.contentTypes).reduce((contentTypesMap, contentTypesGroup) => {
     contentTypesGroup.forEach((contentType) => {
         contentTypesMap[contentType.href] = contentType;
     });
@@ -109,7 +109,7 @@ export const SearchTextContext = createContext();
 export const DropdownPortalRefContext = createContext();
 
 const UniversalDiscoveryModule = (props) => {
-    const tabs = window.eZ.adminUiConfig.universalDiscoveryWidget.tabs;
+    const tabs = window.ibexa.adminUiConfig.universalDiscoveryWidget.tabs;
     const defaultMarkedLocationId = props.startingLocationId || props.rootLocationId;
     const abortControllerRef = useRef();
     const dropdownPortalRef = useRef();
@@ -193,12 +193,12 @@ const UniversalDiscoveryModule = (props) => {
         };
 
         loadContentTypes(restInfo, handleLoadContentTypes);
-        window.document.body.dispatchEvent(new CustomEvent('ez-udw-opened'));
-        window.eZ.helpers.tooltips.parse(window.document.querySelector('.c-udw-tab'));
+        window.document.body.dispatchEvent(new CustomEvent('ibexa-udw-opened'));
+        window.ibexa.helpers.tooltips.parse(window.document.querySelector('.c-udw-tab'));
 
         return () => {
-            window.document.body.dispatchEvent(new CustomEvent('ez-udw-closed'));
-            window.eZ.helpers.tooltips.hideAll();
+            window.document.body.dispatchEvent(new CustomEvent('ibexa-udw-closed'));
+            window.ibexa.helpers.tooltips.hideAll();
         };
     }, []);
 
@@ -451,10 +451,10 @@ UniversalDiscoveryModule.defaultProps = {
     activeSortClause: 'date',
     activeSortOrder: 'ascending',
     activeView: 'finder',
-    tabs: window.eZ.adminUiConfig.universalDiscoveryWidget.tabs,
+    tabs: window.ibexa.adminUiConfig.universalDiscoveryWidget.tabs,
     selectedLocations: [],
 };
 
-eZ.addConfig('modules.UniversalDiscovery', UniversalDiscoveryModule);
+ibexa.addConfig('modules.UniversalDiscovery', UniversalDiscoveryModule);
 
 export default UniversalDiscoveryModule;

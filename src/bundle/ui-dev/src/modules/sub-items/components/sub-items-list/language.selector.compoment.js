@@ -12,7 +12,7 @@ const LanguageSelector = (props) => {
         'ibexa-extra-actions--hidden': !props.isOpen,
     });
     const closeLanguageSelector = (event) => {
-        if (!event.target.closest('.c-table-view-item__btn') && !event.target.classList.contains('ez-instant-filter__input')) {
+        if (!event.target.closest('.c-table-view-item__btn') && !event.target.classList.contains('ibexa-instant-filter__input')) {
             props.close();
         }
     };

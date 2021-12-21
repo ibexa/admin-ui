@@ -12,7 +12,7 @@ const PopupActions = ({ listRef, options }) => {
         setIsExpanded((prevState) => !prevState);
     };
     const getHeaderActions = () => {
-        const { headerActions } = window.eZ.adminUiConfig.contentTreeWidget;
+        const { headerActions } = window.ibexa.adminUiConfig.contentTreeWidget;
 
         if (!headerActions) {
             return [];

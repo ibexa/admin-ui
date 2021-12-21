@@ -83,7 +83,7 @@ class BookmarkController extends Controller
         );
 
         return $this->render(
-            '@ezdesign/account/bookmarks/list.html.twig',
+            '@ibexadesign/account/bookmarks/list.html.twig',
             $viewParameters = [
                 'pager' => $pagerfanta,
                 'form_edit' => $editForm->createView(),

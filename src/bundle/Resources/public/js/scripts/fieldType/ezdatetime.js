@@ -1,13 +1,13 @@
-(function(global, doc, eZ, flatpickr) {
+(function(global, doc, ibexa, flatpickr) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezdatetime';
     const SELECTOR_INPUT = '.ibexa-data-source__input[data-seconds]';
     const SELECTOR_FLATPICKR_INPUT = '.flatpickr-input';
     const EVENT_VALUE_CHANGED = 'change';
     const SELECTOR_ERROR_NODE = '.ibexa-data-source';
-    const { convertDateToTimezone, formatShortDateTime } = eZ.helpers.timezone;
-    const userTimezone = eZ.adminUiConfig.timezone;
+    const { convertDateToTimezone, formatShortDateTime } = ibexa.helpers.timezone;
+    const userTimezone = ibexa.adminUiConfig.timezone;
 
-    class EzDateTimeValidator extends eZ.BaseFieldValidator {
+    class EzDateTimeValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
@@ -26,7 +26,7 @@
 
             if (isRequired && isEmpty) {
                 isError = true;
-                errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             }
 
             return {
@@ -59,7 +59,7 @@
 
     validator.init();
 
-    eZ.addConfig('fieldTypeValidators', [validator], true);
+    ibexa.addConfig('fieldTypeValidators', [validator], true);
 
     const datetimeFields = doc.querySelectorAll(SELECTOR_FIELD);
     const datetimeConfig = {
@@ -120,4 +120,4 @@
     };
 
     datetimeFields.forEach(initFlatPickr);
-})(window, window.document, window.eZ, window.flatpickr);
+})(window, window.document, window.ibexa, window.flatpickr);

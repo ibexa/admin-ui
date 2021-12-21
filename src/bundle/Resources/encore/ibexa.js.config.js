@@ -59,71 +59,71 @@ fs.readdirSync(fieldTypesPath).forEach((file) => {
 });
 
 module.exports = (Encore) => {
-    Encore.addEntry('ezplatform-admin-ui-layout-js', layout)
-        .addEntry('ezplatform-admin-ui-bookmark-list-js', [
+    Encore.addEntry('ibexa-admin-ui-layout-js', layout)
+        .addEntry('ibexa-admin-ui-bookmark-list-js', [
             path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),
             path.resolve(__dirname, '../public/js/scripts/button.content.edit.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.version.edit.conflict.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.content.tree.js'),
         ])
-        .addEntry('ezplatform-admin-ui-content-draft-list-js', [
+        .addEntry('ibexa-admin-ui-content-draft-list-js', [
             path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),
             path.resolve(__dirname, '../public/js/scripts/button.content.edit.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.version.edit.conflict.js'),
         ])
-        .addEntry('ezplatform-admin-ui-content-type-create-js', [
+        .addEntry('ibexa-admin-ui-content-type-create-js', [
             path.resolve(__dirname, '../public/js/scripts/admin.contenttype.selection.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.card.toggle.group.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.contenttype.edit'),
         ])
-        .addEntry('ezplatform-admin-ui-content-type-edit-js', [
+        .addEntry('ibexa-admin-ui-content-type-edit-js', [
             path.resolve(__dirname, '../public/js/scripts/admin.contenttype.selection.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.card.toggle.group.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.contenttype.relation.default.location.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.contenttype.edit'),
         ])
-        .addEntry('ezplatform-admin-ui-content-type-list-js', [
+        .addEntry('ibexa-admin-ui-content-type-list-js', [
             path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.contenttype.copy.js'),
         ])
-        .addEntry('ezplatform-admin-ui-content-type-view-js', [
+        .addEntry('ibexa-admin-ui-content-type-view-js', [
             path.resolve(__dirname, '../public/js/scripts/admin.location.change.language.js'),
             path.resolve(__dirname, '../public/js/scripts/sidebar/extra.actions.js'),
             path.resolve(__dirname, '../public/js/scripts/sidebar/btn/contenttype.edit.js'),
             path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),
         ])
-        .addEntry('ezplatform-admin-ui-content-type-group-list-js', [
+        .addEntry('ibexa-admin-ui-content-type-group-list-js', [
             path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),
         ])
-        .addEntry('ezplatform-admin-ui-language-list-js', [path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js')])
-        .addEntry('ezplatform-admin-ui-object-state-list-js', [path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js')])
-        .addEntry('ezplatform-admin-ui-object-state-group-list-js', [
+        .addEntry('ibexa-admin-ui-language-list-js', [path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js')])
+        .addEntry('ibexa-admin-ui-object-state-list-js', [path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js')])
+        .addEntry('ibexa-admin-ui-object-state-group-list-js', [
             path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),
         ])
-        .addEntry('ezplatform-admin-ui-policy-create-with-limitation-js', [
+        .addEntry('ibexa-admin-ui-policy-create-with-limitation-js', [
             path.resolve(__dirname, '../public/js/scripts/admin.limitation.pick.js'),
         ])
-        .addEntry('ezplatform-admin-ui-policy-edit-js', [path.resolve(__dirname, '../public/js/scripts/admin.limitation.pick.js')])
-        .addEntry('ezplatform-admin-ui-role-list-js', [path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js')])
-        .addEntry('ezplatform-admin-ui-role-view-js', [path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js')])
-        .addEntry('ezplatform-admin-ui-role-assignment-create-js', [
+        .addEntry('ibexa-admin-ui-policy-edit-js', [path.resolve(__dirname, '../public/js/scripts/admin.limitation.pick.js')])
+        .addEntry('ibexa-admin-ui-role-list-js', [path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js')])
+        .addEntry('ibexa-admin-ui-role-view-js', [path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js')])
+        .addEntry('ibexa-admin-ui-role-assignment-create-js', [
             path.resolve(__dirname, '../public/js/scripts/admin.role_assignment.add.js'),
         ])
-        .addEntry('ezplatform-admin-ui-search-js', [
+        .addEntry('ibexa-admin-ui-search-js', [
             path.resolve(__dirname, '../public/js/scripts/button.content.edit.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.search.filters.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.search.js'),
             path.resolve(__dirname, '../public/js/scripts/udw/select.location.js'),
             path.resolve(__dirname, '../public/js/scripts/button.translation.edit.js'),
         ])
-        .addEntry('ezplatform-admin-ui-section-list-js', [
+        .addEntry('ibexa-admin-ui-section-list-js', [
             path.resolve(__dirname, '../public/js/scripts/admin.section.list.js'),
             path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),
         ])
-        .addEntry('ezplatform-admin-ui-section-view-js', [path.resolve(__dirname, '../public/js/scripts/admin.section.view.js')])
-        .addEntry('ezplatform-admin-ui-trash-list-js', [path.resolve(__dirname, '../public/js/scripts/admin.trash.list.js')])
-        .addEntry('ezplatform-admin-ui-content-preview-js', [path.resolve(__dirname, '../public/js/scripts/admin.preview.js')])
-        .addEntry('ezplatform-admin-ui-location-view-js', [
+        .addEntry('ibexa-admin-ui-section-view-js', [path.resolve(__dirname, '../public/js/scripts/admin.section.view.js')])
+        .addEntry('ibexa-admin-ui-trash-list-js', [path.resolve(__dirname, '../public/js/scripts/admin.trash.list.js')])
+        .addEntry('ibexa-admin-ui-content-preview-js', [path.resolve(__dirname, '../public/js/scripts/admin.preview.js')])
+        .addEntry('ibexa-admin-ui-location-view-js', [
             path.resolve(__dirname, '../public/js/scripts/admin.location.change.language.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.content.tree.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.location.view.js'),
@@ -152,25 +152,25 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/admin.location.bookmark.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.main.translation.update.js'),
         ])
-        .addEntry('ezplatform-admin-ui-modal-location-trash-js', [path.resolve(__dirname, '../public/js/scripts/admin.trash.js')])
-        .addEntry('ezplatform-admin-ui-modal-location-trash-container-js', [
+        .addEntry('ibexa-admin-ui-modal-location-trash-js', [path.resolve(__dirname, '../public/js/scripts/admin.trash.js')])
+        .addEntry('ibexa-admin-ui-modal-location-trash-container-js', [
             path.resolve(__dirname, '../public/js/scripts/button.state.checkbox.toggle.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.trash.container.js'),
         ])
-        .addEntry('ezplatform-admin-ui-modal-location-trash-single-asset-js', [
+        .addEntry('ibexa-admin-ui-modal-location-trash-single-asset-js', [
             path.resolve(__dirname, '../public/js/scripts/button.state.radio.toggle.js'),
         ])
-        .addEntry('ezplatform-admin-ui-dashboard-js', [
+        .addEntry('ibexa-admin-ui-dashboard-js', [
             path.resolve(__dirname, '../public/js/scripts/udw/browse.js'),
             path.resolve(__dirname, '../public/js/scripts/cotf/create.js'),
             path.resolve(__dirname, '../public/js/scripts/button.content.edit.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.version.edit.conflict.js'),
             path.resolve(__dirname, '../public/js/scripts/button.translation.edit.js'),
         ])
-        .addEntry('ezplatform-admin-ui-link-manager-list-js', [path.resolve(__dirname, '../public/js/scripts/admin.linkmanager.list.js')])
-        .addEntry('ezplatform-admin-ui-link-manager-view-js', [path.resolve(__dirname, '../public/js/scripts/button.content.edit.js')])
-        .addEntry('ezplatform-admin-ui-change-user-password-js', [path.resolve(__dirname, '../public/js/scripts/user_password.change.js')])
-        .addEntry('ezplatform-admin-ui-content-edit-parts-js', [
+        .addEntry('ibexa-admin-ui-link-manager-list-js', [path.resolve(__dirname, '../public/js/scripts/admin.linkmanager.list.js')])
+        .addEntry('ibexa-admin-ui-link-manager-view-js', [path.resolve(__dirname, '../public/js/scripts/button.content.edit.js')])
+        .addEntry('ibexa-admin-ui-change-user-password-js', [path.resolve(__dirname, '../public/js/scripts/user_password.change.js')])
+        .addEntry('ibexa-admin-ui-content-edit-parts-js', [
             path.resolve('./vendor/ibexa/admin-ui-assets/src/bundle/Resources/public/vendors/leaflet/dist/leaflet.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.content.edit.js'),
             path.resolve(__dirname, '../public/js/scripts/fieldType/base/base-field.js'),
@@ -181,20 +181,20 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/sidebar/extra.actions.js'),
             path.resolve(__dirname, '../public/js/scripts/edit.header.js'),
         ])
-        .addEntry('ezplatform-admin-ui-settings-datetime-format-update-js', [
+        .addEntry('ibexa-admin-ui-settings-datetime-format-update-js', [
             path.resolve(__dirname, '../public/js/scripts/admin.settings.datetimeformat.update.js'),
         ])
-        .addEntry('ezplatform-admin-ui-udw-js', [
+        .addEntry('ibexa-admin-ui-udw-js', [
             path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/universal.discovery.module.js'),
         ])
-        .addEntry('ezplatform-admin-ui-udw-tabs-js', [
+        .addEntry('ibexa-admin-ui-udw-tabs-js', [
             path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/browse.tab.module.js'),
             path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/bookmarks.tab.module.js'),
             path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/search.tab.module.js'),
             path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/content.create.tab.module.js'),
             path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/content.edit.tab.module.js'),
         ])
-        .addEntry('ezplatform-admin-ui-udw-extras-js', [
+        .addEntry('ibexa-admin-ui-udw-extras-js', [
             path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/content.meta.preview.module.js'),
             path.resolve(
                 __dirname,
@@ -211,21 +211,21 @@ module.exports = (Encore) => {
                 '../../ui-dev/src/modules/universal-discovery/components/tree-item-toggle-selection/tree.item.toggle.selection.js'
             ),
         ])
-        .addEntry('ezplatform-admin-ui-mfu-js', [
+        .addEntry('ibexa-admin-ui-mfu-js', [
             path.resolve(__dirname, '../../ui-dev/src/modules/multi-file-upload/multi.file.upload.module.js'),
         ])
-        .addEntry('ezplatform-admin-ui-subitems-js', [path.resolve(__dirname, '../../ui-dev/src/modules/sub-items/sub.items.module.js')])
-        .addEntry('ezplatform-admin-ui-content-tree-js', [
+        .addEntry('ibexa-admin-ui-subitems-js', [path.resolve(__dirname, '../../ui-dev/src/modules/sub-items/sub.items.module.js')])
+        .addEntry('ibexa-admin-ui-content-tree-js', [
             path.resolve(__dirname, '../../ui-dev/src/modules/content-tree/content.tree.module.js'),
         ])
-        .addEntry('ezplatform-admin-ui-url-management-js', [
+        .addEntry('ibexa-admin-ui-url-management-js', [
             path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.url.wildcards.create.js'),
         ])
-        .addEntry('ezplatform-admin-ui-login-js', [path.resolve(__dirname, '../public/js/scripts/login.js')])
-        .addEntry('ezplatform-admin-ui-tabs-js', [
+        .addEntry('ibexa-admin-ui-login-js', [path.resolve(__dirname, '../public/js/scripts/login.js')])
+        .addEntry('ibexa-admin-ui-tabs-js', [
             path.resolve(__dirname, '../public/js/scripts/admin.location.tab.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.location.adaptive.tabs.js'),
         ])
-        .addEntry('ezplatform-admin-ui-edit-base-js', [path.resolve(__dirname, '../public/js/scripts/edit.header.js')]);
+        .addEntry('ibexa-admin-ui-edit-base-js', [path.resolve(__dirname, '../public/js/scripts/edit.header.js')]);
 };

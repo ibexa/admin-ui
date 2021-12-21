@@ -12,8 +12,8 @@
         <note>key: add_locations_btn.label</note>
       </trans-unit>
       <trans-unit id="ca61c6a680354ca0ca27b53f63d9d30ba35eee2a" resname="bulk_action.error.more_info">
-        <source><![CDATA[<u><a class='ez-notification-btn ez-notification-btn--show-modal'>Click here for more information.</a></u><br>]]></source>
-        <target state="new"><![CDATA[<u><a class='ez-notification-btn ez-notification-btn--show-modal'>Click here for more information.</a></u><br>]]></target>
+        <source><![CDATA[<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>]]></source>
+        <target state="new"><![CDATA[<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>]]></target>
         <note>key: bulk_action.error.more_info</note>
       </trans-unit>
       <trans-unit id="aa8f660d8cae16394e7cd4421e6b604e031ad04b" resname="bulk_action.popup.cancel">
