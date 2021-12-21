@@ -29,13 +29,13 @@
     }
 
     &__main {
-        flex: 1;
+        flex: 3;
         background-color: $ibexa-color-white;
         overflow: auto;
     }
 
     &__right-sidebar {
-        width: calculateRem(491px);
+        flex: 1;
         background-color: $ibexa-color-white;
         border-left: calculateRem(1px) solid $ibexa-color-light;
     }
