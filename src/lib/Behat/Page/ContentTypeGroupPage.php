@@ -47,7 +47,7 @@ class ContentTypeGroupPage extends Page
 
     public function hasContentTypes(): bool
     {
-        return $this->getHTMLPage()->findAll($this->getLocator('tableItem'))->any();
+        return $this->table->isEmpty() === false;
     }
 
     public function edit(string $contentTypeName): void
