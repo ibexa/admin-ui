@@ -12,6 +12,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
+        .ibexa-icon {
+            fill: $ibexa-color-dark-300;
+        }
     }
 
     &__header {
