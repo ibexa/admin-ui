@@ -69,12 +69,12 @@
 
         const tooltipNodes = [...baseElement.querySelectorAll(TOOLTIPS_SELECTOR)];
 
-        if (baseElement instanceof HTMLElement) {
+        if (baseElement instanceof Element) {
             tooltipNodes.push(baseElement);
         }
 
         for (tooltipNode of tooltipNodes) {
-            if (tooltipNode.title) {
+            if (tooltipNode.hasAttribute('title')) {
                 const delay = {
                     show: parseInt(tooltipNode.dataset.delayShow, 10) ?? 150,
                     hide: parseInt(tooltipNode.dataset.delayHide, 10) ?? 75,
