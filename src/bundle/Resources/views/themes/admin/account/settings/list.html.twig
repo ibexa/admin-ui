@@ -27,41 +27,44 @@
             {% embed '@ibexadesign/ui/component/tab/tab_pane.html.twig' with { id: 'my-preferences', active: true } %}
                 {% block content %}
                     {% for settings_group in pager %}
-                        {% set col_raw %}
-                            <a
-                                title="{{ 'list.action.edit'|trans|desc('Edit') }}"
-                                href="{{ path('ezplatform.user_settings.update', { 'identifier': settings_group.identifier }) }}"
-                                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
-                            >
-                                <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
-                                    <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                                </svg>
-                            </a>
-                        {% endset %}
+                        {% if settings_group.settings is not empty %}
+                            {% set col_raw %}
+                                <a
+                                    title="{{ 'list.action.edit'|trans|desc('Edit') }}"
+                                    href="{{ path('ezplatform.user_settings.update', { 'identifier': settings_group.identifier }) }}"
+                                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                                >
+                                    <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
+                                        <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
+                                    </svg>
+                                </a>
+                            {% endset %}
 
-                        {% set cols = [] %}
+                            {% set cols = [] %}
 
-                        {% set head_cols = [] %}
+                            {% set head_cols = [] %}
 
-                        {% for user_setting in settings_group.settings %}
-                            {% set cols = cols|merge([{ content: value_definitions[user_setting.identifier].getDisplayValue(user_setting.value), attr: { colspan: 2 } }]) %}
+                            {% for user_setting in settings_group.settings %}
+                                {% set cols = cols|merge([{ content: value_definitions[user_setting.identifier].getDisplayValue(user_setting.value), attr: { colspan: 2 } }]) %}
 
-                            {% set head_cols = user_setting.description is not empty
-                                ? head_cols|merge([{ content: user_setting.description, attr: { colspan: 2 } }])
-                                : null %}
+                                {% set head_cols = user_setting.description is not empty
+                                    ? head_cols|merge([{ content: user_setting.description, attr: { colspan: 2 } }])
+                                    : null %}
 
-                        {% endfor %}
+                            {% endfor %}
 
-                        {% set cols = cols|merge([{ has_action_btns: true, content: col_raw, raw: true }]) %}
-                        {% set body_rows = [{
-                            cols: cols
-                        }] %}
+                            {% set cols = cols|merge([{ has_action_btns: true, content: col_raw, raw: true }]) %}
+                            {% set body_rows = [{
+                                cols: cols
+                            }] %}
 
-                        {% include '@ibexadesign/ui/component/table/table.html.twig' with {
-                            headline: settings_group.name,
-                            head_cols,
-                            body_rows,
-                        } %}
+                            {% include '@ibexadesign/ui/component/table/table.html.twig' with {
+                                headline: settings_group.name,
+                                head_cols,
+                                body_rows,
+                            } %}
+                        {% endif %}
+
                     {% endfor %}
 
                     {% if pager.haveToPaginate %}
