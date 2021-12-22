@@ -44,6 +44,7 @@
         .ibexa-collapse {
             &--field-definitions-group {
                 margin-bottom: calculateRem(32px);
+                border-radius: $ibexa-border-radius;
 
                 .ibexa-collapse {
                     &__header {
@@ -58,6 +59,10 @@
                         padding: 0 calculateRem(24px) calculateRem(20px);
                     }
                 }
+            }
+
+            &--active-field-definitions-group {
+                border: calculateRem(1px) solid $ibexa-color-info;
             }
 
             &--field-definition {
