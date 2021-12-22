@@ -17,7 +17,7 @@
             const { nodes } = event.detail;
 
             nodes.forEach((node) => {
-                const fieldTextInputClearBtns = node.querySelectorAll('.ibexa-input-text-wrapper__clear-btn');
+                const fieldTextInputClearBtns = node.querySelectorAll('.ibexa-input-text-wrapper__action-btn--clear');
 
                 fieldTextInputClearBtns.forEach((clearBtn) => clearBtn.addEventListener('click', clearText, false));
             });
