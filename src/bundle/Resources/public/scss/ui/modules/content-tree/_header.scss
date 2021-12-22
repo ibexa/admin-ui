@@ -1,21 +1,23 @@
 .c-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: calculateRem(8px);
-    padding: 0 calculateRem(4px) calculateRem(8px);
+    padding-bottom: calculateRem(8px);
     border-bottom: calculateRem(1px) solid $ibexa-color-light-500;
 
-    &__expand-btn {
-        display: flex;
+    &__expand-btn,
+    &__collapse-btn {
+        display: inline-flex;
         align-items: center;
         justify-content: center;
-        margin-left: calculateRem(-4px);
-        padding: 0 0 0 calculateRem(8px);
-        width: calculateRem(65px);
-        height: calculateRem(65px);
+        padding: 0;
+        background: $ibexa-color-white;
+        width: calculateRem(48px);
+        height: calculateRem(48px);
 
-        .ibexa-icon + .ibexa-icon {
-            margin-right: calculateRem(2px);
+        .ibexa-icon:nth-child(2) {
+            margin-left: calculateRem(4px);
         }
     }
 
@@ -25,7 +27,6 @@
         font-size: $ibexa-text-font-size-large;
         font-weight: bold;
         line-height: calculateRem(33px);
-        width: 100%;
         padding-left: calculateRem(16px);
 
         .ibexa-icon {
