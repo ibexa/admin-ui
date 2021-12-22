@@ -16,13 +16,16 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="ibexa-translation__title">{{ 'tab.translations.add.language'|trans|desc('Select a language for the new translation') }}</div>
-                    {{ form_widget(form.language, {'attr': {'class': 'ibexa-translation__language-wrapper ibexa-translation__language-wrapper--language'}}) }}
-                    <div class="ibexa-translation__title mt-4">{{ 'tab.translations.add.base_language'|trans|desc('Base this translation on an existing translation') }}</div>
-                    {{ form_widget(form.base_language, {'attr': {'class': 'ibexa-translation__language-wrapper ibexa-translation__language-wrapper--base-language'}}) }}
+                    {{ form_row(form.base_language, {'attr': {'class': 'ibexa-translation__language-wrapper ibexa-translation__language-wrapper--base-language'}}) }}
+                    <div class="ibexa-translation__arrow">
+                        <svg class="ibexa-icon ibexa-icon--medium">
+                            <use xlink:href="{{ ibexa_icon_path('back') }}"></use>
+                        </svg>
+                    </div>
+                    {{ form_row(form.language, {'attr': {'class': 'ibexa-translation__language-wrapper ibexa-translation__language-wrapper--language'}}) }}
                 </div>
                 <div class="modal-footer">
-                    {{ form_widget(form.add, {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary ibexa-btn--create-translation', 'disabled': 'disabled'}}) }}
+                    {{ form_widget(form.add, {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary ibexa-btn--create-translation'}}) }}
                     <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
                         {{ 'tab.translations.add.cancel'|trans|desc('Cancel') }}
                     </button>

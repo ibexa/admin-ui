@@ -11,6 +11,11 @@
         <target state="new">No content. Drafts you create will show up here</target>
         <note>key: dashboard.tab.my_drafts.empty</note>
       </trans-unit>
+      <trans-unit id="128df491a522e7af4916cd002d9e11a3d2bc4078" resname="section.action.delete">
+        <source>Delete Section</source>
+        <target state="new">Delete Section</target>
+        <note>key: section.action.delete</note>
+      </trans-unit>
       <trans-unit id="84413bc1ae3385c0aac1af7ea5665cb0c1eaf3ba" resname="section.assign_content">
         <source>Assign content</source>
         <target state="new">Assign content</target>
@@ -81,11 +86,6 @@
         <target state="new">Identifier</target>
         <note>key: section.identifier</note>
       </trans-unit>
-      <trans-unit id="105a971e4f7e75ad6066301cedc90bd4acf0ae12" resname="section.information.header">
-        <source>Section information</source>
-        <target state="new">Section information</target>
-        <note>key: section.information.header</note>
-      </trans-unit>
       <trans-unit id="1f9b6e37416ff607de9d4fa280dce2f734ea622c" resname="section.list">
         <source>Sections</source>
         <target state="new">Sections</target>
@@ -120,6 +120,11 @@
         <source>Section: %identifier%</source>
         <target state="new">Section: %identifier%</target>
         <note>key: section.view.title.identifier</note>
+      </trans-unit>
+      <trans-unit id="09fcd5ad39b9c2b778be171f88559f6c117ff48b" resname="tab.details.technical_details">
+        <source>Technical details</source>
+        <target state="new">Technical details</target>
+        <note>key: tab.details.technical_details</note>
       </trans-unit>
     </body>
   </file>

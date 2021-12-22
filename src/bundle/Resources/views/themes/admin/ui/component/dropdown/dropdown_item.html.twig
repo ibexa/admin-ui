@@ -11,16 +11,25 @@
         </ul>
     </li>
 {% else %}
+    {% set is_selected = custom_form ? choice.value == value : choice is selectedchoice(value) %}
     <li
         data-value="{{ choice.value }}"
         data-filter-value="{{ item_label }}"
         class="ibexa-dropdown__item
             {% if preferred_choice %}ibexa-dropdown__item--preferred-choice{% endif %}
-            {% if custom_form ? choice.value == value : choice is selectedchoice(value) %}ibexa-dropdown__item--selected{% endif %}"
+            {% if is_selected %}ibexa-dropdown__item--selected{% endif %}"
     >
         {% if multiple is defined and multiple %}
-            <input type="checkbox" name="dropdown-checkbox" class="ibexa-input ibexa-input--checkbox" {% if custom_form ? choice.value == value : choice is selectedchoice(value) %}checked{% endif %} />
+            <input type="checkbox" name="dropdown-checkbox" class="ibexa-input ibexa-input--checkbox" {% if is_selected %}checked{% endif %} />
+        {% endif %}
+        {% if icon is defined %}
+            <svg class="ibexa-icon ibexa-icon--small">
+                <use xlink:href="{{ ibexa_icon_path(icon) }}"></use>
+            </svg>
         {% endif %}
         <span class="ibexa-dropdown__item-label">{{ item_label }}</span>
+        <svg class="ibexa-icon ibexa-icon--small ibexa-dropdown__item-check">
+            <use xlink:href="{{ ibexa_icon_path('checkmark') }}"></use>
+        </svg>
     </li>
 {% endif %}

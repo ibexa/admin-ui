@@ -110,7 +110,7 @@
 
             const selectedItemsList = this.container.querySelector('.ibexa-dropdown__selection-info');
 
-            if (selected && value) {
+            if (selected) {
                 const label = element.querySelector('.ibexa-dropdown__item-label').innerHTML;
 
                 selectedItemsList

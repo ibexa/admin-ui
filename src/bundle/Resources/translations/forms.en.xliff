@@ -1081,10 +1081,20 @@
         <target state="new">Select Content item</target>
         <note>key: swap_location_form.swap</note>
       </trans-unit>
-      <trans-unit id="f41c864f5e47e9829cac16492d544b9c7bce9f01" resname="translation.base_language.choose">
-        <source>Choose a Language</source>
-        <target state="new">Choose a Language</target>
-        <note>key: translation.base_language.choose</note>
+      <trans-unit id="d183d1b00142b36a06d45e6341e4c8b01976a6b9" resname="translation.base_language.label">
+        <source>Source language</source>
+        <target state="new">Source language</target>
+        <note>key: translation.base_language.label</note>
+      </trans-unit>
+      <trans-unit id="84c716177ff27c2a0900b4318920b1e0cbbf9b93" resname="translation.base_language.no_language">
+        <source>No language</source>
+        <target state="new">No language</target>
+        <note>key: translation.base_language.no_language</note>
+      </trans-unit>
+      <trans-unit id="68c3e0fd0fe047dae5853efbc89ccb128b544263" resname="translation.language.label">
+        <source>Target language</source>
+        <target state="new">Target language</target>
+        <note>key: translation.language.label</note>
       </trans-unit>
       <trans-unit id="30b0c3c3e5e096a078005be2cc34bca6227ae381" resname="trash_empty_form.empty">
         <source>Delete permanently</source>

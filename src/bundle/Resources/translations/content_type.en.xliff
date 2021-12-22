@@ -36,11 +36,6 @@
         <target state="new">Content Field definitions</target>
         <note>key: content_type.content_field_definitions</note>
       </trans-unit>
-      <trans-unit id="3066b4a1b2277f4e299d9c91ad3134d725467b39" resname="content_type.content_type">
-        <source>Content Type</source>
-        <target state="new">Content Type</target>
-        <note>key: content_type.content_type</note>
-      </trans-unit>
       <trans-unit id="e7a6e28719e705ca85e715114370d15deee0cd59" resname="content_type.copy.error">
         <source>Error occoured while copying the '%name%' Content Type.</source>
         <target state="new">Error occoured while copying the '%name%' Content Type.</target>
@@ -70,11 +65,6 @@
         <source>Available</source>
         <target state="new">Available</target>
         <note>key: content_type.default_availability.available</note>
-      </trans-unit>
-      <trans-unit id="3b3fc626a669a5462ec9fa7c94280a3573d8b106" resname="content_type.default_availability.help">
-        <source>Content of this Content Type will be available in the main language even if there is no translation.</source>
-        <target state="new">Content of this Content Type will be available in the main language even if there is no translation.</target>
-        <note>key: content_type.default_availability.help</note>
       </trans-unit>
       <trans-unit id="da6afb475bbd2efbe3929af770d0fc17e6e86132" resname="content_type.default_availability.not_available">
         <source>Not available</source>

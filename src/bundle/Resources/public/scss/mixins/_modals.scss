@@ -18,7 +18,7 @@
 @mixin modal-title {
     margin-right: calculateRem(30px);
     font-size: $modal-title-font-size;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 @mixin modal-subtitle {
