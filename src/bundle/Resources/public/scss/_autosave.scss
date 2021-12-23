@@ -4,8 +4,11 @@
     justify-content: center;
     color: $ibexa-color-dark-400;
     font-size: $ibexa-text-font-size-small;
-    fill: $ibexa-color-dark;
     transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+
+    .ibexa-icon {
+        fill: $ibexa-color-dark-400;
+    }
 
     &--light {
         color: $ibexa-color-white;
