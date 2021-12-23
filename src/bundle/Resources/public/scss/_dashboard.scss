@@ -1,22 +1,7 @@
 .ibexa-dashboard {
-    &__header.container {
-        margin-top: calculateRem(24px);
-    }
-
     &__create {
         display: flex;
         justify-content: flex-end;
-        padding-right: calculateRem(30px);
-    }
-
-    &__version-info {
-        display: flex;
-        align-items: center;
-        margin-top: calculateRem(18px);
-    }
-
-    &__version {
-        margin: 0 calculateRem(24px) 0 0;
     }
 
     .table:not(.ibexa-table--draft-conflict) {
