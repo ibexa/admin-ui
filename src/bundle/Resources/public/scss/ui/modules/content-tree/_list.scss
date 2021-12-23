@@ -6,7 +6,6 @@
     &__no-items-message {
         padding: calculateRem(10px);
         font-size: $ibexa-text-font-size-small;
-        font-style: italic;
-        color: $ibexa-color-dark;
+        color:$ibexa-color-dark-400;
     }
 }
