@@ -38,6 +38,7 @@
         flex: 1;
         background-color: $ibexa-color-white;
         border-left: calculateRem(1px) solid $ibexa-color-light;
+        overflow-y: auto;
     }
 
     &__bottom-bar {
