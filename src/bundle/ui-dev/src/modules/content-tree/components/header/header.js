@@ -49,7 +49,7 @@ const Header = ({ isCollapsed, toggleCollapseTree, actions, popupRef }) => {
                 />
                 {headerTitle}
             </div>
-            <div className="c-tb-header__options">
+            <div className="c-header__options">
                 <PopupActions listRef={popupRef} options={actions} />
             </div>
         </div>
