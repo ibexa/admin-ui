@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, Routing, Translator) {
+(function(global, doc, ibexa, Routing, Translator) {
     const TIMEOUT_REMOVE_PLACEHOLDERS = 1500;
     let targetContainer = null;
     let sourceContainer = null;
@@ -88,6 +88,7 @@
             removeFieldBtn.addEventListener('click', removeField, false);
         });
 
+        doc.body.dispatchEvent(new CustomEvent('ibexa-inputs:added'));
         doc.body.dispatchEvent(
             new CustomEvent('ibexa-drop-field-definition', {
                 detail: { nodes: [fieldNode] },
