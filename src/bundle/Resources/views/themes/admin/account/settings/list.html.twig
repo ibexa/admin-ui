@@ -3,15 +3,19 @@
 {% trans_default_domain 'user_settings' %}
 
 {% block breadcrumbs %}
-    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
-        { value: 'list.title'|trans|desc('User Settings') }
-    ]} %}
+    <div class="container">
+        {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
+            { value: 'list.title'|trans|desc('User Settings') }
+        ]} %}
+    </div>
 {% endblock %}
 
 {% block header %}
-    {% include '@ibexadesign/ui/page_title.html.twig' with {
-        title: 'list.title'|trans|desc('User Settings'),
-    } %}
+    <div class="container">
+        {% include '@ibexadesign/ui/page_title.html.twig' with {
+            title: 'list.title'|trans|desc('User Settings'),
+        } %}
+    </div>
 {% endblock %}
 
 {% block body_class %}ibexa-user-settings-list-view{% endblock %}
@@ -26,42 +30,35 @@
         {% block tab_content %}
             {% embed '@ibexadesign/ui/component/tab/tab_pane.html.twig' with { id: 'my-preferences', active: true } %}
                 {% block content %}
-                    {% for user_setting in pager %}
-                        {% set col_raw %}
-                            <a
-                                title="{{ 'list.action.edit'|trans|desc('Edit') }}"
-                                href="{{ path('ezplatform.user_settings.update', { 'identifier': user_setting.identifier }) }}"
-                                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
-                            >
-                                <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
-                                    <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                                </svg>
-                            </a>
-                        {% endset %}
+                    {% for settings_group in grouped_settings %}
+                        {% if settings_group.settings is not empty %}
+                            {% set headline_items %}
+                                <a
+                                    title="{{ 'list.action.edit'|trans|desc('Edit') }}"
+                                    href="{{ path('ezplatform.user_settings.update', { 'identifier': settings_group.identifier }) }}"
+                                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                                >
+                                    <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
+                                        <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
+                                    </svg>
+                                </a>
+                            {% endset %}
+                            {% set items = [] %}
 
-                        {% set body_rows = [{
-                            cols: [
-                                { content: value_definitions[user_setting.identifier].getDisplayValue(user_setting.value) },
-                                { has_action_btns: true, content: col_raw, raw: true },
-                            ]
-                        }] %}
+                            {% for user_setting in settings_group.settings %}
+                                {% set items = items|merge([{
+                                    label: user_setting.description,
+                                    content: value_definitions[user_setting.identifier].getDisplayValue(user_setting.value)
+                                }]) %}
+                            {% endfor %}
 
-                        {% set head_cols = user_setting.description is not empty
-                            ? [{ content: user_setting.description, attr: { colspan: 2 } }]
-                            : null %}
-
-                        {% include '@ibexadesign/ui/component/table/table.html.twig' with {
-                            headline: user_setting.name,
-                            head_cols,
-                            body_rows,
-                        } %}
+                            {% include '@ibexadesign/ui/component/details/details.html.twig' with {
+                                headline: settings_group.name,
+                                headline_items: headline_items,
+                                items: items,
+                            } only %}
+                        {% endif %}
                     {% endfor %}
-
-                    {% if pager.haveToPaginate %}
-                        {% include '@ibexadesign/ui/pagination.html.twig' with {
-                            'pager': pager
-                        } %}
-                    {% endif %}
                 {% endblock %}
             {% endembed %}
             {% embed '@ibexadesign/ui/component/tab/tab_pane.html.twig' with { id: 'my-account-settings' } %}

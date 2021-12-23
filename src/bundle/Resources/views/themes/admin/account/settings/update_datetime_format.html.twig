@@ -2,8 +2,8 @@
 
 {% trans_default_domain 'user_settings' %}
 
-{% block form %}
-    {{ parent() }}
+{% block date_time_format_widget %}
+    {{ block('form_widget') }}
     {% embed '@ibexadesign/ui/component/alert/alert.html.twig' with {
         type: 'info',
         title: 'settings.datetime_format.preview_label'|trans|desc('Date and Time will be displayed in this format:'),
