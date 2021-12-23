@@ -74,7 +74,7 @@ parameters:
     ezsettings.default.content_tree_module.contextual_tree_root_location_ids: []
 
     # Autosave
-    ezsettings.default.autosave.enabled: true
+    ezsettings.default.autosave.enabled: false
     ezsettings.default.autosave.interval: 60
 
     ezsettings.admin_group.autosave.enabled: true
