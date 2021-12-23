@@ -13,7 +13,7 @@
         textInputClearBtns.forEach((clearBtn) => clearBtn.addEventListener('click', clearText, false));
     };
 
-    doc.body.addEventListener('ibexa-new-inputs-added', attachListenersToAllInputs, false);
+    doc.body.addEventListener('ibexa-inputs:added', attachListenersToAllInputs, false);
 
     attachListenersToAllInputs();
 })(window, window.document);

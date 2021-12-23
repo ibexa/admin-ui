@@ -88,7 +88,7 @@
             removeFieldBtn.addEventListener('click', removeField, false);
         });
 
-        doc.body.dispatchEvent(new CustomEvent('ibexa-new-inputs-added'));
+        doc.body.dispatchEvent(new CustomEvent('ibexa-inputs:added'));
         doc.body.dispatchEvent(
             new CustomEvent('ibexa-drop-field-definition', {
                 detail: { nodes: [fieldNode] },
