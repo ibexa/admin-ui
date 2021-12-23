@@ -91,8 +91,13 @@
         selectedItems.forEach((location) => {
             const locationId = location.id;
             const container = doc.createElement('ul');
-            const renderedItem = tagTemplate.replace('{{ location_id }}', locationId);
 
+            container.insertAdjacentHTML('beforeend', tagTemplate);
+
+            const tagTemplateUnescaped = container.innerHTML;
+            const renderedItem = tagTemplateUnescaped.replace('{{ location_id }}', locationId);
+
+            container.innerHTML = '';
             container.insertAdjacentHTML('beforeend', renderedItem);
 
             const listItemNode = container.querySelector('li');
