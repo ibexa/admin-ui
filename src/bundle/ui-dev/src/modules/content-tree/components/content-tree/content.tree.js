@@ -7,7 +7,7 @@ import Icon from '../../../common/icon/icon';
 
 const CLASS_IS_TREE_RESIZING = 'ibexa-is-tree-resizing';
 const MIN_CONTAINER_WIDTH = 200;
-const COLLAPSED_WIDTH = 96;
+const COLLAPSED_WIDTH = 66;
 const EXPANDED_WIDTH = 320;
 const DEFAULT_CONTAINER_WIDTH = 300;
 
