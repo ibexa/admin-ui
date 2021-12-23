@@ -6,8 +6,7 @@
     padding-bottom: calculateRem(8px);
     border-bottom: calculateRem(1px) solid $ibexa-color-light-500;
 
-    &__expand-btn,
-    &__collapse-btn {
+    &__toggle-btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
