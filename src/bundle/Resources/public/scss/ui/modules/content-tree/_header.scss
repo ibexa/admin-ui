@@ -21,12 +21,14 @@
     }
 
     &__name {
-        display: flex;
-        align-items: center;
+        width: calc(100% - #{calculateRem(110px)});
         font-size: $ibexa-text-font-size-large;
         font-weight: bold;
+        text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
         line-height: calculateRem(33px);
-        padding-left: calculateRem(16px);
 
         .ibexa-icon {
             margin-right: calculateRem(8px);
@@ -36,6 +38,6 @@
     &__options {
         display: flex;
         justify-content: flex-end;
-        width: calculateRem(80px);
+        width: calculateRem(48px);
     }
 }
