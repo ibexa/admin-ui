@@ -51,7 +51,7 @@
     &__subtitle {
         @include ibexa-font-sans-serif();
 
-        word-break: break-all;
+        word-break: break-word;
     }
 
     &__extra_content {
