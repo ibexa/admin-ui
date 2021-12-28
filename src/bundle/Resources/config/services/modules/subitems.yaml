@@ -10,7 +10,7 @@ services:
         autoconfigure: false
         public: true
         tags:
-            - { name: ezpublish_rest.output.value_object_visitor, type: Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsRow }
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsRow }
 
     Ibexa\AdminUi\UI\Module\Subitems\ValueObjectVisitor\SubitemsList:
         parent: ezpublish_rest.output.value_object_visitor.base
@@ -18,7 +18,7 @@ services:
         autoconfigure: false
         public: true
         tags:
-            - { name: ezpublish_rest.output.value_object_visitor, type: Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsList }
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsList }
 
     Ibexa\AdminUi\UI\Module\Subitems\ContentViewParameterSupplier:
         $outputVisitor: '@ezpublish_rest.output.visitor.json'

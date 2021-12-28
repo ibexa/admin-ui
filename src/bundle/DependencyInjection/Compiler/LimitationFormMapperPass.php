@@ -16,6 +16,8 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class LimitationFormMapperPass implements CompilerPassInterface
 {
+    private const LIMITATION_MAPPER_FORM_TAG = 'ibexa.admin_ui.limitation.mapper.form';
+
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasDefinition('ezplatform.content_forms.limitation_form_mapper.registry')) {
@@ -24,15 +26,22 @@ class LimitationFormMapperPass implements CompilerPassInterface
 
         $registry = $container->findDefinition('ezplatform.content_forms.limitation_form_mapper.registry');
 
-        foreach ($container->findTaggedServiceIds('ez.limitation.formMapper') as $id => $attributes) {
+        $taggedServiceIds = $container->findTaggedServiceIds(
+            self::LIMITATION_MAPPER_FORM_TAG
+        );
+        foreach ($taggedServiceIds as $serviceId => $attributes) {
             foreach ($attributes as $attribute) {
                 if (!isset($attribute['limitationType'])) {
                     throw new LogicException(
-                        'ez.limitation.formMapper service tag needs a "limitationType" attribute to identify which LimitationType the mapper is for.'
+                        sprintf(
+                            'Service "%s" tagged with "%s" service tag needs a "limitationType" attribute to identify which LimitationType the mapper is for.',
+                            $serviceId,
+                            self::LIMITATION_MAPPER_FORM_TAG
+                        )
                     );
                 }
 
-                $registry->addMethodCall('addMapper', [new Reference($id), $attribute['limitationType']]);
+                $registry->addMethodCall('addMapper', [new Reference($serviceId), $attribute['limitationType']]);
             }
         }
     }

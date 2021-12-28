@@ -5,16 +5,16 @@ services:
             $template: '@@ezdesign/ui/tab/url_management.html.twig'
             $groupIdentifier: 'link-manager'
         tags:
-            - { name: ezplatform.admin_ui.component, group: 'link-manager-block' }
+            - { name: ibexa.admin_ui.component, group: 'link-manager-block' }
 
     Ibexa\AdminUi\Tab\URLManagement\URLWildcardsTab:
         class: Ibexa\AdminUi\Tab\URLManagement\URLWildcardsTab
         parent: Ibexa\Contracts\AdminUi\Tab\AbstractTab
         tags:
-            - { name: ezplatform.tab, group: 'link-manager' }
+            - { name: ibexa.admin_ui.tab, group: 'link-manager' }
 
     Ibexa\AdminUi\Tab\URLManagement\LinkManagerTab:
         class: Ibexa\AdminUi\Tab\URLManagement\LinkManagerTab
         parent: Ibexa\Contracts\AdminUi\Tab\AbstractTab
         tags:
-            - { name: ezplatform.tab, group: 'link-manager' }
+            - { name: ibexa.admin_ui.tab, group: 'link-manager' }

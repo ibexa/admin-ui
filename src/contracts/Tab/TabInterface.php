@@ -10,7 +10,7 @@ namespace Ibexa\Contracts\AdminUi\Tab;
 
 /**
  * Tab interface representing UI tabs. Tabs are assigned to groups which are rendered in the UI.
- * Use `ezplatform.tab` tag with attribute `group` to tag your concrete implementation service.
+ * Use `ibexa.admin_ui.tab` tag with attribute `group` to tag your concrete implementation service.
  */
 interface TabInterface
 {

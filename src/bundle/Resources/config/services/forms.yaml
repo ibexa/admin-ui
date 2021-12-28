@@ -6,7 +6,7 @@ services:
 
     _instanceof:
         Ibexa\AdminUi\Form\TrashLocationOptionProvider\TrashLocationOptionProvider:
-            tags: ['ezplatform.form.trash_location_option']
+            tags: [ ibexa.admin_ui.form.trash_location_option ]
 
     Ibexa\AdminUi\Form\SubmitHandler: ~
 
@@ -358,22 +358,22 @@ services:
 
     Ibexa\AdminUi\Form\TrashLocationOptionProvider\HasAssetRelation:
         tags:
-            - { name: 'ezplatform.form.trash_location_option', priority: 40 }
+            - { name: ibexa.admin_ui.form.trash_location_option, priority: 40 }
 
     Ibexa\AdminUi\Form\TrashLocationOptionProvider\HasChildren:
         tags:
-            - { name: 'ezplatform.form.trash_location_option', priority: 80 }
+            - { name: ibexa.admin_ui.form.trash_location_option, priority: 80 }
 
     Ibexa\AdminUi\Form\TrashLocationOptionProvider\HasReverseRelations:
         tags:
-            - { name: 'ezplatform.form.trash_location_option', priority: 100 }
+            - { name: ibexa.admin_ui.form.trash_location_option, priority: 100 }
 
     Ibexa\AdminUi\Form\TrashLocationOptionProvider\HasUniqueAssetRelation:
         tags:
-            - { name: 'ezplatform.form.trash_location_option', priority: 60 }
+            - { name: ibexa.admin_ui.form.trash_location_option, priority: 60 }
 
     Ibexa\AdminUi\Form\TrashLocationOptionProvider\OptionsFactory:
-        arguments: [!tagged ezplatform.form.trash_location_option]
+        arguments: [!tagged ibexa.admin_ui.form.trash_location_option]
 
     Ibexa\AdminUi\Form\Extension\RichTextTypeExtension:
         public: true

@@ -12,7 +12,7 @@ services:
 
     Ibexa\AdminUi\Siteaccess\SiteaccessResolver:
         arguments:
-            $siteaccessPreviewVoters: !tagged ezplatform.admin_ui.siteaccess_preview_voter
+            $siteaccessPreviewVoters: !tagged ibexa.admin_ui.site_access.preview.voter
             $siteAccessService: '@ezpublish.siteaccess_service'
 
     Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver:
@@ -22,4 +22,4 @@ services:
     Ibexa\AdminUi\Siteaccess\AdminSiteaccessPreviewVoter:
         arguments:
             $repositoryConfigurationProvider: '@ezpublish.api.repository_configuration_provider'
-        tags: ['ezplatform.admin_ui.siteaccess_preview_voter']
+        tags: [ ibexa.admin_ui.site_access.preview.voter ]

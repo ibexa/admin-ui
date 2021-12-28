@@ -13,4 +13,4 @@ services:
 
     Ibexa\AdminUi\UI\Config\Provider\Module\ContentTree:
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'contentTree' }
+            - { name: ibexa.admin_ui.config.provider, key: 'contentTree' }

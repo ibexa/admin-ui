@@ -4,7 +4,7 @@ services:
         parent: Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab
         public: true
         tags:
-            - { name: ezplatform.tab, group: content-type }
+            - { name: ibexa.admin_ui.tab, group: content-type }
 
     ezplatform.adminui.content_type.tab_groups:
         parent: Ibexa\AdminUi\Component\TabsComponent
@@ -12,4 +12,4 @@ services:
             $template: '@@ezdesign/ui/tab/content_type.html.twig'
             $groupIdentifier: 'content-type'
         tags:
-            - { name: ezplatform.admin_ui.component, group: 'content-type-tab-groups' }
+            - { name: ibexa.admin_ui.component, group: 'content-type-tab-groups' }

@@ -18,7 +18,7 @@ class ComponentPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    public const TAG_NAME = 'ezplatform.admin_ui.component';
+    public const TAG_NAME = 'ibexa.admin_ui.component';
 
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container

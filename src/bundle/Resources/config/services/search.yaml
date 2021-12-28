@@ -3,4 +3,4 @@ services:
     autowire: true
     public: false
     tags:
-      - { name: ezplatform.admin_ui.component, group: global-search }
+      - { name: ibexa.admin_ui.component, group: global-search }
