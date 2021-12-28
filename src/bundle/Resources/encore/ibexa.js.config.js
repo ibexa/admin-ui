@@ -4,6 +4,7 @@ const translationsPath = path.resolve('./public/assets/translations/');
 const fieldTypesPath = path.resolve(__dirname, '../public/js/scripts/fieldType/');
 const layout = [
     path.resolve(__dirname, '../public/js/scripts/helpers/icon.helper.js'),
+    path.resolve(__dirname, '../public/js/scripts/helpers/location.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/text.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/request.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/notification.helper.js'),
