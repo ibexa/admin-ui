@@ -4,15 +4,20 @@
     headline: 'tab.locations.location_content_swap'|trans()|desc('Swap Locations'),
 } only %}
 
-{{ form_start(form, {'action': path('ezplatform.location.swap')}) }}
-<div class="bg-white ml-4">
-    {{ 'tab.locations.swap_with_another'|trans()|desc('Swap the Content item at this Location with another') }}
-    {{ form_widget(form.swap, {'attr': {
-        'disabled': not can_swap,
-        'class': 'btn ibexa-btn ibexa-btn--secondary ibexa-btn--udw-swap ml-5',
-        'data-udw-config': ibexa_udw_config('single_container', {})
-    }}) }}
-    {{ form_widget(form.current_location) }}
-    {{ form_widget(form.new_location) }}
-</div>
+{{ form_start(form, {
+    'action': path('ezplatform.location.swap'),
+    'attr': { 'class': 'ibexa-form-location-swap' }
+}) }}
+    <div class="ibexa-form-location-swap__label">
+        {{ 'tab.locations.swap_with_another'|trans()|desc('Swap the Content item at this Location with another') }}
+    </div>
+    <div class="ibexa-form-location-swap__action-content">
+        {{ form_widget(form.swap, {'attr': {
+            'disabled': not can_swap,
+            'class': 'btn ibexa-btn ibexa-btn--secondary ibexa-btn--udw-swap ml-5',
+            'data-udw-config': ibexa_udw_config('single_container', {})
+        }}) }}
+        {{ form_widget(form.current_location) }}
+        {{ form_widget(form.new_location) }}
+    </div>
 {{ form_end(form) }}

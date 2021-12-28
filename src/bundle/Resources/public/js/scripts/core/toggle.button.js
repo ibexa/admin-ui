@@ -26,7 +26,10 @@
 
                 toggler.querySelector(`.form-check input[value="${valueToSet}"]`).checked = true;
             } else {
-                toggler.querySelector('.ibexa-toggle__input').checked = isChecked;
+                const toggleInput = toggler.querySelector('.ibexa-toggle__input');
+
+                toggleInput.checked = isChecked;
+                toggleInput.dispatchEvent(new Event('change'));
             }
         }
 
