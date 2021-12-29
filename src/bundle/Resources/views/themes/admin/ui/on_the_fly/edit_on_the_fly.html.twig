@@ -9,6 +9,31 @@
 {% endblock %}
 
 {% set without_close_button = true %}
+{% set context_actions %}
+    <ul class="ibexa-context-menu">
+        <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
+            <button class="btn ibexa-btn ibexa-btn--primary ibexa-btn--confirm">
+                <span class="ibexa-btn__label">{{ 'on_the_fly.confirm'|trans()|desc('Confirm') }}</span>
+            </button>
+        </li>
+        <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
+            <button class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--cancel">
+                <span class="ibexa-btn__label">{{'on_the_fly.cancel'|trans()|desc('Cancel') }}</span>
+            </button>
+        </li>
+        <li class="ibexa-context-menu__item ibexa-context-menu__item--more ibexa-adaptive-items__item ibexa-adaptive-items__item--selector">
+            <button class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--no-text ibexa-btn--more">
+                <svg class="ibexa-icon ibexa-icon--small">
+                    <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
+                </svg>
+            </button>
+
+            {{ include('@ibexadesign/ui/component/popup_menu/popup_menu.html.twig', {
+                'items': [],
+            }) }}
+        </li>
+    </ul>
+{% endset %}
 
 {% block header %}
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
@@ -18,6 +43,7 @@
         show_autosave_status: true,
         description: content_type.description,
         subtitle: 'editing_details'|trans({ '%location_name%': parent_location.contentInfo.name, '%language%': language.name })|desc('under %location_name% in %language%'),
+        context_actions: context_actions,
     } %}
 {% endblock %}
 

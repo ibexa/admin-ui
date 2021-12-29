@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, createRef } from 'react';
+import React, { useContext, createRef } from 'react';
 
 import {
     ContentOnTheFlyDataContext,
@@ -25,7 +25,6 @@ const generateIframeUrl = ({ locationId, languageCode, contentTypeIdentifier }) 
 };
 
 const ContentCreateTabModule = () => {
-    const [footerVisible, setFooterVisible] = useState(true);
     const [contentOnTheFlyData, setContentOnTheFlyData] = useContext(ContentOnTheFlyDataContext);
     const tabs = useContext(TabsContext);
     const contentOnTheFlyConfig = useContext(ContentOnTheFlyConfigContext);
@@ -53,6 +52,9 @@ const ContentCreateTabModule = () => {
     };
     const handleIframeLoad = () => {
         const locationId = iframeRef.current.contentWindow.document.querySelector('meta[name="LocationID"]');
+        const iframeBody = iframeRef.current.contentWindow.document.body;
+        const iframeConfirmButton = iframeBody.querySelector('.ibexa-btn--confirm');
+        const iframeCancelButton = iframeBody.querySelector('.ibexa-btn--cancel');
 
         if (locationId) {
             findLocationsById({ ...restInfo, id: parseInt(locationId.content, 10) }, (createdItems) => {
@@ -79,43 +81,15 @@ const ContentCreateTabModule = () => {
             });
         }
 
-        const iframeBody = iframeRef.current.contentWindow.document.body;
-        const iframeCancelButton = iframeBody.querySelector('.ibexa-anchor-navigation-menu__back');
-
-        iframeBody.addEventListener('ibexa-udw-opened', hideFooter, false);
-        iframeBody.addEventListener('ibexa-udw-closed', showFooter, false);
-        iframeCancelButton.addEventListener('click', cancelContentCreate, false);
+        iframeConfirmButton?.addEventListener('click', publishContent, false);
+        iframeCancelButton?.addEventListener('click', cancelContentCreate, false);
     };
-    const hideFooter = () => setFooterVisible(false);
-    const showFooter = () => setFooterVisible(true);
     const cancelLabel = Translator.trans(/*@Desc("Cancel")*/ 'content_create.cancel.label', {}, 'universal_discovery_widget');
     const confirmLabel = Translator.trans(/*@Desc("Confirm")*/ 'content_create.confirm.label', {}, 'universal_discovery_widget');
-    const className = createCssClassNames({
-        'm-content-create': true,
-        'm-content-create--footer-visible': footerVisible,
-    });
-
-    useEffect(() => {
-        window.document.body.addEventListener('ibexa-udw-hide-footer', hideFooter, false);
-        window.document.body.addEventListener('ibexa-udw-show-footer', showFooter, false);
-
-        return () => {
-            window.document.body.removeEventListener('ibexa-udw-hide-footer', hideFooter, false);
-            window.document.body.removeEventListener('ibexa-udw-show-footer', showFooter, false);
-        };
-    });
 
     return (
-        <div className={className}>
+        <div className="m-content-create">
             <iframe src={iframeUrl} className="m-content-create__iframe" ref={iframeRef} onLoad={handleIframeLoad} />
-            <div className="m-content-create__actions">
-                <button className="m-content-create__cancel-button btn ibexa-btn ibexa-btn--secondary" onClick={cancelContentCreate}>
-                    {cancelLabel}
-                </button>
-                <button className="m-content-create__confirm-button btn ibexa-btn ibexa-btn--primary" onClick={publishContent}>
-                    {confirmLabel}
-                </button>
-            </div>
         </div>
     );
 };
