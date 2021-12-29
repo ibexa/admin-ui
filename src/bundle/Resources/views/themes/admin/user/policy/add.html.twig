@@ -4,38 +4,25 @@
 
 {% trans_default_domain 'role' %}
 
-{% block breadcrumbs_admin %}
-    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
-        { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
-        { url: path('ezplatform.role.list'), value: 'role.breadcrumb.list'|trans|desc('Roles') },
-        { url: path('ezplatform.role.view', {roleId: role.id}), value: 'role.breadcrumb.view'|trans({ '%identifier%': role.identifier })|desc('%identifier%') },
-        { value: 'policy.breadcrumb.add'|trans|desc('Adding a new Policy') }
-    ]} %}
-{% endblock %}
-
-{% block context_menu_admin %}
-    {% set policy_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.policy_create.sidebar_right', [], {'role': role}) %}
-    {{ knp_menu_render(policy_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
-{% endblock %}
-
 {% block header_admin %}
-    {% include '@ibexadesign/ui/page_title.html.twig' with {
+    {% set policy_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.policy_create.sidebar_right', [], {'role': role}) %}
+
+    {% include '@ibexadesign/ui/edit_header.html.twig' with {
+        action_name: 'policy.adding'|trans|desc('Adding'),
         title: 'policy.view.add.title'|trans|desc('Adding a new Policy'),
+        context_actions: knp_menu_render(policy_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
 {% endblock %}
 
 {% block form %}
     {{ form_start(form) }}
-
-    <section class="container mt-4">
-        <div class="card ibexa-card ibexa-card--light">
-            <div class="card-body">
-                {{ form_widget(form.policy, {'attr': {'autofocus': 'autofocus'}}) }}
+        <section>
+            <div class="card ibexa-card ibexa-card--light">
+                <div class="card-body">
+                    {{ form_widget(form.policy, {'attr': {'autofocus': 'autofocus'}}) }}
+                </div>
             </div>
-        </div>
-    </section>
-
-    {{ form_widget(form.save, {"attr": {"hidden": "hidden"}}) }}
-
+        </section>
+        {{ form_widget(form.save, {"attr": {"hidden": "hidden"}}) }}
     {{ form_end(form) }}
 {% endblock %}

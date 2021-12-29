@@ -54,14 +54,12 @@ class URLEditRightSidebarBuilder extends AbstractBuilder implements TranslationC
                         'class' => 'ibexa-btn--trigger',
                         'data-click' => sprintf('#url-update', $url->id),
                     ],
-                    'extras' => ['icon' => 'save'],
                 ]
             ),
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
                     'route' => 'ezplatform.url_management',
-                    'extras' => ['icon' => 'circle-close'],
                 ]
             ),
         ]);

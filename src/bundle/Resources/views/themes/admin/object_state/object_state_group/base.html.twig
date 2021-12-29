@@ -1,26 +1,21 @@
-{% extends '@ibexadesign/ui/layout.html.twig' %}
+{% extends '@ibexadesign/ui/edit_base.html.twig' %}
 
 {% trans_default_domain 'object_state' %}
 
-{% block breadcrumbs %}
-    {% block breadcrumbs_admin %}{% endblock %}
-{% endblock %}
+{% block main_container_class %}ibexa-main-container--edit-container ibexa-main-container--without-anchor-menu-items{% endblock %}
 
-{% block context_menu %}
-    {% block context_menu_admin %}{% endblock %}
-{% endblock %}
+{% set anchor_params = {
+    close_href: path('ezplatform.object_state.groups.list'),
+} %}
 
 {% block header %}
     {% block header_admin %}{% endblock %}
 {% endblock %}
 
 {% block content %}
-    <div class="row align-items-stretch ibexa-main-row">
-        <div class="px-0 pb-4 ibexa-content-container">
-            <div class="container ibexa-container">
-                {% block form %}
-                {% endblock %}
-            </div>
+    <div class="row">
+        <div class="col col-10 offset-1">
+            {% block form %}{% endblock %}
         </div>
     </div>
 {% endblock %}

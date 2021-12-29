@@ -4,47 +4,34 @@
 
 {% trans_default_domain 'role' %}
 
-{% block breadcrumbs_admin %}
-    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
-        { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
-        { url: path('ezplatform.role.list'), value: 'role.breadcrumb.list'|trans|desc('Roles') },
-        { url: path('ezplatform.role.view', {roleId: role.id}), value: 'role.breadcrumb.view.identifier'|trans({ '%identifier%': role.identifier })|desc('Role "%identifier%"') },
-        { value: 'policy.breadcrumb.edit'|trans()|desc('Edit Limitations') }
-    ]} %}
-{% endblock %}
-
-{% block context_menu_admin %}
-    {% set policy_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.policy_edit.sidebar_right', [], {'role': role, 'save_id': form.save.vars.id}) %}
-    {{ knp_menu_render(policy_edit_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
-{% endblock %}
-
 {% block header_admin %}
-    {% include '@ibexadesign/ui/page_title.html.twig' with {
+    {% set policy_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.policy_edit.sidebar_right', [], {'role': role, 'save_id': form.save.vars.id}) %}
+
+    {% include '@ibexadesign/ui/edit_header.html.twig' with {
+        action_name: 'policy.editing'|trans|desc('Editing'),
         title: 'policy.view.edit.title'|trans()|desc('Edit Limitations'),
+        context_actions: knp_menu_render(policy_edit_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
 {% endblock %}
 
 {% block form %}
     {{ form_start(form) }}
-    <section class="ibexa-fieldgroup">
-        <h2 class="ibexa-fieldgroup__name">
-            <b>{{ 'policy.view.policy.title'|trans|desc('Policy type:') }}</b>
-            {{ policy.module|capitalize ~ ' / ' ~ policy.function|capitalize }}
-        </h2>
-        {% do form.policy.setRendered %}
-    </section>
-
-    <section class="ibexa-fieldgroup">
-        <h2 class="ibexa-fieldgroup__name"><b>{{ 'policy.view.limitations.title'|trans|desc('Edit Limitations') }}</b></h2>
-        <div class="ibexa-fieldgroup__content">
-            {% for limitation_form in form.limitations %}
-                {{ include(limitation_form.vars.template, {form: limitation_form}, with_context = false) }}
-            {% endfor %}
-        </div>
-    </section>
-
-    {{ form_widget(form.save, {"attr": {"hidden": "hidden"}}) }}
-
+        <section class="ibexa-fieldgroup">
+            <h2 class="ibexa-fieldgroup__name">
+                <b>{{ 'policy.view.policy.title'|trans|desc('Policy type:') }}</b>
+                {{ policy.module|capitalize ~ ' / ' ~ policy.function|capitalize }}
+            </h2>
+            {% do form.policy.setRendered %}
+        </section>
+        <section class="ibexa-fieldgroup">
+            <h2 class="ibexa-fieldgroup__name"><b>{{ 'policy.view.limitations.title'|trans|desc('Edit Limitations') }}</b></h2>
+            <div class="ibexa-fieldgroup__content">
+                {% for limitation_form in form.limitations %}
+                    {{ include(limitation_form.vars.template, {form: limitation_form}, with_context = false) }}
+                {% endfor %}
+            </div>
+        </section>
+        {{ form_widget(form.save, {"attr": {"hidden": "hidden"}}) }}
     {{ form_end(form) }}
 {% endblock %}
 

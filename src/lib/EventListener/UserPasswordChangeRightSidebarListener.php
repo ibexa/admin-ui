@@ -50,13 +50,13 @@ class UserPasswordChangeRightSidebarListener implements EventSubscriberInterface
                     'class' => 'ibexa-btn--trigger',
                     'data-click' => '#user_password_change_change',
                 ],
-                'extras' => ['icon' => 'publish', 'translation_domain' => 'menu'],
+                'extras' => ['translation_domain' => 'menu'],
             ]
         );
         $menu->addChild(
             self::ITEM__CANCEL,
             [
-                'extras' => ['icon' => 'circle-close', 'translation_domain' => 'menu'],
+                'extras' => ['translation_domain' => 'menu'],
                 'route' => 'ezplatform.dashboard',
             ]
         );

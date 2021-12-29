@@ -4,28 +4,18 @@
 
 {% trans_default_domain 'section' %}
 
-{% block breadcrumbs_admin %}
-    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { 'items': [
-        { 'value': 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
-        { 'url': path('ezplatform.section.list'), 'value': 'section.list'|trans|desc('Sections') },
-        { 'value': 'section.update.title'|trans({ '%identifier%': section.name })|desc('Editing Section \'%identifier%\'') }
-    ]} %}
-{% endblock %}
-
-{% block context_menu_admin %}
-    {% set section_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.section_edit.sidebar_right', [], {'section': section}) %}
-    {{ knp_menu_render(section_edit_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
-{% endblock %}
-
 {% block header_admin %}
-    {% include '@ibexadesign/ui/page_title.html.twig' with {
+    {% set section_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.section_edit.sidebar_right', [], {'section': section}) %}
+
+    {% include '@ibexadesign/ui/edit_header.html.twig' with {
+        action_name: 'section.editing'|trans|desc('Editing'),
         title: 'section.update.title'|trans({ '%identifier%': section.name })|desc('Editing Section \'%identifier%\''),
+        context_actions: knp_menu_render(section_edit_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
 {% endblock %}
 
 {% block form %}
     {{ form_start(form_section_update, {'attr': {'class': 'update-section'}}) }}
-
         <section>
             <div class="card ibexa-card ibexa-card--light">
                 <div class="card-body ibexa-card__body">
@@ -34,8 +24,6 @@
                 </div>
             </div>
         </section>
-
-    {{ form_widget(form_section_update.update, {'attr': {'hidden': 'hidden'}}) }}
-
+        {{ form_widget(form_section_update.update, {'attr': {'hidden': 'hidden'}}) }}
     {{ form_end(form_section_update) }}
 {% endblock %}

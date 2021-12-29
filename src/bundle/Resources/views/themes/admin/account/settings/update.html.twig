@@ -1,41 +1,43 @@
-{% extends '@ibexadesign/ui/base.html.twig' %}
+{% set view_base_layout = '@ibexadesign/ui/layout.html.twig' %}
+{% extends '@ibexadesign/ui/edit_base.html.twig' %}
 
 {% trans_default_domain 'user_settings' %}
 
-{% block breadcrumbs_admin %}
-    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
-        { value: 'list.title'|trans|desc('User Settings') }
-    ]} %}
-{% endblock %}
+{% block body_class %}ibexa-user-settings-update-view{% endblock %}
 
-{% block context_menu_admin %}
+{% set anchor_params = {
+    close_href: path('ezplatform.user_settings.list'),
+} %}
+
+{% block header %}
     {% set user_setting_update_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_setting_update.sidebar_right', [], {'user_setting': user_setting}) %}
-    {{ knp_menu_render(user_setting_update_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
-{% endblock %}
 
-{% block header_admin %}
-    {% include '@ibexadesign/ui/page_title.html.twig' with {
+    {% include '@ibexadesign/ui/edit_header.html.twig' with {
+        action_name: 'list.title'|trans|desc('User Settings'),
         title: 'list.title'|trans|desc('User Settings'),
+        context_actions: knp_menu_render(user_setting_update_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
 {% endblock %}
 
-{% block body_class %}ibexa-user-settings-update-view{% endblock %}
-
-{% block form %}
+{% block content %}
     {% form_theme form '@ibexadesign/ui/form_fields.html.twig' '@ibexadesign/account/settings/update_datetime_format.html.twig' %}
 
-    <section class="container ibexa-container">
-        {{ form_start(form) }}
-        {{ form_widget(form.identifier, {'attr': {'hidden': 'hidden'}}) }}
-        {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
-            headline: user_setting_group.name
-        } %}
-        {% for user_setting in user_setting_group.settings %}
-            <div class="bg-white p-4">
-                {{ form_widget(attribute(form, user_setting.identifier)) }}
-            </div>
-        {% endfor %}
-        {{ form_widget(form.update, {'attr': {'hidden': 'hidden'}}) }}
-        {{ form_end(form) }}
-    </section>
+    <div class="row">
+        <div class="col col-10 offset-1">
+            <section class="container ibexa-container">
+                {{ form_start(form) }}
+                {{ form_widget(form.identifier, {'attr': {'hidden': 'hidden'}}) }}
+                {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
+                    headline: user_setting_group.name
+                } %}
+                {% for user_setting in user_setting_group.settings %}
+                    <div>
+                        {{ form_widget(attribute(form, user_setting.identifier)) }}
+                    </div>
+                {% endfor %}
+                {{ form_widget(form.update, {'attr': {'hidden': 'hidden'}}) }}
+                {{ form_end(form) }}
+            </section>
+        </div>
+    </div>
 {% endblock %}
