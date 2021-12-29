@@ -2,7 +2,7 @@
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const removeRootFromPathString = (pathString) => {
-        const pathArray = pathString.split('/').filter((val) => val);
+        const pathArray = pathString.split('/').filter((id) => id);
 
         return pathArray.splice(1, pathArray.length - 1);
     };
