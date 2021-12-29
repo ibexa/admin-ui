@@ -25,6 +25,7 @@ const FinderLeaf = ({ location }) => {
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
     const isContainer = contentTypeInfo.isContainer;
+    const isSelected = selectedLocations.some((selectedLocation) => selectedLocation.location.id === location.id);
     const isNotSelectable =
         (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeInfo.identifier));
     const markLocation = ({ nativeEvent }) => {
@@ -52,6 +53,7 @@ const FinderLeaf = ({ location }) => {
         'c-finder-leaf--marked': !!loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === location.id),
         'c-finder-leaf--has-children': !!location.childCount,
         'c-finder-leaf--not-selectable': isNotSelectable,
+        'c-finder-leaf--selected': isSelected && !multiple,
     });
 
     useEffect(() => {

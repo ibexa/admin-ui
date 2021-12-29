@@ -30,12 +30,14 @@ const GridViewItem = ({ location, version }) => {
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
     const isContainer = contentTypeInfo.isContainer;
+    const isSelected = selectedLocations.some((selectedLocation) => selectedLocation.location.id === location.id);
     const isNotSelectable =
         (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeInfo.identifier));
     const className = createCssClassNames({
         'ibexa-grid-view-item': true,
         'ibexa-grid-view-item--marked': markedLocationId === location.id,
         'ibexa-grid-view-item--not-selectable': isNotSelectable,
+        'ibexa-grid-view-item--selected': isSelected && !multiple,
     });
     const markLocation = ({ nativeEvent }) => {
         if (isSelectionButtonClicked(nativeEvent)) {

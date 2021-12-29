@@ -7,7 +7,7 @@ import TabSelector from '../tab-selector/tab.selector';
 import SelectedLocations from '../selected-locations/selected.locations';
 import ContentCreateWidget from '../content-create-widget/content.create.widget';
 
-import { SelectedLocationsContext, DropdownPortalRefContext } from '../../universal.discovery.module';
+import { SelectedLocationsContext, DropdownPortalRefContext, MultipleConfigContext } from '../../universal.discovery.module';
 
 const Tab = ({ children, actionsDisabledMap }) => {
     const topBarRef = useRef();
@@ -16,7 +16,8 @@ const Tab = ({ children, actionsDisabledMap }) => {
     const ContentMetaPreview = window.ibexa.adminUiConfig.universalDiscoveryWidget.contentMetaPreview;
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const dropdownPortalRef = useContext(DropdownPortalRefContext);
-    const selectedLocationsComponent = !!selectedLocations.length ? <SelectedLocations /> : null;
+    const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
+    const selectedLocationsComponent = !!selectedLocations.length && multiple ? <SelectedLocations /> : null;
     const contentStyles = {
         height: contentHeight,
     };
