@@ -11,7 +11,7 @@
     const findLocationsByIds = (idList, callback) => {
         const body = JSON.stringify({
             ViewInput: {
-                identifier: `udw-locations-by-path-string-${idList.join('-')}`,
+                identifier: `locations-by-path-string-${idList.join('-')}`,
                 public: false,
                 LocationQuery: {
                     FacetBuilders: {},
