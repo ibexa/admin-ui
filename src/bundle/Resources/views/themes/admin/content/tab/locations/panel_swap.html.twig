@@ -6,12 +6,12 @@
 
 {{ form_start(form, {
     'action': path('ezplatform.location.swap'),
-    'attr': { 'class': 'ibexa-form-location-swap' }
+    'attr': { 'class': 'ibexa-location-swap-form' }
 }) }}
-    <div class="ibexa-form-location-swap__label">
+    <div class="ibexa-location-swap-form__label">
         {{ 'tab.locations.swap_with_another'|trans()|desc('Swap the Content item at this Location with another') }}
     </div>
-    <div class="ibexa-form-location-swap__action-content">
+    <div class="ibexa-location-swap-form__action-content">
         {{ form_widget(form.swap, {'attr': {
             'disabled': not can_swap,
             'class': 'btn ibexa-btn ibexa-btn--secondary ibexa-btn--udw-swap ml-5',
