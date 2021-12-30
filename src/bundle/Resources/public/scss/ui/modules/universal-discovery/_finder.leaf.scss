@@ -55,6 +55,18 @@
         @include hover();
     }
 
+    &--selected {
+        color: $ibexa-color-primary;
+
+        .c-finder-leaf__name {
+            color: $ibexa-color-primary;
+
+            .ibexa-icon {
+                fill: $ibexa-color-primary;
+            }
+        }
+    }
+
     &__name {
         white-space: nowrap;
         overflow: hidden;

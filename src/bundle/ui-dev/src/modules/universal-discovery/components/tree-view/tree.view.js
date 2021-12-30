@@ -1,6 +1,7 @@
 import React, { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
+import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import ContentTreeModule from '../../../content-tree/content.tree.module';
 import { loadAccordionData } from '../../services/universal.discovery.service';
 import { getLocationData } from '../../content.meta.preview.module';
@@ -79,21 +80,27 @@ const TreeView = ({ itemsPerPage }) => {
 
         const location = tree.shift();
 
-        return [{
-            children: readSubtreeRecursive(tree),
-            limit: itemsPerPage,
-            locationId: location.parentLocationId,
-            offset: 0,
-            '_media-type': 'application/vnd.ez.api.ContentTreeLoadSubtreeRequestNode',
-        }];
-    }
+        return [
+            {
+                children: readSubtreeRecursive(tree),
+                limit: itemsPerPage,
+                locationId: location.parentLocationId,
+                offset: 0,
+                '_media-type': 'application/vnd.ez.api.ContentTreeLoadSubtreeRequestNode',
+            },
+        ];
+    };
     const readSubtree = () => readSubtreeRecursive([...loadedLocationsMap]);
     const currentLocationPath = locationData && locationData.location ? locationData.location.pathString : '/1/';
     const locationsLoaded = loadedLocationsMap.length > 1 || (loadedLocationsMap.length === 1 && loadedLocationsMap[0].subitems.length > 0);
     const contentTreeVisible = (markedLocationId !== null && locationsLoaded) || markedLocationId === null;
+    const className = createCssClassNames({
+        'c-tree': true,
+        'c-tree--single-select': !multiple,
+    });
 
     return (
-        <div className="c-tree">
+        <div className={className}>
             {contentTreeVisible && (
                 <ContentTreeModule
                     userId={userId}
