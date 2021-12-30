@@ -70,15 +70,15 @@ const ContentEditTabModule = () => {
     const handleIframeLoad = () => {
         const locationId = iframeRef.current.contentWindow.document.querySelector('meta[name="LocationID"]');
         const iframeBody = iframeRef.current.contentWindow.document.body;
-        const iframeConfirmButton = iframeBody.querySelector('.ibexa-btn--confirm');
-        const iframeCancelButton = iframeBody.querySelector('.ibexa-btn--cancel');
+        const iframeConfirmBtn = iframeBody.querySelector('.ibexa-context-menu .ibexa-btn--confirm');
+        const iframeCancelBtn = iframeBody.querySelector('.ibexa-context-menu .ibexa-btn--cancel');
 
         if (locationId) {
             handleContentPublished(parseInt(locationId.content, 10));
         }
 
-        iframeConfirmButton?.addEventListener('click', publishContent, false);
-        iframeCancelButton?.addEventListener('click', cancelContentEdit, false);
+        iframeConfirmBtn?.addEventListener('click', publishContent, false);
+        iframeCancelBtn?.addEventListener('click', cancelContentEdit, false);
     };
     const iframeUrl = window.Routing.generate(
         'ezplatform.content_on_the_fly.edit',

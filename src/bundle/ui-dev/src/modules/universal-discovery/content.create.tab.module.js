@@ -53,8 +53,8 @@ const ContentCreateTabModule = () => {
     const handleIframeLoad = () => {
         const locationId = iframeRef.current.contentWindow.document.querySelector('meta[name="LocationID"]');
         const iframeBody = iframeRef.current.contentWindow.document.body;
-        const iframeConfirmButton = iframeBody.querySelector('.ibexa-btn--confirm');
-        const iframeCancelButton = iframeBody.querySelector('.ibexa-btn--cancel');
+        const iframeConfirmBtn = iframeBody.querySelector('.ibexa-context-menu .ibexa-btn--confirm');
+        const iframeCancelBtn = iframeBody.querySelector('.ibexa-context-menu .ibexa-btn--cancel');
 
         if (locationId) {
             findLocationsById({ ...restInfo, id: parseInt(locationId.content, 10) }, (createdItems) => {
@@ -81,8 +81,8 @@ const ContentCreateTabModule = () => {
             });
         }
 
-        iframeConfirmButton?.addEventListener('click', publishContent, false);
-        iframeCancelButton?.addEventListener('click', cancelContentCreate, false);
+        iframeConfirmBtn?.addEventListener('click', publishContent, false);
+        iframeCancelBtn?.addEventListener('click', cancelContentCreate, false);
     };
     const cancelLabel = Translator.trans(/*@Desc("Cancel")*/ 'content_create.cancel.label', {}, 'universal_discovery_widget');
     const confirmLabel = Translator.trans(/*@Desc("Confirm")*/ 'content_create.confirm.label', {}, 'universal_discovery_widget');
