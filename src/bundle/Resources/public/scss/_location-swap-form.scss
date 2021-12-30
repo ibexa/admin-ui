@@ -1,0 +1,12 @@
+.ibexa-location-swap-form {
+    max-width: calculateRem(700px);
+    margin-top: calculateRem(24px);
+    padding: calculateRem(34px) calculateRem(21px);
+    border-radius: $ibexa-border-radius;
+    border: calculateRem(1px) solid $ibexa-color-dark-200;
+
+    &__label {
+        font-size: $ibexa-text-font-size-medium;
+        margin-bottom: calculateRem(42px);
+    }
+}

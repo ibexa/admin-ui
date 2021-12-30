@@ -93,10 +93,6 @@ img {
     }
 }
 
-.ibexa-checkbox-icon {
-    @include checkbox-icon($ibexa-color-base-dark);
-}
-
 .ibexa-visually-hidden,
 .ibexa-visually-hidden[readonly] {
     height: calculateRem(1px);
