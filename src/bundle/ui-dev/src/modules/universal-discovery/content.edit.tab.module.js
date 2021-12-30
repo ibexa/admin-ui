@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useState, useEffect } from 'react';
+import React, { useRef, useContext } from 'react';
 
 import {
     TabsContext,
@@ -13,7 +13,6 @@ import deepClone from '../common/helpers/deep.clone.helper';
 import { createCssClassNames } from '../common/helpers/css.class.names';
 
 const ContentEditTabModule = () => {
-    const [footerVisible, setFooterVisible] = useState(true);
     const restInfo = useContext(RestInfoContext);
     const tabs = useContext(TabsContext);
     const [activeTab, setActiveTab] = useContext(ActiveTabContext);
@@ -70,16 +69,17 @@ const ContentEditTabModule = () => {
     };
     const handleIframeLoad = () => {
         const locationId = iframeRef.current.contentWindow.document.querySelector('meta[name="LocationID"]');
+        const iframeBody = iframeRef.current.contentWindow.document.body;
+        const iframeConfirmBtn = iframeBody.querySelector('.ibexa-context-menu .ibexa-btn--confirm');
+        const iframeCancelBtn = iframeBody.querySelector('.ibexa-context-menu .ibexa-btn--cancel');
 
         if (locationId) {
             handleContentPublished(parseInt(locationId.content, 10));
         }
 
-        iframeRef.current.contentWindow.document.body.addEventListener('ibexa-udw-opened', hideFooter, false);
-        iframeRef.current.contentWindow.document.body.addEventListener('ibexa-udw-closed', showFooter, false);
+        iframeConfirmBtn?.addEventListener('click', publishContent, false);
+        iframeCancelBtn?.addEventListener('click', cancelContentEdit, false);
     };
-    const hideFooter = () => setFooterVisible(false);
-    const showFooter = () => setFooterVisible(true);
     const iframeUrl = window.Routing.generate(
         'ezplatform.content_on_the_fly.edit',
         {
@@ -90,32 +90,10 @@ const ContentEditTabModule = () => {
         },
         true
     );
-    const className = createCssClassNames({
-        'c-content-edit': true,
-        'c-content-edit--footer-visible': footerVisible,
-    });
-
-    useEffect(() => {
-        window.document.body.addEventListener('ibexa-udw-hide-footer', hideFooter, false);
-        window.document.body.addEventListener('ibexa-udw-show-footer', showFooter, false);
-
-        return () => {
-            window.document.body.removeEventListener('ibexa-udw-hide-footer', hideFooter, false);
-            window.document.body.removeEventListener('ibexa-udw-show-footer', showFooter, false);
-        };
-    });
 
     return (
-        <div className={className}>
+        <div className="c-content-edit">
             <iframe src={iframeUrl} className="c-content-edit__iframe" ref={iframeRef} onLoad={handleIframeLoad} />
-            <div className="c-content-edit__actions">
-                <button className="c-content-edit__cancel-button btn ibexa-btn ibexa-btn--secondary" onClick={cancelContentEdit}>
-                    {cancelLabel}
-                </button>
-                <button className="c-content-edit__confirm-button btn ibexa-btn ibexa-btn--primary" onClick={publishContent}>
-                    {confirmLabel}
-                </button>
-            </div>
         </div>
     );
 };
