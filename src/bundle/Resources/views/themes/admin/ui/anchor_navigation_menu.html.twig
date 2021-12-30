@@ -2,13 +2,15 @@
     <div class="ibexa-anchor-navigation-menu__header">
         {% if close_href is defined %}
             <a
-                class="btn ibexa-btn ibexa-btn--no-text ibexa-anchor-navigation-menu__back"
+                class="btn ibexa-btn ibexa-btn--ghost ibexa-anchor-navigation-menu__back"
                 href="{{ close_href }}"
-                title="{{ 'anchor_navigation.close'|trans|desc('Close') }}"
             >
                 <svg class="ibexa-icon ibexa-icon--small">
                     <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
                 </svg>
+                <span class="ibexa-btn__label">
+                    {{ 'anchor_navigation.back'|trans|desc('Back') }}
+                </span>
             </a>
         {% endif %}
     </div>
