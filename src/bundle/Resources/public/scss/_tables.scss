@@ -47,21 +47,29 @@
     }
 
     &__empty-table-cell {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         background: $ibexa-color-white;
-        text-align: center;
     }
 
     &__empty-table-text {
         @include ibexa-font-sans-serif();
 
-        font-size: $ibexa-text-font-size;
-        line-height: calculateRem(24px);
+        max-width: calculateRem(440px);
+        margin-left: calculateRem(56px);
         color: $ibexa-color-dark-400;
+    }
 
-        strong {
-            font-size: $ibexa-text-font-size-large;
-            line-height: calculateRem(33px);
-            font-weight: 600;
+    &__empty-table-info-text,
+    &__empty-table-action-text {
+        margin-bottom: calculateRem(16px);
+    }
+
+    &__empty-table-action-link {
+        .ibexa-icon {
+            margin-right: calculateRem(8px);
+            transform: rotate(180deg);
         }
     }
 

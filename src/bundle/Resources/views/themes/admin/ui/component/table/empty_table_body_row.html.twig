@@ -6,11 +6,23 @@
             alt="{{ empty_table_info_text|default('Table is empty') }}"
         />
         <div class="ibexa-table__empty-table-text">
-            {% if empty_table_info_text is defined %}
-                <strong>{{ empty_table_info_text }}</strong>
+            {% if empty_table_info_text|default(false) %}
+                <h2 class="ibexa-table__empty-table-info-text">{{ empty_table_info_text }}</h2>
             {% endif %}
-            {% if empty_table_action_text is defined %}
-                <br>{{ empty_table_action_text }}
+
+            {% if empty_table_action_text|default(false) %}
+                <div class="ibexa-table__empty-table-action-text">{{ empty_table_action_text }}</div>
+            {% endif %}
+
+            {% if empty_table_action_link_label|default(false) %}
+                {% if empty_table_action_link|default(false) %}
+                    <a href="{{ empty_table_action_link }}" class="ibexa-table__empty-table-action-link">
+                        <svg class="ibexa-icon ibexa-icon--small-medium">
+                            <use xlink:href="{{ ibexa_icon_path('back') }}"></use>
+                        </svg>
+                        <span>{{ empty_table_action_link_label }}</span>
+                    </a>
+                {% endif %}
             {% endif %}
         </div>
     </td>
