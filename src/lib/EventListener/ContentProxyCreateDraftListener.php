@@ -77,9 +77,9 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
             []
         );
 
-        $options->set('content_draft', $contentDraft);
+        $options->set(ContentProxyCreateEvent::OPTION_CONTENT_DRAFT, $contentDraft);
 
-        if ($options->get('isOnTheFly', false)) {
+        if ($options->get(ContentProxyCreateEvent::OPTION_IS_ON_THE_FLY, false)) {
             $response = new RedirectResponse(
                 $this->router->generate('ezplatform.content_on_the_fly.edit', [
                     'contentId' => $contentDraft->id,

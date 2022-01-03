@@ -18,6 +18,9 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class ContentProxyCreateEvent extends Event
 {
+    public const OPTION_CONTENT_DRAFT = 'contentDraft';
+    public const OPTION_IS_ON_THE_FLY = 'isOnTheFly';
+
     /** @var \Symfony\Component\HttpFoundation\Response|null */
     private $response;
 
