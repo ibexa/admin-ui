@@ -10,7 +10,12 @@
             <fieldset>
                 {% block login_form_errors %}
                     {% if error %}
-                        <span class="ibexa-login__errors-container">{{ error.message|trans }}</span>
+                        <div class="ibexa-login__errors-container">
+                            {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
+                                type: 'error',
+                                title: error.message|trans,
+                            } only %}
+                        </div>
                     {% endif %}
                 {% endblock %}
 
