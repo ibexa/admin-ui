@@ -75,22 +75,29 @@ const ContentCreateWidget = () => {
     const createLabel = Translator.trans(/*@Desc("Create new")*/ 'create_content.create', {}, 'universal_discovery_widget');
     const closeLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'universal_discovery_widget');
     const cancelLabel = Translator.trans(/*@Desc("Cancel")*/ 'content_create.cancel.label', {}, 'universal_discovery_widget');
-    const placeholder = Translator.trans(/*@Desc("Type to refine")*/ 'content_create.placeholder', {}, 'universal_discovery_widget')
-    const filtersDescLabel = Translator.trans(/*@Desc("Or choose from list")*/ 'content.create.filters.desc', {}, 'universal_discovery_widget');
+    const placeholder = Translator.trans(/*@Desc("Type to refine")*/ 'content_create.placeholder', {}, 'universal_discovery_widget');
+    const filtersDescLabel = Translator.trans(
+        /*@Desc("Or choose from list")*/ 'content.create.filters.desc',
+        {},
+        'universal_discovery_widget'
+    );
     const createUnderLabel = Translator.trans(
         /*@Desc("under %content_name%")*/ 'content.create.editing_details',
         { content_name: selectedLocation?.location?.ContentInfo.Content.TranslatedName },
-        'universal_discovery_widget');
+        'universal_discovery_widget'
+    );
     const widgetClassName = createCssClassNames({
         'ibexa-extra-actions': true,
         'ibexa-extra-actions--create': true,
         'ibexa-extra-actions--hidden': !createContentVisible,
         'c-content-create': true,
     });
-    const languageOptions = languages.filter(((language) => language.enabled)).map((language) => ({
-        value: language.languageCode,
-        label: language.name,
-    }));
+    const languageOptions = languages
+        .filter((language) => language.enabled)
+        .map((language) => ({
+            value: language.languageCode,
+            label: language.name,
+        }));
 
     useEffect(() => {
         window.ibexa.helpers.tooltips.parse(refContentTree.current);
@@ -109,9 +116,7 @@ const ContentCreateWidget = () => {
                         data-tooltip-container-selector=".c-udw-tab">
                         <Icon name="discard" extraClasses="ibexa-icon--small" />
                     </button>
-                    <div className="ibexa-extra-actions__header-subtitle">
-                        {createUnderLabel}
-                    </div>
+                    <div className="ibexa-extra-actions__header-subtitle">{createUnderLabel}</div>
                 </div>
                 <div className="ibexa-extra-actions__content">
                     <div className="ibexa-extra-actions__section-header">{selectLanguageLabel}</div>
@@ -139,15 +144,14 @@ const ContentCreateWidget = () => {
                             </div>
                         </div>
                     </div>
-                    <div class="ibexa-instant-filter__desc">
-                        {filtersDescLabel}
-                    </div>
+                    <div class="ibexa-instant-filter__desc">{filtersDescLabel}</div>
                     <div className="ibexa-instant-filter__items">
                         {contentTypes.map(([groupName, groupItems]) => {
                             const restrictedContentTypeIds = selectedLocation?.permissions?.create.restrictedContentTypeIds ?? [];
                             const isHidden = groupItems.every((groupItem) => {
                                 const isNotSearchedName = filterQuery && !groupItem.name.toLowerCase().includes(filterQuery);
-                                const hasNotPermission = restrictedContentTypeIds.length && !restrictedContentTypeIds.includes(groupItem.id.toString());
+                                const hasNotPermission =
+                                    restrictedContentTypeIds.length && !restrictedContentTypeIds.includes(groupItem.id.toString());
                                 const isNotAllowedContentType = allowedContentTypes && !allowedContentTypes.includes(groupItem.identifier);
 
                                 return isNotSearchedName || hasNotPermission || isNotAllowedContentType;
@@ -159,9 +163,7 @@ const ContentCreateWidget = () => {
 
                             return (
                                 <div className="ibexa-instant-filter__group" key={groupName}>
-                                    <div className="ibexa-instant-filter__group-name">
-                                        {groupName}
-                                    </div>
+                                    <div className="ibexa-instant-filter__group-name">{groupName}</div>
                                     {groupItems.map(({ name, thumbnail, identifier, id }) => {
                                         const isHidden =
                                             (filterQuery && !name.toLowerCase().includes(filterQuery)) ||
@@ -181,12 +183,14 @@ const ContentCreateWidget = () => {
                                         }
 
                                         return (
-                                            <div hidden={isHidden} key={identifier} className={className} onClick={updateSelectedContentType}>
+                                            <div
+                                                hidden={isHidden}
+                                                key={identifier}
+                                                className={className}
+                                                onClick={updateSelectedContentType}>
                                                 <Icon customPath={thumbnail} extraClasses="ibexa-icon--small" />
                                                 <div className="form-check">
-                                                    <div class="ibexa-label ibexa-label--checkbox-radio form-check-label">
-                                                        {name}
-                                                    </div>
+                                                    <div class="ibexa-label ibexa-label--checkbox-radio form-check-label">{name}</div>
                                                 </div>
                                             </div>
                                         );
@@ -195,14 +199,17 @@ const ContentCreateWidget = () => {
                             );
                         })}
                     </div>
-                    <div className="c-content-create__confirm-wrapper">
-                        <button className="c-content-create__confirm-button btn ibexa-btn ibexa-btn--primary" onClick={createContent} disabled={isConfirmDisabled}>
-                            {createLabel}
-                        </button>
-                        <button className="btn ibexa-btn ibexa-btn--secondary" onClick={close}>
-                            {cancelLabel}
-                        </button>
-                    </div>
+                </div>
+                <div className="c-content-create__confirm-wrapper">
+                    <button
+                        className="c-content-create__confirm-button btn ibexa-btn ibexa-btn--primary"
+                        onClick={createContent}
+                        disabled={isConfirmDisabled}>
+                        {createLabel}
+                    </button>
+                    <button className="btn ibexa-btn ibexa-btn--secondary" onClick={close}>
+                        {cancelLabel}
+                    </button>
                 </div>
             </div>
         </div>

@@ -6,14 +6,21 @@
         &__confirm-wrapper {
             display: flex;
             margin-top: calculateRem(20px);
+            padding: 0 calculateRem(32px);
         }
 
         &__confirm-button {
             margin-right: calculateRem(16px);
         }
 
-        .ibexa-extra-actions__section-content {
-            width: 75%;
+        .ibexa-extra-actions {
+            &__content {
+                height: calc(100% - #{calculateRem(166px)});
+            }
+
+            &__section-content {
+                width: 75%;
+            }
         }
     }
 }
