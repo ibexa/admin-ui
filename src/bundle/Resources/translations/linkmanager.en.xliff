@@ -32,12 +32,12 @@
         <note>key: url.breadcrumb.list</note>
       </trans-unit>
       <trans-unit id="e890168e1ef7753c250affa3fcdfb21074c35c6f" resname="url.editing">
-        <source>Editing URL: %url%</source>
-        <target state="new">Editing URL: %url%</target>
+        <source>Editing</source>
+        <target state="new">Editing</target>
         <note>key: url.editing</note>
       </trans-unit>
       <trans-unit id="51af0ce5242ede206403aac1116ee36ed8887d44" resname="url.editing.title">
-        <source>url.editing.title</source>
+        <source>Link %url%</source>
         <target state="new">url.editing.title</target>
         <note>key: url.editing.title</note>
       </trans-unit>
