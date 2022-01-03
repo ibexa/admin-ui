@@ -214,7 +214,7 @@
             }
         }
 
-        &[data-value=""] {
+        &[data-value=''] {
             position: relative;
 
             &:after {
@@ -342,6 +342,21 @@
         .ibexa-dropdown {
             &__selected-item {
                 max-width: calc(100% - #{calculateRem(96px)});
+            }
+        }
+    }
+
+    &--disabled {
+        .ibexa-dropdown {
+            &__selection-info {
+                border: none;
+                background: $ibexa-color-light-300;
+                cursor: not-allowed;
+
+                &::before,
+                &::after {
+                    background: $ibexa-color-dark-400;
+                }
             }
         }
     }
