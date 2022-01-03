@@ -77,6 +77,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $eventDispatcher->dispatch($createEvent);
 
         self::assertEquals(new RedirectResponse('redirect_test_url'), $createEvent->getResponse());
+        self::assertInstanceOf(Content::class, $createEvent->getOptions()->get('content_draft'));
     }
 
     public function testCreateContentOnTheFlyAutosaveEnabled(): void
@@ -142,6 +143,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $eventDispatcher->dispatch($createEvent);
 
         $this->assertEquals(new RedirectResponse('redirect_on_the_fly_test_url'), $createEvent->getResponse());
+        self::assertInstanceOf(Content::class, $createEvent->getOptions()->get('content_draft'));
     }
 
     public function testTranslateContentAutosaveEnabled(): void

@@ -8,9 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Event;
 
-use Ibexa\Contracts\Core\Options\OptionsBag;
+use Ibexa\Contracts\Core\Options\MutableOptionsBag;
+use Ibexa\Contracts\Core\Repository\Exceptions\OutOfBoundsException;
 
-final class Options implements OptionsBag
+final class Options implements MutableOptionsBag
 {
     /** @var array */
     private $options;
@@ -37,6 +38,22 @@ final class Options implements OptionsBag
     public function has(string $key): bool
     {
         return isset($this->options[$key]);
+    }
+
+    public function set(string $key, $value): void
+    {
+        $this->options[$key] = $value;
+    }
+
+    public function remove(string $key): void
+    {
+        if (!array_key_exists($key, $this->options)) {
+            throw new OutOfBoundsException(
+                sprintf("Option '%s' doesn't exist", $key)
+            );
+        }
+
+        unset($this->options[$key]);
     }
 }
 
