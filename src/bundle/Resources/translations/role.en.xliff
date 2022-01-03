@@ -41,15 +41,10 @@
         <target state="new">Created new Policies in Role '%role%'.</target>
         <note>key: policy.add.success</note>
       </trans-unit>
-      <trans-unit id="196c8d4eec96ca42ccdd3605621d51e2b34b6d85" resname="policy.breadcrumb.add">
-        <source>Adding a new Policy</source>
-        <target state="new">Adding a new Policy</target>
-        <note>key: policy.breadcrumb.add</note>
-      </trans-unit>
-      <trans-unit id="8a7079c136f19a37dc42a6192fb94a11d19105ad" resname="policy.breadcrumb.edit">
-        <source>Edit Limitations</source>
-        <target state="new">Edit Limitations</target>
-        <note>key: policy.breadcrumb.edit</note>
+      <trans-unit id="88c36873fed0c4f70eefa4b1443aa3847ef16b6b" resname="policy.adding">
+        <source>Adding</source>
+        <target state="new">Adding</target>
+        <note>key: policy.adding</note>
       </trans-unit>
       <trans-unit id="8a22274ebbfba3c96c4015fa64112db95d060525" resname="policy.delete.success">
         <source>Removed Policies from Role '%role%'.</source>
@@ -60,6 +55,11 @@
         <source>Policy type '%policy%' does not contain Limitations.</source>
         <target state="new">Policy type '%policy%' does not contain Limitations.</target>
         <note>key: policy.edit.no_limitations</note>
+      </trans-unit>
+      <trans-unit id="cea62af2f468cd6a3416a4a609186072aab0cd2a" resname="policy.editing">
+        <source>Editing</source>
+        <target state="new">Editing</target>
+        <note>key: policy.editing</note>
       </trans-unit>
       <trans-unit id="41bcfef149f877e1abb0ce2cd2aa5afb713ea1de" resname="policy.limitation.identifier_tooltip">
         <source>"%identifier%" Limitation</source>
@@ -136,25 +136,10 @@
         <target state="new">Creating a new Role</target>
         <note>key: role.breadcrumb.add</note>
       </trans-unit>
-      <trans-unit id="6d6d3ca79dd8c306ac2fcd89725ccbe5f8ee9f4e" resname="role.breadcrumb.copy">
-        <source>Copying Role: %identifier%</source>
-        <target state="new">Copying Role: %identifier%</target>
-        <note>key: role.breadcrumb.copy</note>
-      </trans-unit>
-      <trans-unit id="9cdc3dd417b63308f19cadbe01f74c21565b9947" resname="role.breadcrumb.edit">
-        <source>Editing Role '%identifier%'</source>
-        <target state="new">Editing Role '%identifier%'</target>
-        <note>key: role.breadcrumb.edit</note>
-      </trans-unit>
       <trans-unit id="03e72944d22126b885a65f885ebf8f1b8e2f8579" resname="role.breadcrumb.list">
         <source>Roles</source>
         <target state="new">Roles</target>
         <note>key: role.breadcrumb.list</note>
-      </trans-unit>
-      <trans-unit id="9756b39574125051ae4fcd1916f5ba8b065eceb9" resname="role.breadcrumb.view">
-        <source>%identifier%</source>
-        <target state="new">%identifier%</target>
-        <note>key: role.breadcrumb.view</note>
       </trans-unit>
       <trans-unit id="45788029a46cf9c1bc9a3d38077e86a99a650576" resname="role.breadcrumb.view.identifier">
         <source>Role "%identifier%"</source>
@@ -166,25 +151,35 @@
         <target state="new">Role '%role%' copied.</target>
         <note>key: role.copy.success</note>
       </trans-unit>
+      <trans-unit id="d374ce9238f4b6e3d7329ea01e88d6d2bb067d72" resname="role.copying">
+        <source>Copying</source>
+        <target state="new">Copying</target>
+        <note>key: role.copying</note>
+      </trans-unit>
       <trans-unit id="59754dcca61db396ef9de8abd3aa63645bd50f65" resname="role.create.success">
         <source>Role '%role%' created.</source>
         <target state="new">Role '%role%' created.</target>
         <note>key: role.create.success</note>
+      </trans-unit>
+      <trans-unit id="5a488931e506d7caf51b870aabd070c2df885afc" resname="role.creating">
+        <source>Creating</source>
+        <target state="new">Creating</target>
+        <note>key: role.creating</note>
       </trans-unit>
       <trans-unit id="20c6318c88508393b9cb8413a6d7e61649f80ab3" resname="role.delete.success">
         <source>Role '%role%' removed.</source>
         <target state="new">Role '%role%' removed.</target>
         <note>key: role.delete.success</note>
       </trans-unit>
+      <trans-unit id="6db8ba832d5f0726f001d09efa93b18dfa5d616d" resname="role.editing">
+        <source>Editing</source>
+        <target state="new">Editing</target>
+        <note>key: role.editing</note>
+      </trans-unit>
       <trans-unit id="75637482fd2563256da5423615ecfb241fc03a57" resname="role.update.success">
         <source>Role '%role%' updated.</source>
         <target state="new">Role '%role%' updated.</target>
         <note>key: role.update.success</note>
-      </trans-unit>
-      <trans-unit id="da907b734c3ae3df8e9c570dd8e9e7e6d0799105" resname="role.view.add.title">
-        <source>Creating a new Role</source>
-        <target state="new">Creating a new Role</target>
-        <note>key: role.view.add.title</note>
       </trans-unit>
       <trans-unit id="6f6e274dd8d21241d5bb3d647b1089c939e84313" resname="role.view.copy.title">
         <source>Copying Role: %identifier%</source>
@@ -230,6 +225,11 @@
         <source>Role "%identifier%"</source>
         <target state="new">Role "%identifier%"</target>
         <note>key: role.view.view.title</note>
+      </trans-unit>
+      <trans-unit id="abcb56cbc91e36c8bb25122b7d36fedde5c72210" resname="role_assignment.assigning">
+        <source>Assigning</source>
+        <target state="new">Assigning</target>
+        <note>key: role_assignment.assigning</note>
       </trans-unit>
       <trans-unit id="e7ff6be9f5a7368f2493f29eacfa1ee321d9c383" resname="role_assignment.view.add.panel.limitations.title">
         <source>Limitations</source>

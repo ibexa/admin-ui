@@ -4,38 +4,26 @@
 
 {% trans_default_domain 'section' %}
 
-{% block breadcrumbs_admin %}
-    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { 'items': [
-        { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
-        { url: path('ezplatform.section.list'), value: 'section.list'|trans|desc('Sections') },
-        { value: 'section.new.title'|trans|desc('Creating a new Section') }
-    ]} %}
-{% endblock %}
-
-{% block context_menu_admin %}
-    {% set section_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.section_create.sidebar_right') %}
-    {{ knp_menu_render(section_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
-{% endblock %}
-
 {% block header_admin %}
-    {% include '@ibexadesign/ui/page_title.html.twig' with {
+    {% set section_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.section_create.sidebar_right') %}
+
+    {% include '@ibexadesign/ui/edit_header.html.twig' with {
+        action_name: 'section.creating'|trans|desc('Creating'),
         title: 'section.new.title'|trans|desc('Creating a new Section'),
+        context_actions: knp_menu_render(section_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
 {% endblock %}
 
 {% block form %}
     {{ form_start(form_section_create) }}
-
-    <section class="container mt-4">
-        <div class="card ibexa-card ibexa-card--light">
-            <div class="card-body">
-                {{ form_row(form_section_create.name, {'attr': {'autofocus': 'autofocus'}}) }}
-                {{ form_row(form_section_create.identifier) }}
+        <section>
+            <div class="card ibexa-card ibexa-card--light">
+                <div class="card-body">
+                    {{ form_row(form_section_create.name, {'attr': {'autofocus': 'autofocus'}}) }}
+                    {{ form_row(form_section_create.identifier) }}
+                </div>
             </div>
-        </div>
-    </section>
-
-    {{ form_widget(form_section_create.create, {'attr': {'hidden': 'hidden'}}) }}
-
+        </section>
+        {{ form_widget(form_section_create.create, {'attr': {'hidden': 'hidden'}}) }}
     {{ form_end(form_section_create) }}
 {% endblock %}

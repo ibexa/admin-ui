@@ -1,42 +1,39 @@
-{% extends '@ibexadesign/ui/base.html.twig' %}
+{% extends '@ibexadesign/ui/edit_base.html.twig' %}
 
 {% form_theme form_change_user_password '@ibexadesign/account/change_password/form_fields.html.twig'  %}
 
 {% trans_default_domain 'user_change_password' %}
 
-{% block breadcrumbs_admin %}
-    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { 'items': [
-    { value: 'breadcrumb.user_preferences'|trans(domain='messages')|desc('User Preferences') },
-    { value: 'user_change_password.change_password'|trans|desc('Change Password') }
-    ]} %}
-{% endblock %}
+{% set anchor_params = {
+    close_href: path('ezplatform.user_settings.list'),
+} %}
 
-{% block context_menu_admin %}
+{% block header %}
     {% set user_password_change_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_password_change.sidebar_right') %}
-    {{ knp_menu_render(user_password_change_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
-{% endblock %}
 
-{% block header_admin %}
-    {% include '@ibexadesign/ui/page_title.html.twig' with {
+    {% include '@ibexadesign/ui/edit_header.html.twig' with {
+        action_name: 'user_change_password.change'|trans|desc('Change'),
         title: 'user_change_password.title'|trans|desc('Change my password'),
+        context_actions: knp_menu_render(user_password_change_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
 {% endblock %}
 
-{% block form %}
-    {{ form_start(form_change_user_password, {'attr': {'class': 'ibexa-form-validate'}}) }}
-
-    <section class="container ibexa-container mt-4">
-        <div class="card ibexa-card ibexa-card--light">
-            <div class="card-body">
-                {{ form_row(form_change_user_password.oldPassword) }}
-                {{ form_row(form_change_user_password.newPassword) }}
-            </div>
+{% block content %}
+    <div class="row">
+        <div class="col col-10 offset-1">
+            {{ form_start(form_change_user_password, {'attr': {'class': 'ibexa-form-validate'}}) }}
+                <section>
+                    <div class="card ibexa-card ibexa-card--light">
+                        <div class="card-body">
+                            {{ form_row(form_change_user_password.oldPassword) }}
+                            {{ form_row(form_change_user_password.newPassword) }}
+                        </div>
+                    </div>
+                </section>
+                {{ form_widget(form_change_user_password.change, {'attr': {'hidden': 'hidden'}}) }}
+            {{ form_end(form_change_user_password) }}
         </div>
-    </section>
-
-    {{ form_widget(form_change_user_password.change, {'attr': {'hidden': 'hidden'}}) }}
-
-    {{ form_end(form_change_user_password) }}
+    </div>
 {% endblock %}
 
 {% block javascripts %}

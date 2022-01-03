@@ -101,11 +101,6 @@
         <target state="new">Admin</target>
         <note>key: breadcrumb.admin</note>
       </trans-unit>
-      <trans-unit id="74954052fb86d856c77ee642195c0c0b23bf9e70" resname="breadcrumb.user_preferences">
-        <source>User Preferences</source>
-        <target state="new">User Preferences</target>
-        <note>key: breadcrumb.user_preferences</note>
-      </trans-unit>
       <trans-unit id="d23f0200b4769a69d2414de6d96117fed4601326" resname="character_counter.characters">
         <source>characters</source>
         <target state="new">characters</target>

@@ -1,39 +1,29 @@
-{% extends '@ibexadesign/ui/layout.html.twig' %}
+{% extends '@ibexadesign/ui/edit_base.html.twig' %}
 
 {% form_theme form '@ibexadesign/ui/form_fields.html.twig'  %}
 
 {% trans_default_domain "linkmanager" %}
 
-{%- block breadcrumbs -%}
-    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
-        { value: 'url.breadcrumb.list'|trans|desc('URL management'), url: path('ezplatform.url_management') },
-        { value: 'url.breadcrumb.edit'|trans|desc('Edit') }
-    ]} %}
-{%- endblock -%}
-
-{% block context_menu %}
-    {% set url_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.url_edit.sidebar_right', [], {'url': url}) %}
-    {{ knp_menu_render(url_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
-{% endblock %}
+{% set anchor_params = {
+    close_href: path('ezplatform.url_management'),
+} %}
 
 {% block header %}
-    {% include '@ibexadesign/ui/page_title.html.twig' with {
-        title: 'url.editing'|trans({'%url%': url.url|u.truncate(50) }),
+    {% set url_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.url_edit.sidebar_right', [], {'url': url}) %}
+
+    {% include '@ibexadesign/ui/edit_header.html.twig' with {
+        action_name: 'url.editing'|trans|desc('Editing'),
+        title: 'url.editing.title'|trans({'%url%': url.url|u.truncate(50) })|desc('Link %url%'),
+        context_actions: knp_menu_render(url_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
 {% endblock %}
 
-{% block title %}
-    {{ 'url.view'|trans({ '%url%': url.url|u.truncate(60) })|desc('Link %url%') }}
-{% endblock %}
-
 {%- block content -%}
-    <div class="row align-items-stretch ibexa-main-row">
-        <div class="px-0 pb-4 ibexa-content-container">
-            <div class="container ibexa-container">
-                {{ form_start(form) }}
+    <div class="row">
+        <div class="col col-10 offset-1">
+            {{ form_start(form) }}
                 {{ form_errors(form) }}
-
-                <section class="container mt-4">
+                <section>
                     <div class="card ibexa-card ibexa-card--light">
                         <div class="card-body">
                             {{ form_row(form.url) }}
@@ -41,8 +31,7 @@
                     </div>
                 </section>
                 <button id="url-update" type="submit" hidden></button>
-                {{ form_end(form) }}
-            </div>
+            {{ form_end(form) }}
         </div>
     </div>
 {%- endblock -%}

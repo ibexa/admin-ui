@@ -50,7 +50,7 @@ class ChangePasswordPage extends Page
             new VisibleCSSLocator('oldPassword', '#user_password_change_oldPassword'),
             new VisibleCSSLocator('newPassword', '#user_password_change_newPassword_first'),
             new VisibleCSSLocator('confirmPassword', '#user_password_change_newPassword_second'),
-            new VisibleCSSLocator('title', '.ibexa-page-title h1'),
+            new VisibleCSSLocator('title', '.ibexa-edit-header__title'),
         ];
     }
 

@@ -66,6 +66,11 @@
         <target state="new">Section '%name%' created.</target>
         <note>key: section.create.success</note>
       </trans-unit>
+      <trans-unit id="9acf0e8d215ddc5f79a8b660be280af8eb3e22e7" resname="section.creating">
+        <source>Creating</source>
+        <target state="new">Creating</target>
+        <note>key: section.creating</note>
+      </trans-unit>
       <trans-unit id="663e1bfb8478f95028221190755c01441b2a8fde" resname="section.delete.success">
         <source>Section '%name%' removed.</source>
         <target state="new">Section '%name%' removed.</target>
@@ -75,6 +80,11 @@
         <source>Edit</source>
         <target state="new">Edit</target>
         <note>key: section.edit</note>
+      </trans-unit>
+      <trans-unit id="4415ad4901be9df6454161d40f078fc1a2fc923b" resname="section.editing">
+        <source>Editing</source>
+        <target state="new">Editing</target>
+        <note>key: section.editing</note>
       </trans-unit>
       <trans-unit id="bcb0a8eedc29344eb4ad95a02dd684438aae1df6" resname="section.id">
         <source>ID</source>
