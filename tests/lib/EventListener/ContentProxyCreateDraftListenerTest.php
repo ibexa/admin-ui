@@ -79,7 +79,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         self::assertEquals(new RedirectResponse('redirect_test_url'), $createEvent->getResponse());
         self::assertInstanceOf(
             Content::class,
-            $createEvent->getOptions()->get(ContentProxyCreateEvent::OPTION_CONTENT_DRAFT)
+            $createEvent->getOptions()->get('contentDraft')
         );
     }
 
@@ -129,7 +129,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
             'eng-EN',
             1234,
             new Options([
-                ContentProxyCreateEvent::OPTION_IS_ON_THE_FLY => true,
+                'isOnTheFly' => true,
             ])
         );
 
@@ -148,7 +148,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $this->assertEquals(new RedirectResponse('redirect_on_the_fly_test_url'), $createEvent->getResponse());
         self::assertInstanceOf(
             Content::class,
-            $createEvent->getOptions()->get(ContentProxyCreateEvent::OPTION_CONTENT_DRAFT)
+            $createEvent->getOptions()->get('contentDraft')
         );
     }
 
@@ -262,7 +262,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $createOnTheFlyEvent
             ->method('getOptions')
             ->willReturn(new Options([
-                ContentProxyCreateEvent::OPTION_IS_ON_THE_FLY => true,
+                'isOnTheFly' => true,
             ]));
 
         $translateEvent = $this->createMock(ContentProxyTranslateEvent::class);
