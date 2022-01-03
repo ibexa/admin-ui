@@ -6,10 +6,10 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
-      <trans-unit id="9177237415bf4199961eb8de9353011a5b22a039" resname="anchor_navigation.close">
-        <source>Close</source>
-        <target state="new">Close</target>
-        <note>key: anchor_navigation.close</note>
+      <trans-unit id="9177237415bf4199961eb8de9353011a5b22a039" resname="anchor_navigation.back">
+        <source>Back</source>
+        <target state="new">Back</target>
+        <note>key: anchor_navigation.back</note>
       </trans-unit>
       <trans-unit id="8ace6daf300d4e12a28054d996c185db9ce7fe91" resname="authentication.credentials_expire_in.warning">
         <source>Your current password will expire in %days% day(s). You can change it in User Settings/My Account Settings.</source>
