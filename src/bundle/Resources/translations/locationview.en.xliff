@@ -426,6 +426,16 @@
         <target state="new">Version</target>
         <note>key: tab.versions.table.version</note>
       </trans-unit>
+      <trans-unit id="5254d6524746a8c9cd0be82fc006baa2fa037198" resname="toggle_widget.label.off">
+        <source>Off</source>
+        <target state="new">Off</target>
+        <note>key: toggle_widget.label.off</note>
+      </trans-unit>
+      <trans-unit id="922e4e5291baf0a3d11841da92466703d6786cb5" resname="toggle_widget.label.on">
+        <source>On</source>
+        <target state="new">On</target>
+        <note>key: toggle_widget.label.on</note>
+      </trans-unit>
       <trans-unit id="cf6a7c9a98608dd58b428ce2187e3229b64b5701" resname="translation.modal_close">
         <source>Close</source>
         <target state="new">Close</target>
