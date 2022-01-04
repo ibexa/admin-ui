@@ -1,5 +1,5 @@
-(function(global, doc, eZ, React, ReactDOM, Translator) {
-    const btns = doc.querySelectorAll('.ez-btn--udw-select-location');
+(function(global, doc, ibexa, React, ReactDOM, Translator) {
+    const btns = doc.querySelectorAll('.ibexa-btn--udw-select-location');
     const udwContainer = doc.getElementById('react-udw');
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
@@ -37,9 +37,9 @@
         );
 
         fetch(request)
-            .then(eZ.helpers.request.getJsonFromResponse)
+            .then(ibexa.helpers.request.getJsonFromResponse)
             .then(callback)
-            .catch(() => eZ.helpers.notification.showErrorNotification(errorMessage));
+            .catch(() => ibexa.helpers.notification.showErrorNotification(errorMessage));
     };
     const removeRootFromPathString = (pathString) => {
         const pathArray = pathString.split('/').filter((val) => val);
@@ -63,8 +63,8 @@
     const updateBreadcrumbsState = (btn, pathString) => {
         const pathStringInput = doc.querySelector(btn.dataset.locationPathInputSelector);
         const contentBreadcrumbsContainer = doc.querySelector(btn.dataset.contentBreadcrumbsSelector);
-        const contentBreadcrumbs = contentBreadcrumbsContainer.querySelector('.ez-tag__content');
-        const contentBreadcrumbsSpinner = contentBreadcrumbsContainer.querySelector('.ez-tag__spinner');
+        const contentBreadcrumbs = contentBreadcrumbsContainer.querySelector('.ibexa-tag__content');
+        const contentBreadcrumbsSpinner = contentBreadcrumbsContainer.querySelector('.ibexa-tag__spinner');
 
         pathStringInput.value = pathString;
         pathStringInput.dispatchEvent(new Event('change'));
@@ -101,7 +101,7 @@
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
 
         ReactDOM.render(
-            React.createElement(eZ.modules.UniversalDiscovery, {
+            React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(null, event.currentTarget),
                 onCancel,
                 title: event.currentTarget.dataset.universalDiscoveryTitle,
@@ -120,10 +120,10 @@
         btn.addEventListener('click', openUDW, false);
 
         const tag = doc.querySelector(btn.dataset.contentBreadcrumbsSelector);
-        const clearBtn = tag.querySelector('.ez-tag__remove-btn');
+        const clearBtn = tag.querySelector('.ibexa-tag__remove-btn');
 
         if (clearBtn) {
             clearBtn.addEventListener('click', clearSelection.bind(null, btn), false);
         }
     });
-})(window, window.document, window.eZ, window.React, window.ReactDOM, window.Translator);
+})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator);

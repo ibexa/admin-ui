@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Translation\Extractor;
+namespace Ibexa\AdminUi\Translation\Extractor;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use JMS\TranslationBundle\Model\FileSource;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Model\MessageCatalogue;
@@ -76,3 +76,5 @@ class SortingTranslationExtractor implements ExtractorInterface
         return $message;
     }
 }
+
+class_alias(SortingTranslationExtractor::class, 'EzSystems\EzPlatformAdminUi\Translation\Extractor\SortingTranslationExtractor');

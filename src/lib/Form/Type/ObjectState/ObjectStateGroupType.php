@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\ObjectState;
+namespace Ibexa\AdminUi\Form\Type\ObjectState;
 
-use eZ\Publish\API\Repository\ObjectStateService;
-use EzSystems\EzPlatformAdminUi\Form\DataTransformer\ObjectStateGroupTransformer;
+use Ibexa\AdminUi\Form\DataTransformer\ObjectStateGroupTransformer;
+use Ibexa\Contracts\Core\Repository\ObjectStateService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ObjectStateGroupType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\ObjectStateService */
+    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
     protected $objectStateService;
 
     /**
-     * @param \eZ\Publish\API\Repository\ObjectStateService $objectStateService
+     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService
      */
     public function __construct(ObjectStateService $objectStateService)
     {
@@ -37,3 +37,5 @@ class ObjectStateGroupType extends AbstractType
         return HiddenType::class;
     }
 }
+
+class_alias(ObjectStateGroupType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateGroupType');

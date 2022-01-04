@@ -4,7 +4,7 @@
 
         form.submit();
     };
-    const items = doc.querySelectorAll('.ez-form-autosubmit');
+    const items = doc.querySelectorAll('.ibexa-form-autosubmit');
 
     items.forEach((item) => item.addEventListener('change', autosubmit, false));
 })(window, window.document);

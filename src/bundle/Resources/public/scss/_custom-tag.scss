@@ -1,4 +1,4 @@
-.ez-custom-tag {
+.ibexa-custom-tag {
     max-width: 50%;
     border: calculateRem(1px) solid $ibexa-color-primary;
     margin: calculateRem(16px) 0;
@@ -34,7 +34,7 @@
             border-radius: calculateRem(5px);
             padding: calculateRem(6px) calculateRem(8px);
 
-            .ez-icon {
+            .ibexa-icon {
                 fill: $ibexa-color-primary;
             }
         }
@@ -57,11 +57,11 @@
             display: block;
         }
 
-        & > .ez-custom-tag__header {
-            .ez-custom-tag__header-btn--attributes {
+        & > .ibexa-custom-tag__header {
+            .ibexa-custom-tag__header-btn--attributes {
                 background-color: $ibexa-color-primary;
 
-                .ez-icon {
+                .ibexa-icon {
                     fill: $ibexa-white;
                 }
             }
@@ -86,11 +86,11 @@
             }
         }
 
-        & > .ez-custom-tag__header {
-            .ez-custom-tag__header-btn--content {
+        & > .ibexa-custom-tag__header {
+            .ibexa-custom-tag__header-btn--content {
                 background-color: $ibexa-color-primary;
 
-                .ez-icon {
+                .ibexa-icon {
                     fill: $ibexa-white;
                 }
             }
@@ -98,9 +98,9 @@
     }
 }
 
-.ez-field-edit--ezrichtext {
+.ibexa-field-edit--ezrichtext {
     .cke_widget_ezcustomtag,
-    .ez-custom-tag {
+    .ibexa-custom-tag {
         &[data-ezalign='right'] {
             float: none;
             margin-left: auto;

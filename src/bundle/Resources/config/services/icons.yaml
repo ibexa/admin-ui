@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autoconfigure: true
+        autowire: true
+        public: false
+
+    Ibexa\AdminUi\Resolver\IconPathResolver: ~
+
+    Ibexa\Contracts\AdminUi\Resolver\IconPathResolverInterface: '@Ibexa\AdminUi\Resolver\IconPathResolver'
+
+    Ibexa\Bundle\AdminUi\Templating\Twig\IconPathExtension: ~

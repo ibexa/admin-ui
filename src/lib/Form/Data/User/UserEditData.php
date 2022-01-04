@@ -6,25 +6,25 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\User;
+namespace Ibexa\AdminUi\Form\Data\User;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 
 class UserEditData
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
     private $contentInfo;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\VersionInfo|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null */
     private $versionInfo;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
     private $language;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
     private $location;
 
     public function __construct(
@@ -40,7 +40,7 @@ class UserEditData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
      */
     public function getContentInfo(): ?ContentInfo
     {
@@ -48,7 +48,7 @@ class UserEditData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
      */
     public function setContentInfo(?ContentInfo $contentInfo): void
     {
@@ -56,7 +56,7 @@ class UserEditData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null
      */
     public function getVersionInfo(): ?VersionInfo
     {
@@ -64,7 +64,7 @@ class UserEditData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo|null $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null $versionInfo
      */
     public function setVersionInfo(?VersionInfo $versionInfo): void
     {
@@ -72,7 +72,7 @@ class UserEditData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      */
     public function getLanguage(): ?Language
     {
@@ -80,7 +80,7 @@ class UserEditData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
      */
     public function setLanguage(?Language $language): void
     {
@@ -88,7 +88,7 @@ class UserEditData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     public function getLocation(): ?Location
     {
@@ -96,10 +96,12 @@ class UserEditData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      */
     public function setLocation(?Location $location): void
     {
         $this->location = $location;
     }
 }
+
+class_alias(UserEditData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\User\UserEditData');

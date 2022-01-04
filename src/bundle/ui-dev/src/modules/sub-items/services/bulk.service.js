@@ -54,7 +54,7 @@ export const bulkDeleteItems = (restInfo, items, callback) => {
     items.forEach((item) => {
         const { id: locationId, pathString, content } = item;
         const contentTypeIdentifier = content._info.contentType.identifier;
-        const isUserContentItem = window.eZ.adminUiConfig.userContentTypes.includes(contentTypeIdentifier);
+        const isUserContentItem = window.ibexa.adminUiConfig.userContentTypes.includes(contentTypeIdentifier);
         const contentId = content._info.id;
 
         if (isUserContentItem) {
@@ -161,6 +161,6 @@ const makeBulkRequest = ({ token, siteaccess }, requestBodyOperations, callback)
                 'sub_items'
             );
 
-            window.eZ.helpers.notification.showErrorNotification(message);
+            window.ibexa.helpers.notification.showErrorNotification(message);
         });
 };

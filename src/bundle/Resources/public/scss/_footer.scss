@@ -1,8 +1,4 @@
-.ez-has-full-width-footer {
-    padding-bottom: calculateRem(65px);
-}
-
-.ez-footer {
+.ibexa-footer {
     position: absolute;
     bottom: 0;
     display: flex;
@@ -29,20 +25,20 @@
     }
 }
 
-.ez-bookmark-list-view,
-.ez-drafts-list-view {
-    .ez-main-row {
-        .ez-content-container {
-            .ez-footer {
+.ibexa-bookmark-list-view,
+.ibexa-drafts-list-view {
+    .ibexa-main-row {
+        .ibexa-content-container {
+            .ibexa-footer {
                 margin: auto 0 0;
             }
         }
     }
 }
 
-.ez-main-row {
-    .ez-content-container {
-        .ez-footer {
+.ibexa-main-row {
+    .ibexa-content-container {
+        .ibexa-footer {
             position: relative;
             width: auto;
             margin: auto calculateRem(15px) 0;
