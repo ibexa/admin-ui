@@ -21,6 +21,30 @@
     } %}
 {% endblock %}
 
+{% block context_menu %}
+    {% set menu_items %}
+        {% if can_administrate %}
+            <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
+                <a
+                    href="{{ path('ezplatform.object_state.group.add') }}"
+                    class="btn ibexa-btn ibexa-btn--primary"
+                >
+                    <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
+                        <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
+                    </svg>
+                    <span class="ibexa-btn__label">
+                        {{ 'object_state_group.new'|trans|desc('Create') }}
+                    </span>
+                </a>
+            </li>
+        {% endif %}
+    {% endset %}
+
+    {{ include('@ibexadesign/ui/component/context_menu/context_menu.html.twig', {
+        menu_items: menu_items,
+    }) }}
+{% endblock %}
+
 {% block content %}
     <section class="container ibexa-container">
         {% set body_rows = [] %}
@@ -93,28 +117,21 @@
                 {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
                     {% block actions %}
                         {% if can_administrate %}
-                            <a
-                                title="{{ 'object_state_group.new'|trans|desc('Create a new Object state group') }}"
-                                href="{{ path('ezplatform.object_state.group.add') }}"
-                                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
-                            >
-                                <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
-                                    <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-                                </svg>
-                            </a>
                             {% set modal_data_target = 'delete-object-state-groups-modal' %}
                             <button
                                 id="delete-object-state-groups"
                                 type="button"
-                                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
                                 disabled
                                 data-bs-toggle="modal"
                                 data-bs-target="#{{ modal_data_target }}"
-                                title="{{ 'object_state_group.delete.bulk_delete.submit'|trans|desc('Delete Object state group') }}"
                             >
                                 <svg class="ibexa-icon ibexa-icon--small ibexa-icon--trash">
                                     <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
                                 </svg>
+                                <span class="ibexa-btn__label">
+                                    {{ 'object_state_group.delete.bulk_delete.submit'|trans|desc('Delete') }}
+                                </span>
                             </button>
                             {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                                 'id': modal_data_target,

@@ -187,13 +187,13 @@
         <note>key: tab.details.translations</note>
       </trans-unit>
       <trans-unit id="8eb3feb6461dacdbd425ef30fc4848a94ab3db0d" resname="tab.locations.action.add">
-        <source>Add Location</source>
-        <target state="new">Add Location</target>
+        <source>Add new</source>
+        <target state="new">Add new</target>
         <note>key: tab.locations.action.add</note>
       </trans-unit>
       <trans-unit id="80808d78f600e925ec3e2dd4b2a0e7570169fd83" resname="tab.locations.action.delete">
-        <source>Delete Location</source>
-        <target state="new">Delete Location</target>
+        <source>Delete</source>
+        <target state="new">Delete</target>
         <note>key: tab.locations.action.delete</note>
       </trans-unit>
       <trans-unit id="7ac57e88d1f970747986392b6689075ba64cf270" resname="tab.locations.content_locations">
@@ -332,13 +332,13 @@
         <note>key: tab.relations.table.relation_type.link</note>
       </trans-unit>
       <trans-unit id="492cea0fd67c4af8e41d21710668239c9db66cfc" resname="tab.translations.action.add">
-        <source>Add translation</source>
-        <target state="new">Add translation</target>
+        <source>Add new</source>
+        <target state="new">Add new</target>
         <note>key: tab.translations.action.add</note>
       </trans-unit>
       <trans-unit id="8c29b038407b67badc381aca362d4770d299df8b" resname="tab.translations.action.delete">
-        <source>Delete Translation</source>
-        <target state="new">Delete Translation</target>
+        <source>Delete</source>
+        <target state="new">Delete</target>
         <note>key: tab.translations.action.delete</note>
       </trans-unit>
       <trans-unit id="c22e9f75640384f917cc76e6736b3a6e91d70f1d" resname="tab.translations.add.cancel">
