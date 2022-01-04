@@ -32,13 +32,10 @@
                 {% if grouped_fields|length > 1 %}
                     <div class="ibexa-anchor-navigation-sections">
                         {% for key, group in grouped_fields %}
-                            {% set sanitized_key = key|slug %}
-
-                            <div
-                                data-anchor-section-id="#{{ sanitized_key }}"
-                                class="row ibexa-anchor-navigation-sections__section"
-                            >
-                                <div class="offset-1 col-6">
+                            {% embed '@ibexadesign/ui/anchor_navigation_section.html.twig' with {
+                                anchor_section_key: key
+                            } %}
+                                {% block anchor_section_body %}
                                     {% for field in group %}
                                         {% set formField = form.fieldsData[field] %}
 
@@ -56,8 +53,8 @@
                                             {% endif %}
                                         {% endif %}
                                     {% endfor %}
-                                </div>
-                            </div>
+                                {% endblock %}
+                            {% endembed %}
                         {% endfor %}
                     </div>
                 {% else %}
