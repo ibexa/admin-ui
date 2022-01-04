@@ -66,8 +66,13 @@
     }
 
     &__errors-container {
-        display: inline-block;
-        color: $ibexa-color-danger;
+        margin-top: calculateRem(32px);
+
+        & + .has-error {
+            .ibexa-label {
+                margin-top: 0;
+            }
+        }
     }
 
     &__password-visibility-toggler {

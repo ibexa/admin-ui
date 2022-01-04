@@ -5,7 +5,7 @@
     grid-column-gap: calculateRem(8px);
     padding: calculateRem(16px) calculateRem(19px);
     border-radius: 0 $ibexa-border-radius $ibexa-border-radius 0;
-    border-width: calculateRem(1px) calculateRem(1px) calculateRem(1px) calculateRem(3px);
+    border-width: 0 0 0 calculateRem(3px);
     border-left-style: solid;
 
     &__icon-wrapper {
@@ -28,7 +28,6 @@
         display: flex;
         flex-wrap: wrap;
         align-items: baseline;
-        margin-top: calculateRem(4px);
 
         &--subtitle-below {
             flex-direction: column;
@@ -173,6 +172,10 @@
 
             &__close-btn {
                 margin: 0;
+            }
+
+            &__content {
+                margin-top: calculateRem(4px);
             }
         }
     }
