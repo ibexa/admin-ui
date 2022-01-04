@@ -92,20 +92,22 @@
                     <button
                         id="create-wildcards"
                         type="button"
-                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                        class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small"
                         {% if not can_manage %}disabled{% endif %}
                         data-bs-toggle="modal"
                         data-bs-target="#{{ modal_create_data_target }}"
-                        title="{{ 'url_wildcard.list.action.create'|trans|desc('Create a URL wildcard') }}"
                     >
                         <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
                             <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
                         </svg>
+                        <span class="ibexa-btn__label">
+                            {{ 'url_wildcard.list.action.create'|trans|desc('Add new') }}
+                        </span>
                     </button>
                     <button
                         id="delete-wildcards"
                         type="button"
-                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
                         disabled
                         data-bs-toggle="modal"
                         data-bs-target="#{{ modal_delete_data_target }}"
@@ -114,6 +116,9 @@
                         <svg class="ibexa-icon ibexa-icon--small ibexa-icon--trash">
                             <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
                         </svg>
+                        <span class="ibexa-btn__label">
+                            {{ 'url_wildcard.list.action.delete'|trans|desc('Delete') }}
+                        </span>
                     </button>
                 {% endblock %}
             {% endembed %}

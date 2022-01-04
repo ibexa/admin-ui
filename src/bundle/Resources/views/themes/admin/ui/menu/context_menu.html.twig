@@ -1,24 +1,16 @@
 {% extends '@KnpMenu/menu.html.twig' %}
 
 {% block root %}
-    <ul class="ibexa-context-menu">
+    {% set menu_items %}
         {% for item in item.children %}
             {{ block('item') }}
         {% endfor %}
+    {% endset %}
 
-        <li class="ibexa-context-menu__item ibexa-context-menu__item--more ibexa-adaptive-items__item ibexa-adaptive-items__item--selector">
-            {% set selector_btn_classes = item.extras.adaptiveItemsSelectorBtnClass|default('btn ibexa-btn ibexa-btn--secondary ibexa-btn--no-text') %}
-            <button class="{{ selector_btn_classes ~ ' ibexa-btn--more' }}">
-                <svg class="ibexa-icon ibexa-icon--small">
-                    <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
-                </svg>
-            </button>
-
-            {{ include('@ibexadesign/ui/component/popup_menu/popup_menu.html.twig', {
-                'items': [],
-            }) }}
-        </li>
-    </ul>
+    {{ include('@ibexadesign/ui/component/context_menu/context_menu.html.twig', {
+        menu_items: menu_items,
+        selector_btn_classes: item.extras.adaptiveItemsSelectorBtnClass|default('')
+    }) }}
 {% endblock %}
 
 {% block item -%}

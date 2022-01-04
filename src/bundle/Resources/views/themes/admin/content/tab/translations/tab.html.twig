@@ -84,19 +84,36 @@
 
 {% macro table_header_tools(form_translation_remove, can_translate) %}
     {% if can_translate %}
-        <button type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text ibexa-btn--prevented ibexa-btn--add-translation" data-bs-toggle="modal" data-bs-target="#add-translation-modal"
-                title="{{ 'tab.translations.action.add'|trans|desc('Add translation') }}">
+        <button
+            type="button"
+            class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-btn--prevented ibexa-btn--add-translation"
+            data-bs-toggle="modal"
+            data-bs-target="#add-translation-modal"
+        >
             <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
                 <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
             </svg>
+            <span class="ibexa-btn__label">
+                {{ 'tab.translations.action.add'|trans|desc('Add new') }}
+            </span>
         </button>
 
         {% set modal_data_target = 'delete-translations-modal' %}
-        <button type="button" id="delete-translations" type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text" disabled data-bs-toggle="modal"
-                data-bs-target="#{{ modal_data_target }}" title="{{ 'tab.translations.action.delete'|trans|desc('Delete Translation') }}">
+        <button
+            type="button"
+            id="delete-translations"
+            type="button"
+            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+            disabled
+            data-bs-toggle="modal"
+            data-bs-target="#{{ modal_data_target }}"
+        >
             <svg class="ibexa-icon ibexa-icon--small ibexa-icon--trash">
                 <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
             </svg>
+            <span class="ibexa-btn__label">
+                {{ 'tab.translations.action.delete'|trans|desc('Delete') }}
+            </span>
         </button>
         {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
             'id': modal_data_target,

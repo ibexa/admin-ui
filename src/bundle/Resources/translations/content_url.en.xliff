@@ -7,13 +7,13 @@
     </header>
     <body>
       <trans-unit id="5c48ac36c2a46c2dc2a89fd4c91a2a3d684eb5d8" resname="tab.urls.action.add">
-        <source>Add a custom URL alias</source>
-        <target state="new">Add a custom URL alias</target>
+        <source>Add new</source>
+        <target state="new">Add new</target>
         <note>key: tab.urls.action.add</note>
       </trans-unit>
       <trans-unit id="9b4504fd2e75dffb2c22283be3e9816e8142538a" resname="tab.urls.action.delete">
-        <source>Delete custom URL alias</source>
-        <target state="new">Delete custom URL alias</target>
+        <source>Delete</source>
+        <target state="new">Delete</target>
         <note>key: tab.urls.action.delete</note>
       </trans-unit>
       <trans-unit id="2398a15c604fd353b25fc8f558e2d099a6afeb33" resname="tab.urls.add.cancel">
