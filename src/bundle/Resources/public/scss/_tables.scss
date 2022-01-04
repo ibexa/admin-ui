@@ -61,7 +61,13 @@
         color: $ibexa-color-dark-400;
     }
 
-    &__empty-table-info-text,
+    &__empty-table-info-text {
+        margin-bottom: calculateRem(16px);
+        font-weight: $headings-font-weight;
+        font-family: $headings-font-family;
+        font-size: $ibexa-text-font-size-extra-large;
+    }
+
     &__empty-table-action-text {
         margin-bottom: calculateRem(16px);
     }
