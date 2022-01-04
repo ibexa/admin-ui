@@ -63,26 +63,23 @@
             {% endembed %}
             {% embed '@ibexadesign/ui/component/tab/tab_pane.html.twig' with { id: 'my-account-settings' } %}
                 {% block content %}
-                    {% set col_raw %}
+                    {% set actions %}
                         <a
-                            title="{{ 'my_account_settings.password.action.edit'|trans|desc('Edit') }}"
                             href="{{ path('ezplatform.user_profile.change_password') }}"
-                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                            class="btn ibexa-btn ibexa-btn--ghost"
                         >
                             <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
                                 <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
                             </svg>
+                            <span class="ibexa-btn__label">
+                                {{ 'my_account_settings.password.action.edit'|trans|desc('Change password') }}
+                            </span>
                         </a>
                     {% endset %}
 
-                    {% include '@ibexadesign/ui/component/table/table.html.twig' with {
+                    {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
                         headline: 'my_account_settings.password.title'|trans|desc('Password'),
-                        body_rows: [{
-                            cols: [
-                                { content: 'my_account_settings.password.description'|trans|desc('Current password') },
-                                { has_action_btns: true, content: col_raw, raw: true },
-                            ]
-                        }],
+                        actions,
                     } %}
                 {% endblock %}
             {% endembed %}
