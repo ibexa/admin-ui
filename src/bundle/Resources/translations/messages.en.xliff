@@ -539,8 +539,8 @@
         <note>key: modal.delete</note>
       </trans-unit>
       <trans-unit id="0b3e3c43abe2511b50431eb05045a7e5dbd7a36c" resname="my_account_settings.password.action.edit">
-        <source>Edit</source>
-        <target state="new">Edit</target>
+        <source>Change password</source>
+        <target state="new">Change password</target>
         <note>key: my_account_settings.password.action.edit</note>
       </trans-unit>
       <trans-unit id="49c8574da3abcfb5465e079bec34d32654da7535" resname="my_account_settings.password.description">
