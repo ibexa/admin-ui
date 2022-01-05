@@ -8,17 +8,17 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\Component\Table;
 
-use eZ\Publish\API\Repository\Exceptions\NotImplementedException;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
 
 class SubitemsGrid extends Component implements TableInterface
 {
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('listElement', '.m-sub-items .c-grid-view-item'),
+            new VisibleCSSLocator('listElement', '.m-sub-items .ibexa-grid-view-item'),
             new VisibleCSSLocator('parent', '.m-sub-items'),
         ];
     }

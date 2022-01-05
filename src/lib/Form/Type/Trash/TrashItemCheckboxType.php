@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\Trash;
+namespace Ibexa\AdminUi\Form\Type\Trash;
 
-use eZ\Publish\API\Repository\TrashService;
-use EzSystems\EzPlatformAdminUi\Form\DataTransformer\TrashItemTransformer;
+use Ibexa\AdminUi\Form\DataTransformer\TrashItemTransformer;
+use Ibexa\Contracts\Core\Repository\TrashService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -27,7 +27,7 @@ class TrashItemCheckboxType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -35,7 +35,7 @@ class TrashItemCheckboxType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
@@ -52,3 +52,5 @@ class TrashItemCheckboxType extends AbstractType
         ]);
     }
 }
+
+class_alias(TrashItemCheckboxType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Trash\TrashItemCheckboxType');

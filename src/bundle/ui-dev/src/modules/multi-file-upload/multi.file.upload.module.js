@@ -37,8 +37,8 @@ export default class MultiFileUploadModule extends Component {
     componentDidMount() {
         this.manageDropEvent();
 
-        window.document.body.addEventListener('ez-udw-opened', this.setUdwStateOpened, false);
-        window.document.body.addEventListener('ez-udw-closed', this.setUdwStateClosed, false);
+        window.document.body.addEventListener('ibexa-udw-opened', this.setUdwStateOpened, false);
+        window.document.body.addEventListener('ibexa-udw-closed', this.setUdwStateClosed, false);
     }
 
     componentDidUpdate() {
@@ -46,8 +46,8 @@ export default class MultiFileUploadModule extends Component {
     }
 
     componentWillUnmount() {
-        window.document.body.removeEventListener('ez-udw-opened', this.setUdwStateOpened, false);
-        window.document.body.removeEventListener('ez-udw-closed', this.setUdwStateClosed, false);
+        window.document.body.removeEventListener('ibexa-udw-opened', this.setUdwStateOpened, false);
+        window.document.body.removeEventListener('ibexa-udw-closed', this.setUdwStateClosed, false);
     }
 
     /**
@@ -218,18 +218,15 @@ export default class MultiFileUploadModule extends Component {
         }
 
         const uploadDisabled = this.state.uploadDisabled;
-        const title = Translator.trans(/*@Desc("Upload sub-items")*/ 'multi_file_upload_open_btn.label', {}, 'multi_file_upload');
-        const attrs = { className: 'm-mfu__btn--upload', title, onClick: this.showUploadPopup, type: 'button' };
-
-        if (uploadDisabled) {
-            delete attrs.onClick;
-
-            attrs.disabled = true;
-        }
+        const label = Translator.trans(/*@Desc("Upload")*/ 'multi_file_upload_open_btn.label', {}, 'multi_file_upload');
 
         return (
-            <button {...attrs}>
-                <Icon name="upload" extraClasses="ez-icon--base-dark ez-icon--small-medium" />
+            <button
+                type="button"
+                className="btn ibexa-btn ibexa-btn--ghost"
+                onClick={this.showUploadPopup}
+                disabled={uploadDisabled}>
+                <Icon name="upload" extraClasses="ibexa-icon--small" /> {label}
             </button>
         );
     }
@@ -269,7 +266,7 @@ export default class MultiFileUploadModule extends Component {
     }
 }
 
-eZ.addConfig('modules.MultiFileUpload', MultiFileUploadModule);
+ibexa.addConfig('modules.MultiFileUpload', MultiFileUploadModule);
 
 MultiFileUploadModule.propTypes = {
     adminUiConfig: PropTypes.shape({

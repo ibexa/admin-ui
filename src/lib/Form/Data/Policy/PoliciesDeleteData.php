@@ -6,23 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Policy;
+namespace Ibexa\AdminUi\Form\Data\Policy;
 
-use eZ\Publish\API\Repository\Values\User\Role;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
 
 /**
  * @todo Add validation
  */
 class PoliciesDeleteData
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\Role|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role|null */
     protected $role;
 
     /** @var array|null */
     protected $policies;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\Role|null $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role|null $role
      * @param array|null $policies
      */
     public function __construct(?Role $role = null, array $policies = [])
@@ -32,7 +32,7 @@ class PoliciesDeleteData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\User\Role|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role|null
      */
     public function getRole(): ?Role
     {
@@ -40,7 +40,7 @@ class PoliciesDeleteData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\Role|null $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role|null $role
      */
     public function setRole(?Role $role)
     {
@@ -63,3 +63,5 @@ class PoliciesDeleteData
         $this->policies = $policies;
     }
 }
+
+class_alias(PoliciesDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Policy\PoliciesDeleteData');

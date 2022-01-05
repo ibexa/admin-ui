@@ -6,46 +6,46 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader;
+namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\SPI\Limitation\Target;
-use EzSystems\EzPlatformAdminUi\Permission\LookupLimitationsTransformer;
+use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
+use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
 class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
 {
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
     /** @var string[] */
     private $languageCodes;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo */
     private $contentInfo;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\LookupLimitationsTransformer */
+    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
     private $lookupLimitationsTransformer;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
     private $location;
 
     /**
-     * @param \eZ\Publish\API\Repository\LanguageService $languageService
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \EzSystems\EzPlatformAdminUi\Permission\LookupLimitationsTransformer $lookupLimitationsTransformer
+     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
+     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\AdminUi\Permission\LookupLimitationsTransformer $lookupLimitationsTransformer
      * @param string[] $languageCodes
      */
     public function __construct(
@@ -67,7 +67,7 @@ class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getChoiceList(): array
     {
@@ -115,3 +115,5 @@ class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
         return $languages;
     }
 }
+
+class_alias(ContentEditTranslationChoiceLoader::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\ContentEditTranslationChoiceLoader');

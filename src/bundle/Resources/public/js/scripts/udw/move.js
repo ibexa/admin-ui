@@ -1,5 +1,5 @@
-(function(global, doc, eZ, React, ReactDOM, Translator) {
-    const btns = doc.querySelectorAll('.btn--udw-move');
+(function(global, doc, ibexa, React, ReactDOM, Translator) {
+    const btns = doc.querySelectorAll('.ibexa-btn--udw-move');
     const form = doc.querySelector('form[name="location_move"]');
     const input = form.querySelector('#location_move_new_parent_location');
     const udwContainer = doc.getElementById('react-udw');
@@ -18,7 +18,7 @@
         const title = Translator.trans(/*@Desc("Select destination")*/ 'move.title', {}, 'universal_discovery_widget');
 
         ReactDOM.render(
-            React.createElement(eZ.modules.UniversalDiscovery, {
+            React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm,
                 onCancel,
                 title,
@@ -31,4 +31,4 @@
     };
 
     btns.forEach((btn) => btn.addEventListener('click', openUDW, false));
-})(window, window.document, window.eZ, window.React, window.ReactDOM, window.Translator);
+})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator);

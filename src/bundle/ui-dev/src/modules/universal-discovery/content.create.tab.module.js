@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, createRef } from 'react';
+import React, { useContext, createRef } from 'react';
 
 import {
     ContentOnTheFlyDataContext,
@@ -25,7 +25,6 @@ const generateIframeUrl = ({ locationId, languageCode, contentTypeIdentifier }) 
 };
 
 const ContentCreateTabModule = () => {
-    const [footerVisible, setFooterVisible] = useState(true);
     const [contentOnTheFlyData, setContentOnTheFlyData] = useContext(ContentOnTheFlyDataContext);
     const tabs = useContext(TabsContext);
     const contentOnTheFlyConfig = useContext(ContentOnTheFlyConfigContext);
@@ -38,7 +37,8 @@ const ContentCreateTabModule = () => {
     const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
     const iframeUrl = generateIframeUrl(contentOnTheFlyData);
     const iframeRef = createRef();
-    const cancelContentCreate = () => {
+    const cancelContentCreate = (event) => {
+        event.preventDefault();
         setCreateContentVisible(false);
         setContentOnTheFlyData({});
         setActiveTab(tabs[0].id);
@@ -52,6 +52,9 @@ const ContentCreateTabModule = () => {
     };
     const handleIframeLoad = () => {
         const locationId = iframeRef.current.contentWindow.document.querySelector('meta[name="LocationID"]');
+        const iframeBody = iframeRef.current.contentWindow.document.body;
+        const iframeConfirmBtn = iframeBody.querySelector('.ibexa-context-menu .ibexa-btn--confirm');
+        const iframeCancelBtn = iframeBody.querySelector('.ibexa-context-menu .ibexa-btn--cancel');
 
         if (locationId) {
             findLocationsById({ ...restInfo, id: parseInt(locationId.content, 10) }, (createdItems) => {
@@ -78,51 +81,27 @@ const ContentCreateTabModule = () => {
             });
         }
 
-        iframeRef.current.contentWindow.document.body.addEventListener('ez-udw-opened', hideFooter, false);
-        iframeRef.current.contentWindow.document.body.addEventListener('ez-udw-closed', showFooter, false);
+        iframeConfirmBtn?.addEventListener('click', publishContent, false);
+        iframeCancelBtn?.addEventListener('click', cancelContentCreate, false);
     };
-    const hideFooter = () => setFooterVisible(false);
-    const showFooter = () => setFooterVisible(true);
     const cancelLabel = Translator.trans(/*@Desc("Cancel")*/ 'content_create.cancel.label', {}, 'universal_discovery_widget');
     const confirmLabel = Translator.trans(/*@Desc("Confirm")*/ 'content_create.confirm.label', {}, 'universal_discovery_widget');
-    const className = createCssClassNames({
-        'm-content-create': true,
-        'm-content-create--footer-visible': footerVisible,
-    });
-
-    useEffect(() => {
-        window.document.body.addEventListener('ez-udw-hide-footer', hideFooter, false);
-        window.document.body.addEventListener('ez-udw-show-footer', showFooter, false);
-
-        return () => {
-            window.document.body.removeEventListener('ez-udw-hide-footer', hideFooter, false);
-            window.document.body.removeEventListener('ez-udw-show-footer', showFooter, false);
-        };
-    });
 
     return (
-        <div className={className}>
+        <div className="m-content-create">
             <iframe src={iframeUrl} className="m-content-create__iframe" ref={iframeRef} onLoad={handleIframeLoad} />
-            <div className="m-content-create__actions">
-                <button className="m-content-create__cancel-button btn btn-gray" onClick={cancelContentCreate}>
-                    {cancelLabel}
-                </button>
-                <button className="m-content-create__confirm-button btn btn-primary" onClick={publishContent}>
-                    {confirmLabel}
-                </button>
-            </div>
         </div>
     );
 };
 
-eZ.addConfig(
+ibexa.addConfig(
     'adminUiConfig.universalDiscoveryWidget.tabs',
     [
         {
             id: 'content-create',
             component: ContentCreateTabModule,
             label: Translator.trans(/*@Desc("Content create")*/ 'content_create.label', {}, 'universal_discovery_widget'),
-            icon: window.eZ.helpers.icon.getIconPath('search'),
+            icon: window.ibexa.helpers.icon.getIconPath('search'),
             isHiddenOnList: true,
         },
     ],

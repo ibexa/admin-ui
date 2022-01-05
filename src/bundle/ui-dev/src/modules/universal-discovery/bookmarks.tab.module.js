@@ -79,14 +79,14 @@ const BookmarksTabModule = () => {
     );
 };
 
-eZ.addConfig(
+ibexa.addConfig(
     'adminUiConfig.universalDiscoveryWidget.tabs',
     [
         {
             id: 'bookmarks',
             component: BookmarksTabModule,
             label: Translator.trans(/*@Desc("Bookmarks")*/ 'bookmarks.label', {}, 'universal_discovery_widget'),
-            icon: window.eZ.helpers.icon.getIconPath('bookmark'),
+            icon: window.ibexa.helpers.icon.getIconPath('bookmark'),
         },
     ],
     true

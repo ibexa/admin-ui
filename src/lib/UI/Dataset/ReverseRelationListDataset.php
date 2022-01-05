@@ -6,27 +6,27 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Dataset;
+namespace Ibexa\AdminUi\UI\Dataset;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\RelationList\RelationListItemInterface;
-use EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory;
+use Ibexa\AdminUi\UI\Value\ValueFactory;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\RelationListItemInterface;
 
 final class ReverseRelationListDataset
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory */
+    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
     private $valueFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\Content\RelationInterface[] */
+    /** @var \Ibexa\AdminUi\UI\Value\Content\RelationInterface[] */
     private $reverseRelations;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory $valueFactory
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
      */
     public function __construct(ContentService $contentService, ValueFactory $valueFactory)
     {
@@ -36,11 +36,11 @@ final class ReverseRelationListDataset
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param int $offset
      * @param int $limit
      *
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\ReverseRelationListDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\ReverseRelationListDataset
      */
     public function load(
         Content $content,
@@ -58,14 +58,14 @@ final class ReverseRelationListDataset
         $this->reverseRelations = array_map(
             function (RelationListItemInterface $relationListItem) use ($content) {
                 if ($relationListItem->hasRelation()) {
-                    /** @var \eZ\Publish\API\Repository\Values\Content\RelationList\Item\RelationListItem $relationListItem */
+                    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem $relationListItem */
                     return $this->valueFactory->createRelationItem(
                         $relationListItem,
                         $content
                     );
                 }
 
-                /** @var \eZ\Publish\API\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem $relationListItem */
+                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem $relationListItem */
                 return $this->valueFactory->createUnauthorizedRelationItem(
                     $relationListItem
                 );
@@ -77,10 +77,12 @@ final class ReverseRelationListDataset
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Value\Content\RelationInterface[]
+     * @return \Ibexa\AdminUi\UI\Value\Content\RelationInterface[]
      */
     public function getReverseRelations(): array
     {
         return $this->reverseRelations;
     }
 }
+
+class_alias(ReverseRelationListDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\ReverseRelationListDataset');

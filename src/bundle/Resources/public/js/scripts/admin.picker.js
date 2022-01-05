@@ -1,10 +1,10 @@
-(function(global, doc, eZ, flatpickr) {
-    const SELECTOR_PICKER = '.ez-picker';
-    const SELECTOR_PICKER_INPUT = '.ez-picker__input';
-    const SELECTOR_FORM_INPUT = '.ez-picker__form-input';
-    const SELECTOR_CLEAR_BTN = '.ez-picker__btn--clear-input';
+(function(global, doc, ibexa, flatpickr) {
+    const SELECTOR_PICKER = '.ibexa-picker';
+    const SELECTOR_PICKER_INPUT = '.ibexa-picker__input';
+    const SELECTOR_FORM_INPUT = '.ibexa-picker__form-input';
+    const SELECTOR_CLEAR_BTN = '.ibexa-picker__btn--clear-input';
     const pickers = doc.querySelectorAll(SELECTOR_PICKER);
-    const { formatShortDateTime } = eZ.helpers.timezone;
+    const { formatShortDateTime } = ibexa.helpers.timezone;
     const pickerConfig = {
         enableTime: true,
         time_24hr: true,
@@ -49,4 +49,4 @@
     };
 
     pickers.forEach(initFlatPickr);
-})(window, window.document, window.eZ, window.flatpickr);
+})(window, window.document, window.ibexa, window.flatpickr);
