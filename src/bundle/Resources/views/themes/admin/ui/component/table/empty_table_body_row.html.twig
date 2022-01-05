@@ -7,10 +7,15 @@
         />
         <div class="ibexa-table__empty-table-text">
             {% if empty_table_info_text is defined %}
-                <strong>{{ empty_table_info_text }}</strong>
+                <div class="ibexa-table__empty-table-info-text">{{ empty_table_info_text }}</div>
             {% endif %}
+
             {% if empty_table_action_text is defined %}
-                <br>{{ empty_table_action_text }}
+                <div class="ibexa-table__empty-table-action-text">{{ empty_table_action_text }}</div>
+            {% endif %}
+
+            {% if empty_table_extra_actions is defined %}
+                {{ empty_table_extra_actions|raw }}
             {% endif %}
         </div>
     </td>
