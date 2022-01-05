@@ -101,6 +101,11 @@
         <target state="new">Name</target>
         <note>key: language.name.label</note>
       </trans-unit>
+      <trans-unit id="8e4642a0c879921e8bf31752abc577c4bf8d098b" resname="language.new">
+        <source>Create</source>
+        <target state="new">Create</target>
+        <note>key: language.new</note>
+      </trans-unit>
       <trans-unit id="ed7e6b485737184b494f399ea010f537c9a741f5" resname="language.new.title">
         <source>Creating a new language</source>
         <target state="new">Creating a new language</target>
