@@ -78,15 +78,6 @@ class NavigationContext implements Context
     }
 
     /**
-     * @Given I go to change my password
-     * @Given I go to change my password in user preferences
-     */
-    public function iGoToChangeMyPassword()
-    {
-        $this->upperMenu->chooseFromUserDropdown('Change password');
-    }
-
-    /**
      * @Then /^I should be on "?([^\"]*)"? page$/
      */
     public function iAmOnPage(string $pageName): void

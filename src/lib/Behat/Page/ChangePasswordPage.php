@@ -61,6 +61,6 @@ class ChangePasswordPage extends Page
 
     public function getName(): string
     {
-        return 'Change password page';
+        return 'Change password';
     }
 }
