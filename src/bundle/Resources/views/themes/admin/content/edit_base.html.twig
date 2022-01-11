@@ -62,7 +62,9 @@
                     </div>
                 {% else %}
                     <div class="row">
-                        {% if not is_full_width|default(false) %}<div class="offset-1 col-6 p-0">{% endif %}
+                        <div class="
+                            {{ is_full_width|default(false) ? 'col-12' : 'col-6 offset-1 p-0' }}"
+                        >
                             {% for field in form.fieldsData %}
                                 {% if not field.rendered %}
                                     {% if field.value is defined %}
@@ -78,7 +80,7 @@
                                     {% endif %}
                                 {% endif %}
                             {%- endfor %}
-                        {% if not is_full_width|default(false) %}</div>{% endif %}
+                        </div>
                     </div>
                 {% endif %}
             {% endblock %}
