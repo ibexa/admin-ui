@@ -1,8 +1,10 @@
 .ibexa-field-edit--ezfloat {
-    .ibexa-data-source__input {
+    .ibexa-input-text-wrapper {
         width: calculateRem(84px);
         height: calculateRem(48px);
+    }
 
+    .ibexa-data-source__input {
         &.is-invalid {
             background-image: none;
             padding-right: calculateRem(12px);

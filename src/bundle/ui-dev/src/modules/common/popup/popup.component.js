@@ -27,12 +27,14 @@ class Popup extends Component {
     }
 
     componentDidMount() {
+        const { noKeyboard, hasFocus } = this.props;
         const { isVisible: show } = this.state;
 
         if (show) {
             const bootstrapModal = window.bootstrap.Modal.getOrCreateInstance(this._refModal, {
                 ...MODAL_CONFIG,
-                focus: this.props.hasFocus,
+                keyboard: !noKeyboard,
+                focus: hasFocus,
             });
 
             bootstrapModal.show();
@@ -86,8 +88,6 @@ class Popup extends Component {
     }
 
     renderHeader() {
-        const closeBtnLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'universal_discovery_widget');
-
         return (
             <div className={'modal-header c-popup__header'}>
                 {this.renderHeadline()}
@@ -97,6 +97,10 @@ class Popup extends Component {
     }
 
     renderCloseButton() {
+        if (this.props.noCloseBtn) {
+            return;
+        }
+
         const closeBtnLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'universal_discovery_widget');
 
         return (
@@ -148,9 +152,9 @@ class Popup extends Component {
 
     render() {
         const { isVisible } = this.state;
-        const { additionalClasses, size, noHeader } = this.props;
+        const { additionalClasses, size, noHeader, extraClasses } = this.props;
         const modalAttrs = {
-            className: 'c-popup modal fade',
+            className: `c-popup modal fade ${extraClasses}`,
             ref: this.setModalRef,
             tabIndex: this.props.hasFocus ? -1 : undefined,
         };
@@ -193,6 +197,9 @@ Popup.propTypes = {
     footerChildren: PropTypes.element,
     size: PropTypes.string,
     noHeader: PropTypes.bool,
+    noCloseBtn: PropTypes.bool,
+    noKeyboard: PropTypes.bool,
+    extraClasses: PropTypes.string,
 };
 
 Popup.defaultProps = {
@@ -201,6 +208,9 @@ Popup.defaultProps = {
     hasFocus: true,
     size: 'large',
     noHeader: false,
+    noCloseBtn: false,
+    noKeyboard: false,
+    extraClasses: '',
     onConfigIframeLoad: () => {},
 };
 

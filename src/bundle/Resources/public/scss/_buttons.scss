@@ -91,7 +91,10 @@
 
         &:hover {
             color: $ibexa-color-primary;
-            fill: $ibexa-color-primary;
+
+            .ibexa-icon {
+                fill: $ibexa-color-primary;
+            }
         }
 
         &:focus {
