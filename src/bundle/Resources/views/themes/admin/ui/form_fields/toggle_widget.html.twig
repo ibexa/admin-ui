@@ -1,6 +1,6 @@
 {%- block toggle_widget -%}
     {% set default_label_on = 'toggle_widget.label.on'|trans|desc('On') %}
-    {% set default_label_off = 'toggle_widget.label.on'|trans|desc('Off') %}
+    {% set default_label_off = 'toggle_widget.label.off'|trans|desc('Off') %}
     {% set field_type = block_prefixes[1]|default('choice') %}
     {% set main_class = 'ibexa-toggle' %}
     {% set attr = attr|default({})|merge({
