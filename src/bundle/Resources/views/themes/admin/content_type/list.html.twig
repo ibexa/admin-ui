@@ -88,12 +88,14 @@
                     {% if can_create %}
                         <a
                             href="{{ path('ezplatform.content_type.add', {contentTypeGroupId: content_type_group.id}) }}"
-                            title="{{ 'content_type.view.list.action.add'|trans|desc('Create a Content Type') }}"
-                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                            class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small"
                         >
                             <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
                                 <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
                             </svg>
+                            <span class="ibexa-btn__label">
+                                {{ 'content_type.view.list.action.add'|trans|desc('Add new') }}
+                            </span>
                         </a>
                     {% endif %}
                     {% if can_delete %}
@@ -101,15 +103,17 @@
                         <button
                             id="delete-content-types"
                             type="button"
-                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
                             disabled
                             data-bs-toggle="modal"
                             data-bs-target="#{{ modal_data_target }}"
-                            title="{{ 'content_type.view.list.action.delete'|trans|desc('Delete Content Type') }}"
                         >
                             <svg class="ibexa-icon ibexa-icon--small ibexa-icon--trash">
                                 <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
                             </svg>
+                            <span class="ibexa-btn__label">
+                                {{ 'content_type.view.list.action.delete'|trans|desc('Delete') }}
+                            </span>
                         </button>
                         {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                             'id': modal_data_target,

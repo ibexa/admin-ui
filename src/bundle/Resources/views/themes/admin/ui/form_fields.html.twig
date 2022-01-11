@@ -129,11 +129,13 @@
             {% set label = name|humanize %}
         {%- endif -%}
     {%- endif -%}
-    <button type="{{ type }}" {{ block('button_attributes') }} title="{{'trash.button.restore'|trans({},'trash')|desc('Restore') }}">
+    <button type="{{ type }}" {{ block('button_attributes') }}>
         <svg class="ibexa-icon ibexa-icon--small">
             <use xlink:href="{{ ibexa_icon_path('restore') }}"></use>
         </svg>
-        {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
+        <span class="ibexa-btn__label">
+            {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
+        </span>
     </button>
 {%- endblock -%}
 
@@ -149,11 +151,13 @@
             {% set label = name|humanize %}
         {%- endif -%}
     {%- endif -%}
-    <button type="{{ type }}" {{ block('button_attributes') }} title="{{'trash.button.restore_new_location'|trans({},'trash')|desc("Restore in a new Location") }}">
+    <button type="{{ type }}" {{ block('button_attributes') }}>
         <svg class="ibexa-icon ibexa-icon--small">
             <use xlink:href="{{ ibexa_icon_path('restore-parent') }}"></use>
         </svg>
-        {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
+        <span class="ibexa-btn__label">
+            {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
+        </span>
     </button>
 {%- endblock -%}
 
@@ -186,15 +190,18 @@
             {% set label = name|humanize %}
         {%- endif -%}
     {%- endif -%}
-    <button type="{{ type }}" {{ block('button_attributes') }} title="{{ title|default('') }}">
+    <button type="{{ type }}" {{ block('button_attributes') }}>
         <svg class="ibexa-icon ibexa-icon--small">
             <use xlink:href="{{ ibexa_icon_path(icon|default('')) }}"></use>
         </svg>
+        {%- if title -%}
+            <span class="ibexa-btn__label">{{ title }}</span>
+        {%- endif -%}
     </button>
 {%- endblock table_header_tool_btn -%}
 
 {%- block _bookmark_remove_remove_widget -%}
-    {%- set title = 'bookmark.button.remove'|trans({},'bookmark')|desc('Remove from bookmarks') -%}
+    {%- set title = 'bookmark.button.remove'|trans({},'bookmark')|desc('Delete') -%}
     {%- set icon = 'trash' -%}
     {{ block('table_header_tool_btn') }}
 {%- endblock -%}

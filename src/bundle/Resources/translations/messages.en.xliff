@@ -232,13 +232,13 @@
         <note>key: content_type.view.edit.global_properties</note>
       </trans-unit>
       <trans-unit id="803a61fc8cf4e7bdfcf27432bb35e379a4971134" resname="content_type.view.list.action.add">
-        <source>Create a Content Type</source>
-        <target state="new">Create a Content Type</target>
+        <source>Add new</source>
+        <target state="new">Add new</target>
         <note>key: content_type.view.list.action.add</note>
       </trans-unit>
       <trans-unit id="c3287b9fccc0b54216e50ba02e3d72e17cc1c92e" resname="content_type.view.list.action.delete">
-        <source>Delete Content Type</source>
-        <target state="new">Delete Content Type</target>
+        <source>Delete</source>
+        <target state="new">Delete</target>
         <note>key: content_type.view.list.action.delete</note>
       </trans-unit>
       <trans-unit id="09f63694559a9149fb1297e33be843cf54788b95" resname="content_type_group.modal.message">
@@ -504,8 +504,8 @@
         <note>key: language.delete</note>
       </trans-unit>
       <trans-unit id="71ec7cf0f6cecec112438059bf15066f4ccb5ba1" resname="language.delete_language">
-        <source>Delete language</source>
-        <target state="new">Delete language</target>
+        <source>Delete</source>
+        <target state="new">Delete</target>
         <note>key: language.delete_language</note>
       </trans-unit>
       <trans-unit id="2a52961302ce7dfa4a21c5e0bcc239f5a9a36cfe" resname="language.modal.message">
@@ -569,8 +569,8 @@
         <note>key: notification.title</note>
       </trans-unit>
       <trans-unit id="0480844e257807b48dbf75fa7a374ceb7649ec5c" resname="object_state.delete.bulk_delete.submit">
-        <source>Delete Object state</source>
-        <target state="new">Delete Object state</target>
+        <source>Delete</source>
+        <target state="new">Delete</target>
         <note>key: object_state.delete.bulk_delete.submit</note>
       </trans-unit>
       <trans-unit id="2331731a1072a77f20ceef81614545768fc1d446" resname="object_state.modal.message">
@@ -579,8 +579,8 @@
         <note>key: object_state.modal.message</note>
       </trans-unit>
       <trans-unit id="85cbd870cb6255f3d3d481ece6c23e6e2117e91e" resname="object_state.new">
-        <source>Create</source>
-        <target state="new">Create</target>
+        <source>Add new</source>
+        <target state="new">Add new</target>
         <note>key: object_state.new</note>
       </trans-unit>
       <trans-unit id="0f857d4dff9c8232ede300a39010d289d31c2937" resname="object_state_group.delete.bulk_delete.submit">
@@ -604,13 +604,13 @@
         <note>key: policy.modal.message</note>
       </trans-unit>
       <trans-unit id="84d0c2844a996fbfdc23872405533f92b6e6e2f6" resname="policy.view.list.action.add">
-        <source>Add a new Policy</source>
-        <target state="new">Add a new Policy</target>
+        <source>Add new</source>
+        <target state="new">Add new</target>
         <note>key: policy.view.list.action.add</note>
       </trans-unit>
       <trans-unit id="abf42b328e259dc5ec851e70dad234636d0134fe" resname="policy.view.list.action.delete">
-        <source>Delete Policy</source>
-        <target state="new">Delete Policy</target>
+        <source>Delete</source>
+        <target state="new">Delete</target>
         <note>key: policy.view.list.action.delete</note>
       </trans-unit>
       <trans-unit id="b8faa90fed74479d8cdb01dc2c0e1af8a79cf9b1" resname="role.modal.message">
