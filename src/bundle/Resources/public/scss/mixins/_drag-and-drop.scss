@@ -68,6 +68,7 @@
         align-items: center;
         height: calculateRem(36px);
         border-top: calculateRem(1px) solid $ibexa-color-light;
+        cursor: pointer;
 
         .ibexa-icon {
             transition: transform $ibexa-admin-transition-duration $ibexa-admin-transition;
