@@ -24,5 +24,7 @@
     if (loginBtn) {
         nameInput.addEventListener('keyup', toggleLoginBtnState, false);
         passwordInput.addEventListener('keyup', toggleLoginBtnState, false);
+
+        toggleLoginBtnState();
     }
 })(window, window.document);
