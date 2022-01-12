@@ -23,7 +23,7 @@
     {% include '@ibexadesign/ui/anchor_navigation_menu.html.twig' with anchor_params %}
 {% endblock %}
 
-{% block content%}
+{% block content %}
     {% block form_before %}{% endblock %}
 
     {% block form %}
@@ -62,7 +62,7 @@
                     </div>
                 {% else %}
                     <div class="row">
-                        <div class="offset-1 col-6 p-0">
+                        <div class="{{ is_full_width|default(false) ? 'col-12' : 'col-6 offset-1' }}">
                             {% for field in form.fieldsData %}
                                 {% if not field.rendered %}
                                     {% if field.value is defined %}
