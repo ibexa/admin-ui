@@ -12,6 +12,7 @@ use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\TableNavigationTab;
+use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
@@ -151,10 +152,9 @@ class RolePage extends Page
     public function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('assignUsersButton', '[data-bs-original-title="Assign to Users/Groups"]'),
+            new VisibleCSSLocator('button', '.ibexa-btn'),
             new VisibleCSSLocator('deleteAssignmentButton', '#delete-role-assignments'),
             new VisibleCSSLocator('deletePoliciesButton', '#delete-policies'),
-            new VisibleCSSLocator('createPolicyButton', '[data-bs-original-title="Add a new Policy"]'),
             new VisibleCSSLocator('assignmentTable', '[name="role_assignments_delete"]'),
             new VisibleCSSLocator('policiesTable', '[name="policies_delete"]'),
             new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
@@ -199,7 +199,10 @@ class RolePage extends Page
     public function startAssigningUsers()
     {
         $this->goToTab('Assignments');
-        $this->getHTMLPage()->find($this->getLocator('assignUsersButton'))->click();
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('button'))
+            ->getByCriterion(new ElementTextCriterion('Assign to Users/Groups'))
+            ->click();
     }
 
     public function deleteAssignments(array $itemNames)
@@ -236,7 +239,10 @@ class RolePage extends Page
 
     public function createPolicy(): void
     {
-        $this->getHTMLPage()->find($this->getLocator('createPolicyButton'))->click();
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('button'))
+            ->getByCriterion(new ElementTextCriterion('Add new'))
+            ->click();
     }
 
     public function editPolicy(string $moduleName, string $functionName): void
