@@ -27,6 +27,11 @@ class ContentTypePicker extends Component
             ->click();
     }
 
+    public function selectLanguage(string $language): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('languageSelectWhileCreatingItem'))->selectOption($language);
+    }
+
     protected function getDisplayedItemsCount(): int
     {
         return $this->getHTMLPage()->findAll($this->getLocator('filteredItem'))->count();
@@ -44,6 +49,7 @@ class ContentTypePicker extends Component
             new VisibleCSSLocator('filterInput', '.ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__input'),
             new VisibleCSSLocator('filteredItem', '.ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__group-item:not([hidden]) .form-check-label'),
             new VisibleCSSLocator('header', '.ibexa-extra-actions--create .ibexa-extra-actions__header h2'),
+            new VisibleCSSLocator('languageSelectWhileCreatingItem', '#content_create_language'),
         ];
     }
 }

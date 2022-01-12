@@ -176,4 +176,10 @@ class ContentUpdateItemPage extends Page
             ->getByCriterion(new ElementTextCriterion($tabName))
             ->click();
     }
+
+    public function verifyFieldCannotBeEditedDueToLimitation(string $fieldName)
+    {
+        $fieldLocator = new VisibleCSSLocator('', sprintf($this->getLocator('nthField')->getSelector(), $this->getFieldPosition($fieldName)));
+        $this->getHTMLPage()->find($fieldLocator)->assert()->hasClass('ibexa-field-edit--disabled');
+    }
 }

@@ -111,10 +111,13 @@ class ContentViewPage extends Page
         $this->universalDiscoveryWidget = $universalDiscoveryWidget;
     }
 
-    public function startCreatingContent(string $contentTypeName)
+    public function startCreatingContent(string $contentTypeName, string $language = null)
     {
         $this->contentActionsMenu->clickButton('Create content');
         $this->contentTypePicker->verifyIsLoaded();
+        if ($language !== null) {
+            $this->contentTypePicker->selectLanguage($language);
+        }
         $this->contentTypePicker->select($contentTypeName);
     }
 
