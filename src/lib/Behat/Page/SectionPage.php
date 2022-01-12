@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
+use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
@@ -77,7 +78,10 @@ class SectionPage extends Page
 
     public function edit()
     {
-        $this->getHTMLPage()->find($this->getLocator('editButton'))->click();
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('button'))
+            ->getByCriterion(new ElementTextCriterion('Edit'))
+            ->click();
     }
 
     public function assignContentItems()
@@ -92,7 +96,10 @@ class SectionPage extends Page
 
     public function delete()
     {
-        $this->getHTMLPage()->find($this->getLocator('deleteButton'))->click();
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('button'))
+            ->getByCriterion(new ElementTextCriterion('Delete'))
+            ->click();
         $this->dialog->verifyIsLoaded();
         $this->dialog->confirm();
     }
@@ -143,8 +150,7 @@ class SectionPage extends Page
             new VisibleCSSLocator('contentItemsTable', '.ibexa-main-container__content-column .ibexa-table'),
             new VisibleCSSLocator('assignButton', '#section_content_assign_locations_select_content'),
             new VisibleCSSLocator('sectionInfoTable', '.ibexa-container .ibexa-table'),
-            new VisibleCSSLocator('deleteButton', 'button[data-bs-original-title="Delete Section"]'),
-            new VisibleCSSLocator('editButton', 'a[data-bs-original-title="Edit"]'),
+            new VisibleCSSLocator('button', '.ibexa-btn'),
             new VisibleCSSLocator('sectionPropertiesItem', '.ibexa-details__item'),
             new VisibleCSSLocator('sectionPropertiesLabel', '.ibexa-details__item-label'),
             new VisibleCSSLocator('sectionPropertiesValue', '.ibexa-details__item-content'),

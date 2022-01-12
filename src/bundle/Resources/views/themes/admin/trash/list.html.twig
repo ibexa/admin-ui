@@ -236,14 +236,17 @@
                                     {% set restore_under_new_parent_button_attr = form_trash_item_restore.location.select_content.vars.attr|merge({
                                         'attr': {
                                             'data-udw-config': ibexa_udw_config('single_container', {}),
-                                            'class': (form_trash_item_restore.location.select_content.vars.attr.class|default('') ~ ' btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text')|trim,
+                                            'class': (form_trash_item_restore.location.select_content.vars.attr.class|default('') ~ ' btn ibexa-btn ibexa-btn--ghost ibexa-btn--small')|trim,
                                             'disabled': true
-                                        }
+                                        }, 'label': 'trash.button.restore_new_location'|trans({},'trash')|desc("Restore in a new Location")
                                     }) %}
                                     {{ form_widget(form_trash_item_restore.location.select_content, restore_under_new_parent_button_attr) }}
                                     {{ form_widget(form_trash_item_restore.location.location) }}
                                     {% do form_trash_item_restore.location.setRendered %}
-                                    {{ form_widget(form_trash_item_restore.restore, {'attr': {'class': 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text', 'disabled': true}}) }}
+                                    {{ form_widget(form_trash_item_restore.restore, {
+                                        'attr': {'class': 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--small', 'disabled': true},
+                                        'label': 'trash.button.restore'|trans({},'trash')|desc('Restore')
+                                    }) }}
                                 {% else %}
                                     {% do form_trash_item_restore.location.setRendered %}
                                     {% do form_trash_item_restore.restore.setRendered %}
@@ -253,15 +256,17 @@
                                     <button
                                         id="delete-trash-items"
                                         type="button"
-                                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
                                         disabled
                                         data-bs-toggle="modal"
                                         data-bs-target="#{{ modal_data_target }}"
-                                        title="{{ 'trash.delete'|trans|desc('Delete') }}"
                                     >
                                         <svg class="ibexa-icon ibexa-icon--small ibexa-icon--trash">
                                             <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
                                         </svg>
+                                        <span class="ibexa-btn__label">
+                                            {{ 'trash.delete'|trans|desc('Delete') }}
+                                        </span>
                                     </button>
                                     {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                                         'id': modal_data_target,
