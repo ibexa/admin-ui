@@ -7,20 +7,6 @@
     const sortContainer = doc.querySelector('[data-sort-field][data-sort-order]');
     const sortField = sortContainer.getAttribute('data-sort-field');
     const sortOrder = sortContainer.getAttribute('data-sort-order');
-    const mfuAttrs = {
-        adminUiConfig: {
-            ...ibexa.adminUiConfig,
-            token,
-            siteaccess,
-        },
-        parentInfo: {
-            contentTypeIdentifier: mfuContainer.dataset.parentContentTypeIdentifier,
-            contentTypeId: parseInt(mfuContainer.dataset.parentContentTypeId, 10),
-            locationPath: mfuContainer.dataset.parentLocationPath,
-            language: mfuContainer.dataset.parentContentLanguage,
-        },
-        currentLanguage: mfuContainer.dataset.currentLanguage,
-    };
     const handleEditItem = (content, location) => {
         const contentId = content._id;
         const locationId = location._id;
@@ -160,6 +146,20 @@
 
             return contentTypeDataMap;
         }, {});
+        const mfuAttrs = {
+            adminUiConfig: {
+                ...ibexa.adminUiConfig,
+                token,
+                siteaccess,
+            },
+            parentInfo: {
+                contentTypeIdentifier: mfuContainer.dataset.parentContentTypeIdentifier,
+                contentTypeId: parseInt(mfuContainer.dataset.parentContentTypeId, 10),
+                locationPath: mfuContainer.dataset.parentLocationPath,
+                language: mfuContainer.dataset.parentContentLanguage,
+            },
+            currentLanguage: mfuContainer.dataset.currentLanguage,
+        };
 
         ReactDOM.render(
             React.createElement(ibexa.modules.SubItems, {
