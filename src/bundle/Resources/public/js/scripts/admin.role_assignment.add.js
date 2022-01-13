@@ -79,7 +79,6 @@
     const toggleDisabledState = () => {
         limitationsRadio.forEach((radio) => {
             const disableNode = radio.closest('.ibexa-assign__limitations-item').querySelector(radio.dataset.disableSelector);
-            const methodName = radio.checked ? 'removeAttribute' : 'setAttribute';
 
             if (disableNode) {
                 if (radio.dataset.disableClass) {
