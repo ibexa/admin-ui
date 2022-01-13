@@ -14,6 +14,10 @@
         flex-direction: column;
     }
 
+    &__title {
+        display: flex;
+    }
+
     &__row {
         display: flex;
         flex-wrap: nowrap;
@@ -75,6 +79,7 @@
     }
 
     &__tooltip {
+        margin-left: calculateRem(8px);
         display: flex;
         align-items: center;
         justify-content: center;
