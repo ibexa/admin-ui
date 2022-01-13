@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, React, ReactDOM) {
+(function(global, doc, ibexa, React, ReactDOM) {
     const SELECTOR_RESET_STARTING_LOCATION_BTN = '.ibexa-btn--reset-starting-location';
     const resetStartingLocationBtns = doc.querySelectorAll(SELECTOR_RESET_STARTING_LOCATION_BTN);
     const udwBtns = doc.querySelectorAll('.ibexa-btn--udw-relation-default-location');
@@ -67,10 +67,11 @@
             const { nodes } = event.detail;
 
             nodes.forEach((node) => {
-                const btns = node.querySelectorAll('.ibexa-btn--udw-relation-default-location');
+                const addLocationBtns = node.querySelectorAll('.ibexa-btn--udw-relation-default-location');
+                const removeLocationBtns = node.querySelectorAll(SELECTOR_RESET_STARTING_LOCATION_BTN);
 
-                btns.forEach((btn) => btn.addEventListener('click', openUDW, false));
-                attachEvents(btns);
+                attachEvents(addLocationBtns);
+                removeLocationBtns.forEach((btn) => btn.addEventListener('click', resetStartingLocation, false));
             });
         },
         false
