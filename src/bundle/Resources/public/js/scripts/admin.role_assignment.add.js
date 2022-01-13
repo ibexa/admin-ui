@@ -1,16 +1,16 @@
 (function(global, doc, ibexa, React, ReactDOM) {
     const udwContainer = doc.getElementById('react-udw');
-    const limitationsRadio = doc.querySelectorAll('.ibexa-limitations__radio');
+    const limitationsRadio = doc.querySelectorAll('.ibexa-assign__limitations-item-radio');
     const selectSubtreeWidget = new ibexa.core.TagViewSelect({
-        fieldContainer: doc.querySelector('.ibexa-limitations__item-subtree'),
+        fieldContainer: doc.querySelector('.ibexa-assign__limitations-item-subtree'),
     });
     const selectUsersWidget = new ibexa.core.TagViewSelect({
-        fieldContainer: doc.querySelector('.ibexa-assign-users'),
+        fieldContainer: doc.querySelector('.ibexa-assign__users'),
     });
     const selectGroupsWidget = new ibexa.core.TagViewSelect({
-        fieldContainer: doc.querySelector('.ibexa-assign-groups'),
+        fieldContainer: doc.querySelector('.ibexa-assign__groups'),
     });
-    const selectSubtreeBtn = doc.querySelector('.ibexa-limitations__btn-select-subtree');
+    const selectSubtreeBtn = doc.querySelector('.ibexa-assign__limitations-item-select-subtree');
     const selectUsersBtn = doc.querySelector('#role_assignment_create_users__btn');
     const selectGroupsBtn = doc.querySelector('#role_assignment_create_groups__btn');
     const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
@@ -78,11 +78,15 @@
     };
     const toggleDisabledState = () => {
         limitationsRadio.forEach((radio) => {
-            const disableNode = doc.querySelector(radio.dataset.disableSelector);
+            const disableNode = radio.closest('.ibexa-assign__limitations-item').querySelector(radio.dataset.disableSelector);
             const methodName = radio.checked ? 'removeAttribute' : 'setAttribute';
 
             if (disableNode) {
-                disableNode[methodName]('disabled', 'disabled');
+                if (radio.dataset.disableClass) {
+                    disableNode.classList.toggle(radio.dataset.disableClass, !radio.checked);
+                } else {
+                    disableNode.toggleAttribute('disabled', !radio.checked);
+                }
             }
         });
     };

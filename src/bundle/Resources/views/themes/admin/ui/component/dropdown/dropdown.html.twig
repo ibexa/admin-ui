@@ -11,6 +11,7 @@
 {% set multiple = multiple|default(false) %}
 {% set no_items = choices_flat|length == 0 %}
 {% set is_dynamic = is_dynamic|default(false) %}
+{% set is_disabled = is_disabled|default(false) %}
 
 {% macro get_translated_label(label, translation_domain) %}
     {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
@@ -22,7 +23,7 @@
         {{ custom_init|default(false) ? "ibexa-dropdown--custom-init" }}
         {{ is_dynamic ? "ibexa-dropdown--dynamic" }}
         {{ is_small|default(false) ? "ibexa-dropdown--small" }}
-        {{ no_items and not is_dynamic ? "ibexa-dropdown--disabled" }}
+        {{ no_items and not is_dynamic or is_disabled ? "ibexa-dropdown--disabled" }}
         {{ class|default('') }}
     "
 >

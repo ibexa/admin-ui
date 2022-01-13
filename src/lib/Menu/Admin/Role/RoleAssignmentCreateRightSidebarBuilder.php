@@ -53,6 +53,7 @@ class RoleAssignmentCreateRightSidebarBuilder extends AbstractBuilder implements
             self::ITEM__SAVE => $this->createMenuItem(
                 self::ITEM__SAVE,
                 [
+                    'extras' => ['primary' => true],
                     'attributes' => [
                         'class' => 'ibexa-btn--trigger',
                         'data-click' => '#role_assignment_create_save',
@@ -80,7 +81,7 @@ class RoleAssignmentCreateRightSidebarBuilder extends AbstractBuilder implements
     {
         return [
             (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Save'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Cancel'),
         ];
     }
 }
