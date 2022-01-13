@@ -16,6 +16,7 @@
         return response.status;
     };
     const onBookmarkUpdated = (isBookmarked) => {
+        ibexa.helpers.tooltips.hideAll();
         toggleBookmarkIconState(isBookmarked);
         isUpdatingBookmark = false;
     };
