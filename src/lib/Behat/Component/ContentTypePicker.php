@@ -27,11 +27,6 @@ class ContentTypePicker extends Component
             ->click();
     }
 
-    public function selectLanguage(string $language): void
-    {
-        $this->getHTMLPage()->find($this->getLocator('languageSelectWhileCreatingItem'))->selectOption($language);
-    }
-
     protected function getDisplayedItemsCount(): int
     {
         return $this->getHTMLPage()->findAll($this->getLocator('filteredItem'))->count();
