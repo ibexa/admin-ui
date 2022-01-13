@@ -22,6 +22,12 @@
             left: calculateRem(-3px);
             top: calculateRem(16px);
         }
+
+        &:not(.c-list-item--has-sub-items) {
+            &:after {
+                width: calculateRem(28px);
+            }
+        }
     }
 
     &__row {
