@@ -11,7 +11,6 @@
     const contextMenuNode = headerNode.querySelector('.ibexa-context-menu');
     const { height: expandedHeaderHeight } = headerNode.getBoundingClientRect();
     const scrolledContent = doc.querySelector('.ibexa-edit-content > :first-child');
-    const tooltipNode = headerNode.querySelector('.ibexa-edit-header__tooltip');
     const fitHeader = (event) => {
         const { height: formHeight } = scrolledContent.getBoundingClientRect();
         const contentHeightWithExpandedHeader = formHeight + expandedHeaderHeight;
@@ -26,17 +25,6 @@
 
         headerNode.classList.toggle('ibexa-edit-header--slim', shouldHeaderBeSlim);
     };
-    const fitTooltipTrigger = (event) => {
-        const firstContextMenuItem = contextMenuNode.querySelector('.ibexa-context-menu__item');
-        const leftPosition = firstContextMenuItem.offsetLeft;
-
-        tooltipNode.style.marginLeft = `${leftPosition}px`;
-    };
 
     contentNode.addEventListener('scroll', fitHeader, false);
-
-    if (tooltipNode) {
-        global.addEventListener('resize', fitTooltipTrigger, false);
-        fitTooltipTrigger();
-    }
 })(window, window.document, window.ibexa);
