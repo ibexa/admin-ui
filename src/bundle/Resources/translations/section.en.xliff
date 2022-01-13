@@ -112,8 +112,8 @@
         <note>key: section.name</note>
       </trans-unit>
       <trans-unit id="12023a25e9c04ceef708820416f14a5a1e188688" resname="section.new">
-        <source>Create a new Section</source>
-        <target state="new">Create a new Section</target>
+        <source>Create</source>
+        <target state="new">Create</target>
         <note>key: section.new</note>
       </trans-unit>
       <trans-unit id="e771bfe2e0091aad8731fd441667fba59cbf59c3" resname="section.new.title">
