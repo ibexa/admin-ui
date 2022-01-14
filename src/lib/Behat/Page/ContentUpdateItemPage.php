@@ -132,7 +132,7 @@ class ContentUpdateItemPage extends Page
                     $activeSections->single()->getAttribute('data-anchor-target-section-id')
                 )
             ) :
-            new VisibleCSSLocator('fieldLabel', ' .ibexa-field-edit .ibexa-field-edit__label, ibexa-field-edit--disabled .ibexa-label');
+            new VisibleCSSLocator('fieldLabel', ' .ibexa-field-edit .ibexa-field-edit__label, ibexa-field-edit--eznoneditable .ibexa-label');
 
         $fieldElements = $this->getHTMLPage()->setTimeout(5)->findAll($fieldLabelLocator);
 
