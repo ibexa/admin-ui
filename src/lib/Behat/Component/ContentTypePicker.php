@@ -10,24 +10,24 @@ namespace Ibexa\AdminUi\Behat\Component;
 
 use Behat\Mink\Session;
 use Ibexa\Behat\Browser\Component\Component;
-use Ibexa\AdminUi\Behat\Component\IbexaDropdown;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class ContentTypePicker extends Component
 {
     private \Ibexa\AdminUi\Behat\Component\IbexaDropdown $ibexaDropdown;
+
     /**
-     * @var Session
+     * @var \Behat\Mink\Session
      */
     private Session $session;
 
     public function __construct(Session $session, ibexaDropdown $ibexaDropdown)
-   {
-       parent::__construct($session);
-       $this->session = $session;
-       $this->ibexaDropdown = $ibexaDropdown;
-   }
+    {
+        parent::__construct($session);
+        $this->session = $session;
+        $this->ibexaDropdown = $ibexaDropdown;
+    }
 
     public function select(string $contentTypeName): void
     {
