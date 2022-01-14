@@ -176,7 +176,7 @@ class ListItem extends Component {
     }
 
     renderItemLabel() {
-        const { totalSubitemsCount, href, name, locationId, indent, onClick } = this.props;
+        const { href, name, locationId, indent, onClick } = this.props;
 
         if (locationId === 1) {
             return null;
@@ -186,7 +186,6 @@ class ListItem extends Component {
         const togglerAttrs = {
             className: togglerClassName,
             onClick: this.toggleExpandedState,
-            hidden: !totalSubitemsCount,
             tabIndex: -1,
         };
 
