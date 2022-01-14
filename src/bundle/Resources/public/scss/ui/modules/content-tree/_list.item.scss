@@ -5,7 +5,7 @@
     position: relative;
 
     &:not(&--is-root-item) {
-        &:after {
+        &::after {
             content: ' ';
             display: block;
             position: absolute;
@@ -24,7 +24,7 @@
         }
 
         &:not(.c-list-item--has-sub-items) {
-            &:after {
+            &::after {
                 width: calculateRem(28px);
             }
         }
@@ -57,7 +57,7 @@
     }
 
     &__prefix-actions-item-empty {
-        &:after {
+        &::after {
             content: ' ';
             display: block;
             position: absolute;
@@ -114,7 +114,7 @@
         height: 100%;
         width: calculateRem(16px);
 
-        &:before {
+        &::before {
             width: 0;
             height: 0;
             border-style: solid;
@@ -200,7 +200,7 @@
     &--is-expanded {
         max-height: initial;
 
-        &:before {
+        &::before {
             content: ' ';
             display: block;
             position: absolute;
@@ -227,7 +227,7 @@
         > .c-list-item {
             &__row {
                 .c-list-item__toggler {
-                    &:before {
+                    &::before {
                         border-width: calculateRem(6px) calculateRem(4px) 0 calculateRem(4px);
                         border-color: $ibexa-color-dark transparent transparent transparent;
                         transform: translateY(-50%);
