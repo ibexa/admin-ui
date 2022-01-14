@@ -17,6 +17,7 @@
     &__selected-list {
         display: flex;
         margin: calculateRem(10px) 0;
+        min-height: calculateRem(24px);
     }
 
     &__selected-item-tag {
@@ -40,7 +41,8 @@
         display: flex;
     }
 
-    &:disabled {
+    &:disabled,
+    &[disabled] {
         border-color: $ibexa-color-light;
 
         .ibexa-tag-view-select {

@@ -71,7 +71,7 @@ Feature: Roles management
       | Users/Editors |
       | Users         |
     And I select "Media" from Sections as role assignment limitation
-    And I click on the edit action bar button "Discard changes"
+    And I click on the edit action bar button "Cancel"
     Then I should be on "Test Role edited" Role page
     And Policies list is empty
     And Assignments list is empty

@@ -292,8 +292,8 @@
         <note>key: policy_edit__sidebar_right__save</note>
       </trans-unit>
       <trans-unit id="540d43aee8ab9ad7c36096274135992fbf77ae41" resname="role_assignment_create__sidebar_right__cancel">
-        <source>Discard changes</source>
-        <target state="new">Discard changes</target>
+        <source>Cancel</source>
+        <target state="new">Cancel</target>
         <note>key: role_assignment_create__sidebar_right__cancel</note>
       </trans-unit>
       <trans-unit id="63bb349c122da33ab95d2e395ca9a62f8050bf66" resname="role_assignment_create__sidebar_right__save">

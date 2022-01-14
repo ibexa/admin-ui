@@ -21,6 +21,14 @@
 
             super.toggle(event);
         }
+
+        show() {
+            if (this.dropdown.container.classList.contains('ibexa-dropdown--disabled')) {
+                return;
+            }
+
+            super.show();
+        }
     }
     class Dropdown {
         constructor(config = {}) {
