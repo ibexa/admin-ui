@@ -15,7 +15,6 @@ use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\ContentItemAdminPreview;
 use Ibexa\AdminUi\Behat\Component\ContentTypePicker;
 use Ibexa\AdminUi\Behat\Component\Dialog;
-use Ibexa\AdminUi\Behat\Component\IbexaDropdown;
 use Ibexa\AdminUi\Behat\Component\LanguagePicker;
 use Ibexa\AdminUi\Behat\Component\SubItemsList;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
@@ -38,9 +37,6 @@ class ContentViewPage extends Page
 
     /** @var string */
     private $locationPath;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\IbexaDropdown */
-    private $ibexaDropdown;
 
     /** @var \Ibexa\AdminUi\Behat\Component\ContentTypePicker */
     private $contentTypePicker;
@@ -97,8 +93,7 @@ class ContentViewPage extends Page
         ContentItemAdminPreview $contentItemAdminPreview,
         UserUpdatePage $userUpdatePage,
         ArgumentParser $argumentParser,
-        UniversalDiscoveryWidget $universalDiscoveryWidget,
-        IbexaDropdown $ibexaDropdown
+        UniversalDiscoveryWidget $universalDiscoveryWidget
     ) {
         parent::__construct($session, $router);
 
@@ -114,7 +109,6 @@ class ContentViewPage extends Page
         $this->repository = $repository;
         $this->argumentParser = $argumentParser;
         $this->universalDiscoveryWidget = $universalDiscoveryWidget;
-        $this->ibexaDropdown = $ibexaDropdown;
     }
 
     public function startCreatingContent(string $contentTypeName, string $language = null)
@@ -122,8 +116,7 @@ class ContentViewPage extends Page
         $this->contentActionsMenu->clickButton('Create content');
         $this->contentTypePicker->verifyIsLoaded();
         if ($language !== null) {
-            $this->getHTMLPage()->find($this->getLocator('languageDropdown'))->click();
-            $this->ibexaDropdown->selectOption($language);
+            $this->contentTypePicker->selectLanguage($language);
         }
         $this->contentTypePicker->select($contentTypeName);
     }
@@ -249,7 +242,6 @@ class ContentViewPage extends Page
             new VisibleCSSLocator('mainContainer', '.ibexa-tab-content #ibexa-tab-location-view-content'),
             new VisibleCSSLocator('tab', '.ibexa-content-container .ibexa-tabs .ibexa-tabs__link'),
             new VisibleCSSLocator('addLocationButton', '#ibexa-tab-location-view-locations .ibexa-table-header__actions .ibexa-btn--udw-add'),
-            new VisibleCSSLocator('languageDropdown', '.ibexa-dropdown__selection-info'),
         ];
     }
 
