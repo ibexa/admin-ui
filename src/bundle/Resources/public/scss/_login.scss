@@ -11,7 +11,7 @@
     }
 
     &__info-col {
-        color: $ibexa-color-font-light;
+        color: $ibexa-color-white;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -26,8 +26,8 @@
         position: relative;
         display: flex;
         flex-direction: column;
-        color: $ibexa-color-font;
-        background: $ibexa-white;
+        color: $ibexa-color-dark;
+        background: $ibexa-color-white;
         min-height: calculateRem(600px);
         border-radius: $ibexa-border-radius;
         padding: calculateRem(90px) calculateRem(120px);

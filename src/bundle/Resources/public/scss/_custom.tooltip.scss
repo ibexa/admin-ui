@@ -9,7 +9,7 @@
         height: calculateRem(8px);
 
         &::before {
-            border-top-color: $ibexa-white;
+            border-top-color: $ibexa-color-white;
         }
     }
 
@@ -17,7 +17,7 @@
         width: calculateRem(8px);
 
         &::before {
-            border-right-color: $ibexa-white;
+            border-right-color: $ibexa-color-white;
         }
     }
 
@@ -25,7 +25,7 @@
         height: calculateRem(8px);
 
         &::before {
-            border-bottom-color: $ibexa-white;
+            border-bottom-color: $ibexa-color-white;
         }
     }
 
@@ -33,14 +33,14 @@
         width: calculateRem(8px);
 
         &::before {
-            border-left-color: $ibexa-white;
+            border-left-color: $ibexa-color-white;
         }
     }
 
     &__inner {
         padding: calculateRem(11px);
         max-width: calculateRem(300px);
-        border: calculateRem(1px) solid $ibexa-color-base-light;
+        border: calculateRem(1px) solid $ibexa-color-light-200;
         border-radius: $ibexa-border-radius;
         background-color: $ibexa-color-white;
         color: $ibexa-color-dark;
@@ -53,33 +53,33 @@
     &--ground-dark {
         .ibexa-tooltip {
             &__inner {
-                color: $ibexa-white;
-                background-color: $ibexa-color-ground-dark;
+                color: $ibexa-color-white;
+                background-color: $ibexa-color-complementary-strong;
             }
         }
 
         &.ibexa-tooltip {
             &.bs-tooltip-top .ibexa-tooltip__arrow {
                 &::before {
-                    border-top-color: $ibexa-color-ground-dark;
+                    border-top-color: $ibexa-color-complementary-strong;
                 }
             }
 
             &.bs-tooltip-right .ibexa-tooltip__arrow {
                 &::before {
-                    border-right-color: $ibexa-color-ground-dark;
+                    border-right-color: $ibexa-color-complementary-strong;
                 }
             }
 
             &.bs-tooltip-bottom .ibexa-tooltip__arrow {
                 &::before {
-                    border-bottom-color: $ibexa-color-ground-dark;
+                    border-bottom-color: $ibexa-color-complementary-strong;
                 }
             }
 
             &.bs-tooltip-left .ibexa-tooltip__arrow {
                 &::before {
-                    border-left-color: $ibexa-color-ground-dark;
+                    border-left-color: $ibexa-color-complementary-strong;
                 }
             }
         }
