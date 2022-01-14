@@ -128,7 +128,7 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator(
                 'fieldLabelWithCategories',
                 sprintf(
-                    '[data-anchor-section-id="%1$s"] .ibexa-field-edit .ibexa-field-edit__label, [data-anchor-section-id="%1$s"] .ibexa-field-edit--disabled .ibexa-label',
+                    '[data-anchor-section-id="%1$s"] .ibexa-field-edit .ibexa-field-edit__label, [data-anchor-section-id="%1$s"] .ibexa-field-edit--eznoneditable .ibexa-label',
                     $activeSections->single()->getAttribute('data-anchor-target-section-id')
                 )
             ) :

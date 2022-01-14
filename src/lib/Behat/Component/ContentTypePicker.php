@@ -15,17 +15,11 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class ContentTypePicker extends Component
 {
-    private \Ibexa\AdminUi\Behat\Component\IbexaDropdown $ibexaDropdown;
+    private IbexaDropdown $ibexaDropdown;
 
-    /**
-     * @var \Behat\Mink\Session
-     */
-    private Session $session;
-
-    public function __construct(Session $session, ibexaDropdown $ibexaDropdown)
+    public function __construct(Session $session, IbexaDropdown $ibexaDropdown)
     {
         parent::__construct($session);
-        $this->session = $session;
         $this->ibexaDropdown = $ibexaDropdown;
     }
 
