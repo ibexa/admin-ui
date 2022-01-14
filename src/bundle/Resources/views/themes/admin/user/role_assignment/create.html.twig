@@ -98,7 +98,11 @@
                     </h2>
                     <div class="card-body ibexa-card__body ibexa-assign__limitations">
                         <div class="ibexa-assign__limitations-item">
-                            {{ form_widget(form.limitation_type.none, {'label': 'limitation_type.none'|trans|desc('No Limitations'), 'attr': {'class': 'ibexa-assign__limitations-item-radio'}, 'label_attr': {'class': 'ibexa-limitations__label radio-inline'}}) }}
+                            {{ form_widget(form.limitation_type.none, {
+                                'label': 'limitation_type.none'|trans|desc('No Limitations'),
+                                'attr': {'class': 'ibexa-assign__limitations-item-radio'},
+                                'label_attr': {'class': 'ibexa-limitations__label radio-inline'}
+                            }) }}
                         </div>
                         <div class="ibexa-assign__limitations-item">
                             {% if not form.limitation_type.section.vars.checked %}
@@ -106,11 +110,26 @@
                             {% else %}
                                 {% set sections_attr = {} %}
                             {% endif %}
-                            {{ form_widget(form.limitation_type.section, {'label': 'limitation_type.section'|trans|desc('Sections'), 'attr': {'class': 'ibexa-assign__limitations-item-radio', 'data-disable-class': 'ibexa-dropdown--disabled', 'data-disable-selector': '.ibexa-dropdown'}, 'label_attr': {'class': 'ibexa-limitations__label radio-inline'}}) }}
+                            {{ form_widget(form.limitation_type.section, {
+                                'label': 'limitation_type.section'|trans|desc('Sections'),
+                                'attr': {
+                                    'class': 'ibexa-assign__limitations-item-radio',
+                                    'data-disable-class': 'ibexa-dropdown--disabled',
+                                    'data-disable-selector': '.ibexa-dropdown'
+                                },
+                                'label_attr': {'class': 'ibexa-limitations__label radio-inline'}
+                            }) }}
                             {{ form_widget(form.sections, sections_attr) }}
                         </div>
                         <div class="ibexa-assign__limitations-item">
-                            {{ form_widget(form.limitation_type.location, {'label': 'limitation_type.subtree'|trans|desc('Subtree'), 'attr': {'class': 'ibexa-assign__limitations-item-radio', 'data-disable-selector': '.ibexa-assign__limitations-item-subtree .ibexa-tag-view-select'}, 'label_attr': {'class': 'ibexa-limitations__label radio-inline'}}) }}
+                            {{ form_widget(form.limitation_type.location, {
+                                'label': 'limitation_type.subtree'|trans|desc('Subtree'),
+                                'attr': {
+                                    'class': 'ibexa-assign__limitations-item-radio',
+                                    'data-disable-selector': '.ibexa-assign__limitations-item-subtree .ibexa-tag-view-select'
+                                },
+                                'label_attr': {'class': 'ibexa-limitations__label radio-inline'}
+                            }) }}
                             <div class="ibexa-assign__limitations-item-subtree">
                                 {% set items = form.locations.vars.data|map((location) => {
                                     id: location.id,
