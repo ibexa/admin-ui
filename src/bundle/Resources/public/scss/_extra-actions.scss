@@ -1,7 +1,7 @@
 .ibexa-extra-actions {
     @include container-box-shadow-left;
 
-    background-color: $ibexa-white;
+    background-color: $ibexa-color-white;
     padding: calculateRem(16px) 0;
     width: calculateRem(700px);
 
@@ -14,7 +14,7 @@
         border-radius: calculateRem(4px);
         padding: 0 calculateRem(16px);
         line-height: calculateRem(45px);
-        background: $ibexa-white;
+        background: $ibexa-color-white;
         color: $ibexa-color-primary;
         text-decoration: none;
         cursor: pointer;
@@ -28,12 +28,12 @@
 
         &:hover,
         &:focus {
-            background: $ibexa-color-base;
+            background: $ibexa-color-light;
         }
 
         &:active {
             background: $ibexa-color-primary;
-            color: $ibexa-white;
+            color: $ibexa-color-white;
         }
     }
 
@@ -44,7 +44,7 @@
     &__header {
         padding: calculateRem(8px) calculateRem(32px) calculateRem(24px);
         font-weight: bold;
-        border-bottom: calculateRem(1px) solid $ibexa-color-base;
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -86,24 +86,24 @@
             border-radius: calculateRem(4px);
             padding: 0 calculateRem(16px);
             line-height: calculateRem(45px);
-            background: $ibexa-white;
+            background: $ibexa-color-white;
             text-decoration: none;
             cursor: pointer;
             transition: all 0.2s $ibexa-admin-transition;
             margin-bottom: calculateRem(16px);
             font-size: calculateRem(15px);
-            box-shadow: 0 calculateRem(2px) calculateRem(4px) 0 rgba($ibexa-black, 0.1);
+            box-shadow: 0 calculateRem(2px) calculateRem(4px) 0 rgba($ibexa-color-black, 0.1);
 
             &:hover,
             &:focus {
-                background: $ibexa-color-base;
+                background: $ibexa-color-light;
                 font-weight: 700;
                 text-decoration: none;
             }
 
             &:active {
                 background: $ibexa-color-primary;
-                color: $ibexa-white;
+                color: $ibexa-color-white;
             }
 
             &-label {
@@ -121,16 +121,16 @@
 
     &__section-header {
         margin-bottom: calculateRem(12px);
-        color: $ibexa-color-base-dark;
+        color: $ibexa-color-dark-300;
         font-size: calculateRem(16px);
         padding-top: calculateRem(32px);
     }
 
     &__section-content {
         padding-bottom: calculateRem(32px);
-        background: $ibexa-white;
+        background: $ibexa-color-white;
         font-size: calculateRem(16px);
-        border-bottom: calculateRem(1px) solid $ibexa-color-base;
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
 
         select {
             display: inline-block;

@@ -19,7 +19,7 @@
             padding-bottom: calculateRem(16px);
 
             &:not(:first-of-type) {
-                border-bottom: calculateRem(1px) solid $ibexa-color-base;
+                border-bottom: calculateRem(1px) solid $ibexa-color-light;
             }
         }
 
@@ -46,7 +46,7 @@
             }
 
             .ibexa-icon {
-                fill: $ibexa-black;
+                fill: $ibexa-color-black;
                 position: absolute;
                 left: calculateRem(20px);
                 width: calculateRem(16px);

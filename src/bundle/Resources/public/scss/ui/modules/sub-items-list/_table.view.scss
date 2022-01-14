@@ -27,14 +27,14 @@
 
     &__columns-toggler-panel {
         border-radius: calculateRem(4px);
-        background: $ibexa-white;
+        background: $ibexa-color-white;
         position: absolute;
         z-index: 10;
         padding: calculateRem(4px) calculateRem(14px);
         top: calculateRem(36px);
         right: calculateRem(17px);
         font-weight: normal;
-        box-shadow: 0 calculateRem(2px) calculateRem(4px) 0 rgba($ibexa-black, 0.45);
+        box-shadow: 0 calculateRem(2px) calculateRem(4px) 0 rgba($ibexa-color-black, 0.45);
     }
 
     &__columns-toggler-list {
@@ -84,7 +84,7 @@
             height: calculateRem(43px);
             width: calculateRem(30px);
             padding-left: calculateRem(16px);
-            background: $ibexa-white;
+            background: $ibexa-color-white;
         }
 
         &--name {
@@ -92,7 +92,7 @@
             z-index: 1;
             left: calculateRem(48px);
             padding-left: 0;
-            background: $ibexa-white;
+            background: $ibexa-color-white;
         }
 
         &--actions {
@@ -100,7 +100,7 @@
             right: 0;
             width: calculateRem(70px);
             padding: 0;
-            background: $ibexa-white;
+            background: $ibexa-color-white;
             z-index: 1;
         }
 
@@ -113,8 +113,8 @@
     }
 
     &__head {
-        border-top: calculateRem(1px) solid $ibexa-color-base-light;
-        border-bottom: calculateRem(1px) solid $ibexa-color-base-light;
+        border-top: calculateRem(1px) solid $ibexa-color-light-200;
+        border-bottom: calculateRem(1px) solid $ibexa-color-light-200;
     }
 
     &__body {
