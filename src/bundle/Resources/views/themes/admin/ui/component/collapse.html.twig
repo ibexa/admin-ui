@@ -17,7 +17,7 @@
                 {% endif %}
 
                 <button
-                    class="btn ibexa-btn ibexa-collapse__toggle-btn {{ not is_expanded|default(false) ? 'collapsed' }} {{ label_button_class|default('') }}"
+                    class="btn ibexa-btn ibexa-collapse__toggle-btn ibexa-collapse__toggle-btn--title {{ not is_expanded|default(false) ? 'collapsed' }} {{ label_button_class|default('') }}"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#{{ body_id }}"
