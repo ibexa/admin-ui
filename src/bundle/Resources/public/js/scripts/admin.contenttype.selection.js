@@ -38,7 +38,9 @@
             const { nodes } = event.detail;
 
             nodes.forEach((node) => {
-                if (node.querySelector(SELECTOR_OPTIONS_LIST)) {
+                const isSelectionFieldType = node.querySelector(SELECTOR_OPTIONS_LIST);
+
+                if (isSelectionFieldType) {
                     initField(node);
                 }
             });
