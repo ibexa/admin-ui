@@ -31,7 +31,9 @@
 
     if (loginBtn) {
         nameInput.addEventListener('keyup', toggleLoginBtnState, false);
+        nameInput.addEventListener('change', toggleLoginBtnState, false);
         passwordInput.addEventListener('keyup', toggleLoginBtnState, false);
+        passwordInput.addEventListener('change', toggleLoginBtnState, false);
 
         toggleLoginBtnState();
 
