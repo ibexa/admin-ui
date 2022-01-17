@@ -18,15 +18,15 @@ services:
             $fallbackContentType: '%ezplatform.multifile_upload.fallback_content_type%'
             $maxFileSize: '%ez_systems.multifile_upload.max_file_size%'
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'multiFileUpload' }
+            - { name: ibexa.admin_ui.config.provider, key: 'multiFileUpload' }
 
     Ibexa\AdminUi\UI\Config\Provider\SortFieldMappings:
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'sortFieldMappings' }
+            - { name: ibexa.admin_ui.config.provider, key: 'sortFieldMappings' }
 
     Ibexa\AdminUi\UI\Config\Provider\SortOrderMappings:
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'sortOrderMappings' }
+            - { name: ibexa.admin_ui.config.provider, key: 'sortOrderMappings' }
 
     ezsystems.ezplatform_admin_ui.ui.config.provider.image_variations:
         class: Ibexa\AdminUi\UI\Config\Provider\ScopeParameterBasedValue
@@ -35,7 +35,7 @@ services:
             $configResolver: '@ezpublish.config.resolver'
             $parameterName: 'image_variations'
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'imageVariations' }
+            - { name: ibexa.admin_ui.config.provider, key: 'imageVariations' }
 
     ezsystems.ezplatform_admin_ui.ui.config.provider.content_edit_form_templates:
         class: Ibexa\AdminUi\UI\Config\Provider\ScopeParameterBasedValue
@@ -44,53 +44,53 @@ services:
             $configResolver: '@ezpublish.config.resolver'
             $parameterName: 'admin_ui_forms.content_edit_form_templates'
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'contentEditFormTemplates' }
+            - { name: ibexa.admin_ui.config.provider, key: 'contentEditFormTemplates' }
 
     Ibexa\AdminUi\UI\Config\Provider\User:
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'user' }
+            - { name: ibexa.admin_ui.config.provider, key: 'user' }
 
     Ibexa\AdminUi\UI\Config\Provider\Languages:
         arguments:
             $siteAccesses: '%ezpublish.siteaccess.list%'
             $siteAccessService: '@ezpublish.siteaccess_service'
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'languages' }
+            - { name: ibexa.admin_ui.config.provider, key: 'languages' }
 
     Ibexa\AdminUi\UI\Config\Provider\ContentTypes:
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'contentTypes' }
+            - { name: ibexa.admin_ui.config.provider, key: 'contentTypes' }
 
     Ibexa\AdminUi\UI\Config\Provider\Module\UniversalDiscoveryWidget:
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'universalDiscoveryWidget' }
+            - { name: ibexa.admin_ui.config.provider, key: 'universalDiscoveryWidget' }
 
     Ibexa\AdminUi\UI\Config\Provider\Module\SubItemsList:
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'subItems' }
+            - { name: ibexa.admin_ui.config.provider, key: 'subItems' }
 
     Ibexa\AdminUi\UI\Config\Provider\FieldType\ImageAsset\Mapping:
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'imageAssetMapping' }
+            - { name: ibexa.admin_ui.config.provider, key: 'imageAssetMapping' }
 
     # Notifications
     Ibexa\AdminUi\UI\Config\Provider\Notifications:
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'notifications' }
+            - { name: ibexa.admin_ui.config.provider, key: 'notifications' }
 
     # Date related configuration
     Ibexa\AdminUi\UI\Config\Provider\Timezone:
         class: Ibexa\AdminUi\UI\Config\Provider\Timezone
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'timezone' }
+            - { name: ibexa.admin_ui.config.provider, key: 'timezone' }
 
     Ibexa\AdminUi\UI\Config\Provider\DateFormat:
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'dateFormat' }
+            - { name: ibexa.admin_ui.config.provider, key: 'dateFormat' }
 
     Ibexa\AdminUi\UI\Config\Provider\Autosave:
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'autosave' }
+            - { name: ibexa.admin_ui.config.provider, key: 'autosave' }
 
     Ibexa\Bundle\AdminUi\Templating\Twig\PathStringExtension: ~
 
@@ -98,11 +98,11 @@ services:
 
     Ibexa\AdminUi\UI\Config\Provider\UserContentTypes:
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'userContentTypes' }
+            - { name: ibexa.admin_ui.config.provider, key: 'userContentTypes' }
 
     Ibexa\AdminUi\UI\Config\Provider\Sections:
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'sections' }
+            - { name: ibexa.admin_ui.config.provider, key: 'sections' }
 
     Ibexa\Bundle\AdminUi\Templating\Twig\TimeDiffExtension: ~
 
@@ -110,10 +110,10 @@ services:
         arguments:
             $configResolver: '@ezpublish.config.resolver'
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'locations' }
+            - { name: ibexa.admin_ui.config.provider, key: 'locations' }
 
     Ibexa\AdminUi\UI\Config\Provider\IconPaths:
         arguments:
             $configResolver: '@ezpublish.config.resolver'
         tags:
-            - { name: ezplatform.admin_ui.config_provider, key: 'iconPaths' }
+            - { name: ibexa.admin_ui.config.provider, key: 'iconPaths' }

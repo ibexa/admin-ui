@@ -13,10 +13,10 @@ services:
 
     Ibexa\AdminUi\UserSetting\Autosave:
         tags:
-            - { name: ezplatform.admin_ui.user_setting.value, identifier: autosave, group: content_edit, priority: 30 }
-            - { name: ezplatform.admin_ui.user_setting.form_mapper, identifier: autosave }
+            - { name: ibexa.user.setting.value, identifier: autosave, group: content_edit, priority: 30 }
+            - { name: ibexa.user.setting.mapper.form, identifier: autosave }
 
     Ibexa\AdminUi\UserSetting\AutosaveInterval:
         tags:
-            - { name: ezplatform.admin_ui.user_setting.value, identifier: autosave_interval, group: content_edit, priority: 20 }
-            - { name: ezplatform.admin_ui.user_setting.form_mapper, identifier: autosave_interval }
+            - { name: ibexa.user.setting.value, identifier: autosave_interval, group: content_edit, priority: 20 }
+            - { name: ibexa.user.setting.mapper.form, identifier: autosave_interval }

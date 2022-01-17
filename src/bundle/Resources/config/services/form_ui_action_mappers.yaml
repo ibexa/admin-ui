@@ -9,12 +9,12 @@ services:
 
     Ibexa\AdminUi\UI\Action\FormUiActionMapper:
         tags:
-            - { name: ezplatform.admin_ui.form_ui_action_mapper }
+            - { name: ibexa.admin_ui.form_ui.mapper.action }
 
     Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface:
         alias: 'Ibexa\AdminUi\UI\Action\FormUiActionMapper'
 
     Ibexa\AdminUi\UI\Action\FormUiActionMappingDispatcher:
         arguments:
-            $mappers: !tagged ezplatform.admin_ui.form_ui_action_mapper
+            $mappers: !tagged ibexa.admin_ui.form_ui.mapper.action
             $defaultMapper: '@Ibexa\AdminUi\UI\Action\FormUiActionMapper'

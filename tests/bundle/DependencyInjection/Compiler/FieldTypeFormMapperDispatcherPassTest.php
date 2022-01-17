@@ -49,7 +49,6 @@ class FieldTypeFormMapperDispatcherPassTest extends AbstractCompilerPassTestCase
     public function tagsProvider(): array
     {
         return [
-            [FieldTypeFormMapperDispatcherPass::DEPRECATED_FIELD_TYPE_FORM_MAPPER_DEFINITION_SERVICE_TAG],
             [FieldTypeFormMapperDispatcherPass::FIELD_TYPE_FORM_MAPPER_DEFINITION_SERVICE_TAG],
         ];
     }

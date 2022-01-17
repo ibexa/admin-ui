@@ -14,13 +14,13 @@ services:
             $viewParametersInjector: '@ezpublish.view.view_parameters.injector.dispatcher'
             $contentActionDispatcher: '@ezplatform.content_forms.action_dispatcher.content'
         tags:
-            - { name: ibexa.view_builder }
+            - { name: ibexa.view.builder }
 
     Ibexa\AdminUi\View\Provider\ContentTranslateView\Configured:
         arguments:
             $matcherFactory: '@ezplatform.admin_ui.view.content_translate.matcher_factory'
         tags:
-            - { name: ezpublish.view_provider, type: Ibexa\AdminUi\View\ContentTranslateView, priority: 10 }
+            - { name: ibexa.view.provider, type: Ibexa\AdminUi\View\ContentTranslateView, priority: 10 }
 
     ezplatform.admin_ui.view.content_translate.matcher_factory:
         class: '%ezpublish.view.matcher_factory.class%'

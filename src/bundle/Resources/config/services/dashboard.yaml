@@ -5,7 +5,7 @@ services:
         arguments:
             $configResolver: '@ezpublish.config.resolver'
         tags:
-            - { name: ezplatform.tab, group: dashboard-my }
+            - { name: ibexa.admin_ui.tab, group: dashboard-my }
 
     Ibexa\AdminUi\Tab\Dashboard\MyContentTab:
         parent: Ibexa\Contracts\AdminUi\Tab\AbstractTab
@@ -13,7 +13,7 @@ services:
         arguments:
             $contentSubtreeQueryType: '@Ibexa\AdminUi\QueryType\ContentSubtreeQueryType'
         tags:
-            - { name: ezplatform.tab, group: dashboard-my }
+            - { name: ibexa.admin_ui.tab, group: dashboard-my }
 
     Ibexa\AdminUi\Tab\Dashboard\MyMediaTab:
         parent: Ibexa\Contracts\AdminUi\Tab\AbstractTab
@@ -21,7 +21,7 @@ services:
         arguments:
             $mediaSubtreeQueryType: '@Ibexa\AdminUi\QueryType\MediaSubtreeQueryType'
         tags:
-            - { name: ezplatform.tab, group: dashboard-my }
+            - { name: ibexa.admin_ui.tab, group: dashboard-my }
 
     Ibexa\AdminUi\Tab\Dashboard\EveryoneMediaTab:
         parent: Ibexa\Contracts\AdminUi\Tab\AbstractTab
@@ -29,7 +29,7 @@ services:
         arguments:
             $mediaSubtreeQueryType: '@Ibexa\AdminUi\QueryType\MediaSubtreeQueryType'
         tags:
-            - { name: ezplatform.tab, group: dashboard-everyone }
+            - { name: ibexa.admin_ui.tab, group: dashboard-everyone }
 
     Ibexa\AdminUi\Tab\Dashboard\EveryoneContentTab:
         parent: Ibexa\Contracts\AdminUi\Tab\AbstractTab
@@ -37,7 +37,7 @@ services:
         arguments:
             $contentSubtreeQueryType: '@Ibexa\AdminUi\QueryType\ContentSubtreeQueryType'
         tags:
-            - { name: ezplatform.tab, group: dashboard-everyone }
+            - { name: ibexa.admin_ui.tab, group: dashboard-everyone }
 
     Ibexa\AdminUi\Tab\Dashboard\PagerContentToDataMapper:
         parent: Ibexa\AdminUi\Pagination\Mapper\AbstractPagerContentToDataMapper
@@ -49,25 +49,25 @@ services:
         arguments:
             $template: '@@ezdesign/ui/dashboard/block/me.html.twig'
         tags:
-            - { name: ezplatform.admin_ui.component, group: 'dashboard-blocks' }
+            - { name: ibexa.admin_ui.component, group: 'dashboard-blocks' }
 
     ezplatform.adminui.dashboard.all:
         parent: Ibexa\AdminUi\Component\TwigComponent
         arguments:
             $template: '@@ezdesign/ui/dashboard/block/all.html.twig'
         tags:
-            - { name: ezplatform.admin_ui.component, group: 'dashboard-blocks' }
+            - { name: ibexa.admin_ui.component, group: 'dashboard-blocks' }
 
     ezplatform.adminui.dashboard.my.tab_groups:
         parent: Ibexa\AdminUi\Component\TabsComponent
         arguments:
             $groupIdentifier: 'dashboard-my'
         tags:
-            - { name: ezplatform.admin_ui.component, group: 'dashboard-my-tab-groups' }
+            - { name: ibexa.admin_ui.component, group: 'dashboard-my-tab-groups' }
 
     ezplatform.adminui.dashboard.all.tab_groups:
         parent: Ibexa\AdminUi\Component\TabsComponent
         arguments:
             $groupIdentifier: 'dashboard-everyone'
         tags:
-            - { name: ezplatform.admin_ui.component, group: 'dashboard-all-tab-groups' }
+            - { name: ibexa.admin_ui.component, group: 'dashboard-all-tab-groups' }
