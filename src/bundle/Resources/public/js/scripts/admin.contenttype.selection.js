@@ -37,7 +37,13 @@
         (event) => {
             const { nodes } = event.detail;
 
-            nodes.forEach(initField);
+            nodes.forEach((node) => {
+                const isSelectionFieldType = node.querySelector(SELECTOR_OPTIONS_LIST);
+
+                if (isSelectionFieldType) {
+                    initField(node);
+                }
+            });
         },
         false
     );
