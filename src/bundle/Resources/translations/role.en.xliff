@@ -176,10 +176,20 @@
         <target state="new">Editing</target>
         <note>key: role.editing</note>
       </trans-unit>
+      <trans-unit id="09bba4c37b29ecd29acc42007a2db0d7dd6323dd" resname="role.limitations">
+        <source>Limitations</source>
+        <target state="new">Limitations</target>
+        <note>key: role.limitations</note>
+      </trans-unit>
       <trans-unit id="75637482fd2563256da5423615ecfb241fc03a57" resname="role.update.success">
         <source>Role '%role%' updated.</source>
         <target state="new">Role '%role%' updated.</target>
         <note>key: role.update.success</note>
+      </trans-unit>
+      <trans-unit id="fd63926e8e65c8418434f83269e5d7543a9bdd97" resname="role.users_and_groups">
+        <source>Users and Groups</source>
+        <target state="new">Users and Groups</target>
+        <note>key: role.users_and_groups</note>
       </trans-unit>
       <trans-unit id="6f6e274dd8d21241d5bb3d647b1089c939e84313" resname="role.view.copy.title">
         <source>Copying Role: %identifier%</source>
