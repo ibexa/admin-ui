@@ -50,14 +50,11 @@
 
         &:hover {
             color: $ibexa-color-info;
-            background-color: $ibexa-color-white;
-            box-shadow: $ibexa-anchor-btn-hover-box-shadow;
-            border-color: $ibexa-color-light-400;
             font-weight: 600;
 
             &:before {
-                background-color: $ibexa-color-info-100;
-                border-color: transparent;
+                background-color: transparent;
+                border-color: $ibexa-color-info;
             }
         }
 
