@@ -1,11 +1,15 @@
 (function(global, doc, ibexa, React, ReactDOM, Translator) {
     const btns = doc.querySelectorAll('.ibexa-btn--udw-move');
+    const form = doc.querySelector('form[name="location_move"]');
+
+    if (!form) {
+        return;
+    }
+
+    const input = form.querySelector('#location_move_new_parent_location');
     const udwContainer = doc.getElementById('react-udw');
     const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
     const onConfirm = (items) => {
-        const form = doc.querySelector('form[name="location_move"]');
-        const input = form.querySelector('#location_move_new_parent_location');
-
         closeUDW();
 
         input.value = items[0].id;
