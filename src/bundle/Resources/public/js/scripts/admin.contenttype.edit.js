@@ -354,6 +354,7 @@
             selectorItem: '.ibexa-collapse--field-definition',
             timeoutRemovePlaceholders: TIMEOUT_REMOVE_PLACEHOLDERS,
             selectorPlaceholder: '.ibexa-field-definitions-placeholder',
+            selectorPreventDrag: '.ibexa-collapse__body',
         });
 
         draggable.init();

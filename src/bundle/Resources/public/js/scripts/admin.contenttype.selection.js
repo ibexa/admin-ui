@@ -37,7 +37,11 @@
         (event) => {
             const { nodes } = event.detail;
 
-            nodes.forEach(initField);
+            nodes.forEach((node) => {
+                if (node.querySelector(SELECTOR_OPTIONS_LIST)) {
+                    initField(node);
+                }
+            });
         },
         false
     );
