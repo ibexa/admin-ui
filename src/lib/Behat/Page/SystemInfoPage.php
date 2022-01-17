@@ -92,12 +92,12 @@ class SystemInfoPage extends Page
         $boldedHeader = new VisibleCSSLocator('boldedHeader', '.ibexa-table-header__headline');
 
         switch ($header) {
-            case 'Product':
             case 'Repository':
             case 'Hardware':
             case 'PHP':
             case 'Services':
                 return $normalHeader;
+            case 'Product':
             case 'Composer':
             case 'Symfony Kernel':
                 return $boldedHeader;
