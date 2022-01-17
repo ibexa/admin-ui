@@ -105,6 +105,7 @@ const ContentCreateWidget = () => {
 
     return (
         <div class="ibexa-extra-actions-container">
+            <div className="ibexa-extra-actions-container__backdrop" hidden={!createContentVisible} onClick={close}></div>
             <div className={widgetClassName} ref={refContentTree}>
                 <div className="ibexa-extra-actions__header">
                     <h3>{createContentLabel}</h3>

@@ -185,6 +185,16 @@
 }
 
 .ibexa-extra-actions-container {
+    &__backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 150;
+        background-color: rgba($ibexa-color-dark, 0.4);
+    }
+
     .ibexa-extra-actions {
         height: calc(100vh - #{calculateRem(73px)});
         position: fixed;
