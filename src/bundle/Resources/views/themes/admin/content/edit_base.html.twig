@@ -35,6 +35,8 @@
                             {% embed '@ibexadesign/ui/anchor_navigation_section.html.twig' with {
                                 anchor_section_key: key
                             } %}
+                                {% trans_default_domain 'content_edit' %}
+
                                 {% block anchor_section_body %}
                                     {% for field in group %}
                                         {% set formField = form.fieldsData[field] %}
