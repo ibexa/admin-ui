@@ -14,9 +14,11 @@
     const handleAutofill = () => {
         const isNameInputAutofilled = nameInput.matches(':-webkit-autofill');
         const isPasswordInputAutofilled = nameInput.matches(':-webkit-autofill');
-        const shouldLoginBtnBeDisabled = !isNameInputAutofilled || !isPasswordInputAutofilled;
+        const isAutofilled = isNameInputAutofilled && isPasswordInputAutofilled;
 
-        loginBtn.toggleAttribute('disabled', shouldLoginBtnBeDisabled);
+        if (isAutofilled) {
+            loginBtn.removeAttribute('disabled');
+        }
     };
 
     doc.querySelector('.ibexa-login__password-visibility-toggler').addEventListener('click', (event) => {
