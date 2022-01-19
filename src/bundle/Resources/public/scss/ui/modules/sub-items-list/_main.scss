@@ -2,7 +2,7 @@
     margin-top: calculateRem(24px);
     margin-bottom: calculateRem(24px);
     padding: calculateRem(16px);
-    background: $ibexa-color-white;
+    background: $ibexa-white;
     border-radius: $ibexa-border-radius;
 
     .table .ibexa-table__header-cell {
@@ -27,7 +27,7 @@
         content: '';
         position: absolute;
         z-index: 999;
-        background: rgba($ibexa-color-black, 0.35);
+        background: rgba($ibexa-black, 0.35);
         top: 0;
         left: 0;
         right: 0;

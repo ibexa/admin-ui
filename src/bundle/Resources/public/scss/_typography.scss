@@ -2,7 +2,7 @@
     h2 {
         &.text-muted {
             font-size: 1.125rem;
-            color: $ibexa-color-dark-300;
+            color: $ibexa-color-base-dark;
         }
     }
 }
@@ -12,7 +12,7 @@
 
     .card-header {
         border: none;
-        background-color: $ibexa-color-white;
+        background-color: $ibexa-white;
 
         h2 {
             font-size: calculateRem(16px);

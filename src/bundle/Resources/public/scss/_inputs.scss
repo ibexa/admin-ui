@@ -153,7 +153,7 @@
             }
 
             &::after {
-                border-color: $ibexa-color-white;
+                border-color: $ibexa-white;
             }
         }
 
@@ -167,8 +167,8 @@
             }
 
             &::after {
-                border-color: $ibexa-color-white;
-                background-color: $ibexa-color-white;
+                border-color: $ibexa-white;
+                background-color: $ibexa-white;
                 height: calculateRem(1px);
                 top: 50%;
                 transform: translateY(-50%);

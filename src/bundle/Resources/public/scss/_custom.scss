@@ -152,37 +152,118 @@ $ibexa-color-complementary-strong-300: #99b7be;
 $ibexa-color-complementary-strong-200: #ccdbde;
 $ibexa-color-complementary-strong-100: #e5edee;
 
+/* TODO: below $ibexa-color* variables should be removed in 4.0 */
+$ibexa-white: $ibexa-color-white;
+$ibexa-black: $ibexa-color-dark;
+
+$ibexa-color-primary-pale: $ibexa-color-primary-100;
+$ibexa-color-primary-light: $ibexa-color-primary-500;
+$ibexa-color-deep-black: $ibexa-color-black-500;
+
+$ibexa-color-base: $ibexa-color-light;
+$ibexa-color-base-pale: $ibexa-color-light-300;
+$ibexa-color-base-light: $ibexa-color-light-200;
+$ibexa-color-base-medium: $ibexa-color-light-500;
+$ibexa-color-base-dark: $ibexa-color-dark-300;
+$ibexa-color-base-deep: $ibexa-color-dark-400;
+$ibexa-color-base-black: $ibexa-color-dark;
+
+$ibexa-color-ground-dark: $ibexa-color-complementary-strong;
+
+$ibexa-color-font: $ibexa-color-dark;
+$ibexa-color-font-light: $ibexa-color-white;
+$ibexa-color-font-pale: $ibexa-color-dark-300;
+$ibexa-color-font-black: $ibexa-color-black-500;
+$ibexa-color-font-danger: $ibexa-color-danger;
+$ibexa-color-border-light: $ibexa-color-accent-200;
+
+$ibexa-color-positive: $ibexa-color-success;
+$ibexa-color-warning-dark: darken($ibexa-color-warning, 20%);
+$ibexa-color-warning-pale: $ibexa-color-warning-100;
+
+$ibexa-color-primary-hover: $ibexa-color-primary-500;
+
+/* eZ variables: These variables are deprecated, please use variables with the "ibexa" prefix */
+$ez-admin-transition: $ibexa-admin-transition;
+$ez-admin-widget-open-transition: $ibexa-admin-widget-open-transition;
+$ez-admin-widget-close-transition: $ibexa-admin-widget-close-transition;
+
+$ez-color-primary: $ibexa-color-primary;
+$ez-color-primary-hover: darken($ibexa-color-primary, 15%);
+$ez-color-secondary: $ibexa-color-primary;
+$ez-color-secondary-hover: darken($ez-color-secondary, 15%);
+$ez-color-hyperlink: $ibexa-color-primary;
+$ez-color-hyperlink-hover: darken($ez-color-hyperlink, 15%);
+$ez-color-positive: $ibexa-color-positive;
+$ez-color-warning: $ibexa-color-warning;
+$ez-color-danger: $ibexa-color-danger;
+$ez-color-danger-hover: darken($ibexa-color-danger, 15%);
+
+$ez-white: $ibexa-white;
+$ez-ground-base-pale: $ibexa-color-base-light;
+$ez-ground-base-light: $ibexa-color-base-pale;
+$ez-ground-base: $ibexa-color-base-pale;
+$ez-ground-base-medium: $ibexa-white;
+$ez-ground-base-dark: $ibexa-color-base-light;
+$ez-ground-base-dark-hover: darken($ibexa-color-base-light, 15%);
+$ez-color-base-pale: $ibexa-white;
+$ez-color-base-light: $ibexa-color-base-dark;
+$ez-color-base-light-hover: darken($ibexa-color-base-dark, 15%);
+$ez-color-base-medium: $ibexa-color-base-dark;
+$ez-color-base-medium-hover: darken($ibexa-color-base-dark, 15%);
+$ez-color-base-dark: $ibexa-black;
+$ez-black: $ibexa-black;
+
+$ez-secondary-ground-pale: $ibexa-color-base;
+$ez-ground-primary: $ibexa-white;
+$ez-secondary-ground: $ibexa-color-primary;
+$ez-secondary-ground-medium: $ibexa-color-primary;
+$ez-secondary-ground-dark: $ibexa-color-primary;
+
+$ez-ground-primary-inverted-light: $ibexa-color-complementary-strong;
+$ez-ground-primary-inverted: $ibexa-color-base;
+
+$ez-color-warning-pale: $ibexa-color-warning-pale;
+$ez-color-warning-dark: $ibexa-color-warning-dark;
+
+$ez-alloyeditor-color-hover: $ibexa-color-info-400;
+
+$ez-pagination-bg: transparent;
+$ez-pagination-margin: 0.25rem;
+$ez-pagination-page-link-radius: 50%;
+$ez-pagination-border-radius: 0.3rem;
+
 /* boostrap variables*/
-$white: $ibexa-color-white;
-$gray-100: $ibexa-color-light-300;
-$gray-200: $ibexa-color-light-300;
-$gray-300: $ibexa-color-light-200;
-$gray-400: $ibexa-color-light-200;
-$gray-500: $ibexa-color-light-500;
-$gray-600: $ibexa-color-light-500;
-$gray-700: $ibexa-color-light;
-$gray-800: $ibexa-color-light;
-$gray-900: $ibexa-color-dark-300;
-$black: $ibexa-color-black;
+$white: $ibexa-white;
+$gray-100: $ibexa-color-base-pale;
+$gray-200: $ibexa-color-base-pale;
+$gray-300: $ibexa-color-base-light;
+$gray-400: $ibexa-color-base-light;
+$gray-500: $ibexa-color-base-medium;
+$gray-600: $ibexa-color-base-medium;
+$gray-700: $ibexa-color-base;
+$gray-800: $ibexa-color-base;
+$gray-900: $ibexa-color-base-dark;
+$black: $ibexa-black;
 
 $grays: (
-    100: $ibexa-color-light-300,
-    200: $ibexa-color-light-300,
-    300: $ibexa-color-light-200,
-    400: $ibexa-color-light-200,
-    500: $ibexa-color-light-500,
-    600: $ibexa-color-light-500,
-    700: $ibexa-color-light,
-    800: $ibexa-color-light,
-    900: $ibexa-color-dark-300
+    100: $ibexa-color-base-pale,
+    200: $ibexa-color-base-pale,
+    300: $ibexa-color-base-light,
+    400: $ibexa-color-base-light,
+    500: $ibexa-color-base-medium,
+    600: $ibexa-color-base-medium,
+    700: $ibexa-color-base,
+    800: $ibexa-color-base,
+    900: $ibexa-color-base-dark
 );
 
 $blue: $ibexa-color-primary;
 $red: $ibexa-color-primary;
 $orange: $ibexa-color-primary;
 $yellow: $ibexa-color-warning;
-$green: $ibexa-color-success;
-$teal: $ibexa-color-white;
+$green: $ibexa-color-positive;
+$teal: $ibexa-white;
 $pink: #e83e8c !default;
 $indigo: #6610f2 !default;
 $purple: #6f42c1 !default;
@@ -193,10 +274,10 @@ $colors: (
     red: $ibexa-color-primary,
     orange: $ibexa-color-primary,
     yellow: $ibexa-color-warning,
-    green: $ibexa-color-success,
-    teal: $ibexa-color-white,
-    white: $ibexa-color-white,
-    gray: $ibexa-color-dark-300,
+    green: $ibexa-color-positive,
+    teal: $ibexa-white,
+    white: $ibexa-white,
+    gray: $ibexa-color-base-dark,
     gray-dark: $pink,
     indigo: $indigo,
     purple: $purple,
@@ -206,12 +287,12 @@ $colors: (
 
 $theme-colors: (
     primary: $ibexa-color-primary,
-    secondary: $ibexa-color-dark-400,
-    success: $ibexa-color-success,
+    secondary: $ibexa-color-base-deep,
+    success: $ibexa-color-positive,
     warning: $ibexa-color-warning,
     danger: $ibexa-color-danger,
-    light: $ibexa-color-light-200,
-    dark: $ibexa-color-dark,
+    light: $ibexa-color-base-light,
+    dark: $ibexa-color-base-black,
     info: $cyan
 );
 
@@ -241,7 +322,7 @@ $ibexa-border-radius-small: 5px;
 $table-cell-padding: 12px 16px;
 $table-bg: $white;
 $table-border-width: 0;
-$table-hover-bg: $ibexa-color-light-300;
+$table-hover-bg: $ibexa-color-base-pale;
 
 // Breadcrumbs
 $breadcrumb-font-size: 12px;
@@ -253,17 +334,17 @@ $breadcrumb-divider: quote('>');
 
 // Links
 $link-decoration: underline;
-$link-color: $ibexa-color-dark;
+$link-color: $ibexa-color-font;
 $link-hover-decoration: underline;
 $link-hover-color: $ibexa-color-primary;
 
 // Body
 $body-bg: $ibexa-color-white;
-$body-color: $ibexa-color-black;
+$body-color: $ibexa-black;
 
 // Pagination
 $pagination-color: $ibexa-color-dark;
-$pagination-bg: $ibexa-color-white;
+$pagination-bg: $ibexa-white;
 $pagination-border-width: 1px;
 $pagination-border-color: transparent;
 $pagination-padding-y: 0;
@@ -288,7 +369,7 @@ $pagination-disabled-border-color: transparent;
 $modal-header-padding-y: 16px;
 $modal-header-padding-x: 0;
 $modal-header-border-width: 1px;
-$modal-header-border-color: $ibexa-color-light-500;
+$modal-header-border-color: $ibexa-color-base-medium;
 $modal-title-font-size: 28px;
 $modal-content-border-width: 0;
 $modal-content-border-radius: $ibexa-border-radius;
@@ -315,13 +396,13 @@ $container-max-widths: (
 
 //Inputs
 $input-bg: transparent;
-$input-color: $ibexa-color-dark;
-$input-border-color: $ibexa-color-dark-300;
+$input-color: $ibexa-color-font;
+$input-border-color: $ibexa-color-base-dark;
 $input-box-shadow: none;
 
 $input-focus-bg: transparent;
 $input-focus-border-color: $ibexa-color-primary;
-$input-focus-color: $ibexa-color-dark-300;
+$input-focus-color: $ibexa-color-font-pale;
 $input-focus-box-shadow: 0 0 2px 0 rgba($ibexa-color-primary, 0.75);
 
 //Buttons

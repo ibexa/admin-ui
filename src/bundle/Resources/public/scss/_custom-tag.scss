@@ -12,7 +12,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: $ibexa-color-white;
+        background-color: $ibexa-white;
         padding: calculateRem(2px) calculateRem(2px) calculateRem(2px) calculateRem(8px);
         border-top-left-radius: calculateRem(5px);
         border-top-right-radius: calculateRem(5px);
@@ -22,7 +22,7 @@
         }
 
         &-btns {
-            background-color: $ibexa-color-white;
+            background-color: $ibexa-white;
             border: calculateRem(2px) solid $ibexa-color-primary;
             border-radius: calculateRem(5px);
             display: flex;
@@ -62,7 +62,7 @@
                 background-color: $ibexa-color-primary;
 
                 .ibexa-icon {
-                    fill: $ibexa-color-white;
+                    fill: $ibexa-white;
                 }
             }
         }
@@ -76,7 +76,7 @@
         &[data-ezelement='eztemplateinline'] {
             padding: 0 calculateRem(8px);
             margin: 0 calculateRem(4px);
-            background-color: $ibexa-color-white;
+            background-color: $ibexa-white;
             border: none;
             display: inline-flex;
             max-width: none;
@@ -91,7 +91,7 @@
                 background-color: $ibexa-color-primary;
 
                 .ibexa-icon {
-                    fill: $ibexa-color-white;
+                    fill: $ibexa-white;
                 }
             }
         }

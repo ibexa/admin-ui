@@ -29,7 +29,7 @@
         left: 0;
         width: calculateRem(30px);
         height: calculateRem(30px);
-        background: $ibexa-color-white;
+        background: $ibexa-white;
     }
 
     &__content-type .ibexa-icon {
@@ -51,7 +51,7 @@
         flex-grow: 1;
         border-radius: calculateRem(5px);
         margin-bottom: calculateRem(16px);
-        background: $ibexa-color-light-200;
+        background: $ibexa-color-base-light;
 
         display: flex;
         align-items: center;

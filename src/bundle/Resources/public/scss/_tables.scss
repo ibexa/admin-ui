@@ -139,9 +139,9 @@
         &--no-content {
             margin-bottom: calculateRem(48px);
             padding: calculateRem(12px) calculateRem(16px);
-            background-color: $ibexa-color-white;
+            background-color: $ibexa-white;
             font-style: italic;
-            color: $ibexa-color-black;
+            color: $ibexa-black;
         }
 
         &--limitation {
@@ -162,7 +162,7 @@
 
     &__cell-link,
     &__cell-link:hover {
-        color: $ibexa-color-dark;
+        color: $ibexa-color-font;
         text-decoration: none;
     }
 
@@ -186,7 +186,7 @@
 
         font-size: $ibexa-text-font-size-large;
         line-height: calculateRem(33px);
-        color: $ibexa-color-black;
+        color: $ibexa-black;
         font-weight: 600;
         white-space: nowrap;
         overflow: hidden;

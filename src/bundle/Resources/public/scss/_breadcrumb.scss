@@ -8,14 +8,14 @@
 
     .breadcrumb-item {
         cursor: not-allowed;
-        color: $ibexa-color-dark-300;
+        color: $ibexa-color-font-pale;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: calculateRem(300px);
 
         &::before {
-            color: $ibexa-color-dark;
+            color: $ibexa-color-font;
         }
     }
 }

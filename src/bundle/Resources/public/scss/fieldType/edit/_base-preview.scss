@@ -44,18 +44,18 @@
 
             &__message {
                 &--main {
-                    color: $ibexa-color-dark-300;
+                    color: $ibexa-color-base-dark;
                     box-sizing: border-box;
                     cursor: auto;
                     font-weight: bold;
                 }
 
                 &--separator {
-                    color: $ibexa-color-dark-300;
+                    color: $ibexa-color-base-dark;
                 }
 
                 &--filesize {
-                    color: $ibexa-color-dark-300;
+                    color: $ibexa-color-base-dark;
                     font-size: $ibexa-text-font-size-small;
                 }
             }
@@ -109,7 +109,7 @@
                     right: calculateRem(8px);
                     border-radius: $ibexa-border-radius;
                     padding: calculateRem(4px);
-                    background-color: rgba($ibexa-color-white, 0.75);
+                    background-color: rgba($ibexa-white, 0.75);
                     z-index: 1;
                 }
             }

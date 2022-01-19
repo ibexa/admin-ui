@@ -32,7 +32,7 @@
             left: 0;
             width: calculateRem(30px);
             line-height: 0;
-            background: $ibexa-color-white;
+            background: $ibexa-white;
         }
 
         &--name {
@@ -41,7 +41,7 @@
             left: calculateRem(48px);
             padding-left: 0;
             padding-right: calculateRem(5px);
-            background: $ibexa-color-white;
+            background: $ibexa-white;
         }
 
         &--priority {
@@ -54,7 +54,7 @@
             right: 0;
             width: calculateRem(70px);
             padding: 0;
-            background: $ibexa-color-white;
+            background: $ibexa-white;
         }
 
         &--toggler {
@@ -125,7 +125,7 @@
         &--edit {
             text-align: center;
             cursor: pointer;
-            color: $ibexa-color-white;
+            color: $ibexa-white;
             display: inline-block;
 
             .c-table-view-item__btn-inner {
@@ -156,7 +156,7 @@
         .c-table-view-item {
             &__cell,
             &__priority-actions {
-                background: $ibexa-color-light-200;
+                background: $ibexa-color-base-light;
             }
         }
     }
