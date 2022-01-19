@@ -3,7 +3,7 @@ services:
         parent: Ibexa\Contracts\AdminUi\Tab\AbstractTab
         public: false
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - { name: ibexa.admin_ui.tab, group: dashboard-my }
 
@@ -44,28 +44,28 @@ services:
         autowire: true
         public: false
 
-    ezplatform.adminui.dashboard.me:
+    ibexa.adminui.dashboard.me:
         parent: Ibexa\AdminUi\Component\TwigComponent
         arguments:
             $template: '@@ezdesign/ui/dashboard/block/me.html.twig'
         tags:
             - { name: ibexa.admin_ui.component, group: 'dashboard-blocks' }
 
-    ezplatform.adminui.dashboard.all:
+    ibexa.adminui.dashboard.all:
         parent: Ibexa\AdminUi\Component\TwigComponent
         arguments:
             $template: '@@ezdesign/ui/dashboard/block/all.html.twig'
         tags:
             - { name: ibexa.admin_ui.component, group: 'dashboard-blocks' }
 
-    ezplatform.adminui.dashboard.my.tab_groups:
+    ibexa.adminui.dashboard.my.tab_groups:
         parent: Ibexa\AdminUi\Component\TabsComponent
         arguments:
             $groupIdentifier: 'dashboard-my'
         tags:
             - { name: ibexa.admin_ui.component, group: 'dashboard-my-tab-groups' }
 
-    ezplatform.adminui.dashboard.all.tab_groups:
+    ibexa.adminui.dashboard.all.tab_groups:
         parent: Ibexa\AdminUi\Component\TabsComponent
         arguments:
             $groupIdentifier: 'dashboard-everyone'

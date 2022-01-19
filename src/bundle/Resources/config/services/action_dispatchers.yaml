@@ -5,7 +5,7 @@ services:
         public: false
 
     Ibexa\AdminUi\Form\ActionDispatcher\ContentTypeDispatcher:
-        parent: ezplatform.content_forms.action_dispatcher.base
+        parent: Ibexa\ContentForms\Form\ActionDispatcher\AbstractActionDispatcher
         autowire: true
         autoconfigure: false
         public: false

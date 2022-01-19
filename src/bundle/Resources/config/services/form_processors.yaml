@@ -19,7 +19,7 @@ services:
 
     Ibexa\AdminUi\Form\Processor\Content\ContentOnTheFlyProcessor:
         arguments:
-            $innerContentFormProcessor: '@ezplatform.content_forms.form_processor.content'
+            $innerContentFormProcessor: '@Ibexa\ContentForms\Form\Processor\ContentFormProcessor'
 
     Ibexa\AdminUi\Form\Processor\Content\UrlRedirectProcessor:
         public: true
@@ -37,11 +37,11 @@ services:
 
     Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor:
         arguments:
-            - "@ezpublish.api.service.content_type"
+            - '@ibexa.api.service.content_type'
             - "@router"
             - "%ezplatform.content_forms.form_processor.content_type.options%"
         calls:
-            - [ setGroupsList, [ "@ezpublish.fields_groups.list" ] ]
+            - [ setGroupsList, [ '@Ibexa\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList' ] ]
 
     Ibexa\AdminUi\Form\Processor\PreviewFormProcessor: ~
 
@@ -49,4 +49,4 @@ services:
 
     Ibexa\AdminUi\Form\Processor\User\UserOnTheFlyProcessor:
         arguments:
-            $innerUserUpdateFormProcessor: '@ezplatform.content_forms.form_processor.user_update'
+            $innerUserUpdateFormProcessor: '@Ibexa\ContentForms\Form\Processor\User\UserUpdateFormProcessor'

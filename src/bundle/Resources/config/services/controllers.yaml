@@ -14,17 +14,17 @@ services:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - controller.service_arguments
 
     Ibexa\Bundle\AdminUi\Controller\BulkOperation\BulkOperationController:
-        parent: ezpublish_rest.controller.base
+        parent: Ibexa\Rest\Server\Controller
         tags: [ 'controller.service_arguments' ]
         autowire: true
 
     Ibexa\Bundle\AdminUi\Controller\Content\ContentTreeController:
-        parent: ezpublish_rest.controller.base
+        parent: Ibexa\Rest\Server\Controller
         tags: [ 'controller.service_arguments' ]
         autowire: true
 
@@ -35,8 +35,8 @@ services:
         autowire: true
         arguments:
             $siteaccessResolver: '@Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver'
-            $translationHelper: '@ezpublish.translation_helper'
-            $configResolver: '@ezpublish.config.resolver'
+            $translationHelper: '@Ibexa\Core\Helper\TranslationHelper'
+            $configResolver: '@ibexa.config.resolver'
             $siteAccessNameGenerator: '@Ibexa\AdminUi\Siteaccess\SiteAccessNameGenerator'
         tags:
             - controller.service_arguments
@@ -45,7 +45,7 @@ services:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - controller.service_arguments
 
@@ -55,8 +55,8 @@ services:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
-            $contentActionDispatcher: '@ezplatform.content_forms.action_dispatcher.content'
+            $configResolver: '@ibexa.config.resolver'
+            $contentActionDispatcher: '@Ibexa\ContentForms\Form\ActionDispatcher\ContentDispatcher'
         tags:
             - controller.service_arguments
 
@@ -65,7 +65,7 @@ services:
         autowire: true
         arguments:
             $contentTypeActionDispatcher: '@Ibexa\AdminUi\Form\ActionDispatcher\ContentTypeDispatcher'
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - controller.service_arguments
 
@@ -73,7 +73,7 @@ services:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - controller.service_arguments
 
@@ -85,7 +85,7 @@ services:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - controller.service_arguments
 
@@ -94,13 +94,13 @@ services:
     Ibexa\Bundle\AdminUi\Controller\LocationController:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         arguments:
-            $translationHelper: '@ezpublish.translation_helper'
+            $translationHelper: '@Ibexa\Core\Helper\TranslationHelper'
 
     Ibexa\Bundle\AdminUi\Controller\NotificationController:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - controller.service_arguments
 
@@ -108,7 +108,7 @@ services:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - controller.service_arguments
 
@@ -116,7 +116,7 @@ services:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - controller.service_arguments
 
@@ -124,7 +124,7 @@ services:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - controller.service_arguments
 
@@ -132,7 +132,7 @@ services:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - controller.service_arguments
 
@@ -140,7 +140,7 @@ services:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - controller.service_arguments
 
@@ -148,20 +148,20 @@ services:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - controller.service_arguments
 
     Ibexa\Bundle\AdminUi\Controller\TranslationController:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         arguments:
-            $translationHelper: '@ezpublish.translation_helper'
+            $translationHelper: '@Ibexa\Core\Helper\TranslationHelper'
 
     Ibexa\Bundle\AdminUi\Controller\TrashController:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - controller.service_arguments
 
@@ -202,11 +202,11 @@ services:
     Ibexa\Bundle\AdminUi\Controller\VersionController:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         arguments:
-            $translationHelper: '@ezpublish.translation_helper'
+            $translationHelper: '@Ibexa\Core\Helper\TranslationHelper'
 
     Ibexa\Contracts\AdminUi\Controller\Controller: ~
 
     Ibexa\Bundle\AdminUi\Controller\FieldDefinitionController:
-        parent: ezpublish_rest.controller.base
+        parent: Ibexa\Rest\Server\Controller
         tags: ['controller.service_arguments']
         autowire: true

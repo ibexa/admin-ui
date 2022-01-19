@@ -13,21 +13,21 @@ services:
 
     Ibexa\AdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimitValidator:
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
 
     Ibexa\AdminUi\Validator\Constraints\UniqueContentTypeIdentifierValidator:
-        arguments: ["@ezpublish.api.service.content_type"]
+        arguments: ['@ibexa.api.service.content_type']
         tags:
             - { name: validator.constraint_validator, alias: ezplatform.content_forms.validator.unique_content_type_identifier }
 
-    ezplatform.content_forms.validator.field_type.abstract:
+    Ibexa\AdminUi\Validator\Constraints\FieldTypeValidator:
         class: Ibexa\AdminUi\Validator\Constraints\FieldTypeValidator
-        arguments: ["@ezpublish.api.service.field_type"]
+        arguments: ['@ibexa.api.service.field_type']
         abstract: true
         autoconfigure: false
 
     Ibexa\AdminUi\Validator\Constraints\ValidatorConfigurationValidator:
-        parent: ezplatform.content_forms.validator.field_type.abstract
+        parent: Ibexa\AdminUi\Validator\Constraints\FieldTypeValidator
         autowire: true
         autoconfigure: false
         public: false
@@ -35,7 +35,7 @@ services:
             - { name: validator.constraint_validator, alias: ezplatform.content_forms.validator.validator_configuration }
 
     Ibexa\AdminUi\Validator\Constraints\FieldSettingsValidator:
-        parent: ezplatform.content_forms.validator.field_type.abstract
+        parent: Ibexa\AdminUi\Validator\Constraints\FieldTypeValidator
         autowire: true
         autoconfigure: false
         public: false
@@ -44,7 +44,7 @@ services:
 
     Ibexa\AdminUi\Validator\Constraints\UniqueURLValidator:
         arguments:
-            - '@ezpublish.api.service.url'
+            - '@ibexa.api.service.url'
         tags:
             - { name: validator.constraint_validator, alias: ezplatform.content_forms.validator.unique_url }
 

@@ -1,16 +1,16 @@
 services:
   Ibexa\AdminUi\REST\Input\Parser\BulkOperation:
-      parent: ezpublish_rest.input.parser
+      parent: Ibexa\Rest\Server\Common\Parser
       tags:
         - { name: ibexa.rest.input.parser, mediaType: application/vnd.ez.api.BulkOperation }
 
   Ibexa\AdminUi\REST\Input\Parser\Operation:
-      parent: ezpublish_rest.input.parser
+      parent: Ibexa\Rest\Server\Common\Parser
       tags:
         - { name: ibexa.rest.input.parser, mediaType: application/vnd.ez.api.internal.Operation }
 
   Ibexa\AdminUi\REST\Output\ValueObjectVisitor\BulkOperationResponse:
-      parent: ezpublish_rest.output.value_object_visitor.base
+      parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
       tags:
         - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\BulkOperationResponse }
 
@@ -19,22 +19,22 @@ services:
   #
 
   Ibexa\AdminUi\REST\Input\Parser\ContentTree\LoadSubtreeRequestNode:
-    parent: ezpublish_rest.input.parser
+    parent: Ibexa\Rest\Server\Common\Parser
     tags:
       - { name: ibexa.rest.input.parser, mediaType: application/vnd.ez.api.ContentTreeLoadSubtreeRequestNode }
 
   Ibexa\AdminUi\REST\Input\Parser\ContentTree\LoadSubtreeRequest:
-    parent: ezpublish_rest.input.parser
+    parent: Ibexa\Rest\Server\Common\Parser
     tags:
       - { name: ibexa.rest.input.parser, mediaType: application/vnd.ez.api.ContentTreeLoadSubtreeRequest }
 
   Ibexa\AdminUi\REST\Output\ValueObjectVisitor\ContentTree\Node:
-      parent: ezpublish_rest.output.value_object_visitor.base
+      parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
       tags:
           - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\ContentTree\Node }
 
   Ibexa\AdminUi\REST\Output\ValueObjectVisitor\ContentTree\Root:
-      parent: ezpublish_rest.output.value_object_visitor.base
+      parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
       tags:
           - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\ContentTree\Root }
 
@@ -42,17 +42,17 @@ services:
   # Content type create/edit form
   #
   Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionCreate:
-    parent: ezpublish_rest.input.parser
+    parent: Ibexa\Rest\Server\Common\Parser
     tags:
       - { name: ibexa.rest.input.parser, mediaType: application/vnd.ez.api.ContentTypFieldDefinitionCreate }
 
   Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionDelete:
-    parent: ezpublish_rest.input.parser
+    parent: Ibexa\Rest\Server\Common\Parser
     tags:
       - { name: ibexa.rest.input.parser, mediaType: application/vnd.ez.api.ContentTypeFieldDefinitionDelete }
 
   Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionReorder:
-    parent: ezpublish_rest.input.parser
+    parent: Ibexa\Rest\Server\Common\Parser
     tags:
       - { name: ibexa.rest.input.parser, mediaType: application/vnd.ez.api.ContentTypeFieldDefinitionReorder }
 

@@ -61,7 +61,7 @@ services:
     Ibexa\AdminUi\UI\Dataset\DatasetFactory:
         lazy: true
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
 
     Ibexa\AdminUi\UI\Service\:
         resource: '../../../lib/UI/Service'
@@ -89,25 +89,25 @@ services:
             - { name: knp_menu.voter }
 
     Ibexa\AdminUi\Form\ActionDispatcher\CreateContentOnTheFlyDispatcher:
-        parent: ezplatform.content_forms.action_dispatcher.base
+        parent: Ibexa\ContentForms\Form\ActionDispatcher\AbstractActionDispatcher
         autowire: true
         autoconfigure: false
         public: false
 
     Ibexa\AdminUi\Form\ActionDispatcher\CreateUserOnTheFlyDispatcher:
-        parent: ezplatform.content_forms.action_dispatcher.base
+        parent: Ibexa\ContentForms\Form\ActionDispatcher\AbstractActionDispatcher
         autowire: true
         autoconfigure: false
         public: false
 
     Ibexa\AdminUi\Form\ActionDispatcher\EditContentOnTheFlyDispatcher:
-        parent: ezplatform.content_forms.action_dispatcher.base
+        parent: Ibexa\ContentForms\Form\ActionDispatcher\AbstractActionDispatcher
         autowire: true
         autoconfigure: false
         public: false
 
     Ibexa\AdminUi\Form\ActionDispatcher\EditUserOnTheFlyDispatcher:
-        parent: ezplatform.content_forms.action_dispatcher.base
+        parent: Ibexa\ContentForms\Form\ActionDispatcher\AbstractActionDispatcher
         autowire: true
         autoconfigure: false
         public: false
@@ -143,7 +143,7 @@ services:
     Ibexa\AdminUi\EventListener\SearchViewFilterParametersListener:
         arguments:
             $formFactory: '@form.factory'
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
             $requestStack: '@request_stack'
             $siteAccessGroups: '%ezpublish.siteaccess.groups%'
         tags:

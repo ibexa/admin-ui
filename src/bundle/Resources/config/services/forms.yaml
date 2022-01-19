@@ -44,7 +44,7 @@ services:
 
     Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ConfiguredLanguagesChoiceLoader:
         arguments:
-            $configResolver: "@ezpublish.config.resolver"
+            $configResolver: '@ibexa.config.resolver'
 
     Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentCreateContentTypeChoiceLoader: ~
 
@@ -58,7 +58,7 @@ services:
 
     Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader:
         arguments:
-            $configResolver: "@ezpublish.config.resolver"
+            $configResolver: '@ibexa.config.resolver'
 
     Ibexa\AdminUi\Form\Type\ChoiceList\Loader\SiteAccessChoiceLoader: ~
 
@@ -108,7 +108,7 @@ services:
     Ibexa\AdminUi\Form\Type\ContentType\ContentTypeCopyType: ~
 
     Ibexa\AdminUi\Form\Type\ContentType\ContentTypeCreateType:
-        arguments: ["@ezpublish.api.service.content_type"]
+        arguments: ['@ibexa.api.service.content_type']
         tags:
             - {name: form.type, alias: ezplatform_content_forms_contenttype_create}
 
@@ -169,10 +169,10 @@ services:
 
     Ibexa\AdminUi\Form\Type\FieldDefinition\FieldDefinitionType:
         arguments:
-            $fieldTypeService: "@ezpublish.api.service.field_type"
+            $fieldTypeService: '@ibexa.api.service.field_type'
             $thumbnailStrategy: '@Ibexa\Core\Repository\Strategy\ContentThumbnail\Field\ContentFieldStrategy'
         calls:
-            - [setGroupsList, ["@ezpublish.fields_groups.list"]]
+            - [setGroupsList, ['@Ibexa\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList']]
         tags:
             - { name: form.type, alias: ezplatform_content_forms_fielddefinition_update }
 
@@ -250,8 +250,8 @@ services:
 
     Ibexa\AdminUi\Form\Type\Role\LimitationType:
         arguments:
-            - "@ezplatform.content_forms.limitation_form_mapper.registry"
-            - "@ezplatform.content_forms.limitation.form_mapper.null"
+            - '@Ibexa\AdminUi\Limitation\LimitationFormMapperRegistry'
+            - '@Ibexa\AdminUi\Limitation\Mapper\NullLimitationMapper'
         tags:
             - { name: form.type, alias: ezplatform_content_forms_policy_limitation_edit }
 

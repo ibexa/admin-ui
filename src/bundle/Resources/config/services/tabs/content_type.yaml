@@ -6,7 +6,7 @@ services:
         tags:
             - { name: ibexa.admin_ui.tab, group: content-type }
 
-    ezplatform.adminui.content_type.tab_groups:
+    ibexa.adminui.content_type.tab_groups:
         parent: Ibexa\AdminUi\Component\TabsComponent
         arguments:
             $template: '@@ezdesign/ui/tab/content_type.html.twig'
