@@ -23,6 +23,16 @@
         margin-bottom: calculateRem(17px);
     }
 
+    &__section-column-body {
+        .form-check {
+            margin-top: calculateRem(16px);
+
+            .ibexa-label {
+                margin-bottom: 0;
+            }
+        }
+    }
+
     &__section-column {
         padding: 0;
 
