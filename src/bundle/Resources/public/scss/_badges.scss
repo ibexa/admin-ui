@@ -18,12 +18,12 @@
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        background-color: $ibexa-white;
-        border: calculateRem(1px) solid $ibexa-color-base;
-        color: $ibexa-color-font;
+        background-color: $ibexa-color-white;
+        border: calculateRem(1px) solid $ibexa-color-light;
+        color: $ibexa-color-dark;
 
         &:hover {
-            background-color: $ibexa-color-base-medium;
+            background-color: $ibexa-color-light-500;
         }
 
         .ibexa-icon {
@@ -35,9 +35,9 @@
         &.badge {
             &:hover,
             &:focus {
-                background-color: $ibexa-color-base-medium;
+                background-color: $ibexa-color-light-500;
                 box-shadow: none;
-                color: $ibexa-color-font;
+                color: $ibexa-color-dark;
             }
         }
 
@@ -49,7 +49,7 @@
 
         &.badge-success {
             .ibexa-icon {
-                background-color: $ibexa-color-positive;
+                background-color: $ibexa-color-success;
             }
         }
 

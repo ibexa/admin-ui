@@ -23,8 +23,8 @@
 
                     &:disabled {
                         cursor: auto;
-                        background-color: $ibexa-white;
-                        color: $ibexa-black;
+                        background-color: $ibexa-color-white;
+                        color: $ibexa-color-black;
                         padding-right: calculateRem(32px);
                         text-overflow: ellipsis;
 
@@ -99,7 +99,7 @@
         min-width: 100%;
         border-radius: $ibexa-border-radius-small;
         margin-bottom: 0;
-        background-color: $ibexa-color-base-light;
+        background-color: $ibexa-color-light-200;
         max-height: calculateRem(300px);
         overflow: auto;
         transform: scaleY(1);

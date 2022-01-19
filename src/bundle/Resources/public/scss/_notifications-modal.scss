@@ -24,13 +24,13 @@
 
         th {
             border: none;
-            color: $ibexa-color-base-dark;
-            border-top: calculateRem(1px) solid $ibexa-color-base;
-            border-bottom: calculateRem(1px) solid $ibexa-color-base;
+            color: $ibexa-color-dark-300;
+            border-top: calculateRem(1px) solid $ibexa-color-light;
+            border-bottom: calculateRem(1px) solid $ibexa-color-light;
         }
 
         tr {
-            background-color: $ibexa-white;
+            background-color: $ibexa-color-white;
             cursor: pointer;
 
             td {
@@ -53,7 +53,7 @@
     }
 
     &__item--read {
-        color: $ibexa-color-base-dark;
+        color: $ibexa-color-dark-300;
 
         .type__icon {
             @include type-icon-read;

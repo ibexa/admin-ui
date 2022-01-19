@@ -12,7 +12,7 @@
     .nav-link {
         margin-left: calculateRem(16px);
         padding: calculateRem(14px) calculateRem(8px);
-        color: $ibexa-black;
+        color: $ibexa-color-black;
         border-radius: 0;
         text-decoration: none;
     }
@@ -96,7 +96,7 @@
         height: calculateRem(48px);
         display: flex;
         align-items: center;
-        color: $ibexa-black;
+        color: $ibexa-color-black;
         background-color: transparent;
         border-bottom: calculateRem(1px) solid $ibexa-color-light;
         outline: none;
@@ -196,7 +196,7 @@
                 }
 
                 .ibexa-svg-tab-corner-inside {
-                    fill: $ibexa-white;
+                    fill: $ibexa-color-white;
                 }
             }
         }

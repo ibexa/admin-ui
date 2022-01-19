@@ -4,17 +4,17 @@ form:not(.form-inline) {
 
         font-weight: 700;
         font-size: calculateRem(16px);
-        color: $ibexa-black;
+        color: $ibexa-color-black;
         margin-bottom: 0;
         margin-top: calculateRem(20px);
     }
 
     .form-control {
-        background-color: $ibexa-white;
+        background-color: $ibexa-color-white;
     }
 
     .form-control[readonly] {
-        background-color: $ibexa-white;
+        background-color: $ibexa-color-white;
     }
 
     .form-control:focus {
