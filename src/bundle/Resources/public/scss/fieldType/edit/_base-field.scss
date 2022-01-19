@@ -47,7 +47,7 @@
 .ibexa-content-edit {
     .ibexa-field-edit {
         padding: calculateRem(24px) 0;
-        border-bottom: calculateRem(1px) solid $ibexa-color-light;
+        border-bottom: calculateRem(1px) solid $ibexa-color-base;
 
         &__label-wrapper {
             flex: 0 0 calculateRem(200px);
@@ -56,13 +56,13 @@
                 margin: 0;
                 font-size: calculateRem(16px);
                 font-weight: normal;
-                color: $ibexa-color-dark-300;
+                color: $ibexa-color-font-pale;
             }
         }
 
         .ibexa-data-source__label {
             margin-bottom: calculateRem(10px);
-            color: $ibexa-color-dark-300;
+            color: $ibexa-color-font-pale;
         }
 
         &__data {

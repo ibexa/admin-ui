@@ -1,12 +1,12 @@
 .ibexa-view-rawcontentview {
     margin-bottom: calculateRem(25px);
-    background-color: $ibexa-color-white;
+    background-color: $ibexa-white;
 
     .ibexa-raw-content-title {
         padding: calculateRem(24px);
-        color: $ibexa-color-black;
+        color: $ibexa-black;
         align-items: center;
-        border-bottom: calculateRem(1px) solid $ibexa-color-light;
+        border-bottom: calculateRem(1px) solid $ibexa-color-base;
 
         h2 {
             margin: 0 calculateRem(10px) 0 0;
@@ -26,8 +26,8 @@
 
 .ibexa-fieldgroup {
     &__name {
-        color: $ibexa-color-dark;
-        border-bottom: calculateRem(1px) solid $ibexa-color-light;
+        color: $ibexa-color-font;
+        border-bottom: calculateRem(1px) solid $ibexa-color-base;
         padding: calculateRem(24px) calculateRem(8px);
         font-weight: normal;
         font-size: calculateRem(16px);
@@ -38,7 +38,7 @@
         display: block;
         padding: calculateRem(24px) calculateRem(16px);
         font-size: calculateRem(16px);
-        color: $ibexa-color-black;
+        color: $ibexa-black;
         text-decoration: none;
         font-weight: bold;
 
@@ -55,8 +55,8 @@
             display: inline-block;
             width: calculateRem(7px);
             height: calculateRem(7px);
-            border-right: calculateRem(2px) solid $ibexa-color-black;
-            border-bottom: calculateRem(2px) solid $ibexa-color-black;
+            border-right: calculateRem(2px) solid $ibexa-black;
+            border-bottom: calculateRem(2px) solid $ibexa-black;
             transition: all 0.3s $ibexa-admin-transition;
             transform: rotate(-135deg);
         }
@@ -80,7 +80,7 @@
 
         &__name {
             margin-bottom: calculateRem(8px);
-            color: $ibexa-color-dark-300;
+            color: $ibexa-color-base-dark;
             font-size: $ibexa-text-font-size-small;
         }
 

@@ -23,7 +23,7 @@
 
 @mixin modal-subtitle {
     display: inline-block;
-    color: $ibexa-color-dark-300;
+    color: $ibexa-color-font-pale;
     font-size: calculateRem(14px);
     font-weight: 400;
     position: relative;
@@ -48,7 +48,7 @@
 }
 
 @mixin modal-body() {
-    background: $ibexa-color-white;
+    background: $ibexa-white;
     white-space: normal;
 }
 

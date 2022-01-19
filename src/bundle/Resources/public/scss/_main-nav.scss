@@ -1,8 +1,8 @@
 .ibexa-main-nav {
     flex-wrap: wrap;
     padding: 0;
-    background-color: $ibexa-color-white;
-    border-bottom: calculateRem(1px) solid $ibexa-color-accent-200;
+    background-color: $ibexa-white;
+    border-bottom: calculateRem(1px) solid $ibexa-color-border-light;
 
     > .container-fluid {
         padding-right: 0;
@@ -16,13 +16,13 @@
     }
 
     .nav-tabs {
-        background-color: $ibexa-color-white;
+        background-color: $ibexa-white;
         border: none;
 
         .nav-link {
             margin: 0;
             padding: calculateRem(17px) calculateRem(24px);
-            color: $ibexa-color-black;
+            color: $ibexa-black;
             font-size: calculateRem(14px);
             transition: all 0.3s $ibexa-admin-transition;
 
@@ -41,13 +41,13 @@
 
 .ibexa-main-sub-nav {
     padding: 0 calculateRem(16px) 0 calculateRem(103px);
-    background-color: $ibexa-color-white;
+    background-color: $ibexa-white;
 
     .navbar-nav {
         .nav-link {
             padding: calculateRem(9px) calculateRem(24px);
             font-size: calculateRem(14px);
-            color: $ibexa-color-black;
+            color: $ibexa-black;
             text-decoration: none;
 
             &:hover,

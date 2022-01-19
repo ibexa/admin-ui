@@ -1,6 +1,6 @@
 .c-upload-list-item {
     display: flex;
-    background: $ibexa-color-white;
+    background: $ibexa-white;
     padding: calculateRem(8px) 0;
     min-height: calculateRem(60px);
 
@@ -44,7 +44,7 @@
     }
 
     &__size {
-        color: $ibexa-color-dark-300;
+        color: $ibexa-color-base-dark;
         font-size: $ibexa-text-font-size-medium;
     }
 
@@ -64,10 +64,10 @@
         }
 
         &--success {
-            color: $ibexa-color-success;
+            color: $ibexa-color-positive;
 
             .ibexa-icon {
-                fill: $ibexa-color-success;
+                fill: $ibexa-color-positive;
             }
         }
     }
