@@ -126,11 +126,10 @@ export default class SubItemsModule extends Component {
     }
 
     calculateSubItemsWidth() {
-        const sideMenu = document.querySelector('.ibexa-main-container__side-column');
-        const sideMenuRect = sideMenu.getBoundingClientRect();
-        const windowWidth = window.innerWidth;
+        const mainRow = document.querySelector('.ibexa-main-row');
+        const mainRowRect = mainRow.getBoundingClientRect();
 
-        return windowWidth - sideMenuRect.width - SUBITEMS_PADDING;
+        return mainRowRect.width - SUBITEMS_PADDING;
     }
 
     getDefaultSortClause(sortClauses) {
@@ -1140,9 +1139,7 @@ export default class SubItemsModule extends Component {
     renderBulkAddLocationBtn(disabled) {
         const label = Translator.trans(/*@Desc("Add Locations")*/ 'add_locations_btn.label', {}, 'sub_items');
 
-        return (
-            <ActionButton disabled={disabled} onClick={this.onAddLocationsBtnClick} label={label} type="create-location" />
-        );
+        return <ActionButton disabled={disabled} onClick={this.onAddLocationsBtnClick} label={label} type="create-location" />;
     }
 
     renderBulkHideBtn(disabled) {
