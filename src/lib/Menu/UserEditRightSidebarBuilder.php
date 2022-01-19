@@ -54,7 +54,7 @@ class UserEditRightSidebarBuilder extends AbstractBuilder implements Translation
                         'class' => 'ibexa-btn--trigger',
                         'data-click' => '#ezplatform_content_forms_user_update_update',
                     ],
-                    'extras' => ['icon' => 'publish'],
+                    'extras' => ['primary' => true,],
                 ]
             ),
             self::ITEM__CANCEL => $this->createMenuItem(
@@ -64,7 +64,6 @@ class UserEditRightSidebarBuilder extends AbstractBuilder implements Translation
                         'class' => 'ibexa-btn--trigger',
                         'data-click' => '#ezplatform_content_forms_user_update_cancel',
                     ],
-                    'extras' => ['icon' => 'circle-close'],
                 ]
             ),
         ]);
