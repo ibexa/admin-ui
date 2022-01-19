@@ -3,7 +3,7 @@
 {% trans_default_domain 'content_type' %}
 {% set current_language = app.request.get('languageCode') ?: language_code %}
 
-<div class="container ibexa-container">
+<div class="container">
     {% set global_properties_items = [
         {
             label: 'content_type.name'|trans|desc('Name'),
