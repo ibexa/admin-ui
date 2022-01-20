@@ -17,12 +17,12 @@ services:
 
     Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber\UserSelectionAllowedContentTypes:
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - { name: kernel.event_subscriber }
 
     Ibexa\AdminUi\UniversalDiscovery\UniversalDiscoveryProvider:
         arguments:
-            $visitor: '@ezpublish_rest.output.visitor.json'
+            $visitor: '@ibexa.rest.output.visitor.json'
 
     Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider: '@Ibexa\AdminUi\UniversalDiscovery\UniversalDiscoveryProvider'

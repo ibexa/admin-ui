@@ -5,7 +5,7 @@ services:
         public: true
 
     Ibexa\AdminUi\UI\Module\Subitems\ValueObjectVisitor\SubitemsRow:
-        parent: ezpublish_rest.output.value_object_visitor.base
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
         autowire: true
         autoconfigure: false
         public: true
@@ -13,7 +13,7 @@ services:
             - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsRow }
 
     Ibexa\AdminUi\UI\Module\Subitems\ValueObjectVisitor\SubitemsList:
-        parent: ezpublish_rest.output.value_object_visitor.base
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
         autowire: true
         autoconfigure: false
         public: true
@@ -21,6 +21,6 @@ services:
             - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsList }
 
     Ibexa\AdminUi\UI\Module\Subitems\ContentViewParameterSupplier:
-        $outputVisitor: '@ezpublish_rest.output.visitor.json'
-        $outputGenerator: '@ezpublish_rest.output.generator.json'
-        $contentTypeInfoListValueObjectVisitor: '@ezpublish_rest.output.value_object_visitor.ContentTypeInfoList'
+        $outputVisitor: '@ibexa.rest.output.visitor.json'
+        $outputGenerator: '@Ibexa\Rest\Output\Generator\Json'
+        $contentTypeInfoListValueObjectVisitor: '@Ibexa\Rest\Server\Output\ValueObjectVisitor\ContentTypeInfoList'

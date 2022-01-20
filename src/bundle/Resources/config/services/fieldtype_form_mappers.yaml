@@ -11,7 +11,7 @@ services:
     Ibexa\AdminUi\FieldType\Mapper\AbstractRelationFormMapper:
         abstract: true
         arguments:
-            $contentTypeService: '@ezpublish.api.service.content_type'
+            $contentTypeService: '@ibexa.api.service.content_type'
 
     Ibexa\AdminUi\FieldType\Mapper\AuthorFormMapper:
         tags:

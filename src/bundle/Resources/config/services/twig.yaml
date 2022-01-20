@@ -6,13 +6,13 @@ services:
 
     Ibexa\Bundle\AdminUi\Templating\Twig\FieldEditRenderingExtension:
         arguments:
-            - '@ezpublish.templating.field_block_renderer'
+            - '@ibexa.templating.field_block_renderer'
         tags:
             - { name: twig.extension }
 
     Ibexa\Bundle\AdminUi\Templating\Twig\FieldGroupRenderingExtension:
         arguments:
-            - '@ezpublish.fields_groups.list'
+            - '@Ibexa\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList'
         tags:
             - { name: twig.extension }
 

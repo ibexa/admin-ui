@@ -1,5 +1,5 @@
 services:
-    ez_pagination_template:
+    Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate:
         class: Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate
         arguments:
             - '@translator'
@@ -7,7 +7,7 @@ services:
     Ibexa\Bundle\AdminUi\View\EzPagerfantaView:
         public: false
         arguments:
-            - '@ez_pagination_template'
+            - '@Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate'
         tags:
             - { name: 'pagerfanta.view', alias: 'ez' }
 
@@ -16,4 +16,4 @@ services:
         autowire: true
         public: false
         arguments:
-            $translationHelper: '@ezpublish.translation_helper'
+            $translationHelper: '@Ibexa\Core\Helper\TranslationHelper'

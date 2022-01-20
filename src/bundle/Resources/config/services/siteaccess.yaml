@@ -13,7 +13,7 @@ services:
     Ibexa\AdminUi\Siteaccess\SiteaccessResolver:
         arguments:
             $siteaccessPreviewVoters: !tagged ibexa.admin_ui.site_access.preview.voter
-            $siteAccessService: '@ezpublish.siteaccess_service'
+            $siteAccessService: '@Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService'
 
     Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver:
         arguments:
@@ -21,5 +21,5 @@ services:
 
     Ibexa\AdminUi\Siteaccess\AdminSiteaccessPreviewVoter:
         arguments:
-            $repositoryConfigurationProvider: '@ezpublish.api.repository_configuration_provider'
+            $repositoryConfigurationProvider: '@Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider'
         tags: [ ibexa.admin_ui.site_access.preview.voter ]

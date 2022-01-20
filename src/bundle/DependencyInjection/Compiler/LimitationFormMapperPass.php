@@ -6,6 +6,7 @@
  */
 namespace Ibexa\Bundle\AdminUi\DependencyInjection\Compiler;
 
+use Ibexa\AdminUi\Limitation\LimitationFormMapperRegistry;
 use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -20,11 +21,11 @@ class LimitationFormMapperPass implements CompilerPassInterface
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('ezplatform.content_forms.limitation_form_mapper.registry')) {
+        if (!$container->hasDefinition(LimitationFormMapperRegistry::class)) {
             return;
         }
 
-        $registry = $container->findDefinition('ezplatform.content_forms.limitation_form_mapper.registry');
+        $registry = $container->findDefinition(LimitationFormMapperRegistry::class);
 
         $taggedServiceIds = $container->findTaggedServiceIds(
             self::LIMITATION_MAPPER_FORM_TAG

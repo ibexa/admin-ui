@@ -28,20 +28,20 @@ services:
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'sortOrderMappings' }
 
-    ezsystems.ezplatform_admin_ui.ui.config.provider.image_variations:
+    ibexa.adminui.ui.config.provider.image_variations:
         class: Ibexa\AdminUi\UI\Config\Provider\ScopeParameterBasedValue
         lazy: true
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
             $parameterName: 'image_variations'
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'imageVariations' }
 
-    ezsystems.ezplatform_admin_ui.ui.config.provider.content_edit_form_templates:
+    ibexa.adminui.ui.config.provider.content_edit_form_templates:
         class: Ibexa\AdminUi\UI\Config\Provider\ScopeParameterBasedValue
         lazy: true
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
             $parameterName: 'admin_ui_forms.content_edit_form_templates'
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'contentEditFormTemplates' }
@@ -53,7 +53,7 @@ services:
     Ibexa\AdminUi\UI\Config\Provider\Languages:
         arguments:
             $siteAccesses: '%ezpublish.siteaccess.list%'
-            $siteAccessService: '@ezpublish.siteaccess_service'
+            $siteAccessService: '@Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService'
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'languages' }
 
@@ -108,12 +108,12 @@ services:
 
     Ibexa\AdminUi\UI\Config\Provider\Locations:
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'locations' }
 
     Ibexa\AdminUi\UI\Config\Provider\IconPaths:
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'iconPaths' }

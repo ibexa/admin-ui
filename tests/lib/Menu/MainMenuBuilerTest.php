@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Menu\MenuItemFactory;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\UserInterface;
+use Knp\Menu\FactoryInterface;
 use Knp\Menu\MenuItem;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\TestBrowserToken;
@@ -38,7 +39,7 @@ class MainMenuBuilerTest extends TestCase
 
     protected function setUp(): void
     {
-        $knpFactory = $this->createMock(\Knp\Menu\FactoryInterface::class);
+        $knpFactory = $this->createMock(FactoryInterface::class);
         $knpFactory->method('createItem')
             ->willReturnCallback(static function (string $name) use ($knpFactory) {
                 return new MenuItem($name, $knpFactory);
