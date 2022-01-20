@@ -57,7 +57,7 @@ class UserPasswordChangeRightSidebarListener implements EventSubscriberInterface
             self::ITEM__CANCEL,
             [
                 'extras' => ['translation_domain' => 'menu'],
-                'route' => 'ezplatform.dashboard',
+                'route' => 'ibexa.dashboard',
             ]
         );
     }

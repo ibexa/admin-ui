@@ -70,7 +70,7 @@ final class URLWildcardEditRightSidebarBuilder extends AbstractBuilder implement
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'route' => 'ezplatform.url_management',
+                    'route' => 'ibexa.url_management',
                     'routeParameters' => [
                         '_fragment' => URLWildcardsTab::URI_FRAGMENT,
                     ],

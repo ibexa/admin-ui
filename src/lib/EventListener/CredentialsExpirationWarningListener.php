@@ -91,7 +91,7 @@ final class CredentialsExpirationWarningListener implements EventSubscriberInter
                 'authentication.credentials_expire_in.warning',
                 [
                     '%days%' => $passwordExpiresIn->d + ($passwordExpiresIn->h >= 12 ? 1 : 0),
-                    '%url%' => $this->urlGenerator->generate('ezplatform.user_profile.change_password'),
+                    '%url%' => $this->urlGenerator->generate('ibexa.user_profile.change_password'),
                 ],
                 'messages'
             );
@@ -100,7 +100,7 @@ final class CredentialsExpirationWarningListener implements EventSubscriberInter
                 /** @Desc("Your current password will expire today. You can change it in User Settings/My Account Settings.") */
                 'authentication.credentials_expire_today.warning',
                 [
-                    '%url%' => $this->urlGenerator->generate('ezplatform.user_profile.change_password'),
+                    '%url%' => $this->urlGenerator->generate('ibexa.user_profile.change_password'),
                 ],
                 'messages'
             );

@@ -53,7 +53,7 @@
             {% if can_update %}
                 <a
                     title="{{ 'policy.view.list.panel.policies.action.edit'|trans|desc('Edit') }}"
-                    href="{{ path('ezplatform.policy.update', { roleId: role.id, policyId: policy.id }) }}"
+                    href="{{ path('ibexa.policy.update', { roleId: role.id, policyId: policy.id }) }}"
                     class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text{{ not is_editable[policy.id] ? ' disabled' : '' }}"
                 >
                     <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
@@ -87,7 +87,7 @@
                 {% block actions %}
                     {% if can_update %}
                         <a
-                            href="{{ path('ezplatform.policy.create', {roleId: role.id}) }}"
+                            href="{{ path('ibexa.policy.create', {roleId: role.id}) }}"
                             class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small"
                         >
                             <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
@@ -124,7 +124,7 @@
         {% endblock %}
         {% block between_header_and_table %}
             {{ form_start(form_policies_delete, {
-                'action': path('ezplatform.policy.bulk_delete', {"roleId": role.id} ),
+                'action': path('ibexa.policy.bulk_delete', {"roleId": role.id} ),
                 'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-policies' }
             }) }}
         {% endblock %}

@@ -50,79 +50,79 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
 
     public const ITEM_ADMIN_OPTIONS = [
         self::ITEM_ADMIN__SECTIONS => [
-            'route' => 'ezplatform.section.list',
+            'route' => 'ibexa.section.list',
             'extras' => [
                 'routes' => [
-                    'update' => 'ezplatform.section.update',
-                    'view' => 'ezplatform.section.view',
-                    'create' => 'ezplatform.section.create',
+                    'update' => 'ibexa.section.update',
+                    'view' => 'ibexa.section.view',
+                    'create' => 'ibexa.section.create',
                 ],
                 'orderNumber' => 20,
             ],
         ],
         self::ITEM_ADMIN__ROLES => [
-            'route' => 'ezplatform.role.list',
+            'route' => 'ibexa.role.list',
             'extras' => [
                 'routes' => [
-                    'update' => 'ezplatform.role.update',
-                    'view' => 'ezplatform.role.view',
-                    'create' => 'ezplatform.role.create',
-                    'policy_update' => 'ezplatform.policy.update',
-                    'policy_list' => 'ezplatform.policy.list',
-                    'policy_create' => 'ezplatform.policy.create',
-                    'policy_create_with_limitation' => 'ezplatform.policy.create_with_limitation',
+                    'update' => 'ibexa.role.update',
+                    'view' => 'ibexa.role.view',
+                    'create' => 'ibexa.role.create',
+                    'policy_update' => 'ibexa.policy.update',
+                    'policy_list' => 'ibexa.policy.list',
+                    'policy_create' => 'ibexa.policy.create',
+                    'policy_create_with_limitation' => 'ibexa.policy.create_with_limitation',
                 ],
                 'orderNumber' => 30,
             ],
         ],
         self::ITEM_ADMIN__LANGUAGES => [
-            'route' => 'ezplatform.language.list',
+            'route' => 'ibexa.language.list',
             'extras' => [
                 'routes' => [
-                    'edit' => 'ezplatform.language.edit',
-                    'view' => 'ezplatform.language.view',
-                    'create' => 'ezplatform.language.create',
+                    'edit' => 'ibexa.language.edit',
+                    'view' => 'ibexa.language.view',
+                    'create' => 'ibexa.language.create',
                 ],
                 'orderNumber' => 40,
             ],
         ],
         self::ITEM_ADMIN__CONTENT_TYPES => [
-            'route' => 'ezplatform.content_type_group.list',
+            'route' => 'ibexa.content_type_group.list',
             'extras' => [
                 'routes' => [
-                    'update' => 'ezplatform.content_type_group.update',
-                    'view' => 'ezplatform.content_type_group.view',
-                    'create' => 'ezplatform.content_type_group.create',
-                    'content_type_add' => 'ezplatform.content_type.add',
-                    'content_type_view' => 'ezplatform.content_type.view',
-                    'content_type_edit' => 'ezplatform.content_type.edit',
-                    'content_type_update' => 'ezplatform.content_type.update',
+                    'update' => 'ibexa.content_type_group.update',
+                    'view' => 'ibexa.content_type_group.view',
+                    'create' => 'ibexa.content_type_group.create',
+                    'content_type_add' => 'ibexa.content_type.add',
+                    'content_type_view' => 'ibexa.content_type.view',
+                    'content_type_edit' => 'ibexa.content_type.edit',
+                    'content_type_update' => 'ibexa.content_type.update',
                 ],
                 'orderNumber' => 50,
             ],
         ],
         self::ITEM_ADMIN__OBJECT_STATES => [
-            'route' => 'ezplatform.object_state.groups.list',
+            'route' => 'ibexa.object_state.groups.list',
             'extras' => [
                 'routes' => [
-                    'group_list' => 'ezplatform.object_state.groups.list',
-                    'group_create' => 'ezplatform.object_state.group.add',
-                    'group_edit' => 'ezplatform.object_state.group.update',
-                    'group_view' => 'ezplatform.object_state.group.view',
-                    'state_create' => 'ezplatform.object_state.state.add',
-                    'state_view' => 'ezplatform.object_state.state.view',
-                    'state_edit' => 'ezplatform.object_state.state.update',
+                    'group_list' => 'ibexa.object_state.groups.list',
+                    'group_create' => 'ibexa.object_state.group.add',
+                    'group_edit' => 'ibexa.object_state.group.update',
+                    'group_view' => 'ibexa.object_state.group.view',
+                    'state_create' => 'ibexa.object_state.state.add',
+                    'state_view' => 'ibexa.object_state.state.view',
+                    'state_edit' => 'ibexa.object_state.state.update',
                 ],
                 'orderNumber' => 60,
             ],
         ],
         self::ITEM_ADMIN__URL_MANAGEMENT => [
-            'route' => 'ezplatform.url_management',
+            'route' => 'ibexa.url_management',
             'extras' => [
                 'routes' => [
-                    'link_manager_edit' => 'ezplatform.link_manager.edit',
-                    'link_manager_view' => 'ezplatform.link_manager.view',
-                    'url_wildcard_edit' => 'ezplatform.url_wildcard.update',
+                    'link_manager_edit' => 'ibexa.link_manager.edit',
+                    'link_manager_view' => 'ibexa.link_manager.view',
+                    'url_wildcard_edit' => 'ibexa.url_wildcard.update',
                 ],
                 'orderNumber' => 80,
             ],
@@ -189,7 +189,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         ]);
 
         $contentMenu->addChild(self::ITEM_DASHBOARD, [
-            'route' => 'ezplatform.dashboard',
+            'route' => 'ibexa.dashboard',
             'attributes' => [
                 'data-tooltip-placement' => 'right',
                 'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
@@ -215,7 +215,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
 
         if (null !== $token && is_object($token->getUser())) {
             $menu->addChild(self::ITEM_BOOKMARKS, [
-                'route' => 'ezplatform.bookmark.list',
+                'route' => 'ibexa.bookmark.list',
                 'attributes' => [
                     'data-tooltip-placement' => 'right',
                     'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
@@ -229,7 +229,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         }
 
         $menu->addChild(self::ITEM_TRASH, [
-            'route' => 'ezplatform.trash.list',
+            'route' => 'ibexa.trash.list',
             'attributes' => [
                 'data-tooltip-placement' => 'right',
                 'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',

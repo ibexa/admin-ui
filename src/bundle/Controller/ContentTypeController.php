@@ -200,7 +200,7 @@ class ContentTypeController extends Controller
                 'content_type'
             );
 
-            return $this->redirectToRoute('ezplatform.content_type_group.view', [
+            return $this->redirectToRoute('ibexa.content_type_group.view', [
                 'contentTypeGroupId' => $group->id,
             ]);
         }
@@ -250,13 +250,13 @@ class ContentTypeController extends Controller
                         'content_type'
                     );
 
-                    return $this->redirectToRoute('ezplatform.content_type.view', [
+                    return $this->redirectToRoute('ibexa.content_type.view', [
                         'contentTypeGroupId' => $contentTypeGroup->id,
                         'contentTypeId' => $contentType->id,
                     ]);
                 }
 
-                return new RedirectResponse($this->generateUrl('ezplatform.content_type.update', [
+                return new RedirectResponse($this->generateUrl('ibexa.content_type.update', [
                     'contentTypeId' => $contentTypeDraft->id,
                     'contentTypeGroupId' => $contentTypeGroup->id,
                     'fromLanguageCode' => null !== $baseLanguage ? $baseLanguage->languageCode : null,
@@ -269,7 +269,7 @@ class ContentTypeController extends Controller
             }
         }
 
-        return $this->redirectToRoute('ezplatform.content_type.view', [
+        return $this->redirectToRoute('ibexa.content_type.view', [
             'contentTypeGroupId' => $contentTypeGroup->id,
             'contentTypeId' => $contentType->id,
         ]);
@@ -308,7 +308,7 @@ class ContentTypeController extends Controller
                         'content_type'
                     );
 
-                    return $this->redirectToRoute('ezplatform.content_type.view', [
+                    return $this->redirectToRoute('ibexa.content_type.view', [
                         'contentTypeGroupId' => $contentTypeGroup->id,
                         'contentTypeId' => $contentType->id,
                     ]);
@@ -318,7 +318,7 @@ class ContentTypeController extends Controller
                 }
                 $this->contentTypeService->publishContentTypeDraft($newContentTypeDraft);
 
-                return new RedirectResponse($this->generateUrl('ezplatform.content_type.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content_type.view', [
                     'contentTypeId' => $contentType->id,
                     'contentTypeGroupId' => $contentTypeGroup->id,
                     '_fragment' => TranslationsTab::URI_FRAGMENT,
@@ -330,7 +330,7 @@ class ContentTypeController extends Controller
             }
         }
 
-        return $this->redirectToRoute('ezplatform.content_type.view', [
+        return $this->redirectToRoute('ibexa.content_type.view', [
             'contentTypeGroupId' => $contentTypeGroup->id,
             'contentTypeId' => $contentType->id,
         ]);
@@ -364,7 +364,7 @@ class ContentTypeController extends Controller
                 )
             );
 
-            return $this->redirectToRoute('ezplatform.content_type.view', [
+            return $this->redirectToRoute('ibexa.content_type.view', [
                 'contentTypeGroupId' => $group->id,
                 'contentTypeId' => $contentType->id,
             ]);
@@ -382,7 +382,7 @@ class ContentTypeController extends Controller
                 $contentTypeGroup = $data->getContentTypeGroup();
                 $language = $data->getLanguage();
 
-                return $this->redirectToRoute('ezplatform.content_type.update', [
+                return $this->redirectToRoute('ibexa.content_type.update', [
                     'contentTypeId' => $contentTypeDraft->id,
                     'contentTypeGroupId' => $contentTypeGroup->id,
                     'toLanguageCode' => $language->languageCode,
@@ -394,7 +394,7 @@ class ContentTypeController extends Controller
             }
         }
 
-        return $this->redirectToRoute('ezplatform.content_type.update', [
+        return $this->redirectToRoute('ibexa.content_type.update', [
             'contentTypeId' => $contentTypeDraft->id,
             'contentTypeGroupId' => $group->id,
         ]);
@@ -442,7 +442,7 @@ class ContentTypeController extends Controller
                     );
                 }
 
-                return $this->redirectToRoute('ezplatform.content_type_group.view', [
+                return $this->redirectToRoute('ibexa.content_type_group.view', [
                     'contentTypeGroupId' => $data->getContentTypeGroup()->id,
                 ]);
             });
@@ -452,7 +452,7 @@ class ContentTypeController extends Controller
             }
         }
 
-        return $this->redirectToRoute('ezplatform.content_type_group.view', [
+        return $this->redirectToRoute('ibexa.content_type_group.view', [
             'contentTypeGroupId' => $group->id,
         ]);
     }
@@ -509,14 +509,14 @@ class ContentTypeController extends Controller
                 );
 
                 if ('publishContentType' === $form->getClickedButton()->getName()) {
-                    return $this->redirectToRoute('ezplatform.content_type.view', [
+                    return $this->redirectToRoute('ibexa.content_type.view', [
                         'contentTypeGroupId' => $group->id,
                         'contentTypeId' => $contentTypeDraft->id,
                         'languageCode' => $language->languageCode,
                     ]);
                 }
 
-                return $this->redirectToRoute('ezplatform.content_type.update', [
+                return $this->redirectToRoute('ibexa.content_type.update', [
                     'contentTypeGroupId' => $group->id,
                     'contentTypeId' => $contentTypeDraft->id,
                     'toLanguageCode' => $language->languageCode,
@@ -615,7 +615,7 @@ class ContentTypeController extends Controller
             }
         }
 
-        return $this->redirectToRoute('ezplatform.content_type_group.view', [
+        return $this->redirectToRoute('ibexa.content_type_group.view', [
             'contentTypeGroupId' => $group->id,
         ]);
     }
@@ -661,7 +661,7 @@ class ContentTypeController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.content_type_group.view', ['contentTypeGroupId' => $group->id]));
+        return $this->redirect($this->generateUrl('ibexa.content_type_group.view', ['contentTypeGroupId' => $group->id]));
     }
 
     /**
@@ -729,7 +729,7 @@ class ContentTypeController extends Controller
 
         return $this->createForm(ContentTypeUpdateType::class, $contentTypeData, [
             'method' => Request::METHOD_POST,
-            'action' => $this->generateUrl('ezplatform.content_type.update', [
+            'action' => $this->generateUrl('ibexa.content_type.update', [
                 'contentTypeGroupId' => $contentTypeGroup->id,
                 'contentTypeId' => $contentTypeDraft->id,
                 'fromLanguageCode' => $baseLanguage ? $baseLanguage->languageCode : null,
@@ -750,7 +750,7 @@ class ContentTypeController extends Controller
     {
         $formBuilder = $this->createFormBuilder(null, [
             'method' => Request::METHOD_DELETE,
-            'action' => $this->generateUrl('ezplatform.content_type.delete', [
+            'action' => $this->generateUrl('ibexa.content_type.delete', [
                 'contentTypeGroupId' => $group->id,
                 'contentTypeId' => $contentType->id,
             ]),

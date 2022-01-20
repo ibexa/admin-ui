@@ -7,8 +7,8 @@
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
-        { url: path('ezplatform.object_state.groups.list'), value: 'object_state_group.breadcrumb.list'|trans|desc('Object states') },
-        { url: path('ezplatform.object_state.group.view', { 'objectStateGroupId': object_state_group.id }), value: 'object_state_group.breadcrumb.view'|trans({ '%name%': object_state_group.name })|desc('Object state group: %name%') },
+        { url: path('ibexa.object_state.groups.list'), value: 'object_state_group.breadcrumb.list'|trans|desc('Object states') },
+        { url: path('ibexa.object_state.group.view', { 'objectStateGroupId': object_state_group.id }), value: 'object_state_group.breadcrumb.view'|trans({ '%name%': object_state_group.name })|desc('Object state group: %name%') },
         { value: 'object_state.breadcrumb.view'|trans({ '%name%': object_state.name })|desc('Object state: %name%') }
     ]} %}
 {% endblock %}
@@ -35,7 +35,7 @@
             {% if can_administrate %}
                 <a
                     title="{{ 'object_state.view.list.action.edit'|trans|desc('Edit') }}"
-                    href="{{ path('ezplatform.object_state.state.update', {'objectStateId': object_state.id}) }}"
+                    href="{{ path('ibexa.object_state.state.update', {'objectStateId': object_state.id}) }}"
                     class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2"
                 >
                     <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">

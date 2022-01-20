@@ -26,7 +26,7 @@
         {% if can_administrate %}
             <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
                 <a
-                    href="{{ path('ezplatform.language.create') }}"
+                    href="{{ path('ibexa.language.create') }}"
                     class="btn ibexa-btn ibexa-btn--primary"
                 >
                     <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
@@ -65,7 +65,7 @@
             }]) %}
 
             {% set col_raw %}
-                <a href="{{ path( 'ezplatform.language.view', {'languageId': language.id} ) }}">
+                <a href="{{ path( 'ibexa.language.view', {'languageId': language.id} ) }}">
                     {{ language.name }}
                 </a>
             {% endset %}
@@ -97,7 +97,7 @@
                 {% if can_administrate %}
                     <a
                         title="{{ 'language.edit'|trans|desc('Edit') }}"
-                        href="{{ path('ezplatform.language.edit', {'languageId': language.id}) }}"
+                        href="{{ path('ibexa.language.edit', {'languageId': language.id}) }}"
                         class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
                     >
                         <svg class="ibexa-icon ibexa-icon--small">
@@ -159,7 +159,7 @@
 
             {% block between_header_and_table %}
                 {{ form_start(form_languages_delete, {
-                    'action': path('ezplatform.language.bulk_delete'),
+                    'action': path('ibexa.language.bulk_delete'),
                     'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-languages' }
                 }) }}
             {% endblock %}

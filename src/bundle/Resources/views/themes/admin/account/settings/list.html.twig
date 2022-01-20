@@ -35,7 +35,7 @@
                             {% set headline_items %}
                                 <a
                                     title="{{ 'list.action.edit'|trans|desc('Edit') }}"
-                                    href="{{ path('ezplatform.user_settings.update', { 'identifier': settings_group.identifier }) }}"
+                                    href="{{ path('ibexa.user_settings.update', { 'identifier': settings_group.identifier }) }}"
                                     class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
                                 >
                                     <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
@@ -65,7 +65,7 @@
                 {% block content %}
                     {% set actions %}
                         <a
-                            href="{{ path('ezplatform.user_profile.change_password') }}"
+                            href="{{ path('ibexa.user_profile.change_password') }}"
                             class="btn ibexa-btn ibexa-btn--ghost"
                         >
                             <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">

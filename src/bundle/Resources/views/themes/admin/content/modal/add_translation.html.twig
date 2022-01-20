@@ -4,7 +4,7 @@
 
 <div class="modal fade ibexa-modal ibexa-translation" id="add-translation-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        {% set action = action is defined ? action : path('ezplatform.translation.add') %}
+        {% set action = action is defined ? action : path('ibexa.translation.add') %}
         {{ form_start(form, {'action': action}) }}
             <div class="modal-content">
                 <div class="modal-header">

@@ -73,7 +73,7 @@
                 {{ form_end(form_search) }}
 
                 {{ form_start(form_trash_item_restore, {
-                    'action': path('ezplatform.trash.restore', { 'trash_search': trashSearchParams })
+                    'action': path('ibexa.trash.restore', { 'trash_search': trashSearchParams })
                 }) }}
 
                 {% if form_search.vars.data.sort is defined %}
@@ -283,7 +283,7 @@
                 {{ form_end(form_trash_item_restore, { 'render_rest': false }) }}
 
                 {{ form_start(form_trash_item_delete, {
-                    'action': path('ezplatform.trash.delete', { 'trash_search': trashSearchParams })
+                    'action': path('ibexa.trash.delete', { 'trash_search': trashSearchParams })
                 }) }}
                 {% for key, form in form_trash_item_delete.trash_items %}
                     {% set trash_item = trash_items[key] %}

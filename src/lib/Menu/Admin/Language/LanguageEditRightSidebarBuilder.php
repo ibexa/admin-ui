@@ -78,7 +78,7 @@ class LanguageEditRightSidebarBuilder extends AbstractBuilder implements Transla
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'route' => 'ezplatform.language.list',
+                    'route' => 'ibexa.language.list',
                 ]
             ),
         ]);

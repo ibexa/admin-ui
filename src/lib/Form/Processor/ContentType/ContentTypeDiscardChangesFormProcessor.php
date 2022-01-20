@@ -55,7 +55,7 @@ class ContentTypeDiscardChangesFormProcessor implements EventSubscriberInterface
         $contentTypeGroup = $contentTypeDraft->getContentTypeGroups()[0];
 
         $event->setResponse(
-            new RedirectResponse($this->urlGenerator->generate('ezplatform.content_type_group.view', [
+            new RedirectResponse($this->urlGenerator->generate('ibexa.content_type_group.view', [
                 'contentTypeGroupId' => $contentTypeGroup->id,
             ]))
         );

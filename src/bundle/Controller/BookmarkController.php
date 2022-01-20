@@ -112,7 +112,7 @@ class BookmarkController extends Controller
                     );
                 }
 
-                return $this->redirectToRoute('ezplatform.bookmark.list');
+                return $this->redirectToRoute('ibexa.bookmark.list');
             });
 
             if ($result instanceof Response) {
@@ -120,7 +120,7 @@ class BookmarkController extends Controller
             }
         }
 
-        return $this->redirectToRoute('ezplatform.bookmark.list');
+        return $this->redirectToRoute('ibexa.bookmark.list');
     }
 
     /**

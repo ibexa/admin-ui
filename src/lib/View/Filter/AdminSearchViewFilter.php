@@ -140,7 +140,7 @@ class AdminSearchViewFilter implements EventSubscriberInterface
             [
                 'method' => Request::METHOD_GET,
                 'csrf_protection' => false,
-                'action' => $this->urlGenerator->generate('ezplatform.search'),
+                'action' => $this->urlGenerator->generate('ibexa.search'),
             ]
         );
 

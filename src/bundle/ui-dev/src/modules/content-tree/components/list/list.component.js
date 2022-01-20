@@ -34,7 +34,7 @@ const List = ({
         <ul className="c-list">
             {items.map((item) => {
                 const hasPreviousPath = path && path.length;
-                const locationHref = window.Routing.generate('_ez_content_view', {
+                const locationHref = window.Routing.generate('ibexa.content.view', {
                     contentId: item.contentId,
                     locationId: item.locationId,
                 });

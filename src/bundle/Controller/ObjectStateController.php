@@ -154,7 +154,7 @@ class ObjectStateController extends Controller
                         'object_state'
                     );
 
-                    return $this->redirectToRoute('ezplatform.object_state.state.view', [
+                    return $this->redirectToRoute('ibexa.object_state.state.view', [
                         'objectStateId' => $objectState->id,
                     ]);
                 }
@@ -203,7 +203,7 @@ class ObjectStateController extends Controller
             }
         }
 
-        return $this->redirectToRoute('ezplatform.object_state.group.view', [
+        return $this->redirectToRoute('ibexa.object_state.group.view', [
             'objectStateGroupId' => $objectState->getObjectStateGroup()->id,
         ]);
     }
@@ -245,7 +245,7 @@ class ObjectStateController extends Controller
             }
         }
 
-        return $this->redirectToRoute('ezplatform.object_state.group.view', [
+        return $this->redirectToRoute('ibexa.object_state.group.view', [
             'objectStateGroupId' => $objectStateGroupId,
         ]);
     }
@@ -281,7 +281,7 @@ class ObjectStateController extends Controller
                     'object_state'
                 );
 
-                return $this->redirectToRoute('ezplatform.object_state.state.view', [
+                return $this->redirectToRoute('ibexa.object_state.state.view', [
                     'objectStateId' => $objectState->id,
                 ]);
             });
@@ -346,7 +346,7 @@ class ObjectStateController extends Controller
             }
         }
 
-        return $this->redirectToRoute('_ez_content_view', [
+        return $this->redirectToRoute('ibexa.content.view', [
             'contentId' => $contentInfo->id,
             'locationId' => $contentInfo->mainLocationId,
             '_fragment' => 'ibexa-tab-location-view-details',

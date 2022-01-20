@@ -57,7 +57,7 @@ class MenuItemFactory implements FactoryInterface
         }
 
         $defaults = [
-            'route' => '_ez_content_view',
+            'route' => 'ibexa.content.view',
             'routeParameters' => [
                 'contentId' => $contentInfo->id,
                 'locationId' => $locationId,

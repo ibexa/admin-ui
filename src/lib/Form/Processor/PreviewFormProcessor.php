@@ -83,7 +83,7 @@ class PreviewFormProcessor implements EventSubscriberInterface
         try {
             $contentDraft = $this->saveDraft($data, $languageCode, []);
             $contentLocation = $this->resolveLocation($contentDraft, $referrerLocation, $data);
-            $url = $this->urlGenerator->generate('ezplatform.content.preview', [
+            $url = $this->urlGenerator->generate('ibexa.content.preview', [
                 'locationId' => null !== $contentLocation ? $contentLocation->id : null,
                 'contentId' => $contentDraft->id,
                 'versionNo' => $contentDraft->getVersionInfo()->versionNo,
@@ -154,12 +154,12 @@ class PreviewFormProcessor implements EventSubscriberInterface
     private function getContentEditUrl($data, string $languageCode): string
     {
         return $data->isNew()
-            ? $this->urlGenerator->generate('ezplatform.content.create.proxy', [
+            ? $this->urlGenerator->generate('ibexa.content.create.proxy', [
                 'parentLocationId' => $data->getLocationStructs()[0]->parentLocationId,
                 'contentTypeIdentifier' => $data->contentType->identifier,
                 'languageCode' => $languageCode,
             ])
-            : $this->urlGenerator->generate('ezplatform.content.draft.edit', [
+            : $this->urlGenerator->generate('ibexa.content.draft.edit', [
                 'contentId' => $data->contentDraft->id,
                 'versionNo' => $data->contentDraft->getVersionInfo()->versionNo,
                 'language' => $languageCode,

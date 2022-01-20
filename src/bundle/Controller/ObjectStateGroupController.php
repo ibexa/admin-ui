@@ -131,7 +131,7 @@ class ObjectStateGroupController extends Controller
                         'object_state'
                     );
 
-                    return $this->redirectToRoute('ezplatform.object_state.group.view', [
+                    return $this->redirectToRoute('ibexa.object_state.group.view', [
                         'objectStateGroupId' => $group->id,
                     ]);
                 }
@@ -179,7 +179,7 @@ class ObjectStateGroupController extends Controller
             }
         }
 
-        return $this->redirectToRoute('ezplatform.object_state.groups.list');
+        return $this->redirectToRoute('ibexa.object_state.groups.list');
     }
 
     /**
@@ -217,7 +217,7 @@ class ObjectStateGroupController extends Controller
             }
         }
 
-        return $this->redirectToRoute('ezplatform.object_state.groups.list');
+        return $this->redirectToRoute('ibexa.object_state.groups.list');
     }
 
     /**
@@ -250,7 +250,7 @@ class ObjectStateGroupController extends Controller
                     'object_state'
                 );
 
-                return $this->redirectToRoute('ezplatform.object_state.group.view', [
+                return $this->redirectToRoute('ibexa.object_state.group.view', [
                     'objectStateGroupId' => $group->id,
                 ]);
             });

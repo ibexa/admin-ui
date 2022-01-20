@@ -43,7 +43,7 @@ final class GlobalSearchTwigComponent implements Renderable
             GlobalSearchType::class,
             null,
             [
-                'action' => $this->urlGenerator->generate('ezplatform.search'),
+                'action' => $this->urlGenerator->generate('ibexa.search'),
                 'method' => Request::METHOD_GET,
                 'csrf_protection' => false,
             ]

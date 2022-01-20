@@ -5,7 +5,7 @@
 {%- block breadcrumbs -%}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
-        { value: 'url.breadcrumb.list'|trans|desc('URL management'), url: path('ezplatform.url_management') },
+        { value: 'url.breadcrumb.list'|trans|desc('URL management'), url: path('ibexa.url_management') },
         { value: 'url.breadcrumb.detail'|trans|desc('Link details') }
     ]} %}
 {%- endblock -%}
@@ -37,7 +37,7 @@
                     <td class="ibexa-table__cell">{{ 'url.label.address'|trans }}</td>
                     <td class="ibexa-table__cell ibexa-table__cell--has-action-btns">
                         <a href="{{ url.url }}" target="_blank">{{ url.url }}</a>
-                        <a href="{{ path('ezplatform.link_manager.edit', { urlId: url.id }) }}"
+                        <a href="{{ path('ibexa.link_manager.edit', { urlId: url.id }) }}"
                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2 float-right"
                            title="{{ 'url.action.edit'|trans|desc('Edit URL') }}">
                             <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
@@ -76,7 +76,7 @@
         {% set body_rows = [] %}
         {% for content in usages %}
             {% set body_row_cols = [] %}
-            {% set view_url = path('_ez_content_view', { contentId: content.id }) %}
+            {% set view_url = path('ibexa.content.view', { contentId: content.id }) %}
 
             {% set col_raw %}
                 <a href="{{ view_url }}">
@@ -134,7 +134,7 @@
         {% endif %}
 
         {{ form_start(form_edit, {
-            'action': path('ezplatform.content.edit'),
+            'action': path('ibexa.content.edit'),
             'attr': { 'class': 'ibexa-edit-content-form'}
         }) }}
             {{ form_widget(form_edit.language, {'attr': {'hidden': 'hidden', 'class': 'language-input'}}) }}

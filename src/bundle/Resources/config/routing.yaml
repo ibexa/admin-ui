@@ -2,7 +2,7 @@
 # Dashboard
 #
 
-ezplatform.dashboard:
+ibexa.dashboard:
     path: /dashboard
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\DashboardController::dashboardAction'
@@ -11,39 +11,39 @@ ezplatform.dashboard:
 # Section
 #
 
-ezplatform.section.list:
+ibexa.section.list:
     path: /section/list
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\SectionController::listAction'
 
-ezplatform.section.create:
+ibexa.section.create:
     path: /section/create
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\SectionController::createAction'
 
-ezplatform.section.view:
+ibexa.section.view:
     path: /section/view/{sectionId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\SectionController::viewAction'
 
-ezplatform.section.update:
+ibexa.section.update:
     path: /section/update/{sectionId}
     defaults:
         sectionId: null
         _controller: 'Ibexa\Bundle\AdminUi\Controller\SectionController::updateAction'
 
-ezplatform.section.delete:
+ibexa.section.delete:
     path: /section/delete/{sectionId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\SectionController::deleteAction'
 
-ezplatform.section.bulk_delete:
+ibexa.section.bulk_delete:
     path: /section/bulk-delete
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\SectionController::bulkDeleteAction'
 
-ezplatform.section.assign_content:
+ibexa.section.assign_content:
     path: /section/assign-content/{sectionId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\SectionController::assignContentAction'
@@ -52,33 +52,33 @@ ezplatform.section.assign_content:
 # Language
 #
 
-ezplatform.language.list:
+ibexa.language.list:
     path: /language/list
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\LanguageController::listAction'
 
-ezplatform.language.view:
+ibexa.language.view:
     path: /language/view/{languageId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\LanguageController::viewAction'
 
-ezplatform.language.create:
+ibexa.language.create:
     path: /language/create
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\LanguageController::createAction'
 
-ezplatform.language.edit:
+ibexa.language.edit:
     path: /language/edit/{languageId}
     defaults:
         languageId: null
         _controller: 'Ibexa\Bundle\AdminUi\Controller\LanguageController::editAction'
 
-ezplatform.language.delete:
+ibexa.language.delete:
     path: /language/delete/{languageId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\LanguageController::deleteAction'
 
-ezplatform.language.bulk_delete:
+ibexa.language.bulk_delete:
     path: /language/bulk-delete
     methods: ['POST']
     defaults:
@@ -88,13 +88,13 @@ ezplatform.language.bulk_delete:
 # Role
 #
 
-ezplatform.role.list:
+ibexa.role.list:
     path: /role/list
     methods: ['GET']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\RoleController::listAction'
 
-ezplatform.role.view:
+ibexa.role.view:
     path: /role/{roleId}/{policyPage}/{assignmentPage}
     methods: ['GET']
     defaults:
@@ -106,13 +106,13 @@ ezplatform.role.view:
         policyPage: \d+
         assignmentPage: \d+
 
-ezplatform.role.create:
+ibexa.role.create:
     path: /role/create
     methods: ['GET', 'POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\RoleController::createAction'
 
-ezplatform.role.copy:
+ibexa.role.copy:
     path: /role/{roleId}/copy
     methods: ['GET', 'POST']
     defaults:
@@ -120,7 +120,7 @@ ezplatform.role.copy:
     requirements:
         roleId: \d+
 
-ezplatform.role.update:
+ibexa.role.update:
     path: /role/{roleId}/update
     methods: ['GET', 'POST']
     defaults:
@@ -128,7 +128,7 @@ ezplatform.role.update:
     requirements:
         roleId: \d+
 
-ezplatform.role.delete:
+ibexa.role.delete:
     path: /role/{roleId}/delete
     methods: ['POST']
     defaults:
@@ -136,7 +136,7 @@ ezplatform.role.delete:
     requirements:
         roleId: \d+
 
-ezplatform.role.bulk_delete:
+ibexa.role.bulk_delete:
     path: /role/bulk-delete
     methods: ['POST']
     defaults:
@@ -146,7 +146,7 @@ ezplatform.role.bulk_delete:
 # Policy
 #
 
-ezplatform.policy.list:
+ibexa.policy.list:
     path: /role/{roleId}/policy/list
     methods: ['GET']
     defaults:
@@ -154,7 +154,7 @@ ezplatform.policy.list:
     requirements:
         roleId: \d+
 
-ezplatform.policy.create:
+ibexa.policy.create:
     path: /role/{roleId}/policy/create
     methods: ['GET', 'POST']
     defaults:
@@ -162,7 +162,7 @@ ezplatform.policy.create:
     requirements:
         roleId: \d+
 
-ezplatform.policy.update:
+ibexa.policy.update:
     path: /role/{roleId}/policy/{policyId}/update
     methods: ['GET', 'POST']
     defaults:
@@ -171,7 +171,7 @@ ezplatform.policy.update:
         roleId: \d+
         policyId: \d+
 
-ezplatform.policy.create_with_limitation:
+ibexa.policy.create_with_limitation:
     path: /role/{roleId}/policy/create/{policyModule}/{policyFunction}
     methods: ['GET', 'POST']
     defaults:
@@ -181,7 +181,7 @@ ezplatform.policy.create_with_limitation:
         policyModule: \w+
         policyFunction: \w+
 
-ezplatform.policy.delete:
+ibexa.policy.delete:
     path: /role/{roleId}/policy/{policyId}
     methods: ['POST']
     defaults:
@@ -190,7 +190,7 @@ ezplatform.policy.delete:
         roleId: \d+
         policyId: \d+
 
-ezplatform.policy.bulk_delete:
+ibexa.policy.bulk_delete:
     path: /role/{roleId}/policy/bulk-delete
     methods: ['POST']
     defaults:
@@ -202,13 +202,13 @@ ezplatform.policy.bulk_delete:
 # Role Assignment
 #
 
-ezplatform.role_assignment.list:
+ibexa.role_assignment.list:
     path: /role/{roleId}/assignment
     methods: ['GET']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\RoleAssignmentController::listAction'
 
-ezplatform.role_assignment.create:
+ibexa.role_assignment.create:
     path: /role/{roleId}/assignment/create
     methods: ['GET', 'POST']
     defaults:
@@ -216,13 +216,13 @@ ezplatform.role_assignment.create:
     requirements:
         roleId: \d+
 
-ezplatform.role_assignment.delete:
+ibexa.role_assignment.delete:
     path: /role/{roleId}/assignment/{assignmentId}/delete
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\RoleAssignmentController::deleteAction'
 
-ezplatform.role_assignment.bulk_delete:
+ibexa.role_assignment.bulk_delete:
     path: /role/{roleId}/assignment/bulk-delete
     methods: ['POST']
     defaults:
@@ -234,13 +234,13 @@ ezplatform.role_assignment.bulk_delete:
 # Content Type Group
 #
 
-ezplatform.content_type_group.list:
+ibexa.content_type_group.list:
     path: /contenttypegroup/list
     methods: ['GET']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentTypeGroupController::listAction'
 
-ezplatform.content_type_group.view:
+ibexa.content_type_group.view:
     path: /contenttypegroup/{contentTypeGroupId}/{page}
     methods: ['GET']
     defaults:
@@ -250,13 +250,13 @@ ezplatform.content_type_group.view:
         contentTypeGroupId: \d+
         page: \d+
 
-ezplatform.content_type_group.create:
+ibexa.content_type_group.create:
     path: /contenttypegroup/create
     methods: ['GET', 'POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentTypeGroupController::createAction'
 
-ezplatform.content_type_group.update:
+ibexa.content_type_group.update:
     path: /contenttypegroup/{contentTypeGroupId}/update
     methods: ['GET', 'POST']
     defaults:
@@ -264,7 +264,7 @@ ezplatform.content_type_group.update:
     requirements:
         contentTypeGroupId: \d+
 
-ezplatform.content_type_group.delete:
+ibexa.content_type_group.delete:
     path: /contenttypegroup/{contentTypeGroupId}/delete
     methods: ['GET', 'POST']
     defaults:
@@ -272,7 +272,7 @@ ezplatform.content_type_group.delete:
     requirements:
         contentTypeGroupId: \d+
 
-ezplatform.content_type_group.bulk_delete:
+ibexa.content_type_group.bulk_delete:
     path: /contenttypegroup/bulk-delete
     methods: ['POST']
     defaults:
@@ -282,23 +282,23 @@ ezplatform.content_type_group.bulk_delete:
 # Trash
 #
 
-ezplatform.trash.list:
+ibexa.trash.list:
     path: /trash/list
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\TrashController::listAction'
 
-ezplatform.trash.empty:
+ibexa.trash.empty:
     path: /trash/empty
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\TrashController::emptyAction'
 
-ezplatform.trash.restore:
+ibexa.trash.restore:
     path: /trash/restore
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\TrashController::restoreAction'
 
-ezplatform.trash.delete:
+ibexa.trash.delete:
     path: /trash/delete
     methods: ['POST']
     defaults:
@@ -308,7 +308,7 @@ ezplatform.trash.delete:
 # Content Type
 #
 
-ezplatform.content_type.list:
+ibexa.content_type.list:
     path: /contenttypegroup/{contentTypeGroupId}/contenttype/list
     methods: ['GET']
     defaults:
@@ -316,7 +316,7 @@ ezplatform.content_type.list:
     requirements:
         contentTypeGroupId: \d+
 
-ezplatform.content_type.add:
+ibexa.content_type.add:
     path: /contenttypegroup/{contentTypeGroupId}/contenttype/add
     methods: ['GET', 'POST']
     defaults:
@@ -324,7 +324,7 @@ ezplatform.content_type.add:
     requirements:
         contentTypeGroupId: \d+
 
-ezplatform.content_type.edit:
+ibexa.content_type.edit:
     path: /contenttypegroup/{contentTypeGroupId}/contenttype/{contentTypeId}/edit
     methods: ['GET', 'POST']
     defaults:
@@ -332,7 +332,7 @@ ezplatform.content_type.edit:
     requirements:
         contentTypeGroupId: \d+
 
-ezplatform.content_type.copy:
+ibexa.content_type.copy:
     path: /contenttypegroup/{contentTypeGroupId}/contenttype/{contentTypeId}/copy
     methods: ['GET', 'POST']
     options:
@@ -342,7 +342,7 @@ ezplatform.content_type.copy:
     requirements:
         contentTypeGroupId: \d+
 
-ezplatform.content_type.update:
+ibexa.content_type.update:
     path: /contenttypegroup/{contentTypeGroupId}/contenttype/{contentTypeId}/update/{toLanguageCode}/{fromLanguageCode}
     methods: ['GET', 'POST']
     defaults:
@@ -352,7 +352,7 @@ ezplatform.content_type.update:
     requirements:
         contentTypeGroupId: \d+
 
-ezplatform.content_type.delete:
+ibexa.content_type.delete:
     path: /contenttypegroup/{contentTypeGroupId}/contenttype/{contentTypeId}
     methods: ['DELETE']
     defaults:
@@ -360,7 +360,7 @@ ezplatform.content_type.delete:
     requirements:
         contentTypeGroupId: \d+
 
-ezplatform.content_type.bulk_delete:
+ibexa.content_type.bulk_delete:
     path: /content_type/{contentTypeGroupId}/bulk-delete
     methods: ['POST']
     defaults:
@@ -368,7 +368,7 @@ ezplatform.content_type.bulk_delete:
     requirements:
         contentTypeGroupId: \d+
 
-ezplatform.content_type.view:
+ibexa.content_type.view:
     path: /contenttypegroup/{contentTypeGroupId}/contenttype/{contentTypeId}/{languageCode}
     methods: ['GET']
     defaults:
@@ -377,13 +377,13 @@ ezplatform.content_type.view:
     requirements:
         contentTypeGroupId: \d+
 
-ezplatform.content_type.add_translation:
+ibexa.content_type.add_translation:
     path: /content-type/translation/add
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentTypeController::addTranslationAction'
 
-ezplatform.content_type.remove_translation:
+ibexa.content_type.remove_translation:
     path: /content-type/translation/remove
     methods: ['POST']
     defaults:
@@ -405,31 +405,31 @@ ibexa.content_type.field_definition_form:
 # Location View
 #
 
-ezplatform.location.move:
+ibexa.location.move:
     path: /location/move
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\LocationController::moveAction'
 
-ezplatform.location.copy:
+ibexa.location.copy:
     path: /location/copy
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\LocationController::copyAction'
 
-ezplatform.location.trash:
+ibexa.location.trash:
     path: /location/trash
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\LocationController::trashAction'
 
-ezplatform.location.update:
+ibexa.location.update:
     path: /location/update
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\LocationController::updateAction'
 
-ezplatform.location.copy_subtree:
+ibexa.location.copy_subtree:
     path: /location/copy-subtree
     methods: ['POST']
     defaults:
@@ -437,7 +437,7 @@ ezplatform.location.copy_subtree:
 
 # RelationView
 
-ezplatform.relation:
+ibexa.relation:
     path: /relation/{contentId}
     methods: ['GET', 'POST']
     defaults:
@@ -445,25 +445,25 @@ ezplatform.relation:
 
 # LocationView / Translation tab
 
-ezplatform.translation.add:
+ibexa.translation.add:
     path: /translation/add
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\TranslationController::addAction'
 
-ezplatform.translation.remove:
+ibexa.translation.remove:
     path: /translation/remove
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\TranslationController::removeAction'
 
-ezplatform.content.update_main_translation:
+ibexa.content.update_main_translation:
     path: /content/update-main-translation
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentController::updateMainTranslationAction'
 
-ezplatform.content.update_visibility:
+ibexa.content.update_visibility:
     path: /content/update-visibility
     methods: ['POST']
     defaults:
@@ -471,19 +471,19 @@ ezplatform.content.update_visibility:
 
 # LocationView / Versions tab
 
-ezplatform.version.remove:
+ibexa.version.remove:
     path: /version/remove
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\VersionController::removeAction'
 
-ezplatform.version.has_no_conflict:
+ibexa.version.has_no_conflict:
     path: /version/has-no-conflict/{contentId}/{versionNo}/{languageCode}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\Version\VersionConflictController::versionHasNoConflictAction'
         languageCode: ~
 
-ezplatform.version_draft.has_no_conflict:
+ibexa.version_draft.has_no_conflict:
     path: /version-draft/has-no-conflict/{contentId}/{languageCode}/{locationId}
     options:
         expose: true
@@ -493,37 +493,37 @@ ezplatform.version_draft.has_no_conflict:
 
 # LocationView / Locations tab
 
-ezplatform.location.add:
+ibexa.location.add:
     path: /location/add
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\LocationController::addAction'
 
-ezplatform.location.remove:
+ibexa.location.remove:
     path: /location/remove
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\LocationController::removeAction'
 
-ezplatform.location.swap:
+ibexa.location.swap:
     path: /location/swap
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\LocationController::swapAction'
 
-ezplatform.location.update_visibility:
+ibexa.location.update_visibility:
     path: /location/update-visibility
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\LocationController::updateVisibilityAction'
 
-ezplatform.location.assign_section:
+ibexa.location.assign_section:
     path: /location/assign-section
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\LocationController::assignSectionAction'
 
-ezplatform.content.update_main_location:
+ibexa.content.update_main_location:
     path: /content/update-main-location
     methods: ['POST']
     defaults:
@@ -533,26 +533,26 @@ ezplatform.content.update_main_location:
 # Content Edit
 #
 
-ezplatform.content.edit:
+ibexa.content.edit:
     path: /content/edit
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentController::editAction'
 
-ezplatform.content.create:
+ibexa.content.create:
     path: /content/create
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentController::createAction'
 
-ezplatform.content.create.proxy:
+ibexa.content.create.proxy:
     path: /content/create/proxy/{contentTypeIdentifier}/{languageCode}/{parentLocationId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentController::proxyCreateAction'
     options:
         expose: true
 
-ezplatform.content.preview:
+ibexa.content.preview:
     path: /content/{contentId}/preview/{versionNo}/{languageCode}/{locationId}
     methods: ['GET']
     defaults:
@@ -561,7 +561,7 @@ ezplatform.content.preview:
         locationId: ~
 
 # IBX-1079: Translate routes with proxy suffix have to be prioritized to avoid issues with URL generations
-ezplatform.content.translate.proxy:
+ibexa.content.translate.proxy:
     path: /content/{contentId}/translate/proxy/{toLanguageCode}/{fromLanguageCode}
     methods: ['GET', 'POST']
     defaults:
@@ -575,7 +575,7 @@ ibexa.content.translate_with_location.proxy:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentEditController::proxyTranslateAction'
         fromLanguageCode: ~
 
-ezplatform.content.translate:
+ibexa.content.translate:
     path: /content/{contentId}/translate/{toLanguageCode}/{fromLanguageCode}
     methods: ['GET', 'POST']
     defaults:
@@ -589,7 +589,7 @@ ibexa.content.translate_with_location:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentEditController::translateAction'
         fromLanguageCode: ~
 
-ezplatform.content.check_edit_permission:
+ibexa.content.check_edit_permission:
     path: /content/{contentId}/check-edit-permission/{languageCode}
     options:
         expose: true
@@ -597,7 +597,7 @@ ezplatform.content.check_edit_permission:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentController::checkEditPermissionAction'
         languageCode: ~
 
-ezplatform.content.create_no_draft:
+ibexa.content.create_no_draft:
     path: /content/create/nodraft/{contentTypeIdentifier}/{language}/{parentLocationId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentEditController::createWithoutDraftAction'
@@ -605,7 +605,7 @@ ezplatform.content.create_no_draft:
         expose: true
     # @todo rename language to languageCode in 3.0
 
-ezplatform.content.draft.edit:
+ibexa.content.draft.edit:
     path: /content/edit/draft/{contentId}/{versionNo}/{language}/{locationId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentEditController::editVersionDraftAction'
@@ -619,7 +619,7 @@ ibexa.content.draft.edit.cancel:
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentEditController::cancelEditVersionDraftAction'
 
-ezplatform.content.draft.create:
+ibexa.content.draft.create:
     path: /content/create/draft/{contentId}/{fromVersionNo}/{fromLanguage}/{toLanguage}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentEditController::createContentDraftAction'
@@ -633,14 +633,14 @@ ezplatform.content.draft.create:
 #
 # Link manager
 #
-ezplatform.link_manager.edit:
+ibexa.link_manager.edit:
     path: /linkmanagement/edit/{urlId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\LinkManagerController::editAction'
     requirements:
         urlId: \d+
 
-ezplatform.link_manager.view:
+ibexa.link_manager.view:
     path: /linkmanagement/view/{urlId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\LinkManagerController::viewAction'
@@ -651,18 +651,18 @@ ezplatform.link_manager.view:
 # User
 #
 
-ezplatform.user.delete:
+ibexa.user.delete:
     path: /user/delete
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\User\UserDeleteController::userDeleteAction'
 
-ezplatform.user.create:
+ibexa.user.create:
     path: /user/create/{contentTypeIdentifier}/{language}/{parentLocationId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\User\UserController::createAction'
 
-ezplatform.user.update:
+ibexa.user.update:
     path: /user/update/{contentId}/{versionNo}/{language}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\User\UserController::editAction'
@@ -673,13 +673,13 @@ ezplatform.user.update:
 # Custom URL alias
 #
 
-ezplatform.custom_url.add:
+ibexa.custom_url.add:
     path: /url-alias/add
     methods: ['POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\UrlAliasController::addAction'
 
-ezplatform.custom_url.remove:
+ibexa.custom_url.remove:
     path: /url-alias/remove
     methods: ['POST']
     defaults:
@@ -688,13 +688,13 @@ ezplatform.custom_url.remove:
 #
 # URL wildcards
 #
-ezplatform.url_wildcard.add:
+ibexa.url_wildcard.add:
     path: /url-wildcard/add
     methods: ['GET', 'POST']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\URLWildcardController::addAction'
 
-ezplatform.url_wildcard.update:
+ibexa.url_wildcard.update:
     path: /url-wildcard/update/{urlWildcardId}
     methods: ['GET', 'POST']
     defaults:
@@ -702,7 +702,7 @@ ezplatform.url_wildcard.update:
     requirements:
         URLWildcardId: \d+
 
-ezplatform.url_wildcard.bulk_delete:
+ibexa.url_wildcard.bulk_delete:
     path: /url-wildcard/bulk-delete
     methods: ['GET', 'POST']
     defaults:
@@ -711,7 +711,7 @@ ezplatform.url_wildcard.bulk_delete:
 #
 # URL Management
 #
-ezplatform.url_management:
+ibexa.url_management:
     path: /url-management
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\URLManagementController::urlManagementAction'
@@ -720,7 +720,7 @@ ezplatform.url_management:
 # Content on the Fly
 #
 
-ezplatform.content_on_the_fly.create:
+ibexa.content.on_the_fly.create:
     path: /content/create/on-the-fly/{contentTypeIdentifier}/{languageCode}/{locationId}
     methods: ['GET', 'POST']
     defaults:
@@ -728,7 +728,7 @@ ezplatform.content_on_the_fly.create:
     options:
         expose: true
 
-ezplatform.content_on_the_fly.edit:
+ibexa.content.on_the_fly.edit:
     path: /content/edit/on-the-fly/{contentId}/{versionNo}/{languageCode}/{locationId}
     methods: ['GET', 'POST']
     defaults:
@@ -737,7 +737,7 @@ ezplatform.content_on_the_fly.edit:
     options:
         expose: true
 
-ezplatform.content_on_the_fly.has_access:
+ibexa.content.on_the_fly.has_access:
     path: /content/create/on-the-fly/{contentTypeIdentifier}/{languageCode}/{locationId}/has-access
     methods: ['GET']
     defaults:
@@ -749,7 +749,7 @@ ezplatform.content_on_the_fly.has_access:
 # User on the Fly
 #
 
-ezplatform.user_on_the_fly.create:
+ibexa.user.on_the_fly.create:
     path: /user/create/on-the-fly/{contentTypeIdentifier}/{languageCode}/{locationId}
     methods: ['GET', 'POST']
     defaults:
@@ -757,7 +757,7 @@ ezplatform.user_on_the_fly.create:
     options:
         expose: true
 
-ezplatform.user_on_the_fly.edit:
+ibexa.user.on_the_fly.edit:
     path: /user/edit/on-the-fly/{contentId}/{versionNo}/{languageCode}/{locationId}
     methods: ['GET', 'POST']
     defaults:
@@ -765,7 +765,7 @@ ezplatform.user_on_the_fly.edit:
     options:
         expose: true
 
-ezplatform.user_on_the_fly.has_access:
+ibexa.user.on_the_fly.has_access:
     path: /user/create/on-the-fly/{contentTypeIdentifier}/{languageCode}/{locationId}/has-access
     methods: ['GET']
     defaults:
@@ -777,62 +777,62 @@ ezplatform.user_on_the_fly.has_access:
 # Object States
 #
 
-ezplatform.object_state.groups.list:
+ibexa.object_state.groups.list:
     path: /state/groups
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ObjectStateGroupController::listAction'
 
-ezplatform.object_state.group.add:
+ibexa.object_state.group.add:
     path: /state/group/create
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ObjectStateGroupController::addAction'
 
-ezplatform.object_state.group.update:
+ibexa.object_state.group.update:
     path: /state/group/update/{objectStateGroupId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ObjectStateGroupController::updateAction'
 
-ezplatform.object_state.group.delete:
+ibexa.object_state.group.delete:
     path: /state/group/delete/{objectStateGroupId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ObjectStateGroupController::deleteAction'
 
-ezplatform.object_state.group.bulk_delete:
+ibexa.object_state.group.bulk_delete:
     path: /state/group/bulk-delete
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ObjectStateGroupController::bulkDeleteAction'
 
-ezplatform.object_state.group.view:
+ibexa.object_state.group.view:
     path: /state/group/{objectStateGroupId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ObjectStateGroupController::viewAction'
 
-ezplatform.object_state.state.add:
+ibexa.object_state.state.add:
     path: /state/state/create/{objectStateGroupId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ObjectStateController::addAction'
 
-ezplatform.object_state.state.view:
+ibexa.object_state.state.view:
     path: /state/state/{objectStateId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ObjectStateController::viewAction'
 
-ezplatform.object_state.state.update:
+ibexa.object_state.state.update:
     path: /state/state/update/{objectStateId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ObjectStateController::updateAction'
 
-ezplatform.object_state.state.delete:
+ibexa.object_state.state.delete:
     path: /state/state/delete/{objectStateId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ObjectStateController::deleteAction'
 
-ezplatform.object_state.state.bulk_delete:
+ibexa.object_state.state.bulk_delete:
     path: /state/state/bulk-delete/{objectStateGroupId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ObjectStateController::bulkDeleteAction'
 
-ezplatform.object_state.contentstate.update:
+ibexa.object_state.content_state.update:
     path: /state/contentstate/update/{contentInfoId}/group/{objectStateGroupId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ObjectStateController::updateContentStateAction'
@@ -841,35 +841,35 @@ ezplatform.object_state.contentstate.update:
 # Universal Discovery Widget
 #
 
-ezplatform.udw.location.data:
+ibexa.udw.location.data:
     path: /module/universal-discovery/location/{locationId}
     options:
         expose: true
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\UniversalDiscoveryController::locationAction'
 
-ezplatform.udw.locations.data:
+ibexa.udw.locations.data:
     path: /module/universal-discovery/locations
     options:
         expose: true
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\UniversalDiscoveryController::locationsAction'
 
-ezplatform.udw.location_gridview.data:
+ibexa.udw.location.gridview.data:
     path: /module/universal-discovery/location/{locationId}/gridview
     options:
         expose: true
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\UniversalDiscoveryController::locationGridViewAction'
 
-ezplatform.udw.accordion.data:
+ibexa.udw.accordion.data:
     path: /module/universal-discovery/accordion/{locationId}
     options:
         expose: true
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\UniversalDiscoveryController::accordionAction'
 
-ezplatform.udw.accordion_gridview.data:
+ibexa.udw.accordion.gridview.data:
     path: /module/universal-discovery/accordion/{locationId}/gridview
     options:
         expose: true
@@ -880,13 +880,13 @@ ezplatform.udw.accordion_gridview.data:
 # Bookmark manager
 #
 
-ezplatform.bookmark.list:
+ibexa.bookmark.list:
     path: /bookmark/list
     methods: ['GET']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\BookmarkController::listAction'
 
-ezplatform.bookmark.remove:
+ibexa.bookmark.remove:
     path: /bookmark/remove
     methods: ['POST']
     defaults:
@@ -896,13 +896,13 @@ ezplatform.bookmark.remove:
 # Drafts
 #
 
-ezplatform.content_draft.list:
+ibexa.content_draft.list:
     path: /contentdraft/list
     methods: ['GET']
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentDraftController::listAction'
 
-ezplatform.content_draft.remove:
+ibexa.content_draft.remove:
     path: /contentdraft/remove
     methods: ['POST']
     defaults:
@@ -912,7 +912,7 @@ ezplatform.content_draft.remove:
 # Notifications
 #
 
-ezplatform.notifications.get:
+ibexa.notifications.get:
     path: /notifications/{offset}/{limit}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::getNotificationsAction'
@@ -923,7 +923,7 @@ ezplatform.notifications.get:
         offset: '\d+'
         limit: '\d+'
 
-ezplatform.notifications.render.page:
+ibexa.notifications.render.page:
     path: /notifications/render/page/{page}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::renderNotificationsPageAction'
@@ -932,13 +932,13 @@ ezplatform.notifications.render.page:
     requirements:
         page: '\d+'
 
-ezplatform.notifications.count:
+ibexa.notifications.count:
     path: /notifications/count
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::countNotificationsAction'
     methods: [GET]
 
-ezplatform.notifications.mark_as_read:
+ibexa.notifications.mark_as_read:
     path: /notification/read/{notificationId}
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::markNotificationAsReadAction'
@@ -946,7 +946,7 @@ ezplatform.notifications.mark_as_read:
     requirements:
         notificationId: '\d+'
 
-ezplatform.asset.upload_image:
+ibexa.asset.upload_image:
     path: /asset/image
     options:
         expose: true

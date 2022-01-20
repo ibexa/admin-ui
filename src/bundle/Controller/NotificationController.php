@@ -97,7 +97,7 @@ class NotificationController extends Controller
         }
 
         $routeGenerator = function ($page) {
-            return $this->generateUrl('ezplatform.notifications.render.page', [
+            return $this->generateUrl('ibexa.notifications.render.page', [
                 'page' => $page,
             ]);
         };

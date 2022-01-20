@@ -34,7 +34,7 @@
         {% if not loop.last %}
             {% set items = items|merge([{
                 'value': ibexa_content_name(path_location.contentInfo),
-                'url': path('_ez_content_view', {
+                'url': path('ibexa.content.view', {
                     'contentId': path_location.contentId,
                     'locationId': path_location.id
                 })
@@ -69,10 +69,10 @@
     {% if form_user_delete is defined %}
         {% include '@ibexadesign/content/modal/user_delete.html.twig' with {'form': form_user_delete} only %}
     {% endif %}
-    {{ form(form_location_copy, {'action': path('ezplatform.location.copy')}) }}
-    {{ form(form_location_move, {'action': path('ezplatform.location.move')}) }}
-    {{ form(form_location_copy_subtree, {'action': path('ezplatform.location.copy_subtree')}) }}
-    {{ form(form_content_visibility_update, {'action': path('ezplatform.content.update_visibility')}) }}
+    {{ form(form_location_copy, {'action': path('ibexa.location.copy')}) }}
+    {{ form(form_location_move, {'action': path('ibexa.location.move')}) }}
+    {{ form(form_location_copy_subtree, {'action': path('ibexa.location.copy_subtree')}) }}
+    {{ form(form_content_visibility_update, {'action': path('ibexa.content.update_visibility')}) }}
 {% endblock %}
 
 {% block header %}
@@ -155,7 +155,7 @@
                     }) }}
 
                     {% if content_type.isContainer %}
-                    {{ form_start(form_subitems_content_edit, { 'action': path('ezplatform.content.edit'), 'attr': { 'hidden': 'hidden' }}) }}
+                    {{ form_start(form_subitems_content_edit, { 'action': path('ibexa.content.edit'), 'attr': { 'hidden': 'hidden' }}) }}
                     {{ form_end(form_subitems_content_edit) }}
                     {% set udwConfigSingle = ibexa_udw_config('single_container', {}) %}
                     <div class="ibexa-sil"

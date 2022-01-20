@@ -21,7 +21,7 @@
     {% set body_rows = [] %}
     {% for url_wildcard in url_wildcards %}
         {% set body_row_cols = [] %}
-        {% set edit_url = path('ezplatform.url_wildcard.update', { urlWildcardId: url_wildcard.id }) %}
+        {% set edit_url = path('ibexa.url_wildcard.update', { urlWildcardId: url_wildcard.id }) %}
 
         {% set col_raw %}
             {{ form_widget(form.URLWildcardsChoices.children[url_wildcard.id], {
@@ -135,7 +135,7 @@
                 'data_click': '#url_wildcard_delete_delete',
             }%}
             {{ form_start(form, {
-                'action': path('ezplatform.url_wildcard.bulk_delete'),
+                'action': path('ibexa.url_wildcard.bulk_delete'),
                 'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-wildcards' }
             }) }}
         {% endblock %}

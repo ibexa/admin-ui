@@ -59,7 +59,7 @@ class URLEditRightSidebarBuilder extends AbstractBuilder implements TranslationC
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'route' => 'ezplatform.url_management',
+                    'route' => 'ibexa.url_management',
                 ]
             ),
         ]);

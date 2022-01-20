@@ -18,7 +18,7 @@
     }]) %}
 
     {% set col_raw %}
-        <a href="{{ url('_ez_content_view', { 'contentId': row.contentId, 'locationId': row.resolvedLocation.id }) }}">
+        <a href="{{ url('ibexa.content.view', { 'contentId': row.contentId, 'locationId': row.resolvedLocation.id }) }}">
             {{ row.name }}
         </a>
     {% endset %}

@@ -62,7 +62,7 @@ class PolicyCreateRightSidebarBuilder extends AbstractBuilder implements Transla
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'route' => 'ezplatform.role.view',
+                    'route' => 'ibexa.role.view',
                     'routeParameters' => [
                         'roleId' => $role->id,
                     ],

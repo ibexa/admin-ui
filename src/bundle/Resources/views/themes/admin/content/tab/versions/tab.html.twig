@@ -13,7 +13,7 @@
         {% if show_drafts_table %}
             <section>
                 {{ form_start(form_version_remove_draft, {
-                    'action': path('ezplatform.version.remove'),
+                    'action': path('ibexa.version.remove'),
                     'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-translations-' ~ form_version_remove_draft.remove.vars.id }
                 }) }}
                 {% block table_drafts %}
@@ -65,7 +65,7 @@
         {% if archived_versions is not empty %}
             <section>
                 {{ form_start(form_version_remove_archived, {
-                    'action': path('ezplatform.version.remove'),
+                    'action': path('ibexa.version.remove'),
                     'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-translations-' ~ form_version_remove_archived.remove.vars.id }
                 }) }}
                 {% block table_archived %}
@@ -86,7 +86,7 @@
         {% endif %}
 
         {{ form_start(form_archived_version_restore, {
-            'action': path('ezplatform.content.edit'),
+            'action': path('ibexa.content.edit'),
             'attr': { 'class': 'ibexa-edit-content-form'}
         }) }}
         {{ form_widget(form_archived_version_restore.language, {'attr': {'hidden': 'hidden'}}) }}

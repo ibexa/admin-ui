@@ -89,7 +89,7 @@ class UserDeleteController extends Controller
                     'content'
                 );
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $parentLocation->contentId,
                     'locationId' => $location->parentLocationId,
                 ]));
@@ -100,7 +100,7 @@ class UserDeleteController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.dashboard'));
+        return $this->redirect($this->generateUrl('ibexa.dashboard'));
     }
 }
 

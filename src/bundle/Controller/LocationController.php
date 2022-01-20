@@ -158,7 +158,7 @@ class LocationController extends Controller
                     'location'
                 );
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $location->contentId,
                     'locationId' => $location->id,
                 ]));
@@ -169,7 +169,7 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('_ez_content_view', [
+        return $this->redirect($this->generateUrl('ibexa.content.view', [
             'contentId' => $location->contentId,
             'locationId' => $location->id,
         ]));
@@ -216,7 +216,7 @@ class LocationController extends Controller
                     'location'
                 );
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $newLocation->contentId,
                     'locationId' => $newLocation->id,
                 ]));
@@ -227,7 +227,7 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('_ez_content_view', [
+        return $this->redirect($this->generateUrl('ibexa.content.view', [
             'contentId' => $location->contentId,
             'locationId' => $location->id,
         ]));
@@ -315,7 +315,7 @@ class LocationController extends Controller
                     'location'
                 );
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $currentLocation->contentId,
                     'locationId' => $newLocation->id,
                     '_fragment' => LocationsTab::URI_FRAGMENT,
@@ -327,7 +327,7 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('_ez_content_view', [
+        return $this->redirect($this->generateUrl('ibexa.content.view', [
             'contentId' => $location->contentId,
             'locationId' => $location->id,
             '_fragment' => LocationsTab::URI_FRAGMENT,
@@ -357,7 +357,7 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.trash.list'));
+        return $this->redirect($this->generateUrl('ibexa.trash.list'));
     }
 
     private function trashRelatedAsset(ContentInfo $contentInfo): void
@@ -431,7 +431,7 @@ class LocationController extends Controller
             )
         );
 
-        return new RedirectResponse($this->generateUrl('_ez_content_view', [
+        return new RedirectResponse($this->generateUrl('ibexa.content.view', [
             'contentId' => $parentLocation->contentId,
             'locationId' => $parentLocation->id,
         ]));
@@ -470,7 +470,7 @@ class LocationController extends Controller
                     );
                 }
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $contentInfo->id,
                     'locationId' => $contentInfo->mainLocationId,
                     '_fragment' => LocationsTab::URI_FRAGMENT,
@@ -482,7 +482,7 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('_ez_content_view', [
+        return $this->redirect($this->generateUrl('ibexa.content.view', [
             'contentId' => $contentInfo->id,
             'locationId' => $contentInfo->mainLocationId,
             '_fragment' => LocationsTab::URI_FRAGMENT,
@@ -521,7 +521,7 @@ class LocationController extends Controller
                     );
                 }
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $contentInfo->id,
                     'locationId' => $contentInfo->mainLocationId,
                     '_fragment' => LocationsTab::URI_FRAGMENT,
@@ -533,7 +533,7 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('_ez_content_view', [
+        return $this->redirect($this->generateUrl('ibexa.content.view', [
             'contentId' => $contentInfo->id,
             'locationId' => $contentInfo->mainLocationId,
             '_fragment' => LocationsTab::URI_FRAGMENT,
@@ -622,7 +622,7 @@ class LocationController extends Controller
                     'location'
                 );
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $location->contentId,
                     'locationId' => $location->getContentInfo()->mainLocationId,
                     '_fragment' => DetailsTab::URI_FRAGMENT,
@@ -636,7 +636,7 @@ class LocationController extends Controller
 
         $contentInfo = $location->getContentInfo();
 
-        return $this->redirect($this->generateUrl('_ez_content_view', [
+        return $this->redirect($this->generateUrl('ibexa.content.view', [
             'contentId' => $contentInfo->id,
             'locationId' => $contentInfo->mainLocationId,
             '_fragment' => DetailsTab::URI_FRAGMENT,
@@ -681,7 +681,7 @@ class LocationController extends Controller
             return $this->redirectToLocation($location, DetailsTab::URI_FRAGMENT);
         }
 
-        return $this->redirectToRoute('ezplatform.dashboard');
+        return $this->redirectToRoute('ibexa.dashboard');
     }
 }
 

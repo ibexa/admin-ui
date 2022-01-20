@@ -127,7 +127,7 @@ class ContentTypeGroupController extends Controller
                     'content_type'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.content_type_group.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content_type_group.view', [
                     'contentTypeGroupId' => $group->id,
                 ]));
             });
@@ -171,7 +171,7 @@ class ContentTypeGroupController extends Controller
                     'content_type'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.content_type_group.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content_type_group.view', [
                     'contentTypeGroupId' => $group->id,
                 ]));
             });
@@ -219,7 +219,7 @@ class ContentTypeGroupController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.content_type_group.list'));
+        return $this->redirect($this->generateUrl('ibexa.content_type_group.list'));
     }
 
     /**
@@ -257,7 +257,7 @@ class ContentTypeGroupController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.content_type_group.list'));
+        return $this->redirect($this->generateUrl('ibexa.content_type_group.list'));
     }
 
     /**

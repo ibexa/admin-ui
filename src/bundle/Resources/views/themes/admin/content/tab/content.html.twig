@@ -7,7 +7,7 @@
         <form class="form-inline ibexa-raw-content-title__language-form">
             <label class="ibexa-label">{{ 'tab.view.preview'|trans()|desc('Preview') }}</label>
             {% set choices = languages|map((language) => {
-                value: path('_ez_content_translation_view', {
+                value: path('ibexa.content.translation.view', {
                     'contentId': location.contentId,
                     'locationId': location.id,
                     'languageCode': language.languageCode
@@ -18,7 +18,7 @@
 
             {% for language in languages %}
                 {% if current_language == language.languageCode %}
-                    {% set value = path('_ez_content_translation_view', {
+                    {% set value = path('ibexa.content.translation.view', {
                         'contentId': location.contentId,
                         'locationId': location.id,
                         'languageCode': language.languageCode

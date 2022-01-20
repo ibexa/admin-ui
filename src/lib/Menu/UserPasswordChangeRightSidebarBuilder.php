@@ -76,7 +76,7 @@ class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implements T
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'route' => 'ezplatform.dashboard',
+                    'route' => 'ibexa.dashboard',
                 ]
             ),
         ]);

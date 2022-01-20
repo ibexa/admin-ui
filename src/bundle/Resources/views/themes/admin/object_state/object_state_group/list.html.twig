@@ -26,7 +26,7 @@
         {% if can_administrate %}
             <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
                 <a
-                    href="{{ path('ezplatform.object_state.group.add') }}"
+                    href="{{ path('ibexa.object_state.group.add') }}"
                     class="btn ibexa-btn ibexa-btn--primary"
                 >
                     <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
@@ -65,7 +65,7 @@
             }]) %}
 
             {% set col_raw %}
-                <a href="{{ path( 'ezplatform.object_state.group.view', {'objectStateGroupId': object_state_group.id} ) }}">
+                <a href="{{ path( 'ibexa.object_state.group.view', {'objectStateGroupId': object_state_group.id} ) }}">
                     {{ object_state_group.name }}
                 </a>
             {% endset %}
@@ -83,7 +83,7 @@
                 {% if can_administrate %}
                     <a
                         title="{{ 'object_state_group.view.list.action.edit'|trans|desc('Edit') }}"
-                        href="{{ path('ezplatform.object_state.group.update', {'objectStateGroupId': object_state_group.id}) }}"
+                        href="{{ path('ibexa.object_state.group.update', {'objectStateGroupId': object_state_group.id}) }}"
                         class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
                     >
                         <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
@@ -145,7 +145,7 @@
 
             {% block between_header_and_table %}
                 {{ form_start(form_state_groups_delete, {
-                    'action': path('ezplatform.object_state.group.bulk_delete'),
+                    'action': path('ibexa.object_state.group.bulk_delete'),
                     'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-object-state-groups' }
                 }) }}
             {% endblock %}

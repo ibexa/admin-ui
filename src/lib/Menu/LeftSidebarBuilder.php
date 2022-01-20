@@ -84,7 +84,7 @@ class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainer
             self::ITEM__SEARCH => $this->createMenuItem(
                 self::ITEM__SEARCH,
                 [
-                    'route' => 'ezplatform.search',
+                    'route' => 'ibexa.search',
                     'extras' => ['icon' => 'search'],
                 ]
             ),
@@ -115,7 +115,7 @@ class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainer
             self::ITEM__BOOKMARK => $this->createMenuItem(
                 self::ITEM__BOOKMARK,
                 [
-                    'route' => 'ezplatform.bookmark.list',
+                    'route' => 'ibexa.bookmark.list',
                     'extras' => ['icon' => 'bookmark-manager'],
                 ]
             ),
@@ -125,7 +125,7 @@ class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainer
             $menuItems[self::ITEM__TRASH] = $this->createMenuItem(
                 self::ITEM__TRASH,
                 [
-                    'route' => 'ezplatform.trash.list',
+                    'route' => 'ibexa.trash.list',
                     'extras' => ['icon' => 'trash'],
                 ]
             );

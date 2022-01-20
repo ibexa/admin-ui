@@ -16,7 +16,7 @@
                 </p>
             </div>
             <div class="modal-footer">
-                {{ form_start(form, {'action': path('ezplatform.user.delete')}) }}
+                {{ form_start(form, {'action': path('ibexa.user.delete')}) }}
                 {{ form_widget(form.delete, {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary'}}) }}
                 <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
                     {{ 'delete.form.cancel'|trans|desc('Cancel') }}

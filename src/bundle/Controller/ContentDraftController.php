@@ -102,7 +102,7 @@ class ContentDraftController extends Controller
                     );
                 }
 
-                return $this->redirectToRoute('ezplatform.content_draft.list');
+                return $this->redirectToRoute('ibexa.content_draft.list');
             });
 
             if ($result instanceof Response) {
@@ -110,7 +110,7 @@ class ContentDraftController extends Controller
             }
         }
 
-        return $this->redirectToRoute('ezplatform.content_draft.list');
+        return $this->redirectToRoute('ibexa.content_draft.list');
     }
 
     /**

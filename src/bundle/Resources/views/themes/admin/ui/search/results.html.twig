@@ -47,7 +47,7 @@
                 {% set col_raw %}
                     {% if result.mainLocationId is not null %}
                         <a
-                            href="{{ path('_ez_content_view', {
+                            href="{{ path('ibexa.content.view', {
                                 'contentId': result.contentId,
                                 'locationId': result.resolvedLocation.id,
                                 'languageCode': result.translation_language_code,

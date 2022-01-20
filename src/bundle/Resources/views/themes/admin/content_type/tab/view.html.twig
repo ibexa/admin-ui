@@ -48,7 +48,7 @@
                 <select class="form-control ibexa-location-language-change">
                     {% for language in languages %}
                         <option
-                            value="{{ path('ezplatform.content_type.view', {
+                            value="{{ path('ibexa.content_type.view', {
                                 'contentTypeId': content_type.id,
                                 'contentTypeGroupId': content_type_group.id,
                                 'languageCode': language.languageCode,

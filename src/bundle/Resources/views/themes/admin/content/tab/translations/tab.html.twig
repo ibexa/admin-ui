@@ -7,7 +7,7 @@
 <section>
     {% if can_translate %}
         {{ form_start(form_translation_remove, {
-            'action': form_translation_remove_action|default(path('ezplatform.translation.remove')),
+            'action': form_translation_remove_action|default(path('ibexa.translation.remove')),
             'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-translations' }
         }) }}
     {% endif %}
@@ -78,7 +78,7 @@
     {% endif %}
 
     {% if main_translation_switch %}
-        {{ form(form_main_translation_update, {'action': path('ezplatform.content.update_main_translation')})}}
+        {{ form(form_main_translation_update, {'action': path('ibexa.content.update_main_translation')})}}
     {% endif %}
 </section>
 

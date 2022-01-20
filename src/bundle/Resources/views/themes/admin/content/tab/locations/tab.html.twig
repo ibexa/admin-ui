@@ -4,7 +4,7 @@
 {% form_theme form_content_location_remove with ['@ibexadesign/ui/form/flat_widgets.html.twig', '@ibexadesign/ui/form_fields.html.twig'] %}
 
 <section class="ibexa-content-locations">
-    {{ form(form_content_location_add, {'action': path('ezplatform.location.add')}) }}
+    {{ form(form_content_location_add, {'action': path('ibexa.location.add')}) }}
         {% set body_rows = [] %}
         {% if locations is not empty %}
             {% for location in locations %}
@@ -108,7 +108,7 @@
         } %}
             {% block between_header_and_table %}
                 {{ form_start(form_content_location_remove, {
-                    'action': path('ezplatform.location.remove'),
+                    'action': path('ibexa.location.remove'),
                     'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-locations' }
                 }) }}
             {% endblock %}
@@ -132,7 +132,7 @@
         </div>
     {% endif %}
 
-    {{ form_start(form_content_location_update_visibility, {'action': path('ezplatform.location.update_visibility')}) }}
+    {{ form_start(form_content_location_update_visibility, {'action': path('ibexa.location.update_visibility')}) }}
         {{ form_row(form_content_location_update_visibility.location) }}
         {{ form_row(form_content_location_update_visibility.hidden, {
             label_attr: { hidden: true }
@@ -140,7 +140,7 @@
         {{ form_row(form_content_location_update_visibility.set) }}
     {{ form_end(form_content_location_update_visibility) }}
 
-    {{ form(form_content_location_main_update, {'action': path('ezplatform.content.update_main_location')}) }}
+    {{ form(form_content_location_main_update, {'action': path('ibexa.content.update_main_location')}) }}
 </section>
 
 {% include '@ibexadesign/content/tab/locations/panel_swap.html.twig' with {

@@ -61,7 +61,7 @@
             {% form_theme form_assign_section '@ibexadesign/ui/form_fields.html.twig' %}
 
             {{ form_start(form_assign_section, {
-                'action': path('ezplatform.location.assign_section'),
+                'action': path('ibexa.location.assign_section'),
                 'attr': {
                     'class': 'form-inline ibexa-form-inline ibexa-form-inline--align-left'
                 }
@@ -115,7 +115,7 @@
             {% form_theme form_state_update[object_state.objectStateGroup.id] '@ibexadesign/ui/form_fields.html.twig' %}
             {{ form_start(form_state_update[object_state.objectStateGroup.id], {
                 'method': 'POST',
-                'action': path('ezplatform.object_state.contentstate.update', {
+                'action': path('ibexa.object_state.content_state.update', {
                     'contentInfoId': content_info.id,
                     'objectStateGroupId': object_state.objectStateGroup.id
                 }),
@@ -153,7 +153,7 @@
 <div class="bg-white ml-4" data-sort-field="{{ sort_field_clause_map[location.sortField] }}" data-sort-order="{{ location.sortOrder ? 'ascending' : 'descending' }}">
     {{ form_start(form_location_update, {
         'method': 'POST',
-        'action': path('ezplatform.location.update'),
+        'action': path('ibexa.location.update'),
         'attr': {'class': 'form-inline ibexa-form-inline justify-content-start'}
         }) }}
 

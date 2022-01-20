@@ -74,7 +74,7 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'route' => 'ezplatform.user_settings.list',
+                    'route' => 'ibexa.user_settings.list',
                 ]
             ),
         ]);

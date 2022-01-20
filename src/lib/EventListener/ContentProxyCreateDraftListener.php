@@ -81,7 +81,7 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
 
         if ($options->get(ContentProxyCreateEvent::OPTION_IS_ON_THE_FLY, false)) {
             $response = new RedirectResponse(
-                $this->router->generate('ezplatform.content_on_the_fly.edit', [
+                $this->router->generate('ibexa.content.on_the_fly.edit', [
                     'contentId' => $contentDraft->id,
                     'versionNo' => $contentDraft->getVersionInfo()->versionNo,
                     'languageCode' => $event->getLanguageCode(),
@@ -90,7 +90,7 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
             );
         } else {
             $response = new RedirectResponse(
-                $this->router->generate('ezplatform.content.draft.edit', [
+                $this->router->generate('ibexa.content.draft.edit', [
                     'contentId' => $contentDraft->id,
                     'versionNo' => $contentDraft->getVersionInfo()->versionNo,
                     'language' => $event->getLanguageCode(),
@@ -134,7 +134,7 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
         );
 
         $response = new RedirectResponse(
-            $this->router->generate('ezplatform.content.draft.edit', [
+            $this->router->generate('ibexa.content.draft.edit', [
                 'contentId' => $contentDraft->id,
                 'versionNo' => $contentDraft->getVersionInfo()->versionNo,
                 'language' => $toLanguageCode,

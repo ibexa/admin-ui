@@ -3,7 +3,7 @@
 {% set body_rows = [] %}
 {% for row in data %}
     {% set body_row_cols = [] %}
-    {% set content_draft_edit_url = content_is_user|default(false) ? 'ezplatform.user.update' : 'ezplatform.content.draft.edit' %}
+    {% set content_draft_edit_url = content_is_user|default(false) ? 'ibexa.user.update' : 'ibexa.content.draft.edit' %}
 
     {% if row.isAccessible %}
         {% set col_raw %}
@@ -34,7 +34,7 @@
                     'versionNo': row.versionInfo.versionNo,
                     'language': row.versionInfo.initialLanguageCode
                 }) }}"
-                data-version-has-conflict-url="{{ path('ezplatform.version.has_no_conflict', {
+                data-version-has-conflict-url="{{ path('ibexa.version.has_no_conflict', {
                     'contentId': row.versionInfo.contentInfo.id,
                     'versionNo': row.versionInfo.versionNo,
                     'languageCode': row.versionInfo.initialLanguageCode

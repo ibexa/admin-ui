@@ -172,7 +172,7 @@ class RoleController extends Controller
                     'role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $roleDraft->id,
                 ]));
             });
@@ -206,7 +206,7 @@ class RoleController extends Controller
                     'role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
                 ]));
             });
@@ -253,7 +253,7 @@ class RoleController extends Controller
                     'role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
                 ]));
             });
@@ -295,7 +295,7 @@ class RoleController extends Controller
                     'role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.list'));
+                return new RedirectResponse($this->generateUrl('ibexa.role.list'));
             });
 
             if ($result instanceof Response) {
@@ -303,7 +303,7 @@ class RoleController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.role.view', [
+        return $this->redirect($this->generateUrl('ibexa.role.view', [
             'roleId' => $role->id,
         ]));
     }
@@ -341,7 +341,7 @@ class RoleController extends Controller
                     );
                 }
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.list'));
+                return new RedirectResponse($this->generateUrl('ibexa.role.list'));
             });
 
             if ($result instanceof Response) {
@@ -349,7 +349,7 @@ class RoleController extends Controller
             }
         }
 
-        return new RedirectResponse($this->generateUrl('ezplatform.role.list'));
+        return new RedirectResponse($this->generateUrl('ibexa.role.list'));
     }
 }
 

@@ -104,7 +104,7 @@ class VersionController extends Controller
                     'version'
                 );
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $contentInfo->id,
                     'locationId' => $contentInfo->mainLocationId,
                     '_fragment' => VersionsTab::URI_FRAGMENT,
@@ -116,7 +116,7 @@ class VersionController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('_ez_content_view', [
+        return $this->redirect($this->generateUrl('ibexa.content.view', [
             'contentId' => $contentInfo->id,
             'locationId' => $contentInfo->mainLocationId,
             '_fragment' => VersionsTab::URI_FRAGMENT,

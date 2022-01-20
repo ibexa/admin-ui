@@ -9,7 +9,7 @@
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
-        { url: path('ezplatform.language.list'), value: 'language.list'|trans|desc('Languages') },
+        { url: path('ibexa.language.list'), value: 'language.list'|trans|desc('Languages') },
         { value: 'language.view.identifier'|trans({ '%language%': language.name })|desc('%language%') }
     ]} %}
 {% endblock %}
@@ -48,7 +48,7 @@
         {% set col_raw %}
             {% if can_administrate %}
                 <a
-                    href="{{ path('ezplatform.language.edit', {'languageId': language.id}) }}"
+                    href="{{ path('ibexa.language.edit', {'languageId': language.id}) }}"
                     class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
                     title="{{ 'language.edit'|trans|desc('Edit') }}"
                 >
@@ -79,7 +79,7 @@
                 {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
                     {% block actions %}
                         {% if can_administrate %}
-                            {{ form_start(deleteForm, {"action": path("ezplatform.language.delete", {"languageId": language.id, "redirectErrorsTo": "view"})}) }}
+                            {{ form_start(deleteForm, {"action": path("ibexa.language.delete", {"languageId": language.id, "redirectErrorsTo": "view"})}) }}
 
                             {{ form_widget(deleteForm.language) }}
                             <button

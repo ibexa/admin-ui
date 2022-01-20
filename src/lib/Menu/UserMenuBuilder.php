@@ -72,7 +72,7 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             if ($this->permissionResolver->hasAccess('content', 'versionread') !== false) {
                 $menu->addChild(
                     $this->createMenuItem(self::ITEM_DRAFTS, [
-                        'route' => 'ezplatform.content_draft.list',
+                        'route' => 'ibexa.content_draft.list',
                         'extras' => [
                             'orderNumber' => 30,
                         ],
@@ -82,7 +82,7 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
 
             $menu->addChild(
                 $this->createMenuItem(self::ITEM_USER_SETTINGS, [
-                    'route' => 'ezplatform.user_settings.list',
+                    'route' => 'ibexa.user_settings.list',
                     'extras' => [
                         'orderNumber' => 50,
                     ], ])

@@ -25,7 +25,7 @@ abstract class Controller extends AbstractController
      */
     public function redirectToLocation(Location $location, string $uriFragment = ''): RedirectResponse
     {
-        return $this->redirectToRoute('_ez_content_view', [
+        return $this->redirectToRoute('ibexa.content.view', [
             'contentId' => $location->contentId,
             'locationId' => $location->id,
             '_fragment' => $uriFragment,

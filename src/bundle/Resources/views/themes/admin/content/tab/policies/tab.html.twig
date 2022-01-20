@@ -7,7 +7,7 @@
         {% set body_row_cols = [] %}
 
         {% set col_raw %}
-            <a href="{{ path('ezplatform.role.view', { roleId: policy.role_assignment.role.id}) }}">
+            <a href="{{ path('ibexa.role.view', { roleId: policy.role_assignment.role.id}) }}">
                 {{ policy.role_assignment.role.identifier }}
             </a>
         {% endset %}

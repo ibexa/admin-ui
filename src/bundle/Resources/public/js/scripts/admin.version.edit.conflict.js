@@ -5,7 +5,7 @@
         const versionHasConflictUrl = event.currentTarget.dataset.versionHasConflictUrl;
         const contentId = event.currentTarget.dataset.contentId;
         const languageCode = event.currentTarget.dataset.languageCode;
-        const checkEditPermissionLink = Routing.generate('ezplatform.content.check_edit_permission', { contentId, languageCode });
+        const checkEditPermissionLink = Routing.generate('ibexa.content.check_edit_permission', { contentId, languageCode });
         const errorMessage = Translator.trans(
             /*@Desc("You don't have permission to edit this Content item")*/ 'content.edit.permission.error',
             {},

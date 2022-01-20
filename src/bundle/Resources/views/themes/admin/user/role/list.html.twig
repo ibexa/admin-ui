@@ -24,7 +24,7 @@
         {% if can_create %}
             <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
                 <a
-                    href="{{ path('ezplatform.role.create') }}"
+                    href="{{ path('ibexa.role.create') }}"
                     class="btn ibexa-btn ibexa-btn--primary"
                 >
                     <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
@@ -46,7 +46,7 @@
 {% block content %}
     <section class="container ibexa-container">
         {{ form_start(form_roles_delete, {
-            'action': path('ezplatform.role.bulk_delete'),
+            'action': path('ibexa.role.bulk_delete'),
             'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-roles' }
         }) }}
         {% set body_rows = [] %}
@@ -60,7 +60,7 @@
             {% endset %}
 
             {% set col_name %}
-                <a href="{{ path('ezplatform.role.view', { roleId: role.id }) }}">
+                <a href="{{ path('ibexa.role.view', { roleId: role.id }) }}">
                     {{ role.identifier }}
                 </a>
             {% endset %}
@@ -69,7 +69,7 @@
                 {% if can_assign %}
                     <a
                         title="{{ 'role.view.list.action.assign_to_users_or_groups'|trans|desc('Assign to Users/Groups') }}"
-                        href="{{ path('ezplatform.role_assignment.create', { roleId: role.id }) }}"
+                        href="{{ path('ibexa.role_assignment.create', { roleId: role.id }) }}"
                         class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
                     >
                         <svg class="ibexa-icon ibexa-icon--small">
@@ -80,7 +80,7 @@
                 {% if can_create %}
                     <a
                         title="{{ 'role.view.list.action.copy'|trans|desc('Copy') }}"
-                        href="{{ path('ezplatform.role.copy', { roleId: role.id }) }}"
+                        href="{{ path('ibexa.role.copy', { roleId: role.id }) }}"
                         class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
                     >
                         <svg class="ibexa-icon ibexa-icon--small">
@@ -91,7 +91,7 @@
                 {% if can_update %}
                     <a
                         title="{{ 'role.view.list.action.edit'|trans|desc('Edit') }}"
-                        href="{{ path('ezplatform.role.update', { roleId: role.id }) }}"
+                        href="{{ path('ibexa.role.update', { roleId: role.id }) }}"
                         class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
                     >
                         <svg class="ibexa-icon ibexa-icon--small">

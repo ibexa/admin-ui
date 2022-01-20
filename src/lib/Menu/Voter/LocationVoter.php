@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class LocationVoter implements VoterInterface
 {
-    private const CONTENT_VIEW_ROUTE_NAME = '_ez_content_view';
+    private const CONTENT_VIEW_ROUTE_NAME = 'ibexa.content.view';
 
     /**
      * @var \Symfony\Component\HttpFoundation\RequestStack

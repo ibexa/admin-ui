@@ -22,8 +22,8 @@
         {% set body_rows = [] %}
         {% for url in urls %}
             {% set body_row_cols = [] %}
-            {% set edit_url = path('ezplatform.link_manager.edit', { urlId: url.id }) %}
-            {% set view_url = path('ezplatform.link_manager.view', { urlId: url.id }) %}
+            {% set edit_url = path('ibexa.link_manager.edit', { urlId: url.id }) %}
+            {% set view_url = path('ibexa.link_manager.view', { urlId: url.id }) %}
 
             {% set col_raw %}
                 <a href="{{ view_url }}">{{ url.url|u.truncate(50) }}</a>
