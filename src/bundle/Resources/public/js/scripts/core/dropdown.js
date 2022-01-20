@@ -218,8 +218,13 @@
                         index !== 0 &&
                         itemsWidth > this.selectedItemsContainer.offsetWidth - RESTRICTED_AREA_ITEMS_CONTAINER
                     ) {
-                        numberOfOverflowItems++;
+                        const isPlaceholder = item.classList.contains('ibexa-dropdown__selected-placeholder');
+
                         item.hidden = true;
+
+                        if (!isPlaceholder) {
+                            numberOfOverflowItems++;
+                        }
                     }
                 });
 
