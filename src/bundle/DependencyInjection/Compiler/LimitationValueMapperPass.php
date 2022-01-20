@@ -6,6 +6,7 @@
  */
 namespace Ibexa\Bundle\AdminUi\DependencyInjection\Compiler;
 
+use Ibexa\AdminUi\Limitation\LimitationValueMapperRegistry;
 use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -16,7 +17,7 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class LimitationValueMapperPass implements CompilerPassInterface
 {
-    public const LIMITATION_VALUE_MAPPER_REGISTRY = \Ibexa\AdminUi\Limitation\LimitationValueMapperRegistry::class;
+    public const LIMITATION_VALUE_MAPPER_REGISTRY = LimitationValueMapperRegistry::class;
     public const LIMITATION_VALUE_MAPPER_TAG = 'ibexa.admin_ui.limitation.mapper.value';
 
     public function process(ContainerBuilder $container)
