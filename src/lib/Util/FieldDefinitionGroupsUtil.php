@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Util;
+namespace Ibexa\AdminUi\Util;
 
-use eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList;
+use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 
 class FieldDefinitionGroupsUtil
 {
-    /** @var \eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList */
+    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
     private $fieldsGroupsListHelper;
 
     /**
-     * @param \eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList $fieldsGroupsListHelper
+     * @param \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList $fieldsGroupsListHelper
      */
     public function __construct(FieldsGroupsList $fieldsGroupsListHelper)
     {
@@ -24,7 +24,7 @@ class FieldDefinitionGroupsUtil
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition[] $fieldDefinitions
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[] $fieldDefinitions
      *
      * @return array
      */
@@ -51,3 +51,5 @@ class FieldDefinitionGroupsUtil
         return $fieldDefinitionsByGroup;
     }
 }
+
+class_alias(FieldDefinitionGroupsUtil::class, 'EzSystems\EzPlatformAdminUi\Util\FieldDefinitionGroupsUtil');

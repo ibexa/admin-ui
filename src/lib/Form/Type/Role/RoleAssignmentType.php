@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\Role;
+namespace Ibexa\AdminUi\Form\Type\Role;
 
-use eZ\Publish\API\Repository\RoleService;
-use EzSystems\EzPlatformAdminUi\Form\DataTransformer\RoleAssignmentTransformer;
+use Ibexa\AdminUi\Form\DataTransformer\RoleAssignmentTransformer;
+use Ibexa\Contracts\Core\Repository\RoleService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class RoleAssignmentType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\RoleService */
+    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
     protected $roleService;
 
     /**
-     * @param \eZ\Publish\API\Repository\RoleService $roleService
+     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
      */
     public function __construct(RoleService $roleService)
     {
@@ -37,3 +37,5 @@ class RoleAssignmentType extends AbstractType
         return HiddenType::class;
     }
 }
+
+class_alias(RoleAssignmentType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Role\RoleAssignmentType');

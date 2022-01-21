@@ -22,14 +22,15 @@ const SearchTabModule = () => {
     );
 };
 
-eZ.addConfig(
+ibexa.addConfig(
     'adminUiConfig.universalDiscoveryWidget.tabs',
     [
         {
             id: 'search',
             component: SearchTabModule,
             label: Translator.trans(/*@Desc("Search")*/ 'search.label', {}, 'universal_discovery_widget'),
-            icon: window.eZ.helpers.icon.getIconPath('search'),
+            icon: window.ibexa.helpers.icon.getIconPath('search'),
+            isHiddenOnList: true,
         },
     ],
     true

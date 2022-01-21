@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import ToggleSelectionButton from '../toggle-selection-button/toggle.selection.button';
+import ToggleSelection from '../toggle-selection/toggle.selection';
 import Icon from '../../../common/icon/icon';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
@@ -25,10 +25,11 @@ const FinderLeaf = ({ location }) => {
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
     const isContainer = contentTypeInfo.isContainer;
+    const isSelected = selectedLocations.some((selectedLocation) => selectedLocation.location.id === location.id);
     const isNotSelectable =
         (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeInfo.identifier));
     const markLocation = ({ nativeEvent }) => {
-        const isSelectionButtonClicked = nativeEvent.target.closest('.c-toggle-selection-button');
+        const isSelectionButtonClicked = nativeEvent.target.closest('.c-udw-toggle-selection');
         const isMarkedLocationClicked = location.id === markedLocationId;
 
         if (isSelectionButtonClicked || isMarkedLocationClicked) {
@@ -44,30 +45,28 @@ const FinderLeaf = ({ location }) => {
             dispatchSelectedLocationsAction({ type: 'ADD_SELECTED_LOCATION', location });
         }
     };
-    const renderToggleSelectionButton = () => {
-        if (!multiple || isNotSelectable) {
-            return null;
-        }
-
-        return <ToggleSelectionButton location={location} />;
+    const renderToggleSelection = () => {
+        return <ToggleSelection location={location} multiple={multiple} isHidden={isNotSelectable} />;
     };
     const className = createCssClassNames({
         'c-finder-leaf': true,
         'c-finder-leaf--marked': !!loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === location.id),
         'c-finder-leaf--has-children': !!location.childCount,
         'c-finder-leaf--not-selectable': isNotSelectable,
+        'c-finder-leaf--selected': isSelected && !multiple,
     });
 
     useEffect(() => {
-        window.eZ.helpers.tooltips.parse(window.document.querySelector('.c-udw-tab'));
+        window.ibexa.helpers.tooltips.parse(window.document.querySelector('.c-udw-tab'));
     }, []);
 
     return (
         <div className={className} onClick={markLocation}>
+            {renderToggleSelection()}
             <span className="c-finder-leaf__name">
                 <span className="c-finder-leaf__icon-wrapper">
                     <Icon
-                        extraClasses="ez-icon--small ez-icon--base-dark"
+                        extraClasses="ibexa-icon--small ibexa-icon--base-dark"
                         customPath={contentTypesMap[location.ContentInfo.Content.ContentType._href].thumbnail}
                     />
                 </span>
@@ -75,7 +74,6 @@ const FinderLeaf = ({ location }) => {
                     {location.ContentInfo.Content.TranslatedName}
                 </span>
             </span>
-            {renderToggleSelectionButton()}
         </div>
     );
 };

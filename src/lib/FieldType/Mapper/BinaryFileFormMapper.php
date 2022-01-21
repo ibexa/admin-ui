@@ -4,19 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\FieldType\Mapper;
+namespace Ibexa\AdminUi\FieldType\Mapper;
 
-use eZ\Publish\API\Repository\FieldTypeService;
-use EzSystems\EzPlatformAdminUi\FieldType\FieldDefinitionFormMapperInterface;
-use EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData;
-use EzSystems\EzPlatformContentForms\ConfigResolver\MaxUploadSize;
+use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\ConfigResolver\MaxUploadSize;
+use Ibexa\Contracts\Core\Repository\FieldTypeService;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Constraints\Range;
 
 class BinaryFileFormMapper implements FieldDefinitionFormMapperInterface
 {
-    /** @var \EzSystems\EzPlatformContentForms\ConfigResolver\MaxUploadSize */
+    /** @var \Ibexa\ContentForms\ConfigResolver\MaxUploadSize */
     private $maxUploadSize;
 
     public function __construct(FieldTypeService $fieldTypeService, MaxUploadSize $maxUploadSize)
@@ -47,3 +47,5 @@ class BinaryFileFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
+
+class_alias(BinaryFileFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\BinaryFileFormMapper');

@@ -1,8 +1,8 @@
-.ez-view-rawcontentview {
+.ibexa-view-rawcontentview {
     margin-bottom: calculateRem(25px);
     background-color: $ibexa-white;
 
-    .ez-raw-content-title {
+    .ibexa-raw-content-title {
         padding: calculateRem(24px);
         color: $ibexa-black;
         align-items: center;
@@ -24,7 +24,7 @@
     }
 }
 
-.ez-fieldgroup {
+.ibexa-fieldgroup {
     &__name {
         color: $ibexa-color-font;
         border-bottom: calculateRem(1px) solid $ibexa-color-base;
@@ -73,25 +73,19 @@
         padding-right: calculateRem(32px);
     }
 
-    .ez-content-field-name {
-        background-color: $ibexa-white;
-    }
-
-    .ez-content-field {
+    .ibexa-content-field {
         display: flex;
-        border-top: calculateRem(1px) solid $ibexa-color-base;
+        flex-direction: column;
+        margin-bottom: calculateRem(24px);
 
-        .ez-content-field-name {
-            flex: 0 0 calculateRem(160px);
-            background: $ibexa-white;
-            margin-bottom: 0;
-            padding: calculateRem(16px) 0;
+        &__name {
+            margin-bottom: calculateRem(8px);
             color: $ibexa-color-base-dark;
+            font-size: $ibexa-text-font-size-small;
         }
 
-        .ez-content-field-value {
+        &__value {
             width: 100%;
-            padding: calculateRem(16px) calculateRem(24px);
 
             .ezstring-field {
                 display: inline-block;
@@ -99,10 +93,18 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
+
+            .ezcountry-field {
+                margin-bottom: 0;
+            }
+
+            .ibexa-table-header {
+                margin-top: 0;
+            }
         }
     }
 
-    .ez-field-preview {
+    .ibexa-field-preview {
         &--ezobjectrelationlist {
             .table {
                 margin-bottom: 0;
@@ -120,12 +122,6 @@
             td {
                 padding-bottom: calculateRem(10px);
             }
-        }
-    }
-
-    .ez-content-field-value {
-        .ezcountry-field {
-            margin-bottom: 0;
         }
     }
 }

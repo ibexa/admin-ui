@@ -1,11 +1,11 @@
-{% extends '@ezdesign/content/content_view_fields.html.twig' %}
+{% extends '@ibexadesign/content/content_view_fields.html.twig' %}
 
 {% block extras %}
     {% set current_language = app.request.get('languageCode') ?: content.prioritizedFieldLanguageCode %}
 
     {% if languages|length > 1  %}
     <form class="form-inline">
-        <select class="form-control ez-location-language-change">
+        <select class="form-control ibexa-location-language-change">
             {% for language in languages %}
                 <option value="{{ path('_ez_content_translation_view', {
                     'contentId': location.contentId,

@@ -21,9 +21,9 @@ const ContentCreateButton = ({ isDisabled }) => {
     const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
     const { hidden, allowedLocations } = useContext(ContentOnTheFlyConfigContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
-    const createLabel = Translator.trans(/*@Desc("Create")*/ 'create_content.create', {}, 'universal_discovery_widget');
+    const createLabel = Translator.trans(/*@Desc("Create new")*/ 'create_content.create', {}, 'universal_discovery_widget');
     const toggleContentCreateVisibility = () => {
-        window.eZ.helpers.tooltips.hideAll();
+        window.ibexa.helpers.tooltips.hideAll();
         setCreateContentVisible((prevState) => !prevState);
     };
     let selectedLocation = loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === markedLocationId);
@@ -50,12 +50,12 @@ const ContentCreateButton = ({ isDisabled }) => {
     return (
         <div className="c-content-create-button">
             <button
-                className="c-content-create-button__btn btn btn-link"
+                className="c-content-create-button__btn btn ibexa-btn ibexa-btn--dark"
                 disabled={isDisabled || !hasAccess || !isAllowedLocation || isLimitReached || !isContainer}
                 onClick={toggleContentCreateVisibility}
                 data-tooltip-container-selector=".c-top-menu"
                 title={createLabel}>
-                <Icon name="create" extraClasses="ez-icon--small-medium ez-icon--primary" /> {createLabel}
+                <Icon name="create" extraClasses="ibexa-icon--small" /> {createLabel}
             </button>
         </div>
     );
@@ -69,7 +69,7 @@ ContentCreateButton.defaultProps = {
     isDisabled: false,
 };
 
-eZ.addConfig(
+ibexa.addConfig(
     'adminUiConfig.universalDiscoveryWidget.topMenuActions',
     [
         {
