@@ -129,7 +129,7 @@ export default class ContentTreeModule extends Component {
         const limit = Math.ceil(item.subitems.length / subitemsLoadLimit) * subitemsLoadLimit;
 
         parentSubtree.children.push({
-            '_media-type': 'application/vnd.ez.api.ContentTreeLoadSubtreeRequestNode',
+            '_media-type': 'application/vnd.ibexa.api.ContentTreeLoadSubtreeRequestNode',
             locationId: item.locationId,
             limit: Math.min(subitemsLimit, limit),
             offset: 0,
@@ -235,7 +235,7 @@ export default class ContentTreeModule extends Component {
 
         if (!nextSubtree) {
             nextSubtree = {
-                '_media-type': 'application/vnd.ez.api.ContentTreeLoadSubtreeRequestNode',
+                '_media-type': 'application/vnd.ibexa.api.ContentTreeLoadSubtreeRequestNode',
                 locationId: locationId,
                 limit: this.props.subitemsLimit,
                 offset: 0,
@@ -266,7 +266,7 @@ export default class ContentTreeModule extends Component {
     generateInitialSubtree() {
         return [
             {
-                '_media-type': 'application/vnd.ez.api.ContentTreeLoadSubtreeRequestNode',
+                '_media-type': 'application/vnd.ibexa.api.ContentTreeLoadSubtreeRequestNode',
                 locationId: this.props.rootLocationId,
                 limit: this.props.subitemsLoadLimit,
                 offset: 0,
@@ -287,7 +287,7 @@ export default class ContentTreeModule extends Component {
                 const limit = subitemsCount ? Math.ceil(subitemsCount / subitemsLoadLimit) * subitemsLoadLimit : subitemsLoadLimit;
 
                 itemsWithoutLeafs.push({
-                    '_media-type': 'application/vnd.ez.api.ContentTreeLoadSubtreeRequestNode',
+                    '_media-type': 'application/vnd.ibexa.api.ContentTreeLoadSubtreeRequestNode',
                     locationId: item.locationId,
                     limit: Math.min(subitemsLimit, limit),
                     offset: 0,

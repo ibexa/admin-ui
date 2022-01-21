@@ -2,12 +2,12 @@ services:
   Ibexa\AdminUi\REST\Input\Parser\BulkOperation:
       parent: Ibexa\Rest\Server\Common\Parser
       tags:
-        - { name: ibexa.rest.input.parser, mediaType: application/vnd.ez.api.BulkOperation }
+        - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.BulkOperation }
 
   Ibexa\AdminUi\REST\Input\Parser\Operation:
       parent: Ibexa\Rest\Server\Common\Parser
       tags:
-        - { name: ibexa.rest.input.parser, mediaType: application/vnd.ez.api.internal.Operation }
+        - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.internal.Operation }
 
   Ibexa\AdminUi\REST\Output\ValueObjectVisitor\BulkOperationResponse:
       parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
@@ -21,12 +21,12 @@ services:
   Ibexa\AdminUi\REST\Input\Parser\ContentTree\LoadSubtreeRequestNode:
     parent: Ibexa\Rest\Server\Common\Parser
     tags:
-      - { name: ibexa.rest.input.parser, mediaType: application/vnd.ez.api.ContentTreeLoadSubtreeRequestNode }
+      - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.ContentTreeLoadSubtreeRequestNode }
 
   Ibexa\AdminUi\REST\Input\Parser\ContentTree\LoadSubtreeRequest:
     parent: Ibexa\Rest\Server\Common\Parser
     tags:
-      - { name: ibexa.rest.input.parser, mediaType: application/vnd.ez.api.ContentTreeLoadSubtreeRequest }
+      - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.ContentTreeLoadSubtreeRequest }
 
   Ibexa\AdminUi\REST\Output\ValueObjectVisitor\ContentTree\Node:
       parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
@@ -44,17 +44,17 @@ services:
   Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionCreate:
     parent: Ibexa\Rest\Server\Common\Parser
     tags:
-      - { name: ibexa.rest.input.parser, mediaType: application/vnd.ez.api.ContentTypFieldDefinitionCreate }
+      - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.ContentTypFieldDefinitionCreate }
 
   Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionDelete:
     parent: Ibexa\Rest\Server\Common\Parser
     tags:
-      - { name: ibexa.rest.input.parser, mediaType: application/vnd.ez.api.ContentTypeFieldDefinitionDelete }
+      - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.ContentTypeFieldDefinitionDelete }
 
   Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionReorder:
     parent: Ibexa\Rest\Server\Common\Parser
     tags:
-      - { name: ibexa.rest.input.parser, mediaType: application/vnd.ez.api.ContentTypeFieldDefinitionReorder }
+      - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.ContentTypeFieldDefinitionReorder }
 
   Ibexa\AdminUi\REST\Security\NonAdminRESTRequestMatcher:
       arguments:

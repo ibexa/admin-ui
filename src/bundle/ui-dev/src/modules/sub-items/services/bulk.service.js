@@ -92,7 +92,7 @@ const getBulkAddLocationRequestOperation = (contentId, destination) => ({
         },
     }),
     headers: {
-        'Content-Type': 'application/vnd.ez.api.LocationCreate+json',
+        'Content-Type': 'application/vnd.ibexa.api.LocationCreate+json',
     },
     method: 'POST',
 });
@@ -107,7 +107,7 @@ const getBulkVisibilityRequestOperation = (pathString, isHidden) => ({
         },
     }),
     headers: {
-        'Content-Type': 'application/vnd.ez.api.LocationUpdate+json',
+        'Content-Type': 'application/vnd.ibexa.api.LocationUpdate+json',
     },
     method: 'PATCH',
 });

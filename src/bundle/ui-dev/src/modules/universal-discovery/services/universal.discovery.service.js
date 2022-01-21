@@ -2,8 +2,8 @@ import { showErrorNotification } from '../../common/services/notification.servic
 import { handleRequestResponse, handleRequestResponseStatus } from '../../common/helpers/request.helper.js';
 
 const HEADERS_CREATE_VIEW = {
-    Accept: 'application/vnd.ez.api.View+json; version=1.1',
-    'Content-Type': 'application/vnd.ez.api.ViewInput+json; version=1.1',
+    Accept: 'application/vnd.ibexa.api.View+json; version=1.1',
+    'Content-Type': 'application/vnd.ibexa.api.ViewInput+json; version=1.1',
 };
 const ENDPOINT_CREATE_VIEW = '/api/ezp/v2/views';
 const ENDPOINT_BOOKMARK = '/api/ezp/v2/bookmark';
@@ -247,7 +247,7 @@ export const loadBookmarks = ({ token, siteaccess, limit, offset }, callback) =>
         headers: {
             'X-Siteaccess': siteaccess,
             'X-CSRF-Token': token,
-            Accept: 'application/vnd.ez.api.ContentTypeInfoList+json',
+            Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
         },
         mode: 'same-origin',
         credentials: 'same-origin',
@@ -293,7 +293,7 @@ export const loadContentTypes = ({ token, siteaccess }, callback) => {
     const request = new Request('/api/ezp/v2/content/types', {
         method: 'GET',
         headers: {
-            Accept: 'application/vnd.ez.api.ContentTypeInfoList+json',
+            Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
             'X-Siteaccess': siteaccess,
             'X-CSRF-Token': token,
         },
@@ -311,7 +311,7 @@ export const createDraft = ({ token, siteaccess, contentId }, callback) => {
     const request = new Request(`/api/ezp/v2/content/objects/${contentId}/currentversion`, {
         method: 'COPY',
         headers: {
-            Accept: 'application/vnd.ez.api.VersionUpdate+json',
+            Accept: 'application/vnd.ibexa.api.VersionUpdate+json',
             'X-Siteaccess': siteaccess,
             'X-CSRF-Token': token,
         },

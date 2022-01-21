@@ -10,7 +10,7 @@ export const loadLocationItems = ({ siteaccess }, parentLocationId, callback, li
         mode: 'same-origin',
         credentials: 'same-origin',
         headers: {
-            Accept: 'application/vnd.ez.api.ContentTreeNode+json',
+            Accept: 'application/vnd.ibexa.api.ContentTreeNode+json',
             'X-Siteaccess': siteaccess,
         },
     });
@@ -41,13 +41,13 @@ export const loadSubtree = ({ token, siteaccess, subtree, sortClause, sortOrder 
         credentials: 'same-origin',
         body: JSON.stringify({
             LoadSubtreeRequest: {
-                '_media-type': 'application/vnd.ez.api.ContentTreeLoadSubtreeRequest',
+                '_media-type': 'application/vnd.ibexa.api.ContentTreeLoadSubtreeRequest',
                 nodes: subtree,
             },
         }),
         headers: {
-            Accept: 'application/vnd.ez.api.ContentTreeRoot+json',
-            'Content-Type': 'application/vnd.ez.api.ContentTreeLoadSubtreeRequest+json',
+            Accept: 'application/vnd.ibexa.api.ContentTreeRoot+json',
+            'Content-Type': 'application/vnd.ibexa.api.ContentTreeLoadSubtreeRequest+json',
             'X-Siteaccess': siteaccess,
             'X-CSRF-Token': token,
         },

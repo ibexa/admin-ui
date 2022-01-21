@@ -132,8 +132,8 @@ export const updateLocationPriority = ({ priority, pathString, token, siteaccess
     const request = new Request(locationHref, {
         method: 'POST',
         headers: {
-            Accept: 'application/vnd.ez.api.Location+json',
-            'Content-Type': 'application/vnd.ez.api.LocationUpdate+json',
+            Accept: 'application/vnd.ibexa.api.Location+json',
+            'Content-Type': 'application/vnd.ibexa.api.LocationUpdate+json',
             'X-Siteaccess': siteaccess,
             'X-CSRF-Token': token,
             'X-HTTP-Method-Override': 'PATCH',

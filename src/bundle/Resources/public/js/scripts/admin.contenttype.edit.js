@@ -15,17 +15,17 @@
         add: {
             actionName: 'add_field_definition',
             method: 'POST',
-            contentType: 'application/vnd.ez.api.ContentTypFieldDefinitionCreate+json',
+            contentType: 'application/vnd.ibexa.api.ContentTypFieldDefinitionCreate+json',
         },
         remove: {
             actionName: 'remove_field_definition',
             method: 'DELETE',
-            contentType: 'application/vnd.ez.api.ContentTypeFieldDefinitionDelete+json',
+            contentType: 'application/vnd.ibexa.api.ContentTypeFieldDefinitionDelete+json',
         },
         reorder: {
             actionName: 'reorder_field_definitions',
             method: 'PUT',
-            contentType: 'application/vnd.ez.api.ContentTypeFieldDefinitionReorder+json',
+            contentType: 'application/vnd.ibexa.api.ContentTypeFieldDefinitionReorder+json',
         },
     };
     const popupMenu = new ibexa.core.PopupMenu({

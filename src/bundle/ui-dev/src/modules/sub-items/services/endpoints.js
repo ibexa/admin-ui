@@ -1,6 +1,6 @@
 export const HEADERS_BULK = {
-    Accept: 'application/vnd.ez.api.BulkOperationResponse+json',
-    'Content-Type': 'application/vnd.ez.api.BulkOperation+json',
+    Accept: 'application/vnd.ibexa.api.BulkOperationResponse+json',
+    'Content-Type': 'application/vnd.ibexa.api.BulkOperation+json',
 };
 export const TRASH_FAKE_LOCATION = '/api/ezp/v2/content/trash';
 export const USER_ENDPOINT = '/api/ezp/v2/user/users';

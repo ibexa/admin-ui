@@ -11,8 +11,8 @@
         const request = new Request('/api/ezp/v2/bulk', {
             method: 'POST',
             headers: {
-                Accept: 'application/vnd.ez.api.BulkOperationResponse+json',
-                'Content-Type': 'application/vnd.ez.api.BulkOperation+json',
+                Accept: 'application/vnd.ibexa.api.BulkOperationResponse+json',
+                'Content-Type': 'application/vnd.ibexa.api.BulkOperation+json',
                 'X-Siteaccess': siteaccess,
                 'X-CSRF-Token': token,
             },
@@ -43,8 +43,8 @@
                 uri: '/api/ezp/v2/views',
                 method: 'POST',
                 headers: {
-                    Accept: 'application/vnd.ez.api.View+json; version=1.1',
-                    'Content-Type': 'application/vnd.ez.api.ViewInput+json; version=1.1',
+                    Accept: 'application/vnd.ibexa.api.View+json; version=1.1',
+                    'Content-Type': 'application/vnd.ibexa.api.ViewInput+json; version=1.1',
                     'X-Requested-With': 'XMLHttpRequest',
                 },
                 content: JSON.stringify({

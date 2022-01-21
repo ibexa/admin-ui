@@ -37,7 +37,7 @@ class BulkOperation extends BaseParser
 
         $operations = [];
         foreach ($operationData as $operationId => $operation) {
-            $operations[$operationId] = $parsingDispatcher->parse($operation, 'application/vnd.ez.api.internal.Operation');
+            $operations[$operationId] = $parsingDispatcher->parse($operation, 'application/vnd.ibexa.api.internal.Operation');
         }
 
         return new BulkOperationValue($operations);
