@@ -44,15 +44,15 @@
     }
 
     &--dark {
-        fill: $ibexa-black;
+        fill: $ibexa-color-black;
     }
 
     &--light {
-        fill: $ibexa-white;
+        fill: $ibexa-color-white;
     }
 
     &--base-dark {
-        fill: $ibexa-color-base-dark;
+        fill: $ibexa-color-dark-300;
     }
 
     &--primary {
@@ -60,7 +60,7 @@
     }
 
     &--secondary {
-        fill: $ibexa-black;
+        fill: $ibexa-color-black;
     }
 }
 
@@ -81,26 +81,26 @@
     .ibexa-icon {
         width: calculateRem(24px);
         height: calculateRem(24px);
-        fill: $ibexa-color-base-dark;
+        fill: $ibexa-color-dark-300;
     }
 
     &:hover,
     &:focus {
         .ibexa-icon {
-            fill: $ibexa-white;
+            fill: $ibexa-color-white;
         }
     }
 
     &.ibexa-preview__action--selected {
         .ibexa-icon {
-            fill: $ibexa-white;
+            fill: $ibexa-color-white;
         }
     }
 }
 
 .ibexa-btn--content-tree-expanded {
     .ibexa-icon {
-        fill: $ibexa-black;
+        fill: $ibexa-color-black;
     }
 }
 

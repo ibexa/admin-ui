@@ -1,7 +1,7 @@
 @mixin toggler-wrapper {
     position: relative;
     display: flex;
-    border: calculateRem(1px) solid $ibexa-color-font-pale;
+    border: calculateRem(1px) solid $ibexa-color-dark-300;
     border-radius: $ibexa-border-radius;
     margin-right: calculateRem(10px);
     font-size: calculateRem(14px);
@@ -30,16 +30,16 @@
     border-radius: 0;
 
     .ibexa-icon {
-        fill: $ibexa-color-base-dark;
+        fill: $ibexa-color-dark-300;
     }
 }
 
 @mixin toggler-selected-btn {
-    color: $ibexa-color-font-light;
-    background: $ibexa-color-base-dark;
+    color: $ibexa-color-white;
+    background: $ibexa-color-dark-300;
     transition: transform 0.3s $ibexa-admin-transition;
 
     .ibexa-icon {
-        fill: $ibexa-white;
+        fill: $ibexa-color-white;
     }
 }

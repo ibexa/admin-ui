@@ -9,13 +9,13 @@
     background: $ibexa-color-primary;
 
     .ibexa-icon {
-        fill: $ibexa-white;
+        fill: $ibexa-color-white;
         width: calculateRem(16px);
         height: calculateRem(16px);
     }
-} 
+}
 
 @mixin type-icon-read {
-    fill: $ibexa-color-base-light;
-    background: $ibexa-color-base-dark;
+    fill: $ibexa-color-light-200;
+    background: $ibexa-color-light-200;
 }
