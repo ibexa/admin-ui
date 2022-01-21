@@ -109,7 +109,6 @@ class ContentUpdateItemPage extends Page
 
     public function getField(string $fieldName): FieldTypeComponent
     {
-
         $fieldLocator = new VisibleCSSLocator('', sprintf($this->getLocator('nthField')->getSelector(), $this->getFieldPosition($fieldName)));
         $fieldTypeIdentifier = $this->getFieldtypeIdentifier($fieldLocator, $fieldName);
 
