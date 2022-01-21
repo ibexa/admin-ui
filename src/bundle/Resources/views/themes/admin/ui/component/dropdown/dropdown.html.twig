@@ -26,6 +26,7 @@
         {{ no_items and not is_dynamic or is_disabled ? "ibexa-dropdown--disabled" }}
         {{ class|default('') }}
     "
+    {% if is_hidden|default(false) %}hidden="hidden"{% endif %}
 >
     <div class="ibexa-dropdown__source">
         {{ source|default(null)|raw }}
