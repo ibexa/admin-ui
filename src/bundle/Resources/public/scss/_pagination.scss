@@ -2,6 +2,10 @@
     display: flex;
     justify-content: space-between;
 
+    &--simply {
+        justify-content: flex-end;
+    }
+
     &__info {
         font-size: $ibexa-text-font-size-medium;
         display: flex;
