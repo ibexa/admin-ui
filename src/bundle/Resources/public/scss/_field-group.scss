@@ -3,23 +3,20 @@
     background-color: $ibexa-color-white;
 
     .ibexa-raw-content-title {
-        padding: calculateRem(24px);
+        padding: calculateRem(16px) calculateRem(24px);
         color: $ibexa-color-black;
         align-items: center;
         border-bottom: calculateRem(1px) solid $ibexa-color-light;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
 
-        h2 {
-            margin: 0 calculateRem(10px) 0 0;
-            font-size: calculateRem(16px);
-            font-weight: normal;
+        h3 {
+            margin: 0;
         }
 
-        .form-inline {
-            &.collapsing {
-                -webkit-transition: none;
-                transition: none;
-                display: none;
-            }
+        &__language-form {
+            display: flex;
         }
     }
 }
