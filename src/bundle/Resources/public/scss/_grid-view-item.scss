@@ -9,6 +9,9 @@
     background: $ibexa-color-white;
     box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 rgba($ibexa-color-black, 0.05);
     transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+    min-width: calculateRem(216px);
+    max-width: calculateRem(216px);
+    margin: 0 calculateRem(14px) calculateRem(31.5px);
 
     &:link {
         text-decoration: none;
