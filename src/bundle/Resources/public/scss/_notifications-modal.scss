@@ -40,9 +40,6 @@
     }
 
     &__type {
-        display: flex;
-        align-items: center;
-
         .type__icon {
             @include type-icon;
         }
@@ -50,6 +47,11 @@
         .type__text {
             margin-left: 1rem;
         }
+    }
+
+    &__type-content {
+        display: flex;
+        align-items: center;
     }
 
     &__item--read {
