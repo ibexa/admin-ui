@@ -13,7 +13,7 @@
         }
     }
 
-    &.bs-tooltip-right &__arrow {
+    &.bs-tooltip-end &__arrow {
         width: calculateRem(8px);
 
         &::before {
@@ -29,7 +29,7 @@
         }
     }
 
-    &.bs-tooltip-left &__arrow {
+    &.bs-tooltip-start &__arrow {
         width: calculateRem(8px);
 
         &::before {
@@ -38,10 +38,10 @@
     }
 
     &__inner {
-        padding: calculateRem(11px);
+        padding: calculateRem(6px) calculateRem(11px);
         max-width: calculateRem(300px);
         border: calculateRem(1px) solid $ibexa-color-light-200;
-        border-radius: $ibexa-border-radius;
+        border-radius: $ibexa-border-radius-small;
         background-color: $ibexa-color-white;
         color: $ibexa-color-dark;
         font-size: $ibexa-text-font-size;
@@ -65,7 +65,7 @@
                 }
             }
 
-            &.bs-tooltip-right .ibexa-tooltip__arrow {
+            &.bs-tooltip-end .ibexa-tooltip__arrow {
                 &::before {
                     border-right-color: $ibexa-color-complementary-strong;
                 }
@@ -77,7 +77,7 @@
                 }
             }
 
-            &.bs-tooltip-left .ibexa-tooltip__arrow {
+            &.bs-tooltip-start .ibexa-tooltip__arrow {
                 &::before {
                     border-left-color: $ibexa-color-complementary-strong;
                 }
@@ -102,7 +102,7 @@
                 }
             }
 
-            &.bs-tooltip-right .ibexa-tooltip__arrow {
+            &.bs-tooltip-end .ibexa-tooltip__arrow {
                 &::before {
                     border-right-color: $ibexa-color-info;
                 }
@@ -114,7 +114,7 @@
                 }
             }
 
-            &.bs-tooltip-left .ibexa-tooltip__arrow {
+            &.bs-tooltip-start .ibexa-tooltip__arrow {
                 &::before {
                     border-left-color: $ibexa-color-info;
                 }

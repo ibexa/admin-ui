@@ -1,5 +1,4 @@
 (function(global, doc, ibexa, localStorage) {
-    const RESIZER_WIDTH = 10;
     const SECOND_LEVEL_COLLAPSED_WIDTH = 48;
     const SECOND_LEVEL_EXPANDED_WIDTH = 220;
     const SECOND_LEVEL_MANUAL_RESIZE_MIN_WIDTH = 80;
@@ -32,7 +31,7 @@
             return;
         }
 
-        const secondLevelMenuListWidth = secondLevelMenuWidth - RESIZER_WIDTH;
+        const secondLevelMenuListWidth = secondLevelMenuWidth;
 
         secondLevelMenuNode.style.width = `${secondLevelMenuWidth}px`;
         secondLevelMenuNode.querySelectorAll('.ibexa-main-menu__tab-pane .ibexa-main-menu__items-list').forEach((itemList) => {

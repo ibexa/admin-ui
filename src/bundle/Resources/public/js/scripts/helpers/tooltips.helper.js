@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, bootstrap) {
+(function(global, doc, ibexa, bootstrap) {
     let lastInsertTooltipTarget = null;
     const TOOLTIPS_SELECTOR = '[title]';
     const observerConfig = {
@@ -93,7 +93,7 @@
                     popperConfig: modifyPopperConfig.bind(null, iframe),
                     html: true,
                     template: `<div class="tooltip ibexa-tooltip ${extraClass}">
-                                    <div class="arrow ibexa-tooltip__arrow"></div>
+                                    <div class="tooltip-arrow ibexa-tooltip__arrow"></div>
                                     <div class="tooltip-inner ibexa-tooltip__inner"></div>
                                </div>`,
                 });
