@@ -62,7 +62,7 @@
 
         if (invalidSection) {
             const { anchorSectionId } = invalidSection.dataset;
-            const invalidButton = doc.querySelector(`[data-anchor-target-section="${anchorSectionId}"`);
+            const invalidButton = doc.querySelector(`[data-anchor-target-section-id="${anchorSectionId}"`);
 
             invalidButton.click();
         }
@@ -116,7 +116,7 @@
 
         invalidSections.forEach((sections) => {
             sections.forEach((invalidSectionId) => {
-                doc.querySelector(`[data-anchor-target-section='${invalidSectionId}']`).classList.add(
+                doc.querySelector(`[data-anchor-target-section-id='${invalidSectionId}']`).classList.add(
                     'ibexa-anchor-navigation-menu__btn--invalid'
                 );
             });
