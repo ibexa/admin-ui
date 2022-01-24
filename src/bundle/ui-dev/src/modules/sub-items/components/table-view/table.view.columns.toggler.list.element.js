@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const TableViewColumnsTogglerListElement = ({ label, isColumnVisible, toggleColumnVisibility, columnKey }) => {
     return (
         <li className="ibexa-popup-menu__item c-table-view-columns-toggler-list-element" onClick={() => toggleColumnVisibility(columnKey)}>
-            <div className="form-check form-check-inline">
+            <div className="ibexa-popup-menu__item-content">
                 <input
                     className="form-check-input ibexa-input ibexa-input--checkbox"
                     type="checkbox"
