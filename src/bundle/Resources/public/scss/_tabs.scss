@@ -122,7 +122,7 @@
             border-right-width: 0;
             background-color: $ibexa-color-light-300;
             border-color: $ibexa-color-light-300;
-            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition, margin-bottom 1ms, border-color 1ms;
         }
 
         &::after {
@@ -134,18 +134,6 @@
             border-bottom: calculateRem(1px) solid $ibexa-color-light;
             z-index: 3;
             transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
-        }
-
-        &:hover:not([disabled]) {
-            &::before {
-                border-color: $ibexa-color-dark;
-            }
-
-            .ibexa-tabs__tab-corner {
-                .ibexa-svg-tab-corner-border {
-                    stroke: $ibexa-color-dark;
-                }
-            }
         }
 
         &[disabled] {
@@ -161,6 +149,7 @@
             }
         }
 
+        &:hover:not([disabled]),
         &--active {
             z-index: 4;
 
@@ -171,23 +160,12 @@
                 border-right-width: 0;
                 z-index: 2;
                 margin-bottom: -0.1px;
+                transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
             }
 
             &::after {
                 border-color: $ibexa-color-white;
                 right: calculateRem(2px);
-            }
-
-            &:hover:not([disabled]) {
-                &::before {
-                    border-color: $ibexa-color-light;
-                }
-
-                .ibexa-tabs__tab-corner {
-                    .ibexa-svg-tab-corner-border {
-                        stroke: $ibexa-color-light;
-                    }
-                }
             }
 
             .ibexa-tabs__tab-corner {
@@ -198,6 +176,20 @@
                 .ibexa-svg-tab-corner-inside {
                     fill: $ibexa-color-white;
                 }
+            }
+        }
+
+        &:hover:not([disabled]):not(&--active) {
+            &::before {
+                border: calculateRem(1px) solid $ibexa-color-light;
+                border-right-width: 0;
+                z-index: 2;
+                transition: all $ibexa-admin-transition-duration $ibexa-admin-transition, margin-bottom 1ms, border-color 1ms;
+            }
+
+            &::after {
+                border-color: $ibexa-color-light;
+                right: 0;
             }
         }
 
