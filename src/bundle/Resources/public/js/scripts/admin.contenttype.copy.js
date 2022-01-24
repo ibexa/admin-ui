@@ -4,7 +4,7 @@
         const contentTypeCopyForm = doc.querySelector('form[name="content_type_copy"]');
         const contentTypeIdentifierInput = contentTypeCopyForm.querySelector('#content_type_copy_content_type');
         const { contentTypeId, contentTypeIdentifier, contentTypeGroupId } = currentTarget.dataset;
-        const formAction = Routing.generate('ezplatform.content_type.copy', { contentTypeId, contentTypeGroupId });
+        const formAction = Routing.generate('ibexa.content_type.copy', { contentTypeId, contentTypeGroupId });
 
         contentTypeIdentifierInput.value = contentTypeIdentifier;
         contentTypeCopyForm.action = formAction;

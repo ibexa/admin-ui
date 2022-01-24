@@ -79,7 +79,7 @@ class UrlAliasController extends Controller
             return $this->redirectToLocation($location, UrlsTab::URI_FRAGMENT);
         }
 
-        return $this->redirectToRoute('ezplatform.dashboard');
+        return $this->redirectToRoute('ibexa.dashboard');
     }
 
     /**
@@ -114,7 +114,7 @@ class UrlAliasController extends Controller
             return $this->redirectToLocation($location, UrlsTab::URI_FRAGMENT);
         }
 
-        return $this->redirectToRoute('ezplatform.dashboard');
+        return $this->redirectToRoute('ibexa.dashboard');
     }
 }
 

@@ -83,7 +83,7 @@ final class LinkManagerController extends Controller
                     'linkmanager'
                 );
 
-                return $this->redirectToRoute('ezplatform.url_management');
+                return $this->redirectToRoute('ibexa.url_management');
             });
 
             if ($result instanceof Response) {

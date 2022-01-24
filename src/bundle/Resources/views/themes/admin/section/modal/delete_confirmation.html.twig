@@ -15,7 +15,7 @@
             </div>
             <div class="modal-footer">
                 {{ form_start(form, {
-                    "action": path('ezplatform.section.delete', {'sectionId': section.id}),
+                    "action": path('ibexa.section.delete', {'sectionId': section.id}),
                     'attr': {'class': 'd-inline-block'}
                 }) }}
                 {{ form_widget(form.delete, {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary', 'disabled': not deletable}}) }}

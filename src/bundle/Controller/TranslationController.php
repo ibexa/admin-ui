@@ -91,11 +91,11 @@ class TranslationController extends Controller
         }
 
         $redirectionUrl = null !== $location
-            ? $this->generateUrl('_ez_content_view', [
+            ? $this->generateUrl('ibexa.content.view', [
                 'contentId' => $location->contentId,
                 'locationId' => $location->id,
             ])
-            : $this->generateUrl('ezplatform.dashboard');
+            : $this->generateUrl('ibexa.dashboard');
 
         return $this->redirect($redirectionUrl);
     }
@@ -131,7 +131,7 @@ class TranslationController extends Controller
                     );
                 }
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $contentInfo->id,
                     'locationId' => $contentInfo->mainLocationId,
                     '_fragment' => TranslationsTab::URI_FRAGMENT,
@@ -143,7 +143,7 @@ class TranslationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('_ez_content_view', [
+        return $this->redirect($this->generateUrl('ibexa.content.view', [
             'contentId' => $contentInfo->id,
             'locationId' => $contentInfo->mainLocationId,
             '_fragment' => TranslationsTab::URI_FRAGMENT,

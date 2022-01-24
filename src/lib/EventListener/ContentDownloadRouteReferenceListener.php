@@ -21,7 +21,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 final class ContentDownloadRouteReferenceListener implements EventSubscriberInterface
 {
-    public const CONTENT_DOWNLOAD_ROUTE_NAME = 'ez_content_download';
+    public const CONTENT_DOWNLOAD_ROUTE_NAME = 'ibexa.content.download';
 
     /** @var array */
     private $siteAccessGroups;

@@ -9,7 +9,7 @@
 {% block breadcrumbs %}
     {% set items = [{
         'value': 'search'|trans|desc('Search'),
-        'url': path('ezplatform.search')
+        'url': path('ibexa.search')
     }] %}
 
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: items } %}
@@ -30,7 +30,7 @@
             <div class="ibexa-search__edit-form">
                 {% form_theme form_edit '@ibexadesign/ui/form/flat_widgets.html.twig' %}
                 {{ form_start(form_edit, {
-                    'action': path('ezplatform.content.edit'),
+                    'action': path('ibexa.content.edit'),
                     'attr': { 'class': 'ibexa-edit-content-form'}
                 }) }}
                 {{ form_widget(form_edit.language, {'attr': {'hidden': 'hidden', 'class': 'language-input'}}) }}

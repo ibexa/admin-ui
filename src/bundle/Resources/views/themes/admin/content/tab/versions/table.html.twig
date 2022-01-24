@@ -44,11 +44,11 @@
         <tbody class="ibexa-table__body">
             {% for version in versions %}
                 {% set edit_url = content_is_user is defined and content_is_user ?
-                        path('ezplatform.user.update', {
+                        path('ibexa.user.update', {
                         'contentId': version.contentInfo.id,
                         'versionNo': version.versionNo,
                         'language': version.initialLanguageCode,
-                    }) : path('ezplatform.content.draft.edit', {
+                    }) : path('ibexa.content.draft.edit', {
                         'contentId': version.contentInfo.id,
                         'versionNo': version.versionNo,
                         'language': version.initialLanguageCode,
@@ -114,7 +114,7 @@
                                     {% elseif is_draft %}
                                         <button
                                             data-content-draft-edit-url="{{ edit_url }}"
-                                            data-version-has-conflict-url="{{ path('ezplatform.version.has_no_conflict', {
+                                            data-version-has-conflict-url="{{ path('ibexa.version.has_no_conflict', {
                                                 'contentId': version.contentInfo.id,
                                                 'versionNo': version.versionNo,
                                                 'languageCode': version.initialLanguageCode

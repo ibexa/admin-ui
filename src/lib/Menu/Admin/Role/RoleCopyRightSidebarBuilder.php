@@ -83,7 +83,7 @@ self::ITEM__CANCEL,
                             'menu'
                         ),
                     ],
-                    'route' => 'ezplatform.role.list',
+                    'route' => 'ibexa.role.list',
                 ]
             ),
         ]);

@@ -13,7 +13,7 @@
         <div class="ibexa-preview-header__item ibexa-preview-header__item--back">
             <a
                 class="ibexa-preview-header__link btn ibexa-btn ibexa-btn--ghost"
-                href="{{ url('ezplatform.content.draft.edit', {'contentId': content.id, 'versionNo': version_no, 'language': language_code, 'locationId': is_published ? location.id : null}) }}"
+                href="{{ url('ibexa.content.draft.edit', {'contentId': content.id, 'versionNo': version_no, 'language': language_code, 'locationId': is_published ? location.id : null}) }}"
             >
                 <svg class="ibexa-icon ibexa-icon--small-medium">
                     <use xlink:href="{{ ibexa_icon_path('back') }}"></use>
@@ -25,7 +25,7 @@
             {% set value = '' %}
             {% set choices = siteaccesses|map((site_accesses_name, site_access_label) => {
                 value: path(
-                    '_ezpublishPreviewContent',
+                    'ibexa.version.preview',
                     {
                         'contentId': content.id,
                         'versionNo': version_no,
@@ -78,7 +78,7 @@
 {% block content %}
     <div class="ibexa-preview">
         <div class="ibexa-preview__iframe ibexa-preview__iframe--desktop">
-            <iframe src="{{ url('_ezpublishPreviewContent', {'contentId': content.id, 'versionNo': version_no, 'language': language_code, 'siteAccessName': siteaccesses|first}) }}" frameborder="0"></iframe>
+            <iframe src="{{ url('ibexa.version.preview', {'contentId': content.id, 'versionNo': version_no, 'language': language_code, 'siteAccessName': siteaccesses|first}) }}" frameborder="0"></iframe>
         </div>
     </div>
 {% endblock %}

@@ -63,7 +63,7 @@ class ObjectStateCreateRightSidebarBuilder extends AbstractBuilder implements Tr
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'route' => 'ezplatform.object_state.group.view',
+                    'route' => 'ibexa.object_state.group.view',
                     'routeParameters' => [
                         'objectStateGroupId' => $groupId,
                     ],

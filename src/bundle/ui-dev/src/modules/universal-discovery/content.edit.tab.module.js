@@ -83,7 +83,7 @@ const ContentEditTabModule = () => {
         iframeBackBtn?.addEventListener('click', cancelContentEdit, false);
     };
     const iframeUrl = window.Routing.generate(
-        'ezplatform.content_on_the_fly.edit',
+        'ibexa.content.on_the_fly.edit',
         {
             contentId: editOnTheFlyData.contentId,
             versionNo: editOnTheFlyData.versionNo,

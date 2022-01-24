@@ -146,14 +146,14 @@ class ContentController extends Controller
                 $parentLocation = $data->getParentLocation();
 
                 if ((new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier')))->isSatisfiedBy($contentType)) {
-                    return $this->redirectToRoute('ezplatform.user.create', [
+                    return $this->redirectToRoute('ibexa.user.create', [
                         'contentTypeIdentifier' => $contentType->identifier,
                         'language' => $language->languageCode,
                         'parentLocationId' => $parentLocation->id,
                     ]);
                 }
 
-                return $this->redirectToRoute('ezplatform.content.create.proxy', [
+                return $this->redirectToRoute('ibexa.content.create.proxy', [
                     'contentTypeIdentifier' => $contentType->identifier,
                     'languageCode' => $language->languageCode,
                     'parentLocationId' => $parentLocation->id,
@@ -165,7 +165,7 @@ class ContentController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.dashboard'));
+        return $this->redirect($this->generateUrl('ibexa.dashboard'));
     }
 
     public function proxyCreateAction(
@@ -188,7 +188,7 @@ class ContentController extends Controller
         }
 
         // Fallback to "nodraft"
-        return $this->redirectToRoute('ezplatform.content.create_no_draft', [
+        return $this->redirectToRoute('ibexa.content.create_no_draft', [
             'contentTypeIdentifier' => $contentType->identifier,
             'language' => $languageCode,
             'parentLocationId' => $parentLocationId,
@@ -224,7 +224,7 @@ class ContentController extends Controller
                 $versionNo = $versionInfo->versionNo;
 
                 if ((new ContentIsUser($this->userService))->isSatisfiedBy($content)) {
-                    return $this->redirectToRoute('ezplatform.user.update', [
+                    return $this->redirectToRoute('ibexa.user.update', [
                         'contentId' => $contentInfo->id,
                         'versionNo' => $versionNo,
                         'language' => $language->languageCode,
@@ -243,7 +243,7 @@ class ContentController extends Controller
                     );
                 }
 
-                return $this->redirectToRoute('ezplatform.content.draft.edit', [
+                return $this->redirectToRoute('ibexa.content.draft.edit', [
                     'contentId' => $contentInfo->id,
                     'versionNo' => $versionNo,
                     'language' => $language->languageCode,
@@ -263,13 +263,13 @@ class ContentController extends Controller
         $contentInfo = $data->getContentInfo();
 
         if (null !== $contentInfo) {
-            return $this->redirectToRoute('_ez_content_view', [
+            return $this->redirectToRoute('ibexa.content.view', [
                 'contentId' => $contentInfo->id,
                 'locationId' => $contentInfo->mainLocationId,
             ]);
         }
 
-        return $this->redirectToRoute('ezplatform.dashboard');
+        return $this->redirectToRoute('ibexa.dashboard');
     }
 
     /**
@@ -304,7 +304,7 @@ class ContentController extends Controller
                     'content'
                 );
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $contentInfo->id,
                     'locationId' => $contentInfo->mainLocationId,
                     '_fragment' => 'ibexa-tab-location-view-locations',
@@ -321,14 +321,14 @@ class ContentController extends Controller
         $contentInfo = $data->getContentInfo();
 
         if (null !== $contentInfo) {
-            return new RedirectResponse($this->generateUrl('_ez_content_view', [
+            return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                 'contentId' => $contentInfo->id,
                 'locationId' => $contentInfo->mainLocationId,
                 '_fragment' => 'ibexa-tab-location-view-locations',
             ]));
         }
 
-        return $this->redirectToRoute('ezplatform.dashboard');
+        return $this->redirectToRoute('ibexa.dashboard');
     }
 
     /**
@@ -408,7 +408,7 @@ class ContentController extends Controller
                     'content'
                 );
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $contentInfo->id,
                     'locationId' => $contentInfo->mainLocationId,
                     '_fragment' => 'ibexa-tab-location-view-translations',
@@ -422,14 +422,14 @@ class ContentController extends Controller
         $data = $form->getData();
         $contentInfo = $data->getContentInfo();
         if (null !== $contentInfo) {
-            return new RedirectResponse($this->generateUrl('_ez_content_view', [
+            return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                 'contentId' => $contentInfo->id,
                 'locationId' => $contentInfo->mainLocationId,
                 '_fragment' => 'ibexa-tab-location-view-translations',
             ]));
         }
 
-        return $this->redirectToRoute('ezplatform.dashboard');
+        return $this->redirectToRoute('ibexa.dashboard');
     }
 
     /**
@@ -490,11 +490,11 @@ class ContentController extends Controller
                     );
                 }
 
-                return $location === null ? $this->redirectToRoute('ezplatform.dashboard') : $this->redirectToLocation($location);
+                return $location === null ? $this->redirectToRoute('ibexa.dashboard') : $this->redirectToLocation($location);
             });
         }
 
-        return $result instanceof Response ? $result : $this->redirectToRoute('ezplatform.dashboard');
+        return $result instanceof Response ? $result : $this->redirectToRoute('ibexa.dashboard');
     }
 
     /**

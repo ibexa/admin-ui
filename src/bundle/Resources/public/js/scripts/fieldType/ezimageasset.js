@@ -23,7 +23,7 @@
          * @param {String} languageCode
          */
         createAsset(file, languageCode) {
-            const assetCreateUri = Routing.generate('ezplatform.asset.upload_image');
+            const assetCreateUri = Routing.generate('ibexa.asset.upload_image');
             const form = new FormData();
 
             form.append('languageCode', languageCode);
@@ -131,7 +131,7 @@
             const previewAlt = preview.querySelector('.ibexa-field-edit-preview__image-alt input');
             const previewActionPreview = preview.querySelector('.ibexa-field-edit-preview__action--preview');
             const assetNameContainer = preview.querySelector('.ibexa-field-edit-preview__file-name');
-            const destinationLocationUrl = Routing.generate('_ez_content_view', {
+            const destinationLocationUrl = Routing.generate('ibexa.content.view', {
                 contentId: destinationContentId,
                 locationId: destinationLocationId,
             });

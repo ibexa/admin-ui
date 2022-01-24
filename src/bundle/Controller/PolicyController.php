@@ -156,7 +156,7 @@ class PolicyController extends Controller
                         'role'
                     );
 
-                    return new RedirectResponse($this->generateUrl('ezplatform.policy.create_with_limitation', [
+                    return new RedirectResponse($this->generateUrl('ibexa.policy.create_with_limitation', [
                         'roleId' => $role->id,
                         'policyModule' => $policyCreateStruct->module,
                         'policyFunction' => $policyCreateStruct->function,
@@ -179,7 +179,7 @@ class PolicyController extends Controller
                     'role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
                 ]));
             });
@@ -223,7 +223,7 @@ class PolicyController extends Controller
                 'role'
             );
 
-            return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+            return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                 'roleId' => $role->id,
             ]));
         }
@@ -254,7 +254,7 @@ class PolicyController extends Controller
                     'role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
                 ]));
             });
@@ -304,7 +304,7 @@ class PolicyController extends Controller
                     'role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
                 ]));
             });
@@ -356,7 +356,7 @@ class PolicyController extends Controller
                     'role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
                 ]));
             });
@@ -366,7 +366,7 @@ class PolicyController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.role.view', [
+        return $this->redirect($this->generateUrl('ibexa.role.view', [
             'roleId' => $role->id,
         ]));
     }
@@ -412,7 +412,7 @@ class PolicyController extends Controller
                     'role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
                 ]));
             });
@@ -422,7 +422,7 @@ class PolicyController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.role.view', [
+        return $this->redirect($this->generateUrl('ibexa.role.view', [
             'roleId' => $role->id,
         ]));
     }

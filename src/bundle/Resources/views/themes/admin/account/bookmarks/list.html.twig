@@ -31,7 +31,7 @@
                     {% endset %}
 
                     {% set col_name %}
-                        <a href="{{ path('_ez_content_view', { 'contentId': bookmark.contentInfo.id, 'locationId': bookmark.id }) }}">
+                        <a href="{{ path('ibexa.content.view', { 'contentId': bookmark.contentInfo.id, 'locationId': bookmark.id }) }}">
                             {{ ibexa_content_name(bookmark.contentInfo) }}
                         </a>
                     {% endset %}
@@ -40,7 +40,7 @@
                         {% if bookmark.pathLocations|length > 1 %}
                             {% for location in bookmark.pathLocations %}
                                 {% if loop.revindex > 1 %}
-                                    <a href="{{ path('_ez_content_view', { 'contentId': location.contentId, 'locationId': location.id}) }}">
+                                    <a href="{{ path('ibexa.content.view', { 'contentId': location.contentId, 'locationId': location.id}) }}">
                                         {{ ibexa_content_name(location.contentInfo) }}
                                     </a>
                                     {% if loop.revindex > 2 %}/{% endif %}
@@ -77,7 +77,7 @@
                 {% endfor %}
 
                 {{ form_start(form_remove, {
-                    'action': path('ezplatform.bookmark.remove'),
+                    'action': path('ibexa.bookmark.remove'),
                     'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#bookmark_remove_remove' }
                 }) }}
                 {% include '@ibexadesign/ui/component/table/table.html.twig' with {
@@ -105,7 +105,7 @@
         </div>
 
         {{ form_start(form_edit, {
-            'action': path('ezplatform.content.edit'),
+            'action': path('ibexa.content.edit'),
             'attr': { 'class': 'ibexa-edit-content-form'}
         }) }}
         {{ form_widget(form_edit.language, {'attr': {'hidden': 'hidden', 'class': 'language-input'}}) }}

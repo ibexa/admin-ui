@@ -80,7 +80,7 @@ class ContentTypeCreateRightSidebarBuilder extends AbstractBuilder implements Tr
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'route' => 'ezplatform.content_type_group.view',
+                    'route' => 'ibexa.content_type_group.view',
                     'routeParameters' => [
                         'contentTypeGroupId' => $group->id,
                     ],

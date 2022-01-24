@@ -11,13 +11,13 @@ namespace Ibexa\Contracts\AdminUi\Event;
 final class UserOnTheFlyEvents
 {
     /** @var string */
-    public const USER_CREATE = 'ezplatform.user_on_the_fly.create';
+    public const USER_CREATE = 'ibexa.user.on_the_fly.create';
 
     /** @var string */
     public const USER_CREATE_PUBLISH = 'ezplatform.user_on_the_fly.create.create';
 
     /** @var string */
-    public const USER_EDIT = 'ezplatform.user_on_the_fly.edit';
+    public const USER_EDIT = 'ibexa.user.on_the_fly.edit';
 
     /** @var string */
     public const USER_EDIT_PUBLISH = 'ezplatform.user_on_the_fly.edit.update';

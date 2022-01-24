@@ -40,7 +40,7 @@ export const findLocationsByParentLocationId = (
     { token, parentLocationId, limit = QUERY_LIMIT, offset = 0, sortClause = 'DatePublished', sortOrder = 'ascending', gridView = false },
     callback
 ) => {
-    const routeName = gridView ? 'ezplatform.udw.location_gridview.data' : 'ezplatform.udw.location.data';
+    const routeName = gridView ? 'ibexa.udw.location.gridview.data' : 'ibexa.udw.location.data';
     const url = window.Routing.generate(routeName, {
         locationId: parentLocationId,
     });
@@ -83,7 +83,7 @@ export const loadAccordionData = (
     },
     callback
 ) => {
-    const routeName = gridView ? 'ezplatform.udw.accordion_gridview.data' : 'ezplatform.udw.accordion.data';
+    const routeName = gridView ? 'ibexa.udw.accordion.gridview.data' : 'ibexa.udw.accordion.data';
     const url = window.Routing.generate(routeName, {
         locationId: parentLocationId,
     });
@@ -361,7 +361,7 @@ export const loadContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LI
 };
 
 export const loadLocationsWithPermissions = ({ locationIds, signal }, callback) => {
-    const url = window.Routing.generate('ezplatform.udw.locations.data');
+    const url = window.Routing.generate('ibexa.udw.locations.data');
     const request = new Request(`${url}?locationIds=${locationIds}`, {
         method: 'GET',
         mode: 'same-origin',

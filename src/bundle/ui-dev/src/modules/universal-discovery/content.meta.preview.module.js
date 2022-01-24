@@ -47,7 +47,7 @@ const ContentMetaPreview = () => {
     };
     const previewContent = () => {
         window.location.href = window.Routing.generate(
-            '_ez_content_view',
+            'ibexa.content.view',
             { contentId: location.ContentInfo.Content._id, locationId: location.id },
             true
         );

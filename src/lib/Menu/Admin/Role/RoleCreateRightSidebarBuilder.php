@@ -75,7 +75,7 @@ class RoleCreateRightSidebarBuilder extends AbstractBuilder implements Translati
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'route' => 'ezplatform.role.list',
+                    'route' => 'ibexa.role.list',
                 ]
             ),
         ]);

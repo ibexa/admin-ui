@@ -17,7 +17,7 @@ import deepClone from '../common/helpers/deep.clone.helper';
 import { createCssClassNames } from '../common/helpers/css.class.names';
 
 const generateIframeUrl = ({ locationId, languageCode, contentTypeIdentifier }) => {
-    return window.Routing.generate('ezplatform.content_on_the_fly.create', {
+    return window.Routing.generate('ibexa.content.on_the_fly.create', {
         locationId,
         languageCode,
         contentTypeIdentifier,

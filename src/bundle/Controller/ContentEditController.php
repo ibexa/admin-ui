@@ -59,7 +59,7 @@ class ContentEditController extends Controller
         }
 
         // Fallback to "translate"
-        return $this->redirectToRoute('ezplatform.content.translate', [
+        return $this->redirectToRoute('ibexa.content.translate', [
             'contentId' => $contentId,
             'fromLanguageCode' => $fromLanguageCode,
             'toLanguageCode' => $toLanguageCode,

@@ -51,7 +51,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $router = $this->createMock(RouterInterface::class);
         $router
             ->method('generate')
-            ->with('ezplatform.content.draft.edit', [
+            ->with('ibexa.content.draft.edit', [
                 'contentId' => null,
                 'versionNo' => null,
                 'language' => 'eng-EN',
@@ -116,7 +116,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $router = $this->createMock(RouterInterface::class);
         $router
             ->method('generate')
-            ->with('ezplatform.content_on_the_fly.edit', [
+            ->with('ibexa.content.on_the_fly.edit', [
                 'contentId' => null,
                 'versionNo' => null,
                 'languageCode' => 'eng-EN',
@@ -203,7 +203,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $router = $this->createMock(RouterInterface::class);
         $router
             ->method('generate')
-            ->with('ezplatform.content.draft.edit', [
+            ->with('ibexa.content.draft.edit', [
                 'contentId' => null,
                 'versionNo' => null,
                 'language' => 'pol-PL',

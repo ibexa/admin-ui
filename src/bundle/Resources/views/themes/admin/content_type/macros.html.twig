@@ -1,7 +1,7 @@
 {% trans_default_domain 'content_type' %}
 
 {% macro content_type_edit(content_type, content_type_group, class_name) %}
-    {% set edit_url = path('ezplatform.content_type.edit', {
+    {% set edit_url = path('ibexa.content_type.edit', {
     'contentTypeGroupId': content_type_group.id,
     'contentTypeId': content_type.id
     }) %}

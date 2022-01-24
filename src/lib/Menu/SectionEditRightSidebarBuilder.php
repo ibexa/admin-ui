@@ -78,7 +78,7 @@ class SectionEditRightSidebarBuilder extends AbstractBuilder implements Translat
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'route' => 'ezplatform.section.list',
+                    'route' => 'ibexa.section.list',
                 ]
             ),
         ]);

@@ -47,7 +47,7 @@ const ContentEditButton = ({ version, location, isDisabled, label }) => {
         if (allowRedirects) {
             const href = isUserContentType
                 ? window.Routing.generate(
-                    'ezplatform.user.update',
+                    'ibexa.user.update',
                     {
                         contentId,
                         versionNo,
@@ -56,7 +56,7 @@ const ContentEditButton = ({ version, location, isDisabled, label }) => {
                     true
                 )
                 : window.Routing.generate(
-                    'ezplatform.content.draft.edit',
+                    'ibexa.content.draft.edit',
                     {
                         contentId,
                         versionNo,

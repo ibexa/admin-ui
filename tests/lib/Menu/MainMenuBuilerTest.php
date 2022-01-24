@@ -57,7 +57,7 @@ class MainMenuBuilerTest extends TestCase
             [
                 MainMenuBuilder::ITEM_DASHBOARD,
                 [
-                    'route' => 'ezplatform.dashboard',
+                    'route' => 'ibexa.dashboard',
                     'attributes' => [
                         'data-tooltip-placement' => 'right',
                         'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
@@ -102,7 +102,7 @@ class MainMenuBuilerTest extends TestCase
             [
                 MainMenuBuilder::ITEM_BOOKMARKS,
                 [
-                    'route' => 'ezplatform.bookmark.list',
+                    'route' => 'ibexa.bookmark.list',
                     'attributes' => [
                         'data-tooltip-placement' => 'right',
                         'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
@@ -118,7 +118,7 @@ class MainMenuBuilerTest extends TestCase
             [
                 MainMenuBuilder::ITEM_TRASH,
                 [
-                    'route' => 'ezplatform.trash.list',
+                    'route' => 'ibexa.trash.list',
                     'attributes' => [
                         'data-tooltip-placement' => 'right',
                         'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',

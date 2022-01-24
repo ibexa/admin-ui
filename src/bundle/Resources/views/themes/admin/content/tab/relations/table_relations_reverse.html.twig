@@ -11,7 +11,7 @@
 
             {% set col_raw %}
                 {% if source.mainLocationId is not null %}
-                    <a href="{{ path('_ez_content_view', { 'contentId': source.id, 'locationId': relation.resolvedSourceLocation.id }) }}">
+                    <a href="{{ path('ibexa.content.view', { 'contentId': source.id, 'locationId': relation.resolvedSourceLocation.id }) }}">
                         {{ ibexa_content_name(source) }}
                     </a>
                 {% else %}

@@ -24,7 +24,7 @@
         {% if can_create %}
             <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
                 <a
-                    href="{{ path('ezplatform.content_type_group.create') }}"
+                    href="{{ path('ibexa.content_type_group.create') }}"
                     class="btn ibexa-btn ibexa-btn--primary"
                 >
                     <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
@@ -66,7 +66,7 @@
             }]) %}
 
             {% set col_raw %}
-                {% set view_url = path('ezplatform.content_type_group.view', {
+                {% set view_url = path('ibexa.content_type_group.view', {
                     contentTypeGroupId: content_type_group.id
                 }) %}
 
@@ -84,7 +84,7 @@
 
             {% set col_raw %}
                 {% if can_update %}
-                    {% set edit_url = path('ezplatform.content_type_group.update', {
+                    {% set edit_url = path('ibexa.content_type_group.update', {
                         contentTypeGroupId: content_type_group.id
                     }) %}
                     <a
@@ -149,7 +149,7 @@
             {% endblock %}
             {% block between_header_and_table %}
                 {{ form_start(form_content_type_groups_delete, {
-                    'action': path('ezplatform.content_type_group.bulk_delete'),
+                    'action': path('ibexa.content_type_group.bulk_delete'),
                     'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-content-type-groups' }
                 }) }}
             {% endblock %}

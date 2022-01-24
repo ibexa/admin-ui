@@ -240,7 +240,7 @@ class SectionController extends Controller
         }
 
         $routeGenerator = function ($page) use ($section) {
-            return $this->generateUrl('ezplatform.section.view', [
+            return $this->generateUrl('ibexa.section.view', [
                 'sectionId' => $section->id,
                 'page' => $page,
             ]);
@@ -285,7 +285,7 @@ class SectionController extends Controller
                     'section'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.section.list'));
+                return new RedirectResponse($this->generateUrl('ibexa.section.list'));
             });
 
             if ($result instanceof Response) {
@@ -293,7 +293,7 @@ class SectionController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.section.list'));
+        return $this->redirect($this->generateUrl('ibexa.section.list'));
     }
 
     /**
@@ -331,7 +331,7 @@ class SectionController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.section.list'));
+        return $this->redirect($this->generateUrl('ibexa.section.list'));
     }
 
     /**
@@ -372,7 +372,7 @@ class SectionController extends Controller
                     'section'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.section.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.section.view', [
                     'sectionId' => $section->id,
                 ]));
             });
@@ -382,7 +382,7 @@ class SectionController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.section.view', [
+        return $this->redirect($this->generateUrl('ibexa.section.view', [
             'sectionId' => $section->id,
         ]));
     }
@@ -413,7 +413,7 @@ class SectionController extends Controller
                     'section'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.section.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.section.view', [
                     'sectionId' => $section->id,
                 ]));
             } catch (Exception $e) {
@@ -455,7 +455,7 @@ class SectionController extends Controller
                     'section'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.section.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.section.view', [
                     'sectionId' => $section->id,
                 ]));
             } catch (Exception $e) {

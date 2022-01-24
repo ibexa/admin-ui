@@ -76,7 +76,7 @@ final class URLWildcardController extends Controller
             });
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.url_management', [
+        return $this->redirect($this->generateUrl('ibexa.url_management', [
             '_fragment' => URLWildcardsTab::URI_FRAGMENT,
         ]));
     }
@@ -116,7 +116,7 @@ final class URLWildcardController extends Controller
                         'url_wildcard'
                     );
 
-                    return $this->redirect($this->generateUrl('ezplatform.url_management', [
+                    return $this->redirect($this->generateUrl('ibexa.url_management', [
                         '_fragment' => URLWildcardsTab::URI_FRAGMENT,
                     ]));
                 }
@@ -128,7 +128,7 @@ final class URLWildcardController extends Controller
         }
 
         $actionUrl = $this->generateUrl(
-            'ezplatform.url_wildcard.update',
+            'ibexa.url_wildcard.update',
             ['urlWildcardId' => $urlWildcard->id]
         );
 
@@ -165,7 +165,7 @@ final class URLWildcardController extends Controller
             );
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.url_management', [
+        return $this->redirect($this->generateUrl('ibexa.url_management', [
             '_fragment' => URLWildcardsTab::URI_FRAGMENT,
         ]));
     }

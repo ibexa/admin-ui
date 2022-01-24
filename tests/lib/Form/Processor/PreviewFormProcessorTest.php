@@ -236,7 +236,7 @@ class PreviewFormProcessorTest extends TestCase
         $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $urlGenerator
             ->method('generate')
-            ->with('ezplatform.content.preview', [
+            ->with('ibexa.content.preview', [
                 'contentId' => $contentDraft->id,
                 'versionNo' => $contentDraft->getVersionInfo()->versionNo,
                 'languageCode' => $languageCode,
@@ -260,7 +260,7 @@ class PreviewFormProcessorTest extends TestCase
         $urlGenerator
             ->expects(self::once())
             ->method('generate')
-            ->with('ezplatform.content.create.proxy', [
+            ->with('ibexa.content.create.proxy', [
                 'parentLocationId' => '234',
                 'contentTypeIdentifier' => $contentDraft->id,
                 'languageCode' => $languageCode,

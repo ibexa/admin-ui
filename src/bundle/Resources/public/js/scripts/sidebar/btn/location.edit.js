@@ -17,7 +17,7 @@
     const redirectToUserEdit = (languageCode) => {
         const versionNo = form.querySelector('#user_edit_version_info_version_no').value;
 
-        window.location.href = Routing.generate('ezplatform.user.update', { contentId, versionNo, language: languageCode });
+        window.location.href = Routing.generate('ibexa.user.update', { contentId, versionNo, language: languageCode });
     };
     const onModalHidden = () => {
         resetRadioButtons();
@@ -54,7 +54,7 @@
     const changeHandler = (event) => {
         const checkedBtn = event.currentTarget;
         const languageCode = checkedBtn.value;
-        const checkVersionDraftLink = Routing.generate('ezplatform.version_draft.has_no_conflict', { contentId, languageCode, locationId });
+        const checkVersionDraftLink = Routing.generate('ibexa.version_draft.has_no_conflict', { contentId, languageCode, locationId });
 
         fetch(checkVersionDraftLink, {
             credentials: 'same-origin',

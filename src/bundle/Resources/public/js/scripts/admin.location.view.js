@@ -11,7 +11,7 @@
         const contentId = content._id;
         const locationId = location._id;
         const languageCode = content.mainLanguageCode;
-        const checkVersionDraftLink = Routing.generate('ezplatform.version_draft.has_no_conflict', { contentId, languageCode, locationId });
+        const checkVersionDraftLink = Routing.generate('ibexa.version_draft.has_no_conflict', { contentId, languageCode, locationId });
         const submitVersionEditForm = () => {
             doc.querySelector('#form_subitems_content_edit_content_info').value = contentId;
             doc.querySelector(`#form_subitems_content_edit_language_${languageCode}`).checked = true;
@@ -44,7 +44,7 @@
             wrapper.innerHTML = modalHtml;
             attachModalListeners(wrapper);
         };
-        const checkEditPermissionLink = Routing.generate('ezplatform.content.check_edit_permission', {
+        const checkEditPermissionLink = Routing.generate('ibexa.content.check_edit_permission', {
             contentId,
             languageCode: content.mainLanguageCode,
         });
@@ -75,7 +75,7 @@
             })
             .catch(ibexa.helpers.notification.showErrorNotification);
     };
-    const generateLink = (locationId, contentId) => Routing.generate('_ez_content_view', { contentId, locationId });
+    const generateLink = (locationId, contentId) => Routing.generate('ibexa.content.view', { contentId, locationId });
     const setModalTableTitle = (title) => {
         const modalTableTitleNode = doc.querySelector(`${SELECTOR_MODAL_BULK_ACTION_FAIL} .ibexa-table-header__headline`);
 

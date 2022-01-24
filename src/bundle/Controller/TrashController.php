@@ -189,7 +189,7 @@ class TrashController extends Controller
     public function emptyAction(Request $request): Response
     {
         if (!$this->isGranted(new Attribute('content', 'cleantrash'))) {
-            return $this->redirect($this->generateUrl('ezplatform.trash.list'));
+            return $this->redirect($this->generateUrl('ibexa.trash.list'));
         }
 
         $form = $this->formFactory->emptyTrash(
@@ -208,7 +208,7 @@ class TrashController extends Controller
                     'trash'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.trash.list'));
+                return new RedirectResponse($this->generateUrl('ibexa.trash.list'));
             });
 
             if ($result instanceof Response) {
@@ -216,7 +216,7 @@ class TrashController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.trash.list'));
+        return $this->redirect($this->generateUrl('ibexa.trash.list'));
     }
 
     /**
@@ -327,7 +327,7 @@ class TrashController extends Controller
         $params = $trashSearchParams ? ['trash_search' => $trashSearchParams] : [];
 
         return $this->redirect(
-            $this->generateUrl('ezplatform.trash.list', $params)
+            $this->generateUrl('ibexa.trash.list', $params)
         );
     }
 

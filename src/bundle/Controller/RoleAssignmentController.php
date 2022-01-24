@@ -129,7 +129,7 @@ class RoleAssignmentController extends Controller
                     'role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
                 ]));
             });
@@ -172,7 +172,7 @@ class RoleAssignmentController extends Controller
                     'role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
                 ]));
             });
@@ -182,7 +182,7 @@ class RoleAssignmentController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.role.view', [
+        return $this->redirect($this->generateUrl('ibexa.role.view', [
             'roleId' => $role->id,
         ]));
     }
@@ -217,7 +217,7 @@ class RoleAssignmentController extends Controller
                     'role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
                 ]));
             });
@@ -227,7 +227,7 @@ class RoleAssignmentController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.role.view', [
+        return $this->redirect($this->generateUrl('ibexa.role.view', [
             'roleId' => $role->id,
         ]));
     }

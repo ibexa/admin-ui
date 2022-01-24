@@ -25,7 +25,7 @@
         {% if can_add %}
             <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
                 <a
-                    href="{{ path('ezplatform.section.create') }}"
+                    href="{{ path('ibexa.section.create') }}"
                     class="btn ibexa-btn ibexa-btn--primary"
                 >
                     <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
@@ -66,7 +66,7 @@
             }]) %}
 
             {% set col_raw %}
-                <a href="{{ path( 'ezplatform.section.view', {'sectionId': section.id} ) }}">
+                <a href="{{ path( 'ibexa.section.view', {'sectionId': section.id} ) }}">
                     {{ section.name }}
                 </a>
             {% endset %}
@@ -87,7 +87,7 @@
                         title="{{ 'section.assign_content'|trans|desc('Assign content') }}"
                         href="#"
                         data-section-id="{{ section.id }}"
-                        data-form-action="{{ path("ezplatform.section.assign_content", {"sectionId": section.id}) }}"
+                        data-form-action="{{ path("ibexa.section.assign_content", {"sectionId": section.id}) }}"
                         data-udw-config="{{ ibexa_udw_config('multiple', {'type': 'section_assign'}) }}"
                         class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
                     >
@@ -99,7 +99,7 @@
                 {% if can_edit %}
                     <a
                         title="{{ 'section.edit'|trans|desc('Edit') }}"
-                        href="{{ path('ezplatform.section.update', {'sectionId': section.id}) }}"
+                        href="{{ path('ibexa.section.update', {'sectionId': section.id}) }}"
                         class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
                     >
                         <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
@@ -162,7 +162,7 @@
 
             {% block between_header_and_table %}
                 {{ form_start(form_sections_delete, {
-                    'action': path('ezplatform.section.bulk_delete'),
+                    'action': path('ibexa.section.bulk_delete'),
                     'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-sections' }
                 }) }}
             {% endblock %}

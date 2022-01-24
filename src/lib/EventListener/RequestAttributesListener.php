@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class RequestAttributesListener implements EventSubscriberInterface
 {
-    private const TRANSLATED_CONTENT_VIEW_ROUTE_NAME = '_ez_content_translation_view';
+    private const TRANSLATED_CONTENT_VIEW_ROUTE_NAME = 'ibexa.content.translation.view';
 
     /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;

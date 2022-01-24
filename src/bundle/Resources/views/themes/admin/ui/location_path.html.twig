@@ -2,7 +2,7 @@
     {% if loop.last and (link_last_element is not defined or not link_last_element) %}
         {{ ibexa_content_name(location.contentInfo) }}
     {% else %}
-        <a href="{{ path('_ez_content_view', {
+        <a href="{{ path('ibexa.content.view', {
             'contentId': location.contentId,
             'locationId': location.id,
         }) }}">{{ ibexa_content_name(location.contentInfo) }}</a>{% if loop.last is same as(false) %} /{% endif %}

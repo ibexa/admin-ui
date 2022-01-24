@@ -146,7 +146,7 @@ class LanguageController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.language.list'));
+        return $this->redirect($this->generateUrl('ibexa.language.list'));
     }
 
     /**
@@ -190,7 +190,7 @@ class LanguageController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.language.list'));
+        return $this->redirect($this->generateUrl('ibexa.language.list'));
     }
 
     public function createAction(Request $request): Response
@@ -210,7 +210,7 @@ class LanguageController extends Controller
                     'language'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.language.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.language.view', [
                     'languageId' => $language->id,
                 ]));
             });
@@ -222,7 +222,7 @@ class LanguageController extends Controller
 
         return $this->render('@ibexadesign/language/create.html.twig', [
             'form' => $form->createView(),
-            'actionUrl' => $this->generateUrl('ezplatform.language.create'),
+            'actionUrl' => $this->generateUrl('ibexa.language.create'),
         ]);
     }
 
@@ -248,7 +248,7 @@ class LanguageController extends Controller
                     'language'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.language.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.language.view', [
                     'languageId' => $language->id,
                 ]));
             });
@@ -260,7 +260,7 @@ class LanguageController extends Controller
 
         return $this->render('@ibexadesign/language/edit.html.twig', [
             'form' => $form->createView(),
-            'actionUrl' => $this->generateUrl('ezplatform.language.edit', ['languageId' => $language->id]),
+            'actionUrl' => $this->generateUrl('ibexa.language.edit', ['languageId' => $language->id]),
             'language' => $language,
         ]);
     }

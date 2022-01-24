@@ -45,7 +45,7 @@
     class: wrapper_class_list ~ (wrapper_additional_classes is defined ? ' ' ~ wrapper_additional_classes),
     attr: {
         'data-notification-id': notification.id,
-        'data-notification-read': path('ezplatform.notifications.mark_as_read', { 'notificationId': notification.id }),
+        'data-notification-read': path('ibexa.notifications.mark_as_read', { 'notificationId': notification.id }),
     }
 } %}
     {% block body_row_cells %}

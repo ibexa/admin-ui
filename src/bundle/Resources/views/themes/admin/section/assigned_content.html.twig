@@ -5,7 +5,7 @@
 {% set body_rows = [] %}
 {% for content in assigned_content %}
     {% set body_row_cols = [] %}
-    {% set view_url = path('_ez_content_view', { 'contentId': content.id }) %}
+    {% set view_url = path('ibexa.content.view', { 'contentId': content.id }) %}
 
     {% set col_raw %}
         <a href="{{ view_url }}">
@@ -23,7 +23,7 @@
         {% if content.path|length > 1 %}
             {% for location in content.path %}
                 {% if loop.revindex > 1 %}
-                    <a href="{{ path('_ez_content_view', {'contentId': location.contentId, 'locationId': location.id}) }}">
+                    <a href="{{ path('ibexa.content.view', {'contentId': location.contentId, 'locationId': location.id}) }}">
                         {{ ibexa_content_name(location.contentInfo) }}
                     </a>
 
@@ -61,7 +61,7 @@
             {% block actions %}
                 {% if can_assign %}
                     {{ form_start(form_section_content_assign, {
-                        'action': path("ezplatform.section.assign_content", {"sectionId": section.id}),
+                        'action': path("ibexa.section.assign_content", {"sectionId": section.id}),
                         'attr': {'class': 'd-inline-block'}
                     }) }}
                         {{ form_widget(form_section_content_assign.locations.location) }}

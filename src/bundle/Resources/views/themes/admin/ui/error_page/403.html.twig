@@ -14,7 +14,7 @@
             </h3>
         </div>
         <p class="ibexa-error-page__message">
-            {{ 'error.page.403.actions'|trans({ '%dashboard%': path('ezplatform.dashboard'), '%search%': path('ezplatform.search') })|raw|desc('Contact your administrator to request access.<br/>Go back to the <a href="%dashboard%">dashboard</a> or <a href="%search%">search</a> for another item.') }}
+            {{ 'error.page.403.actions'|trans({ '%dashboard%': path('ibexa.dashboard'), '%search%': path('ibexa.search') })|raw|desc('Contact your administrator to request access.<br/>Go back to the <a href="%dashboard%">dashboard</a> or <a href="%search%">search</a> for another item.') }}
         </p>
     </div>
 {% endblock %}
