@@ -663,6 +663,11 @@
         <target state="new">Can't fetch contributor</target>
         <note>key: tab.versions.table.author.not_found</note>
       </trans-unit>
+      <trans-unit id="f776c84d19e4a757aecdf2cc52aef393a60f7a38" resname="tab.view.descriptions">
+        <source>Descriptions</source>
+        <target state="new">Descriptions</target>
+        <note>key: tab.view.descriptions</note>
+      </trans-unit>
       <trans-unit id="1246bcf8752e249bdec2067d43cfae2a5103bc5f" resname="tab.view.preview">
         <source>Preview</source>
         <target state="new">Preview</target>
