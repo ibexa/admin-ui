@@ -15,6 +15,8 @@
         font-size: $ibexa-text-font-size-medium;
         background-color: $ibexa-color-black-600;
         transition: width $ibexa-admin-transition-duration;
+        border: calculateRem(1px) solid $ibexa-color-info-800;
+        border-top: none;
 
         &--first-level {
             display: flex;
@@ -31,14 +33,24 @@
             position: relative;
             width: calculateRem(220px);
             padding-bottom: calculateRem(32px);
+            border-left: none;
 
             .ibexa-main-menu {
                 &__items-list {
                     width: calculateRem(210px);
+                    transition: width $ibexa-admin-transition-duration;
+                    padding-top: calculateRem(8px);
                 }
 
                 &__item {
                     margin: calculateRem(2px) 0;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+
+                    &--popup-container {
+                        margin: 0;
+                    }
                 }
 
                 &__item-text-column {
@@ -56,7 +68,7 @@
 
                 .ibexa-main-menu {
                     &__items-list {
-                        width: calculateRem(38px);
+                        width: calculateRem(48px);
                     }
 
                     &__item {
@@ -64,11 +76,10 @@
 
                         &--popup-container {
                             display: flex;
-                            justify-content: flex-end;
+                            justify-content: center;
                             align-items: flex-start;
                             width: inherit;
                             height: calculateRem(80px);
-                            margin-top: calculateRem(12px);
                             opacity: 1;
                         }
                     }
@@ -108,7 +119,7 @@
         align-items: center;
         width: inherit;
         margin: 0;
-        padding: 0;
+        padding: 0 calculateRem(6px);
         list-style: none;
     }
 
@@ -131,17 +142,27 @@
 
         &--group-name {
             color: $ibexa-color-light-700;
-            font-size: $ibexa-text-font-size-small;
-            border-top: calculateRem(1px) solid $ibexa-color-info-800;
+            position: relative;
+
+            &::after {
+                content: '';
+                width: calc(100% + #{calculateRem(22px)});
+                height: calculateRem(1px);
+                background: $ibexa-color-info-800;
+                position: absolute;
+                top: 0;
+                left: calculateRem(-6px);
+            }
         }
     }
 
     &__item-action {
         display: flex;
-        margin: 0 calculateRem(12px);
+        margin: 0 calculateRem(6px);
         text-decoration: none;
         border-radius: $ibexa-border-radius;
         border: calculateRem(2px) solid transparent;
+        height: calculateRem(48px);
 
         &:focus {
             border-color: $ibexa-color-info-800;
@@ -201,15 +222,24 @@
 
     &__separator {
         width: 100%;
-        height: calculateRem(1px);
-        background: $ibexa-color-info-800;
+        position: relative;
+
+        &::after {
+            content: '';
+            width: calc(100% + #{calculateRem(12px)});
+            height: calculateRem(1px);
+            background: $ibexa-color-info-800;
+            position: absolute;
+            top: 0;
+            left: calculateRem(-6px);
+        }
 
         &--top {
             margin-top: auto;
         }
 
         &--bottom {
-            width: calc(100% - #{calculateRem(24px)});
+            width: calc(100% - #{calculateRem(32px)});
             margin: 0 auto;
         }
     }
@@ -218,13 +248,14 @@
         position: absolute;
         top: 0;
         right: 0;
-        width: calculateRem(6px);
+        width: calculateRem(1px);
         height: 100%;
         background-color: rgba($ibexa-color-dark, 0.8);
 
         &:hover {
             background-color: $ibexa-color-info;
             cursor: col-resize;
+            width: calculateRem(6px);
         }
     }
 
