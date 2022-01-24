@@ -53,6 +53,10 @@
         &:hover {
             color: $ibexa-color-dark;
             border-color: $ibexa-color-dark;
+
+            .ibexa-icon {
+                fill: $ibexa-color-dark;
+            }
         }
 
         &:disabled {
