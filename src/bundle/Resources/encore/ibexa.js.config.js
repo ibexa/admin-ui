@@ -93,14 +93,10 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/sidebar/btn/contenttype.edit.js'),
             path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),
         ])
-        .addEntry('ibexa-admin-ui-content-type-group-list-js', [
-            path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),
-        ])
+        .addEntry('ibexa-admin-ui-content-type-group-list-js', [path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js')])
         .addEntry('ibexa-admin-ui-language-list-js', [path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js')])
         .addEntry('ibexa-admin-ui-object-state-list-js', [path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js')])
-        .addEntry('ibexa-admin-ui-object-state-group-list-js', [
-            path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),
-        ])
+        .addEntry('ibexa-admin-ui-object-state-group-list-js', [path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js')])
         .addEntry('ibexa-admin-ui-policy-create-with-limitation-js', [
             path.resolve(__dirname, '../public/js/scripts/admin.limitation.pick.js'),
         ])
@@ -223,7 +219,10 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.url.wildcards.create.js'),
         ])
-        .addEntry('ibexa-admin-ui-login-js', [path.resolve(__dirname, '../public/js/scripts/login.js')])
+        .addEntry('ibexa-admin-ui-login-js', [
+            path.resolve(__dirname, '../public/js/scripts/admin.input.text.js'),
+            path.resolve(__dirname, '../public/js/scripts/login.js'),
+        ])
         .addEntry('ibexa-admin-ui-tabs-js', [
             path.resolve(__dirname, '../public/js/scripts/admin.location.tab.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.location.adaptive.tabs.js'),

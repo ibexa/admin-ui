@@ -24,17 +24,22 @@
                         <div class="ibexa-login__input-label-wrapper">
                             <label class="ibexa-label" for="username">{{ 'authentication.username'|trans|desc('Username') }}</label>
                         </div>
-                        <input
-                            type="text"
-                            id="username"
-                            class="form-control ibexa-input ibexa-input--text ibexa-login__input ibexa-login__input--name"
-                            name="_username"
-                            value="{{ last_username }}"
-                            required="required"
-                            autofocus="autofocus"
-                            autocomplete="on"
-                            tabindex="1"
-                        />
+                        {%- embed '@ibexadesign/ui/component/input_text.html.twig' -%}
+                            {% block content %}
+                                <input
+                                    type="text"
+                                    id="username"
+                                    class="form-control ibexa-input ibexa-input--text ibexa-login__input ibexa-login__input--name"
+                                    name="_username"
+                                    value="{{ last_username }}"
+                                    required="required"
+                                    autofocus="autofocus"
+                                    autocomplete="on"
+                                    tabindex="1"
+                                    placeholder=" "
+                                />
+                            {% endblock %}
+                        {%- endembed -%}
                     </div>
                     <div class="form-group{% if error %} has-error{% endif %} position-relative">
                         <div class="ibexa-login__input-label-wrapper">
