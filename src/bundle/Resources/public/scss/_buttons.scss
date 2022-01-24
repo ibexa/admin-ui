@@ -192,8 +192,8 @@
             fill: $ibexa-color-info;
         }
 
-        &:hover,
-        &:focus {
+        &:not(.ibexa-btn--selected):hover,
+        &:not(.ibexa-btn--selected):focus {
             border-color: $ibexa-color-info;
         }
 
