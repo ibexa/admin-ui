@@ -142,7 +142,17 @@
 
         &--group-name {
             color: $ibexa-color-light-700;
-            border-top: calculateRem(1px) solid $ibexa-color-info-800;
+            position: relative;
+
+            &::after {
+                content: '';
+                width: calc(100% + #{calculateRem(22px)});
+                height: calculateRem(1px);
+                background: $ibexa-color-info-800;
+                position: absolute;
+                top: 0;
+                left: calculateRem(-6px);
+            }
         }
     }
 
@@ -212,15 +222,24 @@
 
     &__separator {
         width: 100%;
-        height: calculateRem(1px);
-        background: $ibexa-color-info-800;
+        position: relative;
+
+        &::after {
+            content: '';
+            width: calc(100% + #{calculateRem(12px)});
+            height: calculateRem(1px);
+            background: $ibexa-color-info-800;
+            position: absolute;
+            top: 0;
+            left: calculateRem(-6px);
+        }
 
         &--top {
             margin-top: auto;
         }
 
         &--bottom {
-            width: calc(100% - #{calculateRem(24px)});
+            width: calc(100% - #{calculateRem(32px)});
             margin: 0 auto;
         }
     }

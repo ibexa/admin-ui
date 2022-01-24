@@ -4,12 +4,6 @@
     {% set extraClass = 'ibexa-main-menu__navbar--collapsed' %}
     {% set current_item = item %}
     
-    {% for item in current_item.children %}
-        {% if matcher.isCurrent(item) and item.children|length == 0 %}
-            {% set extraClass = '' %}
-        {% endif %}
-    {% endfor %}
-    
     <div class="ibexa-main-menu__navbar ibexa-main-menu__navbar--first-level {{ extraClass }}">
         <ul class="ibexa-main-menu__items-list nav">
             {% for item in current_item.children %}
