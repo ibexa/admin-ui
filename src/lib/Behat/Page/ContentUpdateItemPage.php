@@ -93,21 +93,12 @@ class ContentUpdateItemPage extends Page
         return [
             new VisibleCSSLocator('pageTitle', '.ibexa-edit-header__title'),
             new VisibleCSSLocator('formElement', '[name=ezplatform_content_forms_content_edit]'),
-<<<<<<< HEAD
-            new VisibleCSSLocator('closeButton', '.ez-content-edit-container__close'),
-            new VisibleCSSLocator('fieldLabel', '.ez-field-edit__label-wrapper label.ez-field-edit__label, .ez-field-edit__label-wrapper legend, .ez-card > .card-body > div > div > legend'),
-            new VisibleCSSLocator('nthField', '.ez-field-edit:nth-of-type(%s)'),
-            new VisibleCSSLocator('activeNthField', '.active .ez-field-edit:nth-of-type(%s)'),
-            new VisibleCSSLocator('noneditableFieldClass', 'ez-field-edit--eznoneditable'),
-            new VisibleCSSLocator('fieldOfType', '.ez-field-edit--%s'),
-            new VisibleCSSLocator('navigationTabs', '.nav-item.ez-tabs__nav-item'),
-=======
             new VisibleCSSLocator('closeButton', '.ibexa-anchor-navigation-menu__back'),
             new VisibleCSSLocator('nthField', '.ibexa-field-edit:nth-of-type(%s)'),
+            new VisibleCSSLocator('fieldGroupNthField', '[data-anchor-section-id="%s"] div .ibexa-field-edit:nth-of-type(%s)'),
             new VisibleCSSLocator('noneditableFieldClass', 'ibexa-field-edit--eznoneditable'),
             new VisibleCSSLocator('fieldOfType', '.ibexa-field-edit--%s'),
             new VisibleCSSLocator('navigationTabs', '.ibexa-anchor-navigation-menu__item'),
->>>>>>> ibexa-adminui/main
         ];
     }
 
@@ -189,7 +180,9 @@ class ContentUpdateItemPage extends Page
 
     public function verifyFieldCannotBeEditedDueToLimitation(string $fieldName)
     {
-        $fieldLocator = new VisibleCSSLocator('', sprintf($this->getLocator('activeNthField')->getSelector(), $this->getFieldPosition($fieldName)));
-        $this->getHTMLPage()->find($fieldLocator)->assert()->hasClass('ez-field-edit--disabled');
+        $activeSections = $this->getHTMLPage()->findAll(new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__item-btn--active'));
+        $fieldLocator = new VisibleCSSLocator('', sprintf($this
+            ->getLocator('fieldGroupNthField')->getSelector(), $activeSections->single()->getAttribute('data-anchor-target-section-id'), $this->getFieldPosition($fieldName)));
+        $this->getHTMLPage()->find($fieldLocator)->assert()->hasClass('ibexa-field-edit--disabled');
     }
 }
