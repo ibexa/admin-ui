@@ -59,6 +59,8 @@
 }
 
 @mixin sidebar-drag-items-group {
+    $self: &;
+
     height: auto;
     overflow: hidden;
 
@@ -69,6 +71,16 @@
         height: calculateRem(36px);
         border-top: calculateRem(1px) solid $ibexa-color-light;
         cursor: pointer;
+
+        &:hover {
+            color: $ibexa-color-primary;
+
+            #{$self}__toggler {
+                .ibexa-icon {
+                    fill: $ibexa-color-primary;
+                }
+            }
+        }
 
         .ibexa-icon {
             transition: transform $ibexa-admin-transition-duration $ibexa-admin-transition;
