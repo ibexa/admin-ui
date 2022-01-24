@@ -1,9 +1,8 @@
 .c-table-view-columns-toggler-list-element {
     cursor: pointer;
 
-    .form-check-inline {
+    .ibexa-popup-menu__item-content {
         display: flex;
-        align-items: center;
     }
 
     .ibexa-input--checkbox {
@@ -15,5 +14,6 @@
         user-select: none;
         font-size: $ibexa-text-font-size-medium;
         cursor: pointer;
+        font-weight: normal;
     }
 }
