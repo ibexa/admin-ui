@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Limitation\Mapper;
+namespace Ibexa\AdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use EzSystems\EzPlatformAdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
@@ -18,7 +18,7 @@ class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements L
     use LoggerAwareTrait;
 
     /**
-     * @var \eZ\Publish\API\Repository\LanguageService
+     * @var \Ibexa\Contracts\Core\Repository\LanguageService
      */
     private $languageService;
 
@@ -53,3 +53,5 @@ class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements L
         return $values;
     }
 }
+
+class_alias(LanguageLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\LanguageLimitationMapper');

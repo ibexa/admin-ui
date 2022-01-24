@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType;
+namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
-use eZ\Publish\Core\FieldType\ImageAsset\Value;
+use Ibexa\Core\FieldType\ImageAsset\Value;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class ImageAssetValueTransformer extends AbstractBinaryBaseTransformer implements DataTransformerInterface
 {
     /**
-     * @param \eZ\Publish\Core\FieldType\ImageAsset\Value|null $value
+     * @param \Ibexa\Core\FieldType\ImageAsset\Value|null $value
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      *
@@ -47,7 +47,7 @@ class ImageAssetValueTransformer extends AbstractBinaryBaseTransformer implement
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      *
-     * @return \eZ\Publish\Core\FieldType\ImageAsset\Value|null
+     * @return \Ibexa\Core\FieldType\ImageAsset\Value|null
      */
     public function reverseTransform($value): ?Value
     {
@@ -64,3 +64,5 @@ class ImageAssetValueTransformer extends AbstractBinaryBaseTransformer implement
         return new Value($value['destinationContentId'], $value['alternativeText']);
     }
 }
+
+class_alias(ImageAssetValueTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType\ImageAssetValueTransformer');

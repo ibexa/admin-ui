@@ -6,27 +6,27 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Dataset;
+namespace Ibexa\AdminUi\UI\Dataset;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Relation;
-use EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory;
+use Ibexa\AdminUi\UI\Value\ValueFactory;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
 
 final class RelationListDataset
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory */
+    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
     private $valueFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\Content\RelationInterface[] */
+    /** @var \Ibexa\AdminUi\UI\Value\Content\RelationInterface[] */
     private $relations;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory $valueFactory
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
      */
     public function __construct(ContentService $contentService, ValueFactory $valueFactory)
     {
@@ -36,11 +36,11 @@ final class RelationListDataset
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\RelationListDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\RelationListDataset
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function load(
         Content $content
@@ -58,10 +58,12 @@ final class RelationListDataset
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Value\Content\RelationInterface[]
+     * @return \Ibexa\AdminUi\UI\Value\Content\RelationInterface[]
      */
     public function getRelations(): array
     {
         return $this->relations;
     }
 }
+
+class_alias(RelationListDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\RelationListDataset');

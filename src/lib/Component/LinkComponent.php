@@ -6,8 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Component;
+namespace Ibexa\AdminUi\Component;
 
+use Ibexa\Contracts\AdminUi\Component\Renderable;
 use Twig\Environment;
 
 class LinkComponent implements Renderable
@@ -61,7 +62,7 @@ class LinkComponent implements Renderable
      */
     public function render(array $parameters = []): string
     {
-        return $this->twig->render('@ezdesign/ui/component/link.html.twig', [
+        return $this->twig->render('@ibexadesign/ui/component/link.html.twig', [
             'href' => $this->href,
             'type' => $this->type,
             'rel' => $this->rel,
@@ -70,3 +71,5 @@ class LinkComponent implements Renderable
         ] + $parameters);
     }
 }
+
+class_alias(LinkComponent::class, 'EzSystems\EzPlatformAdminUi\Component\LinkComponent');

@@ -1,8 +1,8 @@
-.ez-field-preview--ezgmaplocation {
+.ibexa-field-preview--ezgmaplocation {
     display: flex;
     flex-wrap: wrap;
 
-    .ez-field-preview {
+    .ibexa-field-preview {
         &__map-wrapper {
             width: calculateRem(520px);
             height: calculateRem(320px);
@@ -25,7 +25,7 @@
         }
     }
 
-    .ez-gmaplocation__map {
+    .ibexa-gmaplocation__map {
         height: 100%;
     }
 }

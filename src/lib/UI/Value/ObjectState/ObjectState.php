@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Value\ObjectState;
+namespace Ibexa\AdminUi\UI\Value\ObjectState;
 
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectState as APIObjectState;
-use eZ\Publish\Core\Repository\Values\ObjectState\ObjectState as CoreObjectState;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState as APIObjectState;
+use Ibexa\Core\Repository\Values\ObjectState\ObjectState as CoreObjectState;
 
 /**
  * Extends original value object in order to provide additional fields.
@@ -24,7 +24,7 @@ class ObjectState extends CoreObjectState
     protected $userCanAssign;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectState $objectState
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState $objectState
      * @param array $properties
      */
     public function __construct(APIObjectState $objectState, array $properties = [])
@@ -32,3 +32,5 @@ class ObjectState extends CoreObjectState
         parent::__construct(get_object_vars($objectState) + $properties);
     }
 }
+
+class_alias(ObjectState::class, 'EzSystems\EzPlatformAdminUi\UI\Value\ObjectState\ObjectState');

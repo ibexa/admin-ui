@@ -9,12 +9,12 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
 use PHPUnit\Framework\Assert;
 
 class ObjectStatePage extends Page
@@ -22,7 +22,7 @@ class ObjectStatePage extends Page
     /** @var string */
     private $expectedObjectStateName;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
     /** @var mixed */
@@ -80,8 +80,8 @@ class ObjectStatePage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-header h1'),
-            new VisibleCSSLocator('editButton', '.ez-icon-edit'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
+            new VisibleCSSLocator('editButton', '.ibexa-icon--edit'),
         ];
     }
 

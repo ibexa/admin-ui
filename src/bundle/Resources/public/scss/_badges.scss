@@ -1,4 +1,4 @@
-.ez-badge {
+.ibexa-badge {
     padding: calculateRem(4px);
     font-size: calculateRem(16px);
     text-decoration: none;
@@ -18,15 +18,15 @@
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        background-color: $ibexa-white;
-        border: calculateRem(1px) solid $ibexa-color-base;
-        color: $ibexa-color-font;
+        background-color: $ibexa-color-white;
+        border: calculateRem(1px) solid $ibexa-color-light;
+        color: $ibexa-color-dark;
 
         &:hover {
-            background-color: $ibexa-color-base-medium;
+            background-color: $ibexa-color-light-500;
         }
 
-        .ez-icon {
+        .ibexa-icon {
             border-radius: 50%;
             padding: calculateRem(3px);
             margin-left: calculateRem(8px);
@@ -35,32 +35,32 @@
         &.badge {
             &:hover,
             &:focus {
-                background-color: $ibexa-color-base-medium;
+                background-color: $ibexa-color-light-500;
                 box-shadow: none;
-                color: $ibexa-color-font;
+                color: $ibexa-color-dark;
             }
         }
 
         &.badge-info {
-            .ez-icon {
+            .ibexa-icon {
                 background-color: $ibexa-color-info;
             }
         }
 
         &.badge-success {
-            .ez-icon {
-                background-color: $ibexa-color-positive;
+            .ibexa-icon {
+                background-color: $ibexa-color-success;
             }
         }
 
         &.badge-warning {
-            .ez-icon {
+            .ibexa-icon {
                 background-color: $ibexa-color-warning;
             }
         }
 
         &.badge-danger {
-            .ez-icon {
+            .ibexa-icon {
                 background-color: $ibexa-color-danger;
             }
         }

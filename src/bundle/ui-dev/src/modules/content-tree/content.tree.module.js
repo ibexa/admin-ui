@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ContentTree from './components/content-tree/content.tree';
 import { loadLocationItems, loadSubtree } from './services/content.tree.service';
 
-const KEY_CONTENT_TREE_SUBTREE = 'ez-content-tree-subtrees';
+const KEY_CONTENT_TREE_SUBTREE = 'ibexa-content-tree-subtrees';
 
 export default class ContentTreeModule extends Component {
     constructor(props) {
@@ -35,7 +35,7 @@ export default class ContentTreeModule extends Component {
     }
 
     componentDidMount() {
-        document.body.addEventListener('ez-content-tree-refresh', this.refreshContentTree, false);
+        document.body.addEventListener('ibexa-content-tree-refresh', this.refreshContentTree, false);
 
         if (this.items.length) {
             this.subtree = this.generateSubtree(this.items, true);
@@ -352,7 +352,7 @@ export default class ContentTreeModule extends Component {
     }
 
     render() {
-        const { onClickItem, subitemsLimit, subitemsLoadLimit, treeMaxDepth, userId } = this.props;
+        const { onClickItem, subitemsLimit, subitemsLoadLimit, treeMaxDepth, userId, resizable } = this.props;
         const attrs = {
             items: this.items,
             currentLocationId: this.getCurrentLocationId(),
@@ -364,13 +364,14 @@ export default class ContentTreeModule extends Component {
             onCollapseAllItems: this.handleCollapseAllItems,
             onClickItem,
             userId,
+            resizable,
         };
 
         return <ContentTree {...attrs} />;
     }
 }
 
-eZ.addConfig('modules.ContentTree', ContentTreeModule);
+ibexa.addConfig('modules.ContentTree', ContentTreeModule);
 
 ContentTreeModule.propTypes = {
     rootLocationId: PropTypes.number.isRequired,
@@ -391,14 +392,16 @@ ContentTreeModule.propTypes = {
         sortClause: PropTypes.string,
         sortOrder: PropTypes.string,
     }),
+    resizable: PropTypes.bool,
 };
 
 ContentTreeModule.defaultProps = {
     preloadedLocations: [],
-    rootLocationId: window.eZ.adminUiConfig.contentTree.treeRootLocationId,
-    subitemsLimit: window.eZ.adminUiConfig.contentTree.childrenLoadMaxLimit,
-    subitemsLoadLimit: window.eZ.adminUiConfig.contentTree.loadMoreLimit,
-    treeMaxDepth: window.eZ.adminUiConfig.contentTree.treeMaxDepth,
+    rootLocationId: window.ibexa.adminUiConfig.contentTree.treeRootLocationId,
+    subitemsLimit: window.ibexa.adminUiConfig.contentTree.childrenLoadMaxLimit,
+    subitemsLoadLimit: window.ibexa.adminUiConfig.contentTree.loadMoreLimit,
+    treeMaxDepth: window.ibexa.adminUiConfig.contentTree.treeMaxDepth,
     afterItemToggle: () => {},
     sort: {},
+    resizable: true,
 };

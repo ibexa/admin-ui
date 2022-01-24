@@ -73,9 +73,9 @@ class Authors extends FieldTypeComponent
     public function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('nameFieldInput', '.ez-data-source__field--name input'),
-            new VisibleCSSLocator('emailFieldInput', '.ez-data-source__field--email input'),
-            new VisibleCSSLocator('fieldValueInContentItemView', '.ez-content-field-value'),
+            new VisibleCSSLocator('nameFieldInput', '.ibexa-data-source__field--name input'),
+            new VisibleCSSLocator('emailFieldInput', '.ibexa-data-source__field--email input'),
+            new VisibleCSSLocator('fieldValueInContentItemView', '.ibexa-content-field-value'),
         ];
     }
 }

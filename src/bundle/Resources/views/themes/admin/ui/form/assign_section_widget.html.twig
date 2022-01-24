@@ -9,9 +9,12 @@
             {% set label = name|humanize %}
         {%- endif -%}
     {%- endif -%}
-    <button title="{{ 'section.assign,content'|trans|desc('Assign Content') }}" type="{{ type|default('button') }}" {{ block('button_attributes') }}>
-        <svg class="ez-icon ez-icon--secondary">
-            <use xlink:href="{{ ez_icon_path('assign-section') }}"></use>
+    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>
+        <svg class="ibexa-icon ibexa-icon--small">
+            <use xlink:href="{{ ibexa_icon_path('assign-section') }}"></use>
         </svg>
+        <span class="ibexa-btn__label">
+            {{ 'section.assign,content'|trans|desc('Assign Content') }}
+        </span>
     </button>
 {%- endblock -%}

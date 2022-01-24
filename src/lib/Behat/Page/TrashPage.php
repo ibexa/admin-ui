@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
+use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\Dialog;
-use Ibexa\AdminUi\Behat\Component\RightMenu;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -26,8 +26,8 @@ class TrashPage extends Page
     /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
     private $universalDiscoveryWidget;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\RightMenu */
-    private $rightMenu;
+    /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu */
+    private $contentActionsMenu;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private $table;
@@ -37,13 +37,13 @@ class TrashPage extends Page
         Router $router,
         UniversalDiscoveryWidget $universalDiscoveryWidget,
         Dialog $dialog,
-        RightMenu $rightMenu,
+        ContentActionsMenu $contentActionsMenu,
         TableBuilder $tableBuilder
     ) {
         parent::__construct($session, $router);
         $this->universalDiscoveryWidget = $universalDiscoveryWidget;
         $this->dialog = $dialog;
-        $this->rightMenu = $rightMenu;
+        $this->contentActionsMenu = $contentActionsMenu;
         $this->table = $tableBuilder->newTable()->build();
     }
 
@@ -67,7 +67,7 @@ class TrashPage extends Page
 
     public function emptyTrash()
     {
-        $this->rightMenu->clickButton('Empty Trash');
+        $this->contentActionsMenu->clickButton('Empty Trash');
         $this->dialog->verifyIsLoaded();
         $this->dialog->confirm();
     }
@@ -110,7 +110,7 @@ class TrashPage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-page-title h1'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
             new VisibleCSSLocator('restoreButton', '#trash_item_restore_restore'),
             new VisibleCSSLocator('trashButton', '#delete-trash-items'),
             new VisibleCSSLocator('restoreUnderNewLocationButton', '#trash_item_restore_location_select_content'),

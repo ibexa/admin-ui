@@ -72,7 +72,7 @@ class Image extends FieldTypeComponent
     {
         return [
             new CSSLocator('fieldInput', 'input[type=file]'),
-            new VisibleCSSLocator('image', '.ez-field-preview__image-wrapper .ez-field-preview__image img'),
+            new VisibleCSSLocator('image', '.ibexa-field-preview__image-wrapper .ibexa-field-preview__image img'),
             new VisibleCSSLocator('alternativeText', 'input'),
         ];
     }

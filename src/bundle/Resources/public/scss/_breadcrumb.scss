@@ -1,30 +1,21 @@
 .breadcrumb {
-    padding: calculateRem(24px) 0 calculateRem(16px);
     flex-wrap: nowrap;
     margin-bottom: 0;
-    
+
     &--increased-left-margin {
         margin-left: calculateRem(55px);
     }
 
     .breadcrumb-item {
         cursor: not-allowed;
-        color: $ibexa-color-font-pale;
+        color: $ibexa-color-dark-300;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: calculateRem(300px);
-        
-        &::before {
-            color: $ibexa-color-font;
-        }
 
-        &__link {
-            color: $ibexa-color-font;
-            
-            &:hover {
-                color: $ibexa-color-primary;
-            }
+        &::before {
+            color: $ibexa-color-dark;
         }
     }
 }

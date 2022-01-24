@@ -13,7 +13,7 @@ const SelectedItemEditButton = ({ location, permissions }) => {
     );
 };
 
-eZ.addConfig(
+ibexa.addConfig(
     'adminUiConfig.universalDiscoveryWidget.selectedItemActions',
     [
         {
