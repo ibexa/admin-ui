@@ -95,6 +95,7 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator('formElement', '[name=ezplatform_content_forms_content_edit]'),
             new VisibleCSSLocator('closeButton', '.ibexa-anchor-navigation-menu__back'),
             new VisibleCSSLocator('nthField', '.ibexa-field-edit:nth-of-type(%s)'),
+            new VisibleCSSLocator('fieldGroupNthField', '[data-anchor-section-id="%s"] div .ibexa-field-edit:nth-of-type(%s)'),
             new VisibleCSSLocator('noneditableFieldClass', 'ibexa-field-edit--eznoneditable'),
             new VisibleCSSLocator('fieldOfType', '.ibexa-field-edit--%s'),
             new VisibleCSSLocator('navigationTabs', '.ibexa-anchor-navigation-menu__item'),
@@ -175,5 +176,13 @@ class ContentUpdateItemPage extends Page
             ->findAll($this->getLocator('navigationTabs'))
             ->getByCriterion(new ElementTextCriterion($tabName))
             ->click();
+    }
+
+    public function verifyFieldCannotBeEditedDueToLimitation(string $fieldName)
+    {
+        $activeSections = $this->getHTMLPage()->findAll(new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__item-btn--active'));
+        $fieldLocator = new VisibleCSSLocator('', sprintf($this
+            ->getLocator('fieldGroupNthField')->getSelector(), $activeSections->single()->getAttribute('data-anchor-target-section-id'), $this->getFieldPosition($fieldName)));
+        $this->getHTMLPage()->find($fieldLocator)->assert()->hasClass('ibexa-field-edit--disabled');
     }
 }
