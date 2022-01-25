@@ -1,12 +1,19 @@
 .ibexa-dropdown {
+    position: relative;
     font-family: $font-family-sans-serif;
     letter-spacing: calculateRem(0.12px);
     font-size: $ibexa-text-font-size-medium;
 
+    select {
+        height: 100%;
+        width: 100%;
+    }
+
     &__source {
+        position: absolute;
+        height: 100%;
+        width: 100%;
         opacity: 0;
-        height: 0;
-        overflow: hidden;
     }
 
     &__wrapper {
