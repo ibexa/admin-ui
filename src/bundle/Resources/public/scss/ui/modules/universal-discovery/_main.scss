@@ -9,6 +9,8 @@
     background-color: $ibexa-color-dark;
 
     .c-grid {
+        overflow: hidden;
+
         &__items-wrapper {
             .c-thumbnail {
                 .ibexa-icon {
