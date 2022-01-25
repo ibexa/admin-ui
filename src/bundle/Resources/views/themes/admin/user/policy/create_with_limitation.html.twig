@@ -16,14 +16,14 @@
 
 {% block form %}
     {{ form_start(form) }}
-        <div class="container ibexa-container">
+        <div class="container">
             <section class="ibexa-fieldgroup">
                 <h2 class="ibexa-fieldgroup__name mb-3"><b>{{ 'policy.add.policy.title'|trans|desc('Adding Policy of type:') }}</b> {{ form.vars.value.module|capitalize ~ ' / ' ~ form.vars.value.function|capitalize }}</h2>
             </section>
 
             <section class="ibexa-fieldgroup">
                 <div class="ibexa-fieldgroup__content">
-                    {{ form_widget(form.policy, {"attr": {"hidden": "hidden"}}) }}
+                    {{ form_widget(form.policy, {"attr": {"hidden": "hidden", "dropdown_hidden": true}}) }}
 
                     {% for limitation_form in form.limitations %}
                         {{ include(limitation_form.vars.template, {form: limitation_form}, with_context = false) }}
