@@ -42,6 +42,7 @@
 
 {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
     headline: 'tab.urls.custom_url_aliases'|trans({'%contentName%' : ibexa_content_name(content)})|desc('Custom URL aliases for %contentName%'),
+    class: 'ibexa-table--has-bulk-checkbox',
     head_cols: [
         { has_checkbox: true },
         { content: 'tab.urls.url'|trans|desc('URL') },

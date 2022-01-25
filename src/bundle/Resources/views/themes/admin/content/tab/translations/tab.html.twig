@@ -65,6 +65,7 @@
 
     {% include '@ibexadesign/ui/component/table/table.html.twig' with {
         headline: 'tab.translations.translation_manger'|trans|desc('Translation manager'),
+        class: 'ibexa-table--has-bulk-checkbox',
         head_cols,
         body_rows,
         actions: tab.table_header_tools(form_translation_remove, can_translate),

@@ -109,6 +109,7 @@
 
         {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
             headline: 'content_type_group.view.list.title'|trans|desc('Content Type groups'),
+            class: 'ibexa-table--has-bulk-checkbox',
             head_cols: [
                 { has_checkbox: true },
                 { content: 'content_type_group.view.list.column.identifier'|trans|desc('Name') },

@@ -49,6 +49,7 @@
 
     {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
         headline: 'role_assignment.view.list.header'|trans|desc('Users and Groups'),
+        class: 'ibexa-table--has-bulk-checkbox',
         head_cols: [
             { has_checkbox: true },
             { content: 'role_assignment.view.list.panel.assignments.column.user_group'|trans|desc('User/Group') },

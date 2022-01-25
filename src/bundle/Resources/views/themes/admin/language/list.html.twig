@@ -117,6 +117,7 @@
 
         {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
             headline: 'language.list'|trans|desc('Languages'),
+            class: 'ibexa-table--has-bulk-checkbox',
             head_cols: [
                 { has_checkbox: true },
                 { content: 'language.name'|trans|desc('Name') },

@@ -71,6 +71,7 @@
 
     {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
         headline: 'content_type.view.list.title'|trans({ '%identifier%': content_type_group.identifier })|desc('Content Types in \'%identifier%\''),
+        class: 'ibexa-table--has-bulk-checkbox',
         head_cols: [
             { has_checkbox: true },
             { has_icon: true },
