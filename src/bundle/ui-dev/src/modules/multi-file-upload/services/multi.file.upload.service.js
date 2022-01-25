@@ -112,7 +112,7 @@ const getContentTypeByIdentifier = ({ token, siteaccess }, identifier) => {
     const request = new Request(`/api/ezp/v2/content/types?identifier=${identifier}`, {
         method: 'GET',
         headers: {
-            Accept: 'application/vnd.ez.api.ContentTypeInfoList+json',
+            Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
             'X-Siteaccess': siteaccess,
             'X-CSRF-Token': token,
         },
@@ -186,8 +186,8 @@ const createDraft = ({ struct, token, siteaccess }, requestEventHandlers) => {
     const xhr = new XMLHttpRequest();
     const body = JSON.stringify(struct);
     const headers = {
-        Accept: 'application/vnd.ez.api.Content+json',
-        'Content-Type': 'application/vnd.ez.api.ContentCreate+json',
+        Accept: 'application/vnd.ibexa.api.Content+json',
+        'Content-Type': 'application/vnd.ibexa.api.ContentCreate+json',
         'X-CSRF-Token': token,
         'X-Siteaccess': siteaccess,
     };

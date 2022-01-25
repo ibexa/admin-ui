@@ -86,7 +86,7 @@ const TreeView = ({ itemsPerPage }) => {
                 limit: itemsPerPage,
                 locationId: location.parentLocationId,
                 offset: 0,
-                '_media-type': 'application/vnd.ez.api.ContentTreeLoadSubtreeRequestNode',
+                '_media-type': 'application/vnd.ibexa.api.ContentTreeLoadSubtreeRequestNode',
             },
         ];
     };
