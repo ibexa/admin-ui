@@ -19,9 +19,27 @@ use Symfony\Component\Yaml\Yaml;
 class IbexaAdminUiExtension extends Extension implements PrependExtensionInterface
 {
     private const WEBPACK_CONFIG_NAMES = [
-        'ez.config.js',
-        'ez.config.manager.js',
-        'ez.webpack.custom.config.js',
+        'ibexa.config.js' => [
+            'ibexa.config.js' => [],
+            'ez.config.js' => [
+                'deprecated' => true,
+                'alternative' => 'ibexa.config.js',
+            ],
+        ],
+        'ibexa.config.manager.js' => [
+            'ibexa.config.manager.js' => [],
+            'ez.config.manager.js' => [
+                'deprecated' => true,
+                'alternative' => 'ibexa.config.manager.js',
+            ],
+        ],
+        'ibexa.webpack.custom.config.js' => [
+            'ibexa.webpack.custom.config.js' => [],
+            'ez.webpack.custom.config.js' => [
+                'deprecated' => true,
+                'alternative' => 'ibexa.webpack.custom.config.js',
+            ],
+        ],
     ];
 
     /**
@@ -55,8 +73,8 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
         $rootPath = $container->getParameter('kernel.project_dir') . '/';
         $targetPath = 'var/encore';
 
-        foreach (self::WEBPACK_CONFIG_NAMES as $configName) {
-            $this->dumpConfigurationPathsToFile($configName, $rootPath, $targetPath, $bundlesMetadata);
+        foreach (self::WEBPACK_CONFIG_NAMES as $configName => $configFiles) {
+            $this->dumpConfigurationPathsToFile($configName, $configFiles, $rootPath, $targetPath, $bundlesMetadata);
         }
     }
 
@@ -146,25 +164,42 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
      *
      * @param string $targetPath Where to put eZ Encore paths configuration file (default: var/encore)
      */
-    private function dumpConfigurationPathsToFile(string $configName, string $rootPath, string $targetPath, array $bundlesMetadata): void
-    {
-        $finder = new Finder();
+    private function dumpConfigurationPathsToFile(
+        string $configName,
+        array $configFiles,
+        string $rootPath,
+        string $targetPath,
+        array $bundlesMetadata
+    ): void {
         $filesystem = new Filesystem();
         $paths = [];
 
-        $finder
-            ->in(array_column($bundlesMetadata, 'path'))
-            ->path('Resources/encore')
-            ->name($configName)
-            ->files();
+        foreach ($configFiles as $configFile => $options) {
+            $finder = new Finder();
+            $finder
+                ->in(array_column($bundlesMetadata, 'path'))
+                ->path('Resources/encore')
+                ->name($configFile)
+                ->files();
 
-        /** @var \Symfony\Component\Finder\SplFileInfo $fileInfo */
-        foreach ($finder as $fileInfo) {
-            $paths[] = preg_replace(
-                '/^' . preg_quote($rootPath, '/') . '/',
-                './',
-                $fileInfo->getRealPath()
-            );
+            /** @var \Symfony\Component\Finder\SplFileInfo $fileInfo */
+            foreach ($finder as $fileInfo) {
+                if ($options['deprecated'] ?? false) {
+                    trigger_deprecation(
+                        'ibexa/admin-ui',
+                        '4.0.0',
+                        'Support for old configuration files is deprecated, please update name of %s file, to %s',
+                        $fileInfo->getPathname(),
+                        $options['alternative']
+                    );
+                }
+
+                $paths[] = preg_replace(
+                    '/^' . preg_quote($rootPath, '/') . '/',
+                    './',
+                    $fileInfo->getRealPath()
+                );
+            }
         }
 
         $filesystem->mkdir($rootPath . '/' . $targetPath);
