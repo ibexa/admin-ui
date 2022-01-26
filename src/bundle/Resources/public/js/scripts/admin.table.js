@@ -48,18 +48,18 @@
     const addTableCheckboxesListeners = (table) => {
         const tableBody = table.querySelector('.ibexa-table__body');
         const headCells = table.querySelectorAll('.ibexa-table__header-cell');
-        const headCellsWithCheckboxes = table.querySelectorAll('.ibexa-table__header-cell--checkbox');
+        const headCellsWithCheckbox = table.querySelectorAll('.ibexa-table__header-cell--checkbox');
 
         const checkboxesChangeListeners = new Map();
-        headCellsWithCheckboxes.forEach((headCellsWithCheckbox) => {
-            const hasBulkCheckbox = !!headCellsWithCheckbox.querySelector('.ibexa-table__header-cell-checkbox:not(.ibexa-table__header-cell-checkbox--custom-init)');
+        headCellsWithCheckbox.forEach((headCellWithCheckbox) => {
+            const isCustomInit = !!headCellWithCheckbox.querySelector('.ibexa-table__header-cell-checkbox.ibexa-table__header-cell-checkbox--custom-init');
 
-            if (!hasBulkCheckbox) {
+            if (isCustomInit) {
                 return;
             }
 
-            const mainCheckboxIndex = [...headCells].indexOf(headCellsWithCheckbox);
-            const mainCheckbox = headCellsWithCheckbox.querySelector('.ibexa-input--checkbox');
+            const mainCheckboxIndex = [...headCells].indexOf(headCellWithCheckbox);
+            const mainCheckbox = headCellWithCheckbox.querySelector('.ibexa-input--checkbox');
             const subCheckboxes = tableBody.querySelectorAll(
                 `.ibexa-table__cell--has-checkbox:nth-child(${mainCheckboxIndex + 1}) .ibexa-input--checkbox`
             );
