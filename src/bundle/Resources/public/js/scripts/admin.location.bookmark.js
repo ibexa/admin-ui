@@ -1,5 +1,5 @@
 (function(global, doc, ibexa) {
-    const ENDPOINT_BOOKMARK = '/api/ezp/v2/bookmark';
+    const ENDPOINT_BOOKMARK = '/api/ibexa/v2/bookmark';
     const SELECTOR_BOOKMARK_WRAPPER = '.ibexa-add-to-bookmarks';
     const CLASS_BOOKMARK_CHECKED = 'ibexa-add-to-bookmarks--checked';
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;

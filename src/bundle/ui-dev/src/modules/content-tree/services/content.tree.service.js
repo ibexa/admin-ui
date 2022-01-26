@@ -1,8 +1,8 @@
 import { handleRequestResponse } from '../../common/helpers/request.helper';
 import { showErrorNotification } from '../../common/services/notification.service';
 
-const ENDPOINT_LOAD_SUBITEMS = '/api/ezp/v2/location/tree/load-subitems';
-const ENDPOINT_LOAD_SUBTREE = '/api/ezp/v2/location/tree/load-subtree';
+const ENDPOINT_LOAD_SUBITEMS = '/api/ibexa/v2/location/tree/load-subitems';
+const ENDPOINT_LOAD_SUBTREE = '/api/ibexa/v2/location/tree/load-subtree';
 
 export const loadLocationItems = ({ siteaccess }, parentLocationId, callback, limit = 50, offset = 0) => {
     const request = new Request(`${ENDPOINT_LOAD_SUBITEMS}/${parentLocationId}/${limit}/${offset}`, {
