@@ -15,14 +15,15 @@
     const selectGroupsBtn = doc.querySelector('#role_assignment_create_groups__btn');
     const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
     const confirmSubtreeUDW = (data) => {
-        const items = data.map((item) => ({
-            id: item.id,
-            name: ibexa.helpers.breadcrumbs.getContentBreadcrumbs(item.context),
-        }));
+        ibexa.helpers.tagViewSelect.buildItemsFromUDWResponse(
+            data,
+            (item) => item.id,
+            (items) => {
+                selectSubtreeWidget.addItems(items, true);
 
-        selectSubtreeWidget.addItems(items, true);
-
-        closeUDW();
+                closeUDW();
+            },
+        );
     };
     const openSubtreeUDW = (event) => {
         event.preventDefault();
@@ -43,16 +44,18 @@
         );
     };
     const confirmUsersAndGroupsUDW = (widget, selectedItems) => {
-        const items = selectedItems.map((item) => ({
-            id: item.ContentInfo.Content._id,
-            name: ibexa.helpers.breadcrumbs.getContentBreadcrumbs(item.context),
-        }));
-        const itemsMap = selectedItems.reduce((output, item) => ({ ...output, [item.ContentInfo.Content._id]: item.id }), {});
+        ibexa.helpers.tagViewSelect.buildItemsFromUDWResponse(
+            selectedItems,
+            (item) => item.ContentInfo.Content._id,
+            (items) => {
+                const itemsMap = selectedItems.reduce((output, item) => ({ ...output, [item.ContentInfo.Content._id]: item.id }), {});
 
-        widget.addItems(items, true);
-        widget.selectBtn.setAttribute('data-items-map', JSON.stringify(itemsMap));
+                widget.addItems(items, true);
+                widget.selectBtn.setAttribute('data-items-map', JSON.stringify(itemsMap));
 
-        closeUDW();
+                closeUDW();
+            },
+        );
     };
     const openUsersAndGroupsUDW = (widget, event) => {
         event.preventDefault();

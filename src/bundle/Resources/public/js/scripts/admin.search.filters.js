@@ -308,14 +308,15 @@
     const udwContainer = doc.getElementById('react-udw');
     const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
     const confirmSubtreeUDW = (data) => {
-        const items = data.map((item) => ({
-            id: item.pathString,
-            name: ibexa.helpers.breadcrumbs.getContentBreadcrumbs(item.context),
-        }));
+        ibexa.helpers.tagViewSelect.buildItemsFromUDWResponse(
+            data,
+            (item) => item.pathString,
+            (items) => {
+                selectSubtreeWidget.addItems(items, true);
 
-        selectSubtreeWidget.addItems(items, true);
-
-        closeUDW();
+                closeUDW();
+            },
+        );
     };
     const openSubtreeUDW = (event) => {
         event.preventDefault();

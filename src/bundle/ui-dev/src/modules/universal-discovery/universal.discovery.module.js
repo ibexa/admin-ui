@@ -143,22 +143,7 @@ const UniversalDiscoveryModule = (props) => {
             return clonedLocation;
         });
 
-        const addItemsContextPromises = updatedLocations.map((location) => new Promise((resolve) => {
-            const pathString = location.pathString;
-            const pathArray = pathString.split('/').filter((val) => val);
-            const id = pathArray.splice(1, pathArray.length - 1).join();
-
-            findLocationsById({ ...restInfo, id }, (locations) => {
-                location.context = locations;
-
-                resolve(location);
-            });
-
-        }));
-
-        Promise.all(addItemsContextPromises).then((locations) => {
-            props.onConfirm(locations);
-        });
+        props.onConfirm(updatedLocations);
     };
     const loadPermissions = () => {
         const locationIds = selectedLocations
