@@ -165,13 +165,11 @@
         {% endfor %}
 
         {% set head_cols = [] %}
-        {% set table_class = 'ibexa-table--not-striped' %}
 
         {% if limit != 1 %}
             {% set head_cols = head_cols|merge([
                 { has_checkbox: true },
             ]) %}
-            {% set table_class = table_class ~ ' ibexa-table--has-bulk-checkbox' %}
         {% endif %}
 
         {% set head_cols = head_cols|merge([
@@ -193,7 +191,7 @@
             attr: {
                 hidden: not has_relations,
             },
-            class: table_class,
+            class: 'ibexa-table--not-striped',
             show_head_cols_if_empty: true,
             body_rows,
             table_body_class: 'ibexa-relations__list',

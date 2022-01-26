@@ -60,7 +60,6 @@
 
         {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
             headline: 'object_state.view.list.title'|trans({'%count%': object_states|length})|desc('Object states (%count%)'),
-            class: 'ibexa-table--has-bulk-checkbox',
             head_cols: [
                 { has_checkbox: true },
                 { content: 'object_state.name'|trans|desc('Object state name') },

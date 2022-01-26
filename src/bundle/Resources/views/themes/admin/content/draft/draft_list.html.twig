@@ -117,7 +117,6 @@
                 }) }}
                 {% include '@ibexadesign/ui/component/table/table.html.twig' with {
                     headline: 'drafts.table.header'|trans|desc('Drafts') ~ ' (' ~ pager.count ~ ')',
-                    class: 'ibexa-table--has-bulk-checkbox',
                     head_cols: [
                         { has_checkbox: true },
                         { has_icon: true },

@@ -1,5 +1,5 @@
 (function(global, doc, $, ibexa) {
-    const tablesWithBulkCheckbox = doc.querySelectorAll('.ibexa-table.ibexa-table--has-bulk-checkbox');
+    const ibexaTables = doc.querySelectorAll('.ibexa-table');
     const setMainCheckboxState = (mainCheckbox, subCheckboxes, event) => {
         const isFromJS = event?.detail?.isFromJS ?? false;
 
@@ -52,6 +52,12 @@
 
         const checkboxesChangeListeners = new Map();
         headCellsWithCheckboxes.forEach((headCellsWithCheckbox) => {
+            const hasBulkCheckbox = !!headCellsWithCheckbox.querySelector('.ibexa-table__header-cell-checkbox:not(.ibexa-table__header-cell-checkbox--custom-init)');
+
+            if (!hasBulkCheckbox) {
+                return;
+            }
+
             const mainCheckboxIndex = [...headCells].indexOf(headCellsWithCheckbox);
             const mainCheckbox = headCellsWithCheckbox.querySelector('.ibexa-input--checkbox');
             const subCheckboxes = tableBody.querySelectorAll(
@@ -90,7 +96,13 @@
         tablesCheckboxesChangeListeners.delete(table);
     };
 
-    tablesWithBulkCheckbox.forEach((table) => {
+    ibexaTables.forEach((table) => {
+        const tableHasBulkCheckbox = !!table.querySelector('.ibexa-table__header-cell-checkbox:not(.ibexa-table__header-cell-checkbox--custom-init)');
+
+        if (!tableHasBulkCheckbox) {
+            return;
+        }
+
         addTableCheckboxesListeners(table);
 
         table.addEventListener(

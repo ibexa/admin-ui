@@ -5,16 +5,20 @@
 {% if custom_urls_pager.currentPageResults is not empty %}
     {% for custom_url in custom_urls_pager.currentPageResults %}
         {% set body_row_cols = [] %}
+        {% set has_checkbox = false %}
 
         {% set col_raw %}
             {% if can_edit_custom_url %}
                 {{ form_widget(form_custom_url_remove.url_aliases[custom_url.id]) }}
+
+                {% set has_checkbox = true %}
             {% else %}
                 {% do form_custom_url_remove.url_aliases.setRendered %}
             {% endif %}
         {% endset %}
         {% set body_row_cols = body_row_cols|merge([{
             content: col_raw,
+            has_checkbox,
             raw: true,
         }]) %}
 
@@ -42,7 +46,6 @@
 
 {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
     headline: 'tab.urls.custom_url_aliases'|trans({'%contentName%' : ibexa_content_name(content)})|desc('Custom URL aliases for %contentName%'),
-    class: 'ibexa-table--has-bulk-checkbox',
     head_cols: [
         { has_checkbox: true },
         { content: 'tab.urls.url'|trans|desc('URL') },
