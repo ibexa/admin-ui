@@ -1,20 +1,37 @@
 .ibexa-content-type-selector {
-    &__group {
-        margin-top: calculateRem(8px);
+    .accordion-item {
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
     }
 
     &__group-title {
         .accordion-button {
-            border-bottom: calculateRem(1px) solid $ibexa-color-dark-200;
-            padding-left: 0;
             font-size: $ibexa-text-font-size-medium;
+            font-weight: 600;
+            border-bottom: calculateRem(1px) solid transparent;
+            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+
+            &:not(.collapsed) {
+                box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba(0, 63, 255, 0.05);
+                border-bottom-color: $ibexa-color-light;
+            }
+
+            &::after {
+                width: calculateRem(12px);
+                height: calculateRem(12px);
+                background-size: unset;
+            }
         }
+    }
+
+    &__list-padding-wrapper {
+        padding: calculateRem(16px);
     }
 
     &__list {
         list-style: none;
         padding-left: 0;
         margin-bottom: 0;
+        margin-top: 0;
     }
 
     &__item {
@@ -28,5 +45,15 @@
     &__show-more {
         display: inline-block;
         margin-top: calculateRem(12px);
+        text-decoration: none;
+        font-size: $ibexa-text-font-size-medium;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    &__show-more-text {
+        text-decoration: underline;
     }
 }

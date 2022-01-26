@@ -16,7 +16,7 @@ const Collapsible = ({ isInitiallyExpanded, title, children }) => {
                 {title}
             </div>
             <div className="c-filters__collapsible-content">
-                {children}
+                <div className="c-filters__collapsible-content-wrapper">{children}</div>
             </div>
         </div>
     );
@@ -26,10 +26,10 @@ Collapsible.propTypes = {
     title: PropTypes.node.isRequired,
     children: PropTypes.node.isRequired,
     isInitiallyExpanded: PropTypes.bool,
-}
+};
 
 Collapsible.defaultProps = {
     isInitiallyExpanded: false,
-}
+};
 
 export default Collapsible;

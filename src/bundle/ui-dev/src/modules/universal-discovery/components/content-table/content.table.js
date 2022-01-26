@@ -5,7 +5,7 @@ import ContentTableItem from './content.table.item';
 
 import Pagination from '../../../common/pagination/pagination';
 
-const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPageChange }) => {
+const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPageChange, renderCustomHeader }) => {
     const refContentTable = useRef(null);
     const nameLabel = Translator.trans(/*@Desc("Name")*/ 'content_table.name', {}, 'universal_discovery_widget');
     const modifiedLabel = Translator.trans(/*@Desc("Modified")*/ 'content_table.modified', {}, 'universal_discovery_widget');
@@ -14,7 +14,7 @@ const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPa
         <th class="ibexa-table__header-cell">
             <span class="ibexa-table__header-cell-text-wrapper">{label}</span>
         </th>
-    )
+    );
 
     useEffect(() => {
         window.ibexa.helpers.tooltips.parse(refContentTable.current);
@@ -22,11 +22,13 @@ const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPa
 
     return (
         <div className="c-content-table" ref={refContentTable}>
-            <div className="ibexa-table-header">
-                <div class="ibexa-table-header__headline">
-                    {title}
+            {renderCustomHeader ? (
+                renderCustomHeader()
+            ) : (
+                <div className="ibexa-table-header">
+                    <div class="ibexa-table-header__headline">{title}</div>
                 </div>
-            </div>
+            )}
             <div className="ibexa-scrollable-wrapper">
                 <table className="ibexa-table table">
                     <thead>
@@ -64,8 +66,13 @@ ContentTable.propTypes = {
     itemsPerPage: PropTypes.number.isRequired,
     activePageIndex: PropTypes.number.isRequired,
     items: PropTypes.array.isRequired,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     onPageChange: PropTypes.func.isRequired,
+    renderCustomHeader: PropTypes.func,
+};
+
+ContentTable.defaultProps = {
+    title: '',
 };
 
 export default ContentTable;

@@ -1,14 +1,16 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import InputSearch from '../input-search/input.search';
+import TopMenuSearchInput from './top.menu.search.input';
 import Icon from '../../../common/icon/icon';
 
 import { TitleContext, CancelContext } from '../../universal.discovery.module';
+import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
 const TopMenu = ({ actionsDisabledMap }) => {
     const title = useContext(TitleContext);
     const cancelUDW = useContext(CancelContext);
+    const [isSearchOpened, setIsSearchOpened] = useState(false);
     const sortedActions = useMemo(() => {
         const actions = [...window.ibexa.adminUiConfig.universalDiscoveryWidget.topMenuActions];
 
@@ -17,14 +19,14 @@ const TopMenu = ({ actionsDisabledMap }) => {
         });
     }, []);
     const backTitle = Translator.trans(/*@Desc("Back")*/ 'back.label', {}, 'universal_discovery_widget');
+    const className = createCssClassNames({
+        'c-top-menu': true,
+        'c-top-menu--search-opened': isSearchOpened,
+    });
 
     return (
-        <div className="c-top-menu">
-            <h2
-                className="c-top-menu__title-wrapper"
-                data-tooltip-container-selector=".c-udw-tab"
-                title={title}
-            >
+        <div className={className}>
+            <h2 className="c-top-menu__title-wrapper" data-tooltip-container-selector=".c-udw-tab" title={title}>
                 {title}
             </h2>
             <div className="c-top-menu__actions-wrapper">
@@ -34,7 +36,7 @@ const TopMenu = ({ actionsDisabledMap }) => {
                     return <Component key={action.id} isDisabled={actionsDisabledMap[action.id]} />;
                 })}
             </div>
-            <InputSearch />
+            <TopMenuSearchInput isSearchOpened={isSearchOpened} setIsSearchOpened={setIsSearchOpened} />
             <span className="c-top-menu__cancel-btn-wrapper">
                 <button
                     className="c-top-menu__cancel-btn btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"

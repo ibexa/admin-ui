@@ -78,7 +78,7 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
                         <button
                             type="button"
                             class="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
-                            tabindex="-1"
+                            tabIndex="-1"
                             onClick={resetInputValue}
                         >
                             <Icon name="discard" />
@@ -86,7 +86,7 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
                         <button
                             type="button"
                             class="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search"
-                            tabindex="-1"
+                            tabIndex="-1"
                         >
                             <Icon name="search" extraClasses="ibexa-icon--small" />
                         </button>

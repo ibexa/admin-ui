@@ -46,11 +46,6 @@
         <target state="new">Creator</target>
         <note>key: search.creator</note>
       </trans-unit>
-      <trans-unit id="3d9f547776de4846ff54fcd1cd173ac5937e5a46" resname="search.creator_input.placeholder">
-        <source>Type creator's name</source>
-        <target state="new">Type creator's name</target>
-        <note>key: search.creator_input.placeholder</note>
-      </trans-unit>
       <trans-unit id="a18d7835f5b4a97ac94331f82e729abcb698be41" resname="search.custom_range">
         <source>Custom range</source>
         <target state="new">Custom range</target>
@@ -72,14 +67,9 @@
         <note>key: search.filters.title</note>
       </trans-unit>
       <trans-unit id="0ec8148d681b43e87a6d0751fff188517be1ea26" resname="search.header">
-        <source>Search results (%total%)</source>
-        <target state="new">Search results (%total%)</target>
+        <source>Results for “%search_phrase%” (%total%)</source>
+        <target state="new">Results for “%search_phrase%” (%total%)</target>
         <note>key: search.header</note>
-      </trans-unit>
-      <trans-unit id="e41974f1fced70af58e6ef20715b34e477ef2c38" resname="search.input.placeholder">
-        <source>Search by name</source>
-        <target state="new">Search by name</target>
-        <note>key: search.input.placeholder</note>
       </trans-unit>
       <trans-unit id="90fa144118285f5076416f9e92a89dd94c9406e4" resname="search.language">
         <source>Language</source>
@@ -145,11 +135,6 @@
         <source>No results found for "%query%"</source>
         <target state="new">No results found for "%query%"</target>
         <note>key: search.no_results.title</note>
-      </trans-unit>
-      <trans-unit id="6fa93ef4dfbce97076a254427bb30bf7c5819c5d" resname="search.perform">
-        <source>Search</source>
-        <target state="new">Search</target>
-        <note>key: search.perform</note>
       </trans-unit>
       <trans-unit id="34cd11448c2016e5c0a098947eb3e2aef01a9ac5" resname="search.section">
         <source>Section</source>

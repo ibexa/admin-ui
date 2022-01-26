@@ -78,19 +78,26 @@
                     </button>
                 </span>
                 <div class="ibexa-content-type-selector__list-wrapper accordion-collapse collapse{% if loop.first %} show{% endif %}" id="{{ group_label }}">
-                    <ul class="ibexa-content-type-selector__list">
-                        {%- for choice in group_choices|slice(0, 3) -%}
-                            {{- block('search_type_choice_widget_options') -}}
-                        {%- endfor -%}
-                    </ul>
-                    {% if group_choices|length > 3 %}
-                        <a href="#" class="ibexa-content-type-selector__show-more">{{ 'content_type_selector.list.show_more'|trans|desc('See more') }}</a>
-                        <ul class="ibexa-content-type-selector__list" hidden>
-                            {%- for choice in group_choices|slice(3) -%}
+                    <div class="ibexa-content-type-selector__list-padding-wrapper">
+                        <ul class="ibexa-content-type-selector__list">
+                            {%- for choice in group_choices|slice(0, 3) -%}
                                 {{- block('search_type_choice_widget_options') -}}
                             {%- endfor -%}
                         </ul>
-                    {% endif %}
+                        {% if group_choices|length > 3 %}
+                            <a href="#" class="ibexa-content-type-selector__show-more">
+                                +
+                                <span class="ibexa-content-type-selector__show-more-text">
+                                    {{ 'content_type_selector.list.show_more.3'|trans|desc('More') }}
+                                </span>
+                            </a>
+                            <ul class="ibexa-content-type-selector__list" hidden>
+                                {%- for choice in group_choices|slice(3) -%}
+                                    {{- block('search_type_choice_widget_options') -}}
+                                {%- endfor -%}
+                            </ul>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         {%- endfor -%}
@@ -251,21 +258,21 @@
 {%- endblock -%}
 
 {%- block _search_section_widget -%}
-    {{ form_widget(form, { attr: { dropdown_class: 'ibexa-dropdown--small' }}) }}
+    {{ form_widget(form) }}
 {%- endblock -%}
 
 {%- block _search_search_language_widget -%}
-    {{ form_widget(form, { attr: { dropdown_class: 'ibexa-dropdown--small' }}) }}
+    {{ form_widget(form) }}
 {%- endblock -%}
 
 {%- block _search_last_modified_select_widget -%}
-    {{ form_widget(form, { attr: { dropdown_class: 'ibexa-dropdown--small' }}) }}
-    <div 
+    {{ form_widget(form) }}
+    <div
         class="ibexa-filters__range-wrapper ibexa-filters__range-wrapper--select-modified-range {% if form.vars.data == "custom_range" %}ibexa-filters__range-wrapper--visible{% endif %}"
-        data-period-selector="#search_last_modified_date_interval" 
+        data-period-selector="#search_last_modified_date_interval"
         data-end-selector="#search_last_modified_end_date"
     >
-        <input 
+        <input
             type="text"
             class="ibexa-filters__range-select form-control"
             placeholder="{{ 'search.date.range'|trans(domain='search')|desc('From date - to date') }}"
@@ -276,13 +283,13 @@
 {%- endblock -%}
 
 {%- block _search_created_select_widget -%}
-    {{ form_widget(form, { attr: { dropdown_class: 'ibexa-dropdown--small' }}) }}
-    <div 
+    {{ form_widget(form) }}
+    <div
         class="ibexa-filters__range-wrapper ibexa-filters__range-wrapper--select-created-range {% if form.vars.data == "custom_range" %}ibexa-filters__range-wrapper--visible{% endif %}"
-        data-period-selector="#search_created_date_interval" 
+        data-period-selector="#search_created_date_interval"
         data-end-selector="#search_created_end_date"
     >
-        <input 
+        <input
             type="text"
             class="ibexa-filters__range-select form-control"
             placeholder="{{ 'search.date.range'|trans(domain='search')|desc('From date - to date') }}"
@@ -295,13 +302,13 @@
 
 {%- block _trash_search_trashed_widget -%}
     {{ form_widget(form) }}
-    <div 
+    <div
         class="ibexa-trash-search-form__range-wrapper ibexa-trash-search-form__range-wrapper--select-trashed-range {% if form.vars.data == "custom_range" %}ibexa-trash-search-form__range-wrapper--visible{% endif %}" 
-        data-period-selector="#trash_search_trashed_interval_date_interval" 
+        data-period-selector="#trash_search_trashed_interval_date_interval"
         data-end-selector="#trash_search_trashed_interval_end_date"
     >
 
-        <input 
+        <input
             type="text"
             class="ibexa-trash-search-form__range-select form-control"
             placeholder="{{ 'search.date.range'|trans(domain='search')|desc('From date - to date') }}"
@@ -318,7 +325,7 @@
             <em {% with { attr: form_errors_attr } %}{{ block('attributes') }}{% endwith %}>
                 <svg class="ibexa-icon ibexa-icon--small ibexa-form-error__icon">
                     <use xlink:href="{{ ibexa_icon_path('warning-triangle') }}"></use>
-                </svg> 
+                </svg>
                 {{ error.message }}
             </em>
         {%- endfor -%}

@@ -5,11 +5,12 @@ export const SelectedLanguageContext = createContext();
 export const SelectedContentTypesContext = createContext();
 export const SelectedSectionContext = createContext();
 export const SelectedSubtreeContext = createContext();
+export const SelectedSubtreeBreadcrumbsContext = createContext();
 
 import Icon from '../../../common/icon/icon';
-import InputSearch from '../input-search/input.search';
 import ContentTable from '../content-table/content.table';
 import Filters from '../filters/filters';
+import SearchTags from './search.tags';
 import { useSearchByQueryFetch } from '../../hooks/useSearchByQueryFetch';
 import { AllowedContentTypesContext, SearchTextContext } from '../../universal.discovery.module';
 
@@ -32,17 +33,16 @@ const languages = configLanguages.priority.map((value) => {
 });
 
 const Search = ({ itemsPerPage }) => {
-    const searchLabel = Translator.trans(/*@Desc("Search")*/ 'search.search', {}, 'universal_discovery_widget');
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const [searchText, setSearchText] = useContext(SearchTextContext);
     const [offset, setOffset] = useState(0);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useReducer(selectedContentTypesReducer, []);
     const [selectedSection, setSelectedSection] = useState('');
     const [selectedSubtree, setSelectedSubtree] = useState('');
+    const [selectedSubtreeBreadcrumbs, setSelectedSubtreeBreadcrumbs] = useState('');
     const firstLanguageCode = languages.length ? languages[0].languageCode : '';
     const [selectedLanguage, setSelectedLanguage] = useState(firstLanguageCode);
     const prevSearchText = useRef(null);
-    const searchActionRef = useRef(null);
     const [isLoading, data, searchByQuery] = useSearchByQueryFetch();
     const search = () => {
         const shouldResetOffset = prevSearchText.current !== searchText && offset !== 0;
@@ -63,14 +63,36 @@ const Search = ({ itemsPerPage }) => {
 
         searchByQuery(searchText, contentTypes, selectedSection, selectedSubtree, itemsPerPage, offset, selectedLanguage);
     };
-    const searchSubmit = () => {
-        searchActionRef.current();
-    }
     const changePage = (pageIndex) => setOffset(pageIndex * itemsPerPage);
-    const renderSearchResults = () => {
-        const searchResultsLabel = Translator.trans(/*@Desc("Search results")*/ 'search.search_results', {}, 'universal_discovery_widget');
-        const title = `${searchResultsLabel} (${data.count})`;
+    const renderCustomTableHeader = () => {
+        const selectedLanguageName = window.ibexa.adminUiConfig.languages.mappings[selectedLanguage].name;
+        const searchResultsTitle = Translator.trans(
+            /*@Desc("Results for “%search_phrase%” (%total%)")*/ 'search.search_results',
+            {
+                search_phrase: searchText,
+                total: data.count,
+            },
+            'universal_discovery_widget'
+        );
+        const searchResultsSubtitle = Translator.trans(
+            /*@Desc("in %search_language%")*/ 'search.search_results.in_language',
+            { search_language: selectedLanguageName },
+            'universal_discovery_widget'
+        );
 
+        return (
+            <>
+                <div className="ibexa-table-header c-search__table-header">
+                    <div class="ibexa-table-header__headline c-search__table-title">{searchResultsTitle}</div>
+                    <div class="c-search__table-subtitle">{searchResultsSubtitle}</div>
+                    <div class="c-search__search-tags">
+                        <SearchTags />
+                    </div>
+                </div>
+            </>
+        );
+    };
+    const renderSearchResults = () => {
         if (data.count) {
             return (
                 <ContentTable
@@ -78,8 +100,8 @@ const Search = ({ itemsPerPage }) => {
                     items={data.items}
                     itemsPerPage={itemsPerPage}
                     activePageIndex={offset ? offset / itemsPerPage : 0}
-                    title={title}
                     onPageChange={changePage}
+                    renderCustomHeader={renderCustomTableHeader}
                 />
             );
         } else if (!!data.items) {
@@ -90,36 +112,31 @@ const Search = ({ itemsPerPage }) => {
             );
             const noResultsHints = [
                 Translator.trans(
-                    /*@Desc("Check the spelling of keywords.")*/'search.no_results.hint.check_spelling',
+                    /*@Desc("Check the spelling of keywords.")*/ 'search.no_results.hint.check_spelling',
                     {},
-                    'universal_discovery_widget',
+                    'universal_discovery_widget'
                 ),
                 Translator.trans(
-                    /*@Desc("Try more general keywords.")*/'search.no_results.hint.more_general',
+                    /*@Desc("Try more general keywords.")*/ 'search.no_results.hint.more_general',
                     {},
-                    'universal_discovery_widget',
+                    'universal_discovery_widget'
                 ),
                 Translator.trans(
-                    /*@Desc("Try different keywords.")*/'search.no_results.hint.different_kewords',
+                    /*@Desc("Try different keywords.")*/ 'search.no_results.hint.different_kewords',
                     {},
-                    'universal_discovery_widget',
+                    'universal_discovery_widget'
                 ),
                 Translator.trans(
-                    /*@Desc("Try fewer keywords. Reducing keywords results in more matches.")*/'search.no_results.hint.fewer_keywords',
+                    /*@Desc("Try fewer keywords. Reducing keywords results in more matches.")*/ 'search.no_results.hint.fewer_keywords',
                     {},
-                    'universal_discovery_widget',
+                    'universal_discovery_widget'
                 ),
             ];
 
             return (
                 <div className="c-search__no-results">
-                    <img
-                        className=""
-                        src="/bundles/ibexaadminui/img/no-results.svg"
-                    />
-                    <h2 className="c-search__no-results-title">
-                        {noResultsLabel}
-                    </h2>
+                    <img className="" src="/bundles/ibexaadminui/img/no-results.svg" />
+                    <h2 className="c-search__no-results-title">{noResultsLabel}</h2>
                     <div className="c-search__no-results-subtitle">
                         {noResultsHints.map((hint) => (
                             <div className="c-search__no-results-hint">
@@ -139,30 +156,22 @@ const Search = ({ itemsPerPage }) => {
 
     return (
         <div className="c-search">
-            <div className="c-search__top-bar">
-                <div className="c-search__input-wrapper">
-                    <InputSearch small={false} ref={searchActionRef} />
-                </div>
-                <button className="c-search__search-btn btn ibexa-btn ibexa-btn--primary" onClick={searchSubmit}>
-                    {searchLabel}
-                </button>
-            </div>
-            <div className="c-search__main">
-                <div class="c-search__sidebar">
-                    <SelectedContentTypesContext.Provider value={[selectedContentTypes, dispatchSelectedContentTypesAction]}>
-                        <SelectedSectionContext.Provider value={[selectedSection, setSelectedSection]}>
-                            <SelectedSubtreeContext.Provider value={[selectedSubtree, setSelectedSubtree]}>
-                                <SelectedLanguageContext.Provider value={[selectedLanguage, setSelectedLanguage]}>
-                                    <Filters isCollapsed={false} search={search} />
-                                </SelectedLanguageContext.Provider>
-                            </SelectedSubtreeContext.Provider>
-                        </SelectedSectionContext.Provider>
-                    </SelectedContentTypesContext.Provider>
-                </div>
-                <div class="c-search__content">
-                    {renderSearchResults()}
-                </div>
-            </div>
+            <SelectedContentTypesContext.Provider value={[selectedContentTypes, dispatchSelectedContentTypesAction]}>
+                <SelectedSectionContext.Provider value={[selectedSection, setSelectedSection]}>
+                    <SelectedSubtreeContext.Provider value={[selectedSubtree, setSelectedSubtree]}>
+                        <SelectedSubtreeBreadcrumbsContext.Provider value={[selectedSubtreeBreadcrumbs, setSelectedSubtreeBreadcrumbs]}>
+                            <SelectedLanguageContext.Provider value={[selectedLanguage, setSelectedLanguage]}>
+                                <div className="c-search__main">
+                                    <div className="c-search__sidebar">
+                                        <Filters isCollapsed={false} search={search} />
+                                    </div>
+                                    <div class="c-search__content">{renderSearchResults()}</div>
+                                </div>
+                            </SelectedLanguageContext.Provider>
+                        </SelectedSubtreeBreadcrumbsContext.Provider>
+                    </SelectedSubtreeContext.Provider>
+                </SelectedSectionContext.Provider>
+            </SelectedContentTypesContext.Provider>
         </div>
     );
 };

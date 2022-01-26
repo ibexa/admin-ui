@@ -251,10 +251,10 @@
         <target state="new">Delete</target>
         <note>key: content_type_group.view.list.action.delete</note>
       </trans-unit>
-      <trans-unit id="4bbd55638dc95b087b2c020f64f29ffed12b0688" resname="content_type_selector.list.show_more">
-        <source>See more</source>
-        <target state="new">See more</target>
-        <note>key: content_type_selector.list.show_more</note>
+      <trans-unit id="1cf83dee1c4f61b9ecdab07c38bbb7469e9b9739" resname="content_type_selector.list.show_more.3">
+        <source>More</source>
+        <target state="new">More</target>
+        <note>key: content_type_selector.list.show_more.3</note>
       </trans-unit>
       <trans-unit id="ad4e9a4e42b99d945f972bab5a2eff694d283793" resname="creating">
         <source>Creating Content type</source>
@@ -618,10 +618,20 @@
         <target state="new">Do you want to unassign the Users/Groups?</target>
         <note>key: role_assignments.modal.message</note>
       </trans-unit>
+      <trans-unit id="3d9f547776de4846ff54fcd1cd173ac5937e5a46" resname="search.creator_input.placeholder">
+        <source>Type creator's name</source>
+        <target state="new">Type creator's name</target>
+        <note>key: search.creator_input.placeholder</note>
+      </trans-unit>
       <trans-unit id="f32993c555744e5c203137f3ee0e380d27e9cfef" resname="search.date.range">
         <source>From date - to date</source>
         <target state="new">From date - to date</target>
         <note>key: search.date.range</note>
+      </trans-unit>
+      <trans-unit id="caeaeb47f72587d2af6a7254eb7ec578c106964a" resname="search.in_language">
+        <source>in %search_language%</source>
+        <target state="new">in %search_language%</target>
+        <note>key: search.in_language</note>
       </trans-unit>
       <trans-unit id="9567771350aff93580f743089937b0c8fe31058e" resname="section.assign,content">
         <source>Assign Content</source>

@@ -196,11 +196,6 @@
         <target state="new">Filters</target>
         <note>key: filters.title</note>
       </trans-unit>
-      <trans-unit id="cb5a597ae90cf47cd069feb1efabc3f69674cd3c" resname="input.search.placeholder.default">
-        <source>Search...</source>
-        <target state="new">Search...</target>
-        <note>key: input.search.placeholder.default</note>
-      </trans-unit>
       <trans-unit id="2d4febe56a341671c069ff47b6e6adfd2bba005c" resname="limitation.pick.error">
         <source>Could not fetch content names</source>
         <target state="new">Could not fetch content names</target>
@@ -291,15 +286,15 @@
         <target state="new">Try more general keywords.</target>
         <note>key: search.no_results.hint.more_general</note>
       </trans-unit>
-      <trans-unit id="6ffbb9b14f98e94b8dda5418ef3910942b42c44e" resname="search.search">
-        <source>Search</source>
-        <target state="new">Search</target>
-        <note>key: search.search</note>
-      </trans-unit>
       <trans-unit id="69f8e58ee01f604b377aaa638cabe3f245b45a73" resname="search.search_results">
-        <source>Search results</source>
-        <target state="new">Search results</target>
+        <source>Results for “%search_phrase%” (%total%)</source>
+        <target state="new">Results for “%search_phrase%” (%total%)</target>
         <note>key: search.search_results</note>
+      </trans-unit>
+      <trans-unit id="3ae249fbdcae8da1215537a7407789511ff8fd3b" resname="search.search_results.in_language">
+        <source>in %search_language%</source>
+        <target state="new">in %search_language%</target>
+        <note>key: search.search_results.in_language</note>
       </trans-unit>
       <trans-unit id="5b8a9a5fceb4991b77b50983c34df8a18a900a09" resname="select_location.error">
         <source>Cannot find children Locations with ID %idList%</source>

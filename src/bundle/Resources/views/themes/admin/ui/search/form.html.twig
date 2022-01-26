@@ -12,17 +12,16 @@
 {% endif %}
 
 {{ form_start(form, {'attr': {'class': 'ibexa-search-form'}}) }}
-<div class="ibexa-search-form__search-wrapper">
-    <div class="ibexa-search-form__input-wrapper">
-        {{ form_widget(form.query, { attr: { placeholder: 'search.input.placeholder'|trans|desc('Search by name') }}) }}
-    </div>
-    <button type="submit" class="btn ibexa-btn ibexa-btn--primary ibexa-btn--search">{{ 'search.perform'|trans|desc('Search') }}</button>
-</div>
+    {{ form_widget(form.query, { attr: {
+        hidden: true,
+        class: 'ibexa-search-form__search-input',
+    }}) }}
+    {# <button type="submit" class="btn ibexa-btn ibexa-btn--primary ibexa-btn--search" hidden="true"></button> #}
 
-{{ form_widget(form.last_modified, {'attr': {'hidden': 'hidden'}}) }}
-{{ form_widget(form.created, {'attr': {'hidden': 'hidden'}}) }}
-{{ form_widget(form.creator, {'attr': {'hidden': 'hidden'}}) }}
+    {{ form_widget(form.last_modified, {'attr': {'hidden': 'hidden'}}) }}
+    {{ form_widget(form.created, {'attr': {'hidden': 'hidden'}}) }}
+    {{ form_widget(form.creator, {'attr': {'hidden': 'hidden'}}) }}
 
-{% include '@ibexadesign/ui/search/filters.html.twig' %}
-{% include '@ibexadesign/ui/search/results.html.twig' %}
+    {% include '@ibexadesign/ui/search/filters.html.twig' %}
+    {% include '@ibexadesign/ui/search/results.html.twig' %}
 {{ form_end(form) }}
