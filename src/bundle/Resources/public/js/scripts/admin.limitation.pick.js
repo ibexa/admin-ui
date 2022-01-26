@@ -8,7 +8,7 @@
     const limitationBtns = doc.querySelectorAll(SELECTOR_LOCATION_LIMITATION_BTN);
     const findLocationsByIdList = (pathArraysWithoutRoot, callback) => {
         const bulkOperations = getBulkOperations(pathArraysWithoutRoot);
-        const request = new Request('/api/ezp/v2/bulk', {
+        const request = new Request('/api/ibexa/v2/bulk', {
             method: 'POST',
             headers: {
                 Accept: 'application/vnd.ibexa.api.BulkOperationResponse+json',
@@ -40,7 +40,7 @@
             const locationId = pathArray[pathArray.length - 1];
 
             operations[locationId] = {
-                uri: '/api/ezp/v2/views',
+                uri: '/api/ibexa/v2/views',
                 method: 'POST',
                 headers: {
                     Accept: 'application/vnd.ibexa.api.View+json; version=1.1',

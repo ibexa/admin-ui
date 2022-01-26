@@ -22,7 +22,7 @@
                 },
             },
         });
-        const request = new Request('/api/ezp/v2/views', {
+        const request = new Request('/api/ibexa/v2/views', {
             method: 'POST',
             headers: {
                 Accept: 'application/vnd.ibexa.api.View+json; version=1.1',

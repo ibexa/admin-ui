@@ -112,7 +112,7 @@
     const generateRequest = (action, bodyData, languageCode) => {
         const { actionName, method, contentType } = endpoints[action];
         const { contentTypeGroupId, contentTypeId } = sectionsNode.dataset;
-        let endpointURL = `/api/ezp/v2/contenttypegroup/${contentTypeGroupId}/contenttype/${contentTypeId}/${actionName}`;
+        let endpointURL = `/api/ibexa/v2/contenttypegroup/${contentTypeGroupId}/contenttype/${contentTypeId}/${actionName}`;
 
         if (languageCode) {
             endpointURL += `/${languageCode}`;

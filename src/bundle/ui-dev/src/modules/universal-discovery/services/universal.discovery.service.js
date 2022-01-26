@@ -5,8 +5,8 @@ const HEADERS_CREATE_VIEW = {
     Accept: 'application/vnd.ibexa.api.View+json; version=1.1',
     'Content-Type': 'application/vnd.ibexa.api.ViewInput+json; version=1.1',
 };
-const ENDPOINT_CREATE_VIEW = '/api/ezp/v2/views';
-const ENDPOINT_BOOKMARK = '/api/ezp/v2/bookmark';
+const ENDPOINT_CREATE_VIEW = '/api/ibexa/v2/views';
+const ENDPOINT_BOOKMARK = '/api/ibexa/v2/bookmark';
 
 export const QUERY_LIMIT = 50;
 
@@ -290,7 +290,7 @@ export const removeBookmark = (options, callback) => {
 };
 
 export const loadContentTypes = ({ token, siteaccess }, callback) => {
-    const request = new Request('/api/ezp/v2/content/types', {
+    const request = new Request('/api/ibexa/v2/content/types', {
         method: 'GET',
         headers: {
             Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
@@ -308,7 +308,7 @@ export const loadContentTypes = ({ token, siteaccess }, callback) => {
 };
 
 export const createDraft = ({ token, siteaccess, contentId }, callback) => {
-    const request = new Request(`/api/ezp/v2/content/objects/${contentId}/currentversion`, {
+    const request = new Request(`/api/ibexa/v2/content/objects/${contentId}/currentversion`, {
         method: 'COPY',
         headers: {
             Accept: 'application/vnd.ibexa.api.VersionUpdate+json',

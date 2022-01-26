@@ -109,7 +109,7 @@ const detectContentTypeMapping = (file, parentInfo, config) => {
  * @returns {Promise}
  */
 const getContentTypeByIdentifier = ({ token, siteaccess }, identifier) => {
-    const request = new Request(`/api/ezp/v2/content/types?identifier=${identifier}`, {
+    const request = new Request(`/api/ibexa/v2/content/types?identifier=${identifier}`, {
         method: 'GET',
         headers: {
             Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
@@ -132,7 +132,7 @@ const getContentTypeByIdentifier = ({ token, siteaccess }, identifier) => {
  * @returns {Promise}
  */
 const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
-    let parentLocation = `/api/ezp/v2/content/locations${parentInfo.locationPath}`;
+    let parentLocation = `/api/ibexa/v2/content/locations${parentInfo.locationPath}`;
 
     parentLocation = parentLocation.endsWith('/') ? parentLocation.slice(0, -1) : parentLocation;
 
@@ -193,7 +193,7 @@ const createDraft = ({ struct, token, siteaccess }, requestEventHandlers) => {
     };
 
     return new Promise((resolve, reject) => {
-        xhr.open('POST', '/api/ezp/v2/content/objects', true);
+        xhr.open('POST', '/api/ibexa/v2/content/objects', true);
 
         xhr.onreadystatechange = handleOnReadyStateChange.bind(null, xhr, resolve, reject);
 
