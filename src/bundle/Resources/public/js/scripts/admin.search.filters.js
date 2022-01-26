@@ -310,7 +310,7 @@
     const confirmSubtreeUDW = (data) => {
         const items = data.map((item) => ({
             id: item.pathString,
-            name: ibexa.helpers.text.escapeHTML(item.ContentInfo.Content.TranslatedName),
+            name: ibexa.helpers.breadcrumbs.getContentBreadcrumbs(item.context),
         }));
 
         selectSubtreeWidget.addItems(items, true);

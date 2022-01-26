@@ -17,7 +17,7 @@
     const confirmSubtreeUDW = (data) => {
         const items = data.map((item) => ({
             id: item.id,
-            name: ibexa.helpers.text.escapeHTML(item.ContentInfo.Content.TranslatedName),
+            name: ibexa.helpers.breadcrumbs.getContentBreadcrumbs(item.context),
         }));
 
         selectSubtreeWidget.addItems(items, true);
@@ -45,7 +45,7 @@
     const confirmUsersAndGroupsUDW = (widget, selectedItems) => {
         const items = selectedItems.map((item) => ({
             id: item.ContentInfo.Content._id,
-            name: item.ContentInfo.Content.Name,
+            name: ibexa.helpers.breadcrumbs.getContentBreadcrumbs(item.context),
         }));
         const itemsMap = selectedItems.reduce((output, item) => ({ ...output, [item.ContentInfo.Content._id]: item.id }), {});
 

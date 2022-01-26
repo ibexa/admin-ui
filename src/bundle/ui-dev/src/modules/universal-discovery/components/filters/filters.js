@@ -48,16 +48,10 @@ const Filters = ({ search }) => {
             udwContainer.remove();
         };
         const onConfirm = (items) => {
-            const pathString = items[0].pathString;
-            const pathArray = pathString.split('/').filter((val) => val);
-            const id = pathArray.splice(1, pathArray.length - 1).join();
+            const { pathString, context } = items[0];
+            const breadcrumbs = context.map((location) => location.ContentInfo.Content.TranslatedName).join(' / ');
 
-            findLocationsById({ ...restInfo, id }, (locations) => {
-                const breadcrumbs = locations.map((location) => location.ContentInfo.Content.TranslatedName).join(' / ');
-
-                setSubtreeBreadcrumbs(breadcrumbs);
-            });
-
+            setSubtreeBreadcrumbs(breadcrumbs);
             setSelectedSubtree(pathString);
 
             closeUDW();
