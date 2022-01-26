@@ -1,8 +1,24 @@
 {% set is_deletable = is_deletable is defined ? is_deletable : true %}
 {% set is_disabled = is_disabled is defined ? is_disabled : false %}
 
-<div class="ibexa-tag-view-select__selected-item-tag" data-id="{{ id }}">
-    {{ name }}
+<div
+    class="ibexa-tag-view-select__selected-item-tag"
+    data-id="{{ id }}"
+    title="{{ name }}"
+>
+    <span class="ibexa-tag-view-select__selected-item-tag-content ibexa-tag-view-select__selected-item-tag-content--start">
+        <span>
+            {{ name }}
+        </span>
+    </span>
+    <span class="ibexa-tag-view-select__selected-item-tag-ellipsize">
+        ...
+    </span>
+    <span class="ibexa-tag-view-select__selected-item-tag-content ibexa-tag-view-select__selected-item-tag-content--end">
+        <span>
+            {{ name }}
+        </span>
+    </span>
     <button
         type="button"
         class="btn ibexa-tag-view-select__selected-item-tag-remove-btn"

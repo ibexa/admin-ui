@@ -24,6 +24,7 @@
         display: inline-flex;
         align-items: center;
         height: calculateRem(24px);
+        max-width: 100%;
         padding: 0 calculateRem(8px);
         border-radius: $ibexa-border-radius;
         background-color: $ibexa-color-light-400;
@@ -32,6 +33,55 @@
 
         &:not(:first-of-type) {
             margin-left: calculateRem(8px);
+        }
+
+        &--ellipsized {
+            .ibexa-tag-view-select {
+                &__selected-item-tag-content {
+                    &--start {
+                        margin-right: calculateRem(-10px);
+                    }
+
+                    &--end {
+                        margin-left: calculateRem(-10px);
+                        width: initial;
+                    }
+                }
+
+
+                &__selected-item-tag-ellipsize {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+
+    &__selected-item-tag-ellipsize {
+        display: none;
+    }
+
+    &__selected-item-tag-content {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: transparent;
+
+        &--start {
+            width: 100%;
+
+            span {
+                color: $ibexa-color-black;
+            }
+        }
+
+        &--end {
+            width: 0;
+            direction:rtl;
+            text-align:right;
+
+            span {
+                color: $ibexa-color-black;
+            }
         }
     }
 
