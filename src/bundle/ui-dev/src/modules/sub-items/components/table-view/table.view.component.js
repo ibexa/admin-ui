@@ -281,7 +281,7 @@ export default class TableViewComponent extends Component {
                             checked={anyLocationSelected}
                             onClick={this.selectAll} // We need onClick, because MS Edge does not trigger onChange when checkbox has indeterminate state. (ref: https://stackoverflow.com/a/33529024/5766602)
                             onChange={() => {}} // Dummy callback to not trigger React warning as we cannot use onChange on MS Edge
-                            className="ibexa-input ibexa-input--checkbox"
+                            className="ibexa-input ibexa-input--checkbox ibexa-table__header-cell-checkbox ibexa-table__header-cell-checkbox--custom-init"
                         />
                     </th>
                     {this.renderBasicColumnsHeader()}
@@ -303,7 +303,7 @@ export default class TableViewComponent extends Component {
         return (
             <div className="c-table-view__wrapper">
                 <div className="c-table-view__scroller" ref={this._refScroller}>
-                    <table className="table ibexa-table ibexa-table--has-bulk-checkbox c-table-view">
+                    <table className="table ibexa-table c-table-view">
                         {this.renderHead()}
                         <tbody className="ibexa-table__body c-table-view__body">{renderedItems}</tbody>
                     </table>

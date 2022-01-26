@@ -1,5 +1,5 @@
 (function(global, doc, $, ibexa) {
-    const tablesWithBulkCheckbox = doc.querySelectorAll('.ibexa-table.ibexa-table--has-bulk-checkbox');
+    const ibexaTables = doc.querySelectorAll('.ibexa-table');
     const setMainCheckboxState = (mainCheckbox, subCheckboxes, event) => {
         const isFromJS = event?.detail?.isFromJS ?? false;
 
@@ -48,12 +48,18 @@
     const addTableCheckboxesListeners = (table) => {
         const tableBody = table.querySelector('.ibexa-table__body');
         const headCells = table.querySelectorAll('.ibexa-table__header-cell');
-        const headCellsWithCheckboxes = table.querySelectorAll('.ibexa-table__header-cell--checkbox');
+        const headCellsWithCheckbox = table.querySelectorAll('.ibexa-table__header-cell--checkbox');
 
         const checkboxesChangeListeners = new Map();
-        headCellsWithCheckboxes.forEach((headCellsWithCheckbox) => {
-            const mainCheckboxIndex = [...headCells].indexOf(headCellsWithCheckbox);
-            const mainCheckbox = headCellsWithCheckbox.querySelector('.ibexa-input--checkbox');
+        headCellsWithCheckbox.forEach((headCellWithCheckbox) => {
+            const isCustomInit = !!headCellWithCheckbox.querySelector('.ibexa-table__header-cell-checkbox.ibexa-table__header-cell-checkbox--custom-init');
+
+            if (isCustomInit) {
+                return;
+            }
+
+            const mainCheckboxIndex = [...headCells].indexOf(headCellWithCheckbox);
+            const mainCheckbox = headCellWithCheckbox.querySelector('.ibexa-input--checkbox');
             const subCheckboxes = tableBody.querySelectorAll(
                 `.ibexa-table__cell--has-checkbox:nth-child(${mainCheckboxIndex + 1}) .ibexa-input--checkbox`
             );
@@ -90,7 +96,13 @@
         tablesCheckboxesChangeListeners.delete(table);
     };
 
-    tablesWithBulkCheckbox.forEach((table) => {
+    ibexaTables.forEach((table) => {
+        const tableHasBulkCheckbox = !!table.querySelector('.ibexa-table__header-cell-checkbox:not(.ibexa-table__header-cell-checkbox--custom-init)');
+
+        if (!tableHasBulkCheckbox) {
+            return;
+        }
+
         addTableCheckboxesListeners(table);
 
         table.addEventListener(
