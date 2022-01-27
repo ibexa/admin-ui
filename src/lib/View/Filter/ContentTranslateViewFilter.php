@@ -87,7 +87,7 @@ class ContentTranslateViewFilter implements EventSubscriberInterface
         $controllerAction = $event->getParameters()->get('_controller');
 
         if (
-            'EzSystems\EzPlatformAdminUiBundle\Controller\ContentEditController::translateAction' !== $controllerAction
+            'Ibexa\Bundle\AdminUi\Controller\ContentEditController::translateAction' !== $controllerAction
         ) {
             return;
         }
