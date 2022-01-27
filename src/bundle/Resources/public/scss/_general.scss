@@ -78,6 +78,12 @@ img {
     blockquote {
         margin: calculateRem(16px) calculateRem(40px);
     }
+
+    table {
+        td {
+            border-width: calculateRem(1px);
+        }
+    }
 }
 
 .ibexa-login-view {
