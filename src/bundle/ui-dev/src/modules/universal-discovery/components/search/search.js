@@ -83,9 +83,9 @@ const Search = ({ itemsPerPage }) => {
         return (
             <>
                 <div className="ibexa-table-header c-search__table-header">
-                    <div class="ibexa-table-header__headline c-search__table-title">{searchResultsTitle}</div>
-                    <div class="c-search__table-subtitle">{searchResultsSubtitle}</div>
-                    <div class="c-search__search-tags">
+                    <div className="ibexa-table-header__headline c-search__table-title">{searchResultsTitle}</div>
+                    <div className="c-search__table-subtitle">{searchResultsSubtitle}</div>
+                    <div className="c-search__search-tags">
                         <SearchTags />
                     </div>
                 </div>
@@ -143,7 +143,7 @@ const Search = ({ itemsPerPage }) => {
                                 <div className="c-search__no-results-hint-icon-wrapper">
                                     <Icon name="approved" extraClasses="ibexa-icon--small-medium" />
                                 </div>
-                                <div class="c-search__no-results-hint-text">{hint}</div>
+                                <div className="c-search__no-results-hint-text">{hint}</div>
                             </div>
                         ))}
                     </div>
@@ -165,7 +165,7 @@ const Search = ({ itemsPerPage }) => {
                                     <div className="c-search__sidebar">
                                         <Filters isCollapsed={false} search={search} />
                                     </div>
-                                    <div class="c-search__content">{renderSearchResults()}</div>
+                                    <div className="c-search__content">{renderSearchResults()}</div>
                                 </div>
                             </SelectedLanguageContext.Provider>
                         </SelectedSubtreeBreadcrumbsContext.Provider>

@@ -11,8 +11,8 @@ const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPa
     const modifiedLabel = Translator.trans(/*@Desc("Modified")*/ 'content_table.modified', {}, 'universal_discovery_widget');
     const contentTypeLabel = Translator.trans(/*@Desc("Content Type")*/ 'content_table.content_type', {}, 'universal_discovery_widget');
     const renderHeaderCell = (label) => (
-        <th class="ibexa-table__header-cell">
-            <span class="ibexa-table__header-cell-text-wrapper">{label}</span>
+        <th className="ibexa-table__header-cell">
+            <span className="ibexa-table__header-cell-text-wrapper">{label}</span>
         </th>
     );
 
@@ -26,13 +26,13 @@ const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPa
                 renderCustomHeader()
             ) : (
                 <div className="ibexa-table-header">
-                    <div class="ibexa-table-header__headline">{title}</div>
+                    <div className="ibexa-table-header__headline">{title}</div>
                 </div>
             )}
             <div className="ibexa-scrollable-wrapper">
                 <table className="ibexa-table table">
                     <thead>
-                        <tr class="ibexa-table__head-row">
+                        <tr className="ibexa-table__head-row">
                             {renderHeaderCell()}
                             {renderHeaderCell()}
                             {renderHeaderCell(nameLabel)}
@@ -40,7 +40,7 @@ const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPa
                             {renderHeaderCell(contentTypeLabel)}
                         </tr>
                     </thead>
-                    <tbody class="ibexa-table__body">
+                    <tbody className="ibexa-table__body">
                         {items.map((item) => (
                             <ContentTableItem key={item.id} location={item} />
                         ))}

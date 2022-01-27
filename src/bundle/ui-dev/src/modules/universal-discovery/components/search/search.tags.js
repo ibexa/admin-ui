@@ -28,6 +28,7 @@ const SearchTags = () => {
         <div className="c-search-tags">
             {selectedContentTypes.map((contentTypeIdentifier) => (
                 <Tag
+                    key={contentTypeIdentifier}
                     content={contentTypesMap[contentTypeIdentifier].name}
                     onRemove={() => dispatchSelectedContentTypesAction({ contentTypeIdentifier, type: 'REMOVE_CONTENT_TYPE' })}
                     extraClasses="c-search-tags__tag"

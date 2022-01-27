@@ -12,7 +12,7 @@ const Tag = ({ content, onRemove, extraClasses }) => {
     return (
         <div className={className}>
             <div className="ibexa-tag__content">{content}</div>
-            <button type="button" class="ibexa-tag__remove-btn" onClick={onRemove}>
+            <button type="button" className="ibexa-tag__remove-btn" onClick={onRemove}>
                 <Icon name="circle-close" extraClasses="ibexa-icon--small" />
             </button>
         </div>

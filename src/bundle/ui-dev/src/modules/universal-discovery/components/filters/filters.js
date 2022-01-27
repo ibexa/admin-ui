@@ -181,7 +181,7 @@ const Filters = ({ search }) => {
             </div>
             <div className="c-filters__row">
                 <div className="c-filters__row-title">{subtreeLabel}</div>
-                <div class="ibexa-tag-view-select">
+                <div className="ibexa-tag-view-select">
                     {renderSubtreeBreadcrumbs()}
                     {renderSelectContentButton()}
                 </div>
