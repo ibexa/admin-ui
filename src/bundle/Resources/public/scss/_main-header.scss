@@ -63,9 +63,8 @@
         }
     }
 
-    // TODO: move it
     .ibexa-input-text-wrapper__action-btn--search {
-        background: #3474cc;
+        background: $ibexa-color-info-600;
         width: calculateRem(58px);
         height: calculateRem(48px);
         transform: translateX(10px);
