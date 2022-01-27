@@ -7,11 +7,9 @@ services:
         autoconfigure: true
         public: false
 
-    Ibexa\AdminUi\Limitation\LimitationFormMapperRegistry:
-        class: Ibexa\AdminUi\Limitation\LimitationFormMapperRegistry
+    Ibexa\AdminUi\Limitation\LimitationFormMapperRegistry: ~
 
-    Ibexa\AdminUi\Limitation\LimitationValueMapperRegistry:
-        class: Ibexa\AdminUi\Limitation\LimitationValueMapperRegistry
+    Ibexa\AdminUi\Limitation\LimitationValueMapperRegistry: ~
 
     Ibexa\AdminUi\Limitation\Mapper\MultipleSelectionBasedMapper:
         class: Ibexa\AdminUi\Limitation\Mapper\MultipleSelectionBasedMapper
@@ -33,7 +31,6 @@ services:
             - { name: ibexa.admin_ui.limitation.mapper.value, limitationType: SiteAccess }
 
     Ibexa\AdminUi\Limitation\Mapper\NullLimitationMapper:
-        class: Ibexa\AdminUi\Limitation\Mapper\NullLimitationMapper
         arguments: ["%ezplatform.content_forms.limitation.null.template%"]
         tags:
             - { name: ibexa.admin_ui.limitation.mapper.form, limitationType: "Null" }
