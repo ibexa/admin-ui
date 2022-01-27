@@ -9,7 +9,7 @@ services:
     ibexa.adminui.content_type.tab_groups:
         parent: Ibexa\AdminUi\Component\TabsComponent
         arguments:
-            $template: '@@ezdesign/ui/tab/content_type.html.twig'
+            $template: '@@ibexadesign/ui/tab/content_type.html.twig'
             $groupIdentifier: 'content-type'
         tags:
             - { name: ibexa.admin_ui.component, group: 'content-type-tab-groups' }

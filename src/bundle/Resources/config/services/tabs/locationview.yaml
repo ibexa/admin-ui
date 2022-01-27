@@ -31,7 +31,7 @@ services:
     ibexa.adminui.location_view.tab_groups:
         parent: Ibexa\AdminUi\Component\TabsComponent
         arguments:
-            $template: '@@ezdesign/ui/tab/location_view.html.twig'
+            $template: '@@ibexadesign/ui/tab/location_view.html.twig'
             $groupIdentifier: 'location-view'
         tags:
             - { name: ibexa.admin_ui.component, group: 'location-view-tab-groups' }

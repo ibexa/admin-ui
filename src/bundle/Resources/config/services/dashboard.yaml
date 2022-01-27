@@ -47,14 +47,14 @@ services:
     ibexa.adminui.dashboard.me:
         parent: Ibexa\AdminUi\Component\TwigComponent
         arguments:
-            $template: '@@ezdesign/ui/dashboard/block/me.html.twig'
+            $template: '@@ibexadesign/ui/dashboard/block/me.html.twig'
         tags:
             - { name: ibexa.admin_ui.component, group: 'dashboard-blocks' }
 
     ibexa.adminui.dashboard.all:
         parent: Ibexa\AdminUi\Component\TwigComponent
         arguments:
-            $template: '@@ezdesign/ui/dashboard/block/all.html.twig'
+            $template: '@@ibexadesign/ui/dashboard/block/all.html.twig'
         tags:
             - { name: ibexa.admin_ui.component, group: 'dashboard-blocks' }
 

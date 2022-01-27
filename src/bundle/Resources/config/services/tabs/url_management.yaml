@@ -2,7 +2,7 @@ services:
     app.my_tabs.custom_group:
         parent: Ibexa\AdminUi\Component\TabsComponent
         arguments:
-            $template: '@@ezdesign/ui/tab/url_management.html.twig'
+            $template: '@@ibexadesign/ui/tab/url_management.html.twig'
             $groupIdentifier: 'link-manager'
         tags:
             - { name: ibexa.admin_ui.component, group: 'link-manager-block' }

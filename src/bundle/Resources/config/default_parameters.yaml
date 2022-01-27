@@ -34,7 +34,7 @@ parameters:
     ezsettings.default.content_type.default-config:
         thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file'
 
-    ezplatform.content_view.tabs.default_template: '@@ezdesign/ui/tab/default.html.twig'
+    ezplatform.content_view.tabs.default_template: '@@ibexadesign/ui/tab/default.html.twig'
 
     ezplatform.multifile_upload.location.mappings: []
 
