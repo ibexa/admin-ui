@@ -130,10 +130,22 @@ class ContentViewPage extends Page
 
     public function switchToTab(string $tabName): void
     {
-        $this->getHTMLPage()
+        if ($this->getHTMLPage()
             ->findAll($this->getLocator('tab'))
-            ->getByCriterion(new ElementTextCriterion($tabName))
-            ->click();
+            ->filterBy(new ElementTextCriterion($tabName))->any()) {
+            $this->getHTMLPage()
+                ->findAll($this->getLocator('tab'))
+                ->getByCriterion(new ElementTextCriterion($tabName))
+                ->click();
+            
+            return;
+        }
+
+        
+        $this->getHTMLPage()->find(($this->getLocator('moreTabs')))->click();
+        
+        $this->getHTMLPage()->findAll($this->getLocator('expendedTabsMenu'))->getByCriterion(new ElementTextCriterion($tabName))->click();
+
     }
 
     public function addLocation(string $newLocationPath): void
@@ -241,6 +253,8 @@ class ContentViewPage extends Page
             new VisibleCSSLocator('contentType', '.ibexa-page-title .ibexa-icon-tag'),
             new VisibleCSSLocator('mainContainer', '.ibexa-tab-content #ibexa-tab-location-view-content'),
             new VisibleCSSLocator('tab', '.ibexa-content-container .ibexa-tabs .ibexa-tabs__link'),
+            new VisibleCSSLocator('moreTabs', '.ibexa-content-container .ibexa-tabs__tab--more'),
+            new VisibleCSSLocator('expendedTabsMenu', '.ibexa-tabs__popup-menu .ibexa-popup-menu__item-content'),
             new VisibleCSSLocator('addLocationButton', '#ibexa-tab-location-view-locations .ibexa-table-header__actions .ibexa-btn--udw-add'),
         ];
     }
