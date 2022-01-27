@@ -23,9 +23,8 @@
     {% form_theme form '@ibexadesign/ui/form_fields.html.twig' '@ibexadesign/account/settings/update_datetime_format.html.twig' %}
 
     <div class="row">
-        <div class="col col-10 offset-1">
-            <section class="container ibexa-container">
-                {{ form_start(form) }}
+        <div class="col col-6 offset-1">
+            {{ form_start(form) }}
                 {{ form_widget(form.identifier, {'attr': {'hidden': 'hidden'}}) }}
                 {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
                     headline: user_setting_group.name
@@ -36,8 +35,7 @@
                     </div>
                 {% endfor %}
                 {{ form_widget(form.update, {'attr': {'hidden': 'hidden'}}) }}
-                {{ form_end(form) }}
-            </section>
+            {{ form_end(form) }}
         </div>
     </div>
 {% endblock %}
