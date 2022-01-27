@@ -69,7 +69,7 @@ class ContentTranslateViewBuilder implements ViewBuilder
      */
     public function matches($argument)
     {
-        return 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentEditController::translateAction' === $argument;
+        return 'Ibexa\Bundle\AdminUi\Controller\ContentEditController::translateAction' === $argument;
     }
 
     /**
