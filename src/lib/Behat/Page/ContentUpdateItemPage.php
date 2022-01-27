@@ -165,7 +165,7 @@ class ContentUpdateItemPage extends Page
         }
 
         $fieldClass = $this->getHTMLPage()->find($fieldLocator)->getAttribute('class');
-        preg_match('/ibexa-field-edit--ez[a-z]*/', $fieldClass, $matches);
+        preg_match('/ibexa-field-edit--[ez|ibexa][a-z_]*/', $fieldClass, $matches);
 
         return explode('--', $matches[0])[1];
     }

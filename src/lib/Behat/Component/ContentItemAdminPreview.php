@@ -92,7 +92,7 @@ class ContentItemAdminPreview extends Component
             return 'ezboolean';
         }
 
-        $fieldTypeIdentifierRegex = '/ez[a-z]*-field/';
+        $fieldTypeIdentifierRegex = '/ibexa-field-edit--[ez|ibexa][a-z_-]*/';
         preg_match($fieldTypeIdentifierRegex, $fieldClass, $matches);
 
         return explode('-', $matches[0])[0];
