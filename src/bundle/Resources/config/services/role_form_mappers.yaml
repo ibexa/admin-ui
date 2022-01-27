@@ -1,17 +1,5 @@
 parameters:
-    ezplatform.content_forms.limitation_form_mapper.registry.class: Ibexa\AdminUi\Limitation\LimitationFormMapperRegistry
-    ezplatform.content_forms.limitation_value_mapper.registry.class: Ibexa\AdminUi\Limitation\LimitationValueMapperRegistry
-    ezplatform.content_forms.limitation.form_mapper.null.class: Ibexa\AdminUi\Limitation\Mapper\NullLimitationMapper
-    ezplatform.content_forms.limitation.form_mapper.siteaccess.class: Ibexa\AdminUi\Limitation\Mapper\SiteAccessLimitationMapper
-    ezplatform.content_forms.limitation.form_mapper.content_type.class: Ibexa\AdminUi\Limitation\Mapper\ContentTypeLimitationMapper
-    ezplatform.content_forms.limitation.form_mapper.section.class: Ibexa\AdminUi\Limitation\Mapper\SectionLimitationMapper
-    ezplatform.content_forms.limitation.form_mapper.object_state.class: Ibexa\AdminUi\Limitation\Mapper\ObjectStateLimitationMapper
-    ezplatform.content_forms.limitation.form_mapper.language.class: Ibexa\AdminUi\Limitation\Mapper\LanguageLimitationMapper
-    ezplatform.content_forms.limitation.form_mapper.owner.class: Ibexa\AdminUi\Limitation\Mapper\OwnerLimitationMapper
-    ezplatform.content_forms.limitation.form_mapper.group.class: Ibexa\AdminUi\Limitation\Mapper\GroupLimitationMapper
-    ezplatform.content_forms.limitation.form_mapper.parent_depth.class: Ibexa\AdminUi\Limitation\Mapper\ParentDepthLimitationMapper
     ezplatform.content_forms.limitation.form_mapper.parent_depth.max_depth: 20
-    ezplatform.content_forms.limitation.form_mapper.subtree.class: Ibexa\AdminUi\Limitation\Mapper\SubtreeLimitationMapper
 
 services:
     _defaults:
@@ -36,7 +24,7 @@ services:
         autowire: true
         autoconfigure: false
         public: false
-        class: "%ezplatform.content_forms.limitation.form_mapper.siteaccess.class%"
+        class: Ibexa\AdminUi\Limitation\Mapper\SiteAccessLimitationMapper
         arguments:
             - '@Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService'
             - '@Ibexa\AdminUi\Siteaccess\SiteAccessKeyGenerator'
@@ -45,7 +33,7 @@ services:
             - { name: ibexa.admin_ui.limitation.mapper.value, limitationType: SiteAccess }
 
     Ibexa\AdminUi\Limitation\Mapper\NullLimitationMapper:
-        class: "%ezplatform.content_forms.limitation.form_mapper.null.class%"
+        class: Ibexa\AdminUi\Limitation\Mapper\NullLimitationMapper
         arguments: ["%ezplatform.content_forms.limitation.null.template%"]
         tags:
             - { name: ibexa.admin_ui.limitation.mapper.form, limitationType: "Null" }
@@ -56,7 +44,7 @@ services:
         autowire: true
         autoconfigure: false
         public: false
-        class: "%ezplatform.content_forms.limitation.form_mapper.content_type.class%"
+        class: Ibexa\AdminUi\Limitation\Mapper\ContentTypeLimitationMapper
         arguments: ['@ibexa.api.service.content_type']
         calls:
             - [setLogger, ['@?logger']]
@@ -69,7 +57,7 @@ services:
         autowire: true
         autoconfigure: false
         public: false
-        class: "%ezplatform.content_forms.limitation.form_mapper.content_type.class%"
+        class: Ibexa\AdminUi\Limitation\Mapper\ContentTypeLimitationMapper
         arguments: ['@ibexa.api.service.content_type']
         calls:
             - [setLogger, ['@?logger']]
@@ -82,7 +70,7 @@ services:
         autowire: true
         autoconfigure: false
         public: false
-        class: "%ezplatform.content_forms.limitation.form_mapper.section.class%"
+        class: Ibexa\AdminUi\Limitation\Mapper\SectionLimitationMapper
         arguments: ['@ibexa.api.service.section']
         calls:
             - [setLogger, ['@?logger']]
@@ -95,7 +83,7 @@ services:
         autowire: true
         autoconfigure: false
         public: false
-        class: "%ezplatform.content_forms.limitation.form_mapper.section.class%"
+        class: Ibexa\AdminUi\Limitation\Mapper\SectionLimitationMapper
         arguments: ['@ibexa.api.service.section']
         calls:
             - [setLogger, ['@?logger']]
@@ -108,7 +96,7 @@ services:
         autowire: true
         autoconfigure: false
         public: false
-        class: "%ezplatform.content_forms.limitation.form_mapper.object_state.class%"
+        class: Ibexa\AdminUi\Limitation\Mapper\ObjectStateLimitationMapper
         arguments: ['@ibexa.api.service.object_state']
         calls:
             - [setLogger, ['@?logger']]
@@ -121,7 +109,7 @@ services:
         autowire: true
         autoconfigure: false
         public: false
-        class: "%ezplatform.content_forms.limitation.form_mapper.object_state.class%"
+        class: Ibexa\AdminUi\Limitation\Mapper\ObjectStateLimitationMapper
         arguments: ['@ibexa.api.service.object_state']
         calls:
             - [setLogger, ['@?logger']]
@@ -134,7 +122,7 @@ services:
         autowire: true
         autoconfigure: false
         public: false
-        class: "%ezplatform.content_forms.limitation.form_mapper.language.class%"
+        class: Ibexa\AdminUi\Limitation\Mapper\LanguageLimitationMapper
         arguments: ['@ibexa.api.service.language']
         calls:
             - [setLogger, ['@?logger']]
@@ -147,7 +135,7 @@ services:
         autowire: true
         autoconfigure: false
         public: false
-        class: "%ezplatform.content_forms.limitation.form_mapper.owner.class%"
+        class: Ibexa\AdminUi\Limitation\Mapper\OwnerLimitationMapper
         arguments: ["@translator"]
         tags:
             - { name: ibexa.admin_ui.limitation.mapper.form, limitationType: Owner }
@@ -158,7 +146,7 @@ services:
         autowire: true
         autoconfigure: false
         public: false
-        class: "%ezplatform.content_forms.limitation.form_mapper.owner.class%"
+        class: Ibexa\AdminUi\Limitation\Mapper\OwnerLimitationMapper
         arguments: ["@translator"]
         tags:
             - { name: ibexa.admin_ui.limitation.mapper.form, limitationType: ParentOwner }
@@ -169,7 +157,7 @@ services:
         autowire: true
         autoconfigure: false
         public: false
-        class: "%ezplatform.content_forms.limitation.form_mapper.group.class%"
+        class: Ibexa\AdminUi\Limitation\Mapper\GroupLimitationMapper
         arguments: ["@translator"]
         tags:
             - { name: ibexa.admin_ui.limitation.mapper.form, limitationType: Group }
@@ -180,7 +168,7 @@ services:
         autowire: true
         autoconfigure: false
         public: false
-        class: "%ezplatform.content_forms.limitation.form_mapper.group.class%"
+        class: Ibexa\AdminUi\Limitation\Mapper\GroupLimitationMapper
         arguments: ["@translator"]
         tags:
             - { name: ibexa.admin_ui.limitation.mapper.form, limitationType: ParentGroup }
@@ -191,7 +179,7 @@ services:
         autowire: true
         autoconfigure: false
         public: false
-        class: "%ezplatform.content_forms.limitation.form_mapper.parent_depth.class%"
+        class: Ibexa\AdminUi\Limitation\Mapper\ParentDepthLimitationMapper
         arguments: ["%ezplatform.content_forms.limitation.form_mapper.parent_depth.max_depth%"]
         tags:
             - { name: ibexa.admin_ui.limitation.mapper.form, limitationType: ParentDepth }
@@ -219,7 +207,7 @@ services:
         autowire: true
         autoconfigure: false
         public: false
-        class: "%ezplatform.content_forms.limitation.form_mapper.subtree.class%"
+        class: Ibexa\AdminUi\Limitation\Mapper\SubtreeLimitationMapper
         tags:
             - { name: ibexa.admin_ui.limitation.mapper.form, limitationType: Subtree }
             - { name: ibexa.admin_ui.limitation.mapper.value, limitationType: Subtree }

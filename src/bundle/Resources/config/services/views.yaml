@@ -23,7 +23,7 @@ services:
             - { name: ibexa.view.provider, type: Ibexa\AdminUi\View\ContentTranslateView, priority: 10 }
 
     ibexa.adminui.view.content_translate.matcher_factory:
-        class: '%ezpublish.view.matcher_factory.class%'
+        class: Ibexa\Bundle\Core\Matcher\ServiceAwareMatcherFactory
         arguments:
             - '@Ibexa\Bundle\Core\Matcher\ViewMatcherRegistry'
             - '@ibexa.api.repository'
