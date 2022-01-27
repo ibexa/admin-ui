@@ -24,7 +24,6 @@ const SearchTags = () => {
         return contentTypeDataMap;
     }, {});
 
-    console.log(selectedContentTypes);
     return (
         <div className="c-search-tags">
             {selectedContentTypes.map((contentTypeIdentifier) => (

@@ -87,9 +87,6 @@ TopMenuSearchInput.propTypes = {
     isSearchOpened: PropTypes.bool.isRequired,
 };
 
-TopMenuSearchInput.defaultProps = {
-    // TODO: do we want a placeholder?
-    // placeholder: Translator.trans(/*@Desc("Search...")*/ 'input.search.placeholder.default', {}, 'universal_discovery_widget'),
-};
+TopMenuSearchInput.defaultProps = {};
 
 export default TopMenuSearchInput;

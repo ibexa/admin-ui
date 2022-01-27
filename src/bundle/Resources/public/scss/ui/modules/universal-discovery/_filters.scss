@@ -70,7 +70,7 @@
         border-style: solid;
         border-color: $ibexa-color-light;
         border-width: calculateRem(1px) 0;
-        box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba(0, 63, 255, 0.05);
+        box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info, 0.05);
 
         &::before,
         &::after {
@@ -99,9 +99,16 @@
         transform-origin: top center;
     }
 
-    &__row,
     &__collapsible-content-wrapper {
         padding: calculateRem(16px) calculateRem(24px);
+    }
+
+    &__row {
+        padding: calculateRem(4px) calculateRem(24px);
+
+        &--language {
+            padding-bottom: calculateRem(16px);
+        }
     }
 
     &__collapsible-list {

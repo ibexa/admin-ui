@@ -115,8 +115,8 @@
                 { content: 'search.modified'|trans|desc('Modified') },
                 { content: 'search.type'|trans|desc('Content Type') },
                 { content: 'search.location'|trans|desc('Location') },
+                { },
             ] %}
-            {% set head_cols = head_cols|merge([{ }]) %}
 
             {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
                 headline: 'search.header'|trans({

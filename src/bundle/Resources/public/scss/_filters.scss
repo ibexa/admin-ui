@@ -12,13 +12,15 @@
     }
 
     &__item {
-        &:not(&--content-type) {
-            padding: calculateRem(4px) calculateRem(24px);
+        padding: calculateRem(4px) calculateRem(24px);
+
+        &--language-selector {
+            padding-bottom: calculateRem(16px);
+            border-bottom: calculateRem(1px) solid $ibexa-color-light;
         }
 
         &--content-type {
-            margin-top: calculateRem(16px);
-            border-top: calculateRem(1px) solid $ibexa-color-light;
+            padding: 0;
         }
 
         &--creator {

@@ -156,7 +156,7 @@ const Filters = ({ search }) => {
                     </button>
                 </div>
             </div>
-            <div className="c-filters__row">
+            <div className="c-filters__row c-filters__row--language">
                 <div className="c-filters__row-title">{languageLabel}</div>
                 <Dropdown
                     dropdownListRef={dropdownListRef}

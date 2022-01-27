@@ -16,6 +16,6 @@
 
     headerSearchInput.value = searchInput.value;
 
-    headerSearchSubmitBtn.addEventListener('change', handleHeaderSearchBtnClick, false);
+    headerSearchSubmitBtn.addEventListener('click', handleHeaderSearchBtnClick, false);
     languageSelector?.addEventListener('change', submitForm, false);
 })(window, document);
