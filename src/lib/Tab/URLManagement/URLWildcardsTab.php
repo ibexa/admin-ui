@@ -10,11 +10,13 @@ namespace Ibexa\AdminUi\Tab\URLManagement;
 
 use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Pagination\Pagerfanta\URLWildcardAdapter;
 use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\URLWildcardService;
 use Ibexa\Core\MVC\ConfigResolverInterface;
+use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
