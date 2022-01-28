@@ -3,6 +3,7 @@
     font-family: $font-family-sans-serif;
     letter-spacing: calculateRem(0.12px);
     font-size: $ibexa-text-font-size-medium;
+    min-width: calculateRem(200px);
 
     select {
         height: 100%;
