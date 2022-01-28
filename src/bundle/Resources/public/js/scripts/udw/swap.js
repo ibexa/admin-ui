@@ -1,6 +1,11 @@
 (function(global, doc, ibexa, React, ReactDOM, Translator) {
     const btns = doc.querySelectorAll('.ibexa-btn--udw-swap');
     const form = doc.querySelector('form[name="location_swap"]');
+
+    if (!form) {
+        return;
+    }
+
     const input = form.querySelector('#location_swap_new_location');
     const udwContainer = doc.getElementById('react-udw');
     const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);

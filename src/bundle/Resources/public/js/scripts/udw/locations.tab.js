@@ -2,6 +2,11 @@
     const btns = doc.querySelectorAll('.ibexa-btn--udw-add');
     const submitButton = doc.querySelector('#content_location_add_add');
     const form = doc.querySelector('form[name="content_location_add"]');
+
+    if (!form) {
+        return;
+    }
+
     const input = form.querySelector('#content_location_add_new_locations');
     const udwContainer = doc.getElementById('react-udw');
     const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
