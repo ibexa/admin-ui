@@ -6,9 +6,9 @@
  */
 namespace Ibexa\Tests\AdminUi\Pagination\Pagerfanta;
 
+use Ibexa\AdminUi\Pagination\Pagerfanta\URLWildcardAdapter;
 use Ibexa\Contracts\Core\Repository\URLWildcardService;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
-use Ibexa\AdminUi\Pagination\Pagerfanta\URLWildcardAdapter;
 use PHPUnit\Framework\TestCase;
 
 final class URLWildcardAdapterTest extends TestCase

@@ -98,7 +98,8 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
     public function renderView(array $parameters): string
     {
         $currentPage = $this->requestStack->getCurrentRequest()->query->getInt(
-            self::PAGINATION_PARAM_NAME, 1
+            self::PAGINATION_PARAM_NAME,
+            1
         );
         $limit = $this->configResolver->getParameter('pagination.url_wildcards');
 
