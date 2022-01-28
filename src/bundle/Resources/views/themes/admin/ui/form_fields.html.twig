@@ -46,9 +46,11 @@
             </div>
         {%- else -%}
             <div class="ibexa-instant-filter__group-item">
-                <svg class="ibexa-icon ibexa-icon--small">
-                    <use xlink:href="{{ ibexa_content_type_icon(choice.value) }}"></use>
-                </svg>
+                <label class="ibexa-instant-filter__group-item-label-icon" for="{{ form[choice.value].vars.id }}">
+                    <svg class="ibexa-icon ibexa-icon--small">
+                        <use xlink:href="{{ ibexa_content_type_icon(choice.value) }}"></use>
+                    </svg>
+                </label>
                 {{ form_widget(form[choice.value]) }}
             </div>
         {%- endif -%}
