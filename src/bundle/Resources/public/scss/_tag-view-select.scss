@@ -69,17 +69,17 @@
         &--start {
             width: 100%;
 
-            span {
+            .ibexa-tag-view-select__selected-item-tag-content-ellipsized {
                 color: $ibexa-color-black;
             }
         }
 
         &--end {
             width: 0;
-            direction:rtl;
-            text-align:right;
+            direction: rtl;
+            text-align: right;
 
-            span {
+            .ibexa-tag-view-select__selected-item-tag-content-ellipsized {
                 color: $ibexa-color-black;
             }
         }
