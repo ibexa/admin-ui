@@ -87,6 +87,4 @@ TopMenuSearchInput.propTypes = {
     isSearchOpened: PropTypes.bool.isRequired,
 };
 
-TopMenuSearchInput.defaultProps = {};
-
 export default TopMenuSearchInput;

@@ -39,7 +39,7 @@
 
     &__results-language {
         display: inline-block;
-        margin-bottom: 8px;
+        margin-bottom: calculateRem(8px);
         font-size: $ibexa-text-font-size-medium;
     }
 

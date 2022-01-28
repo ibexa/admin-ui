@@ -2,7 +2,7 @@
     cursor: pointer;
 
     .ibexa-table__cell.ibexa-table__cell {
-        border: 2px solid transparent;
+        border: calculateRem(2px) solid transparent;
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
         &:not(:first-child) {
@@ -17,10 +17,10 @@
     &--marked {
         transform: scale(1); // it is a hack to have box-shadow on table row ref. https://stackoverflow.com/a/47992341
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
-        box-shadow: 4px 22px 47px 0 rgba(0,63,255,0.05);
+        box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info, 0.05);
 
         .ibexa-table__cell.ibexa-table__cell {
-            border-color: #E0E0E8;
+            border-color: $ibexa-color-light;
             background-color: $ibexa-color-white;
         }
     }
