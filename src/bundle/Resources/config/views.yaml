@@ -12,12 +12,12 @@ system:
             preview_ezobjectrelationlist_row:
                 default:
                     controller: 'Ibexa\Bundle\AdminUi\Controller\ContentViewController::locationViewAction'
-                    template: '@ezdesign\ui\field_type\preview\ezobjectrelationlist_row.html.twig'
+                    template: '@ibexadesign\ui\field_type\preview\ezobjectrelationlist_row.html.twig'
                     match: true
             preview_ezimageasset:
                 default:
                     controller: 'Ibexa\Bundle\AdminUi\Controller\ContentViewController::locationViewAction'
-                    template: '@ezdesign\ui\field_type\preview\ezimageasset.html.twig'
+                    template: '@ibexadesign\ui\field_type\preview\ezimageasset.html.twig'
                     match: true
 
         content_edit_view:
