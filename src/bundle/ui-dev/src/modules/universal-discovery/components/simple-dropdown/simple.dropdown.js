@@ -15,8 +15,8 @@ const SimpleDropdown = ({ options, selectedOption, onOptionClick, isDisabled }) 
     const getCaretIcon = () => {
         const iconName = isExpanded ? 'caret-up' : 'caret-down';
 
-        return <Icon name={iconName} extraClasses="ibexa-icon--tiny c-udw-simple-dropdown__expand-icon" />
-    }
+        return <Icon name={iconName} extraClasses="ibexa-icon--tiny c-udw-simple-dropdown__expand-icon" />;
+    };
     const toggleExpanded = () => {
         if (isDisabled) {
             return;
@@ -28,21 +28,21 @@ const SimpleDropdown = ({ options, selectedOption, onOptionClick, isDisabled }) 
         onOptionClick(option);
 
         setIsExpanded(false);
-    }
+    };
     const renderItem = (item) => {
         const isItemSelected = item.id === selectedOption.id;
         const itemClass = createCssClassNames({
             'c-udw-simple-dropdown__list-item': true,
-            'c-udw-simple-dropdown__list-item--selected': isItemSelected
+            'c-udw-simple-dropdown__list-item--selected': isItemSelected,
         });
 
         return (
-            <li className={itemClass} onClick={() => onOptionClickWrapper(item)}>
+            <li key={item.id} className={itemClass} onClick={() => onOptionClickWrapper(item)}>
                 <span>{item.label}</span>
                 {isItemSelected && <Icon name="checkmark" extraClasses="c-udw-simple-dropdown__list-item-checkmark ibexa-icon--small" />}
             </li>
         );
-    }
+    };
 
     useEffect(() => {
         if (!isExpanded) {
@@ -55,13 +55,13 @@ const SimpleDropdown = ({ options, selectedOption, onOptionClick, isDisabled }) 
             }
 
             setIsExpanded(false);
-        }
+        };
 
         document.body.addEventListener('click', onInteractionOutside, false);
 
         return () => {
             document.body.removeEventListener('click', onInteractionOutside, false);
-        }
+        };
     }, [isExpanded]);
 
     return (
@@ -71,9 +71,7 @@ const SimpleDropdown = ({ options, selectedOption, onOptionClick, isDisabled }) 
                 {getCaretIcon()}
             </div>
             <div className="c-udw-simple-dropdown__items">
-                <ul className="c-udw-simple-dropdown__list-items">
-                    {options.map(renderItem)}
-                </ul>
+                <ul className="c-udw-simple-dropdown__list-items">{options.map(renderItem)}</ul>
             </div>
         </div>
     );

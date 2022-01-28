@@ -113,15 +113,15 @@ const ContentMetaPreview = () => {
                 </div>
                 <div className="c-content-meta-preview__details">
                     <div className="c-content-meta-preview__details-item">
-                        <div class="c-content-meta-preview__details-item-row">{lastModifiedLabel}</div>
-                        <div class="c-content-meta-preview__details-item-row">{formatShortDateTime(new Date(location.ContentInfo.Content.lastModificationDate))}</div>
+                        <div className="c-content-meta-preview__details-item-row">{lastModifiedLabel}</div>
+                        <div className="c-content-meta-preview__details-item-row">{formatShortDateTime(new Date(location.ContentInfo.Content.lastModificationDate))}</div>
                     </div>
                     <div className="c-content-meta-preview__details-item">
-                        <div class="c-content-meta-preview__details-item-row">{creationDateLabel}</div>
-                        <div class="c-content-meta-preview__details-item-row">{formatShortDateTime(new Date(location.ContentInfo.Content.publishedDate))}</div>
+                        <div className="c-content-meta-preview__details-item-row">{creationDateLabel}</div>
+                        <div className="c-content-meta-preview__details-item-row">{formatShortDateTime(new Date(location.ContentInfo.Content.publishedDate))}</div>
                     </div>
                     <div className="c-content-meta-preview__details-item">
-                        <div class="c-content-meta-preview__details-item-row">{translationsLabel}</div>
+                        <div className="c-content-meta-preview__details-item-row">{translationsLabel}</div>
                         <div className="c-content-meta-preview__details-item-row c-content-meta-preview__translations-wrapper">
                             {version.VersionInfo.languageCodes.split(',').map((languageCode) => {
                                 return (

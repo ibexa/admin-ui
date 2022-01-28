@@ -4,8 +4,12 @@
     <div class="ibexa-filters__header">
         <h3 class="ibexa-filters__title">{{ 'search.filters.title'|trans|desc('Filters') }}</h3>
         <div class="ibexa-filters__btns">
-            <button type="submit" class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-btn--apply" disabled>{{ 'search.apply'|trans|desc('Apply') }}</button>
-            <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--clear">{{ 'search.clear'|trans|desc('Clear') }}</button>
+            <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--clear">
+                {{ 'search.clear'|trans|desc('Clear') }}
+            </button>
+            <button type="submit" class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-btn--apply" disabled>
+                {{ 'search.apply'|trans|desc('Apply') }}
+            </button>
         </div>
     </div>
     <div class="ibexa-filters__items">
@@ -19,12 +23,6 @@
             </select>
             {{ form_widget(form.content_types, {'attr': {'class': 'ibexa-filters__select'}}) }}
         </div>
-        {% if form.section is defined %}
-            <div class="ibexa-filters__item ibexa-filters__item--section">
-                <label class="ibexa-label">{{ 'search.section'|trans|desc('Section') }}</label>
-                {{ form_widget(form.section, {'attr': {'class': 'ibexa-filters__select'}}) }}
-            </div>
-        {% endif %}
         <div class="ibexa-filters__item ibexa-filters__item--modified">
             <label class="ibexa-label">{{ 'search.last.modified'|trans|desc('Last modified') }}</label>
             {{ form_widget(form.last_modified_select, {
@@ -48,20 +46,26 @@
         <div class="ibexa-filters__item ibexa-filters__item--creator">
             <label class="ibexa-label">{{ 'search.creator'|trans|desc('Creator') }}</label>
             {% set creator = form.vars.data.creator %}
-            <div class="ibexa-filters__input-wrapper">
-                <input type="text"
-                    class="form-control ibexa-filters__input"
-                    data-content-type-identifiers="{{ user_content_type_identifier|join(',') }}"
-                    value="{{ creator is not empty ? ibexa_content_name(creator) }}"
-                    placeholder="{{ 'search.creator_input.placeholder'|trans|desc('Type creator\'s name') }}"
-                    {{ creator is not empty ? 'disabled'  }}
-                >
-                <svg class="ibexa-icon ibexa-icon--dark ibexa-icon--small ibexa-icon--reset">
-                    <use xlink:href="{{ ibexa_icon_path('circle-close') }}"></use>
-                </svg>
-            </div>
+            {% embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: false } %}
+                {% block content %}
+                    <input
+                        type="text"
+                        class="ibexa-input ibexa-input--text ibexa-available-field-types__sidebar-filter form-control"
+                        data-content-type-identifiers="{{ user_content_type_identifier|join(',') }}"
+                        value="{{ creator is not empty ? ibexa_content_name(creator) }}"
+                        placeholder="{{ 'search.creator_input.placeholder'|trans|desc('Type creator\'s name') }}"
+                        {{ creator is not empty ? 'disabled'  }}
+                    />
+                {% endblock %}
+            {% endembed %}
             <ul class="ibexa-filters__user-list ibexa-filters__user-list--hidden"></ul>
         </div>
+        {% if form.section is defined %}
+            <div class="ibexa-filters__item ibexa-filters__item--section">
+                <label class="ibexa-label">{{ 'search.section'|trans|desc('Section') }}</label>
+                {{ form_widget(form.section, {'attr': {'class': 'ibexa-filters__select'}}) }}
+            </div>
+        {% endif %}
         <div class="ibexa-filters__item ibexa-filters__item--subtree">
             <label class="ibexa-label">{{ 'search.subtree'|trans|desc('Subtree') }}</label>
             {% set items = [] %}

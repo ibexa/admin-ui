@@ -41,14 +41,14 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
 
         return (
             <li
-                class={itemClassName}
+                className={itemClassName}
                 key={item.value}
                 onClick={() => {
                     onChange(item.value);
                     toggleExpanded();
                 }}
             >
-                <span class="ibexa-dropdown__item-label">{ item.label }</span>
+                <span className="ibexa-dropdown__item-label">{ item.label }</span>
             </li>
         )
     }
@@ -65,8 +65,8 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
         }
 
         return (
-            <div class="ibexa-dropdown__items" style={itemsStyles} ref={containerItemsRef} >
-                <div class="ibexa-input-text-wrapper">
+            <div className="ibexa-dropdown__items" style={itemsStyles} ref={containerItemsRef} >
+                <div className="ibexa-input-text-wrapper">
                     <input
                         type="text"
                         placeholder={placeholder}
@@ -74,25 +74,25 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
                         onChange={updateFilterValue}
                         value={filterText}
                     />
-                    <div class="ibexa-input-text-wrapper__actions">
+                    <div className="ibexa-input-text-wrapper__actions">
                         <button
                             type="button"
-                            class="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
-                            tabindex="-1"
+                            className="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
+                            tabIndex="-1"
                             onClick={resetInputValue}
                         >
                             <Icon name="discard" />
                         </button>
                         <button
                             type="button"
-                            class="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search"
-                            tabindex="-1"
+                            className="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search"
+                            tabIndex="-1"
                         >
                             <Icon name="search" extraClasses="ibexa-icon--small" />
                         </button>
                     </div>
                 </div>
-                <ul class="ibexa-dropdown__items-list">
+                <ul className="ibexa-dropdown__items-list">
                     {options.map(renderItem)}
                 </ul>
             </div>
@@ -130,9 +130,9 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
                 ref={containerRef}
                 onClick={toggleExpanded}
             >
-                <div class="ibexa-dropdown__wrapper">
-                    <ul class="ibexa-dropdown__selection-info">
-                        <li class="ibexa-dropdown__selected-item">
+                <div className="ibexa-dropdown__wrapper">
+                    <ul className="ibexa-dropdown__selection-info">
+                        <li className="ibexa-dropdown__selected-item">
                             { labelValue }
                         </li>
                     </ul>

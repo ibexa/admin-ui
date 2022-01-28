@@ -104,7 +104,7 @@ const ContentCreateWidget = () => {
     }, []);
 
     return (
-        <div class="ibexa-extra-actions-container">
+        <div className="ibexa-extra-actions-container">
             <div className="ibexa-extra-actions-container__backdrop" hidden={!createContentVisible} onClick={close}></div>
             <div className={widgetClassName} ref={refContentTree}>
                 <div className="ibexa-extra-actions__header">
@@ -121,7 +121,7 @@ const ContentCreateWidget = () => {
                 </div>
                 <div className="ibexa-extra-actions__content">
                     <div className="ibexa-extra-actions__section-header">{selectLanguageLabel}</div>
-                    <div class="ibexa-extra-actions__section-content">
+                    <div className="ibexa-extra-actions__section-content">
                         <Dropdown
                             dropdownListRef={dropdownListRef}
                             onChange={updateSelectedLanguage}
@@ -132,9 +132,9 @@ const ContentCreateWidget = () => {
                         />
                     </div>
                     <div className="ibexa-extra-actions__section-header">{selectContentType}</div>
-                    <div class="ibexa-extra-actions__section-content ibexa-extra-actions__section-content--content-type">
-                        <div class="ibexa-instant-filter">
-                            <div class="ibexa-instant-filter__input-wrapper">
+                    <div className="ibexa-extra-actions__section-content ibexa-extra-actions__section-content--content-type">
+                        <div className="ibexa-instant-filter">
+                            <div className="ibexa-instant-filter__input-wrapper">
                                 <input
                                     autoFocus
                                     className="ibexa-instant-filter__input ibexa-input ibexa-input--text form-control"
@@ -145,7 +145,7 @@ const ContentCreateWidget = () => {
                             </div>
                         </div>
                     </div>
-                    <div class="ibexa-instant-filter__desc">{filtersDescLabel}</div>
+                    <div className="ibexa-instant-filter__desc">{filtersDescLabel}</div>
                     <div className="ibexa-instant-filter__items">
                         {contentTypes.map(([groupName, groupItems]) => {
                             const restrictedContentTypeIds = selectedLocation?.permissions?.create.restrictedContentTypeIds ?? [];
@@ -191,7 +191,7 @@ const ContentCreateWidget = () => {
                                                 onClick={updateSelectedContentType}>
                                                 <Icon customPath={thumbnail} extraClasses="ibexa-icon--small" />
                                                 <div className="form-check">
-                                                    <div class="ibexa-label ibexa-label--checkbox-radio form-check-label">{name}</div>
+                                                    <div className="ibexa-label ibexa-label--checkbox-radio form-check-label">{name}</div>
                                                 </div>
                                             </div>
                                         );

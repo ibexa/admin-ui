@@ -27,7 +27,7 @@ const PopupActions = ({ listRef, options }) => {
 
         return (
             <li
-                class="c-popup-actions__item"
+                className="c-popup-actions__item"
                 key={item.id}
                 onClick={toggleExpanded}
             >
@@ -47,8 +47,8 @@ const PopupActions = ({ listRef, options }) => {
         }
 
         return (
-            <div class="c-popup-actions__items" style={itemsStyles} ref={containerItemsRef}>
-                <ul class="c-popup-actions__items-list">
+            <div className="c-popup-actions__items" style={itemsStyles} ref={containerItemsRef}>
+                <ul className="c-popup-actions__items-list">
                     {allOptions.map(renderItem)}
                 </ul>
             </div>

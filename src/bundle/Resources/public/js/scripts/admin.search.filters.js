@@ -15,10 +15,9 @@
     const lastModifiedDateRange = doc.querySelector('.ibexa-filters__item--modified .ibexa-filters__range-select');
     const lastCreatedSelect = doc.querySelector('.ibexa-filters__item--created .ibexa-filters__select');
     const lastCreatedDateRange = doc.querySelector('.ibexa-filters__item--created .ibexa-filters__range-select');
-    const creatorInput = doc.querySelector('.ibexa-filters__item--creator .ibexa-filters__input');
+    const creatorInput = doc.querySelector('.ibexa-filters__item--creator .ibexa-input');
     const searchCreatorInput = doc.querySelector('#search_creator');
     const usersList = doc.querySelector('.ibexa-filters__item--creator .ibexa-filters__user-list');
-    const resetCreatorBtn = doc.querySelector('.ibexa-filters__item--creator .ibexa-icon--reset');
     const contentTypeCheckboxes = doc.querySelectorAll('.ibexa-content-type-selector__item [type="checkbox"]');
     const selectSubtreeBtn = doc.querySelector('.ibexa-filters__item--subtree .ibexa-tag-view-select__btn-select-path');
     const subtreeInput = doc.querySelector('#search_subtree');
@@ -354,7 +353,6 @@
     lastCreatedSelect.addEventListener('change', toggleDatesSelectVisibility, false);
     creatorInput.addEventListener('keyup', handleTyping, false);
     usersList.addEventListener('click', handleSelectUser, false);
-    resetCreatorBtn.addEventListener('click', handleResetUser, false);
     contentTypeCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', filterByContentType, false));
     showMoreBtns.forEach((showMoreBtn) => showMoreBtn.addEventListener('click', showMoreContentTypes, false));
     selectSubtreeBtn.addEventListener('click', openSubtreeUDW, false);
