@@ -113,7 +113,7 @@
         'transitionend',
         (event) => {
             if (event.propertyName === 'width') {
-                doc.body.dispatchEvent(new CustomEvent('ibexa-main-menu-resized'));
+                doc.body.dispatchEvent(new CustomEvent('ibexa-content-resized'));
             }
         },
         false
