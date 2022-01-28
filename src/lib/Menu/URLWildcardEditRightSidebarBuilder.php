@@ -4,10 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu;
+namespace Ibexa\AdminUi\Menu;
 
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
-use EzSystems\EzPlatformAdminUi\Tab\URLManagement\URLWildcardsTab;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Tab\URLManagement\URLWildcardsTab;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -17,14 +18,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class URLWildcardEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__SAVE = 'url_wildcard_edit__sidebar_right__save';
-    const ITEM__CANCEL = 'url_wildcard_edit__sidebar_right__cancel';
+    public const ITEM__SAVE = 'url_wildcard_edit__sidebar_right__save';
+    public const ITEM__CANCEL = 'url_wildcard_edit__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Menu\MenuItemFactory $menuItemFactory
+     * @param \Ibexa\AdminUi\Menu\MenuItemFactory $menuItemFactory
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
      */
@@ -61,20 +62,18 @@ final class URLWildcardEditRightSidebarBuilder extends AbstractBuilder implement
                 self::ITEM__SAVE,
                 [
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => $options['submit_selector'],
                     ],
-                    'extras' => ['icon' => 'save'],
                 ]
             ),
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'route' => 'ezplatform.url_management',
+                    'route' => 'ibexa.url_management',
                     'routeParameters' => [
                         '_fragment' => URLWildcardsTab::URI_FRAGMENT,
                     ],
-                    'extras' => ['icon' => 'circle-close'],
                 ]
             ),
         ]);
@@ -82,3 +81,5 @@ final class URLWildcardEditRightSidebarBuilder extends AbstractBuilder implement
         return $menu;
     }
 }
+
+class_alias(URLWildcardEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\URLWildcardEditRightSidebarBuilder');

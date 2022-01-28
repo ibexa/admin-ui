@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\AdminUi\DependencyInjection\Compiler;
 
-use EzSystems\EzPlatformAdminUi\Component\Registry;
-use EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException;
+use Ibexa\AdminUi\Component\Registry;
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -18,13 +18,13 @@ class ComponentPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    const TAG_NAME = 'ezplatform.admin_ui.component';
+    public const TAG_NAME = 'ibexa.admin_ui.component';
 
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      *
      * @throws \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException When a service is abstract
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException When a tag is missing 'group' attribute
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException When a tag is missing 'group' attribute
      */
     public function process(ContainerBuilder $container): void
     {
@@ -49,3 +49,5 @@ class ComponentPass implements CompilerPassInterface
         }
     }
 }
+
+class_alias(ComponentPass::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Compiler\ComponentPass');

@@ -51,19 +51,19 @@ parameters:
     # Views
     ezsettings.default.content_translate_view: {}
     ezsettings.default.limitation_value_templates:
-        - { template: '@@ezdesign/limitation/limitation_values.html.twig', priority: 0 }
-    ezsettings.admin_group.user_settings.templates.list: "@@ezdesign/account/settings/list.html.twig"
-    ezsettings.admin_group.user_settings.templates.update: "@@ezdesign/account/settings/update.html.twig"
-    ezsettings.admin_group.user_change_password.templates.form: "@@ezdesign/account/change_password/index.html.twig"
-    ezsettings.admin_group.user_forgot_password.templates.form: "@@ezdesign/account/forgot_password/index.html.twig"
-    ezsettings.admin_group.user_forgot_password_success.templates.form: "@@ezdesign/account/forgot_password/confirmation_page.html.twig"
-    ezsettings.admin_group.user_forgot_password_login.templates.form: "@@ezdesign/account/forgot_password/index_with_login.html.twig"
-    ezsettings.admin_group.user_forgot_password.templates.mail: "@@ezdesign/account/forgot_password/mail.html.twig"
-    ezsettings.admin_group.user_reset_password.templates.form: "@@ezdesign/account/reset_password/index.html.twig"
-    ezsettings.admin_group.user_reset_password.templates.invalid_link: "@@ezdesign/account/reset_password/invalid_link_page.html.twig"
-    ezsettings.admin_group.user_reset_password.templates.success: "@@ezdesign/account/reset_password/confirmation_page.html.twig"
-    ezsettings.admin_group.user_edit.templates.update: '@@ezdesign/user/edit.html.twig'
-    ezsettings.admin_group.user_edit.templates.create: '@@ezdesign/user/create.html.twig'
+        - { template: '@@ibexadesign/limitation/limitation_values.html.twig', priority: 0 }
+    ezsettings.admin_group.user_settings.templates.list: "@@ibexadesign/account/settings/list.html.twig"
+    ezsettings.admin_group.user_settings.templates.update: "@@ibexadesign/account/settings/update.html.twig"
+    ezsettings.admin_group.user_change_password.templates.form: "@@ibexadesign/account/change_password/index.html.twig"
+    ezsettings.admin_group.user_forgot_password.templates.form: "@@ibexadesign/account/forgot_password/index.html.twig"
+    ezsettings.admin_group.user_forgot_password_success.templates.form: "@@ibexadesign/account/forgot_password/confirmation_page.html.twig"
+    ezsettings.admin_group.user_forgot_password_login.templates.form: "@@ibexadesign/account/forgot_password/index_with_login.html.twig"
+    ezsettings.admin_group.user_forgot_password.templates.mail: "@@ibexadesign/account/forgot_password/mail.html.twig"
+    ezsettings.admin_group.user_reset_password.templates.form: "@@ibexadesign/account/reset_password/index.html.twig"
+    ezsettings.admin_group.user_reset_password.templates.invalid_link: "@@ibexadesign/account/reset_password/invalid_link_page.html.twig"
+    ezsettings.admin_group.user_reset_password.templates.success: "@@ibexadesign/account/reset_password/confirmation_page.html.twig"
+    ezsettings.admin_group.user_edit.templates.update: '@@ibexadesign/user/edit.html.twig'
+    ezsettings.admin_group.user_edit.templates.create: '@@ibexadesign/user/create.html.twig'
 
     # Content Tree Module
     ezsettings.admin_group.content_tree_module.load_more_limit: 30
@@ -75,5 +75,8 @@ parameters:
     ezsettings.default.content_tree_module.contextual_tree_root_location_ids: []
 
     # Autosave
+    ezsettings.default.autosave.enabled: false
+    ezsettings.default.autosave.interval: 60
+
     ezsettings.admin_group.autosave.enabled: true
     ezsettings.admin_group.autosave.interval: 60

@@ -109,10 +109,10 @@ const detectContentTypeMapping = (file, parentInfo, config) => {
  * @returns {Promise}
  */
 const getContentTypeByIdentifier = ({ token, siteaccess }, identifier) => {
-    const request = new Request(`/api/ezp/v2/content/types?identifier=${identifier}`, {
+    const request = new Request(`/api/ibexa/v2/content/types?identifier=${identifier}`, {
         method: 'GET',
         headers: {
-            Accept: 'application/vnd.ez.api.ContentTypeInfoList+json',
+            Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
             'X-Siteaccess': siteaccess,
             'X-CSRF-Token': token,
         },
@@ -132,7 +132,7 @@ const getContentTypeByIdentifier = ({ token, siteaccess }, identifier) => {
  * @returns {Promise}
  */
 const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
-    let parentLocation = `/api/ezp/v2/content/locations${parentInfo.locationPath}`;
+    let parentLocation = `/api/ibexa/v2/content/locations${parentInfo.locationPath}`;
 
     parentLocation = parentLocation.endsWith('/') ? parentLocation.slice(0, -1) : parentLocation;
 
@@ -140,7 +140,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
 
     return getContentTypeByIdentifier(config, mapping.contentTypeIdentifier)
         .then((response) => response.json())
-        .catch(() => window.eZ.helpers.notification.showErrorNotification('Cannot get content type by identifier'))
+        .catch(() => window.ibexa.helpers.notification.showErrorNotification('Cannot get content type by identifier'))
         .then((response) => {
             const fileValue = {
                 fileName: data.file.name,
@@ -171,7 +171,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
 
             return struct;
         })
-        .catch(() => window.eZ.helpers.notification.showErrorNotification('Cannot create content structure'));
+        .catch(() => window.ibexa.helpers.notification.showErrorNotification('Cannot create content structure'));
 };
 
 /**
@@ -186,14 +186,14 @@ const createDraft = ({ struct, token, siteaccess }, requestEventHandlers) => {
     const xhr = new XMLHttpRequest();
     const body = JSON.stringify(struct);
     const headers = {
-        Accept: 'application/vnd.ez.api.Content+json',
-        'Content-Type': 'application/vnd.ez.api.ContentCreate+json',
+        Accept: 'application/vnd.ibexa.api.Content+json',
+        'Content-Type': 'application/vnd.ibexa.api.ContentCreate+json',
         'X-CSRF-Token': token,
         'X-Siteaccess': siteaccess,
     };
 
     return new Promise((resolve, reject) => {
-        xhr.open('POST', '/api/ezp/v2/content/objects', true);
+        xhr.open('POST', '/api/ibexa/v2/content/objects', true);
 
         xhr.onreadystatechange = handleOnReadyStateChange.bind(null, xhr, resolve, reject);
 
@@ -324,7 +324,7 @@ export const publishFile = (data, requestEventHandlers, callback) => {
     createDraft(data, requestEventHandlers)
         .then(publishDraft.bind(null, data))
         .then(callback)
-        .catch(() => window.eZ.helpers.notification.showErrorNotification('An error occurred while publishing a file'));
+        .catch(() => window.ibexa.helpers.notification.showErrorNotification('An error occurred while publishing a file'));
 };
 
 /**
@@ -349,5 +349,5 @@ export const deleteFile = ({ token, siteaccess }, struct, callback) => {
     fetch(request)
         .then(handleRequestResponse)
         .then(callback)
-        .catch(() => window.eZ.helpers.notification.showErrorNotification('An error occurred while deleting a file'));
+        .catch(() => window.ibexa.helpers.notification.showErrorNotification('An error occurred while deleting a file'));
 };

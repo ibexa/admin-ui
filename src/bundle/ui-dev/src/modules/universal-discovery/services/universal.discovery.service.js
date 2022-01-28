@@ -2,13 +2,21 @@ import { showErrorNotification } from '../../common/services/notification.servic
 import { handleRequestResponse, handleRequestResponseStatus } from '../../common/helpers/request.helper.js';
 
 const HEADERS_CREATE_VIEW = {
-    Accept: 'application/vnd.ez.api.View+json; version=1.1',
-    'Content-Type': 'application/vnd.ez.api.ViewInput+json; version=1.1',
+    Accept: 'application/vnd.ibexa.api.View+json; version=1.1',
+    'Content-Type': 'application/vnd.ibexa.api.ViewInput+json; version=1.1',
 };
-const ENDPOINT_CREATE_VIEW = '/api/ezp/v2/views';
-const ENDPOINT_BOOKMARK = '/api/ezp/v2/bookmark';
+const ENDPOINT_CREATE_VIEW = '/api/ibexa/v2/views';
+const ENDPOINT_BOOKMARK = '/api/ibexa/v2/bookmark';
 
 export const QUERY_LIMIT = 50;
+
+const showErrorNotificationAbortWrapper = (error) => {
+    if (error?.name === 'AbortError') {
+        return;
+    }
+
+    return showErrorNotification(error);
+}
 
 const mapSubitems = (subitems) => {
     return subitems.locations.map((location) => {
@@ -32,7 +40,7 @@ export const findLocationsByParentLocationId = (
     { token, parentLocationId, limit = QUERY_LIMIT, offset = 0, sortClause = 'DatePublished', sortOrder = 'ascending', gridView = false },
     callback
 ) => {
-    const routeName = gridView ? 'ezplatform.udw.location_gridview.data' : 'ezplatform.udw.location.data';
+    const routeName = gridView ? 'ibexa.udw.location.gridview.data' : 'ibexa.udw.location.data';
     const url = window.Routing.generate(routeName, {
         locationId: parentLocationId,
     });
@@ -60,7 +68,7 @@ export const findLocationsByParentLocationId = (
 
             callback(locationData);
         })
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
 };
 
 export const loadAccordionData = (
@@ -75,7 +83,7 @@ export const loadAccordionData = (
     },
     callback
 ) => {
-    const routeName = gridView ? 'ezplatform.udw.accordion_gridview.data' : 'ezplatform.udw.accordion.data';
+    const routeName = gridView ? 'ibexa.udw.accordion.gridview.data' : 'ibexa.udw.accordion.data';
     const url = window.Routing.generate(routeName, {
         locationId: parentLocationId,
     });
@@ -127,7 +135,7 @@ export const loadAccordionData = (
 
             callback(mappedItems);
         })
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
 };
 
 export const findLocationsBySearchQuery = ({ token, siteaccess, query, limit = QUERY_LIMIT, offset = 0, languageCode = null }, callback) => {
@@ -166,7 +174,7 @@ export const findLocationsBySearchQuery = ({ token, siteaccess, query, limit = Q
                 count,
             });
         })
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
 };
 
 export const findLocationsById = ({ token, siteaccess, id, limit = QUERY_LIMIT, offset = 0 }, callback) => {
@@ -198,7 +206,7 @@ export const findLocationsById = ({ token, siteaccess, id, limit = QUERY_LIMIT, 
 
             callback(items);
         })
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
 };
 
 export const findContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LIMIT, offset = 0 }, callback) => {
@@ -230,7 +238,7 @@ export const findContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LI
 
             callback(items);
         })
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
 };
 
 export const loadBookmarks = ({ token, siteaccess, limit, offset }, callback) => {
@@ -239,7 +247,7 @@ export const loadBookmarks = ({ token, siteaccess, limit, offset }, callback) =>
         headers: {
             'X-Siteaccess': siteaccess,
             'X-CSRF-Token': token,
-            Accept: 'application/vnd.ez.api.ContentTypeInfoList+json',
+            Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
         },
         mode: 'same-origin',
         credentials: 'same-origin',
@@ -253,7 +261,7 @@ export const loadBookmarks = ({ token, siteaccess, limit, offset }, callback) =>
 
             callback({ count, items });
         })
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
 };
 
 const toggleBookmark = ({ siteaccess, token, locationId }, callback, method) => {
@@ -270,7 +278,7 @@ const toggleBookmark = ({ siteaccess, token, locationId }, callback, method) => 
     fetch(request)
         .then(handleRequestResponseStatus)
         .then(callback)
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
 };
 
 export const addBookmark = (options, callback) => {
@@ -282,10 +290,10 @@ export const removeBookmark = (options, callback) => {
 };
 
 export const loadContentTypes = ({ token, siteaccess }, callback) => {
-    const request = new Request('/api/ezp/v2/content/types', {
+    const request = new Request('/api/ibexa/v2/content/types', {
         method: 'GET',
         headers: {
-            Accept: 'application/vnd.ez.api.ContentTypeInfoList+json',
+            Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
             'X-Siteaccess': siteaccess,
             'X-CSRF-Token': token,
         },
@@ -296,14 +304,14 @@ export const loadContentTypes = ({ token, siteaccess }, callback) => {
     fetch(request)
         .then(handleRequestResponse)
         .then(callback)
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
 };
 
 export const createDraft = ({ token, siteaccess, contentId }, callback) => {
-    const request = new Request(`/api/ezp/v2/content/objects/${contentId}/currentversion`, {
+    const request = new Request(`/api/ibexa/v2/content/objects/${contentId}/currentversion`, {
         method: 'COPY',
         headers: {
-            Accept: 'application/vnd.ez.api.VersionUpdate+json',
+            Accept: 'application/vnd.ibexa.api.VersionUpdate+json',
             'X-Siteaccess': siteaccess,
             'X-CSRF-Token': token,
         },
@@ -314,10 +322,10 @@ export const createDraft = ({ token, siteaccess, contentId }, callback) => {
     fetch(request)
         .then(handleRequestResponse)
         .then(callback)
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
 };
 
-export const loadContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LIMIT, offset = 0 }, callback) => {
+export const loadContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LIMIT, offset = 0, signal }, callback) => {
     const body = JSON.stringify({
         ViewInput: {
             identifier: `udw-load-content-info-${contentId}`,
@@ -342,26 +350,26 @@ export const loadContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LI
         credentials: 'same-origin',
     });
 
-    fetch(request)
+    fetch(request, { signal })
         .then(handleRequestResponse)
         .then((response) => {
             const items = response.View.Result.searchHits.searchHit.map((searchHit) => searchHit.value.Content);
 
             callback(items);
         })
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
 };
 
-export const loadLocationsWithPermissions = ({ locationIds }, callback) => {
-    const url = window.Routing.generate('ezplatform.udw.locations.data');
+export const loadLocationsWithPermissions = ({ locationIds, signal }, callback) => {
+    const url = window.Routing.generate('ibexa.udw.locations.data');
     const request = new Request(`${url}?locationIds=${locationIds}`, {
         method: 'GET',
         mode: 'same-origin',
         credentials: 'same-origin',
     });
 
-    fetch(request)
+    fetch(request, { signal })
         .then(handleRequestResponse)
         .then(callback)
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
 };

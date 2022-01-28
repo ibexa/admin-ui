@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data;
+namespace Ibexa\AdminUi\Form\Data;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
 class ContentTypeGroupData
 {
@@ -43,3 +43,5 @@ class ContentTypeGroupData
         return $data;
     }
 }
+
+class_alias(ContentTypeGroupData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroupData');

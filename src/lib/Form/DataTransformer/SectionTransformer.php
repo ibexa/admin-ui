@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\DataTransformer;
+namespace Ibexa\AdminUi\Form\DataTransformer;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\SectionService;
-use eZ\Publish\API\Repository\Values\Content\Section as APISection;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section as APISection;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -19,7 +19,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final class SectionTransformer implements DataTransformerInterface
 {
-    /** @var \eZ\Publish\API\Repository\SectionService */
+    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
     private $sectionService;
 
     public function __construct(SectionService $sectionService)
@@ -57,3 +57,5 @@ final class SectionTransformer implements DataTransformerInterface
         }
     }
 }
+
+class_alias(SectionTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\SectionTransformer');

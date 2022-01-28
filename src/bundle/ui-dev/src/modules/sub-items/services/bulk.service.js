@@ -54,7 +54,7 @@ export const bulkDeleteItems = (restInfo, items, callback) => {
     items.forEach((item) => {
         const { id: locationId, pathString, content } = item;
         const contentTypeIdentifier = content._info.contentType.identifier;
-        const isUserContentItem = window.eZ.adminUiConfig.userContentTypes.includes(contentTypeIdentifier);
+        const isUserContentItem = window.ibexa.adminUiConfig.userContentTypes.includes(contentTypeIdentifier);
         const contentId = content._info.id;
 
         if (isUserContentItem) {
@@ -92,7 +92,7 @@ const getBulkAddLocationRequestOperation = (contentId, destination) => ({
         },
     }),
     headers: {
-        'Content-Type': 'application/vnd.ez.api.LocationCreate+json',
+        'Content-Type': 'application/vnd.ibexa.api.LocationCreate+json',
     },
     method: 'POST',
 });
@@ -107,7 +107,7 @@ const getBulkVisibilityRequestOperation = (pathString, isHidden) => ({
         },
     }),
     headers: {
-        'Content-Type': 'application/vnd.ez.api.LocationUpdate+json',
+        'Content-Type': 'application/vnd.ibexa.api.LocationUpdate+json',
     },
     method: 'PATCH',
 });
@@ -161,6 +161,6 @@ const makeBulkRequest = ({ token, siteaccess }, requestBodyOperations, callback)
                 'sub_items'
             );
 
-            window.eZ.helpers.notification.showErrorNotification(message);
+            window.ibexa.helpers.notification.showErrorNotification(message);
         });
 };

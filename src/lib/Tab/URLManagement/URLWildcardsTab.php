@@ -6,17 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\URLManagement;
+namespace Ibexa\AdminUi\Tab\URLManagement;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\URLWildcardService;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzPlatformAdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory;
-use EzSystems\EzPlatformAdminUi\Tab\AbstractTab;
-use EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface;
-use Ibexa\AdminUi\Pagination\Pagerfanta\URLWildcardAdapter;
-use Pagerfanta\Pagerfanta;
+use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\URLWildcardService;
+use Ibexa\Core\MVC\ConfigResolverInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -25,21 +23,21 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
 {
     private const PAGINATION_PARAM_NAME = 'url-wildcards-page';
 
-    public const URI_FRAGMENT = 'ez-tab-link-manager-url-wildcards';
+    public const URI_FRAGMENT = 'ibexa-tab-link-manager-url-wildcards';
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     protected $permissionResolver;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \eZ\Publish\API\Repository\URLWildcardService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLWildcardService */
     private $urlWildcardService;
 
     /** @var \Symfony\Component\HttpFoundation\RequestStack */
     private $requestStack;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
     public function __construct(
@@ -61,7 +59,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getIdentifier(): string
     {
@@ -69,7 +67,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName(): string
     {
@@ -78,7 +76,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getOrder(): int
     {
@@ -93,7 +91,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function renderView(array $parameters): string
     {
@@ -124,7 +122,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
         $urlWildcardsEnabled = $this->configResolver->getParameter('url_wildcards.enabled');
         $canManageWildcards = $this->permissionResolver->hasAccess('content', 'urltranslator');
 
-        return $this->twig->render('@ezdesign/url_wildcard/list.html.twig', [
+        return $this->twig->render('@ibexadesign/url_wildcard/list.html.twig', [
             'url_wildcards' => $pagerfanta,
             'pager_options' => [
                 'pageParameter' => '[' . self::PAGINATION_PARAM_NAME . ']',
@@ -136,3 +134,5 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
         ]);
     }
 }
+
+class_alias(URLWildcardsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\URLManagement\URLWildcardsTab');

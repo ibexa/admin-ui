@@ -1,9 +1,9 @@
-.ez-field-preview--ezkeyword {
+.ibexa-field-preview--ezkeyword {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
 
-    .ez-keyword__item {
+    .ibexa-keyword__item {
         @include tag();
 
         margin: 0 calculateRem(5px) 0 0;

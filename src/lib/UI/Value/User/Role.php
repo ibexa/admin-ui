@@ -6,32 +6,32 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Value\User;
+namespace Ibexa\AdminUi\UI\Value\User;
 
-use eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation as APIRoleLimitation;
-use eZ\Publish\API\Repository\Values\User\Role as APIRole;
-use eZ\Publish\API\Repository\Values\User\RoleAssignment;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation as APIRoleLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Role as APIRole;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
 
 class Role extends RoleAssignment
 {
     /**
      * the limitation of this role assignment.
      *
-     * @var \eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation|null
      */
     protected $limitation;
 
     /**
      * the role which is assigned to the user.
      *
-     * @var \eZ\Publish\API\Repository\Values\User\Role
+     * @var \Ibexa\Contracts\Core\Repository\Values\User\Role
      */
     protected $role;
 
     /**
      * Returns the limitation of the user role assignment.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation|null
      */
     public function getRoleLimitation(): ?APIRoleLimitation
     {
@@ -41,7 +41,7 @@ class Role extends RoleAssignment
     /**
      * Returns the role to which the user is assigned to.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Role
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role
      */
     public function getRole(): APIRole
     {
@@ -49,7 +49,7 @@ class Role extends RoleAssignment
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\RoleAssignment $roleAssignment
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment $roleAssignment
      * @param array $properties
      */
     public function __construct(RoleAssignment $roleAssignment, array $properties = [])
@@ -60,3 +60,5 @@ class Role extends RoleAssignment
         $this->limitation = $roleAssignment->limitation;
     }
 }
+
+class_alias(Role::class, 'EzSystems\EzPlatformAdminUi\UI\Value\User\Role');
