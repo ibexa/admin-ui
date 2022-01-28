@@ -68,5 +68,9 @@
                 border-radius: $ibexa-border-radius;
             }
         }
+
+        &__group-item-label-icon {
+            height: calculateRem(16px);
+        }
     }
 }
