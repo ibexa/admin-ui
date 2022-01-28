@@ -71,6 +71,52 @@
                     { content: result.type },
                 ]) %}
 
+                {% set col_translation %}
+                    {% if result.mainLocationId is not null %}
+                        {% set main_language_code = result.translation_language_code %}
+                        {% set other_language_translations =
+                            result.available_enabled_translations|filter(translation => translation.languageCode != main_language_code) %}
+                        <a
+                            href="{{ path('ibexa.content.view', {
+                                'contentId': result.contentId,
+                                'locationId': result.resolvedLocation.id,
+                                'languageCode': result.translation_language_code,
+                            }) }}"
+                        >
+                            {{ result.available_translations[main_language_code].name }}
+                        </a>
+
+                        {% if other_language_translations|length > 0 %}
+                            <div class="ibexa-search-form__results-other-translations">
+                                <svg class="ibexa-icon ibexa-icon--tiny-small">
+                                    <use xlink:href="{{ ibexa_icon_path('go-right') }}"></use>
+                                </svg>
+                                {% for other_language_translation in other_language_translations %}
+                                    <a
+                                        href="{{ path('ibexa.content.view', {
+                                            'contentId': result.contentId,
+                                            'locationId': result.resolvedLocation.id,
+                                            'languageCode': other_language_translation.languageCode,
+                                        }) }}"
+                                        class="ibexa-search-form__results-other-translation-url"
+                                    >
+                                        {{ other_language_translation.name }}
+                                    </a>
+                                    {% if not loop.last %}
+                                        {{ ',' }}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        {{ result.available_translations[result.translation_language_code].name }}
+                    {% endif %}
+                {% endset %}
+                {% set body_row_cols = body_row_cols|merge([{
+                    content: col_translation,
+                    raw: true,
+                }]) %}
+
                 {% set col_raw %}
                     {% set path_locations = ibexa_path_to_locations(result.resolvedLocation.pathString) %}
                     {% set result_breadcrumbs = '' %}
@@ -114,6 +160,7 @@
                 { content: 'search.name'|trans|desc('Name') },
                 { content: 'search.modified'|trans|desc('Modified') },
                 { content: 'search.type'|trans|desc('Content Type') },
+                { content: 'search.translation'|trans|desc('Translation') },
                 { content: 'search.location'|trans|desc('Location') },
                 { },
             ] %}

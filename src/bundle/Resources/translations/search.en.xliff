@@ -151,6 +151,11 @@
         <target state="new">Subtree</target>
         <note>key: search.subtree.label</note>
       </trans-unit>
+      <trans-unit id="6f95f574610727dde9d50afe5b82fd5e250f0886" resname="search.translation">
+        <source>Translation</source>
+        <target state="new">Translation</target>
+        <note>key: search.translation</note>
+      </trans-unit>
       <trans-unit id="0c9866a19fd5d3074bdb05b339df05b7c05a5661" resname="search.type">
         <source>Content Type</source>
         <target state="new">Content Type</target>

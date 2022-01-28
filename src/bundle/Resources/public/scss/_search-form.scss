@@ -47,6 +47,16 @@
         font-size: $ibexa-text-font-size-small;
     }
 
+    &__results-other-translations {
+        display: flex;
+        align-items: center;
+    }
+
+    &__results-other-translation-url {
+        font-size: $ibexa-text-font-size-small;
+        margin-left: calculateRem(8px);
+    }
+
     &__input-wrapper {
         margin-right: calculateRem(28px);
         width: calculateRem(430px);
