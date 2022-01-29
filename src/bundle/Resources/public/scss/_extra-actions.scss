@@ -78,39 +78,15 @@
         }
 
         .form-check {
-            display: block;
-            background: none;
-            border: 0 none;
-            width: 100%;
-            text-align: left;
-            border-radius: calculateRem(4px);
-            padding: 0 calculateRem(16px);
-            line-height: calculateRem(45px);
-            background: $ibexa-color-white;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.2s $ibexa-admin-transition;
-            margin-bottom: calculateRem(16px);
-            font-size: calculateRem(15px);
-            box-shadow: 0 calculateRem(2px) calculateRem(4px) 0 rgba($ibexa-color-black, 0.1);
-
-            &:hover,
-            &:focus {
-                background: $ibexa-color-light;
-                font-weight: 700;
-                text-decoration: none;
-            }
-
-            &:active {
-                background: $ibexa-color-primary;
-                color: $ibexa-color-white;
-            }
-
             &-label {
-                display: flex;
-                align-items: center;
-                margin: 0;
+                @include sidebar-drag-item;
+
                 cursor: pointer;
+
+                &:hover,
+                &:focus {
+                    border-color: $ibexa-color-dark;
+                }
             }
 
             &-input[type='radio'] {

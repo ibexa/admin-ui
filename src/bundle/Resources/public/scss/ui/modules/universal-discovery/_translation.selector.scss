@@ -1,17 +1,18 @@
 .c-translation-selector {
     @include container-box-shadow-right;
 
-    position: absolute;
-    right: 100%;
+    position: fixed;
+    right: 0;
     top: 0;
     height: 100%;
-    width: calculateRem(360px);
+    width: calculateRem(700px);
     background-color: $ibexa-color-white;
     transform: scaleX(1);
     transform-origin: right center;
     opacity: 1;
     transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
     padding: calculateRem(16px);
+    z-index: 5;
 
     &--hidden {
         transform: scaleX(0);
@@ -28,7 +29,7 @@
     }
 
     &__title {
-        color: $ibexa-color-primary;
+        margin-bottom: 0;
     }
 
     &__close-button {
@@ -41,7 +42,14 @@
     }
 
     &__language {
-        padding: calculateRem(8px);
+        @include sidebar-drag-item;
+
         cursor: pointer;
+        width: 60%;
+
+        &:hover,
+        &:focus {
+            border-color: $ibexa-color-dark;
+        }
     }
 }
