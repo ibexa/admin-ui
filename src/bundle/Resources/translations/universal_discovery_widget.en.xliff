@@ -222,8 +222,8 @@
         <note>key: meta_preview.edit</note>
       </trans-unit>
       <trans-unit id="4828dcbcd9cf2ad9c2b69a9b9420c94eccbe5dcc" resname="meta_preview.edit_translation">
-        <source>Edit translation</source>
-        <target state="new">Edit translation</target>
+        <source>Select translation</source>
+        <target state="new">Select translation</target>
         <note>key: meta_preview.edit_translation</note>
       </trans-unit>
       <trans-unit id="954055c80d86d18a4b101c2060e4dd63dd10971f" resname="meta_preview.last_modified">

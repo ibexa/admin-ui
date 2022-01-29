@@ -7,7 +7,7 @@ import Icon from '../../../common/icon/icon';
 const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation, version, isOpen }) => {
     const languageCodes = version ? version.VersionInfo.languageCodes.split(',') : [];
     const editTranslationLabel = Translator.trans(
-        /*@Desc("Edit translation")*/ 'meta_preview.edit_translation',
+        /*@Desc("Select translation")*/ 'meta_preview.edit_translation',
         {},
         'universal_discovery_widget'
     );
@@ -19,7 +19,7 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
     return (
         <div className={className}>
             <div className="c-translation-selector__header">
-                <span className="c-translation-selector__title">{`${editTranslationLabel} (${languageCodes.length})`}</span>
+                <h3 className="c-translation-selector__title">{`${editTranslationLabel} (${languageCodes.length})`}</h3>
                 <button className="c-translation-selector__close-button btn" onClick={hideTranslationSelector}>
                     <Icon name="discard" extraClasses="ibexa-icon--small" />
                 </button>
