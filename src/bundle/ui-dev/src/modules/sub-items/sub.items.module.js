@@ -1193,10 +1193,10 @@ export default class SubItemsModule extends Component {
     }
 
     renderNoItems() {
-        const { activePageItems } = this.state;
+        const { activePageItems, totalCount } = this.state;
         const isActivePageLoaded = !!activePageItems;
 
-        if (this.state.totalCount || !isActivePageLoaded) {
+        if (totalCount || !isActivePageLoaded) {
             return null;
         }
 
