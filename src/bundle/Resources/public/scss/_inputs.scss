@@ -383,6 +383,18 @@
         }
     }
 
+    &--type-number {
+        .ibexa-input-text-wrapper {
+            &__actions {
+                right: calculateRem(32px);
+            }
+        }
+
+        .ibexa-input--text {
+            padding-right: calculateRem(12px);
+        }
+    }
+
     &--search {
         .ibexa-input--text {
             padding-right: calculateRem(56px);
