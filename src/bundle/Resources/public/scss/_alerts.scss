@@ -1,7 +1,7 @@
 .ibexa-alert {
     display: grid;
-    grid-template: 'icon content close-btn';
-    grid-template-columns: calculateRem(32px) auto calculateRem(32px);
+    grid-template: 'icon content actions close-btn';
+    grid-template-columns: calculateRem(32px) 1fr auto calculateRem(32px);
     grid-column-gap: calculateRem(8px);
     padding: calculateRem(16px) calculateRem(19px);
     border-radius: 0 $ibexa-border-radius $ibexa-border-radius 0;
@@ -21,6 +21,10 @@
         height: calculateRem(28px);
         margin-left: calculateRem(17px);
         margin-top: calculateRem(-6px);
+    }
+
+    &__actions {
+        grid-area: actions;
     }
 
     &__content {
