@@ -52,5 +52,5 @@
     adaptiveItems.adapt();
 
     global.addEventListener('resize', () => adaptiveItems.adapt(), false);
-    doc.body.addEventListener('ibexa-main-menu-resized', () => adaptiveItems.adapt(), false);
+    doc.body.addEventListener('ibexa-content-resized', () => adaptiveItems.adapt(), false);
 })(window, window.document, window.ibexa);

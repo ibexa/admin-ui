@@ -50,7 +50,9 @@ export default class ContentTree extends Component {
             );
         });
 
-        document.body.dispatchEvent(new CustomEvent('ibexa-tb-rendered:ibexa-content-tree'));
+        document.body.dispatchEvent(new CustomEvent('ibexa-tb-rendered', { detail: {
+            id: 'ibexa-content-tree',
+        } }));
     }
 
     componentDidUpdate(prevState) {
@@ -95,7 +97,7 @@ export default class ContentTree extends Component {
                 resizedContainerWidth: state.containerWidth + (currentPositionX - state.resizeStartPositionX),
             }),
             () => {
-                document.body.dispatchEvent(new CustomEvent('ibexa-main-menu-resized'));
+                document.body.dispatchEvent(new CustomEvent('ibexa-content-resized'));
             }
         );
     }
@@ -109,7 +111,7 @@ export default class ContentTree extends Component {
                 containerWidth: width,
             }),
             () => {
-                document.body.dispatchEvent(new CustomEvent('ibexa-main-menu-resized'));
+                document.body.dispatchEvent(new CustomEvent('ibexa-content-resized'));
             }
         );
     }
@@ -135,7 +137,7 @@ export default class ContentTree extends Component {
                 isResizing: false,
             }),
             () => {
-                document.body.dispatchEvent(new CustomEvent('ibexa-main-menu-resized'));
+                document.body.dispatchEvent(new CustomEvent('ibexa-content-resized'));
             }
         );
     }

@@ -86,7 +86,7 @@ export default class SubItemsModule extends Component {
         this.bulkActionModalContainer = document.createElement('div');
         this.bulkActionModalContainer.classList.add('m-sub-items__bulk-action-modal-container');
         document.body.appendChild(this.bulkActionModalContainer);
-        document.body.addEventListener('ibexa-main-menu-resized', this.resizeSubItems, false);
+        document.body.addEventListener('ibexa-content-resized', this.resizeSubItems, false);
         window.addEventListener('resize', this.resizeSubItems, false);
 
         if (!this.state.activePageItems) {
