@@ -104,11 +104,8 @@
         align-items: center;
         justify-content: center;
         background: $ibexa-color-danger;
+        color: $ibexa-color-white;
         z-index: 10;
-
-        .ibexa-icon {
-            fill: $ibexa-color-white;
-        }
     }
 
     &__tab {
