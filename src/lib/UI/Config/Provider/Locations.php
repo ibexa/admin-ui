@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 final class Locations implements ProviderInterface
 {
@@ -17,7 +17,7 @@ final class Locations implements ProviderInterface
     private const CONTENT_STRUCTURE_IDENTIFIER = 'contentStructure';
     private const USERS_IDENTIFIER = 'users';
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(

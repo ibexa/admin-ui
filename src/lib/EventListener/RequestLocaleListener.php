@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\EventListener;
 
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +32,7 @@ class RequestLocaleListener implements EventSubscriberInterface
     /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
     private $userLanguagePreferenceProvider;
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /**
@@ -40,7 +40,7 @@ class RequestLocaleListener implements EventSubscriberInterface
      * @param array $availableTranslations
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
      * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
-     * @param \Ibexa\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
      */
     public function __construct(
         array $siteAccessGroups,

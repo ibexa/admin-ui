@@ -9,7 +9,7 @@ namespace Ibexa\AdminUi\EventListener;
 use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
 use Ibexa\AdminUi\Form\Type\Content\Draft\ContentEditType;
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\View\Event\FilterViewParametersEvent;
 use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Ibexa\Search\View\SearchView;
@@ -23,7 +23,7 @@ final class SearchViewFilterParametersListener implements EventSubscriberInterfa
     /** @var \Symfony\Component\Form\FormFactoryInterface */
     private $formFactory;
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Symfony\Component\HttpFoundation\RequestStack */

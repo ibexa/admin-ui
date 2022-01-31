@@ -11,7 +11,7 @@ namespace Ibexa\Tests\AdminUi\Menu;
 use Ibexa\AdminUi\Menu\MainMenuBuilder;
 use Ibexa\AdminUi\Menu\MenuItemFactory;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\UserInterface;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\MenuItem;
@@ -28,7 +28,7 @@ class MainMenuBuilerTest extends TestCase
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
     private $eventDispatcher;
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */

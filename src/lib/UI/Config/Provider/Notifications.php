@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 /**
  * Provides information about notifications.
@@ -18,11 +18,11 @@ class Notifications implements ProviderInterface
 {
     public const NOTIFICATION_TYPES = ['error', 'warning', 'info', 'success'];
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /**
-     * @param \Ibexa\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
      */
     public function __construct(ConfigResolverInterface $configResolver)
     {
