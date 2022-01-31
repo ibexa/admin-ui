@@ -67,7 +67,7 @@ const SimpleDropdown = ({ options, selectedOption, onOptionClick, isDisabled }) 
     return (
         <div className={dropdownClass} ref={containerRef}>
             <div className="c-udw-simple-dropdown__selected" onClick={toggleExpanded}>
-                <span>{selectedOption.label}</span>
+                <span>{selectedOption.selectedLabel ?? selectedOption.label}</span>
                 {getCaretIcon()}
             </div>
             <div className="c-udw-simple-dropdown__items">
