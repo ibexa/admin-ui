@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Service;
 
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\Asset\Packages;
 
 final class ContentTypeIconResolver
@@ -18,14 +18,14 @@ final class ContentTypeIconResolver
 
     private const ICON_KEY = 'thumbnail';
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Symfony\Component\Asset\Packages */
     private $packages;
 
     /**
-     * @param \Ibexa\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
      * @param \Symfony\Component\Asset\Packages $packages
      */
     public function __construct(ConfigResolverInterface $configResolver, Packages $packages)
@@ -48,7 +48,7 @@ final class ContentTypeIconResolver
 
         $fragment = null;
         if (strpos($icon, '#') !== false) {
-            list($icon, $fragment) = explode('#', $icon);
+            [$icon, $fragment] = explode('#', $icon);
         }
 
         return $this->packages->getUrl($icon) . ($fragment ? '#' . $fragment : '');

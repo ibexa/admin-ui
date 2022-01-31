@@ -22,7 +22,7 @@ use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -55,7 +55,7 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     /** @var \Ibexa\AdminUi\UI\Value\Content\Location\Mapper */
     private $locationToUILocationMapper;
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /**
@@ -68,7 +68,7 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
      * @param \Ibexa\Contracts\Core\Repository\SearchService $searchService
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param \Ibexa\AdminUi\UI\Value\Content\Location\Mapper$locationToUILocationMapper
-     * @param \Ibexa\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
      */
     public function __construct(
         Environment $twig,

@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Resolver;
 
 use Ibexa\Contracts\AdminUi\Resolver\IconPathResolverInterface;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\Asset\Packages;
 
 /**
@@ -17,7 +17,7 @@ use Symfony\Component\Asset\Packages;
  */
 final class IconPathResolver implements IconPathResolverInterface
 {
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Symfony\Component\Asset\Packages */

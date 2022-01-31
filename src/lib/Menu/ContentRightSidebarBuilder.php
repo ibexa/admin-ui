@@ -22,7 +22,7 @@ use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -49,7 +49,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver */

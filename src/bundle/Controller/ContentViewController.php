@@ -37,7 +37,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\MVC\Symfony\View\ContentView;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -79,7 +79,7 @@ class ContentViewController extends Controller
     /** @var \Symfony\Component\Form\FormFactoryInterface */
     private $sfFormFactory;
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Ibexa\Contracts\Core\Repository\Repository */
@@ -103,7 +103,7 @@ class ContentViewController extends Controller
      * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
      * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
      * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
-     * @param \Ibexa\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
      * @param \Ibexa\Contracts\Core\Repository\Repository $repository
      * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
      * @param \Ibexa\AdminUi\Permission\LookupLimitationsTransformer $lookupLimitationsTransformer

@@ -35,7 +35,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -78,7 +78,7 @@ class ContentTypeController extends Controller
     private $contentTypeDraftMapper;
 
     /**
-     * @var \Ibexa\Core\MVC\ConfigResolverInterface
+     * @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface
      */
     private $configResolver;
 

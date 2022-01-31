@@ -10,7 +10,7 @@ namespace Ibexa\AdminUi\Form\EventListener;
 
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\URLAliasService;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\Form\FormEvent;
 
 class BuildPathFromRootListener
@@ -21,7 +21,7 @@ class BuildPathFromRootListener
     /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
     private $urlAliasService;
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(

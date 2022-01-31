@@ -13,7 +13,7 @@ use Ibexa\Bundle\AdminUi\View\EzPagerfantaView;
 use Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\NotificationService;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Notification\Renderer\Registry;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -32,7 +32,7 @@ class NotificationController extends Controller
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     protected $translator;
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(

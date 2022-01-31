@@ -16,7 +16,7 @@ use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -33,7 +33,7 @@ class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterfac
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     protected $permissionResolver;
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     protected $configResolver;
 
     public function __construct(

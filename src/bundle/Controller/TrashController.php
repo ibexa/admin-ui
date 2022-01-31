@@ -27,7 +27,7 @@ use Ibexa\Contracts\Core\Repository\TrashService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Pagerfanta\Pagerfanta;
@@ -59,7 +59,7 @@ class TrashController extends Controller
     /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
     private $userLanguagePreferenceProvider;
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Ibexa\AdminUi\QueryType\TrashSearchQueryType */

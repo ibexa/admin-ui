@@ -10,7 +10,7 @@ namespace Ibexa\AdminUi\UI\Config\Provider;
 
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\Contracts\Core\Repository\LanguageService;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 
 /**
@@ -21,7 +21,7 @@ class Languages implements ProviderInterface
     /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var string[] */
@@ -32,7 +32,7 @@ class Languages implements ProviderInterface
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Ibexa\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
      * @param string[]
      */
     public function __construct(

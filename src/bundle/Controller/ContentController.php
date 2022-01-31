@@ -39,7 +39,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Core\Base\Exceptions\BadStateException;
 use Ibexa\Core\Helper\TranslationHelper;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -81,7 +81,7 @@ class ContentController extends Controller
     /** @var \Ibexa\Core\Helper\TranslationHelper */
     private $translationHelper;
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface */

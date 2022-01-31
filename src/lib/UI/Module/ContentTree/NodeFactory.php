@@ -22,7 +22,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\Term
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Helper\TranslationHelper;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 /**
  * @internal
@@ -44,7 +44,7 @@ final class NodeFactory
     /** @var \Ibexa\Core\Helper\TranslationHelper */
     private $translationHelper;
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var int */
