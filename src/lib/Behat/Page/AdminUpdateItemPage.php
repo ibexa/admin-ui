@@ -39,6 +39,11 @@ class AdminUpdateItemPage extends Page
         throw new \Exception('Update Page cannot be opened on its own!');
     }
 
+    public function switchToTab(string $tabName): void
+    {
+        $this->getHTMLPage()->findAll($this->getLocator('tab'))->getByCriterion(new ElementTextCriterion($tabName))->click();
+    }
+
     public function getName(): string
     {
         return 'Admin item update';
@@ -78,6 +83,7 @@ class AdminUpdateItemPage extends Page
             new VisibleCSSLocator('formElement', '.ibexa-main-container '),
             new VisibleCSSLocator('closeButton', '.ibexa-content-edit-container__close'),
             new VisibleCSSLocator('button', '.container button'),
+            new VisibleCSSLocator('tab', '.ibexa-anchor-navigation-menu__item'),
             new VisibleCSSLocator('fieldInput', 'input'),
         ];
     }
