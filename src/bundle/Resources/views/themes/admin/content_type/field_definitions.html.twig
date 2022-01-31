@@ -35,7 +35,7 @@
                             {%- include "@ibexadesign/content_type/field_definitions_empty_group.html.twig" -%}
 
                             {% for field_definition in field_defintions %}
-                                {%- include "@ibexadesign/content_type/field_definition.html.twig" -%}
+                                {{ include('@ibexadesign/content_type/field_definition.html.twig', { is_draggable: is_draggable ?? true}) }}
                             {% endfor %}
 
                             {% set field_definitions_placeholder_class = [

@@ -133,7 +133,7 @@
         }
     }
 
-    &--single &__selected-item:not(&__selected-placeholder) {
+    &--single:not(&--disabled) &__selected-item:not(&__selected-placeholder) {
         color: $ibexa-color-dark;
     }
 

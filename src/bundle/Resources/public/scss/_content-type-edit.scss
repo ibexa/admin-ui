@@ -87,10 +87,6 @@
                         .ibexa-btn {
                             padding: calculateRem(10px);
                         }
-
-                        &:hover {
-                            cursor: grab;
-                        }
                     }
 
                     &__header-label {
@@ -106,15 +102,27 @@
                         margin-left: auto;
                     }
 
-                    &__toggle-btn:not(.ibexa-collapse__toggle-btn--status) {
-                        cursor: grab;
-                    }
-
                     &__draggable-btn {
                         cursor: grab;
 
                         .ibexa-icon {
                             fill: $ibexa-color-light;
+                        }
+                    }
+                }
+
+                &.ibexa-collapse {
+                    &[draggable='true'] {
+                        .ibexa-collapse {
+                            &__header {
+                                &:hover {
+                                    cursor: grab;
+                                }
+                            }
+
+                            &__toggle-btn:not(.ibexa-collapse__toggle-btn--status) {
+                                cursor: grab;
+                            }
                         }
                     }
                 }
