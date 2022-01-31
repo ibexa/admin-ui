@@ -76,10 +76,14 @@ class SubItemsList extends Component
         $this->getHTMLPage()->setTimeout(5)->waitUntilCondition(
             new ElementNotExistsCondition($this->getHTMLPage(), $this->getLocator('spinner'))
         );
-        $this->getHTMLPage()->find($this->getLocator('paginationInfo'))->mouseOver();
+
+        if ($this->getTable()->isEmpty()) {
+            return;
+        }
+
         $this->getHTMLPage()
             ->setTimeout(3)
-            ->find(new VisibleCSSLocator('paginationInfoVisible', $this->getLocator('paginationInfo')->getSelector()))
+            ->find($this->getLocator('paginationInfo'))
             ->assert()->textContains('Viewing');
     }
 
@@ -107,7 +111,7 @@ class SubItemsList extends Component
     {
         return [
             new VisibleCSSLocator('table', '.m-sub-items'),
-            new VisibleCSSLocator('empty', '.c-no-items'),
+            new VisibleCSSLocator('empty', '.ibexa-table__empty-table-cell'),
             new VisibleCSSLocator('horizontalHeaders', '.m-sub-items .ibexa-table__header-cell'),
             new VisibleCSSLocator('paginationInfo', '.m-sub-items__pagination-info'),
             new CSSLocator('spinner', '.m-sub-items__spinner-wrapper'),
