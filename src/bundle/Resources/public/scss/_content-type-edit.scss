@@ -154,6 +154,16 @@
         color: $ibexa-color-dark-400;
         margin-bottom: calculateRem(16px);
     }
+
+    &__field-settings-group {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
+    &__field-settings-field + &__field-settings-field {
+        margin-left: calculateRem(35px);
+    }
 }
 
 .ibexa-field-definitions-placeholder {

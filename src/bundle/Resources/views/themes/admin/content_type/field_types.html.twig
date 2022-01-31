@@ -67,16 +67,18 @@
 {% endblock %}
 
 {% block ezfloat_field_definition_edit %}
-    <div class="ezfloat-validator min-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
-        {{- form_row(form.minValue) -}}
-    </div>
+    <div class="ibexa-content-type-edit__field-settings-group">
+        <div class="ibexa-content-type-edit__field-settings-field ezfloat-validator min-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+            {{- form_row(form.minValue) -}}
+        </div>
 
-    <div class="ezfloat-validator max-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
-        {{- form_row(form.maxValue) -}}
-    </div>
+        <div class="ibexa-content-type-edit__field-settings-field ezfloat-validator max-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+            {{- form_row(form.maxValue) -}}
+        </div>
 
-    <div class="ezfloat-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
-        {{- form_row(form.defaultValue) -}}
+        <div class="ibexa-content-type-edit__field-settings-field ezfloat-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+            {{- form_row(form.defaultValue) -}}
+        </div>
     </div>
 {% endblock %}
 
@@ -91,16 +93,18 @@
 {% endblock %}
 
 {% block ezinteger_field_definition_edit %}
-    <div class="ezinteger-validator min-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
-        {{- form_row(form.minValue) -}}
-    </div>
+    <div class="ibexa-content-type-edit__field-settings-group">
+        <div class="ibexa-content-type-edit__field-settings-field ezinteger-validator min-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+            {{- form_row(form.minValue) -}}
+        </div>
 
-    <div class="ezinteger-validator max-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
-        {{- form_row(form.maxValue) -}}
-    </div>
+        <div class="ibexa-content-type-edit__field-settings-field ezinteger-validator max-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+            {{- form_row(form.maxValue) -}}
+        </div>
 
-    <div class="ezinteger-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
-        {{- form_row(form.defaultValue) -}}
+        <div class="ibexa-content-type-edit__field-settings-field ezinteger-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+            {{- form_row(form.defaultValue) -}}
+        </div>
     </div>
 {% endblock %}
 
