@@ -8,6 +8,7 @@
                             id: tab.id,
                             label: tab.label,
                             active: tab == active_tab,
+                            has_error: tab.has_error|default(false),
                         } %}
                     {% endfor %}
                 {% endblock %}

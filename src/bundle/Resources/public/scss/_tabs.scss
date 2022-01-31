@@ -92,6 +92,22 @@
         }
     }
 
+    &__tab-warning-icon {
+        display: none;
+        position: absolute;
+        right: calculateRem(20px);
+        top: 50%;
+        transform: translateY(-50%);
+        width: calculateRem(16px);
+        height: calculateRem(16px);
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        background: $ibexa-color-danger;
+        color: $ibexa-color-white;
+        z-index: 10;
+    }
+
     &__tab {
         height: calculateRem(48px);
         display: flex;
@@ -103,6 +119,12 @@
         font-size: calculateRem(14px);
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
         margin-left: calculateRem(-3px);
+
+        &--error {
+            .ibexa-tabs__tab-warning-icon {
+                display: flex;
+            }
+        }
 
         &:first-of-type {
             margin-left: 0;
