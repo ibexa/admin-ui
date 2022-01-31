@@ -166,13 +166,14 @@
             ] %}
 
             {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-                headline: 'search.header'|trans({
+                headline: 'search.results_for'|trans({
                     '%total%': pager.nbResults,
                     '%search_phrase%': form.vars.data.query,
                 })|desc('Results for “%search_phrase%” (%total%)'),
                 head_cols: head_cols,
                 body_rows: body_rows,
             } %}
+                {% trans_default_domain 'search' %}
                 {% block between_header_and_table %}
                     <span class="ibexa-search-form__results-language">
                         {% if form.children.search_language.vars.value != '' %}

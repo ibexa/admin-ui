@@ -47,6 +47,7 @@
             <label class="ibexa-label">{{ 'search.creator'|trans|desc('Creator') }}</label>
             {% set creator = form.vars.data.creator %}
             {% embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: false } %}
+                {% trans_default_domain 'search' %}
                 {% block content %}
                     <input
                         type="text"
