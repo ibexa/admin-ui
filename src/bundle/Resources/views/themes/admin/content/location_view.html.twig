@@ -76,17 +76,20 @@
 {% endblock %}
 
 {% block header %}
+    {% set hide_bookmarks = hide_bookmarks|default(false) %}
     {% set icon_name = content_type.identifier %}
     {% set content_type_name = content_type.name %}
     {% embed '@ibexadesign/ui/page_title.html.twig' with {
         title: ibexa_content_name(content),
     } %}
         {% block top_side %}
-            {% if location is defined and location_is_bookmarked is defined %}
-                {% include '@ibexadesign/account/bookmarks/toggle_switch.html.twig' with {
-                    location: location,
-                    location_is_bookmarked: location_is_bookmarked
-                } %}
+            {% if hide_bookmarks is same as false %}
+                {% if location is defined and location_is_bookmarked is defined %}
+                    {% include '@ibexadesign/account/bookmarks/toggle_switch.html.twig' with {
+                        location: location,
+                        location_is_bookmarked: location_is_bookmarked
+                    } %}
+                {% endif %}
             {% endif %}
         {% endblock %}
         {% block bottom %}
