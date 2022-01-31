@@ -95,13 +95,6 @@
         }
     }
 
-    &__section-header {
-        margin-bottom: calculateRem(12px);
-        color: $ibexa-color-dark-300;
-        font-size: calculateRem(16px);
-        padding-top: calculateRem(32px);
-    }
-
     &__section-content {
         padding-bottom: calculateRem(32px);
         background: $ibexa-color-white;

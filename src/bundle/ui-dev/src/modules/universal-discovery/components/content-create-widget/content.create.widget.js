@@ -120,7 +120,7 @@ const ContentCreateWidget = () => {
                     <div className="ibexa-extra-actions__header-subtitle">{createUnderLabel}</div>
                 </div>
                 <div className="ibexa-extra-actions__content">
-                    <div className="ibexa-extra-actions__section-header">{selectLanguageLabel}</div>
+                    <label className="ibexa-label ibexa-extra-actions__section-header">{selectLanguageLabel}</label>
                     <div className="ibexa-extra-actions__section-content">
                         <Dropdown
                             dropdownListRef={dropdownListRef}
@@ -131,7 +131,7 @@ const ContentCreateWidget = () => {
                             extraClasses="c-udw-dropdown"
                         />
                     </div>
-                    <div className="ibexa-extra-actions__section-header">{selectContentType}</div>
+                    <label className="ibexa-label ibexa-extra-actions__section-header">{selectContentType}</label>
                     <div className="ibexa-extra-actions__section-content ibexa-extra-actions__section-content--content-type">
                         <div className="ibexa-instant-filter">
                             <div className="ibexa-instant-filter__input-wrapper">
@@ -144,61 +144,66 @@ const ContentCreateWidget = () => {
                                 />
                             </div>
                         </div>
-                    </div>
-                    <div className="ibexa-instant-filter__desc">{filtersDescLabel}</div>
-                    <div className="ibexa-instant-filter__items">
-                        {contentTypes.map(([groupName, groupItems]) => {
-                            const restrictedContentTypeIds = selectedLocation?.permissions?.create.restrictedContentTypeIds ?? [];
-                            const isHidden = groupItems.every((groupItem) => {
-                                const isNotSearchedName = filterQuery && !groupItem.name.toLowerCase().includes(filterQuery);
-                                const hasNotPermission =
-                                    restrictedContentTypeIds.length && !restrictedContentTypeIds.includes(groupItem.id.toString());
-                                const isNotAllowedContentType = allowedContentTypes && !allowedContentTypes.includes(groupItem.identifier);
+                        <div className="ibexa-instant-filter__desc">{filtersDescLabel}</div>
+                        <div className="ibexa-instant-filter__items">
+                            {contentTypes.map(([groupName, groupItems]) => {
+                                const restrictedContentTypeIds = selectedLocation?.permissions?.create.restrictedContentTypeIds ?? [];
+                                const isHidden = groupItems.every((groupItem) => {
+                                    const isNotSearchedName = filterQuery && !groupItem.name.toLowerCase().includes(filterQuery);
+                                    const hasNotPermission =
+                                        restrictedContentTypeIds.length && !restrictedContentTypeIds.includes(groupItem.id.toString());
+                                    const isNotAllowedContentType =
+                                        allowedContentTypes && !allowedContentTypes.includes(groupItem.identifier);
 
-                                return isNotSearchedName || hasNotPermission || isNotAllowedContentType;
-                            });
+                                    return isNotSearchedName || hasNotPermission || isNotAllowedContentType;
+                                });
 
-                            if (isHidden) {
-                                return null;
-                            }
+                                if (isHidden) {
+                                    return null;
+                                }
 
-                            return (
-                                <div className="ibexa-instant-filter__group" key={groupName}>
-                                    <div className="ibexa-instant-filter__group-name">{groupName}</div>
-                                    {groupItems.map(({ name, thumbnail, identifier, id }) => {
-                                        const isHidden =
-                                            (filterQuery && !name.toLowerCase().includes(filterQuery)) ||
-                                            (selectedLocation &&
-                                                selectedLocation.permissions &&
-                                                selectedLocation.permissions.create.restrictedContentTypeIds.length &&
-                                                !selectedLocation.permissions.create.restrictedContentTypeIds.includes(id.toString())) ||
-                                            (allowedContentTypes && !allowedContentTypes.includes(identifier));
-                                        const className = createCssClassNames({
-                                            'ibexa-instant-filter__group-item': true,
-                                            'ibexa-instant-filter__group-item--selected': identifier === selectedContentType,
-                                        });
-                                        const updateSelectedContentType = () => setSelectedContentType(identifier);
+                                return (
+                                    <div className="ibexa-instant-filter__group" key={groupName}>
+                                        <div className="ibexa-instant-filter__group-name">{groupName}</div>
+                                        {groupItems.map(({ name, thumbnail, identifier, id }) => {
+                                            const isHidden =
+                                                (filterQuery && !name.toLowerCase().includes(filterQuery)) ||
+                                                (selectedLocation &&
+                                                    selectedLocation.permissions &&
+                                                    selectedLocation.permissions.create.restrictedContentTypeIds.length &&
+                                                    !selectedLocation.permissions.create.restrictedContentTypeIds.includes(
+                                                        id.toString()
+                                                    )) ||
+                                                (allowedContentTypes && !allowedContentTypes.includes(identifier));
+                                            const className = createCssClassNames({
+                                                'ibexa-instant-filter__group-item': true,
+                                                'ibexa-instant-filter__group-item--selected': identifier === selectedContentType,
+                                            });
+                                            const updateSelectedContentType = () => setSelectedContentType(identifier);
 
-                                        if (isHidden) {
-                                            return null;
-                                        }
+                                            if (isHidden) {
+                                                return null;
+                                            }
 
-                                        return (
-                                            <div
-                                                hidden={isHidden}
-                                                key={identifier}
-                                                className={className}
-                                                onClick={updateSelectedContentType}>
-                                                <Icon customPath={thumbnail} extraClasses="ibexa-icon--small" />
-                                                <div className="form-check">
-                                                    <div className="ibexa-label ibexa-label--checkbox-radio form-check-label">{name}</div>
+                                            return (
+                                                <div
+                                                    hidden={isHidden}
+                                                    key={identifier}
+                                                    className={className}
+                                                    onClick={updateSelectedContentType}>
+                                                    <Icon customPath={thumbnail} extraClasses="ibexa-icon--small" />
+                                                    <div className="form-check">
+                                                        <div className="ibexa-label ibexa-label--checkbox-radio form-check-label">
+                                                            {name}
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            );
-                        })}
+                                            );
+                                        })}
+                                    </div>
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
                 <div className="c-content-create__confirm-wrapper">
