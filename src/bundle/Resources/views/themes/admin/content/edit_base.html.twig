@@ -16,7 +16,7 @@
         {% set referrer_location = content is defined and is_published ? location : parent_location %}
 
         {% set anchor_params = anchor_params|merge({
-            close_href: path('ibexa.content.view', { 'contentId': referrer_location.contentId, 'locationId': referrer_location.id })
+            close_href: close_href|default(path('ibexa.content.view', { 'contentId': referrer_location.contentId, 'locationId': referrer_location.id }))
         }) %}
     {% endif %}
 
