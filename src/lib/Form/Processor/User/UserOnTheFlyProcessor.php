@@ -53,7 +53,7 @@ class UserOnTheFlyProcessor implements EventSubscriberInterface
 
     public function processCreate(FormActionEvent $event)
     {
-        $data = $data = $event->getData();
+        $data = $event->getData();
 
         if (!$data instanceof UserCreateData) {
             return;
