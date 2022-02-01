@@ -84,4 +84,4 @@ final class URLWildcardAdapterTest extends TestCase
     }
 }
 
-class_alias(URLUsagesAdapterTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Pagination\Pagerfanta\URLWildcardAdapterTest');
+class_alias(URLWildcardAdapterTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Pagination\Pagerfanta\URLWildcardAdapterTest');
