@@ -21,9 +21,11 @@
             this.removeItems = this.removeItems.bind(this);
             this.removeItem = this.removeItem.bind(this);
             this.toggleDeleteButtons = this.toggleDeleteButtons.bind(this);
+            this.ellipsizeTags = this.ellipsizeTags.bind(this);
             this.attachDeleteEvents = this.attachDeleteEvents.bind(this);
             this.adjustButtonLabel = this.adjustButtonLabel.bind(this);
 
+            this.ellipsizeTags();
             this.attachDeleteEvents();
 
             this.disabledObserver = new MutationObserver((mutationsList) => {
@@ -67,7 +69,7 @@
 
             items.forEach((item) => {
                 const { id, name } = item;
-                const itemTemplate = this.selectedItemTemplate.replace('{{ id }}', id).replace('{{ name }}', name);
+                const itemTemplate = this.selectedItemTemplate.replace('{{ id }}', id).replaceAll('{{ name }}', name);
                 const range = doc.createRange();
                 const itemHtmlWidget = range.createContextualFragment(itemTemplate);
                 const deleteButton = itemHtmlWidget.querySelector('.ibexa-tag-view-select__selected-item-tag-remove-btn');
@@ -78,6 +80,7 @@
             })
 
             this.inputField.dispatchEvent(new Event('change'));
+            this.ellipsizeTags();
             this.toggleDeleteButtons();
             this.adjustButtonLabel();
         }
@@ -109,6 +112,17 @@
             const hideDeleteButtons = !this.canBeEmpty && selectedItems.length === 1;
 
             selectedItems.forEach((selectedItem) => selectedItem.querySelector('.ibexa-tag-view-select__selected-item-tag-remove-btn').toggleAttribute('hidden', hideDeleteButtons));
+        }
+
+        ellipsizeTags() {
+            const selectedItems = [...this.listContainer.querySelectorAll('[data-id]')];
+
+            selectedItems.forEach((item) => {
+                const partStart = item.querySelector('.ibexa-tag-view-select__selected-item-tag-content--start');
+
+                item.classList.toggle('ibexa-tag-view-select__selected-item-tag--ellipsized', partStart.scrollWidth > partStart.offsetWidth);
+                ibexa.helpers.tooltips.parse(item);
+            });
         }
 
         attachDeleteEvents() {

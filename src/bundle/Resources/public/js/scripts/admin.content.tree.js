@@ -10,7 +10,11 @@
     const contentTreeRootElement = doc.querySelector('.ibexa-content-tree-container__root');
     const { currentLocationPath, treeRootLocationId } = contentTreeContainer.dataset;
     const userId = window.ibexa.helpers.user.getId();
-    const removeContentTreeContainerWidth = () => {
+    const removeContentTreeContainerWidth = (event) => {
+        if (event.detail.id !== 'ibexa-content-tree') {
+            return;
+        }
+
         contentTreeContainer.style.width = null;
     }
     const renderTree = () => {
@@ -25,7 +29,7 @@
         );
     }
 
-    doc.body.addEventListener('ibexa-tb-rendered:ibexa-content-tree', removeContentTreeContainerWidth);
+    doc.body.addEventListener('ibexa-tb-rendered', removeContentTreeContainerWidth);
 
     renderTree();
 })(window, window.document, window.React, window.ReactDOM, window.ibexa);

@@ -3,7 +3,7 @@
 
 {%- embed "@ibexadesign/ui/component/collapse.html.twig" with {
     'is_expanded': false,
-    'is_draggable': true,
+    'is_draggable': is_draggable ?? true,
     'class': 'ibexa-collapse--field-definition',
     'body_id': field_definition.vars.id ~ '_collapse',
     'header_label': '%s (%s)'|format(name, field_definition.vars.value.fieldTypeIdentifier),

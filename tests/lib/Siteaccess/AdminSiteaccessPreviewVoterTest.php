@@ -12,7 +12,7 @@ use Ibexa\AdminUi\Siteaccess\AdminSiteaccessPreviewVoter;
 use Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterContext;
 use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Repository\Values\Content\Location;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +21,7 @@ class AdminSiteaccessPreviewVoterTest extends TestCase
 {
     private const LANGUAGE_CODE = 'eng-GB';
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */

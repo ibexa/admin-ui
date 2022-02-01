@@ -191,12 +191,12 @@ class ListItem extends Component {
 
         return (
             <div className="c-list-item__row" style={{'--indent': indent}}>
-                <div class="c-list-item__prefix-actions">
+                <div className="c-list-item__prefix-actions">
                     {this.secondaryItemActions.map((action) => {
                         const ActionComponent = action.component;
 
                         return (
-                            <div class="c-list-item__prefix-actions-item">
+                            <div className="c-list-item__prefix-actions-item">
                                 <ActionComponent key={action.id} {...this.props} />
                             </div>
                         );
@@ -205,16 +205,16 @@ class ListItem extends Component {
                 <span {...togglerAttrs} />
                 <a className="c-list-item__label" href={href} onClick={onClick}>
                     {this.renderIcon()}
-                    <span class="c-list-item__label-content" title={name}>
+                    <span className="c-list-item__label-content" title={name}>
                         {name}
                     </span>
                 </a>
-                <div class="c-list-item__actions">
+                <div className="c-list-item__actions">
                     {this.sortedActions.map((action) => {
                         const ActionComponent = action.component;
 
                         return (
-                            <div class="c-list-item__actions-item">
+                            <div className="c-list-item__actions-item">
                                 <ActionComponent key={action.id} {...this.props} />
                             </div>
                         );

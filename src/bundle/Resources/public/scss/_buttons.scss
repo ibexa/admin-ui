@@ -31,6 +31,8 @@
             box-shadow: $ibexa-btn-focus-box-shadow, $ibexa-btn-hover-box-shadow;
         }
 
+        &.disabled,
+        &[disabled],
         &:disabled {
             color: $ibexa-color-dark-400;
             fill: $ibexa-color-dark-400;
@@ -59,6 +61,8 @@
             }
         }
 
+        &.disabled,
+        &[disabled],
         &:disabled {
             color: $ibexa-color-dark-400;
             fill: $ibexa-color-dark-400;
@@ -81,6 +85,8 @@
             border-color: $ibexa-color-light;
         }
 
+        &.disabled,
+        &[disabled],
         &:disabled {
             color: $ibexa-color-dark-300;
             fill: $ibexa-color-dark-300;
@@ -103,8 +109,14 @@
 
         &:focus {
             border-color: $ibexa-color-primary;
+
+            .ibexa-icon {
+                fill: $ibexa-color-primary;
+            }
         }
 
+        &.disabled,
+        &[disabled],
         &:disabled {
             color: $ibexa-color-dark-300;
             fill: $ibexa-color-dark-300;
@@ -128,6 +140,8 @@
             }
         }
 
+        &.disabled,
+        &[disabled],
         &:disabled {
             color: $ibexa-color-dark-400;
             fill: $ibexa-color-dark-400;
@@ -194,6 +208,12 @@
         &.ibexa-btn--selected {
             background-color: $ibexa-color-info-200;
             fill: $ibexa-color-info;
+        }
+
+        &.ibexa-btn--error {
+            background-color: $ibexa-color-danger-100;
+            border-color: $ibexa-color-danger;
+            fill: $ibexa-color-danger;
         }
 
         &:not(.ibexa-btn--selected) {

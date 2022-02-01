@@ -14,7 +14,7 @@ use Ibexa\Bundle\Search\Form\Data\SearchData;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\SectionService;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
 use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Ibexa\Search\View\SearchViewFilter;
@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class AdminSearchViewFilter implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Symfony\Component\Form\FormFactoryInterface */

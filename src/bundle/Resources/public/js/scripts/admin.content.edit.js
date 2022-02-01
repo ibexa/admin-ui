@@ -55,6 +55,11 @@
     };
     const focusOnFirstError = () => {
         const invalidFields = doc.querySelectorAll('.ibexa-field-edit.is-invalid');
+
+        if (!invalidFields.length) {
+            return;
+        }
+
         const invalidSection = invalidFields[0].closest('.ibexa-anchor-navigation-sections__section');
 
         fields.forEach((field) => field.removeAttribute('tabindex'));

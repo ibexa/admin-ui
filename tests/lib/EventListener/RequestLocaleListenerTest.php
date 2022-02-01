@@ -10,7 +10,7 @@ namespace Ibexa\Tests\AdminUi\EventListener;
 
 use Ibexa\AdminUi\EventListener\RequestLocaleListener;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
@@ -40,7 +40,7 @@ class RequestLocaleListenerTest extends TestCase
     /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
     private $userLanguagePreferenceProvider;
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $configResolver;
 
     protected function setUp(): void

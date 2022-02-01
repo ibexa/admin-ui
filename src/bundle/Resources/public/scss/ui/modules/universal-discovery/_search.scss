@@ -1,5 +1,5 @@
 .c-search {
-    padding: calculateRem(16px);
+    background-color: $ibexa-color-light-400;
 
     &__top-bar {
         display: flex;
@@ -21,16 +21,17 @@
     &__sidebar {
         display: flex;
         min-width: calculateRem(270px);
-        padding: calculateRem(16px) calculateRem(28px);
-        margin-right: calculateRem(44px);
-        border: calculateRem(1px) solid $ibexa-color-light;
-        border-radius: $ibexa-border-radius;
+        margin-right: calculateRem(16px);
+        border-right: calculateRem(1px) solid $ibexa-color-light;
+        background-color: $ibexa-color-white;
     }
 
     &__content {
         display: flex;
         width: 100%;
         flex-shrink: 1;
+        padding: 0 calculateRem(8px);
+        background-color: $ibexa-color-white;
     }
 
     &__input-wrapper,
@@ -49,6 +50,22 @@
         justify-content: center;
         align-items: center;
         height: calculateRem(48px);
+    }
+
+    &__table-header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: calculateRem(16px);
+    }
+
+    &__table-tile {
+        font-size: $ibexa-text-font-size-extra-large;
+    }
+
+    &__table-subtitle {
+        display: inline-block;
+        margin-bottom: calculateRem(8px);
+        font-size: $ibexa-text-font-size-medium;
     }
 
     &__no-results {

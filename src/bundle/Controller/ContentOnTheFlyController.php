@@ -30,10 +30,10 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Base\Exceptions\BadStateException;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Base\Exceptions\UnauthorizedException;
-use Ibexa\Core\MVC\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -68,7 +68,7 @@ class ContentOnTheFlyController extends Controller
     /** @var \Ibexa\AdminUi\Form\ActionDispatcher\CreateContentOnTheFlyDispatcher */
     private $createContentActionDispatcher;
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface */
@@ -168,7 +168,7 @@ class ContentOnTheFlyController extends Controller
         Location $parentLocation
     ) {
         if ((new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier')))->isSatisfiedBy($contentType)) {
-            return $this->forward('EzSystems\EzPlatformAdminUiBundle\Controller\UserOnTheFlyController::createUserAction', [
+            return $this->forward('Ibexa\Bundle\AdminUi\Controller\UserOnTheFlyController::createUserAction', [
                 'languageCode' => $languageCode,
                 'contentType' => $contentType,
                 'parentLocation' => $parentLocation,
@@ -256,7 +256,7 @@ class ContentOnTheFlyController extends Controller
         );
 
         if ((new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier')))->isSatisfiedBy($contentType)) {
-            return $this->forward('EzSystems\EzPlatformAdminUiBundle\Controller\UserOnTheFlyController::editUserAction', [
+            return $this->forward('Ibexa\Bundle\AdminUi\Controller\UserOnTheFlyController::editUserAction', [
                 'languageCode' => $languageCode,
                 'contentId' => $contentId,
                 'versionNo' => $versionNo,

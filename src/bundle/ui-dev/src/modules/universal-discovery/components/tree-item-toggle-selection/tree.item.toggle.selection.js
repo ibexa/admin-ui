@@ -51,7 +51,7 @@ const TreeItemToggleSelection = ({ locationId, isContainer, contentTypeIdentifie
             ]}
         >
             <ToggleSelection location={location} multiple={multiple} isHidden={isNotSelectable} />
-            {isNotSelectable && <div class="c-list-item__prefix-actions-item-empty"></div>}
+            {isNotSelectable && <div className="c-list-item__prefix-actions-item-empty"></div>}
         </SelectedLocationsContext.Provider>
     );
 };

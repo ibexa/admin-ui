@@ -86,7 +86,7 @@ export default class SubItemsModule extends Component {
         this.bulkActionModalContainer = document.createElement('div');
         this.bulkActionModalContainer.classList.add('m-sub-items__bulk-action-modal-container');
         document.body.appendChild(this.bulkActionModalContainer);
-        document.body.addEventListener('ibexa-main-menu-resized', this.resizeSubItems, false);
+        document.body.addEventListener('ibexa-content-resized', this.resizeSubItems, false);
         window.addEventListener('resize', this.resizeSubItems, false);
 
         if (!this.state.activePageItems) {
@@ -1090,8 +1090,12 @@ export default class SubItemsModule extends Component {
      */
     renderPaginationInfo() {
         const { totalCount, activePageItems } = this.state;
-        const viewingCount = activePageItems ? activePageItems.length : 0;
 
+        if (totalCount === 0) {
+            return null;
+        }
+
+        const viewingCount = activePageItems ? activePageItems.length : 0;
         const message = Translator.trans(
             /*@Desc("Viewing %viewingCount% out of %totalCount% sub-items")*/ 'viewing_message',
             {
@@ -1114,6 +1118,11 @@ export default class SubItemsModule extends Component {
     renderPagination() {
         const { limit: itemsPerPage } = this.props;
         const { totalCount } = this.state;
+
+        if (totalCount === 0) {
+            return null;
+        }
+
         const { activePageIndex, activePageItems, isDuringBulkOperation } = this.state;
         const isActivePageLoaded = !!activePageItems;
         const isPaginationDisabled = !isActivePageLoaded || isDuringBulkOperation;
@@ -1184,7 +1193,10 @@ export default class SubItemsModule extends Component {
     }
 
     renderNoItems() {
-        if (this.state.totalCount) {
+        const { activePageItems, totalCount } = this.state;
+        const isActivePageLoaded = !!activePageItems;
+
+        if (totalCount || !isActivePageLoaded) {
             return null;
         }
 

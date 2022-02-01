@@ -12,7 +12,7 @@ use Ibexa\AdminUi\Limitation\LimitationValueMapperRegistryInterface;
 use Ibexa\AdminUi\Limitation\Templating\LimitationBlockRenderer;
 use Ibexa\Bundle\AdminUi\Templating\Twig\LimitationValueRenderingExtension;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension\FileSystemTwigIntegrationTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionProperty;

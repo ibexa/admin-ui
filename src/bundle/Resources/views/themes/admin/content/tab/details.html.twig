@@ -66,7 +66,7 @@
                     'class': 'form-inline ibexa-form-inline ibexa-form-inline--align-left'
                 }
             }) }}
-            {{ form_row(form_assign_section.section, { 'attr': {'class': 'ibexa-form-autosubmit'} }) }}
+            {{ form_row(form_assign_section.section, { 'attr': {'is_small': true, 'class': 'ibexa-form-autosubmit'} }) }}
 
             {% do form_assign_section.assign.setRendered() %}
             {{ form_end(form_assign_section) }}
@@ -88,18 +88,6 @@
         items: section_details_items,
     } only %}
 {% endif %}
-
-{% set object_state_details_items = [
-    {
-        label: 'tab.details.state_group_name'|trans()|desc('Group name'),
-    },
-    {
-        label: 'tab.details.state_name'|trans()|desc('Current Object state'),
-    },
-    {
-        label: 'tab.details.change_state'|trans()|desc('Change Object state'),
-    },
-] %}
 
 {% set body_rows = [] %}
 {% for object_state in object_states %}
@@ -123,7 +111,7 @@
             }) }}
                 {{ form_row(form_state_update[object_state.objectStateGroup.id].contentInfo) }}
                 {{ form_row(form_state_update[object_state.objectStateGroup.id].objectStateGroup) }}
-                {{ form_row(form_state_update[object_state.objectStateGroup.id].objectState, { 'attr': {'class': 'ibexa-form-autosubmit'} }) }}
+                {{ form_row(form_state_update[object_state.objectStateGroup.id].objectState, { 'attr': {'is_small': true, 'class': 'ibexa-form-autosubmit'} }) }}
                 {% do form_state_update[object_state.objectStateGroup.id].set.setRendered %}
             {{ form_end(form_state_update[object_state.objectStateGroup.id]) }}
         {% endif %}

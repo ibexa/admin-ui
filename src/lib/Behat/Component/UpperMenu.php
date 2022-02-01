@@ -27,6 +27,12 @@ class UpperMenu extends Component
             ->any();
     }
 
+    public function search(string $searchInput): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('searchInput'))->setValue($searchInput);
+        $this->getHTMLPage()->find($this->getLocator('searchButton'))->click();
+    }
+
     public function openNotifications(): void
     {
         $this->getHTMLPage()->find($this->getLocator('userNotifications'))->click();
@@ -51,6 +57,8 @@ class UpperMenu extends Component
             new VisibleCSSLocator('userSettingsToggle', '.ibexa-header-user-menu'),
             new VisibleCSSLocator('userNotifications', '.ibexa-header-user-menu__notifications-toggler'),
             new VisibleCSSLocator('userSettingsItem', '.ibexa-popup-menu__item'),
+            new VisibleCSSLocator('searchInput', '.ibexa-main-header #search_query'),
+            new VisibleCSSLocator('searchButton', '.ibexa-main-header .ibexa-input-text-wrapper__action-btn--search'),
         ];
     }
 }

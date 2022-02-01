@@ -49,7 +49,7 @@ const Tab = ({ children, actionsDisabledMap }) => {
             <div className="c-udw-tab__bottom-bar" ref={bottomBarRef}>
                 <ActionsMenu />
             </div>
-            <div class="c-udw-tab__dropdown-portal" ref={dropdownPortalRef} />
+            <div className="c-udw-tab__dropdown-portal" ref={dropdownPortalRef} />
         </div>
     );
 };

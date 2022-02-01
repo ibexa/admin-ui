@@ -39,6 +39,7 @@
             <button
                 type="button"
                 class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small {% if not deletable %}disabled{% endif %}"
+                {% if not deletable %}disabled{% endif %}
                 {{ modalDataAttributes }}
             >
                 <svg class="ibexa-icon ibexa-icon--small">

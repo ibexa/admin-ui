@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Menu;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -129,7 +129,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         ],
     ];
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
@@ -141,7 +141,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     /**
      * @param \Ibexa\AdminUi\Menu\MenuItemFactory $factory
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Ibexa\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
      * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
      */
     public function __construct(

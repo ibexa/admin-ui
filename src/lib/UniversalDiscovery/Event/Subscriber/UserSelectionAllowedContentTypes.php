@@ -9,12 +9,12 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber;
 
 use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class UserSelectionAllowedContentTypes implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     protected $configResolver;
 
     public function __construct(ConfigResolverInterface $configResolver)

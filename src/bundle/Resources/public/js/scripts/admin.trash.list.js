@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, React, ReactDOM, Translator) {
+(function(global, doc, ibexa, React, ReactDOM, Translator) {
     let getUsersTimeout;
     const CLASS_SORTED_ASC = 'ibexa-table__sort-column--asc';
     const CLASS_SORTED_DESC = 'ibexa-table__sort-column--desc';
@@ -252,6 +252,10 @@
 
         if (sortedActiveField) {
             const sortedFieldNode = doc.querySelector(`.ibexa-table__sort-column--${sortedActiveField}`);
+
+            if (!sortedFieldNode) {
+                return;
+            }
 
             if (parseInt(sortedActiveDirection) === 1) {
                 sortedFieldNode.classList.add(CLASS_SORTED_ASC);

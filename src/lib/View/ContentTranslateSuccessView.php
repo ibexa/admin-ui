@@ -24,7 +24,7 @@ class ContentTranslateSuccessView extends BaseView
         parent::__construct('@ibexadesign/ui/no_content.html.twig');
 
         $this->setResponse($response);
-        $this->setControllerReference(new ControllerReference('EzSystems\EzPlatformAdminUiBundle\Controller\ContentEditController::translationSuccessAction'));
+        $this->setControllerReference(new ControllerReference('Ibexa\Bundle\AdminUi\Controller\ContentEditController::translationSuccessAction'));
     }
 }
 

@@ -99,6 +99,10 @@
 
         &--hidden {
             @include hidden-main-menu-node;
+
+            .ibexa-main-menu__toggler-container {
+                display: none;
+            }
         }
 
         &--collapsed {

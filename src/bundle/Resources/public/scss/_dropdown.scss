@@ -3,6 +3,7 @@
     font-family: $font-family-sans-serif;
     letter-spacing: calculateRem(0.12px);
     font-size: $ibexa-text-font-size-medium;
+    min-width: calculateRem(200px);
 
     select {
         height: 100%;
@@ -132,7 +133,7 @@
         }
     }
 
-    &--single &__selected-item:not(&__selected-placeholder) {
+    &--single:not(&--disabled) &__selected-item:not(&__selected-placeholder) {
         color: $ibexa-color-dark;
     }
 

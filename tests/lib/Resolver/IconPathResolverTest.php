@@ -9,13 +9,13 @@ declare(strict_types=1);
 namespace Ibexa\Tests\AdminUi\Resolver;
 
 use Ibexa\AdminUi\Resolver\IconPathResolver;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Asset\Packages;
 
 final class IconPathResolverTest extends TestCase
 {
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $configResolver;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Asset\Packages */

@@ -6,23 +6,8 @@
 
 {% block title %}{{ 'search'|trans|desc('Search') }}{% endblock %}
 
-{% block breadcrumbs %}
-    {% set items = [{
-        'value': 'search'|trans|desc('Search'),
-        'url': path('ibexa.search')
-    }] %}
-
-    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: items } %}
-{% endblock %}
-
-{% block header %}
-    {% include '@ibexadesign/ui/page_title.html.twig' with {
-        title: 'search'|trans|desc('Search'),
-    } %}
-{% endblock %}
-
-{% block content %}
-    <div class="row align-items-stretch ibexa-main-row">
+{% block content_column %}
+    <div class="ibexa-main-container__content-column">
         <div class="ibexa-search">
             <div class="ibexa-search__form">
                 {% include '@ibexadesign/ui/search/form.html.twig' with { form: form } %}

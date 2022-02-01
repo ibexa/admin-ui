@@ -1,6 +1,7 @@
 @import 'universal-discovery/main';
 @import 'universal-discovery/tab';
 @import 'universal-discovery/top.menu';
+@import 'universal-discovery/top.menu.search.input';
 @import 'universal-discovery/actions.menu';
 @import 'universal-discovery/content.create';
 @import 'universal-discovery/content.create.widget';
@@ -19,7 +20,9 @@
 @import 'universal-discovery/grid';
 @import 'universal-discovery/breadcrumbs';
 @import 'universal-discovery/search';
+@import 'universal-discovery/search.tags';
 @import 'universal-discovery/content.table.item';
+@import 'universal-discovery/content.table';
 @import 'universal-discovery/filters';
 @import 'universal-discovery/bookmarks.list';
 @import 'universal-discovery/translation.selector';

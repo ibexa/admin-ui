@@ -49,21 +49,26 @@ const ContentMetaPreview = () => {
         window.location.href = window.Routing.generate(
             'ibexa.content.view',
             { contentId: location.ContentInfo.Content._id, locationId: location.id },
-            true
+            true,
         );
     };
     const renderActions = () => {
         const previewLabel = Translator.trans(/*@Desc("Preview")*/ 'meta_preview.preview', {}, 'universal_discovery_widget');
         const editLabel = Translator.trans(/*@Desc("Edit")*/ 'meta_preview.edit', {}, 'universal_discovery_widget');
-        const bookmarksAddLabel = Translator.trans(/*@Desc("Add to bookmarks")*/ 'meta_preview.bookmarks_add', {}, 'universal_discovery_widget');
-        const bookmarksRemoveLabel = Translator.trans(/*@Desc("Remove from bookmarks")*/ 'meta_preview.bookrmarks_remove', {}, 'universal_discovery_widget');
+        const bookmarksAddLabel = Translator.trans(
+            /*@Desc("Add to bookmarks")*/ 'meta_preview.bookmarks_add',
+            {},
+            'universal_discovery_widget',
+        );
+        const bookmarksRemoveLabel = Translator.trans(
+            /*@Desc("Remove from bookmarks")*/ 'meta_preview.bookrmarks_remove',
+            {},
+            'universal_discovery_widget',
+        );
 
         const previewButton = allowRedirects ? (
             <div className="c-content-meta-preview__action-item">
-                <button
-                    className="c-content-meta-preview__preview-button btn ibexa-btn ibexa-btn--ghost"
-                    onClick={previewContent}
-                >
+                <button className="c-content-meta-preview__preview-button btn ibexa-btn ibexa-btn--ghost" onClick={previewContent}>
                     <Icon name="view" extraClasses="ibexa-icon--small" />
                     {previewLabel}
                 </button>
@@ -75,12 +80,7 @@ const ContentMetaPreview = () => {
             <div className="c-content-meta-preview__actions">
                 {previewButton}
                 <div className="c-content-meta-preview__action-item">
-                    <ContentEditButton
-                        location={location}
-                        version={version}
-                        isDisabled={!hasAccess}
-                        label={editLabel}
-                    />
+                    <ContentEditButton location={location} version={version} isDisabled={!hasAccess} label={editLabel} />
                 </div>
                 <div className="c-content-meta-preview__action-item">
                     <button
@@ -113,15 +113,19 @@ const ContentMetaPreview = () => {
                 </div>
                 <div className="c-content-meta-preview__details">
                     <div className="c-content-meta-preview__details-item">
-                        <div class="c-content-meta-preview__details-item-row">{lastModifiedLabel}</div>
-                        <div class="c-content-meta-preview__details-item-row">{formatShortDateTime(new Date(location.ContentInfo.Content.lastModificationDate))}</div>
+                        <div className="c-content-meta-preview__details-item-row">{lastModifiedLabel}</div>
+                        <div className="c-content-meta-preview__details-item-row">
+                            {formatShortDateTime(new Date(location.ContentInfo.Content.lastModificationDate))}
+                        </div>
                     </div>
                     <div className="c-content-meta-preview__details-item">
-                        <div class="c-content-meta-preview__details-item-row">{creationDateLabel}</div>
-                        <div class="c-content-meta-preview__details-item-row">{formatShortDateTime(new Date(location.ContentInfo.Content.publishedDate))}</div>
+                        <div className="c-content-meta-preview__details-item-row">{creationDateLabel}</div>
+                        <div className="c-content-meta-preview__details-item-row">
+                            {formatShortDateTime(new Date(location.ContentInfo.Content.publishedDate))}
+                        </div>
                     </div>
                     <div className="c-content-meta-preview__details-item">
-                        <div class="c-content-meta-preview__details-item-row">{translationsLabel}</div>
+                        <div className="c-content-meta-preview__details-item-row">{translationsLabel}</div>
                         <div className="c-content-meta-preview__details-item-row c-content-meta-preview__translations-wrapper">
                             {version.VersionInfo.languageCodes.split(',').map((languageCode) => {
                                 return (

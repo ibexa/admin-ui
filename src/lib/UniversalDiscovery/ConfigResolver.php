@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\UniversalDiscovery;
 
 use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ConfigResolver
@@ -21,11 +21,11 @@ class ConfigResolver
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
     protected $eventDispatcher;
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     protected $configResolver;
 
     /**
-     * @param \Ibexa\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      */
     public function __construct(

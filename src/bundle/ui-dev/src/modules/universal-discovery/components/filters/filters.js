@@ -2,13 +2,17 @@ import React, { useContext, useState, useEffect, useCallback, useRef } from 'rea
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-import { createCssClassNames } from '../../../common/helpers/css.class.names';
-import { SelectedContentTypesContext, SelectedSectionContext, SelectedSubtreeContext, SelectedLanguageContext } from '../search/search';
+import {
+    SelectedContentTypesContext,
+    SelectedSectionContext,
+    SelectedSubtreeContext,
+    SelectedLanguageContext,
+    SelectedSubtreeBreadcrumbsContext,
+} from '../search/search';
 import { findLocationsById } from '../../services/universal.discovery.service';
 import { RestInfoContext, DropdownPortalRefContext } from '../../universal.discovery.module';
 
 import Dropdown from '../../../common/dropdown/dropdown';
-import Collapsible from '../collapsible/collapsible';
 import ContentTypeSelector from '../content-type-selector/content.type.selector';
 import Icon from '../../../common/icon/icon';
 
@@ -19,26 +23,22 @@ const Filters = ({ search }) => {
     const [selectedSection, setSelectedSection] = useContext(SelectedSectionContext);
     const [selectedSubtree, setSelectedSubtree] = useContext(SelectedSubtreeContext);
     const [selectedLanguage, setSelectedLanguage] = useContext(SelectedLanguageContext);
+    const [selectedSubtreeBreadcrumbs, setSelectedSubtreeBreadcrumbs] = useContext(SelectedSubtreeBreadcrumbsContext);
     const prevSelectedLanguage = useRef(selectedLanguage);
     const dropdownListRef = useContext(DropdownPortalRefContext);
-    const [subtreeBreadcrumbs, setSubtreeBreadcrumbs] = useState('');
     const [filtersCleared, setFiltersCleared] = useState(false);
     const restInfo = useContext(RestInfoContext);
     const updateSelectedLanguage = (value) => setSelectedLanguage(value);
     const clearFilters = () => {
         dispatchSelectedContentTypesAction({ type: 'CLEAR_CONTENT_TYPES' });
         setSelectedSection('');
-        clearSelectedSubree();
+        clearSelectedSubtree();
         setFiltersCleared(true);
     };
-    const clearSelectedSubree = () => {
+    const clearSelectedSubtree = () => {
         setSelectedSubtree('');
-        setSubtreeBreadcrumbs('');
+        setSelectedSubtreeBreadcrumbs('');
     };
-    const wrapperClassName = createCssClassNames({
-        'c-filters': true,
-        'ibexa-filters': true,
-    });
     const updateSection = (value) => setSelectedSection(value);
     const openUdw = () => {
         const udwContainer = window.document.createElement('div');
@@ -55,7 +55,7 @@ const Filters = ({ search }) => {
             findLocationsById({ ...restInfo, id }, (locations) => {
                 const breadcrumbs = locations.map((location) => location.ContentInfo.Content.TranslatedName).join(' / ');
 
-                setSubtreeBreadcrumbs(breadcrumbs);
+                setSelectedSubtreeBreadcrumbs(breadcrumbs);
             });
 
             setSelectedSubtree(pathString);
@@ -76,21 +76,21 @@ const Filters = ({ search }) => {
         ReactDOM.render(React.createElement(ibexa.modules.UniversalDiscovery, mergedConfig), udwContainer);
     };
     const makeSearch = useCallback(() => search(0), [search]);
-    const isApplyButtonEnabled = !!selectedContentTypes.length || !!selectedSection || !!selectedSubtree || prevSelectedLanguage.current !== selectedLanguage;
+    const isApplyButtonEnabled =
+        !!selectedContentTypes.length || !!selectedSection || !!selectedSubtree || prevSelectedLanguage.current !== selectedLanguage;
     const renderSubtreeBreadcrumbs = () => {
-        if (!subtreeBreadcrumbs) {
+        if (!selectedSubtreeBreadcrumbs) {
             return null;
         }
 
         return (
             <div className="ibexa-tag-view-select__selected-list">
                 <div className="ibexa-tag-view-select__selected-item-tag">
-                    {subtreeBreadcrumbs}
+                    {selectedSubtreeBreadcrumbs}
                     <button
                         type="button"
                         className="btn ibexa-tag-view-select__selected-item-tag-remove-btn"
-                        onClick={clearSelectedSubree}
-                    >
+                        onClick={clearSelectedSubtree}>
                         <Icon name="discard" extraClasses="ibexa-icon--tiny" />
                     </button>
                 </div>
@@ -98,17 +98,20 @@ const Filters = ({ search }) => {
         );
     };
     const renderSelectContentButton = () => {
-        const selectLabel = Translator.trans(/*@Desc("Select content")*/ 'filters.tag_view_select.select', {}, 'universal_discovery_widget');
-        const changeLabel = Translator.trans(/*@Desc("Change content")*/ 'filters.tag_view_change.select', {}, 'universal_discovery_widget');
-
+        const selectLabel = Translator.trans(
+            /*@Desc("Select content")*/ 'filters.tag_view_select.select',
+            {},
+            'universal_discovery_widget'
+        );
+        const changeLabel = Translator.trans(
+            /*@Desc("Change content")*/ 'filters.tag_view_change.select',
+            {},
+            'universal_discovery_widget'
+        );
 
         return (
-            <button
-                className="ibexa-tag-view-select__btn-select-path btn ibexa-btn ibexa-btn--secondary"
-                type="button"
-                onClick={openUdw}
-            >
-                { selectedSubtree ? changeLabel : selectLabel }
+            <button className="ibexa-tag-view-select__btn-select-path btn ibexa-btn ibexa-btn--secondary" type="button" onClick={openUdw}>
+                {selectedSubtree ? changeLabel : selectLabel}
             </button>
         );
     };
@@ -118,10 +121,12 @@ const Filters = ({ search }) => {
     const subtreeLabel = Translator.trans(/*@Desc("Subtree")*/ 'filters.subtree', {}, 'universal_discovery_widget');
     const clearLabel = Translator.trans(/*@Desc("Clear")*/ 'filters.clear', {}, 'universal_discovery_widget');
     const applyLabel = Translator.trans(/*@Desc("Apply")*/ 'filters.apply', {}, 'universal_discovery_widget');
-    const languageOptions = languages.filter(((language) => language.enabled)).map((language) => ({
-        value: language.languageCode,
-        label: language.name,
-    }));
+    const languageOptions = languages
+        .filter((language) => language.enabled)
+        .map((language) => ({
+            value: language.languageCode,
+            label: language.name,
+        }));
     const sectionOptions = Object.entries(window.ibexa.adminUiConfig.sections).map(([sectionIdentifier, sectionName]) => ({
         value: sectionIdentifier,
         label: sectionName,
@@ -135,35 +140,26 @@ const Filters = ({ search }) => {
     }, [filtersCleared, makeSearch]);
 
     return (
-        <div className={wrapperClassName}>
+        <div className="c-filters">
             <div className="c-filters__header">
-                <div className="c-filters__header-content">
-                    {filtersLabel}
-                </div>
+                <div className="c-filters__header-content">{filtersLabel}</div>
                 <div className="c-filters__header-actions">
+                    <button className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small" onClick={clearFilters}>
+                        {clearLabel}
+                    </button>
                     <button
                         type="submit"
                         className="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-btn--apply"
                         onClick={makeSearch}
-                        disabled={!isApplyButtonEnabled}
-                    >
+                        disabled={!isApplyButtonEnabled}>
                         {applyLabel}
-                    </button>
-                    <button
-                        className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-                        onClick={clearFilters}
-                    >
-                        {clearLabel}
                     </button>
                 </div>
             </div>
-            <div className="c-filters__row">
-                <div className="c-filters__row-title">
-                    {languageLabel}
-                </div>
+            <div className="c-filters__row c-filters__row--language">
+                <div className="c-filters__row-title">{languageLabel}</div>
                 <Dropdown
                     dropdownListRef={dropdownListRef}
-                    small={true}
                     single={true}
                     onChange={updateSelectedLanguage}
                     value={selectedLanguage}
@@ -172,23 +168,24 @@ const Filters = ({ search }) => {
                 />
             </div>
             <ContentTypeSelector />
-            <Collapsible title={sectionLabel}>
+            <div className="c-filters__row">
+                <div className="c-filters__row-title">{sectionLabel}</div>
                 <Dropdown
                     dropdownListRef={dropdownListRef}
-                    small={true}
                     single={true}
                     onChange={updateSection}
                     value={selectedSection}
                     options={sectionOptions}
                     extraClasses="c-udw-dropdown"
                 />
-            </Collapsible>
-            <Collapsible title={subtreeLabel}>
-                <div class="ibexa-tag-view-select">
+            </div>
+            <div className="c-filters__row">
+                <div className="c-filters__row-title">{subtreeLabel}</div>
+                <div className="ibexa-tag-view-select">
                     {renderSubtreeBreadcrumbs()}
                     {renderSelectContentButton()}
                 </div>
-            </Collapsible>
+            </div>
         </div>
     );
 };

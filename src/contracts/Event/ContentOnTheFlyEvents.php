@@ -11,16 +11,16 @@ namespace Ibexa\Contracts\AdminUi\Event;
 final class ContentOnTheFlyEvents
 {
     /** @var string */
-    public const CONTENT_CREATE = 'ibexa.content.on_the_fly.create';
+    public const CONTENT_CREATE = 'ibexa.content_on_the_fly.create';
 
     /** @var string */
-    public const CONTENT_CREATE_PUBLISH = 'ezplatform.content_on_the_fly.create.publish';
+    public const CONTENT_CREATE_PUBLISH = 'ibexa.content_on_the_fly.create.publish';
 
     /** @var string */
-    public const CONTENT_EDIT = 'ibexa.content.on_the_fly.edit';
+    public const CONTENT_EDIT = 'ibexa.content_on_the_fly.edit';
 
     /** @var string */
-    public const CONTENT_EDIT_PUBLISH = 'ezplatform.content_on_the_fly.edit.publish';
+    public const CONTENT_EDIT_PUBLISH = 'ibexa.content_on_the_fly.edit.publish';
 }
 
 class_alias(ContentOnTheFlyEvents::class, 'EzSystems\EzPlatformAdminUi\Event\ContentOnTheFlyEvents');

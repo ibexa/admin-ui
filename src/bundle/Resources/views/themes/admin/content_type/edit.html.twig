@@ -20,6 +20,7 @@
 {% block form %}
     {{ form_start(form, { attr: { class: 'ibexa-content-type-edit ibexa-form' } }) }}
         {% set is_translation = form.vars.data.languageCode != content_type.mainLanguageCode %}
+        {% set is_draggable = is_translation == false %}
 
         {% if is_translation %}
             {% include '@ibexadesign/content_type/part/nontranslatable_fields_disabled.html.twig' %}
@@ -60,11 +61,14 @@
                     {% endblock %}
 
                     {% block left_column %}
-                        {{ include('@ibexadesign/content_type/field_definitions.html.twig', { grouped_field_defintions: form.fieldDefinitionsData }) }}
+                        {{ include('@ibexadesign/content_type/field_definitions.html.twig', {
+                            grouped_field_defintions: form.fieldDefinitionsData,
+                            is_draggable
+                        }) }}
                     {% endblock %}
 
                     {% block right_column %}
-                        {{ include('@ibexadesign/content_type/available_field_types.html.twig') }}
+                        {{ include('@ibexadesign/content_type/available_field_types.html.twig', { is_draggable }) }}
                     {% endblock %}
                 {% endembed %}
             {% endblock %}

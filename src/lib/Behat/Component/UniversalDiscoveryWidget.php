@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Component\Component;
+use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
@@ -39,6 +40,9 @@ class UniversalDiscoveryWidget extends Component
     public function confirm(): void
     {
         $this->getHTMLPage()->find($this->getLocator('confirmButton'))->click();
+        $this->getHTMLPage()
+            ->setTimeout(3)
+            ->waitUntilCondition(new ElementNotExistsCondition($this->getHTMLPage(), $this->getLocator('udw')));
     }
 
     public function cancel(): void

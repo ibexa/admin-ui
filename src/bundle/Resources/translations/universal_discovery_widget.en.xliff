@@ -112,8 +112,8 @@
         <note>key: copy.title</note>
       </trans-unit>
       <trans-unit id="a7d7c06aff739180272f50e51f2100e7b5d9cfbf" resname="create_content.create">
-        <source>Create</source>
-        <target state="new">Create</target>
+        <source>Create new</source>
+        <target state="new">Create new</target>
         <note>key: create_content.create</note>
       </trans-unit>
       <trans-unit id="23fa7d97ea65916659849b0ed9b1e148df62fd08" resname="create_content.label">
@@ -196,11 +196,6 @@
         <target state="new">Filters</target>
         <note>key: filters.title</note>
       </trans-unit>
-      <trans-unit id="cb5a597ae90cf47cd069feb1efabc3f69674cd3c" resname="input.search.placeholder.default">
-        <source>Search...</source>
-        <target state="new">Search...</target>
-        <note>key: input.search.placeholder.default</note>
-      </trans-unit>
       <trans-unit id="2d4febe56a341671c069ff47b6e6adfd2bba005c" resname="limitation.pick.error">
         <source>Could not fetch content names</source>
         <target state="new">Could not fetch content names</target>
@@ -227,8 +222,8 @@
         <note>key: meta_preview.edit</note>
       </trans-unit>
       <trans-unit id="4828dcbcd9cf2ad9c2b69a9b9420c94eccbe5dcc" resname="meta_preview.edit_translation">
-        <source>Edit translation</source>
-        <target state="new">Edit translation</target>
+        <source>Select translation</source>
+        <target state="new">Select translation</target>
         <note>key: meta_preview.edit_translation</note>
       </trans-unit>
       <trans-unit id="954055c80d86d18a4b101c2060e4dd63dd10971f" resname="meta_preview.last_modified">
@@ -291,15 +286,15 @@
         <target state="new">Try more general keywords.</target>
         <note>key: search.no_results.hint.more_general</note>
       </trans-unit>
-      <trans-unit id="6ffbb9b14f98e94b8dda5418ef3910942b42c44e" resname="search.search">
-        <source>Search</source>
-        <target state="new">Search</target>
-        <note>key: search.search</note>
-      </trans-unit>
       <trans-unit id="69f8e58ee01f604b377aaa638cabe3f245b45a73" resname="search.search_results">
-        <source>Search results</source>
-        <target state="new">Search results</target>
+        <source>Results for “%search_phrase%” (%total%)</source>
+        <target state="new">Results for “%search_phrase%” (%total%)</target>
         <note>key: search.search_results</note>
+      </trans-unit>
+      <trans-unit id="3ae249fbdcae8da1215537a7407789511ff8fd3b" resname="search.search_results.in_language">
+        <source>in %search_language%</source>
+        <target state="new">in %search_language%</target>
+        <note>key: search.search_results.in_language</note>
       </trans-unit>
       <trans-unit id="5b8a9a5fceb4991b77b50983c34df8a18a900a09" resname="select_location.error">
         <source>Cannot find children Locations with ID %idList%</source>
@@ -336,6 +331,11 @@
         <target state="new">Date</target>
         <note>key: sorting.date.label</note>
       </trans-unit>
+      <trans-unit id="e1b82af5205b4a015ab41b8cb2dc25b1da231c49" resname="sorting.date.selected_label">
+        <source>Sort by date</source>
+        <target state="new">Sort by date</target>
+        <note>key: sorting.date.selected_label</note>
+      </trans-unit>
       <trans-unit id="7e978afd229113429d273612c01318f09e3f3e5e" resname="sorting.grid.view">
         <source>Grid view</source>
         <target state="new">Grid view</target>
@@ -346,10 +346,20 @@
         <target state="new">Name A-Z</target>
         <note>key: sorting.name.asc.label</note>
       </trans-unit>
+      <trans-unit id="6c71d76f0da0637f44eac88dd809c31bb715b4f0" resname="sorting.name.asc.selected_label">
+        <source>Sort by name A-Z</source>
+        <target state="new">Sort by name A-Z</target>
+        <note>key: sorting.name.asc.selected_label</note>
+      </trans-unit>
       <trans-unit id="e0373d48c538c2f5ae4a1d735763336ad2f2ed3f" resname="sorting.name.desc.label">
         <source>Name Z-A</source>
         <target state="new">Name Z-A</target>
         <note>key: sorting.name.desc.label</note>
+      </trans-unit>
+      <trans-unit id="072c390dc9ab7ae7099b664732b67c3fae44cf3e" resname="sorting.name.desc.selected_label">
+        <source>Sort by name Z-A</source>
+        <target state="new">Sort by name Z-A</target>
+        <note>key: sorting.name.desc.selected_label</note>
       </trans-unit>
       <trans-unit id="27c00b5da502fe6afe6b76e59ddeb951bbbf2c6f" resname="sorting.panels.view">
         <source>Panels view</source>

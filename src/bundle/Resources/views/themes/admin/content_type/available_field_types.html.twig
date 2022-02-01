@@ -13,7 +13,7 @@
     <ul class="ibexa-available-field-types__list">    
         {% for item in field_type_toolbar %}
             <li 
-                draggable="true" 
+                draggable="{{ is_draggable is not defined or is_draggable == true ? 'true' : 'false' }}"
                 class="ibexa-available-field-type" 
                 data-item-identifier="{{ item.identifier }}"
             >

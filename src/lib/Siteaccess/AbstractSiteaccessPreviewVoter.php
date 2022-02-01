@@ -9,11 +9,11 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Siteaccess;
 
 use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 abstract class AbstractSiteaccessPreviewVoter implements SiteaccessPreviewVoterInterface
 {
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     protected $configResolver;
 
     /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */

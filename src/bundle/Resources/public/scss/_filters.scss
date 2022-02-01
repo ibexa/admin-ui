@@ -3,41 +3,28 @@
     border-radius: $ibexa-border-radius;
     padding-bottom: calculateRem(24px);
 
+    .accordion-button {
+        &::after {
+            width: calculateRem(12px);
+            height: calculateRem(12px);
+            background-size: unset;
+        }
+    }
+
     &__item {
+        padding: calculateRem(4px) calculateRem(24px);
+
+        &--language-selector {
+            padding-bottom: calculateRem(16px);
+            border-bottom: calculateRem(1px) solid $ibexa-color-light;
+        }
+
+        &--content-type {
+            padding: 0;
+        }
+
         &--creator {
             position: relative;
-
-            .ibexa-filters {
-                &__input-wrapper {
-                    position: relative;
-                }
-
-                &__input {
-                    height: calculateRem(32px);
-                    border-radius: $ibexa-border-radius-small;
-                    border-color: $ibexa-color-dark-200;
-
-                    + .ibexa-icon {
-                        display: none;
-                    }
-
-                    &:disabled {
-                        cursor: auto;
-                        background-color: $ibexa-color-white;
-                        color: $ibexa-color-black;
-                        padding-right: calculateRem(32px);
-                        text-overflow: ellipsis;
-
-                        & + .ibexa-icon {
-                            display: block;
-                            position: absolute;
-                            bottom: calculateRem(8px);
-                            right: calculateRem(6px);
-                            cursor: pointer;
-                        }
-                    }
-                }
-            }
         }
 
         &--subtree {
@@ -58,7 +45,10 @@
 
         .ibexa-label {
             font-size: $ibexa-text-font-size-medium;
+            font-weight: 600;
             color: $ibexa-color-dark;
+            margin-top: calculateRem(16px);
+            margin-bottom: calculateRem(4px);
         }
     }
 
@@ -87,8 +77,7 @@
         align-items: center;
         justify-content: space-between;
         border-bottom: calculateRem(1px) solid $ibexa-color-light;
-        padding: calculateRem(16px) 0;
-        margin: 0 calculateRem(24px);
+        padding: calculateRem(16px) calculateRem(24px);
     }
 
     &__user-list {
@@ -118,9 +107,5 @@
 
     &__title {
         margin-bottom: 0;
-    }
-
-    &__items {
-        padding: 0 calculateRem(24px);
     }
 }

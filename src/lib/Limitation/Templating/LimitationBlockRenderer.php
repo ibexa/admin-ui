@@ -13,7 +13,7 @@ use Ibexa\AdminUi\Exception\ValueMapperNotFoundException;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperRegistryInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Twig\Environment;
 
 class LimitationBlockRenderer implements LimitationBlockRendererInterface
@@ -27,7 +27,7 @@ class LimitationBlockRenderer implements LimitationBlockRendererInterface
     /** @var \Twig\Environment */
     private $twig;
 
-    /** @var \Ibexa\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
