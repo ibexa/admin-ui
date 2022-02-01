@@ -5,6 +5,11 @@
         childList: true,
         subtree: true,
     };
+    const resizeEllipsisObserver = new ResizeObserver((entries) => {
+        entries.forEach((entry) => {
+            ibexa.helpers.tooltips.parse(entry.target);
+        });
+    });
     const observer = new MutationObserver((mutationsList) => {
         if (lastInsertTooltipTarget) {
             mutationsList.forEach((mutation) => {
@@ -75,6 +80,31 @@
 
         for (tooltipNode of tooltipNodes) {
             if (tooltipNode.hasAttribute('title')) {
+                const hasEllipsisStyle = getComputedStyle(tooltipNode).textOverflow === 'ellipsis';
+
+                if (hasEllipsisStyle) {
+                    resizeEllipsisObserver.observe(tooltipNode);
+
+                    const isEllipsized = tooltipNode.scrollWidth > tooltipNode.offsetWidth;
+                    const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipNode);
+
+                    if (tooltipInstance) {
+                        if (!isEllipsized) {
+                            tooltipInstance.dispose();
+                        }
+
+                        continue;
+                    }
+
+                    if (isEllipsized) {
+                        if (tooltipNode.dataset.title) {
+                            tooltipNode.title = tooltipNode.dataset.title;
+                        }
+                    } else {
+                        continue;
+                    }
+                }
+
                 const delay = {
                     show: parseInt(tooltipNode.dataset.delayShow, 10) ?? 150,
                     hide: parseInt(tooltipNode.dataset.delayHide, 10) ?? 75,
