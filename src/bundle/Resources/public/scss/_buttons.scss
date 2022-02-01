@@ -210,6 +210,12 @@
             fill: $ibexa-color-info;
         }
 
+        &.ibexa-btn--error {
+            background-color: $ibexa-color-danger-100;
+            border-color: $ibexa-color-danger;
+            fill: $ibexa-color-danger;
+        }
+
         &:not(.ibexa-btn--selected) {
             &:hover,
             &:focus {
