@@ -5,6 +5,11 @@
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const bookmarkWrapper = doc.querySelector(SELECTOR_BOOKMARK_WRAPPER);
+
+    if (!bookmarkWrapper) {
+        return;
+    }
+
     const currentLocationId = parseInt(bookmarkWrapper.getAttribute('data-location-id'), 10);
     const handleUpdateError = ibexa.helpers.notification.showErrorNotification;
     let isUpdatingBookmark = false;
