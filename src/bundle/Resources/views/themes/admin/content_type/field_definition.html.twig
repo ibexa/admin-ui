@@ -1,7 +1,7 @@
 {% set value = field_definition.vars.value %}
 {% set name = value.names[language_code] ?? value.names[content_type.mainLanguageCode]  %}
 
-{% set extra_actions = extra_actions|default([]) %}
+{% set extra_actions = [] %}
 
 {% if not field_definition.vars.disable_remove|default(false) %}
     {% set extra_actions = extra_actions|merge([
