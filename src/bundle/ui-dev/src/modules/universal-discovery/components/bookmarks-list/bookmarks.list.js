@@ -58,6 +58,10 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
         setBookmarks((prevState) => [...prevState, ...data.items]);
     }, [data.items, isLoading]);
 
+    useEffect(() => {
+        window.ibexa.helpers.tooltips.parse(window.document.querySelector('.c-bookmarks-list'));
+    }, [bookmarks]);
+
     if (!bookmarks.length) {
         return null;
     }
@@ -90,7 +94,13 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
                 };
 
                 return (
-                    <div key={bookmark.id} className={className} onClick={markLocation}>
+                    <div
+                        key={bookmark.id}
+                        className={className}
+                        onClick={markLocation}
+                        title={bookmark.ContentInfo.Content.TranslatedName}
+                        data-tooltip-container-selector=".c-bookmarks-list"
+                    >
                         <Icon extraClasses="ibexa-icon--small" customPath={contentTypeInfo.thumbnail} />
                         <span className="c-bookmarks-list__item-name">{bookmark.ContentInfo.Content.TranslatedName}</span>
                     </div>
