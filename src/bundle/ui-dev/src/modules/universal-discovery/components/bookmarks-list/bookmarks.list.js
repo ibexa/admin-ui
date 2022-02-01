@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import Icon from '../../../common/icon/icon';
@@ -18,6 +18,7 @@ import {
 const SCROLL_OFFSET = 200;
 
 const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
+    const refBookmarksList = useRef(null);
     const [offset, setOffset] = useState(0);
     const [bookmarks, setBookmarks] = useState([]);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
@@ -58,12 +59,16 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
         setBookmarks((prevState) => [...prevState, ...data.items]);
     }, [data.items, isLoading]);
 
+    useEffect(() => {
+        window.ibexa.helpers.tooltips.parse(refBookmarksList.current);
+    }, [bookmarks]);
+
     if (!bookmarks.length) {
         return null;
     }
 
     return (
-        <div className="c-bookmarks-list" onScroll={loadMore}>
+        <div className="c-bookmarks-list" onScroll={loadMore} ref={refBookmarksList}>
             {bookmarks.map((bookmark) => {
                 const isMarked = bookmark.id === markedLocationId;
                 const contentTypeInfo = contentTypesMap[bookmark.ContentInfo.Content.ContentType._href];
@@ -90,7 +95,13 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
                 };
 
                 return (
-                    <div key={bookmark.id} className={className} onClick={markLocation}>
+                    <div
+                        key={bookmark.id}
+                        className={className}
+                        onClick={markLocation}
+                        title={bookmark.ContentInfo.Content.TranslatedName}
+                        data-tooltip-container-selector=".c-bookmarks-list"
+                    >
                         <Icon extraClasses="ibexa-icon--small" customPath={contentTypeInfo.thumbnail} />
                         <span className="c-bookmarks-list__item-name">{bookmark.ContentInfo.Content.TranslatedName}</span>
                     </div>
