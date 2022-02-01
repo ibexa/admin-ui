@@ -49,10 +49,6 @@ const Search = ({ itemsPerPage }) => {
 
         prevSearchText.current = searchText;
 
-        if (!searchText) {
-            return;
-        }
-
         if (shouldResetOffset) {
             setOffset(0);
 
