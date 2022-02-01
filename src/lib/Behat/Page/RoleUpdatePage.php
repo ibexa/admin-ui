@@ -111,6 +111,8 @@ class RoleUpdatePage extends AdminUpdateItemPage
 
     public function assignSectionLimitation(string $limitationName): void
     {
+        $this->verifyIsLoaded();
+        $this->switchToTab('Limitations');
         $this->fillFieldWithValue('Sections', true);
         $this->getHTMLPage()->find($this->getLocator('policyAssignmentSelect'))->click();
         $this->getHTMLPage()->find($this->getLocator('ibexaDropdownSelectionInfo'))->click();
@@ -119,6 +121,8 @@ class RoleUpdatePage extends AdminUpdateItemPage
 
     public function selectLimitationForAssignment(string $itemPath)
     {
+        $this->verifyIsLoaded();
+        $this->switchToTab('Limitations');
         $this->fillFieldWithValue('Subtree', 'true');
         $this->clickButton('Select path');
         $this->universalDiscoveryWidget->verifyIsLoaded();
