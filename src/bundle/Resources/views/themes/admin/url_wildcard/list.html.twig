@@ -142,4 +142,15 @@
     {% endembed %}
 
     {{ form_end(form) }}
+
+    {% if url_wildcards.haveToPaginate %}
+        {% include '@ibexadesign/ui/pagination.html.twig' with {
+            'pager': url_wildcards,
+            'paginaton_params' : pager_options|merge({
+                'routeParams': {
+                    '_fragment': 'ibexa-tab-link-manager-url-wildcards'
+                }
+            })
+        } %}
+    {% endif %}
 </section>

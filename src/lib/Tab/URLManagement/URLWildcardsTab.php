@@ -10,16 +10,21 @@ namespace Ibexa\AdminUi\Tab\URLManagement;
 
 use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Pagination\Pagerfanta\URLWildcardAdapter;
 use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\URLWildcardService;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Pagerfanta\Pagerfanta;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
 {
+    private const PAGINATION_PARAM_NAME = 'url-wildcards-page';
+
     public const URI_FRAGMENT = 'ibexa-tab-link-manager-url-wildcards';
 
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
@@ -31,6 +36,9 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
     /** @var \Ibexa\Contracts\Core\Repository\URLWildcardService */
     private $urlWildcardService;
 
+    /** @var \Symfony\Component\HttpFoundation\RequestStack */
+    private $requestStack;
+
     /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
@@ -39,6 +47,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
         TranslatorInterface $translator,
         PermissionResolver $permissionResolver,
         ConfigResolverInterface $configResolver,
+        RequestStack $requestStack,
         URLWildcardService $urlWildcardService,
         FormFactory $formFactory
     ) {
@@ -46,6 +55,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
 
         $this->permissionResolver = $permissionResolver;
         $this->configResolver = $configResolver;
+        $this->requestStack = $requestStack;
         $this->urlWildcardService = $urlWildcardService;
         $this->formFactory = $formFactory;
     }
@@ -87,8 +97,21 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
      */
     public function renderView(array $parameters): string
     {
-        $urlWildcards = $this->urlWildcardService->loadAll();
+        $currentPage = $this->requestStack->getCurrentRequest()->query->getInt(
+            self::PAGINATION_PARAM_NAME,
+            1
+        );
+        $limit = $this->configResolver->getParameter('pagination.url_wildcards');
 
+        $pagerfanta = new Pagerfanta(
+            new URLWildcardAdapter(
+                $this->urlWildcardService
+            )
+        );
+        $pagerfanta->setMaxPerPage($limit);
+        $pagerfanta->setCurrentPage(min(max($currentPage, 1), $pagerfanta->getNbPages()));
+
+        $urlWildcards = $pagerfanta->getCurrentPageResults();
         $urlWildcardsChoices = [];
         foreach ($urlWildcards as $urlWildcardItem) {
             $urlWildcardsChoices[$urlWildcardItem->id] = false;
@@ -103,7 +126,10 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
         $canManageWildcards = $this->permissionResolver->hasAccess('content', 'urltranslator');
 
         return $this->twig->render('@ibexadesign/url_wildcard/list.html.twig', [
-            'url_wildcards' => $urlWildcards,
+            'url_wildcards' => $pagerfanta,
+            'pager_options' => [
+                'pageParameter' => '[' . self::PAGINATION_PARAM_NAME . ']',
+            ],
             'form' => $deleteUrlWildcardDeleteForm->createView(),
             'form_add' => $addUrlWildcardForm->createView(),
             'url_wildcards_enabled' => $urlWildcardsEnabled,
