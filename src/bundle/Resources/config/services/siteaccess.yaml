@@ -17,7 +17,7 @@ services:
 
     Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver:
         arguments:
-            $siteAccessGroups: '%ezpublish.siteaccess.groups%'
+            $siteAccessGroups: '%ibexa.site_access.groups%'
 
     Ibexa\AdminUi\Siteaccess\AdminSiteaccessPreviewVoter:
         arguments:

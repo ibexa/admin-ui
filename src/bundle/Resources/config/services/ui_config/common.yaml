@@ -13,10 +13,10 @@ services:
 
     Ibexa\AdminUi\UI\Config\Provider\ContentTypeMappings:
         arguments:
-            $locationMappings: '%ezplatform.multifile_upload.location.mappings%'
-            $defaultMappings: '%ezplatform.multifile_upload.location.default_mappings%'
-            $fallbackContentType: '%ezplatform.multifile_upload.fallback_content_type%'
-            $maxFileSize: '%ez_systems.multifile_upload.max_file_size%'
+            $locationMappings: '%ibexa.multifile_upload.location.mappings%'
+            $defaultMappings: '%ibexa.multifile_upload.location.default_mappings%'
+            $fallbackContentType: '%ibexa.multifile_upload.fallback_content_type%'
+            $maxFileSize: '%ibexa.io.multifile_upload.max_file_size%'
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'multiFileUpload' }
 
@@ -52,7 +52,7 @@ services:
 
     Ibexa\AdminUi\UI\Config\Provider\Languages:
         arguments:
-            $siteAccesses: '%ezpublish.siteaccess.list%'
+            $siteAccesses: '%ibexa.site_access.list%'
             $siteAccessService: '@Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService'
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'languages' }
