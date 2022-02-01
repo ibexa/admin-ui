@@ -58,4 +58,4 @@ services:
 
   Ibexa\AdminUi\REST\Security\NonAdminRESTRequestMatcher:
       arguments:
-          $siteAccessGroups: '%ezpublish.siteaccess.groups%'
+          $siteAccessGroups: '%ibexa.site_access.groups%'

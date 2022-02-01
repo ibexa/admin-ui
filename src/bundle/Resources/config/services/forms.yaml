@@ -236,7 +236,7 @@ services:
 
     Ibexa\AdminUi\Form\Type\Policy\PolicyChoiceType:
         arguments:
-            $policyMap: "%ezpublish.api.role.policy_map%"
+            $policyMap: '%ibexa.api.role.policy_map%'
 
     Ibexa\AdminUi\Form\Type\Policy\PolicyCreateType: ~
 

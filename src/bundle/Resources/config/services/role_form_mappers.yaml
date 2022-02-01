@@ -1,5 +1,5 @@
 parameters:
-    ezplatform.content_forms.limitation.form_mapper.parent_depth.max_depth: 20
+    ibexa.content_forms.form_processor.content_type.options.redirect_route_after_publish: 20
 
 services:
     _defaults:
@@ -15,7 +15,7 @@ services:
         class: Ibexa\AdminUi\Limitation\Mapper\MultipleSelectionBasedMapper
         abstract: true
         calls:
-            - [setFormTemplate, ["%ezplatform.content_forms.limitation.multiple_selection.template%"]]
+            - [setFormTemplate, ['%ibexa.content_forms.limitation.multiple_selection.template%']]
 
     Ibexa\Bundle\SiteFactory\Form\DataMapper\SiteFactorySiteAccessLimitationMapper:
         parent: Ibexa\AdminUi\Limitation\Mapper\MultipleSelectionBasedMapper
@@ -31,7 +31,7 @@ services:
             - { name: ibexa.admin_ui.limitation.mapper.value, limitationType: SiteAccess }
 
     Ibexa\AdminUi\Limitation\Mapper\NullLimitationMapper:
-        arguments: ["%ezplatform.content_forms.limitation.null.template%"]
+        arguments: ['%ibexa.content_forms.limitation.null.template%']
         tags:
             - { name: ibexa.admin_ui.limitation.mapper.form, limitationType: "Null" }
             - { name: ibexa.admin_ui.limitation.mapper.value, limitationType: "Null" }
@@ -177,7 +177,7 @@ services:
         autoconfigure: false
         public: false
         class: Ibexa\AdminUi\Limitation\Mapper\ParentDepthLimitationMapper
-        arguments: ["%ezplatform.content_forms.limitation.form_mapper.parent_depth.max_depth%"]
+        arguments: ['%ibexa.content_forms.form_processor.content_type.options.redirect_route_after_publish%']
         tags:
             - { name: ibexa.admin_ui.limitation.mapper.form, limitationType: ParentDepth }
             - { name: ibexa.admin_ui.limitation.mapper.value, limitationType: ParentDepth }
@@ -188,7 +188,7 @@ services:
             - '@ibexa.api.service.location'
             - '@ibexa.api.service.search'
         calls:
-            - [setFormTemplate, ["%ezplatform.content_forms.limitation.udw.template%"]]
+            - [setFormTemplate, ['%ibexa.content_forms.limitation.udw.template%']]
 
     ibexa.content_forms.limitation.form_mapper.location:
         parent: ibexa.content_forms.limitation.form_mapper.udw_based

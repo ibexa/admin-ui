@@ -118,13 +118,13 @@ services:
 
     Ibexa\AdminUi\EventListener\CredentialsExpiredListener:
         arguments:
-            $siteAccessGroups: '%ezpublish.siteaccess.groups%'
+            $siteAccessGroups: '%ibexa.site_access.groups%'
         tags:
             - {name: kernel.event_subscriber}
 
     Ibexa\AdminUi\EventListener\CredentialsExpirationWarningListener:
         arguments:
-            $siteAccessGroups: '%ezpublish.siteaccess.groups%'
+            $siteAccessGroups: '%ibexa.site_access.groups%'
         tags:
             - {name: kernel.event_subscriber}
 
@@ -145,6 +145,6 @@ services:
             $formFactory: '@form.factory'
             $configResolver: '@ibexa.config.resolver'
             $requestStack: '@request_stack'
-            $siteAccessGroups: '%ezpublish.siteaccess.groups%'
+            $siteAccessGroups: '%ibexa.site_access.groups%'
         tags:
             - {name: kernel.event_subscriber}

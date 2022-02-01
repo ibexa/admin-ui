@@ -1,7 +1,7 @@
 parameters:
-    ezplatform.content_forms.form_processor.content_type.options.redirect_route_after_publish: ~
-    ezplatform.content_forms.form_processor.content_type.options:
-        redirectRouteAfterPublish: "%ezplatform.content_forms.form_processor.content_type.options.redirect_route_after_publish%"
+    ibexa.content_forms.form_processor.content_type.options.redirect_route_after_publish: ~
+    ibexa.content_forms.form_processor.content_type.options:
+        redirectRouteAfterPublish: '%ibexa.content_forms.form_processor.content_type.options.redirect_route_after_publish%'
 
 services:
     _defaults:
@@ -25,13 +25,13 @@ services:
         public: true
         decorates: Ibexa\ContentForms\Form\Processor\SystemUrlRedirectProcessor
         arguments:
-            $siteaccessGroups: '%ezpublish.siteaccess.groups%'
+            $siteaccessGroups: '%ibexa.site_access.groups%'
             $systemUrlRedirectProcessor: '@Ibexa\AdminUi\Form\Processor\Content\UrlRedirectProcessor.inner'
 
     Ibexa\AdminUi\Form\Processor\ContentEditNotificationFormProcessor:
         public: true
         arguments:
-            $siteAccessGroups: '%ezpublish.siteaccess.groups%'
+            $siteAccessGroups: '%ibexa.site_access.groups%'
 
     Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeDiscardChangesFormProcessor: ~
 
@@ -39,7 +39,7 @@ services:
         arguments:
             - '@ibexa.api.service.content_type'
             - "@router"
-            - "%ezplatform.content_forms.form_processor.content_type.options%"
+            - '%ibexa.content_forms.form_processor.content_type.options%'
         calls:
             - [ setGroupsList, [ '@Ibexa\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList' ] ]
 

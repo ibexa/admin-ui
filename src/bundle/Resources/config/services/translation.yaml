@@ -10,7 +10,7 @@ services:
 
     Ibexa\AdminUi\Translation\Extractor\PolicyTranslationExtractor:
         arguments:
-            - '%ezpublish.api.role.policy_map%'
+            - '%ibexa.api.role.policy_map%'
         tags:
             - { name: jms_translation.extractor, alias: ez_policy }
 
@@ -20,7 +20,7 @@ services:
 
     Ibexa\AdminUi\Translation\Extractor\LimitationTranslationExtractor:
         arguments:
-            - '%ezpublish.api.role.policy_map%'
+            - '%ibexa.api.role.policy_map%'
         tags:
             - { name: jms_translation.extractor, alias: ez_policy_limitation }
 

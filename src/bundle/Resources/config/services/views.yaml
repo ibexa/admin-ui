@@ -54,7 +54,7 @@ services:
             $formFactory: '@Symfony\Component\Form\FormFactoryInterface'
             $sectionService: '@ibexa.api.service.section'
             $contentTypeService: '@ibexa.api.service.content_type'
-            $siteAccessGroups: '%ezpublish.siteaccess.groups%'
+            $siteAccessGroups: '%ibexa.site_access.groups%'
             $innerFilter: '@Ibexa\AdminUi\View\Filter\AdminSearchViewFilter.inner'
             $urlGenerator: '@router'
         tags:
