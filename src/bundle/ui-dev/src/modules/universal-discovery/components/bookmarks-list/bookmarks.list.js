@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import Icon from '../../../common/icon/icon';
@@ -18,6 +18,7 @@ import {
 const SCROLL_OFFSET = 200;
 
 const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
+    const refBookmarksList = useRef(null);
     const [offset, setOffset] = useState(0);
     const [bookmarks, setBookmarks] = useState([]);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
@@ -59,7 +60,7 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
     }, [data.items, isLoading]);
 
     useEffect(() => {
-        window.ibexa.helpers.tooltips.parse(window.document.querySelector('.c-bookmarks-list'));
+        window.ibexa.helpers.tooltips.parse(refBookmarksList.current);
     }, [bookmarks]);
 
     if (!bookmarks.length) {
@@ -67,7 +68,7 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
     }
 
     return (
-        <div className="c-bookmarks-list" onScroll={loadMore}>
+        <div className="c-bookmarks-list" onScroll={loadMore} ref={refBookmarksList}>
             {bookmarks.map((bookmark) => {
                 const isMarked = bookmark.id === markedLocationId;
                 const contentTypeInfo = contentTypesMap[bookmark.ContentInfo.Content.ContentType._href];
