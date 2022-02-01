@@ -102,6 +102,11 @@
                         margin-left: auto;
                     }
 
+                    &__toggle-btn:not(.ibexa-collapse__toggle-btn--status) {
+                        cursor: grab;
+                        margin-right: auto;
+                    }
+
                     &__draggable-btn {
                         cursor: grab;
 
