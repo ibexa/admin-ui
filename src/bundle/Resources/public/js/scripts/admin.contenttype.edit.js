@@ -295,6 +295,7 @@
     }
 
     filterFieldInput.addEventListener('keyup', searchField, false);
+    filterFieldInput.addEventListener('input', searchField, false);
 
     doc.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions').forEach((removeFieldDefinitionsButton) => {
         removeFieldDefinitionsButton.addEventListener('click', removeField, false);
