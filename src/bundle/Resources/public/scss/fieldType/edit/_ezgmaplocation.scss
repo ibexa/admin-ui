@@ -4,6 +4,7 @@
 
         &__map {
             z-index: 0;
+            width: 50%;
             height: calculateRem(400px);
             border-top-left-radius: $ibexa-border-radius;
             border-bottom-left-radius: $ibexa-border-radius;
@@ -27,6 +28,7 @@
         }
 
         &__options {
+            width: 50%;
             padding: calculateRem(24px);
 
             .ibexa-input {
