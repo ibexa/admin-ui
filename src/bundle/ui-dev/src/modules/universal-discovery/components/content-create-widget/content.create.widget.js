@@ -65,12 +65,12 @@ const ContentCreateWidget = () => {
     const selectLanguageLabel = Translator.trans(
         /*@Desc("Select a language")*/ 'create_content.select_language',
         {},
-        'universal_discovery_widget'
+        'universal_discovery_widget',
     );
     const selectContentType = Translator.trans(
         /*@Desc("Select a Content Type")*/ 'create_content.select_content_type',
         {},
-        'universal_discovery_widget'
+        'universal_discovery_widget',
     );
     const createLabel = Translator.trans(/*@Desc("Create new")*/ 'create_content.create', {}, 'universal_discovery_widget');
     const closeLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'universal_discovery_widget');
@@ -79,12 +79,12 @@ const ContentCreateWidget = () => {
     const filtersDescLabel = Translator.trans(
         /*@Desc("Or choose from list")*/ 'content.create.filters.desc',
         {},
-        'universal_discovery_widget'
+        'universal_discovery_widget',
     );
     const createUnderLabel = Translator.trans(
         /*@Desc("under %content_name%")*/ 'content.create.editing_details',
         { content_name: selectedLocation?.location?.ContentInfo.Content.TranslatedName },
-        'universal_discovery_widget'
+        'universal_discovery_widget',
     );
     const widgetClassName = createCssClassNames({
         'ibexa-extra-actions': true,
@@ -114,7 +114,8 @@ const ContentCreateWidget = () => {
                         className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--close"
                         onClick={close}
                         title={closeLabel}
-                        data-tooltip-container-selector=".c-udw-tab">
+                        data-tooltip-container-selector=".c-udw-tab"
+                    >
                         <Icon name="discard" extraClasses="ibexa-icon--small" />
                     </button>
                     <div className="ibexa-extra-actions__header-subtitle">{createUnderLabel}</div>
@@ -154,8 +155,9 @@ const ContentCreateWidget = () => {
                                         restrictedContentTypeIds.length && !restrictedContentTypeIds.includes(groupItem.id.toString());
                                     const isNotAllowedContentType =
                                         allowedContentTypes && !allowedContentTypes.includes(groupItem.identifier);
+                                    const isHiddenByConfig = groupItem.isHidden;
 
-                                    return isNotSearchedName || hasNotPermission || isNotAllowedContentType;
+                                    return isNotSearchedName || hasNotPermission || isNotAllowedContentType || isHiddenByConfig;
                                 });
 
                                 if (isHidden) {
@@ -165,14 +167,15 @@ const ContentCreateWidget = () => {
                                 return (
                                     <div className="ibexa-instant-filter__group" key={groupName}>
                                         <div className="ibexa-instant-filter__group-name">{groupName}</div>
-                                        {groupItems.map(({ name, thumbnail, identifier, id }) => {
+                                        {groupItems.map(({ name, thumbnail, identifier, id, isHidden: isHiddenByConfig }) => {
                                             const isHidden =
+                                                isHiddenByConfig ||
                                                 (filterQuery && !name.toLowerCase().includes(filterQuery)) ||
                                                 (selectedLocation &&
                                                     selectedLocation.permissions &&
                                                     selectedLocation.permissions.create.restrictedContentTypeIds.length &&
                                                     !selectedLocation.permissions.create.restrictedContentTypeIds.includes(
-                                                        id.toString()
+                                                        id.toString(),
                                                     )) ||
                                                 (allowedContentTypes && !allowedContentTypes.includes(identifier));
                                             const className = createCssClassNames({
@@ -190,7 +193,8 @@ const ContentCreateWidget = () => {
                                                     hidden={isHidden}
                                                     key={identifier}
                                                     className={className}
-                                                    onClick={updateSelectedContentType}>
+                                                    onClick={updateSelectedContentType}
+                                                >
                                                     <Icon customPath={thumbnail} extraClasses="ibexa-icon--small" />
                                                     <div className="form-check">
                                                         <div className="ibexa-label ibexa-label--checkbox-radio form-check-label">
@@ -210,7 +214,8 @@ const ContentCreateWidget = () => {
                     <button
                         className="c-content-create__confirm-button btn ibexa-btn ibexa-btn--primary"
                         onClick={createContent}
-                        disabled={isConfirmDisabled}>
+                        disabled={isConfirmDisabled}
+                    >
                         {createLabel}
                     </button>
                     <button className="btn ibexa-btn ibexa-btn--secondary" onClick={close}>
