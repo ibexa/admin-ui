@@ -1,5 +1,5 @@
 parameters:
-    ibexa.content_forms.form_processor.content_type.options.redirect_route_after_publish: 20
+    ibexa.content_forms.limitation.form_mapper.parent_depth.max_depth: 20
 
 services:
     _defaults:
@@ -177,7 +177,7 @@ services:
         autoconfigure: false
         public: false
         class: Ibexa\AdminUi\Limitation\Mapper\ParentDepthLimitationMapper
-        arguments: ['%ibexa.content_forms.form_processor.content_type.options.redirect_route_after_publish%']
+        arguments: ['%ibexa.content_forms.limitation.form_mapper.parent_depth.max_depth%']
         tags:
             - { name: ibexa.admin_ui.limitation.mapper.form, limitationType: ParentDepth }
             - { name: ibexa.admin_ui.limitation.mapper.value, limitationType: ParentDepth }
