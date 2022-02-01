@@ -58,6 +58,9 @@ class FieldDefinitionType extends AbstractType
                 'data_class' => FieldDefinitionData::class,
                 'translation_domain' => 'content_type',
                 'mainLanguageCode' => null,
+                'disable_identifier_field' => false,
+                'disable_required_field' => false,
+                'disable_translatable_field' => false,
             ])
             ->setDefined(['mainLanguageCode'])
             ->setAllowedTypes('mainLanguageCode', ['null', 'string'])
@@ -91,7 +94,7 @@ class FieldDefinitionType extends AbstractType
                 TextType::class,
                 [
                     'label' => /** @Desc("Identifier") */ 'field_definition.identifier',
-                    'disabled' => $isTranslation,
+                    'disabled' => $options['disable_identifier_field'] || $isTranslation,
                 ]
             )
             ->add(
@@ -105,12 +108,12 @@ class FieldDefinitionType extends AbstractType
             ->add('isRequired', CheckboxType::class, [
                 'required' => false,
                 'label' => /** @Desc("Required") */ 'field_definition.is_required',
-                'disabled' => $isTranslation,
+                'disabled' => $options['disable_required_field'] || $isTranslation,
             ])
             ->add('isTranslatable', CheckboxType::class, [
                 'required' => false,
                 'label' => /** @Desc("Translatable") */ 'field_definition.is_translatable',
-                'disabled' => $isTranslation,
+                'disabled' => $options['disable_translatable_field'] || $isTranslation,
             ])
             ->add(
                 'fieldGroup',
