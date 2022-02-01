@@ -5,7 +5,6 @@
 
     .modal-body {
         display: flex;
-        align-items: flex-end;
         padding-bottom: calculateRem(140px);
     }
 
@@ -14,6 +13,7 @@
     }
 
     &__arrow {
+        margin-top: calculateRem(46px);
         height: calculateRem(48px);
         transform: rotate(180deg);
         display: flex;
