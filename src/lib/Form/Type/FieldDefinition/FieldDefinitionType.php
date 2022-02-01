@@ -20,6 +20,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -61,6 +63,7 @@ class FieldDefinitionType extends AbstractType
                 'disable_identifier_field' => false,
                 'disable_required_field' => false,
                 'disable_translatable_field' => false,
+                'disable_remove' => false,
             ])
             ->setDefined(['mainLanguageCode'])
             ->setAllowedTypes('mainLanguageCode', ['null', 'string'])
@@ -154,6 +157,11 @@ class FieldDefinitionType extends AbstractType
             // Let fieldType mappers do their jobs to complete the form.
             $this->fieldTypeMapperDispatcher->map($form, $data);
         });
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['disable_remove'] = $options['disable_remove'];
     }
 
     public function getName()
