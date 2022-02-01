@@ -31,10 +31,6 @@
     const submitBtns = form.querySelectorAll('[type="submit"]:not([formnovalidate])');
     const menuButtonsToValidate = doc.querySelectorAll('button[data-validate]');
     const fields = doc.querySelectorAll('.ibexa-field-edit');
-    const autosave = doc.querySelector('.ibexa-autosave');
-    const autosaveStatusSavedNode = autosave.querySelector('.ibexa-autosave__status-saved');
-    let currentAutosaveStatus = autosave.classList.contains('ibexa-autosave--on') ? STATUS_ON : STATUS_OFF;
-    let simplifiedMessageTimeoutId = null;
     const getValidationResults = (validator) => {
         const isValid = validator.isValid();
         const validatorName = validator.constructor.name;
@@ -122,7 +118,7 @@
         invalidSections.forEach((sections) => {
             sections.forEach((invalidSectionId) => {
                 doc.querySelector(`[data-anchor-target-section-id='${invalidSectionId}']`).classList.add(
-                    'ibexa-anchor-navigation-menu__btn--invalid'
+                    'ibexa-anchor-navigation-menu__btn--invalid',
                 );
             });
         });
@@ -149,53 +145,57 @@
             }
         }
     };
-    const generateCssStatusClass = (status) => `ibexa-autosave--${status}`;
-    const setAutosaveStatus = (newStatus) => {
-        if (!autosave) {
-            return;
-        }
-
-        const oldCssStatusClass = generateCssStatusClass(currentAutosaveStatus);
-        const newCssStatusClass = generateCssStatusClass(newStatus);
-
-        autosave.classList.remove(oldCssStatusClass);
-        autosave.classList.remove('ibexa-autosave--saved-simplified');
-        autosave.classList.add(newCssStatusClass);
-
-        currentAutosaveStatus = newStatus;
-    };
-    const setDraftSavedMessage = () => {
-        if (!autosave) {
-            return;
-        }
-
-        const userPreferredTimezone = ibexa.adminUiConfig.timezone;
-        const saveDate = ibexa.helpers.timezone.convertDateToTimezone(new Date(), userPreferredTimezone);
-        const saveTime = moment(saveDate).formatICU('HH:mm');
-        const saveMessage = Translator.trans(
-            /*@Desc("Draft saved %time%")*/ 'content_edit.autosave.status_saved.message.full',
-            { time: saveTime },
-            'content'
-        );
-
-        autosaveStatusSavedNode.innerHTML = saveMessage;
-        setDelayedDraftSavedSimplifiedMessage();
-    };
-    const setDelayedDraftSavedSimplifiedMessage = () => {
-        simplifiedMessageTimeoutId = setTimeout(() => {
-            const savedMessage = Translator.trans(
-                /*@Desc("Saved")*/ 'content_edit.autosave.status_saved.message.simplified',
-                {},
-                'content'
-            );
-
-            autosaveStatusSavedNode.innerHTML = savedMessage;
-            autosave.classList.add('ibexa-autosave--saved-simplified');
-        }, SIMPLIFIED_MESSAGE_TIMEOUT);
-    };
 
     if (isAutosaveEnabled()) {
         const AUTOSAVE_SUBMIT_BUTTON_NAME = 'ezplatform_content_forms_content_edit[autosave]';
+        const autosave = doc.querySelector('.ibexa-autosave');
+        const autosaveStatusSavedNode = autosave.querySelector('.ibexa-autosave__status-saved');
+        let currentAutosaveStatus = autosave.classList.contains('ibexa-autosave--on') ? STATUS_ON : STATUS_OFF;
+        let simplifiedMessageTimeoutId = null;
+        const generateCssStatusClass = (status) => `ibexa-autosave--${status}`;
+        const setAutosaveStatus = (newStatus) => {
+            if (!autosave) {
+                return;
+            }
+
+            const oldCssStatusClass = generateCssStatusClass(currentAutosaveStatus);
+            const newCssStatusClass = generateCssStatusClass(newStatus);
+
+            autosave.classList.remove(oldCssStatusClass);
+            autosave.classList.remove('ibexa-autosave--saved-simplified');
+            autosave.classList.add(newCssStatusClass);
+
+            currentAutosaveStatus = newStatus;
+        };
+        const setDraftSavedMessage = () => {
+            if (!autosave) {
+                return;
+            }
+
+            const userPreferredTimezone = ibexa.adminUiConfig.timezone;
+            const saveDate = ibexa.helpers.timezone.convertDateToTimezone(new Date(), userPreferredTimezone);
+            const saveTime = moment(saveDate).formatICU('HH:mm');
+            const saveMessage = Translator.trans(
+                /*@Desc("Draft saved %time%")*/ 'content_edit.autosave.status_saved.message.full',
+                { time: saveTime },
+                'content',
+            );
+
+            autosaveStatusSavedNode.innerHTML = saveMessage;
+            setDelayedDraftSavedSimplifiedMessage();
+        };
+        const setDelayedDraftSavedSimplifiedMessage = () => {
+            simplifiedMessageTimeoutId = setTimeout(() => {
+                const savedMessage = Translator.trans(
+                    /*@Desc("Saved")*/ 'content_edit.autosave.status_saved.message.simplified',
+                    {},
+                    'content',
+                );
+
+                autosaveStatusSavedNode.innerHTML = savedMessage;
+                autosave.classList.add('ibexa-autosave--saved-simplified');
+            }, SIMPLIFIED_MESSAGE_TIMEOUT);
+        };
 
         setInterval(() => {
             const formData = new FormData(form);
