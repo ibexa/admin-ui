@@ -1,6 +1,4 @@
 .c-search {
-    background-color: $ibexa-color-light-400;
-
     &__top-bar {
         display: flex;
         align-items: center;
@@ -21,8 +19,11 @@
     &__sidebar {
         display: flex;
         min-width: calculateRem(270px);
-        margin-right: calculateRem(16px);
+        margin-right: calculateRem(24px);
+        padding-bottom: calculateRem(24px);
         border-right: calculateRem(1px) solid $ibexa-color-light;
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
+        border-bottom-right-radius: $ibexa-border-radius;
         background-color: $ibexa-color-white;
     }
 
