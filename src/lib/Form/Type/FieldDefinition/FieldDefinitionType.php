@@ -20,6 +20,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -58,6 +60,10 @@ class FieldDefinitionType extends AbstractType
                 'data_class' => FieldDefinitionData::class,
                 'translation_domain' => 'content_type',
                 'mainLanguageCode' => null,
+                'disable_identifier_field' => false,
+                'disable_required_field' => false,
+                'disable_translatable_field' => false,
+                'disable_remove' => false,
             ])
             ->setDefined(['mainLanguageCode'])
             ->setAllowedTypes('mainLanguageCode', ['null', 'string'])
@@ -91,7 +97,7 @@ class FieldDefinitionType extends AbstractType
                 TextType::class,
                 [
                     'label' => /** @Desc("Identifier") */ 'field_definition.identifier',
-                    'disabled' => $isTranslation,
+                    'disabled' => $options['disable_identifier_field'] || $isTranslation,
                 ]
             )
             ->add(
@@ -105,12 +111,12 @@ class FieldDefinitionType extends AbstractType
             ->add('isRequired', CheckboxType::class, [
                 'required' => false,
                 'label' => /** @Desc("Required") */ 'field_definition.is_required',
-                'disabled' => $isTranslation,
+                'disabled' => $options['disable_required_field'] || $isTranslation,
             ])
             ->add('isTranslatable', CheckboxType::class, [
                 'required' => false,
                 'label' => /** @Desc("Translatable") */ 'field_definition.is_translatable',
-                'disabled' => $isTranslation,
+                'disabled' => $options['disable_translatable_field'] || $isTranslation,
             ])
             ->add(
                 'fieldGroup',
@@ -151,6 +157,11 @@ class FieldDefinitionType extends AbstractType
             // Let fieldType mappers do their jobs to complete the form.
             $this->fieldTypeMapperDispatcher->map($form, $data);
         });
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['disable_remove'] = $options['disable_remove'];
     }
 
     public function getName()
