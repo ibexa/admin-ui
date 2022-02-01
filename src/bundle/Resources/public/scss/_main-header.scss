@@ -61,6 +61,10 @@
         &.ibexa-input--text:not(:focus):placeholder-shown {
             border-color: transparent;
         }
+
+        &::placeholder {
+            color: $ibexa-color-light;
+        }
     }
 
     .ibexa-input-text-wrapper__action-btn--search {
