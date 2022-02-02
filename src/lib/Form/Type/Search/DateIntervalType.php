@@ -16,7 +16,7 @@ class_alias(
 if (false) {
     /**
      * @deprecated since 3.1, to be removed in 3.2.
-     * Use \EzSystems\EzPlatformAdminUi\Form\Type\Date\DateIntervalType instead
+     * Use \Ibexa\AdminUi\Form\Type\Date\DateIntervalType instead
      */
     class DateIntervalType extends \Ibexa\AdminUi\Form\Type\Date\DateIntervalType
     {
