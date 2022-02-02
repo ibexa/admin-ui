@@ -32,6 +32,13 @@
         background-color: $ibexa-color-white;
     }
 
+    &__spinner-wrapper {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
     &__content {
         display: flex;
         overflow: auto;
@@ -39,6 +46,7 @@
         flex-shrink: 1;
         padding: 0 calculateRem(8px);
         background-color: $ibexa-color-white;
+        position: relative;
     }
 
     &__input-wrapper,
