@@ -13,8 +13,8 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStru
 /**
  * Base class for FieldDefinition forms, with corresponding FieldDefinition object.
  *
- * @property \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition $fieldDefinition
- * @property \EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData $contentTypeData
+ * @property \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition $fieldDefinition
+ * @property \Ibexa\AdminUi\Form\Data\ContentTypeData $contentTypeData
  */
 class FieldDefinitionData extends FieldDefinitionUpdateStruct
 {

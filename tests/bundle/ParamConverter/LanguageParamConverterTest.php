@@ -32,7 +32,7 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
     }
 
     /**
-     * @covers \EzSystems\EzPlatformAdminUiBundle\ParamConverter\LanguageParamConverter::apply
+     * @covers \Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter::apply
      *
      * @dataProvider dataProvider
      *
@@ -61,7 +61,7 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
     }
 
     /**
-     * @covers \EzSystems\EzPlatformAdminUiBundle\ParamConverter\LanguageParamConverter::apply
+     * @covers \Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter::apply
      */
     public function testApplyForLanguageCode()
     {
@@ -86,7 +86,7 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
     }
 
     /**
-     * @covers \EzSystems\EzPlatformAdminUiBundle\ParamConverter\LanguageParamConverter::apply
+     * @covers \Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter::apply
      * @dataProvider dataProviderForApplyWithWrongAttribute
      */
     public function testApplyWithWrongAttribute(array $attributes)
@@ -99,7 +99,7 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
     }
 
     /**
-     * @covers \EzSystems\EzPlatformAdminUiBundle\ParamConverter\LanguageParamConverter::apply
+     * @covers \Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter::apply
      */
     public function testApplyWithNonExistingLanguageId()
     {
@@ -125,7 +125,7 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
     }
 
     /**
-     * @covers \EzSystems\EzPlatformAdminUiBundle\ParamConverter\LanguageParamConverter::apply
+     * @covers \Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter::apply
      */
     public function testApplyWithNonExistingLanguageCode()
     {
@@ -151,7 +151,7 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
     }
 
     /**
-     * @covers \EzSystems\EzPlatformAdminUiBundle\ParamConverter\LanguageParamConverter::supports
+     * @covers \Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter::supports
      * @dataProvider dataProviderForSupport
      */
     public function testSupport(string $class, bool $expected)

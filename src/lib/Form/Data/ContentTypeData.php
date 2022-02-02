@@ -13,7 +13,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeUpdateStruct;
 /**
  * Base data class for ContentType update form, with FieldDefinitions data and ContentTypeDraft.
  *
- * @property \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
+ * @property \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
  */
 class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckable
 {
@@ -41,7 +41,7 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
     }
 
     /**
-     * @return iterable<string, \EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData>
+     * @return iterable<string, \Ibexa\AdminUi\Form\Data\FieldDefinitionData>
      */
     public function getFlatFieldDefinitionsData(): iterable
     {

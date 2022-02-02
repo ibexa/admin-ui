@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 class ContentTypeIsUserTest extends TestCase
 {
     /**
-     * @covers \EzSystems\EzPlatformAdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
+     * @covers \Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
      */
     public function testIsSatisfiedByInvalidArgument()
     {
@@ -29,7 +29,7 @@ class ContentTypeIsUserTest extends TestCase
     }
 
     /**
-     * @covers \EzSystems\EzPlatformAdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
+     * @covers \Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
      */
     public function testIsSatisfiedByCustomUserContentType()
     {
@@ -43,7 +43,7 @@ class ContentTypeIsUserTest extends TestCase
     }
 
     /**
-     * @covers \EzSystems\EzPlatformAdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
+     * @covers \Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
      */
     public function testIsSatisfiedByContentTypeWithEzUserField()
     {
@@ -58,7 +58,7 @@ class ContentTypeIsUserTest extends TestCase
     }
 
     /**
-     * @covers \EzSystems\EzPlatformAdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
+     * @covers \Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
      */
     public function testIsSatisfiedByReturnFalse()
     {
