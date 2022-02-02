@@ -12,7 +12,7 @@ final class MediaSubtreeQueryType extends SubtreeQueryType
 {
     public static function getName(): string
     {
-        return 'EzPlatformAdminUi:MediaSubtree';
+        return 'IbexaAdminUi:MediaSubtree';
     }
 
     protected function getSubtreePathFromConfiguration(): string

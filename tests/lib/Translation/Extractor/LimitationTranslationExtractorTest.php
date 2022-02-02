@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Test extracting translation messages for eZ Platform permission system policy map.
+ * Test extracting translation messages for Ibexa permission system policy map.
  */
 class LimitationTranslationExtractorTest extends TestCase
 {

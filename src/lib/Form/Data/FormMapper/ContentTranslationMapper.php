@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ContentTranslationMapper implements FormDataMapperInterface
 {
     /**
-     * Maps a ValueObject from eZ content repository to a data usable as underlying form data (e.g. create/update
+     * Maps a ValueObject from Ibexa content repository to a data usable as underlying form data (e.g. create/update
      * struct).
      *
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content|\Ibexa\Contracts\Core\Repository\Values\ValueObject $content

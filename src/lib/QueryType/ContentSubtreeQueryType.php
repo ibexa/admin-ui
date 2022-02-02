@@ -12,7 +12,7 @@ final class ContentSubtreeQueryType extends SubtreeQueryType
 {
     public static function getName(): string
     {
-        return 'EzPlatformAdminUi:ContentSubtree';
+        return 'IbexaAdminUi:ContentSubtree';
     }
 
     protected function getSubtreePathFromConfiguration(): string
