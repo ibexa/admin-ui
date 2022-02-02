@@ -1,0 +1,27 @@
+{% set wrapper_attr = wrapper_attr|default({})|merge({
+    class: (wrapper_attr.class|default('')
+        ~ ' ibexa-date-time-picker'
+        ~ (inline_flatpickr ? ' ibexa-date-time-picker--inline-flatpickr')
+    )|trim
+}) %}
+
+{% embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: false } %}
+    {% block content %}
+        <input
+            class="
+                ibexa-input ibexa-input--text form-control ibexa-date-time-picker__input flatpickr flatpickr-date-input
+                {{ is_small|default(false) ? 'ibexa-input--small' }}
+            "
+            readonly="readonly"
+            type="text"
+        />
+    {% endblock %}
+    {% block actions %}
+        {{ parent() }}
+        <div class="ibexa-input-text-wrapper__action-btn">
+            <svg class="ibexa-icon ibexa-icon--small">
+                <use xlink:href="{{ ibexa_icon_path('date') }}"></use>
+            </svg>
+        </div>
+    {% endblock %}
+{% endembed %}

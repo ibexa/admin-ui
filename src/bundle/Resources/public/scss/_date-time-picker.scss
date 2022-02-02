@@ -1,0 +1,14 @@
+.ibexa-date-time-picker {
+    max-width: 30ch;
+    position: relative;
+
+    &__input {
+        &[readonly] {
+            background-color: $ibexa-color-white;
+        }
+    }
+
+    .ibexa-input-text-wrapper__actions {
+        top: calculateRem(16px);
+    }
+}
