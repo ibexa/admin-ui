@@ -28,7 +28,7 @@ export default class UploadPopupModule extends Component {
     UNSAFE_componentWillReceiveProps(props) {
         this.setState((state) => {
             const stateItems = state.itemsToUpload.filter(
-                (stateItem) => !props.itemsToUpload.find((propItem) => propItem.id === stateItem.id)
+                (stateItem) => !props.itemsToUpload.find((propItem) => propItem.id === stateItem.id),
             );
 
             return { itemsToUpload: [...stateItems, ...props.itemsToUpload] };
@@ -56,7 +56,7 @@ export default class UploadPopupModule extends Component {
 
         return (
             <div className="c-upload-popup" ref={this.refTooltip}>
-                <TooltipPopup title={title} {...tooltipAttrs}>
+                <TooltipPopup title={title} showFooter={false} {...tooltipAttrs}>
                     <DropAreaComponent
                         onDrop={this.uploadFiles}
                         maxFileSize={this.props.adminUiConfig.multiFileUpload.maxFileSize}

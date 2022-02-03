@@ -32,6 +32,7 @@ const TooltipPopupComponent = (props) => {
                   overflowY: 'scroll',
               };
     const closeLabel = Translator.trans(/*@Desc("Close")*/ 'tooltip.close_label', {}, 'content');
+
     return (
         <div {...attrs}>
             <div className="c-tooltip-popup__header">
@@ -41,18 +42,21 @@ const TooltipPopupComponent = (props) => {
                     title={closeLabel}
                     onClick={props.onClose}
                     tabIndex="-1"
-                    data-tooltip-container-selector=".c-tooltip-popup__header">
+                    data-tooltip-container-selector=".c-tooltip-popup__header"
+                >
                     <Icon name="discard" extraClasses="ibexa-icon--small-medium" />
                 </div>
             </div>
             <div className="c-tooltip-popup__content" ref={contentRef} style={contentStyle}>
                 {props.children}
             </div>
-            <div className="c-tooltip-popup__footer">
-                <button className="btn ibexa-btn ibexa-btn--secondary" onClick={props.onClose}>
-                    {closeLabel}
-                </button>
-            </div>
+            {props.showFooter && (
+                <div className="c-tooltip-popup__footer">
+                    <button className="btn ibexa-btn ibexa-btn--secondary" onClick={props.onClose}>
+                        {closeLabel}
+                    </button>
+                </div>
+            )}
         </div>
     );
 };
@@ -62,10 +66,12 @@ TooltipPopupComponent.propTypes = {
     children: PropTypes.node.isRequired,
     visible: PropTypes.bool.isRequired,
     onClose: PropTypes.func,
+    showFooter: PropTypes.bool,
 };
 
 TooltipPopupComponent.defaultProps = {
     onClose: () => {},
+    showFooter: true,
 };
 
 export default TooltipPopupComponent;
