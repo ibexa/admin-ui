@@ -156,7 +156,7 @@ class ContentViewController extends Controller
     public function locationViewAction(Request $request, ContentView $view): ContentView
     {
         // We should not cache ContentView because we use forms with CSRF tokens in template
-        // JIRA ref: https://jira.ibexa.co/browse/EZP-28190
+        // JIRA ref: https://issues.ibexa.co/browse/EZP-28190
         $view->setCacheEnabled(false);
 
         if (!$view->getContent()->contentInfo->isTrashed()) {
@@ -189,7 +189,7 @@ class ContentViewController extends Controller
     public function embedViewAction(ContentView $view): ContentView
     {
         // We should not cache ContentView because we use forms with CSRF tokens in template
-        // JIRA ref: https://jira.ibexa.co/browse/EZP-28190
+        // JIRA ref: https://issues.ibexa.co/browse/EZP-28190
         $view->setCacheEnabled(false);
 
         $this->supplyPathLocations($view);
