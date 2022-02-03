@@ -21,6 +21,8 @@
             menu.classList.remove(CLASS_EXPANDED);
         }
 
+        doc.body.dispatchEvent(new CustomEvent('ibexa-extra-actions:after-close'));
+
         removeBackdrop();
     };
 
