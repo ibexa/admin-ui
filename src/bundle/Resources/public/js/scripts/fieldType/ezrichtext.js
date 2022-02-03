@@ -49,9 +49,11 @@
             const isEmpty = !this.richtextEditor.getData().length;
             const isError = isRequired && isEmpty;
             const result = { isError };
+
             if (isError) {
                 result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             }
+
             return result;
         }
     }
@@ -67,7 +69,7 @@
             richtextEditor,
             eventsMap: [
                 {
-                    selector: SELECTOR_INPUT,
+                    selector: '.ibexa-data-source__input.ibexa-input--textarea',
                     eventName: 'input',
                     callback: 'validateInput',
                     errorNodeSelectors: [SELECTOR_ERROR_NODE],
