@@ -111,6 +111,7 @@
                 };
                 const extraClass = tooltipNode.dataset.tooltipExtraClass ?? '';
                 const placement = tooltipNode.dataset.tooltipPlacement ?? 'bottom';
+                const trigger = tooltipNode.dataset.tooltipTrigger ?? 'hover focus';
                 const container = tooltipNode.dataset.tooltipContainerSelector
                     ? tooltipNode.closest(tooltipNode.dataset.tooltipContainerSelector)
                     : 'body';
@@ -119,6 +120,7 @@
                 new bootstrap.Tooltip(tooltipNode, {
                     delay,
                     placement,
+                    trigger,
                     container,
                     popperConfig: modifyPopperConfig.bind(null, iframe),
                     html: true,
