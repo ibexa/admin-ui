@@ -1,11 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import ContentTableItem from './content.table.item';
-
 import Pagination from '../../../common/pagination/pagination';
+import { MultipleConfigContext } from '../../universal.discovery.module';
 
 const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPageChange, renderCustomHeader }) => {
+    const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
     const refContentTable = useRef(null);
     const nameLabel = Translator.trans(/*@Desc("Name")*/ 'content_table.name', {}, 'universal_discovery_widget');
     const modifiedLabel = Translator.trans(/*@Desc("Modified")*/ 'content_table.modified', {}, 'universal_discovery_widget');
@@ -33,7 +34,7 @@ const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPa
                 <table className="ibexa-table table">
                     <thead>
                         <tr className="ibexa-table__head-row">
-                            {renderHeaderCell()}
+                            {multiple && renderHeaderCell()}
                             {renderHeaderCell()}
                             {renderHeaderCell(nameLabel)}
                             {renderHeaderCell(modifiedLabel)}
