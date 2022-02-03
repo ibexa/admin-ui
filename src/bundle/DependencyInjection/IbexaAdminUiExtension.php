@@ -162,7 +162,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
      * Looks for Resources/encore/ files in every registered and enabled bundle.
      * Dumps json list of paths to files it finds.
      *
-     * @param string $targetPath Where to put eZ Encore paths configuration file (default: var/encore)
+     * @param string $targetPath Where to put Ibexa Encore paths configuration file (default: var/encore)
      */
     private function dumpConfigurationPathsToFile(
         string $configName,

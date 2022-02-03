@@ -49,7 +49,7 @@ class NotificationTwigStrategy
      *
      * @return string
      *
-     * @throws \EzSystems\Notification\Exception\NoValidResultException
+     * @throws \Ibexa\AdminUi\Exception\NoValidResultException
      */
     public function decide($contentId): string
     {

@@ -32,7 +32,7 @@ class EzPagerfantaView extends DefaultView
      */
     public function getName()
     {
-        return 'ez';
+        return 'ibexa';
     }
 }
 

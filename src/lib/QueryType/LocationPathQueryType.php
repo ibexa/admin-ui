@@ -18,7 +18,7 @@ final class LocationPathQueryType extends OptionsResolverBasedQueryType
 {
     public static function getName(): string
     {
-        return 'EzPlatformAdminUi:LocationPath';
+        return 'IbexaAdminUi:LocationPath';
     }
 
     protected function configureOptions(OptionsResolver $optionsResolver): void

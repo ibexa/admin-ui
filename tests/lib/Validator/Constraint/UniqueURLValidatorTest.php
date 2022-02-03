@@ -54,7 +54,7 @@ class UniqueURLValidatorTest extends TestCase
 
     public function testValid()
     {
-        $url = 'http://ez.no';
+        $url = 'http://ibexa.co';
 
         $this->urlService
             ->expects($this->once())
@@ -75,7 +75,7 @@ class UniqueURLValidatorTest extends TestCase
     public function testInvalid()
     {
         $constraint = new UniqueURL();
-        $url = 'http://ez.no';
+        $url = 'http://ibexa.co';
 
         $this->urlService
             ->expects($this->once())
@@ -119,7 +119,7 @@ class UniqueURLValidatorTest extends TestCase
     public function testEditingIsValid()
     {
         $id = 1;
-        $url = 'http://ez.no';
+        $url = 'http://ibexa.co';
 
         $this->urlService
             ->expects($this->once())

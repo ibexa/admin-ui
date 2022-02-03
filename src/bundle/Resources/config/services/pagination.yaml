@@ -9,7 +9,7 @@ services:
         arguments:
             - '@Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate'
         tags:
-            - { name: 'pagerfanta.view', alias: 'ez' }
+            - { name: 'pagerfanta.view', alias: 'ibexa' }
 
     Ibexa\AdminUi\Pagination\Mapper\AbstractPagerContentToDataMapper:
         abstract: true

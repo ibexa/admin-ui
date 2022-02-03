@@ -55,7 +55,7 @@ final class TrashSearchQueryType extends OptionsResolverBasedQueryType
 
     public static function getName(): string
     {
-        return 'EzPlatformAdminUi:TrashSearchQuery';
+        return 'IbexaAdminUi:TrashSearchQuery';
     }
 
     protected function addCriteria(TrashSearchData $searchData, Query $query): void

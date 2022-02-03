@@ -11,7 +11,7 @@ use Ibexa\Contracts\Core\Repository\Values\Notification\NotificationList;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
- * Pagerfanta adapter for eZ Publish content search.
+ * Pagerfanta adapter for Ibexa content search.
  * Will return results as notification list.
  */
 class NotificationAdapter implements AdapterInterface

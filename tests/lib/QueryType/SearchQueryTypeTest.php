@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
 
 final class SearchQueryTypeTest extends TestCase
 {
-    private const EXPECTED_QUERY_STRING = 'eZ Platform';
+    private const EXPECTED_QUERY_STRING = 'Ibexa';
     private const EXPECTED_SECTION_ID = 2;
     private const EXPECTED_CONTENT_TYPE_IDS = [3, 5, 7];
     private const EXPECTED_USER_ID = 11;

@@ -20,7 +20,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class UserUpdateMapper
 {
     /**
-     * Maps a ValueObject from eZ content repository to a data usable as underlying form data (e.g. create/update struct).
+     * Maps a ValueObject from Ibexa content repository to a data usable as underlying form data (e.g. create/update struct).
      *
      * @param \Ibexa\Contracts\Core\Repository\Values\User\User $user
      * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType

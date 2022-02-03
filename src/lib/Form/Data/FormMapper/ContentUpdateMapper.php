@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ContentUpdateMapper implements FormDataMapperInterface
 {
     /**
-     * Maps a ValueObject from eZ content repository to a data usable as underlying form data (e.g. create/update struct).
+     * Maps a ValueObject from Ibexa content repository to a data usable as underlying form data (e.g. create/update struct).
      *
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content|\Ibexa\Contracts\Core\Repository\Values\ValueObject $contentDraft
      * @param array $params

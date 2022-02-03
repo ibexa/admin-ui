@@ -1,7 +1,7 @@
 @IbexaOSS @IbexaContent @IbexaExperience @IbexaCommerce
 Feature: Roles management
   As an administrator
-  In order to customize my eZ installation
+  In order to customize my Ibexa installation
   I want to manage users Roles.
 
   @javascript
