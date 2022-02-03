@@ -13,6 +13,7 @@ import Filters from '../filters/filters';
 import SearchTags from './search.tags';
 import { useSearchByQueryFetch } from '../../hooks/useSearchByQueryFetch';
 import { AllowedContentTypesContext, SearchTextContext } from '../../universal.discovery.module';
+import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
 const selectedContentTypesReducer = (state, action) => {
     switch (action.type) {
@@ -89,13 +90,7 @@ const Search = ({ itemsPerPage }) => {
         );
     };
     const renderSearchResults = () => {
-        if (isLoading) {
-            return (
-                <div className="c-search__spinner-wrapper">
-                    <Icon name="spinner" extraClasses="ibexa-icon--medium ibexa-spin" />
-                </div>
-            );
-        } else if (data.count) {
+        if (data.count) {
             return (
                 <ContentTable
                     count={data.count}
@@ -153,6 +148,10 @@ const Search = ({ itemsPerPage }) => {
             );
         }
     };
+    const spinnerWrapperClassName = createCssClassNames({
+        'c-search__spinner-wrapper': true,
+        'c-search__spinner-wrapper--show': isLoading,
+    });
 
     useEffect(search, [searchText, offset]);
 
@@ -167,7 +166,12 @@ const Search = ({ itemsPerPage }) => {
                                     <div className="c-search__sidebar">
                                         <Filters isCollapsed={false} search={search} />
                                     </div>
-                                    <div className="c-search__content">{renderSearchResults()}</div>
+                                    <div className="c-search__content">
+                                        <div className={spinnerWrapperClassName}>
+                                            <Icon name="spinner" extraClasses="ibexa-icon--medium ibexa-spin" />
+                                        </div>
+                                        {renderSearchResults()}
+                                    </div>
                                 </div>
                             </SelectedLanguageContext.Provider>
                         </SelectedSubtreeBreadcrumbsContext.Provider>

@@ -25,10 +25,7 @@
         height: 100%;
         min-width: calculateRem(270px);
         margin-right: calculateRem(24px);
-        padding-bottom: calculateRem(24px);
         border-right: calculateRem(1px) solid $ibexa-color-light;
-        border-bottom: calculateRem(1px) solid $ibexa-color-light;
-        border-bottom-right-radius: $ibexa-border-radius;
         background-color: $ibexa-color-white;
     }
 
@@ -37,6 +34,11 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        display: none;
+
+        &--show {
+            display: block;
+        }
     }
 
     &__content {
