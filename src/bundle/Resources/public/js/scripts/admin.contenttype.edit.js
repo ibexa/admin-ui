@@ -52,7 +52,7 @@
     };
     const removeDragPlaceholders = () => {
         const placeholderNodes = doc.querySelectorAll(
-            '.ibexa-field-definitions-placeholder:not(.ibexa-field-definitions-placeholder--anchored)'
+            '.ibexa-field-definitions-placeholder:not(.ibexa-field-definitions-placeholder--anchored)',
         );
 
         placeholderNodes.forEach((placeholderNode) => placeholderNode.remove());
@@ -92,7 +92,7 @@
         doc.body.dispatchEvent(
             new CustomEvent('ibexa-drop-field-definition', {
                 detail: { nodes: [fieldNode] },
-            })
+            }),
         );
 
         const dropdowns = fieldNode.querySelectorAll('.ibexa-dropdown');
@@ -196,7 +196,7 @@
         insertFieldDefinitionNode(currentDraggedItem);
 
         const fieldsOrder = [...doc.querySelectorAll('.ibexa-collapse--field-definition')].map(
-            (fieldDefinition) => fieldDefinition.dataset.fieldDefinitionIdentifier
+            (fieldDefinition) => fieldDefinition.dataset.fieldDefinitionIdentifier,
         );
         const bodyData = {
             FieldDefinitionReorder: {
@@ -217,7 +217,7 @@
 
         const collapseNode = event.currentTarget.closest('.ibexa-collapse');
         const fieldsToDelete = [...collapseNode.querySelectorAll('.ibexa-collapse--field-definition')].map(
-            (fieldDefinition) => fieldDefinition.dataset.fieldDefinitionIdentifier
+            (fieldDefinition) => fieldDefinition.dataset.fieldDefinitionIdentifier,
         );
         const bodyData = {
             FieldDefinitionDelete: {
@@ -259,10 +259,10 @@
             targetContainer = event.currentTarget;
 
             const dragContainerItems = targetContainer.querySelectorAll(
-                '.ibexa-collapse--field-definition, .ibexa-field-definitions-placeholder:not(.ibexa-field-definitions-placeholder--anchored)'
+                '.ibexa-collapse--field-definition, .ibexa-field-definitions-placeholder:not(.ibexa-field-definitions-placeholder--anchored)',
             );
             const currentActiveGroup = doc.querySelector(
-                '.ibexa-collapse--field-definitions-group.ibexa-collapse--active-field-definitions-group'
+                '.ibexa-collapse--field-definitions-group.ibexa-collapse--active-field-definitions-group',
             );
             const targetContainerGroup = targetContainer.closest('.ibexa-collapse--field-definitions-group');
 
@@ -297,6 +297,12 @@
     filterFieldInput.addEventListener('keyup', searchField, false);
     filterFieldInput.addEventListener('input', searchField, false);
 
+    const firstFieldDefinitionsGroupContent = doc.querySelector('.ibexa-content-type-edit__section .ibexa-field-definitions-group-content');
+
+    if (firstFieldDefinitionsGroupContent) {
+        firstFieldDefinitionsGroupContent.classList.add('ibexa-collapse--active-field-definitions-group');
+    }
+
     doc.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions').forEach((removeFieldDefinitionsButton) => {
         removeFieldDefinitionsButton.addEventListener('click', removeField, false);
     });
@@ -308,7 +314,7 @@
 
             removeFieldDefinitionsGroupButton.toggleAttribute('disabled', groupFieldsDefinitionCount > 0);
             removeFieldDefinitionsGroupButton.addEventListener('click', removeFieldsGroup, false);
-        }
+        },
     );
 
     doc.querySelectorAll('.ibexa-available-field-types__list .ibexa-available-field-type').forEach((availableField) => {
@@ -319,20 +325,20 @@
                 sourceContainer = currentDraggedItem.parentNode;
                 currentDraggedItem.classList.add('ibexa-available-field-type--is-dragging-out');
             },
-            false
+            false,
         );
         availableField.addEventListener(
             'dragend',
             () => {
                 currentDraggedItem.classList.remove('ibexa-available-field-type--is-dragging-out');
             },
-            false
+            false,
         );
         availableField.addEventListener(
             'click',
             (event) => {
                 const activeTargetContainer = doc.querySelector(
-                    '.ibexa-collapse--field-definitions-group.ibexa-collapse--active-field-definitions-group .ibexa-content-type-edit__field-definition-drop-zone'
+                    '.ibexa-collapse--field-definitions-group.ibexa-collapse--active-field-definitions-group .ibexa-content-type-edit__field-definition-drop-zone',
                 );
 
                 if (!activeTargetContainer) {
@@ -346,7 +352,7 @@
 
                 addField();
             },
-            false
+            false,
         );
     });
     doc.querySelectorAll('.ibexa-content-type-edit__field-definition-drop-zone').forEach((collapseCotentNode) => {
@@ -373,10 +379,10 @@
                 Translator.trans(
                     /*@Desc("You have to add at least one field definition")*/ 'content_type.edit.error.no_added_fields_definition',
                     {},
-                    'content_type'
-                )
+                    'content_type',
+                ),
             );
         },
-        false
+        false,
     );
 })(window, window.document, window.ibexa, window.Routing, window.Translator);
