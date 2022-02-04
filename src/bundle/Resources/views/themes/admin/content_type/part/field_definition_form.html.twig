@@ -11,7 +11,7 @@
 
 {%- embed "@ibexadesign/ui/component/collapse.html.twig" with {
     'body_id': form.vars.id ~ '_collapse',
-    'header_label': name,
+    'header_label': '%s (%s)'|format(name, value.fieldDefinition.fieldTypeIdentifier),
     'is_expanded': false,
     'is_draggable': true,
     'class': 'ibexa-collapse--field-definition ibexa-field-definition-' ~ form.identifier.vars.value,
