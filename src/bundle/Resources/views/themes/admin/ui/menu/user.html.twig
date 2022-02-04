@@ -16,13 +16,9 @@
             <span class="ibexa-header-user-menu__notice-dot ibexa-header-user-menu__notice-dot--no-notice"></span>
         </div>
         <button class="ibexa-header-user-menu__toggler">
-            {% if user_image.resource is same as("/bundles/ibexaicons/img/all-icons.svg#user") %}
-                {% set user_name_array = user.name|split(' ') %}
-                {% set user_initials = user_name_array|reduce((initials, name) => initials ~ name|first|upper) %}
-
+            {% if user_image.mimeType == "image/svg+xml" %}
                 <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
-                    <ellipse ry="15" rx="15" cy="16" cx="16" fill="#0ee7f6"/>
-                    <text x="5" y="22" font-size="16px" fill="#ae1164">{{ user_initials }}</text>
+                    <use xlink:href="{{ user_image.resource }}"></use>
                 </svg>
             {% else %}
                 <img
