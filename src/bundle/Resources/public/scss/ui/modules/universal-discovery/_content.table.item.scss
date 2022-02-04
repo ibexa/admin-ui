@@ -2,7 +2,7 @@
     cursor: pointer;
 
     .ibexa-table__cell.ibexa-table__cell {
-        border: calculateRem(2px) solid transparent;
+        border: calculateRem(1px) solid transparent;
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
         &:not(:first-child) {
@@ -20,7 +20,7 @@
         box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info, 0.05);
 
         .ibexa-table__cell.ibexa-table__cell {
-            border-color: $ibexa-color-light;
+            border-color: $ibexa-color-info;
             background-color: $ibexa-color-white;
         }
     }
