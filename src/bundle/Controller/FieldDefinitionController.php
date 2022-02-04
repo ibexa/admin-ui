@@ -58,7 +58,7 @@ final class FieldDefinitionController extends RestController
 
         $fieldDefinitionCreateStruct->fieldGroup = $input->fieldGroupIdentifier;
         $fieldDefinitionCreateStruct->names = [
-            $language->languageCode => "New field type",
+            $language->languageCode => 'New field type',
         ];
 
         if (!$contentTypeDraft->fieldDefinitions->isEmpty()) {
