@@ -871,6 +871,31 @@
         <target>State / Assign</target>
         <note>key: role.policy.state.assign</note>
       </trans-unit>
+      <trans-unit id="09e66e3a8de58ced5f11c3a3dc13d67d34161649" resname="role.policy.taxonomy">
+        <source>Taxonomy</source>
+        <target>Taxonomy</target>
+        <note>key: role.policy.taxonomy</note>
+      </trans-unit>
+      <trans-unit id="23e2b7f5cc00d969e8cbef26811936db1f81f87f" resname="role.policy.taxonomy.all_functions">
+        <source>Taxonomy / All functions</source>
+        <target>Taxonomy / All functions</target>
+        <note>key: role.policy.taxonomy.all_functions</note>
+      </trans-unit>
+      <trans-unit id="6c2f7edbbe16af3e02ebfb408e93437c3f8866c9" resname="role.policy.taxonomy.assign">
+        <source>Taxonomy / Assign</source>
+        <target>Taxonomy / Assign</target>
+        <note>key: role.policy.taxonomy.assign</note>
+      </trans-unit>
+      <trans-unit id="5b13c93c0cef722a74869da8c9812912d428d013" resname="role.policy.taxonomy.manage">
+        <source>Taxonomy / Manage</source>
+        <target>Taxonomy / Manage</target>
+        <note>key: role.policy.taxonomy.manage</note>
+      </trans-unit>
+      <trans-unit id="c18671d83b75ebd3906cd49041ec70414a0ba455" resname="role.policy.taxonomy.read">
+        <source>Taxonomy / Read</source>
+        <target>Taxonomy / Read</target>
+        <note>key: role.policy.taxonomy.read</note>
+      </trans-unit>
       <trans-unit id="d3c70d265ab037db5ade02a8b738b5981353c7ac" resname="role.policy.type">
         <source>Policy</source>
         <target state="new">Policy</target>

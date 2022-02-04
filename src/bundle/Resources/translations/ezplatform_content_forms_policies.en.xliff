@@ -106,6 +106,11 @@
         <target>Subtree</target>
         <note>key: policy.limitation.identifier.subtree</note>
       </trans-unit>
+      <trans-unit id="2a8670e5f91ad9a4cc0650d51c51afc8bd517494" resname="policy.limitation.identifier.taxonomy">
+        <source>Taxonomy</source>
+        <target>Taxonomy</target>
+        <note>key: policy.limitation.identifier.taxonomy</note>
+      </trans-unit>
       <trans-unit id="ae8d9836b92dd7d303929104953d877fa9c14fed" resname="policy.limitation.identifier.versionlock">
         <source>VersionLock</source>
         <target>VersionLock</target>
