@@ -8,7 +8,7 @@ import { TabsConfigContext } from './universal.discovery.module';
 const SearchTabModule = () => {
     const tabsConfig = useContext(TabsConfigContext);
     const actionsDisabledMap = {
-        'content-create-button': true,
+        'content-create-button': false,
         'sort-switcher': true,
         'view-switcher': true,
     };
