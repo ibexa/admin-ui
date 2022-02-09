@@ -1,12 +1,5 @@
 (function(global, doc) {
-    const sourceInput = doc.querySelector('[data-autogenerate-identifier-target-selector]');
-
-    if (!sourceInput) {
-        return false;
-    }
-
-    const { autogenerateIdentifierTargetSelector } = sourceInput.dataset;
-    const targetInput = doc.querySelector(autogenerateIdentifierTargetSelector);
+    const sourceInputs = doc.querySelectorAll('[data-autogenerate-identifier-target-selector]');
     const slugify = (text) => {
         const lowercaseText = text.toLowerCase();
         const normalizedText = lowercaseText.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -18,19 +11,23 @@
 
         return noMultiHyphenText;
     };
-    let shouldAutogenerateIdentifier = !targetInput.value;
 
-    targetInput.addEventListener('keyup', (event) => {
-        shouldAutogenerateIdentifier = event.currentTarget.value === '';
-    });
+    sourceInputs.forEach((sourceInput) => {
+        const { autogenerateIdentifierTargetSelector } = sourceInput.dataset;
+        const targetInput = doc.querySelector(autogenerateIdentifierTargetSelector);
+        let shouldAutogenerateIdentifier = !targetInput.value;
 
-    sourceInput.addEventListener('keyup', (event) => {
-        if (shouldAutogenerateIdentifier) {
-            const slugValue = slugify(event.currentTarget.value);
+        targetInput.addEventListener('keyup', (event) => {
+            shouldAutogenerateIdentifier = event.currentTarget.value === '';
+        });
 
-            targetInput.value = slugValue;
+        sourceInput.addEventListener('keyup', (event) => {
+            if (shouldAutogenerateIdentifier) {
+                const slugValue = slugify(event.currentTarget.value);
 
-            targetInput.dispatchEvent(new Event('blur'));
-        }
+                targetInput.value = slugValue;
+                targetInput.dispatchEvent(new Event('blur'));
+            }
+        });
     });
 })(window, document);
