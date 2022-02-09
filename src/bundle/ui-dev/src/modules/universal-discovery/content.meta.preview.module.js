@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useMemo, useState, useRef } from 'react';
 
 import Icon from '../common/icon/icon';
 import Thumbnail from '../common/thumbnail/thumbnail';
+import { createCssClassNames } from '../common/helpers/css.class.names';
 import ContentEditButton from './components/content-edit-button/content.edit.button';
 
 import { addBookmark, removeBookmark } from './services/universal.discovery.service';
@@ -27,17 +28,21 @@ const ContentMetaPreview = () => {
     const allowRedirects = useContext(AllowRedirectsContext);
     const { formatShortDateTime } = window.ibexa.helpers.timezone;
     const locationData = useMemo(() => getLocationData(loadedLocationsMap, markedLocationId), [markedLocationId, loadedLocationsMap]);
+    const lastModifiedLabel = Translator.trans(/*@Desc("Last modified")*/ 'meta_preview.last_modified', {}, 'universal_discovery_widget');
+    const creationDateLabel = Translator.trans(/*@Desc("Created")*/ 'meta_preview.creation_date', {}, 'universal_discovery_widget');
+    const translationsLabel = Translator.trans(/*@Desc("Translations")*/ 'meta_preview.translations', {}, 'universal_discovery_widget');
 
     useEffect(() => {
         window.ibexa.helpers.tooltips.parse(refContentMetaPreview.current);
     });
 
-    if (!locationData || !locationData.location || !locationData.version || markedLocationId === 1) {
+    if (!markedLocationId || markedLocationId === 1) {
         return null;
     }
 
     const { bookmarked, location, version, permissions } = locationData;
     const bookmarkIconName = bookmarked ? 'bookmark-active' : 'bookmark';
+    const isLocationDataLoaded = !!(locationData && locationData.location && locationData.version);
     const toggleBookmarked = () => {
         const toggleBookmark = bookmarked ? removeBookmark : addBookmark;
 
@@ -94,50 +99,71 @@ const ContentMetaPreview = () => {
             </div>
         );
     };
-    const lastModifiedLabel = Translator.trans(/*@Desc("Last modified")*/ 'meta_preview.last_modified', {}, 'universal_discovery_widget');
-    const creationDateLabel = Translator.trans(/*@Desc("Created")*/ 'meta_preview.creation_date', {}, 'universal_discovery_widget');
-    const translationsLabel = Translator.trans(/*@Desc("Translations")*/ 'meta_preview.translations', {}, 'universal_discovery_widget');
+    const renderMetaPreviewLoadingSpinner = () => {
+        const spinnerClassName = createCssClassNames({
+            'c-content-meta-preview__loading-spinner': true,
+            'c-content-meta-preview__loading-spinner--hidden': isLocationDataLoaded
+        });
+
+        return (
+            <div className={spinnerClassName}>
+                <Icon name="spinner" extraClasses="ibexa-icon--medium ibexa-spin" />
+            </div>
+        );
+    };
+    const renderMetaPreview = () => {
+        if (!isLocationDataLoaded) {
+            return;
+        }
+
+        return (
+            <>
+                <div className="c-content-meta-preview__preview">
+                    <Thumbnail thumbnailData={version.Thumbnail} iconExtraClasses="ibexa-icon--extra-large" />
+                </div>
+                {renderActions()}
+                <div className="c-content-meta-preview__header">
+                    <span className="c-content-meta-preview__content-name">{location.ContentInfo.Content.TranslatedName}</span>
+                </div>
+                <div className="c-content-meta-preview__info">
+                    <div className="c-content-meta-preview__content-type-name">
+                        {contentTypesMap[location.ContentInfo.Content.ContentType._href].name}
+                    </div>
+                    <div className="c-content-meta-preview__details">
+                        <div className="c-content-meta-preview__details-item">
+                            <div className="c-content-meta-preview__details-item-row">{lastModifiedLabel}</div>
+                            <div className="c-content-meta-preview__details-item-row">
+                                {formatShortDateTime(new Date(location.ContentInfo.Content.lastModificationDate))}
+                            </div>
+                        </div>
+                        <div className="c-content-meta-preview__details-item">
+                            <div className="c-content-meta-preview__details-item-row">{creationDateLabel}</div>
+                            <div className="c-content-meta-preview__details-item-row">
+                                {formatShortDateTime(new Date(location.ContentInfo.Content.publishedDate))}
+                            </div>
+                        </div>
+                        <div className="c-content-meta-preview__details-item">
+                            <div className="c-content-meta-preview__details-item-row">{translationsLabel}</div>
+                            <div className="c-content-meta-preview__details-item-row c-content-meta-preview__translations-wrapper">
+                                {version.VersionInfo.languageCodes.split(',').map((languageCode) => {
+                                    return (
+                                        <span key={languageCode} className="c-content-meta-preview__translation">
+                                            {window.ibexa.adminUiConfig.languages.mappings[languageCode].name}
+                                        </span>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
+    };
 
     return (
         <div className="c-content-meta-preview" ref={refContentMetaPreview}>
-            <div className="c-content-meta-preview__preview">
-                <Thumbnail thumbnailData={version.Thumbnail} iconExtraClasses="ibexa-icon--extra-large" />
-            </div>
-            {renderActions()}
-            <div className="c-content-meta-preview__header">
-                <span className="c-content-meta-preview__content-name">{location.ContentInfo.Content.TranslatedName}</span>
-            </div>
-            <div className="c-content-meta-preview__info">
-                <div className="c-content-meta-preview__content-type-name">
-                    {contentTypesMap[location.ContentInfo.Content.ContentType._href].name}
-                </div>
-                <div className="c-content-meta-preview__details">
-                    <div className="c-content-meta-preview__details-item">
-                        <div className="c-content-meta-preview__details-item-row">{lastModifiedLabel}</div>
-                        <div className="c-content-meta-preview__details-item-row">
-                            {formatShortDateTime(new Date(location.ContentInfo.Content.lastModificationDate))}
-                        </div>
-                    </div>
-                    <div className="c-content-meta-preview__details-item">
-                        <div className="c-content-meta-preview__details-item-row">{creationDateLabel}</div>
-                        <div className="c-content-meta-preview__details-item-row">
-                            {formatShortDateTime(new Date(location.ContentInfo.Content.publishedDate))}
-                        </div>
-                    </div>
-                    <div className="c-content-meta-preview__details-item">
-                        <div className="c-content-meta-preview__details-item-row">{translationsLabel}</div>
-                        <div className="c-content-meta-preview__details-item-row c-content-meta-preview__translations-wrapper">
-                            {version.VersionInfo.languageCodes.split(',').map((languageCode) => {
-                                return (
-                                    <span key={languageCode} className="c-content-meta-preview__translation">
-                                        {window.ibexa.adminUiConfig.languages.mappings[languageCode].name}
-                                    </span>
-                                );
-                            })}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {renderMetaPreviewLoadingSpinner()}
+            {renderMetaPreview()}
         </div>
     );
 };
