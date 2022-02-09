@@ -6,6 +6,8 @@
             container: dropdownContainer,
         });
 
+        dropdownContainer.instance = dropdown;
+
         dropdown.init();
     });
 })(window, window.document, window.ibexa);

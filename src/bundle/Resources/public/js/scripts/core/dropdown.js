@@ -63,6 +63,8 @@
             this.onPopoverShow = this.onPopoverShow.bind(this);
             this.onPopoverHide = this.onPopoverHide.bind(this);
             this.itemsPopoverContent = this.itemsPopoverContent.bind(this);
+
+            ibexa.helpers.objectInstances.set(this.container, this);
         }
 
         createSelectedItem(value, label) {
