@@ -42,11 +42,18 @@
         return {
             label,
             relatedButtonId,
+            disabled: button.disabled,
         };
     });
 
     popupMenu.generateItems(popupItemsToGenerate, (itemElement, item) => {
+        const itemContentElement = itemElement.querySelector('.ibexa-popup-menu__item-content');
+
         itemElement.dataset.relatedButtonId = item.relatedButtonId;
+
+        if(item.disabled) {
+            itemContentElement.classList.add('ibexa-popup-menu__item-content--disabled');
+        }
     });
 
     adaptiveItems.adapt();
