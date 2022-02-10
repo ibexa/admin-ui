@@ -72,7 +72,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
                     'policy_create' => 'ibexa.policy.create',
                     'policy_create_with_limitation' => 'ibexa.policy.create_with_limitation',
                 ],
-                'orderNumber' => 30,
+                'orderNumber' => 20,
             ],
         ],
         self::ITEM_ADMIN__LANGUAGES => [
@@ -124,7 +124,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
                     'link_manager_view' => 'ibexa.link_manager.view',
                     'url_wildcard_edit' => 'ibexa.url_wildcard.update',
                 ],
-                'orderNumber' => 80,
+                'orderNumber' => 30,
             ],
         ],
     ];
@@ -343,7 +343,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             [
                 'label' => self::ITEM_ADMIN__USERS,
                 'extras' => [
-                    'orderNumber' => 60,
+                    'orderNumber' => 10,
                 ],
             ]
         );
