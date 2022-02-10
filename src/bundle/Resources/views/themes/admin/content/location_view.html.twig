@@ -16,7 +16,8 @@
 {% block body_class %}ibexa-content-view{% endblock %}
 
 {% block content_tree %}
-    {% set content_tree_width = app.request.cookies.get('ibexa-tb-ibexa-content-tree-container-width') %}
+    {% set container_width_cookie = 'ibexa-tb-ibexa-content-tree-%d-container-width'|format(ibexa_admin_ui_config.user.user.id) %}
+    {% set content_tree_width = app.request.cookies.get(container_width_cookie) %}
     {% set content_tree_width_style = "width: #{content_tree_width}px;" %}
 
     <div class="ibexa-content-tree-container"
