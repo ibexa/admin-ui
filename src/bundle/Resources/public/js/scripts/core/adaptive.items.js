@@ -23,6 +23,7 @@
         }
 
         init() {
+            this.adapt();
             this.containerResizeObserver.observe(this.container);
         }
 
