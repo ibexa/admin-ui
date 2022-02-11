@@ -21,6 +21,10 @@
             shouldAutogenerateIdentifier = event.currentTarget.value === '';
         });
 
+        targetInput.addEventListener('input', (event) => {
+            shouldAutogenerateIdentifier = event.currentTarget.value === '';
+        });
+
         sourceInput.addEventListener('keyup', (event) => {
             if (shouldAutogenerateIdentifier) {
                 const slugValue = slugify(event.currentTarget.value);
