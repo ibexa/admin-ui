@@ -55,6 +55,7 @@ export default class SubItemsModule extends Component {
         this.resizeSubItems = this.resizeSubItems.bind(this);
 
         this._refListViewWrapper = React.createRef();
+        this._refMainContainerWrapper = React.createRef();
         this.bulkActionModalContainer = null;
         this.udwContainer = null;
 
@@ -86,8 +87,19 @@ export default class SubItemsModule extends Component {
         this.bulkActionModalContainer = document.createElement('div');
         this.bulkActionModalContainer.classList.add('m-sub-items__bulk-action-modal-container');
         document.body.appendChild(this.bulkActionModalContainer);
-        document.body.addEventListener('ibexa-content-resized', this.resizeSubItems, false);
-        window.addEventListener('resize', this.resizeSubItems, false);
+
+        let animationFrame = null;
+        const containerResizeObserver = new ResizeObserver(() => {
+            if (animationFrame) {
+                window.cancelAnimationFrame(animationFrame);
+            }
+
+            animationFrame = window.requestAnimationFrame(() => {
+                this.resizeSubItems();
+            });
+        });
+
+        containerResizeObserver.observe(this._refMainContainerWrapper.current);
 
         if (!this.state.activePageItems) {
             this.loadPage(0);
@@ -1265,34 +1277,36 @@ export default class SubItemsModule extends Component {
         }
 
         return (
-            <div className="m-sub-items" style={{ width: `${subItemsWidth}px` }}>
-                <div className="ibexa-table-header ">
-                    <div className="ibexa-table-header__headline">
-                        {listTitle} ({this.state.totalCount})
+            <div ref={this._refMainContainerWrapper}>
+                <div className="m-sub-items" style={{ width: `${subItemsWidth}px` }}>
+                    <div className="ibexa-table-header ">
+                        <div className="ibexa-table-header__headline">
+                            {listTitle} ({this.state.totalCount})
+                        </div>
+                        <div className="ibexa-table-header__actions">
+                            {this.props.extraActions.map(this.renderExtraActions)}
+                            {this.renderBulkMoveBtn(bulkBtnDisabled)}
+                            {this.renderBulkAddLocationBtn(bulkBtnDisabled)}
+                            {this.renderBulkHideBtn(bulkHideBtnDisabled)}
+                            {this.renderBulkUnhideBtn(bulkUnhideBtnDisabled)}
+                            {this.renderBulkDeleteBtn(bulkBtnDisabled)}
+                            <ViewSwitcherComponent onViewChange={this.switchView} activeView={activeView} isDisabled={!totalCount} />
+                        </div>
                     </div>
-                    <div className="ibexa-table-header__actions">
-                        {this.props.extraActions.map(this.renderExtraActions)}
-                        {this.renderBulkMoveBtn(bulkBtnDisabled)}
-                        {this.renderBulkAddLocationBtn(bulkBtnDisabled)}
-                        {this.renderBulkHideBtn(bulkHideBtnDisabled)}
-                        {this.renderBulkUnhideBtn(bulkUnhideBtnDisabled)}
-                        {this.renderBulkDeleteBtn(bulkBtnDisabled)}
-                        <ViewSwitcherComponent onViewChange={this.switchView} activeView={activeView} isDisabled={!totalCount} />
+                    <div ref={this._refListViewWrapper} className={listClassName}>
+                        {this.renderSpinner()}
+                        {this.renderListView()}
+                        {this.renderNoItems()}
                     </div>
+                    <div className="m-sub-items__pagination-container ibexa-pagination">
+                        {this.renderPaginationInfo()}
+                        {this.renderPagination()}
+                    </div>
+                    {this.renderUdw()}
+                    {this.renderDeleteConfirmationPopup()}
+                    {this.renderHideConfirmationPopup()}
+                    {this.renderUnhideConfirmationPopup()}
                 </div>
-                <div ref={this._refListViewWrapper} className={listClassName}>
-                    {this.renderSpinner()}
-                    {this.renderListView()}
-                    {this.renderNoItems()}
-                </div>
-                <div className="m-sub-items__pagination-container ibexa-pagination">
-                    {this.renderPaginationInfo()}
-                    {this.renderPagination()}
-                </div>
-                {this.renderUdw()}
-                {this.renderDeleteConfirmationPopup()}
-                {this.renderHideConfirmationPopup()}
-                {this.renderUnhideConfirmationPopup()}
             </div>
         );
     }
