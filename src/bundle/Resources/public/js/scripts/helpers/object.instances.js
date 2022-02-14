@@ -1,17 +1,17 @@
 (function(global, doc, ibexa) {
-    const set = (domElement, instance) => {
+    const setInstance = (domElement, instance) => {
         domElement.ibexaInstance = instance;
     }
-    const get = (domElement) => {
+    const getInstance = (domElement) => {
         if (!domElement.ibexaInstance) {
-            throw new Error('This DOM element doesn\'t have any object instance associated');
+            return undefined;
         }
 
         return domElement.ibexaInstance;
     }
 
     ibexa.addConfig('helpers.objectInstances', {
-        set,
-        get,
+        setInstance,
+        getInstance,
     });
 })(window, window.document, window.ibexa);
