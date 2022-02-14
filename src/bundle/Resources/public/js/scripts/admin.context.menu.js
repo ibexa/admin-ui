@@ -51,7 +51,7 @@
 
         itemElement.dataset.relatedButtonId = item.relatedButtonId;
 
-        if(item.disabled) {
+        if (item.disabled) {
             itemContentElement.classList.add('ibexa-popup-menu__item-content--disabled');
         }
     });
