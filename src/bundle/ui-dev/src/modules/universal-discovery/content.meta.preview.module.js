@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useMemo, useState, useRef } from 'react';
 
 import Icon from '../common/icon/icon';
 import Thumbnail from '../common/thumbnail/thumbnail';
+import { createCssClassNames } from '../common/helpers/css.class.names';
 import ContentEditButton from './components/content-edit-button/content.edit.button';
 
 import { addBookmark, removeBookmark } from './services/universal.discovery.service';
@@ -18,7 +19,7 @@ export const getLocationData = (loadedLocationsMap, markedLocationId) =>
     (loadedLocationsMap.length &&
         loadedLocationsMap[loadedLocationsMap.length - 1].subitems.find((subitem) => subitem.location.id === markedLocationId));
 
-const ContentMetaPreview = () => {
+const ContentMetaPreview = (props) => {
     const refContentMetaPreview = useRef(null);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
@@ -27,9 +28,14 @@ const ContentMetaPreview = () => {
     const allowRedirects = useContext(AllowRedirectsContext);
     const { formatShortDateTime } = window.ibexa.helpers.timezone;
     const locationData = useMemo(() => getLocationData(loadedLocationsMap, markedLocationId), [markedLocationId, loadedLocationsMap]);
+    const lastModifiedLabel = Translator.trans(/*@Desc("Last modified")*/ 'meta_preview.last_modified', {}, 'universal_discovery_widget');
+    const creationDateLabel = Translator.trans(/*@Desc("Created")*/ 'meta_preview.creation_date', {}, 'universal_discovery_widget');
+    const translationsLabel = Translator.trans(/*@Desc("Translations")*/ 'meta_preview.translations', {}, 'universal_discovery_widget');
 
     useEffect(() => {
         window.ibexa.helpers.tooltips.parse(refContentMetaPreview.current);
+
+        
     });
 
     if (!markedLocationId || markedLocationId === 1) {
@@ -95,12 +101,14 @@ const ContentMetaPreview = () => {
         );
     };
     const renderMetaPreviewLoadingSpinner = () => {
-        if (locationData && locationData.location && locationData.version) {
-            return;
-        }
+        const isSpinnerVisible = !locationData || !locationData.location || !locationData.version;
+        const spinnerClassName = createCssClassNames({
+            'c-content-meta-preview__loading-spinner': true,
+            'c-content-meta-preview__loading-spinner--hidden': !isSpinnerVisible
+        });
 
         return (
-            <div className="c-content-meta-preview__loading-spinner">
+            <div className={spinnerClassName}>
                 <Icon name="spinner" extraClasses="ibexa-icon--medium ibexa-spin" />
             </div>
         );
@@ -153,9 +161,6 @@ const ContentMetaPreview = () => {
             </>
         );
     };
-    const lastModifiedLabel = Translator.trans(/*@Desc("Last modified")*/ 'meta_preview.last_modified', {}, 'universal_discovery_widget');
-    const creationDateLabel = Translator.trans(/*@Desc("Created")*/ 'meta_preview.creation_date', {}, 'universal_discovery_widget');
-    const translationsLabel = Translator.trans(/*@Desc("Translations")*/ 'meta_preview.translations', {}, 'universal_discovery_widget');
 
     return (
         <div className="c-content-meta-preview" ref={refContentMetaPreview}>
