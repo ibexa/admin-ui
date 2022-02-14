@@ -19,7 +19,7 @@ export const getLocationData = (loadedLocationsMap, markedLocationId) =>
     (loadedLocationsMap.length &&
         loadedLocationsMap[loadedLocationsMap.length - 1].subitems.find((subitem) => subitem.location.id === markedLocationId));
 
-const ContentMetaPreview = (props) => {
+const ContentMetaPreview = () => {
     const refContentMetaPreview = useRef(null);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
@@ -34,8 +34,6 @@ const ContentMetaPreview = (props) => {
 
     useEffect(() => {
         window.ibexa.helpers.tooltips.parse(refContentMetaPreview.current);
-
-        
     });
 
     if (!markedLocationId || markedLocationId === 1) {
