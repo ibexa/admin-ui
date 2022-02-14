@@ -46,6 +46,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/core/collapse.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.dropdown.js'),
     path.resolve(__dirname, '../public/js/scripts/double.click.mark.js'),
+    path.resolve(__dirname, '../public/js/scripts/autogenerate.identifier.js'),
 ];
 const fieldTypes = [];
 
