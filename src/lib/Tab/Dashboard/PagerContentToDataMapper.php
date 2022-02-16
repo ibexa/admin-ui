@@ -6,40 +6,40 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\Dashboard;
+namespace Ibexa\AdminUi\Tab\Dashboard;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\Core\Helper\TranslationHelper;
-use eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
-use eZ\Publish\Core\Repository\LocationResolver\LocationResolver;
-use EzSystems\EzPlatformAdminUi\Pagination\Mapper\AbstractPagerContentToDataMapper;
+use Ibexa\AdminUi\Pagination\Mapper\AbstractPagerContentToDataMapper;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Core\Helper\TranslationHelper;
+use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
+use Ibexa\Core\Repository\LocationResolver\LocationResolver;
 use Pagerfanta\Pagerfanta;
 
 class PagerContentToDataMapper extends AbstractPagerContentToDataMapper
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     protected $contentService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     protected $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     protected $userService;
 
-    /** @var \eZ\Publish\Core\Repository\LocationResolver\LocationResolver */
+    /** @var \Ibexa\Core\Repository\LocationResolver\LocationResolver */
     protected $locationResolver;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
-     * @param \eZ\Publish\API\Repository\UserService $userService
-     * @param \eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
-     * @param \eZ\Publish\Core\Helper\TranslationHelper $translationHelper
-     * @param \eZ\Publish\API\Repository\LanguageService $languageService
-     * @param \eZ\Publish\Core\Repository\LocationResolver\LocationResolver $locationResolver
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
+     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
+     * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
+     * @param \Ibexa\Core\Helper\TranslationHelper $translationHelper
+     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
+     * @param \Ibexa\Core\Repository\LocationResolver\LocationResolver $locationResolver
      */
     public function __construct(
         ContentService $contentService,
@@ -69,9 +69,9 @@ class PagerContentToDataMapper extends AbstractPagerContentToDataMapper
      *
      * @return array
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function map(Pagerfanta $pager): array
     {
@@ -79,7 +79,7 @@ class PagerContentToDataMapper extends AbstractPagerContentToDataMapper
         $contentTypeIds = [];
 
         foreach ($pager as $content) {
-            /** @var \eZ\Publish\API\Repository\Values\Content\Content $content */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
             $contentInfo = $content->contentInfo;
 
             $contentTypeIds[] = $contentInfo->contentTypeId;
@@ -105,3 +105,5 @@ class PagerContentToDataMapper extends AbstractPagerContentToDataMapper
         return $data;
     }
 }
+
+class_alias(PagerContentToDataMapper::class, 'EzSystems\EzPlatformAdminUi\Tab\Dashboard\PagerContentToDataMapper');

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import ToggleSelectionButton from '../toggle-selection-button/toggle.selection.button';
+import ToggleSelection from '../toggle-selection/toggle.selection';
 import Icon from '../../../common/icon/icon';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
@@ -32,7 +32,7 @@ const ContentTableItem = ({ location }) => {
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
     const rootLocationId = useContext(RootLocationIdContext);
-    const { formatShortDateTime } = window.eZ.helpers.timezone;
+    const { formatShortDateTime } = window.ibexa.helpers.timezone;
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
     const containersOnly = useContext(ContainersOnlyContext);
@@ -40,12 +40,12 @@ const ContentTableItem = ({ location }) => {
     const isNotSelectable =
         (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeInfo.identifier));
     const className = createCssClassNames({
-        'c-content-table-item': true,
+        'ibexa-table__row c-content-table-item': true,
         'c-content-table-item--marked': markedLocationId === location.id,
         'c-content-table-item--not-selectable': isNotSelectable,
     });
     const markLocation = ({ nativeEvent }) => {
-        const isSelectionButtonClicked = nativeEvent.target.closest('.c-toggle-selection-button');
+        const isSelectionButtonClicked = nativeEvent.target.closest('.c-udw-toggle-selection');
 
         if (isSelectionButtonClicked) {
             return;
@@ -63,7 +63,7 @@ const ContentTableItem = ({ location }) => {
             },
             (locationsMap) => {
                 dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: locationsMap });
-            }
+            },
         );
 
         if (!multiple && !isNotSelectable) {
@@ -71,23 +71,19 @@ const ContentTableItem = ({ location }) => {
             dispatchSelectedLocationsAction({ type: 'ADD_SELECTED_LOCATION', location });
         }
     };
-    const renderToggleSelectionButton = () => {
-        if (!multiple || isNotSelectable) {
-            return null;
-        }
-
-        return <ToggleSelectionButton location={location} />;
+    const renderToggleSelection = () => {
+        return <ToggleSelection location={location} multiple={multiple} isHidden={isNotSelectable} />;
     };
 
     return (
         <tr className={className} onClick={markLocation}>
-            <td className="c-content-table-item__icon-wrapper">
-                <Icon extraClasses="ez-icon--small" customPath={contentTypeInfo.thumbnail} />
+            {multiple && <td className="ibexa-table__cell ibexa-table__cell--has-checkbox">{renderToggleSelection()}</td>}
+            <td className="ibexa-table__cell c-content-table-item__icon-wrapper">
+                <Icon extraClasses="ibexa-icon--small" customPath={contentTypeInfo.thumbnail} />
             </td>
-            <td>{location.ContentInfo.Content.TranslatedName}</td>
-            <td>{formatShortDateTime(new Date(location.ContentInfo.Content.lastModificationDate))}</td>
-            <td>{contentTypeInfo.name}</td>
-            <td className="c-content-table-item__toggle-button-wrapper">{renderToggleSelectionButton()}</td>
+            <td className="ibexa-table__cell">{location.ContentInfo.Content.TranslatedName}</td>
+            <td className="ibexa-table__cell">{formatShortDateTime(new Date(location.ContentInfo.Content.lastModificationDate))}</td>
+            <td className="ibexa-table__cell">{contentTypeInfo.name}</td>
         </tr>
     );
 };

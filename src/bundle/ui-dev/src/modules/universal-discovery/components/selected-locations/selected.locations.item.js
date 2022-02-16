@@ -16,11 +16,11 @@ const SelectedLocationsItem = ({ location, permissions }) => {
         'universal_discovery_widget'
     );
     const removeFromSelection = () => {
-        window.eZ.helpers.tooltips.hideAll(refSelectedLocationsItem.current);
+        window.ibexa.helpers.tooltips.hideAll(refSelectedLocationsItem.current);
         dispatchSelectedLocationsAction({ type: 'REMOVE_SELECTED_LOCATION', id: location.id });
     };
     const sortedActions = useMemo(() => {
-        const { selectedItemActions } = window.eZ.adminUiConfig.universalDiscoveryWidget;
+        const { selectedItemActions } = window.ibexa.adminUiConfig.universalDiscoveryWidget;
         const actions = selectedItemActions ? [...selectedItemActions] : [];
 
         return actions.sort((actionA, actionB) => {
@@ -31,7 +31,7 @@ const SelectedLocationsItem = ({ location, permissions }) => {
     const thumbnailData = version ? version.Thumbnail : {};
 
     useEffect(() => {
-        window.eZ.helpers.tooltips.parse(refSelectedLocationsItem.current);
+        window.ibexa.helpers.tooltips.parse(refSelectedLocationsItem.current);
     }, []);
 
     return (
@@ -53,11 +53,11 @@ const SelectedLocationsItem = ({ location, permissions }) => {
                 })}
                 <button
                     type="button"
-                    className="c-selected-locations-item__remove-button btn btn-icon"
+                    className="c-selected-locations-item__remove-button btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
                     onClick={removeFromSelection}
                     title={clearLabel}
                     data-tooltip-container-selector=".c-udw-tab">
-                    <Icon name="trash" extraClasses="ez-icon--small-medium" />
+                    <Icon name="discard" extraClasses="ibexa-icon--tiny-small" />
                 </button>
             </div>
         </div>

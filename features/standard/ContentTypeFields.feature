@@ -93,7 +93,7 @@ Feature: Content fields setting and editing
       | value     | false                        |            |                          |         |           | 1                         | 0                            |
       | value     | Media/Files                  |            |                          |         |           | Images                    | Files                        |
       | firstItem | Users/Editors                | secondItem | Media/Multimedia         |         |           | Images Files              | Editors Multimedia           |
-      | value     | Argentina                    |            |                          |         |           | Angola                    | Argentina                    |
+      | value     | Albania                      |            |                          |         |           | Angola                    | Albania                      |
       | value     | 12/30/2019                   |            |                          |         |           | Saturday 23 November 2019 | Monday 30 December 2019      |
       | date      | 12/30/2019                   | time       | 15:15                    |         |           | Sat 2019-23-11 14:45:00   | Mon 2019-30-12 15:15:00      |
       | value     | edited.email@example.com     |            |                          |         |           | email@example.com         | edited.email@example.com     |
@@ -105,7 +105,7 @@ Feature: Content fields setting and editing
       | value     | Edited Lorem ipsum dolor     |            |                          |         |           | Lorem ipsum dolor         | Edited Lorem ipsum dolor     |
       | value     | Edited Lorem ipsum           |            |                          |         |           | Lorem ipsum               | Edited Lorem ipsum           |
       | value     | 15:15                        |            |                          |         |           | 2:45:00 pm                | 3:15:00 pm                   |
-      | text      | Edited Test URL              | url        | http://www.ez.no         |         |           | Test URL                  | Edited Test URL              |
+      | text      | Edited Test URL              | url        | http://www.ibexa.co         |         |           | Test URL                  | Edited Test URL              |
       | value     | video2.mp4.zip               |            |                          |         |           | video1.mp4                | video2.mp4                   |
       | value     | image2.png.zip               |            |                          |         |           | image1.png                | image2.png                   |
       | value     | binary2.txt.zip              |            |                          |         |           | binary1.txt               | binary2.txt                  |

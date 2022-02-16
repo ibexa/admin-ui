@@ -1,21 +1,26 @@
 .c-drop-area {
+    border: calculateRem(1px) dashed $ibexa-color-dark-300;
+    border-radius: $ibexa-border-radius;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     &__message {
-        margin-bottom: calculateRem(24px);
+        color: $ibexa-color-dark-400;
+        margin-bottom: calculateRem(12px);
 
         &--main {
             cursor: auto;
-            font-size: calculateRem(16px);
+            font-weight: bold;
+            margin-top: calculateRem(44px);
         }
 
         &--filesize {
-            color: $ibexa-color-font-pale;
-            font-size: calculateRem(14px);
-            margin-bottom: calculateRem(64px);
+            color: $ibexa-color-dark-300;
+            font-size: $ibexa-text-font-size-medium;
+            margin: calculateRem(12px) 0 calculateRem(44px);
         }
-    }
-
-    &__btn-select {
-        margin-bottom: calculateRem(16px);
     }
 
     &__input--hidden {

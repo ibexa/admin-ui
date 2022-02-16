@@ -8,14 +8,14 @@
     border-radius: 50%;
     background: $ibexa-color-primary;
 
-    .ez-icon {
-        fill: $ibexa-white;
+    .ibexa-icon {
+        fill: $ibexa-color-white;
         width: calculateRem(16px);
         height: calculateRem(16px);
     }
-} 
+}
 
 @mixin type-icon-read {
-    fill: $ibexa-color-base-light;
-    background: $ibexa-color-base-dark;
+    fill: $ibexa-color-light-200;
+    background: $ibexa-color-light-200;
 }

@@ -8,7 +8,7 @@ import { TabsConfigContext } from './universal.discovery.module';
 const SearchTabModule = () => {
     const tabsConfig = useContext(TabsConfigContext);
     const actionsDisabledMap = {
-        'content-create-button': true,
+        'content-create-button': false,
         'sort-switcher': true,
         'view-switcher': true,
     };
@@ -22,14 +22,15 @@ const SearchTabModule = () => {
     );
 };
 
-eZ.addConfig(
+ibexa.addConfig(
     'adminUiConfig.universalDiscoveryWidget.tabs',
     [
         {
             id: 'search',
             component: SearchTabModule,
             label: Translator.trans(/*@Desc("Search")*/ 'search.label', {}, 'universal_discovery_widget'),
-            icon: window.eZ.helpers.icon.getIconPath('search'),
+            icon: window.ibexa.helpers.icon.getIconPath('search'),
+            isHiddenOnList: true,
         },
     ],
     true

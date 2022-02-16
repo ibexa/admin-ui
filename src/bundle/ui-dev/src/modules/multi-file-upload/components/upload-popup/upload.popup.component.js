@@ -5,7 +5,7 @@ import TooltipPopup from '../../../common/tooltip-popup/tooltip.popup.component'
 import DropAreaComponent from '../drop-area/drop.area.component';
 import UploadListComponent from '../upload-list/upload.list.component';
 
-const CLASS_SCROLL_DISABLED = 'ez-scroll-disabled';
+const CLASS_SCROLL_DISABLED = 'ibexa-scroll-disabled';
 
 export default class UploadPopupModule extends Component {
     constructor(props) {
@@ -18,7 +18,7 @@ export default class UploadPopupModule extends Component {
 
     componentDidMount() {
         window.document.body.classList.add(CLASS_SCROLL_DISABLED);
-        window.eZ.helpers.tooltips.parse(this.refTooltip.current);
+        window.ibexa.helpers.tooltips.parse(this.refTooltip.current);
     }
 
     componentWillUnmount() {
@@ -28,7 +28,7 @@ export default class UploadPopupModule extends Component {
     UNSAFE_componentWillReceiveProps(props) {
         this.setState((state) => {
             const stateItems = state.itemsToUpload.filter(
-                (stateItem) => !props.itemsToUpload.find((propItem) => propItem.id === stateItem.id)
+                (stateItem) => !props.itemsToUpload.find((propItem) => propItem.id === stateItem.id),
             );
 
             return { itemsToUpload: [...stateItems, ...props.itemsToUpload] };
@@ -56,7 +56,7 @@ export default class UploadPopupModule extends Component {
 
         return (
             <div className="c-upload-popup" ref={this.refTooltip}>
-                <TooltipPopup title={title} {...tooltipAttrs}>
+                <TooltipPopup title={title} showFooter={false} {...tooltipAttrs}>
                     <DropAreaComponent
                         onDrop={this.uploadFiles}
                         maxFileSize={this.props.adminUiConfig.multiFileUpload.maxFileSize}

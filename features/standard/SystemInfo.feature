@@ -18,15 +18,9 @@ Feature: System info verification
     When I go to "Composer" tab in System Information
     Then I see "Composer" system information table
       And I see listed packages
-        | Name                                    |
-        | ezsystems/ez-support-tools              |
-        | ezsystems/ezplatform-admin-ui           |
-        | ezsystems/ezplatform-admin-ui-assets    |
-        | ezsystems/ezplatform-design-engine      |
-        | ezsystems/ezplatform-http-cache         |
-        | ezsystems/ezplatform-solr-search-engine |
-        | ezsystems/ezplatform-kernel             |
-        | ezsystems/ezplatform-content-forms      |
+        | Name                     |
+        | ibexa/admin-ui           |
+        | ibexa/core               |
 
   @javascript
   Scenario: Check Repository System Information
@@ -48,16 +42,12 @@ Feature: System info verification
     When I go to "Symfony Kernel" tab in System Information
     Then I see "Symfony Kernel" system information table
       And I see listed bundles
-        | Name                                      |
-        | EzPlatformAdminUiAssetsBundle             |
-        | EzPlatformAdminUiBundle                   |
-        | EzPlatformDesignEngineBundle              |
-        | EzPublishCoreBundle                       |
-        | EzPublishIOBundle                         |
-        | EzPublishLegacySearchEngineBundle         |
-        | EzPlatformRestBundle                      |
-        | EzSystemsEzPlatformSolrSearchEngineBundle |
-        | EzSystemsEzSupportToolsBundle             |
-        | EzSystemsPlatformHttpCacheBundle          |
-        | EzSystemsPlatformInstallerBundle          |
-        | EzPlatformContentFormsBundle              |
+        | Name                     |
+        | IbexaAdminUiAssetsBundle |
+        | IbexaAdminUiBundle       |
+        | IbexaCoreBundle          |
+
+  @javascript
+  Scenario: Check services
+    When I go to "Services" tab in System Information
+    Then I see "Services" system information table

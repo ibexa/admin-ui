@@ -28,31 +28,35 @@ const TooltipPopupComponent = (props) => {
         maxHeight === INITIAL_HEIGHT
             ? {}
             : {
-                maxHeight,
-                overflowY: 'scroll',
-            };
+                  maxHeight,
+                  overflowY: 'scroll',
+              };
     const closeLabel = Translator.trans(/*@Desc("Close")*/ 'tooltip.close_label', {}, 'content');
+
     return (
         <div {...attrs}>
             <div className="c-tooltip-popup__header">
-                <div className="c-tooltip-popup__title">{props.title}</div>
+                <h1 className="c-tooltip-popup__title">{props.title}</h1>
                 <div
-                    className="c-tooltip-popup__close"
+                    className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--small c-tooltip-popup__close"
                     title={closeLabel}
                     onClick={props.onClose}
                     tabIndex="-1"
-                    data-tooltip-container-selector=".c-tooltip-popup__header">
-                    <Icon name="discard" extraClasses="ez-icon--small" />
+                    data-tooltip-container-selector=".c-tooltip-popup__header"
+                >
+                    <Icon name="discard" extraClasses="ibexa-icon--small-medium" />
                 </div>
             </div>
             <div className="c-tooltip-popup__content" ref={contentRef} style={contentStyle}>
                 {props.children}
             </div>
-            <div className="c-tooltip-popup__footer">
-                <button class="btn btn-secondary" onClick={props.onClose}>
-                    {closeLabel}
-                </button>
-            </div>
+            {props.showFooter && (
+                <div className="c-tooltip-popup__footer">
+                    <button className="btn ibexa-btn ibexa-btn--secondary" onClick={props.onClose}>
+                        {closeLabel}
+                    </button>
+                </div>
+            )}
         </div>
     );
 };
@@ -62,10 +66,12 @@ TooltipPopupComponent.propTypes = {
     children: PropTypes.node.isRequired,
     visible: PropTypes.bool.isRequired,
     onClose: PropTypes.func,
+    showFooter: PropTypes.bool,
 };
 
 TooltipPopupComponent.defaultProps = {
-    onClose: () => { },
+    onClose: () => {},
+    showFooter: true,
 };
 
 export default TooltipPopupComponent;

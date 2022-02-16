@@ -1,5 +1,5 @@
-(function(global, doc, eZ, React, ReactDOM) {
-    const btns = doc.querySelectorAll('.btn--open-udw');
+(function(global, doc, ibexa, React, ReactDOM) {
+    const btns = doc.querySelectorAll('.ibexa-btn--open-udw');
     const udwContainer = doc.getElementById('react-udw');
     const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
     const onConfirm = (form, content) => {
@@ -22,7 +22,7 @@
         doc.querySelector('#section_content_assign_section').value = btn.dataset.sectionId;
 
         ReactDOM.render(
-            React.createElement(eZ.modules.UniversalDiscovery, {
+            React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(this, form),
                 onCancel,
                 ...config,
@@ -32,4 +32,4 @@
     };
 
     btns.forEach((btn) => btn.addEventListener('click', openUDW, false));
-})(window, window.document, window.eZ, window.React, window.ReactDOM);
+})(window, window.document, window.ibexa, window.React, window.ReactDOM);

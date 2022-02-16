@@ -1,4 +1,4 @@
-.ez-notifications-modal {
+.ibexa-notifications-modal {
     cursor: auto;
 
     .modal-dialog {
@@ -24,13 +24,13 @@
 
         th {
             border: none;
-            color: $ibexa-color-base-dark;
-            border-top: calculateRem(1px) solid $ibexa-color-base;
-            border-bottom: calculateRem(1px) solid $ibexa-color-base;
+            color: $ibexa-color-dark-300;
+            border-top: calculateRem(1px) solid $ibexa-color-light;
+            border-bottom: calculateRem(1px) solid $ibexa-color-light;
         }
 
         tr {
-            background-color: $ibexa-white;
+            background-color: $ibexa-color-white;
             cursor: pointer;
 
             td {
@@ -40,9 +40,6 @@
     }
 
     &__type {
-        display: flex;
-        align-items: center;
-
         .type__icon {
             @include type-icon;
         }
@@ -52,8 +49,13 @@
         }
     }
 
+    &__type-content {
+        display: flex;
+        align-items: center;
+    }
+
     &__item--read {
-        color: $ibexa-color-base-dark;
+        color: $ibexa-color-dark-300;
 
         .type__icon {
             @include type-icon-read;
@@ -110,11 +112,11 @@
     }
 
     &--loading {
-        .ez-notifications-modal__spinner {
+        .ibexa-notifications-modal__spinner {
             display: block;
         }
 
-        .ez-notifications-modal__results {
+        .ibexa-notifications-modal__results {
             visibility: hidden;
         }
     }
@@ -128,7 +130,7 @@
         transform: translate(-50%, -50%);
         display: none;
 
-        .ez-icon {
+        .ibexa-icon {
             width: 2rem;
             height: 2rem;
         }
