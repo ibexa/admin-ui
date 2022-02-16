@@ -16,8 +16,9 @@
 {% block body_class %}ibexa-content-view{% endblock %}
 
 {% block content_tree %}
-    {% set content_tree_width = app.request.cookies.get('ibexa-tb-ibexa-content-tree-container-width') %}
-    {% set content_tree_width_style = "width: #{content_tree_width}px;" %}
+    {% set container_width_cookie = 'ibexa-tb-ibexa-content-tree-%d-container-width'|format(ibexa_admin_ui_config.user.user.id) %}
+    {% set content_tree_width = app.request.cookies.get(container_width_cookie) %}
+    {% set content_tree_width_style = 'width: %dpx;'|format(content_tree_width) %}
 
     <div class="ibexa-content-tree-container"
         data-tree-root-location-id="{{ content_tree_module_root|default(ibexa_admin_ui_config['contentTree']['treeRootLocationId']) }}"
