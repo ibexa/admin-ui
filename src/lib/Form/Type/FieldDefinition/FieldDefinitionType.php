@@ -14,9 +14,9 @@ use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\ThumbnailStr
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -120,13 +120,7 @@ class FieldDefinitionType extends AbstractType
             ])
             ->add(
                 'fieldGroup',
-                ChoiceType::class,
-                [
-                    'choices' => $fieldsGroups,
-                    'required' => false,
-                    'label' => /** @Desc("Category") */ 'field_definition.field_group',
-                    'disabled' => $isTranslation,
-                ]
+                HiddenType::class,
             )
             ->add('position', IntegerType::class, [
                 'label' => /** @Desc("Position") */ 'field_definition.position',
