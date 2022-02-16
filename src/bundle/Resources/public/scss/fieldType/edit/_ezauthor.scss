@@ -1,41 +1,33 @@
 .ibexa-field-edit--ezauthor {
-    .ibexa-data-source__author {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-    }
-
-    .ibexa-data-source__main-actions {
-        display: flex;
-        justify-content: flex-end;
-        padding: calculateRem(24px) 0 calculateRem(16px);
-        border-bottom: calculateRem(1px) solid $ibexa-color-light;
-    }
-
-    .ibexa-data-source__labels {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        padding: 0 calculateRem(30px) 0 calculateRem(52px);
-
-        .ibexa-label {
-            flex-basis: 50%;
+    .ibexa-data-source {
+        &__labels {
+            display: grid;
+            column-gap: calculateRem(16px);
+            grid-template-columns: repeat(2, 1fr);
+            padding: 0 calculateRem(46px);
         }
-    }
 
-    .ibexa-data-source__field {
-        flex: 0 0 40%;
-    }
+        &__author {
+            display: grid;
+            column-gap: calculateRem(16px);
+            grid-template-columns: calculateRem(30px) repeat(2, 1fr) calculateRem(30px);
+        }
 
-    .ibexa-data-source__checkbox {
-        padding: calculateRem(4px);
-    }
+        &__main-actions {
+            display: flex;
+            justify-content: flex-end;
+            padding: calculateRem(24px) 0 calculateRem(16px);
+            border-bottom: calculateRem(1px) solid $ibexa-color-light;
+        }
 
-    .ibexa-data-source__actions {
-        display: flex;
+        &__checkbox {
+            padding-top: calculateRem(8px);
+        }
 
-        .ibexa-btn {
-            padding: calculateRem(6px);
+        &__actions {
+            .ibexa-btn {
+                padding: calculateRem(7px);
+            }
         }
     }
 }
