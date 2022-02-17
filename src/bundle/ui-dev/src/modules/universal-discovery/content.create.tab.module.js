@@ -38,7 +38,7 @@ const ContentCreateTabModule = () => {
     const iframeUrl = generateIframeUrl(contentOnTheFlyData);
     const iframeRef = createRef();
     const cancelContentCreate = (event) => {
-        event.preventDefault();
+        event?.preventDefault();
         setCreateContentVisible(false);
         setContentOnTheFlyData({});
         setActiveTab(tabs[0].id);
@@ -107,7 +107,7 @@ ibexa.addConfig(
             isHiddenOnList: true,
         },
     ],
-    true
+    true,
 );
 
 export default ContentCreateTabModule;
