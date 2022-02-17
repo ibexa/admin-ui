@@ -2,7 +2,6 @@
     display: flex;
     position: relative;
     padding: calculateRem(18px) calculateRem(46px) calculateRem(18px) calculateRem(16px);
-    letter-spacing: calculateRem(0.12px);
     border-right: calculateRem(1px) solid $ibexa-color-light;
 
     &--collapsed {

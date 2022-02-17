@@ -2,7 +2,6 @@
     border: calculateRem(1px) solid $ibexa-color-dark-200;
     border-radius: $ibexa-border-radius;
     padding: calculateRem(24px);
-    letter-spacing: calculateRem(0.12px);
 
     &__info {
         @include ibexa-font-sans-serif();
