@@ -37,8 +37,7 @@ const ContentCreateTabModule = () => {
     const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
     const iframeUrl = generateIframeUrl(contentOnTheFlyData);
     const iframeRef = createRef();
-    const cancelContentCreate = (event) => {
-        event.preventDefault();
+    const cancelContentCreate = () => {
         setCreateContentVisible(false);
         setContentOnTheFlyData({});
         setActiveTab(tabs[0].id);
@@ -49,6 +48,10 @@ const ContentCreateTabModule = () => {
         if (submitButton) {
             submitButton.click();
         }
+    };
+    const handleCancelInIframe = (event) => {
+        event.preventDefault();
+        cancelContentCreate();
     };
     const handleIframeLoad = () => {
         const locationId = iframeRef.current.contentWindow.document.querySelector('meta[name="LocationID"]');
@@ -83,8 +86,8 @@ const ContentCreateTabModule = () => {
         }
 
         iframeConfirmBtn?.addEventListener('click', publishContent, false);
-        iframeCancelBtn?.addEventListener('click', cancelContentCreate, false);
-        iframeBackBtn?.addEventListener('click', cancelContentCreate, false);
+        iframeCancelBtn?.addEventListener('click', handleCancelInIframe, false);
+        iframeBackBtn?.addEventListener('click', handleCancelInIframe, false);
     };
     const cancelLabel = Translator.trans(/*@Desc("Cancel")*/ 'content_create.cancel.label', {}, 'universal_discovery_widget');
     const confirmLabel = Translator.trans(/*@Desc("Confirm")*/ 'content_create.confirm.label', {}, 'universal_discovery_widget');
@@ -107,7 +110,7 @@ ibexa.addConfig(
             isHiddenOnList: true,
         },
     ],
-    true
+    true,
 );
 
 export default ContentCreateTabModule;
