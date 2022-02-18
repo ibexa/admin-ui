@@ -10,6 +10,21 @@
             this.itemHiddenClass = config.itemHiddenClass;
             this.getActiveItem = config.getActiveItem;
             this.onAdapted = config.onAdapted;
+            this.animationFrame = null;
+            this.containerResizeObserver = new ResizeObserver(() => {
+                if (this.animationFrame) {
+                    global.cancelAnimationFrame(this.animationFrame);
+                }
+        
+                this.animationFrame = global.requestAnimationFrame(() => {
+                    this.adapt();
+                });
+            });
+        }
+
+        init() {
+            this.adapt();
+            this.containerResizeObserver.observe(this.container);
         }
 
         adapt() {

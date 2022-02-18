@@ -56,8 +56,5 @@
         }
     });
 
-    adaptiveItems.adapt();
-
-    global.addEventListener('resize', () => adaptiveItems.adapt(), false);
-    doc.body.addEventListener('ibexa-content-resized', () => adaptiveItems.adapt(), false);
+    adaptiveItems.init();
 })(window, window.document, window.ibexa);

@@ -2,24 +2,6 @@
     const TABS_SELECTOR = '.ibexa-tabs';
     const SELECTOR_TABS_LIST = '.ibexa-tabs__list';
     const SELECTOR_TAB_MORE = '.ibexa-tabs__tab--more';
-    const allAdaptiveItems = [];
-    const allPopupMenus = [];
-    let animationFrame = null;
-    const adaptTabsAndPopupMenu = () => {
-        allAdaptiveItems.forEach((adaptiveItems) => {
-            adaptiveItems.adapt();
-        });
-        allPopupMenus.forEach((popupMenu) => {
-            popupMenu.updatePosition();
-        });
-    };
-    const handleTabsConainterChange = () => {
-        if (animationFrame) {
-            cancelAnimationFrame(animationFrame);
-        }
-
-        animationFrame = requestAnimationFrame(adaptTabsAndPopupMenu);
-    };
     const toggleContainer = (event) => {
         const toggler = event.target;
         const header = toggler.closest('.ibexa-header');
@@ -75,7 +57,6 @@
                 itemElement.dataset.tabLinkId = item.tabLinkId;
             });
 
-            allPopupMenus.push(popupMenu);
             popupMenu.updatePosition();
 
             const adaptiveItems = new ibexa.core.AdaptiveItems({
@@ -91,11 +72,11 @@
                     const hiddenTabsLinksIds = [...hiddenTabsWithoutSelector].map((tab) => tab.querySelector('.ibexa-tabs__link').id);
 
                     popupMenu.toggleItems((popupMenuItem) => !hiddenTabsLinksIds.includes(popupMenuItem.dataset.tabLinkId));
+                    popupMenu.updatePosition();
                 },
             });
 
-            allAdaptiveItems.push(adaptiveItems);
-            adaptiveItems.adapt();
+            adaptiveItems.init();
 
             tabsLinks.forEach((tabLink) => {
                 tabLink.addEventListener('shown.bs.tab', () => {
@@ -112,7 +93,4 @@
             tab.focus();
         });
     });
-
-    doc.body.addEventListener('ibexa-content-tree-resized', handleTabsConainterChange, false);
-    window.addEventListener('resize', handleTabsConainterChange, false);
 })(window, window.document, window.ibexa, window.bootstrap);
