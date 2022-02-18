@@ -4,13 +4,21 @@
     let sourceContainer = null;
     let currentDraggedItem = null;
     let draggedItemPosition = null;
+    let isEditFormValid = false;
     const draggableGroups = [];
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
+    const editForm = doc.querySelector('.ibexa-content-type-edit-form');
+    const inputsToValidate = editForm.querySelectorAll('.ibexa-input[required]:not([disabled]):not([hidden])');
     const sectionsNode = doc.querySelector('.ibexa-content-type-edit__sections');
     const filterFieldInput = doc.querySelector('.ibexa-available-field-types__sidebar-filter');
     const popupMenuElement = sectionsNode.querySelector('.ibexa-popup-menu');
     const addGroupTriggerBtn = sectionsNode.querySelector('.ibexa-content-type-edit__add-field-definitions-group-btn');
+    const noFieldsAddedError = Translator.trans(
+        /*@Desc("You have to add at least one field definition")*/ 'content_type.edit.error.no_added_fields_definition',
+        {},
+        'content_type',
+    );
     const endpoints = {
         add: {
             actionName: 'add_field_definition',
@@ -80,7 +88,9 @@
 
         const fieldGroupInput = fieldNode.querySelector('.ibexa-input--field-group');
         const removeFieldsBtn = fieldNode.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions');
+        const inputsToValidate = fieldNode.querySelectorAll('.ibexa-input[required]:not([disabled]):not([hidden])');
 
+        inputsToValidate.forEach(attachValidateEvents);
         removeDragPlaceholders();
         fieldGroupInput.value = fieldsGroupId;
         targetContainer.insertBefore(fieldNode, targetPlace);
@@ -132,7 +142,6 @@
         });
     };
     const afterChangeGroup = () => {
-        const submitBtn = doc.querySelector('.ibexa-content-type-edit__publish-content-type');
         const fieldsDefinitionCount = doc.querySelectorAll('.ibexa-collapse--field-definition').length;
         const groups = doc.querySelectorAll('.ibexa-collapse--field-definitions-group');
         const itemsAction = doc.querySelectorAll('.ibexa-content-type-edit__add-field-definitions-group .ibexa-popup-menu__item-content');
@@ -158,8 +167,6 @@
         doc.querySelectorAll('.ibexa-collapse--field-definition').forEach((fieldDefinition, index) => {
             fieldDefinition.querySelector('.ibexa-input--position').value = index;
         });
-
-        submitBtn.toggleAttribute('disabled', !fieldsDefinitionCount);
     };
     const addField = () => {
         if (!sourceContainer.classList.contains('ibexa-available-field-types__list')) {
@@ -253,7 +260,60 @@
             })
             .catch(ibexa.helpers.notification.showErrorNotification);
     };
+    const validateInput = (input) => {
+        const isInputValid = !!input.value;
+        const field = input.closest('.form-group');
+        const labelNode = field.querySelector('.ibexa-label');
+        const errorNode = field.querySelector('.ibexa-form-error');
 
+        input.classList.toggle('is-invalid', !isInputValid);
+
+        if (errorNode) {
+            const fieldName = labelNode.innerHTML;
+            const errorMessage = ibexa.errors.emptyField.replace('{fieldName}', fieldName);
+
+            errorNode.innerHTML = !isInputValid ? errorMessage : '';
+        }
+
+        if (isEditFormValid && !isInputValid) {
+            isEditFormValid = false;
+        }
+    };
+    const validateForm = () => {
+        const inputsToValidate = editForm.querySelectorAll('.ibexa-input[required]:not([disabled]):not([hidden])');
+        const fieldDefinitionsStatuses = {};
+
+        isEditFormValid = true;
+
+        inputsToValidate.forEach((input) => {
+            const fieldDefinition = input.closest('.ibexa-collapse--field-definition');
+
+            if (fieldDefinition) {
+                const { fieldDefinitionIdentifier } = fieldDefinition.dataset;
+                const isInputValid = !!input.value;
+
+                if (!fieldDefinitionsStatuses[fieldDefinitionIdentifier]) {
+                    fieldDefinitionsStatuses[fieldDefinitionIdentifier] = [];
+                }
+
+                fieldDefinitionsStatuses[fieldDefinitionIdentifier].push(isInputValid);
+            }
+
+            validateInput(input);
+        });
+
+        for (const [fieldDefinitionIdentifier, inputsStatus] of Object.entries(fieldDefinitionsStatuses)) {
+            const isFieldDefinitionValid = inputsStatus.every((status) => status);
+            const fieldDefinitionNode = doc.querySelector(`[data-field-definition-identifier="${fieldDefinitionIdentifier}"]`);
+
+            fieldDefinitionNode.classList.toggle('is-invalid', !isFieldDefinitionValid);
+        }
+    };
+    const attachValidateEvents = (input) => {
+        input.addEventListener('change', () => validateForm(input), false);
+        input.addEventListener('blur', () => validateForm(input), false);
+        input.addEventListener('input', () => validateForm(input), false);
+    };
     class FieldDefinitionDraggable extends ibexa.core.Draggable {
         onDrop(event) {
             targetContainer = event.currentTarget;
@@ -368,20 +428,25 @@
         draggableGroups.push(draggable);
     });
 
-    doc.querySelector('.ibexa-btn--save-content-type').addEventListener(
-        'click',
-        () => {
-            if (doc.querySelectorAll('.ibexa-collapse--field-definition').length) {
-                return;
+    inputsToValidate.forEach(attachValidateEvents);
+
+    editForm.addEventListener(
+        'submit',
+        (event) => {
+            const fieldDefinitionsCount = doc.querySelectorAll('.ibexa-collapse--field-definition').length;
+
+            validateForm();
+
+            if (!fieldDefinitionsCount) {
+                isEditFormValid = false;
+                ibexa.helpers.notification.showErrorNotification(noFieldsAddedError);
             }
 
-            ibexa.helpers.notification.showErrorNotification(
-                Translator.trans(
-                    /*@Desc("You have to add at least one field definition")*/ 'content_type.edit.error.no_added_fields_definition',
-                    {},
-                    'content_type',
-                ),
-            );
+            if (!isEditFormValid) {
+                event.preventDefault();
+
+                return;
+            }
         },
         false,
     );

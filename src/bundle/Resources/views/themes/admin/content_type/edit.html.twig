@@ -18,7 +18,12 @@
 {% endblock %}
 
 {% block form %}
-    {{ form_start(form, { attr: { class: 'ibexa-content-type-edit ibexa-form' } }) }}
+    {{ form_start(form, {
+        attr: {
+            class: 'ibexa-content-type-edit-form ibexa-form',
+            novalidate: 'novalidate',
+        }
+    }) }}
         {% set is_translation = form.vars.data.languageCode != content_type.mainLanguageCode %}
         {% set is_draggable = is_translation == false %}
 

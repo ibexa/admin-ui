@@ -38,7 +38,7 @@
         {{ ibexa_render_field_definition_edit(value, {
             'languageCode': language_code,
             'form': field_definition,
-            'group_class': value.group_class|default(''),
+            'group_class': value.group_class|default('') ~ ' form-group',
             'is_translation': is_translation ?? false,
         }) }}
 
