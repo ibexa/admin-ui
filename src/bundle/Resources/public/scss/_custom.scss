@@ -221,13 +221,13 @@ $theme-colors: (
 
 // Typography
 $base-font-size: 16px;
-$small-font-size: 14px !default;
-$h1-font-size: 28px !default;
-$h2-font-size: 22px !default;
-$h3-font-size: 18px !default;
-$h4-font-size: 16px !default;
-$h5-font-size: 14px !default;
-$h6-font-size: 12px !default;
+$small-font-size: calculateRem(14px) !default;
+$h1-font-size: calculateRem(28px) !default;
+$h2-font-size: calculateRem(22px) !default;
+$h3-font-size: calculateRem(18px) !default;
+$h4-font-size: calculateRem(16px) !default;
+$h5-font-size: calculateRem(14px) !default;
+$h6-font-size: calculateRem(12px) !default;
 
 $headings-font-weight: 700;
 $headings-font-family: $ibexa-font-family-headings;
@@ -238,20 +238,20 @@ $text-muted: $ibexa-color-dark-400 !default;
 $font-family-sans-serif: $ibexa-font-family;
 
 //Border
-$ibexa-border-radius: 10px;
-$ibexa-border-radius-small: 5px;
+$ibexa-border-radius: calculateRem(10px);
+$ibexa-border-radius-small: calculateRem(5px);
 
 // Tables
-$table-cell-padding: 12px 16px;
+$table-cell-padding: calculateRem(12px) calculateRem(16px);
 $table-bg: $white;
 $table-border-width: 0;
 $table-hover-bg: $ibexa-color-light-300;
 
 // Breadcrumbs
-$breadcrumb-font-size: 12px;
+$breadcrumb-font-size: calculateRem(12px);
 $breadcrumb-padding-y: 0;
 $breadcrumb-padding-x: 0;
-$breadcrumb-item-padding: 8px;
+$breadcrumb-item-padding: calculateRem(8px);
 $breadcrumb-bg: transparent;
 $breadcrumb-divider: quote('>');
 
@@ -268,7 +268,7 @@ $body-color: $ibexa-color-black;
 // Pagination
 $pagination-color: $ibexa-color-dark;
 $pagination-bg: $ibexa-color-white;
-$pagination-border-width: 1px;
+$pagination-border-width: calculateRem(1px);
 $pagination-border-color: transparent;
 $pagination-padding-y: 0;
 $pagination-padding-x: 0;
@@ -289,21 +289,21 @@ $pagination-disabled-bg: transparent;
 $pagination-disabled-border-color: transparent;
 
 // Modals
-$modal-header-padding-y: 16px;
+$modal-header-padding-y: calculateRem(16px);
 $modal-header-padding-x: 0;
-$modal-header-border-width: 1px;
+$modal-header-border-width: calculateRem(1px);
 $modal-header-border-color: $ibexa-color-light-500;
-$modal-title-font-size: 28px;
+$modal-title-font-size: calculateRem(28px);
 $modal-content-border-width: 0;
 $modal-content-border-radius: $ibexa-border-radius;
-$modal-inner-padding: 24px 0;
-$modal-footer-padding: 24px 0;
+$modal-inner-padding: calculateRem(24px);
+$modal-footer-padding: calculateRem(24px) 0;
 $modal-footer-border-width: 0;
 //Components
 $border-radius: $ibexa-border-radius;
 
 //Offcanvas
-$offcanvas-padding-y: 24px;
+$offcanvas-padding-y: calculateRem(24px);
 $offcanvas-padding-x: 0;
 
 //Cards
@@ -326,21 +326,21 @@ $input-box-shadow: none;
 $input-focus-bg: transparent;
 $input-focus-border-color: $ibexa-color-primary;
 $input-focus-color: $ibexa-color-dark-300;
-$input-focus-box-shadow: 0 0 2px 0 rgba($ibexa-color-primary, 0.75);
+$input-focus-box-shadow: 0 0 calculateRem(2px) 0 rgba($ibexa-color-primary, 0.75);
 
 //Buttons
-$btn-line-height: 16px;
-$btn-font-size: 15px;
-$btn-padding-y: 11px;
-$btn-padding-x: 16px;
+$btn-line-height: calculateRem(16px);
+$btn-font-size: calculateRem(15px);
+$btn-padding-y: calculateRem(11px);
+$btn-padding-x: calculateRem(16px);
 $btn-border-width: 0;
 $btn-focus-box-shadow: none;
 
 //Accordion
 $accordion-border-width: 0;
 $accordion-border-radius: 0;
-$accordion-button-padding-y: 8px;
-$accordion-button-padding-x: 12px;
+$accordion-button-padding-y: calculateRem(8px);
+$accordion-button-padding-x: calculateRem(12px);
 $accordion-button-active-bg: $ibexa-color-white;
 $accordion-button-active-color: $ibexa-color-dark;
 
