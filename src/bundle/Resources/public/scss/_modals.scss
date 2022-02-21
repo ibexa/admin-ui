@@ -27,16 +27,6 @@
         @include modal-footer();
     }
 
-    &--table-content {
-        .modal-header {
-            border-width: 0;
-        }
-
-        .modal-body {
-            padding-top: 0;
-        }
-    }
-
     &--no-header {
         .close {
             @include close-button();
@@ -68,6 +58,28 @@
             border-bottom: calculateRem(1px) solid $ibexa-color-light-500;
             padding-bottom: calculateRem(16px);
             color: $ibexa-color-dark-400;
+        }
+    }
+
+    &--no-header-border {
+        &:not(.ibexa-modal--has-subtitle) {
+            .modal-header {
+                border-width: 0;
+            }
+
+            .modal-body {
+                padding-top: 0;
+            }
+        }
+
+        &.ibexa-modal--has-subtitle {
+            .ibexa-modal__subheader {
+                border-width: 0;
+            }
+
+            .modal-body {
+                padding-top: 0;
+            }
         }
     }
 }
