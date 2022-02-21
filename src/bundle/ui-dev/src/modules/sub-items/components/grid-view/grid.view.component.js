@@ -20,4 +20,8 @@ GridViewComponent.propTypes = {
     generateLink: PropTypes.func.isRequired,
 };
 
+GridViewComponent.defaultProps = {
+    items: [],
+};
+
 export default GridViewComponent;

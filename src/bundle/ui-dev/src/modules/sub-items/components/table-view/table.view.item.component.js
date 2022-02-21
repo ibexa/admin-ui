@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Icon from '../../../common/icon/icon';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
-const { formatShortDateTime } = window.ibexa.helpers.timezone;
+const { ibexa, Translator } = window;
+const { formatShortDateTime } = ibexa.helpers.timezone;
 
 export default class TableViewItemComponent extends PureComponent {
     constructor(props) {
@@ -441,4 +442,6 @@ TableViewItemComponent.propTypes = {
     columnsVisibility: PropTypes.object.isRequired,
     showScrollShadowLeft: PropTypes.bool.isRequired,
     showScrollShadowRight: PropTypes.bool.isRequired,
+    setLanguageSelectorData: PropTypes.func.isRequired,
+    openLanguageSelector: PropTypes.func.isRequired,
 };

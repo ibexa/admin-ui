@@ -11,8 +11,10 @@ import NoItemsComponent from './components/no-items/no.items.component.js';
 import Icon from '../common/icon/icon.js';
 
 import deepClone from '../common/helpers/deep.clone.helper.js';
-import { updateLocationPriority, loadLocation } from './services/sub.items.service';
+import { updateLocationPriority, loadLocationService } from './services/sub.items.service';
 import { bulkAddLocations, bulkDeleteItems, bulkHideLocations, bulkUnhideLocations, bulkMoveLocations } from './services/bulk.service.js';
+
+const { Translator, ibexa } = window;
 
 export const ASCENDING_SORT_ORDER = 'ascending';
 const DESCENDING_SORT_ORDER = 'descending';
@@ -151,7 +153,7 @@ export default class SubItemsModule extends Component {
             return { name: null, order: null };
         }
 
-        const name = objKeys[0];
+        const [name] = objKeys;
         const order = sortClauses[name];
 
         return { name, order };
@@ -172,7 +174,7 @@ export default class SubItemsModule extends Component {
     loadPage(pageIndex) {
         const { limit: itemsPerPage, parentLocationId: locationId, loadLocation, restInfo } = this.props;
         const { sortClause, sortOrder } = this.state;
-        const page = this.state.pages.find((page) => page.number === pageIndex + 1);
+        const page = this.state.pages.find(({ number }) => number === pageIndex + 1);
         const cursor = page ? page.cursor : null;
         const queryConfig = { locationId, limit: itemsPerPage, sortClause, sortOrder, cursor };
 
@@ -946,7 +948,7 @@ export default class SubItemsModule extends Component {
         let isUserContentItemSelected = false;
         let isNonUserContentItemSelected = false;
 
-        for (const [locationId, { content }] of selectedItems) {
+        for (const [, { content }] of selectedItems) {
             if (isUserContentItemSelected && isNonUserContentItemSelected) {
                 break;
             }
@@ -1101,11 +1103,13 @@ export default class SubItemsModule extends Component {
     renderExtraActions(action, index) {
         const Action = action.component;
 
-        return <Action
-            key={index}
-            className="m-sub-items__action"
-            {...action.attrs}
-               />;
+        return (
+            <Action
+                key={index}
+                className="m-sub-items__action"
+                {...action.attrs}
+            />
+        );
     }
 
     /**
@@ -1133,10 +1137,12 @@ export default class SubItemsModule extends Component {
             'sub_items',
         );
 
-        return <div
-            className="m-sub-items__pagination-info ibexa-pagination__info"
-            dangerouslySetInnerHTML={{ __html: message }}
-               />;
+        return (
+            <div
+                className="m-sub-items__pagination-info ibexa-pagination__info"
+                dangerouslySetInnerHTML={{ __html: message }}
+            />
+        );
     }
 
     /**
@@ -1173,56 +1179,66 @@ export default class SubItemsModule extends Component {
     renderBulkMoveBtn(disabled) {
         const label = Translator.trans(/*@Desc("Move")*/ 'move_btn.label', {}, 'sub_items');
 
-        return <ActionButton
-            disabled={disabled}
-            onClick={this.onMoveBtnClick}
-            label={label}
-            type="move"
-               />;
+        return (
+            <ActionButton
+                disabled={disabled}
+                onClick={this.onMoveBtnClick}
+                label={label}
+                type="move"
+            />
+        );
     }
 
     renderBulkAddLocationBtn(disabled) {
         const label = Translator.trans(/*@Desc("Add Locations")*/ 'add_locations_btn.label', {}, 'sub_items');
 
-        return <ActionButton
-            disabled={disabled}
-            onClick={this.onAddLocationsBtnClick}
-            label={label}
-            type="create-location"
-               />;
+        return (
+            <ActionButton
+                disabled={disabled}
+                onClick={this.onAddLocationsBtnClick}
+                label={label}
+                type="create-location"
+            />
+        );
     }
 
     renderBulkHideBtn(disabled) {
         const label = Translator.trans(/*@Desc("Hide")*/ 'hide_locations_btn.label', {}, 'sub_items');
 
-        return <ActionButton
-            disabled={disabled}
-            onClick={this.onHideBtnClick}
-            label={label}
-            type="hide"
-               />;
+        return (
+            <ActionButton
+                disabled={disabled}
+                onClick={this.onHideBtnClick}
+                label={label}
+                type="hide"
+            />
+        );
     }
 
     renderBulkUnhideBtn(disabled) {
         const label = Translator.trans(/*@Desc("Reveal")*/ 'unhide_locations_btn.label', {}, 'sub_items');
 
-        return <ActionButton
-            disabled={disabled}
-            onClick={this.onUnhideBtnClick}
-            label={label}
-            type="reveal"
-               />;
+        return (
+            <ActionButton
+                disabled={disabled}
+                onClick={this.onUnhideBtnClick}
+                label={label}
+                type="reveal"
+            />
+        );
     }
 
     renderBulkDeleteBtn(disabled) {
         const label = Translator.trans(/*@Desc("Delete")*/ 'trash_btn.label', {}, 'sub_items');
 
-        return <ActionButton
-            disabled={disabled}
-            onClick={this.onDeleteBtnClick}
-            label={label}
-            type="trash"
-               />;
+        return (
+            <ActionButton
+                disabled={disabled}
+                onClick={this.onDeleteBtnClick}
+                label={label}
+                type="trash"
+            />
+        );
     }
 
     renderSpinner() {
@@ -1401,7 +1417,7 @@ SubItemsModule.propTypes = {
 };
 
 SubItemsModule.defaultProps = {
-    loadLocation,
+    loadLocation: loadLocationService,
     sortClauses: {},
     updateLocationPriority,
     activeView: VIEW_MODE_TABLE,

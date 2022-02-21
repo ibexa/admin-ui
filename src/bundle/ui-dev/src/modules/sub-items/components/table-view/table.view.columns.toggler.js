@@ -6,6 +6,8 @@ import TableViewColumnsTogglerListElement from './table.view.columns.toggler.lis
 import { headerLabels } from './table.view.component';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
+const { Translator } = window;
+
 const DEFAULT_PANEL_HEIGHT = 450;
 
 export default class TableViewColumnsTogglerComponent extends Component {
