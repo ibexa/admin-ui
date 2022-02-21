@@ -12,7 +12,7 @@ const SortSwitcher = ({ isDisabled }) => {
     const onOptionClick = (option) => {
         setSorting(option.sortClause);
         setSortOrder(option.sortOrder);
-    }
+    };
 
     return (
         <div className="c-sort-switcher">
@@ -43,7 +43,7 @@ ibexa.addConfig(
             component: SortSwitcher,
         },
     ],
-    true
+    true,
 );
 
 export default SortSwitcher;

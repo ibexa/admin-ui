@@ -280,7 +280,7 @@ export default class SubItemsModule extends Component {
             () => {
                 ibexa.helpers.tooltips.hideAll();
                 window.localStorage.setItem(`ibexa-subitems-active-view-location-${this.props.parentLocationId}`, activeView);
-            }
+            },
         );
     }
 
@@ -395,7 +395,7 @@ export default class SubItemsModule extends Component {
                 /*@Desc("%itemsCount% Content items cannot be moved")*/
                 'bulk_move.error.modal.table_title',
                 { itemsCount: notMovedItems.length },
-                'sub_items'
+                'sub_items',
             );
             const notificationMessage = Translator.trans(
                 /*@Desc("%notMovedCount% of the %totalCount% selected item(s) could not be moved because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator.")*/ 'bulk_move.error.message',
@@ -403,14 +403,14 @@ export default class SubItemsModule extends Component {
                     notMovedCount: notMovedItems.length,
                     totalCount: movedItems.length + notMovedItems.length,
                 },
-                'sub_items'
+                'sub_items',
             );
             const rawPlaceholdersMap = {
                 moreInformationLink: Translator.trans(
                     /*@Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
                     'bulk_action.error.more_info',
                     {},
-                    'sub_items'
+                    'sub_items',
                 ),
             };
 
@@ -422,7 +422,7 @@ export default class SubItemsModule extends Component {
                 /*@Desc("Content item(s) sent to {{ locationLink }}")*/
                 'bulk_move.success.message',
                 {},
-                'sub_items'
+                'sub_items',
             );
             const rawPlaceholdersMap = {
                 locationLink: Translator.trans(
@@ -432,7 +432,7 @@ export default class SubItemsModule extends Component {
                         locationName: ibexa.helpers.text.escapeHTML(location.ContentInfo.Content.Name),
                         locationHref: this.props.generateLink(location.id, location.ContentInfo.Content._id),
                     },
-                    'sub_items'
+                    'sub_items',
                 ),
             };
 
@@ -450,7 +450,7 @@ export default class SubItemsModule extends Component {
                 /*@Desc("%itemsCount% Content item(s) cannot be hidden")*/
                 'bulk_hide.error.modal.table_title',
                 { itemsCount: failedItems.length },
-                'sub_items'
+                'sub_items',
             );
             const notificationMessage = Translator.trans(
                 /*@Desc("%failedCount% of the %totalCount% selected item(s) could not be hidden because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator to obtain permissions.")*/
@@ -459,14 +459,14 @@ export default class SubItemsModule extends Component {
                     failedCount: failedItems.length,
                     totalCount: successItems.length + failedItems.length,
                 },
-                'sub_items'
+                'sub_items',
             );
             const rawPlaceholdersMap = {
                 moreInformationLink: Translator.trans(
                     /*@Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
                     'bulk_action.error.more_info',
                     {},
-                    'sub_items'
+                    'sub_items',
                 ),
             };
 
@@ -478,7 +478,7 @@ export default class SubItemsModule extends Component {
                 /*@Desc("Location(s) hidden.")*/
                 'bulk_hide.success.message',
                 {},
-                'sub_items'
+                'sub_items',
             );
 
             window.ibexa.helpers.notification.showSuccessNotification(message);
@@ -495,7 +495,7 @@ export default class SubItemsModule extends Component {
                 /*@Desc("%itemsCount% Location(s) cannot be revealed")*/
                 'bulk_unhide.error.modal.table_title',
                 { itemsCount: failedItems.length },
-                'sub_items'
+                'sub_items',
             );
             const notificationMessage = Translator.trans(
                 /*@Desc("%failedCount% of the %totalCount% selected Location(s) could not be revealed because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator to obtain permissions.")*/
@@ -504,14 +504,14 @@ export default class SubItemsModule extends Component {
                     failedCount: failedItems.length,
                     totalCount: successItems.length + failedItems.length,
                 },
-                'sub_items'
+                'sub_items',
             );
             const rawPlaceholdersMap = {
                 moreInformationLink: Translator.trans(
                     /*@Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
                     'bulk_action.error.more_info',
                     {},
-                    'sub_items'
+                    'sub_items',
                 ),
             };
 
@@ -523,7 +523,7 @@ export default class SubItemsModule extends Component {
                 /*@Desc("The selected location(s) have been revealed.")*/
                 'bulk_unhide.success.message',
                 {},
-                'sub_items'
+                'sub_items',
             );
 
             window.ibexa.helpers.notification.showSuccessNotification(message);
@@ -540,7 +540,7 @@ export default class SubItemsModule extends Component {
                 /*@Desc("%itemsCount% Location(s) cannot be added")*/
                 'bulk_add_location.error.modal.table_title',
                 { itemsCount: failedItems.length },
-                'sub_items'
+                'sub_items',
             );
             const notificationMessage = Translator.trans(
                 /*@Desc("%failedCount% of the %totalCount% selected Locations(s) could not be added because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator to obtain permissions.")*/
@@ -549,14 +549,14 @@ export default class SubItemsModule extends Component {
                     failedCount: failedItems.length,
                     totalCount: successItems.length + failedItems.length,
                 },
-                'sub_items'
+                'sub_items',
             );
             const rawPlaceholdersMap = {
                 moreInformationLink: Translator.trans(
                     /*@Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
                     'bulk_action.error.more_info',
                     {},
-                    'sub_items'
+                    'sub_items',
                 ),
             };
 
@@ -568,7 +568,7 @@ export default class SubItemsModule extends Component {
                 /*@Desc("Location(s) added to {{ locationLink }}.")*/
                 'bulk_add_location.success.message',
                 {},
-                'sub_items'
+                'sub_items',
             );
             const rawPlaceholdersMap = {
                 locationLink: Translator.trans(
@@ -578,7 +578,7 @@ export default class SubItemsModule extends Component {
                         locationName: ibexa.helpers.text.escapeHTML(location.ContentInfo.Content.TranslatedName),
                         locationHref: this.props.generateLink(location.id, location.ContentInfo.id),
                     },
-                    'sub_items'
+                    'sub_items',
                 ),
             };
 
@@ -614,7 +614,7 @@ export default class SubItemsModule extends Component {
             return null;
         }
 
-        const UniversalDiscovery = window.ibexa.modules.UniversalDiscovery;
+        const { UniversalDiscovery } = window.ibexa.modules;
         const { restInfo, parentLocationId, udwConfigBulkMoveItems, udwConfigBulkAddLocation } = this.props;
         const { selectedItems } = this.state;
         const selectedItemsLocationsIds = [...selectedItems.values()].map(({ id }) => id);
@@ -699,7 +699,7 @@ export default class SubItemsModule extends Component {
                     /*@Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
                     'bulk_action.error.more_info',
                     {},
-                    'sub_items'
+                    'sub_items',
                 ),
             };
 
@@ -709,7 +709,7 @@ export default class SubItemsModule extends Component {
                     {
                         itemsCount: notDeletedItems.length,
                     },
-                    'sub_items'
+                    'sub_items',
                 );
                 message = Translator.trans(
                     /*@Desc("%notDeletedCount% of the %totalCount% selected item(s) could not be deleted or sent to Trash because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator.")*/ 'bulk_delete.error.message.users_with_nonusers',
@@ -717,7 +717,7 @@ export default class SubItemsModule extends Component {
                         notDeletedCount: notDeletedItems.length,
                         totalCount: deletedItems.length + notDeletedItems.length,
                     },
-                    'sub_items'
+                    'sub_items',
                 );
             } else if (hadUserContentItemFailed) {
                 modalTableTitle = Translator.trans(
@@ -725,7 +725,7 @@ export default class SubItemsModule extends Component {
                     {
                         itemsCount: notDeletedItems.length,
                     },
-                    'sub_items'
+                    'sub_items',
                 );
                 message = Translator.trans(
                     /*@Desc("%notDeletedCount% of the %totalCount% selected item(s) could not be deleted because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator.")*/ 'bulk_delete.error.message.users',
@@ -733,7 +733,7 @@ export default class SubItemsModule extends Component {
                         notDeletedCount: notDeletedItems.length,
                         totalCount: deletedItems.length + notDeletedItems.length,
                     },
-                    'sub_items'
+                    'sub_items',
                 );
             } else {
                 modalTableTitle = Translator.trans(
@@ -741,7 +741,7 @@ export default class SubItemsModule extends Component {
                     {
                         itemsCount: notDeletedItems.length,
                     },
-                    'sub_items'
+                    'sub_items',
                 );
                 message = Translator.trans(
                     /*@Desc("%notDeletedCount% of the %totalCount% selected item(s) could not be sent to Trash because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator.")*/ 'bulk_delete.error.message.nonusers',
@@ -749,7 +749,7 @@ export default class SubItemsModule extends Component {
                         notDeletedCount: notDeletedItems.length,
                         totalCount: deletedItems.length + notDeletedItems.length,
                     },
-                    'sub_items'
+                    'sub_items',
                 );
             }
 
@@ -763,7 +763,7 @@ export default class SubItemsModule extends Component {
                 message = Translator.trans(
                     /*@Desc("Content item(s) sent to Trash. User(s) deleted.")*/ 'bulk_delete.success.message.users_with_nonusers',
                     {},
-                    'sub_items'
+                    'sub_items',
                 );
             } else if (anyUserContentItemDeleted) {
                 message = Translator.trans(/*@Desc("User(s) deleted.")*/ 'bulk_delete.success.message.users', {}, 'sub_items');
@@ -771,7 +771,7 @@ export default class SubItemsModule extends Component {
                 message = Translator.trans(
                     /*@Desc("Content item(s) sent to Trash.")*/ 'bulk_delete.success.message.nonusers',
                     {},
-                    'sub_items'
+                    'sub_items',
                 );
             }
 
@@ -851,7 +851,7 @@ export default class SubItemsModule extends Component {
 
                 showModalBtn.addEventListener('click', this.props.showBulkActionFailedModal.bind(null, modalTableTitle, failedItemsData));
             },
-            rawPlaceholdersMap
+            rawPlaceholdersMap,
         );
     }
 
@@ -875,14 +875,16 @@ export default class SubItemsModule extends Component {
                 <button
                     onClick={this.onBulkDeletePopupConfirm}
                     type="button"
-                    className="btn ibexa-btn ibexa-btn--primary ibexa-btn--trigger">
+                    className="btn ibexa-btn ibexa-btn--primary ibexa-btn--trigger"
+                >
                     {confirmLabel}
                 </button>
                 <button
                     onClick={this.closeBulkDeletePopup}
                     type="button"
                     className="btn ibexa-btn ibexa-btn--secondary"
-                    data-bs-dismiss="modal">
+                    data-bs-dismiss="modal"
+                >
                     {cancelLabel}
                 </button>
             </Fragment>
@@ -895,14 +897,19 @@ export default class SubItemsModule extends Component {
 
         return (
             <Fragment>
-                <button onClick={this.onBulkHidePopupConfirm} type="button" className="btn ibexa-btn ibexa-btn--primary ibexa-btn--trigger">
+                <button
+                    onClick={this.onBulkHidePopupConfirm}
+                    type="button"
+                    className="btn ibexa-btn ibexa-btn--primary ibexa-btn--trigger"
+                >
                     {confirmLabel}
                 </button>
                 <button
                     onClick={this.closeBulkHidePopup}
                     type="button"
                     className="btn ibexa-btn ibexa-btn--secondary"
-                    data-bs-dismiss="modal">
+                    data-bs-dismiss="modal"
+                >
                     {cancelLabel}
                 </button>
             </Fragment>
@@ -918,14 +925,16 @@ export default class SubItemsModule extends Component {
                 <button
                     onClick={this.onBulkUnhidePopupConfirm}
                     type="button"
-                    className="btn ibexa-btn ibexa-btn--primary ibexa-btn--trigger">
+                    className="btn ibexa-btn ibexa-btn--primary ibexa-btn--trigger"
+                >
                     {confirmLabel}
                 </button>
                 <button
                     onClick={this.closeBulkUnhidePopup}
                     type="button"
                     className="btn ibexa-btn ibexa-btn--secondary"
-                    data-bs-dismiss="modal">
+                    data-bs-dismiss="modal"
+                >
                     {cancelLabel}
                 </button>
             </Fragment>
@@ -967,17 +976,17 @@ export default class SubItemsModule extends Component {
         const confirmationMessageUsers = Translator.trans(
             /*@Desc("Are you sure you want to delete the selected user(s)?")*/ 'bulk_delete.popup.message.users',
             {},
-            'sub_items'
+            'sub_items',
         );
         const confirmationMessageNonUsers = Translator.trans(
             /*@Desc("Are you sure you want to send the selected Content item(s) to Trash?")*/ 'bulk_delete.popup.message.nonusers',
             {},
-            'sub_items'
+            'sub_items',
         );
         const confirmationMessageUsersAndNonUsers = Translator.trans(
             /*@Desc("Are you sure you want to delete the selected user(s) and send the other selected Content item(s) to Trash?")*/ 'bulk_delete.popup.message.users_with_nonusers',
             {},
-            'sub_items'
+            'sub_items',
         );
         const selectionInfo = this.getSelectionInfo();
         const { isUserContentItemSelected, isNonUserContentItemSelected } = selectionInfo;
@@ -998,10 +1007,11 @@ export default class SubItemsModule extends Component {
                 isLoading={false}
                 size="medium"
                 footerChildren={this.renderDeleteConfirmationPopupFooter(selectionInfo)}
-                noHeader={true}>
+                noHeader={true}
+            >
                 <div className="m-sub-items__confirmation-modal-body">{confirmationMessage}</div>
             </Popup>,
-            this.bulkActionModalContainer
+            this.bulkActionModalContainer,
         );
     }
 
@@ -1016,7 +1026,7 @@ export default class SubItemsModule extends Component {
             /*@Desc("Are you sure you want to hide the selected Location(s)?")*/
             'bulk_hide.popup.message',
             {},
-            'sub_items'
+            'sub_items',
         );
 
         return ReactDOM.createPortal(
@@ -1026,10 +1036,11 @@ export default class SubItemsModule extends Component {
                 isLoading={false}
                 size="medium"
                 footerChildren={this.renderHideConfirmationPopupFooter()}
-                noHeader={true}>
+                noHeader={true}
+            >
                 <div className="m-sub-items__confirmation-modal-body">{confirmationMessage}</div>
             </Popup>,
-            this.bulkActionModalContainer
+            this.bulkActionModalContainer,
         );
     }
 
@@ -1044,7 +1055,7 @@ export default class SubItemsModule extends Component {
             /*@Desc("Are you sure you want to reveal the selected Location(s)?")*/
             'bulk_unhide.popup.message',
             {},
-            'sub_items'
+            'sub_items',
         );
 
         return ReactDOM.createPortal(
@@ -1054,10 +1065,11 @@ export default class SubItemsModule extends Component {
                 isLoading={false}
                 size="medium"
                 footerChildren={this.renderUnhideConfirmationPopupFooter()}
-                noHeader={true}>
+                noHeader={true}
+            >
                 <div className="m-sub-items__confirmation-modal-body">{confirmationMessage}</div>
             </Popup>,
-            this.bulkActionModalContainer
+            this.bulkActionModalContainer,
         );
     }
 
@@ -1089,7 +1101,11 @@ export default class SubItemsModule extends Component {
     renderExtraActions(action, index) {
         const Action = action.component;
 
-        return <Action key={index} className="m-sub-items__action" {...action.attrs} />;
+        return <Action
+            key={index}
+            className="m-sub-items__action"
+            {...action.attrs}
+               />;
     }
 
     /**
@@ -1114,10 +1130,13 @@ export default class SubItemsModule extends Component {
                 viewingCount,
                 totalCount,
             },
-            'sub_items'
+            'sub_items',
         );
 
-        return <div className="m-sub-items__pagination-info ibexa-pagination__info" dangerouslySetInnerHTML={{ __html: message }} />;
+        return <div
+            className="m-sub-items__pagination-info ibexa-pagination__info"
+            dangerouslySetInnerHTML={{ __html: message }}
+               />;
     }
 
     /**
@@ -1154,31 +1173,56 @@ export default class SubItemsModule extends Component {
     renderBulkMoveBtn(disabled) {
         const label = Translator.trans(/*@Desc("Move")*/ 'move_btn.label', {}, 'sub_items');
 
-        return <ActionButton disabled={disabled} onClick={this.onMoveBtnClick} label={label} type="move" />;
+        return <ActionButton
+            disabled={disabled}
+            onClick={this.onMoveBtnClick}
+            label={label}
+            type="move"
+               />;
     }
 
     renderBulkAddLocationBtn(disabled) {
         const label = Translator.trans(/*@Desc("Add Locations")*/ 'add_locations_btn.label', {}, 'sub_items');
 
-        return <ActionButton disabled={disabled} onClick={this.onAddLocationsBtnClick} label={label} type="create-location" />;
+        return <ActionButton
+            disabled={disabled}
+            onClick={this.onAddLocationsBtnClick}
+            label={label}
+            type="create-location"
+               />;
     }
 
     renderBulkHideBtn(disabled) {
         const label = Translator.trans(/*@Desc("Hide")*/ 'hide_locations_btn.label', {}, 'sub_items');
 
-        return <ActionButton disabled={disabled} onClick={this.onHideBtnClick} label={label} type="hide" />;
+        return <ActionButton
+            disabled={disabled}
+            onClick={this.onHideBtnClick}
+            label={label}
+            type="hide"
+               />;
     }
 
     renderBulkUnhideBtn(disabled) {
         const label = Translator.trans(/*@Desc("Reveal")*/ 'unhide_locations_btn.label', {}, 'sub_items');
 
-        return <ActionButton disabled={disabled} onClick={this.onUnhideBtnClick} label={label} type="reveal" />;
+        return <ActionButton
+            disabled={disabled}
+            onClick={this.onUnhideBtnClick}
+            label={label}
+            type="reveal"
+               />;
     }
 
     renderBulkDeleteBtn(disabled) {
         const label = Translator.trans(/*@Desc("Delete")*/ 'trash_btn.label', {}, 'sub_items');
 
-        return <ActionButton disabled={disabled} onClick={this.onDeleteBtnClick} label={label} type="trash" />;
+        return <ActionButton
+            disabled={disabled}
+            onClick={this.onDeleteBtnClick}
+            label={label}
+            type="trash"
+               />;
     }
 
     renderSpinner() {
@@ -1198,7 +1242,10 @@ export default class SubItemsModule extends Component {
         return (
             <div style={style}>
                 <div className="m-sub-items__spinner-wrapper">
-                    <Icon name="spinner" extraClasses="m-sub-items__spinner ibexa-icon--medium ibexa-spin" />
+                    <Icon
+                        name="spinner"
+                        extraClasses="m-sub-items__spinner ibexa-icon--medium ibexa-spin"
+                    />
                 </div>
             </div>
         );
@@ -1250,7 +1297,7 @@ export default class SubItemsModule extends Component {
                 detail: {
                     numberOfSubitems: this.state.totalCount,
                 },
-            })
+            }),
         );
     }
 
@@ -1278,7 +1325,10 @@ export default class SubItemsModule extends Component {
 
         return (
             <div ref={this._refMainContainerWrapper}>
-                <div className="m-sub-items" style={{ width: `${subItemsWidth}px` }}>
+                <div
+                    className="m-sub-items"
+                    style={{ width: `${subItemsWidth}px` }}
+                >
                     <div className="ibexa-table-header ">
                         <div className="ibexa-table-header__headline">
                             {listTitle} ({this.state.totalCount})
@@ -1290,10 +1340,17 @@ export default class SubItemsModule extends Component {
                             {this.renderBulkHideBtn(bulkHideBtnDisabled)}
                             {this.renderBulkUnhideBtn(bulkUnhideBtnDisabled)}
                             {this.renderBulkDeleteBtn(bulkBtnDisabled)}
-                            <ViewSwitcherComponent onViewChange={this.switchView} activeView={activeView} isDisabled={!totalCount} />
+                            <ViewSwitcherComponent
+                                onViewChange={this.switchView}
+                                activeView={activeView}
+                                isDisabled={!totalCount}
+                            />
                         </div>
                     </div>
-                    <div ref={this._refListViewWrapper} className={listClassName}>
+                    <div
+                        ref={this._refListViewWrapper}
+                        className={listClassName}
+                    >
                         {this.renderSpinner()}
                         {this.renderListView()}
                         {this.renderNoItems()}
@@ -1328,7 +1385,7 @@ SubItemsModule.propTypes = {
         PropTypes.shape({
             component: PropTypes.func,
             attrs: PropTypes.object,
-        })
+        }),
     ),
     items: PropTypes.arrayOf(PropTypes.object),
     limit: PropTypes.number,

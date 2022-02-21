@@ -8,6 +8,6 @@
   },
   "scripts": {
       "test": "yarn eslint-test",
-      "eslint-test": "eslint \"./src/bundle/Resources/**/*.js\""
+      "eslint-test": "eslint \"./src/bundle/Resources/**/*.js\" \"./src/bundle/ui-dev/**/*.js\""
   }
 }

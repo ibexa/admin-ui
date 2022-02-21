@@ -22,7 +22,10 @@ const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPa
     }, []);
 
     return (
-        <div className="c-content-table" ref={refContentTable}>
+        <div
+            className="c-content-table"
+            ref={refContentTable}
+        >
             {renderCustomHeader ? (
                 renderCustomHeader()
             ) : (
@@ -43,7 +46,10 @@ const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPa
                     </thead>
                     <tbody className="ibexa-table__body">
                         {items.map((item) => (
-                            <ContentTableItem key={item.id} location={item} />
+                            <ContentTableItem
+                                key={item.id}
+                                location={item}
+                            />
                         ))}
                     </tbody>
                 </table>

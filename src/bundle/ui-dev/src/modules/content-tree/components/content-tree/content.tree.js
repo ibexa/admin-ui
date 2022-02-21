@@ -46,7 +46,7 @@ export default class ContentTree extends Component {
                     this.saveConfig('scrollTop', scrollTop);
                 },
                 50,
-                event.currentTarget.scrollTop
+                event.currentTarget.scrollTop,
             );
         });
 
@@ -98,7 +98,7 @@ export default class ContentTree extends Component {
             }),
             () => {
                 document.body.dispatchEvent(new CustomEvent('ibexa-content-resized'));
-            }
+            },
         );
     }
 
@@ -112,7 +112,7 @@ export default class ContentTree extends Component {
             }),
             () => {
                 document.body.dispatchEvent(new CustomEvent('ibexa-content-resized'));
-            }
+            },
         );
     }
 
@@ -138,7 +138,7 @@ export default class ContentTree extends Component {
             }),
             () => {
                 document.body.dispatchEvent(new CustomEvent('ibexa-content-resized'));
-            }
+            },
         );
     }
 
@@ -203,7 +203,10 @@ export default class ContentTree extends Component {
         };
 
         return (
-            <div className="m-tree__scrollable-wrapper" ref={(ref) => (this.containerScrollRef = ref)}>
+            <div
+                className="m-tree__scrollable-wrapper"
+                ref={(ref) => (this.containerScrollRef = ref)}
+            >
                 {this.checkIsTreeCollapsed() || !items || !items.length ? null : <List {...attrs} />}
             </div>
         );
@@ -218,7 +221,10 @@ export default class ContentTree extends Component {
 
         return (
             <div className="m-tree__loading-spinner">
-                <Icon name="spinner" extraClasses="ibexa-icon--medium ibexa-spin" />
+                <Icon
+                    name="spinner"
+                    extraClasses="ibexa-icon--medium ibexa-spin"
+                />
             </div>
         );
     }
@@ -246,7 +252,10 @@ export default class ContentTree extends Component {
                     {this.renderHeader()}
                     {this.renderList()}
                     {this.renderLoadingSpinner()}
-                    <div className="m-tree__resize-handler" onMouseDown={this.addWidthChangeListener} />
+                    <div
+                        className="m-tree__resize-handler"
+                        onMouseDown={this.addWidthChangeListener}
+                    />
                 </div>
                 <div ref={this._refPopupContainer} />
             </>

@@ -90,12 +90,17 @@ const ContentEditTabModule = () => {
             languageCode: editOnTheFlyData.languageCode,
             locationId: editOnTheFlyData.locationId,
         },
-        true
+        true,
     );
 
     return (
         <div className="c-content-edit">
-            <iframe src={iframeUrl} className="c-content-edit__iframe" ref={iframeRef} onLoad={handleIframeLoad} />
+            <iframe
+                src={iframeUrl}
+                className="c-content-edit__iframe"
+                ref={iframeRef}
+                onLoad={handleIframeLoad}
+            />
         </div>
     );
 };
@@ -110,7 +115,7 @@ ibexa.addConfig(
             isHiddenOnList: true,
         },
     ],
-    true
+    true,
 );
 
 export default ContentEditTabModule;

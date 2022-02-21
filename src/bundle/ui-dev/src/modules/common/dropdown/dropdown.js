@@ -15,7 +15,7 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
         'ibexa-dropdown': true,
         'ibexa-dropdown--single': single,
         'ibexa-dropdown--small': small,
-        [extraClasses]: true
+        [extraClasses]: true,
     });
     const toggleExpanded = () => {
         setIsExpanded((prevState) => !prevState);
@@ -31,7 +31,7 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
         const searchedTermLowerCase = searchedTerm.toLowerCase();
 
         return itemValueLowerCase.indexOf(searchedTermLowerCase) === 0;
-    }
+    };
     const renderItem = (item) => {
         const itemClassName = createCssClassNames({
             'ibexa-dropdown__item': true,
@@ -50,11 +50,11 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
             >
                 <span className="ibexa-dropdown__item-label">{ item.label }</span>
             </li>
-        )
-    }
+        );
+    };
     const renderItemsList = () => {
         const itemsStyles = {};
-        const placeholder = Translator.trans(/*@Desc("Search...")*/ 'dropdown.placeholder', {}, 'universal_discovery_widget')
+        const placeholder = Translator.trans(/*@Desc("Search...")*/ 'dropdown.placeholder', {}, 'universal_discovery_widget');
 
         if (containerRef.current) {
             const { width, left, top, height } = containerRef.current.getBoundingClientRect();
@@ -65,7 +65,11 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
         }
 
         return (
-            <div className="ibexa-dropdown__items" style={itemsStyles} ref={containerItemsRef} >
+            <div
+                className="ibexa-dropdown__items"
+                style={itemsStyles}
+                ref={containerItemsRef}
+            >
                 <div className="ibexa-input-text-wrapper">
                     <input
                         type="text"
@@ -88,7 +92,10 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
                             className="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search"
                             tabIndex="-1"
                         >
-                            <Icon name="search" extraClasses="ibexa-icon--small" />
+                            <Icon
+                                name="search"
+                                extraClasses="ibexa-icon--small"
+                            />
                         </button>
                     </div>
                 </div>
@@ -96,8 +103,8 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
                     {options.map(renderItem)}
                 </ul>
             </div>
-        )
-    }
+        );
+    };
 
     useEffect(() => {
         if (!isExpanded) {
@@ -110,13 +117,13 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
             }
 
             setIsExpanded(false);
-        }
+        };
 
         document.body.addEventListener('click', onInteractionOutside, false);
 
         return () => {
             document.body.removeEventListener('click', onInteractionOutside, false);
-        }
+        };
     }, [isExpanded]);
 
     useEffect(() => {
@@ -159,7 +166,7 @@ Dropdown.propTypes = {
 Dropdown.defaultProps = {
     small: false,
     single: false,
-    extraClasses: ''
+    extraClasses: '',
 };
 
 export default Dropdown;

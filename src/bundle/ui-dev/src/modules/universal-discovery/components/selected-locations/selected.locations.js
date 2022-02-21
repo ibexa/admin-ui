@@ -20,7 +20,7 @@ const SelectedLocations = () => {
     const collapseLabel = Translator.trans(
         /*@Desc("Collapse sidebar")*/ 'selected_locations.collapse.sidebar',
         {},
-        'universal_discovery_widget'
+        'universal_discovery_widget',
     );
     const togglerLabel = isExpanded ? collapseLabel : expandLabel;
     const clearSelection = () => {
@@ -34,7 +34,7 @@ const SelectedLocations = () => {
         const selectedLabel = Translator.trans(
             /*@Desc("%count% selected item(s)")*/ 'selected_locations.selected_items',
             { count: selectedLocations.length },
-            'universal_discovery_widget'
+            'universal_discovery_widget',
         );
 
         return (
@@ -55,8 +55,14 @@ const SelectedLocations = () => {
                 title={togglerLabel}
                 data-tooltip-container-selector=".c-udw-tab"
             >
-                <Icon name={iconName} extraClasses="ibexa-icon--small" />
-                <Icon name={iconName} extraClasses="ibexa-icon--small" />
+                <Icon
+                    name={iconName}
+                    extraClasses="ibexa-icon--small"
+                />
+                <Icon
+                    name={iconName}
+                    extraClasses="ibexa-icon--small"
+                />
             </button>
         );
     };
@@ -110,7 +116,10 @@ const SelectedLocations = () => {
     }
 
     return (
-        <div className={className} ref={refSelectedLocations}>
+        <div
+            className={className}
+            ref={refSelectedLocations}
+        >
             <div className="c-selected-locations__header">
                 {renderSelectionCounter()}
                 {renderToggleButton()}

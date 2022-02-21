@@ -9,7 +9,7 @@ const ViewSwitcher = ({ isDisabled }) => {
     const [currentView, setCurrentView] = useContext(CurrentViewContext);
     const onOptionClick = (view) => {
         setCurrentView(view.id);
-    }
+    };
     const selectedOption = VIEWS.find((view) => view.id === currentView);
 
     return (
@@ -41,7 +41,7 @@ ibexa.addConfig(
             component: ViewSwitcher,
         },
     ],
-    true
+    true,
 );
 
 export default ViewSwitcher;

@@ -21,7 +21,7 @@ const PopupActions = ({ listRef, options }) => {
         return [...headerActions].sort((headerActionA, headerActionB) => {
             return headerActionB.priority - headerActionA.priority;
         });
-    }
+    };
     const renderItem = (item) => {
         const Component = item.component;
 
@@ -33,8 +33,8 @@ const PopupActions = ({ listRef, options }) => {
             >
                 <Component />
             </li>
-        )
-    }
+        );
+    };
     const renderItemsList = () => {
         const itemsStyles = {};
         const allOptions = [...options, ...getHeaderActions()];
@@ -47,13 +47,17 @@ const PopupActions = ({ listRef, options }) => {
         }
 
         return (
-            <div className="c-popup-actions__items" style={itemsStyles} ref={containerItemsRef}>
+            <div
+                className="c-popup-actions__items"
+                style={itemsStyles}
+                ref={containerItemsRef}
+            >
                 <ul className="c-popup-actions__items-list">
                     {allOptions.map(renderItem)}
                 </ul>
             </div>
-        )
-    }
+        );
+    };
 
     useEffect(() => {
         if (!isExpanded) {
@@ -66,13 +70,13 @@ const PopupActions = ({ listRef, options }) => {
             }
 
             setIsExpanded(false);
-        }
+        };
 
         document.body.addEventListener('click', onInteractionOutside, false);
 
         return () => {
             document.body.removeEventListener('click', onInteractionOutside, false);
-        }
+        };
     }, [isExpanded]);
 
     return (
@@ -82,7 +86,10 @@ const PopupActions = ({ listRef, options }) => {
                 ref={containerRef}
                 onClick={toggleExpanded}
             >
-                <Icon name="options" extraClasses="ibexa-icon--small" />
+                <Icon
+                    name="options"
+                    extraClasses="ibexa-icon--small"
+                />
             </div>
             {isExpanded && ReactDOM.createPortal(
                 renderItemsList(),

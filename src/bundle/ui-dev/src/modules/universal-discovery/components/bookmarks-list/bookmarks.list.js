@@ -46,7 +46,10 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
 
         return (
             <div className="c-bookmarks-list__spinner-wrapper">
-                <Icon name="spinner" extraClasses="m-sub-items__spinner ibexa-icon--medium ibexa-spin" />
+                <Icon
+                    name="spinner"
+                    extraClasses="m-sub-items__spinner ibexa-icon--medium ibexa-spin"
+                />
             </div>
         );
     };
@@ -68,11 +71,15 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
     }
 
     return (
-        <div className="c-bookmarks-list" onScroll={loadMore} ref={refBookmarksList}>
+        <div
+            className="c-bookmarks-list"
+            onScroll={loadMore}
+            ref={refBookmarksList}
+        >
             {bookmarks.map((bookmark) => {
                 const isMarked = bookmark.id === markedLocationId;
                 const contentTypeInfo = contentTypesMap[bookmark.ContentInfo.Content.ContentType._href];
-                const isContainer = contentTypeInfo.isContainer;
+                const { isContainer } = contentTypeInfo;
                 const isNotSelectable =
                     (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeInfo.identifier));
                 const className = createCssClassNames({
@@ -102,7 +109,10 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
                         title={bookmark.ContentInfo.Content.TranslatedName}
                         data-tooltip-container-selector=".c-bookmarks-list"
                     >
-                        <Icon extraClasses="ibexa-icon--small" customPath={contentTypeInfo.thumbnail} />
+                        <Icon
+                            extraClasses="ibexa-icon--small"
+                            customPath={contentTypeInfo.thumbnail}
+                        />
                         <span className="c-bookmarks-list__item-name">{bookmark.ContentInfo.Content.TranslatedName}</span>
                     </div>
                 );

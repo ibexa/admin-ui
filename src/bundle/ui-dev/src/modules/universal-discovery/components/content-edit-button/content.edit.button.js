@@ -53,7 +53,7 @@ const ContentEditButton = ({ version, location, isDisabled, label }) => {
                         versionNo,
                         language,
                     },
-                    true
+                    true,
                 )
                 : window.Routing.generate(
                     'ibexa.content.draft.edit',
@@ -63,7 +63,7 @@ const ContentEditButton = ({ version, location, isDisabled, label }) => {
                         language,
                         locationId,
                     },
-                    true
+                    true,
                 );
 
             window.location.href = href;
@@ -93,7 +93,7 @@ const ContentEditButton = ({ version, location, isDisabled, label }) => {
                 ...restInfo,
                 contentId,
             },
-            (response) => redirectToContentEdit(contentId, response.Version.VersionInfo.versionNo, languageCode, location.id)
+            (response) => redirectToContentEdit(contentId, response.Version.VersionInfo.versionNo, languageCode, location.id),
         );
     };
     const renderTranslationSelector = () => {
@@ -115,7 +115,10 @@ const ContentEditButton = ({ version, location, isDisabled, label }) => {
                 onClick={toggleTranslationSelectorVisibility}
                 data-tooltip-container-selector=".c-udw-tab"
             >
-                <Icon name="edit" extraClasses="ibexa-icon--small" />
+                <Icon
+                    name="edit"
+                    extraClasses="ibexa-icon--small"
+                />
                 {label}
             </button>
             {renderTranslationSelector()}
@@ -132,6 +135,6 @@ ContentEditButton.propTypes = {
 
 ContentEditButton.defaultProps = {
     label: null,
-}
+};
 
 export default ContentEditButton;

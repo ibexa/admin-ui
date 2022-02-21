@@ -33,7 +33,7 @@ ibexa.addConfig(
             icon: window.ibexa.helpers.icon.getIconPath('browse'),
         },
     ],
-    true
+    true,
 );
 
 export default BrowseTabModule;

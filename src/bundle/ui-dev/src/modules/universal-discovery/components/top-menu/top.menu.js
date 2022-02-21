@@ -26,25 +26,39 @@ const TopMenu = ({ actionsDisabledMap }) => {
 
     return (
         <div className={className}>
-            <h2 className="c-top-menu__title-wrapper" data-tooltip-container-selector=".c-udw-tab" title={title}>
+            <h2
+                className="c-top-menu__title-wrapper"
+                data-tooltip-container-selector=".c-udw-tab"
+                title={title}
+            >
                 {title}
             </h2>
             <div className="c-top-menu__actions-wrapper">
                 {sortedActions.map((action) => {
                     const Component = action.component;
 
-                    return <Component key={action.id} isDisabled={actionsDisabledMap[action.id]} />;
+                    return <Component
+                        key={action.id}
+                        isDisabled={actionsDisabledMap[action.id]}
+                           />;
                 })}
             </div>
-            <TopMenuSearchInput isSearchOpened={isSearchOpened} setIsSearchOpened={setIsSearchOpened} />
+            <TopMenuSearchInput
+                isSearchOpened={isSearchOpened}
+                setIsSearchOpened={setIsSearchOpened}
+            />
             <span className="c-top-menu__cancel-btn-wrapper">
                 <button
                     className="c-top-menu__cancel-btn btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
                     type="button"
                     onClick={cancelUDW}
                     title={backTitle}
-                    data-tooltip-container-selector=".c-top-menu__cancel-btn-wrapper">
-                    <Icon name="discard" extraClasses="ibexa-icon--medium" />
+                    data-tooltip-container-selector=".c-top-menu__cancel-btn-wrapper"
+                >
+                    <Icon
+                        name="discard"
+                        extraClasses="ibexa-icon--medium"
+                    />
                 </button>
             </span>
         </div>

@@ -33,7 +33,7 @@ ibexa.addConfig(
             isHiddenOnList: true,
         },
     ],
-    true
+    true,
 );
 
 export default SearchTabModule;

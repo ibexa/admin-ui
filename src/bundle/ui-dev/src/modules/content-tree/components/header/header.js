@@ -50,7 +50,10 @@ const Header = ({ isCollapsed, toggleCollapseTree, actions, popupRef }) => {
                 {headerTitle}
             </div>
             <div className="c-header__options">
-                <PopupActions listRef={popupRef} options={actions} />
+                <PopupActions
+                    listRef={popupRef}
+                    options={actions}
+                />
             </div>
         </div>
     );

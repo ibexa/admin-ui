@@ -36,7 +36,7 @@ const ContentTableItem = ({ location }) => {
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
     const containersOnly = useContext(ContainersOnlyContext);
-    const isContainer = contentTypeInfo.isContainer;
+    const { isContainer } = contentTypeInfo;
     const isNotSelectable =
         (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeInfo.identifier));
     const className = createCssClassNames({
@@ -72,14 +72,24 @@ const ContentTableItem = ({ location }) => {
         }
     };
     const renderToggleSelection = () => {
-        return <ToggleSelection location={location} multiple={multiple} isHidden={isNotSelectable} />;
+        return <ToggleSelection
+            location={location}
+            multiple={multiple}
+            isHidden={isNotSelectable}
+               />;
     };
 
     return (
-        <tr className={className} onClick={markLocation}>
+        <tr
+            className={className}
+            onClick={markLocation}
+        >
             {multiple && <td className="ibexa-table__cell ibexa-table__cell--has-checkbox">{renderToggleSelection()}</td>}
             <td className="ibexa-table__cell c-content-table-item__icon-wrapper">
-                <Icon extraClasses="ibexa-icon--small" customPath={contentTypeInfo.thumbnail} />
+                <Icon
+                    extraClasses="ibexa-icon--small"
+                    customPath={contentTypeInfo.thumbnail}
+                />
             </td>
             <td className="ibexa-table__cell">{location.ContentInfo.Content.TranslatedName}</td>
             <td className="ibexa-table__cell">{formatShortDateTime(new Date(location.ContentInfo.Content.lastModificationDate))}</td>

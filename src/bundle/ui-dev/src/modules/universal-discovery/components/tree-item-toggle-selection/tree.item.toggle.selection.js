@@ -50,8 +50,12 @@ const TreeItemToggleSelection = ({ locationId, isContainer, contentTypeIdentifie
                 dispatchSelectedLocationsActionWrapper,
             ]}
         >
-            <ToggleSelection location={location} multiple={multiple} isHidden={isNotSelectable} />
-            {isNotSelectable && <div className="c-list-item__prefix-actions-item-empty"></div>}
+            <ToggleSelection
+                location={location}
+                multiple={multiple}
+                isHidden={isNotSelectable}
+            />
+            {isNotSelectable && <div className="c-list-item__prefix-actions-item-empty" />}
         </SelectedLocationsContext.Provider>
     );
 };
@@ -65,7 +69,7 @@ ibexa.addConfig(
             component: TreeItemToggleSelection,
         },
     ],
-    true
+    true,
 );
 
 TreeItemToggleSelection.propTypes = {

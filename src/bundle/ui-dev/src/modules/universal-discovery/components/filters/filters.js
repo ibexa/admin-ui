@@ -48,7 +48,7 @@ const Filters = ({ search }) => {
             udwContainer.remove();
         };
         const onConfirm = (items) => {
-            const pathString = items[0].pathString;
+            const { pathString } = items[0];
             const pathArray = pathString.split('/').filter((val) => val);
             const id = pathArray.splice(1, pathArray.length - 1).join();
 
@@ -90,8 +90,12 @@ const Filters = ({ search }) => {
                     <button
                         type="button"
                         className="btn ibexa-tag-view-select__selected-item-tag-remove-btn"
-                        onClick={clearSelectedSubtree}>
-                        <Icon name="discard" extraClasses="ibexa-icon--tiny" />
+                        onClick={clearSelectedSubtree}
+                    >
+                        <Icon
+                            name="discard"
+                            extraClasses="ibexa-icon--tiny"
+                        />
                     </button>
                 </div>
             </div>
@@ -101,16 +105,20 @@ const Filters = ({ search }) => {
         const selectLabel = Translator.trans(
             /*@Desc("Select content")*/ 'filters.tag_view_select.select',
             {},
-            'universal_discovery_widget'
+            'universal_discovery_widget',
         );
         const changeLabel = Translator.trans(
             /*@Desc("Change content")*/ 'filters.tag_view_change.select',
             {},
-            'universal_discovery_widget'
+            'universal_discovery_widget',
         );
 
         return (
-            <button className="ibexa-tag-view-select__btn-select-path btn ibexa-btn ibexa-btn--secondary" type="button" onClick={openUdw}>
+            <button
+                className="ibexa-tag-view-select__btn-select-path btn ibexa-btn ibexa-btn--secondary"
+                type="button"
+                onClick={openUdw}
+            >
                 {selectedSubtree ? changeLabel : selectLabel}
             </button>
         );
@@ -144,14 +152,18 @@ const Filters = ({ search }) => {
             <div className="c-filters__header">
                 <div className="c-filters__header-content">{filtersLabel}</div>
                 <div className="c-filters__header-actions">
-                    <button className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small" onClick={clearFilters}>
+                    <button
+                        className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                        onClick={clearFilters}
+                    >
                         {clearLabel}
                     </button>
                     <button
                         type="submit"
                         className="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-btn--apply"
                         onClick={makeSearch}
-                        disabled={!isApplyButtonEnabled}>
+                        disabled={!isApplyButtonEnabled}
+                    >
                         {applyLabel}
                     </button>
                 </div>

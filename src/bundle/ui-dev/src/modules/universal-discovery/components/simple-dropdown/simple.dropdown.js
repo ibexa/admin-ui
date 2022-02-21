@@ -15,7 +15,10 @@ const SimpleDropdown = ({ options, selectedOption, onOptionClick, isDisabled }) 
     const getCaretIcon = () => {
         const iconName = isExpanded ? 'caret-up' : 'caret-down';
 
-        return <Icon name={iconName} extraClasses="ibexa-icon--tiny c-udw-simple-dropdown__expand-icon" />;
+        return <Icon
+            name={iconName}
+            extraClasses="ibexa-icon--tiny c-udw-simple-dropdown__expand-icon"
+               />;
     };
     const toggleExpanded = () => {
         if (isDisabled) {
@@ -37,9 +40,16 @@ const SimpleDropdown = ({ options, selectedOption, onOptionClick, isDisabled }) 
         });
 
         return (
-            <li key={item.id} className={itemClass} onClick={() => onOptionClickWrapper(item)}>
+            <li
+                key={item.id}
+                className={itemClass}
+                onClick={() => onOptionClickWrapper(item)}
+            >
                 <span>{item.label}</span>
-                {isItemSelected && <Icon name="checkmark" extraClasses="c-udw-simple-dropdown__list-item-checkmark ibexa-icon--small" />}
+                {isItemSelected && <Icon
+                    name="checkmark"
+                    extraClasses="c-udw-simple-dropdown__list-item-checkmark ibexa-icon--small"
+                                   />}
             </li>
         );
     };
@@ -65,8 +75,14 @@ const SimpleDropdown = ({ options, selectedOption, onOptionClick, isDisabled }) 
     }, [isExpanded]);
 
     return (
-        <div className={dropdownClass} ref={containerRef}>
-            <div className="c-udw-simple-dropdown__selected" onClick={toggleExpanded}>
+        <div
+            className={dropdownClass}
+            ref={containerRef}
+        >
+            <div
+                className="c-udw-simple-dropdown__selected"
+                onClick={toggleExpanded}
+            >
                 <span>{selectedOption.selectedLabel ?? selectedOption.label}</span>
                 {getCaretIcon()}
             </div>

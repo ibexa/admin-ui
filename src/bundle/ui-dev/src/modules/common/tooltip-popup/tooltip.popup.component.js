@@ -28,9 +28,9 @@ const TooltipPopupComponent = (props) => {
         maxHeight === INITIAL_HEIGHT
             ? {}
             : {
-                  maxHeight,
-                  overflowY: 'scroll',
-              };
+                maxHeight,
+                overflowY: 'scroll',
+            };
     const closeLabel = Translator.trans(/*@Desc("Close")*/ 'tooltip.close_label', {}, 'content');
 
     return (
@@ -44,15 +44,25 @@ const TooltipPopupComponent = (props) => {
                     tabIndex="-1"
                     data-tooltip-container-selector=".c-tooltip-popup__header"
                 >
-                    <Icon name="discard" extraClasses="ibexa-icon--small-medium" />
+                    <Icon
+                        name="discard"
+                        extraClasses="ibexa-icon--small-medium"
+                    />
                 </div>
             </div>
-            <div className="c-tooltip-popup__content" ref={contentRef} style={contentStyle}>
+            <div
+                className="c-tooltip-popup__content"
+                ref={contentRef}
+                style={contentStyle}
+            >
                 {props.children}
             </div>
             {props.showFooter && (
                 <div className="c-tooltip-popup__footer">
-                    <button className="btn ibexa-btn ibexa-btn--secondary" onClick={props.onClose}>
+                    <button
+                        className="btn ibexa-btn ibexa-btn--secondary"
+                        onClick={props.onClose}
+                    >
                         {closeLabel}
                     </button>
                 </div>

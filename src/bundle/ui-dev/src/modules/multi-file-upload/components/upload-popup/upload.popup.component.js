@@ -55,8 +55,15 @@ export default class UploadPopupModule extends Component {
         const title = Translator.trans(/*@Desc("Multi-file upload")*/ 'upload_popup.close', {}, 'multi_file_upload');
 
         return (
-            <div className="c-upload-popup" ref={this.refTooltip}>
-                <TooltipPopup title={title} showFooter={false} {...tooltipAttrs}>
+            <div
+                className="c-upload-popup"
+                ref={this.refTooltip}
+            >
+                <TooltipPopup
+                    title={title}
+                    showFooter={false}
+                    {...tooltipAttrs}
+                >
                     <DropAreaComponent
                         onDrop={this.uploadFiles}
                         maxFileSize={this.props.adminUiConfig.multiFileUpload.maxFileSize}

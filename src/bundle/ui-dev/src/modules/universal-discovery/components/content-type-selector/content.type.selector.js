@@ -10,7 +10,7 @@ const ContentTypeSelector = () => {
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
     const handleContentTypeSelect = ({ nativeEvent }) => {
-        const contentTypeIdentifier = nativeEvent.target.dataset.contentTypeIdentifier;
+        const { contentTypeIdentifier } = nativeEvent.target.dataset;
         const action = { contentTypeIdentifier };
 
         action.type = selectedContentTypes.includes(contentTypeIdentifier) ? 'REMOVE_CONTENT_TYPE' : 'ADD_CONTENT_TYPE';
@@ -22,7 +22,7 @@ const ContentTypeSelector = () => {
         <>
             {Object.entries(contentTypesMap).map(([contentTypeGroup, contentTypes]) => {
                 const isHidden = contentTypes.every(
-                    (contentType) => allowedContentTypes && !allowedContentTypes.includes(contentType.identifier)
+                    (contentType) => allowedContentTypes && !allowedContentTypes.includes(contentType.identifier),
                 );
 
                 if (isHidden) {
@@ -30,7 +30,10 @@ const ContentTypeSelector = () => {
                 }
 
                 return (
-                    <Collapsible key={contentTypeGroup} title={contentTypeGroup}>
+                    <Collapsible
+                        key={contentTypeGroup}
+                        title={contentTypeGroup}
+                    >
                         <ul className="c-filters__collapsible-list">
                             {contentTypes.map((contentType) => {
                                 const isHidden = allowedContentTypes && !allowedContentTypes.includes(contentType.identifier);
@@ -56,7 +59,8 @@ const ContentTypeSelector = () => {
                                             />
                                             <label
                                                 className="checkbox-inline form-check-label"
-                                                htmlFor={`ibexa-search-content-type-${contentType.identifier}`}>
+                                                htmlFor={`ibexa-search-content-type-${contentType.identifier}`}
+                                            >
                                                 {contentType.name}
                                             </label>
                                         </div>

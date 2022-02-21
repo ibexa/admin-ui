@@ -22,7 +22,13 @@ const ToggleSelection = ({ multiple, location, isHidden }) => {
         return null;
     }
 
-    return <input type="checkbox" className={className} checked={isSelected} disabled={isHidden} onChange={toggleSelection} />;
+    return <input
+        type="checkbox"
+        className={className}
+        checked={isSelected}
+        disabled={isHidden}
+        onChange={toggleSelection}
+           />;
 };
 
 ToggleSelection.propTypes = {

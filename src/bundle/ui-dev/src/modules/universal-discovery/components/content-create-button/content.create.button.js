@@ -54,7 +54,10 @@ const ContentCreateButton = ({ isDisabled }) => {
                 disabled={isDisabled || !hasAccess || !isAllowedLocation || isLimitReached || !isContainer}
                 onClick={toggleContentCreateVisibility}
             >
-                <Icon name="create" extraClasses="ibexa-icon--small" />
+                <Icon
+                    name="create"
+                    extraClasses="ibexa-icon--small"
+                />
                 <span className="ibexa-btn__label">{createLabel}</span>
             </button>
         </div>

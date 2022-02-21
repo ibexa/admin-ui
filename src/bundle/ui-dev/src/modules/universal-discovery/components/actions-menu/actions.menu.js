@@ -5,7 +5,7 @@ import {
     ConfirmContext,
     CancelContext,
     SelectedLocationsContext,
- } from '../../universal.discovery.module';
+} from '../../universal.discovery.module';
 
 const ActionsMenu = () => {
     const onConfirm = useContext(ConfirmContext);
@@ -15,12 +15,12 @@ const ActionsMenu = () => {
     const confirmLabel = Translator.trans(
         /*@Desc("Confirm")*/ 'actions_menu.confirm',
         {},
-        'universal_discovery_widget'
+        'universal_discovery_widget',
     );
     const cancelLabel = Translator.trans(
         /*@Desc("Cancel")*/ 'actions_menu.cancel',
         {},
-        'universal_discovery_widget'
+        'universal_discovery_widget',
     );
     const isConfirmDisabled = selectedLocations.length === 0;
     const renderActionsContent = () => {
@@ -52,7 +52,6 @@ const ActionsMenu = () => {
             </>
         );
     };
-
 
     return (
         <div className="c-actions-menu">

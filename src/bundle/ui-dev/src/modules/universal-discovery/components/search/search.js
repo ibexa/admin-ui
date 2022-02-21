@@ -132,13 +132,19 @@ const Search = ({ itemsPerPage }) => {
 
             return (
                 <div className="c-search__no-results">
-                    <img className="" src="/bundles/ibexaadminui/img/no-results.svg" />
+                    <img
+                        className=""
+                        src="/bundles/ibexaadminui/img/no-results.svg"
+                    />
                     <h2 className="c-search__no-results-title">{noResultsLabel}</h2>
                     <div className="c-search__no-results-subtitle">
                         {noResultsHints.map((hint) => (
                             <div className="c-search__no-results-hint">
                                 <div className="c-search__no-results-hint-icon-wrapper">
-                                    <Icon name="approved" extraClasses="ibexa-icon--small-medium" />
+                                    <Icon
+                                        name="approved"
+                                        extraClasses="ibexa-icon--small-medium"
+                                    />
                                 </div>
                                 <div className="c-search__no-results-hint-text">{hint}</div>
                             </div>
@@ -164,11 +170,17 @@ const Search = ({ itemsPerPage }) => {
                             <SelectedLanguageContext.Provider value={[selectedLanguage, setSelectedLanguage]}>
                                 <div className="c-search__main">
                                     <div className="c-search__sidebar">
-                                        <Filters isCollapsed={false} search={search} />
+                                        <Filters
+                                            isCollapsed={false}
+                                            search={search}
+                                        />
                                     </div>
                                     <div className="c-search__content">
                                         <div className={spinnerWrapperClassName}>
-                                            <Icon name="spinner" extraClasses="ibexa-icon--medium ibexa-spin" />
+                                            <Icon
+                                                name="spinner"
+                                                extraClasses="ibexa-icon--medium ibexa-spin"
+                                            />
                                         </div>
                                         {renderSearchResults()}
                                     </div>

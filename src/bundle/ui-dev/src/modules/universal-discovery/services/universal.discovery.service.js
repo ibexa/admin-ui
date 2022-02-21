@@ -16,7 +16,7 @@ const showErrorNotificationAbortWrapper = (error) => {
     }
 
     return showErrorNotification(error);
-}
+};
 
 const mapSubitems = (subitems) => {
     return subitems.locations.map((location) => {
@@ -26,7 +26,7 @@ const mapSubitems = (subitems) => {
 
         if (subitems.versions) {
             const version = subitems.versions.find(
-                (version) => version.Version.VersionInfo.Content._href === location.Location.Content._href
+                (version) => version.Version.VersionInfo.Content._href === location.Location.Content._href,
             );
 
             mappedSubitems.version = version.Version;
@@ -38,7 +38,7 @@ const mapSubitems = (subitems) => {
 
 export const findLocationsByParentLocationId = (
     { token, parentLocationId, limit = QUERY_LIMIT, offset = 0, sortClause = 'DatePublished', sortOrder = 'ascending', gridView = false },
-    callback
+    callback,
 ) => {
     const routeName = gridView ? 'ibexa.udw.location.gridview.data' : 'ibexa.udw.location.data';
     const url = window.Routing.generate(routeName, {
@@ -81,7 +81,7 @@ export const loadAccordionData = (
         gridView = false,
         rootLocationId = 1,
     },
-    callback
+    callback,
 ) => {
     const routeName = gridView ? 'ibexa.udw.accordion.gridview.data' : 'ibexa.udw.accordion.data';
     const url = window.Routing.generate(routeName, {
@@ -256,7 +256,7 @@ export const loadBookmarks = ({ token, siteaccess, limit, offset }, callback) =>
     fetch(request)
         .then(handleRequestResponse)
         .then((response) => {
-            const count = response.BookmarkList.count;
+            const { count } = response.BookmarkList;
             const items = response.BookmarkList.items.map((item) => item.Location);
 
             callback({ count, items });
@@ -341,10 +341,8 @@ export const loadContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LI
     });
     const request = new Request(ENDPOINT_CREATE_VIEW, {
         method: 'POST',
-        headers: Object.assign({}, HEADERS_CREATE_VIEW, {
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-        }),
+        headers: { ...HEADERS_CREATE_VIEW, 'X-Siteaccess': siteaccess,
+            'X-CSRF-Token': token },
         body,
         mode: 'same-origin',
         credentials: 'same-origin',

@@ -29,7 +29,7 @@ const GridViewItem = ({ location, version }) => {
     const containersOnly = useContext(ContainersOnlyContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
-    const isContainer = contentTypeInfo.isContainer;
+    const { isContainer } = contentTypeInfo;
     const isSelected = selectedLocations.some((selectedLocation) => selectedLocation.location.id === location.id);
     const isNotSelectable =
         (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeInfo.identifier));
@@ -61,13 +61,21 @@ const GridViewItem = ({ location, version }) => {
     const renderToggleSelection = () => {
         return (
             <div className="ibexa-grid-view-item__checkbox">
-                <ToggleSelection location={location} multiple={multiple} isHidden={isNotSelectable} />
+                <ToggleSelection
+                    location={location}
+                    multiple={multiple}
+                    isHidden={isNotSelectable}
+                />
             </div>
         );
     };
 
     return (
-        <div className={className} onClick={markLocation} onDoubleClick={loadLocation}>
+        <div
+            className={className}
+            onClick={markLocation}
+            onDoubleClick={loadLocation}
+        >
             <div className="ibexa-grid-view-item__image-wrapper">
                 <Thumbnail
                     thumbnailData={version.Thumbnail}

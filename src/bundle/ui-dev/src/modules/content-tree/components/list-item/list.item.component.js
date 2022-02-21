@@ -53,7 +53,7 @@ class ListItem extends Component {
             const notificationMessage = Translator.trans(
                 /*@Desc("Cannot load sub-items for this Location because you reached max tree depth.")*/ 'expand_item.limit.message',
                 {},
-                'content_tree'
+                'content_tree',
             );
 
             window.ibexa.helpers.notification.showWarningNotification(notificationMessage);
@@ -68,7 +68,7 @@ class ListItem extends Component {
 
                 afterItemToggle(path, this.state.isExpanded);
                 this.handleAfterExpandedStateChange();
-            }
+            },
         );
     }
 
@@ -100,8 +100,8 @@ class ListItem extends Component {
                         offset: subitems.length,
                         limit: subitemsLoadLimit,
                     },
-                    this.cancelLoadingState
-                )
+                    this.cancelLoadingState,
+                ),
         );
     }
 
@@ -152,11 +152,18 @@ class ListItem extends Component {
         let loadingSpinner = null;
 
         if (isLoading) {
-            loadingSpinner = <Icon name="spinner" extraClasses="ibexa-spin ibexa-icon--small c-list-item__load-more-btn-spinner" />;
+            loadingSpinner = <Icon
+                name="spinner"
+                extraClasses="ibexa-spin ibexa-icon--small c-list-item__load-more-btn-spinner"
+                             />;
         }
 
         return (
-            <button type="button" className="c-list-item__load-more-btn" onClick={this.loadMoreSubitems}>
+            <button
+                type="button"
+                className="c-list-item__load-more-btn"
+                onClick={this.loadMoreSubitems}
+            >
                 {loadingSpinner} {btnLabel}
             </button>
         );
@@ -190,22 +197,35 @@ class ListItem extends Component {
         };
 
         return (
-            <div className="c-list-item__row" style={{'--indent': indent}}>
+            <div
+                className="c-list-item__row"
+                style={{ '--indent': indent }}
+            >
                 <div className="c-list-item__prefix-actions">
                     {this.secondaryItemActions.map((action) => {
                         const ActionComponent = action.component;
 
                         return (
                             <div className="c-list-item__prefix-actions-item">
-                                <ActionComponent key={action.id} {...this.props} />
+                                <ActionComponent
+                                    key={action.id}
+                                    {...this.props}
+                                />
                             </div>
                         );
                     })}
                 </div>
                 <span {...togglerAttrs} />
-                <a className="c-list-item__label" href={href} onClick={onClick}>
+                <a
+                    className="c-list-item__label"
+                    href={href}
+                    onClick={onClick}
+                >
                     {this.renderIcon()}
-                    <span className="c-list-item__label-content" title={name}>
+                    <span
+                        className="c-list-item__label-content"
+                        title={name}
+                    >
                         {name}
                     </span>
                 </a>
@@ -215,7 +235,10 @@ class ListItem extends Component {
 
                         return (
                             <div className="c-list-item__actions-item">
-                                <ActionComponent key={action.id} {...this.props} />
+                                <ActionComponent
+                                    key={action.id}
+                                    {...this.props}
+                                />
                             </div>
                         );
                     })}

@@ -56,14 +56,19 @@ export default class DropAreaComponent extends Component {
         const uploadBtnLabel = Translator.trans(/*@Desc("Upload file")*/ 'upload_btn.label', {}, 'multi_file_upload');
 
         return (
-            <form className="c-drop-area" multiple onDrop={this.handleUpload}>
+            <form
+                className="c-drop-area"
+                multiple={true}
+                onDrop={this.handleUpload}
+            >
                 <div className="c-drop-area__message c-drop-area__message--main">{dropActionMessage}</div>
                 <div className="c-drop-area__message c-drop-area__message--separator">{separatorMessage}</div>
                 <button
                     type="button"
                     className="btn ibexa-btn ibexa-btn--secondary c-drop-area__btn-select"
                     onClick={this.openFileSelector}
-                    tabIndex="-1">
+                    tabIndex="-1"
+                >
                     {uploadBtnLabel}
                 </button>
                 <div className="c-drop-area__message c-drop-area__message--filesize">
@@ -75,8 +80,8 @@ export default class DropAreaComponent extends Component {
                     id="mfu-files"
                     type="file"
                     name="files[]"
-                    hidden
-                    multiple
+                    hidden={true}
+                    multiple={true}
                     onChange={this.handleUpload}
                 />
             </form>

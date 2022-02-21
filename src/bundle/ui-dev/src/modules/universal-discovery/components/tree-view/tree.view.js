@@ -60,7 +60,7 @@ const TreeView = ({ itemsPerPage }) => {
             (locationsMap) => {
                 const { location } = locationsMap[locationsMap.length - 1];
                 const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
-                const isContainer = contentTypeInfo.isContainer;
+                const { isContainer } = contentTypeInfo;
                 const isNotSelectable =
                     (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeInfo.identifier));
 
@@ -70,7 +70,7 @@ const TreeView = ({ itemsPerPage }) => {
                 if (!multiple && !isNotSelectable) {
                     dispatchSelectedLocationsAction({ type: 'REPLACE_SELECTED_LOCATIONS', locations: [{ location }] });
                 }
-            }
+            },
         );
     };
     const readSubtreeRecursive = (tree) => {

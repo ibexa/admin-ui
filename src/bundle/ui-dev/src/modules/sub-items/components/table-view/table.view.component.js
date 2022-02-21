@@ -145,7 +145,7 @@ export default class TableViewComponent extends Component {
                     [column]: !state.columnsVisibility[column],
                 },
             }),
-            this.setColumnsVisibilityInLocalStorage
+            this.setColumnsVisibilityInLocalStorage,
         );
     }
 
@@ -242,7 +242,12 @@ export default class TableViewComponent extends Component {
             }
 
             return (
-                <th key={columnKey} className={className} onClick={onClick} tabIndex={-1}>
+                <th
+                    key={columnKey}
+                    className={className}
+                    onClick={onClick}
+                    tabIndex={-1}
+                >
                     <span className={wrapperClassName}>{headerLabels[columnKey]}</span>
                 </th>
             );
@@ -302,7 +307,10 @@ export default class TableViewComponent extends Component {
 
         return (
             <div className="c-table-view__wrapper">
-                <div className="c-table-view__scroller" ref={this._refScroller}>
+                <div
+                    className="c-table-view__scroller"
+                    ref={this._refScroller}
+                >
                     <table className="table ibexa-table c-table-view">
                         {this.renderHead()}
                         <tbody className="ibexa-table__body c-table-view__body">{renderedItems}</tbody>
@@ -314,7 +322,7 @@ export default class TableViewComponent extends Component {
                         close={this.closeLanguageSelector}
                         {...this.state.languageSelectorData}
                     />,
-                    window.document.querySelector(this.props.languageContainerSelector)
+                    window.document.querySelector(this.props.languageContainerSelector),
                 )}
             </div>
         );

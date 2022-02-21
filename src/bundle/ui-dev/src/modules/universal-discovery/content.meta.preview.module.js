@@ -102,7 +102,7 @@ const ContentMetaPreview = () => {
     const renderMetaPreviewLoadingSpinner = () => {
         const spinnerClassName = createCssClassNames({
             'c-content-meta-preview__loading-spinner': true,
-            'c-content-meta-preview__loading-spinner--hidden': isLocationDataLoaded
+            'c-content-meta-preview__loading-spinner--hidden': isLocationDataLoaded,
         });
 
         return (

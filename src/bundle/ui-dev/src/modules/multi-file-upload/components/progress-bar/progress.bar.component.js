@@ -6,7 +6,10 @@ const ProgressBarComponent = (props) => {
 
     return (
         <div className="c-progress-bar">
-            <div className="c-progress-bar__value" style={{ '--progress': `${props.progress}%` }} />
+            <div
+                className="c-progress-bar__value"
+                style={{ '--progress': `${props.progress}%` }}
+            />
             <div className="c-progress-bar__label">
                 {props.progress}% {message}
             </div>

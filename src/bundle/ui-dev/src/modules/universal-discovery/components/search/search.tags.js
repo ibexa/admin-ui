@@ -35,10 +35,18 @@ const SearchTags = () => {
                 />
             ))}
             {!!selectedSection && (
-                <Tag content={selectedSection} onRemove={() => setSelectedSection('')} extraClasses="c-search-tags__tag" />
+                <Tag
+                    content={selectedSection}
+                    onRemove={() => setSelectedSection('')}
+                    extraClasses="c-search-tags__tag"
+                />
             )}
             {!!selectedSubtreeBreadcrumbs && (
-                <Tag content={selectedSubtreeBreadcrumbs} onRemove={() => clearSelectedSubtree()} extraClasses="c-search-tags__tag" />
+                <Tag
+                    content={selectedSubtreeBreadcrumbs}
+                    onRemove={() => clearSelectedSubtree()}
+                    extraClasses="c-search-tags__tag"
+                />
             )}
         </div>
     );

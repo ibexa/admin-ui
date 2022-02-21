@@ -94,7 +94,12 @@ const ContentCreateTabModule = () => {
 
     return (
         <div className="m-content-create">
-            <iframe src={iframeUrl} className="m-content-create__iframe" ref={iframeRef} onLoad={handleIframeLoad} />
+            <iframe
+                src={iframeUrl}
+                className="m-content-create__iframe"
+                ref={iframeRef}
+                onLoad={handleIframeLoad}
+            />
         </div>
     );
 };
