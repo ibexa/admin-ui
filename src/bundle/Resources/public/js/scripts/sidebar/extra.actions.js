@@ -4,7 +4,6 @@
     const CLASS_PREVENT_SHOW = 'ibexa-extra-actions--prevent-show';
     const btns = [...doc.querySelectorAll('.ibexa-btn--extra-actions')];
     const menu = doc.querySelector('.ibexa-context-menu');
-    let containerHeightTimeout;
     const haveHiddenPart = (element) => element.classList.contains(CLASS_HIDDEN) && !element.classList.contains(CLASS_PREVENT_SHOW);
     const removeBackdrop = () => {
         const backdrop = doc.querySelector('.ibexa-backdrop');
@@ -30,15 +29,13 @@
         btn.addEventListener(
             'click',
             () => {
-                const actions = doc.querySelector(`.ibexa-extra-actions[data-actions="${btn.dataset.actions}"]`);if (btn.dataset.validate && !parseInt(btn.dataset.isFormValid, 10)) {
+                const actions = doc.querySelector(`.ibexa-extra-actions[data-actions="${btn.dataset.actions}"]`); if (btn.dataset.validate && !parseInt(btn.dataset.isFormValid, 10)) {
                     return;
                 }
                 const isHidden = haveHiddenPart(actions);
-                const methodNameButton = isHidden ? 'add' : 'remove';
                 const methodNameContainer = isHidden ? 'remove' : 'add';
                 const methodNameMenu = isHidden ? 'add' : 'remove';
                 const focusElement = actions.querySelector(btn.dataset.focusElement);
-                const relatedNodeTrigger = doc.querySelector(`[data-related-button-id="${btn.id}"]`);
                 const detectClickOutside = (event) => {
                     if (event.target.classList.contains('ibexa-backdrop')) {
                         closeExtraActions(actions);
@@ -69,7 +66,7 @@
                     focusElement.focus();
                 }
             },
-            false
+            false,
         );
     });
 
@@ -79,7 +76,7 @@
             (event) => {
                 closeExtraActions(event.currentTarget.closest('.ibexa-extra-actions'));
             },
-            false
-        )
+            false,
+        ),
     );
 })(window, window.document);

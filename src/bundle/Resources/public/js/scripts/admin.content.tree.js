@@ -1,4 +1,4 @@
-(function (global, doc, React, ReactDOM, ibexa) {
+(function(global, doc, React, ReactDOM, ibexa) {
     const contentTreeContainer = doc.querySelector('.ibexa-content-tree-container');
 
     if (!contentTreeContainer) {
@@ -16,7 +16,7 @@
         }
 
         contentTreeContainer.style.width = null;
-    }
+    };
     const renderTree = () => {
         ReactDOM.render(
             React.createElement(ibexa.modules.ContentTree, {
@@ -25,9 +25,9 @@
                 rootLocationId: parseInt(treeRootLocationId, 10),
                 restInfo: { token, siteaccess },
             }),
-            contentTreeRootElement
+            contentTreeRootElement,
         );
-    }
+    };
 
     doc.body.addEventListener('ibexa-tb-rendered', removeContentTreeContainerWidth);
 

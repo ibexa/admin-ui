@@ -37,7 +37,7 @@
                         this.popupMenuElement.classList.add(CLASS_POPUP_MENU_HIDDEN);
                         this.onItemClick(event);
                     },
-                    false
+                    false,
                 );
 
                 fragment.append(popupMenuItem);
@@ -60,7 +60,7 @@
                     this.popupMenuElement.classList.add(CLASS_POPUP_MENU_HIDDEN);
                     this.onItemClick(event);
                 },
-                false
+                false,
             );
         }
 

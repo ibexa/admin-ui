@@ -37,7 +37,7 @@
             contentType: 'application/vnd.ibexa.api.ContentTypeFieldDefinitionReorder+json',
         },
     };
-    const popupMenu = new ibexa.core.PopupMenu({
+    new ibexa.core.PopupMenu({
         popupMenuElement,
         triggerElement: addGroupTriggerBtn,
         onItemClick: (event) => {

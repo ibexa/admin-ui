@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, Translator) {
+(function(global, doc, ibexa, Translator, moment) {
     const ENTER_KEY_CODE = 13;
     const SIMPLIFIED_MESSAGE_TIMEOUT = 3000;
     const STATUS_ERROR = 'error';
@@ -97,10 +97,10 @@
     const isFormValid = (btn) => {
         const validators = ibexa.fieldTypeValidators;
         const validationResults = validators.map(getValidationResults);
-        const isFormValid = validationResults.every((result) => result.isValid);
+        const isValid = validationResults.every((result) => result.isValid);
         const invalidSections = validators.map(getInvalidSections);
 
-        if (isFormValid) {
+        if (isValid) {
             btn.dataset.isFormValid = 1;
 
             return true;
@@ -236,4 +236,4 @@
     menuButtonsToValidate.forEach((btn) => {
         btn.addEventListener('click', validateHandler, false);
     });
-})(window, window.document, window.ibexa, window.Translator);
+})(window, window.document, window.ibexa, window.Translator, window.moment);

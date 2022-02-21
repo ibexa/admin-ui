@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function(global, doc, ibexa, Translator) {
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const removeRootFromPathString = (pathString) => {
@@ -38,7 +38,7 @@
         const errorMessage = Translator.trans(
             /*@Desc("Cannot find children Locations with ID %idList%")*/ 'select_location.error',
             { idList: idList.join(',') },
-            'universal_discovery_widget'
+            'universal_discovery_widget',
         );
 
         fetch(request)
@@ -54,4 +54,4 @@
         findLocationsByIds,
         buildLocationsBreadcrumbs,
     });
-})(window, window.document, window.ibexa);
+})(window, window.document, window.ibexa, window.Translator);

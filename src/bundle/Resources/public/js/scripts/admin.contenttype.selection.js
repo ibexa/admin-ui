@@ -45,6 +45,6 @@
                 }
             });
         },
-        false
+        false,
     );
 })(window, window.document);

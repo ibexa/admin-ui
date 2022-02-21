@@ -1,4 +1,3 @@
-const path = require('path');
 const addJSEntries = require('./ibexa.js.config.js');
 const addCSSEntries = require('./ibexa.css.config.js');
 

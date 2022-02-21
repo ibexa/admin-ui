@@ -15,7 +15,7 @@
                 if (this.animationFrame) {
                     global.cancelAnimationFrame(this.animationFrame);
                 }
-        
+
                 this.animationFrame = global.requestAnimationFrame(() => {
                     this.adapt();
                 });

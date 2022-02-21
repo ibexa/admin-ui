@@ -1,7 +1,7 @@
-(function(global, doc, ibexa, bootstrap) {
+(function(global, doc, ibexa) {
     const notificationsContainer = doc.querySelector('.ibexa-notifications-container');
     const notifications = JSON.parse(notificationsContainer.dataset.notifications);
-    const template = notificationsContainer.dataset.template;
+    const { template } = notificationsContainer.dataset;
     const iconsMap = {
         info: 'system-information',
         error: 'circle-close',
@@ -45,4 +45,4 @@
     });
 
     doc.body.addEventListener('ibexa-notify', addNotification, false);
-})(window, window.document, window.ibexa, window.bootstrap);
+})(window, window.document, window.ibexa);

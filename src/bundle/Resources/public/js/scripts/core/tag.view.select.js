@@ -2,7 +2,7 @@
     class TagViewSelect {
         constructor(config) {
             this.inputSelector = config.inputSelector || 'input';
-            this.container = config.container || config.fieldContainer.querySelector('.ibexa-tag-view-select')
+            this.container = config.container || config.fieldContainer.querySelector('.ibexa-tag-view-select');
 
             if (!this.container) {
                 throw new Error('Field Container doesn\'t exist!');
@@ -10,7 +10,7 @@
 
             this.listContainer = this.container.querySelector('.ibexa-tag-view-select__selected-list');
             this.inputField = this.container.querySelector(this.inputSelector);
-            this.selectBtn = this.container.querySelector('.ibexa-tag-view-select__btn-select-path')
+            this.selectBtn = this.container.querySelector('.ibexa-tag-view-select__btn-select-path');
             this.isSingleSelect = this.container.dataset.isSingleSelect === '1';
             this.canBeEmpty = this.container.dataset.canBeEmpty === '1';
             this.inputSeparator = config.seperator || ',';
@@ -77,7 +77,7 @@
                 deleteButton.toggleAttribute('disabled', false);
                 deleteButton.addEventListener('click', () => this.removeItem(id), false);
                 this.listContainer.append(itemHtmlWidget);
-            })
+            });
 
             this.inputField.dispatchEvent(new Event('change'));
             this.ellipsizeTags();
@@ -86,7 +86,7 @@
         }
 
         addItem(id, name, forceRecreate) {
-            this.addItems([{id, name}], forceRecreate);
+            this.addItems([{ id, name }], forceRecreate);
         }
 
         removeItems(items) {
@@ -132,7 +132,7 @@
                 const id = parseInt(selectedItem.dataset.id, 10);
                 const deleteButton = selectedItem.querySelector('.ibexa-tag-view-select__selected-item-tag-remove-btn');
 
-                deleteButton.addEventListener('click', () => this.removeItem(id), false)
+                deleteButton.addEventListener('click', () => this.removeItem(id), false);
             });
         }
 

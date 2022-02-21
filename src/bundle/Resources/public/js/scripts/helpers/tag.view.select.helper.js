@@ -7,10 +7,10 @@
                 findLocationsByIds(removeRootFromPathString(item.pathString), (locations) => {
                     resolve({
                         id: getId(item),
-                        name: buildLocationsBreadcrumbs(locations)
+                        name: buildLocationsBreadcrumbs(locations),
                     });
                 });
-            }))
+            })),
         ).then(callback);
     };
 

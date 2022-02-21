@@ -31,7 +31,7 @@
                 containersOnly: true,
                 ...config,
             }),
-            udwContainer
+            udwContainer,
         );
     };
 

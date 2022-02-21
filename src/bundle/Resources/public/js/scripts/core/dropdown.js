@@ -99,7 +99,7 @@
         }
 
         onSelect(element, selected) {
-            const value = element.dataset.value;
+            const { value } = element.dataset;
 
             if (this.canSelectOnlyOne && selected) {
                 this.hideOptions();
@@ -174,7 +174,7 @@
         }
 
         deselectOption(option) {
-            const value = option.dataset.value;
+            const { value } = option.dataset;
             const optionSelect = this.sourceInput.querySelector(`[value="${value}"]`);
             const itemSelected = this.itemsListContainer.querySelector(`[data-value="${value}"]`);
 
@@ -305,7 +305,7 @@
                     content: this.itemsPopoverContent,
                     container: 'body',
                 },
-                { dropdown: this }
+                { dropdown: this },
             );
             this.itemsPopover._element.removeAttribute('data-bs-original-title');
             this.itemsPopover._element.removeAttribute('title');

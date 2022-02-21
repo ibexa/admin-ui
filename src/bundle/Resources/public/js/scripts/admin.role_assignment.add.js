@@ -40,7 +40,7 @@
                 selectedLocations: selectedLocationsIds,
                 ...config,
             }),
-            udwContainer
+            udwContainer,
         );
     };
     const confirmUsersAndGroupsUDW = (widget, selectedItems) => {
@@ -76,7 +76,7 @@
                 selectedLocations: selectedLocationsIds,
                 ...config,
             }),
-            udwContainer
+            udwContainer,
         );
     };
     const toggleDisabledState = () => {

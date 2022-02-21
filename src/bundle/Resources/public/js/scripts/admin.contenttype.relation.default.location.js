@@ -36,7 +36,7 @@
                 multiple: false,
                 ...config,
             }),
-            udwContainer
+            udwContainer,
         );
     };
     const toggleResetStartingLocationBtn = (button, isEnabled) => {
@@ -74,7 +74,7 @@
                 removeLocationBtns.forEach((btn) => btn.addEventListener('click', resetStartingLocation, false));
             });
         },
-        false
+        false,
     );
 
     resetStartingLocationBtns.forEach((btn) => btn.addEventListener('click', resetStartingLocation, false));

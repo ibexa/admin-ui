@@ -1,4 +1,4 @@
-(function (global, doc, ibexa) {
+(function(global, doc, ibexa) {
     const onChangeHandler = (activeClass, event) => {
         const { checked } = event.target;
         const action = checked ? 'add' : 'remove';

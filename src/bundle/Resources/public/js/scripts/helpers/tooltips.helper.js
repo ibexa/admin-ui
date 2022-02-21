@@ -40,7 +40,7 @@
             name: 'offset',
             options: {
                 offset: ({ placement }) => {
-                    const basePlacement = placement.split('-')[0];
+                    const [basePlacement] = placement.split('-');
 
                     switch (basePlacement) {
                         case 'top':
@@ -78,7 +78,7 @@
             tooltipNodes.push(baseElement);
         }
 
-        for (tooltipNode of tooltipNodes) {
+        for (const tooltipNode of tooltipNodes) {
             if (tooltipNode.hasAttribute('title')) {
                 const hasEllipsisStyle = getComputedStyle(tooltipNode).textOverflow === 'ellipsis';
 
@@ -143,7 +143,7 @@
 
         const tooltipsNode = baseElement.querySelectorAll(TOOLTIPS_SELECTOR);
 
-        for (tooltipNode of tooltipsNode) {
+        for (const tooltipNode of tooltipsNode) {
             bootstrap.Tooltip.getOrCreateInstance(tooltipNode).hide();
         }
     };

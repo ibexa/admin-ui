@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, React, ReactDOM, Translator) {
+(function(global, doc, ibexa, React, ReactDOM, Translator, flatpickr) {
     let getUsersTimeout;
     const CLASS_SORTED_ASC = 'ibexa-table__sort-column--asc';
     const CLASS_SORTED_DESC = 'ibexa-table__sort-column--desc';
@@ -46,7 +46,7 @@
         const title = Translator.trans(
             /*@Desc("Select a Location to restore the Content item(s)")*/ 'restore_under_new_location.title',
             {},
-            'universal_discovery_widget'
+            'universal_discovery_widget',
         );
 
         ReactDOM.render(
@@ -58,20 +58,20 @@
                 multiple: false,
                 ...config,
             }),
-            udwContainer
+            udwContainer,
         );
     };
 
     btns.forEach((btn) => btn.addEventListener('click', openUDW, false));
 
-    const checkboxes = [...doc.querySelectorAll('form[name="trash_item_restore"] input[type="checkbox"]')];
+    const trashRestoreCheckboxes = [...doc.querySelectorAll('form[name="trash_item_restore"] input[type="checkbox"]')];
     const buttonRestore = doc.querySelector('#trash_item_restore_restore');
     const buttonRestoreUnderNewParent = doc.querySelector('#trash_item_restore_location_select_content');
     const buttonDelete = doc.querySelector('#delete-trash-items');
 
     const enableButtons = () => {
-        const isEmptySelection = checkboxes.every((el) => !el.checked);
-        const isMissingParent = checkboxes.some((el) => el.checked && parseInt(el.dataset.isParentInTrash, 10) === 1);
+        const isEmptySelection = trashRestoreCheckboxes.every((el) => !el.checked);
+        const isMissingParent = trashRestoreCheckboxes.some((el) => el.checked && parseInt(el.dataset.isParentInTrash, 10) === 1);
 
         if (buttonRestore) {
             buttonRestore.disabled = isEmptySelection || isMissingParent;
@@ -257,7 +257,7 @@
                 return;
             }
 
-            if (parseInt(sortedActiveDirection) === 1) {
+            if (parseInt(sortedActiveDirection, 10) === 1) {
                 sortedFieldNode.classList.add(CLASS_SORTED_ASC);
             } else {
                 sortedFieldNode.classList.add(CLASS_SORTED_DESC);
@@ -273,7 +273,7 @@
     creatorInput.addEventListener('keyup', handleTyping, false);
     usersList.addEventListener('click', handleSelectUser, false);
     resetCreatorBtn.addEventListener('click', handleResetUser, false);
-    updateTrashForm(checkboxes);
+    updateTrashForm(trashRestoreCheckboxes);
     enableButtons();
-    checkboxes.forEach((checkbox) => checkbox.addEventListener('change', handleCheckboxChange, false));
-})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator);
+    trashRestoreCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', handleCheckboxChange, false));
+})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator, window.flatpickr);

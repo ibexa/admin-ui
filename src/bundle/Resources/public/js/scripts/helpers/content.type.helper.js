@@ -58,6 +58,6 @@
 
     ibexa.addConfig('helpers.contentType', {
         getContentTypeIconUrl,
-        getContentTypeName
+        getContentTypeName,
     });
 })(window, window.document, window.ibexa);

@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function(global, doc, ibexa) {
     const userMenuContainer = doc.querySelector('.ibexa-main-header__user-menu-column');
 
     if (!userMenuContainer) {
@@ -7,8 +7,8 @@
 
     const togglerElement = userMenuContainer.querySelector('.ibexa-header-user-menu__toggler');
     const popupMenuElement = userMenuContainer.querySelector('.ibexa-popup-menu');
-    const popupMenu = new ibexa.core.PopupMenu({
+    new ibexa.core.PopupMenu({
         triggerElement: togglerElement,
         popupMenuElement,
     });
-})(window, window.document);
+})(window, window.document, window.ibexa);
