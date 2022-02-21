@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
 
+const { Translator, ibexa } = window;
+
 const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation, version, isOpen }) => {
     const languageCodes = version ? version.VersionInfo.languageCodes.split(',') : [];
     const editTranslationLabel = Translator.trans(
@@ -22,6 +24,7 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
                 <h3 className="c-translation-selector__title">{`${editTranslationLabel} (${languageCodes.length})`}</h3>
                 <button
                     className="c-translation-selector__close-button btn"
+                    type="button"
                     onClick={hideTranslationSelector}
                 >
                     <Icon
@@ -37,7 +40,7 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
                         className="c-translation-selector__language"
                         onClick={selectTranslation.bind(this, languageCode)}
                     >
-                        {window.ibexa.adminUiConfig.languages.mappings[languageCode].name}
+                        {ibexa.adminUiConfig.languages.mappings[languageCode].name}
                     </div>
                 ))}
             </div>

@@ -15,6 +15,8 @@ import {
     SORTING_OPTIONS,
 } from '../../universal.discovery.module';
 
+const { ibexa } = window;
+
 const CLASS_IS_BRANCH_RESIZING = 'ibexa-is-branch-resizing';
 const SCROLL_OFFSET = 200;
 
@@ -22,10 +24,10 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
     const [offset, setOffset] = useState(0);
     const [branchWidth, setBranchWidth] = useState(0);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
-    const [sorting, setSorting] = useContext(SortingContext);
-    const [sortOrder, setSortOrder] = useContext(SortOrderContext);
+    const [sorting] = useContext(SortingContext);
+    const [sortOrder] = useContext(SortOrderContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
-    const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
+    const [markedLocationId] = useContext(MarkedLocationIdContext);
     const branchRef = useRef(null);
     const sortingOptions = SORTING_OPTIONS.find((option) => option.sortClause === sorting);
     const [loadedLocations, isLoading] = useFindLocationsByParentLocationIdFetch(
@@ -87,7 +89,7 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
         const contentName = selectedLocation ? selectedLocation.location.ContentInfo.Content.TranslatedName : '';
         const iconPath = locationData.location
             ? contentTypesMap[locationData.location.ContentInfo.Content.ContentType._href].thumbnail
-            : window.ibexa.helpers.icon.getIconPath('folder');
+            : ibexa.helpers.icon.getIconPath('folder');
 
         return (
             <div className="c-finder-branch__info-wrapper">
@@ -102,10 +104,12 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
         );
     };
     const renderDragHandler = () => {
-        return <div
-            className="c-finder-branch__resize-handler"
-            onMouseDown={addResizeListeners}
-               />;
+        return (
+            <div
+                className="c-finder-branch__resize-handler"
+                onMouseDown={addResizeListeners}
+            />
+        );
     };
     const renderSubitems = () => {
         if (collapsed) {

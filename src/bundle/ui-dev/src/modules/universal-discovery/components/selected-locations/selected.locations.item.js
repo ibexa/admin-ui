@@ -6,9 +6,11 @@ import Thumbnail from '../../../common/thumbnail/thumbnail';
 
 import { SelectedLocationsContext, ContentTypesMapContext } from '../../universal.discovery.module';
 
+const { Translator, ibexa } = window;
+
 const SelectedLocationsItem = ({ location, permissions }) => {
     const refSelectedLocationsItem = useRef(null);
-    const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
+    const [, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const clearLabel = Translator.trans(
         /*@Desc("Clear selection")*/ 'selected_locations.clear_selection',
@@ -16,11 +18,11 @@ const SelectedLocationsItem = ({ location, permissions }) => {
         'universal_discovery_widget',
     );
     const removeFromSelection = () => {
-        window.ibexa.helpers.tooltips.hideAll(refSelectedLocationsItem.current);
+        ibexa.helpers.tooltips.hideAll(refSelectedLocationsItem.current);
         dispatchSelectedLocationsAction({ type: 'REMOVE_SELECTED_LOCATION', id: location.id });
     };
     const sortedActions = useMemo(() => {
-        const { selectedItemActions } = window.ibexa.adminUiConfig.universalDiscoveryWidget;
+        const { selectedItemActions } = ibexa.adminUiConfig.universalDiscoveryWidget;
         const actions = selectedItemActions ? [...selectedItemActions] : [];
 
         return actions.sort((actionA, actionB) => {
@@ -31,7 +33,7 @@ const SelectedLocationsItem = ({ location, permissions }) => {
     const thumbnailData = version ? version.Thumbnail : {};
 
     useEffect(() => {
-        window.ibexa.helpers.tooltips.parse(refSelectedLocationsItem.current);
+        ibexa.helpers.tooltips.parse(refSelectedLocationsItem.current);
     }, []);
 
     return (
@@ -52,11 +54,13 @@ const SelectedLocationsItem = ({ location, permissions }) => {
                 {sortedActions.map((action) => {
                     const Component = action.component;
 
-                    return <Component
-                        key={action.id}
-                        location={location}
-                        permissions={permissions}
-                           />;
+                    return (
+                        <Component
+                            key={action.id}
+                            location={location}
+                            permissions={permissions}
+                        />
+                    );
                 })}
                 <button
                     type="button"

@@ -5,6 +5,8 @@ import SimpleDropdown from '../simple-dropdown/simple.dropdown';
 
 import { CurrentViewContext, VIEWS } from '../../universal.discovery.module';
 
+const { ibexa } = window;
+
 const ViewSwitcher = ({ isDisabled }) => {
     const [currentView, setCurrentView] = useContext(CurrentViewContext);
     const onOptionClick = (view) => {

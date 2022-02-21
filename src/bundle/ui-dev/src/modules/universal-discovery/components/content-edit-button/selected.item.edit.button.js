@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import ContentEditButton from '../content-edit-button/content.edit.button';
 
+const { ibexa } = window;
+
 const SelectedItemEditButton = ({ location, permissions }) => {
     const hasAccess = permissions && permissions.edit.hasAccess;
 

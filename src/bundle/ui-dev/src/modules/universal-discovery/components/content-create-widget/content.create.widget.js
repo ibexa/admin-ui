@@ -15,14 +15,16 @@ import {
 } from '../../universal.discovery.module';
 import Dropdown from '../../../common/dropdown/dropdown';
 
-const languages = Object.values(window.ibexa.adminUiConfig.languages.mappings);
-const contentTypes = Object.entries(window.ibexa.adminUiConfig.contentTypes);
+const { Translator, ibexa } = window;
+
+const languages = Object.values(ibexa.adminUiConfig.languages.mappings);
+const contentTypes = Object.entries(ibexa.adminUiConfig.contentTypes);
 
 const ContentCreateWidget = () => {
     const refContentTree = useRef(null);
     const dropdownListRef = useContext(DropdownPortalRefContext);
-    const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
-    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const [markedLocationId] = useContext(MarkedLocationIdContext);
+    const [loadedLocationsMap] = useContext(LoadedLocationsMapContext);
     const { allowedLanguages, preselectedLanguage, preselectedContentType } = useContext(ContentOnTheFlyConfigContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const selectedLocation = loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === markedLocationId);
@@ -40,9 +42,9 @@ const ContentCreateWidget = () => {
     const firstLanguageCode = filteredLanguages.length ? filteredLanguages[0].languageCode : '';
     const [selectedLanguage, setSelectedLanguage] = useState(preselectedLanguage || firstLanguageCode);
     const [selectedContentType, setSelectedContentType] = useState(preselectedContentType);
-    const [activeTab, setActiveTab] = useContext(ActiveTabContext);
+    const [, setActiveTab] = useContext(ActiveTabContext);
     const [createContentVisible, setCreateContentVisible] = useContext(CreateContentWidgetContext);
-    const [contentOnTheFlyData, setContentOnTheFlyData] = useContext(ContentOnTheFlyDataContext);
+    const [, setContentOnTheFlyData] = useContext(ContentOnTheFlyDataContext);
     const close = () => {
         setCreateContentVisible(false);
     };
@@ -100,7 +102,7 @@ const ContentCreateWidget = () => {
         }));
 
     useEffect(() => {
-        window.ibexa.helpers.tooltips.parse(refContentTree.current);
+        ibexa.helpers.tooltips.parse(refContentTree.current);
     }, []);
 
     return (
@@ -159,7 +161,7 @@ const ContentCreateWidget = () => {
                         <div className="ibexa-instant-filter__items">
                             {contentTypes.map(([groupName, groupItems]) => {
                                 const restrictedContentTypeIds = selectedLocation?.permissions?.create.restrictedContentTypeIds ?? [];
-                                const isHidden = groupItems.every((groupItem) => {
+                                const isHiddenGroup = groupItems.every((groupItem) => {
                                     const isNotSearchedName = filterQuery && !groupItem.name.toLowerCase().includes(filterQuery);
                                     const hasNotPermission =
                                         restrictedContentTypeIds.length && !restrictedContentTypeIds.includes(groupItem.id.toString());
@@ -170,7 +172,7 @@ const ContentCreateWidget = () => {
                                     return isNotSearchedName || hasNotPermission || isNotAllowedContentType || isHiddenByConfig;
                                 });
 
-                                if (isHidden) {
+                                if (isHiddenGroup) {
                                     return null;
                                 }
 
@@ -231,12 +233,14 @@ const ContentCreateWidget = () => {
                         className="c-content-create__confirm-button btn ibexa-btn ibexa-btn--primary"
                         onClick={createContent}
                         disabled={isConfirmDisabled}
+                        type="button"
                     >
                         {createLabel}
                     </button>
                     <button
                         className="btn ibexa-btn ibexa-btn--secondary"
                         onClick={close}
+                        type="button"
                     >
                         {cancelLabel}
                     </button>

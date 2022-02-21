@@ -13,17 +13,19 @@ import {
     ContentTypesMapContext,
 } from '../../universal.discovery.module';
 
+const { Translator, ibexa } = window;
+
 const ContentCreateButton = ({ isDisabled }) => {
-    const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
-    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
-    const [createContentVisible, setCreateContentVisible] = useContext(CreateContentWidgetContext);
-    const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
+    const [markedLocationId] = useContext(MarkedLocationIdContext);
+    const [loadedLocationsMap] = useContext(LoadedLocationsMapContext);
+    const [, setCreateContentVisible] = useContext(CreateContentWidgetContext);
+    const [selectedLocations] = useContext(SelectedLocationsContext);
     const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
     const { hidden, allowedLocations } = useContext(ContentOnTheFlyConfigContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const createLabel = Translator.trans(/*@Desc("Create new")*/ 'create_content.create', {}, 'universal_discovery_widget');
     const toggleContentCreateVisibility = () => {
-        window.ibexa.helpers.tooltips.hideAll();
+        ibexa.helpers.tooltips.hideAll();
         setCreateContentVisible((prevState) => !prevState);
     };
     let selectedLocation = loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === markedLocationId);
@@ -53,6 +55,7 @@ const ContentCreateButton = ({ isDisabled }) => {
                 className="c-content-create-button__btn btn ibexa-btn ibexa-btn--dark"
                 disabled={isDisabled || !hasAccess || !isAllowedLocation || isLimitReached || !isContainer}
                 onClick={toggleContentCreateVisibility}
+                type="button"
             >
                 <Icon
                     name="create"

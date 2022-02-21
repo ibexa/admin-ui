@@ -23,14 +23,14 @@ import {
 
 const ContentTableItem = ({ location }) => {
     const restInfo = useContext(RestInfoContext);
-    const [currentView, setCurrentView] = useContext(CurrentViewContext);
-    const [sorting, setSorting] = useContext(SortingContext);
-    const [sortOrder, setSortOrder] = useContext(SortOrderContext);
-    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const [currentView] = useContext(CurrentViewContext);
+    const [sorting] = useContext(SortingContext);
+    const [sortOrder] = useContext(SortOrderContext);
+    const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
-    const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
-    const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
+    const [, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
+    const [multiple] = useContext(MultipleConfigContext);
     const rootLocationId = useContext(RootLocationIdContext);
     const { formatShortDateTime } = window.ibexa.helpers.timezone;
     const allowedContentTypes = useContext(AllowedContentTypesContext);
@@ -72,11 +72,13 @@ const ContentTableItem = ({ location }) => {
         }
     };
     const renderToggleSelection = () => {
-        return <ToggleSelection
-            location={location}
-            multiple={multiple}
-            isHidden={isNotSelectable}
-               />;
+        return (
+            <ToggleSelection
+                location={location}
+                multiple={multiple}
+                isHidden={isNotSelectable}
+            />
+        );
     };
 
     return (

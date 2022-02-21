@@ -15,12 +15,14 @@ import {
     AllowedContentTypesContext,
 } from '../../universal.discovery.module';
 
+const { document, ibexa } = window;
+
 const FinderLeaf = ({ location }) => {
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
-    const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
+    const [multiple] = useContext(MultipleConfigContext);
     const containersOnly = useContext(ContainersOnlyContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
@@ -46,11 +48,13 @@ const FinderLeaf = ({ location }) => {
         }
     };
     const renderToggleSelection = () => {
-        return <ToggleSelection
-            location={location}
-            multiple={multiple}
-            isHidden={isNotSelectable}
-               />;
+        return (
+            <ToggleSelection
+                location={location}
+                multiple={multiple}
+                isHidden={isNotSelectable}
+            />
+        );
     };
     const className = createCssClassNames({
         'c-finder-leaf': true,
@@ -61,7 +65,7 @@ const FinderLeaf = ({ location }) => {
     });
 
     useEffect(() => {
-        window.ibexa.helpers.tooltips.parse(window.document.querySelector('.c-udw-tab'));
+        ibexa.helpers.tooltips.parse(document.querySelector('.c-udw-tab'));
     }, []);
 
     return (

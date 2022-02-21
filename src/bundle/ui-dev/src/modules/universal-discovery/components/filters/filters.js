@@ -16,7 +16,9 @@ import Dropdown from '../../../common/dropdown/dropdown';
 import ContentTypeSelector from '../content-type-selector/content.type.selector';
 import Icon from '../../../common/icon/icon';
 
-const languages = Object.values(window.ibexa.adminUiConfig.languages.mappings);
+const { Translator, ibexa } = window;
+
+const languages = Object.values(ibexa.adminUiConfig.languages.mappings);
 
 const Filters = ({ search }) => {
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
@@ -48,7 +50,7 @@ const Filters = ({ search }) => {
             udwContainer.remove();
         };
         const onConfirm = (items) => {
-            const { pathString } = items[0];
+            const [{ pathString }] = items;
             const pathArray = pathString.split('/').filter((val) => val);
             const id = pathArray.splice(1, pathArray.length - 1).join();
 
@@ -68,7 +70,7 @@ const Filters = ({ search }) => {
         const mergedConfig = {
             onConfirm,
             onCancel: closeUDW,
-            tabs: window.ibexa.adminUiConfig.universalDiscoveryWidget.tabs,
+            tabs: ibexa.adminUiConfig.universalDiscoveryWidget.tabs,
             title: 'Browsing content',
             ...config,
         };
@@ -135,7 +137,7 @@ const Filters = ({ search }) => {
             value: language.languageCode,
             label: language.name,
         }));
-    const sectionOptions = Object.entries(window.ibexa.adminUiConfig.sections).map(([sectionIdentifier, sectionName]) => ({
+    const sectionOptions = Object.entries(ibexa.adminUiConfig.sections).map(([sectionIdentifier, sectionName]) => ({
         value: sectionIdentifier,
         label: sectionName,
     }));
@@ -154,6 +156,7 @@ const Filters = ({ search }) => {
                 <div className="c-filters__header-actions">
                     <button
                         className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                        type="button"
                         onClick={clearFilters}
                     >
                         {clearLabel}

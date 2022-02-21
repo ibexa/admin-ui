@@ -7,16 +7,18 @@ import {
 } from '../search/search';
 import Tag from '../../../common/tag/tag';
 
+const { ibexa } = window;
+
 const SearchTags = () => {
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
     const [selectedSection, setSelectedSection] = useContext(SelectedSectionContext);
-    const [selectedSubtree, setSelectedSubtree] = useContext(SelectedSubtreeContext);
+    const [, setSelectedSubtree] = useContext(SelectedSubtreeContext);
     const [selectedSubtreeBreadcrumbs, setSelectedSubtreeBreadcrumbs] = useContext(SelectedSubtreeBreadcrumbsContext);
     const clearSelectedSubtree = () => {
         setSelectedSubtree('');
         setSelectedSubtreeBreadcrumbs('');
     };
-    const contentTypesMap = Object.values(window.ibexa.adminUiConfig.contentTypes).reduce((contentTypeDataMap, contentTypeGroup) => {
+    const contentTypesMap = Object.values(ibexa.adminUiConfig.contentTypes).reduce((contentTypeDataMap, contentTypeGroup) => {
         for (const contentTypeData of contentTypeGroup) {
             contentTypeDataMap[contentTypeData.identifier] = contentTypeData;
         }

@@ -7,12 +7,14 @@ import Icon from '../../../common/icon/icon';
 import { TitleContext, CancelContext } from '../../universal.discovery.module';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
+const { Translator, ibexa } = window;
+
 const TopMenu = ({ actionsDisabledMap }) => {
     const title = useContext(TitleContext);
     const cancelUDW = useContext(CancelContext);
     const [isSearchOpened, setIsSearchOpened] = useState(false);
     const sortedActions = useMemo(() => {
-        const actions = [...window.ibexa.adminUiConfig.universalDiscoveryWidget.topMenuActions];
+        const actions = [...ibexa.adminUiConfig.universalDiscoveryWidget.topMenuActions];
 
         return actions.sort((actionA, actionB) => {
             return actionB.priority - actionA.priority;
@@ -37,10 +39,12 @@ const TopMenu = ({ actionsDisabledMap }) => {
                 {sortedActions.map((action) => {
                     const Component = action.component;
 
-                    return <Component
-                        key={action.id}
-                        isDisabled={actionsDisabledMap[action.id]}
-                           />;
+                    return (
+                        <Component
+                            key={action.id}
+                            isDisabled={actionsDisabledMap[action.id]}
+                        />
+                    );
                 })}
             </div>
             <TopMenuSearchInput

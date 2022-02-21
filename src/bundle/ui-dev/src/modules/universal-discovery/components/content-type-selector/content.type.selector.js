@@ -5,8 +5,10 @@ import { AllowedContentTypesContext } from '../../universal.discovery.module';
 
 import Collapsible from '../collapsible/collapsible';
 
+const { ibexa } = window;
+
 const ContentTypeSelector = () => {
-    const { contentTypes: contentTypesMap } = window.ibexa.adminUiConfig;
+    const { contentTypes: contentTypesMap } = ibexa.adminUiConfig;
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
     const handleContentTypeSelect = ({ nativeEvent }) => {
@@ -21,11 +23,11 @@ const ContentTypeSelector = () => {
     return (
         <>
             {Object.entries(contentTypesMap).map(([contentTypeGroup, contentTypes]) => {
-                const isHidden = contentTypes.every(
+                const isHiddenGroup = contentTypes.every(
                     (contentType) => allowedContentTypes && !allowedContentTypes.includes(contentType.identifier),
                 );
 
-                if (isHidden) {
+                if (isHiddenGroup) {
                     return null;
                 }
 

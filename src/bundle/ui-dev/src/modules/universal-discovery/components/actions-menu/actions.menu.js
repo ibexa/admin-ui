@@ -7,11 +7,13 @@ import {
     SelectedLocationsContext,
 } from '../../universal.discovery.module';
 
+const { Translator } = window;
+
 const ActionsMenu = () => {
     const onConfirm = useContext(ConfirmContext);
     const cancelUDW = useContext(CancelContext);
     const allowConfirmation = useContext(AllowConfirmationContext);
-    const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
+    const [selectedLocations] = useContext(SelectedLocationsContext);
     const confirmLabel = Translator.trans(
         /*@Desc("Confirm")*/ 'actions_menu.confirm',
         {},

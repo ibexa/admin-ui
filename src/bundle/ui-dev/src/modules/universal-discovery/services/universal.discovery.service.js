@@ -26,7 +26,7 @@ const mapSubitems = (subitems) => {
 
         if (subitems.versions) {
             const version = subitems.versions.find(
-                (version) => version.Version.VersionInfo.Content._href === location.Location.Content._href,
+                ({ Version }) => Version.VersionInfo.Content._href === location.Location.Content._href,
             );
 
             mappedSubitems.version = version.Version;
@@ -111,7 +111,7 @@ export const loadAccordionData = (
                 return mappedItem;
             });
 
-            const rootLocationData = response.columns[1];
+            const [rootLocationData] = response.columns;
             const lastLocationData = response.columns[parentLocationId];
 
             if (rootLocationData) {
@@ -138,7 +138,10 @@ export const loadAccordionData = (
         .catch(showErrorNotificationAbortWrapper);
 };
 
-export const findLocationsBySearchQuery = ({ token, siteaccess, query, limit = QUERY_LIMIT, offset = 0, languageCode = null }, callback) => {
+export const findLocationsBySearchQuery = (
+    { token, siteaccess, query, limit = QUERY_LIMIT, offset = 0, languageCode = null },
+    callback,
+) => {
     const useAlwaysAvailable = true;
     const body = JSON.stringify({
         ViewInput: {

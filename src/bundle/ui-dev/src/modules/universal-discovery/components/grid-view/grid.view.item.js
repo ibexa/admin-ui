@@ -1,8 +1,7 @@
-import React, { useContext, Fragment } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import ToggleSelection from '../toggle-selection/toggle.selection';
-import Icon from '../../../common/icon/icon';
 import Thumbnail from '../../../common/thumbnail/thumbnail';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
@@ -22,10 +21,10 @@ const isSelectionButtonClicked = (event) => {
 
 const GridViewItem = ({ location, version }) => {
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
-    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
-    const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
+    const [multiple] = useContext(MultipleConfigContext);
     const containersOnly = useContext(ContainersOnlyContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];

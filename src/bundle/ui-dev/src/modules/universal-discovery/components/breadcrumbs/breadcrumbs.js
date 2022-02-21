@@ -5,6 +5,8 @@ import Icon from '../../../common/icon/icon';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { LoadedLocationsMapContext } from '../../universal.discovery.module';
 
+const { Translator } = window;
+
 const Breadcrumbs = () => {
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [hiddenListVisible, setHiddenListVisible] = useState(false);
@@ -52,6 +54,7 @@ const Breadcrumbs = () => {
                 <button
                     className={toggleClassNames}
                     onClick={toggleHiddenListVisible}
+                    type="button"
                 >
                     <Icon
                         name="options"

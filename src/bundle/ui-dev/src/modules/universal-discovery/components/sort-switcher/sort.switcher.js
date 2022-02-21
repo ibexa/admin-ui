@@ -5,6 +5,8 @@ import SimpleDropdown from '../simple-dropdown/simple.dropdown';
 
 import { SortingContext, SortOrderContext, SORTING_OPTIONS } from '../../universal.discovery.module';
 
+const { ibexa } = window;
+
 const SortSwitcher = ({ isDisabled }) => {
     const [sorting, setSorting] = useContext(SortingContext);
     const [sortOrder, setSortOrder] = useContext(SortOrderContext);

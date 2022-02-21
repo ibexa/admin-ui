@@ -9,14 +9,16 @@ import ContentCreateWidget from '../content-create-widget/content.create.widget'
 
 import { SelectedLocationsContext, DropdownPortalRefContext, MultipleConfigContext } from '../../universal.discovery.module';
 
+const { ibexa } = window;
+
 const Tab = ({ children, actionsDisabledMap }) => {
     const topBarRef = useRef();
     const bottomBarRef = useRef();
     const [contentHeight, setContentHeight] = useState('100%');
-    const ContentMetaPreview = window.ibexa.adminUiConfig.universalDiscoveryWidget.contentMetaPreview;
-    const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
+    const ContentMetaPreview = ibexa.adminUiConfig.universalDiscoveryWidget.contentMetaPreview;
+    const [selectedLocations] = useContext(SelectedLocationsContext);
     const dropdownPortalRef = useContext(DropdownPortalRefContext);
-    const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
+    const [multiple] = useContext(MultipleConfigContext);
     const selectedLocationsComponent = !!selectedLocations.length && multiple ? <SelectedLocations /> : null;
     const contentStyles = {
         height: contentHeight,

@@ -6,6 +6,8 @@ import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
 import { SelectedLocationsContext, AllowConfirmationContext } from '../../universal.discovery.module';
 
+const { Translator, ibexa } = window;
+
 const SelectedLocations = () => {
     const refSelectedLocations = useRef(null);
     const refTogglerButton = useRef(null);
@@ -24,7 +26,7 @@ const SelectedLocations = () => {
     );
     const togglerLabel = isExpanded ? collapseLabel : expandLabel;
     const clearSelection = () => {
-        window.ibexa.helpers.tooltips.hideAll(refSelectedLocations.current);
+        ibexa.helpers.tooltips.hideAll(refSelectedLocations.current);
         dispatchSelectedLocationsAction({ type: 'CLEAR_SELECTED_LOCATIONS' });
     };
     const toggleExpanded = () => {
@@ -103,8 +105,8 @@ const SelectedLocations = () => {
     };
 
     useEffect(() => {
-        window.ibexa.helpers.tooltips.parse(refSelectedLocations.current);
-        window.ibexa.helpers.tooltips.hideAll();
+        ibexa.helpers.tooltips.parse(refSelectedLocations.current);
+        ibexa.helpers.tooltips.hideAll();
 
         if (refTogglerButton.current) {
             refTogglerButton.current.dataset.originalTitle = togglerLabel;

@@ -12,11 +12,13 @@ import {
 import { findLocationsById } from '../../services/universal.discovery.service';
 import ToggleSelection from '../toggle-selection/toggle.selection';
 
+const { ibexa, document } = window;
+
 const TreeItemToggleSelection = ({ locationId, isContainer, contentTypeIdentifier }) => {
     const isUDW = useContext(UDWContext);
 
     useEffect(() => {
-        window.ibexa.helpers.tooltips.parse(window.document.querySelector('.c-list'));
+        ibexa.helpers.tooltips.parse(document.querySelector('.c-list'));
     }, []);
 
     if (!isUDW) {

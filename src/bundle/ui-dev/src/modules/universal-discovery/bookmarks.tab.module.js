@@ -18,15 +18,17 @@ import {
 } from './universal.discovery.module';
 import { loadAccordionData } from './services/universal.discovery.service';
 
+const { Translator, ibexa } = window;
+
 const BookmarksTabModule = () => {
     const restInfo = useContext(RestInfoContext);
     const tabsConfig = useContext(TabsConfigContext);
-    const [currentView, setCurrentView] = useContext(CurrentViewContext);
+    const [currentView] = useContext(CurrentViewContext);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
-    const [sorting, setSorting] = useContext(SortingContext);
-    const [sortOrder, setSortOrder] = useContext(SortOrderContext);
+    const [sorting] = useContext(SortingContext);
+    const [sortOrder] = useContext(SortOrderContext);
     const rootLocationId = useContext(RootLocationIdContext);
-    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [bookmarkedLocationMarked, setBookmarkedLocationMarked] = useState(null);
     const views = {
         grid: <GridView itemsPerPage={tabsConfig.bookmarks.itemsPerPage} />,
@@ -89,7 +91,7 @@ ibexa.addConfig(
             id: 'bookmarks',
             component: BookmarksTabModule,
             label: Translator.trans(/*@Desc("Bookmarks")*/ 'bookmarks.label', {}, 'universal_discovery_widget'),
-            icon: window.ibexa.helpers.icon.getIconPath('bookmark'),
+            icon: ibexa.helpers.icon.getIconPath('bookmark'),
         },
     ],
     true,
