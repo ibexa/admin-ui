@@ -256,16 +256,6 @@
         <target state="new">More</target>
         <note>key: content_type_selector.list.show_more</note>
       </trans-unit>
-      <trans-unit id="ad4e9a4e42b99d945f972bab5a2eff694d283793" resname="creating">
-        <source>Creating Content type</source>
-        <target state="new">Creating Content type</target>
-        <note>key: creating</note>
-      </trans-unit>
-      <trans-unit id="3e8769270428f8e66f5880d772f45e09d2c88aa0" resname="creating.title">
-        <source>New Content type</source>
-        <target state="new">New Content type</target>
-        <note>key: creating.title</note>
-      </trans-unit>
       <trans-unit id="fe1c876b1a9bcde155f03227bce4ae4fbd54c24f" resname="custom_url_alias_add_form.add">
         <source>Create</source>
         <target state="new">Create</target>
@@ -295,16 +285,6 @@
         <source>Search...</source>
         <target state="new">Search...</target>
         <note>key: dropdown.search</note>
-      </trans-unit>
-      <trans-unit id="f34946beab1da2af6535a8e4a88145e9557de0aa" resname="editing">
-        <source>Editing</source>
-        <target state="new">Editing</target>
-        <note>key: editing</note>
-      </trans-unit>
-      <trans-unit id="3103e1aed613987a16236d0f603f22ae48aa417b" resname="editing.title">
-        <source>Editing Content type %identifier%</source>
-        <target state="new">Editing Content type %identifier%</target>
-        <note>key: editing.title</note>
       </trans-unit>
       <trans-unit id="7cb40cbc703336ab1285e81ebf100b82b05a0e27" resname="error.page.403.actions">
         <source><![CDATA[Contact your administrator to request access.<br/>Go back to the <a href="%dashboard%">dashboard</a> or <a href="%search%">search</a> for another item.]]></source>

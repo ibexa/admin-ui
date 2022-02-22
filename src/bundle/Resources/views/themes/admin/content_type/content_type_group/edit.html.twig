@@ -8,9 +8,9 @@
     {% set content_type_group_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.content_type_group_edit.sidebar_right', [], {'save_id': form.update.vars.id}) %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
-        action_name: 'editing'|trans|desc('Editing'),
+        action_name: 'content_type_group.edit.action_name'|trans|desc('Editing Content Type group'),
         icon_name: 'file',
-        title: 'content_type_group.view.edit.title'|trans({'%identifier%': content_type_group.identifier})|desc('Editing Content Type group \'%identifier%\''),
+        title: content_type_group.identifier,
         show_autosave_status: false,
         context_actions: knp_menu_render(content_type_group_edit_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}

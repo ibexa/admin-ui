@@ -3,6 +3,11 @@
         <div class="ibexa-page-title__top">
             <h1 class="ibexa-page-title__title">
                 {{ title }}
+                {% if tag is defined %}
+                    <div class="ibexa-tag">
+                        <div class="ibexa-tag__content">{{ tag }}</div>
+                    </div>
+                {% endif %}
             </h1>
             {% block top_side %}{% endblock %}
         </div>

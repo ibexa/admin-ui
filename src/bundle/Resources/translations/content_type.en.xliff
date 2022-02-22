@@ -381,11 +381,6 @@
         <target state="new">Created Content Type group '%name%'.</target>
         <note>key: content_type_group.create.success</note>
       </trans-unit>
-      <trans-unit id="59f3d7c7674d76f2854970e9c63a8db856b1229f" resname="content_type_group.creating">
-        <source>Creating</source>
-        <target state="new">Creating</target>
-        <note>key: content_type_group.creating</note>
-      </trans-unit>
       <trans-unit id="eec79e4a9109f28892797768f085eab39eaedc31" resname="content_type_group.delete.submit">
         <source>Delete</source>
         <target state="new">Delete</target>
@@ -395,6 +390,16 @@
         <source>Deleted Content Type group '%name%'.</source>
         <target state="new">Deleted Content Type group '%name%'.</target>
         <note>key: content_type_group.delete.success</note>
+      </trans-unit>
+      <trans-unit id="f9cf70fcb6c6aef73a8a39eb0a9cd4e71c11b5ba" resname="content_type_group.edit.action_name">
+        <source>Editing Content Type group</source>
+        <target state="new">Editing Content Type group</target>
+        <note>key: content_type_group.edit.action_name</note>
+      </trans-unit>
+      <trans-unit id="cd6124f27c9a5743763f9a49cfc160d34723d713" resname="content_type_group.new.action_name">
+        <source>Creating</source>
+        <target state="new">Creating</target>
+        <note>key: content_type_group.new.action_name</note>
       </trans-unit>
       <trans-unit id="4c6dfb0b81f5b9d70fed0dda3840f0677ece9570" resname="content_type_group.update.name">
         <source>Name</source>
@@ -410,16 +415,6 @@
         <source>Updated Content Type group '%name%'.</source>
         <target state="new">Updated Content Type group '%name%'.</target>
         <note>key: content_type_group.update.success</note>
-      </trans-unit>
-      <trans-unit id="1bd4c745d76ae79ef7e95baea27281fff04e77f6" resname="content_type_group.view.add.title">
-        <source>Creating a new Content Type group</source>
-        <target state="new">Creating a new Content Type group</target>
-        <note>key: content_type_group.view.add.title</note>
-      </trans-unit>
-      <trans-unit id="1b6ebace1ed08d4e8de6a84a5523e19b53dfd443" resname="content_type_group.view.edit.title">
-        <source>Editing Content Type group '%identifier%'</source>
-        <target state="new">Editing Content Type group '%identifier%'</target>
-        <note>key: content_type_group.view.edit.title</note>
       </trans-unit>
       <trans-unit id="8eb8668549f90436db605805680144f4b87c7fc0" resname="content_type_group.view.list.action.add">
         <source>Create</source>
@@ -451,15 +446,30 @@
         <target state="new">Content Type groups</target>
         <note>key: content_type_group.view.list.title</note>
       </trans-unit>
+      <trans-unit id="b857ebe01d0a852bd8e10d599e75004fb961f1d5" resname="content_type_group.view.new.title">
+        <source>New Content Type group</source>
+        <target state="new">New Content Type group</target>
+        <note>key: content_type_group.view.new.title</note>
+      </trans-unit>
       <trans-unit id="1769b5258d896d9ccb207c09e04534ce9a01c571" resname="content_type_group.view.view.title">
         <source>%identifier%</source>
         <target state="new">%identifier%</target>
         <note>key: content_type_group.view.view.title</note>
       </trans-unit>
-      <trans-unit id="f34946beab1da2af6535a8e4a88145e9557de0aa" resname="editing">
-        <source>Editing</source>
-        <target state="new">Editing</target>
-        <note>key: editing</note>
+      <trans-unit id="ad4e9a4e42b99d945f972bab5a2eff694d283793" resname="creating">
+        <source>Creating</source>
+        <target state="new">Creating</target>
+        <note>key: creating</note>
+      </trans-unit>
+      <trans-unit id="3e8769270428f8e66f5880d772f45e09d2c88aa0" resname="creating.title">
+        <source>New Content type</source>
+        <target state="new">New Content type</target>
+        <note>key: creating.title</note>
+      </trans-unit>
+      <trans-unit id="6b7aac07f7af9bb4762fd3a87ff0a9df02921f7a" resname="editing_content_type">
+        <source>Editing Content type</source>
+        <target state="new">Editing Content type</target>
+        <note>key: editing_content_type</note>
       </trans-unit>
       <trans-unit id="f99cc628dc4d82c5ee69eae79039a2f449eec064" resname="field_definition.description">
         <source>Description</source>

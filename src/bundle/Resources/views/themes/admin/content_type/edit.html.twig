@@ -1,5 +1,7 @@
 {% extends "@ibexadesign/content_type/edit_base.html.twig" %}
 
+{% trans_default_domain 'content_type' %}
+
 {% set language_code = language_code|default(content_type.mainLanguageCode) %}
 
 {% block header %}
@@ -9,9 +11,9 @@
     }) %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
-        action_name: 'editing'|trans|desc('Editing'),
+        action_name: 'editing_content_type'|trans|desc('Editing Content type'),
         icon_name: 'file',
-        title: 'editing.title'|trans({ '%identifier%': content_type.name })|desc('Editing Content type %identifier%'),
+        title: content_type.name,
         show_autosave_status: false,
         context_actions: knp_menu_render(content_type_edit_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
