@@ -141,8 +141,6 @@ export default class UploadListComponent extends Component {
 
     render() {
         const { items, itemsToUpload } = this.state;
-        const uploaded = items.length;
-        const total = uploaded + itemsToUpload.length;
 
         return (
             <div className="c-upload-list">

@@ -6,6 +6,8 @@ import { fileSizeToString } from '../../helpers/text.helper';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
 
+const { Translator, ibexa } = window;
+
 export default class UploadItemComponent extends Component {
     constructor(props) {
         super(props);
@@ -376,10 +378,12 @@ export default class UploadItemComponent extends Component {
 
         const contentTypeIconUrl = ibexa.helpers.contentType.getContentTypeIconUrl(contentTypeIdentifier);
 
-        return <Icon
-            customPath={contentTypeIconUrl}
-            extraClasses="ibexa-icon--small-medium"
-               />;
+        return (
+            <Icon
+                customPath={contentTypeIconUrl}
+                extraClasses="ibexa-icon--small-medium"
+            />
+        );
     }
 
     /**
@@ -396,11 +400,13 @@ export default class UploadItemComponent extends Component {
             return null;
         }
 
-        return <ProgressBarComponent
-            progress={progress}
-            uploaded={uploadedSize}
-            total={totalSize}
-               />;
+        return (
+            <ProgressBarComponent
+                progress={progress}
+                uploaded={uploadedSize}
+                total={totalSize}
+            />
+        );
     }
 
     /**
@@ -645,7 +651,6 @@ UploadItemComponent.propTypes = {
     onAfterUpload: PropTypes.func.isRequired,
     onAfterAbort: PropTypes.func.isRequired,
     onAfterDelete: PropTypes.func.isRequired,
-    isUploaded: PropTypes.bool.isRequired,
     createFileStruct: PropTypes.func.isRequired,
     publishFile: PropTypes.func.isRequired,
     deleteFile: PropTypes.func.isRequired,
@@ -669,9 +674,11 @@ UploadItemComponent.propTypes = {
     contentCreatePermissionsConfig: PropTypes.object,
     contentTypesMap: PropTypes.object.isRequired,
     currentLanguage: PropTypes.string,
+    isUploaded: PropTypes.bool,
 };
 
 UploadItemComponent.defaultProps = {
     isUploaded: false,
     currentLanguage: '',
+    contentCreatePermissionsConfig: {},
 };

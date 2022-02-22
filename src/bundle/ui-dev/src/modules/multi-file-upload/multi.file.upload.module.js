@@ -5,6 +5,8 @@ import UploadPopupComponent from './components/upload-popup/upload.popup.compone
 import { createFileStruct, publishFile, deleteFile, checkCanUpload } from './services/multi.file.upload.service';
 import Icon from '../common/icon/icon';
 
+const { Translator, ibexa } = window;
+
 export default class MultiFileUploadModule extends Component {
     constructor(props) {
         super(props);
@@ -306,4 +308,5 @@ MultiFileUploadModule.defaultProps = {
     itemsToUpload: [],
     withUploadButton: true,
     currentLanguage: '',
+    contentCreatePermissionsConfig: {},
 };

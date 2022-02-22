@@ -213,7 +213,7 @@ const createDraft = ({ struct, token, siteaccess }, requestEventHandlers) => {
         }
 
         for (const headerType in headers) {
-            if (headers.hasOwnProperty(headerType)) {
+            if (Object.prototype.hasOwnProperty.call(headers,headerType)) {
                 xhr.setRequestHeader(headerType, headers[headerType]);
             }
         }
@@ -231,7 +231,7 @@ const createDraft = ({ struct, token, siteaccess }, requestEventHandlers) => {
  * @returns {Promise}
  */
 const publishDraft = ({ token, siteaccess }, response) => {
-    if (!response || !response.hasOwnProperty('Content')) {
+    if (!response || !Object.prototype.hasOwnProperty.call(response, 'Content')) {
         return Promise.reject('Cannot publish content based on an uploaded file');
     }
 
@@ -259,7 +259,7 @@ const publishDraft = ({ token, siteaccess }, response) => {
  * @returns {Boolean}
  */
 const canCreateContent = (file, parentInfo, config) => {
-    if (!config.hasOwnProperty('contentCreatePermissionsConfig') || !config.contentCreatePermissionsConfig) {
+    if (!Object.prototype.hasOwnProperty.call(config, 'contentCreatePermissionsConfig') || !config.contentCreatePermissionsConfig) {
         return true;
     }
 

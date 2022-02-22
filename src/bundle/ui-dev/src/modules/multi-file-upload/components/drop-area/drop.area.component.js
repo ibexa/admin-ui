@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { fileSizeToString } from '../../helpers/text.helper';
-import Icon from '../../../common/icon/icon';
+
+const { Translator } = window;
 
 export default class DropAreaComponent extends Component {
     constructor(props) {
