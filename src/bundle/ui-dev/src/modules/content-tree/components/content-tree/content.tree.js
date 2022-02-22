@@ -5,6 +5,8 @@ import List from '../list/list.component';
 import Header from '../header/header';
 import Icon from '../../../common/icon/icon';
 
+const { Translator } = window;
+
 const CLASS_IS_TREE_RESIZING = 'ibexa-is-tree-resizing';
 const MIN_CONTAINER_WIDTH = 200;
 const COLLAPSED_WIDTH = 66;
@@ -275,4 +277,9 @@ ContentTree.propTypes = {
     onClickItem: PropTypes.func,
     userId: PropTypes.number.isRequired,
     resizable: PropTypes.bool.isRequired,
+};
+
+ContentTree.defaultProps = {
+    subitemsLoadLimit: null,
+    onClickItem: () => {},
 };

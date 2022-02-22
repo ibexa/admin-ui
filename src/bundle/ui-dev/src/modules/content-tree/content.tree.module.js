@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import ContentTree from './components/content-tree/content.tree';
 import { loadLocationItems, loadSubtree } from './services/content.tree.service';
 
+const { ibexa } = window;
+
 const KEY_CONTENT_TREE_SUBTREE = 'ibexa-content-tree-subtrees';
 
 export default class ContentTreeModule extends Component {
@@ -311,7 +313,7 @@ export default class ContentTreeModule extends Component {
             return item;
         }
 
-        if (!(item.hasOwnProperty('subitems') && Array.isArray(item.subitems))) {
+        if (!(Object.prototype.hasOwnProperty.call(item, 'subitems') && Array.isArray(item.subitems))) {
             return null;
         }
 
@@ -374,13 +376,13 @@ export default class ContentTreeModule extends Component {
 ibexa.addConfig('modules.ContentTree', ContentTreeModule);
 
 ContentTreeModule.propTypes = {
-    rootLocationId: PropTypes.number.isRequired,
+    rootLocationId: PropTypes.number,
     currentLocationPath: PropTypes.number.isRequired,
     userId: PropTypes.number.isRequired,
     preloadedLocations: PropTypes.arrayOf(PropTypes.object),
-    subitemsLimit: PropTypes.number.isRequired,
-    subitemsLoadLimit: PropTypes.number.isRequired,
-    treeMaxDepth: PropTypes.number.isRequired,
+    subitemsLimit: PropTypes.number,
+    subitemsLoadLimit: PropTypes.number,
+    treeMaxDepth: PropTypes.number,
     restInfo: PropTypes.shape({
         token: PropTypes.string.isRequired,
         siteaccess: PropTypes.string.isRequired,
@@ -397,11 +399,13 @@ ContentTreeModule.propTypes = {
 
 ContentTreeModule.defaultProps = {
     preloadedLocations: [],
-    rootLocationId: window.ibexa.adminUiConfig.contentTree.treeRootLocationId,
-    subitemsLimit: window.ibexa.adminUiConfig.contentTree.childrenLoadMaxLimit,
-    subitemsLoadLimit: window.ibexa.adminUiConfig.contentTree.loadMoreLimit,
-    treeMaxDepth: window.ibexa.adminUiConfig.contentTree.treeMaxDepth,
+    rootLocationId: ibexa.adminUiConfig.contentTree.treeRootLocationId,
+    subitemsLimit: ibexa.adminUiConfig.contentTree.childrenLoadMaxLimit,
+    subitemsLoadLimit: ibexa.adminUiConfig.contentTree.loadMoreLimit,
+    treeMaxDepth: ibexa.adminUiConfig.contentTree.treeMaxDepth,
     afterItemToggle: () => {},
     sort: {},
     resizable: true,
+    onClickItem: () => {},
+    readSubtree: null,
 };

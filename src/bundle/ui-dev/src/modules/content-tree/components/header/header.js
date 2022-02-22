@@ -5,6 +5,8 @@ import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
 import PopupActions from '../popup-actions/popup.actions';
 
+const { Translator } = window;
+
 const Header = ({ isCollapsed, toggleCollapseTree, actions, popupRef }) => {
     const headerTitle = Translator.trans(/*@Desc("Content tree")*/ 'content_tree.header', {}, 'content_tree');
     const renderCollapseButton = () => {
