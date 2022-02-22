@@ -162,6 +162,7 @@
 
     &__item-action {
         display: flex;
+        align-items: center;
         margin: 0 calculateRem(6px);
         text-decoration: none;
         border-radius: $ibexa-border-radius;
