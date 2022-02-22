@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 
+const { Translator } = window;
+
 const CLASS_NON_SCROLLABLE = 'ibexa-non-scrollable';
 const CLASS_MODAL_OPEN = 'modal-open';
 const MODAL_CONFIG = {
@@ -221,6 +223,10 @@ Popup.defaultProps = {
     noCloseBtn: false,
     noKeyboard: false,
     extraClasses: '',
+    title: null,
+    subtitle: null,
+    additionalClasses: null,
+    footerChildren: null,
     onConfigIframeLoad: () => {},
 };
 

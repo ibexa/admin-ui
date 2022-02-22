@@ -29,7 +29,7 @@ const deepClone = (data) => {
     clonedData = {};
 
     for (const i in data) {
-        if (data.hasOwnProperty(i)) {
+        if (Object.prototype.hasOwnProperty.call(data, i)) {
             clonedData[i] = deepClone(data[i]);
         }
     }

@@ -2,6 +2,8 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 
+const { Translator } = window;
+
 const INITIAL_HEIGHT = 'initial';
 const HEADER_HEIGHT = 35;
 
@@ -61,6 +63,7 @@ const TooltipPopupComponent = (props) => {
                 <div className="c-tooltip-popup__footer">
                     <button
                         className="btn ibexa-btn ibexa-btn--secondary"
+                        type="button"
                         onClick={props.onClose}
                     >
                         {closeLabel}

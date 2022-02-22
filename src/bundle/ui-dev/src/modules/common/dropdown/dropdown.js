@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../../common/helpers/css.class.names';
 import Icon from '../../common/icon/icon';
 
+const { Translator } = window;
+
 const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, extraClasses }) => {
     const containerRef = useRef();
     const containerItemsRef = useRef();

@@ -11,7 +11,7 @@ import NoItemsComponent from './components/no-items/no.items.component.js';
 import Icon from '../common/icon/icon.js';
 
 import deepClone from '../common/helpers/deep.clone.helper.js';
-import { updateLocationPriority, loadLocationService } from './services/sub.items.service';
+import { updateLocationPriority, loadLocation as loadLocationService } from './services/sub.items.service';
 import { bulkAddLocations, bulkDeleteItems, bulkHideLocations, bulkUnhideLocations, bulkMoveLocations } from './services/bulk.service.js';
 
 const { Translator, ibexa } = window;
