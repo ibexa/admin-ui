@@ -307,7 +307,7 @@
             const fieldDefinitionNode = doc.querySelector(`[data-field-definition-identifier="${fieldDefinitionIdentifier}"]`);
 
             fieldDefinitionNode.classList.toggle('is-invalid', !isFieldDefinitionValid);
-        })
+        });
     };
     const attachValidateEvents = (input) => {
         input.addEventListener('change', () => validateForm(input), false);
