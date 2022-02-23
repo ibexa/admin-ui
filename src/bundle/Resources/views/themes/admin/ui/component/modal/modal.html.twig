@@ -23,11 +23,22 @@
     role: attr.role|default('dialog'),
 }) %}
 
+{% if has_static_backdrop|default(false) %}
+    {% set attr = attr|merge({
+        'data-bs-backdrop': attr['data-bs-backdrop']|default('static')
+    }) %}
+{% endif %}
+
 {% set attr_dialog = attr_dialog|default({})|merge({
     class: ('modal-dialog '
         ~ (size_class is defined ? size_class ~ ' ')
         ~ attr_dialog.class|default(''))|trim,
     role: attr_dialog.role|default('document'),
+}) %}
+
+{% set attr_content = attr_content|default({})|merge({
+    class: ('modal-content '
+        ~ attr_content.class|default(''))|trim,
 }) %}
 
 {% set attr_title = attr_title|default({})|merge({
@@ -60,7 +71,7 @@
         <div {{ html.attributes(attr_dialog) }}>
             {% block content_before %}{% endblock %}
             {% block content %}
-                <div class="modal-content">
+                <div {{ html.attributes(attr_content) }}>
                     {% block header %}
                         {% if no_header %}
                             {{ close_btn }}

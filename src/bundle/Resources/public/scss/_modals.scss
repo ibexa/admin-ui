@@ -41,13 +41,6 @@
         }
     }
 
-    &--wide {
-        .modal-dialog {
-            max-width: calculateRem(800px);
-            width: calculateRem(800px);
-        }
-    }
-
     &--has-subtitle {
         .modal-header {
             border-bottom: 0;
