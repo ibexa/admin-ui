@@ -1,5 +1,6 @@
 (function(global, doc, ibexa, Routing, Translator) {
     const TIMEOUT_REMOVE_PLACEHOLDERS = 1500;
+    const SELECTOR_INPUTS_TO_VALIDATE = '.ibexa-input[required]:not([disabled]):not([hidden])';
     let targetContainer = null;
     let sourceContainer = null;
     let currentDraggedItem = null;
@@ -9,7 +10,7 @@
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const editForm = doc.querySelector('.ibexa-content-type-edit-form');
-    const inputsToValidate = editForm.querySelectorAll('.ibexa-input[required]:not([disabled]):not([hidden])');
+    const inputsToValidate = editForm.querySelectorAll(SELECTOR_INPUTS_TO_VALIDATE);
     const sectionsNode = doc.querySelector('.ibexa-content-type-edit__sections');
     const filterFieldInput = doc.querySelector('.ibexa-available-field-types__sidebar-filter');
     const popupMenuElement = sectionsNode.querySelector('.ibexa-popup-menu');
@@ -88,7 +89,7 @@
 
         const fieldGroupInput = fieldNode.querySelector('.ibexa-input--field-group');
         const removeFieldsBtn = fieldNode.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions');
-        const inputsToValidate = fieldNode.querySelectorAll('.ibexa-input[required]:not([disabled]):not([hidden])');
+        const inputsToValidate = fieldNode.querySelectorAll(SELECTOR_INPUTS_TO_VALIDATE);
 
         inputsToValidate.forEach(attachValidateEvents);
         removeDragPlaceholders();
@@ -280,7 +281,7 @@
         }
     };
     const validateForm = () => {
-        const inputsToValidate = editForm.querySelectorAll('.ibexa-input[required]:not([disabled]):not([hidden])');
+        const inputsToValidate = editForm.querySelectorAll(SELECTOR_INPUTS_TO_VALIDATE);
         const fieldDefinitionsStatuses = {};
 
         isEditFormValid = true;
