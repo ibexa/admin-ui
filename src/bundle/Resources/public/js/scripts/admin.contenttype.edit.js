@@ -261,21 +261,21 @@
             .catch(ibexa.helpers.notification.showErrorNotification);
     };
     const validateInput = (input) => {
-        const isInputValid = !!input.value;
+        const isInputEmpty = !input.value;
         const field = input.closest('.form-group');
         const labelNode = field.querySelector('.ibexa-label');
         const errorNode = field.querySelector('.ibexa-form-error');
 
-        input.classList.toggle('is-invalid', !isInputValid);
+        input.classList.toggle('is-invalid', isInputEmpty);
 
         if (errorNode) {
             const fieldName = labelNode.innerHTML;
             const errorMessage = ibexa.errors.emptyField.replace('{fieldName}', fieldName);
 
-            errorNode.innerHTML = !isInputValid ? errorMessage : '';
+            errorNode.innerHTML = isInputEmpty ? errorMessage : '';
         }
 
-        if (isEditFormValid && !isInputValid) {
+        if (isEditFormValid && isInputEmpty) {
             isEditFormValid = false;
         }
     };
@@ -290,24 +290,24 @@
 
             if (fieldDefinition) {
                 const { fieldDefinitionIdentifier } = fieldDefinition.dataset;
-                const isInputValid = !!input.value;
+                const isInputEmpty = !input.value;
 
                 if (!fieldDefinitionsStatuses[fieldDefinitionIdentifier]) {
                     fieldDefinitionsStatuses[fieldDefinitionIdentifier] = [];
                 }
 
-                fieldDefinitionsStatuses[fieldDefinitionIdentifier].push(isInputValid);
+                fieldDefinitionsStatuses[fieldDefinitionIdentifier].push(isInputEmpty);
             }
 
             validateInput(input);
         });
 
-        for (const [fieldDefinitionIdentifier, inputsStatus] of Object.entries(fieldDefinitionsStatuses)) {
-            const isFieldDefinitionValid = inputsStatus.every((status) => status);
+        Object.entries(fieldDefinitionsStatuses).forEach(([fieldDefinitionIdentifier, inputsStatus]) => {
+            const isFieldDefinitionValid = inputsStatus.every((hasError) => !hasError);
             const fieldDefinitionNode = doc.querySelector(`[data-field-definition-identifier="${fieldDefinitionIdentifier}"]`);
 
             fieldDefinitionNode.classList.toggle('is-invalid', !isFieldDefinitionValid);
-        }
+        })
     };
     const attachValidateEvents = (input) => {
         input.addEventListener('change', () => validateForm(input), false);
