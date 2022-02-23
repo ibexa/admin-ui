@@ -13,9 +13,15 @@
 {% endblock %}
 
 {% block header %}
-    {% include '@ibexadesign/ui/page_title.html.twig' with {
-        title: 'section.view.title.identifier'|trans({ '%identifier%': section.name })|desc('Section: %identifier%'),
+    {% embed '@ibexadesign/ui/page_title.html.twig' with {
+        title: section.name,
     } %}
+        {% block bottom %}
+            <span class="ibexa-icon-tag">
+                {{ 'section.list'|trans|desc('Sections') }}
+            </span>
+        {% endblock %}
+    {% endembed %}
 {% endblock %}
 
 {% block content %}
@@ -36,6 +42,17 @@
     {% set information_headline_items %}
         {% if can_edit %}
             {% set modalDataAttributes = deletable ? 'data-bs-toggle=modal data-bs-target=#delete-section-modal' : '' %}
+            <a
+                href="{{ path('ibexa.section.update', {'sectionId': section.id}) }}"
+                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+            >
+                <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
+                    <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
+                </svg>
+                <span class="ibexa-btn__label">
+                    {{ 'section.edit'|trans|desc('Edit') }}
+                </span>
+            </a>
             <button
                 type="button"
                 class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small {% if not deletable %}disabled{% endif %}"
@@ -53,31 +70,20 @@
                 {% include '@ibexadesign/section/modal/delete_confirmation.html.twig' with {'form': form_section_delete} %}
             {% endif %}
         {% endif %}
-        {% if can_edit %}
-            <a
-                href="{{ path('ibexa.section.update', {'sectionId': section.id}) }}"
-                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-            >
-                <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
-                    <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                </svg>
-                <span class="ibexa-btn__label">
-                    {{ 'section.edit'|trans|desc('Edit') }}
-                </span>
-            </a>
-        {% endif %}
     {% endset %}
 
-    {% include '@ibexadesign/ui/component/details/details.html.twig' with {
-        headline: 'tab.details.technical_details'|trans()|desc('Technical details'),
-        headline_items: information_headline_items,
-        items: information_items,
-    } only %}
+    <div class="ibexa-container">
+        {% include '@ibexadesign/ui/component/details/details.html.twig' with {
+            headline: 'tab.details.technical_details'|trans()|desc('Technical details'),
+            headline_items: information_headline_items,
+            items: information_items,
+        } only %}
 
-    {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\SectionController::viewSectionContentAction', {
-        'section': section,
-        'page': app.request.query.getInt('page', 1)
-    })) }}
+        {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\SectionController::viewSectionContentAction', {
+            'section': section,
+            'page': app.request.query.getInt('page', 1)
+        })) }}
+    </div>
 {% endblock %}
 
 {% block javascripts %}
