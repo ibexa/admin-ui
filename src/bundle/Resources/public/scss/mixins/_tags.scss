@@ -1,5 +1,4 @@
 @mixin tag {
-    letter-spacing: calculateRem(0.12px);
     font-size: $ibexa-text-font-size-small;
     font-weight: normal;
     color: $ibexa-color-dark;
