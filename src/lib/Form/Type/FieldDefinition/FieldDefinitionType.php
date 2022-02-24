@@ -14,7 +14,7 @@ use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\ThumbnailStr
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -72,11 +72,6 @@ class FieldDefinitionType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $fieldsGroups = [];
-        if (isset($this->groupsList)) {
-            $fieldsGroups = array_flip($this->groupsList->getGroups());
-        }
-
         $translatablePropertyTransformer = new TranslatablePropertyTransformer($options['languageCode']);
         $isTranslation = $options['languageCode'] !== $options['mainLanguageCode'];
 
@@ -120,13 +115,7 @@ class FieldDefinitionType extends AbstractType
             ])
             ->add(
                 'fieldGroup',
-                ChoiceType::class,
-                [
-                    'choices' => $fieldsGroups,
-                    'required' => false,
-                    'label' => /** @Desc("Category") */ 'field_definition.field_group',
-                    'disabled' => $isTranslation,
-                ]
+                HiddenType::class,
             )
             ->add('position', IntegerType::class, [
                 'label' => /** @Desc("Position") */ 'field_definition.position',
