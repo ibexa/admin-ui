@@ -6,11 +6,11 @@
     let currentDraggedItem = null;
     let draggedItemPosition = null;
     let isEditFormValid = false;
+    const editForm = doc.querySelector('.ibexa-content-type-edit-form');
+    let inputsToValidate = editForm.querySelectorAll(SELECTOR_INPUTS_TO_VALIDATE);
     const draggableGroups = [];
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
-    const editForm = doc.querySelector('.ibexa-content-type-edit-form');
-    const inputsToValidate = editForm.querySelectorAll(SELECTOR_INPUTS_TO_VALIDATE);
     const sectionsNode = doc.querySelector('.ibexa-content-type-edit__sections');
     const filterFieldInput = doc.querySelector('.ibexa-available-field-types__sidebar-filter');
     const popupMenuElement = sectionsNode.querySelector('.ibexa-popup-menu');
@@ -89,9 +89,9 @@
 
         const fieldGroupInput = fieldNode.querySelector('.ibexa-input--field-group');
         const removeFieldsBtn = fieldNode.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions');
-        const inputsToValidate = fieldNode.querySelectorAll(SELECTOR_INPUTS_TO_VALIDATE);
+        const fieldInputsToValidate = fieldNode.querySelectorAll(SELECTOR_INPUTS_TO_VALIDATE);
 
-        inputsToValidate.forEach(attachValidateEvents);
+        fieldInputsToValidate.forEach(attachValidateEvents);
         removeDragPlaceholders();
         fieldGroupInput.value = fieldsGroupId;
         targetContainer.insertBefore(fieldNode, targetPlace);
@@ -143,7 +143,6 @@
         });
     };
     const afterChangeGroup = () => {
-        const fieldsDefinitionCount = doc.querySelectorAll('.ibexa-collapse--field-definition').length;
         const groups = doc.querySelectorAll('.ibexa-collapse--field-definitions-group');
         const itemsAction = doc.querySelectorAll('.ibexa-content-type-edit__add-field-definitions-group .ibexa-popup-menu__item-content');
 
@@ -276,15 +275,13 @@
             errorNode.innerHTML = isInputEmpty ? errorMessage : '';
         }
 
-        if (isEditFormValid && isInputEmpty) {
-            isEditFormValid = false;
-        }
+        isEditFormValid = isEditFormValid && !isInputEmpty;
     };
     const validateForm = () => {
-        const inputsToValidate = editForm.querySelectorAll(SELECTOR_INPUTS_TO_VALIDATE);
         const fieldDefinitionsStatuses = {};
 
         isEditFormValid = true;
+        inputsToValidate = editForm.querySelectorAll(SELECTOR_INPUTS_TO_VALIDATE);
 
         inputsToValidate.forEach((input) => {
             const fieldDefinition = input.closest('.ibexa-collapse--field-definition');
@@ -311,9 +308,9 @@
         });
     };
     const attachValidateEvents = (input) => {
-        input.addEventListener('change', () => validateForm(input), false);
-        input.addEventListener('blur', () => validateForm(input), false);
-        input.addEventListener('input', () => validateForm(input), false);
+        input.addEventListener('change', validateForm, false);
+        input.addEventListener('blur', validateForm, false);
+        input.addEventListener('input', validateForm, false);
     };
     class FieldDefinitionDraggable extends ibexa.core.Draggable {
         onDrop(event) {
