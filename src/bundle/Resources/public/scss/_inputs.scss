@@ -225,7 +225,8 @@
         margin-bottom: 0;
     }
 
-    &__input {
+    &__input,
+    &__input:disabled {
         opacity: 0;
         height: calculateRem(1px);
         overflow: hidden;
