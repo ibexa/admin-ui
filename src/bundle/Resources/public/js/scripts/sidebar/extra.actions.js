@@ -30,9 +30,11 @@
             'click',
             () => {
                 const actions = doc.querySelector(`.ibexa-extra-actions[data-actions="${btn.dataset.actions}"]`);
+
                 if (btn.dataset.validate && !parseInt(btn.dataset.isFormValid, 10)) {
                     return;
                 }
+
                 const isHidden = haveHiddenPart(actions);
                 const methodNameContainer = isHidden ? 'remove' : 'add';
                 const methodNameMenu = isHidden ? 'add' : 'remove';
