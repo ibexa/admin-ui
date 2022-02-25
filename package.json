@@ -1,13 +1,13 @@
 {
-  "name": "admin-ui",
-  "repository": "git@github.com:ibexa/admin-ui.git",
-  "private": true,
-  "dependencies": {},
-  "devDependencies": {
-      "eslint-config-ibexa": "https://github.com/ibexa/eslint-config-ibexa.git"
-  },
-  "scripts": {
-      "test": "yarn eslint-test",
-      "eslint-test": "eslint \"./src/bundle/Resources/**/*.js\" \"./src/bundle/ui-dev/**/*.js\""
-  }
+    "name": "admin-ui",
+    "repository": "git@github.com:ibexa/admin-ui.git",
+    "private": true,
+    "dependencies": {},
+    "devDependencies": {
+        "eslint-config-ibexa": "git+https://github.com/ibexa/eslint-config-ibexa.git#add-prettier"
+    },
+    "scripts": {
+        "test": "yarn eslint-test",
+        "eslint-test": "eslint \"./src/bundle/Resources/**/*.js\" \"./src/bundle/ui-dev/**/*.js\""
+    }
 }
