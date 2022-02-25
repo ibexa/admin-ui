@@ -1,4 +1,4 @@
-(function(global, doc, localStorage, bootstrap) {
+(function (global, doc, localStorage, bootstrap) {
     const CONTENT_PREVIEW_COLLAPSE_SELECTOR = '.ibexa-content-preview-collapse';
     const DEFAULT_CONTENT_PREVIEW_TOGGLE_STATE_KEY = 'ibexa-content-preview-collapsed';
     const getStateKey = (collapseTarget) => {

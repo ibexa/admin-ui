@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const SELECTOR_VISIBILITY_CHECKBOXES = '#ibexa-tab-location-view-locations .ibexa-content-locations__visibility-checkbox';
     const SELECTOR_VISIBILITY_FORM = 'form[name="location_update_visibility_data"]';
     const form = doc.querySelector(SELECTOR_VISIBILITY_FORM);
@@ -37,10 +37,7 @@
             credentials: 'same-origin',
         });
 
-        fetch(request)
-            .then(handleUpdateResponse)
-            .then(handleUpdateSuccess.bind(null, event))
-            .catch(handleUpdateError);
+        fetch(request).then(handleUpdateResponse).then(handleUpdateSuccess.bind(null, event)).catch(handleUpdateError);
     };
 
     visibilityCheckboxes.forEach((checkbox) => {

@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, Translator) {
+(function (global, doc, ibexa, Translator) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezimage';
     const SELECTOR_INPUT_FILE = 'input[type="file"]';
     const SELECTOR_FILESIZE_NOTICE = '.ibexa-data-source__message--filesize';
@@ -39,7 +39,7 @@
             this.getImageUrl(files[0], (url) => {
                 const image = new Image();
 
-                image.onload = function() {
+                image.onload = function () {
                     const { width } = image;
                     const { height } = image;
                     const widthNode = preview.querySelector('.ibexa-field-edit-preview__dimension--width');

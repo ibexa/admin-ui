@@ -40,7 +40,7 @@ const List = ({
                     contentId: item.contentId,
                     locationId: item.locationId,
                 });
-                const itemPath = `${hasPreviousPath ? `${path },` : ''}${item.locationId}`;
+                const itemPath = `${hasPreviousPath ? `${path},` : ''}${item.locationId}`;
                 const { subitems } = item;
 
                 return (
@@ -56,13 +56,7 @@ const List = ({
                         indent={indent}
                     >
                         {subitems.length ? (
-                            <List
-                                path={itemPath}
-                                items={subitems}
-                                isRoot={false}
-                                indent={indent + 1}
-                                {...listAttrs}
-                            />
+                            <List path={itemPath} items={subitems} isRoot={false} indent={indent + 1} {...listAttrs} />
                         ) : (
                             renderNoSubitemMessage()
                         )}

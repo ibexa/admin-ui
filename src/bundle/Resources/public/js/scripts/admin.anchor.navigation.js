@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const scrollOffset = 300;
     const formContainerNode = doc.querySelector('.ibexa-edit-content');
     const allSections = [...doc.querySelectorAll('.ibexa-anchor-navigation-sections__section')];

@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const SECOND_LEVEL_COLLAPSED_WIDTH = 48;
     const SECOND_LEVEL_EXPANDED_WIDTH = 220;
     const SECOND_LEVEL_MANUAL_RESIZE_MIN_WIDTH = 80;

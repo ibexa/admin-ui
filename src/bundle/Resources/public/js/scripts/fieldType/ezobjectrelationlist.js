@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, React, ReactDOM, Translator) {
+(function (global, doc, ibexa, React, ReactDOM, Translator) {
     const CLASS_FIELD_SINGLE = 'ibexa-field-edit--ezobjectrelation';
     const SELECTOR_FIELD_MULTIPLE = '.ibexa-field-edit--ezobjectrelationlist';
     const SELECTOR_FIELD_SINGLE = '.ibexa-field-edit--ezobjectrelation';
@@ -108,15 +108,15 @@
             const title =
                 limit === 1
                     ? Translator.trans(
-                        /*@Desc("Select a Content item")*/ 'ezobjectrelationlist.title.single',
-                        {},
-                        'universal_discovery_widget',
-                    )
+                          /*@Desc("Select a Content item")*/ 'ezobjectrelationlist.title.single',
+                          {},
+                          'universal_discovery_widget',
+                      )
                     : Translator.trans(
-                        /*@Desc("Select Content item(s)")*/ 'ezobjectrelationlist.title.multi',
-                        {},
-                        'universal_discovery_widget',
-                    );
+                          /*@Desc("Select Content item(s)")*/ 'ezobjectrelationlist.title.multi',
+                          {},
+                          'universal_discovery_widget',
+                      );
 
             ReactDOM.render(
                 React.createElement(ibexa.modules.UniversalDiscovery, {

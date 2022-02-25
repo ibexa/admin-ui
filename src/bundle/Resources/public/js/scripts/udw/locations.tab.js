@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, React, ReactDOM, Translator) {
+(function (global, doc, ibexa, React, ReactDOM, Translator) {
     const btns = doc.querySelectorAll('.ibexa-btn--udw-add');
     const submitButton = doc.querySelector('#content_location_add_add');
     const form = doc.querySelector('form[name="content_location_add"]');

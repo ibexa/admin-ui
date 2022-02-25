@@ -24,19 +24,13 @@ export const SORTING_OPTIONS = [
         label: (
             <div className="c-udw-simple-dropdown__option-label">
                 {Translator.trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'universal_discovery_widget')}
-                <Icon
-                    name="back"
-                    extraClasses="c-udw-simple-dropdown__arrow-down ibexa-icon--tiny-small"
-                />
+                <Icon name="back" extraClasses="c-udw-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
             </div>
         ),
         selectedLabel: (
             <div className="c-udw-simple-dropdown__option-label">
                 {Translator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'universal_discovery_widget')}
-                <Icon
-                    name="back"
-                    extraClasses="c-udw-simple-dropdown__arrow-down ibexa-icon--tiny-small"
-                />
+                <Icon name="back" extraClasses="c-udw-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
             </div>
         ),
         sortClause: 'DatePublished',
@@ -47,19 +41,13 @@ export const SORTING_OPTIONS = [
         label: (
             <div className="c-udw-simple-dropdown__option-label">
                 {Translator.trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'universal_discovery_widget')}
-                <Icon
-                    name="back"
-                    extraClasses="c-udw-simple-dropdown__arrow-up ibexa-icon--tiny-small"
-                />
+                <Icon name="back" extraClasses="c-udw-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
             </div>
         ),
         selectedLabel: (
             <div className="c-udw-simple-dropdown__option-label">
                 {Translator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'universal_discovery_widget')}
-                <Icon
-                    name="back"
-                    extraClasses="c-udw-simple-dropdown__arrow-up ibexa-icon--tiny-small"
-                />
+                <Icon name="back" extraClasses="c-udw-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
             </div>
         ),
         sortClause: 'DatePublished',

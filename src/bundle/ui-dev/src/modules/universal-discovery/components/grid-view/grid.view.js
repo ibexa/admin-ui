@@ -38,13 +38,7 @@ const GridView = ({ itemsPerPage }) => {
             return null;
         }
 
-        return (
-            <GridViewItem
-                key={itemData.location.id}
-                location={itemData.location}
-                version={itemData.version}
-            />
-        );
+        return <GridViewItem key={itemData.location.id} location={itemData.location} version={itemData.version} />;
     };
 
     useEffect(() => {
@@ -61,10 +55,7 @@ const GridView = ({ itemsPerPage }) => {
     return (
         <div className="c-grid">
             <Breadcrumbs />
-            <div
-                className="ibexa-grid-view c-grid__items-wrapper"
-                onScroll={loadMore}
-            >
+            <div className="ibexa-grid-view c-grid__items-wrapper" onScroll={loadMore}>
                 {locationData.subitems.map(renderItem)}
             </div>
         </div>

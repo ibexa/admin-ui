@@ -94,10 +94,7 @@ const Filters = ({ search }) => {
                         className="btn ibexa-tag-view-select__selected-item-tag-remove-btn"
                         onClick={clearSelectedSubtree}
                     >
-                        <Icon
-                            name="discard"
-                            extraClasses="ibexa-icon--tiny"
-                        />
+                        <Icon name="discard" extraClasses="ibexa-icon--tiny" />
                     </button>
                 </div>
             </div>
@@ -116,11 +113,7 @@ const Filters = ({ search }) => {
         );
 
         return (
-            <button
-                className="ibexa-tag-view-select__btn-select-path btn ibexa-btn ibexa-btn--secondary"
-                type="button"
-                onClick={openUdw}
-            >
+            <button className="ibexa-tag-view-select__btn-select-path btn ibexa-btn ibexa-btn--secondary" type="button" onClick={openUdw}>
                 {selectedSubtree ? changeLabel : selectLabel}
             </button>
         );
@@ -154,11 +147,7 @@ const Filters = ({ search }) => {
             <div className="c-filters__header">
                 <div className="c-filters__header-content">{filtersLabel}</div>
                 <div className="c-filters__header-actions">
-                    <button
-                        className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-                        type="button"
-                        onClick={clearFilters}
-                    >
+                    <button className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small" type="button" onClick={clearFilters}>
                         {clearLabel}
                     </button>
                     <button

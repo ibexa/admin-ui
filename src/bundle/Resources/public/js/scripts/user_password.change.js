@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const form = doc.querySelector('form[name="user_password_change"]');
     const submitBtns = form.querySelectorAll('[type="submit"]:not([formnovalidate])');
     const oldPasswordInput = form.querySelector('#user_password_change_oldPassword');

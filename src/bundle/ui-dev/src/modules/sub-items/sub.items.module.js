@@ -899,11 +899,7 @@ export default class SubItemsModule extends Component {
 
         return (
             <Fragment>
-                <button
-                    onClick={this.onBulkHidePopupConfirm}
-                    type="button"
-                    className="btn ibexa-btn ibexa-btn--primary ibexa-btn--trigger"
-                >
+                <button onClick={this.onBulkHidePopupConfirm} type="button" className="btn ibexa-btn ibexa-btn--primary ibexa-btn--trigger">
                     {confirmLabel}
                 </button>
                 <button
@@ -1103,13 +1099,7 @@ export default class SubItemsModule extends Component {
     renderExtraActions(action, index) {
         const Action = action.component;
 
-        return (
-            <Action
-                key={index}
-                className="m-sub-items__action"
-                {...action.attrs}
-            />
-        );
+        return <Action key={index} className="m-sub-items__action" {...action.attrs} />;
     }
 
     /**
@@ -1137,12 +1127,7 @@ export default class SubItemsModule extends Component {
             'sub_items',
         );
 
-        return (
-            <div
-                className="m-sub-items__pagination-info ibexa-pagination__info"
-                dangerouslySetInnerHTML={{ __html: message }}
-            />
-        );
+        return <div className="m-sub-items__pagination-info ibexa-pagination__info" dangerouslySetInnerHTML={{ __html: message }} />;
     }
 
     /**
@@ -1179,66 +1164,31 @@ export default class SubItemsModule extends Component {
     renderBulkMoveBtn(disabled) {
         const label = Translator.trans(/*@Desc("Move")*/ 'move_btn.label', {}, 'sub_items');
 
-        return (
-            <ActionButton
-                disabled={disabled}
-                onClick={this.onMoveBtnClick}
-                label={label}
-                type="move"
-            />
-        );
+        return <ActionButton disabled={disabled} onClick={this.onMoveBtnClick} label={label} type="move" />;
     }
 
     renderBulkAddLocationBtn(disabled) {
         const label = Translator.trans(/*@Desc("Add Locations")*/ 'add_locations_btn.label', {}, 'sub_items');
 
-        return (
-            <ActionButton
-                disabled={disabled}
-                onClick={this.onAddLocationsBtnClick}
-                label={label}
-                type="create-location"
-            />
-        );
+        return <ActionButton disabled={disabled} onClick={this.onAddLocationsBtnClick} label={label} type="create-location" />;
     }
 
     renderBulkHideBtn(disabled) {
         const label = Translator.trans(/*@Desc("Hide")*/ 'hide_locations_btn.label', {}, 'sub_items');
 
-        return (
-            <ActionButton
-                disabled={disabled}
-                onClick={this.onHideBtnClick}
-                label={label}
-                type="hide"
-            />
-        );
+        return <ActionButton disabled={disabled} onClick={this.onHideBtnClick} label={label} type="hide" />;
     }
 
     renderBulkUnhideBtn(disabled) {
         const label = Translator.trans(/*@Desc("Reveal")*/ 'unhide_locations_btn.label', {}, 'sub_items');
 
-        return (
-            <ActionButton
-                disabled={disabled}
-                onClick={this.onUnhideBtnClick}
-                label={label}
-                type="reveal"
-            />
-        );
+        return <ActionButton disabled={disabled} onClick={this.onUnhideBtnClick} label={label} type="reveal" />;
     }
 
     renderBulkDeleteBtn(disabled) {
         const label = Translator.trans(/*@Desc("Delete")*/ 'trash_btn.label', {}, 'sub_items');
 
-        return (
-            <ActionButton
-                disabled={disabled}
-                onClick={this.onDeleteBtnClick}
-                label={label}
-                type="trash"
-            />
-        );
+        return <ActionButton disabled={disabled} onClick={this.onDeleteBtnClick} label={label} type="trash" />;
     }
 
     renderSpinner() {
@@ -1258,10 +1208,7 @@ export default class SubItemsModule extends Component {
         return (
             <div style={style}>
                 <div className="m-sub-items__spinner-wrapper">
-                    <Icon
-                        name="spinner"
-                        extraClasses="m-sub-items__spinner ibexa-icon--medium ibexa-spin"
-                    />
+                    <Icon name="spinner" extraClasses="m-sub-items__spinner ibexa-icon--medium ibexa-spin" />
                 </div>
             </div>
         );
@@ -1341,10 +1288,7 @@ export default class SubItemsModule extends Component {
 
         return (
             <div ref={this._refMainContainerWrapper}>
-                <div
-                    className="m-sub-items"
-                    style={{ width: `${subItemsWidth}px` }}
-                >
+                <div className="m-sub-items" style={{ width: `${subItemsWidth}px` }}>
                     <div className="ibexa-table-header ">
                         <div className="ibexa-table-header__headline">
                             {listTitle} ({this.state.totalCount})
@@ -1356,17 +1300,10 @@ export default class SubItemsModule extends Component {
                             {this.renderBulkHideBtn(bulkHideBtnDisabled)}
                             {this.renderBulkUnhideBtn(bulkUnhideBtnDisabled)}
                             {this.renderBulkDeleteBtn(bulkBtnDisabled)}
-                            <ViewSwitcherComponent
-                                onViewChange={this.switchView}
-                                activeView={activeView}
-                                isDisabled={!totalCount}
-                            />
+                            <ViewSwitcherComponent onViewChange={this.switchView} activeView={activeView} isDisabled={!totalCount} />
                         </div>
                     </div>
-                    <div
-                        ref={this._refListViewWrapper}
-                        className={listClassName}
-                    >
+                    <div ref={this._refListViewWrapper} className={listClassName}>
                         {this.renderSpinner()}
                         {this.renderListView()}
                         {this.renderNoItems()}

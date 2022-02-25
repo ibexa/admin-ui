@@ -37,10 +37,7 @@ const TreeView = ({ itemsPerPage }) => {
     const userId = ibexa.helpers.user.getId();
     const expandItem = (item, event) => {
         event.preventDefault();
-        event.currentTarget
-            .closest('.c-list-item__row')
-            .querySelector('.c-list-item__toggler')
-            .click();
+        event.currentTarget.closest('.c-list-item__row').querySelector('.c-list-item__toggler').click();
     };
     const markLocation = (item) => {
         const { locationId } = item;

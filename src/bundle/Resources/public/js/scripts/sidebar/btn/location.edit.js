@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, bootstrap, Routing) {
+(function (global, doc, ibexa, bootstrap, Routing) {
     const editActions = doc.querySelector('.ibexa-extra-actions--edit') || doc.querySelector('.ibexa-extra-actions--edit-user');
     const btns = [...editActions.querySelectorAll('.form-check [type="radio"]')];
     const form = editActions.querySelector('form');

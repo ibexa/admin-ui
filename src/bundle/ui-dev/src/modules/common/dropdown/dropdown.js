@@ -50,7 +50,7 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
                     toggleExpanded();
                 }}
             >
-                <span className="ibexa-dropdown__item-label">{ item.label }</span>
+                <span className="ibexa-dropdown__item-label">{item.label}</span>
             </li>
         );
     };
@@ -67,11 +67,7 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
         }
 
         return (
-            <div
-                className="ibexa-dropdown__items"
-                style={itemsStyles}
-                ref={containerItemsRef}
-            >
+            <div className="ibexa-dropdown__items" style={itemsStyles} ref={containerItemsRef}>
                 <div className="ibexa-input-text-wrapper">
                     <input
                         type="text"
@@ -94,16 +90,11 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
                             className="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search"
                             tabIndex="-1"
                         >
-                            <Icon
-                                name="search"
-                                extraClasses="ibexa-icon--small"
-                            />
+                            <Icon name="search" extraClasses="ibexa-icon--small" />
                         </button>
                     </div>
                 </div>
-                <ul className="ibexa-dropdown__items-list">
-                    {options.map(renderItem)}
-                </ul>
+                <ul className="ibexa-dropdown__items-list">{options.map(renderItem)}</ul>
             </div>
         );
     };
@@ -134,23 +125,14 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
 
     return (
         <>
-            <div
-                className={dropdownClassName}
-                ref={containerRef}
-                onClick={toggleExpanded}
-            >
+            <div className={dropdownClassName} ref={containerRef} onClick={toggleExpanded}>
                 <div className="ibexa-dropdown__wrapper">
                     <ul className="ibexa-dropdown__selection-info">
-                        <li className="ibexa-dropdown__selected-item">
-                            { labelValue }
-                        </li>
+                        <li className="ibexa-dropdown__selected-item">{labelValue}</li>
                     </ul>
                 </div>
             </div>
-            {isExpanded && ReactDOM.createPortal(
-                renderItemsList(),
-                dropdownListRef.current,
-            )}
+            {isExpanded && ReactDOM.createPortal(renderItemsList(), dropdownListRef.current)}
         </>
     );
 };

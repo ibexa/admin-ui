@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezbinaryfile';
     const SELECTOR_FILESIZE_NOTICE = '.ibexa-data-source__message--filesize';
 

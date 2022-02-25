@@ -35,16 +35,8 @@ const TabSelector = () => {
                 });
 
                 return (
-                    <div
-                        className={className}
-                        key={tab.id}
-                        onClick={onClick}
-                        title={tab.label}
-                    >
-                        <Icon
-                            customPath={tab.icon}
-                            extraClasses="ibexa-icon--small-medium"
-                        />
+                    <div className={className} key={tab.id} onClick={onClick} title={tab.label}>
+                        <Icon customPath={tab.icon} extraClasses="ibexa-icon--small-medium" />
                     </div>
                 );
             })}

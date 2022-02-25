@@ -1,4 +1,4 @@
-(function(global, doc, React, ReactDOM, ibexa) {
+(function (global, doc, React, ReactDOM, ibexa) {
     const contentTreeContainer = doc.querySelector('.ibexa-content-tree-container');
 
     if (!contentTreeContainer) {

@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, React, ReactDOM) {
+(function (global, doc, ibexa, React, ReactDOM) {
     const udwContainer = doc.getElementById('react-udw');
     const limitationsRadio = doc.querySelectorAll('.ibexa-assign__limitations-item-radio');
     const selectSubtreeWidget = new ibexa.core.TagViewSelect({

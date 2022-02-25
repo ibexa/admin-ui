@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     class EditTranslation {
         constructor(config) {
             this.container = config.container;

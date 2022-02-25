@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const modal = doc.querySelector('#ibexa-modal--custom-url-alias');
 
     if (modal) {

@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     let filterTimeout;
     const SELECTOR_ITEM = '.ibexa-instant-filter__group-item';
     const timeout = 200;
@@ -8,7 +8,7 @@
 
         group.toggleAttribute('hidden', areChildrenHidden);
     };
-    const filterItems = function(itemsMap, groups, event) {
+    const filterItems = function (itemsMap, groups, event) {
         window.clearTimeout(filterTimeout);
 
         filterTimeout = window.setTimeout(() => {

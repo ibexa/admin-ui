@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const ibexaTables = doc.querySelectorAll('.ibexa-table');
     const setMainCheckboxState = (mainCheckbox, subCheckboxes, event) => {
         const isFromJS = event?.detail?.isFromJS ?? false;
@@ -52,7 +52,9 @@
 
         const checkboxesChangeListeners = new Map();
         headCellsWithCheckbox.forEach((headCellWithCheckbox) => {
-            const isCustomInit = !!headCellWithCheckbox.querySelector('.ibexa-table__header-cell-checkbox.ibexa-table__header-cell-checkbox--custom-init');
+            const isCustomInit = !!headCellWithCheckbox.querySelector(
+                '.ibexa-table__header-cell-checkbox.ibexa-table__header-cell-checkbox--custom-init',
+            );
 
             if (isCustomInit) {
                 return;
@@ -97,7 +99,9 @@
     };
 
     ibexaTables.forEach((table) => {
-        const tableHasBulkCheckbox = !!table.querySelector('.ibexa-table__header-cell-checkbox:not(.ibexa-table__header-cell-checkbox--custom-init)');
+        const tableHasBulkCheckbox = !!table.querySelector(
+            '.ibexa-table__header-cell-checkbox:not(.ibexa-table__header-cell-checkbox--custom-init)',
+        );
 
         if (!tableHasBulkCheckbox) {
             return;

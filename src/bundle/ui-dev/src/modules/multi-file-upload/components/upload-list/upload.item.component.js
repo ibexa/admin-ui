@@ -378,12 +378,7 @@ export default class UploadItemComponent extends Component {
 
         const contentTypeIconUrl = ibexa.helpers.contentType.getContentTypeIconUrl(contentTypeIdentifier);
 
-        return (
-            <Icon
-                customPath={contentTypeIconUrl}
-                extraClasses="ibexa-icon--small-medium"
-            />
-        );
+        return <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small-medium" />;
     }
 
     /**
@@ -400,13 +395,7 @@ export default class UploadItemComponent extends Component {
             return null;
         }
 
-        return (
-            <ProgressBarComponent
-                progress={progress}
-                uploaded={uploadedSize}
-                total={totalSize}
-            />
-        );
+        return <ProgressBarComponent progress={progress} uploaded={uploadedSize} total={totalSize} />;
     }
 
     /**
@@ -451,10 +440,7 @@ export default class UploadItemComponent extends Component {
 
         return isError ? (
             <div className="c-upload-list-item__message c-upload-list-item__message--error">
-                <Icon
-                    name="warning"
-                    extraClasses="ibexa-icon--tiny"
-                />
+                <Icon name="warning" extraClasses="ibexa-icon--tiny" />
                 {msg}
             </div>
         ) : null;
@@ -474,10 +460,7 @@ export default class UploadItemComponent extends Component {
 
         return isSuccess ? (
             <div className="c-upload-list-item__message c-upload-list-item__message--success">
-                <Icon
-                    name="checkmark"
-                    extraClasses="ibexa-icon--tiny"
-                />
+                <Icon name="checkmark" extraClasses="ibexa-icon--tiny" />
                 {message}
             </div>
         ) : null;
@@ -507,10 +490,7 @@ export default class UploadItemComponent extends Component {
                 title={label}
                 tabIndex="-1"
             >
-                <Icon
-                    name="trash"
-                    extraClasses="ibexa-icon--small-medium"
-                />
+                <Icon name="trash" extraClasses="ibexa-icon--small-medium" />
             </div>
         );
     }
@@ -562,10 +542,7 @@ export default class UploadItemComponent extends Component {
                 onClick={this.handleEditBtnClick}
                 tabIndex="-1"
             >
-                <Icon
-                    name="edit"
-                    extraClasses="ibexa-icon--small-medium"
-                />
+                <Icon name="edit" extraClasses="ibexa-icon--small-medium" />
             </div>
         );
     }
@@ -594,26 +571,14 @@ export default class UploadItemComponent extends Component {
                 title={label}
                 tabIndex="-1"
             >
-                <Icon
-                    name="trash"
-                    extraClasses="ibexa-icon--small-medium"
-                />
+                <Icon name="trash" extraClasses="ibexa-icon--small-medium" />
             </div>
         );
     }
 
     render() {
-        const {
-            uploaded,
-            aborted,
-            disallowedType,
-            disallowedSize,
-            failed,
-            uploading,
-            disallowedContentType,
-            deleted,
-            totalSize,
-        } = this.state;
+        const { uploaded, aborted, disallowedType, disallowedSize, failed, uploading, disallowedContentType, deleted, totalSize } =
+            this.state;
         const isError = !uploaded && !aborted && (disallowedSize || disallowedType || disallowedContentType) && failed && !uploading;
         const wrapperClassName = createCssClassNames({
             'c-upload-list-item': true,

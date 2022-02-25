@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const ENDPOINT_BOOKMARK = '/api/ibexa/v2/bookmark';
     const SELECTOR_BOOKMARK_WRAPPER = '.ibexa-add-to-bookmarks';
     const CLASS_BOOKMARK_CHECKED = 'ibexa-add-to-bookmarks--checked';
@@ -43,10 +43,7 @@
             credentials: 'same-origin',
         });
 
-        fetch(request)
-            .then(getResponseStatus)
-            .then(onBookmarkUpdated.bind(null, addBookmark))
-            .catch(handleUpdateError);
+        fetch(request).then(getResponseStatus).then(onBookmarkUpdated.bind(null, addBookmark)).catch(handleUpdateError);
     };
     const isCurrentLocation = (locationId) => {
         return parseInt(locationId, 10) === currentLocationId;

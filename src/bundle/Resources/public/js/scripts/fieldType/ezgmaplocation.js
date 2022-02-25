@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, Leaflet, Translator) {
+(function (global, doc, ibexa, Leaflet, Translator) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezgmaplocation';
     const SELECTOR_ADDRESS_INPUT = '.ibexa-data-source__field--address .ibexa-data-source__input';
     const SELECTOR_LAT_FIELD = '.ibexa-data-source__field--latitude';
@@ -85,7 +85,6 @@
                 return lonResult;
             }
             return lonResult;
-
         }
 
         /**
@@ -117,7 +116,6 @@
                 return latResult;
             }
             return latResult;
-
         }
 
         /**

@@ -1,11 +1,11 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     class TagViewSelect {
         constructor(config) {
             this.inputSelector = config.inputSelector || 'input';
             this.container = config.container || config.fieldContainer.querySelector('.ibexa-tag-view-select');
 
             if (!this.container) {
-                throw new Error('Field Container doesn\'t exist!');
+                throw new Error("Field Container doesn't exist!"); // eslint-disable-line quotes
             }
 
             this.listContainer = this.container.querySelector('.ibexa-tag-view-select__selected-list');
@@ -46,7 +46,6 @@
             removeBtns.forEach((btn) => btn.toggleAttribute('disabled', isDisabled));
             this.inputField.toggleAttribute('disabled', isDisabled);
             this.selectBtn.toggleAttribute('disabled', isDisabled);
-
         }
 
         addItems(items, forceRecreate) {
@@ -111,7 +110,11 @@
             const selectedItems = [...this.listContainer.querySelectorAll('[data-id]')];
             const hideDeleteButtons = !this.canBeEmpty && selectedItems.length === 1;
 
-            selectedItems.forEach((selectedItem) => selectedItem.querySelector('.ibexa-tag-view-select__selected-item-tag-remove-btn').toggleAttribute('hidden', hideDeleteButtons));
+            selectedItems.forEach((selectedItem) =>
+                selectedItem
+                    .querySelector('.ibexa-tag-view-select__selected-item-tag-remove-btn')
+                    .toggleAttribute('hidden', hideDeleteButtons),
+            );
         }
 
         ellipsizeTags() {
@@ -120,7 +123,10 @@
             selectedItems.forEach((item) => {
                 const partStart = item.querySelector('.ibexa-tag-view-select__selected-item-tag-content--start');
 
-                item.classList.toggle('ibexa-tag-view-select__selected-item-tag--ellipsized', partStart.scrollWidth > partStart.offsetWidth);
+                item.classList.toggle(
+                    'ibexa-tag-view-select__selected-item-tag--ellipsized',
+                    partStart.scrollWidth > partStart.offsetWidth,
+                );
                 ibexa.helpers.tooltips.parse(item);
             });
         }

@@ -48,13 +48,7 @@ const FinderLeaf = ({ location }) => {
         }
     };
     const renderToggleSelection = () => {
-        return (
-            <ToggleSelection
-                location={location}
-                multiple={multiple}
-                isHidden={isNotSelectable}
-            />
-        );
+        return <ToggleSelection location={location} multiple={multiple} isHidden={isNotSelectable} />;
     };
     const className = createCssClassNames({
         'c-finder-leaf': true,
@@ -69,10 +63,7 @@ const FinderLeaf = ({ location }) => {
     }, []);
 
     return (
-        <div
-            className={className}
-            onClick={markLocation}
-        >
+        <div className={className} onClick={markLocation}>
             {renderToggleSelection()}
             <span className="c-finder-leaf__name">
                 <span className="c-finder-leaf__icon-wrapper">
@@ -81,10 +72,7 @@ const FinderLeaf = ({ location }) => {
                         customPath={contentTypesMap[location.ContentInfo.Content.ContentType._href].thumbnail}
                     />
                 </span>
-                <span
-                    title={location.ContentInfo.Content.TranslatedName}
-                    data-tooltip-container-selector=".c-udw-tab"
-                >
+                <span title={location.ContentInfo.Content.TranslatedName} data-tooltip-container-selector=".c-udw-tab">
                     {location.ContentInfo.Content.TranslatedName}
                 </span>
             </span>

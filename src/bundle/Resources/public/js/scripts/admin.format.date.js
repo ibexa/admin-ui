@@ -1,4 +1,4 @@
-(function(moment) {
+(function (moment) {
     /*
         ([yqLdDeEcaZ])\1* -> find any pattern of one or repeated one of these characters
         or
@@ -55,17 +55,19 @@
         ZZZZ: 'Z',
     };
 
-    const formatEscapedString = function(icuStr) {
-        if (icuStr === '\'\'') {
-            return '[\']';
+    const formatEscapedString = function (icuStr) {
+        // eslint-disable-next-line quotes
+        if (icuStr === "''") {
+            return "[']"; // eslint-disable-line quotes
         }
 
-        return icuStr.replace(/'(.*)'/g, '[$1]').replace(/''/g, '\'');
+        return icuStr.replace(/'(.*)'/g, '[$1]').replace(/''/g, "'"); // eslint-disable-line quotes
     };
 
-    moment.fn.formatICU = function(format) {
+    moment.fn.formatICU = function (format) {
         const form = format.replace(formatICUEx, (icuStr) => {
-            if (icuStr[0] === '\'') {
+            // eslint-disable-next-line quotes
+            if (icuStr[0] === "'") {
                 return formatEscapedString(icuStr);
             }
 

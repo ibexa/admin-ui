@@ -22,18 +22,9 @@ const Header = ({ isCollapsed, toggleCollapseTree, actions, popupRef }) => {
                 className="ibexa-btn btn ibexa-btn--no-text ibexa-btn--tertiary c-header__toggle-btn"
                 onClick={toggleCollapseTree}
             >
-                {isCollapsed && (
-                    <Icon
-                        name="content-tree"
-                        extraClasses="ibexa-icon--small"
-                    />
-                )}
-                <Icon
-                    name={iconName}
-                    extraClasses={caretIconClass}
-                />
+                {isCollapsed && <Icon name="content-tree" extraClasses="ibexa-icon--small" />}
+                <Icon name={iconName} extraClasses={caretIconClass} />
             </button>
-
         );
     };
 
@@ -45,17 +36,11 @@ const Header = ({ isCollapsed, toggleCollapseTree, actions, popupRef }) => {
         <div className="c-header">
             {renderCollapseButton()}
             <div className="c-header__name">
-                <Icon
-                    name="content-tree"
-                    extraClasses="ibexa-icon--small"
-                />
+                <Icon name="content-tree" extraClasses="ibexa-icon--small" />
                 {headerTitle}
             </div>
             <div className="c-header__options">
-                <PopupActions
-                    listRef={popupRef}
-                    options={actions}
-                />
+                <PopupActions listRef={popupRef} options={actions} />
             </div>
         </div>
     );

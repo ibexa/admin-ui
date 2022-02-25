@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, bootstrap) {
+(function (global, doc, ibexa, bootstrap) {
     const EVENT_VALUE_CHANGED = 'change';
     const RESTRICTED_AREA_ITEMS_CONTAINER = 190;
     const MINIMUM_LETTERS_TO_FILTER = 3;

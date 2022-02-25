@@ -16,16 +16,9 @@ const Finder = ({ itemsPerPage }) => {
     });
 
     return (
-        <div
-            className="c-finder"
-            ref={finderRef}
-        >
+        <div className="c-finder" ref={finderRef}>
             {loadedLocationsMap.map((loadedLocation) => (
-                <FinderBranch
-                    key={loadedLocation.parentLocationId}
-                    itemsPerPage={itemsPerPage}
-                    locationData={loadedLocation}
-                />
+                <FinderBranch key={loadedLocation.parentLocationId} itemsPerPage={itemsPerPage} locationData={loadedLocation} />
             ))}
         </div>
     );

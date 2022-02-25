@@ -1,4 +1,4 @@
-(function(global, doc, localStorage, bootstrap, React, ReactDOM, ibexa, Routing, Translator) {
+(function (global, doc, localStorage, bootstrap, React, ReactDOM, ibexa, Routing, Translator) {
     const SELECTOR_MODAL_BULK_ACTION_FAIL = '#bulk-action-failed-modal';
     const listContainers = doc.querySelectorAll('.ibexa-sil');
     const mfuContainer = doc.querySelector('#ibexa-mfu');

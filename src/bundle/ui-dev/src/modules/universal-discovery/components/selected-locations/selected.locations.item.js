@@ -37,10 +37,7 @@ const SelectedLocationsItem = ({ location, permissions }) => {
     }, []);
 
     return (
-        <div
-            className="c-selected-locations-item"
-            ref={refSelectedLocationsItem}
-        >
+        <div className="c-selected-locations-item" ref={refSelectedLocationsItem}>
             <div className="c-selected-locations-item__image-wrapper">
                 <Thumbnail thumbnailData={thumbnailData} />
             </div>
@@ -54,13 +51,7 @@ const SelectedLocationsItem = ({ location, permissions }) => {
                 {sortedActions.map((action) => {
                     const Component = action.component;
 
-                    return (
-                        <Component
-                            key={action.id}
-                            location={location}
-                            permissions={permissions}
-                        />
-                    );
+                    return <Component key={action.id} location={location} permissions={permissions} />;
                 })}
                 <button
                     type="button"
@@ -69,10 +60,7 @@ const SelectedLocationsItem = ({ location, permissions }) => {
                     title={clearLabel}
                     data-tooltip-container-selector=".c-udw-tab"
                 >
-                    <Icon
-                        name="discard"
-                        extraClasses="ibexa-icon--tiny-small"
-                    />
+                    <Icon name="discard" extraClasses="ibexa-icon--tiny-small" />
                 </button>
             </div>
         </div>

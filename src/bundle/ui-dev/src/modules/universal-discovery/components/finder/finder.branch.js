@@ -94,22 +94,14 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
         return (
             <div className="c-finder-branch__info-wrapper">
                 <span className="c-finder-branch__icon-wrapper">
-                    <Icon
-                        extraClasses="ibexa-icon--small"
-                        customPath={iconPath}
-                    />
+                    <Icon extraClasses="ibexa-icon--small" customPath={iconPath} />
                 </span>
                 <span className="c-finder-branch__name">{contentName}</span>
             </div>
         );
     };
     const renderDragHandler = () => {
-        return (
-            <div
-                className="c-finder-branch__resize-handler"
-                onMouseDown={addResizeListeners}
-            />
-        );
+        return <div className="c-finder-branch__resize-handler" onMouseDown={addResizeListeners} />;
     };
     const renderSubitems = () => {
         if (collapsed) {
@@ -120,18 +112,11 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
 
         return (
             <Fragment>
-                <div
-                    className="c-finder-branch__items-wrapper"
-                    onScroll={loadMore}
-                    style={{ width }}
-                >
+                <div className="c-finder-branch__items-wrapper" onScroll={loadMore} style={{ width }}>
                     {renderLoadingSpinner()}
 
                     {subitems.map(({ location }) => (
-                        <FinderLeaf
-                            key={location.id}
-                            location={location}
-                        />
+                        <FinderLeaf key={location.id} location={location} />
                     ))}
                 </div>
                 {renderDragHandler()}
@@ -145,10 +130,7 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
 
         return (
             <div className="c-finder-branch__loading-spinner">
-                <Icon
-                    name="spinner"
-                    extraClasses="ibexa-icon--medium ibexa-spin"
-                />
+                <Icon name="spinner" extraClasses="ibexa-icon--medium ibexa-spin" />
             </div>
         );
     };
@@ -172,11 +154,7 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
     const onClick = collapsed ? expandBranch : null;
 
     return (
-        <div
-            className={className}
-            onClick={onClick}
-            ref={branchRef}
-        >
+        <div className={className} onClick={onClick} ref={branchRef}>
             {renderCollapsedBranch()}
             {renderSubitems()}
         </div>

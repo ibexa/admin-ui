@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const OFFSET_ROUNDING_COMPENSATOR = 0.5;
     class AdaptiveItems {
         constructor(config) {

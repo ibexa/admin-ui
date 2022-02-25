@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const createActions = doc.querySelector('.ibexa-extra-actions--create');
 
     if (!createActions) {

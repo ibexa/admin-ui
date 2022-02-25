@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, Chart) {
+(function (global, doc, ibexa, Chart) {
     const IBEXA_WHITE = '#fff';
     const IBEXA_COLOR_BASE = '#e0e0e8';
     const IBEXA_COLOR_BASE_DARK = '#878b90';

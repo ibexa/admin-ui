@@ -56,18 +56,12 @@ const Pagination = ({ totalCount, itemsPerPage, proximity, activePageIndex, onPa
         if (page === DOTS) {
             const key = `dots-${index}`;
 
-            return (
-                <PaginationButton
-                    key={key}
-                    label={DOTS}
-                    disabled={true}
-                />
-            );
+            return <PaginationButton key={key} label={DOTS} disabled={true} />;
         }
 
         const isCurrentPage = page === activePageIndex + 1;
         const additionalClasses = isCurrentPage ? 'active' : '';
-        const label = `${ page}`;
+        const label = `${page}`;
 
         return (
             <PaginationButton

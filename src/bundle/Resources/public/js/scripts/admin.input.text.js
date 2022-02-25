@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const clearText = (event) => {
         const inputWrapper = event.target.closest('.ibexa-input-text-wrapper');
         const textInput = inputWrapper.querySelector('.ibexa-input--text');

@@ -72,26 +72,14 @@ const ContentTableItem = ({ location }) => {
         }
     };
     const renderToggleSelection = () => {
-        return (
-            <ToggleSelection
-                location={location}
-                multiple={multiple}
-                isHidden={isNotSelectable}
-            />
-        );
+        return <ToggleSelection location={location} multiple={multiple} isHidden={isNotSelectable} />;
     };
 
     return (
-        <tr
-            className={className}
-            onClick={markLocation}
-        >
+        <tr className={className} onClick={markLocation}>
             {multiple && <td className="ibexa-table__cell ibexa-table__cell--has-checkbox">{renderToggleSelection()}</td>}
             <td className="ibexa-table__cell c-content-table-item__icon-wrapper">
-                <Icon
-                    extraClasses="ibexa-icon--small"
-                    customPath={contentTypeInfo.thumbnail}
-                />
+                <Icon extraClasses="ibexa-icon--small" customPath={contentTypeInfo.thumbnail} />
             </td>
             <td className="ibexa-table__cell">{location.ContentInfo.Content.TranslatedName}</td>
             <td className="ibexa-table__cell">{formatShortDateTime(new Date(location.ContentInfo.Content.lastModificationDate))}</td>

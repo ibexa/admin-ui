@@ -34,16 +34,10 @@ const Tab = ({ children, actionsDisabledMap }) => {
 
     return (
         <div className="c-udw-tab">
-            <div
-                className="c-udw-tab__top-bar"
-                ref={topBarRef}
-            >
+            <div className="c-udw-tab__top-bar" ref={topBarRef}>
                 <TopMenu actionsDisabledMap={actionsDisabledMap} />
             </div>
-            <div
-                className="c-udw-tab__content"
-                style={contentStyles}
-            >
+            <div className="c-udw-tab__content" style={contentStyles}>
                 <div className="c-udw-tab__left-sidebar">
                     <ContentCreateWidget />
                     <TabSelector />
@@ -54,16 +48,10 @@ const Tab = ({ children, actionsDisabledMap }) => {
                     {selectedLocationsComponent}
                 </div>
             </div>
-            <div
-                className="c-udw-tab__bottom-bar"
-                ref={bottomBarRef}
-            >
+            <div className="c-udw-tab__bottom-bar" ref={bottomBarRef}>
                 <ActionsMenu />
             </div>
-            <div
-                className="c-udw-tab__dropdown-portal"
-                ref={dropdownPortalRef}
-            />
+            <div className="c-udw-tab__dropdown-portal" ref={dropdownPortalRef} />
         </div>
     );
 };

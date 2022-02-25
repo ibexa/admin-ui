@@ -107,15 +107,8 @@ const ContentCreateWidget = () => {
 
     return (
         <div className="ibexa-extra-actions-container">
-            <div
-                className="ibexa-extra-actions-container__backdrop"
-                hidden={!createContentVisible}
-                onClick={close}
-            />
-            <div
-                className={widgetClassName}
-                ref={refContentTree}
-            >
+            <div className="ibexa-extra-actions-container__backdrop" hidden={!createContentVisible} onClick={close} />
+            <div className={widgetClassName} ref={refContentTree}>
                 <div className="ibexa-extra-actions__header">
                     <h3>{createContentLabel}</h3>
                     <button
@@ -125,10 +118,7 @@ const ContentCreateWidget = () => {
                         title={closeLabel}
                         data-tooltip-container-selector=".c-udw-tab"
                     >
-                        <Icon
-                            name="discard"
-                            extraClasses="ibexa-icon--small"
-                        />
+                        <Icon name="discard" extraClasses="ibexa-icon--small" />
                     </button>
                     <div className="ibexa-extra-actions__header-subtitle">{createUnderLabel}</div>
                 </div>
@@ -177,10 +167,7 @@ const ContentCreateWidget = () => {
                                 }
 
                                 return (
-                                    <div
-                                        className="ibexa-instant-filter__group"
-                                        key={groupName}
-                                    >
+                                    <div className="ibexa-instant-filter__group" key={groupName}>
                                         <div className="ibexa-instant-filter__group-name">{groupName}</div>
                                         {groupItems.map(({ name, thumbnail, identifier, id, isHidden: isHiddenByConfig }) => {
                                             const isHidden =
@@ -210,10 +197,7 @@ const ContentCreateWidget = () => {
                                                     className={className}
                                                     onClick={updateSelectedContentType}
                                                 >
-                                                    <Icon
-                                                        customPath={thumbnail}
-                                                        extraClasses="ibexa-icon--small"
-                                                    />
+                                                    <Icon customPath={thumbnail} extraClasses="ibexa-icon--small" />
                                                     <div className="form-check">
                                                         <div className="ibexa-label ibexa-label--checkbox-radio form-check-label">
                                                             {name}
@@ -237,11 +221,7 @@ const ContentCreateWidget = () => {
                     >
                         {createLabel}
                     </button>
-                    <button
-                        className="btn ibexa-btn ibexa-btn--secondary"
-                        onClick={close}
-                        type="button"
-                    >
+                    <button className="btn ibexa-btn ibexa-btn--secondary" onClick={close} type="button">
                         {cancelLabel}
                     </button>
                 </div>

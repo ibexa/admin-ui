@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezmedia';
     const SELECTOR_PREVIEW = '.ibexa-field-edit__preview';
     const SELECTOR_MEDIA = '.ibexa-field-edit-preview__media';

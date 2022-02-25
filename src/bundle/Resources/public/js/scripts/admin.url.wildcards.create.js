@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const modal = doc.querySelector('#create-wildcards-modal');
 
     if (!modal) {

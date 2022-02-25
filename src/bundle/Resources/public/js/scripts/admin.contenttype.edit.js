@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, Routing, Translator) {
+(function (global, doc, ibexa, Routing, Translator) {
     const TIMEOUT_REMOVE_PLACEHOLDERS = 1500;
     const SELECTOR_INPUTS_TO_VALIDATE = '.ibexa-input[required]:not([disabled]):not([hidden])';
     let targetContainer = null;

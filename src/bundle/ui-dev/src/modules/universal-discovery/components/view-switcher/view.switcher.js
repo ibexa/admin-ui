@@ -16,12 +16,7 @@ const ViewSwitcher = ({ isDisabled }) => {
 
     return (
         <div className="c-udw-view-switcher">
-            <SimpleDropdown
-                options={VIEWS}
-                selectedOption={selectedOption}
-                onOptionClick={onOptionClick}
-                isDisabled={isDisabled}
-            />
+            <SimpleDropdown options={VIEWS} selectedOption={selectedOption} onOptionClick={onOptionClick} isDisabled={isDisabled} />
         </div>
     );
 };

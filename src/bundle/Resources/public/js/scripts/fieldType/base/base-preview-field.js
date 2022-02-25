@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const SELECTOR_DATA = '.ibexa-field-edit__data';
     const SELECTOR_PREVIEW = '.ibexa-field-edit__preview';
     const SELECTOR_BTN_REMOVE = '.ibexa-field-edit-preview__action--remove';

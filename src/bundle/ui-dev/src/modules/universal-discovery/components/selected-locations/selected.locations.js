@@ -39,11 +39,7 @@ const SelectedLocations = () => {
             'universal_discovery_widget',
         );
 
-        return (
-            <div className="c-selected-locations__selection-counter">
-                {selectedLabel}
-            </div>
-        );
+        return <div className="c-selected-locations__selection-counter">{selectedLabel}</div>;
     };
     const renderToggleButton = () => {
         const iconName = isExpanded ? 'caret-next' : 'caret-back';
@@ -57,14 +53,8 @@ const SelectedLocations = () => {
                 title={togglerLabel}
                 data-tooltip-container-selector=".c-udw-tab"
             >
-                <Icon
-                    name={iconName}
-                    extraClasses="ibexa-icon--small"
-                />
-                <Icon
-                    name={iconName}
-                    extraClasses="ibexa-icon--small"
-                />
+                <Icon name={iconName} extraClasses="ibexa-icon--small" />
+                <Icon name={iconName} extraClasses="ibexa-icon--small" />
             </button>
         );
     };
@@ -118,10 +108,7 @@ const SelectedLocations = () => {
     }
 
     return (
-        <div
-            className={className}
-            ref={refSelectedLocations}
-        >
+        <div className={className} ref={refSelectedLocations}>
             <div className="c-selected-locations__header">
                 {renderSelectionCounter()}
                 {renderToggleButton()}

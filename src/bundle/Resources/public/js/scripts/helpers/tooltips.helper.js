@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, bootstrap) {
+(function (global, doc, ibexa, bootstrap) {
     let lastInsertTooltipTarget = null;
     const TOOLTIPS_SELECTOR = '[title]';
     const observerConfig = {

@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const AUTOFILL_TIMEOUT = 500;
     const passwordInputNode = doc.querySelector('.ibexa-login__input--password');
     const viewIconNode = doc.querySelector('.ibexa-login__password-visibility-toggler .ibexa-icon--view');

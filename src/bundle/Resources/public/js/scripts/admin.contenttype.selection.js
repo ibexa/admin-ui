@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const SELECTOR_TEMPLATE = '.ezselection-settings-option-value-prototype';
     const SELECTOR_OPTION = '.ezselection-settings-option-value';
     const SELECTOR_OPTIONS_LIST = '.ezselection-settings-option-list';

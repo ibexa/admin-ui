@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const SELECTOR_REMOVE_AUTHOR = '.ibexa-btn--remove-author';
     const SELECTOR_AUTHOR = '.ibexa-data-source__author';
     const SELECTOR_FIELD = '.ibexa-field-edit--ezauthor';

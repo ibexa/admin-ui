@@ -19,17 +19,8 @@ const ActionButton = (props) => {
     });
 
     return (
-        <button
-            type="button"
-            className={className}
-            title={title}
-            onClick={handleClick}
-            disabled={disabled}
-        >
-            <Icon
-                name={type}
-                extraClasses="ibexa-icon--small"
-            /> {label}
+        <button type="button" className={className} title={title} onClick={handleClick} disabled={disabled}>
+            <Icon name={type} extraClasses="ibexa-icon--small" /> {label}
         </button>
     );
 };

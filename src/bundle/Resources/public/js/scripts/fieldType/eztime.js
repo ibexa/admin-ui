@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, flatpickr) {
+(function (global, doc, ibexa, flatpickr) {
     const SELECTOR_FIELD = '.ibexa-field-edit--eztime';
     const SELECTOR_INPUT = '.ibexa-data-source__input:not(.flatpickr-input)';
     const SELECTOR_FLATPICKR_INPUT = '.flatpickr-input';

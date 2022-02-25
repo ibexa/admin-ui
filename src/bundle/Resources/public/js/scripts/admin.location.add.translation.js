@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const SELECTOR_MODAL = '.ibexa-modal';
 
     doc.querySelectorAll('.ibexa-translation__language-wrapper--language').forEach((select) => {

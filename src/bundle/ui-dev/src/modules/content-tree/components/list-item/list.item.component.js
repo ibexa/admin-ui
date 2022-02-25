@@ -154,20 +154,11 @@ class ListItem extends Component {
         let loadingSpinner = null;
 
         if (isLoading) {
-            loadingSpinner = (
-                <Icon
-                    name="spinner"
-                    extraClasses="ibexa-spin ibexa-icon--small c-list-item__load-more-btn-spinner"
-                />
-            );
+            loadingSpinner = <Icon name="spinner" extraClasses="ibexa-spin ibexa-icon--small c-list-item__load-more-btn-spinner" />;
         }
 
         return (
-            <button
-                type="button"
-                className="c-list-item__load-more-btn"
-                onClick={this.loadMoreSubitems}
-            >
+            <button type="button" className="c-list-item__load-more-btn" onClick={this.loadMoreSubitems}>
                 {loadingSpinner} {btnLabel}
             </button>
         );
@@ -201,35 +192,22 @@ class ListItem extends Component {
         };
 
         return (
-            <div
-                className="c-list-item__row"
-                style={{ '--indent': indent }}
-            >
+            <div className="c-list-item__row" style={{ '--indent': indent }}>
                 <div className="c-list-item__prefix-actions">
                     {this.secondaryItemActions.map((action) => {
                         const ActionComponent = action.component;
 
                         return (
-                            <div
-                                key={action.id}
-                                className="c-list-item__prefix-actions-item"
-                            >
+                            <div key={action.id} className="c-list-item__prefix-actions-item">
                                 <ActionComponent {...this.props} />
                             </div>
                         );
                     })}
                 </div>
                 <span {...togglerAttrs} />
-                <a
-                    className="c-list-item__label"
-                    href={href}
-                    onClick={onClick}
-                >
+                <a className="c-list-item__label" href={href} onClick={onClick}>
                     {this.renderIcon()}
-                    <span
-                        className="c-list-item__label-content"
-                        title={name}
-                    >
+                    <span className="c-list-item__label-content" title={name}>
                         {name}
                     </span>
                 </a>
@@ -238,10 +216,7 @@ class ListItem extends Component {
                         const ActionComponent = action.component;
 
                         return (
-                            <div
-                                key={action.id}
-                                className="c-list-item__actions-item"
-                            >
+                            <div key={action.id} className="c-list-item__actions-item">
                                 <ActionComponent {...this.props} />
                             </div>
                         );

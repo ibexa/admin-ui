@@ -36,7 +36,7 @@ const ContentCreateButton = ({ isDisabled }) => {
         );
     }
 
-    const contentTypeInfo = contentTypesMap[(selectedLocation?.location?.ContentInfo.Content.ContentType._href)];
+    const contentTypeInfo = contentTypesMap[selectedLocation?.location?.ContentInfo.Content.ContentType._href];
     const isAllowedLocation = selectedLocation && (!allowedLocations || allowedLocations.includes(selectedLocation.parentLocationId));
     const hasAccess =
         !selectedLocation ||
@@ -57,10 +57,7 @@ const ContentCreateButton = ({ isDisabled }) => {
                 onClick={toggleContentCreateVisibility}
                 type="button"
             >
-                <Icon
-                    name="create"
-                    extraClasses="ibexa-icon--small"
-                />
+                <Icon name="create" extraClasses="ibexa-icon--small" />
                 <span className="ibexa-btn__label">{createLabel}</span>
             </button>
         </div>

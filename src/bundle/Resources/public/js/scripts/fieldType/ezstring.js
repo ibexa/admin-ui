@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezstring';
     const SELECTOR_SOURCE_INPUT = '.ibexa-data-source__input';
 

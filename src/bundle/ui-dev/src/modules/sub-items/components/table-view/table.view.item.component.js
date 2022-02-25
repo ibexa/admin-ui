@@ -168,10 +168,7 @@ export default class TableViewItemComponent extends PureComponent {
 
         return (
             <span className="c-table-view-item__icon-with-name-wrapper">
-                <Icon
-                    customPath={contentTypeIconUrl}
-                    extraClasses="ibexa-icon--small"
-                />
+                <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small" />
                 <a {...linkAttrs}>{contentName}</a>
             </span>
         );
@@ -202,10 +199,7 @@ export default class TableViewItemComponent extends PureComponent {
         }
 
         return (
-            <div
-                className="c-table-view-item__priority-wrapper"
-                {...priorityWrapperAttrs}
-            >
+            <div className="c-table-view-item__priority-wrapper" {...priorityWrapperAttrs}>
                 <div className="c-table-view-item__inner-wrapper c-table-view-item__inner-wrapper--input">
                     <input
                         className="ibexa-input ibexa-input--text ibexa-input--small c-table-view-item__priority-value ibexa-input"
@@ -213,29 +207,20 @@ export default class TableViewItemComponent extends PureComponent {
                         {...inputAttrs}
                     />
                 </div>
-                <div
-                    className="c-table-view-item__priority-actions"
-                    {...innerWrapperAttrs}
-                >
+                <div className="c-table-view-item__priority-actions" {...innerWrapperAttrs}>
                     <button
                         type="button"
                         className="btn ibexa-btn ibexa-btn--primary ibexa-btn--no-text ibexa-btn--small c-table-view-item__btn c-table-view-item__btn--submit"
                         onClick={this.handleSubmit}
                     >
-                        <Icon
-                            name="checkmark"
-                            extraClasses="ibexa-icon--small"
-                        />
+                        <Icon name="checkmark" extraClasses="ibexa-icon--small" />
                     </button>
                     <button
                         type="button"
                         className="btn ibexa-btn ibexa-btn--secondary ibexa-btn--no-text ibexa-btn--small"
                         onClick={this.handleCancel}
                     >
-                        <Icon
-                            name="discard"
-                            extraClasses="ibexa-icon--small"
-                        />
+                        <Icon name="discard" extraClasses="ibexa-icon--small" />
                     </button>
                 </div>
             </div>
@@ -266,10 +251,7 @@ export default class TableViewItemComponent extends PureComponent {
         return (
             <>
                 {item.content._info.currentVersion.languageCodes.map((languageCode) => (
-                    <span
-                        key={languageCode}
-                        className="c-table-view-item__translation"
-                    >
+                    <span key={languageCode} className="c-table-view-item__translation">
                         {languages.mappings[languageCode].name}
                     </span>
                 ))}
@@ -336,10 +318,7 @@ export default class TableViewItemComponent extends PureComponent {
             });
 
             return (
-                <td
-                    key={columnKey}
-                    className={className}
-                >
+                <td key={columnKey} className={className}>
                     {this.columnsRenderers[columnKey]()}
                 </td>
             );
@@ -419,10 +398,7 @@ export default class TableViewItemComponent extends PureComponent {
                         tabIndex={-1}
                     >
                         <div className="c-table-view-item__btn-inner">
-                            <Icon
-                                name="edit"
-                                extraClasses="ibexa-icon--small-medium"
-                            />
+                            <Icon name="edit" extraClasses="ibexa-icon--small-medium" />
                         </div>
                     </span>
                 </td>

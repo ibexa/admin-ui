@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, React, ReactDOM, Translator, Routing) {
+(function (global, doc, ibexa, React, ReactDOM, Translator, Routing) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezimageasset';
     const SELECTOR_INPUT_FILE = 'input[type="file"]';
     const SELECTOR_INPUT_DESTINATION_CONTENT_ID = '.ibexa-data-source__destination-content-id';

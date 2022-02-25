@@ -32,10 +32,7 @@ const ContentTypeSelector = () => {
                 }
 
                 return (
-                    <Collapsible
-                        key={contentTypeGroup}
-                        title={contentTypeGroup}
-                    >
+                    <Collapsible key={contentTypeGroup} title={contentTypeGroup}>
                         <ul className="c-filters__collapsible-list">
                             {contentTypes.map((contentType) => {
                                 const isHidden = allowedContentTypes && !allowedContentTypes.includes(contentType.identifier);
@@ -45,10 +42,7 @@ const ContentTypeSelector = () => {
                                 }
 
                                 return (
-                                    <li
-                                        key={contentType.identifier}
-                                        className="c-filters__collapsible-list-item"
-                                    >
+                                    <li key={contentType.identifier} className="c-filters__collapsible-list-item">
                                         <div className="form-check">
                                             <input
                                                 type="checkbox"

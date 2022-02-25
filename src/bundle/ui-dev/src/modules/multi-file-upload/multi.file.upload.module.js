@@ -106,10 +106,7 @@ export default class MultiFileUploadModule extends Component {
      * @memberof MultiFileUploadModule
      */
     showUploadPopup() {
-        this.setState((state) =>
-            ({ ...state, popupVisible: true,
-                itemsToUpload: [] }),
-        );
+        this.setState((state) => ({ ...state, popupVisible: true, itemsToUpload: [] }));
     }
 
     /**
@@ -146,11 +143,7 @@ export default class MultiFileUploadModule extends Component {
         window.removeEventListener('drop', this.handleDropOnWindow, false);
         window.removeEventListener('dragover', this.preventDefaultAction, false);
 
-        this.setState((state) =>
-            ({ ...state, itemsToUpload,
-                popupVisible: true,
-                allowDropOnWindow: false }),
-        );
+        this.setState((state) => ({ ...state, itemsToUpload, popupVisible: true, allowDropOnWindow: false }));
     }
 
     /**
@@ -219,16 +212,8 @@ export default class MultiFileUploadModule extends Component {
         const label = Translator.trans(/*@Desc("Upload")*/ 'multi_file_upload_open_btn.label', {}, 'multi_file_upload');
 
         return (
-            <button
-                type="button"
-                className="btn ibexa-btn ibexa-btn--ghost"
-                onClick={this.showUploadPopup}
-                disabled={uploadDisabled}
-            >
-                <Icon
-                    name="upload"
-                    extraClasses="ibexa-icon--small"
-                /> {label}
+            <button type="button" className="btn ibexa-btn ibexa-btn--ghost" onClick={this.showUploadPopup} disabled={uploadDisabled}>
+                <Icon name="upload" extraClasses="ibexa-icon--small" /> {label}
             </button>
         );
     }

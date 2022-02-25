@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, moment) {
+(function (global, doc, ibexa, moment) {
     const userPreferredTimezone = ibexa.adminUiConfig.timezone;
     const userPreferredFullDateTimeFormat = ibexa.adminUiConfig.dateFormat.fullDateTime;
     const userPreferredShortDateTimeFormat = ibexa.adminUiConfig.dateFormat.shortDateTime;

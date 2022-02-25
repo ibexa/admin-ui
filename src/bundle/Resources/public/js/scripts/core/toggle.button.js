@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function (global, doc, eZ) {
     class ToggleButton {
         constructor(config) {
             this.toggleNode = config.toggleNode;

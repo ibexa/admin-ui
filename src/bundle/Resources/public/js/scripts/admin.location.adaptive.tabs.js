@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, bootstrap) {
+(function (global, doc, ibexa, bootstrap) {
     const TABS_SELECTOR = '.ibexa-tabs';
     const SELECTOR_TABS_LIST = '.ibexa-tabs__list';
     const SELECTOR_TAB_MORE = '.ibexa-tabs__tab--more';

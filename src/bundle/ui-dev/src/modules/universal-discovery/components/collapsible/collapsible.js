@@ -12,10 +12,7 @@ const Collapsible = ({ isInitiallyExpanded, title, children }) => {
 
     return (
         <div className={className}>
-            <div
-                className="c-filters__collapsible-title"
-                onClick={toggleCollapsed}
-            >
+            <div className="c-filters__collapsible-title" onClick={toggleCollapsed}>
                 {title}
             </div>
             <div className="c-filters__collapsible-content">

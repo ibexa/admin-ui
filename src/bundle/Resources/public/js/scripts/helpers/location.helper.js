@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, Translator) {
+(function (global, doc, ibexa, Translator) {
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const removeRootFromPathString = (pathString) => {

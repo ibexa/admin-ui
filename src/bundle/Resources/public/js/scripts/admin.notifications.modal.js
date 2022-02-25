@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, Translator) {
+(function (global, doc, ibexa, Translator) {
     let currentPageLink = null;
     let getNotificationsStatusErrorShowed = false;
     let lastFailedCountFetchNotificationNode = null;

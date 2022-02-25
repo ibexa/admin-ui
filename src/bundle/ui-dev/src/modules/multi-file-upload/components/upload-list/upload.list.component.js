@@ -53,10 +53,7 @@ export default class UploadListComponent extends Component {
             const items = state.items.filter((data) => data.id !== item.id);
             const itemsToUpload = state.itemsToUpload.filter((data) => data.id !== item.id);
 
-            return { ...state, uploaded: items.length,
-                total: items.length + itemsToUpload.length,
-                itemsToUpload,
-                items };
+            return { ...state, uploaded: items.length, total: items.length + itemsToUpload.length, itemsToUpload, items };
         });
     }
 
@@ -72,10 +69,7 @@ export default class UploadListComponent extends Component {
             const items = state.items.filter((data) => data.id !== item.id);
             const itemsToUpload = state.itemsToUpload.filter((data) => data.id !== item.id);
 
-            return { ...state, uploaded: items.length,
-                total: items.length + itemsToUpload.length,
-                itemsToUpload,
-                items };
+            return { ...state, uploaded: items.length, total: items.length + itemsToUpload.length, itemsToUpload, items };
         });
     }
 

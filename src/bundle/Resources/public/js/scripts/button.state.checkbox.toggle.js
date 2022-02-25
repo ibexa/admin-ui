@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const toggleForms = doc.querySelectorAll('.ibexa-toggle-btn-state-checkbox');
     const ALL_CHECKED = 'all-checked';
     const ANY_CHECKED = 'any-checked';

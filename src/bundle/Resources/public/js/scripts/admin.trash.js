@@ -1,4 +1,4 @@
-(function(global, doc, Translator) {
+(function (global, doc, Translator) {
     const form = doc.querySelector('form[name="location_trash"]');
     const submitButton = form.querySelector('button[type="submit"]');
     const allOptions = form.querySelectorAll('.ibexa-modal__trash-option');

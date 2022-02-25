@@ -25,9 +25,7 @@ const mapSubitems = (subitems) => {
         };
 
         if (subitems.versions) {
-            const version = subitems.versions.find(
-                ({ Version }) => Version.VersionInfo.Content._href === location.Location.Content._href,
-            );
+            const version = subitems.versions.find(({ Version }) => Version.VersionInfo.Content._href === location.Location.Content._href);
 
             mappedSubitems.version = version.Version;
         }
@@ -278,10 +276,7 @@ const toggleBookmark = ({ siteaccess, token, locationId }, callback, method) => 
         credentials: 'same-origin',
     });
 
-    fetch(request)
-        .then(handleRequestResponseStatus)
-        .then(callback)
-        .catch(showErrorNotificationAbortWrapper);
+    fetch(request).then(handleRequestResponseStatus).then(callback).catch(showErrorNotificationAbortWrapper);
 };
 
 export const addBookmark = (options, callback) => {
@@ -304,10 +299,7 @@ export const loadContentTypes = ({ token, siteaccess }, callback) => {
         credentials: 'same-origin',
     });
 
-    fetch(request)
-        .then(handleRequestResponse)
-        .then(callback)
-        .catch(showErrorNotificationAbortWrapper);
+    fetch(request).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
 };
 
 export const createDraft = ({ token, siteaccess, contentId }, callback) => {
@@ -322,10 +314,7 @@ export const createDraft = ({ token, siteaccess, contentId }, callback) => {
         credentials: 'same-origin',
     });
 
-    fetch(request)
-        .then(handleRequestResponse)
-        .then(callback)
-        .catch(showErrorNotificationAbortWrapper);
+    fetch(request).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
 };
 
 export const loadContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LIMIT, offset = 0, signal }, callback) => {
@@ -344,8 +333,7 @@ export const loadContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LI
     });
     const request = new Request(ENDPOINT_CREATE_VIEW, {
         method: 'POST',
-        headers: { ...HEADERS_CREATE_VIEW, 'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token },
+        headers: { ...HEADERS_CREATE_VIEW, 'X-Siteaccess': siteaccess, 'X-CSRF-Token': token },
         body,
         mode: 'same-origin',
         credentials: 'same-origin',
@@ -369,8 +357,5 @@ export const loadLocationsWithPermissions = ({ locationIds, signal }, callback) 
         credentials: 'same-origin',
     });
 
-    fetch(request, { signal })
-        .then(handleRequestResponse)
-        .then(callback)
-        .catch(showErrorNotificationAbortWrapper);
+    fetch(request, { signal }).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
 };

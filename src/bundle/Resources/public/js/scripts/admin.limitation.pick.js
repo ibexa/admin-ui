@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, React, ReactDOM, Translator) {
+(function (global, doc, ibexa, React, ReactDOM, Translator) {
     const SELECTOR_LOCATION_LIMITATION_BTN = '.ibexa-pick-location-limitation-button';
     const SELECTOR_IBEXA_TAG = '.ibexa-tag';
     const IDS_SEPARATOR = ',';

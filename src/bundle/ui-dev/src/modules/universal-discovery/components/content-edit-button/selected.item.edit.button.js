@@ -10,11 +10,7 @@ const SelectedItemEditButton = ({ location, permissions }) => {
 
     return (
         <div className="c-selected-item-edit-button">
-            <ContentEditButton
-                version={location.ContentInfo.Content.CurrentVersion.Version}
-                location={location}
-                isDisabled={!hasAccess}
-            />
+            <ContentEditButton version={location.ContentInfo.Content.CurrentVersion.Version} location={location} isDisabled={!hasAccess} />
         </div>
     );
 };

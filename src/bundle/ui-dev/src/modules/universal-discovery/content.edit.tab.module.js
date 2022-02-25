@@ -94,12 +94,7 @@ const ContentEditTabModule = () => {
 
     return (
         <div className="c-content-edit">
-            <iframe
-                src={iframeUrl}
-                className="c-content-edit__iframe"
-                ref={iframeRef}
-                onLoad={handleIframeLoad}
-            />
+            <iframe src={iframeUrl} className="c-content-edit__iframe" ref={iframeRef} onLoad={handleIframeLoad} />
         </div>
     );
 };

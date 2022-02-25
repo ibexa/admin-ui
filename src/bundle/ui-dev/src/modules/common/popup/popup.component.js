@@ -113,10 +113,7 @@ class Popup extends Component {
                 aria-label={closeBtnLabel}
                 onClick={this.props.onClose}
             >
-                <Icon
-                    name="discard"
-                    extraClasses="ibexa-icon--small"
-                />
+                <Icon name="discard" extraClasses="ibexa-icon--small" />
             </button>
         );
     }
@@ -129,10 +126,7 @@ class Popup extends Component {
         }
 
         return (
-            <h3
-                className="modal-title c-popup__headline"
-                title={this.props.title}
-            >
+            <h3 className="modal-title c-popup__headline" title={this.props.title}>
                 <span className="c-popup__title">{this.props.title}</span>
                 {this.renderSubtitle()}
             </h3>
@@ -181,10 +175,7 @@ class Popup extends Component {
 
         return (
             <div {...modalAttrs}>
-                <div
-                    className={`modal-dialog c-popup__dialog ${MODAL_SIZE_CLASS[size]}`}
-                    role="dialog"
-                >
+                <div className={`modal-dialog c-popup__dialog ${MODAL_SIZE_CLASS[size]}`} role="dialog">
                     <div className="modal-content c-popup__content">
                         {noHeader ? this.renderCloseButton() : this.renderHeader()}
                         <div className="modal-body c-popup__body">{this.props.children}</div>

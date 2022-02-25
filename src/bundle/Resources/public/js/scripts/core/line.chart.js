@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, Chart) {
+(function (global, doc, ibexa, Chart) {
     const MAX_NUMBER_OF_LABELS = 16;
     const lineDefaultOptions = {
         elements: {

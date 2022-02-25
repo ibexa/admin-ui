@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const updateMainLocation = (event) => {
         doc.querySelector('#content_main_location_update_location').value = event.target.value;
         doc.querySelector('form[name="content_main_location_update"]').submit();

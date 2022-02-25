@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, Translator, moment) {
+(function (global, doc, ibexa, Translator, moment) {
     const ENTER_KEY_CODE = 13;
     const SIMPLIFIED_MESSAGE_TIMEOUT = 3000;
     const STATUS_ERROR = 'error';

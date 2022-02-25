@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const sourceInputs = doc.querySelectorAll('[data-autogenerate-identifier-target-selector]');
     const slugify = (text) => {
         const lowercaseText = text.toLowerCase();

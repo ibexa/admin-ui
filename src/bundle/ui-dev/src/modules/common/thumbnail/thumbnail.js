@@ -11,10 +11,7 @@ const Thumbnail = ({ thumbnailData, iconExtraClasses, contentTypeIconPath }) => 
 
         return (
             <div className="c-thumbnail__icon-wrapper">
-                <Icon
-                    extraClasses="ibexa-icon--small"
-                    customPath={contentTypeIconPath}
-                />
+                <Icon extraClasses="ibexa-icon--small" customPath={contentTypeIconPath} />
             </div>
         );
     };
@@ -22,10 +19,7 @@ const Thumbnail = ({ thumbnailData, iconExtraClasses, contentTypeIconPath }) => 
     if (thumbnailData.mimeType === 'image/svg+xml') {
         return (
             <div className="c-thumbnail">
-                <Icon
-                    extraClasses={iconExtraClasses}
-                    customPath={thumbnailData.resource}
-                />
+                <Icon extraClasses={iconExtraClasses} customPath={thumbnailData.resource} />
             </div>
         );
     }

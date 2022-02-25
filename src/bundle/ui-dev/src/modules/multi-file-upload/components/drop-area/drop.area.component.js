@@ -57,11 +57,7 @@ export default class DropAreaComponent extends Component {
         const uploadBtnLabel = Translator.trans(/*@Desc("Upload file")*/ 'upload_btn.label', {}, 'multi_file_upload');
 
         return (
-            <form
-                className="c-drop-area"
-                multiple={true}
-                onDrop={this.handleUpload}
-            >
+            <form className="c-drop-area" multiple={true} onDrop={this.handleUpload}>
                 <div className="c-drop-area__message c-drop-area__message--main">{dropActionMessage}</div>
                 <div className="c-drop-area__message c-drop-area__message--separator">{separatorMessage}</div>
                 <button

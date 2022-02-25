@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const changeLocationLanguage = (event) => {
         global.location = event.currentTarget.value;
     };

@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const adapatItemsContainer = doc.querySelector('.ibexa-context-menu');
 
     if (!adapatItemsContainer) {

@@ -28,18 +28,9 @@ const ViewSwitcherComponent = ({ onViewChange, activeView, isDisabled }) => {
 
     return (
         <div className={componentClassName}>
-            <button
-                type="button"
-                className={btnClassName}
-                title={viewBtnTitle}
-                onClick={switchView}
-                disabled={isDisabled}
-            >
+            <button type="button" className={btnClassName} title={viewBtnTitle} onClick={switchView} disabled={isDisabled}>
                 {viewBtnLabel}
-                <Icon
-                    name={viewBtnIconName}
-                    extraClasses="ibexa-icon--small"
-                />
+                <Icon name={viewBtnIconName} extraClasses="ibexa-icon--small" />
             </button>
         </div>
     );

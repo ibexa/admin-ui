@@ -38,10 +38,7 @@ const InstantFilter = (props) => {
     }, [filterQuery]);
 
     return (
-        <div
-            className="ibexa-instant-filter"
-            ref={_refInstantFilter}
-        >
+        <div className="ibexa-instant-filter" ref={_refInstantFilter}>
             <div className="ibexa-instant-filter__input-wrapper">
                 <input
                     type="text"
@@ -56,10 +53,7 @@ const InstantFilter = (props) => {
                     const radioId = `item_${item.value}`;
 
                     return (
-                        <div
-                            key={radioId}
-                            className="ibexa-instant-filter__item"
-                        >
+                        <div key={radioId} className="ibexa-instant-filter__item">
                             <div className="form-check">
                                 <input
                                     type="radio"
@@ -69,10 +63,7 @@ const InstantFilter = (props) => {
                                     value={item.value}
                                     onChange={() => props.handleItemChange(item.value)}
                                 />
-                                <label
-                                    className="form-check-label"
-                                    htmlFor={radioId}
-                                >
+                                <label className="form-check-label" htmlFor={radioId}>
                                     {item.label}
                                 </label>
                             </div>

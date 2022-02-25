@@ -1,11 +1,6 @@
 import React, { useContext } from 'react';
 
-import {
-    AllowConfirmationContext,
-    ConfirmContext,
-    CancelContext,
-    SelectedLocationsContext,
-} from '../../universal.discovery.module';
+import { AllowConfirmationContext, ConfirmContext, CancelContext, SelectedLocationsContext } from '../../universal.discovery.module';
 
 const { Translator } = window;
 
@@ -14,16 +9,8 @@ const ActionsMenu = () => {
     const cancelUDW = useContext(CancelContext);
     const allowConfirmation = useContext(AllowConfirmationContext);
     const [selectedLocations] = useContext(SelectedLocationsContext);
-    const confirmLabel = Translator.trans(
-        /*@Desc("Confirm")*/ 'actions_menu.confirm',
-        {},
-        'universal_discovery_widget',
-    );
-    const cancelLabel = Translator.trans(
-        /*@Desc("Cancel")*/ 'actions_menu.cancel',
-        {},
-        'universal_discovery_widget',
-    );
+    const confirmLabel = Translator.trans(/*@Desc("Confirm")*/ 'actions_menu.confirm', {}, 'universal_discovery_widget');
+    const cancelLabel = Translator.trans(/*@Desc("Cancel")*/ 'actions_menu.cancel', {}, 'universal_discovery_widget');
     const isConfirmDisabled = selectedLocations.length === 0;
     const renderActionsContent = () => {
         if (!allowConfirmation) {
@@ -43,11 +30,7 @@ const ActionsMenu = () => {
                     </button>
                 </span>
                 <span className="c-actions-menu__cancel-btn-wrapper">
-                    <button
-                        className="c-actions-menu__cancel-btn btn ibexa-btn ibexa-btn--secondary"
-                        type="button"
-                        onClick={cancelUDW}
-                    >
+                    <button className="c-actions-menu__cancel-btn btn ibexa-btn ibexa-btn--secondary" type="button" onClick={cancelUDW}>
                         {cancelLabel}
                     </button>
                 </span>
@@ -55,11 +38,7 @@ const ActionsMenu = () => {
         );
     };
 
-    return (
-        <div className="c-actions-menu">
-            {renderActionsContent()}
-        </div>
-    );
+    return <div className="c-actions-menu">{renderActionsContent()}</div>;
 };
 
 export default ActionsMenu;

@@ -48,7 +48,7 @@ const handleRequestResponse = (response) => {
  * @param {Function} resolve
  * @param {Function} reject
  */
-const readFile = function(file, resolve, reject) {
+const readFile = function (file, resolve, reject) {
     this.addEventListener('load', () => resolve({ fileReader: this, file }), false);
     this.addEventListener('error', () => reject(), false);
     this.readAsDataURL(file);
@@ -213,7 +213,7 @@ const createDraft = ({ struct, token, siteaccess }, requestEventHandlers) => {
         }
 
         for (const headerType in headers) {
-            if (Object.prototype.hasOwnProperty.call(headers,headerType)) {
+            if (Object.prototype.hasOwnProperty.call(headers, headerType)) {
                 xhr.setRequestHeader(headerType, headers[headerType]);
             }
         }

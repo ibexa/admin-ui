@@ -52,9 +52,13 @@ export default class ContentTree extends Component {
             );
         });
 
-        document.body.dispatchEvent(new CustomEvent('ibexa-tb-rendered', { detail: {
-            id: 'ibexa-content-tree',
-        } }));
+        document.body.dispatchEvent(
+            new CustomEvent('ibexa-tb-rendered', {
+                detail: {
+                    id: 'ibexa-content-tree',
+                },
+            }),
+        );
     }
 
     componentDidUpdate(prevState) {
@@ -180,16 +184,8 @@ export default class ContentTree extends Component {
     }
 
     renderList() {
-        const {
-            items,
-            loadMoreSubitems,
-            currentLocationId,
-            onClickItem,
-            subitemsLoadLimit,
-            subitemsLimit,
-            treeMaxDepth,
-            afterItemToggle,
-        } = this.props;
+        const { items, loadMoreSubitems, currentLocationId, onClickItem, subitemsLoadLimit, subitemsLimit, treeMaxDepth, afterItemToggle } =
+            this.props;
 
         const attrs = {
             items,
@@ -205,10 +201,7 @@ export default class ContentTree extends Component {
         };
 
         return (
-            <div
-                className="m-tree__scrollable-wrapper"
-                ref={(ref) => (this.containerScrollRef = ref)}
-            >
+            <div className="m-tree__scrollable-wrapper" ref={(ref) => (this.containerScrollRef = ref)}>
                 {this.checkIsTreeCollapsed() || !items || !items.length ? null : <List {...attrs} />}
             </div>
         );
@@ -223,10 +216,7 @@ export default class ContentTree extends Component {
 
         return (
             <div className="m-tree__loading-spinner">
-                <Icon
-                    name="spinner"
-                    extraClasses="ibexa-icon--medium ibexa-spin"
-                />
+                <Icon name="spinner" extraClasses="ibexa-icon--medium ibexa-spin" />
             </div>
         );
     }
@@ -254,10 +244,7 @@ export default class ContentTree extends Component {
                     {this.renderHeader()}
                     {this.renderList()}
                     {this.renderLoadingSpinner()}
-                    <div
-                        className="m-tree__resize-handler"
-                        onMouseDown={this.addWidthChangeListener}
-                    />
+                    <div className="m-tree__resize-handler" onMouseDown={this.addWidthChangeListener} />
                 </div>
                 <div ref={this._refPopupContainer} />
             </>

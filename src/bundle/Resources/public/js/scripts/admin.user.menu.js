@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const userMenuContainer = doc.querySelector('.ibexa-main-header__user-menu-column');
 
     if (!userMenuContainer) {

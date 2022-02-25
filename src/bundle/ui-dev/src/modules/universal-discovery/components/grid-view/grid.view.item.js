@@ -60,21 +60,13 @@ const GridViewItem = ({ location, version }) => {
     const renderToggleSelection = () => {
         return (
             <div className="ibexa-grid-view-item__checkbox">
-                <ToggleSelection
-                    location={location}
-                    multiple={multiple}
-                    isHidden={isNotSelectable}
-                />
+                <ToggleSelection location={location} multiple={multiple} isHidden={isNotSelectable} />
             </div>
         );
     };
 
     return (
-        <div
-            className={className}
-            onClick={markLocation}
-            onDoubleClick={loadLocation}
-        >
+        <div className={className} onClick={markLocation} onDoubleClick={loadLocation}>
             <div className="ibexa-grid-view-item__image-wrapper">
                 <Thumbnail
                     thumbnailData={version.Thumbnail}

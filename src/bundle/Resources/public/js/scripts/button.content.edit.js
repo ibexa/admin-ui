@@ -1,4 +1,4 @@
-(function(global, doc, bootstrap, ibexa, Translator, Routing) {
+(function (global, doc, bootstrap, ibexa, Translator, Routing) {
     const FORM_EDIT = 'form.ibexa-edit-content-form';
     const { showErrorNotification } = ibexa.helpers.notification;
     const editVersion = (event) => {

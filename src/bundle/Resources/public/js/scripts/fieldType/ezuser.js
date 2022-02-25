@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezuser';
     const SELECTOR_INNER_FIELD = '.ibexa-data-source__field';
     const SELECTOR_LABEL = '.ibexa-data-source__label';
@@ -47,7 +47,10 @@
             const result = { isError };
 
             if (isEmpty) {
-                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', fieldContainer.querySelector(SELECTOR_LABEL).innerHTML);
+                result.errorMessage = ibexa.errors.emptyField.replace(
+                    '{fieldName}',
+                    fieldContainer.querySelector(SELECTOR_LABEL).innerHTML,
+                );
             } else if (!isValid) {
                 result.errorMessage = ibexa.errors.invalidEmail;
             }

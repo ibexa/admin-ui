@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     global.onbeforeunload = () => {
         doc.querySelector('body').classList.add('ibexa-prevent-click');
 

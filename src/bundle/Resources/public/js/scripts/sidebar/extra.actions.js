@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const CLASS_HIDDEN = 'ibexa-extra-actions--hidden';
     const CLASS_EXPANDED = 'ibexa-context-menu--expanded';
     const CLASS_PREVENT_SHOW = 'ibexa-extra-actions--prevent-show';
@@ -29,7 +29,8 @@
         btn.addEventListener(
             'click',
             () => {
-                const actions = doc.querySelector(`.ibexa-extra-actions[data-actions="${btn.dataset.actions}"]`); if (btn.dataset.validate && !parseInt(btn.dataset.isFormValid, 10)) {
+                const actions = doc.querySelector(`.ibexa-extra-actions[data-actions="${btn.dataset.actions}"]`);
+                if (btn.dataset.validate && !parseInt(btn.dataset.isFormValid, 10)) {
                     return;
                 }
                 const isHidden = haveHiddenPart(actions);
