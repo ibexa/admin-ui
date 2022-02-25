@@ -75,7 +75,11 @@ const ContentMetaPreview = () => {
 
         const previewButton = allowRedirects ? (
             <div className="c-content-meta-preview__action-item">
-                <button className="c-content-meta-preview__preview-button btn ibexa-btn ibexa-btn--ghost" onClick={previewContent}>
+                <button
+                    className="c-content-meta-preview__preview-button btn ibexa-btn ibexa-btn--ghost"
+                    type="button"
+                    onClick={previewContent}
+                >
                     <Icon name="view" extraClasses="ibexa-icon--small" />
                     {previewLabel}
                 </button>
