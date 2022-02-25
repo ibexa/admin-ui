@@ -48,6 +48,7 @@
 }
 
 @mixin modal-body() {
+    padding: calculateRem(24px) 0;
     background: $ibexa-color-white;
     white-space: normal;
 }
