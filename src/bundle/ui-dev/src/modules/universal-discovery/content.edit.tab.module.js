@@ -71,7 +71,7 @@ const ContentEditTabModule = () => {
         const iframeBody = iframeRef.current.contentWindow.document.body;
         const iframeConfirmBtn = iframeBody.querySelector('.ibexa-context-menu .ibexa-btn--confirm');
         const iframeCancelBtn = iframeBody.querySelector('.ibexa-context-menu .ibexa-btn--cancel');
-        const iframeBackBtn = iframeBody.querySelector('.ibexa-anchor-navigation-menu__back');
+        const iframeCloseBtn = iframeBody.querySelector('.ibexa-anchor-navigation-menu__close');
 
         if (locationId) {
             handleContentPublished(parseInt(locationId.content, 10));
@@ -79,7 +79,7 @@ const ContentEditTabModule = () => {
 
         iframeConfirmBtn?.addEventListener('click', publishContent, false);
         iframeCancelBtn?.addEventListener('click', cancelContentEdit, false);
-        iframeBackBtn?.addEventListener('click', cancelContentEdit, false);
+        iframeCloseBtn?.addEventListener('click', cancelContentEdit, false);
     };
     const iframeUrl = Routing.generate(
         'ibexa.content.on_the_fly.edit',

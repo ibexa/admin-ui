@@ -59,7 +59,7 @@ const ContentCreateTabModule = () => {
         const iframeBody = iframeRef.current.contentWindow.document.body;
         const iframeConfirmBtn = iframeBody.querySelector('.ibexa-context-menu .ibexa-btn--confirm');
         const iframeCancelBtn = iframeBody.querySelector('.ibexa-context-menu .ibexa-btn--cancel');
-        const iframeBackBtn = iframeBody.querySelector('.ibexa-anchor-navigation-menu__back');
+        const iframeCloseBtn = iframeBody.querySelector('.ibexa-anchor-navigation-menu__close');
 
         if (locationId) {
             findLocationsById({ ...restInfo, id: parseInt(locationId.content, 10) }, (createdItems) => {
@@ -88,7 +88,7 @@ const ContentCreateTabModule = () => {
 
         iframeConfirmBtn?.addEventListener('click', publishContent, false);
         iframeCancelBtn?.addEventListener('click', handleCancelInIframe, false);
-        iframeBackBtn?.addEventListener('click', handleCancelInIframe, false);
+        iframeCloseBtn?.addEventListener('click', handleCancelInIframe, false);
     };
 
     return (
