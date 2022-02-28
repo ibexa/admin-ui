@@ -36,13 +36,13 @@ const ContentMetaPreview = () => {
         window.ibexa.helpers.tooltips.parse(refContentMetaPreview.current);
     });
 
-    if (!markedLocationId || markedLocationId === 1) {
+    if (!markedLocationId || markedLocationId === 1 || !locationData) {
         return null;
     }
 
     const { bookmarked, location, version, permissions } = locationData;
     const bookmarkIconName = bookmarked ? 'bookmark-active' : 'bookmark';
-    const isLocationDataLoaded = !!(locationData && locationData.location && locationData.version);
+    const isLocationDataLoaded = !!(location && version);
     const toggleBookmarked = () => {
         const toggleBookmark = bookmarked ? removeBookmark : addBookmark;
 
