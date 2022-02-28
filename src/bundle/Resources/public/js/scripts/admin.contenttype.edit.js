@@ -312,6 +312,13 @@
         input.addEventListener('blur', validateForm, false);
         input.addEventListener('input', validateForm, false);
     };
+    const scrollToInvalidInput = () => {
+        const firstInvalidInput = editForm.querySelector('.ibexa-input.is-invalid');
+        const fieldDefinition = firstInvalidInput.closest('.ibexa-collapse--field-definition');
+        const scrollToNode = fieldDefinition ?? firstInvalidInput;
+
+        scrollToNode.scrollIntoView({ behavior: 'smooth' });
+    };
     class FieldDefinitionDraggable extends ibexa.core.Draggable {
         onDrop(event) {
             targetContainer = event.currentTarget;
@@ -442,6 +449,7 @@
 
             if (!isEditFormValid) {
                 event.preventDefault();
+                scrollToInvalidInput();
 
                 return;
             }
