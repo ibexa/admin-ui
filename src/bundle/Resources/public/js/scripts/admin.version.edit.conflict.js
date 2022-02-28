@@ -1,6 +1,7 @@
 (function (global, doc, bootstrap, ibexa, Translator, Routing) {
     const editVersion = (event) => {
-        const { showErrorNotification, contentDraftEditUrl, versionHasConflictUrl, contentId, languageCode } = ibexa.helpers.notification;
+        const { showErrorNotification } = ibexa.helpers.notification;
+        const { contentDraftEditUrl, versionHasConflictUrl, contentId, languageCode } = event.currentTarget.dataset;
         const checkEditPermissionLink = Routing.generate('ibexa.content.check_edit_permission', { contentId, languageCode });
         const errorMessage = Translator.trans(
             /*@Desc("You don't have permission to edit this Content item")*/ 'content.edit.permission.error',
