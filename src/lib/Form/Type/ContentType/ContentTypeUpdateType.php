@@ -108,7 +108,6 @@ class ContentTypeUpdateType extends AbstractType
             ->add('removeDraft', SubmitType::class, ['label' => /** @Desc("Cancel") */ 'content_type.remove_draft', 'validation_groups' => false])
             ->add('publishContentType', SubmitType::class, [
                 'label' => /** @Desc("OK") */ 'content_type.publish',
-                'disabled' => !$hasFieldDefinition,
             ])
         ;
     }
