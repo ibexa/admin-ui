@@ -2,7 +2,7 @@
 
 {% set no_header = no_header|default(false) %}
 
-{% set size = size|default(false) %}
+{% set size = size|default('') %}
 {% if size == 'small' %}
     {% set size_class = 'modal-sm' %}
 {% elseif size == 'large' %}
