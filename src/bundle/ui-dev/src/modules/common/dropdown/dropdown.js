@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../../common/helpers/css.class.names';
 import Icon from '../../common/icon/icon';
 
+const { Translator } = window;
+
 const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, extraClasses, renderSelectedItem }) => {
     const containerRef = useRef();
     const containerItemsRef = useRef();
@@ -126,9 +128,7 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
             <div className={dropdownClassName} ref={containerRef} onClick={toggleExpanded}>
                 <div className="ibexa-dropdown__wrapper">
                     <ul className="ibexa-dropdown__selection-info">
-                        <li className="ibexa-dropdown__selected-item">
-                            { renderSelectedItem(selectedItem) }
-                        </li>
+                        <li className="ibexa-dropdown__selected-item">{renderSelectedItem(selectedItem)}</li>
                     </ul>
                 </div>
             </div>
