@@ -5,6 +5,8 @@ import SimpleDropdown from '../simple-dropdown/simple.dropdown';
 
 import { SortingContext, SortOrderContext, SORTING_OPTIONS } from '../../universal.discovery.module';
 
+const { ibexa } = window;
+
 const SortSwitcher = ({ isDisabled }) => {
     const [sorting, setSorting] = useContext(SortingContext);
     const [sortOrder, setSortOrder] = useContext(SortOrderContext);
@@ -12,7 +14,7 @@ const SortSwitcher = ({ isDisabled }) => {
     const onOptionClick = (option) => {
         setSorting(option.sortClause);
         setSortOrder(option.sortOrder);
-    }
+    };
 
     return (
         <div className="c-sort-switcher">
@@ -43,7 +45,7 @@ ibexa.addConfig(
             component: SortSwitcher,
         },
     ],
-    true
+    true,
 );
 
 export default SortSwitcher;

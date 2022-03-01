@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, React, ReactDOM, Translator) {
+(function (global, doc, ibexa, React, ReactDOM, Translator) {
     const btns = doc.querySelectorAll('.ibexa-btn--udw-copy-subtree');
     const form = doc.querySelector('form[name="location_copy_subtree"]');
     const input = form.querySelector('#location_copy_subtree_new_parent_location');
@@ -26,7 +26,7 @@
                 containersOnly: true,
                 ...config,
             }),
-            udwContainer
+            udwContainer,
         );
     };
 

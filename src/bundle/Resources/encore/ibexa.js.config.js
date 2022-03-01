@@ -202,17 +202,17 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/content.meta.preview.module.js'),
             path.resolve(
                 __dirname,
-                '../../ui-dev/src/modules/universal-discovery/components/content-create-button/content.create.button.js'
+                '../../ui-dev/src/modules/universal-discovery/components/content-create-button/content.create.button.js',
             ),
             path.resolve(
                 __dirname,
-                '../../ui-dev/src/modules/universal-discovery/components/content-edit-button/selected.item.edit.button.js'
+                '../../ui-dev/src/modules/universal-discovery/components/content-edit-button/selected.item.edit.button.js',
             ),
             path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/components/sort-switcher/sort.switcher.js'),
             path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/components/view-switcher/view.switcher.js'),
             path.resolve(
                 __dirname,
-                '../../ui-dev/src/modules/universal-discovery/components/tree-item-toggle-selection/tree.item.toggle.selection.js'
+                '../../ui-dev/src/modules/universal-discovery/components/tree-item-toggle-selection/tree.item.toggle.selection.js',
             ),
         ])
         .addEntry('ibexa-admin-ui-mfu-js', [

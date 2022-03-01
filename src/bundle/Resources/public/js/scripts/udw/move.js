@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, React, ReactDOM, Translator) {
+(function (global, doc, ibexa, React, ReactDOM, Translator) {
     const btns = doc.querySelectorAll('.ibexa-btn--udw-move');
     const form = doc.querySelector('form[name="location_move"]');
 
@@ -31,7 +31,7 @@
                 containersOnly: true,
                 ...config,
             }),
-            udwContainer
+            udwContainer,
         );
     };
 

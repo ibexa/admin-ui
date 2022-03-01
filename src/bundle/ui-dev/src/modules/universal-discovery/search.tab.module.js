@@ -5,6 +5,8 @@ import Search from './components/search/search';
 
 import { TabsConfigContext } from './universal.discovery.module';
 
+const { ibexa, Translator } = window;
+
 const SearchTabModule = () => {
     const tabsConfig = useContext(TabsConfigContext);
     const actionsDisabledMap = {
@@ -29,11 +31,11 @@ ibexa.addConfig(
             id: 'search',
             component: SearchTabModule,
             label: Translator.trans(/*@Desc("Search")*/ 'search.label', {}, 'universal_discovery_widget'),
-            icon: window.ibexa.helpers.icon.getIconPath('search'),
+            icon: ibexa.helpers.icon.getIconPath('search'),
             isHiddenOnList: true,
         },
     ],
-    true
+    true,
 );
 
 export default SearchTabModule;

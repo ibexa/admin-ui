@@ -5,12 +5,14 @@ import { AllowedContentTypesContext } from '../../universal.discovery.module';
 
 import Collapsible from '../collapsible/collapsible';
 
+const { ibexa } = window;
+
 const ContentTypeSelector = () => {
-    const { contentTypes: contentTypesMap } = window.ibexa.adminUiConfig;
+    const { contentTypes: contentTypesMap } = ibexa.adminUiConfig;
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
     const handleContentTypeSelect = ({ nativeEvent }) => {
-        const contentTypeIdentifier = nativeEvent.target.dataset.contentTypeIdentifier;
+        const { contentTypeIdentifier } = nativeEvent.target.dataset;
         const action = { contentTypeIdentifier };
 
         action.type = selectedContentTypes.includes(contentTypeIdentifier) ? 'REMOVE_CONTENT_TYPE' : 'ADD_CONTENT_TYPE';
@@ -21,11 +23,11 @@ const ContentTypeSelector = () => {
     return (
         <>
             {Object.entries(contentTypesMap).map(([contentTypeGroup, contentTypes]) => {
-                const isHidden = contentTypes.every(
-                    (contentType) => allowedContentTypes && !allowedContentTypes.includes(contentType.identifier)
+                const isHiddenGroup = contentTypes.every(
+                    (contentType) => allowedContentTypes && !allowedContentTypes.includes(contentType.identifier),
                 );
 
-                if (isHidden) {
+                if (isHiddenGroup) {
                     return null;
                 }
 
@@ -40,10 +42,7 @@ const ContentTypeSelector = () => {
                                 }
 
                                 return (
-                                    <li
-                                        key={contentType.identifier}
-                                        className="c-filters__collapsible-list-item"
-                                    >
+                                    <li key={contentType.identifier} className="c-filters__collapsible-list-item">
                                         <div className="form-check">
                                             <input
                                                 type="checkbox"
@@ -56,7 +55,8 @@ const ContentTypeSelector = () => {
                                             />
                                             <label
                                                 className="checkbox-inline form-check-label"
-                                                htmlFor={`ibexa-search-content-type-${contentType.identifier}`}>
+                                                htmlFor={`ibexa-search-content-type-${contentType.identifier}`}
+                                            >
                                                 {contentType.name}
                                             </label>
                                         </div>

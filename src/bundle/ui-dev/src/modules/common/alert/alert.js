@@ -49,7 +49,9 @@ const Alert = ({
             {showCloseBtn && (
                 <button
                     className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text ibexa-alert__close-btn"
-                    onClick={onClose}>
+                    type="button"
+                    onClick={onClose}
+                >
                     <Icon name="discard" extraClasses="ibexa-icon--tiny-small" />
                 </button>
             )}
@@ -57,7 +59,7 @@ const Alert = ({
     );
 };
 
-Icon.propTypes = {
+Alert.propTypes = {
     type: PropTypes.string.isRequired,
     title: PropTypes.string,
     subtitle: PropTypes.string,
@@ -70,7 +72,7 @@ Icon.propTypes = {
     children: PropTypes.element,
 };
 
-Icon.defaultProps = {
+Alert.defaultProps = {
     title: null,
     subtitle: null,
     iconName: null,

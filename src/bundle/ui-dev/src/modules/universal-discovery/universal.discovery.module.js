@@ -14,6 +14,8 @@ import {
     loadLocationsWithPermissions,
 } from './services/universal.discovery.service';
 
+const { Translator, ibexa, document } = window;
+
 const CLASS_SCROLL_DISABLED = 'ibexa-scroll-disabled';
 
 export const SORTING_OPTIONS = [
@@ -85,7 +87,7 @@ const restInfo = {
     token: document.querySelector('meta[name="CSRF-Token"]').content,
     siteaccess: document.querySelector('meta[name="SiteAccess"]').content,
 };
-const contentTypesMap = Object.values(ibexa.adminUiConfig.contentTypes).reduce((contentTypesMap, contentTypesGroup) => {
+const contentTypesMapGlobal = Object.values(ibexa.adminUiConfig.contentTypes).reduce((contentTypesMap, contentTypesGroup) => {
     contentTypesGroup.forEach((contentType) => {
         contentTypesMap[contentType.href] = contentType;
     });
@@ -123,7 +125,7 @@ export const SearchTextContext = createContext();
 export const DropdownPortalRefContext = createContext();
 
 const UniversalDiscoveryModule = (props) => {
-    const tabs = window.ibexa.adminUiConfig.universalDiscoveryWidget.tabs;
+    const { tabs } = ibexa.adminUiConfig.universalDiscoveryWidget;
     const defaultMarkedLocationId = props.startingLocationId || props.rootLocationId;
     const abortControllerRef = useRef();
     const dropdownPortalRef = useRef();
@@ -201,12 +203,12 @@ const UniversalDiscoveryModule = (props) => {
         };
 
         loadContentTypes(restInfo, handleLoadContentTypes);
-        window.document.body.dispatchEvent(new CustomEvent('ibexa-udw-opened'));
-        window.ibexa.helpers.tooltips.parse(window.document.querySelector('.c-udw-tab'));
+        document.body.dispatchEvent(new CustomEvent('ibexa-udw-opened'));
+        ibexa.helpers.tooltips.parse(document.querySelector('.c-udw-tab'));
 
         return () => {
-            window.document.body.dispatchEvent(new CustomEvent('ibexa-udw-closed'));
-            window.ibexa.helpers.tooltips.hideAll();
+            document.body.dispatchEvent(new CustomEvent('ibexa-udw-closed'));
+            ibexa.helpers.tooltips.hideAll();
         };
     }, []);
 
@@ -217,7 +219,7 @@ const UniversalDiscoveryModule = (props) => {
 
         findLocationsById({ ...restInfo, id: props.selectedLocations.join(',') }, (locations) => {
             const mappedLocation = props.selectedLocations.map((locationId) => {
-                const location = locations.find((location) => location.id === parseInt(locationId, 10));
+                const location = locations.find(({ id }) => id === parseInt(locationId, 10));
 
                 return { location };
             });
@@ -268,10 +270,10 @@ const UniversalDiscoveryModule = (props) => {
     }, [selectedLocations]);
 
     useEffect(() => {
-        window.document.body.classList.add(CLASS_SCROLL_DISABLED);
+        document.body.classList.add(CLASS_SCROLL_DISABLED);
 
         return () => {
-            window.document.body.classList.remove(CLASS_SCROLL_DISABLED);
+            document.body.classList.remove(CLASS_SCROLL_DISABLED);
         };
     });
 
@@ -321,6 +323,7 @@ const UniversalDiscoveryModule = (props) => {
         dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: locationsMap });
     }, [sorting, sortOrder]);
 
+    /* eslint-disable max-len */
     return (
         <div className={className}>
             <UDWContext.Provider value={true}>
@@ -328,7 +331,7 @@ const UniversalDiscoveryModule = (props) => {
                     <AllowRedirectsContext.Provider value={props.allowRedirects}>
                         <AllowConfirmationContext.Provider value={props.allowConfirmation}>
                             <ContentTypesInfoMapContext.Provider value={contentTypesInfoMap}>
-                                <ContentTypesMapContext.Provider value={contentTypesMap}>
+                                <ContentTypesMapContext.Provider value={contentTypesMapGlobal}>
                                     <MultipleConfigContext.Provider value={[props.multiple, props.multipleItemsLimit]}>
                                         <ContainersOnlyContext.Provider value={props.containersOnly}>
                                             <AllowedContentTypesContext.Provider value={props.allowedContentTypes}>
@@ -426,6 +429,7 @@ const UniversalDiscoveryModule = (props) => {
             </UDWContext.Provider>
         </div>
     );
+    /* eslint-enable max-len */
 };
 
 UniversalDiscoveryModule.propTypes = {
@@ -472,7 +476,6 @@ UniversalDiscoveryModule.defaultProps = {
     activeSortClause: 'date',
     activeSortOrder: 'ascending',
     activeView: 'finder',
-    tabs: window.ibexa.adminUiConfig.universalDiscoveryWidget.tabs,
     selectedLocations: [],
 };
 

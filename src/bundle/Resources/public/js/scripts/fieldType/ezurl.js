@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezurl';
     const SELECTOR_FIELD_LINK = '.ibexa-data-source__field--link';
     const SELECTOR_LINK_INPUT = `${SELECTOR_FIELD_LINK} .ibexa-data-source__input`;

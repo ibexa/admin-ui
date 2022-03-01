@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, flatpickr) {
+(function (global, doc, ibexa, flatpickr) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezdate';
     const SELECTOR_INPUT = '.ibexa-data-source__input:not(.flatpickr-input)';
     const SELECTOR_FLATPICKR_INPUT = '.flatpickr-input';
@@ -95,20 +95,12 @@
         if (sourceInput.value) {
             defaultDate = new Date(sourceInput.value * 1000);
 
-            const actionType = sourceInput.dataset.actionType;
+            const { actionType } = sourceInput.dataset;
 
             if (actionType === 'create') {
                 defaultDate.setTime(new Date().getTime());
             } else if (actionType === 'edit') {
-                defaultDate = new Date(
-                    defaultDate.getUTCFullYear(),
-                    defaultDate.getUTCMonth(),
-                    defaultDate.getUTCDate(),
-                    0,
-                    0,
-                    0,
-                    0
-                );
+                defaultDate = new Date(defaultDate.getUTCFullYear(), defaultDate.getUTCMonth(), defaultDate.getUTCDate(), 0, 0, 0, 0);
             }
 
             updateInputValue(sourceInput, [defaultDate]);

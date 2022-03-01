@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, Leaflet) {
+(function (global, doc, ibexa, Leaflet, Translator) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezgmaplocation';
     const SELECTOR_ADDRESS_INPUT = '.ibexa-data-source__field--address .ibexa-data-source__input';
     const SELECTOR_LAT_FIELD = '.ibexa-data-source__field--latitude';
@@ -83,9 +83,8 @@
                 lonResult.errorMessage = allEmptyOrFilledResult.errorMessage;
 
                 return lonResult;
-            } else {
-                return lonResult;
             }
+            return lonResult;
         }
 
         /**
@@ -115,9 +114,8 @@
                 latResult.errorMessage = allEmptyOrFilledResult.errorMessage;
 
                 return latResult;
-            } else {
-                return latResult;
             }
+            return latResult;
         }
 
         /**
@@ -306,7 +304,7 @@
                 const errorMessage = Translator.trans(
                     /* @Desc("Area below needs correction") */ 'ezmaplocation.create.message.error',
                     {},
-                    'fieldtypes_edit'
+                    'fieldtypes_edit',
                 );
                 const allFieldsResult = { isError: true, errorMessage: errorMessage };
 
@@ -587,7 +585,7 @@
 
             navigator.geolocation.getCurrentPosition(
                 (position) => updateMapState(position.coords.latitude, position.coords.longitude),
-                (error) => ibexa.helpers.notification.showErrorNotification(error)
+                (error) => ibexa.helpers.notification.showErrorNotification(error),
             );
         };
         let locationMarker;
@@ -618,4 +616,4 @@
     });
 
     ibexa.addConfig('fieldTypeValidators', [validator], true);
-})(window, window.document, window.ibexa, window.L);
+})(window, window.document, window.ibexa, window.L, window.Translator);

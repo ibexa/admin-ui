@@ -41,6 +41,7 @@ LanguageSelector.propTypes = {
     languageItems: PropTypes.array,
     handleItemChange: PropTypes.func,
     closeLanguageSelector: PropTypes.func,
+    close: PropTypes.func,
 };
 
 LanguageSelector.defaultProps = {
@@ -49,6 +50,7 @@ LanguageSelector.defaultProps = {
     languageItems: [],
     handleItemChange: () => {},
     closeLanguageSelector: () => {},
+    close: () => {},
 };
 
 export default LanguageSelector;

@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, flatpickr) {
+(function (global, doc, ibexa, flatpickr) {
     const SELECTOR_PICKER = '.ibexa-picker';
     const SELECTOR_PICKER_INPUT = '.ibexa-picker__input';
     const SELECTOR_FORM_INPUT = '.ibexa-picker__form-input';

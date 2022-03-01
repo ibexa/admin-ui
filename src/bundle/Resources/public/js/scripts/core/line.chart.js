@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa, Chart) {
     const MAX_NUMBER_OF_LABELS = 16;
     const lineDefaultOptions = {
         elements: {
@@ -70,4 +70,4 @@
     }
 
     ibexa.addConfig('core.chart.LineChart', LineChart);
-})(window, window.document, window.ibexa);
+})(window, window.document, window.ibexa, window.Chart);

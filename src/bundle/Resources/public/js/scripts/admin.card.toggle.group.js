@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const togglers = doc.querySelectorAll('.ibexa-card__body-display-toggler');
     const toggleFieldTypeView = (event) => {
         event.preventDefault();

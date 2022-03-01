@@ -15,6 +15,8 @@ import { useSearchByQueryFetch } from '../../hooks/useSearchByQueryFetch';
 import { AllowedContentTypesContext, SearchTextContext } from '../../universal.discovery.module';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
+const { Translator, ibexa } = window;
+
 const selectedContentTypesReducer = (state, action) => {
     switch (action.type) {
         case 'ADD_CONTENT_TYPE':
@@ -28,14 +30,14 @@ const selectedContentTypesReducer = (state, action) => {
     }
 };
 
-const configLanguages = window.ibexa.adminUiConfig.languages;
+const configLanguages = ibexa.adminUiConfig.languages;
 const languages = configLanguages.priority.map((value) => {
     return configLanguages.mappings[value];
 });
 
 const Search = ({ itemsPerPage }) => {
     const allowedContentTypes = useContext(AllowedContentTypesContext);
-    const [searchText, setSearchText] = useContext(SearchTextContext);
+    const [searchText] = useContext(SearchTextContext);
     const [offset, setOffset] = useState(0);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useReducer(selectedContentTypesReducer, []);
     const [selectedSection, setSelectedSection] = useState('');
@@ -62,7 +64,7 @@ const Search = ({ itemsPerPage }) => {
     };
     const changePage = (pageIndex) => setOffset(pageIndex * itemsPerPage);
     const renderCustomTableHeader = () => {
-        const selectedLanguageName = window.ibexa.adminUiConfig.languages.mappings[selectedLanguage].name;
+        const selectedLanguageName = ibexa.adminUiConfig.languages.mappings[selectedLanguage].name;
         const searchResultsTitle = Translator.trans(
             /*@Desc("Results for “%search_phrase%” (%total%)")*/ 'search.search_results',
             {
@@ -135,8 +137,11 @@ const Search = ({ itemsPerPage }) => {
                     <img className="" src="/bundles/ibexaadminui/img/no-results.svg" />
                     <h2 className="c-search__no-results-title">{noResultsLabel}</h2>
                     <div className="c-search__no-results-subtitle">
-                        {noResultsHints.map((hint) => (
-                            <div className="c-search__no-results-hint">
+                        {noResultsHints.map((hint, key) => (
+                            <div
+                                key={key} // eslint-disable-line react/no-array-index-key
+                                className="c-search__no-results-hint"
+                            >
                                 <div className="c-search__no-results-hint-icon-wrapper">
                                     <Icon name="approved" extraClasses="ibexa-icon--small-medium" />
                                 </div>

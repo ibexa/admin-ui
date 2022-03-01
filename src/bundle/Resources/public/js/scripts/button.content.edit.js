@@ -1,13 +1,13 @@
-(function(global, doc, bootstrap, ibexa, Translator, Routing) {
+(function (global, doc, bootstrap, ibexa, Translator, Routing) {
     const FORM_EDIT = 'form.ibexa-edit-content-form';
-    const showErrorNotification = ibexa.helpers.notification.showErrorNotification;
+    const { showErrorNotification } = ibexa.helpers.notification;
     const editVersion = (event) => {
         const versionEditForm = doc.querySelector(FORM_EDIT);
         const versionEditFormName = versionEditForm.name;
         const { contentId, versionNo, languageCode } = event.currentTarget.dataset;
         const contentInfoInput = versionEditForm.querySelector(`input[name="${versionEditFormName}[content_info]"]`);
         const versionInfoContentInfoInput = versionEditForm.querySelector(
-            `input[name="${versionEditFormName}[version_info][content_info]"]`
+            `input[name="${versionEditFormName}[version_info][content_info]"]`,
         );
         const versionInfoVersionNoInput = versionEditForm.querySelector(`input[name="${versionEditFormName}[version_info][version_no]"]`);
         const languageInput = versionEditForm.querySelector(`#${versionEditFormName}_language_${languageCode}`);
@@ -16,7 +16,7 @@
         const errorMessage = Translator.trans(
             /*@Desc("You don't have permission to edit this Content item")*/ 'content.edit.permission.error',
             {},
-            'content'
+            'content',
         );
         const submitVersionEditForm = () => {
             contentInfoInput.value = contentId;
@@ -42,7 +42,7 @@
 
             wrapper
                 .querySelectorAll('.ibexa-btn--prevented')
-                .forEach((btn) => btn.addEventListener('click', (event) => event.preventDefault(), false));
+                .forEach((btn) => btn.addEventListener('click', (wrapperBtnEvent) => wrapperBtnEvent.preventDefault(), false));
             bootstrap.Modal.getOrCreateInstance(doc.querySelector('#version-draft-conflict-modal')).show();
         };
         const handleCanEditCheck = (response) => {

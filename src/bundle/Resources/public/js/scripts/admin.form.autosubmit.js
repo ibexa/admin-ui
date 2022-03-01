@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const autosubmit = (event) => {
         const form = event.target.closest('form');
 

@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+const { Translator } = window;
+
 const FILTER_TIMEOUT = 200;
 
 const InstantFilter = (props) => {
@@ -11,12 +13,12 @@ const InstantFilter = (props) => {
 
     useEffect(() => {
         const items = [..._refInstantFilter.current.querySelectorAll('.ibexa-instant-filter__item')];
-        const itemsMap = items.map((item) => ({
+        const itemsMapNext = items.map((item) => ({
             label: item.textContent.toLowerCase(),
             element: item,
         }));
 
-        setItemsMap(itemsMap);
+        setItemsMap(itemsMapNext);
     }, [props.items]);
 
     useEffect(() => {
@@ -51,7 +53,7 @@ const InstantFilter = (props) => {
                     const radioId = `item_${item.value}`;
 
                     return (
-                        <div className="ibexa-instant-filter__item">
+                        <div key={radioId} className="ibexa-instant-filter__item">
                             <div className="form-check">
                                 <input
                                     type="radio"
@@ -61,7 +63,7 @@ const InstantFilter = (props) => {
                                     value={item.value}
                                     onChange={() => props.handleItemChange(item.value)}
                                 />
-                                <label className="form-check-label" for={radioId}>
+                                <label className="form-check-label" htmlFor={radioId}>
                                     {item.label}
                                 </label>
                             </div>

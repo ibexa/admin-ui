@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, flatpickr) {
+(function (global, doc, ibexa, flatpickr) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezdatetime';
     const SELECTOR_INPUT = '.ibexa-data-source__input[data-seconds]';
     const SELECTOR_FLATPICKR_INPUT = '.flatpickr-input';
@@ -77,7 +77,7 @@
             return;
         }
 
-        const selectedDate = dates[0];
+        const [selectedDate] = dates;
         const selectedDateWithUserTimezone = convertDateToTimezone(selectedDate, userTimezone, true);
         const timestamp = Math.floor(selectedDateWithUserTimezone.valueOf() / 1000);
 

@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const getIconPath = (path, iconSet = ibexa.adminUiConfig.iconPaths.defaultIconSet) => {
         const iconSetPath = ibexa.adminUiConfig.iconPaths.iconSets[iconSet];
 

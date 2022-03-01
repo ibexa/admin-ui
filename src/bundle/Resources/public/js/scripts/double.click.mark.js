@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const dblClickMarkNodes = doc.querySelectorAll('.ibexa-dbl-click-mark');
     const markText = (event) => {
         const targetNode = event.currentTarget;

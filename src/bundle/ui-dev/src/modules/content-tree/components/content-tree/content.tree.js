@@ -5,6 +5,8 @@ import List from '../list/list.component';
 import Header from '../header/header';
 import Icon from '../../../common/icon/icon';
 
+const { Translator } = window;
+
 const CLASS_IS_TREE_RESIZING = 'ibexa-is-tree-resizing';
 const MIN_CONTAINER_WIDTH = 200;
 const COLLAPSED_WIDTH = 66;
@@ -46,13 +48,17 @@ export default class ContentTree extends Component {
                     this.saveConfig('scrollTop', scrollTop);
                 },
                 50,
-                event.currentTarget.scrollTop
+                event.currentTarget.scrollTop,
             );
         });
 
-        document.body.dispatchEvent(new CustomEvent('ibexa-tb-rendered', { detail: {
-            id: 'ibexa-content-tree',
-        } }));
+        document.body.dispatchEvent(
+            new CustomEvent('ibexa-tb-rendered', {
+                detail: {
+                    id: 'ibexa-content-tree',
+                },
+            }),
+        );
     }
 
     componentDidUpdate(prevState) {
@@ -98,7 +104,7 @@ export default class ContentTree extends Component {
             }),
             () => {
                 document.body.dispatchEvent(new CustomEvent('ibexa-content-resized'));
-            }
+            },
         );
     }
 
@@ -112,7 +118,7 @@ export default class ContentTree extends Component {
             }),
             () => {
                 document.body.dispatchEvent(new CustomEvent('ibexa-content-resized'));
-            }
+            },
         );
     }
 
@@ -138,7 +144,7 @@ export default class ContentTree extends Component {
             }),
             () => {
                 document.body.dispatchEvent(new CustomEvent('ibexa-content-resized'));
-            }
+            },
         );
     }
 
@@ -178,16 +184,8 @@ export default class ContentTree extends Component {
     }
 
     renderList() {
-        const {
-            items,
-            loadMoreSubitems,
-            currentLocationId,
-            onClickItem,
-            subitemsLoadLimit,
-            subitemsLimit,
-            treeMaxDepth,
-            afterItemToggle,
-        } = this.props;
+        const { items, loadMoreSubitems, currentLocationId, onClickItem, subitemsLoadLimit, subitemsLimit, treeMaxDepth, afterItemToggle } =
+            this.props;
 
         const attrs = {
             items,
@@ -266,4 +264,9 @@ ContentTree.propTypes = {
     onClickItem: PropTypes.func,
     userId: PropTypes.number.isRequired,
     resizable: PropTypes.bool.isRequired,
+};
+
+ContentTree.defaultProps = {
+    subitemsLoadLimit: null,
+    onClickItem: () => {},
 };

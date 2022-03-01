@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezcountry';
     const SELECTOR_SELECTED = '.ibexa-dropdown__selection-info';
     const EVENT_VALUE_CHANGED = 'change';

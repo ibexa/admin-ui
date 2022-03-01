@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezselection';
     const SELECTOR_SELECTED = '.ibexa-dropdown__selection-info';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';

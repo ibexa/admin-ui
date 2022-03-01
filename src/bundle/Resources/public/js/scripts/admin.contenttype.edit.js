@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, Routing, Translator) {
+(function (global, doc, ibexa, Routing, Translator) {
     const TIMEOUT_REMOVE_PLACEHOLDERS = 1500;
     const SELECTOR_INPUTS_TO_VALIDATE = '.ibexa-input[required]:not([disabled]):not([hidden])';
     let targetContainer = null;
@@ -37,7 +37,7 @@
             contentType: 'application/vnd.ibexa.api.ContentTypeFieldDefinitionReorder+json',
         },
     };
-    const popupMenu = new ibexa.core.PopupMenu({
+    new ibexa.core.PopupMenu({
         popupMenuElement,
         triggerElement: addGroupTriggerBtn,
         onItemClick: (event) => {

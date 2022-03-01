@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc) {
     const SCROLL_POSITION_TO_FIT = 50;
     const MIN_HEIGHT_DIFF_FOR_FITTING_HEADER = 150;
     const headerNode = doc.querySelector('.ibexa-edit-header');
@@ -8,7 +8,6 @@
         return;
     }
 
-    const contextMenuNode = headerNode.querySelector('.ibexa-context-menu');
     const { height: expandedHeaderHeight } = headerNode.getBoundingClientRect();
     const scrolledContent = doc.querySelector('.ibexa-edit-content > :first-child');
     const fitHeader = (event) => {
@@ -27,4 +26,4 @@
     };
 
     contentNode.addEventListener('scroll', fitHeader, false);
-})(window, window.document, window.ibexa);
+})(window, window.document);

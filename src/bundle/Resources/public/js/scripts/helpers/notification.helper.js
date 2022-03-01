@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const NOTIFICATION_INFO_LABEL = 'info';
     const NOTIFICATION_SUCCESS_LABEL = 'success';
     const NOTIFICATION_WARNING_LABEL = 'warning';

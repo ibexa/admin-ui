@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, React, ReactDOM) {
+(function (global, doc, ibexa, React, ReactDOM) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezrichtext';
     const SELECTOR_INPUT = '.ibexa-data-source__richtext';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
@@ -18,10 +18,7 @@
 
             ReactDOM.unmountComponentAtNode(udwContainer);
         };
-        const mergedConfig = Object.assign({}, config, {
-            onConfirm: confirmHandler,
-            onCancel: cancelHandler,
-        });
+        const mergedConfig = { ...config, onConfirm: confirmHandler, onCancel: cancelHandler };
 
         ReactDOM.render(React.createElement(ibexa.modules.UniversalDiscovery, mergedConfig), udwContainer);
     };

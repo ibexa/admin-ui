@@ -82,7 +82,7 @@
             const message = Translator.trans(
                 /* @Desc("Cannot update notifications") */ 'notifications.modal.message.error',
                 { error: error.message },
-                'notifications'
+                'notifications',
             );
 
             showWarningNotification(message, (notificationNode) => {

@@ -15,16 +15,18 @@ import {
     AllowedContentTypesContext,
 } from '../../universal.discovery.module';
 
+const { ibexa } = window;
+
 const SCROLL_OFFSET = 200;
 
 const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
     const refBookmarksList = useRef(null);
     const [offset, setOffset] = useState(0);
     const [bookmarks, setBookmarks] = useState([]);
-    const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
-    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
-    const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
-    const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
+    const [markedLocationId] = useContext(MarkedLocationIdContext);
+    const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const [, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
+    const [multiple] = useContext(MultipleConfigContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const containersOnly = useContext(ContainersOnlyContext);
@@ -60,7 +62,7 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
     }, [data.items, isLoading]);
 
     useEffect(() => {
-        window.ibexa.helpers.tooltips.parse(refBookmarksList.current);
+        ibexa.helpers.tooltips.parse(refBookmarksList.current);
     }, [bookmarks]);
 
     if (!bookmarks.length) {
@@ -72,7 +74,7 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
             {bookmarks.map((bookmark) => {
                 const isMarked = bookmark.id === markedLocationId;
                 const contentTypeInfo = contentTypesMap[bookmark.ContentInfo.Content.ContentType._href];
-                const isContainer = contentTypeInfo.isContainer;
+                const { isContainer } = contentTypeInfo;
                 const isNotSelectable =
                     (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeInfo.identifier));
                 const className = createCssClassNames({

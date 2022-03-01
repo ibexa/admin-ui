@@ -19,28 +19,25 @@ import {
     SortingContext,
 } from '../../universal.discovery.module';
 
-const flattenTree = (tree) => tree.reduce((output, branch) => [...output, branch.locationId, ...flattenTree(branch.subitems)], []);
+const { ibexa } = window;
 
 const TreeView = ({ itemsPerPage }) => {
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
-    const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
-    const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
-    const [sortOrder, setSortOrder] = useContext(SortOrderContext);
-    const [sorting, setSorting] = useContext(SortingContext);
+    const [multiple] = useContext(MultipleConfigContext);
+    const [, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
+    const [sortOrder] = useContext(SortOrderContext);
+    const [sorting] = useContext(SortingContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const containersOnly = useContext(ContainersOnlyContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const restInfo = useContext(RestInfoContext);
     const rootLocationId = useContext(RootLocationIdContext);
     const locationData = useMemo(() => getLocationData(loadedLocationsMap, markedLocationId), [markedLocationId, loadedLocationsMap]);
-    const userId = window.ibexa.helpers.user.getId();
+    const userId = ibexa.helpers.user.getId();
     const expandItem = (item, event) => {
         event.preventDefault();
-        event.currentTarget
-            .closest('.c-list-item__row')
-            .querySelector('.c-list-item__toggler')
-            .click();
+        event.currentTarget.closest('.c-list-item__row').querySelector('.c-list-item__toggler').click();
     };
     const markLocation = (item) => {
         const { locationId } = item;
@@ -60,7 +57,7 @@ const TreeView = ({ itemsPerPage }) => {
             (locationsMap) => {
                 const { location } = locationsMap[locationsMap.length - 1];
                 const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
-                const isContainer = contentTypeInfo.isContainer;
+                const { isContainer } = contentTypeInfo;
                 const isNotSelectable =
                     (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeInfo.identifier));
 
@@ -74,7 +71,7 @@ const TreeView = ({ itemsPerPage }) => {
                         dispatchSelectedLocationsAction({ type: 'REPLACE_SELECTED_LOCATIONS', locations: [{ location }] });
                     }
                 }
-            }
+            },
         );
     };
     const readSubtreeRecursive = (tree) => {

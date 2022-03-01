@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezkeyword';
     const SELECTOR_TAGGIFY = '.ibexa-data-source__taggify';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
@@ -90,7 +90,7 @@
                 keywordInput.value.split(',').map((item) => ({
                     id: Math.floor((1 + Math.random()) * 0x10000).toString(16),
                     label: item,
-                }))
+                })),
             );
         }
 

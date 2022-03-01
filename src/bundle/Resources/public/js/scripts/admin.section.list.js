@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, React, ReactDOM) {
+(function (global, doc, ibexa, React, ReactDOM) {
     const btns = doc.querySelectorAll('.ibexa-btn--open-udw');
     const udwContainer = doc.getElementById('react-udw');
     const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
@@ -27,7 +27,7 @@
                 onCancel,
                 ...config,
             }),
-            udwContainer
+            udwContainer,
         );
     };
 

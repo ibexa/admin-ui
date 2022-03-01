@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, bootstrap) {
+(function (global, doc, ibexa, bootstrap) {
     const TABS_SELECTOR = '.ibexa-tabs';
     const SELECTOR_TABS_LIST = '.ibexa-tabs__list';
     const SELECTOR_TAB_MORE = '.ibexa-tabs__tab--more';
@@ -31,7 +31,7 @@
                 triggerElement: tabMore,
                 onItemClick: (event) => {
                     const itemElement = event.currentTarget;
-                    const tabLinkId = itemElement.dataset.tabLinkId;
+                    const { tabLinkId } = itemElement.dataset;
                     const tabToShow = tabsList.querySelector(`.ibexa-tabs__link#${tabLinkId}`);
 
                     bootstrap.Tab.getOrCreateInstance(tabToShow).show();

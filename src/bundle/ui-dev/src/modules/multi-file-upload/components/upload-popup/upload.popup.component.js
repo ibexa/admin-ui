@@ -5,6 +5,8 @@ import TooltipPopup from '../../../common/tooltip-popup/tooltip.popup.component'
 import DropAreaComponent from '../drop-area/drop.area.component';
 import UploadListComponent from '../upload-list/upload.list.component';
 
+const { Translator } = window;
+
 const CLASS_SCROLL_DISABLED = 'ibexa-scroll-disabled';
 
 export default class UploadPopupModule extends Component {
@@ -73,12 +75,6 @@ export default class UploadPopupModule extends Component {
 UploadPopupModule.propTypes = {
     popupTitle: PropTypes.string.isRequired,
     visible: PropTypes.bool,
-    onUpload: PropTypes.func,
-    onUploadEnd: PropTypes.func,
-    onUploadFail: PropTypes.func,
-    onItemEdit: PropTypes.func,
-    onItemRemove: PropTypes.func,
-    onClose: PropTypes.func,
     itemsToUpload: PropTypes.array,
     onAfterUpload: PropTypes.func.isRequired,
     createFileStruct: PropTypes.func.isRequired,

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState, useRef } from 'react';
+import React, { useContext, useEffect, useMemo, useRef } from 'react';
 
 import Icon from '../common/icon/icon';
 import Thumbnail from '../common/thumbnail/thumbnail';
@@ -14,6 +14,8 @@ import {
     AllowRedirectsContext,
 } from './universal.discovery.module';
 
+const { Translator, ibexa, Routing } = window;
+
 export const getLocationData = (loadedLocationsMap, markedLocationId) =>
     loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === markedLocationId) ||
     (loadedLocationsMap.length &&
@@ -21,19 +23,19 @@ export const getLocationData = (loadedLocationsMap, markedLocationId) =>
 
 const ContentMetaPreview = () => {
     const refContentMetaPreview = useRef(null);
-    const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
+    const [markedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const restInfo = useContext(RestInfoContext);
     const allowRedirects = useContext(AllowRedirectsContext);
-    const { formatShortDateTime } = window.ibexa.helpers.timezone;
+    const { formatShortDateTime } = ibexa.helpers.timezone;
     const locationData = useMemo(() => getLocationData(loadedLocationsMap, markedLocationId), [markedLocationId, loadedLocationsMap]);
     const lastModifiedLabel = Translator.trans(/*@Desc("Last modified")*/ 'meta_preview.last_modified', {}, 'universal_discovery_widget');
     const creationDateLabel = Translator.trans(/*@Desc("Created")*/ 'meta_preview.creation_date', {}, 'universal_discovery_widget');
     const translationsLabel = Translator.trans(/*@Desc("Translations")*/ 'meta_preview.translations', {}, 'universal_discovery_widget');
 
     useEffect(() => {
-        window.ibexa.helpers.tooltips.parse(refContentMetaPreview.current);
+        ibexa.helpers.tooltips.parse(refContentMetaPreview.current);
     });
 
     if (!markedLocationId || markedLocationId === 1 || !locationData) {
@@ -51,7 +53,7 @@ const ContentMetaPreview = () => {
         });
     };
     const previewContent = () => {
-        window.location.href = window.Routing.generate(
+        location.href = Routing.generate(
             'ibexa.content.view',
             { contentId: location.ContentInfo.Content._id, locationId: location.id },
             true,
@@ -73,7 +75,11 @@ const ContentMetaPreview = () => {
 
         const previewButton = allowRedirects ? (
             <div className="c-content-meta-preview__action-item">
-                <button className="c-content-meta-preview__preview-button btn ibexa-btn ibexa-btn--ghost" onClick={previewContent}>
+                <button
+                    className="c-content-meta-preview__preview-button btn ibexa-btn ibexa-btn--ghost"
+                    type="button"
+                    onClick={previewContent}
+                >
                     <Icon name="view" extraClasses="ibexa-icon--small" />
                     {previewLabel}
                 </button>
@@ -90,6 +96,7 @@ const ContentMetaPreview = () => {
                 <div className="c-content-meta-preview__action-item">
                     <button
                         className="c-content-meta-preview__toggle-bookmark-button btn ibexa-btn ibexa-btn--ghost"
+                        type="button"
                         onClick={toggleBookmarked}
                     >
                         <Icon name={bookmarkIconName} extraClasses="ibexa-icon--small" />
@@ -102,7 +109,7 @@ const ContentMetaPreview = () => {
     const renderMetaPreviewLoadingSpinner = () => {
         const spinnerClassName = createCssClassNames({
             'c-content-meta-preview__loading-spinner': true,
-            'c-content-meta-preview__loading-spinner--hidden': isLocationDataLoaded
+            'c-content-meta-preview__loading-spinner--hidden': isLocationDataLoaded,
         });
 
         return (

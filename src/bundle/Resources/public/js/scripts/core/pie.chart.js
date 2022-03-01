@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     class PieChart extends ibexa.core.BaseChart {
         constructor(data) {
             super(data);

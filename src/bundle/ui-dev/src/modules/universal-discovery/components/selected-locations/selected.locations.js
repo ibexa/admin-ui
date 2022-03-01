@@ -6,6 +6,8 @@ import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
 import { SelectedLocationsContext, AllowConfirmationContext } from '../../universal.discovery.module';
 
+const { Translator, ibexa } = window;
+
 const SelectedLocations = () => {
     const refSelectedLocations = useRef(null);
     const refTogglerButton = useRef(null);
@@ -20,11 +22,11 @@ const SelectedLocations = () => {
     const collapseLabel = Translator.trans(
         /*@Desc("Collapse sidebar")*/ 'selected_locations.collapse.sidebar',
         {},
-        'universal_discovery_widget'
+        'universal_discovery_widget',
     );
     const togglerLabel = isExpanded ? collapseLabel : expandLabel;
     const clearSelection = () => {
-        window.ibexa.helpers.tooltips.hideAll(refSelectedLocations.current);
+        ibexa.helpers.tooltips.hideAll(refSelectedLocations.current);
         dispatchSelectedLocationsAction({ type: 'CLEAR_SELECTED_LOCATIONS' });
     };
     const toggleExpanded = () => {
@@ -34,14 +36,10 @@ const SelectedLocations = () => {
         const selectedLabel = Translator.trans(
             /*@Desc("%count% selected item(s)")*/ 'selected_locations.selected_items',
             { count: selectedLocations.length },
-            'universal_discovery_widget'
+            'universal_discovery_widget',
         );
 
-        return (
-            <div className="c-selected-locations__selection-counter">
-                {selectedLabel}
-            </div>
-        );
+        return <div className="c-selected-locations__selection-counter">{selectedLabel}</div>;
     };
     const renderToggleButton = () => {
         const iconName = isExpanded ? 'caret-next' : 'caret-back';
@@ -97,8 +95,8 @@ const SelectedLocations = () => {
     };
 
     useEffect(() => {
-        window.ibexa.helpers.tooltips.parse(refSelectedLocations.current);
-        window.ibexa.helpers.tooltips.hideAll();
+        ibexa.helpers.tooltips.parse(refSelectedLocations.current);
+        ibexa.helpers.tooltips.hideAll();
 
         if (refTogglerButton.current) {
             refTogglerButton.current.dataset.originalTitle = togglerLabel;

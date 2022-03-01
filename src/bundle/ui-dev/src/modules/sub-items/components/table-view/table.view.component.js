@@ -8,6 +8,8 @@ import ThreeStateCheckboxComponent from '../three-state-checkbox/three.state.che
 import LanguageSelector from '../sub-items-list/language.selector.compoment';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
+const { Translator } = window;
+
 const COLUMNS_VISIBILITY_LOCAL_STORAGE_DATA_KEY = 'sub-items_columns-visibility';
 const DEFAULT_COLUMNS_VISIBILITY = {
     modified: true,
@@ -145,7 +147,7 @@ export default class TableViewComponent extends Component {
                     [column]: !state.columnsVisibility[column],
                 },
             }),
-            this.setColumnsVisibilityInLocalStorage
+            this.setColumnsVisibilityInLocalStorage,
         );
     }
 
@@ -314,7 +316,7 @@ export default class TableViewComponent extends Component {
                         close={this.closeLanguageSelector}
                         {...this.state.languageSelectorData}
                     />,
-                    window.document.querySelector(this.props.languageContainerSelector)
+                    window.document.querySelector(this.props.languageContainerSelector),
                 )}
             </div>
         );
@@ -334,4 +336,8 @@ TableViewComponent.propTypes = {
     sortClause: PropTypes.string.isRequired,
     sortOrder: PropTypes.string.isRequired,
     languageContainerSelector: PropTypes.string.isRequired,
+};
+
+TableViewComponent.defaultProps = {
+    selectedLocationsIds: new Set(),
 };

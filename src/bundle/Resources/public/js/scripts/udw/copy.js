@@ -1,4 +1,4 @@
-(function(global, doc, ibexa, React, ReactDOM, Translator) {
+(function (global, doc, ibexa, React, ReactDOM, Translator) {
     const btns = doc.querySelectorAll('.ibexa-btn--udw-copy');
     const form = doc.querySelector('form[name="location_copy"]');
     const input = form.querySelector('#location_copy_new_parent_location');
@@ -26,7 +26,7 @@
                 containersOnly: true,
                 ...config,
             }),
-            udwContainer
+            udwContainer,
         );
     };
 

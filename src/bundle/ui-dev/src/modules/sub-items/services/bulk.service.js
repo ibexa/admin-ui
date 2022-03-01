@@ -8,6 +8,8 @@ import {
     HEADERS_BULK,
 } from './endpoints.js';
 
+const { Translator } = window;
+
 export const bulkMoveLocations = (restInfo, items, newLocationHref, callback) => {
     const requestBodyOperations = {};
 
@@ -115,19 +117,19 @@ const getBulkVisibilityRequestOperation = (pathString, isHidden) => ({
 const processBulkResponse = (items, callback, response) => {
     const { operations } = response.BulkOperationResponse;
     const itemsMatches = Object.entries(operations).reduce(
-        (itemsMatches, [locationId, response]) => {
+        (output, [locationId, { statusCode }]) => {
             const respectiveItem = items.find((item) => item.id === parseInt(locationId, 10));
-            const isSuccess = 200 <= response.statusCode && response.statusCode <= 299;
+            const isSuccess = 200 <= statusCode && statusCode <= 299;
 
             if (isSuccess) {
-                itemsMatches.success.push(respectiveItem);
+                output.success.push(respectiveItem);
             } else {
-                itemsMatches.fail.push(respectiveItem);
+                output.fail.push(respectiveItem);
             }
 
-            return itemsMatches;
+            return output;
         },
-        { success: [], fail: [] }
+        { success: [], fail: [] },
     );
 
     callback(itemsMatches.success, itemsMatches.fail);
@@ -158,7 +160,7 @@ const makeBulkRequest = ({ token, siteaccess }, requestBodyOperations, callback)
                 /*@Desc("An unexpected error occurred while processing the Content item(s). Please try again later.")*/
                 'bulk_request.error.message',
                 {},
-                'sub_items'
+                'sub_items',
             );
 
             window.ibexa.helpers.notification.showErrorNotification(message);

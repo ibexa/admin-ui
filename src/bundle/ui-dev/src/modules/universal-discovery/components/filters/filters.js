@@ -16,7 +16,9 @@ import Dropdown from '../../../common/dropdown/dropdown';
 import ContentTypeSelector from '../content-type-selector/content.type.selector';
 import Icon from '../../../common/icon/icon';
 
-const languages = Object.values(window.ibexa.adminUiConfig.languages.mappings);
+const { Translator, ibexa } = window;
+
+const languages = Object.values(ibexa.adminUiConfig.languages.mappings);
 
 const Filters = ({ search }) => {
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
@@ -48,7 +50,7 @@ const Filters = ({ search }) => {
             udwContainer.remove();
         };
         const onConfirm = (items) => {
-            const pathString = items[0].pathString;
+            const [{ pathString }] = items;
             const pathArray = pathString.split('/').filter((val) => val);
             const id = pathArray.splice(1, pathArray.length - 1).join();
 
@@ -68,7 +70,7 @@ const Filters = ({ search }) => {
         const mergedConfig = {
             onConfirm,
             onCancel: closeUDW,
-            tabs: window.ibexa.adminUiConfig.universalDiscoveryWidget.tabs,
+            tabs: ibexa.adminUiConfig.universalDiscoveryWidget.tabs,
             title: 'Browsing content',
             ...config,
         };
@@ -90,7 +92,8 @@ const Filters = ({ search }) => {
                     <button
                         type="button"
                         className="btn ibexa-tag-view-select__selected-item-tag-remove-btn"
-                        onClick={clearSelectedSubtree}>
+                        onClick={clearSelectedSubtree}
+                    >
                         <Icon name="discard" extraClasses="ibexa-icon--tiny" />
                     </button>
                 </div>
@@ -101,12 +104,12 @@ const Filters = ({ search }) => {
         const selectLabel = Translator.trans(
             /*@Desc("Select content")*/ 'filters.tag_view_select.select',
             {},
-            'universal_discovery_widget'
+            'universal_discovery_widget',
         );
         const changeLabel = Translator.trans(
             /*@Desc("Change content")*/ 'filters.tag_view_change.select',
             {},
-            'universal_discovery_widget'
+            'universal_discovery_widget',
         );
 
         return (
@@ -127,7 +130,7 @@ const Filters = ({ search }) => {
             value: language.languageCode,
             label: language.name,
         }));
-    const sectionOptions = Object.entries(window.ibexa.adminUiConfig.sections).map(([sectionIdentifier, sectionName]) => ({
+    const sectionOptions = Object.entries(ibexa.adminUiConfig.sections).map(([sectionIdentifier, sectionName]) => ({
         value: sectionIdentifier,
         label: sectionName,
     }));
@@ -144,14 +147,15 @@ const Filters = ({ search }) => {
             <div className="c-filters__header">
                 <div className="c-filters__header-content">{filtersLabel}</div>
                 <div className="c-filters__header-actions">
-                    <button className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small" onClick={clearFilters}>
+                    <button className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small" type="button" onClick={clearFilters}>
                         {clearLabel}
                     </button>
                     <button
                         type="submit"
                         className="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-btn--apply"
                         onClick={makeSearch}
-                        disabled={!isApplyButtonEnabled}>
+                        disabled={!isApplyButtonEnabled}
+                    >
                         {applyLabel}
                     </button>
                 </div>

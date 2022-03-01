@@ -1,4 +1,4 @@
-(function (global, doc, ibexa) {
+(function (global, doc) {
     doc.querySelectorAll('.ibexa-collapse').forEach((collapseNode) => {
         const toggleButton = collapseNode.querySelector('.ibexa-collapse__toggle-btn');
         const isCollapsed = toggleButton.classList.contains('collapsed');

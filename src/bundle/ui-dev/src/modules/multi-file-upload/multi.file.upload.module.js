@@ -5,6 +5,8 @@ import UploadPopupComponent from './components/upload-popup/upload.popup.compone
 import { createFileStruct, publishFile, deleteFile, checkCanUpload } from './services/multi.file.upload.service';
 import Icon from '../common/icon/icon';
 
+const { Translator, ibexa } = window;
+
 export default class MultiFileUploadModule extends Component {
     constructor(props) {
         super(props);
@@ -92,7 +94,7 @@ export default class MultiFileUploadModule extends Component {
      * @memberof MultiFileUploadModule
      */
     hidePopup() {
-        this.setState((state) => Object.assign({}, state, { popupVisible: false }));
+        this.setState((state) => ({ ...state, popupVisible: false }));
 
         this.props.onPopupClose(this._itemsUploaded);
     }
@@ -104,12 +106,7 @@ export default class MultiFileUploadModule extends Component {
      * @memberof MultiFileUploadModule
      */
     showUploadPopup() {
-        this.setState((state) =>
-            Object.assign({}, state, {
-                popupVisible: true,
-                itemsToUpload: [],
-            })
-        );
+        this.setState((state) => ({ ...state, popupVisible: true, itemsToUpload: [] }));
     }
 
     /**
@@ -146,13 +143,7 @@ export default class MultiFileUploadModule extends Component {
         window.removeEventListener('drop', this.handleDropOnWindow, false);
         window.removeEventListener('dragover', this.preventDefaultAction, false);
 
-        this.setState((state) =>
-            Object.assign({}, state, {
-                itemsToUpload,
-                popupVisible: true,
-                allowDropOnWindow: false,
-            })
-        );
+        this.setState((state) => ({ ...state, itemsToUpload, popupVisible: true, allowDropOnWindow: false }));
     }
 
     /**
@@ -217,15 +208,11 @@ export default class MultiFileUploadModule extends Component {
             return null;
         }
 
-        const uploadDisabled = this.state.uploadDisabled;
+        const { uploadDisabled } = this.state;
         const label = Translator.trans(/*@Desc("Upload")*/ 'multi_file_upload_open_btn.label', {}, 'multi_file_upload');
 
         return (
-            <button
-                type="button"
-                className="btn ibexa-btn ibexa-btn--ghost"
-                onClick={this.showUploadPopup}
-                disabled={uploadDisabled}>
+            <button type="button" className="btn ibexa-btn ibexa-btn--ghost" onClick={this.showUploadPopup} disabled={uploadDisabled}>
                 <Icon name="upload" extraClasses="ibexa-icon--small" /> {label}
             </button>
         );
@@ -306,4 +293,5 @@ MultiFileUploadModule.defaultProps = {
     itemsToUpload: [],
     withUploadButton: true,
     currentLanguage: '',
+    contentCreatePermissionsConfig: {},
 };

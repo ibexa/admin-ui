@@ -5,8 +5,10 @@ import ContentTableItem from './content.table.item';
 import Pagination from '../../../common/pagination/pagination';
 import { MultipleConfigContext } from '../../universal.discovery.module';
 
+const { Translator, ibexa } = window;
+
 const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPageChange, renderCustomHeader }) => {
-    const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
+    const [multiple] = useContext(MultipleConfigContext);
     const refContentTable = useRef(null);
     const nameLabel = Translator.trans(/*@Desc("Name")*/ 'content_table.name', {}, 'universal_discovery_widget');
     const modifiedLabel = Translator.trans(/*@Desc("Modified")*/ 'content_table.modified', {}, 'universal_discovery_widget');
@@ -18,7 +20,7 @@ const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPa
     );
 
     useEffect(() => {
-        window.ibexa.helpers.tooltips.parse(refContentTable.current);
+        ibexa.helpers.tooltips.parse(refContentTable.current);
     }, []);
 
     return (
@@ -74,6 +76,7 @@ ContentTable.propTypes = {
 
 ContentTable.defaultProps = {
     title: '',
+    renderCustomHeader: null,
 };
 
 export default ContentTable;

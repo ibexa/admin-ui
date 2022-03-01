@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezemail';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
 

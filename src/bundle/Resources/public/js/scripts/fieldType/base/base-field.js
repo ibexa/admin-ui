@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     class BaseFieldValidator {
         constructor(config) {
             this.classInvalid = config.classInvalid;

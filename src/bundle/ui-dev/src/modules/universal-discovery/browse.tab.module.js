@@ -7,8 +7,10 @@ import TreeView from './components/tree-view/tree.view';
 
 import { CurrentViewContext, TabsConfigContext } from './universal.discovery.module';
 
+const { Translator, ibexa } = window;
+
 const BrowseTabModule = () => {
-    const [currentView, setCurrentView] = useContext(CurrentViewContext);
+    const [currentView] = useContext(CurrentViewContext);
     const tabsConfig = useContext(TabsConfigContext);
     const views = {
         grid: <GridView itemsPerPage={tabsConfig.browse.itemsPerPage} />,
@@ -33,7 +35,7 @@ ibexa.addConfig(
             icon: window.ibexa.helpers.icon.getIconPath('browse'),
         },
     ],
-    true
+    true,
 );
 
 export default BrowseTabModule;

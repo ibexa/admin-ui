@@ -1,4 +1,4 @@
-(function(global, doc, moment) {
+(function (global, doc, moment) {
     const SELECTOR_SHORT_DATE_FORMAT = '#user_setting_update_short_datetime_format_value_date_format';
     const SELECTOR_SHORT_TIME_FORMAT = '#user_setting_update_short_datetime_format_value_time_format';
     const SELECTOR_FULL_DATE_FORMAT = '#user_setting_update_full_datetime_format_value_date_format';

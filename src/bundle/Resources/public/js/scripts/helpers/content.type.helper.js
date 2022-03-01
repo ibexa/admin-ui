@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     let contentTypesDataMap = null;
 
     /**
@@ -58,6 +58,6 @@
 
     ibexa.addConfig('helpers.contentType', {
         getContentTypeIconUrl,
-        getContentTypeName
+        getContentTypeName,
     });
 })(window, window.document, window.ibexa);

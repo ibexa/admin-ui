@@ -1,4 +1,4 @@
-(function(global, doc, localStorage, bootstrap, React, ReactDOM, ibexa, Routing, Translator) {
+(function (global, doc, localStorage, bootstrap, React, ReactDOM, ibexa, Routing, Translator) {
     const SELECTOR_MODAL_BULK_ACTION_FAIL = '#bulk-action-failed-modal';
     const listContainers = doc.querySelectorAll('.ibexa-sil');
     const mfuContainer = doc.querySelector('#ibexa-mfu');
@@ -51,7 +51,7 @@
         const errorMessage = Translator.trans(
             /*@Desc("You don't have permission to edit this Content item")*/ 'content.edit.permission.error',
             {},
-            'content'
+            'content',
         );
         const handleCanEditCheck = (response) => {
             if (response.canEdit) {
@@ -187,7 +187,7 @@
                 udwConfigBulkAddLocation,
                 showBulkActionFailedModal,
             }),
-            container
+            container,
         );
     });
 })(
@@ -199,5 +199,5 @@
     window.ReactDOM,
     window.ibexa,
     window.Routing,
-    window.Translator
+    window.Translator,
 );

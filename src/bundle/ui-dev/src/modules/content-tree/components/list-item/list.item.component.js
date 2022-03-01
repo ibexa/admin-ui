@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../../../common/icon/icon';
 
+const { ibexa, Translator } = window;
+
 class ListItem extends Component {
     constructor(props) {
         super(props);
@@ -21,7 +23,7 @@ class ListItem extends Component {
     }
 
     getSecondaryItemActions() {
-        const { secondaryItemActions } = window.ibexa.adminUiConfig.contentTreeWidget;
+        const { secondaryItemActions } = ibexa.adminUiConfig.contentTreeWidget;
 
         if (!secondaryItemActions) {
             return [];
@@ -33,7 +35,7 @@ class ListItem extends Component {
     }
 
     getSortedActions() {
-        const { itemActions } = window.ibexa.adminUiConfig.contentTreeWidget;
+        const { itemActions } = ibexa.adminUiConfig.contentTreeWidget;
         const actions = itemActions ? [...itemActions] : [];
 
         return actions.sort((actionA, actionB) => {
@@ -46,17 +48,17 @@ class ListItem extends Component {
     }
 
     toggleExpandedState() {
-        const { path, treeMaxDepth } = this.props;
-        const currentDepth = path.split(',').length - 1;
+        const { path: currentPath, treeMaxDepth } = this.props;
+        const currentDepth = currentPath.split(',').length - 1;
 
         if (currentDepth >= treeMaxDepth) {
             const notificationMessage = Translator.trans(
                 /*@Desc("Cannot load sub-items for this Location because you reached max tree depth.")*/ 'expand_item.limit.message',
                 {},
-                'content_tree'
+                'content_tree',
             );
 
-            window.ibexa.helpers.notification.showWarningNotification(notificationMessage);
+            ibexa.helpers.notification.showWarningNotification(notificationMessage);
 
             return;
         }
@@ -68,7 +70,7 @@ class ListItem extends Component {
 
                 afterItemToggle(path, this.state.isExpanded);
                 this.handleAfterExpandedStateChange();
-            }
+            },
         );
     }
 
@@ -100,8 +102,8 @@ class ListItem extends Component {
                         offset: subitems.length,
                         limit: subitemsLoadLimit,
                     },
-                    this.cancelLoadingState
-                )
+                    this.cancelLoadingState,
+                ),
         );
     }
 
@@ -190,14 +192,14 @@ class ListItem extends Component {
         };
 
         return (
-            <div className="c-list-item__row" style={{'--indent': indent}}>
+            <div className="c-list-item__row" style={{ '--indent': indent }}>
                 <div className="c-list-item__prefix-actions">
                     {this.secondaryItemActions.map((action) => {
                         const ActionComponent = action.component;
 
                         return (
-                            <div className="c-list-item__prefix-actions-item">
-                                <ActionComponent key={action.id} {...this.props} />
+                            <div key={action.id} className="c-list-item__prefix-actions-item">
+                                <ActionComponent {...this.props} />
                             </div>
                         );
                     })}
@@ -214,8 +216,8 @@ class ListItem extends Component {
                         const ActionComponent = action.component;
 
                         return (
-                            <div className="c-list-item__actions-item">
-                                <ActionComponent key={action.id} {...this.props} />
+                            <div key={action.id} className="c-list-item__actions-item">
+                                <ActionComponent {...this.props} />
                             </div>
                         );
                     })}
@@ -271,7 +273,7 @@ ListItem.propTypes = {
     totalSubitemsCount: PropTypes.number.isRequired,
     subitems: PropTypes.array.isRequired,
     children: PropTypes.element,
-    hidden: PropTypes.bool.isRequired,
+    hidden: PropTypes.bool,
     isContainer: PropTypes.bool.isRequired,
     selected: PropTypes.bool.isRequired,
     locationId: PropTypes.number.isRequired,
@@ -282,14 +284,18 @@ ListItem.propTypes = {
     subitemsLoadLimit: PropTypes.number,
     treeMaxDepth: PropTypes.number.isRequired,
     afterItemToggle: PropTypes.func.isRequired,
-    isRootItem: PropTypes.bool.isRequired,
+    isRootItem: PropTypes.bool,
     onClick: PropTypes.func,
+    indent: PropTypes.number,
 };
 
 ListItem.defaultProps = {
+    children: null,
     hidden: false,
     isRootItem: false,
     onClick: () => {},
+    subitemsLoadLimit: null,
+    indent: 0,
 };
 
 export default ListItem;

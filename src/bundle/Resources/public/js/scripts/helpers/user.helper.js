@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const getId = () => doc.querySelector('meta[name="UserId"]').content;
 
     ibexa.addConfig('helpers.user', {

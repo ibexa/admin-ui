@@ -13,15 +13,17 @@ import {
     ContentTypesMapContext,
 } from '../..//universal.discovery.module';
 
+const { Routing, ibexa } = window;
+
 const ContentEditButton = ({ version, location, isDisabled, label }) => {
     const restInfo = useContext(RestInfoContext);
     const allowRedirects = useContext(AllowRedirectsContext);
-    const [editOnTheFlyData, setEditOnTheFlyData] = useContext(EditOnTheFlyDataContext);
-    const [activeTab, setActiveTab] = useContext(ActiveTabContext);
+    const [, setEditOnTheFlyData] = useContext(EditOnTheFlyDataContext);
+    const [, setActiveTab] = useContext(ActiveTabContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const [isTranslationSelectorVisible, setIsTranslationSelectorVisible] = useState(false);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
-    const isUserContentType = window.ibexa.adminUiConfig.userContentTypes.includes(contentTypeInfo.identifier);
+    const isUserContentType = ibexa.adminUiConfig.userContentTypes.includes(contentTypeInfo.identifier);
     const btnClassName = createCssClassNames({
         'c-content-edit-button__btn btn ibexa-btn ibexa-btn--ghost': true,
         'ibexa-btn--no-text': label !== null,
@@ -46,25 +48,25 @@ const ContentEditButton = ({ version, location, isDisabled, label }) => {
     const redirectToContentEdit = (contentId, versionNo, language, locationId) => {
         if (allowRedirects) {
             const href = isUserContentType
-                ? window.Routing.generate(
-                    'ibexa.user.update',
-                    {
-                        contentId,
-                        versionNo,
-                        language,
-                    },
-                    true
-                )
-                : window.Routing.generate(
-                    'ibexa.content.draft.edit',
-                    {
-                        contentId,
-                        versionNo,
-                        language,
-                        locationId,
-                    },
-                    true
-                );
+                ? Routing.generate(
+                      'ibexa.user.update',
+                      {
+                          contentId,
+                          versionNo,
+                          language,
+                      },
+                      true,
+                  )
+                : Routing.generate(
+                      'ibexa.content.draft.edit',
+                      {
+                          contentId,
+                          versionNo,
+                          language,
+                          locationId,
+                      },
+                      true,
+                  );
 
             window.location.href = href;
 
@@ -93,7 +95,7 @@ const ContentEditButton = ({ version, location, isDisabled, label }) => {
                 ...restInfo,
                 contentId,
             },
-            (response) => redirectToContentEdit(contentId, response.Version.VersionInfo.versionNo, languageCode, location.id)
+            (response) => redirectToContentEdit(contentId, response.Version.VersionInfo.versionNo, languageCode, location.id),
         );
     };
     const renderTranslationSelector = () => {
@@ -114,6 +116,7 @@ const ContentEditButton = ({ version, location, isDisabled, label }) => {
                 disabled={!version || isDisabled}
                 onClick={toggleTranslationSelectorVisibility}
                 data-tooltip-container-selector=".c-udw-tab"
+                type="button"
             >
                 <Icon name="edit" extraClasses="ibexa-icon--small" />
                 {label}
@@ -132,6 +135,6 @@ ContentEditButton.propTypes = {
 
 ContentEditButton.defaultProps = {
     label: null,
-}
+};
 
 export default ContentEditButton;

@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const SELECTOR_PLACEHOLDER = '.ibexa-draggable__placeholder';
     const SELECTOR_PREVENT_DRAG = '.ibexa-draggable__prevent-drag';
     const TIMEOUT_REMOVE_PLACEHOLDERS = 500;

@@ -1,7 +1,6 @@
-(function(global, doc, bootstrap) {
+(function (global, doc, bootstrap) {
     const toggleForm = doc.querySelector('form[name="location_trash_container"]');
-    const hasAsset = toggleForm.dataset.hasAsset;
-    const hasUniqueAsset = toggleForm.dataset.hasUniqueAsset;
+    const { hasAsset, hasUniqueAsset } = toggleForm.dataset;
 
     const openTrashImageAssetModal = (event) => {
         if (!hasAsset && !hasUniqueAsset) {

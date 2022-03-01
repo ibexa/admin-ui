@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     const barDefaultOptions = {
         scales: {
             xAxes: [

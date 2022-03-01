@@ -21,20 +21,16 @@ const PopupActions = ({ listRef, options }) => {
         return [...headerActions].sort((headerActionA, headerActionB) => {
             return headerActionB.priority - headerActionA.priority;
         });
-    }
+    };
     const renderItem = (item) => {
         const Component = item.component;
 
         return (
-            <li
-                className="c-popup-actions__item"
-                key={item.id}
-                onClick={toggleExpanded}
-            >
+            <li className="c-popup-actions__item" key={item.id} onClick={toggleExpanded}>
                 <Component />
             </li>
-        )
-    }
+        );
+    };
     const renderItemsList = () => {
         const itemsStyles = {};
         const allOptions = [...options, ...getHeaderActions()];
@@ -48,12 +44,10 @@ const PopupActions = ({ listRef, options }) => {
 
         return (
             <div className="c-popup-actions__items" style={itemsStyles} ref={containerItemsRef}>
-                <ul className="c-popup-actions__items-list">
-                    {allOptions.map(renderItem)}
-                </ul>
+                <ul className="c-popup-actions__items-list">{allOptions.map(renderItem)}</ul>
             </div>
-        )
-    }
+        );
+    };
 
     useEffect(() => {
         if (!isExpanded) {
@@ -66,28 +60,21 @@ const PopupActions = ({ listRef, options }) => {
             }
 
             setIsExpanded(false);
-        }
+        };
 
         document.body.addEventListener('click', onInteractionOutside, false);
 
         return () => {
             document.body.removeEventListener('click', onInteractionOutside, false);
-        }
+        };
     }, [isExpanded]);
 
     return (
         <>
-            <div
-                className="c-popup-actions"
-                ref={containerRef}
-                onClick={toggleExpanded}
-            >
+            <div className="c-popup-actions" ref={containerRef} onClick={toggleExpanded}>
                 <Icon name="options" extraClasses="ibexa-icon--small" />
             </div>
-            {isExpanded && ReactDOM.createPortal(
-                renderItemsList(),
-                listRef.current,
-            )}
+            {isExpanded && ReactDOM.createPortal(renderItemsList(), listRef.current)}
         </>
     );
 };

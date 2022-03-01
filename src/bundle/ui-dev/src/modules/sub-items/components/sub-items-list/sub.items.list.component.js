@@ -30,4 +30,8 @@ SubItemsListComponent.propTypes = {
     languageContainerSelector: PropTypes.string.isRequired,
 };
 
+SubItemsListComponent.defaultProps = {
+    items: [],
+};
+
 export default SubItemsListComponent;

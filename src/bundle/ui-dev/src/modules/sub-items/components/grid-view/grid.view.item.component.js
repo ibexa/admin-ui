@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../../../common/icon/icon';
 
+const { ibexa } = window;
+
 const GridViewItemComponent = ({ item, generateLink }) => {
     const { id: locationId, content } = item;
     const imageClassName = 'ibexa-grid-view-item__image';

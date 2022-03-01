@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const { Translator } = window;
+
 const ProgressBarComponent = (props) => {
     const message = Translator.trans(/*@Desc("Uploading...")*/ 'upload.progress_bar.uploading', {}, 'multi_file_upload');
 
@@ -16,8 +18,6 @@ const ProgressBarComponent = (props) => {
 
 ProgressBarComponent.propTypes = {
     progress: PropTypes.number.isRequired,
-    uploaded: PropTypes.string.isRequired,
-    total: PropTypes.string.isRequired,
 };
 
 export default ProgressBarComponent;

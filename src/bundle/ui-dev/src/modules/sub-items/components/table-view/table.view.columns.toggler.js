@@ -6,6 +6,8 @@ import TableViewColumnsTogglerListElement from './table.view.columns.toggler.lis
 import { headerLabels } from './table.view.component';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
+const { Translator } = window;
+
 const DEFAULT_PANEL_HEIGHT = 450;
 
 export default class TableViewColumnsTogglerComponent extends Component {
@@ -117,7 +119,8 @@ export default class TableViewColumnsTogglerComponent extends Component {
                     type="button"
                     title={filterLabel}
                     className="btn ibexa-btn ibexa-btn--small ibexa-btn--ghost ibexa-btn--no-text"
-                    onClick={this.togglePanel}>
+                    onClick={this.togglePanel}
+                >
                     <Icon name="filters" extraClasses="ibexa-icon--small" />
                 </button>
                 {this.renderPanel()}

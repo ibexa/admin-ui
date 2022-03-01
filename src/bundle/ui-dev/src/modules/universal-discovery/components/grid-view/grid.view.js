@@ -12,8 +12,8 @@ const SCROLL_OFFSET = 200;
 const GridView = ({ itemsPerPage }) => {
     const [offset, setOffset] = useState(0);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
-    const [sorting, setSorting] = useContext(SortingContext);
-    const [sortOrder, setSortOrder] = useContext(SortOrderContext);
+    const [sorting] = useContext(SortingContext);
+    const [sortOrder] = useContext(SortOrderContext);
     const sortingOptions = SORTING_OPTIONS.find((option) => option.sortClause === sorting);
     const locationData = loadedLocationsMap.length ? loadedLocationsMap[loadedLocationsMap.length - 1] : { subitems: [] };
     const [loadedLocations, isLoading] = useFindLocationsByParentLocationIdFetch(
@@ -21,7 +21,7 @@ const GridView = ({ itemsPerPage }) => {
         { sortClause: sortingOptions.sortClause, sortOrder },
         itemsPerPage,
         offset,
-        true
+        true,
     );
     const loadMore = ({ target }) => {
         const areAllItemsLoaded = locationData.subitems.length >= loadedLocations.totalCount;

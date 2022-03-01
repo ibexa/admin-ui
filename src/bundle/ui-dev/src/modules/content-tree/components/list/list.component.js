@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ListItem from '../list-item/list.item.component';
 
+const { Translator } = window;
+
 const List = ({
     items,
     loadMoreSubitems,
@@ -19,7 +21,7 @@ const List = ({
     const listAttrs = { ...commonAttrs, currentLocationId };
     const listItemAttrs = commonAttrs;
     const renderNoSubitemMessage = () => {
-        const rootLocation = items[0];
+        const [rootLocation] = items;
         const isRootLoaded = rootLocation;
         const noSubitemsMessage = Translator.trans(/*@Desc("This Location has no sub-items")*/ 'no_subitems', {}, 'content_tree');
 
@@ -38,7 +40,7 @@ const List = ({
                     contentId: item.contentId,
                     locationId: item.locationId,
                 });
-                const itemPath = `${hasPreviousPath ? path + ',' : ''}${item.locationId}`;
+                const itemPath = `${hasPreviousPath ? `${path},` : ''}${item.locationId}`;
                 const { subitems } = item;
 
                 return (
@@ -51,7 +53,8 @@ const List = ({
                         isRootItem={isRoot}
                         onClick={onClickItem.bind(null, item)}
                         path={itemPath}
-                        indent={indent}>
+                        indent={indent}
+                    >
                         {subitems.length ? (
                             <List path={itemPath} items={subitems} isRoot={false} indent={indent + 1} {...listAttrs} />
                         ) : (
@@ -74,7 +77,7 @@ List.propTypes = {
     treeMaxDepth: PropTypes.number.isRequired,
     afterItemToggle: PropTypes.func.isRequired,
     indent: PropTypes.number,
-    isRoot: PropTypes.bool.isRequired,
+    isRoot: PropTypes.bool,
     onClickItem: PropTypes.func,
 };
 
@@ -82,6 +85,7 @@ List.defaultProps = {
     indent: 0,
     isRoot: false,
     onClickItem: () => {},
+    subitemsLoadLimit: null,
 };
 
 export default List;

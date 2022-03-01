@@ -15,16 +15,18 @@ import {
     AllowedContentTypesContext,
 } from '../../universal.discovery.module';
 
+const { document, ibexa } = window;
+
 const FinderLeaf = ({ location }) => {
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
-    const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
+    const [multiple] = useContext(MultipleConfigContext);
     const containersOnly = useContext(ContainersOnlyContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
-    const isContainer = contentTypeInfo.isContainer;
+    const { isContainer } = contentTypeInfo;
     const isSelected = selectedLocations.some((selectedLocation) => selectedLocation.location.id === location.id);
     const isNotSelectable =
         (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeInfo.identifier));
@@ -60,7 +62,7 @@ const FinderLeaf = ({ location }) => {
     });
 
     useEffect(() => {
-        window.ibexa.helpers.tooltips.parse(window.document.querySelector('.c-udw-tab'));
+        ibexa.helpers.tooltips.parse(document.querySelector('.c-udw-tab'));
     }, []);
 
     return (

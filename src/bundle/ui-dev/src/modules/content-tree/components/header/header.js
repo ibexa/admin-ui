@@ -5,6 +5,8 @@ import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
 import PopupActions from '../popup-actions/popup.actions';
 
+const { Translator } = window;
+
 const Header = ({ isCollapsed, toggleCollapseTree, actions, popupRef }) => {
     const headerTitle = Translator.trans(/*@Desc("Content tree")*/ 'content_tree.header', {}, 'content_tree');
     const renderCollapseButton = () => {
@@ -20,18 +22,9 @@ const Header = ({ isCollapsed, toggleCollapseTree, actions, popupRef }) => {
                 className="ibexa-btn btn ibexa-btn--no-text ibexa-btn--tertiary c-header__toggle-btn"
                 onClick={toggleCollapseTree}
             >
-                {isCollapsed && (
-                    <Icon
-                        name="content-tree"
-                        extraClasses="ibexa-icon--small"
-                    />
-                )}
-                <Icon
-                    name={iconName}
-                    extraClasses={caretIconClass}
-                />
+                {isCollapsed && <Icon name="content-tree" extraClasses="ibexa-icon--small" />}
+                <Icon name={iconName} extraClasses={caretIconClass} />
             </button>
-
         );
     };
 
@@ -43,10 +36,7 @@ const Header = ({ isCollapsed, toggleCollapseTree, actions, popupRef }) => {
         <div className="c-header">
             {renderCollapseButton()}
             <div className="c-header__name">
-                <Icon
-                    name="content-tree"
-                    extraClasses="ibexa-icon--small"
-                />
+                <Icon name="content-tree" extraClasses="ibexa-icon--small" />
                 {headerTitle}
             </div>
             <div className="c-header__options">

@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function (global, doc, eZ) {
     doc.querySelectorAll('.ibexa-toggle').forEach((toggleNode) => {
         const toggleButton = new eZ.core.ToggleButton({ toggleNode });
 

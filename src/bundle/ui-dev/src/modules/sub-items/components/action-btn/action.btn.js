@@ -33,7 +33,7 @@ ActionButton.propTypes = {
     onClick: PropTypes.func.isRequired,
 };
 
-ActionButton.defaultPropTypes = {
+ActionButton.defaultProps = {
     label: null,
     title: null,
 };

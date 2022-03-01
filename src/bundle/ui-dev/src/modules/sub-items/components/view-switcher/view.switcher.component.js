@@ -4,6 +4,8 @@ import Icon from '../../../common/icon/icon';
 
 import { VIEW_MODE_TABLE, VIEW_MODE_GRID } from '../../sub.items.module';
 
+const { Translator } = window;
+
 const ViewSwitcherComponent = ({ onViewChange, activeView, isDisabled }) => {
     let componentClassName = 'c-view-switcher';
 
@@ -27,7 +29,8 @@ const ViewSwitcherComponent = ({ onViewChange, activeView, isDisabled }) => {
     return (
         <div className={componentClassName}>
             <button type="button" className={btnClassName} title={viewBtnTitle} onClick={switchView} disabled={isDisabled}>
-                {viewBtnLabel} <Icon name={viewBtnIconName} extraClasses="ibexa-icon--small" />
+                {viewBtnLabel}
+                <Icon name={viewBtnIconName} extraClasses="ibexa-icon--small" />
             </button>
         </div>
     );

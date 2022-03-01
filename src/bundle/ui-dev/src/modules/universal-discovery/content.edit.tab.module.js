@@ -10,17 +10,16 @@ import {
 } from './universal.discovery.module';
 import { findLocationsByParentLocationId } from './services/universal.discovery.service';
 import deepClone from '../common/helpers/deep.clone.helper';
-import { createCssClassNames } from '../common/helpers/css.class.names';
+
+const { ibexa, Translator, Routing } = window;
 
 const ContentEditTabModule = () => {
     const restInfo = useContext(RestInfoContext);
     const tabs = useContext(TabsContext);
-    const [activeTab, setActiveTab] = useContext(ActiveTabContext);
+    const [, setActiveTab] = useContext(ActiveTabContext);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const [editOnTheFlyData, setEditOnTheFlyData] = useContext(EditOnTheFlyDataContext);
-    const cancelLabel = Translator.trans(/*@Desc("Cancel")*/ 'content_edit.cancel.label', {}, 'universal_discovery_widget');
-    const confirmLabel = Translator.trans(/*@Desc("Confirm")*/ 'content_edit.confirm.label', {}, 'universal_discovery_widget');
     const iframeRef = useRef();
     const publishContent = () => {
         const submitButton = iframeRef.current.contentWindow.document.body.querySelector('[data-action="publish"]');
@@ -51,8 +50,8 @@ const ContentEditTabModule = () => {
         });
 
         clonedLocationsMap.forEach((clonedLocation) => {
-            const subitem = clonedLocation.subitems.find((subitem) => {
-                return subitem.location.id === locationId;
+            const subitem = clonedLocation.subitems.find(({ location }) => {
+                return location.id === locationId;
             });
 
             if (subitem) {
@@ -82,7 +81,7 @@ const ContentEditTabModule = () => {
         iframeCancelBtn?.addEventListener('click', cancelContentEdit, false);
         iframeBackBtn?.addEventListener('click', cancelContentEdit, false);
     };
-    const iframeUrl = window.Routing.generate(
+    const iframeUrl = Routing.generate(
         'ibexa.content.on_the_fly.edit',
         {
             contentId: editOnTheFlyData.contentId,
@@ -90,7 +89,7 @@ const ContentEditTabModule = () => {
             languageCode: editOnTheFlyData.languageCode,
             locationId: editOnTheFlyData.locationId,
         },
-        true
+        true,
     );
 
     return (
@@ -110,7 +109,7 @@ ibexa.addConfig(
             isHiddenOnList: true,
         },
     ],
-    true
+    true,
 );
 
 export default ContentEditTabModule;

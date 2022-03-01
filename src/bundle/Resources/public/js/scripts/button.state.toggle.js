@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const toggleForms = doc.querySelectorAll('.ibexa-toggle-btn-state');
 
     toggleForms.forEach((toggleForm) => {

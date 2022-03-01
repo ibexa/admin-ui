@@ -23,20 +23,20 @@ import {
 
 const ContentTableItem = ({ location }) => {
     const restInfo = useContext(RestInfoContext);
-    const [currentView, setCurrentView] = useContext(CurrentViewContext);
-    const [sorting, setSorting] = useContext(SortingContext);
-    const [sortOrder, setSortOrder] = useContext(SortOrderContext);
-    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const [currentView] = useContext(CurrentViewContext);
+    const [sorting] = useContext(SortingContext);
+    const [sortOrder] = useContext(SortOrderContext);
+    const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
-    const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
-    const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
+    const [, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
+    const [multiple] = useContext(MultipleConfigContext);
     const rootLocationId = useContext(RootLocationIdContext);
     const { formatShortDateTime } = window.ibexa.helpers.timezone;
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
     const containersOnly = useContext(ContainersOnlyContext);
-    const isContainer = contentTypeInfo.isContainer;
+    const { isContainer } = contentTypeInfo;
     const isNotSelectable =
         (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeInfo.identifier));
     const className = createCssClassNames({

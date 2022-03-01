@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc, ibexa) {
     class MultiInputFieldValidator extends ibexa.BaseFieldValidator {
         constructor({ containerSelectors, ...restProps }) {
             super(restProps);

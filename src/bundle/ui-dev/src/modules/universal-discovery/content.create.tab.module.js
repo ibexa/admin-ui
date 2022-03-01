@@ -14,10 +14,11 @@ import {
 } from './universal.discovery.module';
 import { findLocationsById } from './services/universal.discovery.service';
 import deepClone from '../common/helpers/deep.clone.helper';
-import { createCssClassNames } from '../common/helpers/css.class.names';
+
+const { ibexa, Translator, Routing } = window;
 
 const generateIframeUrl = ({ locationId, languageCode, contentTypeIdentifier }) => {
-    return window.Routing.generate('ibexa.content.on_the_fly.create', {
+    return Routing.generate('ibexa.content.on_the_fly.create', {
         locationId,
         languageCode,
         contentTypeIdentifier,
@@ -30,11 +31,11 @@ const ContentCreateTabModule = () => {
     const contentOnTheFlyConfig = useContext(ContentOnTheFlyConfigContext);
     const onConfirm = useContext(ConfirmContext);
     const restInfo = useContext(RestInfoContext);
-    const [activeTab, setActiveTab] = useContext(ActiveTabContext);
-    const [createContentVisible, setCreateContentVisible] = useContext(CreateContentWidgetContext);
+    const [, setActiveTab] = useContext(ActiveTabContext);
+    const [, setCreateContentVisible] = useContext(CreateContentWidgetContext);
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
-    const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
+    const [multiple] = useContext(MultipleConfigContext);
     const iframeUrl = generateIframeUrl(contentOnTheFlyData);
     const iframeRef = createRef();
     const cancelContentCreate = () => {
@@ -89,8 +90,6 @@ const ContentCreateTabModule = () => {
         iframeCancelBtn?.addEventListener('click', handleCancelInIframe, false);
         iframeBackBtn?.addEventListener('click', handleCancelInIframe, false);
     };
-    const cancelLabel = Translator.trans(/*@Desc("Cancel")*/ 'content_create.cancel.label', {}, 'universal_discovery_widget');
-    const confirmLabel = Translator.trans(/*@Desc("Confirm")*/ 'content_create.confirm.label', {}, 'universal_discovery_widget');
 
     return (
         <div className="m-content-create">
@@ -106,7 +105,7 @@ ibexa.addConfig(
             id: 'content-create',
             component: ContentCreateTabModule,
             label: Translator.trans(/*@Desc("Content create")*/ 'content_create.label', {}, 'universal_discovery_widget'),
-            icon: window.ibexa.helpers.icon.getIconPath('search'),
+            icon: ibexa.helpers.icon.getIconPath('search'),
             isHiddenOnList: true,
         },
     ],

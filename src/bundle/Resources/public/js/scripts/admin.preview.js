@@ -1,4 +1,4 @@
-(function(global, doc) {
+(function (global, doc) {
     const CLASS_BTN_SELECTED = 'ibexa-preview-header__action--selected';
     const SELECTOR_BTN_ACTION = '.ibexa-preview-header__action';
     const SELECTOR_PREVIEW_SITEACCESS_SELECT = '.ibexa-preview-header__item--siteaccess select';
@@ -22,6 +22,6 @@
     };
     doc.querySelectorAll(SELECTOR_BTN_ACTION).forEach((btn) => btn.addEventListener('click', changePreviewMode, false));
     doc.querySelectorAll(SELECTOR_PREVIEW_SITEACCESS_SELECT).forEach((select) =>
-        select.addEventListener('change', changePreviewSiteaccess, false)
+        select.addEventListener('change', changePreviewSiteaccess, false),
     );
 })(window, window.document);

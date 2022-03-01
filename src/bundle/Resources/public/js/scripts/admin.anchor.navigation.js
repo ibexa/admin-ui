@@ -1,4 +1,4 @@
-(function(global, doc, ibexa) {
+(function (global, doc) {
     const scrollOffset = 300;
     const formContainerNode = doc.querySelector('.ibexa-edit-content');
     const allSections = [...doc.querySelectorAll('.ibexa-anchor-navigation-sections__section')];
@@ -17,7 +17,7 @@
     const navigateTo = (event) => {
         const { anchorTargetSectionId } = event.currentTarget.dataset;
         const targetSection = [...doc.querySelectorAll('.ibexa-anchor-navigation-sections__section')].find(
-            (section) => section.dataset.anchorSectionId == anchorTargetSectionId
+            (section) => section.dataset.anchorSectionId === anchorTargetSectionId,
         );
 
         if (isVerticalScrollVisible()) {
@@ -51,4 +51,4 @@
             }
         });
     }
-})(window, window.document, window.ibexa);
+})(window, window.document);

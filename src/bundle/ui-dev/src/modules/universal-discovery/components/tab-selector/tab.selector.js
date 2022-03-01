@@ -18,7 +18,7 @@ const TabSelector = () => {
 
                 return tabsConfig[tabB.id].priority - tabsConfig[tabA.id].priority;
             }),
-        [tabs, tabsConfig]
+        [tabs, tabsConfig],
     );
 
     return (
@@ -35,12 +35,7 @@ const TabSelector = () => {
                 });
 
                 return (
-                    <div
-                        className={className}
-                        key={tab.id}
-                        onClick={onClick}
-                        title={tab.label}
-                    >
+                    <div className={className} key={tab.id} onClick={onClick} title={tab.label}>
                         <Icon customPath={tab.icon} extraClasses="ibexa-icon--small-medium" />
                     </div>
                 );

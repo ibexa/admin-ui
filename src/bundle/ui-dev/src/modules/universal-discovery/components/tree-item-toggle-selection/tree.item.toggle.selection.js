@@ -12,11 +12,13 @@ import {
 import { findLocationsById } from '../../services/universal.discovery.service';
 import ToggleSelection from '../toggle-selection/toggle.selection';
 
+const { ibexa, document } = window;
+
 const TreeItemToggleSelection = ({ locationId, isContainer, contentTypeIdentifier }) => {
     const isUDW = useContext(UDWContext);
 
     useEffect(() => {
-        window.ibexa.helpers.tooltips.parse(window.document.querySelector('.c-list'));
+        ibexa.helpers.tooltips.parse(document.querySelector('.c-list'));
     }, []);
 
     if (!isUDW) {
@@ -44,14 +46,9 @@ const TreeItemToggleSelection = ({ locationId, isContainer, contentTypeIdentifie
     };
 
     return (
-        <SelectedLocationsContext.Provider
-            value={[
-                selectedLocations,
-                dispatchSelectedLocationsActionWrapper,
-            ]}
-        >
+        <SelectedLocationsContext.Provider value={[selectedLocations, dispatchSelectedLocationsActionWrapper]}>
             <ToggleSelection location={location} multiple={multiple} isHidden={isNotSelectable} />
-            {isNotSelectable && <div className="c-list-item__prefix-actions-item-empty"></div>}
+            {isNotSelectable && <div className="c-list-item__prefix-actions-item-empty" />}
         </SelectedLocationsContext.Provider>
     );
 };
@@ -65,7 +62,7 @@ ibexa.addConfig(
             component: TreeItemToggleSelection,
         },
     ],
-    true
+    true,
 );
 
 TreeItemToggleSelection.propTypes = {

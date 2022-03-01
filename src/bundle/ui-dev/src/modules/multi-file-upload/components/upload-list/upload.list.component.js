@@ -16,7 +16,7 @@ export default class UploadListComponent extends Component {
     UNSAFE_componentWillReceiveProps(props) {
         this.setState((state) => {
             const stateItems = state.itemsToUpload.filter(
-                (stateItem) => !props.itemsToUpload.find((propItem) => propItem.id === stateItem.id)
+                (stateItem) => !props.itemsToUpload.find((propItem) => propItem.id === stateItem.id),
             );
 
             return { itemsToUpload: [...stateItems, ...props.itemsToUpload] };
@@ -53,12 +53,7 @@ export default class UploadListComponent extends Component {
             const items = state.items.filter((data) => data.id !== item.id);
             const itemsToUpload = state.itemsToUpload.filter((data) => data.id !== item.id);
 
-            return Object.assign({}, state, {
-                uploaded: items.length,
-                total: items.length + itemsToUpload.length,
-                itemsToUpload,
-                items,
-            });
+            return { ...state, uploaded: items.length, total: items.length + itemsToUpload.length, itemsToUpload, items };
         });
     }
 
@@ -74,12 +69,7 @@ export default class UploadListComponent extends Component {
             const items = state.items.filter((data) => data.id !== item.id);
             const itemsToUpload = state.itemsToUpload.filter((data) => data.id !== item.id);
 
-            return Object.assign({}, state, {
-                uploaded: items.length,
-                total: items.length + itemsToUpload.length,
-                itemsToUpload,
-                items,
-            });
+            return { ...state, uploaded: items.length, total: items.length + itemsToUpload.length, itemsToUpload, items };
         });
     }
 
@@ -129,26 +119,22 @@ export default class UploadListComponent extends Component {
      */
     renderItem(item, customAttrs) {
         const { adminUiConfig, parentInfo, contentCreatePermissionsConfig, contentTypesMap, currentLanguage } = this.props;
-        const attrs = Object.assign(
-            {
-                key: item.id,
-                data: item,
-                adminUiConfig,
-                parentInfo,
-                contentCreatePermissionsConfig,
-                contentTypesMap,
-                currentLanguage,
-            },
-            customAttrs
-        );
+        const attrs = {
+            key: item.id,
+            data: item,
+            adminUiConfig,
+            parentInfo,
+            contentCreatePermissionsConfig,
+            contentTypesMap,
+            currentLanguage,
+            ...customAttrs,
+        };
 
         return <UploadItemComponent {...attrs} />;
     }
 
     render() {
         const { items, itemsToUpload } = this.state;
-        const uploaded = items.length;
-        const total = uploaded + itemsToUpload.length;
 
         return (
             <div className="c-upload-list">
