@@ -4,13 +4,12 @@
 
 {% block header %}
     {% set user_content_edit_menu = knp_menu_get('ezplatform_admin_ui.menu.user_create.sidebar_right', [], {
-        'parent_group': parent_group, 
+        'parent_group': parent_group,
         'content_type': content_type
     }) %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
         action_name: 'Create'|trans|desc('Creating'),
-        content_type_name: content_type.name,
         icon_name: content_type.name,
         show_autosave_status: false,
         title: 'new_content_item'|trans({'%contentType%': content_type.name})|desc('New %contentType%'),

@@ -1,5 +1,7 @@
 {% extends '@ibexadesign/content_type/edit_base.html.twig' %}
 
+{% trans_default_domain 'content_type' %}
+
 {% set language_code = content_type.mainLanguageCode %}
 
 {% block header %}
@@ -9,7 +11,7 @@
     }) %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
-        action_name: 'creating'|trans|desc('Creating Content type'),
+        action_name: 'creating'|trans|desc('Creating'),
         icon_name: 'file',
         title: 'creating.title'|trans|desc('New Content type'),
         show_autosave_status: false,

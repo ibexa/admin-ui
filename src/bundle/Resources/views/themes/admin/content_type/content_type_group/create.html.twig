@@ -8,9 +8,9 @@
     {% set content_type_group_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.content_type_group_create.sidebar_right') %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
-        action_name: 'content_type_group.creating'|trans|desc('Creating'),
+        action_name: 'content_type_group.new.action_name'|trans|desc('Creating'),
         icon_name: 'file',
-        title: 'content_type_group.view.add.title'|trans|desc('Creating a new Content Type group'),
+        title: 'content_type_group.view.new.title'|trans|desc('New Content Type group'),
         context_actions: knp_menu_render(content_type_group_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
 {% endblock %}
