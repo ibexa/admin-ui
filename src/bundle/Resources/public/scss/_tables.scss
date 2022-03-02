@@ -155,6 +155,10 @@
         padding-left: 0;
     }
 
+    .table &__header-cell--checkbox {
+        display: flex;
+    }
+
     &__cell-btns-wrapper {
         display: flex;
         align-items: center;

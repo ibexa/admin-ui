@@ -122,20 +122,22 @@
         margin-bottom: calculateRem(3px);
         background-color: transparent;
 
-        &.form-check-input {
+        &.form-check-input.form-check-input {
             float: none;
+            border-radius: calculateRem(2px);
+            background-image: none;
         }
 
         &::after {
             content: ' ';
             position: absolute;
-            top: calculateRem(2.5px);
+            top: calculateRem(3px);
             left: calculateRem(3px);
             display: block;
             width: calculateRem(8px);
             height: calculateRem(5px);
-            border-left: calculateRem(1.5px) solid transparent;
-            border-bottom: calculateRem(1.5px) solid transparent;
+            border-left: calculateRem(2px) solid transparent;
+            border-bottom: calculateRem(2px) solid transparent;
             transform: rotate(-45deg);
         }
 
