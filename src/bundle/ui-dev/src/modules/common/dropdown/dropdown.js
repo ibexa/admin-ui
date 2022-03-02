@@ -7,12 +7,12 @@ import Icon from '../../common/icon/icon';
 
 const { Translator } = window;
 
-const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, extraClasses }) => {
+const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, extraClasses, renderSelectedItem }) => {
     const containerRef = useRef();
     const containerItemsRef = useRef();
     const [isExpanded, setIsExpanded] = useState(false);
     const [filterText, setFilterText] = useState('');
-    const labelValue = options.find((option) => option.value === value)?.label;
+    const selectedItem = options.find((option) => option.value === value);
     const dropdownClassName = createCssClassNames({
         'ibexa-dropdown': true,
         'ibexa-dropdown--single': single,
@@ -105,7 +105,7 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
         }
 
         const onInteractionOutside = (event) => {
-            if (containerRef.current.contains(event.target) || containerItemsRef.current.contains(event.target)) {
+            if (containerRef.current.contains(event.target) || containerItemsRef.current?.contains(event.target)) {
                 return;
             }
 
@@ -128,7 +128,7 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
             <div className={dropdownClassName} ref={containerRef} onClick={toggleExpanded}>
                 <div className="ibexa-dropdown__wrapper">
                     <ul className="ibexa-dropdown__selection-info">
-                        <li className="ibexa-dropdown__selected-item">{labelValue}</li>
+                        <li className="ibexa-dropdown__selected-item">{renderSelectedItem(selectedItem)}</li>
                     </ul>
                 </div>
             </div>
@@ -145,12 +145,14 @@ Dropdown.propTypes = {
     small: PropTypes.bool,
     single: PropTypes.bool,
     extraClasses: PropTypes.string,
+    renderSelectedItem: PropTypes.func,
 };
 
 Dropdown.defaultProps = {
     small: false,
     single: false,
     extraClasses: '',
+    renderSelectedItem: (item) => item?.label,
 };
 
 export default Dropdown;

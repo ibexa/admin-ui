@@ -57,4 +57,17 @@
             width: calculateRem(800px);
         }
     }
+
+    &--has-subtitle {
+        .modal-header {
+            border-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .ibexa-modal__subheader {
+            border-bottom: calculateRem(1px) solid $ibexa-color-light-500;
+            padding-bottom: calculateRem(16px);
+            color: $ibexa-color-dark-400;
+        }
+    }
 }
