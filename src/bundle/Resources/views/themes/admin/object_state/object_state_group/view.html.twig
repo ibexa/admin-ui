@@ -8,57 +8,63 @@
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
         { url: path('ibexa.object_state.groups.list'), value: 'object_state_group.breadcrumb.list'|trans|desc('Object states') },
-        { value: 'object_state_group.breadcrumb.view'|trans({ '%name%': object_state_group.name })|desc('Object state group: %name%') },
+        { value: object_state_group.name },
     ]} %}
 {% endblock %}
 
-{% block title %}{{ 'object_state_group.view.title'|trans({ '%name%': object_state_group.name })|desc('Object state group: %name%') }}{% endblock %}
+{% block title %}{{ object_state_group.name }}{% endblock %}
 
 {% block header %}
     {% include '@ibexadesign/ui/page_title.html.twig' with {
-        title: 'object_state_group.view.title'|trans({ '%name%': object_state_group.name })|desc('Object state group: %name%'),
+        title: object_state_group.name,
     } %}
+{% endblock %}
+
+{% block context_menu %}
+    {% set menu_items %}
+        {% if can_administrate %}
+            <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
+                <a
+                    href="{{ path('ibexa.object_state.group.update', { objectStateGroupId: object_state_group.id }) }}"
+                    class="btn ibexa-btn ibexa-btn--secondary"
+                >
+                    <span class="ibexa-btn__label">
+                        {{ 'object_state_group.name.action.edit'|trans|desc('Edit') }}
+                    </span>
+                </a>
+            </li>
+        {% endif %}
+    {% endset %}
+
+    {{ include('@ibexadesign/ui/component/context_menu/context_menu.html.twig', {
+        menu_items: menu_items,
+    }) }}
 {% endblock %}
 
 {% block content %}
     <section class="container ibexa-container">
-        {% set body_row_cols = [] %}
+        {% set details_items = [
+            {
+                label: 'object_state_group.name'|trans|desc('Object state group name'),
+                content: object_state_group.name,
+            },
+            {
+                label: 'object_state_group.identifier'|trans|desc('Identifier'),
+                content: object_state_group.identifier,
+            },
+            {
+                label: 'object_state_group.id'|trans|desc('ID'),
+                content: object_state_group.id,
+            },
+        ] %}
 
-        {% set body_row_cols = body_row_cols|merge([
-            { content: object_state_group.name },
-            { content: object_state_group.identifier },
-            { content: object_state_group.id },
-        ]) %}
-
-        {% set col_raw %}
-            {% if can_administrate %}
-                <a
-                    title="{{ 'object_state_group.view.list.action.edit'|trans|desc('Edit') }}"
-                    href="{{ path('ibexa.object_state.group.update', {'objectStateGroupId': object_state_group.id}) }}"
-                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
-                >
-                    <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
-                        <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                    </svg>
-                </a>
-            {% endif %}
-        {% endset %}
-        {% set body_row_cols = body_row_cols|merge([{
-            has_action_btns: true,
-            content: col_raw,
-            raw: true,
-        }]) %}
-
-        {% include '@ibexadesign/ui/component/table/table.html.twig' with {
+        {% include '@ibexadesign/ui/component/details/details.html.twig' with {
             headline: 'object_state_group.view.information.title'|trans|desc('Object state group information'),
-            head_cols: [
-                { content: 'object_state_group.name'|trans|desc('Object state group name') },
-                { content: 'object_state_group.identifier'|trans|desc('Identifier') },
-                { content: 'object_state_group.id'|trans|desc('ID') },
-                { },
-            ],
-            body_rows: [{ cols: body_row_cols }],
-        } %}
+            items: details_items,
+        } only %}
+
+        {{ render( controller('Ibexa\\Bundle\\AdminUi\\Controller\\ObjectStateController::listAction', {
+            objectStateGroupId: object_state_group.id,
+        })) }}
     </section>
-    {{ render( controller( 'Ibexa\\Bundle\\AdminUi\\Controller\\ObjectStateController::listAction', { 'objectStateGroupId': object_state_group.id } ) ) }}
 {% endblock %}
