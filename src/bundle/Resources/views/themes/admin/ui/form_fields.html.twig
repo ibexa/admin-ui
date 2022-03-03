@@ -223,12 +223,7 @@
 
 {%- block date_time_picker_widget -%}
     <div class="ibexa-picker">
-        <input type="text" class="ibexa-picker__input form-control" readonly="readonly">
-        <button type="button" class="ibexa-picker__btn--clear-input">
-            <svg class="ibexa-icon ibexa-icon--medium">
-                <use xlink:href="{{ ibexa_icon_path('circle-close') }}"></use>
-            </svg>
-        </button>
+        {% include '@ibexadesign/ui/component/input_date_and_time.html.twig' %}
         {% set attr = attr|merge({ 'hidden': true, 'class': 'ibexa-picker__form-input' }) %}
         {{ block('form_widget') }}
     </div>

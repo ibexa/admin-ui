@@ -25,7 +25,7 @@
                 ...(config.flatpickrConfig ?? {}),
             };
 
-            // TODO: use ibexa.helpers.objectInstances when merged
+            ibexa.helpers.objectInstances.setInstance(this.container, this);
         }
 
         clear() {
