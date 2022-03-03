@@ -8,7 +8,25 @@
         }
     }
 
+    .flatpickr-wrapper {
+        width: 100%;
+    }
+
     .ibexa-input-text-wrapper__actions {
-        top: calculateRem(16px);
+        top: calculateRem(24px);
+    }
+
+    &--small {
+        .ibexa-input-text-wrapper__actions {
+            top: calculateRem(16px);
+        }
+    }
+
+    &--inline-flatpickr {
+        .ibexa-date-time-picker {
+            &__input {
+                margin-bottom: calculateRem(4px);
+            }
+        }
     }
 }

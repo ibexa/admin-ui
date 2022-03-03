@@ -1,55 +1,66 @@
-(function(global, doc, ibexa, flatpickr) {
+(function (global, doc, ibexa, flatpickr) {
     const { convertDateToTimezone, formatShortDateTime } = ibexa.helpers.timezone;
     const userTimezone = ibexa.adminUiConfig.timezone;
-
     const DEFAULT_CONFIG = {
         enableTime: true,
         time_24hr: true,
         formatDate: (date) => formatShortDateTime(date, null),
-
-    }
+    };
     class DateAndTime {
         constructor(config) {
             this.container = config.container;
             this.fieldWrapper = this.container.querySelector('.ibexa-date-time-picker');
             this.inputField = this.fieldWrapper.querySelector('.ibexa-date-time-picker__input');
             this.customOnChange = config.onChange;
-            console.log(this.fieldWrapper.classList);
-            this.flatpickrConfig = {
-                ...DEFAULT_CONFIG,
-                inline: this.fieldWrapper.classList.contains('ibexa-date-time-picker--inline-flatpickr'),
-                onChange: this.onChange,
-                ...(config.flatpickrConfig ?? {})
-            }
 
             this.init = this.init.bind(this);
             this.onChange = this.onChange.bind(this);
             this.onInputBtn = this.onInputBtn.bind(this);
+            this.clear = this.clear.bind(this);
+
+            this.flatpickrConfig = {
+                ...DEFAULT_CONFIG,
+                inline: this.fieldWrapper.classList.contains('ibexa-date-time-picker--inline-flatpickr'),
+                onChange: this.onChange,
+                ...(config.flatpickrConfig ?? {}),
+            };
+
+            // TODO: use ibexa.helpers.objectInstances when merged
         }
 
-        onChange = (dates) => {
+        clear() {
+            this.flatpickrInstance.clear();
+        }
+
+        onChange(dates) {
             const isDateSelected = !!dates[0];
+            const restArgument = { inputField: this.inputField, flatpickrDates: dates };
 
             if (!isDateSelected) {
                 this.inputField.dataset.timestamp = '';
 
-                this.customOnChange(this.inputField, '');
+                this.customOnChange([''], restArgument);
 
                 return;
             }
 
-            const selectedDate = dates[0];
-            const selectedDateWithUserTimezone = convertDateToTimezone(selectedDate, userTimezone, true);
-            const timestamp = Math.floor(selectedDateWithUserTimezone.valueOf() / 1000);
+            const timestamps = dates.map((date) => {
+                const selectedDateWithUserTimezone = convertDateToTimezone(date, userTimezone, true);
+                const timestamp = Math.floor(selectedDateWithUserTimezone.valueOf() / 1000);
 
-            this.inputField.dataset.timestamp = timestamp;
+                return timestamp;
+            });
 
-            this.customOnChange(this.inputField, timestamp);
-        };
+            [this.inputField.dataset.timestamp] = timestamps;
+
+            this.customOnChange(timestamps, restArgument);
+        }
 
         onInputBtn(event) {
+            event.preventDefault();
+
             if (event.target.value === '' && this.inputField.dataset.timestamp !== '') {
-                this.flatpickrInstance.setDate(null, true);
+                this.clear();
             }
         }
 

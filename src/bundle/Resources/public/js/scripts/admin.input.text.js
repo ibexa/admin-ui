@@ -5,7 +5,10 @@
 
         textInput.value = '';
         textInput.dispatchEvent(new Event('input'));
-        textInput.select();
+
+        if (!textInput.readOnly) {
+            textInput.select();
+        }
     };
     const attachListenersToAllInputs = () => {
         const textInputClearBtns = doc.querySelectorAll('.ibexa-input-text-wrapper__action-btn--clear');

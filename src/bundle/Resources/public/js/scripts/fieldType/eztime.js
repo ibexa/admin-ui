@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, flatpickr) {
+(function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--eztime';
     const SELECTOR_INPUT = '.ibexa-data-source__input:not(.flatpickr-input)';
     const SELECTOR_FLATPICKR_INPUT = '.flatpickr-input';
@@ -60,33 +60,25 @@
     ibexa.addConfig('fieldTypeValidators', [validator], true);
 
     const timeFields = doc.querySelectorAll(SELECTOR_FIELD);
-    const timeConfig = {
-        enableTime: true,
-        noCalendar: true,
-        time_24hr: true,
-        formatDate: (date) => ibexa.helpers.timezone.formatFullDateTime(date, null, ibexa.adminUiConfig.dateFormat.fullTime),
-    };
-    const updateInputValue = (sourceInput, date) => {
+    const updateInputValue = (sourceInput, timestamps, { flatpickrDates }) => {
         const event = new CustomEvent(EVENT_VALUE_CHANGED);
 
-        if (!date.length) {
+        if (!flatpickrDates.length) {
             sourceInput.value = '';
             sourceInput.dispatchEvent(event);
 
             return;
         }
 
-        date = new Date(date[0]);
+        const date = new Date(flatpickrDates[0]);
         sourceInput.value = date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds();
 
         sourceInput.dispatchEvent(event);
     };
     const initFlatPickr = (field) => {
         const sourceInput = field.querySelector(SELECTOR_INPUT);
-        const flatPickrInput = field.querySelector(SELECTOR_FLATPICKR_INPUT);
-        const btnClear = field.querySelector('.ibexa-data-source__btn--clear-input');
         const enableSeconds = sourceInput.dataset.seconds === '1';
-        let defaultDate;
+        let defaultDate = null;
 
         if (sourceInput.value) {
             const value = parseInt(sourceInput.value, 10);
@@ -99,31 +91,23 @@
             defaultDate = date;
         }
 
-        btnClear.addEventListener(
-            'click',
-            (event) => {
-                event.preventDefault();
-
-                flatPickrInput.value = '';
-                sourceInput.value = '';
-
-                sourceInput.dispatchEvent(new CustomEvent(EVENT_VALUE_CHANGED));
-            },
-            false,
-        );
-
-        flatpickr(flatPickrInput, {
-            ...timeConfig,
-            enableSeconds,
+        const dateAndTimeWidget = new ibexa.core.DateAndTime({
+            container: field,
             onChange: updateInputValue.bind(null, sourceInput),
-            onClose: updateInputValue.bind(null, sourceInput),
-            defaultDate,
+            flatpickrConfig: {
+                noCalendar: true,
+                formatDate: (date) => ibexa.helpers.timezone.formatFullDateTime(date, null, ibexa.adminUiConfig.dateFormat.fullTime),
+                enableSeconds,
+                defaultDate,
+            },
         });
 
+        dateAndTimeWidget.init();
+
         if (sourceInput.hasAttribute('required')) {
-            flatPickrInput.setAttribute('required', true);
+            dateAndTimeWidget.fieldInput.setAttribute('required', true);
         }
     };
 
     timeFields.forEach(initFlatPickr);
-})(window, window.document, window.ibexa, window.flatpickr);
+})(window, window.document, window.ibexa);

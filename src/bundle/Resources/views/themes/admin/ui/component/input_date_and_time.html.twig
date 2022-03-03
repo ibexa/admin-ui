@@ -1,20 +1,29 @@
+{% import '@ibexadesign/ui/component/macros.html.twig' as html %}
+
+{% set is_small = is_small|default(false) %}
+{% set inline_flatpickr = inline_flatpickr|default(false) %}
+
 {% set wrapper_attr = wrapper_attr|default({})|merge({
     class: (wrapper_attr.class|default('')
         ~ ' ibexa-date-time-picker'
+        ~ (is_small ? ' ibexa-date-time-picker--small')
         ~ (inline_flatpickr ? ' ibexa-date-time-picker--inline-flatpickr')
     )|trim
 }) %}
+{% set input_attr = input_attr|default({})|merge({
+    class: (input_attr.class|default('')
+        ~ ' ibexa-input ibexa-input--text form-control ibexa-date-time-picker__input flatpickr flatpickr-date-input'
+        ~ (is_small ? ' ibexa-input--small')
+    )|trim,
+    readonly: 'readonly',
+    type: 'text',
+}) %}
+
+{% set input_attr_rendered = html.attributes(input_attr) %}
 
 {% embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: false } %}
     {% block content %}
-        <input
-            class="
-                ibexa-input ibexa-input--text form-control ibexa-date-time-picker__input flatpickr flatpickr-date-input
-                {{ is_small|default(false) ? 'ibexa-input--small' }}
-            "
-            readonly="readonly"
-            type="text"
-        />
+        <input {{ input_attr_rendered }} />
     {% endblock %}
     {% block actions %}
         {{ parent() }}
