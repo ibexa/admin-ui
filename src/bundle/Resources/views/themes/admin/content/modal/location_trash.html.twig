@@ -1,7 +1,6 @@
 {% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
 
 {% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
-    title: 'content.view.subitems.bulk_action.limited_permissions'|trans|desc('Limited user permissions'),
     class: 'ibexa-modal--send-to-trash ibexa-modal--trash-location',
     attr: {
         'data-content-name': content_name|default(''),
@@ -9,6 +8,8 @@
     no_header: true,
     id: 'trash-location-modal',
 } %}
+    {% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
+
     {% block content_before %}
         {{ form_start(form, {'action': path('ibexa.location.trash')}) }}
     {% endblock %}

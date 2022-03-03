@@ -1,10 +1,10 @@
-{% form_theme form '@ibexadesign/ui/form_fields.html.twig'  %}
-
 {% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
     class: 'ibexa-modal--send-to-trash',
     no_header: true,
     id: 'confirmEmptyTrash',
 } %}
+    {% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
+
     {% block body_content %}
         <p class="ibexa-modal-body__main">
             {{ 'trash.delete.all.confirm'|trans({'%trashItemsCount%': trash_items_count})|desc('Are you sure you want to permanently delete %trashItemsCount% item(s)?') }}

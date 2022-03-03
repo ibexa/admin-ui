@@ -1,10 +1,10 @@
-{% trans_default_domain 'language' %}
-
 {% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
     class: 'ibexa-modal--send-to-trash',
     no_header: true,
     id: 'delete-language-modal',
 } %}
+    {% trans_default_domain 'language' %}
+
     {% block body_content %}
         <p>{{ 'language.modal.message'|trans|desc('Do you want to delete the language(s)?') }}</p>
     {% endblock %}

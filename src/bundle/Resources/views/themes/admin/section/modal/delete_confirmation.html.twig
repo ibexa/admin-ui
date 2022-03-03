@@ -1,10 +1,10 @@
-{% form_theme form '@ibexadesign/ui/form_fields.html.twig'  %}
-
 {% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
     class: 'ibexa-modal--send-to-trash',
     no_header: true,
     id: 'delete-section-modal',
 } %}
+    {% form_theme form '@ibexadesign/ui/form_fields.html.twig'  %}
+
     {% block body_content %}
         <p class="ibexa-modal-body__main">
             {{ 'section.modal.message'|trans|desc('Do you want to delete the Section(s)?') }}

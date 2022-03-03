@@ -6,6 +6,8 @@
     no_header_border: true,
     id: 'bulk-action-failed-modal',
 } %}
+    {% trans_default_domain 'locationview' %}
+
     {% block body_content %}
         {% set table_row_template %}
             {{ include('@ibexadesign/ui/component/table/table_body_row.html.twig', {

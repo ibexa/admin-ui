@@ -1,12 +1,11 @@
-{% trans_default_domain 'user_delete' %}
-
-{% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
-
 {% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
     class: 'ibexa-modal--send-to-trash',
     no_header: true,
     id: 'delete-user-modal',
 } %}
+    {% trans_default_domain 'user_delete' %}
+    {% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
+
     {% block body_content %}
         {{ 'delete.modal.message'|trans|desc('Are you sure you want to delete this User?') }}
     {% endblock %}

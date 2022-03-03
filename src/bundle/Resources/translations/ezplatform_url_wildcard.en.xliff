@@ -61,11 +61,6 @@
         <target state="new">Cancel</target>
         <note>key: url_wildcard.modal.create.cancel</note>
       </trans-unit>
-      <trans-unit id="3b106aba8acc4b0b7bf7174a49b66ba9411d224a" resname="url_wildcard.modal.create.close">
-        <source>Close</source>
-        <target state="new">Close</target>
-        <note>key: url_wildcard.modal.create.close</note>
-      </trans-unit>
       <trans-unit id="75d2bf0fb2fc725c0e6909a48601346997114d22" resname="url_wildcard.modal.create.redirect">
         <source>Redirect to wildcard destination</source>
         <target state="new">Redirect to wildcard destination</target>
