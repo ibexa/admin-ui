@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
-use EzSystems\Behat\Core\Behat\ArgumentParser;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
+use Ibexa\Behat\Core\Behat\ArgumentParser;
 
 class UDWContext implements Context
 {

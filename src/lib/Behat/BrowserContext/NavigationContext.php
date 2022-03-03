@@ -9,17 +9,17 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
-use EzSystems\Behat\Core\Behat\ArgumentParser;
 use Ibexa\AdminUi\Behat\Component\Breadcrumb;
 use Ibexa\AdminUi\Behat\Component\LeftMenu;
 use Ibexa\AdminUi\Behat\Component\UpperMenu;
 use Ibexa\AdminUi\Behat\Page\ContentUpdateItemPage;
 use Ibexa\AdminUi\Behat\Page\ContentViewPage;
 use Ibexa\Behat\Browser\Page\PageRegistry;
+use Ibexa\Behat\Core\Behat\ArgumentParser;
 
 class NavigationContext implements Context
 {
-    /** @var \EzSystems\Behat\Core\Behat\ArgumentParser */
+    /** @var \Ibexa\Behat\Core\Behat\ArgumentParser */
     private $argumentParser;
 
     /** @var \Ibexa\Behat\Browser\Page\PageRegistry[] */

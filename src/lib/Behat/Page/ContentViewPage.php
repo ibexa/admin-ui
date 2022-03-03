@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use EzSystems\Behat\Core\Behat\ArgumentParser;
 use Ibexa\AdminUi\Behat\Component\Breadcrumb;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\ContentItemAdminPreview;
@@ -22,6 +21,7 @@ use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
+use Ibexa\Behat\Core\Behat\ArgumentParser;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
@@ -73,7 +73,7 @@ class ContentViewPage extends Page
     /** @var bool */
     private $expectedIsContainer;
 
-    /** @var \EzSystems\Behat\Core\Behat\ArgumentParser; */
+    /** @var \Ibexa\Behat\Core\Behat\ArgumentParser; */
     private $argumentParser;
 
     /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */

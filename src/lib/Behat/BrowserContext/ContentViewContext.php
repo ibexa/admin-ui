@@ -10,10 +10,10 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
-use EzSystems\Behat\Core\Behat\ArgumentParser;
 use Ibexa\AdminUi\Behat\Component\DraftConflictDialog;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\AdminUi\Behat\Page\ContentViewPage;
+use Ibexa\Behat\Core\Behat\ArgumentParser;
 use PHPUnit\Framework\Assert;
 
 class ContentViewContext implements Context
