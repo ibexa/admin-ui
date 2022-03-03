@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, React, ReactDOM, Translator, flatpickr) {
+(function (global, doc, ibexa, React, ReactDOM, Translator) {
     let getUsersTimeout;
     const CLASS_SORTED_ASC = 'ibexa-table__sort-column--asc';
     const CLASS_SORTED_DESC = 'ibexa-table__sort-column--desc';
