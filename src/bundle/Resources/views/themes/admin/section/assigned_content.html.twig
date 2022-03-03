@@ -67,7 +67,7 @@
                         {{ form_widget(form_section_content_assign.locations.location) }}
                         {{ form_widget(form_section_content_assign.locations.select_content,
                             {'attr': {
-                                'class': 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--open-udw',
+                                'class': 'btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-btn--open-udw',
                                 'data-udw-config': ibexa_udw_config('multiple', {'type': 'section_assign'})
                             }}
                         ) }}
@@ -78,8 +78,12 @@
     {% endblock %}
 {% endembed %}
 
-<div class="row justify-content-end ibexa-pagination__spacing mr-2">
-    {% if pagerfanta.haveToPaginate %}
-        {{ pagination|raw }}
-    {% endif %}
-</div>
+{% if pagerfanta.haveToPaginate %}
+    {% include '@ibexadesign/ui/pagination.html.twig' with {
+        'pager': pagerfanta,
+        'paginaton_params': {
+            'routeName': 'ibexa.section.view',
+            'routeParams': {'sectionId': section.id}
+        }
+    } %}
+{% endif %}
