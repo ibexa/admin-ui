@@ -135,7 +135,7 @@ class SectionPage extends Page
             ->setTimeout(3)
             ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('contentItemsTable')))
             ->find($this->getLocator('pageTitle'))
-            ->assert()->textEquals(sprintf('Section: %s', $this->expectedSectionName));
+            ->assert()->textEquals($this->expectedSectionName);
     }
 
     public function getName(): string
