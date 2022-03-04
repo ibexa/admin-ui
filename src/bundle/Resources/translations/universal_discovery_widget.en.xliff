@@ -21,11 +21,6 @@
         <target state="new">Select Location</target>
         <note>key: add_location.title</note>
       </trans-unit>
-      <trans-unit id="ee801b1c241922c073d22e35c766bb8c48c45fcb" resname="back.label">
-        <source>Back</source>
-        <target state="new">Back</target>
-        <note>key: back.label</note>
-      </trans-unit>
       <trans-unit id="c88355e5be31353761adbfb5bd8dd3f4c6a61a27" resname="bookmarks.label">
         <source>Bookmarks</source>
         <target state="new">Bookmarks</target>
@@ -45,6 +40,11 @@
         <source>Browse content</source>
         <target state="new">Browse content</target>
         <note>key: browse.title</note>
+      </trans-unit>
+      <trans-unit id="7828a0babb3449d8e144d80eef509a58217f015b" resname="close.label">
+        <source>Close</source>
+        <target state="new">Close</target>
+        <note>key: close.label</note>
       </trans-unit>
       <trans-unit id="90210d6d68a4c36d75906bd4fea9194a88988205" resname="content.create.editing_details">
         <source>under %content_name%</source>
