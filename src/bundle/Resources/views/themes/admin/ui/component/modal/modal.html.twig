@@ -18,10 +18,15 @@
         ~ (no_header_border|default(false) ? 'ibexa-modal--no-header-border ')
         ~ class|default('') ~ ' '
         ~ attr.class|default(''))|trim,
-    id: attr.id|default(id),
     tabindex: attr.tabindex|default('-1'),
     role: attr.role|default('dialog'),
 }) %}
+
+{% if id is defined %}
+    {% set attr = attr|default({})|merge({
+        id,
+    }) %}
+{% endif %}
 
 {% if has_static_backdrop|default(false) %}
     {% set attr = attr|merge({
