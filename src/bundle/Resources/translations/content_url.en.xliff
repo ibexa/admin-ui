@@ -96,11 +96,6 @@
         <target state="new">Do you want to delete the selected custom URL alias(es)?</target>
         <note>key: tab.urls.modal.message</note>
       </trans-unit>
-      <trans-unit id="777d1a83ab6a6c4644dd31409906e48a0a7a4a51" resname="tab.urls.modal_close">
-        <source>Close</source>
-        <target state="new">Close</target>
-        <note>key: tab.urls.modal_close</note>
-      </trans-unit>
       <trans-unit id="56d218db883ed4cc59dbbca53364dc2e725013e4" resname="tab.urls.no_custom_urls">
         <source>This Content item has no custom URL aliases.</source>
         <target state="new">This Content item has no custom URL aliases.</target>

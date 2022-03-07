@@ -121,11 +121,6 @@
         <target state="new">Select a language:</target>
         <note>key: content_type.edit.select_language</note>
       </trans-unit>
-      <trans-unit id="9eb89a2f51954babc5ff51f9060cbcda91dcf408" resname="content_type.field_definitions.modal.message">
-        <source>Do you want to delete the selected Field definition(s)?</source>
-        <target state="new">Do you want to delete the selected Field definition(s)?</target>
-        <note>key: content_type.field_definitions.modal.message</note>
-      </trans-unit>
       <trans-unit id="2aecf6f88fd1ee89037907b8743d5873879a0590" resname="content_type.field_definitions_data">
         <source>Content Field definitions</source>
         <target state="new">Content Field definitions</target>
@@ -811,11 +806,6 @@
         <target state="new">Username pattern</target>
         <note>key: field_definition.ezuser.username_pattern</note>
       </trans-unit>
-      <trans-unit id="92d9243bb9fac540233dc376b41a3bcd41615ccc" resname="field_definition.field_group">
-        <source>Category</source>
-        <target state="new">Category</target>
-        <note>key: field_definition.field_group</note>
-      </trans-unit>
       <trans-unit id="8b863a9c7cd91565182ad0a3a5e30ca8090f84c7" resname="field_definition.identifier">
         <source>Identifier</source>
         <target state="new">Identifier</target>
@@ -865,16 +855,6 @@
         <source>Update</source>
         <target state="new">Update</target>
         <note>key: location_update_form.update</note>
-      </trans-unit>
-      <trans-unit id="7fe072f41348fb097b6bb018eec4f1b1bc9cffc3" resname="modal.cancel">
-        <source>Cancel</source>
-        <target state="new">Cancel</target>
-        <note>key: modal.cancel</note>
-      </trans-unit>
-      <trans-unit id="9eae227b7c27ab230a6d0ce5947d93e7d2e1626f" resname="modal.delete">
-        <source>Delete</source>
-        <target state="new">Delete</target>
-        <note>key: modal.delete</note>
       </trans-unit>
       <trans-unit id="fd1286353570c5703799ba76999323b7c7447b06" resname="no">
         <source>No</source>

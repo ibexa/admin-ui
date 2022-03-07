@@ -436,11 +436,6 @@
         <target state="new">On</target>
         <note>key: toggle_widget.label.on</note>
       </trans-unit>
-      <trans-unit id="cf6a7c9a98608dd58b428ce2187e3229b64b5701" resname="translation.modal_close">
-        <source>Close</source>
-        <target state="new">Close</target>
-        <note>key: translation.modal_close</note>
-      </trans-unit>
       <trans-unit id="c285bc654712e44ed56cd6f18262a2d6485f4fb9" resname="user.edit.select_language">
         <source>Select a language:</source>
         <target state="new">Select a language:</target>

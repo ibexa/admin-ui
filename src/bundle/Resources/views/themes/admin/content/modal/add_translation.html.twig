@@ -1,36 +1,41 @@
 {% trans_default_domain 'locationview' %}
 
-{% form_theme form '@ibexadesign/content/translation_add_form_fields.html.twig' %}
+{% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
+    title: 'tab.translations.add.title'|trans|desc('Create a new translation'),
+    class: 'ibexa-translation',
+    id: 'add-translation-modal',
+} %}
+    {% trans_default_domain 'locationview' %}
+    {% form_theme form '@ibexadesign/content/translation_add_form_fields.html.twig' %}
 
-<div class="modal fade ibexa-modal ibexa-translation" id="add-translation-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    {% block content_before %}
         {% set action = action is defined ? action : path('ibexa.translation.add') %}
         {{ form_start(form, {'action': action}) }}
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">{{ 'tab.translations.add.title'|trans|desc('Create a new translation') }}</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="{{ 'translation.modal_close'|trans|desc('Close') }}">
-                        <svg class="ibexa-icon ibexa-icon--small-medium" aria-hidden="true">
-                            <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
-                        </svg>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {{ form_row(form.base_language, {'attr': {'class': 'ibexa-translation__language-wrapper ibexa-translation__language-wrapper--base-language'}}) }}
-                    <div class="ibexa-translation__arrow">
-                        <svg class="ibexa-icon ibexa-icon--medium">
-                            <use xlink:href="{{ ibexa_icon_path('back') }}"></use>
-                        </svg>
-                    </div>
-                    {{ form_row(form.language, {'attr': {'class': 'ibexa-translation__language-wrapper ibexa-translation__language-wrapper--language'}}) }}
-                </div>
-                <div class="modal-footer">
-                    {{ form_widget(form.add, {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary ibexa-btn--create-translation'}}) }}
-                    <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
-                        {{ 'tab.translations.add.cancel'|trans|desc('Cancel') }}
-                    </button>
-                </div>
-            </div>
+    {% endblock %}
+    {% block body_content %}
+        {{ form_row(form.base_language, {
+            'attr': {
+                'class': 'ibexa-translation__language-wrapper ibexa-translation__language-wrapper--base-language'
+            },
+        }) }}
+        <div class="ibexa-translation__arrow">
+            <svg class="ibexa-icon ibexa-icon--medium">
+                <use xlink:href="{{ ibexa_icon_path('back') }}"></use>
+            </svg>
+        </div>
+        {{ form_row(form.language, {
+            'attr': {
+                'class': 'ibexa-translation__language-wrapper ibexa-translation__language-wrapper--language'
+            },
+        }) }}
+    {% endblock %}
+    {% block footer_content %}
+        {{ form_widget(form.add, {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary ibexa-btn--create-translation'}}) }}
+        <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
+            {{ 'tab.translations.add.cancel'|trans|desc('Cancel') }}
+        </button>
+    {% endblock %}
+    {% block content_after %}
         {{ form_end(form) }}
-    </div>
-</div>
+    {% endblock %}
+{% endembed %}

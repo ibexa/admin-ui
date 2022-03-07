@@ -1,45 +1,25 @@
 {% trans_default_domain 'notifications' %}
 
-<div
-    class="modal fade ibexa-notifications-modal ibexa-modal ibexa-modal--table-content"
-    id="view-notifications"
-    tabindex="-1"
-    role="dialog">
-    <div
-        class="modal-dialog"
-        role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 
-                    class="modal-title" 
-                    data-notifications-total="">
-                    {{ 'notifications'|trans|desc('Notifications') }} 
-                </h5>
-                <button
-                    type="button"
-                    class="close"
-                    title="{{ 'notification.close'|trans|desc('Close') }} "
-                    data-bs-dismiss="modal"
-                    aria-label="Close">
-                    <svg
-                        class="ibexa-icon ibexa-icon--small-medium"
-                        aria-hidden="true">
-                        <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
-                    </svg>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="ibexa-notifications-modal__spinner">
-                    <svg class="ibexa-icon ibexa-spin">
-                        <use xlink:href="{{ ibexa_icon_path('spinner') }}"></use>
-                    </svg>
-                </div>
-                <div class="ibexa-notifications-modal__results">
-                    {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\NotificationController::renderNotificationsPageAction', {
-                        'page': 1,
-                    })) }}
-                </div>
-            </div>
+{% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
+    title: 'notifications'|trans|desc('Notifications'),
+    subtitle: 'Some subtitle',
+    class: 'ibexa-notifications-modal',
+    no_header_border: true,
+    id: 'view-notifications',
+    attr_close_btn: {
+        'data-notifications-total': '',
+    },
+} %}
+    {% block body_content %}
+        <div class="ibexa-notifications-modal__spinner">
+            <svg class="ibexa-icon ibexa-spin">
+                <use xlink:href="{{ ibexa_icon_path('spinner') }}"></use>
+            </svg>
         </div>
-    </div>
-</div>
+        <div class="ibexa-notifications-modal__results">
+            {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\NotificationController::renderNotificationsPageAction', {
+                'page': 1,
+            })) }}
+        </div>
+    {% endblock %}
+{% endembed %}
