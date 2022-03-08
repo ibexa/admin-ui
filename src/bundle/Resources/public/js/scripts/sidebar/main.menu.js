@@ -174,10 +174,10 @@
     );
 
     popupMenu.generateItems(popupItemsToGenerate, (itemElement, item) => {
-        const itemElementAction = itemElement.querySelector('.ibexa-popup-menu__item-content');
+        const itemElementContent = itemElement.querySelector('.ibexa-popup-menu__item-content');
 
         itemElement.dataset.relatedItemName = item.name;
-        itemElementAction.classList.toggle('ibexa-popup-menu__item-content--current', item.isActive);
+        itemElementContent.classList.toggle('ibexa-popup-menu__item-content--current', item.isActive);
     });
     popupMenu.updatePosition();
     adaptiveItems.init();
