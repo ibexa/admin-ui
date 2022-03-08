@@ -94,6 +94,12 @@
             input.classList[methodName](this.classInvalid);
 
             nodes.forEach((el) => el.classList[methodName](this.classInvalid));
+
+            doc.body.dispatchEvent(
+                new CustomEvent('ibexa-inputs-validation:change-state', {
+                    detail: { nodes },
+                }),
+            );
         }
 
         /**
