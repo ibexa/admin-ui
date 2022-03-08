@@ -1,5 +1,8 @@
 {% block ezplatform_fieldtype_eztime_widget %}
-    {% include '@ibexadesign/ui/component/input_date_and_time.html.twig' %}
+    {% include '@ibexadesign/ui/component/input_date_and_time.html.twig' with {
+        wrapper_attr: { class: 'ibexa-data-source__input-wrapper' },
+        input_attr: { class: 'ibexa-data-source__input' }
+    } %}
     {% set attr = attr|merge({'class': 'ibexa-data-source__input', 'hidden': 'hidden'}) %}
     {{ block('form_widget') }}
 {% endblock %}
