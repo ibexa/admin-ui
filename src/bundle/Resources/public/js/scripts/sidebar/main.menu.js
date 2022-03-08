@@ -10,6 +10,23 @@
 
     const firstLevelMenuNode = mainMenuNode.querySelector('.ibexa-main-menu__navbar--first-level');
     const secondLevelMenuNode = mainMenuNode.querySelector('.ibexa-main-menu__navbar--second-level');
+    const showFistLevelPopupButton = firstLevelMenuNode.querySelector('.ibexa-main-menu__item--more');
+    const firstLevelPopupMenu = firstLevelMenuNode.querySelector('.ibexa-main-menu__first-level-popup-menu');
+    const adaptiveMenuItemsContainer = firstLevelMenuNode.querySelector('.ibexa-adaptive-items');
+    const selectorItem = firstLevelMenuNode.querySelector('.ibexa-adaptive-items__item--selector');
+    const adaptiveItemsToPopup = firstLevelMenuNode.querySelectorAll('.ibexa-adaptive-items__item');
+    const popupItemsToGenerate = [...adaptiveItemsToPopup].map((item) => {
+        const actionItem = item.querySelector('.ibexa-main-menu__item-action');
+        const name = item.dataset.itemName;
+        const label = item.querySelector('.ibexa-main-menu__item-text-column')?.textContent;
+        const isActive = actionItem.classList.contains('active');
+
+        return {
+            name,
+            label,
+            isActive,
+        };
+    });
     let resizeStartPositionX = 0;
     let secondMenuLevelCurrentWidth = secondLevelMenuNode.getBoundingClientRect().width;
     const showSecondLevelMenu = (event) => {
@@ -68,15 +85,19 @@
         ibexa.helpers.tooltips.hideAll();
 
         firstLevelMenuNode.querySelectorAll('.ibexa-main-menu__item').forEach((item) => {
-            const label = item.querySelector('.ibexa-main-menu__item-text-column').textContent;
+            const labelNode = item.querySelector('.ibexa-main-menu__item-text-column');
 
-            if (firstLevelMenuNode.classList.contains('ibexa-main-menu__navbar--collapsed')) {
-                item.setAttribute('title', label);
-            } else {
-                item.removeAttribute('data-original-title');
+            if (labelNode) {
+                const label = labelNode.textContent;
+
+                if (firstLevelMenuNode.classList.contains('ibexa-main-menu__navbar--collapsed')) {
+                    item.setAttribute('title', label);
+                } else {
+                    item.removeAttribute('data-original-title');
+                }
+
+                ibexa.helpers.tooltips.parse(mainMenuNode);
             }
-
-            ibexa.helpers.tooltips.parse(mainMenuNode);
         });
     };
     const addResizeListeners = ({ clientX }) => {
@@ -118,4 +139,48 @@
         },
         false,
     );
+
+    if (showFistLevelPopupButton && selectorItem) {
+        const adaptiveItems = new ibexa.core.AdaptiveItems({
+            itemHiddenClass: 'ibexa-context-menu__item--hidden',
+            container: adaptiveMenuItemsContainer,
+            isVertical: true,
+            selectorItem,
+            getActiveItem: () => {},
+            onAdapted: (visibleItems, hiddenItems) => {
+                const hiddenItemNames = [...hiddenItems].map((item) => item.dataset.itemName);
+
+                popupMenu.toggleItems((popupMenuItem) => !hiddenItemNames.includes(popupMenuItem.dataset.relatedItemName));
+                popupMenu.updatePosition();
+            },
+        });
+        const popupMenu = new ibexa.core.PopupMenu({
+            popupMenuElement: firstLevelPopupMenu,
+            triggerElement: showFistLevelPopupButton,
+            onItemClick: ({ currentTarget }) => {
+                const { relatedItemName } = currentTarget.dataset;
+                const relatedItemAction = doc.querySelector(`[data-item-name="${relatedItemName}"] .ibexa-main-menu__item-action`);
+
+                relatedItemAction.click();
+            },
+            position: () => {
+                const popupLeftOffset = 5;
+                const targetTopPosition = selectorItem.offsetTop;
+                const targetLeftPosition = selectorItem.offsetLeft + selectorItem.offsetWidth + popupLeftOffset;
+
+                firstLevelPopupMenu.style.top = `${targetTopPosition}px`;
+                firstLevelPopupMenu.style.left = `${targetLeftPosition}px`;
+            },
+        });
+
+        popupMenu.generateItems(popupItemsToGenerate, (itemElement, item) => {
+            const itemElementContent = itemElement.querySelector('.ibexa-popup-menu__item-content');
+
+            itemElement.dataset.relatedItemName = item.name;
+            itemElementContent.classList.toggle('ibexa-popup-menu__item-content--current', item.isActive);
+        });
+
+        popupMenu.updatePosition();
+        adaptiveItems.init();
+    }
 })(window, window.document, window.ibexa);
