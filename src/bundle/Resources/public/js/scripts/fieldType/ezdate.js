@@ -82,6 +82,8 @@
         let defaultDate = null;
 
         if (sourceInput.value) {
+            defaultDate = new Date(sourceInput.value * 1000);
+
             const { actionType } = sourceInput.dataset;
 
             if (actionType === 'create') {
