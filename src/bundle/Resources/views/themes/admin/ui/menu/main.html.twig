@@ -3,14 +3,19 @@
 {% block root %}
     {% set extraClass = 'ibexa-main-menu__navbar--collapsed' %}
     {% set current_item = item %}
-    
+
     <div class="ibexa-main-menu__navbar ibexa-main-menu__navbar--first-level {{ extraClass }}">
-        <ul class="ibexa-main-menu__items-list nav">
+        <ul class="ibexa-adaptive-items ibexa-main-menu__items-list nav">
             {% for item in current_item.children %}
                 {% if item.children|length > 0 or (item.uri is not empty and (not matcher.isCurrent(item) or options.currentAsLink)) %}
                     {{ block('item') }}
                 {% endif %}
             {% endfor %}
+        </ul>
+        <ul
+            class="ibexa-popup-menu ibexa-popup-menu--info-neon ibexa-popup-menu--hidden ibexa-main-menu__first-level-popup-menu"
+            data-item-template="{{ include('@ibexadesign/ui/menu/first_level_popup_menu_item.html.twig')|e('html_attr') }}"
+        >
         </ul>
     </div>
 {% endblock %}
@@ -25,8 +30,8 @@
     ] %}
 
     {% set link_attributes = item.linkAttributes|merge({
-        'href': item.uri, 
-        'aria-controls': item.name, 
+        'href': item.uri,
+        'aria-controls': item.name,
         'class': classes|join(' '),
     }) %}
 
@@ -37,7 +42,7 @@
 
 {% block spanElement %}
     {% import 'knp_menu.html.twig' as knp_menu %}
-    
+
     {% set classes = [
         'ibexa-main-menu__item-action',
         (matcher.isAncestor(item, options.matchingDepth) ? options.currentClass|trim),
@@ -59,7 +64,7 @@
     {% set link_attributes = link_attributes|merge({
         'class': classes|join(' ')
     }) %}
-    
+
     <a{{ knp_menu.attributes(link_attributes) }}>
         {{ block('label') }}
     </a>

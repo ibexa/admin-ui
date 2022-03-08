@@ -17,6 +17,8 @@
         transition: width $ibexa-admin-transition-duration;
         border: calculateRem(1px) solid $ibexa-color-info-800;
         border-top: none;
+        overflow-y: auto;
+        overflow-x: hidden;
 
         &--first-level {
             display: flex;
@@ -280,5 +282,9 @@
         padding: calculateRem(5px);
         justify-content: center;
         align-items: center;
+    }
+
+    &__first-level-popup-menu {
+        box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(67px) 0 rgba($ibexa-color-info, 0.5);
     }
 }

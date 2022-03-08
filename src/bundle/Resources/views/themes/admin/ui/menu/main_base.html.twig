@@ -52,7 +52,7 @@
 {% block item %}
     {% if item.displayed %}
         {%- set classes = item.attribute('class') is not empty ? [item.attribute('class')] : [] %}
-        {%- set classes = classes|merge(['ibexa-main-menu__item']) %}
+        {%- set classes = classes|merge(['ibexa-main-menu__item', 'ibexa-adaptive-items__item']) %}
 
         {% if renderItemAsGroup|default() %}
             {%- set classes = classes|merge(['ibexa-main-menu__item--group-name']) -%}
@@ -70,7 +70,7 @@
             {%- set classes = classes|merge([options.leaf_class]) %}
         {%- endif %}
 
-        {%- set attributes = item.attributes %}
+        {%- set attributes = item.attributes|merge({ 'data-item-name': item.name }) %}
 
         {%- if classes is not empty %}
             {%- set attributes = attributes|merge({'class': classes|join(' ')}) %}
@@ -79,6 +79,15 @@
         {% import 'knp_menu.html.twig' as knp_menu %}
 
         {%- if item.extras.separate is defined and item.extras.separate -%}
+            <li class="ibexa-main-menu__item ibexa-adaptive-items__item ibexa-adaptive-items__item--selector ibexa-main-menu__item--more">
+                <a href="#" class="ibexa-main-menu__item-action">
+                    <div class="ibexa-main-menu__item-icon-column">
+                        <svg class="ibexa-main-menu__item-icon ibexa-icon ibexa-icon--medium ">
+                            <use xlink:href="/bundles/ibexaicons/img/all-icons.svg#options"></use>
+                        </svg>
+                    </div>
+                </a>
+            </li>
             <li class="ibexa-main-menu__separator ibexa-main-menu__separator--top"></li>
         {%- endif -%}
 
