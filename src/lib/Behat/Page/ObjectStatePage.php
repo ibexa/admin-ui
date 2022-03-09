@@ -9,7 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
+use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
@@ -28,24 +29,27 @@ class ObjectStatePage extends Page
     /** @var mixed */
     private $expectedObjectStateId;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $table;
-
-    public function __construct(Session $session, Router $router, Repository $repository, TableBuilder $tableBuilder)
+    public function __construct(Session $session, Router $router, Repository $repository)
     {
         parent::__construct($session, $router);
         $this->repository = $repository;
-        $this->table = $tableBuilder->newTable()->build();
     }
 
     public function hasAttribute($label, $value)
     {
-        return $this->table->hasElement([$label => $value]);
+        return $this->getHTMLPage()
+                ->findAll($this->getLocator('objectStateAttribute'))
+                ->getByCriterion(new ChildElementTextCriterion($this->getLocator('label'), $label))
+                ->find($this->getLocator('value'))
+                ->getText() === $value;
     }
 
     public function edit()
     {
-        $this->getHTMLPage()->find($this->getLocator('editButton'))->click();
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('button'))
+            ->getByCriterion(new ElementTextCriterion('Edit'))
+            ->click();
     }
 
     public function getName(): string
@@ -81,7 +85,11 @@ class ObjectStatePage extends Page
     {
         return [
             new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
-            new VisibleCSSLocator('editButton', '.ibexa-icon--edit'),
+            new VisibleCSSLocator('propertiesTable', '.ibexa-container .ibexa-details'),
+            new VisibleCSSLocator('objectStateAttribute', '.ibexa-details__item'),
+            new VisibleCSSLocator('label', '.ibexa-label'),
+            new VisibleCSSLocator('value', '.ibexa-details__item-content'),
+            new VisibleCSSLocator('button', '.ibexa-btn'),
         ];
     }
 
