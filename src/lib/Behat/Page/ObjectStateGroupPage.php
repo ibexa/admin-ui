@@ -12,6 +12,8 @@ use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
+use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
+use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
@@ -26,9 +28,6 @@ class ObjectStateGroupPage extends Page
     private $dialog;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $attributes;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private $objectStates;
 
     /** @var \Ibexa\Contracts\Core\Repository\Repository */
@@ -41,7 +40,6 @@ class ObjectStateGroupPage extends Page
     {
         parent::__construct($session, $router);
         $this->dialog = $dialog;
-        $this->attributes = $tableBuilder->newTable()->withParentLocator($this->getLocator('propertiesTable'))->build();
         $this->objectStates = $tableBuilder->newTable()->withParentLocator($this->getLocator('objectStatesTable'))->build();
         $this->repository = $repository;
     }
@@ -79,7 +77,11 @@ class ObjectStateGroupPage extends Page
 
     public function hasAttribute($label, $value): bool
     {
-        return $this->attributes->hasElement([$label => $value]);
+        return $this->getHTMLPage()
+                    ->findAll($this->getLocator('objectStateGroupAttribute'))
+                    ->getByCriterion(new ChildElementTextCriterion($this->getLocator('label'), $label))
+                    ->find($this->getLocator('value'))
+                    ->getText() === $value;
     }
 
     public function hasObjectState(string $objectStateName): bool
@@ -97,7 +99,10 @@ class ObjectStateGroupPage extends Page
 
     public function edit()
     {
-        $this->attributes->getTableRowByIndex(0)->edit();
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('button'))
+            ->getByCriterion(new ElementTextCriterion('Edit'))
+            ->click();
     }
 
     protected function getRoute(): string
@@ -111,7 +116,7 @@ class ObjectStateGroupPage extends Page
             ->setTimeout(3)
             ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('objectStatesTable')))
             ->find($this->getLocator('pageTitle'))
-            ->assert()->textEquals(sprintf('Object state group: %s', $this->expectedObjectStateGroupName));
+            ->assert()->textEquals($this->expectedObjectStateGroupName);
     }
 
     public function getName(): string
@@ -123,10 +128,13 @@ class ObjectStateGroupPage extends Page
     {
         return [
             new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
-            new VisibleCSSLocator('propertiesTable', '.ibexa-container .ibexa-table'),
             new VisibleCSSLocator('objectStatesTable', '[name="object_states_delete"]'),
             new VisibleCSSLocator('createButton', '.ibexa-icon--create'),
             new VisibleCSSLocator('deleteButton', '.ibexa-icon--trash'),
+            new VisibleCSSLocator('objectStateGroupAttribute', '.ibexa-details__item'),
+            new VisibleCSSLocator('label', '.ibexa-label'),
+            new VisibleCSSLocator('value', '.ibexa-details__item-content'),
+            new VisibleCSSLocator('button', '.ibexa-btn'),
         ];
     }
 }
