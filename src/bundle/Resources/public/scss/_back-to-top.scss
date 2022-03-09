@@ -1,0 +1,21 @@
+.ibexa-back-to-top {
+    position: fixed;
+    bottom: calculateRem(16px);
+    right: calculateRem(16px);
+
+    &__button {
+        width: calculateRem(62px);
+        height: calculateRem(62px);
+        border-radius: 50%;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $ibexa-color-white;
+    }
+
+    &__icon {
+        transform: rotate(90deg);
+        fill: $ibexa-color-dark;
+    }
+}
