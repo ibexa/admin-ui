@@ -2,18 +2,18 @@
     const OFFSET_ROUNDING_COMPENSATOR = 0.5;
     class AdaptiveItems {
         constructor(config) {
-            this.isVertical = config.isVertical || false;
+            this.isVertical = config.isVertical ?? false;
             this.container = config.container;
             this.items =
                 config.items ||
                 this.container.querySelectorAll(':scope > .ibexa-adaptive-items__item:not(.ibexa-adaptive-items__item--selector)');
-            this.selectorItem = config.selectorItem || this.container.querySelector(':scope > .ibexa-adaptive-items__item--selector');
+            this.selectorItem = config.selectorItem ?? this.container.querySelector(':scope > .ibexa-adaptive-items__item--selector');
             this.itemHiddenClass = config.itemHiddenClass;
             this.getActiveItem = config.getActiveItem;
             this.onAdapted = config.onAdapted;
-            this.itemOffset = config.itemOffset || 0;
-            this.classForceHide = config.classForceHide || 'ibexa-adaptive-items__item--force-hide';
-            this.classForceVisible = config.classForceVisible || 'ibexa-adaptive-items__item--force-visible';
+            this.itemOffset = config.itemOffset ?? 0;
+            this.classForceHide = config.classForceHide ?? 'ibexa-adaptive-items__item--force-hide';
+            this.classForceVisible = config.classForceVisible ?? 'ibexa-adaptive-items__item--force-visible';
             this.animationFrame = null;
             this.containerResizeObserver = new ResizeObserver(() => {
                 if (this.animationFrame) {
@@ -35,16 +35,16 @@
             [this.selectorItem, ...this.items].forEach((item) => item.classList.remove(this.itemHiddenClass));
 
             const activeItem = this.getActiveItem();
-            const sizeMethod = this.isVertical ? 'offsetHeight' : 'offsetWidth';
-            const activeItemSize = activeItem ? activeItem[sizeMethod] + OFFSET_ROUNDING_COMPENSATOR : 0;
-            const selectorSize = this.selectorItem[sizeMethod] + this.itemOffset + this.itemOffset + OFFSET_ROUNDING_COMPENSATOR;
-            const maxTotalSize = this.container[sizeMethod] - OFFSET_ROUNDING_COMPENSATOR;
+            const sizeProperty = this.isVertical ? 'offsetHeight' : 'offsetWidth';
+            const activeItemSize = activeItem ? activeItem[sizeProperty] + OFFSET_ROUNDING_COMPENSATOR : 0;
+            const selectorSize = this.selectorItem[sizeProperty] + this.itemOffset + this.itemOffset + OFFSET_ROUNDING_COMPENSATOR;
+            const maxTotalSize = this.container[sizeProperty] - OFFSET_ROUNDING_COMPENSATOR;
             const forceVisibleItemsSize = [...this.items].reduce((totalSize, item) => {
-                const computeSize = item.classList.contains(this.classForceVisible)
-                    ? item[sizeMethod] + this.itemOffset + OFFSET_ROUNDING_COMPENSATOR
+                const computedSize = item.classList.contains(this.classForceVisible)
+                    ? item[sizeProperty] + this.itemOffset + OFFSET_ROUNDING_COMPENSATOR
                     : 0;
 
-                return totalSize + computeSize;
+                return totalSize + computedSize;
             }, 0);
             const hiddenItemsWithoutSelector = new Set();
             let currentSize = selectorSize + activeItemSize + forceVisibleItemsSize;
@@ -67,13 +67,13 @@
                 const lastItem = this.items[this.items.length - 1];
                 const isLastNonactiveItem = lastItem === activeItem ? i === this.items.length - 2 : i === this.items.length - 1;
                 const allPreviousItemsVisible = hiddenItemsWithoutSelector.size === 0;
-                const fitsInsteadOfSelector = item[sizeMethod] + OFFSET_ROUNDING_COMPENSATOR < maxTotalSize - currentSize + selectorSize;
+                const fitsInsteadOfSelector = item[sizeProperty] + OFFSET_ROUNDING_COMPENSATOR < maxTotalSize - currentSize + selectorSize;
 
                 if (isLastNonactiveItem && allPreviousItemsVisible && fitsInsteadOfSelector) {
                     break;
                 }
 
-                const itemComputedSize = item[sizeMethod] + this.itemOffset + OFFSET_ROUNDING_COMPENSATOR;
+                const itemComputedSize = item[sizeProperty] + this.itemOffset + OFFSET_ROUNDING_COMPENSATOR;
 
                 if (itemComputedSize > maxTotalSize - currentSize && !isForceVisible) {
                     hiddenItemsWithoutSelector.add(item);

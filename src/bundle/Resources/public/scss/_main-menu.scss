@@ -166,6 +166,7 @@
         display: flex;
         align-items: center;
         margin: 0 calculateRem(6px);
+        padding: 0;
         text-decoration: none;
         border-radius: $ibexa-border-radius;
         border: calculateRem(2px) solid transparent;

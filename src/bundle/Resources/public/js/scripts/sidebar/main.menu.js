@@ -20,8 +20,7 @@
         triggerElement: showFistLevelPopupButton,
         onItemClick: ({ currentTarget }) => {
             const { relatedItemName } = currentTarget.dataset;
-            const relatedItemLi = doc.querySelector(`[data-item-name="${relatedItemName}"]`);
-            const relatedItemAction = relatedItemLi.querySelector('.ibexa-main-menu__item-action');
+            const relatedItemAction = doc.querySelector(`[data-item-name="${relatedItemName}"] .ibexa-main-menu__item-action`);
 
             relatedItemAction.click();
         },
