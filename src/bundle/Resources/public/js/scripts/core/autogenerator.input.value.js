@@ -1,5 +1,5 @@
-(function (ibexa) {
-    class AutogenerateValue {
+(function (global, ibexa) {
+    class AutogeneratorInputValue {
         constructor(config = {}) {
             this.sourceInput = config.sourceInput;
             this.targetInput = config.targetInput;
@@ -52,5 +52,5 @@
         }
     }
 
-    ibexa.addConfig('core.AutogenerateValue', AutogenerateValue);
-})(window.ibexa);
+    ibexa.addConfig('core.AutogeneratorInputValue', AutogeneratorInputValue);
+})(window, window.ibexa);
