@@ -3,18 +3,18 @@
     bottom: calculateRem(16px);
     right: calculateRem(32px);
 
-    &__button {
+    &__btn {
         height: calculateRem(62px);
         min-width: calculateRem(62px);
         border-radius: calculateRem(31px);
-        padding: 0;
+        padding: calculateRem(15px) calculateRem(18px);
         display: flex;
         justify-content: center;
         align-items: center;
         background-color: $ibexa-color-white;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.3s;
+        transition: opacity $ibexa-admin-transition-duration $ibexa-admin-transition;
 
         &--visible {
             opacity: 1;
@@ -24,15 +24,16 @@
 
     &__title {
         display: none;
-        padding: 0 calculateRem(8px) 0 calculateRem(16px);
+        padding-right: calculateRem(8px);
 
         &--visible {
             display: inline-block;
         }
     }
 
-    &__icon {
+    &__icon.ibexa-icon {
         transform: rotate(90deg);
+        margin-right: 0;
         fill: $ibexa-color-dark;
     }
 }
