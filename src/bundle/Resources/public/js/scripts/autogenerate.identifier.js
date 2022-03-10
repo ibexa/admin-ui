@@ -4,11 +4,11 @@
     sourceInputs.forEach((sourceInput) => {
         const { autogenerateIdentifierTargetSelector } = sourceInput.dataset;
         const targetInput = doc.querySelector(autogenerateIdentifierTargetSelector);
-        const autogenerateIdentifier = new ibexa.core.AutogeneratorInputValue({
+        const identifierAutogenerator = new ibexa.core.InputValueAutogenerator({
             sourceInput,
             targetInput,
         });
 
-        autogenerateIdentifier.init();
+        identifierAutogenerator.init();
     });
 })(document, window.ibexa);
