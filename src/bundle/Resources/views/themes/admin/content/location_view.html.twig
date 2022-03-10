@@ -78,8 +78,6 @@
 
 {% block header %}
     {% set hide_bookmarks = hide_bookmarks|default(false) %}
-    {% set icon_name = content_type.identifier %}
-    {% set content_type_name = content_type.name %}
     {% embed '@ibexadesign/ui/page_title.html.twig' with {
         title: ibexa_content_name(content),
     } %}
@@ -94,20 +92,12 @@
             {% endif %}
         {% endblock %}
         {% block bottom %}
-            {% if content_type_name is defined %}
-                <span class="ibexa-icon-tag">
-                    {% if icon_name is defined%}
-                        <svg class="ibexa-icon ibexa-icon--small ibexa-icon--base-dark ibexa-icon--{{ icon_name }}">
-                            <use xlink:href="{{ ibexa_icon_path(icon_name) }}"></use>
-                        </svg>
-                    {% elseif content_type_identifier is defined %}
-                        <svg class="ibexa-icon ibexa-icon--small ibexa-icon--base-dark ibexa-icon--{{ content_type_identifier }}">
-                            <use xlink:href="{{ ibexa_content_type_icon(content_type_identifier) }}"></use>
-                        </svg>
-                    {% endif %}
-                    {{ content_type_name }}
-                </span>
-            {% endif %}
+            <span class="ibexa-icon-tag">
+                <svg class="ibexa-icon ibexa-icon--small ibexa-icon--base-dark ibexa-icon--{{ content_type.identifier }}">
+                    <use xlink:href="{{ ibexa_content_type_icon(content_type.identifier) }}"></use>
+                </svg>
+                {{ content_type.name }}
+            </span>
         {% endblock %}
     {% endembed %}
 
