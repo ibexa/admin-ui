@@ -84,6 +84,10 @@
 
                 .ibexa-collapse {
                     &__header {
+                        box-shadow: $ibexa-content-type-edit-field-shadow;
+                        border-radius: $ibexa-border-radius;
+                        border-bottom: calculateRem(1px) solid $ibexa-color-light;
+
                         .ibexa-btn {
                             padding: calculateRem(10px);
                         }
@@ -92,6 +96,7 @@
                     &__header-label {
                         font-size: $ibexa-text-font-size !important;
                         font-weight: normal;
+                        line-height: calculateRem(22px);
                     }
 
                     &__toggle--status {
@@ -130,6 +135,13 @@
                             }
                         }
                     }
+                }
+            }
+
+            &--field-definition.ibexa-collapse--collapsed {
+                .ibexa-collapse__header {
+                    border-bottom: none;
+                    box-shadow: none;
                 }
             }
         }
