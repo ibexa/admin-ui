@@ -211,6 +211,11 @@
         <target state="new">Object state group name</target>
         <note>key: object_state_group.name</note>
       </trans-unit>
+      <trans-unit id="c3af10bed843bcb54aa038942fa8d6c4bc20f736" resname="object_state_group.name.action.edit">
+        <source>Edit</source>
+        <target state="new">Edit</target>
+        <note>key: object_state_group.name.action.edit</note>
+      </trans-unit>
       <trans-unit id="1cbfb4528f41be4d8de98fa4f81c26b41f8ffad9" resname="object_state_group.new">
         <source>Create</source>
         <target state="new">Create</target>
@@ -260,11 +265,6 @@
         <source>Object state groups</source>
         <target state="new">Object state groups</target>
         <note>key: object_state_group.view.list.title</note>
-      </trans-unit>
-      <trans-unit id="f242d2aa82647529a4d5c7c314719fb4276a4e51" resname="object_state_group.view.title">
-        <source>Object state group: %name%</source>
-        <target state="new">Object state group: %name%</target>
-        <note>key: object_state_group.view.title</note>
       </trans-unit>
     </body>
   </file>
