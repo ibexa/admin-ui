@@ -7,8 +7,15 @@
         return;
     }
 
+    const backToTopBtnTitle = backToTopBtn.querySelector('.ibexa-back-to-top__title');
+
     backToTopScrollContainer.addEventListener('scroll', (event) => {
-        backToTopBtn.classList.toggle('ibexa-back-to-top__button--visible', event.target.scrollTop !== 0);
+        const container = event.target;
+        const isTitleVisible = container.scrollHeight - container.scrollTop === container.clientHeight;
+
+        backToTopBtn.classList.toggle('ibexa-back-to-top__button--visible', container.scrollTop !== 0);
+        backToTopBtn.classList.toggle('ibexa-btn--no-text', !isTitleVisible);
+        backToTopBtnTitle.classList.toggle('ibexa-back-to-top__title--visible', isTitleVisible);
     });
     backToTopBtn.addEventListener('click', () => {
         backToTopAnchor.scrollIntoView({

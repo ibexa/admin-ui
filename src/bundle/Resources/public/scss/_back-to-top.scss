@@ -1,12 +1,12 @@
 .ibexa-back-to-top {
     position: fixed;
     bottom: calculateRem(16px);
-    right: calculateRem(16px);
+    right: calculateRem(32px);
 
     &__button {
-        width: calculateRem(62px);
         height: calculateRem(62px);
-        border-radius: 50%;
+        min-width: calculateRem(62px);
+        border-radius: calculateRem(31px);
         padding: 0;
         display: flex;
         justify-content: center;
@@ -22,8 +22,21 @@
         }
     }
 
+    &__title {
+        display: none;
+        padding: 0 calculateRem(8px) 0 calculateRem(16px);
+
+        &--visible {
+            display: inline-block;
+        }
+    }
+
     &__icon {
         transform: rotate(90deg);
         fill: $ibexa-color-dark;
     }
+}
+
+.ibexa-back-to-top-scroll-container {
+    padding-bottom: calculateRem(64px);
 }
