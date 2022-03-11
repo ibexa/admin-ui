@@ -48,6 +48,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/admin.dropdown.js'),
     path.resolve(__dirname, '../public/js/scripts/double.click.mark.js'),
     path.resolve(__dirname, '../public/js/scripts/autogenerate.identifier.js'),
+    path.resolve(__dirname, '../public/js/scripts/core/autocomplete.input.js'),
 ];
 const fieldTypes = [];
 

@@ -1,0 +1,70 @@
+.ibexa-autocomplete-input {
+    position: relative;
+    font-family: $font-family-sans-serif;
+    font-size: $ibexa-text-font-size-medium;
+    min-width: calculateRem(200px);
+
+    &__source {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+    }
+
+    &__input-wrapper {
+        position: relative;
+    }
+
+    &__items-wrapper {
+        width: 100%;
+        background: $ibexa-color-white;
+        border: calculateRem(1px) solid $ibexa-color-light;
+        color: $ibexa-color-dark;
+        border-radius: $ibexa-border-radius;
+        display: flex;
+        flex-direction: column;
+    }
+
+    & &__items-wrapper {
+        display: none;
+    }
+
+    &__items {
+        list-style: none;
+        padding: calculateRem(8.5px);
+        margin: 0;
+        overflow-y: auto;
+    }
+
+    &__item {
+        padding: calculateRem(9px) calculateRem(15px);
+        line-height: calculateRem(21px);
+        min-height: calculateRem(40px);
+        transition: background $ibexa-admin-transition-duration $ibexa-admin-transition;
+        border-radius: $ibexa-border-radius;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            background-color: $ibexa-color-light-300;
+        }
+    }
+}
+
+.ibexa-autocomplete-input-popover {
+    &.popover {
+        max-width: initial;
+        background: initial;
+        border: 0;
+    }
+
+    .popover-arrow {
+        display: none;
+    }
+
+    .popover-body {
+        padding: 0;
+        color: initial;
+    }
+}
