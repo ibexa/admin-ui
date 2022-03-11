@@ -13,7 +13,7 @@
             this.onAdapted = config.onAdapted;
             this.itemOffset = config.itemOffset ?? 0;
             this.classForceHide = config.classForceHide ?? 'ibexa-adaptive-items__item--force-hide';
-            this.classForceVisible = config.classForceVisible ?? 'ibexa-adaptive-items__item--force-visible';
+            this.classForceShow = config.classForceShow ?? 'ibexa-adaptive-items__item--force-show';
             this.animationFrame = null;
             this.containerResizeObserver = new ResizeObserver(() => {
                 if (this.animationFrame) {
@@ -37,10 +37,10 @@
             const activeItem = this.getActiveItem();
             const sizeProperty = this.isVertical ? 'offsetHeight' : 'offsetWidth';
             const activeItemSize = activeItem ? activeItem[sizeProperty] + OFFSET_ROUNDING_COMPENSATOR : 0;
-            const selectorSize = this.selectorItem[sizeProperty] + this.itemOffset + this.itemOffset + OFFSET_ROUNDING_COMPENSATOR;
+            const selectorSize = this.selectorItem[sizeProperty] + this.itemOffset + OFFSET_ROUNDING_COMPENSATOR;
             const maxTotalSize = this.container[sizeProperty] - OFFSET_ROUNDING_COMPENSATOR;
             const forceVisibleItemsSize = [...this.items].reduce((totalSize, item) => {
-                const computedSize = item.classList.contains(this.classForceVisible)
+                const computedSize = item.classList.contains(this.classForceShow)
                     ? item[sizeProperty] + this.itemOffset + OFFSET_ROUNDING_COMPENSATOR
                     : 0;
 
@@ -52,7 +52,7 @@
             for (let i = 0; i < this.items.length; i++) {
                 const item = this.items[i];
                 const isForceHide = item.classList.contains(this.classForceHide);
-                const isForceVisible = item.classList.contains(this.classForceVisible);
+                const isForceVisible = item.classList.contains(this.classForceShow);
 
                 if (isForceHide) {
                     hiddenItemsWithoutSelector.add(item);

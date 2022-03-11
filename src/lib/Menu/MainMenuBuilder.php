@@ -204,7 +204,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             'attributes' => [
                 'data-tooltip-placement' => 'right',
                 'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
-                'class' => 'ibexa-adaptive-items__item--force-visible',
+                'class' => 'ibexa-adaptive-items__item--force-show',
             ],
             'extras' => [
                 'separate' => true,
@@ -220,7 +220,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
                 'attributes' => [
                     'data-tooltip-placement' => 'right',
                     'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
-                    'class' => 'ibexa-adaptive-items__item--force-visible',
+                    'class' => 'ibexa-adaptive-items__item--force-show',
                 ],
                 'extras' => [
                     'bottom_item' => true,
@@ -235,7 +235,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             'attributes' => [
                 'data-tooltip-placement' => 'right',
                 'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
-                'class' => 'ibexa-adaptive-items__item--force-visible',
+                'class' => 'ibexa-adaptive-items__item--force-show',
             ],
             'extras' => [
                 'bottom_item' => true,
