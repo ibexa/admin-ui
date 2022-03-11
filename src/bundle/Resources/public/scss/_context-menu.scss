@@ -11,6 +11,14 @@
     margin: 0;
     list-style: none;
 
+    &--before-adaptive-items-init {
+        overflow: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        height: calculateRem(48px);
+        padding: 0;
+    }
+
     &__item {
         padding-left: calculateRem(16px);
 
