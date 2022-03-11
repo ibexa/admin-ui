@@ -11,7 +11,6 @@
             this.itemHiddenClass = config.itemHiddenClass;
             this.getActiveItem = config.getActiveItem;
             this.onAdapted = config.onAdapted;
-            this.itemOffset = config.itemOffset ?? 0;
             this.classForceHide = config.classForceHide ?? 'ibexa-adaptive-items__item--force-hide';
             this.classForceShow = config.classForceShow ?? 'ibexa-adaptive-items__item--force-show';
             this.animationFrame = null;
@@ -37,11 +36,11 @@
             const activeItem = this.getActiveItem();
             const sizeProperty = this.isVertical ? 'offsetHeight' : 'offsetWidth';
             const activeItemSize = activeItem ? activeItem[sizeProperty] + OFFSET_ROUNDING_COMPENSATOR : 0;
-            const selectorSize = this.selectorItem[sizeProperty] + this.itemOffset + OFFSET_ROUNDING_COMPENSATOR;
+            const selectorSize = this.selectorItem[sizeProperty] + OFFSET_ROUNDING_COMPENSATOR;
             const maxTotalSize = this.container[sizeProperty] - OFFSET_ROUNDING_COMPENSATOR;
             const forceVisibleItemsSize = [...this.items].reduce((totalSize, item) => {
                 const computedSize = item.classList.contains(this.classForceShow)
-                    ? item[sizeProperty] + this.itemOffset + OFFSET_ROUNDING_COMPENSATOR
+                    ? item[sizeProperty] + OFFSET_ROUNDING_COMPENSATOR
                     : 0;
 
                 return totalSize + computedSize;
@@ -73,7 +72,7 @@
                     break;
                 }
 
-                const itemComputedSize = item[sizeProperty] + this.itemOffset + OFFSET_ROUNDING_COMPENSATOR;
+                const itemComputedSize = item[sizeProperty] + OFFSET_ROUNDING_COMPENSATOR;
 
                 if (itemComputedSize > maxTotalSize - currentSize && !isForceVisible) {
                     hiddenItemsWithoutSelector.add(item);

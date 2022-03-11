@@ -131,7 +131,7 @@
 
     &__item {
         width: 100%;
-        margin: calculateRem(10px) 0;
+        padding: calculateRem(10px) 0;
         opacity: 1;
 
         &--popup-container {

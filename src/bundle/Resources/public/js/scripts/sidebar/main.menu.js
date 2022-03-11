@@ -36,7 +36,6 @@
     const adaptiveItems = new ibexa.core.AdaptiveItems({
         itemHiddenClass: 'ibexa-context-menu__item--hidden',
         container: adaptiveMenuItemsContainer,
-        itemOffset: 22,
         isVertical: true,
         selectorItem,
         getActiveItem: () => {},
