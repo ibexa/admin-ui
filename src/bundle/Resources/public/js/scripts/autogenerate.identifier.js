@@ -4,7 +4,7 @@
     sourceInputs.forEach((sourceInput) => {
         const { autogenerateIdentifierTargetSelector } = sourceInput.dataset;
         const targetInput = doc.querySelector(autogenerateIdentifierTargetSelector);
-        const identifierAutogenerator = new ibexa.core.InputValueAutogenerator({
+        const identifierAutogenerator = new ibexa.core.SlugValueInputAutogenerator({
             sourceInput,
             targetInput,
         });
