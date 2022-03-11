@@ -39,9 +39,7 @@
             const selectorSize = this.selectorItem[sizeProperty] + OFFSET_ROUNDING_COMPENSATOR;
             const maxTotalSize = this.container[sizeProperty] - OFFSET_ROUNDING_COMPENSATOR;
             const forceVisibleItemsSize = [...this.items].reduce((totalSize, item) => {
-                const computedSize = item.classList.contains(this.classForceShow)
-                    ? item[sizeProperty] + OFFSET_ROUNDING_COMPENSATOR
-                    : 0;
+                const computedSize = item.classList.contains(this.classForceShow) ? item[sizeProperty] + OFFSET_ROUNDING_COMPENSATOR : 0;
 
                 return totalSize + computedSize;
             }, 0);
