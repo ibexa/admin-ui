@@ -3,7 +3,6 @@
     box-shadow: 0 0 calculateRem(30px) 0 rgba($ibexa-color-black, 0.35);
     position: relative;
     border-radius: $ibexa-border-radius;
-    overflow: hidden;
 }
 
 @mixin modal-content() {
