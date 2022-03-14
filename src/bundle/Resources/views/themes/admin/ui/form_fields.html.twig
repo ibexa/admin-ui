@@ -223,7 +223,7 @@
 
 {%- block date_time_picker_widget -%}
     <div class="ibexa-picker">
-        {% include '@ibexadesign/ui/component/input_date_and_time.html.twig' with {
+        {% include '@ibexadesign/ui/component/inputs/input_date_and_time.html.twig' with {
             input_attr: { class: 'ibexa-picker__input' }
         } %}
         {% set attr = attr|merge({ 'hidden': true, 'class': 'ibexa-picker__form-input' }) %}
@@ -271,7 +271,7 @@
         data-period-selector="#search_last_modified_date_interval"
         data-end-selector="#search_last_modified_end_date"
     >
-        {% include '@ibexadesign/ui/component/input_date_and_time.html.twig' with {
+        {% include '@ibexadesign/ui/component/inputs/input_date_and_time.html.twig' with {
             input_attr: {
                 class: "ibexa-filters__range-select",
                 placeholder: 'search.date.range'|trans(domain='search')|desc('From date - to date'),
@@ -290,7 +290,7 @@
         data-period-selector="#search_created_date_interval"
         data-end-selector="#search_created_end_date"
     >
-        {% include '@ibexadesign/ui/component/input_date_and_time.html.twig' with {
+        {% include '@ibexadesign/ui/component/inputs/input_date_and_time.html.twig' with {
             input_attr: {
                 class: "ibexa-filters__range-select",
                 placeholder: 'search.date.range'|trans(domain='search')|desc('From date - to date'),
@@ -310,7 +310,7 @@
         data-period-selector="#trash_search_trashed_interval_date_interval"
         data-end-selector="#trash_search_trashed_interval_end_date"
     >
-        {% include '@ibexadesign/ui/component/input_date_and_time.html.twig' with {
+        {% include '@ibexadesign/ui/component/inputs/input_date_and_time.html.twig' with {
             input_attr: {
                 class: "ibexa-trash-search-form__range-select",
                 placeholder: 'search.date.range'|trans(domain='search')|desc('From date - to date'),
