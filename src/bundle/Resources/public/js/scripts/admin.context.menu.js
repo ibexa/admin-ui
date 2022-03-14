@@ -57,4 +57,5 @@
     });
 
     adaptiveItems.init();
+    adapatItemsContainer.classList.remove('ibexa-context-menu--before-adaptive-items-init');
 })(window, window.document, window.ibexa);

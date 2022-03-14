@@ -41,6 +41,12 @@
         min-height: calculateRem(64px);
     }
 
+    .ibexa-context-menu {
+        &--before-adaptive-items-init {
+            min-height: 0;
+        }
+    }
+
     .ibexa-header-wrapper {
         width: 100%;
     }
