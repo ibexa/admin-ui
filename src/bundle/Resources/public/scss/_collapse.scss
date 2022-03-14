@@ -3,6 +3,7 @@
     height: auto;
     opacity: 1;
     transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+    background-color: $ibexa-color-white;
 
     &__header {
         display: flex;
@@ -26,7 +27,6 @@
     }
 
     &__body {
-        background-color: $ibexa-color-white;
         border-bottom-right-radius: $ibexa-border-radius;
         border-bottom-left-radius: $ibexa-border-radius;
     }
