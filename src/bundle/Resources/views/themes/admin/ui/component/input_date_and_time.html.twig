@@ -1,13 +1,12 @@
-{% import '@ibexadesign/ui/component/macros.html.twig' as html %}
 
 {% set is_small = is_small|default(false) %}
-{% set inline_flatpickr = inline_flatpickr|default(false) %}
+{% set is_datetime_popup_inline = is_datetime_popup_inline|default(false) %}
 
 {% set wrapper_attr = wrapper_attr|default({})|merge({
     class: (wrapper_attr.class|default('')
         ~ ' ibexa-date-time-picker'
         ~ (is_small ? ' ibexa-date-time-picker--small')
-        ~ (inline_flatpickr ? ' ibexa-date-time-picker--inline-flatpickr')
+        ~ (is_datetime_popup_inline ? ' ibexa-date-time-picker--inline-datetime-popup')
     )|trim
 }) %}
 {% set input_attr = input_attr|default({})|merge({
@@ -19,11 +18,11 @@
     type: 'text',
 }) %}
 
-{% set input_attr_rendered = html.attributes(input_attr) %}
-
 {% embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: false } %}
+    {% import '@ibexadesign/ui/component/macros.html.twig' as html %}
+
     {% block content %}
-        <input {{ input_attr_rendered }} />
+        <input {{ html.attributes(input_attr) }} />
     {% endblock %}
     {% block actions %}
         {{ parent() }}

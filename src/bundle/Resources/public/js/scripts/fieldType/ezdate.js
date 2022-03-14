@@ -60,17 +60,17 @@
     ibexa.addConfig('fieldTypeValidators', [validator], true);
 
     const dateFields = doc.querySelectorAll(SELECTOR_FIELD);
-    const updateInputValue = (sourceInput, timestamps, { flatpickrDates }) => {
+    const updateInputValue = (sourceInput, timestamps, { dates }) => {
         const event = new CustomEvent(EVENT_VALUE_CHANGED);
 
-        if (!flatpickrDates.length) {
+        if (!dates.length) {
             sourceInput.value = '';
             sourceInput.dispatchEvent(event);
 
             return;
         }
 
-        let date = new Date(flatpickrDates[0]);
+        let date = new Date(dates[0]);
 
         date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
 
@@ -92,10 +92,10 @@
                 defaultDate = new Date(defaultDate.getUTCFullYear(), defaultDate.getUTCMonth(), defaultDate.getUTCDate(), 0, 0, 0, 0);
             }
 
-            updateInputValue(sourceInput, [], { flatpickrDates: [defaultDate] });
+            updateInputValue(sourceInput, [], { dates: [defaultDate] });
         }
 
-        const dateAndTimeWidget = new ibexa.core.DateAndTime({
+        const dateTimePickerWidget = new ibexa.core.DateTimePicker({
             container: field,
             onChange: updateInputValue.bind(null, sourceInput),
             flatpickrConfig: {
@@ -105,10 +105,10 @@
             },
         });
 
-        dateAndTimeWidget.init();
+        dateTimePickerWidget.init();
 
         if (sourceInput.hasAttribute('required')) {
-            dateAndTimeWidget.fieldInput.setAttribute('required', true);
+            dateTimePickerWidget.fieldInput.setAttribute('required', true);
         }
     };
 

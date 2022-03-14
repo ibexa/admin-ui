@@ -77,7 +77,7 @@
             defaultDate = new Date(convertDateToTimezone(defaultDateWithUserTimezone, browserTimezone, true));
         }
 
-        const dateAndTimeWidget = new ibexa.core.DateAndTime({
+        const dateTimePickerWidget = new ibexa.core.DateTimePicker({
             container: field,
             onChange: updateInputValue.bind(null, sourceInput),
             flatpickrConfig: {
@@ -86,10 +86,10 @@
             },
         });
 
-        dateAndTimeWidget.init();
+        dateTimePickerWidget.init();
 
         if (sourceInput.hasAttribute('required')) {
-            dateAndTimeWidget.fieldInput.setAttribute('required', true);
+            dateTimePickerWidget.fieldInput.setAttribute('required', true);
         }
     };
 

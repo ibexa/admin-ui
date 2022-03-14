@@ -126,18 +126,18 @@
 
         toggleDisabledStateOnApplyBtn();
     };
-    const setSelectedDateRange = (timestamps, { flatpickrDates, inputField }) => {
+    const setSelectedDateRange = (timestamps, { dates, inputField }) => {
         const dateRange = inputField.closest('.ibexa-filters__range-wrapper');
 
-        if (flatpickrDates.length === 2) {
-            const startDate = getUnixTimestampUTC(flatpickrDates[0]);
-            const endDate = getUnixTimestampUTC(flatpickrDates[1]);
+        if (dates.length === 2) {
+            const startDate = getUnixTimestampUTC(dates[0]);
+            const endDate = getUnixTimestampUTC(dates[1]);
             const secondsInDay = 86400;
             const days = (endDate - startDate) / secondsInDay;
 
             doc.querySelector(dateRange.dataset.periodSelector).value = `P0Y0M${days}D`;
             doc.querySelector(dateRange.dataset.endSelector).value = endDate;
-        } else if (flatpickrDates.length === 0) {
+        } else if (dates.length === 0) {
             doc.querySelector(dateRange.dataset.periodSelector).value = '';
             doc.querySelector(dateRange.dataset.endSelector).value = '';
         }
@@ -243,7 +243,7 @@
         const { start, end } = dateRangeField.querySelector('.ibexa-filters__range-select').dataset;
         const defaultDate = start && end ? [start, end] : [];
 
-        const dateAndTimeWidget = new ibexa.core.DateAndTime({
+        const dateTimePickerWidget = new ibexa.core.DateTimePicker({
             container: dateRangeField,
             onChange: setSelectedDateRange,
             flatpickrConfig: {
@@ -252,7 +252,7 @@
             },
         });
 
-        dateAndTimeWidget.init();
+        dateTimePickerWidget.init();
     };
     const removeSearchTag = (event) => {
         const tag = event.currentTarget.closest(SELECTOR_TAG);

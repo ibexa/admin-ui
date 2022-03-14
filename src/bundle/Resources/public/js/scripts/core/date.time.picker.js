@@ -6,7 +6,7 @@
         time_24hr: true,
         formatDate: (date) => formatShortDateTime(date, null),
     };
-    class DateAndTime {
+    class DateTimePicker {
         constructor(config) {
             this.container = config.container;
             this.fieldWrapper = this.container.querySelector('.ibexa-date-time-picker');
@@ -15,12 +15,12 @@
 
             this.init = this.init.bind(this);
             this.onChange = this.onChange.bind(this);
-            this.onInputBtn = this.onInputBtn.bind(this);
+            this.onInput = this.onInput.bind(this);
             this.clear = this.clear.bind(this);
 
             this.flatpickrConfig = {
                 ...DEFAULT_CONFIG,
-                inline: this.fieldWrapper.classList.contains('ibexa-date-time-picker--inline-flatpickr'),
+                inline: this.fieldWrapper.classList.contains('ibexa-date-time-picker--inline-datetime-popup'),
                 onChange: this.onChange,
                 ...(config.flatpickrConfig ?? {}),
             };
@@ -34,12 +34,12 @@
 
         onChange(dates) {
             const isDateSelected = !!dates[0];
-            const restArgument = { inputField: this.inputField, flatpickrDates: dates };
+            const otherArguments = { inputField: this.inputField, dates };
 
             if (!isDateSelected) {
                 this.inputField.dataset.timestamp = '';
 
-                this.customOnChange([''], restArgument);
+                this.customOnChange([''], otherArguments);
 
                 return;
             }
@@ -53,10 +53,10 @@
 
             [this.inputField.dataset.timestamp] = timestamps;
 
-            this.customOnChange(timestamps, restArgument);
+            this.customOnChange(timestamps, otherArguments);
         }
 
-        onInputBtn(event) {
+        onInput(event) {
             event.preventDefault();
 
             if (event.target.value === '' && this.inputField.dataset.timestamp !== '') {
@@ -67,9 +67,9 @@
         init() {
             this.flatpickrInstance = flatpickr(this.inputField, this.flatpickrConfig);
 
-            this.inputField.addEventListener('input', this.onInputBtn, false);
+            this.inputField.addEventListener('input', this.onInput, false);
         }
     }
 
-    ibexa.addConfig('core.DateAndTime', DateAndTime);
+    ibexa.addConfig('core.DateTimePicker', DateTimePicker);
 })(window, window.document, window.ibexa, window.flatpickr);

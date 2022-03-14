@@ -22,7 +22,7 @@
             defaultDate = new Date(formInput.value * 1000);
         }
 
-        const dateAndTimeWidget = new ibexa.core.DateAndTime({
+        const dateTimePickerWidget = new ibexa.core.DateTimePicker({
             container: field,
             onChange: updateInputValue.bind(null, formInput),
             flatpickrConfig: {
@@ -32,7 +32,7 @@
             },
         });
 
-        dateAndTimeWidget.init();
+        dateTimePickerWidget.init();
     };
 
     pickers.forEach(initFlatPickr);
