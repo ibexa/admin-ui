@@ -1,6 +1,7 @@
 .ibexa-header-user-menu {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
 
     &__popup-menu {
         z-index: 1060;
@@ -50,6 +51,7 @@
         display: flex;
         align-items: flex-end;
         position: relative;
+        height: calculateRem(24px);
         padding-bottom: calculateRem(4px);
         cursor: pointer;
     }
@@ -63,7 +65,7 @@
         cursor: pointer;
         position: absolute;
         left: calculateRem(10px);
-        top: calculateRem(10px);
+        top: 0;
 
         &--no-notice {
             opacity: 0;
