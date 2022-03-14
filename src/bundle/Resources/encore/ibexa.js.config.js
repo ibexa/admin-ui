@@ -28,6 +28,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/core/popup.menu.js'),
     path.resolve(__dirname, '../public/js/scripts/core/tag.view.select.js'),
     path.resolve(__dirname, '../public/js/scripts/core/toggle.button.js'),
+    path.resolve(__dirname, '../public/js/scripts/core/slug.value.input.autogenerator.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.notifications.js'),
     path.resolve(__dirname, '../public/js/scripts/button.trigger.js'),
     path.resolve(__dirname, '../public/js/scripts/button.prevent.default.js'),
