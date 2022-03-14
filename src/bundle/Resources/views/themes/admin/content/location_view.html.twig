@@ -20,6 +20,7 @@
     {% set content_tree_width = app.request.cookies.get(container_width_cookie) %}
     {% set content_tree_width_style = 'width: %dpx;'|format(content_tree_width) %}
 
+    {{ ibexa_render_component_group('content-tree-before') }}
     <div class="ibexa-content-tree-container"
         data-tree-root-location-id="{{ content_tree_module_root|default(ibexa_admin_ui_config['contentTree']['treeRootLocationId']) }}"
         data-current-location-path="{{ location_path|default('') }}"
@@ -27,6 +28,7 @@
     >
         <div class="ibexa-content-tree-container__root"></div>
     </div>
+    {{ ibexa_render_component_group('content-tree-after') }}
 {% endblock %}
 
 {% block breadcrumbs %}
