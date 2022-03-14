@@ -1,5 +1,4 @@
 (function (global, doc, ibexa, flatpickr, React, ReactDOM) {
-    let getUsersTimeout;
     const CLASS_DATE_RANGE = 'ibexa-filters__range-wrapper';
     const CLASS_VISIBLE_DATE_RANGE = 'ibexa-filters__range-wrapper--visible';
     const SELECTOR_TAG = '.ibexa-tag';
@@ -15,13 +14,11 @@
     const lastModifiedDateRange = doc.querySelector('.ibexa-filters__item--modified .ibexa-filters__range-select');
     const lastCreatedSelect = doc.querySelector('.ibexa-filters__item--created .ibexa-filters__select');
     const lastCreatedDateRange = doc.querySelector('.ibexa-filters__item--created .ibexa-filters__range-select');
-    const creatorInput = doc.querySelector('.ibexa-filters__item--creator .ibexa-input');
-    const searchCreatorInput = doc.querySelector('#search_creator');
-    const usersList = doc.querySelector('.ibexa-filters__item--creator .ibexa-filters__user-list');
     const contentTypeCheckboxes = doc.querySelectorAll('.ibexa-content-type-selector__item [type="checkbox"]');
     const selectSubtreeBtn = doc.querySelector('.ibexa-filters__item--subtree .ibexa-tag-view-select__btn-select-path');
     const subtreeInput = doc.querySelector('#search_subtree');
     const showMoreBtns = doc.querySelectorAll('.ibexa-content-type-selector__show-more');
+    const creatorFieldWrapper = doc.querySelector('.ibexa-filters__item--creator');
     const dateConfig = {
         mode: 'range',
         locale: {
@@ -65,10 +62,12 @@
         event.target.closest('form').submit();
     };
     const toggleDisabledStateOnApplyBtn = () => {
+        const creatorAutocompleteField = creatorFieldWrapper.querySelector('.ibexa-autocomplete-input');
+        const creatorWidget = ibexa.helpers.objectInstances.getInstance(creatorAutocompleteField);
         const contentTypeOption = contentTypeSelect.querySelector('option');
         const isContentTypeSelected = contentTypeOption.innerHTML !== contentTypeOption.dataset.default;
         const isSectionSelected = sectionSelect ? !!sectionSelect.value : false;
-        const isCreatorSelected = !!searchCreatorInput.value;
+        const isCreatorSelected = !!creatorWidget?.sourceInput.value;
         const isSubtreeSelected = !!subtreeInput.value.trim().length;
         let isModifiedSelected = !!lastModifiedSelect.value;
         let isCreatedSelected = !!lastCreatedSelect.value;
@@ -148,7 +147,7 @@
 
         return date;
     };
-    const getUsersList = (value) => {
+    const getUsersList = (value, contentTypeIdentifiers) => {
         const body = JSON.stringify({
             ViewInput: {
                 identifier: `find-user-by-name-${value}`,
@@ -158,7 +157,7 @@
                     SortClauses: {},
                     Query: {
                         FullTextCriterion: `${value}*`,
-                        ContentTypeIdentifierCriterion: creatorInput.dataset.contentTypeIdentifiers.split(','),
+                        ContentTypeIdentifierCriterion: contentTypeIdentifiers.split(','),
                     },
                     limit: 50,
                     offset: 0,
@@ -178,63 +177,57 @@
             credentials: 'same-origin',
         });
 
-        fetch(request)
-            .then((response) => response.json())
-            .then(showUsersList);
+        return fetch(request).then((response) => response.json());
     };
-    const createUsersListItem = (user) => {
-        return `<li data-id="${user._id}" data-name="${user.TranslatedName}" class="ibexa-filters__user-item">${user.TranslatedName}</li>`;
-    };
-    const showUsersList = (data) => {
+    const showUsersList = (instance, data) => {
         const hits = data.View.Result.searchHits.searchHit;
-        const users = hits.reduce((total, hit) => total + createUsersListItem(hit.value.Content), '');
-        const methodName = users ? 'addEventListener' : 'removeEventListener';
 
-        usersList.innerHTML = users;
-        usersList.classList.remove('ibexa-filters__user-list--hidden');
+        const usersResponseList = hits.map((hit) => {
+            const user = hit.value.Content;
 
-        doc.querySelector('body')[methodName]('click', handleClickOutsideUserList, false);
-    };
-    const handleTyping = (event) => {
-        const value = event.target.value.trim();
+            return {
+                value: user._id,
+                label: user.TranslatedName,
+                selectedLabel: user.TranslatedName,
+            };
+        });
 
-        window.clearTimeout(getUsersTimeout);
+        if (usersResponseList.length) {
+            instance.togglePopoverVisibility(true);
 
-        if (value.length > 2) {
-            getUsersTimeout = window.setTimeout(getUsersList.bind(null, value), 200);
-        } else {
-            usersList.classList.add('ibexa-filters__user-list--hidden');
-            doc.querySelector('body').removeEventListener('click', handleClickOutsideUserList, false);
+            instance.updatePopoverContent(usersResponseList);
         }
     };
-    const handleSelectUser = (event) => {
-        searchCreatorInput.value = event.target.dataset.id;
+    const initCreatorAutocompleteField = () => {
+        const creatorWidget = new ibexa.core.AutocompleteInput({
+            container: creatorFieldWrapper,
+            getData: (instance, value) => {
+                if (value.length >= 3) {
+                    getUsersList(value, instance.sourceInput.dataset.contentTypeIdentifiers).then(showUsersList.bind(null, instance));
+                } else {
+                    instance.togglePopoverVisibility(false);
+                }
+            },
+        });
 
-        usersList.classList.add('ibexa-filters__user-list--hidden');
+        creatorWidget.init();
 
-        creatorInput.value = event.target.dataset.name;
-        creatorInput.setAttribute('disabled', true);
+        creatorWidget.sourceInput.addEventListener('input', (event) => {
+            if (event.target.value) {
+                creatorWidget.inputField.setAttribute('disabled', true);
 
-        doc.querySelector('body').removeEventListener('click', handleClickOutsideUserList, false);
-
-        toggleDisabledStateOnApplyBtn();
+                toggleDisabledStateOnApplyBtn();
+            }
+        });
     };
     const handleResetUser = () => {
-        searchCreatorInput.value = '';
+        const creatorAutocompleteField = creatorFieldWrapper.querySelector('.ibexa-autocomplete-input');
+        const creatorWidget = ibexa.helpers.objectInstances.getInstance(creatorAutocompleteField);
 
-        creatorInput.value = '';
-        creatorInput.removeAttribute('disabled');
+        creatorWidget.clear();
+        creatorWidget.inputField.removeAttribute('disabled');
 
         toggleDisabledStateOnApplyBtn();
-    };
-    const handleClickOutsideUserList = (event) => {
-        if (event.target.closest('.ibexa-filters__item--creator')) {
-            return;
-        }
-
-        creatorInput.value = '';
-        usersList.classList.add('ibexa-filters__user-list--hidden');
-        doc.querySelector('body').removeEventListener('click', handleClickOutsideUserList, false);
     };
     const initFlatPickr = (dateRangePickerNode) => {
         const { start, end } = dateRangePickerNode.dataset;
@@ -348,11 +341,10 @@
         tagBtns.forEach((btn) => btn.addEventListener('click', clearSearchTagBtnMethods[tagType], false));
     }
 
+    initCreatorAutocompleteField();
     subtreeInput.addEventListener('change', toggleDisabledStateOnApplyBtn, false);
     lastModifiedSelect.addEventListener('change', toggleDatesSelectVisibility, false);
     lastCreatedSelect.addEventListener('change', toggleDatesSelectVisibility, false);
-    creatorInput.addEventListener('keyup', handleTyping, false);
-    usersList.addEventListener('click', handleSelectUser, false);
     contentTypeCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', filterByContentType, false));
     showMoreBtns.forEach((showMoreBtn) => showMoreBtn.addEventListener('click', showMoreContentTypes, false));
     selectSubtreeBtn.addEventListener('click', openSubtreeUDW, false);

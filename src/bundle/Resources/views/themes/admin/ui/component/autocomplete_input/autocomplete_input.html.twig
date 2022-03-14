@@ -11,6 +11,8 @@
                 <input
                     type="text"
                     class="form-control ibexa-input ibexa-input--text ibexa-autocomplete-input__input"
+                    value="{{selectedLabel|default('') }}"
+                    {% if is_disabled|default(false) %}disabled="disabled"{% endif %}
                 />
             {% endblock %}
         {%- endembed -%}
