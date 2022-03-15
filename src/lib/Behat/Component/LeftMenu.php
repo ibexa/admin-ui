@@ -20,6 +20,8 @@ class LeftMenu extends Component
 {
     public function goToTab(string $tabName): void
     {
+        $this->getHTMLPage()->setTimeout(5);
+
         $buttonCriteron = new LogicalOrCriterion([
             new ElementAttributeCriterion('data-bs-original-title', $tabName),
             new ElementTextCriterion($tabName),
