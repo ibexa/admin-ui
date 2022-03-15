@@ -177,7 +177,7 @@
             credentials: 'same-origin',
         });
 
-        return fetch(request).then((response) => response.json());
+        return fetch(request).then(ibexa.helpers.request.getJsonFromResponse);
     };
     const showUsersList = (instance, data) => {
         const hits = data.View.Result.searchHits.searchHit;
@@ -208,17 +208,12 @@
                     instance.togglePopoverVisibility(false);
                 }
             },
+            onChange: () => {
+                toggleDisabledStateOnApplyBtn();
+            },
         });
 
         creatorWidget.init();
-
-        creatorWidget.sourceInput.addEventListener('input', (event) => {
-            if (event.target.value) {
-                creatorWidget.inputField.setAttribute('disabled', true);
-
-                toggleDisabledStateOnApplyBtn();
-            }
-        });
     };
     const handleResetUser = () => {
         const creatorAutocompleteField = creatorFieldWrapper.querySelector('.ibexa-autocomplete-input');

@@ -1,5 +1,9 @@
+{% if is_disabled_when_not_empty|default(false) and selected_label|default('') %}
+    {% set is_disabled = true %}
+{% endif %}
+
 <div
-    class="ibexa-autocomplete-input"
+    class="ibexa-autocomplete-input {% if is_disabled_when_not_empty %}ibexa-autocomplete-input--is-disabled-when-not-empty{% endif %}"
     {% if is_hidden|default(false) %}hidden="hidden"{% endif %}
 >
     <div class="ibexa-autocomplete-input__source">
@@ -11,7 +15,8 @@
                 <input
                     type="text"
                     class="form-control ibexa-input ibexa-input--text ibexa-autocomplete-input__input"
-                    value="{{selectedLabel|default('') }}"
+                    value="{{selected_label|default('') }}"
+                    placeholder="{{placeholder|default('') }}"
                     {% if is_disabled|default(false) %}disabled="disabled"{% endif %}
                 />
             {% endblock %}
@@ -27,7 +32,6 @@
                 selected_label: '{{ selected_label }}',
             })|e('html_attr') }}"
         >
-        <li>dupa</li>
         </ul>
     </div>
 </div>

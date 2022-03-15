@@ -56,9 +56,9 @@
 
             {% include '@ibexadesign/ui/component/autocomplete_input/autocomplete_input.html.twig' with {
                 source: creator_source,
-                placeholer: 'search.creator_input.placeholder'|trans|desc('Type creator\'s name'),
-                selectedLabel: creator is not empty ? ibexa_content_name(creator),
-                is_disabled: creator is not empty,
+                placeholder: 'search.creator_input.placeholder'|trans|desc('Type creator\'s name'),
+                selected_label: creator is not empty ? ibexa_content_name(creator),
+                is_disabled_when_not_empty: true,
             } %}
         </div>
         {% if form.section is defined %}

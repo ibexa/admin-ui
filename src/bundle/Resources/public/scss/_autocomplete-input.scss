@@ -13,6 +13,10 @@
 
     &__input-wrapper {
         position: relative;
+
+        .ibexa-input--text:disabled + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--clear {
+            display: flex;
+        }
     }
 
     &__items-wrapper {

@@ -15,7 +15,9 @@
             this.itemsContainer = this.container.querySelector('.ibexa-autocomplete-input__items-wrapper');
             this.itemsListContainer = this.itemsContainer.querySelector('.ibexa-autocomplete-input__items');
             this.getData = config.getData.bind(null, this);
+            this.onChange = config.onChange ?? (() => {});
             this.timeoutValue = config.timeoutValue !== undefined ? config.timeoutValue : 200;
+            this.isDisabledWhenNotEmpty = this.container.classList.contains('ibexa-autocomplete-input--is-disabled-when-not-empty');
 
             this.itemsPopoverContent = this.itemsPopoverContent.bind(this);
             this.handleTextInput = this.handleTextInput.bind(this);
@@ -31,6 +33,10 @@
         clear() {
             this.sourceInput.value = '';
             this.inputField.value = '';
+
+            if (this.isDisabledWhenNotEmpty) {
+                this.inputField.disabled = false;
+            }
 
             this.sourceInput.dispatchEvent(new Event('input'));
         }
@@ -97,6 +103,10 @@
             this.sourceInput.value = value;
             this.inputField.value = selectedLabel;
 
+            if (this.isDisabledWhenNotEmpty) {
+                this.inputField.disabled = true;
+            }
+
             this.sourceInput.dispatchEvent(new Event('input'));
             this.itemsPopover.hide();
         }
@@ -130,8 +140,7 @@
 
         handleClearInput() {
             if (this.inputField.value === '') {
-                this.sourceInput.value = '';
-
+                this.clear();
                 this.itemsPopover.hide();
             }
         }
@@ -165,6 +174,7 @@
 
             this.inputField.addEventListener('keyup', this.handleTextInput, false);
             this.inputField.addEventListener('input', this.handleClearInput, false);
+            this.sourceInput.addEventListener('input', this.onChange, false);
         }
     }
 
