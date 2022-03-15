@@ -45,7 +45,7 @@ class LeftMenu extends Component
 
     public function goToSubTab(string $tabName): void
     {
-        $this->getHTMLPage()
+        $this->getHTMLPage()->setTimeout(5)
             ->findAll($this->getLocator('expandedMenuItem'))
             ->getByCriterion(new ElementTextCriterion($tabName))
             ->click();
