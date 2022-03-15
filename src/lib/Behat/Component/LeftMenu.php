@@ -27,7 +27,7 @@ class LeftMenu extends Component
 
         $isCollapsed = $this->isCollapsed();
 
-        $menuButton = $this->getHTMLPage()
+        $menuButton = $this->getHTMLPage()->setTimeout(5)
             ->findAll($this->getLocator('menuItem'))
             ->getByCriterion($buttonCriteron);
         $menuButton->click();
@@ -45,7 +45,7 @@ class LeftMenu extends Component
 
     public function goToSubTab(string $tabName): void
     {
-        $this->getHTMLPage()->setTimeout(5)
+        $this->getHTMLPage()
             ->findAll($this->getLocator('expandedMenuItem'))
             ->getByCriterion(new ElementTextCriterion($tabName))
             ->click();
