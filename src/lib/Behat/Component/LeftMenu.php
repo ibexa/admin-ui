@@ -20,8 +20,8 @@ class LeftMenu extends Component
 {
     public function goToTab(string $tabName): void
     {
-        $this->getHTMLPage()->setTimeout(5);
-
+        sleep(5);
+        
         $buttonCriteron = new LogicalOrCriterion([
             new ElementAttributeCriterion('data-bs-original-title', $tabName),
             new ElementTextCriterion($tabName),
@@ -55,7 +55,7 @@ class LeftMenu extends Component
 
     public function verifyIsLoaded(): void
     {
-        $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('menuSelector'))->assert()->isVisible();
+        $this->getHTMLPage()->find($this->getLocator('menuSelector'))->assert()->isVisible();
     }
 
     protected function specifyLocators(): array
