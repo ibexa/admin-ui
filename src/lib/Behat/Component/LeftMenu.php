@@ -27,7 +27,7 @@ class LeftMenu extends Component
 
         $isCollapsed = $this->isCollapsed();
 
-        $menuButton = $this->getHTMLPage()->setTimeout(5)
+        $menuButton = $this->getHTMLPage()
             ->findAll($this->getLocator('menuItem'))
             ->getByCriterion($buttonCriteron);
         $menuButton->click();
@@ -53,7 +53,7 @@ class LeftMenu extends Component
 
     public function verifyIsLoaded(): void
     {
-        $this->getHTMLPage()->find($this->getLocator('menuSelector'))->assert()->isVisible();
+        $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('menuSelector'))->assert()->isVisible();
     }
 
     protected function specifyLocators(): array
