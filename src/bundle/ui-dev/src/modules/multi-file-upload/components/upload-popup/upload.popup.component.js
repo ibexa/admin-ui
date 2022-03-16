@@ -13,9 +13,7 @@ export default class UploadPopupModule extends Component {
     constructor(props) {
         super(props);
 
-        this.uploadFiles = this.uploadFiles.bind(this);
         this.refTooltip = React.createRef();
-        this.state = { itemsToUpload: props.itemsToUpload };
     }
 
     componentDidMount() {
@@ -27,32 +25,13 @@ export default class UploadPopupModule extends Component {
         window.document.body.classList.remove(CLASS_SCROLL_DISABLED);
     }
 
-    UNSAFE_componentWillReceiveProps(props) {
-        this.setState((state) => {
-            const stateItems = state.itemsToUpload.filter(
-                (stateItem) => !props.itemsToUpload.find((propItem) => propItem.id === stateItem.id),
-            );
-
-            return { itemsToUpload: [...stateItems, ...props.itemsToUpload] };
-        });
-    }
-
-    /**
-     * Uploads files
-     *
-     * @method uploadFiles
-     * @param {Array} itemsToUpload
-     * @memberof UploadPopupModule
-     */
-    uploadFiles(itemsToUpload) {
-        this.setState(() => ({ itemsToUpload }));
-    }
-
     render() {
         const tooltipAttrs = this.props;
         const listAttrs = {
             ...tooltipAttrs,
-            itemsToUpload: this.state.itemsToUpload,
+            itemsToUpload: this.props.itemsToUpload,
+            addItemsToUpload: this.props.addItemsToUpload,
+            removeItemsToUpload: this.props.removeItemsToUpload,
         };
         const title = Translator.trans(/*@Desc("Multi-file upload")*/ 'upload_popup.close', {}, 'multi_file_upload');
 
@@ -60,7 +39,7 @@ export default class UploadPopupModule extends Component {
             <div className="c-upload-popup" ref={this.refTooltip}>
                 <TooltipPopup title={title} showFooter={false} {...tooltipAttrs}>
                     <DropAreaComponent
-                        onDrop={this.uploadFiles}
+                        addItemsToUpload={this.props.addItemsToUpload}
                         maxFileSize={this.props.adminUiConfig.multiFileUpload.maxFileSize}
                         preventDefaultAction={this.props.preventDefaultAction}
                         processUploadedFiles={this.props.processUploadedFiles}
@@ -101,6 +80,8 @@ UploadPopupModule.propTypes = {
     processUploadedFiles: PropTypes.func.isRequired,
     contentTypesMap: PropTypes.object.isRequired,
     currentLanguage: PropTypes.string,
+    addItemsToUpload: PropTypes.func.isRequired,
+    removeItemsToUpload: PropTypes.func.isRequired,
 };
 
 UploadPopupModule.defaultProps = {
