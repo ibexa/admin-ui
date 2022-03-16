@@ -2,4 +2,10 @@
     padding: calculateRem(8px);
     display: flex;
     align-items: center;
+
+    .c-simple-dropdown {
+        &__items {
+            min-width: calculateRem(200px);
+        }
+    }
 }

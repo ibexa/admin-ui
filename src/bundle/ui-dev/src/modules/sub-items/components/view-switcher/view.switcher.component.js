@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../../../common/icon/icon';
+import SimpleDropdown from '../../../common/simple-dropdown/simple.dropdown';
 
 import { VIEW_MODE_TABLE, VIEW_MODE_GRID } from '../../sub.items.module';
 
@@ -13,25 +13,32 @@ const ViewSwitcherComponent = ({ onViewChange, activeView, isDisabled }) => {
         componentClassName = `${componentClassName} ${componentClassName}--disabled`;
     }
 
-    const viewBtnLabel = Translator.trans(/*@Desc("View")*/ 'switch_to_list_view.btn.label', {}, 'sub_items');
-    const listViewBtnTitle = Translator.trans(/*@Desc("View as list")*/ 'switch_to_list_view.btn.title', {}, 'sub_items');
-    const gridViewBtnTitle = Translator.trans(/*@Desc("View as grid")*/ 'switch_to_grid_view.btn.title', {}, 'sub_items');
-    const isTableViewActive = activeView === VIEW_MODE_TABLE;
-    const viewBtnTitle = isTableViewActive ? gridViewBtnTitle : listViewBtnTitle;
-    const viewBtnIconName = isTableViewActive ? 'view-grid' : 'view-list';
-    const switchView = () => {
-        const newView = isTableViewActive ? VIEW_MODE_GRID : VIEW_MODE_TABLE;
-
-        onViewChange(newView);
+    const viewLabel = Translator.trans(/*@Desc("View")*/ 'view_switcher.view', {}, 'sub_items');
+    const switchView = ({ value }) => {
+        onViewChange(value);
     };
-    const btnClassName = 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--icon-right';
+    const viewOptions = [
+        {
+            iconName: 'view-list',
+            label: Translator.trans(/*@Desc("List view")*/ 'view_switcher.list_view', {}, 'sub_items'),
+            value: VIEW_MODE_TABLE,
+        },
+        {
+            iconName: 'view-grid',
+            label: Translator.trans(/*@Desc("Grid view")*/ 'view_switcher.grid_view', {}, 'sub_items'),
+            value: VIEW_MODE_GRID,
+        },
+    ];
+    const selectedOption = viewOptions.find((option) => option.value === activeView);
 
     return (
         <div className={componentClassName}>
-            <button type="button" className={btnClassName} title={viewBtnTitle} onClick={switchView} disabled={isDisabled}>
-                {viewBtnLabel}
-                <Icon name={viewBtnIconName} extraClasses="ibexa-icon--small" />
-            </button>
+            <SimpleDropdown
+                options={viewOptions}
+                selectedOption={selectedOption}
+                onOptionClick={switchView}
+                selectedItemLabel={viewLabel}
+            />
         </div>
     );
 };

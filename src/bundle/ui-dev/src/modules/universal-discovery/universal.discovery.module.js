@@ -20,48 +20,48 @@ const CLASS_SCROLL_DISABLED = 'ibexa-scroll-disabled';
 
 export const SORTING_OPTIONS = [
     {
-        id: 'date:asc',
+        value: 'date:asc',
         label: (
-            <div className="c-udw-simple-dropdown__option-label">
+            <div className="c-simple-dropdown__option-label">
                 {Translator.trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'universal_discovery_widget')}
-                <Icon name="back" extraClasses="c-udw-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
+                <Icon name="back" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
             </div>
         ),
         selectedLabel: (
-            <div className="c-udw-simple-dropdown__option-label">
+            <div className="c-simple-dropdown__option-label">
                 {Translator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'universal_discovery_widget')}
-                <Icon name="back" extraClasses="c-udw-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
+                <Icon name="back" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
             </div>
         ),
         sortClause: 'DatePublished',
         sortOrder: 'ascending',
     },
     {
-        id: 'date:desc',
+        value: 'date:desc',
         label: (
-            <div className="c-udw-simple-dropdown__option-label">
+            <div className="c-simple-dropdown__option-label">
                 {Translator.trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'universal_discovery_widget')}
-                <Icon name="back" extraClasses="c-udw-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
+                <Icon name="back" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
             </div>
         ),
         selectedLabel: (
-            <div className="c-udw-simple-dropdown__option-label">
+            <div className="c-simple-dropdown__option-label">
                 {Translator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'universal_discovery_widget')}
-                <Icon name="back" extraClasses="c-udw-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
+                <Icon name="back" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
             </div>
         ),
         sortClause: 'DatePublished',
         sortOrder: 'descending',
     },
     {
-        id: 'name:asc',
+        value: 'name:asc',
         label: Translator.trans(/*@Desc("Name A-Z")*/ 'sorting.name.asc.label', {}, 'universal_discovery_widget'),
         selectedLabel: Translator.trans(/*@Desc("Sort by name A-Z")*/ 'sorting.name.asc.selected_label', {}, 'universal_discovery_widget'),
         sortClause: 'ContentName',
         sortOrder: 'ascending',
     },
     {
-        id: 'name:desc',
+        value: 'name:desc',
         label: Translator.trans(/*@Desc("Name Z-A")*/ 'sorting.name.desc.label', {}, 'universal_discovery_widget'),
         selectedLabel: Translator.trans(/*@Desc("Sort by name Z-A")*/ 'sorting.name.desc.selected_label', {}, 'universal_discovery_widget'),
         sortClause: 'ContentName',
@@ -70,15 +70,18 @@ export const SORTING_OPTIONS = [
 ];
 export const VIEWS = [
     {
-        id: 'finder',
+        value: 'finder',
+        iconName: 'panels',
         label: Translator.trans(/*@Desc("Panels view")*/ 'sorting.panels.view', {}, 'universal_discovery_widget'),
     },
     {
-        id: 'grid',
+        value: 'grid',
+        iconName: 'view-grid',
         label: Translator.trans(/*@Desc("Grid view")*/ 'sorting.grid.view', {}, 'universal_discovery_widget'),
     },
     {
-        id: 'tree',
+        value: 'tree',
+        iconName: 'content-tree',
         label: Translator.trans(/*@Desc("Tree view")*/ 'sorting.tree.view', {}, 'universal_discovery_widget'),
     },
 ];

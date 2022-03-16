@@ -61,6 +61,11 @@
         <target state="new">Content Type</target>
         <note>key: section.assigned_content.type</note>
       </trans-unit>
+      <trans-unit id="f45cc741a3a68971876e3c23cddeff2fc45fcbc3" resname="section.breadcrumb.list">
+        <source>Sections</source>
+        <target state="new">Sections</target>
+        <note>key: section.breadcrumb.list</note>
+      </trans-unit>
       <trans-unit id="0a6c7f3919b09caa9eee957a4949d3c9b6dce16e" resname="section.create.success">
         <source>Section '%name%' created.</source>
         <target state="new">Section '%name%' created.</target>
@@ -95,11 +100,6 @@
         <source>Identifier</source>
         <target state="new">Identifier</target>
         <note>key: section.identifier</note>
-      </trans-unit>
-      <trans-unit id="1f9b6e37416ff607de9d4fa280dce2f734ea622c" resname="section.list">
-        <source>Sections</source>
-        <target state="new">Sections</target>
-        <note>key: section.list</note>
       </trans-unit>
       <trans-unit id="d0db9c352babe46e30354a78d9b3eccd226d7602" resname="section.list.title">
         <source>Sections</source>

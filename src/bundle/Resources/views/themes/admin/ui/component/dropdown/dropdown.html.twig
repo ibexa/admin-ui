@@ -5,6 +5,7 @@
 %}
 {% set preferred_choices = preferred_choices|default([]) %}
 {% set min_search_items = min_search_items|default(5) %}
+{% set min_item_width = min_item_width|default(100) %}
 {% set custom_form = custom_form is defined ? custom_form : true %}
 {% set translation_domain = translation_domain|default(false) %}
 {% set value = value is defined ? value : null %}
@@ -35,6 +36,13 @@
     <div class="ibexa-dropdown__wrapper">
         <ul
             class="ibexa-dropdown__selection-info"
+            data-min-item-width="{{ min_item_width }}"
+            {% if selected_item_label is defined %}
+                data-selected-item-label="{{ selected_item_label }}"
+            {% endif %}
+            data-icon-template="{{ include('@ibexadesign/ui/component/dropdown/dropdown_selected_item_icon.html.twig', {
+                icon: '{{ icon }}',
+            })|e('html_attr') }}"
             data-template="{{ include('@ibexadesign/ui/component/dropdown/dropdown_selected_item.html.twig', {
                 value: '{{ value }}',
                 label: '{{ label }}',
@@ -68,15 +76,22 @@
                             {% include '@ibexadesign/ui/component/dropdown/dropdown_selected_item.html.twig' with {
                                 value: first_choice.value,
                                 label: _self.get_translated_label(first_choice.label, translation_domain),
+                                icon: first_choice.icon is defined ? first_choice.icon,
                             } %}
                         {% endif %}
                     {% endif %}
                 {% else %}
                     {% for choice in choices_flat %}
                         {% if custom_form ? choice.value == value : choice is selectedchoice(value) %}
+                            {% set label = selected_item_label is defined
+                                ? selected_item_label
+                                : _self.get_translated_label(choice.label, translation_domain)
+                            %}
+
                             {% include '@ibexadesign/ui/component/dropdown/dropdown_selected_item.html.twig' with {
+                                label,
                                 value: choice.value,
-                                label: _self.get_translated_label(choice.label, translation_domain),
+                                icon: choice.icon is defined ? choice.icon,
                             } %}
                         {% endif %}
                     {% endfor %}
