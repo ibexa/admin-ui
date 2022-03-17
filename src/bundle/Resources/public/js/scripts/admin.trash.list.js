@@ -1,5 +1,4 @@
 (function (global, doc, ibexa, React, ReactDOM, Translator, flatpickr) {
-    let getUsersTimeout;
     const CLASS_SORTED_ASC = 'ibexa-table__sort-column--asc';
     const CLASS_SORTED_DESC = 'ibexa-table__sort-column--desc';
     const CLASS_VISIBLE_DATE_RANGE = 'ibexa-trash-search-form__range-wrapper--visible';
@@ -14,12 +13,12 @@
     const sortDirection = doc.querySelector('#trash_search_sort_direction');
     const creatorInput = doc.querySelector('.ibexa-trash-search-form__item--creator .ibexa-trash-search-form__input');
     const usersList = doc.querySelector('.ibexa-trash-search-form__item--creator .ibexa-trash-search-form__user-list');
-    const resetCreatorBtn = doc.querySelector('.ibexa-btn--reset-creator');
     const searchCreatorInput = doc.querySelector('#trash_search_creator');
     const sortableColumns = doc.querySelectorAll('.ibexa-table__sort-column');
     const btns = doc.querySelectorAll('.ibexa-btn--open-udw');
     const udwContainer = doc.getElementById('react-udw');
     const autoSendNodes = doc.querySelectorAll('.ibexa-trash-search-form__item--auto-send');
+    const creatorFieldWrapper = doc.querySelector('.ibexa-trash-search-form__item--creator');
     const errorMessage = Translator.trans(/*@Desc("Cannot fetch user list")*/ 'trash.user_list.error', {}, 'trash_ui');
     const dateConfig = {
         mode: 'range',
@@ -98,22 +97,7 @@
         updateTrashForm([event.target]);
         enableButtons();
     };
-    const handleResetUser = () => {
-        searchCreatorInput.value = '';
-
-        creatorInput.value = '';
-        creatorInput.removeAttribute('disabled');
-    };
-    const handleClickOutsideUserList = (event) => {
-        if (event.target.closest('.ibexa-trash-search-form__item--creator')) {
-            return;
-        }
-
-        creatorInput.value = '';
-        usersList.classList.add('ibexa-trash-search-form__item__user-list--hidden');
-        doc.querySelector('body').removeEventListener('click', handleClickOutsideUserList, false);
-    };
-    const getUsersList = (value) => {
+    const getUsersList = (value, contentTypeIdentifiers) => {
         const body = JSON.stringify({
             ViewInput: {
                 identifier: `find-user-by-name-${value}`,
@@ -123,7 +107,7 @@
                     SortClauses: {},
                     Query: {
                         FullTextCriterion: `${value}*`,
-                        ContentTypeIdentifierCriterion: creatorInput.dataset.contentTypeIdentifiers.split(','),
+                        ContentTypeIdentifierCriterion: contentTypeIdentifiers.split(','),
                     },
                     limit: 50,
                     offset: 0,
@@ -143,46 +127,45 @@
             credentials: 'same-origin',
         });
 
-        fetch(request)
-            .then(ibexa.helpers.request.getJsonFromResponse)
-            .then(showUsersList)
-            .catch(() => ibexa.helpers.notification.showErrorNotification(errorMessage));
+        return fetch(request).then(ibexa.helpers.request.getJsonFromResponse);
     };
-    const createUsersListItem = (user) => {
-        return `<li data-id="${user._id}" data-name="${user.TranslatedName}" class="ibexa-trash-search-form__user-item">${user.TranslatedName}</li>`;
-    };
-    const showUsersList = (data) => {
+    const showUsersList = (instance, data) => {
         const hits = data.View.Result.searchHits.searchHit;
-        const users = hits.reduce((total, hit) => total + createUsersListItem(hit.value.Content), '');
-        const methodName = users ? 'addEventListener' : 'removeEventListener';
 
-        usersList.innerHTML = users;
-        usersList.classList.remove('ibexa-trash-search-form__user-list--hidden');
+        const usersResponseList = hits.map((hit) => {
+            const user = hit.value.Content;
 
-        doc.querySelector('body')[methodName]('click', handleClickOutsideUserList, false);
-    };
-    const handleTyping = (event) => {
-        const value = event.target.value.trim();
+            return {
+                value: user._id,
+                label: user.TranslatedName,
+                selectedLabel: user.TranslatedName,
+            };
+        });
 
-        global.clearTimeout(getUsersTimeout);
+        if (usersResponseList.length) {
+            instance.togglePopoverVisibility(true);
 
-        if (value.length > 2) {
-            getUsersTimeout = global.setTimeout(getUsersList.bind(null, value), 200);
-        } else {
-            usersList.classList.add('ibexa-trash-search-form__user-list--hidden');
-            doc.querySelector('body').removeEventListener('click', handleClickOutsideUserList, false);
+            instance.updatePopoverContent(usersResponseList);
         }
     };
-    const handleSelectUser = (event) => {
-        searchCreatorInput.value = event.target.dataset.id;
+    const initCreatorAutocompleteField = () => {
+        const creatorWidget = new ibexa.core.AutocompleteInput({
+            container: creatorFieldWrapper,
+            getData: (instance, value) => {
+                if (value.length >= 3) {
+                    getUsersList(value, instance.sourceInput.dataset.contentTypeIdentifiers)
+                        .then(showUsersList.bind(null, instance))
+                        .catch(() => ibexa.helpers.notification.showErrorNotification(errorMessage));
+                } else {
+                    instance.togglePopoverVisibility(false);
+                }
+            },
+            onChange: () => {
+                formSearch.submit();
+            },
+        });
 
-        usersList.classList.add('ibexa-trash-search-form__user-list--hidden');
-
-        creatorInput.value = event.target.dataset.name;
-        creatorInput.setAttribute('disabled', true);
-
-        doc.querySelector('body').removeEventListener('click', handleClickOutsideUserList, false);
-        formSearch.submit();
+        creatorWidget.init();
     };
     const sortTrashItems = (event) => {
         const { target } = event;
@@ -265,14 +248,12 @@
         }
     };
 
+    initCreatorAutocompleteField();
     setSortedClass();
     dateFields.forEach(initFlatPickr);
     autoSendNodes.forEach((node) => node.addEventListener('change', handleAutoSubmitNodes, false));
     sortableColumns.forEach((column) => column.addEventListener('click', sortTrashItems, false));
     trashedTypeInput.addEventListener('change', toggleDatesSelectVisibility, false);
-    creatorInput.addEventListener('keyup', handleTyping, false);
-    usersList.addEventListener('click', handleSelectUser, false);
-    resetCreatorBtn.addEventListener('click', handleResetUser, false);
     updateTrashForm(trashRestoreCheckboxes);
     enableButtons();
     trashRestoreCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', handleCheckboxChange, false));

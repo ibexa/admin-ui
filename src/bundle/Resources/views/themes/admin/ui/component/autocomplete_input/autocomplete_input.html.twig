@@ -1,0 +1,37 @@
+{% if is_disabled_when_not_empty|default(false) and selected_label|default('') %}
+    {% set is_disabled = true %}
+{% endif %}
+
+<div
+    class="ibexa-autocomplete-input {% if is_disabled_when_not_empty %}ibexa-autocomplete-input--is-disabled-when-not-empty{% endif %}"
+    {% if is_hidden|default(false) %}hidden="hidden"{% endif %}
+>
+    <div class="ibexa-autocomplete-input__source">
+        {{ source|default(null)|raw }}
+    </div>
+    <div class="ibexa-autocomplete-input__input-wrapper">
+        {%- embed '@ibexadesign/ui/component/input_text.html.twig' -%}
+            {% block content %}
+                <input
+                    type="text"
+                    class="form-control ibexa-input ibexa-input--text ibexa-autocomplete-input__input"
+                    value="{{selected_label|default('') }}"
+                    placeholder="{{placeholder|default('') }}"
+                    {% if is_disabled|default(false) %}disabled="disabled"{% endif %}
+                />
+            {% endblock %}
+        {%- endembed -%}
+    </div>
+    <div class="ibexa-autocomplete-input__anchor-items"></div>
+    <div class="ibexa-autocomplete-input__items-wrapper">
+        <ul
+            class="ibexa-autocomplete-input__items"
+            data-template="{{ include('@ibexadesign/ui/component/autocomplete_input/autocomplete_input_item.html.twig', {
+                value: '{{ value }}',
+                label: '{{ label }}',
+                selected_label: '{{ selected_label }}',
+            })|e('html_attr') }}"
+        >
+        </ul>
+    </div>
+</div>
