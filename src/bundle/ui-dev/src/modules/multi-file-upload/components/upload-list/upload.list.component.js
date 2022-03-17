@@ -162,7 +162,6 @@ UploadListComponent.propTypes = {
     contentCreatePermissionsConfig: PropTypes.object.isRequired,
     contentTypesMap: PropTypes.object.isRequired,
     currentLanguage: PropTypes.string,
-    addItemsToUpload: PropTypes.func.isRequired,
     removeItemsToUpload: PropTypes.func.isRequired,
 };
 

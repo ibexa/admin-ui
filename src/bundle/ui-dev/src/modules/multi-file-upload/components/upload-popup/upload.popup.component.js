@@ -30,7 +30,6 @@ export default class UploadPopupModule extends Component {
         const listAttrs = {
             ...tooltipAttrs,
             itemsToUpload: this.props.itemsToUpload,
-            addItemsToUpload: this.props.addItemsToUpload,
             removeItemsToUpload: this.props.removeItemsToUpload,
         };
         const title = Translator.trans(/*@Desc("Multi-file upload")*/ 'upload_popup.close', {}, 'multi_file_upload');

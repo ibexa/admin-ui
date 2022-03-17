@@ -238,7 +238,7 @@ export default class MultiFileUploadModule extends Component {
         this.setState((prevState) => {
             const itemsToUpload = prevState.itemsToUpload.filter((stateItem) => !itemsIds.includes(stateItem.id));
 
-            if (itemsToUpload.length !== prevState.itemsToUpload) {
+            if (itemsToUpload.length !== prevState.itemsToUpload.length) {
                 return {
                     itemsToUpload,
                 };
