@@ -11,7 +11,7 @@
 
     backToTopScrollContainer.addEventListener('scroll', (event) => {
         const container = event.target;
-        const isTitleVisible = container.scrollHeight - container.scrollTop === container.clientHeight;
+        const isTitleVisible = Math.abs(container.scrollHeight - container.scrollTop - container.clientHeight) <= 2;
 
         backToTopBtn.classList.toggle('ibexa-back-to-top__btn--visible', container.scrollTop !== 0);
         backToTopBtn.classList.toggle('ibexa-btn--no-text', !isTitleVisible);
