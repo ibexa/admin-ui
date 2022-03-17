@@ -14,8 +14,7 @@ use Ibexa\Behat\Browser\Routing\Router;
 
 class ChangePasswordPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu */
-    private $contentActionsMenu;
+    private ContentActionsMenu $contentActionsMenu;
 
     public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu)
     {
