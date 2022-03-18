@@ -8,19 +8,8 @@ export default class UploadListComponent extends Component {
         super(props);
 
         this.state = {
-            itemsToUpload: props.itemsToUpload,
             items: [],
         };
-    }
-
-    UNSAFE_componentWillReceiveProps(props) {
-        this.setState((state) => {
-            const stateItems = state.itemsToUpload.filter(
-                (stateItem) => !props.itemsToUpload.find((propItem) => propItem.id === stateItem.id),
-            );
-
-            return { itemsToUpload: [...stateItems, ...props.itemsToUpload] };
-        });
     }
 
     componentDidUpdate() {
@@ -35,8 +24,8 @@ export default class UploadListComponent extends Component {
      * @memberof UploadListComponent
      */
     handleAfterUpload(item) {
+        this.props.removeItemsToUpload([item]);
         this.setState((state) => ({
-            itemsToUpload: state.itemsToUpload.filter((data) => data.id !== item.id),
             items: [...state.items, item],
         }));
     }
@@ -49,11 +38,11 @@ export default class UploadListComponent extends Component {
      * @memberof UploadListComponent
      */
     handleAfterAbort(item) {
+        this.props.removeItemsToUpload([item]);
         this.setState((state) => {
             const items = state.items.filter((data) => data.id !== item.id);
-            const itemsToUpload = state.itemsToUpload.filter((data) => data.id !== item.id);
 
-            return { ...state, uploaded: items.length, total: items.length + itemsToUpload.length, itemsToUpload, items };
+            return { uploaded: items.length, items };
         });
     }
 
@@ -67,9 +56,8 @@ export default class UploadListComponent extends Component {
     handleAfterDelete(item) {
         this.setState((state) => {
             const items = state.items.filter((data) => data.id !== item.id);
-            const itemsToUpload = state.itemsToUpload.filter((data) => data.id !== item.id);
 
-            return { ...state, uploaded: items.length, total: items.length + itemsToUpload.length, itemsToUpload, items };
+            return { uploaded: items.length, items };
         });
     }
 
@@ -134,7 +122,8 @@ export default class UploadListComponent extends Component {
     }
 
     render() {
-        const { items, itemsToUpload } = this.state;
+        const { itemsToUpload } = this.props;
+        const { items } = this.state;
 
         return (
             <div className="c-upload-list">
@@ -173,6 +162,7 @@ UploadListComponent.propTypes = {
     contentCreatePermissionsConfig: PropTypes.object.isRequired,
     contentTypesMap: PropTypes.object.isRequired,
     currentLanguage: PropTypes.string,
+    removeItemsToUpload: PropTypes.func.isRequired,
 };
 
 UploadListComponent.defaultProps = {

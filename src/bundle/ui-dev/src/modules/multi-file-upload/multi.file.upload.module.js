@@ -26,6 +26,8 @@ export default class MultiFileUploadModule extends Component {
         this.processUploadedFiles = this.processUploadedFiles.bind(this);
         this.setUdwStateOpened = this.setUdwStateOpened.bind(this);
         this.setUdwStateClosed = this.setUdwStateClosed.bind(this);
+        this.addItemsToUpload = this.addItemsToUpload.bind(this);
+        this.removeItemsToUpload = this.removeItemsToUpload.bind(this);
 
         this.state = {
             udwOpened: false,
@@ -218,6 +220,32 @@ export default class MultiFileUploadModule extends Component {
         );
     }
 
+    addItemsToUpload(items) {
+        this.setState((prevState) => {
+            const newItems = items.filter((item) => !prevState.itemsToUpload.find((stateItem) => stateItem.id === item.id));
+
+            if (newItems.length) {
+                return {
+                    itemsToUpload: [...prevState.itemsToUpload, ...newItems],
+                };
+            }
+        });
+    }
+
+    removeItemsToUpload(items) {
+        const itemsIds = items.map((item) => item.id);
+
+        this.setState((prevState) => {
+            const itemsToUpload = prevState.itemsToUpload.filter((stateItem) => !itemsIds.includes(stateItem.id));
+
+            if (itemsToUpload.length !== prevState.itemsToUpload.length) {
+                return {
+                    itemsToUpload,
+                };
+            }
+        });
+    }
+
     /**
      * Renders a popup
      *
@@ -238,6 +266,8 @@ export default class MultiFileUploadModule extends Component {
             onAfterUpload: this.handleAfterUpload,
             preventDefaultAction: this.preventDefaultAction,
             processUploadedFiles: this.processUploadedFiles,
+            addItemsToUpload: this.addItemsToUpload,
+            removeItemsToUpload: this.removeItemsToUpload,
         };
 
         return <UploadPopupComponent {...attrs} />;
