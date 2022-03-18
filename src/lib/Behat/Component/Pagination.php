@@ -21,9 +21,9 @@ class Pagination extends Component
     public function clickNextButton(): void
     {
         $currentPage = (int) $this->getHTMLPage()->find($this->getLocator('currentPage'))->getText();
-        // TODO: Remove mouseOver and sleep when redesigning pagination - Selenium has issues with bootstrap on-hover effects
-        $this->getHTMLPage()->find($this->getLocator('nextButton'))->mouseOver();
-        usleep(100 * 5000); // 500ms
+        // scroll to the bottom to avoid "Go to top" button
+        $this->getHTMLPage()->executeJavaScript("document.querySelector('.ibexa-back-to-top-scroll-container').scrollTo(0, document.querySelector('.ibexa-back-to-top-scroll-container').scrollHeight)");
+        $this->getHTMLPage()->find(new VisibleCSSLocator('backToTopWithTitle', '.ibexa-back-to-top__title--visible'))->assert()->textEquals('Go to top');
         $this->getHTMLPage()->find($this->getLocator('nextButton'))->click();
         $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($currentPage) {
             $activePge = (int) $this->getHTMLPage()->find($this->getLocator('currentPage'))->getText();
