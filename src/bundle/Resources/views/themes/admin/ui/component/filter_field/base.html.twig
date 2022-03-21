@@ -1,0 +1,20 @@
+<div class="ibexa-filter-field">
+    {% block filter_header %}
+        <div class="ibexa-filter-field__header">
+            <div class="ibexa-filter-field__label">{{ filter_label|default('') }}</div>
+            <div class="ibexa-filter-field__lactions">
+                {% block filter_actions %}{% endblock %}
+                <button></button>
+            </div>
+            <input type="text" class="form-control ibexa-input ibexa-input--text ibexa-input--small">
+        </div>
+    {% endblock %}
+    {% block filter_body %}
+        <div class="ibexa-filter-field__body">
+            {% block filter_fields %}{% endblock %}
+        </div>
+    {% endblock %}
+    {% block filter_footer %}
+        <div class="ibexa-filter-field__footer"></div>
+    {% endblock %}
+</div>
