@@ -16,6 +16,7 @@
     )|trim,
     readonly: 'readonly',
     type: 'text',
+    placeholder: input_attr.placeholder|default(' '),
 }) %}
 
 {% embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: false } %}
