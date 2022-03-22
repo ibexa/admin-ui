@@ -1,0 +1,34 @@
+{% set is_collapsed = is_collapsed|default(true) %}
+
+<div class="ibexa-filter-field {{ is_collapsed ? 'ibexa-filter-field--collapsed'  }} {{ class|default('') }}">
+    {% block filter_header %}
+        <div class="ibexa-filter-field__header">
+            <div class="ibexa-filter-field__header-label">
+                {% block filter_label %}{% endblock %}
+            </div>
+            <div class="ibexa-filter-field__header-actions">
+                {% block filter_actions %}{% endblock %}
+                <button
+                    type="button"
+                    class="btn ibexa-btn ibexa-btn--small ibexa-btn--ghost ibexa-btn--no-text ibexa-filter-field__toggler"
+                    title="{{ 'filters_sidebar.toggle'|trans|desc('Toggle') }}"
+                >
+                    <svg class="ibexa-icon ibexa-icon--small">
+                        <use xlink:href="{{ ibexa_icon_path('caret-down') }}"></use>
+                    </svg>
+                </button>
+            </div>
+            <input type="text" class="form-control ibexa-filter-field__search-input ibexa-input ibexa-input--text ibexa-input--small">
+        </div>
+    {% endblock %}
+    {% block filter_body %}
+        <div class="ibexa-filter-field__body">
+            {% block filter_fields_before %}{% endblock %}
+            {% block filter_fields %}{% endblock %}
+            {% block filter_fields_after %}{% endblock %}
+        </div>
+    {% endblock %}
+    {% block filter_footer %}
+        <div class="ibexa-filter-field__footer"></div>
+    {% endblock %}
+</div>

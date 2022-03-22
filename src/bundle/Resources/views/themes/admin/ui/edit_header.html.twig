@@ -1,8 +1,8 @@
 {% set show_extra_bottom_content = show_extra_bottom_content|default(false) %}
 
 <div class="ibexa-edit-header {{ show_extra_bottom_content ? 'ibexa-edit-header--has-extra-content' }}">
-    <div class="container ibexa-edit-header__container">
-        <div class="offset-1 ibexa-edit-header__row ibexa-edit-header__row--top">
+    <div class="ibexa-edit-header__container {% if full_width_header|default(false) %}container-fluid{% else %}container{% endif %}">
+        <div class="{% if not full_width_header|default(false) %}offset-1{% endif %} ibexa-edit-header__row ibexa-edit-header__row--top">
             <div class="ibexa-edit-header__column ibexa-edit-header__column--main">
                 <div class="ibexa-edit-header__action-name-container">
                     {% if icon_name is defined %}
@@ -28,8 +28,8 @@
 
     <div class="ibexa-edit-header__separate-div"></div>
 
-    <div class="container ibexa-edit-header__container">
-        <div class="offset-1 ibexa-edit-header__row ibexa-edit-header__row--bottom">
+    <div class="ibexa-edit-header__container {% if full_width_header|default(false) %}container-fluid{% else %}container{% endif %}">
+        <div class="{% if not full_width_header|default(false) %}offset-1{% endif %} ibexa-edit-header__row ibexa-edit-header__row--bottom">
             <div class="ibexa-edit-header__column ibexa-edit-header__column--left">
                 <h1 class="ibexa-edit-header__title">
                     {{ title }}

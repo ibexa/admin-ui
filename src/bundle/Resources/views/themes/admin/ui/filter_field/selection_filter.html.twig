@@ -1,0 +1,58 @@
+{% extends '@ibexadesign/ui/filter_field/base.html.twig' %}
+
+{% set choices = [
+    {
+        label: 'Option A',
+        value: 'option_a',
+    },
+    {
+        label: 'Option B',
+        value: 'option_b',
+    },
+    {
+        label: 'Option C',
+        value: 'option_c',
+    },
+    {
+        label: 'Option D',
+        value: 'option_d',
+    },
+    {
+        label: 'Option E',
+        value: 'option_e',
+    },
+    {
+        label: 'Option F',
+        value: 'option_f',
+    },
+    {
+        label: 'Option G',
+        value: 'option_g',
+    },
+] %}
+
+{% set items_show_limit = items_show_limit|default(5) %}
+
+{%- block filter_label -%}Color{%- endblock -%}
+
+{%- block filter_fields_before -%}
+    <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-filter-field__select-all-btn">
+        {{ 'filter_field.select_all'|trans|desc('Select all') }}
+    </button>
+{%- endblock -%}
+
+{%- block filter_fields -%}
+    <ul class="ibexa-filter-field__selection-list">
+        {% for index, choice in choices %}
+            <li class="ibexa-filter-field__selection-list-item {% if index >= items_show_limit %}ibexa-filter-field__selection-list-item--hidden{% endif %}">
+                <input type="checkbox" class="ibexa-input ibexa-input--checkbox  form-check-input"/> {{ choice.label }} {{ index }}
+            </li>
+        {% endfor %}
+    </ul>
+{%- endblock -%}
+
+{%- block filter_fields_after -%}
+    <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-filter-field__select-all-btn">
+        {{ 'filter_field.more'|trans|desc('more') }}
+    </button>
+{%- endblock -%}

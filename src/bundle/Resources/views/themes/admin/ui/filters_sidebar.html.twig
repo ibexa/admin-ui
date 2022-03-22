@@ -1,0 +1,24 @@
+<div class="ibexa-filters-sidebar">
+    {% block filters_sidebar_header %}
+        <div class="ibexa-filters-sidebar__header">
+            <div class="ibexa-filters-sidebar__header-label">
+                {% block filters_sidebar_label %}{% endblock %}
+            </div>
+            <div class="ibexa-filters-sidebar__header-actions">
+                {% block filters_sidebar_actions %}{% endblock %}
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block filters_sidebar_body %}
+        <div class="ibexa-filters-sidebar__body">
+            {% block filters_sidebar_items %}{% endblock %}
+        </div>
+    {% endblock %}
+
+    {% block filters_sidebar_footer %}
+        <div class="ibexa-filters-sidebar__footer">
+            {% block filters_sidebar_footer_content %}{% endblock %}
+        </div>
+    {% endblock %}
+</div>
