@@ -11,6 +11,7 @@
             this.container = config.container;
             this.fieldWrapper = this.container.querySelector('.ibexa-date-time-picker');
             this.inputField = this.fieldWrapper.querySelector('.ibexa-date-time-picker__input');
+            this.clearBtn = this.fieldWrapper.querySelector('.ibexa-input-text-wrapper__action-btn--clear');
             this.customOnChange = config.onChange;
 
             this.init = this.init.bind(this);
@@ -58,6 +59,7 @@
 
         onInput(event) {
             event.preventDefault();
+            this.clearBtn.classList.toggle('ibexa-input-text-wrapper__action-btn--is-hidden', this.inputField.value === '');
 
             if (event.target.value === '' && this.inputField.dataset.timestamp !== '') {
                 this.clear();
@@ -68,6 +70,7 @@
             this.flatpickrInstance = flatpickr(this.inputField, this.flatpickrConfig);
 
             this.inputField.addEventListener('input', this.onInput, false);
+            this.clearBtn.classList.toggle('ibexa-input-text-wrapper__action-btn--is-hidden', this.inputField.value === '');
         }
     }
 
