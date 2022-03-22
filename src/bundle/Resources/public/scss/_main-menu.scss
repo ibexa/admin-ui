@@ -144,8 +144,8 @@
             left: calculateRem(48px);
 
             &__item-content {
-                overflow:hidden;
-                white-space:nowrap;
+                overflow: hidden;
+                white-space: nowrap;
                 text-overflow: ellipsis;
             }
         }
