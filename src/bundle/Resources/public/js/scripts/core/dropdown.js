@@ -278,7 +278,7 @@
             const { width } = this.selectedItemsContainer.getBoundingClientRect();
 
             this.itemsContainer.style['max-height'] = `${this.getItemsContainerHeight()}px`;
-            this.itemsContainer.style.width = `${width}px`;
+            this.itemsContainer.style.minWidth = `${width}px`;
 
             return this.itemsContainer;
         }
