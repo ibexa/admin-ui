@@ -1,58 +1,36 @@
 {% extends '@ibexadesign/ui/filter_field/base.html.twig' %}
 
-{% set choices = [
-    {
-        label: 'Option A',
-        value: 'option_a',
-    },
-    {
-        label: 'Option B',
-        value: 'option_b',
-    },
-    {
-        label: 'Option C',
-        value: 'option_c',
-    },
-    {
-        label: 'Option D',
-        value: 'option_d',
-    },
-    {
-        label: 'Option E',
-        value: 'option_e',
-    },
-    {
-        label: 'Option F',
-        value: 'option_f',
-    },
-    {
-        label: 'Option G',
-        value: 'option_g',
-    },
-] %}
-
 {% set items_show_limit = items_show_limit|default(5) %}
+{% set class = class|default('') ~ ' ibexa-sidebar-filter--selection' %}
+{% set show_more_button = choices|length > items_show_limit %}
 
-{%- block filter_label -%}Color{%- endblock -%}
+{%- block sidebar_filter_label -%}{{ filter_label }}{%- endblock -%}
 
-{%- block filter_fields_before -%}
-    <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-filter-field__select-all-btn">
+{%- block sidebar_filter_fields_before -%}
+    <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-sidebar-filter__btn ibexa-sidebar-filter__btn--fields-pre-action ibexa-sidebar-filter__toggle-all-select-btn">
         {{ 'filter_field.select_all'|trans|desc('Select all') }}
     </button>
 {%- endblock -%}
 
-{%- block filter_fields -%}
-    <ul class="ibexa-filter-field__selection-list">
+{%- block sidebar_filter_fields -%}
+    <ul class="ibexa-sidebar-filter__selection-list {% if show_more_button %}ibexa-sidebar-filter__selection-list-item--short{% endif %} ">
         {% for index, choice in choices %}
-            <li class="ibexa-filter-field__selection-list-item {% if index >= items_show_limit %}ibexa-filter-field__selection-list-item--hidden{% endif %}">
-                <input type="checkbox" class="ibexa-input ibexa-input--checkbox  form-check-input"/> {{ choice.label }} {{ index }}
+            <li class="ibexa-sidebar-filter__selection-list-item {% if index >= items_show_limit %}ibexa-sidebar-filter__selection-list-item--hidden{% endif %}">
+                <input type="checkbox" class="ibexa-input ibexa-input--checkbox  form-check-input"/>
+                <span class="ibexa-sidebar-filter__selection-list-item-label">{{ choice.label }}</span>
             </li>
         {% endfor %}
     </ul>
 {%- endblock -%}
 
-{%- block filter_fields_after -%}
-    <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-filter-field__select-all-btn">
-        {{ 'filter_field.more'|trans|desc('more') }}
-    </button>
+{%- block sidebar_filter_fields_after -%}
+    {% if show_more_button %}
+        <button
+            type="button"
+            data-items-show-limit="{{ items_show_limit }}"
+            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-sidebar-filter__toggle-list-btn ibexa-sidebar-filter__btn ibexa-sidebar-filter__btn--fields-post-action"
+        >
+            {{ 'filter_field.more'|trans|desc('more') }}
+        </button>
+    {% endif %}
 {%- endblock -%}

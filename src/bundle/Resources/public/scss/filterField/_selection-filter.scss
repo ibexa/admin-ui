@@ -1,0 +1,30 @@
+.ibexa-sidebar-filter--selection {
+    .ibexa-sidebar-filter {
+        &__selection-list {
+            padding: 0;
+            margin: 0 calculateRem(16px);
+            list-style: none;
+            font-size: $ibexa-text-font-size-medium;
+
+            .ibexa-input--checkbox {
+                margin-right: calculateRem(4px);
+            }
+        }
+
+        &__selection-list-item {
+            margin-top: calculateRem(16px);
+            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+            
+            &:first-child {
+                margin-top: calculateRem(8px);
+            }
+
+            &--hidden {
+                height: 0;
+                margin: 0;
+                opacity: 0;
+                overflow: hidden;
+            }
+        }
+    }
+}

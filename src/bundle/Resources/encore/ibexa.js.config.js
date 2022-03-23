@@ -50,6 +50,8 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/double.click.mark.js'),
     path.resolve(__dirname, '../public/js/scripts/autogenerate.identifier.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.back.to.top.js'),
+    path.resolve(__dirname, '../public/js/scripts/filterField/base.js'),
+    path.resolve(__dirname, '../public/js/scripts/filterField/selection.js'),
 ];
 const fieldTypes = [];
 

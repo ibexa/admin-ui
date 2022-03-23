@@ -1,34 +1,44 @@
-{% set is_collapsed = is_collapsed|default(true) %}
+{% set is_collapsed = is_collapsed|default(false) %}
 
-<div class="ibexa-filter-field {{ is_collapsed ? 'ibexa-filter-field--collapsed'  }} {{ class|default('') }}">
-    {% block filter_header %}
-        <div class="ibexa-filter-field__header">
-            <div class="ibexa-filter-field__header-label">
-                {% block filter_label %}{% endblock %}
+<div class="ibexa-sidebar-filter accordion-item {{ is_collapsed ? 'collapsed'  }} {{ class|default('') }}">
+    {% block sidebar_filter_header %}
+        <div class="ibexa-sidebar-filter__header">
+            <div class="ibexa-sidebar-filter__header-label">
+                {% block sidebar_filter_label %}{% endblock %}
             </div>
-            <div class="ibexa-filter-field__header-actions">
-                {% block filter_actions %}{% endblock %}
+            <input type="text" class="form-control ibexa-sidebar-filter__search-input ibexa-sidebar-filter__search-input--hidden ibexa-input ibexa-input--text ibexa-input--small">
+            <div class="ibexa-sidebar-filter__header-actions">
                 <button
                     type="button"
-                    class="btn ibexa-btn ibexa-btn--small ibexa-btn--ghost ibexa-btn--no-text ibexa-filter-field__toggler"
-                    title="{{ 'filters_sidebar.toggle'|trans|desc('Toggle') }}"
+                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text ibexa-sidebar-filter__search-input-toggle"
                 >
                     <svg class="ibexa-icon ibexa-icon--small">
-                        <use xlink:href="{{ ibexa_icon_path('caret-down') }}"></use>
+                        <use xlink:href="{{ ibexa_icon_path('search') }}"></use>
                     </svg>
                 </button>
+                {% block sidebar_filter_actions %}{% endblock %}
+                <button
+                    type="button"
+                    class="btn ibexa-btn ibexa-btn--small ibexa-btn--no-text accordion-button {{ is_collapsed ? 'collapsed' }}"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#{{ filter_id }}"
+                ></button>
             </div>
-            <input type="text" class="form-control ibexa-filter-field__search-input ibexa-input ibexa-input--text ibexa-input--small">
         </div>
     {% endblock %}
-    {% block filter_body %}
-        <div class="ibexa-filter-field__body">
-            {% block filter_fields_before %}{% endblock %}
-            {% block filter_fields %}{% endblock %}
-            {% block filter_fields_after %}{% endblock %}
+
+    {% block sidebar_filter_body %}
+        <div
+            id="{{ filter_id }}"
+            class="ibexa-sidebar-filter__body accordion-collapse {{ is_collapsed ? 'collapsed' : 'show'  }}"
+        >
+            {% block sidebar_filter_fields_before %}{% endblock %}
+            {% block sidebar_filter_fields %}{% endblock %}
+            {% block sidebar_filter_fields_after %}{% endblock %}
         </div>
     {% endblock %}
-    {% block filter_footer %}
-        <div class="ibexa-filter-field__footer"></div>
+
+    {% block sidebar_filter_footer %}
+        <div class="ibexa-sidebar-filter__footer"></div>
     {% endblock %}
 </div>

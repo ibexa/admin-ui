@@ -1,0 +1,24 @@
+<div class="ibexa-sidebar-filters">
+    {%- block sidebar_filters_header -%}
+        <div class="ibexa-sidebar-filters__header">
+            <h3 class="ibexa-sidebar-filters__header-label">
+                {%- block sidebar_filters_label -%}{%- endblock -%}
+            </h3>
+            <div class="ibexa-sidebar-filters__header-actions">
+                {%- block sidebar_filters_actions -%}{%- endblock -%}
+            </div>
+        </div>
+    {%- endblock -%}
+
+    {%- block sidebar_filters_body -%}
+        <div class="ibexa-sidebar-filters__body accordion">
+            {%- block sidebar_filters_items -%}{%- endblock -%}
+        </div>
+    {%- endblock -%}
+
+    {%- block sidebar_filters_footer -%}
+        <div class="ibexa-sidebar-filters__footer">
+            {%- block sidebar_filters_content -%}{%- endblock -%}
+        </div>
+    {%- endblock -%}
+</div>

@@ -111,5 +111,7 @@
 @import 'assign';
 @import 'object-state-group-view';
 @import 'back-to-top';
-@import 'filters-sidebar';
-@import 'filter-field';
+@import 'sidebar-filters';
+@import 'sidebar-filter';
+
+@import 'filterField/selection-filter'
