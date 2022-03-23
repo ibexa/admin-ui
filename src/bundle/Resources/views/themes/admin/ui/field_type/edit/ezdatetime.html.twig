@@ -1,15 +1,8 @@
 {% block ezplatform_fieldtype_ezdatetime_widget %}
-    <div class="ibexa-data-source__input-wrapper">
-        <input type="text" class="flatpickr flatpickr-input ibexa-data-source__input ibexa-input ibexa-input--date form-control" readonly="readonly">
-        <button type="button" class="ibexa-data-source__btn--clear-input">
-            <svg class="ibexa-icon">
-                <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
-            </svg>
-        </button>
-        <svg class="ibexa-icon ibexa-icon--small ibexa-icon--date">
-            <use xlink:href="{{ ibexa_icon_path('date') }}"></use>
-        </svg>
-    </div>
+    {% include '@ibexadesign/ui/component/inputs/input_date_time_picker.html.twig' with {
+        wrapper_attr: { class: 'ibexa-data-source__input-wrapper' },
+        input_attr: { class: 'ibexa-data-source__input' }
+    } %}
     {% set attr = attr|merge({'class': 'ibexa-data-source__input', 'hidden': 'hidden'}) %}
     {{ block('form_widget') }}
 {% endblock %}

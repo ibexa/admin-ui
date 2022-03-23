@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, flatpickr) {
+(function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezdate';
     const SELECTOR_INPUT = '.ibexa-data-source__input:not(.flatpickr-input)';
     const SELECTOR_FLATPICKR_INPUT = '.flatpickr-input';
@@ -60,36 +60,25 @@
     ibexa.addConfig('fieldTypeValidators', [validator], true);
 
     const dateFields = doc.querySelectorAll(SELECTOR_FIELD);
-    const dateConfig = {
-        formatDate: (date) => ibexa.helpers.timezone.formatFullDateTime(date, null, ibexa.adminUiConfig.dateFormat.fullDate),
-    };
-    const updateInputValue = (sourceInput, date) => {
+    const updateInputValue = (sourceInput, timestamps, { dates }) => {
         const event = new CustomEvent(EVENT_VALUE_CHANGED);
 
-        if (!date.length) {
+        if (!dates.length) {
             sourceInput.value = '';
             sourceInput.dispatchEvent(event);
 
             return;
         }
 
-        date = new Date(date[0]);
+        let date = new Date(dates[0]);
+
         date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
 
         sourceInput.value = Math.floor(date.valueOf() / 1000);
         sourceInput.dispatchEvent(event);
     };
-    const clearValue = (sourceInput, flatpickrInstance, event) => {
-        event.preventDefault();
-
-        flatpickrInstance.clear();
-
-        sourceInput.dispatchEvent(new CustomEvent(EVENT_VALUE_CHANGED));
-    };
     const initFlatPickr = (field) => {
         const sourceInput = field.querySelector(SELECTOR_INPUT);
-        const flatPickrInput = field.querySelector(SELECTOR_FLATPICKR_INPUT);
-        const btnClear = field.querySelector('.ibexa-data-source__btn--clear-input');
         let defaultDate = null;
 
         if (sourceInput.value) {
@@ -103,21 +92,25 @@
                 defaultDate = new Date(defaultDate.getUTCFullYear(), defaultDate.getUTCMonth(), defaultDate.getUTCDate(), 0, 0, 0, 0);
             }
 
-            updateInputValue(sourceInput, [defaultDate]);
+            updateInputValue(sourceInput, [], { dates: [defaultDate] });
         }
 
-        const flatpickrInstance = flatpickr(flatPickrInput, {
-            ...dateConfig,
+        const dateTimePickerWidget = new ibexa.core.DateTimePicker({
+            container: field,
             onChange: updateInputValue.bind(null, sourceInput),
-            defaultDate,
+            flatpickrConfig: {
+                formatDate: (date) => ibexa.helpers.timezone.formatFullDateTime(date, null, ibexa.adminUiConfig.dateFormat.fullDate),
+                enableTime: false,
+                defaultDate: defaultDate,
+            },
         });
 
-        btnClear.addEventListener('click', clearValue.bind(null, sourceInput, flatpickrInstance), false);
+        dateTimePickerWidget.init();
 
         if (sourceInput.hasAttribute('required')) {
-            flatPickrInput.setAttribute('required', true);
+            dateTimePickerWidget.fieldInput.setAttribute('required', true);
         }
     };
 
     dateFields.forEach(initFlatPickr);
-})(window, window.document, window.ibexa, window.flatpickr);
+})(window, window.document, window.ibexa);

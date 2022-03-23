@@ -223,12 +223,9 @@
 
 {%- block date_time_picker_widget -%}
     <div class="ibexa-picker">
-        <input type="text" class="ibexa-picker__input form-control" readonly="readonly">
-        <button type="button" class="ibexa-picker__btn--clear-input">
-            <svg class="ibexa-icon ibexa-icon--medium">
-                <use xlink:href="{{ ibexa_icon_path('circle-close') }}"></use>
-            </svg>
-        </button>
+        {% include '@ibexadesign/ui/component/inputs/input_date_time_picker.html.twig' with {
+            input_attr: { class: 'ibexa-picker__input' }
+        } %}
         {% set attr = attr|merge({ 'hidden': true, 'class': 'ibexa-picker__form-input' }) %}
         {{ block('form_widget') }}
     </div>
@@ -274,13 +271,15 @@
         data-period-selector="#search_last_modified_date_interval"
         data-end-selector="#search_last_modified_end_date"
     >
-        <input
-            type="text"
-            class="ibexa-filters__range-select form-control"
-            placeholder="{{ 'search.date.range'|trans(domain='search')|desc('From date - to date') }}"
-            data-start="{{ form.parent.vars.data.lastModified.start_date is defined ? form.parent.vars.data.lastModified.start_date|date("Y-m-d") : '' }}"
-            data-end="{{ form.parent.vars.data.lastModified.end_date is defined ? form.parent.vars.data.lastModified.end_date|date("Y-m-d") : '' }}"
-        />
+        {% include '@ibexadesign/ui/component/inputs/input_date_time_picker.html.twig' with {
+            input_attr: {
+                class: "ibexa-filters__range-select",
+                placeholder: 'search.date.range'|trans(domain='search')|desc('From date - to date'),
+                'data-start': form.parent.vars.data.lastModified.start_date is defined ? form.parent.vars.data.lastModified.start_date|date("Y-m-d") : '',
+                'data-end': form.parent.vars.data.lastModified.end_date is defined ? form.parent.vars.data.lastModified.end_date|date("Y-m-d") : '',
+
+            }
+        } %}
     </div>
 {%- endblock -%}
 
@@ -291,13 +290,15 @@
         data-period-selector="#search_created_date_interval"
         data-end-selector="#search_created_end_date"
     >
-        <input
-            type="text"
-            class="ibexa-filters__range-select form-control"
-            placeholder="{{ 'search.date.range'|trans(domain='search')|desc('From date - to date') }}"
-            data-start="{{ form.parent.vars.data.created.start_date is defined ? form.parent.vars.data.created.start_date|date("Y-m-d") : '' }}"
-            data-end="{{ form.parent.vars.data.created.end_date is defined ? form.parent.vars.data.created.end_date|date("Y-m-d") : '' }}"
-        />
+        {% include '@ibexadesign/ui/component/inputs/input_date_time_picker.html.twig' with {
+            input_attr: {
+                class: "ibexa-filters__range-select",
+                placeholder: 'search.date.range'|trans(domain='search')|desc('From date - to date'),
+                'data-start': form.parent.vars.data.created.start_date is defined ? form.parent.vars.data.created.start_date|date("Y-m-d") : '',
+                'data-end': form.parent.vars.data.created.end_date is defined ? form.parent.vars.data.created.end_date|date("Y-m-d") : '',
+
+            }
+        } %}
     </div>
 {%- endblock -%}
 
@@ -305,18 +306,19 @@
 {%- block _trash_search_trashed_widget -%}
     {{ form_widget(form) }}
     <div
-        class="ibexa-trash-search-form__range-wrapper ibexa-trash-search-form__range-wrapper--select-trashed-range {% if form.vars.data == "custom_range" %}ibexa-trash-search-form__range-wrapper--visible{% endif %}" 
+        class="ibexa-trash-search-form__range-wrapper ibexa-trash-search-form__range-wrapper--select-trashed-range {% if form.vars.data == "custom_range" %}ibexa-trash-search-form__range-wrapper--visible{% endif %}"
         data-period-selector="#trash_search_trashed_interval_date_interval"
         data-end-selector="#trash_search_trashed_interval_end_date"
     >
+        {% include '@ibexadesign/ui/component/inputs/input_date_time_picker.html.twig' with {
+            input_attr: {
+                class: "ibexa-trash-search-form__range-select",
+                placeholder: 'search.date.range'|trans(domain='search')|desc('From date - to date'),
+                'data-start': form.parent.vars.data.trashedInterval.start_date is defined ? form.parent.vars.data.trashedInterval.start_date|date("Y-m-d") : '',
+                'data-end': form.parent.vars.data.trashedInterval.end_date is defined ? form.parent.vars.data.trashedInterval.end_date|date("Y-m-d") : '',
 
-        <input
-            type="text"
-            class="ibexa-trash-search-form__range-select form-control"
-            placeholder="{{ 'search.date.range'|trans(domain='search')|desc('From date - to date') }}"
-            data-start="{{ form.parent.vars.data.trashedInterval.start_date is defined ? form.parent.vars.data.trashedInterval.start_date|date("Y-m-d") : '' }}"
-            data-end="{{ form.parent.vars.data.trashedInterval.end_date is defined ? form.parent.vars.data.trashedInterval.end_date|date("Y-m-d") : '' }}"
-        />
+            }
+        } %}
     </div>
 {%- endblock -%}
 

@@ -1,11 +1,11 @@
-(function (global, doc, ibexa, React, ReactDOM, Translator, flatpickr) {
+(function (global, doc, ibexa, React, ReactDOM, Translator) {
     let getUsersTimeout;
     const CLASS_SORTED_ASC = 'ibexa-table__sort-column--asc';
     const CLASS_SORTED_DESC = 'ibexa-table__sort-column--desc';
     const CLASS_VISIBLE_DATE_RANGE = 'ibexa-trash-search-form__range-wrapper--visible';
     const sortedActiveField = doc.querySelector('#trash_search_sort_field').value;
     const sortedActiveDirection = doc.querySelector('#trash_search_sort_direction').value;
-    const dateFields = doc.querySelectorAll('.ibexa-trash-search-form__range-select');
+    const dateFields = doc.querySelectorAll('.ibexa-trash-search-form__range-wrapper');
     const trashedTypeInput = doc.querySelector('#trash_search_trashed');
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
@@ -207,17 +207,22 @@
 
         datesRangeNode.classList.add(CLASS_VISIBLE_DATE_RANGE);
     };
-    const setSelectedDateRange = (selectedDates, dateString, instance) => {
-        const dateRange = instance.input.closest('.ibexa-trash-search-form__range-wrapper');
+    const setSelectedDateRange = (timestamps, { dates, inputField }) => {
+        const dateRange = inputField.closest('.ibexa-trash-search-form__range-wrapper');
 
-        if (selectedDates.length === 2) {
-            const startDate = getUnixTimestampUTC(selectedDates[0]);
-            const endDate = getUnixTimestampUTC(selectedDates[1]);
+        if (dates.length === 2) {
+            const startDate = getUnixTimestampUTC(dates[0]);
+            const endDate = getUnixTimestampUTC(dates[1]);
             const secondsInDay = 86400;
             const days = (endDate - startDate) / secondsInDay;
 
             doc.querySelector(dateRange.dataset.periodSelector).value = `P0Y0M${days}D`;
             doc.querySelector(dateRange.dataset.endSelector).value = endDate;
+
+            formSearch.submit();
+        } else if (dates.length === 0) {
+            doc.querySelector(dateRange.dataset.periodSelector).value = '';
+            doc.querySelector(dateRange.dataset.endSelector).value = '';
 
             formSearch.submit();
         }
@@ -228,15 +233,20 @@
 
         return date;
     };
-    const initFlatPickr = (dateRangePickerNode) => {
-        const { start, end } = dateRangePickerNode.dataset;
+    const initFlatPickr = (dateRangeField) => {
+        const { start, end } = dateRangeField.querySelector('.ibexa-trash-search-form__range-select').dataset;
         const defaultDate = start && end ? [start, end] : [];
 
-        flatpickr(dateRangePickerNode, {
-            ...dateConfig,
+        const dateTimePickerWidget = new ibexa.core.DateTimePicker({
+            container: dateRangeField,
             onChange: setSelectedDateRange,
-            defaultDate,
+            flatpickrConfig: {
+                ...dateConfig,
+                defaultDate,
+            },
         });
+
+        dateTimePickerWidget.init();
     };
     const handleAutoSubmitNodes = (event) => {
         event.preventDefault();
