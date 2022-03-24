@@ -24,54 +24,59 @@
 
         removeBackdrop();
     };
+    const toggleExtraActionsWidget = (dataset) => {
+        const actions = doc.querySelector(`.ibexa-extra-actions[data-actions="${dataset.actions}"]`);
+
+        if (dataset.validate && !parseInt(dataset.isFormValid, 10)) {
+            return;
+        }
+
+        const isHidden = haveHiddenPart(actions);
+        const methodNameContainer = isHidden ? 'remove' : 'add';
+        const methodNameMenu = isHidden ? 'add' : 'remove';
+        const focusElement = actions.querySelector(dataset.focusElement);
+        const detectClickOutside = (event) => {
+            if (event.target.classList.contains('ibexa-backdrop')) {
+                closeExtraActions(actions);
+                doc.body.removeEventListener('click', detectClickOutside, false);
+            }
+        };
+
+        actions.classList[methodNameContainer](CLASS_HIDDEN);
+
+        if (menu) {
+            menu.classList[methodNameMenu](CLASS_EXPANDED);
+        }
+
+        if (!actions.classList.contains(CLASS_HIDDEN)) {
+            const backdrop = doc.createElement('div');
+
+            backdrop.classList.add('ibexa-backdrop');
+
+            doc.body.addEventListener('click', detectClickOutside, false);
+            doc.body.appendChild(backdrop);
+            doc.body.classList.add('ibexa-scroll-disabled');
+        } else {
+            doc.body.removeEventListener('click', detectClickOutside);
+            removeBackdrop();
+        }
+
+        if (focusElement) {
+            focusElement.focus();
+        }
+    }
 
     btns.forEach((btn) => {
         btn.addEventListener(
             'click',
             () => {
-                const actions = doc.querySelector(`.ibexa-extra-actions[data-actions="${btn.dataset.actions}"]`);
-
-                if (btn.dataset.validate && !parseInt(btn.dataset.isFormValid, 10)) {
-                    return;
-                }
-
-                const isHidden = haveHiddenPart(actions);
-                const methodNameContainer = isHidden ? 'remove' : 'add';
-                const methodNameMenu = isHidden ? 'add' : 'remove';
-                const focusElement = actions.querySelector(btn.dataset.focusElement);
-                const detectClickOutside = (event) => {
-                    if (event.target.classList.contains('ibexa-backdrop')) {
-                        closeExtraActions(actions);
-                        doc.body.removeEventListener('click', detectClickOutside, false);
-                    }
-                };
-
-                actions.classList[methodNameContainer](CLASS_HIDDEN);
-
-                if (menu) {
-                    menu.classList[methodNameMenu](CLASS_EXPANDED);
-                }
-
-                if (!actions.classList.contains(CLASS_HIDDEN)) {
-                    const backdrop = doc.createElement('div');
-
-                    backdrop.classList.add('ibexa-backdrop');
-
-                    doc.body.addEventListener('click', detectClickOutside, false);
-                    doc.body.appendChild(backdrop);
-                    doc.body.classList.add('ibexa-scroll-disabled');
-                } else {
-                    doc.body.removeEventListener('click', detectClickOutside);
-                    removeBackdrop();
-                }
-
-                if (focusElement) {
-                    focusElement.focus();
-                }
+                toggleExtraActionsWidget(btn.dataset);
             },
             false,
         );
     });
+    doc.body.addEventListener('ibexa-extra-actions:toggle-widget', (event) => toggleExtraActionsWidget(event.detail), false);
+
 
     doc.querySelectorAll('.ibexa-extra-actions .ibexa-btn--close').forEach((closeBtn) =>
         closeBtn.addEventListener(
