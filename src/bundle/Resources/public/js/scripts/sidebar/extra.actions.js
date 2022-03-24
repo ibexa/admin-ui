@@ -64,7 +64,7 @@
         if (focusElement) {
             focusElement.focus();
         }
-    }
+    };
 
     btns.forEach((btn) => {
         btn.addEventListener(
@@ -76,7 +76,6 @@
         );
     });
     doc.body.addEventListener('ibexa-extra-actions:toggle-widget', (event) => toggleExtraActionsWidget(event.detail), false);
-
 
     doc.querySelectorAll('.ibexa-extra-actions .ibexa-btn--close').forEach((closeBtn) =>
         closeBtn.addEventListener(

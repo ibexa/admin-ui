@@ -87,8 +87,7 @@
         const form = container.querySelector('form');
 
         btns.forEach((btn) => btn.addEventListener('change', changeHandler.bind(null, form, btns), false));
-    }
+    };
 
     [...editActions].forEach(attachEventsToEditActionsWidget);
-
 })(window, window.document, window.ibexa, window.bootstrap, window.Routing);
