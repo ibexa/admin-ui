@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\Module;
+namespace Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\Module;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\AbstractParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\AbstractParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 /**
@@ -32,7 +32,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 class ContentTree extends AbstractParser
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addSemanticConfig(NodeBuilder $nodeBuilder)
     {
@@ -99,7 +99,7 @@ class ContentTree extends AbstractParser
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
     {
@@ -166,3 +166,5 @@ class ContentTree extends AbstractParser
         }
     }
 }
+
+class_alias(ContentTree::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\Module\ContentTree');

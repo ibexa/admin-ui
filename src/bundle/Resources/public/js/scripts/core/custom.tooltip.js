@@ -1,3 +1,3 @@
-(function(global, doc, eZ) {
-    eZ.helpers.tooltips.parse();
-})(window, window.document, window.eZ);
+(function (global, doc, ibexa) {
+    ibexa.helpers.tooltips.parse();
+})(window, window.document, window.ibexa);

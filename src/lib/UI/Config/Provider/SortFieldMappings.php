@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Config\Provider;
+namespace Ibexa\AdminUi\UI\Config\Provider;
 
-use EzSystems\EzPlatformAdminUi\UI\Config\ProviderInterface;
+use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
 /**
  * Provides information about mapping between serialized sort field and the value accepted by sort clause.
  *
- * @see \EzSystems\EzPlatformRest\Output\ValueObjectVisitor::serializeSortField
+ * @see \Ibexa\Contracts\Rest\Output\ValueObjectVisitor::serializeSortField
  */
 class SortFieldMappings implements ProviderInterface
 {
@@ -35,3 +35,5 @@ class SortFieldMappings implements ProviderInterface
         ];
     }
 }
+
+class_alias(SortFieldMappings::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\SortFieldMappings');

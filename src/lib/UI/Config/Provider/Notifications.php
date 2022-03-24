@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Config\Provider;
+namespace Ibexa\AdminUi\UI\Config\Provider;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzPlatformAdminUi\UI\Config\ProviderInterface;
+use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 /**
  * Provides information about notifications.
@@ -18,11 +18,11 @@ class Notifications implements ProviderInterface
 {
     public const NOTIFICATION_TYPES = ['error', 'warning', 'info', 'success'];
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /**
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
      */
     public function __construct(ConfigResolverInterface $configResolver)
     {
@@ -44,3 +44,5 @@ class Notifications implements ProviderInterface
         return $config;
     }
 }
+
+class_alias(Notifications::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Notifications');

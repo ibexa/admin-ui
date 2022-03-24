@@ -6,16 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentRemoveData;
-use EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\ContentDraftAdapter;
-use EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory;
-use EzSystems\EzPlatformAdminUi\UI\Value\Content\VersionId;
+use Ibexa\AdminUi\Form\Data\Content\Draft\ContentRemoveData;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\AdminUi\Pagination\Pagerfanta\ContentDraftAdapter;
+use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\UI\Value\Content\VersionId;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,19 +25,19 @@ class ContentDraftController extends Controller
 {
     private const PAGINATION_PARAM_NAME = 'page';
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory */
+    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     private $datasetFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -72,7 +73,7 @@ class ContentDraftController extends Controller
             $this->createContentRemoveData($pagination)
         );
 
-        return $this->render('@ezdesign/content/draft/draft_list.html.twig', [
+        return $this->render('@ibexadesign/content/draft/draft_list.html.twig', [
             'pager' => $pagination,
             'form_remove' => $removeContentDraftForm->createView(),
         ]);
@@ -101,7 +102,7 @@ class ContentDraftController extends Controller
                     );
                 }
 
-                return $this->redirectToRoute('ezplatform.content_draft.list');
+                return $this->redirectToRoute('ibexa.content_draft.list');
             });
 
             if ($result instanceof Response) {
@@ -109,18 +110,18 @@ class ContentDraftController extends Controller
             }
         }
 
-        return $this->redirectToRoute('ezplatform.content_draft.list');
+        return $this->redirectToRoute('ibexa.content_draft.list');
     }
 
     /**
      * @param \Pagerfanta\Pagerfanta $pagerfanta
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentRemoveData
+     * @return \Ibexa\AdminUi\Form\Data\Content\Draft\ContentRemoveData
      */
     private function createContentRemoveData(Pagerfanta $pagerfanta): ContentRemoveData
     {
         $versions = [];
-        /** @var \EzSystems\EzPlatformAdminUi\UI\Value\Content\ContentDraftInterface $contentDraft */
+        /** @var \Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface $contentDraft */
         foreach ($pagerfanta->getCurrentPageResults() as $contentDraft) {
             if ($contentDraft->isAccessible()) {
                 $versions[] = $contentDraft->getVersionId();
@@ -132,3 +133,5 @@ class ContentDraftController extends Controller
         );
     }
 }
+
+class_alias(ContentDraftController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentDraftController');

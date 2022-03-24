@@ -6,23 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Location;
+namespace Ibexa\AdminUi\Form\Data\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 /**
  * @todo Add validation
  */
 class LocationUpdateVisibilityData
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
     private $location;
 
     /** @var bool|null */
     private $hidden;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      */
     public function __construct(?Location $location = null)
     {
@@ -35,7 +35,7 @@ class LocationUpdateVisibilityData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     public function getLocation(): ?Location
     {
@@ -43,7 +43,7 @@ class LocationUpdateVisibilityData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      */
     public function setLocation(?Location $location)
     {
@@ -66,3 +66,5 @@ class LocationUpdateVisibilityData
         $this->hidden = $hidden;
     }
 }
+
+class_alias(LocationUpdateVisibilityData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationUpdateVisibilityData');

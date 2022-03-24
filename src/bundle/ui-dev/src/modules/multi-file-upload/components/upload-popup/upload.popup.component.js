@@ -5,60 +5,40 @@ import TooltipPopup from '../../../common/tooltip-popup/tooltip.popup.component'
 import DropAreaComponent from '../drop-area/drop.area.component';
 import UploadListComponent from '../upload-list/upload.list.component';
 
-const CLASS_SCROLL_DISABLED = 'ez-scroll-disabled';
+const { Translator } = window;
+
+const CLASS_SCROLL_DISABLED = 'ibexa-scroll-disabled';
 
 export default class UploadPopupModule extends Component {
     constructor(props) {
         super(props);
 
-        this.uploadFiles = this.uploadFiles.bind(this);
         this.refTooltip = React.createRef();
-        this.state = { itemsToUpload: props.itemsToUpload };
     }
 
     componentDidMount() {
         window.document.body.classList.add(CLASS_SCROLL_DISABLED);
-        window.eZ.helpers.tooltips.parse(this.refTooltip.current);
+        window.ibexa.helpers.tooltips.parse(this.refTooltip.current);
     }
 
     componentWillUnmount() {
         window.document.body.classList.remove(CLASS_SCROLL_DISABLED);
     }
 
-    UNSAFE_componentWillReceiveProps(props) {
-        this.setState((state) => {
-            const stateItems = state.itemsToUpload.filter(
-                (stateItem) => !props.itemsToUpload.find((propItem) => propItem.id === stateItem.id)
-            );
-
-            return { itemsToUpload: [...stateItems, ...props.itemsToUpload] };
-        });
-    }
-
-    /**
-     * Uploads files
-     *
-     * @method uploadFiles
-     * @param {Array} itemsToUpload
-     * @memberof UploadPopupModule
-     */
-    uploadFiles(itemsToUpload) {
-        this.setState(() => ({ itemsToUpload }));
-    }
-
     render() {
         const tooltipAttrs = this.props;
         const listAttrs = {
             ...tooltipAttrs,
-            itemsToUpload: this.state.itemsToUpload,
+            itemsToUpload: this.props.itemsToUpload,
+            removeItemsToUpload: this.props.removeItemsToUpload,
         };
         const title = Translator.trans(/*@Desc("Multi-file upload")*/ 'upload_popup.close', {}, 'multi_file_upload');
 
         return (
             <div className="c-upload-popup" ref={this.refTooltip}>
-                <TooltipPopup title={title} {...tooltipAttrs}>
+                <TooltipPopup title={title} showFooter={false} {...tooltipAttrs}>
                     <DropAreaComponent
-                        onDrop={this.uploadFiles}
+                        addItemsToUpload={this.props.addItemsToUpload}
                         maxFileSize={this.props.adminUiConfig.multiFileUpload.maxFileSize}
                         preventDefaultAction={this.props.preventDefaultAction}
                         processUploadedFiles={this.props.processUploadedFiles}
@@ -73,12 +53,6 @@ export default class UploadPopupModule extends Component {
 UploadPopupModule.propTypes = {
     popupTitle: PropTypes.string.isRequired,
     visible: PropTypes.bool,
-    onUpload: PropTypes.func,
-    onUploadEnd: PropTypes.func,
-    onUploadFail: PropTypes.func,
-    onItemEdit: PropTypes.func,
-    onItemRemove: PropTypes.func,
-    onClose: PropTypes.func,
     itemsToUpload: PropTypes.array,
     onAfterUpload: PropTypes.func.isRequired,
     createFileStruct: PropTypes.func.isRequired,
@@ -105,6 +79,8 @@ UploadPopupModule.propTypes = {
     processUploadedFiles: PropTypes.func.isRequired,
     contentTypesMap: PropTypes.object.isRequired,
     currentLanguage: PropTypes.string,
+    addItemsToUpload: PropTypes.func.isRequired,
+    removeItemsToUpload: PropTypes.func.isRequired,
 };
 
 UploadPopupModule.defaultProps = {

@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import ContentTree from './components/content-tree/content.tree';
 import { loadLocationItems, loadSubtree } from './services/content.tree.service';
 
-const KEY_CONTENT_TREE_SUBTREE = 'ez-content-tree-subtrees';
+const { ibexa } = window;
+
+const KEY_CONTENT_TREE_SUBTREE = 'ibexa-content-tree-subtrees';
 
 export default class ContentTreeModule extends Component {
     constructor(props) {
@@ -35,7 +37,7 @@ export default class ContentTreeModule extends Component {
     }
 
     componentDidMount() {
-        document.body.addEventListener('ez-content-tree-refresh', this.refreshContentTree, false);
+        document.body.addEventListener('ibexa-content-tree-refresh', this.refreshContentTree, false);
 
         if (this.items.length) {
             this.subtree = this.generateSubtree(this.items, true);
@@ -71,7 +73,7 @@ export default class ContentTreeModule extends Component {
             parentLocationId,
             this.updateLocationsStateAfterLoadingMoreItems.bind(this, path, successCallback),
             limit,
-            offset
+            offset,
         );
     }
 
@@ -129,7 +131,7 @@ export default class ContentTreeModule extends Component {
         const limit = Math.ceil(item.subitems.length / subitemsLoadLimit) * subitemsLoadLimit;
 
         parentSubtree.children.push({
-            '_media-type': 'application/vnd.ez.api.ContentTreeLoadSubtreeRequestNode',
+            '_media-type': 'application/vnd.ibexa.api.ContentTreeLoadSubtreeRequestNode',
             locationId: item.locationId,
             limit: Math.min(subitemsLimit, limit),
             offset: 0,
@@ -206,7 +208,7 @@ export default class ContentTreeModule extends Component {
 
         return path.reduce(
             (subtreeChild, locationId) => subtreeChild.children.find((element) => element.locationId === parseInt(locationId, 10)),
-            subtree
+            subtree,
         );
     }
 
@@ -235,7 +237,7 @@ export default class ContentTreeModule extends Component {
 
         if (!nextSubtree) {
             nextSubtree = {
-                '_media-type': 'application/vnd.ez.api.ContentTreeLoadSubtreeRequestNode',
+                '_media-type': 'application/vnd.ibexa.api.ContentTreeLoadSubtreeRequestNode',
                 locationId: locationId,
                 limit: this.props.subitemsLimit,
                 offset: 0,
@@ -266,7 +268,7 @@ export default class ContentTreeModule extends Component {
     generateInitialSubtree() {
         return [
             {
-                '_media-type': 'application/vnd.ez.api.ContentTreeLoadSubtreeRequestNode',
+                '_media-type': 'application/vnd.ibexa.api.ContentTreeLoadSubtreeRequestNode',
                 locationId: this.props.rootLocationId,
                 limit: this.props.subitemsLoadLimit,
                 offset: 0,
@@ -287,7 +289,7 @@ export default class ContentTreeModule extends Component {
                 const limit = subitemsCount ? Math.ceil(subitemsCount / subitemsLoadLimit) * subitemsLoadLimit : subitemsLoadLimit;
 
                 itemsWithoutLeafs.push({
-                    '_media-type': 'application/vnd.ez.api.ContentTreeLoadSubtreeRequestNode',
+                    '_media-type': 'application/vnd.ibexa.api.ContentTreeLoadSubtreeRequestNode',
                     locationId: item.locationId,
                     limit: Math.min(subitemsLimit, limit),
                     offset: 0,
@@ -311,7 +313,7 @@ export default class ContentTreeModule extends Component {
             return item;
         }
 
-        if (!(item.hasOwnProperty('subitems') && Array.isArray(item.subitems))) {
+        if (!(Object.prototype.hasOwnProperty.call(item, 'subitems') && Array.isArray(item.subitems))) {
             return null;
         }
 
@@ -352,7 +354,7 @@ export default class ContentTreeModule extends Component {
     }
 
     render() {
-        const { onClickItem, subitemsLimit, subitemsLoadLimit, treeMaxDepth, userId } = this.props;
+        const { onClickItem, subitemsLimit, subitemsLoadLimit, treeMaxDepth, userId, resizable } = this.props;
         const attrs = {
             items: this.items,
             currentLocationId: this.getCurrentLocationId(),
@@ -364,22 +366,23 @@ export default class ContentTreeModule extends Component {
             onCollapseAllItems: this.handleCollapseAllItems,
             onClickItem,
             userId,
+            resizable,
         };
 
         return <ContentTree {...attrs} />;
     }
 }
 
-eZ.addConfig('modules.ContentTree', ContentTreeModule);
+ibexa.addConfig('modules.ContentTree', ContentTreeModule);
 
 ContentTreeModule.propTypes = {
-    rootLocationId: PropTypes.number.isRequired,
+    rootLocationId: PropTypes.number,
     currentLocationPath: PropTypes.number.isRequired,
     userId: PropTypes.number.isRequired,
     preloadedLocations: PropTypes.arrayOf(PropTypes.object),
-    subitemsLimit: PropTypes.number.isRequired,
-    subitemsLoadLimit: PropTypes.number.isRequired,
-    treeMaxDepth: PropTypes.number.isRequired,
+    subitemsLimit: PropTypes.number,
+    subitemsLoadLimit: PropTypes.number,
+    treeMaxDepth: PropTypes.number,
     restInfo: PropTypes.shape({
         token: PropTypes.string.isRequired,
         siteaccess: PropTypes.string.isRequired,
@@ -391,14 +394,18 @@ ContentTreeModule.propTypes = {
         sortClause: PropTypes.string,
         sortOrder: PropTypes.string,
     }),
+    resizable: PropTypes.bool,
 };
 
 ContentTreeModule.defaultProps = {
     preloadedLocations: [],
-    rootLocationId: window.eZ.adminUiConfig.contentTree.treeRootLocationId,
-    subitemsLimit: window.eZ.adminUiConfig.contentTree.childrenLoadMaxLimit,
-    subitemsLoadLimit: window.eZ.adminUiConfig.contentTree.loadMoreLimit,
-    treeMaxDepth: window.eZ.adminUiConfig.contentTree.treeMaxDepth,
+    rootLocationId: ibexa.adminUiConfig.contentTree.treeRootLocationId,
+    subitemsLimit: ibexa.adminUiConfig.contentTree.childrenLoadMaxLimit,
+    subitemsLoadLimit: ibexa.adminUiConfig.contentTree.loadMoreLimit,
+    treeMaxDepth: ibexa.adminUiConfig.contentTree.treeMaxDepth,
     afterItemToggle: () => {},
     sort: {},
+    resizable: true,
+    onClickItem: () => {},
+    readSubtree: null,
 };

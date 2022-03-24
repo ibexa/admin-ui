@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Validator\Constraints;
+namespace Ibexa\AdminUi\Validator\Constraints;
 
-use eZ\Publish\API\Repository\LocationService;
-use EzSystems\EzPlatformAdminUi\Specification\Location\HasChildren;
+use Ibexa\AdminUi\Specification\Location\HasChildren;
+use Ibexa\Contracts\Core\Repository\LocationService;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class LocationHasChildrenValidator extends ConstraintValidator
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
     /**
-     * @param \eZ\Publish\API\Repository\LocationService $locationService
+     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
      */
     public function __construct(LocationService $locationService)
     {
@@ -29,7 +29,7 @@ class LocationHasChildrenValidator extends ConstraintValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location The value that should be validated
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location The value that should be validated
      * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
      */
     public function validate($location, Constraint $constraint)
@@ -47,3 +47,5 @@ class LocationHasChildrenValidator extends ConstraintValidator
         }
     }
 }
+
+class_alias(LocationHasChildrenValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationHasChildrenValidator');

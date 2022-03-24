@@ -1,8 +1,8 @@
-(function(global, doc, eZ) {
-    const SELECTOR_FIELD = '.ez-field-edit--ezinteger';
-    const SELECTOR_ERROR_NODE = '.ez-data-source'
+(function (global, doc, ibexa) {
+    const SELECTOR_FIELD = '.ibexa-field-edit--ezinteger';
+    const SELECTOR_ERROR_NODE = `${SELECTOR_FIELD} .ibexa-form-error`;
 
-    class EzIntegerValidator extends eZ.BaseFieldValidator {
+    class EzIntegerValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
@@ -19,19 +19,19 @@
             const isLess = value < parseInt(event.target.getAttribute('min'), 10);
             const isGreater = value > parseInt(event.target.getAttribute('max'), 10);
             const isError = (isEmpty && isRequired) || !isInteger || isLess || isGreater;
-            const label = event.target.closest(SELECTOR_FIELD).querySelector('.ez-field-edit__label').innerHTML;
+            const label = event.target.closest(SELECTOR_FIELD).querySelector('.ibexa-field-edit__label').innerHTML;
             const result = { isError };
 
             if (isEmpty) {
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             } else if (!isInteger) {
-                result.errorMessage = eZ.errors.isNotInteger.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.isNotInteger.replace('{fieldName}', label);
             } else if (isLess) {
-                result.errorMessage = eZ.errors.isLess
+                result.errorMessage = ibexa.errors.isLess
                     .replace('{fieldName}', label)
                     .replace('{minValue}', event.target.getAttribute('min'));
             } else if (isGreater) {
-                result.errorMessage = eZ.errors.isGreater
+                result.errorMessage = ibexa.errors.isGreater
                     .replace('{fieldName}', label)
                     .replace('{maxValue}', event.target.getAttribute('max'));
             }
@@ -45,7 +45,7 @@
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [
             {
-                selector: '.ez-field-edit--ezinteger input',
+                selector: '.ibexa-field-edit--ezinteger input',
                 eventName: 'blur',
                 callback: 'validateInteger',
                 errorNodeSelectors: [SELECTOR_ERROR_NODE],
@@ -55,5 +55,5 @@
 
     validator.init();
 
-    eZ.addConfig('fieldTypeValidators', [validator], true);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('fieldTypeValidators', [validator], true);
+})(window, window.document, window.ibexa);

@@ -1,12 +1,11 @@
-(function(global, doc) {
+(function (global, doc) {
     const SELECTOR_TEMPLATE = '.ezselection-settings-option-value-prototype';
     const SELECTOR_OPTION = '.ezselection-settings-option-value';
     const SELECTOR_OPTIONS_LIST = '.ezselection-settings-option-list';
     const SELECTOR_BTN_REMOVE = '.ezselection-settings-option-remove';
     const SELECTOR_BTN_ADD = '.ezselection-settings-option-add';
     const NUMBER_PLACEHOLDER = /__number__/g;
-
-    doc.querySelectorAll('.ezselection-settings.options').forEach((container) => {
+    const initField = (container) => {
         const findCheckedOptions = () => container.querySelectorAll('.ezselection-settings-option-checkbox:checked');
         const toggleDisableState = () => {
             const disabledState = !!findCheckedOptions().length;
@@ -30,5 +29,22 @@
         container.querySelector(SELECTOR_OPTIONS_LIST).addEventListener('click', toggleDisableState, false);
         container.querySelector(SELECTOR_BTN_ADD).addEventListener('click', addOption, false);
         container.querySelector(SELECTOR_BTN_REMOVE).addEventListener('click', removeOptions, false);
-    });
+    };
+
+    doc.querySelectorAll('.ezselection-settings.options').forEach(initField);
+    doc.body.addEventListener(
+        'ibexa-drop-field-definition',
+        (event) => {
+            const { nodes } = event.detail;
+
+            nodes.forEach((node) => {
+                const isSelectionFieldType = node.querySelector(SELECTOR_OPTIONS_LIST);
+
+                if (isSelectionFieldType) {
+                    initField(node);
+                }
+            });
+        },
+        false,
+    );
 })(window, window.document);

@@ -6,30 +6,30 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft;
+namespace Ibexa\AdminUi\Form\Data\Content\Draft;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
 /**
  * @todo Add validation.
  */
 class ContentCreateData
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null */
     protected $contentType;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
     protected $parentLocation;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
     protected $language;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType|null $contentType
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $parentLocation
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $parentLocation
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
      */
     public function __construct(
         ?ContentType $contentType = null,
@@ -42,7 +42,7 @@ class ContentCreateData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
      */
     public function getContentType(): ?ContentType
     {
@@ -50,7 +50,7 @@ class ContentCreateData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
      * @return self
      */
@@ -62,7 +62,7 @@ class ContentCreateData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     public function getParentLocation(): ?Location
     {
@@ -70,7 +70,7 @@ class ContentCreateData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $parentLocation
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation
      *
      * @return self
      */
@@ -82,7 +82,7 @@ class ContentCreateData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      */
     public function getLanguage(): ?Language
     {
@@ -90,7 +90,7 @@ class ContentCreateData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      *
      * @return self
      */
@@ -101,3 +101,5 @@ class ContentCreateData
         return $this;
     }
 }
+
+class_alias(ContentCreateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentCreateData');

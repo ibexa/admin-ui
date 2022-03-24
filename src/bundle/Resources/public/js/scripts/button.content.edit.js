@@ -1,22 +1,22 @@
-(function(global, doc, $, eZ, Translator, Routing) {
-    const FORM_EDIT = 'form.ez-edit-content-form';
-    const showErrorNotification = eZ.helpers.notification.showErrorNotification;
+(function (global, doc, bootstrap, ibexa, Translator, Routing) {
+    const FORM_EDIT = 'form.ibexa-edit-content-form';
+    const { showErrorNotification } = ibexa.helpers.notification;
     const editVersion = (event) => {
         const versionEditForm = doc.querySelector(FORM_EDIT);
         const versionEditFormName = versionEditForm.name;
         const { contentId, versionNo, languageCode } = event.currentTarget.dataset;
         const contentInfoInput = versionEditForm.querySelector(`input[name="${versionEditFormName}[content_info]"]`);
         const versionInfoContentInfoInput = versionEditForm.querySelector(
-            `input[name="${versionEditFormName}[version_info][content_info]"]`
+            `input[name="${versionEditFormName}[version_info][content_info]"]`,
         );
         const versionInfoVersionNoInput = versionEditForm.querySelector(`input[name="${versionEditFormName}[version_info][version_no]"]`);
         const languageInput = versionEditForm.querySelector(`#${versionEditFormName}_language_${languageCode}`);
-        const checkVersionDraftLink = Routing.generate('ezplatform.version_draft.has_no_conflict', { contentId, languageCode });
-        const checkEditPermissionLink = Routing.generate('ezplatform.content.check_edit_permission', { contentId, languageCode });
+        const checkVersionDraftLink = Routing.generate('ibexa.version_draft.has_no_conflict', { contentId, languageCode });
+        const checkEditPermissionLink = Routing.generate('ibexa.content.check_edit_permission', { contentId, languageCode });
         const errorMessage = Translator.trans(
             /*@Desc("You don't have permission to edit this Content item")*/ 'content.edit.permission.error',
             {},
-            'content'
+            'content',
         );
         const submitVersionEditForm = () => {
             contentInfoInput.value = contentId;
@@ -27,23 +27,23 @@
         };
         const addDraft = () => {
             submitVersionEditForm();
-            $('#version-draft-conflict-modal').modal('hide');
+            bootstrap.Modal.getOrCreateInstance(doc.querySelector('#version-draft-conflict-modal')).hide();
         };
         const showModal = (modalHtml) => {
-            const wrapper = doc.querySelector('.ez-modal-wrapper');
+            const wrapper = doc.querySelector('.ibexa-modal-wrapper');
 
             wrapper.innerHTML = modalHtml;
 
-            const addDraftButton = wrapper.querySelector('.ez-btn--add-draft');
+            const addDraftButton = wrapper.querySelector('.ibexa-btn--add-draft');
 
             if (addDraftButton) {
                 addDraftButton.addEventListener('click', addDraft, false);
             }
 
             wrapper
-                .querySelectorAll('.ez-btn--prevented')
-                .forEach((btn) => btn.addEventListener('click', (event) => event.preventDefault(), false));
-            $('#version-draft-conflict-modal').modal('show');
+                .querySelectorAll('.ibexa-btn--prevented')
+                .forEach((btn) => btn.addEventListener('click', (wrapperBtnEvent) => wrapperBtnEvent.preventDefault(), false));
+            bootstrap.Modal.getOrCreateInstance(doc.querySelector('#version-draft-conflict-modal')).show();
         };
         const handleCanEditCheck = (response) => {
             if (response.canEdit) {
@@ -67,11 +67,11 @@
         event.preventDefault();
 
         fetch(checkEditPermissionLink, { mode: 'same-origin', credentials: 'same-origin' })
-            .then(eZ.helpers.request.getJsonFromResponse)
+            .then(ibexa.helpers.request.getJsonFromResponse)
             .then(handleCanEditCheck)
             .then(handleDraftConflict)
             .catch(showErrorNotification);
     };
 
-    doc.querySelectorAll('.ez-btn--content-edit').forEach((button) => button.addEventListener('click', editVersion, false));
-})(window, window.document, window.jQuery, window.eZ, window.Translator, window.Routing);
+    doc.querySelectorAll('.ibexa-btn--content-edit').forEach((button) => button.addEventListener('click', editVersion, false));
+})(window, window.document, window.bootstrap, window.ibexa, window.Translator, window.Routing);

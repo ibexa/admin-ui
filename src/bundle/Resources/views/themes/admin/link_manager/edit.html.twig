@@ -1,53 +1,37 @@
-{% extends '@ezdesign/ui/layout.html.twig' %}
+{% extends '@ibexadesign/ui/edit_base.html.twig' %}
 
-{% form_theme form '@ezdesign/ui/form_fields.html.twig'  %}
+{% form_theme form '@ibexadesign/ui/form_fields.html.twig'  %}
 
 {% trans_default_domain "linkmanager" %}
 
-{% block title %}
-    {{ 'url.view'|trans({ '%url%': url.url|u.truncate(60) })|desc('Link %url%') }}
+{% set anchor_params = {
+    close_href: path('ibexa.url_management'),
+} %}
+
+{% block header %}
+    {% set url_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.url_edit.sidebar_right', [], {'url': url}) %}
+
+    {% include '@ibexadesign/ui/edit_header.html.twig' with {
+        action_name: 'url.editing'|trans|desc('Editing'),
+        title: 'url.editing.title'|trans({'%url%': url.url|u.truncate(50) })|desc('Link %url%'),
+        context_actions: knp_menu_render(url_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
+    } %}
 {% endblock %}
 
 {%- block content -%}
-    <div class="row align-items-stretch ez-main-row">
-        <div class="px-0 pb-4 ez-content-container">
-            <div class="ez-header">
-                <div class="container">
-                    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
-                        { value: 'url.breadcrumb.list'|trans|desc('URL management'), url: path('ezplatform.url_management') },
-                        { value: 'url.breadcrumb.edit'|trans|desc('Edit') }
-                    ]} %}
-
-                    {% include '@ezdesign/ui/page_title.html.twig' with {
-                        title: 'url.editing'|trans({'%url%': url.url|u.truncate(50) }),
-                        icon_name: 'link'
-                    } %}
-                </div>
-            </div>
-
-            <div class="container ez-container">
-                {{ form_start(form) }}
+    <div class="row">
+        <div class="col col-10 offset-1">
+            {{ form_start(form) }}
                 {{ form_errors(form) }}
-
-                <section class="container mt-4">
-                    <div class="card ez-card ez-card--light">
+                <section>
+                    <div class="card ibexa-card ibexa-card--light">
                         <div class="card-body">
-                            {{ form_row(form.url, {'label_attr': {'class': 'ez-label'}}) }}
+                            {{ form_row(form.url) }}
                         </div>
                     </div>
                 </section>
                 <button id="url-update" type="submit" hidden></button>
-                {{ form_end(form) }}
-            </div>
-        </div>
-        <div class="ez-context-menu">
-            <div class="ez-sticky-container">
-                {% set url_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.url_edit.sidebar_right', [], {'url': url}) %}
-
-                {{ knp_menu_render(url_create_sidebar_right, {
-                    'template': '@ezdesign/ui/menu/sidebar_right.html.twig'
-                }) }}
-            </div>
+            {{ form_end(form) }}
         </div>
     </div>
 {%- endblock -%}

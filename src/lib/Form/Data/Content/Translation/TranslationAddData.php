@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation;
+namespace Ibexa\AdminUi\Form\Data\Content\Translation;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class TranslationAddData
@@ -17,26 +17,26 @@ class TranslationAddData
     /**
      * @Assert\NotBlank()
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     protected $location;
 
     /**
      * @Assert\NotBlank()
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Language|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      */
     protected $language;
 
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\Language|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      */
     protected $baseLanguage;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $language
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $baseLanguage
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $baseLanguage
      */
     public function __construct(
         Location $location = null,
@@ -49,7 +49,7 @@ class TranslationAddData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     public function getLocation(): ?Location
     {
@@ -57,7 +57,7 @@ class TranslationAddData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      *
      * @return self
      */
@@ -69,7 +69,7 @@ class TranslationAddData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      */
     public function getLanguage(): ?Language
     {
@@ -77,7 +77,7 @@ class TranslationAddData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      *
      * @return self
      */
@@ -89,7 +89,7 @@ class TranslationAddData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      */
     public function getBaseLanguage(): ?Language
     {
@@ -97,7 +97,7 @@ class TranslationAddData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $baseLanguage
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $baseLanguage
      *
      * @return self
      */
@@ -108,3 +108,5 @@ class TranslationAddData
         return $this;
     }
 }
+
+class_alias(TranslationAddData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\TranslationAddData');

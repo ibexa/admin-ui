@@ -34,8 +34,8 @@ class ContentTypeContext implements Context
         ContentTypePage $contentTypePage,
         ContentTypeUpdatePage $contentTypeUpdatePage,
         ContentTypeGroupPage $contentTypeGroupPage,
-        ContentTypeGroupsPage $contentTypeGroupsPage)
-    {
+        ContentTypeGroupsPage $contentTypeGroupsPage
+    ) {
         $this->contentTypePage = $contentTypePage;
         $this->contentTypeUpdatePage = $contentTypeUpdatePage;
         $this->contentTypeGroupPage = $contentTypeGroupPage;
@@ -110,6 +110,15 @@ class ContentTypeContext implements Context
     public function thereAContentTypeOnContentTypesList($contentTypeName)
     {
         Assert::assertTrue($this->contentTypeGroupPage->isContentTypeOnTheList($contentTypeName));
+    }
+
+    /**
+     * @When I select :categoryName category to Content Type definition
+     */
+    public function iSelectCategory(string $categoryName): void
+    {
+        $this->contentTypeUpdatePage->clickAddButton();
+        $this->contentTypeUpdatePage->selectContentTypeCategory($categoryName);
     }
 
     /**
@@ -225,17 +234,9 @@ class ContentTypeContext implements Context
      */
     public function iCheckBlockInField($blockName)
     {
-        $this->contentTypeUpdatePage->expandFieldDefinition('Landing Page');
+        $this->contentTypeUpdatePage->verifyIsLoaded();
+        $this->contentTypeUpdatePage->expandLastFieldDefinition();
         $this->contentTypeUpdatePage->expandDefaultBlocksOption();
         $this->contentTypeUpdatePage->selectBlock($blockName);
-    }
-
-    /**
-     * @Given I select :viewMode editor launch mode in ezlandingpage field options
-     */
-    public function iCheckEditorLaunchModeOption(string $viewMode): void
-    {
-        $this->contentTypeUpdatePage->expandFieldDefinition('Landing Page');
-        $this->contentTypeUpdatePage->selectEditorLaunchMode($viewMode);
     }
 }

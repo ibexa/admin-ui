@@ -4,12 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\DataMapper;
+namespace Ibexa\AdminUi\Form\DataMapper;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\Repository\Values\User\PolicyCreateStruct;
-use EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException;
-use EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyCreateData;
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
+use Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData;
+use Ibexa\Contracts\AdminUi\Form\DataMapper\DataMapperInterface;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Repository\Values\User\PolicyCreateStruct;
 
 /**
  * Maps between PolicyCreateStruct and LanguageCreateData objects.
@@ -19,11 +20,11 @@ class PolicyCreateMapper implements DataMapperInterface
     /**
      * Maps given PolicyCreateStruct object to a PolicyCreateData object.
      *
-     * @param \eZ\Publish\Core\Repository\Values\User\PolicyCreateStruct|\eZ\Publish\API\Repository\Values\ValueObject $value
+     * @param \Ibexa\Core\Repository\Values\User\PolicyCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyCreateData
+     * @return \Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function map(ValueObject $value): PolicyCreateData
     {
@@ -43,11 +44,11 @@ class PolicyCreateMapper implements DataMapperInterface
     /**
      * Maps given PolicyCreateData object to a PolicyCreateStruct object.
      *
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyCreateData $data
+     * @param \Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData $data
      *
-     * @return \eZ\Publish\Core\Repository\Values\User\PolicyCreateStruct
+     * @return \Ibexa\Core\Repository\Values\User\PolicyCreateStruct
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function reverseMap($data): PolicyCreateStruct
     {
@@ -69,3 +70,5 @@ class PolicyCreateMapper implements DataMapperInterface
         return $policyCreateStruct;
     }
 }
+
+class_alias(PolicyCreateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\PolicyCreateMapper');

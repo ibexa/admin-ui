@@ -8,15 +8,34 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Ibexa\AdminUi\Behat\Page\ChangePasswordPage;
+use Ibexa\AdminUi\Behat\Page\UserSettingsPage;
 
 class UserPreferencesContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Page\ChangePasswordPage */
-    private $changePasswordPage;
+    private ChangePasswordPage $changePasswordPage;
 
-    public function __construct(ChangePasswordPage $changePasswordPage)
+    private UserSettingsPage $userSettingsPage;
+
+    public function __construct(ChangePasswordPage $changePasswordPage, UserSettingsPage $userSettingsPage)
     {
         $this->changePasswordPage = $changePasswordPage;
+        $this->userSettingsPage = $userSettingsPage;
+    }
+
+    /**
+     * @Given I switch to :tabName tab in User Settings
+     */
+    public function iSwitchToTabInUserSettings($tabName): void
+    {
+        $this->userSettingsPage->switchTab($tabName);
+    }
+
+    /**
+     * @Given I click on the change password button
+     */
+    public function iClickChangePasswordButton(): void
+    {
+        $this->userSettingsPage->changePassword();
     }
 
     /**

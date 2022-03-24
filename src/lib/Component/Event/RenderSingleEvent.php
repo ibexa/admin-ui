@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Component\Event;
+namespace Ibexa\AdminUi\Component\Event;
 
-use EzSystems\EzPlatformAdminUi\Component\Registry;
-use EzSystems\EzPlatformAdminUi\Component\Renderable;
+use Ibexa\AdminUi\Component\Registry;
+use Ibexa\Contracts\AdminUi\Component\Renderable;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class RenderSingleEvent extends Event
 {
-    const NAME = 'ezplatform_admin_ui.component.render_single';
+    public const NAME = 'ezplatform_admin_ui.component.render_single';
 
-    /** @var \EzSystems\EzPlatformAdminUi\Component\Registry */
+    /** @var \Ibexa\AdminUi\Component\Registry */
     private $registry;
 
     /** @var string */
@@ -29,7 +29,7 @@ class RenderSingleEvent extends Event
     private $parameters;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Component\Registry $registry
+     * @param \Ibexa\AdminUi\Component\Registry $registry
      * @param string $groupName
      * @param array $parameters
      */
@@ -58,7 +58,7 @@ class RenderSingleEvent extends Event
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\Component\Renderable
+     * @return \Ibexa\Contracts\AdminUi\Component\Renderable
      */
     public function getComponent(): Renderable
     {
@@ -68,7 +68,7 @@ class RenderSingleEvent extends Event
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Component\Renderable $component
+     * @param \Ibexa\Contracts\AdminUi\Component\Renderable $component
      */
     public function setComponent(Renderable $component)
     {
@@ -83,3 +83,5 @@ class RenderSingleEvent extends Event
         return $this->parameters;
     }
 }
+
+class_alias(RenderSingleEvent::class, 'EzSystems\EzPlatformAdminUi\Component\Event\RenderSingleEvent');
