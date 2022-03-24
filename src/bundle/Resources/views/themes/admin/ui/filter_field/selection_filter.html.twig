@@ -1,23 +1,55 @@
 {% extends '@ibexadesign/ui/filter_field/base.html.twig' %}
 
-{% set items_show_limit = items_show_limit|default(5) %}
-{% set class = class|default('') ~ ' ibexa-sidebar-filter--selection' %}
-{% set show_more_button = choices|length > items_show_limit %}
+{% set items_short_list_limit = items_short_list_limit|default(5) %}
+{% set show_more_button = choices|length > items_short_list_limit %}
+{% set wrapper_attr = {
+    class: 'ibexa-sidebar-filter-selection',
+    'data-items-short-list-limit': items_short_list_limit,
+} %}
 
 {%- block sidebar_filter_label -%}{{ filter_label }}{%- endblock -%}
 
+{%- block sidebar_filter_actions -%}
+    <button
+        type="button"
+        class="btn ibexa-btn ibexa-btn--small ibexa-btn--no-text ibexa-btn--selector ibexa-sidebar-filter-selection__search-toggle-btn"
+    >
+        <svg class="ibexa-icon ibexa-icon--small">
+            <use xlink:href="{{ ibexa_icon_path('search') }}"></use>
+        </svg>
+    </button>
+{%- endblock -%}
+
 {%- block sidebar_filter_fields_before -%}
-    <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-sidebar-filter__btn ibexa-sidebar-filter__btn--fields-pre-action ibexa-sidebar-filter__toggle-all-select-btn">
+    {% embed '@ibexadesign/ui/component/input_text.html.twig' with {
+        has_search: true,
+        search_button_type: 'button',
+        wrapper_attr: {
+            class: 'ibexa-sidebar-filter-selection__search-wrapper ibexa-sidebar-filter-selection__search-wrapper--hidden'
+        }
+    } %}
+        {% block content %}
+            <input
+                type="text"
+                class="ibexa-input ibexa-input--text ibexa-input--small form-control ibexa-sidebar-filter-selection__search-input"
+                placeholder="{{ 'filter_field.search_placeholder'|trans|desc('Search filter') }}"
+            />
+        {% endblock %}
+    {% endembed %}
+    <button
+        type="button"
+        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-sidebar-filter__toggle-checks-state-btn"
+    >
         {{ 'filter_field.select_all'|trans|desc('Select all') }}
     </button>
 {%- endblock -%}
 
 {%- block sidebar_filter_fields -%}
-    <ul class="ibexa-sidebar-filter__selection-list {% if show_more_button %}ibexa-sidebar-filter__selection-list-item--short{% endif %} ">
+    <ul class="ibexa-sidebar-filter-selection__list">
         {% for index, choice in choices %}
-            <li class="ibexa-sidebar-filter__selection-list-item {% if index >= items_show_limit %}ibexa-sidebar-filter__selection-list-item--hidden{% endif %}">
-                <input type="checkbox" class="ibexa-input ibexa-input--checkbox  form-check-input"/>
-                <span class="ibexa-sidebar-filter__selection-list-item-label">{{ choice.label }}</span>
+            <li class="ibexa-sidebar-filter-selection__list-item {% if index >= items_short_list_limit %}ibexa-sidebar-filter-selection__list-item--hidden{% endif %}">
+                <input type="checkbox" class="ibexa-input ibexa-input--checkbox form-check-input"/>
+                <span class="ibexa-sidebar-filter-selection__list-item-label">{{ choice.label }}</span>
             </li>
         {% endfor %}
     </ul>
@@ -27,10 +59,14 @@
     {% if show_more_button %}
         <button
             type="button"
-            data-items-show-limit="{{ items_show_limit }}"
-            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-sidebar-filter__toggle-list-btn ibexa-sidebar-filter__btn ibexa-sidebar-filter__btn--fields-post-action"
+            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-sidebar-filter-selection__list-toggle-btn"
         >
-            {{ 'filter_field.more'|trans|desc('more') }}
+            <svg class="ibexa-icon ibexa-icon--tiny-small">
+                <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
+            </svg>
+            <span class="ibexa-btn__label">
+                {{ 'filter_field.more'|trans|desc('more') }}
+            </span>
         </button>
     {% endif %}
 {%- endblock -%}

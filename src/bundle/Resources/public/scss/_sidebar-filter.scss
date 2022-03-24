@@ -20,25 +20,8 @@
     &__header-actions {
         display: flex;
 
-        .ibexa-btn--hidden {
-            display: none;
-        }
-    }
-
-    &__search-input {
-        margin-right: calculateRem(12px);
-
-        &--hidden {
-            display: none;
-        }
-    }
-
-
-    &__btn {
-        &--fields-pre-action,
-        &--fields-post-action {
-            margin: calculateRem(5px) 0;
-            text-decoration: underline;
+        .ibexa-btn {
+            margin-left: calculateRem(2px);
         }
     }
 

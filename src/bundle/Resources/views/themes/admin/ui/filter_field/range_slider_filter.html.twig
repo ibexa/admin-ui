@@ -1,0 +1,63 @@
+{% extends '@ibexadesign/ui/filter_field/base.html.twig' %}
+
+{% set range_step = range_step|default(1) %}
+{% set start_value = start_value|default(min_value) %}
+{% set end_value = end_value|default(max_value) %}
+
+{% set wrapper_attr = {
+    class: 'ibexa-sidebar-filter-range-slider',
+    'data-range-step': range_step,
+} %}
+
+{%- block sidebar_filter_label -%}{{ filter_label }}{%- endblock -%}
+
+{%- block sidebar_filter_fields_before -%}
+    <button
+        type="button"
+        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-sidebar-filter__clear-all-btn"
+    >
+        {{ 'filter_field.select_all'|trans|desc('Clear all') }}
+    </button>
+{%- endblock -%}
+
+{%- block sidebar_filter_fields -%}
+    <div class="ibexa-sidebar-filter-range-slider__content">
+        <input type="hidden" class="ibexa-sidebar-filter-range-slider__start-range-input" />
+        <input type="hidden" class="ibexa-sidebar-filter-range-slider__end-range-input" />
+
+        <div class="multi-range">
+            <input
+                type="range"
+                min="{{ min_value }}"
+                min="{{ max_value }}"
+                value="{{ start_value }}"
+                class="form-range ibexa-sidebar-filter-range-slider__slider-input--start"
+            />
+            <input
+                type="range"
+                min="{{ min_value }}"
+                min="{{ max_value }}"
+                value="{{ end_value }}"
+                class="form-range ibexa-sidebar-filter-range-slider__slider-input--end"
+            />
+        </div>
+        
+
+        <div class="ibexa-sidebar-filter-range-slider__manual-inputs">
+            <input
+                type="number"
+                min="{{ min_value }}"
+                min="{{ max_value }}"
+                value="{{ start_value }}"
+                class="form-control ibexa-input ibexa-input--small ibexa-input--text ibexa-sidebar-filter-range-slider__manual-input ibexa-sidebar-filter-range-slider__manual-input--start"
+            />
+            <input
+                type="number"
+                min="{{ min_value }}"
+                min="{{ max_value }}"
+                value="{{ end_value }}"
+                class="form-control ibexa-input ibexa-input--small ibexa-input--text ibexa-sidebar-filter-range-slider__manual-input ibexa-sidebar-filter-range-slider__manual-input--end"
+            />
+        </div>
+    </div>
+{%- endblock -%}

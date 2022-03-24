@@ -1,0 +1,14 @@
+.ibexa-sidebar-filter-range-slider {
+    &__content {
+        padding: calculateRem(2px) calculateRem(12px) calculateRem(24px);
+    }
+
+    &__manual-inputs {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__manual-input {
+        max-width: calculateRem(80px);
+    }
+}

@@ -1,22 +1,28 @@
-{% set is_collapsed = is_collapsed|default(false) %}
+{% import '@ibexadesign/ui/component/macros.html.twig' as html %}
 
-<div class="ibexa-sidebar-filter accordion-item {{ is_collapsed ? 'collapsed'  }} {{ class|default('') }}">
+{% set is_collapsed = is_collapsed|default(false) %}
+{% set wrapper_attr = wrapper_attr|default({})|merge({
+    class: (wrapper_attr.class|default('')
+        ~ ' ibexa-sidebar-filter accordion-item'
+        ~ (is_collapsed ? ' collapsed')
+    )|trim
+}) %}
+
+<div {{ html.attributes(wrapper_attr) }}>
     {% block sidebar_filter_header %}
         <div class="ibexa-sidebar-filter__header">
             <div class="ibexa-sidebar-filter__header-label">
                 {% block sidebar_filter_label %}{% endblock %}
             </div>
-            <input type="text" class="form-control ibexa-sidebar-filter__search-input ibexa-sidebar-filter__search-input--hidden ibexa-input ibexa-input--text ibexa-input--small">
             <div class="ibexa-sidebar-filter__header-actions">
-                <button
-                    type="button"
-                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text ibexa-sidebar-filter__search-input-toggle"
-                >
-                    <svg class="ibexa-icon ibexa-icon--small">
-                        <use xlink:href="{{ ibexa_icon_path('search') }}"></use>
-                    </svg>
-                </button>
                 {% block sidebar_filter_actions %}{% endblock %}
+                {% if can_delete_filter is defined and can_delete_filter %}
+                    <button type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text">
+                        <svg class="ibexa-icon ibexa-icon--small">
+                            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
+                        </svg>
+                    </button>
+                {% endif %}
                 <button
                     type="button"
                     class="btn ibexa-btn ibexa-btn--small ibexa-btn--no-text accordion-button {{ is_collapsed ? 'collapsed' }}"
@@ -28,10 +34,7 @@
     {% endblock %}
 
     {% block sidebar_filter_body %}
-        <div
-            id="{{ filter_id }}"
-            class="ibexa-sidebar-filter__body accordion-collapse {{ is_collapsed ? 'collapsed' : 'show'  }}"
-        >
+        <div id="{{ filter_id }}" class="ibexa-sidebar-filter__body accordion-collapse {{ is_collapsed ? 'collapsed' : 'show'  }}">
             {% block sidebar_filter_fields_before %}{% endblock %}
             {% block sidebar_filter_fields %}{% endblock %}
             {% block sidebar_filter_fields_after %}{% endblock %}
