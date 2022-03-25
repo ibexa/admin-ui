@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementTransitionHasEndedCondition;
+use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Mapper\ElementTextMapper;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -47,6 +48,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
             new VisibleCSSLocator('availableFieldLabelList', '.ibexa-available-field-types__list > li'),
             new VisibleCSSLocator('workspace', '#content_collapse > div.ibexa-collapse__body-content > div'),
             new VisibleCSSLocator('fieldDefinitionToggle', '.ibexa-collapse:nth-last-child(2) > div.ibexa-collapse__header > button:last-child:not([data-bs-target="#content_collapse"])'),
+            new VisibleCSSLocator('selectLaunchEditorMode', '.form-check .ibexa-input--radio'),
             new VisibleCSSLocator('fieldDefinitionOpenContainer', '[data-collapsed="false"] .ibexa-content-type-edit__field-definition-content'),
             new VisibleCSSLocator('selectBlocksDropdown', '.ibexa-page-select-items__toggler'),
         ]);
@@ -122,5 +124,12 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
     {
         parent::verifyIsLoaded();
         $this->getHTMLPage()->find($this->getLocator('contentTypeAddButton'))->assert()->isVisible();
+    }
+
+    public function selectEditorLaunchMode(string $viewMode): void
+    {
+        $this->getHTMLPage()
+             ->findAll($this->getLocator('selectLaunchEditorMode'))
+             ->getByCriterion(new ElementAttributeCriterion('value', $viewMode))->click();
     }
 }
