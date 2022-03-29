@@ -1,12 +1,14 @@
 (function (global, doc) {
-    const createActions = doc.querySelector('.ibexa-extra-actions--create');
+    const createActions = doc.querySelectorAll('.ibexa-extra-actions--create');
 
-    if (!createActions) {
+    if (!createActions.length) {
         return;
     }
 
-    const btns = createActions.querySelectorAll('.form-check [type="radio"]');
-    const form = createActions.querySelector('form');
+    createActions.forEach((container) => {
+        const btns = container.querySelectorAll('.form-check [type="radio"]');
+        const form = container.querySelector('form');
 
-    btns.forEach((btn) => btn.addEventListener('change', () => form.submit(), false));
+        btns.forEach((btn) => btn.addEventListener('change', () => form.submit(), false));
+    });
 })(window, window.document);

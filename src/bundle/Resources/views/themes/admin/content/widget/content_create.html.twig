@@ -1,6 +1,8 @@
 {% trans_default_domain 'locationview' %}
 
-<div class="ibexa-extra-actions ibexa-extra-actions--create ibexa-extra-actions--hidden" data-actions="create">
+{% set data_actions = data_actions|default('create') %}
+
+<div class="ibexa-extra-actions ibexa-extra-actions--create ibexa-extra-actions--hidden" data-actions="{{ data_actions }}">
     <div class="ibexa-extra-actions__header">
         <h2>{{ 'content.create.create_content'|trans|desc('Create content') }}</h2>
         <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--close">
