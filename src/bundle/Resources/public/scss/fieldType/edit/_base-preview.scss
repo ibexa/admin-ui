@@ -58,6 +58,10 @@
                     color: $ibexa-color-dark-300;
                     font-size: $ibexa-text-font-size-small;
                 }
+
+                &--filesize-error {
+                    font-size: $ibexa-text-font-size-small;
+                }
             }
 
             .form-check.form-check-inline {

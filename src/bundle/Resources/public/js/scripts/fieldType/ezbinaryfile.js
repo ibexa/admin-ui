@@ -1,6 +1,6 @@
 (function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezbinaryfile';
-    const SELECTOR_FILESIZE_NOTICE = '.ibexa-data-source__message--filesize';
+    const SELECTOR_FILESIZE_ERROR = '.ibexa-data-source__message--filesize-error';
 
     class EzBinaryFilePreviewField extends ibexa.BasePreviewField {
         /**
@@ -50,7 +50,7 @@
                     selector: `input[type="file"]`,
                     eventName: 'ibexa-invalid-file-size',
                     callback: 'showFileSizeError',
-                    errorNodeSelectors: [SELECTOR_FILESIZE_NOTICE],
+                    errorNodeSelectors: [SELECTOR_FILESIZE_ERROR],
                 },
             ],
         });

@@ -1,7 +1,7 @@
 (function (global, doc, ibexa, Translator) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezimage';
     const SELECTOR_INPUT_FILE = 'input[type="file"]';
-    const SELECTOR_FILESIZE_NOTICE = '.ibexa-data-source__message--filesize';
+    const SELECTOR_FILESIZE_ERROR = '.ibexa-data-source__message--filesize-error';
     const SELECTOR_ALT_WRAPPER = '.ibexa-field-edit-preview__image-alt';
     const SELECTOR_INPUT_ALT = '.ibexa-field-edit-preview__image-alt .ibexa-data-source__input';
     const EVENT_CANCEL_ERROR = 'ibexa-cancel-errors';
@@ -138,7 +138,7 @@
                     selector: `${SELECTOR_INPUT_FILE}`,
                     eventName: 'ibexa-invalid-file-size',
                     callback: 'showFileSizeError',
-                    errorNodeSelectors: [SELECTOR_FILESIZE_NOTICE],
+                    errorNodeSelectors: [SELECTOR_FILESIZE_ERROR],
                 },
                 {
                     isValueValidator: false,

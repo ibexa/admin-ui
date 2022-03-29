@@ -6,7 +6,7 @@
     const SELECTOR_MEDIA_WRAPPER = '.ibexa-field-edit-preview__media-wrapper';
     const SELECTOR_INPUT_FILE = 'input[type="file"]';
     const CLASS_MEDIA_WRAPPER_LOADING = 'ibexa-field-edit-preview__media-wrapper--loading';
-    const SELECTOR_FILESIZE_NOTICE = '.ibexa-data-source__message--filesize';
+    const SELECTOR_FILESIZE_ERROR = '.ibexa-data-source__message--filesize-error';
 
     class EzMediaValidator extends ibexa.BaseFileFieldValidator {
         validateFileSize(event) {
@@ -137,6 +137,7 @@
     }
 
     doc.querySelectorAll(SELECTOR_FIELD).forEach((fieldContainer) => {
+        console.log(fieldContainer);
         const validator = new EzMediaValidator({
             classInvalid: 'is-invalid',
             fieldContainer,
@@ -146,7 +147,7 @@
                     selector: SELECTOR_INPUT_FILE,
                     eventName: 'ibexa-invalid-file-size',
                     callback: 'showFileSizeError',
-                    errorNodeSelectors: [SELECTOR_FILESIZE_NOTICE],
+                    errorNodeSelectors: [SELECTOR_FILESIZE_ERROR],
                 },
                 {
                     selector: '.ibexa-field-edit-preview__dimensions .form-control',

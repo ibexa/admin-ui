@@ -48,6 +48,7 @@
         <div class="ibexa-data-source__message--filesize">
             {{ 'fieldtype.binary_base.max_file_size'|trans({'%size%': max_file_size|ibexa_file_size(2)})|desc('Max file size: %size%') }}
         </div>
+        <div class="ibexa-data-source__message--filesize-error"></div>
     {% endif %}
 
     {{- form_widget(form.file, {'attr': attr}) -}}

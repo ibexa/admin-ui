@@ -203,6 +203,7 @@
         init() {
             this.fieldsToValidate = [];
             this.eventsMap.forEach((eventConfig) => {
+                console.log(eventConfig)
                 eventConfig.validateField = this.validateField.bind(this, eventConfig);
 
                 this.attachEvent(eventConfig);
