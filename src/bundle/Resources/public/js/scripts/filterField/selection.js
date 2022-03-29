@@ -117,6 +117,4 @@
 
         filter.init();
     })
-
-
 })(window, window.document);
