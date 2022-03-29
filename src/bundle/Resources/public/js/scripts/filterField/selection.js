@@ -1,30 +1,27 @@
 (function (global, doc) {
-    class selectionFilter {
-        constructor(config = {}) {
-            // nodes
-            this.wrapper = config.wrapper;
+    class selectionFilter extends global.ibexa.BaseSidebarFilter {
+        constructor(config) {
+            super(config);
 
             this.searchToggleBtn = this.wrapper.querySelector('.ibexa-sidebar-filter-selection__search-toggle-btn');
             this.searchWrapper = this.wrapper.querySelector('.ibexa-sidebar-filter-selection__search-wrapper');
             this.searchInput = this.wrapper.querySelector('.ibexa-sidebar-filter-selection__search-input');
-
-            this.toggleItemsCheckStateBtn = this.wrapper.querySelector('.ibexa-sidebar-filter__toggle-checks-state-btn');
+            this.toggleItemsCheckStateBtn = this.wrapper.querySelector('.ibexa-sidebar-filter-selection__toggle-checks-state-btn');
             this.list = this.wrapper.querySelector('.ibexa-sidebar-filter-selection__list');
             this.listItems = this.wrapper.querySelectorAll('.ibexa-sidebar-filter-selection__list-item');
             this.toggleListBtn = this.wrapper.querySelector('.ibexa-sidebar-filter-selection__list-toggle-btn');
 
-            // Varaibels
             this.isSearchExpanded = config.isSearchExpanded || false;
             this.isListExpanded = config.isListExpanded || false;
             this.itemsCheckedCount = config.itemsCheckedCount || 0;
             this.itemsShortListLimit = config.wrapper.dataset.itemsShortListLimit;
 
-            //Functions
             this.toggleSearchBar = this.toggleSearchBar.bind(this);
             this.toggleItemsCheckState = this.toggleItemsCheckState.bind(this);
             this.setToggleItemsCheckStateBtnLabel = this.setToggleItemsCheckStateBtnLabel.bind(this);
             this.filterItems = this.filterItems.bind(this);
             this.toggleListItems = this.toggleListItems.bind(this);
+            this.setToggleListBtnState = this.setToggleListBtnState.bind(this);
         }
 
         toggleSearchBar() {
@@ -61,7 +58,7 @@
             });
 
             this.isListExpanded = !shouldCollapseList;
-            this.setToggleListBtnLabel()
+            this.setToggleListBtnState()
         }
 
         setToggleItemsCheckStateBtnLabel() {
@@ -74,13 +71,9 @@
                 : 'Select all';
         }
 
-        setToggleListBtnLabel() {
-            const iconName = this.isListExpanded ? 'undo' : 'create';
-            const label = this.toggleListBtn.querySelector('.ibexa-btn__label');
-
-            label.innerHTML = this.isListExpanded
-                ? 'Less'
-                : 'More';
+        setToggleListBtnState() {
+            this.toggleListBtn.innerHTML = this.isListExpanded ? 'Less' : 'More';
+            this.toggleListBtn.classList.toggle('ibexa-sidebar-filter-selection__list-toggle-btn--expanded-list')
         }
 
         filterItems({ currentTarget }) {

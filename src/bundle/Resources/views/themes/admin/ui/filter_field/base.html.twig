@@ -1,6 +1,7 @@
 {% import '@ibexadesign/ui/component/macros.html.twig' as html %}
 
 {% set is_collapsed = is_collapsed|default(false) %}
+{% set disabled_toggle_filter = disabled_toggle_filter|default(false) %}
 {% set wrapper_attr = wrapper_attr|default({})|merge({
     class: (wrapper_attr.class|default('')
         ~ ' ibexa-sidebar-filter accordion-item'
@@ -16,28 +17,38 @@
             </div>
             <div class="ibexa-sidebar-filter__header-actions">
                 {% block sidebar_filter_actions %}{% endblock %}
+
                 {% if can_delete_filter is defined and can_delete_filter %}
-                    <button type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text">
+                    <button type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text ibexa-sidebar-filter__remove-btn">
                         <svg class="ibexa-icon ibexa-icon--small">
                             <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
                         </svg>
                     </button>
                 {% endif %}
-                <button
-                    type="button"
-                    class="btn ibexa-btn ibexa-btn--small ibexa-btn--no-text accordion-button {{ is_collapsed ? 'collapsed' }}"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#{{ filter_id }}"
-                ></button>
+
+                {% if not disabled_toggle_filter %}
+                    <button
+                        type="button"
+                        class="btn ibexa-btn ibexa-btn--small ibexa-btn--no-text accordion-button {{ is_collapsed ? 'collapsed' }}"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#{{ filter_id }}"
+                    ></button>
+                {% endif %}
             </div>
         </div>
     {% endblock %}
 
     {% block sidebar_filter_body %}
         <div id="{{ filter_id }}" class="ibexa-sidebar-filter__body accordion-collapse {{ is_collapsed ? 'collapsed' : 'show'  }}">
-            {% block sidebar_filter_fields_before %}{% endblock %}
-            {% block sidebar_filter_fields %}{% endblock %}
-            {% block sidebar_filter_fields_after %}{% endblock %}
+            <div class="ibexa-sidebar-filter__pre-body-content">
+                {% block sidebar_filter_pre_body_content %}{% endblock %}
+            </div>
+            <div class="ibexa-sidebar-filter__body-content">
+                {% block sidebar_filter_body_content %}{% endblock %}
+            </div>
+            <div class="ibexa-sidebar-filter__post-body-content">
+                {% block sidebar_filter_post_body_content %}{% endblock %}
+            </div>
         </div>
     {% endblock %}
 

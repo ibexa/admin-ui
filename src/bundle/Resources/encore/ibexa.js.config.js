@@ -52,6 +52,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/admin.back.to.top.js'),
     path.resolve(__dirname, '../public/js/scripts/filterField/base.js'),
     path.resolve(__dirname, '../public/js/scripts/filterField/selection.js'),
+    path.resolve(__dirname, '../public/js/scripts/filterField/range.js'),
 ];
 const fieldTypes = [];
 

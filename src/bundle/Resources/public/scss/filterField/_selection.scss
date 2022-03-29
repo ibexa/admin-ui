@@ -1,9 +1,13 @@
 .ibexa-sidebar-filter-selection {
     &__list {
+        margin: calculateRem(12px) calculateRem(16px) calculateRem(24px) calculateRem(16px);
         padding: 0;
-        margin: 0 calculateRem(16px) calculateRem(16px);
         list-style: none;
         font-size: $ibexa-text-font-size-medium;
+
+        &--with-toggler {
+            margin-bottom: calculateRem(8px);
+        }
 
         .ibexa-input--checkbox {
             margin-right: calculateRem(4px);
@@ -40,16 +44,37 @@
         }
     }
 
+    &__search-input {
+        border-radius: $ibexa-border-radius;
+    }
+
     &__list-toggle-btn {
+        position: relative;
         margin: 0 0 calculateRem(12px) 0;
+        padding-left: calculateRem(37px);
 
         &--hidden {
             display: none;
         }
 
-        .ibexa-btn {
-            &__label {
-                text-decoration: underline;
+        &::before,
+        &::after {
+            content: ' ';
+            position: absolute;
+            top: calculateRem(8px);
+            left: calculateRem(22px);
+            width: calculateRem(1px);
+            height: calculateRem(13px);
+            background-color: $ibexa-color-dark;
+        }
+
+        &::after {
+            transform: rotate(-90deg);
+        }
+
+        &--expanded-list {
+            &::before {
+                display: none;
             }
         }
     }

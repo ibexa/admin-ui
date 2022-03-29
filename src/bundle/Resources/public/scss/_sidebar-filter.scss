@@ -2,7 +2,7 @@
     &__header {
         display: flex;
         justify-content: space-between;
-        padding: calculateRem(4px) calculateRem(16px) calculateRem(4px) calculateRem(24px);
+        padding: calculateRem(4px) calculateRem(10px) calculateRem(4px) calculateRem(24px);
         border-bottom: calculateRem(1px) solid $ibexa-color-light;
         box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) rgba($ibexa-color-info, 0.05)
     }
@@ -21,13 +21,36 @@
         display: flex;
 
         .ibexa-btn {
+            &.accordion-button {
+                border-radius: $ibexa-border-radius;
+
+                &::after {
+                    width: calculateRem(16px);
+                    height: calculateRem(16px);
+                    background-size: calculateRem(16px);
+                }
+            }
+
             margin-left: calculateRem(2px);
         }
     }
 
     &__body {
+        padding: calculateRem(5px) calculateRem(22px);
         border-bottom: calculateRem(1px) solid $ibexa-color-light;
-        padding: 0 calculateRem(16px);
+    }
+
+    &__pre-body-content {
+        margin-bottom: calculateRem(2px);
+    }
+
+    &__body-content {
+        display: flex;
+    }
+
+    &__pre-body-action-btn,
+    &__post-body-action-btn {
+        text-decoration: underline;
     }
 
     &:last-child {

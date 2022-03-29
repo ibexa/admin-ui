@@ -1,7 +1,8 @@
 {% extends '@ibexadesign/ui/filter_field/base.html.twig' %}
 
 {% set items_short_list_limit = items_short_list_limit|default(5) %}
-{% set show_more_button = choices|length > items_short_list_limit %}
+{% set is_list_expanded = is_list_expanded|default(false) %}
+{% set show_toggle_list_button = choices|length > items_short_list_limit %}
 {% set wrapper_attr = {
     class: 'ibexa-sidebar-filter-selection',
     'data-items-short-list-limit': items_short_list_limit,
@@ -20,7 +21,7 @@
     </button>
 {%- endblock -%}
 
-{%- block sidebar_filter_fields_before -%}
+{%- block sidebar_filter_pre_body_content -%}
     {% embed '@ibexadesign/ui/component/input_text.html.twig' with {
         has_search: true,
         search_button_type: 'button',
@@ -36,18 +37,19 @@
             />
         {% endblock %}
     {% endembed %}
+
     <button
         type="button"
-        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-sidebar-filter__toggle-checks-state-btn"
+        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-sidebar-filter__pre-body-action-btn ibexa-sidebar-filter-selection__toggle-checks-state-btn"
     >
         {{ 'filter_field.select_all'|trans|desc('Select all') }}
     </button>
 {%- endblock -%}
 
-{%- block sidebar_filter_fields -%}
-    <ul class="ibexa-sidebar-filter-selection__list">
+{%- block sidebar_filter_body_content -%}
+    <ul class="ibexa-sidebar-filter-selection__list {% if show_toggle_list_button %}ibexa-sidebar-filter-selection__list--with-toggler{% endif %}">
         {% for index, choice in choices %}
-            <li class="ibexa-sidebar-filter-selection__list-item {% if index >= items_short_list_limit %}ibexa-sidebar-filter-selection__list-item--hidden{% endif %}">
+            <li class="ibexa-sidebar-filter-selection__list-item {% if not is_list_expanded and index >= items_short_list_limit %}ibexa-sidebar-filter-selection__list-item--hidden{% endif %}">
                 <input type="checkbox" class="ibexa-input ibexa-input--checkbox form-check-input"/>
                 <span class="ibexa-sidebar-filter-selection__list-item-label">{{ choice.label }}</span>
             </li>
@@ -55,18 +57,25 @@
     </ul>
 {%- endblock -%}
 
-{%- block sidebar_filter_fields_after -%}
-    {% if show_more_button %}
+{%- block sidebar_filter_post_body_content -%}
+    {% if show_toggle_list_button %}
         <button
             type="button"
-            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-sidebar-filter-selection__list-toggle-btn"
+            class="
+                btn
+                ibexa-btn
+                ibexa-btn--ghost
+                ibexa-btn--small
+                ibexa-sidebar-filter__post-body-action-btn
+                ibexa-sidebar-filter-selection__list-toggle-btn
+                {% if is_list_expanded %}ibexa-sidebar-filter-selection__list-toggle-btn--expanded-list{% endif %}
+            "
         >
-            <svg class="ibexa-icon ibexa-icon--tiny-small">
-                <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-            </svg>
-            <span class="ibexa-btn__label">
-                {{ 'filter_field.more'|trans|desc('more') }}
-            </span>
+            {% if is_list_expanded %}
+                {{ 'filter_field.less'|trans|desc('Less') }}
+            {% else %}
+                {{ 'filter_field.more'|trans|desc('More') }}
+            {% endif %}
         </button>
     {% endif %}
 {%- endblock -%}
