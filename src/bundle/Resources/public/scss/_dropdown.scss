@@ -197,6 +197,7 @@
 
         &--selected {
             position: relative;
+            padding-right: calculateRem(36px);
 
             .ibexa-dropdown__item-check {
                 display: block;
@@ -299,7 +300,7 @@
         }
     }
 
-    &:not(&--is-disabled) {
+    &:not(&--is-disabled):not(&--ghost) {
         .ibexa-dropdown {
             &__selection-info {
                 &:not(.is-invalid):hover {
@@ -365,6 +366,34 @@
                 &::before,
                 &::after {
                     background: $ibexa-color-dark-400;
+                }
+            }
+        }
+    }
+
+    &--ghost {
+        min-width: auto;
+
+        .ibexa-dropdown {
+            &__selection-info {
+                border: none;
+                padding: 0 calculateRem(16px);
+
+                &::before {
+                    display: none;
+                }
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    right: calculateRem(8px);
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: calculateRem(6px) calculateRem(3px) 0 calculateRem(3px);
+                    border-color: $ibexa-color-dark transparent transparent transparent;
+                    transform: translate(0, -50%);
+                    background: none;
                 }
             }
         }

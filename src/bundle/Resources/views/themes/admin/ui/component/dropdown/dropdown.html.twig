@@ -23,6 +23,7 @@
         {{ custom_init|default(false) ? "ibexa-dropdown--custom-init" }}
         {{ is_dynamic ? "ibexa-dropdown--dynamic" }}
         {{ is_small|default(false) ? "ibexa-dropdown--small" }}
+        {{ is_ghost|default(false) ? "ibexa-dropdown--ghost" }}
         {{ no_items and not is_dynamic or is_disabled ? "ibexa-dropdown--disabled" }}
         {{ class|default('') }}
     "
