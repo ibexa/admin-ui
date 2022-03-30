@@ -68,6 +68,7 @@
 
             &.ibexa-main-menu__navbar--collapsed {
                 width: calculateRem(48px);
+                overflow: visible;
 
                 .ibexa-main-menu {
                     &__items-list {
