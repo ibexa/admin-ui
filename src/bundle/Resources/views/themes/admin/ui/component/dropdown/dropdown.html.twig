@@ -34,6 +34,11 @@
         {{ source|default(null)|raw }}
     </div>
     <div class="ibexa-dropdown__wrapper">
+        {% set placeholder_list_item %}
+            <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder">
+                {{ 'dropdown.placeholder.empty'|trans|desc("No options available") }}
+            </li>
+        {% endset %}
         <ul
             class="ibexa-dropdown__selection-info"
             data-min-item-width="{{ min_item_width }}"
@@ -47,12 +52,11 @@
                 value: '{{ value }}',
                 label: '{{ label }}',
             })|e('html_attr') }}"
+            data-placeholder-template="{{ placeholder_list_item|e('html_attr') }}"
         >
             {% if no_items %}
                 {% if not is_dynamic %}
-                    <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder">
-                        {{ 'dropdown.placeholder.empty'|trans|desc("No options available") }}
-                    </li>
+                    {{ placeholder_list_item }}
                 {% endif %}
             {% else %}
                 {% if value is empty %}
