@@ -10,7 +10,6 @@
          * @returns {Object}
          */
         validateInput(event) {
-            console.log('validate base file')
             const input = event.currentTarget;
             const dataContainer = this.fieldContainer.querySelector('.ibexa-field-edit__data');
             const label = this.fieldContainer.querySelector(SELECTOR_FIELD_LABEL).innerHTML;
