@@ -123,7 +123,6 @@
     &__selected-placeholder,
     &--single &__selected-item {
         font-size: $ibexa-text-font-size-medium;
-        line-height: calculateRem(24px);
         color: $ibexa-color-black-300;
         background: transparent;
         border: 0;
