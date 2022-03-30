@@ -2,7 +2,6 @@
     const SELECTOR_FIELD = '.ibexa-field-edit--ezimageasset';
     const SELECTOR_INPUT_FILE = 'input[type="file"]';
     const SELECTOR_INPUT_DESTINATION_CONTENT_ID = '.ibexa-data-source__destination-content-id';
-    const SELECTOR_FILESIZE_NOTICE = '.ibexa-data-source__message--filesize';
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const { showErrorNotification } = ibexa.helpers.notification;
     const { showSuccessNotification } = ibexa.helpers.notification;
@@ -227,18 +226,8 @@
         }
     }
 
-    class EzImageAssetFieldValidator extends ibexa.BaseFileFieldValidator {
-        validateFileSize(event) {
-            event.currentTarget.dispatchEvent(new CustomEvent('ibexa-invalid-file-size'));
-
-            return {
-                isError: false,
-            };
-        }
-    }
-
     doc.querySelectorAll(SELECTOR_FIELD).forEach((fieldContainer) => {
-        const validator = new EzImageAssetFieldValidator({
+        const validator = new ibexa.BaseFileFieldValidator({
             classInvalid: 'is-invalid',
             fieldContainer,
             eventsMap: [
@@ -253,7 +242,7 @@
                     selector: `${SELECTOR_INPUT_FILE}`,
                     eventName: 'ibexa-invalid-file-size',
                     callback: 'showFileSizeError',
-                    errorNodeSelectors: [SELECTOR_FILESIZE_NOTICE],
+                    errorNodeSelectors: ['.ibexa-form-error'],
                 },
             ],
         });
