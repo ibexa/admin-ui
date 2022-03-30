@@ -33,9 +33,10 @@
         align-items: center;
         flex-wrap: wrap;
         margin-bottom: 0;
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
-        &:before,
-        &:after {
+        &::before,
+        &::after {
             content: '';
             position: absolute;
             z-index: 1;
@@ -43,14 +44,15 @@
             width: calculateRem(10px);
             height: calculateRem(1px);
             background: $ibexa-color-dark;
+            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
         }
 
-        &:before {
+        &::before {
             transform: rotate(135deg);
             right: calculateRem(12px);
         }
 
-        &:after {
+        &::after {
             transform: rotate(-135deg);
             right: calculateRem(19px);
         }
@@ -62,12 +64,9 @@
                 color: $ibexa-color-danger;
             }
 
-            &:before {
-                border-color: $ibexa-color-danger transparent transparent transparent;
-            }
-
-            &:after {
-                border-color: $ibexa-color-danger-100 transparent transparent transparent;
+            &::before,
+            &::after {
+                background-color: $ibexa-color-danger;
             }
         }
     }
@@ -75,14 +74,14 @@
     &__remove-selection {
         display: inherit;
         position: absolute;
-        top: calc(50% + #{calculateRem(1px)});
+        top: 50%;
         right: calculateRem(3px);
         width: calculateRem(16px);
         height: calculateRem(16px);
         transform: translateY(-50%);
 
-        &:before,
-        &:after {
+        &::before,
+        &::after {
             content: '';
             width: calculateRem(1px);
             height: calculateRem(11px);
@@ -92,11 +91,11 @@
             left: 50%;
         }
 
-        &:before {
+        &::before {
             transform: translate(50%, -50%) rotate(-45deg);
         }
 
-        &:after {
+        &::after {
             transform: translate(50%, -50%) rotate(45deg);
         }
     }
@@ -106,12 +105,15 @@
 
         margin-top: 0;
         padding-left: calculateRem(8px);
+        padding-top: 0;
+        padding-bottom: 0;
         margin-right: calculateRem(8px);
         display: inline-block;
         max-width: calculateRem(380px);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
     }
 
     &__selected-item + &__selected-placeholder {
@@ -121,6 +123,7 @@
     &__selected-placeholder,
     &--single &__selected-item {
         font-size: $ibexa-text-font-size-medium;
+        line-height: calculateRem(24px);
         color: $ibexa-color-black-300;
         background: transparent;
         border: 0;
@@ -204,7 +207,7 @@
         }
 
         .ibexa-input {
-            margin-right: calculateRem(16px);
+            margin: 0 calculateRem(16px) 0 0;
         }
 
         .ibexa-icon {
@@ -262,76 +265,44 @@
         }
     }
 
-    &--is-disabled {
+    &--focused {
         .ibexa-dropdown {
             &__selection-info {
-                cursor: not-allowed;
-                border-color: $ibexa-color-dark-200;
-                background-color: $ibexa-color-light-300;
-                color: $ibexa-color-dark-300;
-
-                &:before {
-                    border-color: $ibexa-color-dark-300 transparent transparent transparent;
-                }
-
-                &:after {
-                    border-color: $ibexa-color-light-300 transparent transparent transparent;
-                }
-            }
-        }
-    }
-
-    &--is-focused {
-        .ibexa-dropdown {
-            &__selection-info {
-                color: $ibexa-color-dark;
-                border-color: $ibexa-color-primary;
                 box-shadow: 0 0 calculateRem(3px) 0 rgba($ibexa-color-primary, 0.75);
-
-                &:before {
-                    border-color: $ibexa-color-dark transparent transparent transparent;
-                }
-
-                &:after {
-                    border-color: $ibexa-color-white transparent transparent transparent;
-                }
             }
         }
     }
 
-    &:not(&--is-disabled) {
+    &:not(&--disabled):not(.is-invalid) {
         .ibexa-dropdown {
             &__selection-info {
-                &:not(.is-invalid):hover {
+                &:hover {
                     border-color: $ibexa-color-primary;
 
-                    &:before {
-                        border-color: $ibexa-color-primary transparent transparent transparent;
-                    }
-
-                    &:after {
-                        border-color: $ibexa-color-white transparent transparent transparent;
+                    &::before,
+                    &::after {
+                        background-color: $ibexa-color-primary;
                     }
                 }
             }
         }
     }
 
-    &.is-invalid {
+    &.is-invalid:not(&--disabled) {
         .ibexa-dropdown {
             &__selection-info {
-                color: $ibexa-color-danger;
                 background-image: none;
                 border-color: $ibexa-color-danger;
                 background-color: $ibexa-color-danger-100;
 
-                &:before {
-                    border-color: $ibexa-color-danger transparent transparent transparent;
+                &::before,
+                &::after {
+                    background-color: $ibexa-color-danger;
                 }
+            }
 
-                &:after {
-                    border-color: $ibexa-color-danger-100 transparent transparent transparent;
-                }
+            &__selected-item {
+                color: $ibexa-color-danger;
             }
         }
     }
@@ -358,13 +329,13 @@
     &--disabled {
         .ibexa-dropdown {
             &__selection-info {
-                border: none;
+                border-color: transparent;
                 background: $ibexa-color-light-300;
                 cursor: not-allowed;
 
                 &::before,
                 &::after {
-                    background: $ibexa-color-dark-400;
+                    background-color: $ibexa-color-dark-400;
                 }
             }
         }
