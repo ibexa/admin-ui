@@ -1,7 +1,6 @@
 (function (global, doc, ibexa, Translator) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezimage';
     const SELECTOR_INPUT_FILE = 'input[type="file"]';
-    const SELECTOR_FILESIZE_NOTICE = '.ibexa-data-source__message--filesize';
     const SELECTOR_ALT_WRAPPER = '.ibexa-field-edit-preview__image-alt';
     const SELECTOR_INPUT_ALT = '.ibexa-field-edit-preview__image-alt .ibexa-data-source__input';
     const EVENT_CANCEL_ERROR = 'ibexa-cancel-errors';
@@ -72,23 +71,6 @@
     }
 
     class EzImageFieldValidator extends ibexa.BaseFileFieldValidator {
-        toggleInvalidState(isError, config, input) {
-            super.toggleInvalidState(isError, config, input);
-
-            const container = this.getFieldTypeContainer(input.closest(this.fieldSelector));
-            const method = !!container.querySelector(`.${this.classInvalid}`) ? 'add' : 'remove';
-
-            container.classList[method](this.classInvalid);
-        }
-
-        validateFileSize(event) {
-            event.currentTarget.dispatchEvent(new CustomEvent('ibexa-invalid-file-size'));
-
-            return {
-                isError: false,
-            };
-        }
-
         /**
          * Validates the alternative text input
          *
@@ -138,7 +120,7 @@
                     selector: `${SELECTOR_INPUT_FILE}`,
                     eventName: 'ibexa-invalid-file-size',
                     callback: 'showFileSizeError',
-                    errorNodeSelectors: [SELECTOR_FILESIZE_NOTICE],
+                    errorNodeSelectors: ['.ibexa-form-error'],
                 },
                 {
                     isValueValidator: false,
