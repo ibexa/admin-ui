@@ -17,6 +17,7 @@ use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\LanguagePicker;
 use Ibexa\AdminUi\Behat\Component\SubItemsList;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
+use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
@@ -255,6 +256,8 @@ class ContentViewPage extends Page
             new VisibleCSSLocator('mainContainer', '.ibexa-tab-content #ibexa-tab-location-view-content'),
             new VisibleCSSLocator('tab', '.ibexa-content-container .ibexa-tabs .ibexa-tabs__link'),
             new VisibleCSSLocator('addLocationButton', '#ibexa-tab-location-view-locations .ibexa-table-header__actions .ibexa-btn--udw-add'),
+            new VisibleCSSLocator('bookmarkButton', '.ibexa-add-to-bookmarks'),
+            new VisibleCSSLocator('isBookmarked', '.ibexa-add-to-bookmarks--checked'),
         ];
     }
 
