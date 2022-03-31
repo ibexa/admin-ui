@@ -1,13 +1,13 @@
-(function(global, doc, eZ, flatpickr) {
-    const SELECTOR_FIELD = '.ez-field-edit--ezdatetime';
-    const SELECTOR_INPUT = '.ez-data-source__input[data-seconds]';
+(function (global, doc, ibexa, flatpickr) {
+    const SELECTOR_FIELD = '.ibexa-field-edit--ezdatetime';
+    const SELECTOR_INPUT = '.ibexa-data-source__input[data-seconds]';
     const SELECTOR_FLATPICKR_INPUT = '.flatpickr-input';
-    const EVENT_VALUE_CHANGED = 'valueChanged';
-    const SELECTOR_ERROR_NODE = '.ez-data-source';
-    const { convertDateToTimezone, formatShortDateTime } = eZ.helpers.timezone;
-    const userTimezone = eZ.adminUiConfig.timezone;
+    const EVENT_VALUE_CHANGED = 'change';
+    const SELECTOR_ERROR_NODE = '.ibexa-data-source';
+    const { convertDateToTimezone, formatShortDateTime } = ibexa.helpers.timezone;
+    const userTimezone = ibexa.adminUiConfig.timezone;
 
-    class EzDateTimeValidator extends eZ.BaseFieldValidator {
+    class EzDateTimeValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
@@ -20,13 +20,13 @@
             const target = event.currentTarget;
             const isRequired = target.required;
             const isEmpty = !target.value.trim().length;
-            const label = event.target.closest(this.fieldSelector).querySelector('.ez-field-edit__label').innerHTML;
+            const label = event.target.closest(this.fieldSelector).querySelector('.ibexa-field-edit__label').innerHTML;
             let isError = false;
             let errorMessage = '';
 
             if (isRequired && isEmpty) {
                 isError = true;
-                errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             }
 
             return {
@@ -59,7 +59,7 @@
 
     validator.init();
 
-    eZ.addConfig('fieldTypeValidators', [validator], true);
+    ibexa.addConfig('fieldTypeValidators', [validator], true);
 
     const datetimeFields = doc.querySelectorAll(SELECTOR_FIELD);
     const datetimeConfig = {
@@ -77,7 +77,7 @@
             return;
         }
 
-        const selectedDate = dates[0];
+        const [selectedDate] = dates;
         const selectedDateWithUserTimezone = convertDateToTimezone(selectedDate, userTimezone, true);
         const timestamp = Math.floor(selectedDateWithUserTimezone.valueOf() / 1000);
 
@@ -94,7 +94,7 @@
     const initFlatPickr = (field) => {
         const sourceInput = field.querySelector(SELECTOR_INPUT);
         const flatPickrInput = field.querySelector(SELECTOR_FLATPICKR_INPUT);
-        const btnClear = field.querySelector('.ez-data-source__btn--clear-input');
+        const btnClear = field.querySelector('.ibexa-data-source__btn--clear-input');
         const secondsEnabled = sourceInput.dataset.seconds === '1';
         let defaultDate = null;
 
@@ -120,4 +120,4 @@
     };
 
     datetimeFields.forEach(initFlatPickr);
-})(window, window.document, window.eZ, window.flatpickr);
+})(window, window.document, window.ibexa, window.flatpickr);

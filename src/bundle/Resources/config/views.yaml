@@ -1,62 +1,62 @@
 system:
     admin_group:
         user:
-            login_template: '@ezdesign/account/login/index.html.twig'
+            login_template: '@ibexadesign/account/login/index.html.twig'
 
         content_view:
             full:
                 default:
-                    controller: 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentViewController::locationViewAction'
-                    template: '@ezdesign/content/location_view.html.twig'
+                    controller: 'Ibexa\Bundle\AdminUi\Controller\ContentViewController::locationViewAction'
+                    template: '@ibexadesign/content/location_view.html.twig'
                     match: true
             preview_ezobjectrelationlist_row:
                 default:
-                    controller: 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentViewController::locationViewAction'
-                    template: '@ezdesign\ui\field_type\preview\ezobjectrelationlist_row.html.twig'
+                    controller: 'Ibexa\Bundle\AdminUi\Controller\ContentViewController::locationViewAction'
+                    template: '@ibexadesign/ui/field_type/preview/ezobjectrelationlist_row.html.twig'
                     match: true
             preview_ezimageasset:
                 default:
-                    controller: 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentViewController::locationViewAction'
-                    template: '@ezdesign\ui\field_type\preview\ezimageasset.html.twig'
+                    controller: 'Ibexa\Bundle\AdminUi\Controller\ContentViewController::locationViewAction'
+                    template: '@ibexadesign/ui/field_type/preview/ezimageasset.html.twig'
                     match: true
 
         content_edit_view:
             full:
                 ezplatform_admin_ui:
-                    template: '@ezdesign/content/edit/edit.html.twig'
+                    template: '@ibexadesign/content/edit/edit.html.twig'
                     match: true
                     params:
-                        view_base_layout: '@ezdesign/ui/layout.html.twig'
+                        view_base_layout: '@ibexadesign/ui/layout.html.twig'
 
         content_create_view:
             full:
                 ezplatform_admin_ui:
-                    template: '@ezdesign/content/create/create.html.twig'
+                    template: '@ibexadesign/content/create/create.html.twig'
                     match: true
                     params:
-                        view_base_layout: '@ezdesign/ui/layout.html.twig'
+                        view_base_layout: '@ibexadesign/ui/layout.html.twig'
 
         content_translate_view:
             full:
                 ezplatform_admin_ui:
-                    template: '@ezdesign/content/edit/edit.html.twig'
+                    template: '@ibexadesign/content/edit/edit.html.twig'
                     match: true
                     params:
-                        view_base_layout: '@ezdesign/ui/layout.html.twig'
+                        view_base_layout: '@ibexadesign/ui/layout.html.twig'
 
         user_settings_update_view:
             full:
                 ezplatform_admin_ui_datetime_format:
-                    template: '@ezdesign/account/settings/update_datetime_format.html.twig'
+                    template: '@ibexadesign/account/settings/update_datetime_format.html.twig'
                     match:
                         Identifier: [full_datetime_format, short_datetime_format]
 
         search_view:
             full:
                 ezplatform_admin_ui:
-                    template: '@ezdesign/ui/search/index.html.twig'
+                    template: '@ibexadesign/ui/search/index.html.twig'
                     match: true
 
     default:
         fielddefinition_edit_templates:
-            - { template: '@ezdesign/content_type/field_types.html.twig', priority: 0 }
+            - { template: '@ibexadesign/content_type/field_types.html.twig', priority: 0 }

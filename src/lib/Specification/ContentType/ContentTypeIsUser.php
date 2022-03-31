@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Specification\ContentType;
+namespace Ibexa\AdminUi\Specification\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException;
-use EzSystems\EzPlatformAdminUi\Specification\AbstractSpecification;
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
+use Ibexa\AdminUi\Specification\AbstractSpecification;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
 class ContentTypeIsUser extends AbstractSpecification
 {
@@ -30,11 +30,11 @@ class ContentTypeIsUser extends AbstractSpecification
     /**
      * Checks if $contentType is an existing User content.
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
      * @return bool
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function isSatisfiedBy($contentType): bool
     {
@@ -49,3 +49,5 @@ class ContentTypeIsUser extends AbstractSpecification
         return $contentType->hasFieldDefinitionOfType(self::EZUSER_FIELD_TYPE_IDENTIFIER);
     }
 }
+
+class_alias(ContentTypeIsUser::class, 'EzSystems\EzPlatformAdminUi\Specification\ContentType\ContentTypeIsUser');

@@ -1,0 +1,22 @@
+.ibexa-assign {
+    &__groups {
+        margin-top: calculateRem(12px);
+    }
+
+    &__section:not(:first-child) {
+        margin-top: calculateRem(32px);
+    }
+
+    &__limitations-item {
+        margin-bottom: calculateRem(16px);
+
+        .ibexa-dropdown {
+            max-width: calculateRem(300px);
+            margin-top: calculateRem(8px);
+        }
+    }
+
+    &__limitations-item-subtree {
+        margin-top: calculateRem(8px);
+    }
+}

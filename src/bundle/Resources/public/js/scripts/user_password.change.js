@@ -1,12 +1,11 @@
-(function(global, doc, eZ) {
+(function (global, doc, ibexa) {
     const form = doc.querySelector('form[name="user_password_change"]');
     const submitBtns = form.querySelectorAll('[type="submit"]:not([formnovalidate])');
     const oldPasswordInput = form.querySelector('#user_password_change_oldPassword');
     const newPasswordInput = form.querySelector('#user_password_change_newPassword_first');
     const confirmPasswordInput = form.querySelector('#user_password_change_newPassword_second');
-    const SELECTOR_FIELD = '.ez-field';
-    const SELECTOR_LABEL = '.ez-field__label';
-    const SELECTOR_LABEL_WRAPPER = '.ez-field__label-wrapper';
+    const SELECTOR_FIELD = '.ibexa-field';
+    const SELECTOR_LABEL = '.ibexa-field__label';
     const CLASS_INVALID = 'is-invalid';
 
     /**
@@ -19,7 +18,7 @@
     const createErrorNode = (message) => {
         const errorNode = doc.createElement('em');
 
-        errorNode.classList.add('ez-field__error');
+        errorNode.classList.add('ibexa-field__error');
         errorNode.innerHTML = message;
 
         return errorNode;
@@ -36,8 +35,8 @@
     const toggleError = (isError, message, target) => {
         const methodName = isError ? 'add' : 'remove';
         const field = target.closest(SELECTOR_FIELD);
-        const labelWrapper = field.querySelector(SELECTOR_LABEL_WRAPPER);
-        const errorNodes = labelWrapper.querySelectorAll('.ez-field__error');
+        const labelWrapper = field.querySelector('.ibexa-form-error');
+        const errorNodes = labelWrapper.querySelectorAll('.ibexa-field__error');
 
         field.classList[methodName](CLASS_INVALID);
         target.classList[methodName](CLASS_INVALID);
@@ -60,7 +59,7 @@
         const confirmPassword = confirmPasswordInput.value.trim();
         const isNotEmptyPassword = checkIsNotEmpty(newPasswordInput) && checkIsNotEmpty(confirmPasswordInput);
         const passwordMatch = newPassword === confirmPassword;
-        const message = eZ.errors.notSamePasswords;
+        const message = ibexa.errors.notSamePasswords;
 
         if (!passwordMatch) {
             toggleError(!passwordMatch, message, confirmPasswordInput);
@@ -81,7 +80,7 @@
         const isEmpty = !target.value.trim();
         const isError = isRequired && isEmpty;
         const fieldContainer = target.closest(SELECTOR_FIELD);
-        const message = eZ.errors.emptyField.replace('{fieldName}', fieldContainer.querySelector(SELECTOR_LABEL).innerHTML);
+        const message = ibexa.errors.emptyField.replace('{fieldName}', fieldContainer.querySelector(SELECTOR_LABEL).innerHTML);
 
         toggleError(isError, message, target);
 
@@ -95,7 +94,7 @@
             if (!parseInt(btn.dataset.isFormValid, 10)) {
                 event.preventDefault();
 
-                const requiredFields = [...form.querySelectorAll('.ez-field input[required]')];
+                const requiredFields = [...form.querySelectorAll('.ibexa-field input[required]')];
                 const isFormValid = requiredFields.map(checkIsNotEmpty).every((result) => result) && comparePasswords();
 
                 if (isFormValid) {
@@ -115,4 +114,4 @@
     newPasswordInput.addEventListener('blur', (event) => checkIsNotEmpty(event.currentTarget), false);
     confirmPasswordInput.addEventListener('blur', (event) => checkIsNotEmpty(event.currentTarget), false);
     confirmPasswordInput.addEventListener('blur', comparePasswords, false);
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

@@ -9,17 +9,20 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
+use Ibexa\AdminUi\Behat\Component\UpperMenu;
 use Ibexa\AdminUi\Behat\Page\SearchPage;
 use PHPUnit\Framework\Assert;
 
 class SearchContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Page\SearchPage */
-    private $searchPage;
+    private SearchPage $searchPage;
 
-    public function __construct(SearchPage $searchPage)
+    private UpperMenu $upperMenu;
+
+    public function __construct(SearchPage $searchPage, UpperMenu $upperMenu)
     {
         $this->searchPage = $searchPage;
+        $this->upperMenu = $upperMenu;
     }
 
     /**
@@ -27,8 +30,8 @@ class SearchContext implements Context
      */
     public function iSearchForContent(string $contentItemName): void
     {
+        $this->upperMenu->search($contentItemName);
         $this->searchPage->verifyIsLoaded();
-        $this->searchPage->search($contentItemName);
     }
 
     /**

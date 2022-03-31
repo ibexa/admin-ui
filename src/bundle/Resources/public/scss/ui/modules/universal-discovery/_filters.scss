@@ -1,3 +1,139 @@
 .c-filters {
-    margin: calculateRem(24px) 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding-bottom: calculateRem(24px);
+
+    &__header {
+        display: flex;
+        position: sticky;
+        top: 0;
+        background-color: $ibexa-color-white;
+        z-index: 2;
+        align-items: center;
+        justify-content: space-between;
+        padding: calculateRem(16px) calculateRem(12px);
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
+    }
+
+    &__header-content {
+        font-size: $ibexa-text-font-size-large;
+        font-weight: 600;
+        margin-right: calculateRem(8px);
+    }
+
+    &__header-actions {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    &__row-title {
+        position: relative;
+        font-size: $ibexa-text-font-size-medium;
+        font-weight: 600;
+        min-height: calculateRem(40px);
+        display: flex;
+        align-items: center;
+    }
+
+    &__collapsible {
+        & + .c-filters__row {
+            border-top: calculateRem(1px) solid $ibexa-color-light;
+        }
+
+        &--hidden {
+            .c-filters {
+                &__collapsible-title {
+                    box-shadow: none;
+                    border-bottom-color: transparent;
+
+                    &:before {
+                        transform: rotate(135deg);
+                    }
+
+                    &:after {
+                        transform: rotate(-135deg);
+                    }
+                }
+
+                &__collapsible-content {
+                    transform: scaleY(0);
+                    opacity: 0;
+                    height: 0;
+                }
+            }
+        }
+    }
+
+    &__collapsible-title {
+        position: relative;
+        cursor: pointer;
+        padding: 0 calculateRem(24px);
+        font-size: $ibexa-text-font-size-medium;
+        font-weight: 600;
+        min-height: calculateRem(40px);
+        display: flex;
+        align-items: center;
+        border-style: solid;
+        border-color: $ibexa-color-light;
+        border-width: calculateRem(1px) 0;
+        box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info, 0.05);
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            width: calculateRem(6px);
+            height: calculateRem(1px);
+            background: $ibexa-color-dark;
+        }
+
+        &::before {
+            transform: rotate(225deg);
+            right: calculateRem(12px);
+        }
+
+        &::after {
+            transform: rotate(-225deg);
+            right: calculateRem(16px);
+        }
+    }
+
+    &__collapsible-content {
+        transform: scaleY(1);
+        transform-origin: top center;
+    }
+
+    &__collapsible-content-wrapper {
+        padding: calculateRem(16px) calculateRem(24px);
+    }
+
+    &__row {
+        padding: calculateRem(4px) calculateRem(24px);
+
+        &--language {
+            padding-bottom: calculateRem(16px);
+        }
+    }
+
+    &__collapsible-list {
+        padding: 0;
+        margin-bottom: 0;
+        list-style-type: none;
+    }
+
+    &__collapsible-list-item {
+        padding: calculateRem(6px) 0;
+
+        .form-check {
+            padding: 0;
+        }
+
+        .ibexa-input--checkbox {
+            margin-right: calculateRem(8px);
+        }
+    }
 }

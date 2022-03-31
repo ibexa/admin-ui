@@ -6,23 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Module\Subitems\Values;
+namespace Ibexa\AdminUi\UI\Module\Subitems\Values;
 
-use EzSystems\EzPlatformRest\Server\Values\RestContent;
-use EzSystems\EzPlatformRest\Server\Values\RestLocation;
-use EzSystems\EzPlatformRest\Value as RestValue;
+use Ibexa\Rest\Server\Values\RestContent;
+use Ibexa\Rest\Server\Values\RestLocation;
+use Ibexa\Rest\Value as RestValue;
 
 class SubitemsRow extends RestValue
 {
-    /** @var \EzSystems\EzPlatformRest\Server\Values\RestLocation */
+    /** @var \Ibexa\Rest\Server\Values\RestLocation */
     public $restLocation;
 
-    /** @var \EzSystems\EzPlatformRest\Server\Values\RestContent */
+    /** @var \Ibexa\Rest\Server\Values\RestContent */
     public $restContent;
 
     /**
-     * @param \EzSystems\EzPlatformRest\Server\Values\RestLocation $restLocation
-     * @param \EzSystems\EzPlatformRest\Server\Values\RestContent $restContent
+     * @param \Ibexa\Rest\Server\Values\RestLocation $restLocation
+     * @param \Ibexa\Rest\Server\Values\RestContent $restContent
      */
     public function __construct(RestLocation $restLocation, RestContent $restContent)
     {
@@ -30,3 +30,5 @@ class SubitemsRow extends RestValue
         $this->restContent = $restContent;
     }
 }
+
+class_alias(SubitemsRow::class, 'EzSystems\EzPlatformAdminUi\UI\Module\Subitems\Values\SubitemsRow');

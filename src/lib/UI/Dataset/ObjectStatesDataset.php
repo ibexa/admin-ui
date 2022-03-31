@@ -6,28 +6,28 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Dataset;
+namespace Ibexa\AdminUi\UI\Dataset;
 
-use eZ\Publish\API\Repository\ObjectStateService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
-use EzSystems\EzPlatformAdminUi\UI\Value as UIValue;
-use EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory;
+use Ibexa\AdminUi\UI\Value as UIValue;
+use Ibexa\AdminUi\UI\Value\ValueFactory;
+use Ibexa\Contracts\Core\Repository\ObjectStateService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
 class ObjectStatesDataset
 {
-    /** @var \eZ\Publish\API\Repository\ObjectStateService */
+    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
     protected $objectStateService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory */
+    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
     protected $valueFactory;
 
     /** @var UIValue\ObjectState\ObjectState[] */
     protected $data;
 
     /**
-     * @param \eZ\Publish\API\Repository\ObjectStateService $objectStateService
-     * @param \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory $valueFactory
+     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService
+     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
      */
     public function __construct(ObjectStateService $objectStateService, ValueFactory $valueFactory)
     {
@@ -36,7 +36,7 @@ class ObjectStatesDataset
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      *
      * @return ObjectStatesDataset
      */
@@ -68,3 +68,5 @@ class ObjectStatesDataset
         return $this->data;
     }
 }
+
+class_alias(ObjectStatesDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\ObjectStatesDataset');

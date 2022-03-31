@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\DataTransformer;
+namespace Ibexa\AdminUi\Form\DataTransformer;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\ObjectStateService;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\ObjectStateService;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -19,11 +19,11 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class ObjectStateTransformer implements DataTransformerInterface
 {
-    /** @var \eZ\Publish\API\Repository\ObjectStateService */
+    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
     protected $objectStateService;
 
     /**
-     * @param \eZ\Publish\API\Repository\ObjectStateService $objectStateService
+     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService
      */
     public function __construct(ObjectStateService $objectStateService)
     {
@@ -56,3 +56,5 @@ class ObjectStateTransformer implements DataTransformerInterface
         }
     }
 }
+
+class_alias(ObjectStateTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\ObjectStateTransformer');

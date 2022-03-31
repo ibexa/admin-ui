@@ -8,6 +8,8 @@ import {
     HEADERS_BULK,
 } from './endpoints.js';
 
+const { Translator } = window;
+
 export const bulkMoveLocations = (restInfo, items, newLocationHref, callback) => {
     const requestBodyOperations = {};
 
@@ -54,7 +56,7 @@ export const bulkDeleteItems = (restInfo, items, callback) => {
     items.forEach((item) => {
         const { id: locationId, pathString, content } = item;
         const contentTypeIdentifier = content._info.contentType.identifier;
-        const isUserContentItem = window.eZ.adminUiConfig.userContentTypes.includes(contentTypeIdentifier);
+        const isUserContentItem = window.ibexa.adminUiConfig.userContentTypes.includes(contentTypeIdentifier);
         const contentId = content._info.id;
 
         if (isUserContentItem) {
@@ -92,7 +94,7 @@ const getBulkAddLocationRequestOperation = (contentId, destination) => ({
         },
     }),
     headers: {
-        'Content-Type': 'application/vnd.ez.api.LocationCreate+json',
+        'Content-Type': 'application/vnd.ibexa.api.LocationCreate+json',
     },
     method: 'POST',
 });
@@ -107,7 +109,7 @@ const getBulkVisibilityRequestOperation = (pathString, isHidden) => ({
         },
     }),
     headers: {
-        'Content-Type': 'application/vnd.ez.api.LocationUpdate+json',
+        'Content-Type': 'application/vnd.ibexa.api.LocationUpdate+json',
     },
     method: 'PATCH',
 });
@@ -115,19 +117,19 @@ const getBulkVisibilityRequestOperation = (pathString, isHidden) => ({
 const processBulkResponse = (items, callback, response) => {
     const { operations } = response.BulkOperationResponse;
     const itemsMatches = Object.entries(operations).reduce(
-        (itemsMatches, [locationId, response]) => {
+        (output, [locationId, { statusCode }]) => {
             const respectiveItem = items.find((item) => item.id === parseInt(locationId, 10));
-            const isSuccess = 200 <= response.statusCode && response.statusCode <= 299;
+            const isSuccess = 200 <= statusCode && statusCode <= 299;
 
             if (isSuccess) {
-                itemsMatches.success.push(respectiveItem);
+                output.success.push(respectiveItem);
             } else {
-                itemsMatches.fail.push(respectiveItem);
+                output.fail.push(respectiveItem);
             }
 
-            return itemsMatches;
+            return output;
         },
-        { success: [], fail: [] }
+        { success: [], fail: [] },
     );
 
     callback(itemsMatches.success, itemsMatches.fail);
@@ -158,9 +160,9 @@ const makeBulkRequest = ({ token, siteaccess }, requestBodyOperations, callback)
                 /*@Desc("An unexpected error occurred while processing the Content item(s). Please try again later.")*/
                 'bulk_request.error.message',
                 {},
-                'sub_items'
+                'sub_items',
             );
 
-            window.eZ.helpers.notification.showErrorNotification(message);
+            window.ibexa.helpers.notification.showErrorNotification(message);
         });
 };

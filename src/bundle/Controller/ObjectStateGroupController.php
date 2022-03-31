@@ -6,37 +6,38 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\ObjectStateService;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
-use EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateGroupCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateGroupDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateGroupsDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateGroupUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupCreateData;
+use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupDeleteData;
+use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupsDeleteData;
+use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupUpdateData;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\ObjectStateService;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ObjectStateGroupController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \eZ\Publish\API\Repository\ObjectStateService */
+    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
     private $objectStateService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -58,7 +59,7 @@ class ObjectStateGroupController extends Controller
      */
     public function listAction(): Response
     {
-        /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup[] $objectStateGroups */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[] $objectStateGroups */
         $objectStateGroups = $this->objectStateService->loadObjectStateGroups();
         $emptyObjectStateGroups = [];
 
@@ -70,7 +71,7 @@ class ObjectStateGroupController extends Controller
             new ObjectStateGroupsDeleteData($this->getObjectStateGroupsIds($objectStateGroups))
         );
 
-        return $this->render('@ezdesign/object_state/object_state_group/list.html.twig', [
+        return $this->render('@ibexadesign/object_state/object_state_group/list.html.twig', [
             'can_administrate' => $this->isGranted(new Attribute('state', 'administrate')),
             'object_state_groups' => $objectStateGroups,
             'empty_object_state_groups' => $emptyObjectStateGroups,
@@ -79,7 +80,7 @@ class ObjectStateGroupController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -89,7 +90,7 @@ class ObjectStateGroupController extends Controller
             new ObjectStateGroupDeleteData($objectStateGroup)
         )->createView();
 
-        return $this->render('@ezdesign/object_state/object_state_group/view.html.twig', [
+        return $this->render('@ibexadesign/object_state/object_state_group/view.html.twig', [
             'can_administrate' => $this->isGranted(new Attribute('state', 'administrate')),
             'object_state_group' => $objectStateGroup,
             'delete_form' => $deleteForm,
@@ -113,7 +114,8 @@ class ObjectStateGroupController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form,
+            $result = $this->submitHandler->handle(
+                $form,
                 function (ObjectStateGroupCreateData $data) use ($defaultLanguageCode) {
                     $createStruct = $this->objectStateService->newObjectStateGroupCreateStruct(
                         $data->getIdentifier()
@@ -129,24 +131,25 @@ class ObjectStateGroupController extends Controller
                         'object_state'
                     );
 
-                    return $this->redirectToRoute('ezplatform.object_state.group.view', [
+                    return $this->redirectToRoute('ibexa.object_state.group.view', [
                         'objectStateGroupId' => $group->id,
                     ]);
-                });
+                }
+            );
 
             if ($result instanceof Response) {
                 return $result;
             }
         }
 
-        return $this->render('@ezdesign/object_state/object_state_group/add.html.twig', [
+        return $this->render('@ibexadesign/object_state/object_state_group/add.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup $group
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $group
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -176,7 +179,7 @@ class ObjectStateGroupController extends Controller
             }
         }
 
-        return $this->redirectToRoute('ezplatform.object_state.groups.list');
+        return $this->redirectToRoute('ibexa.object_state.groups.list');
     }
 
     /**
@@ -214,12 +217,12 @@ class ObjectStateGroupController extends Controller
             }
         }
 
-        return $this->redirectToRoute('ezplatform.object_state.groups.list');
+        return $this->redirectToRoute('ibexa.object_state.groups.list');
     }
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup $group
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $group
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -247,7 +250,7 @@ class ObjectStateGroupController extends Controller
                     'object_state'
                 );
 
-                return $this->redirectToRoute('ezplatform.object_state.group.view', [
+                return $this->redirectToRoute('ibexa.object_state.group.view', [
                     'objectStateGroupId' => $group->id,
                 ]);
             });
@@ -257,14 +260,14 @@ class ObjectStateGroupController extends Controller
             }
         }
 
-        return $this->render('@ezdesign/object_state/object_state_group/edit.html.twig', [
+        return $this->render('@ibexadesign/object_state/object_state_group/edit.html.twig', [
             'object_state_group' => $group,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup[] $groups
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[] $groups
      *
      * @return array
      */
@@ -275,3 +278,5 @@ class ObjectStateGroupController extends Controller
         return array_combine($groupsIds, array_fill_keys($groupsIds, false));
     }
 }
+
+class_alias(ObjectStateGroupController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ObjectStateGroupController');

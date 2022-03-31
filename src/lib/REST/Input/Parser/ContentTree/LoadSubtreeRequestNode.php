@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\REST\Input\Parser\ContentTree;
+namespace Ibexa\AdminUi\REST\Input\Parser\ContentTree;
 
-use EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode as LoadSubtreeRequestNodeValue;
-use EzSystems\EzPlatformRest\Exceptions;
-use EzSystems\EzPlatformRest\Input\BaseParser;
-use EzSystems\EzPlatformRest\Input\ParsingDispatcher;
+use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode as LoadSubtreeRequestNodeValue;
+use Ibexa\Contracts\Rest\Exceptions;
+use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
+use Ibexa\Rest\Input\BaseParser;
 
 class LoadSubtreeRequestNode extends BaseParser
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function parse(array $data, ParsingDispatcher $parsingDispatcher): LoadSubtreeRequestNodeValue
     {
@@ -25,18 +25,24 @@ class LoadSubtreeRequestNode extends BaseParser
         }
 
         if (!array_key_exists('limit', $data) || !is_numeric($data['limit'])) {
-            throw new Exceptions\Parser(sprintf("Missing or invalid 'limit' property for %s.",
-                self::class));
+            throw new Exceptions\Parser(sprintf(
+                "Missing or invalid 'limit' property for %s.",
+                self::class
+            ));
         }
 
         if (!array_key_exists('offset', $data) || !is_numeric($data['offset'])) {
-            throw new Exceptions\Parser(sprintf("Missing or invalid 'offset' property for %s.",
-                self::class));
+            throw new Exceptions\Parser(sprintf(
+                "Missing or invalid 'offset' property for %s.",
+                self::class
+            ));
         }
 
         if (!array_key_exists('children', $data) || !is_array($data['children'])) {
-            throw new Exceptions\Parser(sprintf("Missing or invalid 'children' property for %s.",
-                self::class));
+            throw new Exceptions\Parser(sprintf(
+                "Missing or invalid 'children' property for %s.",
+                self::class
+            ));
         }
 
         $children = [];
@@ -52,3 +58,5 @@ class LoadSubtreeRequestNode extends BaseParser
         );
     }
 }
+
+class_alias(LoadSubtreeRequestNode::class, 'EzSystems\EzPlatformAdminUi\REST\Input\Parser\ContentTree\LoadSubtreeRequestNode');

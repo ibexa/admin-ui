@@ -1,35 +1,49 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import ContentTableItem from './content.table.item';
-
 import Pagination from '../../../common/pagination/pagination';
+import { MultipleConfigContext } from '../../universal.discovery.module';
 
-const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPageChange }) => {
+const { Translator, ibexa } = window;
+
+const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPageChange, renderCustomHeader }) => {
+    const [multiple] = useContext(MultipleConfigContext);
     const refContentTable = useRef(null);
     const nameLabel = Translator.trans(/*@Desc("Name")*/ 'content_table.name', {}, 'universal_discovery_widget');
     const modifiedLabel = Translator.trans(/*@Desc("Modified")*/ 'content_table.modified', {}, 'universal_discovery_widget');
     const contentTypeLabel = Translator.trans(/*@Desc("Content Type")*/ 'content_table.content_type', {}, 'universal_discovery_widget');
+    const renderHeaderCell = (label) => (
+        <th className="ibexa-table__header-cell">
+            <span className="ibexa-table__header-cell-text-wrapper">{label}</span>
+        </th>
+    );
 
     useEffect(() => {
-        window.eZ.helpers.tooltips.parse(refContentTable.current);
+        ibexa.helpers.tooltips.parse(refContentTable.current);
     }, []);
 
     return (
         <div className="c-content-table" ref={refContentTable}>
-            <div className="c-content-table__title">{title}</div>
-            <div className="c-content-table__items">
-                <table className="table table-hover">
+            {renderCustomHeader ? (
+                renderCustomHeader()
+            ) : (
+                <div className="ibexa-table-header">
+                    <div className="ibexa-table-header__headline">{title}</div>
+                </div>
+            )}
+            <div className="ibexa-scrollable-wrapper">
+                <table className="ibexa-table table">
                     <thead>
-                        <tr>
-                            <th></th>
-                            <th>{nameLabel}</th>
-                            <th>{modifiedLabel}</th>
-                            <th>{contentTypeLabel}</th>
-                            <th></th>
+                        <tr className="ibexa-table__head-row">
+                            {multiple && renderHeaderCell()}
+                            {renderHeaderCell()}
+                            {renderHeaderCell(nameLabel)}
+                            {renderHeaderCell(modifiedLabel)}
+                            {renderHeaderCell(contentTypeLabel)}
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="ibexa-table__body">
                         {items.map((item) => (
                             <ContentTableItem key={item.id} location={item} />
                         ))}
@@ -55,8 +69,14 @@ ContentTable.propTypes = {
     itemsPerPage: PropTypes.number.isRequired,
     activePageIndex: PropTypes.number.isRequired,
     items: PropTypes.array.isRequired,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     onPageChange: PropTypes.func.isRequired,
+    renderCustomHeader: PropTypes.func,
+};
+
+ContentTable.defaultProps = {
+    title: '',
+    renderCustomHeader: null,
 };
 
 export default ContentTable;

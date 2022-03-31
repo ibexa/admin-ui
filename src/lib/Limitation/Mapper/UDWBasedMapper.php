@@ -4,19 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Limitation\Mapper;
+namespace Ibexa\AdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Ancestor;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location\Path;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use EzSystems\EzPlatformAdminUi\Form\DataTransformer\UDWBasedValueModelTransformer;
-use EzSystems\EzPlatformAdminUi\Form\DataTransformer\UDWBasedValueViewTransformer;
-use EzSystems\EzPlatformAdminUi\Limitation\LimitationFormMapperInterface;
-use EzSystems\EzPlatformAdminUi\Limitation\LimitationValueMapperInterface;
-use EzSystems\EzPlatformAdminUi\Translation\Extractor\LimitationTranslationExtractor;
+use Ibexa\AdminUi\Form\DataTransformer\UDWBasedValueModelTransformer;
+use Ibexa\AdminUi\Form\DataTransformer\UDWBasedValueViewTransformer;
+use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
+use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\AdminUi\Translation\Extractor\LimitationTranslationExtractor;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Ancestor;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\Path;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormInterface;
 
@@ -26,12 +26,12 @@ use Symfony\Component\Form\FormInterface;
 class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMapperInterface
 {
     /**
-     * @var \eZ\Publish\API\Repository\LocationService
+     * @var \Ibexa\Contracts\Core\Repository\LocationService
      */
     protected $locationService;
 
     /**
-     * @var \eZ\Publish\API\Repository\SearchService
+     * @var \Ibexa\Contracts\Core\Repository\SearchService
      */
     protected $searchService;
 
@@ -45,7 +45,7 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
     /**
      * UDWBasedMapper constructor.
      *
-     * @param \eZ\Publish\API\Repository\SearchService $searchService
+     * @param \Ibexa\Contracts\Core\Repository\SearchService $searchService
      */
     public function __construct(LocationService $locationService, SearchService $searchService)
     {
@@ -107,3 +107,5 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
         return $values;
     }
 }
+
+class_alias(UDWBasedMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\UDWBasedMapper');

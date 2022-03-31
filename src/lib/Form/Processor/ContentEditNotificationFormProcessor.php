@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Processor;
+namespace Ibexa\AdminUi\Form\Processor;
 
-use EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface;
-use EzSystems\EzPlatformAdminUi\Specification\SiteAccess\IsAdmin;
-use EzSystems\EzPlatformContentForms\Event\ContentFormEvents;
-use EzSystems\EzPlatformContentForms\Event\FormActionEvent;
+use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
+use Ibexa\ContentForms\Event\ContentFormEvents;
+use Ibexa\ContentForms\Event\FormActionEvent;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class ContentEditNotificationFormProcessor implements EventSubscriberInterface
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
     /** @var \Symfony\Component\HttpFoundation\RequestStack */
@@ -28,7 +28,7 @@ class ContentEditNotificationFormProcessor implements EventSubscriberInterface
     private $siteAccessGroups;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
+     * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param array $siteAccessGroups
      */
@@ -43,7 +43,7 @@ class ContentEditNotificationFormProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
@@ -54,9 +54,9 @@ class ContentEditNotificationFormProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \EzSystems\EzPlatformContentForms\Event\FormActionEvent $event
+     * @param \Ibexa\ContentForms\Event\FormActionEvent $event
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function addPublishMessage(FormActionEvent $event)
     {
@@ -72,9 +72,9 @@ class ContentEditNotificationFormProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \EzSystems\EzPlatformContentForms\Event\FormActionEvent $event
+     * @param \Ibexa\ContentForms\Event\FormActionEvent $event
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function addSaveDraftMessage(FormActionEvent $event)
     {
@@ -94,10 +94,12 @@ class ContentEditNotificationFormProcessor implements EventSubscriberInterface
      *
      * @return bool
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     protected function isAdminSiteAccess(Request $request): bool
     {
         return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
     }
 }
+
+class_alias(ContentEditNotificationFormProcessor::class, 'EzSystems\EzPlatformAdminUi\Form\Processor\ContentEditNotificationFormProcessor');

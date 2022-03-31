@@ -1,5 +1,5 @@
-(function(global, doc) {
-    const toggleForms = doc.querySelectorAll('.ez-toggle-btn-state-checkbox');
+(function (global, doc) {
+    const toggleForms = doc.querySelectorAll('.ibexa-toggle-btn-state-checkbox');
     const ALL_CHECKED = 'all-checked';
     const ANY_CHECKED = 'any-checked';
 
@@ -22,7 +22,7 @@
             (checkboxInputs.every((el) => el.checked) && ANY_CHECKED === toggleMode);
 
         checkboxInputs.forEach((input) =>
-            input.addEventListener('change', toggleButtonState.bind(input, button, validateCheckboxStatus), false)
+            input.addEventListener('change', toggleButtonState.bind(input, button, validateCheckboxStatus), false),
         );
     });
 })(window, window.document);

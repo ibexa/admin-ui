@@ -3,5 +3,5 @@
 @function calculateRem($size) {
     $remSize: div($size, $base-font-size);
 
-    @return #{$remSize}rem;
+    @return $remSize + 0rem; // + 0rem converts value to proper `rem`
 }
