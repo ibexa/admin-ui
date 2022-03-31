@@ -296,26 +296,6 @@
         <target state="new">Move</target>
         <note>key: move_btn.label</note>
       </trans-unit>
-      <trans-unit id="276a7024903672cd0476c82ba8845453e13db95e" resname="no_items.message">
-        <source>This location has no sub-items</source>
-        <target state="new">This location has no sub-items</target>
-        <note>key: no_items.message</note>
-      </trans-unit>
-      <trans-unit id="4bed04fe70182d0491c20005326bda3abfccc8aa" resname="switch_to_grid_view.btn.title">
-        <source>View as grid</source>
-        <target state="new">View as grid</target>
-        <note>key: switch_to_grid_view.btn.title</note>
-      </trans-unit>
-      <trans-unit id="b5bfcc24141601264b6c03972d8e45bbb7c49a09" resname="switch_to_list_view.btn.label">
-        <source>View</source>
-        <target state="new">View</target>
-        <note>key: switch_to_list_view.btn.label</note>
-      </trans-unit>
-      <trans-unit id="4c4637653764ac21c32fc8f8daff690ddad7e0de" resname="switch_to_list_view.btn.title">
-        <source>View as list</source>
-        <target state="new">View as list</target>
-        <note>key: switch_to_list_view.btn.title</note>
-      </trans-unit>
       <trans-unit id="11b5de206f496e357ede3c3798b8e113c2946a60" resname="trash_btn.label">
         <source>Delete</source>
         <target state="new">Delete</target>
@@ -330,6 +310,21 @@
         <source>Reveal</source>
         <target state="new">Reveal</target>
         <note>key: unhide_locations_btn.label</note>
+      </trans-unit>
+      <trans-unit id="71163c5c559fc7ddbd92441dc94c4eddc7e58274" resname="view_switcher.grid_view">
+        <source>Grid view</source>
+        <target state="new">Grid view</target>
+        <note>key: view_switcher.grid_view</note>
+      </trans-unit>
+      <trans-unit id="193d58a61e04c3cef23665e876aa2534828430d0" resname="view_switcher.list_view">
+        <source>List view</source>
+        <target state="new">List view</target>
+        <note>key: view_switcher.list_view</note>
+      </trans-unit>
+      <trans-unit id="75247b44eb33fe5c35d9b5d8770bd76a15be7747" resname="view_switcher.view">
+        <source>View</source>
+        <target state="new">View</target>
+        <note>key: view_switcher.view</note>
       </trans-unit>
       <trans-unit id="5ae5a511a5c344781ad0caa53efe7b33429c6132" resname="viewing_message">
         <source>Viewing %viewingCount% out of %totalCount% sub-items</source>

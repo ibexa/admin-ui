@@ -15,6 +15,9 @@
     <li
         data-value="{{ choice.value }}"
         data-filter-value="{{ item_label }}"
+        {% if choice.icon is defined %}
+            data-choice-icon="{{ choice.icon }}"
+        {% endif %}
         class="ibexa-dropdown__item
             {% if preferred_choice %}ibexa-dropdown__item--preferred-choice{% endif %}
             {% if is_selected %}ibexa-dropdown__item--selected{% endif %}"
@@ -25,6 +28,11 @@
         {% if icon is defined %}
             <svg class="ibexa-icon ibexa-icon--small">
                 <use xlink:href="{{ ibexa_icon_path(icon) }}"></use>
+            </svg>
+        {% endif %}
+        {% if choice.icon is defined %}
+            <svg class="ibexa-icon ibexa-icon--small">
+                <use xlink:href="{{ ibexa_icon_path(choice.icon) }}"></use>
             </svg>
         {% endif %}
         <span class="ibexa-dropdown__item-label">{{ item_label }}</span>

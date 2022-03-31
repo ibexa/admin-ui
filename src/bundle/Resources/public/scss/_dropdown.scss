@@ -112,6 +112,10 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        &--has-icon {
+            border-radius: 0;
+        }
     }
 
     &__selected-item + &__selected-placeholder {
@@ -142,6 +146,12 @@
             content: '+';
             position: relative;
             display: inline-block;
+        }
+    }
+
+    &__selected-item-icon {
+        .ibexa-icon {
+            margin-right: calculateRem(8px);
         }
     }
 
@@ -395,6 +405,18 @@
                     transform: translate(0, -50%);
                     background: none;
                 }
+            }
+        }
+    }
+
+    &--switcher {
+        .ibexa-dropdown {
+            &__selection-info {
+                border: none;
+            }
+
+            &__item-label {
+                font-size: $ibexa-text-font-size-small;
             }
         }
     }

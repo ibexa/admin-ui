@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import SimpleDropdown from '../simple-dropdown/simple.dropdown';
-
+import SimpleDropdown from '../../../common/simple-dropdown/simple.dropdown';
 import { SortingContext, SortOrderContext, SORTING_OPTIONS } from '../../universal.discovery.module';
 
 const { ibexa } = window;

@@ -1,4 +1,4 @@
-.c-udw-simple-dropdown {
+.c-simple-dropdown {
     position: relative;
     min-width: calculateRem(120px);
 
@@ -22,7 +22,7 @@
         right: calculateRem(-10px);
         top: calculateRem(30px);
         min-width: calculateRem(170px);
-        padding: calculateRem(6px) 0;
+        padding: calculateRem(8px);
         background: $ibexa-color-white;
         border: calculateRem(1px) solid $ibexa-color-light;
         border-radius: $ibexa-border-radius;
@@ -41,20 +41,29 @@
 
     &__list-item {
         font-size: $ibexa-text-font-size-medium;
-        padding: calculateRem(4px) calculateRem(40px) calculateRem(4px) calculateRem(16px);
+        padding: calculateRem(9px) calculateRem(40px) calculateRem(9px) calculateRem(15px);
+        border-radius: $ibexa-border-radius;
         cursor: pointer;
 
         &--selected {
-            background-color: $ibexa-color-light-400;
             position: relative;
 
-            .c-udw-simple-dropdown__list-item-checkmark {
+            .c-simple-dropdown__list-item-checkmark {
                 position: absolute;
                 top: 50%;
-                right: calculateRem(16px);
+                right: calculateRem(15px);
                 margin-top: calculateRem(-8px);
             }
         }
+
+        &:hover {
+            background-color: $ibexa-color-light-400;
+        }
+    }
+
+    &__list-item-type-icon,
+    &__selected-item-type-icon {
+        margin-right: calculateRem(8px);
     }
 
     &__option-label {
@@ -85,7 +94,7 @@
         opacity: 0.3;
         cursor: not-allowed;
 
-        .c-udw-simple-dropdown {
+        .c-simple-dropdown {
             &__selected {
                 cursor: not-allowed;
             }

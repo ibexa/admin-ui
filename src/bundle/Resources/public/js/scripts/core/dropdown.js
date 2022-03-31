@@ -50,6 +50,8 @@
             this.isDynamic = this.container.classList.contains('ibexa-dropdown--dynamic');
             this.canSelectOnlyOne = !this.sourceInput?.multiple;
             this.selectedItemTemplate = this.selectedItemsContainer.dataset.template;
+            this.selectedItemIconTemplate = this.selectedItemsContainer.dataset.iconTemplate;
+            this.selectedItemLabel = this.selectedItemsContainer.dataset.selectedItemLabel;
 
             this.createSelectedItem = this.createSelectedItem.bind(this);
             this.hideOptions = this.hideOptions.bind(this);
@@ -67,8 +69,24 @@
             ibexa.helpers.objectInstances.setInstance(this.container, this);
         }
 
-        createSelectedItem(value, label) {
-            return this.selectedItemTemplate.replace('{{ value }}', value).replace('{{ label }}', label);
+        createSelectedItem(value, label, icon) {
+            const container = doc.createElement('div');
+            const selectedItemRendered = this.selectedItemTemplate.replace('{{ value }}', value).replace('{{ label }}', label);
+
+            container.insertAdjacentHTML('beforeend', selectedItemRendered);
+
+            const selectedItemNode = container.querySelector('.ibexa-dropdown__selected-item');
+
+            if (icon) {
+                const iconWrapper = container.querySelector('.ibexa-dropdown__selected-item-icon');
+                const selectedItemIconRendered = this.selectedItemIconTemplate.replace('{{ icon }}', icon);
+
+                iconWrapper.insertAdjacentHTML('beforeend', selectedItemIconRendered);
+            }
+
+            selectedItemNode.classList.toggle('ibexa-dropdown__selected-item--has-icon', icon);
+
+            return selectedItemNode;
         }
 
         clearCurrentSelection() {
@@ -101,7 +119,7 @@
         }
 
         onSelect(element, selected) {
-            const { value } = element.dataset;
+            const { value, choiceIcon } = element.dataset;
 
             if (this.canSelectOnlyOne && selected) {
                 this.hideOptions();
@@ -121,11 +139,11 @@
             const selectedItemsList = this.container.querySelector('.ibexa-dropdown__selection-info');
 
             if (selected) {
-                const label = element.querySelector('.ibexa-dropdown__item-label').innerHTML;
+                const labelNode = element.querySelector('.ibexa-dropdown__item-label');
+                const label = this.selectedItemLabel ?? labelNode.innerHTML;
+                const targetPlace = selectedItemsList.querySelector('.ibexa-dropdown__selected-item--predefined');
 
-                selectedItemsList
-                    .querySelector('.ibexa-dropdown__selected-item--predefined')
-                    .insertAdjacentHTML('beforebegin', this.createSelectedItem(value, label));
+                this.selectedItemsContainer.insertBefore(this.createSelectedItem(value, label, choiceIcon), targetPlace);
             } else {
                 const valueNode = selectedItemsList.querySelector(`[data-value="${value}"]`);
 
@@ -276,9 +294,11 @@
 
         itemsPopoverContent() {
             const { width } = this.selectedItemsContainer.getBoundingClientRect();
+            const minItemWidth = parseInt(this.selectedItemsContainer.dataset.minItemWidth, 10);
+            const computedItemWidth = width > minItemWidth ? width : minItemWidth;
 
             this.itemsContainer.style['max-height'] = `${this.getItemsContainerHeight()}px`;
-            this.itemsContainer.style.minWidth = `${width}px`;
+            this.itemsContainer.style.minWidth = `${computedItemWidth}px`;
 
             return this.itemsContainer;
         }

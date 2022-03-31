@@ -61,11 +61,6 @@
         <target state="new">Cancel</target>
         <note>key: content_create.cancel.label</note>
       </trans-unit>
-      <trans-unit id="43ff5dfcebc0d3daabe0eb72f8b0c7564e6d4218" resname="content_create.confirm.label">
-        <source>Confirm</source>
-        <target state="new">Confirm</target>
-        <note>key: content_create.confirm.label</note>
-      </trans-unit>
       <trans-unit id="6597ed9c77295271a62deaf86cddcab2a332af8d" resname="content_create.label">
         <source>Content create</source>
         <target state="new">Content create</target>
@@ -75,16 +70,6 @@
         <source>Type to refine</source>
         <target state="new">Type to refine</target>
         <note>key: content_create.placeholder</note>
-      </trans-unit>
-      <trans-unit id="9e0bf845dd4ce60013f7ee92eaac76a2d0a5253a" resname="content_edit.cancel.label">
-        <source>Cancel</source>
-        <target state="new">Cancel</target>
-        <note>key: content_edit.cancel.label</note>
-      </trans-unit>
-      <trans-unit id="76a56a144f633df99b3a2d7eb1da3ef0c555fe74" resname="content_edit.confirm.label">
-        <source>Confirm</source>
-        <target state="new">Confirm</target>
-        <note>key: content_edit.confirm.label</note>
       </trans-unit>
       <trans-unit id="cb13371418234a9257a76bcc2a55768d5e5e58d8" resname="content_edit.label">
         <source>Content edit</source>
@@ -385,6 +370,11 @@
         <source>Select Location to swap with</source>
         <target state="new">Select Location to swap with</target>
         <note>key: swap.title</note>
+      </trans-unit>
+      <trans-unit id="75247b44eb33fe5c35d9b5d8770bd76a15be7747" resname="view_switcher.view">
+        <source>View</source>
+        <target state="new">View</target>
+        <note>key: view_switcher.view</note>
       </trans-unit>
     </body>
   </file>
