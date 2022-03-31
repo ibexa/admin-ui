@@ -50,11 +50,6 @@ class UniversalDiscoveryWidget extends Component
         $this->getHTMLPage()->find($this->getLocator('cancelButton'))->click();
     }
 
-    public function openPreview(): void
-    {
-        $this->getHTMLPage()->find($this->getLocator('previewButton'))->click();
-    }
-
     public function verifyIsLoaded(): void
     {
         $this->getHTMLPage()->find($this->getLocator('udw'))->assert()->isVisible();
@@ -116,6 +111,44 @@ class UniversalDiscoveryWidget extends Component
         );
     }
 
+    public function bookmarkContentItem(): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('bookmarkButton'))->click();
+        $this->getHTMLPage()->setTimeout(3)->waitUntil(function () {
+            return $this->isBookmarked();
+        }, 'The icon did not change to bookmarked one');
+    }
+
+    public function isBookmarked(): bool
+    {
+        $htmlFragment = $this->getHTMLPage()
+            ->find($this->getLocator('bookmarkButton'))
+            ->getOuterHtml();
+
+        return strpos($htmlFragment, 'bookmark-active') !== false;
+    }
+
+    public function changeTabToBookmark(): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('bookmarkTab'))->click();
+
+        $this->getHTMLPage()->find($this->getLocator('selectedBookmarkTab'))->assert()->isVisible();
+    }
+
+    public function selectBookmark(string $bookmarkName): void
+    {
+        $this->getHTMLPage()->findAll($this->getLocator('bookmarkedItem'))
+            ->getByCriterion(new ElementTextCriterion($bookmarkName))
+            ->click();
+
+        $this->getHTMLPage()->find($this->getLocator('markedBookmarkedItem'))->assert()->textEquals($bookmarkName);
+    }
+
+    public function editSelectedContent(): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('editButton'))->click();
+    }
+
     protected function specifyLocators(): array
     {
         return [
@@ -125,6 +158,8 @@ class UniversalDiscoveryWidget extends Component
             new CSSLocator('cancelButton', '.c-top-menu__cancel-btn'),
             new CSSLocator('mainWindow', '.m-ud'),
             new CSSLocator('selectedLocationsTab', '.c-selected-locations'),
+            new CSSLocator('bookmarkTab', '[data-bs-original-title="Bookmarks"]'),
+            new CSSLocator('selectedBookmarkTab', '.c-tab-selector__item--selected, [title="Bookmarks"]'),
             new VisibleCSSLocator('multiselect', '.m-ud .c-finder-leaf .ibexa-input--checkbox'),
             // selectors for path traversal
             new CSSLocator('treeLevelFormat', '.c-finder-branch:nth-child(%d)'),
@@ -133,7 +168,11 @@ class UniversalDiscoveryWidget extends Component
             new CSSLocator('input', '.c-udw-toggle-selection'),
             new CSSLocator('treeLevelSelectedFormat', '.c-finder-branch:nth-of-type(%d) .c-finder-leaf--marked'),
             // itemActions
-            new CSSLocator('previewButton', '.c-content-meta-preview__preview-button'),
+            new CSSLocator('editButton', '.c-content-edit-button__btn'),
+            // bookmarks
+            new VisibleCSSLocator('bookmarkButton', '.c-content-meta-preview__toggle-bookmark-button'),
+            new VisibleCSSLocator('bookmarkedItem', '.c-bookmarks-list__item-name'),
+            new VisibleCSSLocator('markedBookmarkedItem', '.c-bookmarks-list__item--marked'),
         ];
     }
 

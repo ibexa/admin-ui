@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 use Behat\Behat\Context\Context;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\Behat\Core\Behat\ArgumentParser;
+use PHPUnit\Framework\Assert;
 
 class UDWContext implements Context
 {
@@ -55,5 +56,45 @@ class UDWContext implements Context
     public function iConfirmSelection(): void
     {
         $this->universalDiscoveryWidget->confirm();
+    }
+
+    /**
+     * @Given I bookmark the Content Item :itemPath in Universal Discovery Widget
+     */
+    public function bookmarkContentItem(string $itemPath): void
+    {
+        $this->universalDiscoveryWidget->bookmarkContentItem();
+    }
+
+    /**
+     * @Given it is marked as bookmarked in Universal Discovery Widget
+     */
+    public function itemIsMarkedAsBookmarked(): void
+    {
+        Assert::assertTrue($this->universalDiscoveryWidget->isBookmarked());
+    }
+
+    /**
+     * @Given I change the UDW tab to Bookmarks
+     */
+    public function changeUDWTab(): void
+    {
+        $this->universalDiscoveryWidget->changeTabToBookmark();
+    }
+
+    /**
+     * @Given I select bookmarked content :bookmarkName through UDW
+     */
+    public function iSelectBookmarkedConent(string $bookmarkName): void
+    {
+        $this->universalDiscoveryWidget->selectBookmark($bookmarkName);
+    }
+
+    /**
+     * @Given I edit selected content
+     */
+    public function editSelectedContent(): void
+    {
+        $this->universalDiscoveryWidget->editSelectedContent();
     }
 }
