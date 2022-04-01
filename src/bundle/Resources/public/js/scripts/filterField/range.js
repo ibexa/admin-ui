@@ -58,13 +58,15 @@
             this.setSelectedRangeCords();
         }
 
-        setStartSliderValue() {
-            this.sliderInputStart.value = this.manualInputStart.value;
+        setStartSliderValue(manualInputValue) {
+            this.sliderInputStart.value = manualInputValue ?? this.manualInputStart.value;
+            this.sliderInputStart.dispatchEvent(new Event('input'));
             this.setSelectedRangeCords();
         }
 
-        setEndSliderValue() {
-            this.sliderInputEnd.value = this.manualInputEnd.value;
+        setEndSliderValue(manualInputValue) {
+            this.sliderInputEnd.value = manualInputValue ?? this.manualInputEnd.value;
+            this.sliderInputEnd.dispatchEvent(new Event('input'));
             this.setSelectedRangeCords();
         }
 
@@ -78,10 +80,10 @@
         }
 
         clearFilter() {
-            this.sliderInputStart.value = this.minValue;
-            this.sliderInputEnd.value = this.maxValue;
             this.manualInputStart.value = this.minValue;
             this.manualInputEnd.value = this.maxValue;
+            this.setStartSliderValue(this.minValue);
+            this.setEndSliderValue(this.maxValue)
         }
 
         init() {
@@ -92,8 +94,8 @@
             this.clearAllBtn.addEventListener('click', this.clearFilter, false);
             this.sliderInputStart.addEventListener('input', this.startSliderRangeMoving, false);
             this.sliderInputEnd.addEventListener('input', this.endSliderRangeMoving, false);
-            this.manualInputStart.addEventListener('input', this.setStartSliderValue, false);
-            this.manualInputEnd.addEventListener('input', this.setEndSliderValue, false);
+            this.manualInputStart.addEventListener('input', () => this.setStartSliderValue(), false);
+            this.manualInputEnd.addEventListener('input', () => this.setEndSliderValue(), false);
 
             this.sliderInputStart.style.width = `${sliderInputsWrapperWidth}px`;
             this.sliderInputEnd.style.width = `${sliderInputsWrapperWidth}px`;

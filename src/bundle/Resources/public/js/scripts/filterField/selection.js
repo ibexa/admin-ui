@@ -73,7 +73,7 @@
 
         setToggleListBtnState() {
             this.toggleListBtn.innerHTML = this.isListExpanded ? 'Less' : 'More';
-            this.toggleListBtn.classList.toggle('ibexa-sidebar-filter-selection__list-toggle-btn--expanded-list')
+            this.toggleListBtn.classList.toggle('ibexa-sidebar-filter-selection__list-toggle-btn--expanded-list', this.isListExpanded);
         }
 
         filterItems({ currentTarget }) {

@@ -1,4 +1,8 @@
 .ibexa-sidebar-filters {
+    // TO DO: remove to finall
+    position: relative;
+    z-index: 1;
+    // end to do
     border: calculateRem(1px) solid $ibexa-color-light;
     border-radius: $ibexa-border-radius;
     overflow: hidden;
@@ -8,6 +12,7 @@
         justify-content: space-between;
         padding: calculateRem(15px) calculateRem(18px);
         border-bottom: calculateRem(1px) solid $ibexa-color-light;
+        background: $ibexa-color-white;
     }
 
     &__header-label {

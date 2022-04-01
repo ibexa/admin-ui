@@ -33,8 +33,18 @@
         position: absolute;
         top: calculateRem(4px);
         appearance: none;
-        margin: 0;
         background: transparent;
+        margin: 0;
+
+        // &--start {
+        //     padding-right: calculateRem(25px);
+        //     padding-left: 0;
+        // }
+
+        // &--end {
+        //     padding-right: 0;
+        //     padding-left: calculateRem(25px);
+        // }
 
         &::-webkit-slider-thumb {
             width: calculateRem(25px);

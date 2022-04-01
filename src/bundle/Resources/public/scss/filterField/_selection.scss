@@ -1,6 +1,6 @@
 .ibexa-sidebar-filter-selection {
     &__list {
-        margin: calculateRem(12px) calculateRem(16px) calculateRem(24px) calculateRem(16px);
+        margin: calculateRem(4px) calculateRem(16px);
         padding: 0;
         list-style: none;
         font-size: $ibexa-text-font-size-medium;
@@ -15,12 +15,8 @@
     }
 
     &__list-item {
-        margin-top: calculateRem(16px);
+        margin: calculateRem(8px) 0;
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
-
-        &:first-child {
-            margin-top: calculateRem(8px);
-        }
 
         &--hidden,
         &--hidden:first-child {
