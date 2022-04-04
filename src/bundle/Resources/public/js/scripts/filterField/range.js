@@ -59,13 +59,32 @@
         }
 
         setStartSliderValue(manualInputValue) {
-            this.sliderInputStart.value = manualInputValue ?? this.manualInputStart.value;
+            if (manualInputValue) {
+                this.sliderInputStart.value = manualInputValue ;
+            } else {
+                if (!isNaN(parseInt(this.manualInputStart.value))) {
+                    this.sliderInputStart.value = this.manualInputStart.value;
+                } else {
+                    this.sliderInputStart.value = this.minValue;
+                }
+            }
+
             this.sliderInputStart.dispatchEvent(new Event('input'));
             this.setSelectedRangeCords();
         }
 
         setEndSliderValue(manualInputValue) {
-            this.sliderInputEnd.value = manualInputValue ?? this.manualInputEnd.value;
+            if (manualInputValue) {
+                this.sliderInputEnd.value = manualInputValue ;
+            } else {
+                if (!isNaN(parseInt(this.manualInputEnd.value))) {
+                    this.sliderInputEnd.value = this.manualInputEnd.value;
+                } else {
+                    this.sliderInputEnd.value = this.maxValue;
+                }
+            }
+
+            // this.sliderInputEnd.value = manualInputValue ?? this.manualInputEnd.value;
             this.sliderInputEnd.dispatchEvent(new Event('input'));
             this.setSelectedRangeCords();
         }

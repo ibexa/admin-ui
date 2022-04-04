@@ -89,6 +89,7 @@
         }
 
         init() {
+            super.init();
             this.toggleItemsCheckStateBtn.addEventListener('click', this.toggleItemsCheckState, false);
 
             this.searchInput.addEventListener('keyup', this.filterItems, false);
