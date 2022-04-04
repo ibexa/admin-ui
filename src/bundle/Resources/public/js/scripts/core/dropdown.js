@@ -309,42 +309,34 @@
         }
 
         hasChangedOptions(mutationList) {
-            return mutationList.reduce(
-                (output, mutationRecord) => output || mutationRecord.addedNodes.length || mutationRecord.removedNodes.length,
-                false,
-            );
+            return mutationList.some((mutationRecord) => mutationRecord.addedNodes.length || mutationRecord.removedNodes.length);
         }
 
         getSelectedItems() {
-            if (this.canSelectOnlyOne) {
-                const selectedItem = this.sourceInput.querySelector(`[value="${this.sourceInput.value}"]`);
-
-                return selectedItem ? [selectedItem] : [];
-            }
-
-            return [...this.sourceInput.querySelectorAll('.ibexa-input:checked')];
+            return [...this.sourceInput.querySelectorAll(':checked')];
         }
 
         recreateOptions() {
-            const newOptions = this.sourceInput.querySelectorAll('option');
+            const optionsToRecreate = this.sourceInput.querySelectorAll('option');
 
             this.itemsListContainer.querySelectorAll('.ibexa-dropdown__item').forEach((item) => {
                 this.removeOption(item.dataset.value);
             });
 
-            newOptions.forEach((option) => {
+            optionsToRecreate.forEach((option) => {
                 this.createOption(option.value, option.innerHTML);
             });
 
             const selectedItems = this.getSelectedItems();
 
             this.clearCurrentSelection();
+            this.fitItems();
             selectedItems.forEach((selectedItem) => {
                 this.selectOption(selectedItem.value);
             });
+            this.container.classList.toggle('ibexa-dropdown--disabled', !optionsToRecreate.length);
 
-            if (!newOptions.length) {
-                this.container.classList.add('ibexa-dropdown--disabled');
+            if (!optionsToRecreate.length) {
                 this.selectedItemsContainer.insertAdjacentHTML('afterbegin', this.selectedItemsContainer.dataset.placeholderTemplate);
             }
         }
@@ -357,9 +349,9 @@
 
         createOption(value, label) {
             const container = doc.createElement('div');
-            const renderedTemplate = this.itemTemplate.replaceAll('{{ value }}', value).replaceAll('{{ label }}', label);
+            const itemRendered = this.itemTemplate.replaceAll('{{ value }}', value).replaceAll('{{ label }}', label);
 
-            container.insertAdjacentHTML('beforeend', renderedTemplate);
+            container.insertAdjacentHTML('beforeend', itemRendered);
 
             const optionNode = container.firstElementChild;
 
