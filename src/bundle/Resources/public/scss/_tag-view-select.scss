@@ -4,8 +4,6 @@
     padding: calculateRem(24px);
 
     &__info {
-        @include ibexa-font-sans-serif();
-
         font-size: $ibexa-text-font-size-medium;
         color: $ibexa-color-black;
         white-space: nowrap;
@@ -23,13 +21,15 @@
     &__selected-item-tag {
         display: inline-flex;
         align-items: center;
-        height: calculateRem(24px);
         max-width: 100%;
-        padding: 0 calculateRem(8px);
-        border-radius: $ibexa-border-radius;
-        background-color: $ibexa-color-light-400;
+        height: calculateRem(24px);
+        padding: calculateRem(4px) calculateRem(10px);
         font-size: $ibexa-text-font-size-small;
-        line-height: calculateRem(18px);
+        line-height: calculateRem(16px);
+        font-weight: normal;
+        border: calculateRem(1px) solid $ibexa-color-dark;
+        border-radius: calculateRem(12px);
+        background-color: $ibexa-color-light-400;
         margin-top: calculateRem(5px);
         margin-bottom: calculateRem(5px);
 
@@ -67,22 +67,60 @@
         text-overflow: ellipsis;
         color: transparent;
 
-        &--start {
-            width: 100%;
-
+        &--start,
+        &--end {
             .ibexa-tag-view-select__selected-item-tag-content-ellipsized {
                 color: $ibexa-color-black;
             }
+        }
+
+        &--start {
+            width: 100%;
         }
 
         &--end {
             width: 0;
             direction: rtl;
             text-align: right;
+        }
+    }
 
-            .ibexa-tag-view-select__selected-item-tag-content-ellipsized {
-                color: $ibexa-color-black;
+    $color-versions: 'primary' $ibexa-color-primary $ibexa-color-primary $ibexa-color-primary-200,
+        'secondary' $ibexa-color-dark $ibexa-color-dark $ibexa-color-light-400,
+        'info' $ibexa-color-info $ibexa-color-info $ibexa-color-info-200,
+        'danger' $ibexa-color-danger $ibexa-color-danger $ibexa-color-danger-200,
+        'success' $ibexa-color-success-600 $ibexa-color-success $ibexa-color-success-200,
+        'complementary' $ibexa-color-complementary-600 $ibexa-color-complementary $ibexa-color-complementary-200;
+
+    @mixin color-tags($color-text, $color-border, $color-background) {
+        .ibexa-tag-view-select {
+            &__selected-item-tag {
+                border-color: $color-border;
+                background-color: $color-background;
+
+                .ibexa-icon {
+                    fill: $color-text;
+                }
             }
+
+            &__selected-item-tag-ellipsize {
+                color: $color-text;
+            }
+
+            &__selected-item-tag-content {
+                &--start,
+                &--end {
+                    .ibexa-tag-view-select__selected-item-tag-content-ellipsized {
+                        color: $color-text;
+                    }
+                }
+            }
+        }
+    }
+
+    @each $name, $color-text, $color-border, $color-background in $color-versions {
+        &--#{$name} {
+            @include color-tags($color-text, $color-border, $color-background);
         }
     }
 
@@ -96,16 +134,6 @@
     &[disabled] {
         border-color: $ibexa-color-light;
 
-        .ibexa-tag-view-select {
-            &__info {
-                color: $ibexa-color-dark-300;
-            }
-
-            &__selected_item {
-                color: $ibexa-color-dark-400;
-                fill: $ibexa-color-dark-400;
-                background-color: $ibexa-color-light-300;
-            }
-        }
+        @include color-tags($ibexa-color-dark-400, $ibexa-color-light, $ibexa-color-light-300);
     }
 }

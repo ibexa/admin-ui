@@ -7,13 +7,13 @@
         {{ content }}
     </div>
     <div class="ibexa-tag__spinner" {% if not is_loading_state %} hidden {% endif %}>
-        <svg class="ibexa-icon ibexa-icon--small ibexa-icon--dark ibexa-spin">
+        <svg class="ibexa-icon ibexa-icon--small ibexa-spin">
             <use xlink:href="{{ ibexa_icon_path('spinner') }}"></use>
         </svg>
     </div>
     <button type="button" class="ibexa-tag__remove-btn">
-        <svg class="ibexa-icon ibexa-icon--small ibexa-icon--dark">
-            <use xlink:href="{{ ibexa_icon_path('circle-close') }}"></use>
+        <svg class="ibexa-icon ibexa-icon--tiny">
+            <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
         </svg>
     </button>
 </div>
