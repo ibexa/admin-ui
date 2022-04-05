@@ -205,7 +205,9 @@ const UniversalDiscoveryModule = (props) => {
             setContentTypesInfo(contentTypesMap);
         };
 
-        window.ibexa.adminUiConfig.universalDiscoveryWidget.addContentTypes?.forEach((addContentTypes) => addContentTypes(setContentTypesInfo));
+        window.ibexa.adminUiConfig.universalDiscoveryWidget.addContentTypes?.forEach((addContentTypes) => 
+            addContentTypes(setContentTypesInfo),
+        );
 
         loadContentTypes(restInfo, handleLoadContentTypes);
         document.body.dispatchEvent(new CustomEvent('ibexa-udw-opened'));
