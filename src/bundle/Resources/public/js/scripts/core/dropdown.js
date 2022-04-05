@@ -52,6 +52,12 @@
             this.selectedItemTemplate = this.selectedItemsContainer.dataset.template;
             this.selectedItemIconTemplate = this.selectedItemsContainer.dataset.iconTemplate;
             this.selectedItemLabel = this.selectedItemsContainer.dataset.selectedItemLabel;
+            this.itemTemplate = this.itemsListContainer.dataset.template;
+            this.sourceOptionsObserver = new MutationObserver((mutationsList) => {
+                if (this.hasChangedOptions(mutationsList)) {
+                    this.recreateOptions();
+                }
+            });
 
             this.createSelectedItem = this.createSelectedItem.bind(this);
             this.hideOptions = this.hideOptions.bind(this);
@@ -76,7 +82,6 @@
             container.insertAdjacentHTML('beforeend', selectedItemRendered);
 
             const selectedItemNode = container.querySelector('.ibexa-dropdown__selected-item');
-
             if (icon) {
                 const iconWrapper = container.querySelector('.ibexa-dropdown__selected-item-icon');
                 const selectedItemIconRendered = this.selectedItemIconTemplate.replace('{{ icon }}', icon);
@@ -84,7 +89,7 @@
                 iconWrapper.insertAdjacentHTML('beforeend', selectedItemIconRendered);
             }
 
-            selectedItemNode.classList.toggle('ibexa-dropdown__selected-item--has-icon', icon);
+            selectedItemNode.classList.toggle('ibexa-dropdown__selected-item--has-icon', !!icon);
 
             return selectedItemNode;
         }
@@ -303,6 +308,57 @@
             return this.itemsContainer;
         }
 
+        hasChangedOptions(mutationList) {
+            return mutationList.some((mutationRecord) => mutationRecord.addedNodes.length || mutationRecord.removedNodes.length);
+        }
+
+        getSelectedItems() {
+            return [...this.sourceInput.querySelectorAll(':checked')];
+        }
+
+        recreateOptions() {
+            const optionsToRecreate = this.sourceInput.querySelectorAll('option');
+
+            this.itemsListContainer.querySelectorAll('.ibexa-dropdown__item').forEach((item) => {
+                this.removeOption(item.dataset.value);
+            });
+
+            optionsToRecreate.forEach((option) => {
+                this.createOption(option.value, option.innerHTML);
+            });
+
+            const selectedItems = this.getSelectedItems();
+
+            this.clearCurrentSelection();
+            this.fitItems();
+            selectedItems.forEach((selectedItem) => {
+                this.selectOption(selectedItem.value);
+            });
+            this.container.classList.toggle('ibexa-dropdown--disabled', !optionsToRecreate.length);
+
+            if (!optionsToRecreate.length) {
+                this.selectedItemsContainer.insertAdjacentHTML('afterbegin', this.selectedItemsContainer.dataset.placeholderTemplate);
+            }
+        }
+
+        removeOption(value) {
+            const optionNode = this.itemsListContainer.querySelector(`[data-value="${value}"]`);
+
+            optionNode.remove();
+        }
+
+        createOption(value, label) {
+            const container = doc.createElement('div');
+            const itemRendered = this.itemTemplate.replaceAll('{{ value }}', value).replaceAll('{{ label }}', label);
+
+            container.insertAdjacentHTML('beforeend', itemRendered);
+
+            const optionNode = container.firstElementChild;
+
+            optionNode.addEventListener('click', this.onOptionClick, false);
+            this.itemsListContainer.append(optionNode);
+        }
+
         init() {
             if (this.container.dataset.initialized) {
                 console.warn('Dropdown has already been initialized!');
@@ -349,6 +405,10 @@
                 this.itemsFilterInput.addEventListener('keyup', this.filterItems, false);
                 this.itemsFilterInput.addEventListener('input', this.filterItems, false);
             }
+
+            this.sourceOptionsObserver.observe(this.sourceInput, {
+                childList: true,
+            });
         }
     }
 
