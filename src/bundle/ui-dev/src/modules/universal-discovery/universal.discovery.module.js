@@ -192,9 +192,9 @@ const UniversalDiscoveryModule = (props) => {
     };
 
     useEffect(() => {
-        const setContentTypesInfo = ((contentTypes) => {
-            setContentTypesInfoMap((prevState) => ({...prevState, ...contentTypes}));
-        });
+        const setContentTypesInfo = (contentTypes) => {
+            setContentTypesInfoMap((prevState) => ({ ...prevState, ...contentTypes }));
+        };
         const handleLoadContentTypes = (response) => {
             const contentTypesMap = response.ContentTypeInfoList.ContentType.reduce((contentTypesList, item) => {
                 contentTypesList[item._href] = item;
