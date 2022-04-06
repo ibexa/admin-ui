@@ -46,21 +46,9 @@
         attachModalListeners(wrapper, form, btns);
     };
     const changeHandler = (form, btns, event) => {
-        let contentIdInput = form.querySelector('#content_edit_content_info') || form.querySelector('#user_edit_content_info');
-
-        // TODO: maybe add selector value as func param? It can't be here, as admin-ui doesn't know anything about content-tree
-        if (!contentIdInput) {
-            contentIdInput = form.querySelector('#content-tree-edit-content_content_info');
-        }
-
+        const contentIdInput = form.querySelector('#content_edit_content_info') || form.querySelector('#user_edit_content_info');
+        const locationInput = form.querySelector('#content_edit_location') || form.querySelector('#user_edit_location');
         const contentId = contentIdInput.value;
-        let locationInput = form.querySelector('#content_edit_location') || form.querySelector('#user_edit_location');
-
-        // TODO: maybe add selector value as func param? It can't be here, as admin-ui doesn't know anything about content-tree
-        if (!locationInput) {
-            locationInput = form.querySelector('#content-tree-edit-content_location');
-        }
-
         const locationId = locationInput.value;
         const checkedBtn = event.currentTarget;
         const languageCode = checkedBtn.value;
