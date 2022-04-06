@@ -286,10 +286,7 @@
         }
 
         toggleSourceFocus(isFocused) {
-            const isDisabled = this.container.classList.contains('ibexa-dropdown--disabled');
-            const shouldFocus = isFocused && !isDisabled;
-
-            this.container.classList.toggle('ibexa-dropdown--focused', shouldFocus);
+            this.container.classList.toggle('ibexa-dropdown--focused', isFocused);
         }
 
         onSourceFocus() {
