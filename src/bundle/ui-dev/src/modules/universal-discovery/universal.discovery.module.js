@@ -192,7 +192,7 @@ const UniversalDiscoveryModule = (props) => {
     };
 
     useEffect(() => {
-        const setContentTypesInfo = (contentTypes) => {
+        const addContentTypesInfo = (contentTypes) => {
             setContentTypesInfoMap((prevState) => ({ ...prevState, ...contentTypes }));
         };
         const handleLoadContentTypes = (response) => {
@@ -202,11 +202,11 @@ const UniversalDiscoveryModule = (props) => {
                 return contentTypesList;
             }, {});
 
-            setContentTypesInfo(contentTypesMap);
+            addContentTypesInfo(contentTypesMap);
         };
 
-        window.ibexa.adminUiConfig.universalDiscoveryWidget.addContentTypes?.forEach((addContentTypes) =>
-            addContentTypes(setContentTypesInfo),
+        window.ibexa.adminUiConfig.universalDiscoveryWidget.contentTypesLoaders?.forEach((contentTypesLoader) =>
+            contentTypesLoader(addContentTypesInfo),
         );
 
         loadContentTypes(restInfo, handleLoadContentTypes);
