@@ -16,11 +16,12 @@
     &--without-anchor-menu-items {
         .ibexa-main-container {
             &__side-column {
-                width: calculateRem(200px);
+                width: 15%;
+                max-width: calculateRem(200px);
             }
 
             &__content-column {
-                width: calc(100% - #{calculateRem(200px)});
+                width: 100%;
             }
         }
     }
@@ -28,11 +29,12 @@
     &--with-anchor-menu-items {
         .ibexa-main-container {
             &__side-column {
-                width: calculateRem(350px);
+                width: 25%;
+                max-width: calculateRem(350px);
             }
 
             &__content-column {
-                width: calc(100% - #{calculateRem(350px)});
+                width: 100%;
             }
         }
     }

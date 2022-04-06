@@ -19,19 +19,17 @@
 {% endblock %}
 
 {%- block content -%}
-    <div class="row">
-        <div class="col col-10 offset-1">
-            {{ form_start(form) }}
-                {{ form_errors(form) }}
-                <section>
-                    <div class="card ibexa-card ibexa-card--light">
-                        <div class="card-body">
-                            {{ form_row(form.url) }}
-                        </div>
+    <div class="ibexa-edit-content__container">
+        {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <section>
+                <div class="card ibexa-card ibexa-card--light">
+                    <div class="card-body">
+                        {{ form_row(form.url) }}
                     </div>
-                </section>
-                <button id="url-update" type="submit" hidden></button>
-            {{ form_end(form) }}
-        </div>
+                </div>
+            </section>
+            <button id="url-update" type="submit" hidden></button>
+        {{ form_end(form) }}
     </div>
 {%- endblock -%}

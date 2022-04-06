@@ -20,70 +20,78 @@
 {% endblock %}
 
 {% block form %}
-    {{ form_start(form, {
-        attr: {
-            class: 'ibexa-content-type-edit-form ibexa-form',
-            novalidate: 'novalidate',
-        }
-    }) }}
-        {% set is_translation = form.vars.data.languageCode != content_type.mainLanguageCode %}
-        {% set is_draggable = is_translation == false %}
+        {{ form_start(form, {
+            attr: {
+                class: 'ibexa-content-type-edit-form ibexa-form',
+                novalidate: 'novalidate',
+            }
+        }) }}
+            {% set is_translation = form.vars.data.languageCode != content_type.mainLanguageCode %}
+            {% set is_draggable = is_translation == false %}
 
-        {% if is_translation %}
-            {% include '@ibexadesign/content_type/part/nontranslatable_fields_disabled.html.twig' %}
-        {% endif %}
+            {% if is_translation %}
+                {% include '@ibexadesign/content_type/part/nontranslatable_fields_disabled.html.twig' %}
+            {% endif %}
 
-        <div
-            class="ibexa-content-type-edit__sections ibexa-anchor-navigation-sections container"
-            data-language-code="{{ language_code }}"
-            data-content-type-group-id="{{ content_type_group.id }}"
-            data-content-type-id="{{ content_type.id }}"
-        >
-            {% block form_sections %}
-                {% embed "@ibexadesign/content_type/edit_section.html.twig" with { section_id: '#Global-properties', is_active: true } %}
-                    {% block title %}
-                        {{ 'content_type.view.edit.global_properties'|trans|desc('Global properties') }}
-                    {% endblock %}
+            <div
+                class="ibexa-content-type-edit__sections ibexa-anchor-navigation-sections"
+                data-language-code="{{ language_code }}"
+                data-content-type-group-id="{{ content_type_group.id }}"
+                data-content-type-id="{{ content_type.id }}"
+            >
+                {% block form_sections %}
+                    <div class="ibexa-edit-content__container">
+                        {% embed "@ibexadesign/content_type/edit_section.html.twig" with {
+                            section_id: '#Global-properties',
+                            is_active: true,
+                            one_column_layout: true,
+                        } %}
+                            {% block title %}
+                                {{ 'content_type.view.edit.global_properties'|trans|desc('Global properties') }}
+                            {% endblock %}
 
-                    {% block left_column %}
-                        {{ form_row(form.name) }}
-                        {{ form_row(form.identifier) }}
-                        {{ form_row(form.description) }}
-                        {{ form_row(form.nameSchema) }}
-                        {{ form_row(form.urlAliasSchema) }}
-                        {{ form_row(form.isContainer) }}
-                        {{ form_row(form.defaultSortField) }}
-                        {{ form_row(form.defaultSortOrder) }}
-                        {{ form_row(form.defaultAlwaysAvailable) }}
-                    {% endblock %}
-                {% endembed %}
+                            {% block left_column %}
+                                {{ form_row(form.name) }}
+                                {{ form_row(form.identifier) }}
+                                {{ form_row(form.description) }}
+                                {{ form_row(form.nameSchema) }}
+                                {{ form_row(form.urlAliasSchema) }}
+                                {{ form_row(form.isContainer) }}
+                                {{ form_row(form.defaultSortField) }}
+                                {{ form_row(form.defaultSortOrder) }}
+                                {{ form_row(form.defaultAlwaysAvailable) }}
+                            {% endblock %}
+                        {% endembed %}
+                    </div>
 
-                {% embed "@ibexadesign/content_type/edit_section.html.twig" with {
-                    section_id: '#Field-definitions',
-                    left_column_class: 'ibexa-content-type-edit__section-column--field-definitions',
-                    right_column_class: 'ibexa-content-type-edit__section-column--available-fields'
-                } %}
-                    {% block title %}
-                        {{ 'content_type.view.edit.content_field_definitions'|trans|desc('Field definitions') }}
-                    {% endblock %}
+                    <div class="ibexa-edit-content__container ibexa-edit-content__container--wide">
+                        {% embed "@ibexadesign/content_type/edit_section.html.twig" with {
+                            section_id: '#Field-definitions',
+                            left_column_class: 'ibexa-content-type-edit__section-column--field-definitions',
+                            right_column_class: 'ibexa-content-type-edit__section-column--available-fields'
+                        } %}
+                            {% block title %}
+                                {{ 'content_type.view.edit.content_field_definitions'|trans|desc('Field definitions') }}
+                            {% endblock %}
 
-                    {% block left_column %}
-                        {{ include('@ibexadesign/content_type/field_definitions.html.twig', {
-                            grouped_field_defintions: form.fieldDefinitionsData,
-                            is_draggable
-                        }) }}
-                    {% endblock %}
+                            {% block left_column %}
+                                {{ include('@ibexadesign/content_type/field_definitions.html.twig', {
+                                    grouped_field_defintions: form.fieldDefinitionsData,
+                                    is_draggable
+                                }) }}
+                            {% endblock %}
 
-                    {% block right_column %}
-                        {{ include('@ibexadesign/content_type/available_field_types.html.twig', { is_draggable }) }}
-                    {% endblock %}
-                {% endembed %}
-            {% endblock %}
-        </div>
+                            {% block right_column %}
+                                {{ include('@ibexadesign/content_type/available_field_types.html.twig', { is_draggable }) }}
+                            {% endblock %}
+                        {% endembed %}
+                    </div>
+                {% endblock %}
+            </div>
 
-        {{ form_widget(form.publishContentType, { attr: { class: 'ibexa-content-type-edit__publish-content-type', hidden: 'hidden' }}) }}
-        {{ form_widget(form.removeDraft, {'attr': { 'hidden': 'hidden' }}) }}
+            {{ form_widget(form.publishContentType, { attr: { class: 'ibexa-content-type-edit__publish-content-type', hidden: 'hidden' }}) }}
+            {{ form_widget(form.removeDraft, {'attr': { 'hidden': 'hidden' }}) }}
 
-        {{ form_widget(form._token) }}
-    {{ form_end(form, {'render_rest': false }) }}
+            {{ form_widget(form._token) }}
+        {{ form_end(form, {'render_rest': false }) }}
 {% endblock %}

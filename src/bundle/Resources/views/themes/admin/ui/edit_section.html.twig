@@ -2,7 +2,7 @@
 
 {% set attr = attr|default({})|merge({
     class: (attr.class|default('')
-            ~ ' ibexa-anchor-navigation-sections__section row'
+            ~ ' ibexa-anchor-navigation-sections__section'
         )|trim,
     'data-anchor-section-id': section_id,
 }) %}

@@ -16,7 +16,29 @@
     }
 
     &__section {
+        display: flex;
+        flex-wrap: wrap;
         margin: 0 0 calculateRem(50px) 0;
+
+        &--one-column-layout {
+            .ibexa-content-type-edit__section-column {
+                &--left-col {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    &__section-column {
+        margin: 0 0 calculateRem(50px) 0;
+
+        &--left-col {
+            width: 60%;
+        }
+
+        &--right-col {
+            width: 40%;
+        }
     }
 
     &__section-column-header {
