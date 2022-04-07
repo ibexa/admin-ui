@@ -1,5 +1,5 @@
 (function (global, doc, ibexa, bootstrap, Routing) {
-    const editActions = doc.querySelectorAll('.ibexa-extra-actions--edit') || doc.querySelectorAll('.ibexa-extra-actions--edit-user');
+    const editActions = doc.querySelectorAll('.ibexa-extra-actions--edit, .ibexa-extra-actions--edit-user');
     const resetRadioButtons = (btns) =>
         btns.forEach((btn) => {
             btn.checked = false;
