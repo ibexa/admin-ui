@@ -1,6 +1,6 @@
 {% import "@ibexadesign/ui/component/macros.html.twig" as html %}
 
-{% trans_default_domain 'ibexa_adaptive_filters' %}
+{% trans_default_domain 'adaptive_filters' %}
 
 {% set attr = attr|default({})|merge({
     class: ('ibexa-adaptive-filters '
@@ -15,7 +15,7 @@
 {% set collapse_id = collapse_id|default('ibexa-adaptive-filters-collapse-' ~ random()) %}
 
 {{ form_start(form, { attr: attr|merge(attr_form)}) }}
-    <div class="ibexa-adaptive-filters__main">
+    <div class="ibexa-adaptive-filters__visible">
         <div class="ibexa-adaptive-filters__static-left">
             {% block static_left %}
                 <div class="form-group">
@@ -25,13 +25,15 @@
             {% endblock %}
         </div>
         <div class="ibexa-adaptive-filters__items ibexa-adaptive-filters__items--empty ibexa-adaptive-items">
-            {% block collapsible_items %}
-                {% for item in collapsible_items %}
-                    {% include '@ibexadesign/ui/component/adaptive_filters/adaptive_filters_item.html.twig' with {
-                        content: item,
-                    } %}
-                {% endfor %}
-            {% endblock %}
+            {% if not no_collapsible_items|default(false) %}
+                {% block collapsible_items %}
+                    {% for item in collapsible_items %}
+                        {% include '@ibexadesign/ui/component/adaptive_filters/adaptive_filters_item.html.twig' with {
+                            content: item,
+                        } %}
+                    {% endfor %}
+                {% endblock %}
+            {% endif %}
             <div class="ibexa-adaptive-filters__actions ibexa-adaptive-items__item ibexa-adaptive-items__item--force-show">
                 {% block actions %}
                     <button
@@ -83,5 +85,5 @@
             </div>
         </div>
     </div>
-    <div class="ibexa-adaptive-filters__hidden collapse" id="{{ collapse_id }}"></div>
+    <div class="ibexa-adaptive-filters__collapsible collapse" id="{{ collapse_id }}"></div>
 {{ form_end(form) }}

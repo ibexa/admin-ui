@@ -29,7 +29,7 @@
         margin: calculateRem(-33px) calculateRem(-33px) calculateRem(24px) calculateRem(-33px);
     }
 
-    &__main {
+    &__visible {
         display: flex;
         align-items: flex-end;
         width: 100%;
@@ -76,7 +76,7 @@
         overflow: hidden;
     }
 
-    &__hidden {
+    &__collapsible {
         display: flex;
         padding: calculateRem(8px) 0 calculateRem(16px);
         border-top: calculateRem(1px) solid $ibexa-color-light;
