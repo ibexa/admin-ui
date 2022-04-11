@@ -6,17 +6,8 @@
     const SELECTOR_MEDIA_WRAPPER = '.ibexa-field-edit-preview__media-wrapper';
     const SELECTOR_INPUT_FILE = 'input[type="file"]';
     const CLASS_MEDIA_WRAPPER_LOADING = 'ibexa-field-edit-preview__media-wrapper--loading';
-    const SELECTOR_FILESIZE_NOTICE = '.ibexa-data-source__message--filesize';
 
     class EzMediaValidator extends ibexa.BaseFileFieldValidator {
-        validateFileSize(event) {
-            event.currentTarget.dispatchEvent(new CustomEvent('ibexa-invalid-file-size'));
-
-            return {
-                isError: false,
-            };
-        }
-
         /**
          * Validates the dimensions inputs
          *
@@ -146,7 +137,7 @@
                     selector: SELECTOR_INPUT_FILE,
                     eventName: 'ibexa-invalid-file-size',
                     callback: 'showFileSizeError',
-                    errorNodeSelectors: [SELECTOR_FILESIZE_NOTICE],
+                    errorNodeSelectors: ['.ibexa-field-edit--ezmedia .ibexa-form-error'],
                 },
                 {
                     selector: '.ibexa-field-edit-preview__dimensions .form-control',
