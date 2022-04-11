@@ -9,6 +9,7 @@
     },
     "scripts": {
         "test": "yarn eslint-test",
-        "eslint-test": "eslint \"./src/bundle/Resources/**/*.js\" \"./src/bundle/ui-dev/**/*.js\""
+        "eslint-test": "eslint \"./src/bundle/Resources/**/*.js\" \"./src/bundle/ui-dev/**/*.js\"",
+        "prettier-test": "yarn prettier \"./src/bundle/Resources/public\" \"./src/bundle/ui-dev\" --check"
     }
 }
