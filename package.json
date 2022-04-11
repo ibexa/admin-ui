@@ -8,7 +8,8 @@
         "eslint-config-ibexa": "https://github.com/ibexa/eslint-config-ibexa.git#v1.0.0"
     },
     "scripts": {
-        "test": "yarn eslint-test",
+        "test": "yarn prettier-test && yarn eslint-test",
+        "fix": "yarn prettier-test --write && yarn eslint-test --fix",
         "eslint-test": "eslint \"./src/bundle/Resources/**/*.js\" \"./src/bundle/ui-dev/**/*.js\"",
         "prettier-test": "yarn prettier \"./src/bundle/Resources/public\" \"./src/bundle/ui-dev\" --check"
     }
