@@ -2,8 +2,8 @@
     "name": "admin-ui",
     "repository": "git@github.com:ibexa/admin-ui.git",
     "private": true,
-    "dependencies": {},
     "prettier": "eslint-config-ibexa/prettier",
+    "dependencies": {},
     "devDependencies": {
         "eslint-config-ibexa": "https://github.com/ibexa/eslint-config-ibexa.git#v1.0.0"
     },
