@@ -16,5 +16,6 @@ jobs:
             project-version: '4.1.x-dev'
             test-suite:  '--profile=browser --suite=admin-ui-full'
             test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
+            timeout: 40
         secrets:
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
