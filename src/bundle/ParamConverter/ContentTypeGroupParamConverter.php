@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\ParamConverter;
+namespace Ibexa\Bundle\AdminUi\ParamConverter;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,15 +18,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ContentTypeGroupParamConverter implements ParamConverterInterface
 {
-    const PARAMETER_CONTENT_TYPE_GROUP_ID = 'contentTypeGroupId';
+    public const PARAMETER_CONTENT_TYPE_GROUP_ID = 'contentTypeGroupId';
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
     /**
      * ContentTypeGroupParamConverter constructor.
      *
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
      */
     public function __construct(ContentTypeService $contentTypeService)
     {
@@ -34,7 +34,7 @@ class ContentTypeGroupParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
@@ -56,10 +56,12 @@ class ContentTypeGroupParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(ParamConverter $configuration)
     {
         return ContentTypeGroup::class === $configuration->getClass();
     }
 }
+
+class_alias(ContentTypeGroupParamConverter::class, 'EzSystems\EzPlatformAdminUiBundle\ParamConverter\ContentTypeGroupParamConverter');

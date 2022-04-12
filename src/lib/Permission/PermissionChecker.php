@@ -6,57 +6,58 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Permission;
+namespace Ibexa\AdminUi\Permission;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\LocationLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\ParentContentTypeLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\ParentDepthLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\ParentOwnerLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\ParentUserGroupLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\SubtreeLimitation;
-use eZ\Publish\API\Repository\Values\User\LookupLimitationResult;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\SPI\Limitation\Target\Builder\VersionBuilder;
+use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LocationLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentContentTypeLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentDepthLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentOwnerLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentUserGroupLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 
 class PermissionChecker implements PermissionCheckerInterface
 {
     private const USER_GROUPS_LIMIT = 25;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
 
     /**
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
-     * @param \eZ\Publish\API\Repository\UserService $userService
-     * @param \eZ\Publish\API\Repository\LocationService $locationService
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
-     * @param \eZ\Publish\API\Repository\LanguageService $languageService
+     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
+     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
+     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
+     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
      */
     public function __construct(
         PermissionResolver $permissionResolver,
@@ -106,13 +107,13 @@ class PermissionChecker implements PermissionCheckerInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param array|bool $hasAccess
      *
      * @return bool
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function canCreateInLocation(Location $location, $hasAccess): bool
     {
@@ -198,7 +199,9 @@ class PermissionChecker implements PermissionCheckerInterface
         $versionBuilder->translateToAnyLanguageOf($this->getActiveLanguageCodes());
         $versionBuilder->createFromAnyContentTypeOf($this->getContentTypeIds());
 
-        return $this->permissionResolver->lookupLimitations('content', 'create',
+        return $this->permissionResolver->lookupLimitations(
+            'content',
+            'create',
             $contentCreateStruct,
             [$versionBuilder->build(), $locationCreateStruct],
             [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
@@ -213,7 +216,9 @@ class PermissionChecker implements PermissionCheckerInterface
         $versionBuilder->translateToAnyLanguageOf($this->getActiveLanguageCodes());
         $versionBuilder->createFromAnyContentTypeOf($this->getContentTypeIds());
 
-        return $this->permissionResolver->lookupLimitations('content', 'edit',
+        return $this->permissionResolver->lookupLimitations(
+            'content',
+            'edit',
             $contentInfo,
             [$versionBuilder->build(), $location],
             [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
@@ -234,7 +239,7 @@ class PermissionChecker implements PermissionCheckerInterface
 
         $limitations = [];
         foreach ($hasAccess as $permissionSet) {
-            /** @var \eZ\Publish\API\Repository\Values\User\Policy $policy */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\User\Policy $policy */
             foreach ($permissionSet['policies'] as $policy) {
                 $policyLimitations = $policy->getLimitations();
                 if (!empty($policyLimitations)) {
@@ -252,12 +257,12 @@ class PermissionChecker implements PermissionCheckerInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      *
      * @return bool
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     private function hasSameParentUserGroup(Location $location): bool
     {
@@ -273,11 +278,11 @@ class PermissionChecker implements PermissionCheckerInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\User $user
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $user
      *
      * @return int[]
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     private function loadAllUserGroupsIdsOfUser(User $user): array
     {
@@ -328,3 +333,5 @@ class PermissionChecker implements PermissionCheckerInterface
         return $contentTypeIds;
     }
 }
+
+class_alias(PermissionChecker::class, 'EzSystems\EzPlatformAdminUi\Permission\PermissionChecker');

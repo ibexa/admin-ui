@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Value\Content;
+namespace Ibexa\AdminUi\UI\Value\Content;
 
-use eZ\Publish\API\Repository\Values\Content\Location as APILocation;
-use eZ\Publish\Core\Repository\Values\Content\Location as CoreLocation;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location as APILocation;
+use Ibexa\Core\Repository\Values\Content\Location as CoreLocation;
 
 /**
  * Extends original value object in order to provide additional fields.
@@ -34,7 +34,7 @@ class Location extends CoreLocation
     /**
      * Path locations.
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Location[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      */
     protected $pathLocations;
 
@@ -60,7 +60,7 @@ class Location extends CoreLocation
     protected $userCanEdit;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param array $properties
      */
     public function __construct(APILocation $location, array $properties = [])
@@ -88,3 +88,5 @@ class Location extends CoreLocation
         return $this->userCanEdit;
     }
 }
+
+class_alias(Location::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\Location');

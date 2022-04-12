@@ -9,12 +9,13 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
-use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
+use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
 use PHPUnit\Framework\Assert;
 
 class ObjectStatePage extends Page
@@ -22,30 +23,33 @@ class ObjectStatePage extends Page
     /** @var string */
     private $expectedObjectStateName;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
     /** @var mixed */
     private $expectedObjectStateId;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $table;
-
-    public function __construct(Session $session, Router $router, Repository $repository, TableBuilder $tableBuilder)
+    public function __construct(Session $session, Router $router, Repository $repository)
     {
         parent::__construct($session, $router);
         $this->repository = $repository;
-        $this->table = $tableBuilder->newTable()->build();
     }
 
     public function hasAttribute($label, $value)
     {
-        return $this->table->hasElement([$label => $value]);
+        return $this->getHTMLPage()
+                ->findAll($this->getLocator('objectStateAttribute'))
+                ->getByCriterion(new ChildElementTextCriterion($this->getLocator('label'), $label))
+                ->find($this->getLocator('value'))
+                ->getText() === $value;
     }
 
     public function edit()
     {
-        $this->getHTMLPage()->find($this->getLocator('editButton'))->click();
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('button'))
+            ->getByCriterion(new ElementTextCriterion('Edit'))
+            ->click();
     }
 
     public function getName(): string
@@ -80,8 +84,12 @@ class ObjectStatePage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-header h1'),
-            new VisibleCSSLocator('editButton', '.ez-icon-edit'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
+            new VisibleCSSLocator('propertiesTable', '.ibexa-container .ibexa-details'),
+            new VisibleCSSLocator('objectStateAttribute', '.ibexa-details__item'),
+            new VisibleCSSLocator('label', '.ibexa-label'),
+            new VisibleCSSLocator('value', '.ibexa-details__item-content'),
+            new VisibleCSSLocator('button', '.ibexa-btn'),
         ];
     }
 

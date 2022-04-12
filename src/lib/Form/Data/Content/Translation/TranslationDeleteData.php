@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation;
+namespace Ibexa\AdminUi\Form\Data\Content\Translation;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 class TranslationDeleteData
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
     protected $contentInfo;
 
     /** @var array|null */
     protected $languageCodes;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
      * @param array|null $languageCodes
      */
     public function __construct(?ContentInfo $contentInfo = null, array $languageCodes = [])
@@ -29,7 +29,7 @@ class TranslationDeleteData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
      */
     public function getContentInfo(): ?ContentInfo
     {
@@ -37,7 +37,7 @@ class TranslationDeleteData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
      */
     public function setContentInfo(?ContentInfo $contentInfo)
     {
@@ -60,3 +60,5 @@ class TranslationDeleteData
         $this->languageCodes = $languageCodes;
     }
 }
+
+class_alias(TranslationDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\TranslationDeleteData');

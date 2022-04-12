@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\TrashLocationOptionProvider;
+namespace Ibexa\AdminUi\Form\TrashLocationOptionProvider;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use EzSystems\EzPlatformAdminUi\Specification\Content\ContentHaveAssetRelation;
-use EzSystems\EzPlatformAdminUi\Specification\Content\ContentHaveUniqueRelation;
+use Ibexa\AdminUi\Specification\Content\ContentHaveAssetRelation;
+use Ibexa\AdminUi\Specification\Content\ContentHaveUniqueRelation;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class HasAssetRelation implements TrashLocationOptionProvider
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
@@ -54,3 +54,5 @@ final class HasAssetRelation implements TrashLocationOptionProvider
         ]);
     }
 }
+
+class_alias(HasAssetRelation::class, 'EzSystems\EzPlatformAdminUi\Form\TrashLocationOptionProvider\HasAssetRelation');

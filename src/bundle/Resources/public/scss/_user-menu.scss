@@ -1,8 +1,8 @@
-.ez-main-nav {
-    .ez-user-menu {
+.ibexa-main-nav {
+    .ibexa-user-menu {
         position: relative;
         cursor: pointer;
-        z-index: 1050;
+        z-index: 1051;
 
         &__name-wrapper {
             display: flex;
@@ -21,11 +21,11 @@
                 height: 0;
                 border-left: calculateRem(5px) solid transparent;
                 border-right: calculateRem(5px) solid transparent;
-                border-top: calculateRem(5px) solid $ibexa-color-base-dark;
+                border-top: calculateRem(5px) solid $ibexa-color-dark-300;
             }
 
             &--active {
-                background-color: $ibexa-white;
+                background-color: $ibexa-color-white;
                 box-shadow: 0 calculateRem(2px) calculateRem(6px) rgba(0, 0, 0, 0.15);
 
                 &:before {
@@ -49,7 +49,7 @@
             position: absolute;
             padding-top: calculateRem(6px);
             right: 0;
-            background-color: $ibexa-white;
+            background-color: $ibexa-color-white;
             box-shadow: 0 calculateRem(5px) calculateRem(6px) rgba(0, 0, 0, 0.15);
             transform-origin: top center;
             white-space: nowrap;
@@ -67,11 +67,11 @@
             padding-right: calculateRem(28px);
             cursor: pointer;
             font-size: calculateRem(14px);
-            color: $ibexa-color-font;
+            color: $ibexa-color-dark;
 
             &--dark {
                 .nav-link {
-                    color: $ibexa-color-font;
+                    color: $ibexa-color-dark;
                     text-decoration: none;
                 }
             }

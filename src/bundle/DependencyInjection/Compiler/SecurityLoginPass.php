@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\AdminUi\DependencyInjection\Compiler;
 
-use EzSystems\EzPlatformAdminUi\Security\Authentication\RedirectToDashboardAuthenticationSuccessHandler;
+use Ibexa\AdminUi\Security\Authentication\RedirectToDashboardAuthenticationSuccessHandler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -21,7 +21,9 @@ class SecurityLoginPass implements CompilerPassInterface
     {
         $successHandlerDef = $container->getDefinition('security.authentication.success_handler');
         $successHandlerDef->setClass(RedirectToDashboardAuthenticationSuccessHandler::class);
-        $successHandlerDef->addArgument($container->getParameter('ezpublish.siteaccess.groups'));
-        $successHandlerDef->addArgument('ezplatform.dashboard');
+        $successHandlerDef->addArgument($container->getParameter('ibexa.site_access.groups'));
+        $successHandlerDef->addArgument('ibexa.dashboard');
     }
 }
+
+class_alias(SecurityLoginPass::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Compiler\SecurityLoginPass');

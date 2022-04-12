@@ -6,19 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupsDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupCreateData;
+use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupDeleteData;
+use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupsDeleteData;
+use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -27,19 +28,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ContentTypeGroupController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -75,7 +76,7 @@ class ContentTypeGroupController extends Controller
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.content_type_group_limit'));
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroupList */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroupList */
         $contentTypeGroupList = $pagerfanta->getCurrentPageResults();
 
         $deleteContentTypeGroupsForm = $this->formFactory->deleteContentTypeGroups(
@@ -88,7 +89,7 @@ class ContentTypeGroupController extends Controller
             $count[$contentTypeGroup->id] = $contentTypesCount;
         }
 
-        return $this->render('@ezdesign/content_type/content_type_group/list.html.twig', [
+        return $this->render('@ibexadesign/content_type/content_type_group/list.html.twig', [
             'pager' => $pagerfanta,
             'form_content_type_groups_delete' => $deleteContentTypeGroupsForm->createView(),
             'deletable' => $deletableContentTypeGroup,
@@ -126,7 +127,7 @@ class ContentTypeGroupController extends Controller
                     'content_type'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.content_type_group.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content_type_group.view', [
                     'contentTypeGroupId' => $group->id,
                 ]));
             });
@@ -136,14 +137,14 @@ class ContentTypeGroupController extends Controller
             }
         }
 
-        return $this->render('@ezdesign/content_type/content_type_group/create.html.twig', [
+        return $this->render('@ibexadesign/content_type/content_type_group/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -170,7 +171,7 @@ class ContentTypeGroupController extends Controller
                     'content_type'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.content_type_group.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content_type_group.view', [
                     'contentTypeGroupId' => $group->id,
                 ]));
             });
@@ -180,7 +181,7 @@ class ContentTypeGroupController extends Controller
             }
         }
 
-        return $this->render('@ezdesign/content_type/content_type_group/edit.html.twig', [
+        return $this->render('@ibexadesign/content_type/content_type_group/edit.html.twig', [
             'content_type_group' => $group,
             'form' => $form->createView(),
         ]);
@@ -188,7 +189,7 @@ class ContentTypeGroupController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -218,7 +219,7 @@ class ContentTypeGroupController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.content_type_group.list'));
+        return $this->redirect($this->generateUrl('ibexa.content_type_group.list'));
     }
 
     /**
@@ -256,19 +257,19 @@ class ContentTypeGroupController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.content_type_group.list'));
+        return $this->redirect($this->generateUrl('ibexa.content_type_group.list'));
     }
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
      * @param int $page
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function viewAction(Request $request, ContentTypeGroup $group, int $page = 1): Response
     {
-        return $this->render('@ezdesign/content_type/content_type_group/index.html.twig', [
+        return $this->render('@ibexadesign/content_type/content_type_group/index.html.twig', [
             'content_type_group' => $group,
             'page' => $page,
             'route_name' => $request->get('_route'),
@@ -276,7 +277,7 @@ class ContentTypeGroupController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroups
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroups
      *
      * @return array
      */
@@ -287,3 +288,5 @@ class ContentTypeGroupController extends Controller
         return array_combine($contentTypeGroupsNumbers, array_fill_keys($contentTypeGroupsNumbers, false));
     }
 }
+
+class_alias(ContentTypeGroupController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentTypeGroupController');

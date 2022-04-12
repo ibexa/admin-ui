@@ -6,35 +6,35 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\View;
+namespace Ibexa\AdminUi\View;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\MVC\Symfony\View\BaseView;
-use EzSystems\EzPlatformContentForms\Content\View\ContentTypeValueView;
+use Ibexa\ContentForms\Content\View\ContentTypeValueView;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\MVC\Symfony\View\BaseView;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 
 /**
- * @inheritdoc
+ * {@inheritdoc}
  */
 class ContentTranslateView extends BaseView implements ContentTypeValueView
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Content */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */
     private $content;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
     private $contentType;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
     private $location;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
     private $language;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
     private $baseLanguage;
 
     /** @var \Symfony\Component\Form\FormInterface */
@@ -44,7 +44,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     private $formView;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      */
     public function setContent(Content $content)
     {
@@ -52,7 +52,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
     public function getContent(): Content
     {
@@ -60,7 +60,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      */
     public function setLocation(?Location $location)
     {
@@ -68,7 +68,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     public function getLocation(): ?Location
     {
@@ -76,7 +76,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      */
     public function getLanguage(): Language
     {
@@ -84,7 +84,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      */
     public function setLanguage(Language $language)
     {
@@ -92,7 +92,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      */
     public function getBaseLanguage(): ?Language
     {
@@ -100,7 +100,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $baseLanguage
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $baseLanguage
      */
     public function setBaseLanguage($baseLanguage)
     {
@@ -140,7 +140,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
      */
     public function getContentType(): ContentType
     {
@@ -148,10 +148,12 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      */
     public function setContentType(ContentType $contentType)
     {
         $this->contentType = $contentType;
     }
 }
+
+class_alias(ContentTranslateView::class, 'EzSystems\EzPlatformAdminUi\View\ContentTranslateView');

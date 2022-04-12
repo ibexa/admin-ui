@@ -16,7 +16,7 @@ use PHPUnit\Framework\Assert;
 class Keywords extends FieldTypeComponent
 {
     private $setKeywordsValueScript = <<<SCRIPT
-const SELECTOR_TAGGIFY = '.ez-data-source__taggify';
+const SELECTOR_TAGGIFY = '.ibexa-data-source__taggify';
 const taggifyContainer = document.querySelector(SELECTOR_TAGGIFY);
 const taggify = new window.Taggify({
     containerNode: taggifyContainer,
@@ -37,7 +37,8 @@ SCRIPT;
         $parsedValue = implode(',', array_map(
             static function (string $element) {
                 return sprintf('"%s"', trim($element));
-            }, explode(',', $parameters['value'])
+            },
+            explode(',', $parameters['value'])
         ));
 
         $this->getSession()->getDriver()->executeScript(sprintf($this->setKeywordsValueScript, $parsedValue));
@@ -78,7 +79,7 @@ SCRIPT;
     {
         return [
             new VisibleCSSLocator('fieldInput', 'input'),
-            new VisibleCSSLocator('keywordItem', '.ez-keyword__item'),
+            new VisibleCSSLocator('keywordItem', '.ibexa-keyword__item'),
         ];
     }
 

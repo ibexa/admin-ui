@@ -10,7 +10,7 @@ export const NOTIFICATION_ERROR_LABEL = 'error';
  * @param {{message: string, label: string}} detail
  */
 export const showNotification = (detail) => {
-    const event = new CustomEvent('ez-notify', {
+    const event = new CustomEvent('ibexa-notify', {
         detail,
     });
 

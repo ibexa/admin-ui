@@ -1,11 +1,33 @@
 .c-top-menu {
+    position: relative;
     display: flex;
     align-items: center;
-    height: calculateRem(64px);
+    height: calculateRem(72px);
+    padding: 0 calculateRem(24px) 0 calculateRem(65px);
+    transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+
+    &__title-wrapper,
+    &__actions-wrapper {
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+    }
+
+    &--search-opened {
+        box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info, 0.05);
+
+        .c-top-menu {
+            &__title-wrapper,
+            &__actions-wrapper {
+                opacity: 0;
+            }
+
+            &__cancel-btn-wrapper {
+                transform: scale(0);
+            }
+        }
+    }
 
     &__cancel-btn-wrapper {
-        margin-left: calculateRem(16px);
-        margin-right: calculateRem(36px);
+        margin-left: calculateRem(24px);
     }
 
     &__cancel-btn {
@@ -13,12 +35,21 @@
     }
 
     &__title-wrapper {
-        min-width: calculateRem(500px);
-        font-size: calculateRem(16px);
-        font-weight: bold;
+        margin: 0 calculateRem(40px) 0 0;
+        font-weight: 600;
+        color: $ibexa-color-dark;
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &__actions-wrapper {
         display: flex;
+    }
+
+    .ibexa-input-text-wrapper--search {
+        min-width: calculateRem(200px);
+        margin-left: calculateRem(40px);
     }
 }

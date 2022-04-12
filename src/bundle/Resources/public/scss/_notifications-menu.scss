@@ -1,5 +1,5 @@
-.ez-main-nav {
-    .ez-user-menu {
+.ibexa-main-nav {
+    .ibexa-user-menu {
         &__name-wrapper {
             .n-pending-notifications {
                 position: relative;
@@ -32,7 +32,7 @@
                     height: calculateRem(20px);
                     background: $ibexa-color-primary;
                     border-radius: 50%;
-                    color: $ibexa-white;
+                    color: $ibexa-color-white;
                     text-align: center;
                     line-height: calculateRem(20px);
                 }

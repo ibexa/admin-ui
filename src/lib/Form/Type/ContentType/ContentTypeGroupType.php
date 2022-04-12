@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Type\ContentType;
+namespace Ibexa\AdminUi\Form\Type\ContentType;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -34,8 +34,10 @@ class ContentTypeGroupType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => '\eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroupStruct',
+            'data_class' => '\\Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentTypeGroupStruct',
             'translation_domain' => 'content_type',
         ]);
     }
 }
+
+class_alias(ContentTypeGroupType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\ContentTypeGroupType');

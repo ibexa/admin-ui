@@ -116,7 +116,7 @@ export const loadLocation = ({ token, siteaccess }, { locationId = 2, limit = 10
     fetch(request)
         .then(handleRequestResponse)
         .then(callback)
-        .catch(() => window.eZ.helpers.notification.showErrorNotification('Cannot load location'));
+        .catch(() => window.ibexa.helpers.notification.showErrorNotification('Cannot load location'));
 };
 
 /**
@@ -132,8 +132,8 @@ export const updateLocationPriority = ({ priority, pathString, token, siteaccess
     const request = new Request(locationHref, {
         method: 'POST',
         headers: {
-            Accept: 'application/vnd.ez.api.Location+json',
-            'Content-Type': 'application/vnd.ez.api.LocationUpdate+json',
+            Accept: 'application/vnd.ibexa.api.Location+json',
+            'Content-Type': 'application/vnd.ibexa.api.LocationUpdate+json',
             'X-Siteaccess': siteaccess,
             'X-CSRF-Token': token,
             'X-HTTP-Method-Override': 'PATCH',
@@ -150,5 +150,5 @@ export const updateLocationPriority = ({ priority, pathString, token, siteaccess
     fetch(request)
         .then(handleRequestResponse)
         .then(callback)
-        .catch(() => window.eZ.helpers.notification.showErrorNotification('An error occurred while updating location priority'));
+        .catch(() => window.ibexa.helpers.notification.showErrorNotification('An error occurred while updating location priority'));
 };

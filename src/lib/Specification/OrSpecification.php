@@ -6,12 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Specification;
+namespace Ibexa\AdminUi\Specification;
 
 class OrSpecification extends AbstractSpecification
 {
     /** @var SpecificationInterface */
     private $one;
+
     /** @var SpecificationInterface */
     private $two;
 
@@ -35,3 +36,5 @@ class OrSpecification extends AbstractSpecification
         return $this->one->isSatisfiedBy($item) || $this->two->isSatisfiedBy($item);
     }
 }
+
+class_alias(OrSpecification::class, 'EzSystems\EzPlatformAdminUi\Specification\OrSpecification');

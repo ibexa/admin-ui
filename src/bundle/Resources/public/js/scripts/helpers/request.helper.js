@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function (global, doc, ibexa) {
     /**
      * Handles request error
      *
@@ -47,9 +47,9 @@
         return handleRequest(response).status;
     };
 
-    eZ.addConfig('helpers.request', {
+    ibexa.addConfig('helpers.request', {
         getJsonFromResponse,
         getTextFromResponse,
         getStatusFromResponse,
     });
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);
