@@ -12,7 +12,8 @@
         </button>
     </div>
     <div class="ibexa-extra-actions__content">
-        {{ form_start(form, { 'action': path('ibexa.content.edit') }) }}
+        {% set action = action is defined ? action : path('ibexa.content.edit') %}
+        {{ form_start(form, { 'action': action }) }}
         {{ form_widget(form.content_info, { 'attr': {
             'hidden': 'hidden',
             'class': 'ibexa-extra-actions__form-field'
