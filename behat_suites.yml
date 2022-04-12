@@ -27,7 +27,6 @@ browser:
                 - Ibexa\AdminUi\Behat\BrowserContext\ContentTypeContext
                 - Ibexa\AdminUi\Behat\BrowserContext\RolesContext
                 - Ibexa\AdminUi\Behat\BrowserContext\SystemInfoContext
-                - Ibexa\AdminUi\Behat\BrowserContext\LeftMenuContext
                 - Ibexa\AdminUi\Behat\BrowserContext\SectionsContext
                 - Ibexa\AdminUi\Behat\BrowserContext\LanguageContext
                 - Ibexa\AdminUi\Behat\BrowserContext\ObjectStatesContext
@@ -82,4 +81,3 @@ browser:
                 - Ibexa\AdminUi\Behat\BrowserContext\BookmarkContext
                 - Ibexa\Behat\Browser\Context\AuthenticationContext
                 - Ibexa\Behat\Browser\Context\DebuggingContext
-                - Ibexa\AdminUi\Behat\BrowserContext\BookmarkContext
