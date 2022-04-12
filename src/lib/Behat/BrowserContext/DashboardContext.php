@@ -65,4 +65,12 @@ class DashboardContext implements Context
         $this->contentUpdateItemPage->setExpectedPageTitle($contentDraftName);
         $this->contentUpdateItemPage->verifyIsLoaded();
     }
+
+    /**
+     * @Given I open UWD from Dashboard
+     */
+    public function openUDW(): void
+    {
+        $this->dashboardPage->createContent();
+    }
 }

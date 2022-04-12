@@ -59,6 +59,11 @@ class DashboardPage extends Page
             ->assert()->isVisible();
     }
 
+    public function createContent(): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('createButton'))->click();
+    }
+
     public function getName(): string
     {
         return 'Dashboard';
@@ -77,6 +82,7 @@ class DashboardPage extends Page
             new VisibleCSSLocator('tableTab', '.ibexa-tabs .nav-item'),
             new VisibleCSSLocator('pageTitle', '.ibexa-header-wrapper h1'),
             new VisibleCSSLocator('table', '#ibexa-tab-dashboard-my-my-drafts'),
+            new VisibleCSSLocator('createButton', '.ibexa-btn--cotf-create'),
         ];
     }
 }
