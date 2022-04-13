@@ -36,8 +36,7 @@ Feature: Object States management
         | Identifier              | TestObjectStateGroupIdentifier |
       And notification that "Object state group" "Test Object State Group" is created appears
 
-
-  @javascript
+  @javascript @test
   Scenario: Object State groups cannot be created with invalid characters
     Given I open "Object State groups" page in admin SiteAccess
     When I create a new Object State group
@@ -46,7 +45,7 @@ Feature: Object States management
       | Name                 | TestInvalidIdentifier |
       | Identifier           | @                              |
     And I click on the edit action bar button "Create"
-    Then I should be on "TestInvalidIdentifier" Object State group page
+    Then I should be on "TestInvalidIdentifierAAAA" Object State group page
     #TODO: Assert that validation message kicks in
 
   @javascript
