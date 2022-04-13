@@ -46,8 +46,8 @@
         attachModalListeners(wrapper, form, btns);
     };
     const changeHandler = (form, btns, event) => {
-        const contentIdInput = form.querySelector('#content_edit_content_info') || form.querySelector('#user_edit_content_info');
-        const locationInput = form.querySelector('#content_edit_location') || form.querySelector('#user_edit_location');
+        const contentIdInput = form.querySelector('.ibexa-extra-actions__form-field--content-info');
+        const locationInput = form.querySelector('.ibexa-extra-actions__form-field--location');
         const contentId = contentIdInput.value;
         const locationId = locationInput.value;
         const checkedBtn = event.currentTarget;
