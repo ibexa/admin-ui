@@ -36,6 +36,19 @@ Feature: Object States management
         | Identifier              | TestObjectStateGroupIdentifier |
       And notification that "Object state group" "Test Object State Group" is created appears
 
+
+  @javascript
+  Scenario: Object State groups cannot be created with invalid characters
+    Given I open "Object State groups" page in admin SiteAccess
+    When I create a new Object State group
+    And I set fields
+      | label                | value                 |
+      | Name                 | TestInvalidIdentifier |
+      | Identifier           | @                              |
+    And I click on the edit action bar button "Create"
+    Then I should be on "TestInvalidIdentifier" Object State group page
+    #TODO: Assert that validation message kicks in
+
   @javascript
   Scenario: Changes can be discarded while editing Object state groups
     Given I open "Object State groups" page in admin SiteAccess
