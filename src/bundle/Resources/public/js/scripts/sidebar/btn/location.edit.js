@@ -1,37 +1,31 @@
 (function (global, doc, ibexa, bootstrap, Routing) {
-    const editActions = doc.querySelector('.ibexa-extra-actions--edit') || doc.querySelector('.ibexa-extra-actions--edit-user');
-    const btns = [...editActions.querySelectorAll('.form-check [type="radio"]')];
-    const form = editActions.querySelector('form');
-    const contentIdInput = form.querySelector('#content_edit_content_info') || form.querySelector('#user_edit_content_info');
-    const contentId = contentIdInput.value;
-    const locationInput = form.querySelector('#content_edit_location') || form.querySelector('#user_edit_location');
-    const locationId = locationInput.value;
-    const resetRadioButtons = () =>
+    const editActions = doc.querySelectorAll('.ibexa-extra-actions--edit, .ibexa-extra-actions--edit-user');
+    const resetRadioButtons = (btns) =>
         btns.forEach((btn) => {
             btn.checked = false;
         });
-    const addDraft = () => {
+    const addDraft = (form) => {
         form.submit();
         bootstrap.Modal.getOrCreateInstance(doc.querySelector('#version-draft-conflict-modal')).hide();
     };
-    const redirectToUserEdit = (languageCode) => {
+    const redirectToUserEdit = (languageCode, contentId, form) => {
         const versionNo = form.querySelector('#user_edit_version_info_version_no').value;
 
         window.location.href = Routing.generate('ibexa.user.update', { contentId, versionNo, language: languageCode });
     };
-    const onModalHidden = () => {
-        resetRadioButtons();
+    const onModalHidden = (btns) => {
+        resetRadioButtons(btns);
 
         const event = new CustomEvent('ibexa-draft-conflict-modal-hidden');
 
         doc.body.dispatchEvent(event);
     };
-    const attachModalListeners = (wrapper) => {
+    const attachModalListeners = (wrapper, form, btns) => {
         const addDraftButton = wrapper.querySelector('.ibexa-btn--add-draft');
         const conflictModal = doc.querySelector('#version-draft-conflict-modal');
 
         if (addDraftButton) {
-            addDraftButton.addEventListener('click', addDraft, false);
+            addDraftButton.addEventListener('click', addDraft.bind(null, form), false);
         }
 
         wrapper
@@ -41,17 +35,21 @@
         if (conflictModal) {
             bootstrap.Modal.getOrCreateInstance(conflictModal).show();
 
-            conflictModal.addEventListener('hidden.bs.modal', onModalHidden);
+            conflictModal.addEventListener('hidden.bs.modal', onModalHidden.bind(null, btns));
             conflictModal.addEventListener('shown.bs.modal', () => ibexa.helpers.tooltips.parse());
         }
     };
-    const showModal = (modalHtml) => {
+    const showModal = (form, btns, modalHtml) => {
         const wrapper = doc.querySelector('.ibexa-modal-wrapper');
 
         wrapper.innerHTML = modalHtml;
-        attachModalListeners(wrapper);
+        attachModalListeners(wrapper, form, btns);
     };
-    const changeHandler = (event) => {
+    const changeHandler = (form, btns, event) => {
+        const contentIdInput = form.querySelector('.ibexa-extra-actions__form-field--content-info');
+        const locationInput = form.querySelector('.ibexa-extra-actions__form-field--location');
+        const contentId = contentIdInput.value;
+        const locationId = locationInput.value;
         const checkedBtn = event.currentTarget;
         const languageCode = checkedBtn.value;
         const checkVersionDraftLink = Routing.generate('ibexa.version_draft.has_no_conflict', { contentId, languageCode, locationId });
@@ -60,10 +58,10 @@
             credentials: 'same-origin',
         }).then((response) => {
             if (response.status === 409) {
-                response.text().then(showModal);
+                response.text().then(showModal.bind(null, form, btns));
             } else if (response.status === 200) {
                 if (form.querySelector('#user_edit_version_info')) {
-                    redirectToUserEdit(languageCode);
+                    redirectToUserEdit(languageCode, contentId, form);
 
                     return;
                 }
@@ -72,6 +70,12 @@
             }
         });
     };
+    const attachEventsToEditActionsWidget = (container) => {
+        const btns = [...container.querySelectorAll('.form-check [type="radio"]')];
+        const form = container.querySelector('form');
 
-    btns.forEach((btn) => btn.addEventListener('change', changeHandler, false));
+        btns.forEach((btn) => btn.addEventListener('change', changeHandler.bind(null, form, btns), false));
+    };
+
+    [...editActions].forEach(attachEventsToEditActionsWidget);
 })(window, window.document, window.ibexa, window.bootstrap, window.Routing);

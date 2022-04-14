@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Factory;
 
 use Ibexa\AdminUi\Form\Data\Bookmark\BookmarkRemoveData;
+use Ibexa\AdminUi\Form\Data\Content\ContentVisibilityUpdateData;
 use Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData;
 use Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData;
 use Ibexa\AdminUi\Form\Data\Content\Draft\ContentCreateData;
@@ -64,6 +65,7 @@ use Ibexa\AdminUi\Form\Data\User\UserDeleteData;
 use Ibexa\AdminUi\Form\Data\User\UserEditData;
 use Ibexa\AdminUi\Form\Data\Version\VersionRemoveData;
 use Ibexa\AdminUi\Form\Type\Bookmark\BookmarkRemoveType;
+use Ibexa\AdminUi\Form\Type\Content\ContentVisibilityUpdateType;
 use Ibexa\AdminUi\Form\Type\Content\CustomUrl\CustomUrlAddType;
 use Ibexa\AdminUi\Form\Type\Content\CustomUrl\CustomUrlRemoveType;
 use Ibexa\AdminUi\Form\Type\Content\Draft\ContentCreateType;
@@ -412,6 +414,7 @@ class FormFactory
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationTrashType::class);
+        $data = $data ?? new LocationTrashData();
 
         return $this->formFactory->createNamed($name, LocationTrashType::class, $data);
     }
@@ -461,6 +464,19 @@ class FormFactory
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationUpdateVisibilityData::class);
 
         return $this->formFactory->createNamed($name, LocationUpdateVisibilityType::class, $data);
+    }
+
+    /**
+     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     */
+    public function updateVisibilityContent(
+        ?ContentVisibilityUpdateData $data = null,
+        ?string $name = null
+    ): FormInterface {
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentVisibilityUpdateType::class);
+        $data = $data ?? new ContentVisibilityUpdateData();
+
+        return $this->formFactory->createNamed($name, ContentVisibilityUpdateType::class, $data);
     }
 
     /**

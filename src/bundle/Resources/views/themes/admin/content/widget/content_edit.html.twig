@@ -1,8 +1,10 @@
 {% trans_default_domain 'locationview' %}
 
-<div class="ibexa-extra-actions ibexa-extra-actions--edit ibexa-extra-actions--hidden {% if form.language.vars.choices|length == 1 %} ibexa-extra-actions--prevent-show {% endif %}" data-actions="edit">
+{% set data_actions = data_actions|default('edit') %}
+
+<div class="ibexa-extra-actions ibexa-extra-actions--edit ibexa-extra-actions--hidden {% if form.language.vars.choices|length == 1 %} ibexa-extra-actions--prevent-show {% endif %}" data-actions="{{ data_actions }}">
     <div class="ibexa-extra-actions__header">
-        <h3>{{ 'content.edit.select_language'|trans|desc('Select translation') }} ({{ form.language.vars.choices|length }})</h3>
+        <h3>{{ 'content.edit.select_language'|trans|desc('Select translation') }} (<span class="ibexa-extra-actions__counter">{{ form.language.vars.choices|length }}</span>)</h3>
         <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--close">
             <svg class="ibexa-icon ibexa-icon--small">
                 <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
@@ -10,10 +12,11 @@
         </button>
     </div>
     <div class="ibexa-extra-actions__content">
-        {{ form_start(form, { 'action': path('ibexa.content.edit') }) }}
+        {% set action = action is defined ? action : path('ibexa.content.edit') %}
+        {{ form_start(form, { 'action': action }) }}
         {{ form_widget(form.content_info, { 'attr': {
             'hidden': 'hidden',
-            'class': 'ibexa-extra-actions__form-field'
+            'class': 'ibexa-extra-actions__form-field ibexa-extra-actions__form-field--content-info'
         } }) }}
         {{ form_widget(form.version_info, { 'attr': {
             'hidden': 'hidden',
@@ -21,6 +24,10 @@
         } }) }}
         {{ form_widget(form.language, { 'attr': {
             'class': 'ibexa-extra-actions__form-values'
+        } }) }}
+        {{ form_widget(form.location, { 'attr': {
+            'hidden': 'hidden',
+            'class': 'ibexa-extra-actions__form-field ibexa-extra-actions__form-field--location'
         } }) }}
         {{ form_end(form) }}
     </div>

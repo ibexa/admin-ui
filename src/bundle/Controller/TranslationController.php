@@ -63,7 +63,8 @@ class TranslationController extends Controller
      */
     public function addAction(Request $request): Response
     {
-        $form = $this->formFactory->addTranslation();
+        $formName = $request->query->get('formName');
+        $form = $this->formFactory->addTranslation(null, $formName);
         $form->handleRequest($request);
 
         /** @var \Ibexa\AdminUi\Form\Data\Content\Translation\TranslationAddData $data */

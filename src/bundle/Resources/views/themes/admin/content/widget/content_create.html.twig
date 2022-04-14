@@ -1,6 +1,8 @@
 {% trans_default_domain 'locationview' %}
 
-<div class="ibexa-extra-actions ibexa-extra-actions--create ibexa-extra-actions--hidden" data-actions="create">
+{% set data_actions = data_actions|default('create') %}
+
+<div class="ibexa-extra-actions ibexa-extra-actions--create ibexa-extra-actions--hidden" data-actions="{{ data_actions }}">
     <div class="ibexa-extra-actions__header">
         <h2>{{ 'content.create.create_content'|trans|desc('Create content') }}</h2>
         <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--close">
@@ -15,7 +17,11 @@
         </div>
     </div>
     <div class="ibexa-extra-actions__content">
-        {{ form_start(form, { 'action': path('ibexa.content.create'), 'attr': { 'autocomplete': 'off' } }) }}
+        {% set action = action is defined ? action : path('ibexa.content.create') %}
+        {{ form_start(form, {
+            'action': action,
+            'attr': { 'autocomplete': 'off' }
+        }) }}
             <label class="ibexa-label ibexa-extra-actions__section-header">{{ 'content.create.select_language'|trans|desc('Select a language:') }}</label>
             <div class="ibexa-extra-actions__section-content">
                 {% if form.language.vars.choices|length == 1 %}

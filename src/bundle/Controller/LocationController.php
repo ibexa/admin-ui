@@ -131,7 +131,8 @@ class LocationController extends Controller
     public function moveAction(Request $request): Response
     {
         $form = $this->formFactory->moveLocation(
-            new LocationMoveData()
+            new LocationMoveData(),
+            $request->query->get('formName')
         );
         $form->handleRequest($request);
 
@@ -183,7 +184,8 @@ class LocationController extends Controller
     public function copyAction(Request $request): Response
     {
         $form = $this->formFactory->copyLocation(
-            new LocationCopyData()
+            new LocationCopyData(),
+            $request->query->get('formName')
         );
         $form->handleRequest($request);
 
@@ -241,7 +243,8 @@ class LocationController extends Controller
     public function copySubtreeAction(Request $request): Response
     {
         $form = $this->formFactory->copyLocationSubtree(
-            new LocationCopySubtreeData()
+            new LocationCopySubtreeData(),
+            $request->query->get('formName')
         );
         $form->handleRequest($request);
 
@@ -342,7 +345,8 @@ class LocationController extends Controller
     public function trashAction(Request $request): Response
     {
         $form = $this->formFactory->trashLocation(
-            new LocationTrashData()
+            new LocationTrashData(),
+            $request->query->get('formName')
         );
 
         $form->handleRequest($request);

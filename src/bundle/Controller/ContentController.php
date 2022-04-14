@@ -16,7 +16,6 @@ use Ibexa\AdminUi\Form\DataMapper\ContentMainLocationUpdateMapper;
 use Ibexa\AdminUi\Form\DataMapper\MainTranslationUpdateMapper;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
-use Ibexa\AdminUi\Form\Type\Content\ContentVisibilityUpdateType;
 use Ibexa\AdminUi\Form\Type\Content\Translation\MainTranslationUpdateType;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface;
@@ -136,7 +135,8 @@ class ContentController extends Controller
      */
     public function createAction(Request $request): Response
     {
-        $form = $this->formFactory->createContent();
+        $formName = $request->query->get('formName');
+        $form = $this->formFactory->createContent(null, $formName);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
@@ -208,7 +208,10 @@ class ContentController extends Controller
     {
         /* @todo it shouldn't rely on keys from request */
         $requestKeys = $request->request->keys();
-        $formName = reset($requestKeys) ?: null;
+        $formName = $request->query->get(
+            'formName',
+            reset($requestKeys) ?: null
+        );
 
         $form = $this->formFactory->contentEdit(null, $formName);
         $form->handleRequest($request);
@@ -439,7 +442,8 @@ class ContentController extends Controller
      */
     public function updateVisibilityAction(Request $request): Response
     {
-        $form = $this->createForm(ContentVisibilityUpdateType::class);
+        $formName = $request->query->get('formName');
+        $form = $this->formFactory->updateVisibilityContent(null, $formName);
         $form->handleRequest($request);
         $result = null;
 

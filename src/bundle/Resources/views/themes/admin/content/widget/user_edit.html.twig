@@ -6,8 +6,14 @@
     <div class="ibexa-extra-actions__header">{{ 'user.edit.select_language'|trans|desc('Select a language:') }}</div>
     <div class="ibexa-extra-actions__content">
         {{ form_start(form) }}
-        {{ form_widget(form.content_info) }}
-        {{ form_widget(form.location) }}
+        {{ form_widget(form.content_info, { 'attr': {
+            'hidden': 'hidden',
+            'class': 'ibexa-extra-actions__form-field ibexa-extra-actions__form-field--content-info'
+        } }) }}
+        {{ form_widget(form.location, { 'attr': {
+            'hidden': 'hidden',
+            'class': 'ibexa-extra-actions__form-field ibexa-extra-actions__form-field--location'
+        } }) }}
         {{ form_widget(form.version_info) }}
         {{ form_widget(form.language, { 'attr': {
             'class': 'ibexa-extra-actions__form-values'
