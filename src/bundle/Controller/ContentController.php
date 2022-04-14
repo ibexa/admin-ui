@@ -16,7 +16,6 @@ use Ibexa\AdminUi\Form\DataMapper\ContentMainLocationUpdateMapper;
 use Ibexa\AdminUi\Form\DataMapper\MainTranslationUpdateMapper;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
-use Ibexa\AdminUi\Form\Type\Content\ContentVisibilityUpdateType;
 use Ibexa\AdminUi\Form\Type\Content\Translation\MainTranslationUpdateType;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface;
