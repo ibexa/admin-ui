@@ -1,6 +1,8 @@
 (function (global, doc) {
     const editButton = doc.querySelector('.ibexa-btn--edit');
-    const languageRadioOption = doc.querySelector('.ibexa-extra-actions--edit.ibexa-extra-actions--prevent-show .ibexa-input--radio');
+    const languageRadioOption = doc.querySelector(
+        '.ibexa-content-menu-wrapper .ibexa-extra-actions--edit.ibexa-extra-actions--prevent-show .ibexa-input--radio',
+    );
 
     if (!languageRadioOption) {
         return;
