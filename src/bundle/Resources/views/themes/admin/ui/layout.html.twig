@@ -170,7 +170,10 @@
                 {% endblock %}
 
                 {% block content_column %}
-                    <div class="ibexa-main-container__content-column ibexa-back-to-top-scroll-container">
+                    <div
+                        class="ibexa-main-container__content-column
+                            {%- if not is_back_to_top_disabled|default(false) %} ibexa-back-to-top-scroll-container{% endif %}"
+                    >
                         <div class="container ibexa-back-to-top-anchor">
                             {% block content_header %}
                                 <div class="ibexa-page-header-wrapper">
@@ -201,18 +204,20 @@
             })|e('html_attr')  }}"></div>
         <div class="ibexa-modal-wrapper"></div>
 
-        {% block back_to_top %}
-            <div class="ibexa-back-to-top">
-                <button type="button" class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--no-text ibexa-back-to-top__btn">
-                    <span class="ibexa-back-to-top__title">
-                        {{ 'back.to.top'|trans|desc('Go to top') }}
-                    </span>
-                    <svg class="ibexa-icon ibexa-icon--medium ibexa-back-to-top__icon">
-                        <use xlink:href="{{ ibexa_icon_path('back') }}"></use>
-                    </svg>
-                </button>
-            </div>
-        {% endblock %}
+        {% if not is_back_to_top_disabled|default(false) %}
+            {% block back_to_top %}
+                <div class="ibexa-back-to-top">
+                    <button type="button" class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--no-text ibexa-back-to-top__btn">
+                        <span class="ibexa-back-to-top__title">
+                            {{ 'back.to.top'|trans|desc('Go to top') }}
+                        </span>
+                        <svg class="ibexa-icon ibexa-icon--medium ibexa-back-to-top__icon">
+                            <use xlink:href="{{ ibexa_icon_path('back') }}"></use>
+                        </svg>
+                    </button>
+                </div>
+            {% endblock %}
+        {% endif %}
 
         {{ encore_entry_script_tags('ibexa-admin-ui-layout-js', null, 'ibexa') }}
         {{ encore_entry_script_tags('ibexa-admin-ui-udw-tabs-js', null, 'ibexa') }}
