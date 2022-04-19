@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\DataTransformer;
+namespace Ibexa\AdminUi\Form\DataTransformer;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -19,11 +19,11 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class UserTransformer implements DataTransformerInterface
 {
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     protected $userService;
 
     /**
-     * @param \eZ\Publish\API\Repository\UserService $userService
+     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
      */
     public function __construct(UserService $userService)
     {
@@ -33,7 +33,7 @@ class UserTransformer implements DataTransformerInterface
     /**
      * Transforms a domain specific User object into a Users's ID.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\User|null $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User|null $value
      *
      * @return mixed|null
      *
@@ -57,9 +57,9 @@ class UserTransformer implements DataTransformerInterface
      *
      * @param mixed|null $value
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User|null
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not an integer
      *                                                                         or if the value can not be transformed
      */
@@ -80,3 +80,5 @@ class UserTransformer implements DataTransformerInterface
         }
     }
 }
+
+class_alias(UserTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\UserTransformer');

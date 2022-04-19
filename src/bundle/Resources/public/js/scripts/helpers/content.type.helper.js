@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function (global, doc, ibexa) {
     let contentTypesDataMap = null;
 
     /**
@@ -8,7 +8,7 @@
      * @returns {Object} contentTypesDataMap
      */
     const createContentTypeDataMap = () =>
-        Object.values(eZ.adminUiConfig.contentTypes).reduce((contentTypeDataMap, contentTypeGroup) => {
+        Object.values(ibexa.adminUiConfig.contentTypes).reduce((contentTypeDataMap, contentTypeGroup) => {
             for (const contentTypeData of contentTypeGroup) {
                 contentTypeDataMap[contentTypeData.identifier] = contentTypeData;
             }
@@ -56,8 +56,8 @@
         return contentTypesDataMap[contentTypeIdentifier].name;
     };
 
-    eZ.addConfig('helpers.contentType', {
+    ibexa.addConfig('helpers.contentType', {
         getContentTypeIconUrl,
-        getContentTypeName
+        getContentTypeName,
     });
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

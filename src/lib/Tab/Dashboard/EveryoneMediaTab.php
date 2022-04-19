@@ -6,34 +6,34 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\Dashboard;
+namespace Ibexa\AdminUi\Tab\Dashboard;
 
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchAdapter;
-use eZ\Publish\Core\QueryType\QueryType;
-use EzSystems\EzPlatformAdminUi\Tab\AbstractTab;
-use EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Core\Pagination\Pagerfanta\ContentSearchAdapter;
+use Ibexa\Core\QueryType\QueryType;
 use Pagerfanta\Pagerfanta;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 class EveryoneMediaTab extends AbstractTab implements OrderedTabInterface
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Tab\Dashboard\PagerContentToDataMapper */
+    /** @var \Ibexa\AdminUi\Tab\Dashboard\PagerContentToDataMapper */
     protected $pagerContentToDataMapper;
 
-    /** @var \eZ\Publish\API\Repository\SearchService */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     protected $searchService;
 
-    /** @var \eZ\Publish\Core\QueryType\QueryType */
+    /** @var \Ibexa\Core\QueryType\QueryType */
     private $mediaSubtreeQueryType;
 
     /**
      * @param \Twig\Environment $twig
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \EzSystems\EzPlatformAdminUi\Tab\Dashboard\PagerContentToDataMapper $pagerContentToDataMapper
-     * @param \eZ\Publish\API\Repository\SearchService $searchService
-     * @param \eZ\Publish\Core\QueryType\QueryType $mediaSubtreeQueryType
+     * @param \Ibexa\AdminUi\Tab\Dashboard\PagerContentToDataMapper $pagerContentToDataMapper
+     * @param \Ibexa\Contracts\Core\Repository\SearchService $searchService
+     * @param \Ibexa\Core\QueryType\QueryType $mediaSubtreeQueryType
      */
     public function __construct(
         Environment $twig,
@@ -80,8 +80,10 @@ class EveryoneMediaTab extends AbstractTab implements OrderedTabInterface
         $pager->setMaxPerPage($limit);
         $pager->setCurrentPage($page);
 
-        return $this->twig->render('@ezdesign/ui/dashboard/tab/all_media.html.twig', [
+        return $this->twig->render('@ibexadesign/ui/dashboard/tab/all_media.html.twig', [
             'data' => $this->pagerContentToDataMapper->map($pager),
         ]);
     }
 }
+
+class_alias(EveryoneMediaTab::class, 'EzSystems\EzPlatformAdminUi\Tab\Dashboard\EveryoneMediaTab');

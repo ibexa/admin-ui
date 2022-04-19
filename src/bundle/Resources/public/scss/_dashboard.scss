@@ -1,32 +1,10 @@
-.ez-dashboard {
-    &__header {
-        display: grid;
-        grid-template-columns: auto calculateRem(120px);
-
-        .ez-dashboard__create {
-            .ez-btn--cotf-create {
-                color: $ibexa-color-primary;
-                text-decoration: none;
-    
-                .ez-icon {
-                    margin-right: calculateRem(4px);
-                }
-            }
-        }
-    }
-
+.ibexa-dashboard {
     &__create {
         display: flex;
-        align-items: center;
+        justify-content: flex-end;
     }
 
-    &__version-info {
-        display: flex;
-        align-items: center;
-        margin-top: calculateRem(18px);
-    }
-
-    &__version {
-        margin: 0 calculateRem(24px) 0 0;
+    .table:not(.ibexa-table--draft-conflict) {
+        margin-bottom: 0;
     }
 }

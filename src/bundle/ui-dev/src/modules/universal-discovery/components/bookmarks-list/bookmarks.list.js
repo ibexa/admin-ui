@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import Icon from '../../../common/icon/icon';
@@ -15,15 +15,18 @@ import {
     AllowedContentTypesContext,
 } from '../../universal.discovery.module';
 
+const { ibexa } = window;
+
 const SCROLL_OFFSET = 200;
 
 const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
+    const refBookmarksList = useRef(null);
     const [offset, setOffset] = useState(0);
     const [bookmarks, setBookmarks] = useState([]);
-    const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
-    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
-    const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
-    const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
+    const [markedLocationId] = useContext(MarkedLocationIdContext);
+    const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const [, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
+    const [multiple] = useContext(MultipleConfigContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const containersOnly = useContext(ContainersOnlyContext);
@@ -45,7 +48,7 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
 
         return (
             <div className="c-bookmarks-list__spinner-wrapper">
-                <Icon name="spinner" extraClasses="m-sub-items__spinner ez-icon--medium ez-spin" />
+                <Icon name="spinner" extraClasses="m-sub-items__spinner ibexa-icon--medium ibexa-spin" />
             </div>
         );
     };
@@ -58,16 +61,20 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
         setBookmarks((prevState) => [...prevState, ...data.items]);
     }, [data.items, isLoading]);
 
+    useEffect(() => {
+        ibexa.helpers.tooltips.parse(refBookmarksList.current);
+    }, [bookmarks]);
+
     if (!bookmarks.length) {
         return null;
     }
 
     return (
-        <div className="c-bookmarks-list" onScroll={loadMore}>
+        <div className="c-bookmarks-list" onScroll={loadMore} ref={refBookmarksList}>
             {bookmarks.map((bookmark) => {
                 const isMarked = bookmark.id === markedLocationId;
                 const contentTypeInfo = contentTypesMap[bookmark.ContentInfo.Content.ContentType._href];
-                const isContainer = contentTypeInfo.isContainer;
+                const { isContainer } = contentTypeInfo;
                 const isNotSelectable =
                     (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeInfo.identifier));
                 const className = createCssClassNames({
@@ -93,8 +100,14 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
                 };
 
                 return (
-                    <div key={bookmark.id} className={className} onClick={markLocation}>
-                        <Icon extraClasses="ez-icon--small" customPath={contentTypeInfo.thumbnail} />
+                    <div
+                        key={bookmark.id}
+                        className={className}
+                        onClick={markLocation}
+                        title={bookmark.ContentInfo.Content.TranslatedName}
+                        data-tooltip-container-selector=".c-bookmarks-list"
+                    >
+                        <Icon extraClasses="ibexa-icon--small" customPath={contentTypeInfo.thumbnail} />
                         <span className="c-bookmarks-list__item-name">{bookmark.ContentInfo.Content.TranslatedName}</span>
                     </div>
                 );

@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Menu\Voter;
+namespace Ibexa\AdminUi\Menu\Voter;
 
-use eZ\Publish\Core\MVC\Symfony\View\ContentView;
+use Ibexa\Core\MVC\Symfony\View\ContentView;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\Matcher\Voter\VoterInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class LocationVoter implements VoterInterface
 {
-    private const CONTENT_VIEW_ROUTE_NAME = '_ez_content_view';
+    private const CONTENT_VIEW_ROUTE_NAME = 'ibexa.content.view';
 
     /**
      * @var \Symfony\Component\HttpFoundation\RequestStack
@@ -31,7 +31,7 @@ class LocationVoter implements VoterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function matchItem(ItemInterface $item): ?bool
     {
@@ -52,3 +52,5 @@ class LocationVoter implements VoterInterface
         return null;
     }
 }
+
+class_alias(LocationVoter::class, 'EzSystems\EzPlatformAdminUi\Menu\Voter\LocationVoter');

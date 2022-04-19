@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function (global, doc, ibexa) {
     const escapeHTML = (string) => {
         const stringTempNode = doc.createElement('div');
 
@@ -7,7 +7,7 @@
         return stringTempNode.innerHTML;
     };
 
-    eZ.addConfig('helpers.text', {
+    ibexa.addConfig('helpers.text', {
         escapeHTML,
     });
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

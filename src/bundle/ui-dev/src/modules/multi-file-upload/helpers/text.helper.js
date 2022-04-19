@@ -10,14 +10,13 @@ export const fileSizeToString = (filesize) => {
     const kilobyte = 1024;
     let size = parseInt(filesize, 10) || 0;
     let unitIndex = 0;
-    let decimalUnits;
 
     while (size >= kilobyte) {
         size = size / kilobyte;
         unitIndex++;
     }
 
-    decimalUnits = unitIndex < 1 ? 0 : 1;
+    const decimalUnits = unitIndex < 1 ? 0 : 1;
 
-    return size.toFixed(size >= 10 || decimalUnits) + ' ' + units[unitIndex];
+    return `${size.toFixed(size >= 10 || decimalUnits)} ${units[unitIndex]}`;
 };

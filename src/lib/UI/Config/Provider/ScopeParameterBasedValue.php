@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Config\Provider;
+namespace Ibexa\AdminUi\UI\Config\Provider;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzPlatformAdminUi\UI\Config\ProviderInterface;
+use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 class ScopeParameterBasedValue implements ProviderInterface
 {
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     protected $configResolver;
 
     /** @var string */
@@ -38,7 +38,7 @@ class ScopeParameterBasedValue implements ProviderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @return mixed
      */
@@ -47,3 +47,5 @@ class ScopeParameterBasedValue implements ProviderInterface
         return $this->configResolver->getParameter($this->parameterName, $this->namespace, $this->scope);
     }
 }
+
+class_alias(ScopeParameterBasedValue::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\ScopeParameterBasedValue');

@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function (global, doc, ibexa) {
     class BaseFieldValidator {
         constructor(config) {
             this.classInvalid = config.classInvalid;
@@ -94,6 +94,12 @@
             input.classList[methodName](this.classInvalid);
 
             nodes.forEach((el) => el.classList[methodName](this.classInvalid));
+
+            doc.body.dispatchEvent(
+                new CustomEvent('ibexa-inputs-validation:change-state', {
+                    detail: { nodes },
+                }),
+            );
         }
 
         /**
@@ -107,7 +113,7 @@
         createErrorNode(message) {
             const errorNode = doc.createElement('em');
 
-            errorNode.classList.add('ez-field-edit__error');
+            errorNode.classList.add('ibexa-field-edit__error');
             errorNode.innerHTML = message;
 
             return errorNode;
@@ -153,7 +159,7 @@
         toggleErrorMessage(validationResult, config, input) {
             const container = this.getFieldTypeContainer(input.closest(this.fieldSelector));
             const nodes = this.findErrorContainers(container, input, config.errorNodeSelectors);
-            const existingErrorSelectors = config.errorNodeSelectors.map((selector) => `${selector} .ez-field-edit__error`);
+            const existingErrorSelectors = config.errorNodeSelectors.map((selector) => `${selector} .ibexa-field-edit__error`);
             const existingErrorNodes = this.findExistingErrorNodes(container, input, existingErrorSelectors);
 
             existingErrorNodes.forEach((el) => el.remove());
@@ -247,5 +253,5 @@
         }
     }
 
-    eZ.addConfig('BaseFieldValidator', BaseFieldValidator);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('BaseFieldValidator', BaseFieldValidator);
+})(window, window.document, window.ibexa);
