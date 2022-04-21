@@ -77,13 +77,22 @@
     }
 
     &__collapsible {
-        display: flex;
-        padding: calculateRem(8px) 0 calculateRem(16px);
         border-top: calculateRem(1px) solid $ibexa-color-light;
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
-        &:not(.show) {
+        &--collapsed {
             border-top-color: transparent;
+        }
+    }
+
+    &__collapsible-content {
+        display: flex;
+        padding: calculateRem(8px) 0 calculateRem(16px);
+        opacity: 1;
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+
+        &--collapsed {
+            opacity: 0;
         }
     }
 
