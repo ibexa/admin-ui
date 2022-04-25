@@ -27,9 +27,8 @@
         font-size: $ibexa-text-font-size-small;
         line-height: calculateRem(16px);
         font-weight: normal;
-        border: calculateRem(1px) solid $ibexa-color-dark;
         border-radius: calculateRem(12px);
-        background-color: $ibexa-color-light-400;
+        background-color: $ibexa-color-light-500;
         margin-top: calculateRem(5px);
         margin-bottom: calculateRem(5px);
 
@@ -85,17 +84,16 @@
         }
     }
 
-    $color-versions: 'primary' $ibexa-color-primary $ibexa-color-primary $ibexa-color-primary-200,
-        'secondary' $ibexa-color-dark $ibexa-color-dark $ibexa-color-light-400,
-        'info' $ibexa-color-info $ibexa-color-info $ibexa-color-info-200,
-        'danger' $ibexa-color-danger $ibexa-color-danger $ibexa-color-danger-200,
-        'success' $ibexa-color-success-600 $ibexa-color-success $ibexa-color-success-200,
-        'complementary' $ibexa-color-complementary-600 $ibexa-color-complementary $ibexa-color-complementary-200;
+    $color-versions: 'primary' $ibexa-color-primary $ibexa-color-primary-200,
+        'secondary' $ibexa-color-dark $ibexa-color-light-500,
+        'info' $ibexa-color-info $ibexa-color-info-200,
+        'danger' $ibexa-color-danger $ibexa-color-danger-200,
+        'success' $ibexa-color-success $ibexa-color-success-200,
+        'complementary' $ibexa-color-complementary $ibexa-color-complementary-200;
 
-    @mixin color-tags($color-text, $color-border, $color-background) {
+    @mixin colorful-tags($color-text, $color-background) {
         .ibexa-tag-view-select {
             &__selected-item-tag {
-                border-color: $color-border;
                 background-color: $color-background;
 
                 .ibexa-icon {
@@ -118,9 +116,9 @@
         }
     }
 
-    @each $name, $color-text, $color-border, $color-background in $color-versions {
+    @each $name, $color-text, $color-background in $color-versions {
         &--#{$name} {
-            @include color-tags($color-text, $color-border, $color-background);
+            @include colorful-tags($color-text, $color-background);
         }
     }
 
@@ -132,8 +130,6 @@
 
     &:disabled,
     &[disabled] {
-        border-color: $ibexa-color-light;
-
-        @include color-tags($ibexa-color-dark-400, $ibexa-color-light, $ibexa-color-light-300);
+        @include colorful-tags($ibexa-color-dark-400, $ibexa-color-light-300);
     }
 }
