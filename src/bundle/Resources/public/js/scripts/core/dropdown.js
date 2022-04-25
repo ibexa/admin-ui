@@ -71,6 +71,8 @@
             this.onPopoverShow = this.onPopoverShow.bind(this);
             this.onPopoverHide = this.onPopoverHide.bind(this);
             this.itemsPopoverContent = this.itemsPopoverContent.bind(this);
+            this.onSourceFocus = this.onSourceFocus.bind(this);
+            this.onSourceBlur = this.onSourceBlur.bind(this);
 
             ibexa.helpers.objectInstances.setInstance(this.container, this);
         }
@@ -359,6 +361,18 @@
             this.itemsListContainer.append(optionNode);
         }
 
+        toggleSourceFocus(isFocused) {
+            this.container.classList.toggle('ibexa-dropdown--focused', isFocused);
+        }
+
+        onSourceFocus() {
+            this.toggleSourceFocus(true);
+        }
+
+        onSourceBlur() {
+            this.toggleSourceFocus(false);
+        }
+
         init() {
             if (this.container.dataset.initialized) {
                 console.warn('Dropdown has already been initialized!');
@@ -367,6 +381,9 @@
             }
 
             this.container.dataset.initialized = true;
+
+            this.sourceInput.addEventListener('focus', this.onSourceFocus, false);
+            this.sourceInput.addEventListener('blur', this.onSourceBlur, false);
 
             const optionsCount = this.container.querySelectorAll('.ibexa-dropdown__source option').length;
 
