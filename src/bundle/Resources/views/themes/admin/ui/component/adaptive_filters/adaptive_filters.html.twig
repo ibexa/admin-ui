@@ -9,9 +9,7 @@
         ~ (is_inside_container|default(false) ? 'ibexa-adaptive-filters--inside-container ')
         ~ attr.class|default(''))|trim,
 }) %}
-
 {% set attr_form = attr_form|default({}) %}
-
 {% set collapse_id = collapse_id|default('ibexa-adaptive-filters-collapse-' ~ random()) %}
 
 {{ form_start(form, { attr: attr|merge(attr_form)}) }}
