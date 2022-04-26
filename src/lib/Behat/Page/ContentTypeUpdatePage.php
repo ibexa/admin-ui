@@ -29,10 +29,9 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
     public function expandLastFieldDefinition(): void
     {
         $fieldToggleLocator = $this->getLocator('fieldDefinitionToggle');
-        $lastFieldDefinition = $this->getHTMLPage()
-            ->findAll($fieldToggleLocator)
-            ->last();
+        $lastFieldDefinition = $this->getHTMLPage()->find($fieldToggleLocator);
         $lastFieldDefinition->mouseOver();
+        $lastFieldDefinition->assert()->isVisible();
         $lastFieldDefinition->click();
         $this->getHTMLPage()->setTimeout(5)
             ->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(), $fieldToggleLocator));
