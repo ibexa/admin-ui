@@ -305,7 +305,7 @@
             }
         }
 
-        &.ibexa-dropdown:not(.ibexa-dropdown--disabled):not(.is-invalid):hover {
+        &.ibexa-dropdown:not(.ibexa-dropdown--disabled):not(.ibexa-dropdown--ghost):not(.is-invalid):hover {
             .ibexa-dropdown {
                 &__selection-info {
                     border-color: $ibexa-color-dark;
