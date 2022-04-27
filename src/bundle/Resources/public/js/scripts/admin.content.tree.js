@@ -8,6 +8,7 @@
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const contentTreeRootElement = doc.querySelector('.ibexa-content-tree-container__root');
+    const contentTreeRoot = ReactDOM.createRoot(contentTreeRootElement);
     const { currentLocationPath, treeRootLocationId } = contentTreeContainer.dataset;
     const userId = window.ibexa.helpers.user.getId();
     const removeContentTreeContainerWidth = (event) => {
@@ -18,14 +19,13 @@
         contentTreeContainer.style.width = null;
     };
     const renderTree = () => {
-        ReactDOM.render(
+        contentTreeRoot.render(
             React.createElement(ibexa.modules.ContentTree, {
                 userId,
                 currentLocationPath,
                 rootLocationId: parseInt(treeRootLocationId, 10),
                 restInfo: { token, siteaccess },
             }),
-            contentTreeRootElement,
         );
     };
 

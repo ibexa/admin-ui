@@ -5,6 +5,7 @@
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const udwContainer = doc.getElementById('react-udw');
+    const udwRoot = ReactDOM.createRoot(udwContainer);
     const limitationBtns = doc.querySelectorAll(SELECTOR_LOCATION_LIMITATION_BTN);
     const findLocationsByIdList = (pathArraysWithoutRoot, callback) => {
         const bulkOperations = getBulkOperations(pathArraysWithoutRoot);
@@ -149,7 +150,7 @@
 
         removeTagBtn.addEventListener('click', () => handleTagRemove(limitationBtn, tag), false);
     };
-    const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
+    const closeUDW = () => udwRoot.unmount();
     const handleUdwConfirm = (limitationBtn, selectedItems) => {
         if (selectedItems.length) {
             addLocationsToInput(limitationBtn, selectedItems);
@@ -170,7 +171,7 @@
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
         const title = Translator.trans(/*@Desc("Choose Locations")*/ 'subtree_limitation.title', {}, 'universal_discovery_widget');
 
-        ReactDOM.render(
+        udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: handleUdwConfirm.bind(this, event.target),
                 onCancel: closeUDW,
@@ -179,7 +180,6 @@
                 selectedLocations: selectedLocationsIds,
                 ...config,
             }),
-            udwContainer,
         );
     };
 

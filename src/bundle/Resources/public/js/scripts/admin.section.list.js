@@ -1,7 +1,8 @@
 (function (global, doc, ibexa, React, ReactDOM) {
     const btns = doc.querySelectorAll('.ibexa-btn--open-udw');
     const udwContainer = doc.getElementById('react-udw');
-    const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
+    const udwRoot = ReactDOM.createRoot(udwContainer);
+    const closeUDW = () => udwRoot.unmount();
     const onConfirm = (form, content) => {
         const field = form.querySelector(`#${form.getAttribute('name')}_locations_location`);
 
@@ -21,13 +22,12 @@
         form.action = btn.dataset.formAction;
         doc.querySelector('#section_content_assign_section').value = btn.dataset.sectionId;
 
-        ReactDOM.render(
+        udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(this, form),
                 onCancel,
                 ...config,
             }),
-            udwContainer,
         );
     };
 

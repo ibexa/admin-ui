@@ -124,6 +124,7 @@
     };
 
     listContainers.forEach((container) => {
+        const subitemsRoot = ReactDOM.createRoot(container);
         const parentLocationId = parseInt(container.dataset.location, 10);
         const activeView = getLocationActiveView(parentLocationId);
         const subItemsList = JSON.parse(container.dataset.items).SubitemsList;
@@ -161,7 +162,7 @@
             currentLanguage: mfuContainer.dataset.currentLanguage,
         };
 
-        ReactDOM.render(
+        subitemsRoot.render(
             React.createElement(ibexa.modules.SubItems, {
                 handleEditItem,
                 generateLink,
@@ -187,7 +188,6 @@
                 udwConfigBulkAddLocation,
                 showBulkActionFailedModal,
             }),
-            container,
         );
     });
 })(

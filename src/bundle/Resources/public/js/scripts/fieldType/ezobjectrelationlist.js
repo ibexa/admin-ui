@@ -57,6 +57,7 @@
             ],
         });
         const udwContainer = doc.getElementById('react-udw');
+        const udwRoot = ReactDOM.createRoot(udwContainer);
         const sourceInput = fieldContainer.querySelector(SELECTOR_INPUT);
         const relationsContainer = fieldContainer.querySelector('.ibexa-relations__list');
         const relationsWrapper = fieldContainer.querySelector('.ibexa-relations__wrapper');
@@ -68,7 +69,7 @@
         const relationsTable = relationsWrapper.querySelector('.ibexa-table');
         const startingLocationId =
             relationsContainer.dataset.defaultLocation !== '0' ? parseInt(relationsContainer.dataset.defaultLocation, 10) : null;
-        const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
+        const closeUDW = () => udwRoot.unmount();
         const renderRows = (items) => {
             items.forEach((item, index) => {
                 relationsContainer.insertAdjacentHTML('beforeend', renderRow(item, index));
@@ -118,7 +119,7 @@
                           'universal_discovery_widget',
                       );
 
-            ReactDOM.render(
+            udwRoot.render(
                 React.createElement(ibexa.modules.UniversalDiscovery, {
                     onConfirm,
                     onCancel: closeUDW,
@@ -128,7 +129,6 @@
                     multiple: isSingle ? false : selectedItemsLimit !== 1,
                     multipleItemsLimit: selectedItemsLimit > 1 ? selectedItemsLimit - selectedItems.length : selectedItemsLimit,
                 }),
-                udwContainer,
             );
         };
         const excludeDuplicatedItems = (items) => {

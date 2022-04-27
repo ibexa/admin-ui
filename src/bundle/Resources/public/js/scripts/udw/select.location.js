@@ -1,6 +1,7 @@
 (function (global, doc, ibexa, React, ReactDOM, Translator) {
     const btns = doc.querySelectorAll('.ibexa-btn--udw-select-location');
     const udwContainer = doc.getElementById('react-udw');
+    const udwRoot = ReactDOM.createRoot(udwContainer);
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const findLocationsByIdList = (idList, callback) => {
@@ -85,7 +86,7 @@
             });
         }
     };
-    const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
+    const closeUDW = () => udwRoot.unmount();
     const onConfirm = (btn, items) => {
         closeUDW();
 
@@ -100,7 +101,7 @@
 
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
 
-        ReactDOM.render(
+        udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(null, event.currentTarget),
                 onCancel,
@@ -108,7 +109,6 @@
                 multiple: false,
                 ...config,
             }),
-            udwContainer,
         );
     };
     const clearSelection = (btn) => {

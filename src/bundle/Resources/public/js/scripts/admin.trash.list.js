@@ -19,6 +19,7 @@
     const sortableColumns = doc.querySelectorAll('.ibexa-table__sort-column');
     const btns = doc.querySelectorAll('.ibexa-btn--open-udw');
     const udwContainer = doc.getElementById('react-udw');
+    const udwRoot = ReactDOM.createRoot(udwContainer);
     const autoSendNodes = doc.querySelectorAll('.ibexa-trash-search-form__item--auto-send');
     const errorMessage = Translator.trans(/*@Desc("Cannot fetch user list")*/ 'trash.user_list.error', {}, 'trash_ui');
     const dateConfig = {
@@ -28,7 +29,7 @@
         },
         formatDate: (date) => ibexa.helpers.timezone.formatShortDateTime(date, null, ibexa.adminUiConfig.dateFormat.shortDate),
     };
-    const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
+    const closeUDW = () => udwRoot.unmount();
     const onConfirm = (form, content) => {
         const field = form.querySelector('#trash_item_restore_location_location');
 
@@ -49,7 +50,7 @@
             'universal_discovery_widget',
         );
 
-        ReactDOM.render(
+        udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(this, form),
                 onCancel,
@@ -58,7 +59,6 @@
                 multiple: false,
                 ...config,
             }),
-            udwContainer,
         );
     };
 

@@ -9,7 +9,8 @@
 
     const input = form.querySelector('#content_location_add_new_locations');
     const udwContainer = doc.getElementById('react-udw');
-    const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
+    const udwRoot = ReactDOM.createRoot(udwContainer);
+    const closeUDW = () => udwRoot.unmount();
     const onConfirm = (items) => {
         closeUDW();
 
@@ -24,7 +25,7 @@
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
         const title = Translator.trans(/*@Desc("Select Location")*/ 'add_location.title', {}, 'universal_discovery_widget');
 
-        ReactDOM.render(
+        udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm,
                 onCancel,
@@ -33,7 +34,6 @@
                 multiple: false,
                 ...config,
             }),
-            udwContainer,
         );
     };
 

@@ -159,23 +159,23 @@
             event.preventDefault();
 
             const udwContainer = doc.getElementById('react-udw');
+            const udwRoot = ReactDOM.createRoot(udwContainer);
             const config = JSON.parse(event.currentTarget.dataset.udwConfig);
             const title = Translator.trans(/*@Desc("Select Image Asset")*/ 'ezimageasset.title', {}, 'universal_discovery_widget');
-            const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
+            const closeUDW = () => udwRoot.unmount();
             const onCancel = closeUDW;
             const onConfirm = (items) => {
                 closeUDW();
                 this.loadAsset(items[0]);
             };
 
-            ReactDOM.render(
+            udwRoot.render(
                 React.createElement(ibexa.modules.UniversalDiscovery, {
                     onConfirm,
                     onCancel,
                     title,
                     ...config,
                 }),
-                udwContainer,
             );
         }
 

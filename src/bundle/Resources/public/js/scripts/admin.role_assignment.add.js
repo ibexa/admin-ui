@@ -1,5 +1,6 @@
 (function (global, doc, ibexa, React, ReactDOM) {
     const udwContainer = doc.getElementById('react-udw');
+    const udwRoot = ReactDOM.createRoot(udwContainer);
     const limitationsRadio = doc.querySelectorAll('.ibexa-assign__limitations-item-radio');
     const selectSubtreeWidget = new ibexa.core.TagViewSelect({
         fieldContainer: doc.querySelector('.ibexa-assign__limitations-item-subtree'),
@@ -13,7 +14,7 @@
     const selectSubtreeBtn = doc.querySelector('.ibexa-assign__limitations-item-select-subtree');
     const selectUsersBtn = doc.querySelector('#role_assignment_create_users__btn');
     const selectGroupsBtn = doc.querySelector('#role_assignment_create_groups__btn');
-    const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
+    const closeUDW = () => udwRoot.unmount();
     const confirmSubtreeUDW = (data) => {
         ibexa.helpers.tagViewSelect.buildItemsFromUDWResponse(
             data,
@@ -32,7 +33,7 @@
         const selectedLocations = selectSubtreeWidget.inputField.value;
         const selectedLocationsIds = selectedLocations ? selectedLocations.split(',') : [];
 
-        ReactDOM.render(
+        udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: confirmSubtreeUDW.bind(this),
                 onCancel: closeUDW,
@@ -40,7 +41,6 @@
                 selectedLocations: selectedLocationsIds,
                 ...config,
             }),
-            udwContainer,
         );
     };
     const confirmUsersAndGroupsUDW = (widget, selectedItems) => {
@@ -67,16 +67,15 @@
         const selectedContentIds = selectedContent ? selectedContent.split(',') : [];
         const selectedLocationsIds = selectedContentIds.map((contentId) => itemsMap[contentId]);
 
-        ReactDOM.render(
+        udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: confirmUsersAndGroupsUDW.bind(this, widget),
-                onCancel: () => ReactDOM.unmountComponentAtNode(udwContainer),
+                onCancel: () => udwRoot.unmount(),
                 title: selectBtn.dataset.universaldiscoveryTitle,
                 multiple: true,
                 selectedLocations: selectedLocationsIds,
                 ...config,
             }),
-            udwContainer,
         );
     };
     const toggleDisabledState = () => {
