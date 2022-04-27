@@ -13,6 +13,7 @@
 {% set no_items = choices_flat|length == 0 %}
 {% set is_dynamic = is_dynamic|default(false) %}
 {% set is_disabled = is_disabled|default(false) %}
+{% set is_selector = is_selector|default(false) %}
 
 {% macro get_translated_label(label, translation_domain) %}
     {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
@@ -25,6 +26,7 @@
         {{ is_dynamic ? "ibexa-dropdown--dynamic" }}
         {{ is_small|default(false) ? "ibexa-dropdown--small" }}
         {{ is_ghost|default(false) ? "ibexa-dropdown--ghost" }}
+        {{ is_selector ? "ibexa-dropdown--selector" }}
         {{ no_items and not is_dynamic or is_disabled ? "ibexa-dropdown--disabled" }}
         {{ class|default('') }}
     "
