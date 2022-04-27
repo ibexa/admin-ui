@@ -1,68 +1,64 @@
 .ibexa-badge {
-    padding: calculateRem(4px);
+    height: calculateRem(24px);
+    padding: calculateRem(4px) calculateRem(10px);
     font-size: calculateRem(16px);
-    text-decoration: none;
+    font-size: $ibexa-text-font-size-small;
+    line-height: calculateRem(16px);
+    font-weight: normal;
+    border-radius: calculateRem(12px);
+    background-color: $ibexa-color-light-500;
 
-    &--small {
-        font-size: calculateRem(14px);
-        font-weight: 400;
-    }
-
-    &--round {
-        padding: calculateRem(8px) calculateRem(16px);
-        border-radius: calculateRem(40px);
-    }
-
-    &--icon {
-        font-weight: normal;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        background-color: $ibexa-color-white;
-        border: calculateRem(1px) solid $ibexa-color-light;
-        color: $ibexa-color-dark;
-
-        &:hover {
-            background-color: $ibexa-color-light-500;
-        }
+    &--primary {
+        color: $ibexa-color-primary;
+        background-color: $ibexa-color-primary-200;
 
         .ibexa-icon {
-            border-radius: 50%;
-            padding: calculateRem(3px);
-            margin-left: calculateRem(8px);
+            fill: $ibexa-color-primary;
         }
+    }
 
-        &.badge {
-            &:hover,
-            &:focus {
-                background-color: $ibexa-color-light-500;
-                box-shadow: none;
-                color: $ibexa-color-dark;
-            }
+    &--secondary {
+        color: $ibexa-color-dark;
+        background-color: $ibexa-color-light-500;
+
+        .ibexa-icon {
+            fill: $ibexa-color-dark;
         }
+    }
 
-        &.badge-info {
-            .ibexa-icon {
-                background-color: $ibexa-color-info;
-            }
+    &--info {
+        color: $ibexa-color-info;
+        background-color: $ibexa-color-info-200;
+
+        .ibexa-icon {
+            fill: $ibexa-color-info;
         }
+    }
 
-        &.badge-success {
-            .ibexa-icon {
-                background-color: $ibexa-color-success;
-            }
+    &--danger {
+        color: $ibexa-color-danger;
+        background-color: $ibexa-color-danger-200;
+
+        .ibexa-icon {
+            fill: $ibexa-color-danger;
         }
+    }
 
-        &.badge-warning {
-            .ibexa-icon {
-                background-color: $ibexa-color-warning;
-            }
+    &--success {
+        color: $ibexa-color-success;
+        background-color: $ibexa-color-success-200;
+
+        .ibexa-icon {
+            fill: $ibexa-color-success;
         }
+    }
 
-        &.badge-danger {
-            .ibexa-icon {
-                background-color: $ibexa-color-danger;
-            }
+    &--complementary {
+        color: $ibexa-color-complementary;
+        background-color: $ibexa-color-complementary-200;
+
+        .ibexa-icon {
+            fill: $ibexa-color-complementary;
         }
     }
 }

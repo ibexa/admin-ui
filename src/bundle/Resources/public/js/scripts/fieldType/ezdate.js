@@ -108,7 +108,7 @@
         dateTimePickerWidget.init();
 
         if (sourceInput.hasAttribute('required')) {
-            dateTimePickerWidget.fieldInput.setAttribute('required', true);
+            dateTimePickerWidget.inputField.setAttribute('required', true);
         }
     };
 
