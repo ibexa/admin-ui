@@ -17,7 +17,6 @@ use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -59,23 +58,25 @@ class UserPermissionsLimitationMapper implements LimitationValueMapperInterface,
             ->create(
                 'limitationValues',
                 FormType::class,
-                ['label' => LimitationTranslationExtractor::identifierToLabel($data->getIdentifier())])
+                ['label' => LimitationTranslationExtractor::identifierToLabel($data->getIdentifier())]
+            )
             ->setAutoInitialize(false)
             ->getForm();
 
         $sub->add('roles', ChoiceType::class, [
             'choice_loader' => new CallbackChoiceLoader(
-                function() {
+                function () {
                     $roles = $this->roleService->loadRoles();
                     $choices = [];
                     foreach ($roles as $role) {
                         $choices[$role->identifier] = $role->id;
                     }
+
                     return $choices;
                 }
             ),
             'multiple' => true,
-            'required' => false
+            'required' => false,
         ]);
 
         $sub->add('user_groups', ChoiceType::class, [
@@ -85,12 +86,10 @@ class UserPermissionsLimitationMapper implements LimitationValueMapperInterface,
                 $this->userService
             ),
             'multiple' => true,
-            'required' => false
+            'required' => false,
         ]);
 
         $form->add($sub);
-
-
     }
 
     public function setFormTemplate(string $template): void
@@ -111,7 +110,7 @@ class UserPermissionsLimitationMapper implements LimitationValueMapperInterface,
     {
         $values = [
             'roles' => [],
-            'user_groups' => []
+            'user_groups' => [],
         ];
         foreach ($limitation->limitationValues['roles'] as $roleId) {
             $values['roles'][] = $this->roleService->loadRole($roleId);
