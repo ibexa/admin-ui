@@ -6,9 +6,9 @@
     }
 
     createActions.forEach((container) => {
-        const btns = container.querySelectorAll('.form-check [type="radio"]');
+        const radioInputs = container.querySelectorAll('.form-check [type="radio"]');
         const form = container.querySelector('form');
 
-        btns.forEach((btn) => btn.addEventListener('change', () => form.submit(), false));
+        radioInputs.forEach((radioInput) => radioInput.addEventListener('change', () => form.submit(), false));
     });
 })(window, window.document);
