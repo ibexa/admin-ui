@@ -7,7 +7,7 @@
 
     global.addEventListener('pageshow', (event) => {
         if (event.persisted) {
-            doc.querySelector('body').classList.remove('ez-prevent-click');
+            doc.querySelector('body').classList.remove('ibexa-prevent-click');
         }
     });
 })(window, window.document);
