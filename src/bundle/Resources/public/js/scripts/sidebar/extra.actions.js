@@ -24,17 +24,15 @@
 
         removeBackdrop();
     };
-    const toggleExtraActionsWidget = (dataset) => {
-        const actions = doc.querySelector(`.ibexa-extra-actions[data-actions="${dataset.actions}"]`);
+    const toggleExtraActionsWidget = (widgetData) => {
+        const actions = doc.querySelector(`.ibexa-extra-actions[data-actions="${widgetData.actions}"]`);
 
-        if (dataset.validate && !parseInt(dataset.isFormValid, 10)) {
+        if (widgetData.validate && !parseInt(widgetData.isFormValid, 10)) {
             return;
         }
 
         const isHidden = haveHiddenPart(actions);
-        const methodNameContainer = isHidden ? 'remove' : 'add';
-        const methodNameMenu = isHidden ? 'add' : 'remove';
-        const focusElement = actions.querySelector(dataset.focusElement);
+        const focusElement = actions.querySelector(widgetData.focusElement);
         const detectClickOutside = (event) => {
             if (event.target.classList.contains('ibexa-backdrop')) {
                 closeExtraActions(actions);
@@ -42,10 +40,10 @@
             }
         };
 
-        actions.classList[methodNameContainer](CLASS_HIDDEN);
+        actions.classList.toggle(CLASS_HIDDEN, !isHidden);
 
         if (menu) {
-            menu.classList[methodNameMenu](CLASS_EXPANDED);
+            menu.classList.toggle(CLASS_EXPANDED, isHidden);
         }
 
         if (!actions.classList.contains(CLASS_HIDDEN)) {
