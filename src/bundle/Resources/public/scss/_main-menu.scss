@@ -29,6 +29,32 @@
             &.ibexa-main-menu__navbar--collapsed {
                 width: calculateRem(72px);
             }
+
+            .ibexa-main-menu {
+                &__item-action {
+                    border: calculateRem(1px) solid transparent;
+
+                    &.active:not(.ibexa-main-menu__item-action--selected) {
+                        border: calculateRem(1px) solid $ibexa-color-info;
+                        background-color: transparent;
+                    }
+
+                    &--selected {
+                        color: $ibexa-color-info;
+                        background-color: $ibexa-color-info-800;
+            
+                        .ibexa-main-menu {
+                            &__item-icon {
+                                fill: $ibexa-color-info;
+                            }
+            
+                            &__item-text-column {
+                                color: $ibexa-color-info;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         &--second-level {

@@ -25,7 +25,7 @@
 
     {% set classes = [
         'ibexa-main-menu__item-action',
-        ((matcher.isCurrent(item) ? options.currentClass)),
+        ((matcher.isCurrent(item) ? options.currentClass|trim ~ " ibexa-main-menu__item-action--selected")),
         (item.linkAttributes.class is defined ? item.linkAttributes.class|trim)
     ] %}
 
@@ -45,7 +45,7 @@
 
     {% set classes = [
         'ibexa-main-menu__item-action',
-        (matcher.isAncestor(item, options.matchingDepth) ? options.currentClass|trim),
+        (matcher.isAncestor(item, options.matchingDepth) ? options.currentClass|trim ~ " ibexa-main-menu__item-action--selected"),
         (item.linkAttributes.class is defined ? item.linkAttributes.class|trim)
     ] %}
 

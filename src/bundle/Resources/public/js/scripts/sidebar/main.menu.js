@@ -29,6 +29,15 @@
     });
     let resizeStartPositionX = 0;
     let secondMenuLevelCurrentWidth = secondLevelMenuNode.getBoundingClientRect().width;
+    const collapseSecondLevelMenu = (event) => {
+        if (event.target.closest('.ibexa-main-menu__navbar') || event.target.closest('.ibexa-tooltip')) {
+            return;
+        }
+
+        toggleSecondLevelMenu();
+
+        doc.removeEventListener('mousemove', collapseSecondLevelMenu);
+    };
     const showSecondLevelMenu = (event) => {
         if (!event.currentTarget.dataset.bsToggle) {
             return;
@@ -38,7 +47,14 @@
         secondLevelMenuNode.classList.remove('ibexa-main-menu__navbar--hidden');
 
         parseMenuTitles();
-        setWidthOfSecondLevelMenu();
+
+        if (secondLevelMenuNode.classList.contains('ibexa-main-menu__navbar--collapsed')) {
+            toggleSecondLevelMenu();
+
+            doc.addEventListener('mousemove', collapseSecondLevelMenu, false);
+        } else {
+            setWidthOfSecondLevelMenu();
+        }
     };
     const setWidthOfSecondLevelMenu = () => {
         const secondLevelMenuWidth = ibexa.helpers.cookies.getCookie('second_menu_width');
@@ -93,7 +109,7 @@
                 if (firstLevelMenuNode.classList.contains('ibexa-main-menu__navbar--collapsed')) {
                     item.setAttribute('title', label);
                 } else {
-                    item.removeAttribute('data-original-title');
+                    item.removeAttribute('data-bs-original-title');
                 }
 
                 ibexa.helpers.tooltips.parse(mainMenuNode);
