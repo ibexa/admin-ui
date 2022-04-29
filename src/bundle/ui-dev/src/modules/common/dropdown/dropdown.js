@@ -6,8 +6,9 @@ import { createCssClassNames } from '../../common/helpers/css.class.names';
 import Icon from '../../common/icon/icon';
 
 const { Translator } = window;
+const MIN_SEARCH_ITEMS_DEFAULT = 5;
 
-const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, extraClasses, renderSelectedItem }) => {
+const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, extraClasses, renderSelectedItem, minSearchItems }) => {
     const containerRef = useRef();
     const containerItemsRef = useRef();
     const [isExpanded, setIsExpanded] = useState(false);
@@ -57,6 +58,10 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
     const renderItemsList = () => {
         const itemsStyles = {};
         const placeholder = Translator.trans(/*@Desc("Search...")*/ 'dropdown.placeholder', {}, 'universal_discovery_widget');
+        const itemsContainerClass = createCssClassNames({
+            'ibexa-dropdown__items': true,
+            'ibexa-dropdown__items--search-hidden': options.length < minSearchItems,
+        });
 
         if (containerRef.current) {
             const { width, left, top, height } = containerRef.current.getBoundingClientRect();
@@ -67,7 +72,7 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
         }
 
         return (
-            <div className="ibexa-dropdown__items" style={itemsStyles} ref={containerItemsRef}>
+            <div className={itemsContainerClass} style={itemsStyles} ref={containerItemsRef}>
                 <div className="ibexa-input-text-wrapper">
                     <input
                         type="text"
@@ -146,6 +151,7 @@ Dropdown.propTypes = {
     single: PropTypes.bool,
     extraClasses: PropTypes.string,
     renderSelectedItem: PropTypes.func,
+    minSearchItems: PropTypes.number,
 };
 
 Dropdown.defaultProps = {
@@ -153,6 +159,7 @@ Dropdown.defaultProps = {
     single: false,
     extraClasses: '',
     renderSelectedItem: (item) => item?.label,
+    minSearchItems: MIN_SEARCH_ITEMS_DEFAULT,
 };
 
 export default Dropdown;
