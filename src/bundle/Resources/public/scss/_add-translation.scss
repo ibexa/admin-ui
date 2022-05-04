@@ -1,11 +1,23 @@
-.ez-translation {
-    .ez-custom-dropdown {
-        &__wrapper {
-            width: 60%;
-        }
+.ibexa-translation {
+    .modal-dialog {
+        max-width: calculateRem(790px);
+    }
 
-        &__items {
-            width: 100%;
-        }
+    .modal-body {
+        display: flex;
+        padding-bottom: calculateRem(140px);
+    }
+
+    .form-group {
+        width: calculateRem(330px);
+    }
+
+    &__arrow {
+        margin-top: calculateRem(46px);
+        height: calculateRem(48px);
+        transform: rotate(180deg);
+        display: flex;
+        align-items: center;
+        padding: 0 calculateRem(16px);
     }
 }

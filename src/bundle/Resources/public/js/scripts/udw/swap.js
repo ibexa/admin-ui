@@ -1,6 +1,11 @@
-(function(global, doc, eZ, React, ReactDOM, Translator) {
-    const btns = doc.querySelectorAll('.btn--udw-swap');
+(function (global, doc, ibexa, React, ReactDOM, Translator) {
+    const btns = doc.querySelectorAll('.ibexa-btn--udw-swap');
     const form = doc.querySelector('form[name="location_swap"]');
+
+    if (!form) {
+        return;
+    }
+
     const input = form.querySelector('#location_swap_new_location');
     const udwContainer = doc.getElementById('react-udw');
     const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
@@ -18,16 +23,16 @@
         const title = Translator.trans(/*@Desc("Select Location to swap with")*/ 'swap.title', {}, 'universal_discovery_widget');
 
         ReactDOM.render(
-            React.createElement(eZ.modules.UniversalDiscovery, {
+            React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm,
                 onCancel,
                 title,
                 multiple: false,
                 ...config,
             }),
-            udwContainer
+            udwContainer,
         );
     };
 
     btns.forEach((btn) => btn.addEventListener('click', openUDW, false));
-})(window, window.document, window.eZ, window.React, window.ReactDOM, window.Translator);
+})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator);

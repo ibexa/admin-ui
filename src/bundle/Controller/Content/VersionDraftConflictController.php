@@ -6,41 +6,41 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller\Content;
+namespace Ibexa\Bundle\AdminUi\Controller\Content;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\UserService;
-use EzSystems\EzPlatformAdminUi\Specification\Content\ContentDraftHasConflict;
-use EzSystems\EzPlatformAdminUi\Specification\ContentIsUser;
-use EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory;
-use EzSystems\EzPlatformAdminUiBundle\Controller\Controller;
+use Ibexa\AdminUi\Specification\Content\ContentDraftHasConflict;
+use Ibexa\AdminUi\Specification\ContentIsUser;
+use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\UserService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class VersionDraftConflictController extends Controller
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory */
+    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     private $datasetFactory;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
 
     /**
-     * @param \eZ\Publish\API\Repository\LocationService $locationService
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \eZ\Publish\API\Repository\UserService $userService
+     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
+     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
      */
     public function __construct(
@@ -64,9 +64,9 @@ class VersionDraftConflictController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function draftHasNoConflictAction(
         int $contentId,
@@ -103,7 +103,7 @@ class VersionDraftConflictController extends Controller
                 $location = array_shift($availableLocations);
             }
 
-            $modalContent = $this->renderView('@ezdesign/content/modal/draft_conflict.html.twig', [
+            $modalContent = $this->renderView('@ibexadesign/content/modal/draft_conflict.html.twig', [
                 'conflicted_drafts' => $conflictedDrafts,
                 'location' => $location,
                 'content_is_user' => (new ContentIsUser($this->userService))->isSatisfiedBy($content),
@@ -115,3 +115,5 @@ class VersionDraftConflictController extends Controller
         return new Response();
     }
 }
+
+class_alias(VersionDraftConflictController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\Content\VersionDraftConflictController');

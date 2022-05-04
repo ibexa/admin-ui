@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Service;
+namespace Ibexa\AdminUi\UI\Service;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\Asset\Packages;
 
 final class ContentTypeIconResolver
@@ -18,14 +18,14 @@ final class ContentTypeIconResolver
 
     private const ICON_KEY = 'thumbnail';
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Symfony\Component\Asset\Packages */
     private $packages;
 
     /**
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
      * @param \Symfony\Component\Asset\Packages $packages
      */
     public function __construct(ConfigResolverInterface $configResolver, Packages $packages)
@@ -40,7 +40,7 @@ final class ContentTypeIconResolver
      * Path is resolved based on configuration (ezpublish.system.<SCOPE>.content_type.<IDENTIFIER>). If there isn't
      * corresponding entry for given content type, then path to default icon will be returned.
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\ContentTypeIconNotFoundException
+     * @throws \Ibexa\AdminUi\Exception\ContentTypeIconNotFoundException
      */
     public function getContentTypeIcon(string $identifier): string
     {
@@ -48,14 +48,14 @@ final class ContentTypeIconResolver
 
         $fragment = null;
         if (strpos($icon, '#') !== false) {
-            list($icon, $fragment) = explode('#', $icon);
+            [$icon, $fragment] = explode('#', $icon);
         }
 
         return $this->packages->getUrl($icon) . ($fragment ? '#' . $fragment : '');
     }
 
     /**
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\ContentTypeIconNotFoundException
+     * @throws \Ibexa\AdminUi\Exception\ContentTypeIconNotFoundException
      */
     private function resolveIcon(string $identifier): string
     {
@@ -81,3 +81,5 @@ final class ContentTypeIconResolver
         return sprintf(self::PARAM_NAME_FORMAT, $identifier);
     }
 }
+
+class_alias(ContentTypeIconResolver::class, 'EzSystems\EzPlatformAdminUi\UI\Service\ContentTypeIconResolver');

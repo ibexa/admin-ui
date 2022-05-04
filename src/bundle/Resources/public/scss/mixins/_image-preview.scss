@@ -1,7 +1,7 @@
 @mixin image-preview() {
     display: flex;
 
-    .ez-field-preview {
+    .ibexa-field-preview {
         &__image-wrapper {
             flex: 1 1 auto;
             display: flex;
@@ -33,11 +33,11 @@
                 align-items: center;
                 display: block;
                 margin-top: 0;
-                background: $ibexa-color-base-dark;
+                background: $ibexa-color-dark-300;
 
                 &:hover,
                 &:focus {
-                    background: darken($ibexa-color-base-dark, 15%);
+                    background: darken($ibexa-color-dark-300, 15%);
                 }
             }
         }

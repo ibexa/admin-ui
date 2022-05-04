@@ -8,19 +8,8 @@ export default class UploadListComponent extends Component {
         super(props);
 
         this.state = {
-            itemsToUpload: props.itemsToUpload,
             items: [],
         };
-    }
-
-    UNSAFE_componentWillReceiveProps(props) {
-        this.setState((state) => {
-            const stateItems = state.itemsToUpload.filter(
-                (stateItem) => !props.itemsToUpload.find((propItem) => propItem.id === stateItem.id)
-            );
-
-            return { itemsToUpload: [...stateItems, ...props.itemsToUpload] };
-        });
     }
 
     componentDidUpdate() {
@@ -35,8 +24,8 @@ export default class UploadListComponent extends Component {
      * @memberof UploadListComponent
      */
     handleAfterUpload(item) {
+        this.props.removeItemsToUpload([item]);
         this.setState((state) => ({
-            itemsToUpload: state.itemsToUpload.filter((data) => data.id !== item.id),
             items: [...state.items, item],
         }));
     }
@@ -49,16 +38,11 @@ export default class UploadListComponent extends Component {
      * @memberof UploadListComponent
      */
     handleAfterAbort(item) {
+        this.props.removeItemsToUpload([item]);
         this.setState((state) => {
             const items = state.items.filter((data) => data.id !== item.id);
-            const itemsToUpload = state.itemsToUpload.filter((data) => data.id !== item.id);
 
-            return Object.assign({}, state, {
-                uploaded: items.length,
-                total: items.length + itemsToUpload.length,
-                itemsToUpload,
-                items,
-            });
+            return { uploaded: items.length, items };
         });
     }
 
@@ -72,14 +56,8 @@ export default class UploadListComponent extends Component {
     handleAfterDelete(item) {
         this.setState((state) => {
             const items = state.items.filter((data) => data.id !== item.id);
-            const itemsToUpload = state.itemsToUpload.filter((data) => data.id !== item.id);
 
-            return Object.assign({}, state, {
-                uploaded: items.length,
-                total: items.length + itemsToUpload.length,
-                itemsToUpload,
-                items,
-            });
+            return { uploaded: items.length, items };
         });
     }
 
@@ -129,32 +107,26 @@ export default class UploadListComponent extends Component {
      */
     renderItem(item, customAttrs) {
         const { adminUiConfig, parentInfo, contentCreatePermissionsConfig, contentTypesMap, currentLanguage } = this.props;
-        const attrs = Object.assign(
-            {
-                key: item.id,
-                data: item,
-                adminUiConfig,
-                parentInfo,
-                contentCreatePermissionsConfig,
-                contentTypesMap,
-                currentLanguage,
-            },
-            customAttrs
-        );
+        const attrs = {
+            key: item.id,
+            data: item,
+            adminUiConfig,
+            parentInfo,
+            contentCreatePermissionsConfig,
+            contentTypesMap,
+            currentLanguage,
+            ...customAttrs,
+        };
 
         return <UploadItemComponent {...attrs} />;
     }
 
     render() {
-        const { items, itemsToUpload } = this.state;
-        const uploaded = items.length;
-        const total = uploaded + itemsToUpload.length;
+        const { itemsToUpload } = this.props;
+        const { items } = this.state;
 
         return (
             <div className="c-upload-list">
-                <div className="c-upload-list__title">
-                    {this.props.uploadedItemsListTitle} ({uploaded}/{total})
-                </div>
                 <div className="c-upload-list__items">
                     {itemsToUpload.map(this.renderItemToUpload.bind(this))}
                     {items.map(this.renderUploadedItem.bind(this))}
@@ -187,10 +159,10 @@ UploadListComponent.propTypes = {
         locationPath: PropTypes.string.isRequired,
         language: PropTypes.string.isRequired,
     }).isRequired,
-    uploadedItemsListTitle: PropTypes.string.isRequired,
     contentCreatePermissionsConfig: PropTypes.object.isRequired,
     contentTypesMap: PropTypes.object.isRequired,
     currentLanguage: PropTypes.string,
+    removeItemsToUpload: PropTypes.func.isRequired,
 };
 
 UploadListComponent.defaultProps = {

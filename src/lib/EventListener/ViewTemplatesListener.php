@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\EventListener;
+namespace Ibexa\AdminUi\EventListener;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use EzSystems\EzPlatformContentForms\User\View\UserCreateView;
-use EzSystems\EzPlatformContentForms\User\View\UserUpdateView;
+use Ibexa\ContentForms\User\View\UserCreateView;
+use Ibexa\ContentForms\User\View\UserUpdateView;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -20,7 +20,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class ViewTemplatesListener implements EventSubscriberInterface
 {
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(ConfigResolverInterface $configResolver)
@@ -62,3 +62,5 @@ class ViewTemplatesListener implements EventSubscriberInterface
         ];
     }
 }
+
+class_alias(ViewTemplatesListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\ViewTemplatesListener');

@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\View;
+namespace Ibexa\AdminUi\View;
 
-use eZ\Publish\Core\MVC\Symfony\View\BaseView;
+use Ibexa\Core\MVC\Symfony\View\BaseView;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
@@ -17,13 +17,15 @@ class ContentTranslateSuccessView extends BaseView
     /**
      * @param \Symfony\Component\HttpFoundation\Response $response
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      */
     public function __construct(Response $response)
     {
-        parent::__construct('@ezdesign/ui/no_content.html.twig');
+        parent::__construct('@ibexadesign/ui/no_content.html.twig');
 
         $this->setResponse($response);
-        $this->setControllerReference(new ControllerReference('EzSystems\EzPlatformAdminUiBundle\Controller\ContentEditController::translationSuccessAction'));
+        $this->setControllerReference(new ControllerReference('Ibexa\Bundle\AdminUi\Controller\ContentEditController::translationSuccessAction'));
     }
 }
+
+class_alias(ContentTranslateSuccessView::class, 'EzSystems\EzPlatformAdminUi\View\ContentTranslateSuccessView');

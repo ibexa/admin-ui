@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\LocationView;
+namespace Ibexa\AdminUi\Tab\LocationView;
 
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\URLAliasService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\Helper\TranslationHelper;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData;
-use EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory;
-use EzSystems\EzPlatformAdminUi\Specification\Location\IsRoot;
-use EzSystems\EzPlatformAdminUi\Tab\AbstractEventDispatchingTab;
-use EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface;
-use EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData;
+use Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Specification\Location\IsRoot;
+use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\URLAliasService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Helper\TranslationHelper;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -30,36 +30,36 @@ use Twig\Environment;
 
 class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    const URI_FRAGMENT = 'ez-tab-location-view-urls';
+    public const URI_FRAGMENT = 'ibexa-tab-location-view-urls';
 
-    /** @var \eZ\Publish\API\Repository\URLAliasService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
     protected $urlAliasService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     protected $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory */
+    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     protected $datasetFactory;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     protected $locationService;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     protected $permissionResolver;
 
-    /** @var \eZ\Publish\Core\Helper\TranslationHelper */
+    /** @var \Ibexa\Core\Helper\TranslationHelper */
     private $translationHelper;
 
     /**
      * @param \Twig\Environment $twig
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \eZ\Publish\API\Repository\URLAliasService $urlAliasService
-     * @param \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory $formFactory
-     * @param \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \eZ\Publish\API\Repository\LocationService $locationService
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
+     * @param \Ibexa\Contracts\Core\Repository\URLAliasService $urlAliasService
+     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
+     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
+     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
+     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \eZ\Publish\Core\Helper\TranslationHelper $translationHelper
+     * @param \Ibexa\Core\Helper\TranslationHelper $translationHelper
      */
     public function __construct(
         Environment $twig,
@@ -108,19 +108,19 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplate(): string
     {
-        return '@ezdesign/content/tab/urls.html.twig';
+        return '@ibexadesign/content/tab/urls.html.twig';
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
         $location = $contextParameters['location'];
 
         $customUrlsPaginationParams = $contextParameters['custom_urls_pagination_params'];
@@ -134,20 +134,26 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
         );
 
         $customUrlPagerfanta->setMaxPerPage($customUrlsPaginationParams['limit']);
-        $customUrlPagerfanta->setCurrentPage(min($customUrlsPaginationParams['page'],
-            $customUrlPagerfanta->getNbPages()));
+        $customUrlPagerfanta->setCurrentPage(min(
+            $customUrlsPaginationParams['page'],
+            $customUrlPagerfanta->getNbPages()
+        ));
 
         $systemUrlPagerfanta = new Pagerfanta(
             new ArrayAdapter($this->urlAliasService->listLocationAliases($location, false, null, true))
         );
 
         $systemUrlPagerfanta->setMaxPerPage($systemUrlsPaginationParams['limit']);
-        $systemUrlPagerfanta->setCurrentPage(min($systemUrlsPaginationParams['page'],
-            $systemUrlPagerfanta->getNbPages()));
+        $systemUrlPagerfanta->setCurrentPage(min(
+            $systemUrlsPaginationParams['page'],
+            $systemUrlPagerfanta->getNbPages()
+        ));
 
         $customUrlAddForm = $this->createCustomUrlAddForm($location);
-        $customUrlRemoveForm = $this->createCustomUrlRemoveForm($location,
-            $customUrlPagerfanta->getCurrentPageResults());
+        $customUrlRemoveForm = $this->createCustomUrlRemoveForm(
+            $location,
+            $customUrlPagerfanta->getCurrentPageResults()
+        );
 
         $canEditCustomUrl = $this->permissionResolver->hasAccess('content', 'urltranslator');
 
@@ -176,7 +182,7 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      *
      * @return \Symfony\Component\Form\FormInterface
      */
@@ -188,7 +194,7 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param array $customUrlAliases
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -212,3 +218,5 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
         return array_combine($urlAliasIdList, array_fill_keys($urlAliasIdList, false));
     }
 }
+
+class_alias(UrlsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\UrlsTab');

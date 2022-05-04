@@ -8,7 +8,7 @@ Feature: Content fields setting and editing
   Scenario: Create an ImageAsset Content item and edit specified field
     Given I create "image" Content items in "/Media/Images/" in "eng-GB"
       | name             | image                                                        |
-      | ImageAssetImage  | vendor/ezsystems/behatbundle/src/lib/Data/Images/small2.jpg  |
+      | ImageAssetImage  | vendor/ibexa/behat/src/lib/Data/Images/small2.jpg  |
       And I create a 'Image Asset CT2' Content Type in "Content" with 'ImageAssetCT2' identifier
       | Field Type  | Name         | Identifier        | Required | Searchable | Translatable | Settings        |
       | Image Asset | ImageAField  | imageafield       | yes      | no	       | yes          |                 |

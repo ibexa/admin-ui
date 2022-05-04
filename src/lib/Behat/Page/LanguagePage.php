@@ -9,12 +9,12 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use eZ\Publish\API\Repository\Repository;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
+use Ibexa\Contracts\Core\Repository\Repository;
 use PHPUnit\Framework\Assert;
 
 class LanguagePage extends Page
@@ -31,7 +31,7 @@ class LanguagePage extends Page
     /** @var int */
     private $expectedLanguageId;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
     public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog, Repository $repository)
@@ -54,7 +54,7 @@ class LanguagePage extends Page
         $hasExpectedEnabledFieldValue = true;
         if (array_key_exists('Enabled', $data)) {
             // Table does not handle returning non-string values
-            $hasEnabledField = $this->getHTMLPage()->find($this->getLocator('enabledField'))->hasAttribute('checked');
+            $hasEnabledField = $this->getHTMLPage()->find($this->getLocator('enabledField'))->getValue() === 'on';
             $shouldHaveEnabledField = 'true' === $data['Enabled'];
             $hasExpectedEnabledFieldValue = $hasEnabledField === $shouldHaveEnabledField;
             unset($data['Enabled']);
@@ -106,10 +106,10 @@ class LanguagePage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-header h1'),
-            new VisibleCSSLocator('deleteButton', 'button[data-original-title="Delete language"]'),
-            new VisibleCSSLocator('editButton', '[data-original-title="Edit"]'),
-            new VisibleCSSLocator('enabledField', 'input[data-original-title="Enabled"]'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
+            new VisibleCSSLocator('deleteButton', 'button[data-bs-original-title="Delete language"]'),
+            new VisibleCSSLocator('editButton', '[data-bs-original-title="Edit"]'),
+            new VisibleCSSLocator('enabledField', 'input[data-bs-original-title="Enabled"]'),
         ];
     }
 }

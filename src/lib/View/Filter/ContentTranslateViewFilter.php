@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\View\Filter;
+namespace Ibexa\AdminUi\View\Filter;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
-use eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
-use eZ\Publish\Core\MVC\Symfony\View\ViewEvents;
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentTranslationData;
-use EzSystems\EzPlatformAdminUi\Form\Data\FormMapper\ContentTranslationMapper;
-use EzSystems\EzPlatformContentForms\Form\Type\Content\ContentEditType;
+use Ibexa\AdminUi\Form\Data\ContentTranslationData;
+use Ibexa\AdminUi\Form\Data\FormMapper\ContentTranslationMapper;
+use Ibexa\ContentForms\Form\Type\Content\ContentEditType;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
+use Ibexa\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
+use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -29,27 +29,27 @@ use Symfony\Component\Form\FormInterface;
  */
 class ContentTranslateViewFilter implements EventSubscriberInterface
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
     /** @var \Symfony\Component\Form\FormFactoryInterface */
     private $formFactory;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
     private $languagePreferenceProvider;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \eZ\Publish\API\Repository\LanguageService $languageService
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
      * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
-     * @param \eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $languagePreferenceProvider
+     * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $languagePreferenceProvider
      */
     public function __construct(
         ContentService $contentService,
@@ -71,7 +71,7 @@ class ContentTranslateViewFilter implements EventSubscriberInterface
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent $event
+     * @param \Ibexa\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent $event
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
      * @throws \Symfony\Component\OptionsResolver\Exception\OptionDefinitionException
@@ -79,15 +79,15 @@ class ContentTranslateViewFilter implements EventSubscriberInterface
      * @throws \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function handleContentTranslateForm(FilterViewBuilderParametersEvent $event): void
     {
         $controllerAction = $event->getParameters()->get('_controller');
 
         if (
-            'EzSystems\EzPlatformAdminUiBundle\Controller\ContentEditController::translateAction' !== $controllerAction
+            'Ibexa\Bundle\AdminUi\Controller\ContentEditController::translateAction' !== $controllerAction
         ) {
             return;
         }
@@ -122,12 +122,12 @@ class ContentTranslateViewFilter implements EventSubscriberInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $toLanguage
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $fromLanguage
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $toLanguage
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $fromLanguage
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\ContentTranslationData
+     * @return \Ibexa\AdminUi\Form\Data\ContentTranslationData
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
      * @throws \Symfony\Component\OptionsResolver\Exception\OptionDefinitionException
@@ -155,9 +155,9 @@ class ContentTranslateViewFilter implements EventSubscriberInterface
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\ContentTranslationData $contentUpdate
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $toLanguage
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\AdminUi\Form\Data\ContentTranslationData $contentUpdate
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $toLanguage
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
      * @return \Symfony\Component\Form\FormInterface
      */
@@ -179,3 +179,5 @@ class ContentTranslateViewFilter implements EventSubscriberInterface
         );
     }
 }
+
+class_alias(ContentTranslateViewFilter::class, 'EzSystems\EzPlatformAdminUi\View\Filter\ContentTranslateViewFilter');

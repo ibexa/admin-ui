@@ -54,7 +54,14 @@ class DashboardPage extends Page
     public function verifyIsLoaded(): void
     {
         $this->getHTMLPage()->find($this->getLocator('pageTitle'))->assert()->textEquals('My dashboard');
-        $this->getHTMLPage()->find($this->getLocator('table'))->assert()->isVisible();
+        $this->getHTMLPage()->findAll($this->getLocator('tableTitle'))
+            ->getByCriterion(new ElementTextCriterion('My content'))
+            ->assert()->isVisible();
+    }
+
+    public function createContent(): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('createButton'))->click();
     }
 
     public function getName(): string
@@ -70,11 +77,12 @@ class DashboardPage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('tableSelector', '.ez-card'),
-            new VisibleCSSLocator('tableTitle', '.ez-card__title'),
-            new VisibleCSSLocator('tableTab', '.ez-tabs .nav-item'),
-            new VisibleCSSLocator('pageTitle', '.ez-header h1'),
-            new VisibleCSSLocator('table', '#ez-tab-list-content-dashboard-my .tab-pane.active'),
+            new VisibleCSSLocator('tableSelector', '.ibexa-card'),
+            new VisibleCSSLocator('tableTitle', '.ibexa-card__title'),
+            new VisibleCSSLocator('tableTab', '.ibexa-tabs .nav-item'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-header-wrapper h1'),
+            new VisibleCSSLocator('table', '#ibexa-tab-dashboard-my-my-drafts'),
+            new VisibleCSSLocator('createButton', '.ibexa-btn--cotf-create'),
         ];
     }
 }
