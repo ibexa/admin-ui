@@ -5,8 +5,8 @@
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const udwContainer = doc.getElementById('react-udw');
-    const udwRoot = ReactDOM.createRoot(udwContainer);
     const limitationBtns = doc.querySelectorAll(SELECTOR_LOCATION_LIMITATION_BTN);
+    let udwRoot = null;
     const findLocationsByIdList = (pathArraysWithoutRoot, callback) => {
         const bulkOperations = getBulkOperations(pathArraysWithoutRoot);
         const request = new Request('/api/ibexa/v2/bulk', {
@@ -171,6 +171,7 @@
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
         const title = Translator.trans(/*@Desc("Choose Locations")*/ 'subtree_limitation.title', {}, 'universal_discovery_widget');
 
+        udwRoot = ReactDOM.createRoot(udwContainer);
         udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: handleUdwConfirm.bind(this, event.target),

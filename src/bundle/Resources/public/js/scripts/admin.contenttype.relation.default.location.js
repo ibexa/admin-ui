@@ -3,7 +3,7 @@
     const resetStartingLocationBtns = doc.querySelectorAll(SELECTOR_RESET_STARTING_LOCATION_BTN);
     const udwBtns = doc.querySelectorAll('.ibexa-btn--udw-relation-default-location');
     const udwContainer = doc.getElementById('react-udw');
-    const udwRoot = ReactDOM.createRoot(udwContainer);
+    let udwRoot = null;
     const closeUDW = () => udwRoot.unmount();
     const onConfirm = (btn, items) => {
         closeUDW();
@@ -29,6 +29,7 @@
 
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
 
+        udwRoot = ReactDOM.createRoot(udwContainer);
         udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(null, event.currentTarget),

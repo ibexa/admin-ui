@@ -1,9 +1,9 @@
 (function (global, doc, ibexa, React, ReactDOM, Translator) {
     const btns = doc.querySelectorAll('.ibexa-btn--udw-select-location');
     const udwContainer = doc.getElementById('react-udw');
-    const udwRoot = ReactDOM.createRoot(udwContainer);
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
+    let udwRoot = null;
     const findLocationsByIdList = (idList, callback) => {
         const body = JSON.stringify({
             ViewInput: {
@@ -101,6 +101,7 @@
 
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
 
+        udwRoot = ReactDOM.createRoot(udwContainer);
         udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(null, event.currentTarget),
