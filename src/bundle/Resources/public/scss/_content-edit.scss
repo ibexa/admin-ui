@@ -1,3 +1,11 @@
 .ibexa-edit-content {
     @include edit-right-side-container;
+
+    &__container {
+        max-width: calculateRem(820px);
+
+        &--wide {
+            max-width: calculateRem(1600px);
+        }
+    }
 }

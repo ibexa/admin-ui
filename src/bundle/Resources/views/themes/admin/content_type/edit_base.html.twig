@@ -16,11 +16,7 @@
 {% block main_container_class %}{{ parent() }} ibexa-content-type-edit ibexa-main-container--with-anchor-menu-items{% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col col-10 offset-1">
-            {% block form %}{% endblock %}
-        </div>
-    </div>
+    {% block form %}{% endblock %}
 {% endblock %}
 
 {% block javascripts %}

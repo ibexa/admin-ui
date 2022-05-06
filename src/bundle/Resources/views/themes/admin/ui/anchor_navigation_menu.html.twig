@@ -27,7 +27,7 @@
                             class="ibexa-anchor-navigation-menu__item-btn {% if loop.first %}ibexa-anchor-navigation-menu__item-btn--active{% endif %}" 
                             data-anchor-target-section-id="#{{ sanitized_item }}"
                         >
-                            {{ item }}
+                            <span class="ibexa-anchor-navigation-menu__item-btn-label">{{ item }}</span>
                         </button>
                     </li>
                 {% endfor %}

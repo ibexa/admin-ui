@@ -31,6 +31,7 @@ class RoleUpdatePage extends AdminUpdateItemPage
         parent::__construct($session, $router, $contentActionsMenu);
         $this->universalDiscoveryWidget = $universalDiscoveryWidget;
         $this->ibexaDropdown = $ibexaDropdown;
+        $this->locators->replace(new VisibleCSSLocator('button', '.ibexa-edit-content__container button'));
     }
 
     public function selectLimitationValues(string $selectName, array $values): void

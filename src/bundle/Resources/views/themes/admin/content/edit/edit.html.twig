@@ -41,16 +41,14 @@
 {% endblock %}
 
 {% block form_fields %}
-    <section class="container">
-        <div class="card ibexa-card ibexa-card--light">
-            <div class="card-body">
-                {{ parent() }}
-                {{ form_widget(form.publish, {'attr': {'hidden': 'hidden'}}) }}
-                {{ form_widget(form.saveDraft, {'attr': {'hidden': 'hidden'}}) }}
-                {{ form_widget(form.cancel, {'attr': {'hidden': 'hidden'}}) }}
-            </div>
+    <div class="card ibexa-card ibexa-card--light">
+        <div class="card-body">
+            {{ parent() }}
+            {{ form_widget(form.publish, {'attr': {'hidden': 'hidden'}}) }}
+            {{ form_widget(form.saveDraft, {'attr': {'hidden': 'hidden'}}) }}
+            {{ form_widget(form.cancel, {'attr': {'hidden': 'hidden'}}) }}
         </div>
-    </section>
+    </div>
 {% endblock %}
 
 {% block form_after %}

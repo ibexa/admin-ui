@@ -22,20 +22,18 @@
 {% block content %}
     {% form_theme form '@ibexadesign/ui/form_fields.html.twig' '@ibexadesign/account/settings/update_datetime_format.html.twig' %}
 
-    <div class="row">
-        <div class="col col-6 offset-1">
-            {{ form_start(form) }}
-                {{ form_widget(form.identifier, {'attr': {'hidden': 'hidden'}}) }}
-                {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
-                    headline: user_setting_group.name
-                } %}
-                {% for user_setting in user_setting_group.settings %}
-                    <div>
-                        {{ form_widget(attribute(form, user_setting.identifier)) }}
-                    </div>
-                {% endfor %}
-                {{ form_widget(form.update, {'attr': {'hidden': 'hidden'}}) }}
-            {{ form_end(form) }}
-        </div>
+    <div class="ibexa-edit-content__container">
+        {{ form_start(form) }}
+            {{ form_widget(form.identifier, {'attr': {'hidden': 'hidden'}}) }}
+            {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
+                headline: user_setting_group.name
+            } %}
+            {% for user_setting in user_setting_group.settings %}
+                <div>
+                    {{ form_widget(attribute(form, user_setting.identifier)) }}
+                </div>
+            {% endfor %}
+            {{ form_widget(form.update, {'attr': {'hidden': 'hidden'}}) }}
+        {{ form_end(form) }}
     </div>
 {% endblock %}

@@ -16,14 +16,12 @@
 
 {% block form %}
     {{ form_start(form_section_create) }}
-        <section>
-            <div class="card ibexa-card ibexa-card--light">
-                <div class="card-body">
-                    {{ form_row(form_section_create.name, {'attr': {'autofocus': 'autofocus'}}) }}
-                    {{ form_row(form_section_create.identifier) }}
-                </div>
+        <div class="card ibexa-card ibexa-card--light">
+            <div class="card-body">
+                {{ form_row(form_section_create.name, {'attr': {'autofocus': 'autofocus'}}) }}
+                {{ form_row(form_section_create.identifier) }}
             </div>
-        </section>
+        </div>
         {{ form_widget(form_section_create.create, {'attr': {'hidden': 'hidden'}}) }}
     {{ form_end(form_section_create) }}
 {% endblock %}

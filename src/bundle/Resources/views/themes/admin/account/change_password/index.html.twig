@@ -19,20 +19,18 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col col-10 offset-1">
-            {{ form_start(form_change_user_password, {'attr': {'class': 'ibexa-form-validate'}}) }}
-                <section>
-                    <div class="card ibexa-card ibexa-card--light">
-                        <div class="card-body">
-                            {{ form_row(form_change_user_password.oldPassword) }}
-                            {{ form_row(form_change_user_password.newPassword) }}
-                        </div>
+    <div class="ibexa-edit-content__container">
+        {{ form_start(form_change_user_password, {'attr': {'class': 'ibexa-form-validate'}}) }}
+            <section>
+                <div class="card ibexa-card ibexa-card--light">
+                    <div class="card-body">
+                        {{ form_row(form_change_user_password.oldPassword) }}
+                        {{ form_row(form_change_user_password.newPassword) }}
                     </div>
-                </section>
-                {{ form_widget(form_change_user_password.change, {'attr': {'hidden': 'hidden'}}) }}
-            {{ form_end(form_change_user_password) }}
-        </div>
+                </div>
+            </section>
+            {{ form_widget(form_change_user_password.change, {'attr': {'hidden': 'hidden'}}) }}
+        {{ form_end(form_change_user_password) }}
     </div>
 {% endblock %}
 

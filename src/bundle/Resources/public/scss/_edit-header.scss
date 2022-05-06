@@ -12,6 +12,7 @@
     &__container {
         display: flex;
         flex-direction: column;
+        padding: 0 calculateRem(36px);
     }
 
     &__title {
@@ -118,7 +119,6 @@
 
     &__bottom-row-line {
         margin-top: auto;
-        width: 75%;
         border-bottom: calculateRem(1px) solid $ibexa-color-light;
     }
 

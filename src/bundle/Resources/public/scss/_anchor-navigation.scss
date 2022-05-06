@@ -1,7 +1,7 @@
 .ibexa-anchor-navigation-menu {
     &__header {
         height: calculateRem(87px);
-        padding: calculateRem(17px) 0 0 calculateRem(17px);
+        padding: calculateRem(20px) 0 0 calculateRem(17px);
         border-bottom: calculateRem(1px) solid $ibexa-color-light;
     }
 
@@ -22,28 +22,28 @@
 
     &__item-btn {
         display: inline-flex;
-        align-items: center;
         width: 100%;
         padding: calculateRem(11px) calculateRem(15px);
         border: calculateRem(1px) solid transparent;
         border-radius: $ibexa-border-radius;
+        text-align: left;
 
         &::before {
-            content: ' ';
-            display: inline-block;
-            width: calculateRem(16px);
-            height: calculateRem(16px);
-            margin-right: calculateRem(10px);
+            content: '';
+            display: block;
+            width: calculateRem(8px);
+            height: calculateRem(8px);
+            margin: calculateRem(8px) calculateRem(16px) 0 0;
             border-radius: 50%;
-            border: calculateRem(2px) solid transparent;
             background-color: $ibexa-color-light;
         }
 
         &::after {
             content: '*';
+            width: calculateRem(16px);
             display: inline-block;
             opacity: 0;
-            margin-left: calculateRem(4px);
+            margin: calculateRem(4px) 0 0 calculateRem(4px);
             color: $ibexa-color-danger;
             font-size: $ibexa-text-font-size-small;
         }
@@ -53,8 +53,7 @@
             font-weight: 600;
 
             &:before {
-                background-color: transparent;
-                border-color: $ibexa-color-info;
+                background-color: $ibexa-color-info;
             }
         }
 
@@ -64,8 +63,7 @@
             font-weight: 600;
 
             &:before {
-                background-color: transparent;
-                border-color: $ibexa-color-info;
+                background-color: $ibexa-color-info;
             }
         }
 
@@ -74,5 +72,9 @@
                 opacity: 1;
             }
         }
+    }
+
+    &__item-btn-label {
+        max-width: calc(100% - #{calculateRem(45px)});
     }
 }
