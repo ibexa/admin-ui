@@ -50,7 +50,27 @@ class UserSettingsPage extends Page
     {
         return [
             new VisibleCSSLocator('button', '.ibexa-btn'),
+            new VisibleCSSLocator('title', ''),
+            new VisibleCSSLocator('autosaveDraftEditButton', ''),
+            new VisibleCSSLocator('autosaveDraftValueDropdown', ''),
+            new VisibleCSSLocator('autosaveIntervalEdit', ''),
         ];
+    }
+
+    public function openAutosaveDraftEditionPage(): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('autosaveDraftEditButton'))->click();
+    }
+
+    public function openAutosaveDraftIntervalEditionPage(): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('autosaveIntervalEdit'))->click();
+    }
+
+    public function disableAutosave(): void
+    {
+        $this->rightMenu->verifyIsLoaded();
+        $this->getHTMLPage()->find($this->getLocator('autosaveDraftValueDropdown'))->selectOption('disabled');
     }
 
     protected function getRoute(): string

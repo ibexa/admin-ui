@@ -99,6 +99,8 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator('noneditableFieldClass', 'ibexa-field-edit--eznoneditable'),
             new VisibleCSSLocator('fieldOfType', '.ibexa-field-edit--%s'),
             new VisibleCSSLocator('navigationTabs', '.ibexa-anchor-navigation-menu__item'),
+            new VisibleCSSLocator('autosaveInfo', ''),
+            new VisibleCSSLocator('autosaveLastSavedInfo', ''),
         ];
     }
 
@@ -184,5 +186,19 @@ class ContentUpdateItemPage extends Page
         $fieldLocator = new VisibleCSSLocator('', sprintf($this
             ->getLocator('fieldGroupNthField')->getSelector(), $activeSections->single()->getAttribute('data-anchor-target-section-id'), $this->getFieldPosition($fieldName)));
         $this->getHTMLPage()->find($fieldLocator)->assert()->hasClass('ibexa-field-edit--disabled');
+    }
+
+    public function verifyAutosaveNotificationIsDisplayed(): void
+    {
+        $this->getHTMLPage()
+            ->find($this->getLocator('autosaveInfo'))
+            ->assert()->textContains('Autosave is on.');
+    }
+
+    public function verifyAutosaveDraftIsSavedNotificationIsDisplayed(): void
+    {
+        $this->getHTMLPage()
+            ->find($this->getLocator('autosaveLastSavedInfo'))
+            ->assert()->textContains('Last saved draft was on');
     }
 }
