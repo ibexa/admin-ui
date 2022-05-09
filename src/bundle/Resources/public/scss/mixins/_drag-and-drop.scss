@@ -7,6 +7,7 @@
 
 @mixin sidebar-drag-items {
     $ibexa-sidebar-width: calculateRem(356px);
+    $ibexa-sidebar-content-padding: calculateRem(32px);
 
     display: flex;
     flex-direction: column;
@@ -30,22 +31,26 @@
     }
 
     &__title-bar {
-        padding: calculateRem(10px) calculateRem(32px);
+        padding: calculateRem(5px) $ibexa-sidebar-content-padding;
         border-bottom: calculateRem(1px) solid $ibexa-color-dark-200;
     }
 
     &__title {
-        margin: 0;
+        height: calculateRem(33px);
+        line-height: calculateRem(33px);
+        color: $ibexa-color-dark;
+        font-size: $ibexa-text-font-size-large;
+        font-weight: 600;
         padding: 0;
-        font-weight: 400;
+        margin: 0;
     }
 
     &__search-bar {
-        padding: calculateRem(18px) calculateRem(32px);
+        padding: calculateRem(23px) $ibexa-sidebar-content-padding calculateRem(15px);
     }
 
     &__list {
-        padding: calculateRem(4px) calculateRem(32px);
+        padding: calculateRem(5px) $ibexa-sidebar-content-padding;
         margin-bottom: 0;
         overflow: auto;
     }
@@ -89,7 +94,7 @@
 
     &__title {
         font-size: $ibexa-text-font-size-medium;
-        font-weight: 400;
+        font-weight: 600;
     }
 
     &--collapsed {
@@ -101,7 +106,7 @@
     display: flex;
     width: 100%;
     margin-bottom: calculateRem(8px);
-    padding: calculateRem(11px);
+    padding: calculateRem(13px) calculateRem(10px);
     border: calculateRem(1px) solid $ibexa-color-light;
     border-radius: $ibexa-border-radius;
     box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(20px) calculateRem(-7px) rgba($ibexa-color-info, 0.05);
@@ -132,6 +137,7 @@
 
     &__label {
         font-size: $ibexa-text-font-size-medium;
+        font-weight: 600;
     }
 
     &__collapse {
