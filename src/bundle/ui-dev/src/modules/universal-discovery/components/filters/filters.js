@@ -9,8 +9,7 @@ import {
     SelectedLanguageContext,
     SelectedSubtreeBreadcrumbsContext,
 } from '../search/search';
-import { findLocationsById } from '../../services/universal.discovery.service';
-import UniversalDiscoveryModule, { RestInfoContext, DropdownPortalRefContext } from '../../universal.discovery.module';
+import UniversalDiscoveryModule, { DropdownPortalRefContext } from '../../universal.discovery.module';
 
 import Dropdown from '../../../common/dropdown/dropdown';
 import ContentTypeSelector from '../content-type-selector/content.type.selector';
@@ -30,18 +29,14 @@ const Filters = ({ search }) => {
     const dropdownListRef = useContext(DropdownPortalRefContext);
     const [filtersCleared, setFiltersCleared] = useState(false);
     const [isNestedUdwOpened, setIsNestedUdwOpened] = useState(false);
-    const restInfo = useContext(RestInfoContext);
     const filterSubtreeUdwConfig = JSON.parse(window.document.querySelector('#react-udw').dataset.filterSubtreeUdwConfig);
     const handleNestedUdwConfirm = (items) => {
+        const { removeRootFromPathString, findLocationsByIds, buildLocationsBreadcrumbs } = ibexa.helpers.location;
         const [{ pathString }] = items;
-        const pathArray = pathString.split('/').filter((val) => val);
-        const id = pathArray.splice(1, pathArray.length - 1).join();
 
-        findLocationsById({ ...restInfo, id }, (locations) => {
-            const breadcrumbs = locations.map((location) => location.ContentInfo.Content.TranslatedName).join(' / ');
-
-            setSelectedSubtreeBreadcrumbs(breadcrumbs);
-        });
+        findLocationsByIds(removeRootFromPathString(pathString), (locations) =>
+            setSelectedSubtreeBreadcrumbs(buildLocationsBreadcrumbs(locations), pathString),
+        );
 
         setSelectedSubtree(pathString);
         setIsNestedUdwOpened(false);
