@@ -22,16 +22,21 @@ const searchByQueryReducer = (state, action) => {
 
 export const useSearchByQueryFetch = () => {
     const restInfo = useContext(RestInfoContext);
-    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [{ isLoading, data }, dispatch] = useReducer(searchByQueryReducer, { isLoading: false, data: {} });
     const searchByQuery = useCallback(
         (searchText, contentTypesIdentifiers, sectionIdentifier, subtreePathString, limit, offset, languageCode) => {
             const handleFetch = (response) => {
-                dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: [{
-                    parentLocationId: null,
-                    count: response.count,
-                    subitems: response.items.map((item) => ({ location: item })),
-                }] });
+                dispatchLoadedLocationsAction({
+                    type: 'SET_LOCATIONS',
+                    data: [
+                        {
+                            parentLocationId: null,
+                            count: response.count,
+                            subitems: response.items.map((item) => ({ location: item })),
+                        },
+                    ],
+                });
                 dispatch({ type: SEARCH_END, response });
             };
             const query = { FullTextCriterion: `${searchText}*` };
