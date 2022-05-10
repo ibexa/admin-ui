@@ -1,7 +1,7 @@
 import { useContext, useCallback, useReducer } from 'react';
 
 import { findLocationsBySearchQuery } from '../services/universal.discovery.service';
-import { RestInfoContext } from '../universal.discovery.module';
+import { RestInfoContext, LoadedLocationsMapContext } from '../universal.discovery.module';
 
 const SEARCH_START = 'SEARCH_START';
 const SEARCH_END = 'SEARCH_END';
@@ -22,10 +22,16 @@ const searchByQueryReducer = (state, action) => {
 
 export const useSearchByQueryFetch = () => {
     const restInfo = useContext(RestInfoContext);
+    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [{ isLoading, data }, dispatch] = useReducer(searchByQueryReducer, { isLoading: false, data: {} });
     const searchByQuery = useCallback(
         (searchText, contentTypesIdentifiers, sectionIdentifier, subtreePathString, limit, offset, languageCode) => {
             const handleFetch = (response) => {
+                dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: [{
+                    parentLocationId: null,
+                    count: response.count,
+                    subitems: response.items.map((item) => ({ location: item })),
+                }] });
                 dispatch({ type: SEARCH_END, response });
             };
             const query = { FullTextCriterion: `${searchText}*` };
