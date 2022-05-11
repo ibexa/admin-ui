@@ -7,7 +7,6 @@
 
 @mixin sidebar-drag-items {
     $ibexa-sidebar-width: calculateRem(356px);
-    $ibexa-sidebar-content-padding: calculateRem(32px);
 
     display: flex;
     flex-direction: column;
@@ -31,7 +30,7 @@
     }
 
     &__title-bar {
-        padding: calculateRem(5px) $ibexa-sidebar-content-padding;
+        padding: calculateRem(5px) calculateRem(32px);
         border-bottom: calculateRem(1px) solid $ibexa-color-dark-200;
     }
 
@@ -46,11 +45,11 @@
     }
 
     &__search-bar {
-        padding: calculateRem(23px) $ibexa-sidebar-content-padding calculateRem(15px);
+        padding: calculateRem(23px) calculateRem(32px) calculateRem(15px);
     }
 
     &__list {
-        padding: calculateRem(5px) $ibexa-sidebar-content-padding;
+        padding: calculateRem(5px) calculateRem(32px);
         margin-bottom: 0;
         overflow: auto;
     }
