@@ -8,6 +8,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
+use Ibexa\AdminUi\Behat\Component\IbexaDropdown;
 use Ibexa\AdminUi\Behat\Component\TableNavigationTab;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -20,11 +21,14 @@ class UserSettingsPage extends Page
 
     private TableNavigationTab $tableNavigationTab;
 
-    public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu, TableNavigationTab $tableNavigationTab)
+    private IbexaDropdown $ibexaDropdown;
+
+    public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu, TableNavigationTab $tableNavigationTab, ibexaDropdown $ibexaDropdown)
     {
         parent::__construct($session, $router);
         $this->contentActionsMenu = $contentActionsMenu;
         $this->tableNavigationTab = $tableNavigationTab;
+        $this->ibexaDropdown = $ibexaDropdown;
     }
 
     public function verifyIsLoaded(): void
@@ -50,10 +54,10 @@ class UserSettingsPage extends Page
     {
         return [
             new VisibleCSSLocator('button', '.ibexa-btn'),
-            new VisibleCSSLocator('title', ''),
-            new VisibleCSSLocator('autosaveDraftEditButton', ''),
-            new VisibleCSSLocator('autosaveDraftValueDropdown', ''),
-            new VisibleCSSLocator('autosaveIntervalEdit', ''),
+            new VisibleCSSLocator('title', '.ibexa-edit-header__title'),
+            new VisibleCSSLocator('autosaveDraftEditButton', '#ibexa-tab-my-preferences > div:nth-child(2) > div div.ibexa-table-header__actions > a'),
+            new VisibleCSSLocator('autosaveDraftValueDropdown', '#user_setting_update_autosave div.ibexa-dropdown__wrapper > ul'),
+            new VisibleCSSLocator('autosaveIntervalEdit', '#user_setting_update_autosave_interval_value'),
         ];
     }
 
@@ -69,8 +73,9 @@ class UserSettingsPage extends Page
 
     public function disableAutosave(): void
     {
-        $this->rightMenu->verifyIsLoaded();
-        $this->getHTMLPage()->find($this->getLocator('autosaveDraftValueDropdown'))->selectOption('disabled');
+        $this->contentActionsMenu->verifyIsLoaded();
+        $this->getHTMLPage()->find($this->getLocator('autosaveDraftValueDropdown'))->click();
+        $this->ibexaDropdown->selectOption('disabled');
     }
 
     protected function getRoute(): string

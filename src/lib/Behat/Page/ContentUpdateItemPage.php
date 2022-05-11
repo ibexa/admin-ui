@@ -99,8 +99,9 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator('noneditableFieldClass', 'ibexa-field-edit--eznoneditable'),
             new VisibleCSSLocator('fieldOfType', '.ibexa-field-edit--%s'),
             new VisibleCSSLocator('navigationTabs', '.ibexa-anchor-navigation-menu__item'),
-            new VisibleCSSLocator('autosaveInfo', ''),
-            new VisibleCSSLocator('autosaveLastSavedInfo', ''),
+            new VisibleCSSLocator('autosaveIsOnInfo', '.ibexa-autosave__status-on'),
+            new VisibleCSSLocator('autosaveSavedInfo', '.ibexa-autosave__status-saved'),
+            new VisibleCSSLocator('autosaveIsOffInfo', '.ibexa-autosave__status-off'),
         ];
     }
 
@@ -191,14 +192,21 @@ class ContentUpdateItemPage extends Page
     public function verifyAutosaveNotificationIsDisplayed(): void
     {
         $this->getHTMLPage()
-            ->find($this->getLocator('autosaveInfo'))
-            ->assert()->textContains('Autosave is on.');
+            ->find($this->getLocator('autosaveIsOnInfo'))
+            ->assert()->textContains('Autosave is on');
     }
 
     public function verifyAutosaveDraftIsSavedNotificationIsDisplayed(): void
     {
         $this->getHTMLPage()
-            ->find($this->getLocator('autosaveLastSavedInfo'))
-            ->assert()->textContains('Last saved draft was on');
+            ->find($this->getLocator('autosaveSavedInfo'))
+            ->assert()->textContains('Saved');
+    }
+
+    public function verifyAutosaveIsOffNotificationIsDisplayed(): void
+    {
+        $this->getHTMLPage()
+            ->find($this->getLocator('autosaveIsOffInfo'))
+            ->assert()->textContains('Autosave is off');
     }
 }

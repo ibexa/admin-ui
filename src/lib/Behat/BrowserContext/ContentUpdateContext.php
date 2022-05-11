@@ -121,7 +121,16 @@ class ContentUpdateContext implements Context
     {
         $this->contentUpdateItemPage->verifyIsLoaded();
         $this->contentUpdateItemPage->verifyAutosaveNotificationIsDisplayed();
-        sleep($autosaveIntervalTime + 3);
+        sleep($autosaveIntervalTime + 10);
         $this->contentUpdateItemPage->verifyAutosaveDraftIsSavedNotificationIsDisplayed();
+    }
+
+    /**
+     * @When I check if "Autosave is off" notification is displayed
+     */
+    public function iCheckAutosaveNotification(): void
+    {
+        $this->contentUpdateItemPage->verifyIsLoaded();
+        $this->contentUpdateItemPage->verifyAutosaveIsOffNotificationIsDisplayed();
     }
 }
