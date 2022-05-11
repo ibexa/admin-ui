@@ -1,0 +1,11 @@
+{
+    "recipesEndpoint": "",
+    "packages": [
+        {
+            "requirement": "dev-ibx-2321-added-autosave-context-v4 as 4.1.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/user",
+            "package": "ibexa/user",
+            "shouldBeAddedAsVCS": false
+        }
+    ]
+}
