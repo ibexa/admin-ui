@@ -5,20 +5,16 @@
 {% block body_class %}ibexa-url-management{% endblock %}
 
 {% block breadcrumbs %}
-    <div class="container">
-        {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
-            { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
-            { value: 'url_management.breadcrumb.list'|trans|desc('URL Management') },
-        ]} %}
-    </div>
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
+        { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
+        { value: 'url_management.breadcrumb.list'|trans|desc('URL Management') },
+    ]} %}
 {% endblock %}
 
 {% block header %}
-    <div class="container">
-        {% include '@ibexadesign/ui/page_title.html.twig' with {
-            title: 'url_management.view.list.title'|trans|desc('URL Management'),
-        } %}
-    </div>
+    {% include '@ibexadesign/ui/page_title.html.twig' with {
+        title: 'url_management.view.list.title'|trans|desc('URL Management'),
+    } %}
 {% endblock %}
 
 {% block content %}

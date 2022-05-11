@@ -13,96 +13,94 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row align-items-stretch ibexa-main-row">
-        <div class="container ibexa-content-container">
-            <section class="container ibexa-container">
-                {% set body_rows = [] %}
-                {% for bookmark in pager.currentPageResults %}
-                    {% set body_row_cols = [] %}
+    <div class="align-items-stretch ibexa-main-row">
+        <section class="container ibexa-container">
+            {% set body_rows = [] %}
+            {% for bookmark in pager.currentPageResults %}
+                {% set body_row_cols = [] %}
 
-                    {% set col_checkbox %}
-                        {{ form_widget(form_remove.bookmarks[bookmark.id]) }}
-                    {% endset %}
+                {% set col_checkbox %}
+                    {{ form_widget(form_remove.bookmarks[bookmark.id]) }}
+                {% endset %}
 
-                    {% set col_icon %}
-                        <svg class="ibexa-icon ibexa-icon--small">
-                            <use xlink:href="{{ ibexa_content_type_icon(bookmark.contentType.identifier) }}"></use>
-                        </svg>
-                    {% endset %}
+                {% set col_icon %}
+                    <svg class="ibexa-icon ibexa-icon--small">
+                        <use xlink:href="{{ ibexa_content_type_icon(bookmark.contentType.identifier) }}"></use>
+                    </svg>
+                {% endset %}
 
-                    {% set col_name %}
-                        <a href="{{ path('ibexa.content.view', { 'contentId': bookmark.contentInfo.id, 'locationId': bookmark.id }) }}">
-                            {{ ibexa_content_name(bookmark.contentInfo) }}
-                        </a>
-                    {% endset %}
+                {% set col_name %}
+                    <a href="{{ path('ibexa.content.view', { 'contentId': bookmark.contentInfo.id, 'locationId': bookmark.id }) }}">
+                        {{ ibexa_content_name(bookmark.contentInfo) }}
+                    </a>
+                {% endset %}
 
-                    {% set col_path %}
-                        {% if bookmark.pathLocations|length > 1 %}
-                            {% for location in bookmark.pathLocations %}
-                                {% if loop.revindex > 1 %}
-                                    <a href="{{ path('ibexa.content.view', { 'contentId': location.contentId, 'locationId': location.id}) }}">
-                                        {{ ibexa_content_name(location.contentInfo) }}
-                                    </a>
-                                    {% if loop.revindex > 2 %}/{% endif %}
-                                {% endif %}
-                            {% endfor %}
-                        {% else %}
-                            -
-                        {% endif %}
-                    {% endset %}
+                {% set col_path %}
+                    {% if bookmark.pathLocations|length > 1 %}
+                        {% for location in bookmark.pathLocations %}
+                            {% if loop.revindex > 1 %}
+                                <a href="{{ path('ibexa.content.view', { 'contentId': location.contentId, 'locationId': location.id}) }}">
+                                    {{ ibexa_content_name(location.contentInfo) }}
+                                </a>
+                                {% if loop.revindex > 2 %}/{% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        -
+                    {% endif %}
+                {% endset %}
 
-                    {% set col_action_btns %}
-                        {% if bookmark.userCanEdit %}
-                            <button
-                                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--content-edit"
-                                title="{{ 'bookmark.list.content.edit'|trans|desc('Edit content') }}"
-                                data-content-id="{{ bookmark.contentInfo.id }}"
-                                data-language-code="{{ bookmark.contentInfo.mainLanguageCode }}"
-                            >
-                                <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
-                                    <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                                </svg>
-                            </button>
-                        {% endif %}
-                    {% endset %}
+                {% set col_action_btns %}
+                    {% if bookmark.userCanEdit %}
+                        <button
+                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--content-edit"
+                            title="{{ 'bookmark.list.content.edit'|trans|desc('Edit content') }}"
+                            data-content-id="{{ bookmark.contentInfo.id }}"
+                            data-language-code="{{ bookmark.contentInfo.mainLanguageCode }}"
+                        >
+                            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
+                                <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
+                            </svg>
+                        </button>
+                    {% endif %}
+                {% endset %}
 
-                    {% set body_rows = body_rows|merge([{ cols: [
-                        { has_checkbox: true, content: col_checkbox, raw: true },
-                        { has_icon: true, content: col_icon, raw: true },
-                        { content: col_name, raw: true},
-                        { content: bookmark.contentType.name },
-                        { content: col_path, raw: true },
-                        { has_action_btns: true, content: col_action_btns, raw: true },
-                    ]}]) %}
-                {% endfor %}
+                {% set body_rows = body_rows|merge([{ cols: [
+                    { has_checkbox: true, content: col_checkbox, raw: true },
+                    { has_icon: true, content: col_icon, raw: true },
+                    { content: col_name, raw: true},
+                    { content: bookmark.contentType.name },
+                    { content: col_path, raw: true },
+                    { has_action_btns: true, content: col_action_btns, raw: true },
+                ]}]) %}
+            {% endfor %}
 
-                {{ form_start(form_remove, {
-                    'action': path('ibexa.bookmark.remove'),
-                    'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#bookmark_remove_remove' }
-                }) }}
-                {% include '@ibexadesign/ui/component/table/table.html.twig' with {
-                    headline: 'bookmark.table.header'|trans|desc('Bookmarks') ~ ' (' ~ pager.count ~ ')',
-                    head_cols: [
-                        { has_checkbox: true },
-                        { has_icon: true },
-                        { content: 'bookmark.list.name'|trans|desc('Name') },
-                        { content: 'bookmark.list.content_type'|trans|desc('Content Type') },
-                        { content: 'bookmark.list.path'|trans|desc('Path') },
-                        { },
-                    ],
-                    body_rows,
-                    actions: form_widget(form_remove.remove, {'attr': {'class': 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--small', 'disabled': true}}),
-                    empty_table_info_text: 'bookmark.list.empty'|trans|desc('You have no bookmarks yet. Your bookmarks will show up here.'),
+            {{ form_start(form_remove, {
+                'action': path('ibexa.bookmark.remove'),
+                'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#bookmark_remove_remove' }
+            }) }}
+            {% include '@ibexadesign/ui/component/table/table.html.twig' with {
+                headline: 'bookmark.table.header'|trans|desc('Bookmarks') ~ ' (' ~ pager.count ~ ')',
+                head_cols: [
+                    { has_checkbox: true },
+                    { has_icon: true },
+                    { content: 'bookmark.list.name'|trans|desc('Name') },
+                    { content: 'bookmark.list.content_type'|trans|desc('Content Type') },
+                    { content: 'bookmark.list.path'|trans|desc('Path') },
+                    { },
+                ],
+                body_rows,
+                actions: form_widget(form_remove.remove, {'attr': {'class': 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--small', 'disabled': true}}),
+                empty_table_info_text: 'bookmark.list.empty'|trans|desc('You have no bookmarks yet. Your bookmarks will show up here.'),
+            } %}
+            {{ form_end(form_remove) }}
+
+            {% if pager.haveToPaginate %}
+                {% include '@ibexadesign/ui/pagination.html.twig' with {
+                    'pager': pager
                 } %}
-                {{ form_end(form_remove) }}
-
-                {% if pager.haveToPaginate %}
-                    {% include '@ibexadesign/ui/pagination.html.twig' with {
-                        'pager': pager
-                    } %}
-                {% endif %}
-            </section>
-        </div>
+            {% endif %}
+        </section>
 
         {{ form_start(form_edit, {
             'action': path('ibexa.content.edit'),

@@ -17,133 +17,131 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row align-items-stretch ibexa-main-row">
-        <div class="container ibexa-content-container">
-            <div class="container ibexa-container">
-                {% set body_rows = [] %}
-                {% for row in pager.currentPageResults %}
-                    {% set body_row_cols = [] %}
-                    {% if row.isAccessible %}
-                        {% set content_draft_edit_url = content_is_user|default(false) ? 'ibexa.user.update' : 'ibexa.content.draft.edit' %}
+    <div class="align-items-stretch ibexa-main-row">
+        <section class="container ibexa-container">
+            {% set body_rows = [] %}
+            {% for row in pager.currentPageResults %}
+                {% set body_row_cols = [] %}
+                {% if row.isAccessible %}
+                    {% set content_draft_edit_url = content_is_user|default(false) ? 'ibexa.user.update' : 'ibexa.content.draft.edit' %}
 
-                        {% set col_raw %}
-                            {{ form_widget(form_remove.versions[row.versionId ~ '']) }}
-                        {% endset %}
-                        {% set body_row_cols = body_row_cols|merge([{
-                            has_checkbox: true,
-                            content: col_raw,
-                            raw: true,
-                        }]) %}
+                    {% set col_raw %}
+                        {{ form_widget(form_remove.versions[row.versionId ~ '']) }}
+                    {% endset %}
+                    {% set body_row_cols = body_row_cols|merge([{
+                        has_checkbox: true,
+                        content: col_raw,
+                        raw: true,
+                    }]) %}
 
-                        {% set col_raw %}
-                            <svg class="ibexa-icon ibexa-icon--small">
-                                <use xlink:href="{{ ibexa_content_type_icon(row.contentType.identifier) }}"></use>
+                    {% set col_raw %}
+                        <svg class="ibexa-icon ibexa-icon--small">
+                            <use xlink:href="{{ ibexa_content_type_icon(row.contentType.identifier) }}"></use>
+                        </svg>
+                    {% endset %}
+                    {% set body_row_cols = body_row_cols|merge([{
+                        has_checkbox: true,
+                        content: col_raw,
+                        raw: true,
+                    }]) %}
+
+                    {% set col_raw %}
+                        <span title="{{ row.versionInfo.name }}">
+                            {{ row.versionInfo.name }}
+                        </span>
+                    {% endset %}
+                    {% set body_row_cols = body_row_cols|merge([{
+                        content: col_raw,
+                        raw: true,
+                    }]) %}
+
+                    {% set body_row_cols = body_row_cols|merge([
+                        { content: row.contentType.name },
+                        { content: ibexa_admin_ui_config.languages.mappings[row.versionInfo.initialLanguageCode].name },
+                        { content: row.versionInfo.versionNo },
+                        { content: row.versionInfo.modificationDate|ibexa_full_datetime },
+                    ]) %}
+
+                    {% set col_raw %}
+                        <button
+                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2 ibexa-btn--content-draft-edit"
+                            title="{{ 'drafts.list.action.edit'|trans|desc('Edit draft') }}"
+                            data-content-id="{{ row.versionInfo.contentInfo.id }}"
+                            data-language-code="{{ row.versionInfo.initialLanguageCode }}"
+                            data-content-draft-edit-url="{{ path(content_draft_edit_url, {
+                                'contentId': row.versionInfo.contentInfo.id,
+                                'versionNo': row.versionInfo.versionNo,
+                                'language': row.versionInfo.initialLanguageCode
+                            }) }}"
+                            data-version-has-conflict-url="{{ path('ibexa.version.has_no_conflict', {
+                                'contentId': row.versionInfo.contentInfo.id,
+                                'versionNo': row.versionInfo.versionNo,
+                                'languageCode': row.versionInfo.initialLanguageCode
+                            }) }}"
+                        >
+                            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
+                                <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
                             </svg>
-                        {% endset %}
-                        {% set body_row_cols = body_row_cols|merge([{
-                            has_checkbox: true,
-                            content: col_raw,
-                            raw: true,
-                        }]) %}
+                        </button>
+                    {% endset %}
+                    {% set body_row_cols = body_row_cols|merge([{
+                        has_action_btns: true,
+                        content: col_raw,
+                        raw: true,
+                    }]) %}
 
-                        {% set col_raw %}
-                            <span title="{{ row.versionInfo.name }}">
-                                {{ row.versionInfo.name }}
-                            </span>
-                        {% endset %}
-                        {% set body_row_cols = body_row_cols|merge([{
-                            content: col_raw,
-                            raw: true,
-                        }]) %}
+                    {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
+                {% else %}
+                    {% set body_row_cols = body_row_cols|merge([{
+                        attr: { colspan: 8 },
+                        content: 'dashboard.table.draft.unauthorized'|trans({
+                                '%module%': row.unauthorizedContentDraft.module,
+                                '%function%': row.unauthorizedContentDraft.function,
+                                '%contentId%': row.unauthorizedContentDraft.payload.contentId,
+                            })|desc('You do not have permissions for \'%function%\' \'%module%\' for content ID: %contentId%'),
+                    }]) %}
 
-                        {% set body_row_cols = body_row_cols|merge([
-                            { content: row.contentType.name },
-                            { content: ibexa_admin_ui_config.languages.mappings[row.versionInfo.initialLanguageCode].name },
-                            { content: row.versionInfo.versionNo },
-                            { content: row.versionInfo.modificationDate|ibexa_full_datetime },
-                        ]) %}
-
-                        {% set col_raw %}
-                            <button
-                                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2 ibexa-btn--content-draft-edit"
-                                title="{{ 'drafts.list.action.edit'|trans|desc('Edit draft') }}"
-                                data-content-id="{{ row.versionInfo.contentInfo.id }}"
-                                data-language-code="{{ row.versionInfo.initialLanguageCode }}"
-                                data-content-draft-edit-url="{{ path(content_draft_edit_url, {
-                                    'contentId': row.versionInfo.contentInfo.id,
-                                    'versionNo': row.versionInfo.versionNo,
-                                    'language': row.versionInfo.initialLanguageCode
-                                }) }}"
-                                data-version-has-conflict-url="{{ path('ibexa.version.has_no_conflict', {
-                                    'contentId': row.versionInfo.contentInfo.id,
-                                    'versionNo': row.versionInfo.versionNo,
-                                    'languageCode': row.versionInfo.initialLanguageCode
-                                }) }}"
-                            >
-                                <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
-                                    <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                                </svg>
-                            </button>
-                        {% endset %}
-                        {% set body_row_cols = body_row_cols|merge([{
-                            has_action_btns: true,
-                            content: col_raw,
-                            raw: true,
-                        }]) %}
-
-                        {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
-                    {% else %}
-                        {% set body_row_cols = body_row_cols|merge([{
-                            attr: { colspan: 8 },
-                            content: 'dashboard.table.draft.unauthorized'|trans({
-                                    '%module%': row.unauthorizedContentDraft.module,
-                                    '%function%': row.unauthorizedContentDraft.function,
-                                    '%contentId%': row.unauthorizedContentDraft.payload.contentId,
-                                })|desc('You do not have permissions for \'%function%\' \'%module%\' for content ID: %contentId%'),
-                        }]) %}
-
-                        {% set body_rows = body_rows|merge([{
-                            cols: body_row_cols,
-                        }]) %}
-                    {% endif %}
-                {% endfor %}
-
-                {{ form_start(form_remove, {
-                    'action': path('ibexa.content_draft.remove'),
-                    'attr': {
-                        'class': 'ibexa-toggle-btn-state',
-                        'data-toggle-button-id': '#confirm-' ~ form_remove.remove.vars.id
-                    }
-                }) }}
-                {% include '@ibexadesign/ui/component/table/table.html.twig' with {
-                    headline: 'drafts.table.header'|trans|desc('Drafts') ~ ' (' ~ pager.count ~ ')',
-                    head_cols: [
-                        { has_checkbox: true },
-                        { has_icon: true },
-                        { content: 'drafts.list.name'|trans|desc('Name') },
-                        { content: 'drafts.list.content_type'|trans|desc('Content Type') },
-                        { content: 'drafts.list.modified_language'|trans|desc('Modified Language') },
-                        { content: 'drafts.list.version'|trans|desc('Version') },
-                        { content: 'drafts.list.last_saved'|trans|desc('Last Saved') },
-                        { },
-                    ],
-                    body_rows,
-                    actions: macros.table_header_tools(form_remove),
-                    empty_table_info_text: 'drafts.list.empty'|trans|desc('You have no drafts yet. Your drafts will show up here.'),
-                } %}
-                {% if pager.haveToPaginate %}
-                    {% include '@ibexadesign/ui/pagination.html.twig' with {
-                        'pager': pager,
-                    } %}
+                    {% set body_rows = body_rows|merge([{
+                        cols: body_row_cols,
+                    }]) %}
                 {% endif %}
-                {{ form_widget(form_remove.remove, {
-                    'attr': {
-                        'hidden': true
-                    }
-                }) }}
-                {{ form_end(form_remove) }}
-            </div>
-        </div>
+            {% endfor %}
+
+            {{ form_start(form_remove, {
+                'action': path('ibexa.content_draft.remove'),
+                'attr': {
+                    'class': 'ibexa-toggle-btn-state',
+                    'data-toggle-button-id': '#confirm-' ~ form_remove.remove.vars.id
+                }
+            }) }}
+            {% include '@ibexadesign/ui/component/table/table.html.twig' with {
+                headline: 'drafts.table.header'|trans|desc('Drafts') ~ ' (' ~ pager.count ~ ')',
+                head_cols: [
+                    { has_checkbox: true },
+                    { has_icon: true },
+                    { content: 'drafts.list.name'|trans|desc('Name') },
+                    { content: 'drafts.list.content_type'|trans|desc('Content Type') },
+                    { content: 'drafts.list.modified_language'|trans|desc('Modified Language') },
+                    { content: 'drafts.list.version'|trans|desc('Version') },
+                    { content: 'drafts.list.last_saved'|trans|desc('Last Saved') },
+                    { },
+                ],
+                body_rows,
+                actions: macros.table_header_tools(form_remove),
+                empty_table_info_text: 'drafts.list.empty'|trans|desc('You have no drafts yet. Your drafts will show up here.'),
+            } %}
+            {% if pager.haveToPaginate %}
+                {% include '@ibexadesign/ui/pagination.html.twig' with {
+                    'pager': pager,
+                } %}
+            {% endif %}
+            {{ form_widget(form_remove.remove, {
+                'attr': {
+                    'hidden': true
+                }
+            }) }}
+            {{ form_end(form_remove) }}
+        </section>
     </div>
 
     {% include '@ibexadesign/content/modal/version_conflict.html.twig' %}

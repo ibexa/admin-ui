@@ -3,7 +3,7 @@
 {% trans_default_domain "linkmanager" %}
 
 {%- block content -%}
-    <section class="container">
+    <section>
         {{ form_start(form, {'attr': {'class': 'ibexa-search-links-form'}}) }}
             <div class="ibexa-search-links-form__input-wrapper">
                 {{ form_widget(form.searchQuery, { attr: {
@@ -18,7 +18,7 @@
         {{ form_end(form) }}
     </section>
 
-    <section class="container">
+    <section>
         {% set body_rows = [] %}
         {% for url in urls %}
             {% set body_row_cols = [] %}
