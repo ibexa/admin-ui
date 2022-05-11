@@ -26,6 +26,7 @@
     &__image {
         width: calculateRem(30px);
         height: calculateRem(30px);
+        border: calculateRem(3px) solid $ibexa-color-black;
         border-radius: 50%;
         cursor: pointer;
     }
