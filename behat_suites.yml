@@ -84,3 +84,4 @@ browser:
                 - Ibexa\AdminUi\Behat\BrowserContext\BookmarkContext
                 - Ibexa\Behat\Browser\Context\AuthenticationContext
                 - Ibexa\Behat\Browser\Context\DebuggingContext
+                - Ibexa\User\Behat\Context\UserSettingsContext
