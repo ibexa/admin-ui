@@ -11,6 +11,10 @@
         display: none;
     }
 
+    &__items-list {
+        padding-left: 0;
+    }
+
     &__item {
         display: flex;
         align-items: center;
@@ -27,6 +31,10 @@
             height: 100%;
             align-items: initial;
             border-top: calculateRem(1px) solid $ibexa-color-info-800;
+
+            .ibexa-popup-menu__items-list {
+                padding-left: calculateRem(6px)
+            }
         }
 
         &--with-border {
@@ -72,10 +80,6 @@
         }
     }
 
-    .ibexa-popup-menu__items-list {
-        padding-left: 0;
-    }
-
     &--info-neon {
         background-color: $ibexa-color-dark;
         border-color: $ibexa-color-info-800;
@@ -91,6 +95,15 @@
             &--current {
                 color: $ibexa-color-info;
                 background-color: $ibexa-color-info-800;
+            }
+
+            &--group-name {
+                color: $ibexa-color-light-700;
+    
+                &:hover {
+                    background-color: initial;
+                    color: $ibexa-color-light-700;
+                }
             }
         }
     }
