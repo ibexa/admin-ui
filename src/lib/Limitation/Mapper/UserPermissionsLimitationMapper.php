@@ -6,7 +6,6 @@
  */
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
-use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\UserGroupsChoiceLoader;
 use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\AdminUi\Translation\Extractor\LimitationTranslationExtractor;
@@ -15,6 +14,7 @@ use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\User\Form\ChoiceList\Loader\UserGroupsChoiceLoader;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
@@ -80,10 +80,22 @@ class UserPermissionsLimitationMapper implements LimitationValueMapperInterface,
         ]);
 
         $sub->add('user_groups', ChoiceType::class, [
-            'choice_loader' => new UserGroupsChoiceLoader(
-                $this->repository,
-                $this->searchService,
-                $this->userService
+            'choice_loader' => new CallbackChoiceLoader(
+                function () {
+                    $userGroups = (new UserGroupsChoiceLoader(
+                        $this->repository,
+                        $this->searchService,
+                        $this->userService
+                    ))->loadChoiceList()->getChoices();
+
+                    $choices = [];
+                    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroup $userGroup */
+                    foreach ($userGroups as $userGroup) {
+                        $choices[$userGroup->getName()] = $userGroup->id;
+                    }
+
+                    return $choices;
+                }
             ),
             'multiple' => true,
             'required' => false,
