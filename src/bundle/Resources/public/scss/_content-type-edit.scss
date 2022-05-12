@@ -215,14 +215,6 @@
 
 .ibexa-field-definitions-placeholder {
     @include drag-item-placeholder;
-
-    &--anchored {
-        background: $ibexa-color-light-300;
-
-        .ibexa-field-definitions-placeholder__item {
-            background: $ibexa-color-light-500;
-        }
-    }
 }
 
 .ibexa-field-definitions-empty-group {
