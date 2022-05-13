@@ -1,7 +1,7 @@
 import { useContext, useCallback, useReducer } from 'react';
 
 import { findLocationsBySearchQuery } from '../services/universal.discovery.service';
-import { RestInfoContext, LoadedLocationsMapContext } from '../universal.discovery.module';
+import { RestInfoContext, LoadedLocationsMapContext, MarkedLocationIdContext } from '../universal.discovery.module';
 
 const SEARCH_START = 'SEARCH_START';
 const SEARCH_END = 'SEARCH_END';
@@ -22,21 +22,14 @@ const searchByQueryReducer = (state, action) => {
 
 export const useSearchByQueryFetch = () => {
     const restInfo = useContext(RestInfoContext);
+    const [, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [{ isLoading, data }, dispatch] = useReducer(searchByQueryReducer, { isLoading: false, data: {} });
     const searchByQuery = useCallback(
         (searchText, contentTypesIdentifiers, sectionIdentifier, subtreePathString, limit, offset, languageCode) => {
             const handleFetch = (response) => {
-                dispatchLoadedLocationsAction({
-                    type: 'SET_LOCATIONS',
-                    data: [
-                        {
-                            parentLocationId: null,
-                            count: response.count,
-                            subitems: response.items.map((item) => ({ location: item })),
-                        },
-                    ],
-                });
+                setMarkedLocationId(null);
+                dispatchLoadedLocationsAction({ type: 'CLEAR_LOCATIONS' });
                 dispatch({ type: SEARCH_END, response });
             };
             const query = { FullTextCriterion: `${searchText}*` };
