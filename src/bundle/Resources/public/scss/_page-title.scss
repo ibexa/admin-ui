@@ -15,14 +15,7 @@
         display: flex;
     }
 
-    .ibexa-tag {
-        max-height: calculateRem(28px);
+    .ibexa-badge {
         margin-left: calculateRem(8px);
-        padding: calculateRem(2px) calculateRem(12px);
-
-        &__content {
-            font-weight: normal;
-            font-size: $ibexa-text-font-size-medium;
-        }
     }
 }

@@ -33,7 +33,7 @@
             border-top: calculateRem(1px) solid $ibexa-color-info-800;
 
             .ibexa-popup-menu__items-list {
-                padding-left: calculateRem(6px)
+                padding-left: calculateRem(6px);
             }
         }
 
@@ -99,7 +99,7 @@
 
             &--group-name {
                 color: $ibexa-color-light-700;
-    
+
                 &:hover {
                     background-color: initial;
                     color: $ibexa-color-light-700;
