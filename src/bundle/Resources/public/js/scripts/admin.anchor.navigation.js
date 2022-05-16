@@ -1,5 +1,4 @@
 (function (global, doc) {
-    const scrollOffset = 300;
     const formContainerNode = doc.querySelector('.ibexa-edit-content');
     const allSections = [...doc.querySelectorAll('.ibexa-anchor-navigation-sections__section')];
     const isVerticalScrollVisible = () => {
@@ -36,7 +35,7 @@
 
     if (formContainerNode && allSections.length) {
         formContainerNode.addEventListener('scroll', () => {
-            const position = formContainerNode.scrollTop + scrollOffset;
+            const position = formContainerNode.scrollTop;
             const activeSection = allSections.find((section) => {
                 const start = section.offsetTop;
                 const end = section.offsetHeight + section.offsetTop;
