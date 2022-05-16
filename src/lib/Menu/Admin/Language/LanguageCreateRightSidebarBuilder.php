@@ -66,6 +66,7 @@ class LanguageCreateRightSidebarBuilder extends AbstractBuilder implements Trans
             self::ITEM__CREATE => $this->createMenuItem(
                 self::ITEM__CREATE,
                 [
+                    'extras' => ['primary' => true],
                     'attributes' => [
                         'class' => 'ibexa-btn--trigger',
                         'data-click' => '#language_create_save',

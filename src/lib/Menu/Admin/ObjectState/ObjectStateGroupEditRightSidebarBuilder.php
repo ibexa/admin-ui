@@ -70,6 +70,7 @@ class ObjectStateGroupEditRightSidebarBuilder extends AbstractBuilder implements
             self::ITEM__SAVE => $this->createMenuItem(
                 self::ITEM__SAVE,
                 [
+                    'extras' => ['primary' => true],
                     'attributes' => [
                         'class' => 'ibexa-btn--trigger',
                         'data-click' => sprintf('#%s', $saveId),
