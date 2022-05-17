@@ -1,7 +1,7 @@
 .m-sub-items {
     margin-top: calculateRem(72px);
     margin-bottom: calculateRem(24px);
-    padding: calculateRem(16px);
+    padding: calculateRem(16px) 0;
     background: $ibexa-color-white;
     border-radius: $ibexa-border-radius;
 

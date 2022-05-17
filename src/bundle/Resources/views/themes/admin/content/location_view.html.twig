@@ -103,25 +103,23 @@
         {% endblock %}
     {% endembed %}
 
-    <div class="container">
-        {% if location.hidden or location.invisible %}
-            <div class="pb-4">
-                {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
-                    type: 'info',
-                    title: 'content.hidden.message'|trans()|desc('This Content item or its Location is hidden.'),
-                    icon_path: ibexa_icon_path('hide'),
-                    class: 'mb-4',
-                } only %}
-            </div>
-        {% endif %}
-        {{ ibexa_render_component_group(
-            'location-view-content-alerts',
-            {
-                'versionInfo': content.versionInfo,
-                'location': location,
-            }
-        ) }}
-    </div>
+    {% if location.hidden or location.invisible %}
+        <div class="pb-4">
+            {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
+                type: 'info',
+                title: 'content.hidden.message'|trans()|desc('This Content item or its Location is hidden.'),
+                icon_path: ibexa_icon_path('hide'),
+                class: 'mb-4',
+            } only %}
+        </div>
+    {% endif %}
+    {{ ibexa_render_component_group(
+        'location-view-content-alerts',
+        {
+            'versionInfo': content.versionInfo,
+            'location': location,
+        }
+    ) }}
 {% endblock %}
 
 {% block content %}
@@ -132,8 +130,8 @@
         data-parent-content-type-id="{{ content_type.id }}"
         data-current-language="{{ app.request.get('languageCode') ?: content.prioritizedFieldLanguageCode }}"
     ></div>
-    <div class="row align-items-stretch ibexa-main-row">
-        <div class="px-0 ibexa-content-container">
+    <div class="align-items-stretch ibexa-main-row">
+        <div class="ibexa-content-container">
             <div class="panel panel-primary">
                 <div class="panel-body">
                     {# 'is_location_visible': location.invisible - param deprecated since EZP-32395 #}
