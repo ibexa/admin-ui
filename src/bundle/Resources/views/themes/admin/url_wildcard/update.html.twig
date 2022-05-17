@@ -26,34 +26,29 @@
 {% endblock %}
 
 {%- block content -%}
-    <div class="row align-items-stretch ibexa-main-row">
-        <div class="px-0 pb-4 ibexa-content-container">
-            <div class="container ibexa-container">
-                {{ form_start(form, {'action': actionUrl}) }}
-                    {{ form_errors(form) }}
-
-                    <section class="container mt-4">
-                        <div class="card ibexa-card ibexa-card--light">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <span class="ibexa-label required">{{ 'url_wildcard.modal.create.url.wildcard'|trans|desc('URL wildcard') }}</span>
-                                    {{ form_widget(form.source_url) }}
-                                </div>
-                                <div class="form-group">
-                                    <span class="ibexa-label required">{{ 'url_wildcard.modal.create.url.destintion'|trans|desc('Destination') }}</span>
-                                    {{ form_widget(form.destination_url) }}
-                                </div>
-                                <div class="form-group">
-                                    <span class="ibexa-label">{{ 'url_wildcard.modal.create.redirect'|trans|desc('Redirect to wildcard destination') }}</span>
-                                    {{ form_widget(form.forward) }}
-                                    <div>{{ 'url_wildcard.modal.create.redirect.helper'|trans|desc('When checked, the URL displayed will be the URL of the destination. When unchecked, the wildcard will not redirect to the destination and the URL will stay the same.') }}</div>
-                                </div>
-                            </div>
+    <div class="align-items-stretch ibexa-main-row">
+        <div class="container ibexa-container">
+            {{ form_start(form, {'action': actionUrl}) }}
+                {{ form_errors(form) }}
+                <div class="card ibexa-card ibexa-card--light">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <span class="ibexa-label required">{{ 'url_wildcard.modal.create.url.wildcard'|trans|desc('URL wildcard') }}</span>
+                            {{ form_widget(form.source_url) }}
                         </div>
-                    </section>
-                    <button id="url-update" type="submit" hidden></button>
-                {{ form_end(form) }}
-            </div>
+                        <div class="form-group">
+                            <span class="ibexa-label required">{{ 'url_wildcard.modal.create.url.destintion'|trans|desc('Destination') }}</span>
+                            {{ form_widget(form.destination_url) }}
+                        </div>
+                        <div class="form-group">
+                            <span class="ibexa-label">{{ 'url_wildcard.modal.create.redirect'|trans|desc('Redirect to wildcard destination') }}</span>
+                            {{ form_widget(form.forward) }}
+                            <div>{{ 'url_wildcard.modal.create.redirect.helper'|trans|desc('When checked, the URL displayed will be the URL of the destination. When unchecked, the wildcard will not redirect to the destination and the URL will stay the same.') }}</div>
+                        </div>
+                    </div>
+                </div>
+                <button id="url-update" type="submit" hidden></button>
+            {{ form_end(form) }}
         </div>
     </div>
 {%- endblock -%}

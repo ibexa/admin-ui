@@ -3,19 +3,15 @@
 {% trans_default_domain 'user_settings' %}
 
 {% block breadcrumbs %}
-    <div class="container">
-        {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
-            { value: 'list.title'|trans|desc('User Settings') }
-        ]} %}
-    </div>
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
+        { value: 'list.title'|trans|desc('User Settings') }
+    ]} %}
 {% endblock %}
 
 {% block header %}
-    <div class="container">
-        {% include '@ibexadesign/ui/page_title.html.twig' with {
-            title: 'list.title'|trans|desc('User Settings'),
-        } %}
-    </div>
+    {% include '@ibexadesign/ui/page_title.html.twig' with {
+        title: 'list.title'|trans|desc('User Settings'),
+    } %}
 {% endblock %}
 
 {% block body_class %}ibexa-user-settings-list-view{% endblock %}
