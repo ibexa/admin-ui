@@ -51,6 +51,16 @@ const ContentTableItem = ({ location }) => {
             return;
         }
 
+        dispatchLoadedLocationsAction({
+            type: 'SET_LOCATIONS',
+            data: [
+                {
+                    parentLocationId: null,
+                    count: 1,
+                    subitems: [{ location }],
+                },
+            ],
+        });
         setMarkedLocationId(location.id);
         loadAccordionData(
             {
