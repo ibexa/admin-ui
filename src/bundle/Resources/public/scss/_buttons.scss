@@ -3,12 +3,13 @@
 .ibexa-btn {
     display: inline-flex;
     white-space: nowrap;
-    padding: calculateRem(15px);
+    padding: calculateRem(14px) calculateRem(15px);
     outline: none;
     border: calculateRem(1px) solid transparent;
     border-radius: $ibexa-border-radius;
     text-decoration: none;
     font-size: calculateRem(14px);
+    line-height: calculateRem(18px);
     transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
     &:focus {
@@ -20,7 +21,7 @@
         fill: $ibexa-color-white;
         background-image: $ibexa-gradient-danger-primary;
         border-width: 0;
-        padding: calculateRem(16px);
+        padding: calculateRem(15px) calculateRem(16px);
 
         &:hover {
             color: $ibexa-color-white;
@@ -203,7 +204,7 @@
     &--selector {
         color: $ibexa-color-dark;
         fill: $ibexa-color-dark;
-        padding: calculateRem(12px);
+        padding: calculateRem(11px) calculateRem(12px);
 
         &.ibexa-btn--selected {
             background-color: $ibexa-color-info-200;
@@ -229,13 +230,13 @@
     }
 
     &--small {
-        padding-top: calculateRem(7px);
-        padding-bottom: calculateRem(7px);
+        padding-top: calculateRem(6px);
+        padding-bottom: calculateRem(6px);
         height: calculateRem(32px);
 
         &.ibexa-btn--primary {
-            padding-top: calculateRem(8px);
-            padding-bottom: calculateRem(8px);
+            padding-top: calculateRem(7px);
+            padding-bottom: calculateRem(7px);
         }
     }
 
