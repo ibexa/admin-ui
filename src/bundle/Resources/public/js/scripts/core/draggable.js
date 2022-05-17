@@ -1,7 +1,6 @@
 (function (global, doc, ibexa) {
     const SELECTOR_PLACEHOLDER = '.ibexa-draggable__placeholder';
     const SELECTOR_PREVENT_DRAG = '.ibexa-draggable__prevent-drag';
-    const TIMEOUT_REMOVE_PLACEHOLDERS = 500;
 
     class Draggable {
         constructor(config) {
@@ -12,7 +11,6 @@
             this.selectorItem = config.selectorItem;
             this.selectorPlaceholder = config.selectorPlaceholder || SELECTOR_PLACEHOLDER;
             this.selectorPreventDrag = config.selectorPreventDrag || SELECTOR_PREVENT_DRAG;
-            this.timeoutRemovePlaceholders = config.timeoutRemovePlaceholders || TIMEOUT_REMOVE_PLACEHOLDERS;
 
             this.onDragStart = this.onDragStart.bind(this);
             this.onDragEnd = this.onDragEnd.bind(this);
@@ -20,14 +18,12 @@
             this.onDrop = this.onDrop.bind(this);
             this.addPlaceholder = this.addPlaceholder.bind(this);
             this.removePlaceholder = this.removePlaceholder.bind(this);
-            this.removePlaceholderAfterTimeout = this.removePlaceholderAfterTimeout.bind(this);
             this.attachEventHandlersToItem = this.attachEventHandlersToItem.bind(this);
         }
 
         attachEventHandlersToItem(item) {
             item.ondragstart = this.onDragStart;
             item.ondragend = this.onDragEnd;
-            item.ondrag = this.removePlaceholderAfterTimeout;
 
             const preventedNode = item.querySelector(this.selectorPreventDrag);
 
@@ -81,7 +77,6 @@
             this.placeholder = container.querySelector(this.selectorPlaceholder);
 
             this.itemsContainer.insertBefore(this.placeholder, where);
-            this.removePlaceholderAfterTimeout();
         }
 
         removePlaceholder() {
@@ -90,15 +85,15 @@
             }
         }
 
-        removePlaceholderAfterTimeout() {
-            global.clearTimeout(this.onDragOverTimeout);
-
-            this.onDragOverTimeout = global.setTimeout(() => this.removePlaceholder(), this.timeoutRemovePlaceholders);
-        }
-
         init() {
             this.itemsContainer.ondragover = this.onDragOver;
             this.itemsContainer.addEventListener('drop', this.onDrop, false);
+
+            doc.body.addEventListener('dragover', (event) => {
+                if (!this.itemsContainer.contains(event.target)) {
+                    this.removePlaceholder();
+                }
+            });
 
             this.itemsContainer.querySelectorAll(this.selectorItem).forEach(this.attachEventHandlersToItem);
         }
