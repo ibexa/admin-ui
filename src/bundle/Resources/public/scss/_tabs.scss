@@ -266,4 +266,9 @@
             padding: 0;
         }
     }
+
+    &--rolled-up {
+        height: calculateRem(32px);
+        border-radius: 0 0 calculateRem(10px) calculateRem(10px);
+    }
 }
