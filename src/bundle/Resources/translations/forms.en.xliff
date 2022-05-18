@@ -161,6 +161,36 @@
         <target>All modules / All functions</target>
         <note>key: role.policy.all_modules_all_functions</note>
       </trans-unit>
+      <trans-unit id="517e3666a759ee26e02fcc468446ef39b3ae9bf0" resname="role.policy.catalog">
+        <source>Catalog</source>
+        <target>Catalog</target>
+        <note>key: role.policy.catalog</note>
+      </trans-unit>
+      <trans-unit id="f0db798b7ae5b93b395d0f688ea80784faddcd6b" resname="role.policy.catalog.all_functions">
+        <source>Catalog / All functions</source>
+        <target>Catalog / All functions</target>
+        <note>key: role.policy.catalog.all_functions</note>
+      </trans-unit>
+      <trans-unit id="9bab6251a421ba09e54114cd858abdc9a2a59f55" resname="role.policy.catalog.create">
+        <source>Catalog / Create</source>
+        <target>Catalog / Create</target>
+        <note>key: role.policy.catalog.create</note>
+      </trans-unit>
+      <trans-unit id="6844731afb7e5c4fc7414f157749ca064a82d798" resname="role.policy.catalog.delete">
+        <source>Catalog / Delete</source>
+        <target>Catalog / Delete</target>
+        <note>key: role.policy.catalog.delete</note>
+      </trans-unit>
+      <trans-unit id="f3f6d817abf52411d94909850040df8aebaf2c03" resname="role.policy.catalog.edit">
+        <source>Catalog / Edit</source>
+        <target>Catalog / Edit</target>
+        <note>key: role.policy.catalog.edit</note>
+      </trans-unit>
+      <trans-unit id="d9ced925ac206beb427c609d73e8adefb43346fb" resname="role.policy.catalog.view">
+        <source>Catalog / View</source>
+        <target>Catalog / View</target>
+        <note>key: role.policy.catalog.view</note>
+      </trans-unit>
       <trans-unit id="f52e45b25ff70b3d1d07c57911ceda58dcdf7431" resname="role.policy.class">
         <source>Content Type</source>
         <target>Content Type</target>
