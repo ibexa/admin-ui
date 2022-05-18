@@ -92,6 +92,8 @@
             doc.body.addEventListener('dragover', (event) => {
                 if (!this.itemsContainer.contains(event.target)) {
                     this.removePlaceholder();
+                } else {
+                    event.preventDefault();
                 }
             });
 
