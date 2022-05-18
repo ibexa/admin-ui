@@ -1,7 +1,13 @@
 .ibexa-field-edit--ezinteger {
-    .ibexa-data-source__input {
-        width: calculateRem(84px);
+    .ibexa-input-text-wrapper--type-number {
+        width: calculateRem(100px);
         height: calculateRem(48px);
+    }
+
+    .ibexa-data-source__input {
+        &::-webkit-inner-spin-button {
+            margin-left: calculateRem(24px);
+        }
 
         &.is-invalid {
             background-image: none;
