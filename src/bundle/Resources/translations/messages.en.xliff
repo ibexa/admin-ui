@@ -236,6 +236,11 @@
         <target state="new">Global properties</target>
         <note>key: content_type.view.edit.global_properties</note>
       </trans-unit>
+      <trans-unit id="a2f384a133f8c542cc8c7388d9115f62ae3c4234" resname="content_type.view.edit.search">
+        <source>Search...</source>
+        <target state="new">Search...</target>
+        <note>key: content_type.view.edit.search</note>
+      </trans-unit>
       <trans-unit id="803a61fc8cf4e7bdfcf27432bb35e379a4971134" resname="content_type.view.list.action.add">
         <source>Add new</source>
         <target state="new">Add new</target>

@@ -50,6 +50,7 @@ class URLEditRightSidebarBuilder extends AbstractBuilder implements TranslationC
             self::ITEM__SAVE => $this->createMenuItem(
                 self::ITEM__SAVE,
                 [
+                    'extras' => ['primary' => true],
                     'attributes' => [
                         'class' => 'ibexa-btn--trigger',
                         'data-click' => sprintf('#url-update', $url->id),
