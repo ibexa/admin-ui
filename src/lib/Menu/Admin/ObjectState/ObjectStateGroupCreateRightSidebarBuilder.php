@@ -68,6 +68,7 @@ class ObjectStateGroupCreateRightSidebarBuilder extends AbstractBuilder implemen
             self::ITEM__CREATE => $this->createMenuItem(
                 self::ITEM__CREATE,
                 [
+                    'extras' => ['primary' => true],
                     'attributes' => [
                         'class' => 'ibexa-btn--trigger',
                         'data-click' => '#object_state_group_create_create',
