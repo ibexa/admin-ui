@@ -40,7 +40,7 @@
                 const start = section.offsetTop;
                 const end = section.offsetHeight + section.offsetTop;
 
-                return position > start && position < end;
+                return position >= start && position < end;
             });
 
             if (activeSection) {
