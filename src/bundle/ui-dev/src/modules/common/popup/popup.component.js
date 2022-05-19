@@ -25,7 +25,29 @@ class Popup extends Component {
         this.setModalRef = this.setModalRef.bind(this);
         this.onKeyUp = this.onKeyUp.bind(this);
 
-        this.state = { isVisible: props.isVisible, isLoading: props.isLoading };
+        this.state = {
+            currentProps: {
+                isVisible: props.isVisible,
+                isLoading: props.isLoading,
+            },
+            isVisible: props.isVisible,
+            isLoading: props.isLoading,
+        };
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.isVisible !== prevState.currentProps.isVisible || nextProps.isLoading !== prevState.currentProps.isLoading) {
+            return {
+                currentProps: {
+                    isVisible: nextProps.isVisible,
+                    isLoading: nextProps.isLoading,
+                },
+                isVisible: nextProps.isVisible,
+                isLoading: nextProps.isLoading,
+            };
+        }
+
+        return null;
     }
 
     componentDidMount() {
@@ -64,10 +86,6 @@ class Popup extends Component {
     componentWillUnmount() {
         window.bootstrap.Modal.getOrCreateInstance(this._refModal).hide();
         document.body.classList.remove(CLASS_MODAL_OPEN, CLASS_NON_SCROLLABLE);
-    }
-
-    UNSAFE_componentWillReceiveProps({ isVisible, onConfigIframeLoad, isLoading }) {
-        this.setState((state) => ({ ...state, isVisible, onConfigIframeLoad, isLoading }));
     }
 
     attachModalEventHandlers() {
@@ -191,7 +209,6 @@ Popup.propTypes = {
     isVisible: PropTypes.bool,
     isLoading: PropTypes.bool,
     onClose: PropTypes.func.isRequired,
-    onConfigIframeLoad: PropTypes.func,
     children: PropTypes.element.isRequired,
     title: PropTypes.string,
     subtitle: PropTypes.string,
@@ -218,7 +235,6 @@ Popup.defaultProps = {
     subtitle: null,
     additionalClasses: null,
     footerChildren: null,
-    onConfigIframeLoad: () => {},
 };
 
 export default Popup;
