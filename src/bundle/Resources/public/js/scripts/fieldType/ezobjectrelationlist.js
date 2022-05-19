@@ -68,7 +68,8 @@
         const relationsTable = relationsWrapper.querySelector('.ibexa-table');
         const startingLocationId =
             relationsContainer.dataset.defaultLocation !== '0' ? parseInt(relationsContainer.dataset.defaultLocation, 10) : null;
-        const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
+        let udwRoot = null;
+        const closeUDW = () => udwRoot.unmount();
         const renderRows = (items) => {
             items.forEach((item, index) => {
                 relationsContainer.insertAdjacentHTML('beforeend', renderRow(item, index));
@@ -118,7 +119,8 @@
                           'universal_discovery_widget',
                       );
 
-            ReactDOM.render(
+            udwRoot = ReactDOM.createRoot(udwContainer);
+            udwRoot.render(
                 React.createElement(ibexa.modules.UniversalDiscovery, {
                     onConfirm,
                     onCancel: closeUDW,
@@ -128,7 +130,6 @@
                     multiple: isSingle ? false : selectedItemsLimit !== 1,
                     multipleItemsLimit: selectedItemsLimit > 1 ? selectedItemsLimit - selectedItems.length : selectedItemsLimit,
                 }),
-                udwContainer,
             );
         };
         const excludeDuplicatedItems = (items) => {

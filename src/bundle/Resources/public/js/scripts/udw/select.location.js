@@ -3,6 +3,7 @@
     const udwContainer = doc.getElementById('react-udw');
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
+    let udwRoot = null;
     const findLocationsByIdList = (idList, callback) => {
         const body = JSON.stringify({
             ViewInput: {
@@ -85,7 +86,7 @@
             });
         }
     };
-    const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
+    const closeUDW = () => udwRoot.unmount();
     const onConfirm = (btn, items) => {
         closeUDW();
 
@@ -100,7 +101,8 @@
 
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
 
-        ReactDOM.render(
+        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(null, event.currentTarget),
                 onCancel,
@@ -108,7 +110,6 @@
                 multiple: false,
                 ...config,
             }),
-            udwContainer,
         );
     };
     const clearSelection = (btn) => {

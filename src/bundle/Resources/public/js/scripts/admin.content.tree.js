@@ -18,14 +18,15 @@
         contentTreeContainer.style.width = null;
     };
     const renderTree = () => {
-        ReactDOM.render(
+        const contentTreeRoot = ReactDOM.createRoot(contentTreeRootElement);
+
+        contentTreeRoot.render(
             React.createElement(ibexa.modules.ContentTree, {
                 userId,
                 currentLocationPath,
                 rootLocationId: parseInt(treeRootLocationId, 10),
                 restInfo: { token, siteaccess },
             }),
-            contentTreeRootElement,
         );
     };
 

@@ -4,23 +4,24 @@
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
     const selectContent = (config) => {
         const udwContainer = document.querySelector('#react-udw');
+        const udwRoot = ReactDOM.createRoot(udwContainer);
         const confirmHandler = (items) => {
             if (typeof config.onConfirm === 'function') {
                 config.onConfirm(items);
             }
 
-            ReactDOM.unmountComponentAtNode(udwContainer);
+            udwRoot.unmount();
         };
         const cancelHandler = () => {
             if (typeof config.onCancel === 'function') {
                 config.onCancel();
             }
 
-            ReactDOM.unmountComponentAtNode(udwContainer);
+            udwRoot.unmount();
         };
         const mergedConfig = { ...config, onConfirm: confirmHandler, onCancel: cancelHandler };
 
-        ReactDOM.render(React.createElement(ibexa.modules.UniversalDiscovery, mergedConfig), udwContainer);
+        udwRoot.render(React.createElement(ibexa.modules.UniversalDiscovery, mergedConfig));
     };
 
     ibexa.addConfig('richText.alloyEditor.callbacks.selectContent', selectContent);

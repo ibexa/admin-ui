@@ -1,7 +1,8 @@
 (function (global, doc, ibexa, React, ReactDOM, Translator, Routing) {
     const btns = doc.querySelectorAll('.ibexa-btn--udw-browse');
     const udwContainer = doc.getElementById('react-udw');
-    const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
+    let udwRoot = null;
+    const closeUDW = () => udwRoot.unmount();
     const onConfirm = (items) => {
         closeUDW();
 
@@ -17,7 +18,8 @@
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
         const title = Translator.trans(/*@Desc("Browse content")*/ 'browse.title', {}, 'universal_discovery_widget');
 
-        ReactDOM.render(
+        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm,
                 onCancel,
@@ -25,7 +27,6 @@
                 multiple: false,
                 ...config,
             }),
-            udwContainer,
         );
     };
 

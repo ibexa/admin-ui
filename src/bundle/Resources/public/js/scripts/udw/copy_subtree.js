@@ -3,7 +3,8 @@
     const form = doc.querySelector('form[name="location_copy_subtree"]');
     const input = form.querySelector('#location_copy_subtree_new_parent_location');
     const udwContainer = doc.querySelector('#react-udw');
-    const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
+    let udwRoot = null;
+    const closeUDW = () => udwRoot.unmount();
     const onConfirm = (items) => {
         closeUDW();
 
@@ -17,7 +18,8 @@
         const title = Translator.trans(/*@Desc("Select Location")*/ 'subtree.title', {}, 'universal_discovery_widget');
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
 
-        ReactDOM.render(
+        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm,
                 onCancel,
@@ -26,7 +28,6 @@
                 containersOnly: true,
                 ...config,
             }),
-            udwContainer,
         );
     };
 

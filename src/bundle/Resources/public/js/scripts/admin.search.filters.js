@@ -313,7 +313,8 @@
         fieldContainer: doc.querySelector('.ibexa-filters__item--subtree'),
     });
     const udwContainer = doc.getElementById('react-udw');
-    const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
+    let udwRoot = null;
+    const closeUDW = () => udwRoot.unmount();
     const confirmSubtreeUDW = (data) => {
         ibexa.helpers.tagViewSelect.buildItemsFromUDWResponse(
             data,
@@ -330,14 +331,14 @@
 
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
 
-        ReactDOM.render(
+        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: confirmSubtreeUDW.bind(this),
                 onCancel: closeUDW,
                 multiple: true,
                 ...config,
             }),
-            udwContainer,
         );
     };
 
