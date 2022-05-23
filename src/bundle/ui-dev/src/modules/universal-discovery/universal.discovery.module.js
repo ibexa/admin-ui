@@ -303,7 +303,7 @@ const UniversalDiscoveryModule = (props) => {
     }, [currentView]);
 
     useEffect(() => {
-        if (!props.startingLocationId || props.startingLocationId === 1) {
+        if (!props.startingLocationId || props.startingLocationId === 1 || props.startingLocationId === props.rootLocationId) {
             return;
         }
 

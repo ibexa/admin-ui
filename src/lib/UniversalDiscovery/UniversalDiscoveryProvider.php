@@ -112,7 +112,7 @@ class UniversalDiscoveryProvider implements Provider
             $columnLocations = $locationPath;
         }
 
-        $locationPathIndex = $locationPathCount > 0 ? $locationPathLast - 1 : 0;
+        $locationPathIndex = max(0, $locationPathLast - 1);
         $lastColumnLocationId = (int) $locationPath[$locationPathIndex];
 
         $columns = [];

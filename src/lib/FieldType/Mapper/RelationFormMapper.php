@@ -7,7 +7,8 @@
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
-use Ibexa\ContentForms\Form\Type\LocationType;
+use Ibexa\ContentForms\Form\Type\RelationType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,10 +19,15 @@ class RelationFormMapper extends AbstractRelationFormMapper
     {
         $isTranslation = $data->contentTypeData->languageCode !== $data->contentTypeData->mainLanguageCode;
         $fieldDefinitionForm
-            ->add('selectionRoot', LocationType::class, [
-                'required' => false,
+            ->add('selectionRoot', RelationType::class, [
+                'required' => true,
                 'property_path' => 'fieldSettings[selectionRoot]',
                 'label' => /** @Desc("Starting Location") */ 'field_definition.ezobjectrelation.selection_root',
+            ])
+            ->add('rootDefaultLocation', CheckboxType::class, [
+                'required' => false,
+                'label' => /** @Desc("Root Default Location") */ 'field_definition.ezobjectrelation.root_default_location',
+                'property_path' => 'fieldSettings[rootDefaultLocation]',
             ])
             ->add('selectionContentTypes', ChoiceType::class, [
                 'choices' => $this->getContentTypesHash(),

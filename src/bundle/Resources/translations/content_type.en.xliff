@@ -646,6 +646,11 @@
         <target state="new">Windows Media Player</target>
         <note>key: field_definition.ezmedia.type_windows_media_player</note>
       </trans-unit>
+      <trans-unit id="f053b9ad361ba885b30445ed11ddfe4b27aab906" resname="field_definition.ezobjectrelation.root_default_location">
+        <source>Root Default Location</source>
+        <target state="new">Root Default Location</target>
+        <note>key: field_definition.ezobjectrelation.root_default_location</note>
+      </trans-unit>
       <trans-unit id="fabc9be57b82439dac2f612b9c2a171eb7ce6e04" resname="field_definition.ezobjectrelation.selection_content_types">
         <source>Allowed Content Types</source>
         <target state="new">Allowed Content Types</target>
@@ -670,6 +675,11 @@
         <source>Select where to start browsing for a Relation</source>
         <target state="new">Select where to start browsing for a Relation</target>
         <note>key: field_definition.ezobjectrelation.selection_root_udw_title</note>
+      </trans-unit>
+      <trans-unit id="f1875b4118b34bfd5679af65821e72af204755ed" resname="field_definition.ezobjectrelationlist.root_default_location">
+        <source>Root Default Location</source>
+        <target state="new">Root Default Location</target>
+        <note>key: field_definition.ezobjectrelationlist.root_default_location</note>
       </trans-unit>
       <trans-unit id="7e061dc7c88fe38c11714695d4034f935788efb3" resname="field_definition.ezobjectrelationlist.selection_content_types">
         <source>Allowed Content Types</source>

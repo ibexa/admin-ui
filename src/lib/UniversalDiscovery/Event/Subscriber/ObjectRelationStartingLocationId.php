@@ -37,13 +37,19 @@ class ObjectRelationStartingLocationId implements EventSubscriberInterface
         if (
             !isset($context['type'])
             || 'object_relation' !== $context['type']
-            || !isset($context['starting_location_id'])
         ) {
             return;
         }
 
         $config = $event->getConfig();
-        $config['starting_location_id'] = $context['starting_location_id'];
+
+        $startingLocationId = $context['starting_location_id'] ?? $config['starting_location_id'];
+        $rootDefaultLocation = $context['root_default_location'] ?? false;
+
+        $config['starting_location_id'] = $startingLocationId;
+        if ($rootDefaultLocation) {
+            $config['root_location_id'] = $startingLocationId;
+        }
 
         $event->setConfig($config);
     }

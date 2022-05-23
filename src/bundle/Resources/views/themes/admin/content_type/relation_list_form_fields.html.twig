@@ -1,0 +1,41 @@
+{% block radio_label %}
+    {% if form.parent is defined and "ibexa_form_type_location_choice" in form.parent.vars.block_prefixes and value == "1" %}
+        {% set form_default_location = form.parent.parent %}
+        {{ widget|raw }}
+        <div class="mt-1">
+            <button
+                    data-universaldiscovery-title="{{ "field_definition.ezobjectrelationlist.selection_root_udw_title"
+                    |trans({}, "content_type")
+                    |desc("Select where to start browsing for Relations") }}"
+                    class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--udw-relation-default-location"
+                    data-relation-root-input-selector="#{{ form_default_location.location.vars.id }}"
+                    data-relation-selected-root-name-selector="#{{ form_default_location.location.vars.id }}-selected-root-name"
+                    data-starting-location-id="{{ ibexa_admin_ui_config.universalDiscoveryWidget.startingLocationId|default(1) }}"
+                    data-udw-config="{{ ibexa_udw_config('single_container', {}) }}"
+            >{{ "field_definition.ezobjectrelationlist.selection_root_udw_button"
+                |trans({}, "content_type")
+                |desc("Select Location") }}</button>
+            <button
+                    type="button"
+                    title="{{ "field_definition.ezobjectrelation.selection_root_reset_title"
+                    |trans({}, "content_type")
+                    |desc('Reset starting location') }}"
+                    class="ibexa-btn ibexa-btn--reset-starting-location btn"
+                    data-relation-root-input-selector="#{{ form_default_location.location.vars.id }}"
+                    data-relation-selected-root-name-selector="#{{ form_default_location.location.vars.id }}-selected-root-name"
+                    {% if form_default_location.location.vars.destination_location is null %} disabled {% endif %}
+            >
+                <svg class="ibexa-icon ibexa-icon--small">
+                    <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
+                </svg>
+            </button>
+        </div>
+        <div id="{{ form_default_location.location.vars.id }}-selected-root-name">
+            {% if form_default_location.location.vars.destination_location is not null %}
+                {{ ibexa_content_name(form_default_location.location.vars.destination_location.contentInfo) }}
+            {% endif %}
+        </div>
+    {% else %}
+        {{- block('checkbox_radio_label') -}}
+    {% endif %}
+{% endblock %}

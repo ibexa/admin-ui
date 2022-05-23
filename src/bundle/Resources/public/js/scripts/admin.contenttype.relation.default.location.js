@@ -1,7 +1,6 @@
 (function (global, doc, ibexa, React, ReactDOM) {
     const SELECTOR_RESET_STARTING_LOCATION_BTN = '.ibexa-btn--reset-starting-location';
-    const resetStartingLocationBtns = doc.querySelectorAll(SELECTOR_RESET_STARTING_LOCATION_BTN);
-    const udwBtns = doc.querySelectorAll('.ibexa-btn--udw-relation-default-location');
+    const defaultLocationContainers = doc.querySelectorAll('.ibexa-default-location');
     const udwContainer = doc.getElementById('react-udw');
     let udwRoot = null;
     const closeUDW = () => udwRoot.unmount();
@@ -56,11 +55,23 @@
 
         toggleResetStartingLocationBtn(button, false);
     };
-    const attachEvents = (btns) => {
-        btns.forEach((btn) => btn.addEventListener('click', openUDW, false));
-    };
+    const attachEvents = (container) => {
+        const udwBtn = container.querySelector('.ibexa-btn--udw-relation-default-location');
+        const deleteBtn = container.querySelector(SELECTOR_RESET_STARTING_LOCATION_BTN);
+        const choices = container.querySelectorAll('input[type="radio"]');
 
-    attachEvents(udwBtns);
+        udwBtn.addEventListener('click', openUDW, false);
+        deleteBtn.addEventListener('click', resetStartingLocation, false);
+        choices.forEach((choice) => choice.addEventListener('change', toggleDisabledState.bind(null, container), false));
+    };
+    const toggleDisabledState = (container) => {
+        const locationBtn = container.querySelector('.ibexa-btn--udw-relation-default-location');
+        const deleteBtn = container.querySelector(SELECTOR_RESET_STARTING_LOCATION_BTN);
+        const isDisabled = !container.querySelector('input[value="1"]').checked;
+
+        locationBtn.classList.toggle('disabled', isDisabled);
+        toggleResetStartingLocationBtn(deleteBtn, !isDisabled);
+    };
 
     doc.body.addEventListener(
         'ibexa-drop-field-definition',
@@ -68,15 +79,21 @@
             const { nodes } = event.detail;
 
             nodes.forEach((node) => {
-                const addLocationBtns = node.querySelectorAll('.ibexa-btn--udw-relation-default-location');
-                const removeLocationBtns = node.querySelectorAll(SELECTOR_RESET_STARTING_LOCATION_BTN);
+                const defaultLocationContainer = node.querySelector('.ibexa-default-location');
 
-                attachEvents(addLocationBtns);
-                removeLocationBtns.forEach((btn) => btn.addEventListener('click', resetStartingLocation, false));
+                if (!defaultLocationContainer) {
+                    return;
+                }
+
+                attachEvents(defaultLocationContainer);
+                toggleDisabledState(defaultLocationContainer);
             });
         },
         false,
     );
 
-    resetStartingLocationBtns.forEach((btn) => btn.addEventListener('click', resetStartingLocation, false));
+    defaultLocationContainers.forEach((defaultLocationContainer) => {
+        attachEvents(defaultLocationContainer);
+        toggleDisabledState(defaultLocationContainer);
+    });
 })(window, window.document, window.ibexa, window.React, window.ReactDOM);

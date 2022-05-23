@@ -130,42 +130,11 @@
 
 {% block ezobjectrelation_field_definition_edit %}
     {% set is_translation = is_translation ?? false %}
-    <div class="ezobjectrelation-settings selection-root">
-        {{- form_row(form.selectionRoot) -}}
-        <div class="mt-1">
-            <button
-                data-universaldiscovery-title="{{ "field_definition.ezobjectrelation.selection_root_udw_title"
-                |trans({}, "content_type")
-                |desc("Select where to start browsing for a Relation") }}"
-                class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--udw-relation-default-location"
-                data-relation-root-input-selector="#{{ form.selectionRoot.vars.id }}"
-                data-relation-selected-root-name-selector="#{{ form.selectionRoot.vars.id }}-selected-root-name"
-                data-starting-location-id="{{ ibexa_admin_ui_config.universalDiscoveryWidget.startingLocationId|default(1) }}"
-                data-udw-config="{{ ibexa_udw_config('single', {}) }}"
-                {{ is_translation ? 'disabled' : '' }}
-            >{{ "field_definition.ezobjectrelation.selection_root_udw_button"
-                |trans({}, "content_type")
-                |desc("Select starting Location") }}</button>
-            <button
-                type="button"
-                title="{{ "field_definition.ezobjectrelation.selection_root_reset_title"
-                |trans({}, "content_type")
-                |desc('Reset starting location') }}"
-                class="ibexa-btn ibexa-btn--reset-starting-location btn"
-                data-relation-root-input-selector="#{{ form.selectionRoot.vars.id }}"
-                data-relation-selected-root-name-selector="#{{ form.selectionRoot.vars.id }}-selected-root-name"
-                {% if form.selectionRoot.vars.destination_location is null %} disabled {% endif %}
-            >
-                <svg class="ibexa-icon ibexa-icon--small">
-                    <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                </svg>
-            </button>
-        </div>
-        <div id="{{ form.selectionRoot.vars.id }}-selected-root-name">
-            {% if form.selectionRoot.vars.destination_location is not null %}
-                {{ ibexa_content_name(form.selectionRoot.vars.destination_location.contentInfo) }}
-            {% endif %}
-        </div>
+    {% form_theme form.selectionRoot.location_type '@ibexadesign/content_type/relation_form_fields.html.twig' %}
+    <div class="ezobjectrelation-settings selection-root ibexa-default-location">
+        {{- form_row(form.selectionRoot.location_type, { disabled: is_translation }) -}}
+        {{- form_row(form.rootDefaultLocation, { disabled: is_translation }) -}}
+        {{- form_row(form.selectionRoot.location, { disabled: is_translation }) -}}
     </div>
 
     <div class="ezobjectrelationlist-settings selection-content-types mt-1">
@@ -175,43 +144,11 @@
 
 {% block ezobjectrelationlist_field_definition_edit %}
     {% set is_translation = is_translation ?? false %}
-    <div class="ezobjectrelationlist-settings selection-default-location">
-        {{- form_row(form.selectionDefaultLocation) -}}
-
-        <div class="mt-1">
-            <button
-                data-universaldiscovery-title="{{ "field_definition.ezobjectrelationlist.selection_root_udw_title"
-                |trans({}, "content_type")
-                |desc("Select where to start browsing for Relations") }}"
-                class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--udw-relation-default-location"
-                data-relation-root-input-selector="#{{ form.selectionDefaultLocation.vars.id }}"
-                data-relation-selected-root-name-selector="#{{ form.selectionDefaultLocation.vars.id }}-selected-root-name"
-                data-starting-location-id="{{ ibexa_admin_ui_config.universalDiscoveryWidget.startingLocationId|default(1) }}"
-                data-udw-config="{{ ibexa_udw_config('single_container', {}) }}"
-                {{ is_translation ? 'disabled' : '' }}
-            >{{ "field_definition.ezobjectrelationlist.selection_root_udw_button"
-                |trans({}, "content_type")
-                |desc("Select Location") }}</button>
-            <button
-                type="button"
-                title="{{ "field_definition.ezobjectrelation.selection_root_reset_title"
-                |trans({}, "content_type")
-                |desc('Reset starting location') }}"
-                class="ibexa-btn ibexa-btn--reset-starting-location btn"
-                data-relation-root-input-selector="#{{ form.selectionDefaultLocation.vars.id }}"
-                data-relation-selected-root-name-selector="#{{ form.selectionDefaultLocation.vars.id }}-selected-root-name"
-                {% if form.selectionDefaultLocation.vars.destination_location is null %} disabled {% endif %}
-            >
-                <svg class="ibexa-icon ibexa-icon--small">
-                    <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                </svg>
-            </button>
-        </div>
-        <div id="{{ form.selectionDefaultLocation.vars.id }}-selected-root-name">
-            {% if form.selectionDefaultLocation.vars.destination_location is not null %}
-                {{ ibexa_content_name(form.selectionDefaultLocation.vars.destination_location.contentInfo) }}
-            {% endif %}
-        </div>
+    {% form_theme form.selectionDefaultLocation.location_type '@ibexadesign/content_type/relation_list_form_fields.html.twig' %}
+    <div class="ezobjectrelationlist-settings selection-default-location ibexa-default-location">
+        {{- form_row(form.selectionDefaultLocation.location_type, { disabled: is_translation }) -}}
+        {{- form_row(form.rootDefaultLocation, { disabled: is_translation }) -}}
+        {{- form_row(form.selectionDefaultLocation.location, { disabled: is_translation }) -}}
     </div>
 
     <div class="ezobjectrelationlist-settings selection-content-types mt-1">
