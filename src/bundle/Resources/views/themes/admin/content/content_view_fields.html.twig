@@ -13,9 +13,13 @@
                     {% set collapse_class_name = 'ibexa-content-preview-collapse--' ~ group_name %}
 
                     <section class="ibexa-fieldgroup container">
-                        <a data-bs-toggle="collapse" href=".{{ collapse_class_name }}" class="ibexa-fieldgroup__toggler">
-                            {{ group.name|capitalize }}
-                        </a>
+                        <div class="ibexa-fieldgroup__header">
+                            <span class="ibexa-fieldgroup__header-name">{{ group.name|capitalize }}</span>
+                            <a data-bs-toggle="collapse" href=".{{ collapse_class_name }}" class="ibexa-fieldgroup__toggler">
+                                <span class="ibexa-fieldgroup__toggler-label-show">{{ 'fieldview.toggler.show'|trans|desc('Show') }}</span>
+                                <span class="ibexa-fieldgroup__toggler-label-hide">{{ 'fieldview.toggler.hide'|trans|desc('Hide') }}</span>
+                            </a>
+                        </div>
                         <div class="{{ collapse_class_name }} ibexa-content-preview-collapse collapse show" data-collapse-state-key="{{ collapse_state_key }}">
                             {% for field_definition in group.fieldDefinitions %}
                                 {% block field %}
