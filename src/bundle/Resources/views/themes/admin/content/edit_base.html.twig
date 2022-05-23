@@ -64,7 +64,9 @@
                         {% for field in form.fieldsData %}
                             {% if not field.rendered %}
                                 {% if field.value is defined %}
-                                    {{- form_widget(field) -}}
+                                    {{- form_widget(field, {
+                                        location: location
+                                    }) -}}
                                 {% else %}
                                     <div class="ibexa-field-edit ibexa-field-edit--eznoneditable">
                                         {{- form_label(field) -}}

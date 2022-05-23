@@ -201,6 +201,7 @@ class UserOnTheFlyController extends Controller
             UserUpdateType::class,
             $contentUpdate,
             [
+                'location' => $location,
                 'languageCode' => $languageCode,
                 'mainLanguageCode' => $user->contentInfo->mainLanguageCode,
             ]

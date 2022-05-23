@@ -226,6 +226,7 @@
                                 data-udw-config="{{ ibexa_udw_config('multiple', {
                                     'type': 'object_relation',
                                     'starting_location_id' : default_location,
+                                    'root_default_location': root_default_location,
                                     'allowed_content_types': allowed_content_types
                                 }) }}"
                                 type="button"
@@ -253,20 +254,15 @@
         {% endembed %}
     </div>
     <div class="ibexa-relations__cta" {% if has_relations %}hidden="true"{% endif %}>
+        {% set udw_config_parameters = {
+            'type': 'object_relation',
+            'starting_location_id' : default_location,
+            'root_default_location': root_default_location,
+            'allowed_content_types': allowed_content_types
+        } %}
+        {% set udw_config = ibexa_udw_config(limit == 1 ? 'single' : 'multiple', udw_config_parameters) %}
         <button
-            {% if limit == 1 %}
-                data-udw-config="{{ ibexa_udw_config('single', {
-                    'type': 'object_relation',
-                    'starting_location_id' : default_location,
-                    'allowed_content_types': allowed_content_types
-                }) }}"
-            {% else %}
-                data-udw-config="{{ ibexa_udw_config('multiple', {
-                    'type': 'object_relation',
-                    'starting_location_id' : default_location,
-                    'allowed_content_types': allowed_content_types
-                }) }}"
-            {% endif %}
+            data-udw-config="{{ udw_config }}"
             data-limit="{{limit}}"
             class="ibexa-relations__cta-btn btn ibexa-btn ibexa-btn--secondary"
             type="button"

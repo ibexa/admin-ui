@@ -80,7 +80,9 @@ class UniversalDiscoveryController extends Controller
         $rootLocationId = $request->query->getInt('rootLocationId', Provider::ROOT_LOCATION_ID);
 
         $sortClause = $this->provider->getSortClause($sortClauseName, $sortOrder);
-        $breadcrumbLocations = $this->provider->getBreadcrumbLocations($locationId);
+        $breadcrumbLocations = $locationId !== $rootLocationId
+            ? $this->provider->getBreadcrumbLocations($locationId, $rootLocationId)
+            : [];
 
         $columns = $this->provider->getColumns($locationId, $limit, $sortClause, false, $rootLocationId);
 
