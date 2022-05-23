@@ -270,5 +270,9 @@
     &--rolled-up {
         height: calculateRem(24px);
         border-radius: 0 0 calculateRem(10px) calculateRem(10px);
+
+        .tab-pane {
+            opacity: 0;
+        }
     }
 }
