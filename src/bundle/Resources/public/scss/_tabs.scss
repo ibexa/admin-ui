@@ -268,7 +268,7 @@
     }
 
     &--rolled-up {
-        height: calculateRem(32px);
+        height: calculateRem(24px);
         border-radius: 0 0 calculateRem(10px) calculateRem(10px);
     }
 }
