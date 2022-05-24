@@ -52,16 +52,16 @@ parameters:
     ibexa.site_access.config.default.content_translate_view: {}
     ibexa.site_access.config.default.limitation_value_templates:
         - { template: '@@ibexadesign/limitation/limitation_values.html.twig', priority: 0 }
-    ibexa.site_access.config.admin_group.user_settings.templates.list: "@@ibexadesign/account/settings/list.html.twig"
-    ibexa.site_access.config.admin_group.user_settings.templates.update: "@@ibexadesign/account/settings/update.html.twig"
-    ibexa.site_access.config.admin_group.user_change_password.templates.form: "@@ibexadesign/account/change_password/index.html.twig"
-    ibexa.site_access.config.admin_group.user_forgot_password.templates.form: "@@ibexadesign/account/forgot_password/index.html.twig"
-    ibexa.site_access.config.admin_group.user_forgot_password_success.templates.form: "@@ibexadesign/account/forgot_password/confirmation_page.html.twig"
-    ibexa.site_access.config.admin_group.user_forgot_password_login.templates.form: "@@ibexadesign/account/forgot_password/index_with_login.html.twig"
-    ibexa.site_access.config.admin_group.user_forgot_password.templates.mail: "@@ibexadesign/account/forgot_password/mail.html.twig"
-    ibexa.site_access.config.admin_group.user_reset_password.templates.form: "@@ibexadesign/account/reset_password/index.html.twig"
-    ibexa.site_access.config.admin_group.user_reset_password.templates.invalid_link: "@@ibexadesign/account/reset_password/invalid_link_page.html.twig"
-    ibexa.site_access.config.admin_group.user_reset_password.templates.success: "@@ibexadesign/account/reset_password/confirmation_page.html.twig"
+    ibexa.site_access.config.admin_group.user_settings.templates.list: '@@ibexadesign/account/settings/list.html.twig'
+    ibexa.site_access.config.admin_group.user_settings.templates.update: '@@ibexadesign/account/settings/update.html.twig'
+    ibexa.site_access.config.admin_group.user_change_password.templates.form: '@@ibexadesign/account/change_password/index.html.twig'
+    ibexa.site_access.config.admin_group.user_forgot_password.templates.form: '@@ibexadesign/account/forgot_password/index.html.twig'
+    ibexa.site_access.config.admin_group.user_forgot_password_success.templates.form: '@@ibexadesign/account/forgot_password/confirmation_page.html.twig'
+    ibexa.site_access.config.admin_group.user_forgot_password_login.templates.form: '@@ibexadesign/account/forgot_password/index_with_login.html.twig'
+    ibexa.site_access.config.admin_group.user_forgot_password.templates.mail: '@@ibexadesign/account/forgot_password/mail.html.twig'
+    ibexa.site_access.config.admin_group.user_reset_password.templates.form: '@@ibexadesign/account/reset_password/index.html.twig'
+    ibexa.site_access.config.admin_group.user_reset_password.templates.invalid_link: '@@ibexadesign/account/reset_password/invalid_link_page.html.twig'
+    ibexa.site_access.config.admin_group.user_reset_password.templates.success: '@@ibexadesign/account/reset_password/confirmation_page.html.twig'
     ibexa.site_access.config.admin_group.user_edit.templates.update: '@@ibexadesign/user/edit.html.twig'
     ibexa.site_access.config.admin_group.user_edit.templates.create: '@@ibexadesign/user/create.html.twig'
 

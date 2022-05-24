@@ -114,6 +114,10 @@
         cursor: grab;
     }
 
+    &:hover {
+        border-color: $ibexa-color-dark;
+    }
+
     &:last-of-type {
         margin-bottom: calculateRem(24px);
     }
