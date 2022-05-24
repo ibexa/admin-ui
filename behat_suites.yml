@@ -58,12 +58,8 @@ browser:
             paths:
                 - '%paths.base%/vendor/ibexa/admin-ui/features/'
             contexts: 
-                - Ibexa\Behat\API\Context\ContentContext
-                - Ibexa\Behat\API\Context\ContentTypeContext
-                - Ibexa\Behat\API\Context\RoleContext
-                - Ibexa\Behat\API\Context\TestContext
-                - Ibexa\Behat\API\Context\TrashContext
                 - Ibexa\AdminUi\Behat\BrowserContext\AdminUpdateContext
+                - Ibexa\AdminUi\Behat\BrowserContext\BookmarkContext
                 - Ibexa\AdminUi\Behat\BrowserContext\ContentActionsMenuContext
                 - Ibexa\AdminUi\Behat\BrowserContext\ContentPreviewContext
                 - Ibexa\AdminUi\Behat\BrowserContext\ContentTypeContext
@@ -81,7 +77,12 @@ browser:
                 - Ibexa\AdminUi\Behat\BrowserContext\TrashContext
                 - Ibexa\AdminUi\Behat\BrowserContext\UDWContext
                 - Ibexa\AdminUi\Behat\BrowserContext\UserPreferencesContext
-                - Ibexa\AdminUi\Behat\BrowserContext\BookmarkContext
+                - Ibexa\Behat\API\Context\ContentContext
+                - Ibexa\Behat\API\Context\ContentTypeContext
+                - Ibexa\Behat\API\Context\RoleContext
+                - Ibexa\Behat\API\Context\TestContext
+                - Ibexa\Behat\API\Context\TrashContext
+                - Ibexa\Behat\API\Context\UserContext
                 - Ibexa\Behat\Browser\Context\AuthenticationContext
                 - Ibexa\Behat\Browser\Context\DebuggingContext
                 - Ibexa\User\Behat\Context\UserSettingsContext
