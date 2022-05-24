@@ -198,9 +198,20 @@ class ContentUpdateItemPage extends Page
 
     public function verifyAutosaveDraftIsSavedNotificationIsDisplayed(): void
     {
-        $this->getHTMLPage()
-            ->find($this->getLocator('autosaveSavedInfo'))
-            ->assert()->textContains('Saved');
+        $iteration_count = 20;
+
+        while ($this->isAutosaveDraftSavedNotificationVisible() == false && $iteration_count > 0) {
+            usleep(500000);
+            --$iteration_count;
+        }
+    }
+
+    public function isAutosaveDraftSavedNotificationVisible(): bool
+    {
+        return $this->getHTMLPage()
+            ->setTimeout(0)
+            ->findAll($this->getLocator('autosaveSavedInfo'))
+         ->filterBy(new ElementTextCriterion('Draft saved'))->any();
     }
 
     public function verifyAutosaveIsOffNotificationIsDisplayed(): void
