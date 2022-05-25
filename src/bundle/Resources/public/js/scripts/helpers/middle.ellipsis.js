@@ -5,10 +5,7 @@
         middleEllipsisContainers.forEach((middleEllipsisContainer) => {
             const partStart = middleEllipsisContainer.querySelector('.ibexa-middle-ellipsis__name--start');
 
-            middleEllipsisContainer.classList.toggle(
-                'ibexa-middle-ellipsis--ellipsized',
-                partStart.scrollWidth > partStart.offsetWidth,
-            );
+            middleEllipsisContainer.classList.toggle('ibexa-middle-ellipsis--ellipsized', partStart.scrollWidth > partStart.offsetWidth);
             ibexa.helpers.tooltips.parse(middleEllipsisContainer);
         });
     };
