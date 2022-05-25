@@ -6,10 +6,12 @@
     padding: calculateRem(4px) calculateRem(24px) calculateRem(4px) calculateRem(10px);
     border-radius: calculateRem(12px);
     background-color: $ibexa-color-light-500;
+    max-width: 100%;
 
     &__content {
         font-size: $ibexa-text-font-size-small;
         font-weight: normal;
+        max-width: 100%;
     }
 
     &__spinner {

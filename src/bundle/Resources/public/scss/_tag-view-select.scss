@@ -36,51 +36,8 @@
             margin-right: calculateRem(8px);
         }
 
-        &--ellipsized {
-            .ibexa-tag-view-select {
-                &__selected-item-tag-content {
-                    &--start {
-                        margin-right: calculateRem(-10px);
-                    }
-
-                    &--end {
-                        margin-left: calculateRem(-10px);
-                        width: initial;
-                    }
-                }
-
-                &__selected-item-tag-ellipsize {
-                    display: inline-block;
-                }
-            }
-        }
-    }
-
-    &__selected-item-tag-ellipsize {
-        display: none;
-    }
-
-    &__selected-item-tag-content {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        color: transparent;
-
-        &--start,
-        &--end {
-            .ibexa-tag-view-select__selected-item-tag-content-ellipsized {
-                color: $ibexa-color-black;
-            }
-        }
-
-        &--start {
-            width: 100%;
-        }
-
-        &--end {
-            width: 0;
-            direction: rtl;
-            text-align: right;
+        .ibexa-middle-ellipsis {
+            max-width: calc(100% - #{calculateRem(20px)});
         }
     }
 

@@ -3,17 +3,19 @@
 {% set tag_attributes = tag_attributes|default({})|merge({'class': (tag_attributes.class|default('') ~ ' ibexa-tag')|trim}) %}
 
 <div {{ html.attributes(tag_attributes) }}>
-    <div class="ibexa-tag__content" {% if is_loading_state %} hidden {% endif %}>
-        {{ content }}
-    </div>
-    <div class="ibexa-tag__spinner" {% if not is_loading_state %} hidden {% endif %}>
-        <svg class="ibexa-icon ibexa-icon--small ibexa-spin">
-            <use xlink:href="{{ ibexa_icon_path('spinner') }}"></use>
-        </svg>
-    </div>
-    <button type="button" class="ibexa-tag__remove-btn">
-        <svg class="ibexa-icon ibexa-icon--tiny">
-            <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
-        </svg>
-    </button>
+	<div class="ibexa-tag__content" {% if is_loading_state %} hidden {% endif %}>
+		{{ include('@ibexadesign/ui/component/middle_ellipsis/middle_ellipsis.html.twig', {
+            name: content,
+        }) }}
+	</div>
+	<div class="ibexa-tag__spinner" {% if not is_loading_state %} hidden {% endif %}>
+		<svg class="ibexa-icon ibexa-icon--small ibexa-spin">
+			<use xlink:href="{{ ibexa_icon_path('spinner') }}"></use>
+		</svg>
+	</div>
+	<button type="button" class="ibexa-tag__remove-btn">
+		<svg class="ibexa-icon ibexa-icon--tiny">
+			<use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
+		</svg>
+	</button>
 </div>

@@ -21,11 +21,10 @@
             this.removeItems = this.removeItems.bind(this);
             this.removeItem = this.removeItem.bind(this);
             this.toggleDeleteButtons = this.toggleDeleteButtons.bind(this);
-            this.ellipsizeTags = this.ellipsizeTags.bind(this);
             this.attachDeleteEvents = this.attachDeleteEvents.bind(this);
             this.adjustButtonLabel = this.adjustButtonLabel.bind(this);
 
-            this.ellipsizeTags();
+            ibexa.helpers.middleEllipsis.parseAll();
             this.attachDeleteEvents();
 
             this.disabledObserver = new MutationObserver((mutationsList) => {
@@ -79,7 +78,7 @@
             });
 
             this.inputField.dispatchEvent(new Event('change'));
-            this.ellipsizeTags();
+            ibexa.helpers.middleEllipsis.parseAll();
             this.toggleDeleteButtons();
             this.adjustButtonLabel();
         }
@@ -115,20 +114,6 @@
                     .querySelector('.ibexa-tag-view-select__selected-item-tag-remove-btn')
                     .toggleAttribute('hidden', hideDeleteButtons),
             );
-        }
-
-        ellipsizeTags() {
-            const selectedItems = [...this.listContainer.querySelectorAll('[data-id]')];
-
-            selectedItems.forEach((item) => {
-                const partStart = item.querySelector('.ibexa-tag-view-select__selected-item-tag-content--start');
-
-                item.classList.toggle(
-                    'ibexa-tag-view-select__selected-item-tag--ellipsized',
-                    partStart.scrollWidth > partStart.offsetWidth,
-                );
-                ibexa.helpers.tooltips.parse(item);
-            });
         }
 
         attachDeleteEvents() {
