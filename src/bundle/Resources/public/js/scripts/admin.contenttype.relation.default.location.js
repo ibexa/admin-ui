@@ -1,7 +1,7 @@
-(function(global, doc, eZ, React, ReactDOM) {
-    const SELECTOR_RESET_STARTING_LOCATION_BTN = '.ez-btn--reset-starting-location';
+(function (global, doc, ibexa, React, ReactDOM) {
+    const SELECTOR_RESET_STARTING_LOCATION_BTN = '.ibexa-btn--reset-starting-location';
     const resetStartingLocationBtns = doc.querySelectorAll(SELECTOR_RESET_STARTING_LOCATION_BTN);
-    const udwBtns = doc.querySelectorAll('.btn--udw-relation-default-location');
+    const udwBtns = doc.querySelectorAll('.ibexa-btn--udw-relation-default-location');
     const udwContainer = doc.getElementById('react-udw');
     const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
     const onConfirm = (btn, items) => {
@@ -12,10 +12,7 @@
         const objectRelationListSettingsWrapper = btn.closest('.ezobjectrelationlist-settings');
         const objectRelationSettingsWrapper = btn.closest('.ezobjectrelation-settings');
 
-        toggleResetStartingLocationBtn(
-            btn.parentNode.querySelector(SELECTOR_RESET_STARTING_LOCATION_BTN),
-            true
-        );
+        toggleResetStartingLocationBtn(btn.parentNode.querySelector(SELECTOR_RESET_STARTING_LOCATION_BTN), true);
 
         if (objectRelationListSettingsWrapper) {
             objectRelationListSettingsWrapper.querySelector(btn.dataset.relationRootInputSelector).value = locationId;
@@ -32,14 +29,14 @@
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
 
         ReactDOM.render(
-            React.createElement(eZ.modules.UniversalDiscovery, {
+            React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(null, event.currentTarget),
                 onCancel,
                 title: event.currentTarget.dataset.universaldiscoveryTitle,
                 multiple: false,
                 ...config,
             }),
-            udwContainer
+            udwContainer,
         );
     };
     const toggleResetStartingLocationBtn = (button, isEnabled) => {
@@ -58,7 +55,27 @@
 
         toggleResetStartingLocationBtn(button, false);
     };
+    const attachEvents = (btns) => {
+        btns.forEach((btn) => btn.addEventListener('click', openUDW, false));
+    };
 
-    udwBtns.forEach(btn => btn.addEventListener('click', openUDW, false));
-    resetStartingLocationBtns.forEach(btn => btn.addEventListener('click', resetStartingLocation, false));
-})(window, window.document, window.eZ, window.React, window.ReactDOM);
+    attachEvents(udwBtns);
+
+    doc.body.addEventListener(
+        'ibexa-drop-field-definition',
+        (event) => {
+            const { nodes } = event.detail;
+
+            nodes.forEach((node) => {
+                const addLocationBtns = node.querySelectorAll('.ibexa-btn--udw-relation-default-location');
+                const removeLocationBtns = node.querySelectorAll(SELECTOR_RESET_STARTING_LOCATION_BTN);
+
+                attachEvents(addLocationBtns);
+                removeLocationBtns.forEach((btn) => btn.addEventListener('click', resetStartingLocation, false));
+            });
+        },
+        false,
+    );
+
+    resetStartingLocationBtns.forEach((btn) => btn.addEventListener('click', resetStartingLocation, false));
+})(window, window.document, window.ibexa, window.React, window.ReactDOM);

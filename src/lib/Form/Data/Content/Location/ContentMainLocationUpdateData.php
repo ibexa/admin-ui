@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Content\Location;
+namespace Ibexa\AdminUi\Form\Data\Content\Location;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -20,7 +20,7 @@ class ContentMainLocationUpdateData
     /**
      * @Assert\NotBlank()
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\ContentInfo|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
      */
     public $contentInfo;
 
@@ -29,13 +29,13 @@ class ContentMainLocationUpdateData
      *
      * @Assert\NotBlank()
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Location
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location
      */
     public $location;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo|null $contentInfo
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      */
     public function __construct(
         ContentInfo $contentInfo = null,
@@ -46,7 +46,7 @@ class ContentMainLocationUpdateData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
      */
     public function getContentInfo(): ?ContentInfo
     {
@@ -54,7 +54,7 @@ class ContentMainLocationUpdateData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
      */
     public function setContentInfo(?ContentInfo $contentInfo)
     {
@@ -62,7 +62,7 @@ class ContentMainLocationUpdateData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     public function getLocation(): ?Location
     {
@@ -70,10 +70,12 @@ class ContentMainLocationUpdateData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      */
     public function setLocation(Location $location)
     {
         $this->location = $location;
     }
 }
+
+class_alias(ContentMainLocationUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData');

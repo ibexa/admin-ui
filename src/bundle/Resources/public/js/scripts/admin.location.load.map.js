@@ -1,5 +1,5 @@
-(function(global, doc, Leaflet) {
-    doc.querySelectorAll('.ez-gmaplocation__map').forEach((mapLocation) => {
+(function (global, doc, Leaflet) {
+    doc.querySelectorAll('.ibexa-gmaplocation__map').forEach((mapLocation) => {
         const latitude = parseFloat(mapLocation.dataset.latitude);
         const longitude = parseFloat(mapLocation.dataset.longitude);
         const map = Leaflet.map(mapLocation, {
@@ -13,7 +13,7 @@
 
         Leaflet.marker([latitude, longitude], {
             icon: new Leaflet.Icon.Default({
-                imagePath: '/bundles/ezplatformadminuiassets/vendors/leaflet/dist/images/',
+                imagePath: '/bundles/ibexaadminuiassets/vendors/leaflet/dist/images/',
             }),
         }).addTo(map);
 

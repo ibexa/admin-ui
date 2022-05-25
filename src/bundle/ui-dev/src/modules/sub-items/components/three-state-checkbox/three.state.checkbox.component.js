@@ -17,4 +17,8 @@ ThreeStateCheckboxComponent.propTypes = {
     indeterminate: PropTypes.bool,
 };
 
+ThreeStateCheckboxComponent.defaultProps = {
+    indeterminate: false,
+};
+
 export default ThreeStateCheckboxComponent;

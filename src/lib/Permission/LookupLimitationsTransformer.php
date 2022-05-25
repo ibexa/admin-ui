@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Permission;
+namespace Ibexa\AdminUi\Permission;
 
-use eZ\Publish\API\Repository\Values\User\LookupLimitationResult;
-use EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException;
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult;
 
 /**
  * @internal
@@ -17,7 +17,7 @@ use EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException;
 final class LookupLimitationsTransformer
 {
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\LookupLimitationResult $lookupLimitations
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult $lookupLimitations
      *
      * @return array
      */
@@ -29,9 +29,9 @@ final class LookupLimitationsTransformer
             $limitationsValues[] = $roleLimitation->limitationValues;
         }
 
-        /** @var \eZ\Publish\API\Repository\Values\User\LookupPolicyLimitations $lookupPolicyLimitation */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\LookupPolicyLimitations $lookupPolicyLimitation */
         foreach ($lookupLimitations->lookupPolicyLimitations as $lookupPolicyLimitation) {
-            /** @var \eZ\Publish\API\Repository\Values\User\Limitation $limitation */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation */
             foreach ($lookupPolicyLimitation->limitations as $limitation) {
                 $limitationsValues[] = $limitation->limitationValues;
             }
@@ -41,12 +41,12 @@ final class LookupLimitationsTransformer
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\LookupLimitationResult $lookupLimitations
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult $lookupLimitations
      * @param string[] $limitationsIdentifiers
      *
      * @return array
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function getGroupedLimitationValues(
         LookupLimitationResult $lookupLimitations,
@@ -68,7 +68,7 @@ final class LookupLimitationsTransformer
         }
 
         foreach ($lookupLimitations->lookupPolicyLimitations as $lookupPolicyLimitation) {
-            /** @var \eZ\Publish\API\Repository\Values\User\Limitation $limitation */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation */
             foreach ($lookupPolicyLimitation->limitations as $limitation) {
                 if (\in_array($limitation->getIdentifier(), $limitationsIdentifiers, true)) {
                     $groupedLimitationsValues[$limitation->getIdentifier()][] = $limitation->limitationValues;
@@ -85,3 +85,5 @@ final class LookupLimitationsTransformer
         return $groupedLimitationsValues;
     }
 }
+
+class_alias(LookupLimitationsTransformer::class, 'EzSystems\EzPlatformAdminUi\Permission\LookupLimitationsTransformer');

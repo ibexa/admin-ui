@@ -1,43 +1,37 @@
 {% trans_default_domain 'version_conflict' %}
 
-<div class="modal fade ez-modal ez-modal--version-conflict" id="version-conflict-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">{{ 'version.conflict.header'|trans|desc('Version conflict') }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <svg class="ez-icon ez-icon--medium" aria-hidden="true">
-                        <use xlink:href="{{ ez_icon_path('discard') }}"></use>
-                    </svg>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p class="ez-modal-body__explanation">
-                    <strong>
-                        {{ 'version.conflict.are_you_sure'|trans|desc(
-                        'Are you sure you want to continue and overwrite the published version?'
-                        ) }}
-                    </strong>
-                </p>
-                <p class="ez-modal-body__explanation">
-                    {{ 'version.conflict.consequences'|trans|desc(
-                    'If you continue, the published version will be overwritten.'
-                    ) }}
-                </p>
-                <p class="ez-modal-body__explanation">
-                    {{ 'version.conflict.choices'|trans|desc(
-                    'To resolve the conflict, click Cancel and delete the draft. Then edit the published version.'
-                    ) }}
-                </p>
-            </div>
-            <div class="modal-footer">
-                <a id="edit-conflicted-draft" class="btn btn-primary" href="#">
-                    {{ 'version.conflict.form.continue'|trans|desc('Continue') }}
-                </a>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    {{ 'version.conflict.form.cancel'|trans|desc('Cancel') }}
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+{% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
+    title: 'version.conflict.header'|trans|desc('Version conflict'),
+    class: 'ibexa-modal--version-conflict',
+    id: 'version-conflict-modal',
+} %}
+    {% trans_default_domain 'version_conflict' %}
+
+    {% block body_content %}
+        <p class="ibexa-modal-body__explanation">
+            <strong>
+                {{ 'version.conflict.are_you_sure'|trans|desc(
+                'Are you sure you want to continue and overwrite the published version?'
+                ) }}
+            </strong>
+        </p>
+        <p class="ibexa-modal-body__explanation">
+            {{ 'version.conflict.consequences'|trans|desc(
+            'If you continue, the published version will be overwritten.'
+            ) }}
+        </p>
+        <p class="ibexa-modal-body__explanation">
+            {{ 'version.conflict.choices'|trans|desc(
+            'To resolve the conflict, click Cancel and delete the draft. Then edit the published version.'
+            ) }}
+        </p>
+    {% endblock %}
+    {% block footer_content %}
+        <a id="edit-conflicted-draft" class="btn ibexa-btn ibexa-btn--primary" href="#">
+            {{ 'version.conflict.form.continue'|trans|desc('Continue') }}
+        </a>
+        <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
+            {{ 'version.conflict.form.cancel'|trans|desc('Cancel') }}
+        </button>
+    {% endblock %}
+{% endembed %}

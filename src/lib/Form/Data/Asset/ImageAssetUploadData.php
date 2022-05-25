@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Asset;
+namespace Ibexa\AdminUi\Form\Data\Asset;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -49,7 +49,7 @@ class ImageAssetUploadData
     /**
      * @param \Symfony\Component\HttpFoundation\File\UploadedFile $file|null
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Asset\ImageAssetUploadData
+     * @return \Ibexa\AdminUi\Form\Data\Asset\ImageAssetUploadData
      */
     public function setFile(?UploadedFile $file): self
     {
@@ -69,7 +69,7 @@ class ImageAssetUploadData
     /**
      * @param string|null $languageCode
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Asset\ImageAssetUploadData
+     * @return \Ibexa\AdminUi\Form\Data\Asset\ImageAssetUploadData
      */
     public function setLanguageCode(?string $languageCode): self
     {
@@ -78,3 +78,5 @@ class ImageAssetUploadData
         return $this;
     }
 }
+
+class_alias(ImageAssetUploadData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Asset\ImageAssetUploadData');

@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Value\Content;
+namespace Ibexa\AdminUi\UI\Value\Content;
 
-use eZ\Publish\API\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem;
 
 final class UnauthorizedRelation implements RelationInterface
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem */
     private $unauthorizedRelation;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem $unauthorizedContentDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem $unauthorizedContentDraft
      */
     public function __construct(UnauthorizedRelationListItem $unauthorizedRelation)
     {
@@ -24,7 +24,7 @@ final class UnauthorizedRelation implements RelationInterface
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem
      */
     public function getUnauthorizedRelation(): UnauthorizedRelationListItem
     {
@@ -39,3 +39,5 @@ final class UnauthorizedRelation implements RelationInterface
         return false;
     }
 }
+
+class_alias(UnauthorizedRelation::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\UnauthorizedRelation');

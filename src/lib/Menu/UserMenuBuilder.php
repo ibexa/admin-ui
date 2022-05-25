@@ -6,10 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Menu;
+namespace Ibexa\AdminUi\Menu;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -23,16 +24,16 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    const ITEM_LOGOUT = 'user__content';
-    const ITEM_USER_SETTINGS = 'user__settings';
-    const ITEM_BOOKMARK = 'user__bookmark';
-    const ITEM_DRAFTS = 'user__drafts';
-    const ITEM_NOTIFICATION = 'menu.notification';
+    public const ITEM_LOGOUT = 'user__content';
+    public const ITEM_USER_SETTINGS = 'user__settings';
+    public const ITEM_BOOKMARK = 'user__bookmark';
+    public const ITEM_DRAFTS = 'user__drafts';
+    public const ITEM_NOTIFICATION = 'menu.notification';
 
     /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
     private $tokenStorage;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
     public function __construct(
@@ -68,31 +69,10 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
 
         $token = $this->tokenStorage->getToken();
         if (null !== $token && is_object($token->getUser())) {
-            $menu->addChild(self::ITEM_NOTIFICATION, [
-                'attributes' => [
-                    'class' => 'ez-user-menu__item--notifications',
-                    'data-toggle' => 'modal',
-                    'data-target' => '#view-notifications',
-                ],
-                'extras' => [
-                    'translation_domain' => 'notifications',
-                    'template' => '@ezdesign/account/notifications/modal.html.twig',
-                    'orderNumber' => 10,
-                ],
-            ]);
-
-            $menu->addChild(
-                $this->createMenuItem(self::ITEM_BOOKMARK, [
-                    'route' => 'ezplatform.bookmark.list',
-                    'extras' => [
-                        'orderNumber' => 20,
-                    ], ])
-            );
-
             if ($this->permissionResolver->hasAccess('content', 'versionread') !== false) {
                 $menu->addChild(
                     $this->createMenuItem(self::ITEM_DRAFTS, [
-                        'route' => 'ezplatform.content_draft.list',
+                        'route' => 'ibexa.content_draft.list',
                         'extras' => [
                             'orderNumber' => 30,
                         ],
@@ -102,16 +82,21 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
 
             $menu->addChild(
                 $this->createMenuItem(self::ITEM_USER_SETTINGS, [
-                    'route' => 'ezplatform.user_settings.list',
+                    'route' => 'ibexa.user_settings.list',
                     'extras' => [
                         'orderNumber' => 50,
                     ], ])
             );
 
             $menu->addChild(
-                $this->createMenuItem(self::ITEM_LOGOUT, ['route' => 'logout', 'extras' => [
+                $this->createMenuItem(self::ITEM_LOGOUT, [
+                    'route' => 'logout',
+                    'attributes' => [
+                        'class' => 'ibexa-popup-menu__item--with-border',
+                    ],
+                    'extras' => [
                     'orderNumber' => 60,
-                ]])
+                    ], ])
             );
         }
 
@@ -126,9 +111,10 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         return [
             (new Message(self::ITEM_LOGOUT, 'menu'))->setDesc('Logout'),
             (new Message(self::ITEM_USER_SETTINGS, 'menu'))->setDesc('User Settings'),
-            (new Message(self::ITEM_BOOKMARK, 'menu'))->setDesc('Bookmarks'),
             (new Message(self::ITEM_DRAFTS, 'menu'))->setDesc('Drafts'),
             (new Message(self::ITEM_NOTIFICATION, 'notifications'))->setDesc('View Notifications'),
         ];
     }
 }
+
+class_alias(UserMenuBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\UserMenuBuilder');

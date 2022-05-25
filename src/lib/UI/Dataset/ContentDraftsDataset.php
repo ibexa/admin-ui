@@ -6,53 +6,53 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Dataset;
+namespace Ibexa\AdminUi\UI\Dataset;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\User\User;
-use EzSystems\EzPlatformAdminUi\UI\Value\Content\VersionId;
+use Ibexa\AdminUi\UI\Value\Content\VersionId;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 
 /**
  * @deprecated Please move to use ContentDraftListDataset to get a paginated list of content drafts
  */
 class ContentDraftsDataset
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
     /** @var array */
     private $data = [];
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
-     * @param \eZ\Publish\API\Repository\LocationService $locationService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
+     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
      */
     public function __construct(
         ContentService $contentService,
         ContentTypeService $contentTypeService,
-        LocationService $locationService)
-    {
+        LocationService $locationService
+    ) {
         $this->contentService = $contentService;
         $this->contentTypeService = $contentTypeService;
         $this->locationService = $locationService;
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\User|null $user
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User|null $user
      *
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\ContentDraftsDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\ContentDraftsDataset
      */
     public function load(User $user = null): self
     {
@@ -105,8 +105,8 @@ class ContentDraftsDataset
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $draft
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $draft
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
      * @return array
      */
@@ -129,3 +129,5 @@ class ContentDraftsDataset
         ];
     }
 }
+
+class_alias(ContentDraftsDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\ContentDraftsDataset');

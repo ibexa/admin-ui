@@ -1,31 +1,16 @@
 {
-  "name": "PlatformAdminUIBundle",
-  "version": "1.0.0",
-  "description": "Platform Admin UI Bundle",
-  "repository": "https://github.com/ezsystems/ezplatform-admin-ui.git",
-  "dependencies": {
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-scripts": "1.0.13",
-    "alloyeditor": "^1.4"
-  },
-  "devDependencies": {
-    "babel": "^6.23.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.8",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "clean-webpack-plugin": "^0.1.16",
-    "css-loader": "^0.28.5",
-    "eslint-plugin-react": "^7.3.0",
-    "prop-types": "^15.5.10",
-    "style-loader": "^0.18.2",
-    "uglifyjs-webpack-plugin": "^0.4.6",
-    "webpack": "^3.5.5"
-  },
-  "scripts": {
-    "componentize": "webpack"
-  }
+    "name": "admin-ui",
+    "repository": "git@github.com:ibexa/admin-ui.git",
+    "private": true,
+    "prettier": "eslint-config-ibexa/prettier",
+    "dependencies": {},
+    "devDependencies": {
+        "eslint-config-ibexa": "https://github.com/ibexa/eslint-config-ibexa.git#v1.0.0"
+    },
+    "scripts": {
+        "test": "yarn prettier-test && yarn eslint-test",
+        "fix": "yarn prettier-test --write && yarn eslint-test --fix",
+        "eslint-test": "eslint \"./src/bundle/Resources/**/*.js\" \"./src/bundle/ui-dev/**/*.js\"",
+        "prettier-test": "yarn prettier \"./src/bundle/Resources/**/*.{js,scss}\" \"./src/bundle/ui-dev/**/*.js\" --check"
+    }
 }

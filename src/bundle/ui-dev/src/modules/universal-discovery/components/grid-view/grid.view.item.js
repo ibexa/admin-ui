@@ -1,8 +1,7 @@
-import React, { useContext, Fragment } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import ToggleSelectionButton from '../toggle-selection-button/toggle.selection.button';
-import Icon from '../../../common/icon/icon';
+import ToggleSelection from '../toggle-selection/toggle.selection';
 import Thumbnail from '../../../common/thumbnail/thumbnail';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
@@ -17,25 +16,27 @@ import {
 } from '../../universal.discovery.module';
 
 const isSelectionButtonClicked = (event) => {
-    return event.target.closest('.c-toggle-selection-button');
+    return event.target.closest('.c-udw-toggle-selection');
 };
 
 const GridViewItem = ({ location, version }) => {
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
-    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
-    const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
+    const [multiple] = useContext(MultipleConfigContext);
     const containersOnly = useContext(ContainersOnlyContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
-    const isContainer = contentTypeInfo.isContainer;
+    const { isContainer } = contentTypeInfo;
+    const isSelected = selectedLocations.some((selectedLocation) => selectedLocation.location.id === location.id);
     const isNotSelectable =
         (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeInfo.identifier));
     const className = createCssClassNames({
-        'c-grid-item': true,
-        'c-grid-item--marked': markedLocationId === location.id,
-        'c-grid-item--not-selectable': isNotSelectable,
+        'ibexa-grid-view-item': true,
+        'ibexa-grid-view-item--marked': markedLocationId === location.id,
+        'ibexa-grid-view-item--not-selectable': isNotSelectable,
+        'ibexa-grid-view-item--selected': isSelected && !multiple,
     });
     const markLocation = ({ nativeEvent }) => {
         if (isSelectionButtonClicked(nativeEvent)) {
@@ -59,25 +60,27 @@ const GridViewItem = ({ location, version }) => {
 
         dispatchLoadedLocationsAction({ type: 'UPDATE_LOCATIONS', data: { parentLocationId: location.id, subitems: [] } });
     };
-    const renderToggleSelectionButton = () => {
-        if (!multiple || isNotSelectable) {
-            return null;
-        }
-
-        return <ToggleSelectionButton location={location} />;
+    const renderToggleSelection = () => {
+        return (
+            <div className="ibexa-grid-view-item__checkbox">
+                <ToggleSelection location={location} multiple={multiple} isHidden={isNotSelectable} />
+            </div>
+        );
     };
 
     return (
         <div className={className} onClick={markLocation} onDoubleClick={loadLocation}>
-            <div className="c-grid-item__preview">
+            <div className="ibexa-grid-view-item__image-wrapper">
                 <Thumbnail
                     thumbnailData={version.Thumbnail}
-                    iconExtraClasses="ez-icon--extra-large"
+                    iconExtraClasses="ibexa-icon--extra-large"
                     contentTypeIconPath={contentTypesMap[location.ContentInfo.Content.ContentType._href].thumbnail}
                 />
             </div>
-            <div className="c-grid-item__name">{location.ContentInfo.Content.TranslatedName}</div>
-            {renderToggleSelectionButton()}
+            <div className="ibexa-grid-view-item__title-wrapper">
+                <div className="ibexa-grid-view-item__title">{location.ContentInfo.Content.TranslatedName}</div>
+            </div>
+            {renderToggleSelection()}
         </div>
     );
 };

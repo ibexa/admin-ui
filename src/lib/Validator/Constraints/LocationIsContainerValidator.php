@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Validator\Constraints;
+namespace Ibexa\AdminUi\Validator\Constraints;
 
-use EzSystems\EzPlatformAdminUi\Specification\Location\IsContainer;
+use Ibexa\AdminUi\Specification\Location\IsContainer;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -17,7 +17,7 @@ class LocationIsContainerValidator extends ConstraintValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location The value that should be validated
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location The value that should be validated
      * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
      */
     public function validate($location, Constraint $constraint)
@@ -34,3 +34,5 @@ class LocationIsContainerValidator extends ConstraintValidator
         }
     }
 }
+
+class_alias(LocationIsContainerValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationIsContainerValidator');

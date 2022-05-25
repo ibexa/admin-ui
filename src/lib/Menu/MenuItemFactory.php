@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu;
+namespace Ibexa\AdminUi\Menu;
 
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 
@@ -16,16 +16,16 @@ class MenuItemFactory implements FactoryInterface
     /** @var \Knp\Menu\FactoryInterface */
     protected $factory;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
     /**
      * @param \Knp\Menu\FactoryInterface $factory
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
-     * @param \eZ\Publish\API\Repository\LocationService $locationService
+     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
+     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
      */
     public function __construct(
         FactoryInterface $factory,
@@ -57,7 +57,7 @@ class MenuItemFactory implements FactoryInterface
         }
 
         $defaults = [
-            'route' => '_ez_content_view',
+            'route' => 'ibexa.content.view',
             'routeParameters' => [
                 'contentId' => $contentInfo->id,
                 'locationId' => $locationId,
@@ -69,10 +69,15 @@ class MenuItemFactory implements FactoryInterface
 
     public function createItem($name, array $options = []): ItemInterface
     {
-        $defaults = [
-            'extras' => ['translation_domain' => 'menu'],
-        ];
+        if (empty($options['extras']['translation_domain'])) {
+            $options['extras']['translation_domain'] = 'menu';
+        }
 
-        return $this->factory->createItem($name, array_merge_recursive($defaults, $options));
+        $item = $this->factory->createItem($name, $options);
+        $item->setFactory($this);
+
+        return $item;
     }
 }
+
+class_alias(MenuItemFactory::class, 'EzSystems\EzPlatformAdminUi\Menu\MenuItemFactory');

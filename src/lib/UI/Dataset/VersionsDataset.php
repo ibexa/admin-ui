@@ -6,27 +6,27 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Dataset;
+namespace Ibexa\AdminUi\UI\Dataset;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory;
+use Ibexa\AdminUi\UI\Value\ValueFactory;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 
 class VersionsDataset
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     protected $contentService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory */
+    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
     protected $valueFactory;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\VersionInfo[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[] */
     protected $data;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory $valueFactory
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
      */
     public function __construct(ContentService $contentService, ValueFactory $valueFactory)
     {
@@ -35,7 +35,7 @@ class VersionsDataset
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      *
      * @return VersionsDataset
      */
@@ -50,7 +50,7 @@ class VersionsDataset
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
      */
     public function getVersions(): array
     {
@@ -58,7 +58,7 @@ class VersionsDataset
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
      */
     public function getDraftVersions(): array
     {
@@ -89,7 +89,7 @@ class VersionsDataset
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
      */
     public function getPublishedVersions(): array
     {
@@ -102,7 +102,7 @@ class VersionsDataset
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
      */
     public function getArchivedVersions(): array
     {
@@ -115,13 +115,15 @@ class VersionsDataset
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo[] $versions
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[] $versions
      * @param callable $callable
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
      */
     protected function filterVersions(array $versions, callable $callable): array
     {
         return array_values(array_filter($versions, $callable));
     }
 }
+
+class_alias(VersionsDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\VersionsDataset');

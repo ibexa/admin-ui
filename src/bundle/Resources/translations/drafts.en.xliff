@@ -32,8 +32,8 @@
         <note>key: drafts.list.action.remove.confirmation.text</note>
       </trans-unit>
       <trans-unit id="61be4cf21a9d454b832543ae2ecb5b2b10f94583" resname="drafts.list.action.remove.confirmation.title">
-        <source>Delete selected draft(s)</source>
-        <target state="new">Delete selected draft(s)</target>
+        <source>Delete</source>
+        <target state="new">Delete</target>
         <note>key: drafts.list.action.remove.confirmation.title</note>
       </trans-unit>
       <trans-unit id="b62c11ec52c71a7923851340a98932ed8ac8704b" resname="drafts.list.content_type">
