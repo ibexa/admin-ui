@@ -77,7 +77,8 @@ const Filters = ({ search }) => {
                     <button
                         type="button"
                         className="btn ibexa-tag-view-select__selected-item-tag-remove-btn"
-                        onClick={clearSelectedSubtree}>
+                        onClick={clearSelectedSubtree}
+                    >
                         <Icon name="discard" extraClasses="ibexa-icon--tiny" />
                     </button>
                 </div>
@@ -100,7 +101,8 @@ const Filters = ({ search }) => {
             <button
                 className="ibexa-tag-view-select__btn-select-path btn ibexa-btn ibexa-btn--secondary"
                 type="button"
-                onClick={() => setIsNestedUdwOpened(true)}>
+                onClick={() => setIsNestedUdwOpened(true)}
+            >
                 {selectedSubtree ? changeLabel : selectLabel}
             </button>
         );
@@ -151,7 +153,8 @@ const Filters = ({ search }) => {
                             type="submit"
                             className="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-btn--apply"
                             onClick={makeSearch}
-                            disabled={!isApplyButtonEnabled}>
+                            disabled={!isApplyButtonEnabled}
+                        >
                             {applyLabel}
                         </button>
                     </div>
