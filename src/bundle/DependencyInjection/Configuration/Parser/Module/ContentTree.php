@@ -42,7 +42,7 @@ class ContentTree extends AbstractParser
                 ->children()
                     ->integerNode('load_more_limit')
                         ->info('Number of children to load in expand and load more operations')
-                        ->defaultValue(300)
+                        ->defaultValue(30)
                         ->min(1)
                     ->end()
                     ->integerNode('children_load_max_limit')
