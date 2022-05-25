@@ -89,6 +89,7 @@
 
                     &__body-content {
                         padding: 0 calculateRem(24px) calculateRem(20px);
+                        min-height: calculateRem(410px);
                     }
                 }
             }

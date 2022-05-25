@@ -362,6 +362,14 @@
         field.classList.add('ibexa-collapse--field-definition-error');
     };
     class FieldDefinitionDraggable extends ibexa.core.Draggable {
+        constructor(config) {
+            super(config);
+
+            this.emptyContainer = this.itemsContainer.querySelector('.ibexa-field-definitions-empty-group');
+            this.anchoredPlaceholder = this.itemsContainer.querySelector('.ibexa-field-definitions-placeholder--anchored');
+            this.getPlaceholderNode = this.getPlaceholderNode.bind(this);
+        }
+
         onDrop(event) {
             targetContainer = event.currentTarget;
 
@@ -391,6 +399,42 @@
             }, TIMEOUT_REMOVE_HIGHLIGHT);
         }
 
+        getPlaceholderNode(target) {
+            const draggableItem = target.closest(`${this.selectorItem}:not(${this.selectorPlaceholder})`);
+
+            if (draggableItem) {
+                return draggableItem;
+            }
+
+            if (this.emptyContainer.contains(target)) {
+                return this.emptyContainer;
+            }
+
+            if (this.anchoredPlaceholder.contains(target)) {
+                return this.anchoredPlaceholder;
+            }
+
+            return null;
+        }
+
+        onDragOver(event) {
+            const item = this.getPlaceholderNode(event.target);
+
+            if (!item) {
+                return false;
+            }
+
+            // 0 makes that item is always inserted before anchored placeholder
+            const positionY = item.isSameNode(this.anchoredPlaceholder) ? 0 : event.clientY;
+
+            this.removePlaceholder();
+            this.addPlaceholder(item, positionY);
+
+            if (item.isSameNode(this.emptyContainer)) {
+                this.emptyContainer.classList.toggle('ibexa-field-definitions-empty-group--hidden');
+            }
+        }
+
         onDragStart(event) {
             super.onDragStart(event);
 
@@ -400,6 +444,20 @@
 
         onDragEnd() {
             currentDraggedItem.style.removeProperty('display');
+        }
+
+        init() {
+            super.init();
+
+            doc.body.addEventListener('dragover', (event) => {
+                if (!this.itemsContainer.contains(event.target)) {
+                    const groupFieldsDefinitionCount = this.itemsContainer.querySelectorAll('.ibexa-collapse--field-definition').length;
+
+                    this.emptyContainer.classList.toggle('ibexa-field-definitions-empty-group--hidden', groupFieldsDefinitionCount !== 0);
+                } else {
+                    event.preventDefault();
+                }
+            });
         }
     }
 
