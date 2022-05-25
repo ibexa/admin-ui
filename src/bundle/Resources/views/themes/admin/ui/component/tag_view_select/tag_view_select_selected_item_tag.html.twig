@@ -5,7 +5,13 @@
     {{ include('@ibexadesign/ui/component/middle_ellipsis/middle_ellipsis.html.twig', {
         name,
     }) }}
-    <button type="button" class="btn ibexa-tag-view-select__selected-item-tag-remove-btn" tabindex="-1" {% if not is_deletable %} hidden {% endif %} {% if is_disabled %} disabled {% endif %}>
+    <button 
+        type="button"
+        class="btn ibexa-tag-view-select__selected-item-tag-remove-btn"
+        tabindex="-1"
+        {% if not is_deletable %} hidden {% endif %}
+        {% if is_disabled %} disabled {% endif %}
+    >
         <svg class="ibexa-icon ibexa-icon--tiny">
             <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
         </svg>
