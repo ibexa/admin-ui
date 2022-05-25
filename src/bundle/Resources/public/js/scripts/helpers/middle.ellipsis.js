@@ -10,7 +10,7 @@
         });
     };
 
-    ibexa.addConfig('helpers.middleEllipsis', {
+    ibexa.addConfig('helpers.ellipsis.middle', {
         parseAll,
     });
 })(window, window.document, window.ibexa);
