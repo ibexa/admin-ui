@@ -54,8 +54,8 @@ class UserPreferencesContext implements Context
      */
     public function iSetAutosaveDraftValue(): void
     {
-        //$this->userSettingsPage->verifyIsLoaded();
         $this->userSettingsPage->openAutosaveDraftEditionPage();
+        $this->userSettingsPage->verifyIsLoaded();
         $this->userSettingsPage->disableAutosave();
     }
 }
