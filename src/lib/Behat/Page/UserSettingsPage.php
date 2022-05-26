@@ -56,7 +56,6 @@ class UserSettingsPage extends Page
         return [
             new VisibleCSSLocator('button', '.ibexa-btn'),
             new VisibleCSSLocator('title', '.ibexa-edit-header__title'),
-            new VisibleCSSLocator('autosaveDraftEditButton', '#ibexa-tab-my-preferences > div:nth-child(2) > div div.ibexa-table-header__actions > a'),
             new VisibleCSSLocator('autosaveDraftValueDropdown', '#user_setting_update_autosave div.ibexa-dropdown__wrapper > ul'),
             new VisibleCSSLocator('autosaveIntervalEdit', '#user_setting_update_autosave_interval_value'),
         ];
