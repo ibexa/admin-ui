@@ -7,10 +7,9 @@
         const header = toggler.closest('.ibexa-header');
         const headerContainer = header.parentElement;
         const tabContent = headerContainer.querySelector('.ibexa-tab-content');
-        const isTabContentRolledUp = toggler.classList.contains('ibexa-tabs__toggler--rolled-up');
 
         toggler.classList.toggle('ibexa-tabs__toggler--rolled-up');
-        tabContent.style.height = isTabContentRolledUp ? '' : '0px';
+        tabContent.classList.toggle('ibexa-tab-content--rolled-up');
     };
 
     doc.querySelectorAll('.ibexa-tabs__toggler').forEach((toggler) => {

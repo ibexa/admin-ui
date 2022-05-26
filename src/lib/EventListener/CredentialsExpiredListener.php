@@ -11,11 +11,11 @@ namespace Ibexa\AdminUi\EventListener;
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\MVC\Symfony\Security\Exception\PasswordExpiredException;
 use Ibexa\Core\MVC\Symfony\View\LoginFormView;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Exception\CredentialsExpiredException;
 
 final class CredentialsExpiredListener implements EventSubscriberInterface
 {
@@ -54,7 +54,7 @@ final class CredentialsExpiredListener implements EventSubscriberInterface
             return;
         }
 
-        if ($view->getLastAuthenticationException() instanceof CredentialsExpiredException) {
+        if ($view->getLastAuthenticationException() instanceof PasswordExpiredException) {
             $view->setTemplateIdentifier('@ibexadesign/account/error/credentials_expired.html.twig');
         }
     }
