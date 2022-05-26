@@ -22,7 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormInterface;
 
-class UserPermissionsLimitationMapper implements LimitationValueMapperInterface, LimitationFormMapperInterface
+final class UserPermissionsLimitationMapper implements LimitationValueMapperInterface, LimitationFormMapperInterface
 {
     use LoggerAwareTrait;
 
