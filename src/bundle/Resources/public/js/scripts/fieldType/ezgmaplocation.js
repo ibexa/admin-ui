@@ -17,6 +17,7 @@
     const VALIDATE_LONGITUDE = 'validateLongitude';
     const VALIDATE_LATITUDE = 'validateLatitude';
     const VALIDATE_ADDRESS = 'validateAddress';
+    const maps = [];
 
     class EzGMapLocationValidator extends ibexa.BaseFieldValidator {
         /**
@@ -460,6 +461,7 @@
         };
         const map = Leaflet.map(field.querySelector('.ibexa-data-source__map'), mapConfig);
 
+        maps.push(map);
         longitudeInput.value = longitudeInput.dataset.value.replace(',', '.');
         latitudeInput.value = latitudeInput.dataset.value.replace(',', '.');
 
@@ -614,6 +616,18 @@
             locateMeBtn.setAttribute('disabled', 'disabled');
         }
     });
+
+    const invalidateSizeMap = (event) => {
+        const tabPaneSelector = event.target.getAttribute('href');
+        const tabPane = doc.querySelector(tabPaneSelector);
+
+        if (tabPane.querySelectorAll(SELECTOR_FIELD).length > 0) {
+            maps.forEach((map) => map.invalidateSize(true));
+        }
+    }
+
+    doc.querySelectorAll('.ibexa-tabs .nav-link')
+        .forEach((tab) => tab.addEventListener('shown.bs.tab', invalidateSizeMap));
 
     ibexa.addConfig('fieldTypeValidators', [validator], true);
 })(window, window.document, window.ibexa, window.L, window.Translator);
