@@ -10,6 +10,7 @@ use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\IbexaDropdown;
 use Ibexa\AdminUi\Behat\Component\TableNavigationTab;
+use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
@@ -63,7 +64,11 @@ class UserSettingsPage extends Page
 
     public function openAutosaveDraftEditionPage(): void
     {
-        $this->getHTMLPage()->find($this->getLocator('autosaveDraftEditButton'))->click();
+        $this->getHTMLPage()
+            ->findAll(new VisibleCSSLocator('settingsSection', '#ibexa-tab-my-preferences .ibexa-details'))
+            ->getByCriterion(new ChildElementTextCriterion(new VisibleCSSLocator('settingHeader', '.ibexa-table-header'), 'Edit Content'))
+            ->find(new VisibleCSSLocator('editButton', '[data-bs-original-title="Edit"]'))
+            ->click();
     }
 
     public function openAutosaveDraftIntervalEditionPage(): void

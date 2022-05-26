@@ -13,7 +13,7 @@ use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent;
 use Ibexa\AdminUi\Behat\Component\Notification;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
-use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
+use Ibexa\Behat\Browser\Element\Criterion\ElementTextFragmentCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
@@ -198,12 +198,16 @@ class ContentUpdateItemPage extends Page
 
     public function verifyAutosaveDraftIsSavedNotificationIsDisplayed(): void
     {
-        $iteration_count = 20;
+        $iteration_count = 30;
 
-        while ($this->isAutosaveDraftSavedNotificationVisible() == false && $iteration_count > 0) {
+        while ($iteration_count > 0) {
+            if ($this->isAutosaveDraftSavedNotificationVisible()) {
+                return;
+            }
             usleep(500000);
             --$iteration_count;
         }
+        Assert::fail('Draft has not been autosaved for 15 seconds');
     }
 
     public function isAutosaveDraftSavedNotificationVisible(): bool
@@ -211,7 +215,7 @@ class ContentUpdateItemPage extends Page
         return $this->getHTMLPage()
             ->setTimeout(0)
             ->findAll($this->getLocator('autosaveSavedInfo'))
-         ->filterBy(new ElementTextCriterion('Draft saved'))->any();
+         ->filterBy(new ElementTextFragmentCriterion('Draft saved'))->any();
     }
 
     public function verifyAutosaveIsOffNotificationIsDisplayed(): void
