@@ -130,7 +130,7 @@
 
 {% block ezobjectrelation_field_definition_edit %}
     {% set is_translation = is_translation ?? false %}
-    <div class="ezobjectrelation-settings selection-root">
+    <div class="ezobjectrelation-settings selection-root ibexa-default-location">
         {{- form_row(form.selectionRoot.location_type) -}}
         {{- form_row(form.rootDefaultLocation) -}}
         {{- form_row(form.selectionRoot.location) -}}
@@ -177,7 +177,7 @@
 
 {% block ezobjectrelationlist_field_definition_edit %}
     {% set is_translation = is_translation ?? false %}
-    <div class="ezobjectrelationlist-settings selection-default-location">
+    <div class="ezobjectrelationlist-settings selection-default-location ibexa-default-location">
         {{- form_row(form.selectionDefaultLocation.location_type) -}}
         {{- form_row(form.rootDefaultLocation) -}}
         {{- form_row(form.selectionDefaultLocation.location) -}}
