@@ -39,6 +39,10 @@ class Node extends RestValue
     /** @var int */
     public $totalChildrenCount;
 
+    public int $reverseRelationsCount;
+
+    public bool $isBookmarked;
+
     /** @var \Ibexa\AdminUi\REST\Value\ContentTree\Node[] */
     public $children;
 
@@ -64,6 +68,8 @@ class Node extends RestValue
         bool $isInvisible,
         int $displayLimit,
         int $totalChildrenCount,
+        int $reverseRelationsCount,
+        bool $isBookmarked,
         array $children = []
     ) {
         $this->depth = $depth;
@@ -75,6 +81,8 @@ class Node extends RestValue
         $this->isContainer = $isContainer;
         $this->totalChildrenCount = $totalChildrenCount;
         $this->displayLimit = $displayLimit;
+        $this->reverseRelationsCount = $reverseRelationsCount;
+        $this->isBookmarked = $isBookmarked;
         $this->children = $children;
     }
 }
