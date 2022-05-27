@@ -1,0 +1,10 @@
+{% extends "@ibexadesign/ui/layout.html.twig" %}
+
+{% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
+
+{% block content %}
+    {{ form_start(form) }}
+    {{ form_widget(form.emails) }}
+    {{ form_widget(form.send) }}
+    {{ form_end(form) }}
+{% endblock %}
