@@ -1,6 +1,7 @@
 {% trans_default_domain "ezplatform_url_wildcard" %}
 
 {% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
+{% form_theme form_list '@ibexadesign/ui/form_fields.html.twig' %}
 
 {%
     set wildcard_types = {
@@ -9,38 +10,19 @@
     }
 %}
 
-<section>
-    {{ form_start(form, {'attr': {'class': 'ibexa-search-links-form'}}) }}
-    <div class="ibexa-search-links-form__input-wrapper">
-        {{ form_widget(form.searchQuery, { attr: {
-            'placeholder': 'url.search.placeholder'|trans,
-        }}) }}
-    </div>
-    <div class="ibexa-search-links-form__status-wrapper">
-        {{ form_label(form.status) }}
-        {{ form_widget(form.status) }}
-    </div>
-    {{ form_widget(form.page, { attr: { value: '1' }}) }}
-    {{ form_end(form) }}
-</section>
-
-<section>
-    {{ form_start(form_list, {'attr': {'class': 'ibexa-search-links-form'}}) }}
-    <div class="ibexa-search-links-form__input-wrapper">
-        {{ form_widget(form_list.searchQuery, { attr: {
-            'placeholder': 'url_wildcard.search.placeholder'|trans|desc('Search for URL wildcards'),
-        }}) }}
-
-        <button class="btn btn-primary ml-2">
-            {{ 'url_wildcard.search'|trans|desc("Search") }}
-        </button>
-    </div>
-    <div class="ibexa-search-links-form__status-wrapper">
-        {{ form_label(form_list.type) }}
-        {{ form_widget(form_list.type) }}
-    </div>
-
-    {{ form_end(form_list) }}
+<section class="container">
+	{{ form_start(form_list, {'attr': {'class': 'ibexa-search-links-form'}}) }}
+	<div class="ibexa-search-links-form__input-wrapper">
+		{{ form_widget(form_list.searchQuery, { attr: {
+			'placeholder': 'url_wildcard.search.placeholder'|trans|desc('Search for URL wildcards'),
+		}}) }}
+	</div>
+	<div class="ibexa-search-links-form__status-wrapper">
+		{{ form_label(form_list.type) }}
+		{{ form_widget(form_list.type) }}
+	</div>
+	
+	{{ form_end(form_list) }}
 </section>
 
 <section class="mt-4">
@@ -188,3 +170,7 @@
         } %}
     {% endif %}
 </section>
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('ibexa-admin-ui-url-wildcards-list-js', null, 'ibexa') }}
+{% endblock %}

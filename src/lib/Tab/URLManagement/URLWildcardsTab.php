@@ -9,11 +9,18 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Tab\URLManagement;
 
 use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
+use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardListData;
+use Ibexa\AdminUi\Form\Type\URLWildcard\URLWildcardDeleteType;
+use Ibexa\AdminUi\Form\Type\URLWildcard\URLWildcardListType;
+use Ibexa\AdminUi\Form\Type\URLWildcard\URLWildcardType;
 use Ibexa\AdminUi\Pagination\Pagerfanta\URLWildcardAdapter;
 use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\URLWildcardService;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\URLWildcardQuery;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\FormFactoryInterface;

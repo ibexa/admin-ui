@@ -177,6 +177,7 @@ module.exports = (Encore) => {
         ])
         .addEntry('ibexa-admin-ui-link-manager-list-js', [path.resolve(__dirname, '../public/js/scripts/admin.linkmanager.list.js')])
         .addEntry('ibexa-admin-ui-link-manager-view-js', [path.resolve(__dirname, '../public/js/scripts/button.content.edit.js')])
+        .addEntry('ibexa-admin-ui-url-wildcards-list-js', [path.resolve(__dirname, '../public/js/scripts/admin.urlwildcards.list.js')])
         .addEntry('ibexa-admin-ui-change-user-password-js', [path.resolve(__dirname, '../public/js/scripts/user_password.change.js')])
         .addEntry('ibexa-admin-ui-content-edit-parts-js', [
             path.resolve('./vendor/ibexa/admin-ui-assets/src/bundle/Resources/public/vendors/leaflet/dist/leaflet.js'),
