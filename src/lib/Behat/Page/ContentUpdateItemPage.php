@@ -172,6 +172,9 @@ class ContentUpdateItemPage extends Page
 
     public function switchToFieldGroup(string $tabName): void
     {
+        // Workaround for an issue with switching sections: page has to be reloaded to have proper height
+        // See: https://issues.ibexa.co/browse/IBX-2943
+        $this->getSession()->reload();
         $this->getHTMLPage()
             ->findAll($this->getLocator('navigationTabs'))
             ->getByCriterion(new ElementTextCriterion($tabName))
