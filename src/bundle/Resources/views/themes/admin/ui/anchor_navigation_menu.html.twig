@@ -16,22 +16,84 @@
     </div>
 
     <div class="ibexa-anchor-navigation-menu__body">
-        {% if items|default([])|length > 1 %}
-            <ul class="ibexa-anchor-navigation-menu__items">
-                {% for item in items %}
-                    {% set sanitized_item = item|slug %}
+        {% if mock_items|default([])|length > 1 %}
+            <div class="ibexa-navigation-menu">
+                {% if mock_items|length < 4 %}
+                    <div class="ibexa-navigation-menu__primary ibexa-navigation-menu__primary--list">
+                        {% for mock_item in mock_items %}
+                            {% set item = mock_item.label %}
+                            {% set sanitized_item = item|slug %}
 
-                    <li class="ibexa-anchor-navigation-menu__item">
-                        <button
-                            type="button"
-                            class="ibexa-anchor-navigation-menu__item-btn {% if loop.first %}ibexa-anchor-navigation-menu__item-btn--active{% endif %}" 
-                            data-anchor-target-section-id="#{{ sanitized_item }}"
+                            <button
+                                type="button"
+                                class="ibexa-navigation-menu__primary-item {% if loop.first %}ibexa-navigation-menu__primary-item--active{% endif %}"
+                                data-target-id="{{ sanitized_item }}"
+                            >
+                                {{ item }}
+                            </button>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="ibexa-navigation-menu__dropdown-wrapper ibexa-navigation-menu__primary--dropdown">
+                        {% set value = '' %}
+                        {% set choices = [] %}
+                        {% for mock_item in mock_items %}
+                            {% set item = mock_item.label %}
+                            {% set sanitized_item = item|slug %}
+
+                            {% set choices = choices|merge([{
+                                value: sanitized_item,
+                                label: item,
+                            }]) %}
+                        {% endfor %}
+                        {% set source %}
+                            <select class="form-control ibexa-input">
+                                {% for choice in choices %}
+                                    {% if loop.first %}
+                                        {% set value = choice.value %}
+                                    {% endif %}
+                                    <option value="{{ choice.value }}">
+                                        {{ choice.label }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        {% endset %}
+
+                        {% include '@ibexadesign/ui/component/dropdown/dropdown.html.twig' with {
+                            source: source,
+                            choices: choices,
+                            value: value,
+                        } %}
+                    </div>
+                {% endif %}
+
+                <div class="ibexa-navigation-menu__secondary-wrapper">
+                    {% for mock_item in mock_items %}
+                        {% set item = mock_item.label %}
+                        {% set sanitized_item = item|slug %}
+
+                        <ul
+                            class="ibexa-navigation-menu__secondary {% if loop.first %}ibexa-navigation-menu__secondary--active{% endif %}"
+                            data-id="{{ sanitized_item }}"
                         >
-                            <span class="ibexa-anchor-navigation-menu__item-btn-label">{{ item }}</span>
-                        </button>
-                    </li>
-                {% endfor %}
-            </ul>
+                            {% for mock_item in mock_item.children %}
+                                {% set item = mock_item.label %}
+                                {% set sanitized_item = item|slug %}
+
+                                <li class="ibexa-navigation-menu__secondary-item">
+                                    <button
+                                        type="button"
+                                        class="ibexa-navigation-menu__secondary-item-btn {% if loop.first %}ibexa-navigation-menu__secondary-item-btn--active{% endif %}"
+                                        data-target-id="{{ sanitized_item }}"
+                                    >
+                                        <span class="ibexa-navigation-menu__secondary-item-btn-label">{{ item }}</span>
+                                    </button>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </div>
+            </div>
         {% endif %}
     </div>
 </div>

@@ -11,6 +11,40 @@
 
 {% form_theme form with form_templates %}
 
+{% set mock_items = [{
+    label: 'Content',
+    children: [{
+        label: 'Metadata',
+        height: '400px',
+    }, {
+        label: 'Author',
+        height: '100px',
+    }, {
+        label: 'Content',
+        height: '1000px'
+    }],
+}, {
+    label: 'SEO',
+    children: [{
+        label: 'Facebook',
+        height: '300px',
+    }, {
+        label: 'Instagram',
+        height: '100px',
+    }, {
+        label: 'Twitter',
+        height: '100px'
+    }],
+}, {
+    label: 'Tags',
+    children: [{
+        label: 'Tags',
+        height: '400px',
+    }],
+}] %}
+
+{% set anchor_params = anchor_params|merge({ mock_items: mock_items }) %}
+
 {% block left_sidebar %}
     {% if without_close_button is not defined or without_close_button != true %}
         {% set referrer_location = content is defined and is_published ? location : parent_location %}
@@ -28,6 +62,27 @@
         {% block form_before %}{% endblock %}
 
         {% block form %}
+            <div class="ibexa-edit-content__sections">
+                {% for mock_item in mock_items %}
+                    <div
+                        class="ibexa-edit-content__primary-section
+                            {% if loop.first %}ibexa-edit-content__primary-section--active{% endif %}"
+                        data-id="{{ mock_item.label|slug }}"
+                    >
+                        {% for mock_item_child in mock_item.children %}
+                            <div
+                                class="ibexa-edit-content__secondary-section"
+                                data-id="{{ mock_item_child.label|slug }}"
+                                style="height: {{ mock_item_child.height }}; border: 1px solid black"
+                            >
+                                {{ mock_item_child.label }}
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                {% endfor %}
+            </div>
+            <div style="display: none">
             {{ form_start(form, {'attr': {'class': 'ibexa-form-validate ibexa-form'}}) }}
                 {% block form_fields %}
                     {% if grouped_fields|length > 1 %}
@@ -79,6 +134,7 @@
                     {% endif %}
                 {% endblock %}
             {{ form_end(form) }}
+            </div>
         {% endblock %}
 
         {% block form_after %}{% endblock %}
