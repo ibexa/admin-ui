@@ -12,6 +12,7 @@ use Exception;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Ibexa\Contracts\Rest\Exceptions;
@@ -61,11 +62,7 @@ final class FieldDefinitionController extends RestController
             $language->languageCode => 'New field type',
         ];
 
-        if (!$contentTypeDraft->fieldDefinitions->isEmpty()) {
-            $fieldDefinitionCreateStruct->position = $contentTypeDraft->fieldDefinitions->last()->position;
-        } else {
-            $fieldDefinitionCreateStruct->position = 0;
-        }
+        $fieldDefinitionCreateStruct->position = $input->position ?? $this->getNextFieldPosition($contentTypeDraft);
 
         $this->contentTypeService->addFieldDefinition(
             $contentTypeDraft,
@@ -160,5 +157,14 @@ final class FieldDefinitionController extends RestController
         }
 
         return new Values\OK();
+    }
+
+    private function getNextFieldPosition(ContentType $contentType): int
+    {
+        if (!$contentType->fieldDefinitions->isEmpty()) {
+            return $contentType->fieldDefinitions->last()->position + 1;
+        }
+
+        return 0;
     }
 }
