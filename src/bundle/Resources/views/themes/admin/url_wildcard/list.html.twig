@@ -11,18 +11,21 @@
 %}
 
 <section class="container">
-	{{ form_start(form_list, {'attr': {'class': 'ibexa-search-links-form'}}) }}
-	<div class="ibexa-search-links-form__input-wrapper">
-		{{ form_widget(form_list.searchQuery, { attr: {
-			'placeholder': 'url_wildcard.search.placeholder'|trans|desc('Search for URL wildcards'),
-		}}) }}
-	</div>
-	<div class="ibexa-search-links-form__status-wrapper">
-		{{ form_label(form_list.type) }}
-		{{ form_widget(form_list.type) }}
-	</div>
-	
-	{{ form_end(form_list) }}
+    {{ form_start(form_list, {'attr': {'class': 'ibexa-search-links-form'}}) }}
+    <div class="ibexa-search-links-form__input-wrapper">
+        {{ form_widget(form_list.searchQuery, {
+            attr: {
+                'placeholder': 'url_wildcard.search.placeholder'|trans|desc('Search for URL wildcards'),
+            },
+            has_search: true,
+        }) }}
+    </div>
+    <div class="ibexa-search-links-form__status-wrapper">
+        {{ form_label(form_list.type) }}
+        {{ form_widget(form_list.type) }}
+    </div>
+
+    {{ form_end(form_list) }}
 </section>
 
 <section class="mt-4">
