@@ -52,8 +52,7 @@ class Node extends ValueObjectVisitor
         $generator->startValueElement('totalChildrenCount', $data->totalChildrenCount);
         $generator->endValueElement('totalChildrenCount');
 
-        $generator->startValueElement('reverseRelationsCount', $data->reverseRelationsCount);
-        $generator->endValueElement('reverseRelationsCount');
+        $generator->valueElement('reverseRelationsCount', $data->reverseRelationsCount);
 
         $generator->startValueElement('isBookmarked', $data->isBookmarked);
         $generator->endValueElement('isBookmarked');
