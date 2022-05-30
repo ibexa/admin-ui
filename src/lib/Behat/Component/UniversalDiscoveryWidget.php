@@ -52,6 +52,11 @@ class UniversalDiscoveryWidget extends Component
         $this->getHTMLPage()->find($this->getLocator('cancelButton'))->click();
     }
 
+    public function openSearch(): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('searchButton'))->click();
+    }
+
     public function verifyIsLoaded(): void
     {
         $this->getHTMLPage()->find($this->getLocator('udw'))->assert()->isVisible();
@@ -155,6 +160,25 @@ class UniversalDiscoveryWidget extends Component
         $this->getSession()->switchToIFrame('editIframe');
     }
 
+    public function searchForContent(string $name): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('inputField'))->setValue($name);
+        $this->getHTMLPage()->find($this->getLocator('searchButton'))->click();
+
+        $this->getHTMLPage()
+            ->setTimeout(self::SHORT_TIMEOUT)
+            ->find($this->getLocator('searchResults'))
+            ->assert()->textContains('Results for');
+    }
+
+    public function selectInSearchResults(string $name): void
+    {
+        $this->getHTMLPage()
+            ->find($this->getLocator('targetResult'))
+            ->assert()->textEquals($name)
+            ->click();
+    }
+
     protected function specifyLocators(): array
     {
         return [
@@ -180,6 +204,11 @@ class UniversalDiscoveryWidget extends Component
             new VisibleCSSLocator('bookmarkButton', '.c-content-meta-preview__toggle-bookmark-button'),
             new VisibleCSSLocator('bookmarkedItem', '.c-bookmarks-list__item-name'),
             new VisibleCSSLocator('markedBookmarkedItem', '.c-bookmarks-list__item--marked'),
+            // search
+            new VisibleCSSLocator('inputField', '.c-top-menu-search-input__search-input'),
+            new VisibleCSSLocator('searchButton', '.c-top-menu-search-input__search-btn'),
+            new VisibleCSSLocator('searchResults', '.c-search__table-title'),
+            new VisibleCSSLocator('targetResult', '.ibexa-table__row td:nth-child(2)'),
         ];
     }
 
