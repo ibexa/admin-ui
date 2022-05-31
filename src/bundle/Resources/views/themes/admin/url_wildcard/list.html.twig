@@ -1,6 +1,7 @@
 {% trans_default_domain "ezplatform_url_wildcard" %}
 
 {% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
+{% form_theme form_list '@ibexadesign/ui/form_fields.html.twig' %}
 
 {%
     set wildcard_types = {
@@ -8,6 +9,24 @@
         1: 'url_wildcard.type.direct'|trans|desc('Direct'),
     }
 %}
+
+<section class="container">
+    {{ form_start(form_list, {'attr': {'class': 'ibexa-search-links-form'}}) }}
+    <div class="ibexa-search-links-form__input-wrapper">
+        {{ form_widget(form_list.searchQuery, {
+            attr: {
+                'placeholder': 'url_wildcard.search.placeholder'|trans|desc('Search for URL wildcards'),
+            },
+            has_search: true,
+        }) }}
+    </div>
+    <div class="ibexa-search-links-form__status-wrapper">
+        {{ form_label(form_list.type) }}
+        {{ form_widget(form_list.type) }}
+    </div>
+
+    {{ form_end(form_list) }}
+</section>
 
 <section class="mt-4">
     {% if not url_wildcards_enabled %}
@@ -154,3 +173,7 @@
         } %}
     {% endif %}
 </section>
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('ibexa-admin-ui-url-wildcards-list-js', null, 'ibexa') }}
+{% endblock %}
