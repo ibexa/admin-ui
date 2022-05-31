@@ -48,4 +48,14 @@ class UserPreferencesContext implements Context
         $this->changePasswordPage->setNewPassword($newPassword);
         $this->changePasswordPage->setConfirmPassword($newPassword);
     }
+
+    /**
+     * @When I disable autosave
+     */
+    public function iSetAutosaveDraftValue(): void
+    {
+        $this->userSettingsPage->openAutosaveDraftEditionPage();
+        $this->userSettingsPage->verifyIsLoaded();
+        $this->userSettingsPage->disableAutosave();
+    }
 }

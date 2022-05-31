@@ -113,4 +113,23 @@ class ContentUpdateContext implements Context
         $this->contentUpdateItemPage->verifyIsLoaded();
         $this->contentUpdateItemPage->switchToFieldGroup($tabName);
     }
+
+    /**
+     * @When I wait for Content Item to be autosaved
+     */
+    public function iWaitForAutosaveNotification(): void
+    {
+        $this->contentUpdateItemPage->verifyIsLoaded();
+        $this->contentUpdateItemPage->verifyAutosaveNotificationIsDisplayed();
+        $this->contentUpdateItemPage->verifyAutosaveDraftIsSavedNotificationIsDisplayed();
+    }
+
+    /**
+     * @When I check if "Autosave is off" notification is displayed
+     */
+    public function iCheckAutosaveNotification(): void
+    {
+        $this->contentUpdateItemPage->verifyIsLoaded();
+        $this->contentUpdateItemPage->verifyAutosaveIsOffNotificationIsDisplayed();
+    }
 }

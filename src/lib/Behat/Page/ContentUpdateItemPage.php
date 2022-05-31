@@ -13,7 +13,7 @@ use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent;
 use Ibexa\AdminUi\Behat\Component\Notification;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
-use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
+use Ibexa\Behat\Browser\Element\Criterion\ElementTextFragmentCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
@@ -99,6 +99,9 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator('noneditableFieldClass', 'ibexa-field-edit--eznoneditable'),
             new VisibleCSSLocator('fieldOfType', '.ibexa-field-edit--%s'),
             new VisibleCSSLocator('navigationTabs', '.ibexa-anchor-navigation-menu__item'),
+            new VisibleCSSLocator('autosaveIsOnInfo', '.ibexa-autosave__status-on'),
+            new VisibleCSSLocator('autosaveSavedInfo', '.ibexa-autosave__status-saved'),
+            new VisibleCSSLocator('autosaveIsOffInfo', '.ibexa-autosave__status-off'),
         ];
     }
 
@@ -184,5 +187,41 @@ class ContentUpdateItemPage extends Page
         $fieldLocator = new VisibleCSSLocator('', sprintf($this
             ->getLocator('fieldGroupNthField')->getSelector(), $activeSections->single()->getAttribute('data-anchor-target-section-id'), $this->getFieldPosition($fieldName)));
         $this->getHTMLPage()->find($fieldLocator)->assert()->hasClass('ibexa-field-edit--disabled');
+    }
+
+    public function verifyAutosaveNotificationIsDisplayed(): void
+    {
+        $this->getHTMLPage()
+            ->find($this->getLocator('autosaveIsOnInfo'))
+            ->assert()->textContains('Autosave is on');
+    }
+
+    public function verifyAutosaveDraftIsSavedNotificationIsDisplayed(): void
+    {
+        $iteration_count = 30;
+
+        while ($iteration_count > 0) {
+            if ($this->isAutosaveDraftSavedNotificationVisible()) {
+                return;
+            }
+            usleep(500000);
+            --$iteration_count;
+        }
+        Assert::fail('Draft has not been autosaved for 15 seconds');
+    }
+
+    public function isAutosaveDraftSavedNotificationVisible(): bool
+    {
+        return $this->getHTMLPage()
+            ->setTimeout(0)
+            ->findAll($this->getLocator('autosaveSavedInfo'))
+            ->filterBy(new ElementTextFragmentCriterion('Draft saved'))->any();
+    }
+
+    public function verifyAutosaveIsOffNotificationIsDisplayed(): void
+    {
+        $this->getHTMLPage()
+            ->find($this->getLocator('autosaveIsOffInfo'))
+            ->assert()->textContains('Autosave is off');
     }
 }
