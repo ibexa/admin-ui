@@ -4,41 +4,42 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\URLService;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentEditData;
-use EzSystems\EzPlatformAdminUi\Form\Data\URL\URLUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface;
-use EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\URLUsagesAdapter;
+use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
+use Ibexa\AdminUi\Form\Data\URL\URLUpdateData;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\AdminUi\Pagination\Pagerfanta\URLUsagesAdapter;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\URLService;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class LinkManagerController extends Controller
 {
-    const DEFAULT_MAX_PER_PAGE = 10;
+    public const DEFAULT_MAX_PER_PAGE = 10;
 
-    /** @var \eZ\Publish\API\Repository\URLService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLService */
     private $urlService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
     /**
-     * @param \eZ\Publish\API\Repository\URLService $urlService
-     * @param \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory $formFactory
-     * @param \EzSystems\EzPlatformAdminUi\Form\SubmitHandler $submitHandler
-     * @param \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
+     * @param \Ibexa\Contracts\Core\Repository\URLService $urlService
+     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
+     * @param \Ibexa\AdminUi\Form\SubmitHandler $submitHandler
+     * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
      */
     public function __construct(
         URLService $urlService,
@@ -58,8 +59,8 @@ final class LinkManagerController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function editAction(Request $request, int $urlId): Response
     {
@@ -82,7 +83,7 @@ final class LinkManagerController extends Controller
                     'linkmanager'
                 );
 
-                return $this->redirectToRoute('ezplatform.url_management');
+                return $this->redirectToRoute('ibexa.url_management');
             });
 
             if ($result instanceof Response) {
@@ -90,7 +91,7 @@ final class LinkManagerController extends Controller
             }
         }
 
-        return $this->render('@ezdesign/link_manager/edit.html.twig', [
+        return $this->render('@ibexadesign/link_manager/edit.html.twig', [
             'form' => $form->createView(),
             'url' => $url,
         ]);
@@ -102,8 +103,8 @@ final class LinkManagerController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function viewAction(Request $request, int $urlId): Response
     {
@@ -117,7 +118,7 @@ final class LinkManagerController extends Controller
             new ContentEditData()
         );
 
-        return $this->render('@ezdesign/link_manager/view.html.twig', [
+        return $this->render('@ibexadesign/link_manager/view.html.twig', [
             'url' => $url,
             'can_edit' => $this->isGranted(new Attribute('url', 'update')),
             'usages' => $usages,
@@ -125,3 +126,5 @@ final class LinkManagerController extends Controller
         ]);
     }
 }
+
+class_alias(LinkManagerController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\LinkManagerController');

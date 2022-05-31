@@ -9,9 +9,10 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
+use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent;
 use Ibexa\AdminUi\Behat\Component\Notification;
-use Ibexa\AdminUi\Behat\Component\RightMenu;
+use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
@@ -21,8 +22,8 @@ use Traversable;
 
 class ContentUpdateItemPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\RightMenu */
-    private $rightMenu;
+    /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu */
+    private $contentActionsMenu;
 
     private $pageTitle;
 
@@ -35,12 +36,12 @@ class ContentUpdateItemPage extends Page
     public function __construct(
         Session $session,
         Router $router,
-        RightMenu $rightMenu,
+        ContentActionsMenu $contentActionsMenu,
         Traversable $fieldTypeComponents,
         Notification $notification
     ) {
         parent::__construct($session, $router);
-        $this->rightMenu = $rightMenu;
+        $this->contentActionsMenu = $contentActionsMenu;
         $this->fieldTypeComponents = iterator_to_array($fieldTypeComponents);
         $this->notification = $notification;
     }
@@ -56,7 +57,7 @@ class ContentUpdateItemPage extends Page
             );
         }
         $this->getHTMLPage()->setTimeout(10)->find($this->getLocator('formElement'))->assert()->isVisible();
-        $this->rightMenu->verifyIsLoaded();
+        $this->contentActionsMenu->verifyIsLoaded();
 
         // close notification about new draft created successfully if it's still visible
         if ($this->notification->isVisible()) {
@@ -82,21 +83,22 @@ class ContentUpdateItemPage extends Page
 
     public function close(): void
     {
+        $this->getHTMLPage()->setTimeout(3)
+            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('closeButton')));
         $this->getHTMLPage()->find($this->getLocator('closeButton'))->click();
     }
 
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-content-edit-page-title__title'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-edit-header__title'),
             new VisibleCSSLocator('formElement', '[name=ezplatform_content_forms_content_edit]'),
-            new VisibleCSSLocator('closeButton', '.ez-content-edit-container__close'),
-            new VisibleCSSLocator('fieldLabel', '.ez-field-edit__label-wrapper label.ez-field-edit__label, .ez-field-edit__label-wrapper legend, .ez-card > .card-body > div > div > legend'),
-            new VisibleCSSLocator('nthField', '.ez-field-edit:nth-of-type(%s)'),
-            new VisibleCSSLocator('activeNthField', '.active .ez-field-edit:nth-of-type(%s)'),
-            new VisibleCSSLocator('noneditableFieldClass', 'ez-field-edit--eznoneditable'),
-            new VisibleCSSLocator('fieldOfType', '.ez-field-edit--%s'),
-            new VisibleCSSLocator('navigationTabs', '.nav-item.ez-tabs__nav-item'),
+            new VisibleCSSLocator('closeButton', '.ibexa-anchor-navigation-menu__close'),
+            new VisibleCSSLocator('nthField', '.ibexa-field-edit:nth-of-type(%s)'),
+            new VisibleCSSLocator('fieldGroupNthField', '[data-anchor-section-id="%s"] div .ibexa-field-edit:nth-of-type(%s)'),
+            new VisibleCSSLocator('noneditableFieldClass', 'ibexa-field-edit--eznoneditable'),
+            new VisibleCSSLocator('fieldOfType', '.ibexa-field-edit--%s'),
+            new VisibleCSSLocator('navigationTabs', '.ibexa-anchor-navigation-menu__item'),
             new VisibleCSSLocator('autosaveInfo', '.ez-content-edit-page-title__autosave-info'),
             new VisibleCSSLocator('autosaveLastSavedInfo', '.ez-content-edit-page-title__autosave-last-saved'),
         ];
@@ -110,10 +112,10 @@ class ContentUpdateItemPage extends Page
     public function getField(string $fieldName): FieldTypeComponent
     {
         $fieldLocator = new VisibleCSSLocator('', sprintf($this->getLocator('nthField')->getSelector(), $this->getFieldPosition($fieldName)));
-        $fieldtypeIdentifier = $this->getFieldtypeIdentifier($fieldLocator, $fieldName);
+        $fieldTypeIdentifier = $this->getFieldtypeIdentifier($fieldLocator, $fieldName);
 
         foreach ($this->fieldTypeComponents as $fieldTypeComponent) {
-            if ($fieldTypeComponent->getFieldTypeIdentifier() === $fieldtypeIdentifier) {
+            if ($fieldTypeComponent->getFieldTypeIdentifier() === $fieldTypeIdentifier) {
                 $fieldTypeComponent->setParentLocator($fieldLocator);
 
                 return $fieldTypeComponent;
@@ -123,7 +125,18 @@ class ContentUpdateItemPage extends Page
 
     protected function getFieldPosition(string $fieldName): int
     {
-        $fieldElements = $this->getHTMLPage()->setTimeout(5)->findAll($this->getLocator('fieldLabel'));
+        $activeSections = $this->getHTMLPage()->findAll(new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__item-btn--active'));
+        $fieldLabelLocator = $activeSections->any() ?
+            new VisibleCSSLocator(
+                'fieldLabelWithCategories',
+                sprintf(
+                    '[data-anchor-section-id="%1$s"] .ibexa-field-edit .ibexa-field-edit__label, [data-anchor-section-id="%1$s"] .ibexa-field-edit--eznoneditable .ibexa-label',
+                    $activeSections->single()->getAttribute('data-anchor-target-section-id')
+                )
+            ) :
+            new VisibleCSSLocator('fieldLabel', ' .ibexa-field-edit .ibexa-field-edit__label, .ibexa-field-edit--eznoneditable .ibexa-label');
+
+        $fieldElements = $this->getHTMLPage()->setTimeout(5)->findAll($fieldLabelLocator);
 
         $foundFields = [];
         foreach ($fieldElements as $fieldPosition => $fieldElement) {
@@ -154,7 +167,7 @@ class ContentUpdateItemPage extends Page
         }
 
         $fieldClass = $this->getHTMLPage()->find($fieldLocator)->getAttribute('class');
-        preg_match('/ez-field-edit--ez[a-z]*/', $fieldClass, $matches);
+        preg_match('/ibexa-field-edit--ez[a-z]*/', $fieldClass, $matches);
 
         return explode('--', $matches[0])[1];
     }
@@ -169,8 +182,10 @@ class ContentUpdateItemPage extends Page
 
     public function verifyFieldCannotBeEditedDueToLimitation(string $fieldName)
     {
-        $fieldLocator = new VisibleCSSLocator('', sprintf($this->getLocator('activeNthField')->getSelector(), $this->getFieldPosition($fieldName)));
-        $this->getHTMLPage()->find($fieldLocator)->assert()->hasClass('ez-field-edit--disabled');
+        $activeSections = $this->getHTMLPage()->findAll(new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__item-btn--active'));
+        $fieldLocator = new VisibleCSSLocator('', sprintf($this
+            ->getLocator('fieldGroupNthField')->getSelector(), $activeSections->single()->getAttribute('data-anchor-target-section-id'), $this->getFieldPosition($fieldName)));
+        $this->getHTMLPage()->find($fieldLocator)->assert()->hasClass('ibexa-field-edit--disabled');
     }
 
     public function verifyAutosaveNotificationIsDisplayed(): void

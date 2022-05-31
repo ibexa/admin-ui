@@ -6,28 +6,28 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Limitation\Templating;
+namespace Ibexa\AdminUi\Limitation\Templating;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzPlatformAdminUi\Exception\MissingLimitationBlockException;
-use EzSystems\EzPlatformAdminUi\Exception\ValueMapperNotFoundException;
-use EzSystems\EzPlatformAdminUi\Limitation\LimitationValueMapperRegistryInterface;
+use Ibexa\AdminUi\Exception\MissingLimitationBlockException;
+use Ibexa\AdminUi\Exception\ValueMapperNotFoundException;
+use Ibexa\AdminUi\Limitation\LimitationValueMapperRegistryInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Twig\Environment;
 
 class LimitationBlockRenderer implements LimitationBlockRendererInterface
 {
-    const LIMITATION_VALUE_BLOCK_NAME = 'ez_limitation_%s_value';
-    const LIMITATION_VALUE_BLOCK_NAME_FALLBACK = 'ez_limitation_value_fallback';
+    public const LIMITATION_VALUE_BLOCK_NAME = 'ez_limitation_%s_value';
+    public const LIMITATION_VALUE_BLOCK_NAME_FALLBACK = 'ez_limitation_value_fallback';
 
-    /** @var \EzSystems\EzPlatformAdminUi\Limitation\LimitationValueMapperRegistryInterface */
+    /** @var \Ibexa\AdminUi\Limitation\LimitationValueMapperRegistryInterface */
     private $valueMapperRegistry;
 
     /** @var \Twig\Environment */
     private $twig;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -67,7 +67,7 @@ class LimitationBlockRenderer implements LimitationBlockRendererInterface
     /**
      * Generates value block name based on Limitation.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
      *
      * @return string
      */
@@ -113,7 +113,7 @@ class LimitationBlockRenderer implements LimitationBlockRendererInterface
     /**
      * Get parameters passed as context of value block render.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
      * @param array $parameters
      *
      * @return array
@@ -135,7 +135,7 @@ class LimitationBlockRenderer implements LimitationBlockRendererInterface
     /**
      * Get parameters passed as context of value fallback block.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
      * @param array $parameters
      *
      * @return array
@@ -161,3 +161,5 @@ class LimitationBlockRenderer implements LimitationBlockRendererInterface
         return array_column($resources, 'template');
     }
 }
+
+class_alias(LimitationBlockRenderer::class, 'EzSystems\EzPlatformAdminUi\Limitation\Templating\LimitationBlockRenderer');

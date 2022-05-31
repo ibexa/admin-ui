@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Location;
+namespace Ibexa\AdminUi\Form\Data\Location;
 
-use EzSystems\EzPlatformAdminUi\Validator\Constraints as AdminUiAssert;
+use Ibexa\AdminUi\Validator\Constraints as AdminUiAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class LocationCopySubtreeData extends AbstractLocationCopyData
 {
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      *
      * @AdminUiAssert\LocationIsWithinCopySubtreeLimit()
      * @AdminUiAssert\LocationIsNotRoot()
@@ -21,7 +21,7 @@ class LocationCopySubtreeData extends AbstractLocationCopyData
     protected $location;
 
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      *
      * @AdminUiAssert\LocationIsContainer()
      * @Assert\NotNull()
@@ -31,3 +31,5 @@ class LocationCopySubtreeData extends AbstractLocationCopyData
      */
     protected $newParentLocation;
 }
+
+class_alias(LocationCopySubtreeData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationCopySubtreeData');

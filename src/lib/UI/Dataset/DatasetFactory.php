@@ -6,53 +6,53 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Dataset;
+namespace Ibexa\AdminUi\UI\Dataset;
 
-use eZ\Publish\API\Repository\BookmarkService;
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\ObjectStateService;
-use eZ\Publish\API\Repository\RoleService;
-use eZ\Publish\API\Repository\URLAliasService;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory;
+use Ibexa\AdminUi\UI\Value\ValueFactory;
+use Ibexa\Contracts\Core\Repository\BookmarkService;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\ObjectStateService;
+use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\URLAliasService;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 class DatasetFactory
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     protected $contentService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     protected $languageService;
 
-    /** @var \eZ\Publish\API\Repository\ObjectStateService */
+    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
     protected $objectStateService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory */
+    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
     protected $valueFactory;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     protected $locationService;
 
-    /** @var \eZ\Publish\API\Repository\URLAliasService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
     private $urlAliasService;
 
-    /** @var \eZ\Publish\API\Repository\RoleService */
+    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
     private $roleService;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
-    /** @var \eZ\Publish\API\Repository\BookmarkService */
+    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
     private $bookmarkService;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -82,7 +82,7 @@ class DatasetFactory
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\VersionsDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\VersionsDataset
      */
     public function versions(): VersionsDataset
     {
@@ -90,7 +90,7 @@ class DatasetFactory
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\TranslationsDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\TranslationsDataset
      */
     public function translations(): TranslationsDataset
     {
@@ -100,7 +100,7 @@ class DatasetFactory
     /**
      * @deprecated since version 2.5, to be removed in 3.0. Please use DatasetFactory::relationList and DatasetFactory::reverseRelationList instead.
      *
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\RelationsDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\RelationsDataset
      */
     public function relations(): RelationsDataset
     {
@@ -108,7 +108,7 @@ class DatasetFactory
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\RelationListDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\RelationListDataset
      */
     public function relationList(): RelationListDataset
     {
@@ -119,7 +119,7 @@ class DatasetFactory
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\ReverseRelationListDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\ReverseRelationListDataset
      */
     public function reverseRelationList(): ReverseRelationListDataset
     {
@@ -130,7 +130,7 @@ class DatasetFactory
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\LocationsDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\LocationsDataset
      */
     public function locations(): LocationsDataset
     {
@@ -138,7 +138,7 @@ class DatasetFactory
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\ObjectStatesDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\ObjectStatesDataset
      */
     public function objectStates(): ObjectStatesDataset
     {
@@ -146,7 +146,7 @@ class DatasetFactory
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\CustomUrlsDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\CustomUrlsDataset
      */
     public function customUrls(): CustomUrlsDataset
     {
@@ -154,7 +154,7 @@ class DatasetFactory
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\RolesDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\RolesDataset
      */
     public function roles(): RolesDataset
     {
@@ -170,7 +170,7 @@ class DatasetFactory
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\PoliciesDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\PoliciesDataset
      */
     public function policies(): PoliciesDataset
     {
@@ -186,7 +186,7 @@ class DatasetFactory
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\BookmarksDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\BookmarksDataset
      */
     public function bookmarks(): BookmarksDataset
     {
@@ -199,7 +199,7 @@ class DatasetFactory
     /**
      * @deprecated since version 2.5, to be removed in 3.0. Please use DatasetFactory::contentDraftList instead.
      *
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\ContentDraftsDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\ContentDraftsDataset
      */
     public function contentDrafts(): ContentDraftsDataset
     {
@@ -211,7 +211,7 @@ class DatasetFactory
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\ContentDraftListDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\ContentDraftListDataset
      */
     public function contentDraftList(): ContentDraftListDataset
     {
@@ -222,3 +222,5 @@ class DatasetFactory
         );
     }
 }
+
+class_alias(DatasetFactory::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory');

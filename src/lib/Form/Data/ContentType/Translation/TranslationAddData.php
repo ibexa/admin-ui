@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\ContentType\Translation;
+namespace Ibexa\AdminUi\Form\Data\ContentType\Translation;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class TranslationAddData
@@ -18,34 +18,34 @@ class TranslationAddData
     /**
      * @Assert\NotBlank()
      *
-     * @var \eZ\Publish\API\Repository\Values\ContentType\ContentType|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
      */
     private $contentType;
 
     /**
      * @Assert\NotBlank()
      *
-     * @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null
      */
     private $contentTypeGroup;
 
     /**
      * @Assert\NotBlank()
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Language|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      */
     private $language;
 
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\Language|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      */
     private $baseLanguage;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType|null $contentType
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup|null $contentTypeGroup
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $language
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $baseLanguage
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null $contentTypeGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $baseLanguage
      */
     public function __construct(
         ContentType $contentType = null,
@@ -60,7 +60,7 @@ class TranslationAddData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
      */
     public function getContentType(): ?ContentType
     {
@@ -68,7 +68,7 @@ class TranslationAddData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType|null $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
      *
      * @return self
      */
@@ -80,7 +80,7 @@ class TranslationAddData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null
      */
     public function getContentTypeGroup(): ?ContentTypeGroup
     {
@@ -88,7 +88,7 @@ class TranslationAddData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
      *
      * @return self
      */
@@ -100,7 +100,7 @@ class TranslationAddData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      */
     public function getLanguage(): ?Language
     {
@@ -108,7 +108,7 @@ class TranslationAddData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
      *
      * @return self
      */
@@ -120,7 +120,7 @@ class TranslationAddData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      */
     public function getBaseLanguage(): ?Language
     {
@@ -128,7 +128,7 @@ class TranslationAddData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $baseLanguage
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $baseLanguage
      *
      * @return self
      */
@@ -139,3 +139,5 @@ class TranslationAddData
         return $this;
     }
 }
+
+class_alias(TranslationAddData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentType\Translation\TranslationAddData');

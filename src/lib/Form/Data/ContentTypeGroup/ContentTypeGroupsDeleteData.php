@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup;
+namespace Ibexa\AdminUi\Form\Data\ContentTypeGroup;
 
 /**
  * @todo Add validation
  */
 class ContentTypeGroupsDeleteData
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup[]|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[]|null */
     protected $contentTypeGroups;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup[]|null $contentTypeGroups
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[]|null $contentTypeGroups
      */
     public function __construct(array $contentTypeGroups = [])
     {
@@ -40,3 +40,5 @@ class ContentTypeGroupsDeleteData
         $this->contentTypeGroups = $contentTypeGroups;
     }
 }
+
+class_alias(ContentTypeGroupsDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupsDeleteData');

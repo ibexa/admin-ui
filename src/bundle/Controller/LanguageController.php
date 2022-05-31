@@ -4,20 +4,21 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
-use EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguagesDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\DataMapper\LanguageCreateMapper;
-use EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\AdminUi\Form\Data\Language\LanguageCreateData;
+use Ibexa\AdminUi\Form\Data\Language\LanguageDeleteData;
+use Ibexa\AdminUi\Form\Data\Language\LanguagesDeleteData;
+use Ibexa\AdminUi\Form\Data\Language\LanguageUpdateData;
+use Ibexa\AdminUi\Form\DataMapper\LanguageCreateMapper;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -26,22 +27,22 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LanguageController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataMapper\LanguageCreateMapper */
+    /** @var \Ibexa\AdminUi\Form\DataMapper\LanguageCreateMapper */
     private $languageCreateMapper;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -78,14 +79,14 @@ class LanguageController extends Controller
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.language_limit'));
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Language[] $languageList */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[] $languageList */
         $languageList = $pagerfanta->getCurrentPageResults();
 
         $deleteLanguagesForm = $this->formFactory->deleteLanguages(
             new LanguagesDeleteData($this->getLanguagesNumbers($languageList))
         );
 
-        return $this->render('@ezdesign/language/list.html.twig', [
+        return $this->render('@ibexadesign/language/list.html.twig', [
             'pager' => $pagerfanta,
             'form_languages_delete' => $deleteLanguagesForm->createView(),
             'can_administrate' => $this->isGranted(new Attribute('content', 'translations')),
@@ -95,7 +96,7 @@ class LanguageController extends Controller
     /**
      * Renders the view of a language.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -105,7 +106,7 @@ class LanguageController extends Controller
             new LanguageDeleteData($language)
         );
 
-        return $this->render('@ezdesign/language/index.html.twig', [
+        return $this->render('@ibexadesign/language/index.html.twig', [
             'language' => $language,
             'deleteForm' => $deleteForm->createView(),
             'can_administrate' => $this->isGranted(new Attribute('content', 'translations')),
@@ -116,7 +117,7 @@ class LanguageController extends Controller
      * Deletes a language.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -145,7 +146,7 @@ class LanguageController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.language.list'));
+        return $this->redirect($this->generateUrl('ibexa.language.list'));
     }
 
     /**
@@ -155,11 +156,11 @@ class LanguageController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \InvalidArgumentException
      */
     public function bulkDeleteAction(Request $request): Response
@@ -189,7 +190,7 @@ class LanguageController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.language.list'));
+        return $this->redirect($this->generateUrl('ibexa.language.list'));
     }
 
     public function createAction(Request $request): Response
@@ -209,7 +210,7 @@ class LanguageController extends Controller
                     'language'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.language.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.language.view', [
                     'languageId' => $language->id,
                 ]));
             });
@@ -219,9 +220,9 @@ class LanguageController extends Controller
             }
         }
 
-        return $this->render('@ezdesign/language/create.html.twig', [
+        return $this->render('@ibexadesign/language/create.html.twig', [
             'form' => $form->createView(),
-            'actionUrl' => $this->generateUrl('ezplatform.language.create'),
+            'actionUrl' => $this->generateUrl('ibexa.language.create'),
         ]);
     }
 
@@ -247,7 +248,7 @@ class LanguageController extends Controller
                     'language'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.language.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.language.view', [
                     'languageId' => $language->id,
                 ]));
             });
@@ -257,15 +258,15 @@ class LanguageController extends Controller
             }
         }
 
-        return $this->render('@ezdesign/language/edit.html.twig', [
+        return $this->render('@ibexadesign/language/edit.html.twig', [
             'form' => $form->createView(),
-            'actionUrl' => $this->generateUrl('ezplatform.language.edit', ['languageId' => $language->id]),
+            'actionUrl' => $this->generateUrl('ibexa.language.edit', ['languageId' => $language->id]),
             'language' => $language,
         ]);
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language[] $languages
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language[] $languages
      *
      * @return array
      */
@@ -276,3 +277,5 @@ class LanguageController extends Controller
         return array_combine($languagesNumbers, array_fill_keys($languagesNumbers, false));
     }
 }
+
+class_alias(LanguageController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\LanguageController');

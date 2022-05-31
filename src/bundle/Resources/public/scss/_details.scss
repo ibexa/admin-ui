@@ -1,0 +1,20 @@
+.ibexa-details {
+    &:not(:first-child) {
+        margin-top: calculateRem(40px);
+    }
+
+    &__items {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &__item {
+        flex-basis: 25%;
+        padding: calculateRem(8px) calculateRem(8px) calculateRem(8px) 0;
+
+        .ibexa-label {
+            margin-top: calculateRem(8px);
+            margin-bottom: calculateRem(4px);
+        }
+    }
+}

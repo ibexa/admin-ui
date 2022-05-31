@@ -1,9 +1,9 @@
-(function(global, doc, eZ) {
+(function (global, doc, ibexa) {
     class EditTranslation {
         constructor(config) {
             this.container = config.container;
-            this.toggler = config.container.querySelector('.ez-btn--translations-list-toggler');
-            this.translationsList = config.container.querySelector('.ez-translation-selector__list-wrapper');
+            this.toggler = config.container.querySelector('.ibexa-btn--translations-list-toggler');
+            this.translationsList = config.container.querySelector('.ibexa-translation-selector__list-wrapper');
 
             this.hideTranslationsList = this.hideTranslationsList.bind(this);
             this.showTranslationsList = this.showTranslationsList.bind(this);
@@ -20,29 +20,25 @@
         }
 
         hideTranslationsList(event) {
-            const closestTranslationSelector = event.target.closest('.ez-translation-selector');
+            const closestTranslationSelector = event.target.closest('.ibexa-translation-selector');
             const clickedOnTranslationsList = closestTranslationSelector && closestTranslationSelector.isSameNode(this.container);
-            const clickedOnDraftConflictModal = event.target.closest('.ez-modal--version-draft-conflict');
+            const clickedOnDraftConflictModal = event.target.closest('.ibexa-modal--version-draft-conflict');
 
             if (clickedOnTranslationsList || clickedOnDraftConflictModal) {
                 return;
             }
 
-            this.translationsList.classList.add('ez-translation-selector__list-wrapper--hidden');
-
-            global.removeEventListener('scroll', this.setPosition, false);
+            this.translationsList.classList.add('ibexa-translation-selector__list-wrapper--hidden');
             doc.removeEventListener('click', this.hideTranslationsList, false);
         }
 
         showTranslationsList() {
-            this.translationsList.classList.remove('ez-translation-selector__list-wrapper--hidden');
+            this.translationsList.classList.remove('ibexa-translation-selector__list-wrapper--hidden');
 
             this.setPosition();
 
-            global.addEventListener('scroll', this.setPosition, false);
             doc.addEventListener('click', this.hideTranslationsList, false);
-
-            eZ.helpers.tooltips.hideAll();
+            ibexa.helpers.tooltips.hideAll();
         }
 
         init() {
@@ -50,11 +46,11 @@
         }
     }
 
-    const translationSelectors = doc.querySelectorAll('.ez-translation-selector');
+    const translationSelectors = doc.querySelectorAll('.ibexa-translation-selector');
 
     translationSelectors.forEach((translationSelector) => {
         const editTranslation = new EditTranslation({ container: translationSelector });
 
         editTranslation.init();
     });
-})(window, document, window.eZ);
+})(window, document, window.ibexa);

@@ -1,31 +1,35 @@
-<section class="ez-view-rawcontentview">
-    <div class="ez-raw-content-title d-flex">
-        <h2>{{ 'tab.view.preview'|trans()|desc('Preview') }}</h2>
+<section class="ibexa-view-rawcontentview">
+    <div class="ibexa-raw-content-title">
+        <h3>{{ 'tab.view.descriptions'|trans()|desc('Descriptions') }}</h3>
         {% block extras %}{% endblock %}
     </div>
 
     {% block fields %}
-        <div class="ez-content-preview">
+        <div class="ibexa-content-preview">
             {% for group in field_definitions_by_group %}
                 {% if group.fieldDefinitions|length > 0 %}
                     {% set group_name = group.name|lower|replace({' ': ''}) %}
                     {% set collapse_state_key = 'collapse-' ~ group_name ~ location.id %}
-                    {% set collapse_class_name = 'ez-content-preview-collapse--' ~ group_name %}
+                    {% set collapse_class_name = 'ibexa-content-preview-collapse--' ~ group_name %}
 
-                    <section class="ez-fieldgroup container">
-                        <a data-toggle="collapse" href=".{{ collapse_class_name }}" class="ez-fieldgroup__toggler">
-                            {{ group.name|capitalize }}
-                        </a>
-                        <div class="{{ collapse_class_name }} ez-content-preview-collapse collapse show" data-collapse-state-key="{{ collapse_state_key }}">
+                    <section class="ibexa-fieldgroup container">
+                        <div class="ibexa-fieldgroup__header">
+                            <span class="ibexa-fieldgroup__header-name">{{ group.name|capitalize }}</span>
+                            <a data-bs-toggle="collapse" href=".{{ collapse_class_name }}" class="ibexa-fieldgroup__toggler">
+                                <span class="ibexa-fieldgroup__toggler-label-show">{{ 'fieldview.toggler.show'|trans|desc('Show') }}</span>
+                                <span class="ibexa-fieldgroup__toggler-label-hide">{{ 'fieldview.toggler.hide'|trans|desc('Hide') }}</span>
+                            </a>
+                        </div>
+                        <div class="{{ collapse_class_name }} ibexa-content-preview-collapse collapse show" data-collapse-state-key="{{ collapse_state_key }}">
                             {% for field_definition in group.fieldDefinitions %}
                                 {% block field %}
-                                    <div class="ez-content-field">
-                                        <div class="ez-content-field-name">{{ field_definition.name }}:</div>
-                                        <div class="ez-content-field-value">
-                                            {% if ez_field_is_empty(content, field_definition.identifier) and field_definition.fieldTypeIdentifier is not same as('ezboolean') %}
+                                    <div class="ibexa-content-field">
+                                        <div class="ibexa-content-field__name">{{ field_definition.name }}:</div>
+                                        <div class="ibexa-content-field__value">
+                                            {% if ibexa_field_is_empty(content, field_definition.identifier) and field_definition.fieldTypeIdentifier is not same as('ezboolean') %}
                                                 <em>{{ 'fieldview.field.empty'|trans({}, 'fieldview')|desc('This field is empty') }}</em>
                                             {% else %}
-                                                {{ ez_render_field(content, field_definition.identifier, {location: location}) }}
+                                                {{ ibexa_render_field(content, field_definition.identifier, {location: location}) }}
                                             {% endif %}
                                         </div>
                                     </div>

@@ -6,7 +6,7 @@ import FinderBranch from './finder.branch';
 import { LoadedLocationsMapContext } from '../../universal.discovery.module';
 
 const Finder = ({ itemsPerPage }) => {
-    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const [loadedLocationsMap] = useContext(LoadedLocationsMapContext);
     const finderRef = useRef(null);
 
     useEffect(() => {

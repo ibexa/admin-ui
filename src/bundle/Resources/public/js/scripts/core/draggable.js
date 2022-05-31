@@ -1,5 +1,6 @@
-(function(global, doc, eZ) {
-    const SELECTOR_PLACEHOLDER = '.ez-draggable__placeholder';
+(function (global, doc, ibexa) {
+    const SELECTOR_PLACEHOLDER = '.ibexa-draggable__placeholder';
+    const SELECTOR_PREVENT_DRAG = '.ibexa-draggable__prevent-drag';
     const TIMEOUT_REMOVE_PLACEHOLDERS = 500;
 
     class Draggable {
@@ -10,6 +11,8 @@
             this.itemsContainer = config.itemsContainer;
             this.selectorItem = config.selectorItem;
             this.selectorPlaceholder = config.selectorPlaceholder || SELECTOR_PLACEHOLDER;
+            this.selectorPreventDrag = config.selectorPreventDrag || SELECTOR_PREVENT_DRAG;
+            this.timeoutRemovePlaceholders = config.timeoutRemovePlaceholders || TIMEOUT_REMOVE_PLACEHOLDERS;
 
             this.onDragStart = this.onDragStart.bind(this);
             this.onDragEnd = this.onDragEnd.bind(this);
@@ -25,6 +28,16 @@
             item.ondragstart = this.onDragStart;
             item.ondragend = this.onDragEnd;
             item.ondrag = this.removePlaceholderAfterTimeout;
+
+            const preventedNode = item.querySelector(this.selectorPreventDrag);
+
+            if (preventedNode) {
+                preventedNode.draggable = true;
+                preventedNode.ondragstart = (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                };
+            }
         }
 
         onDragStart(event) {
@@ -80,7 +93,7 @@
         removePlaceholderAfterTimeout() {
             global.clearTimeout(this.onDragOverTimeout);
 
-            this.onDragOverTimeout = global.setTimeout(() => this.removePlaceholder(), TIMEOUT_REMOVE_PLACEHOLDERS);
+            this.onDragOverTimeout = global.setTimeout(() => this.removePlaceholder(), this.timeoutRemovePlaceholders);
         }
 
         init() {
@@ -97,5 +110,5 @@
         }
     }
 
-    eZ.addConfig('core.Draggable', Draggable);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('core.Draggable', Draggable);
+})(window, window.document, window.ibexa);

@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\Dashboard;
+namespace Ibexa\AdminUi\Tab\Dashboard;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\ContentDraftAdapter;
-use EzSystems\EzPlatformAdminUi\Tab\AbstractTab;
-use EzSystems\EzPlatformAdminUi\Tab\ConditionalTabInterface;
-use EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface;
-use EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\Pagination\Pagerfanta\ContentDraftAdapter;
+use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
+use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -26,22 +26,22 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
 {
     private const PAGINATION_PARAM_NAME = 'mydrafts-page';
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     protected $contentService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     protected $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     protected $permissionResolver;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory */
+    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     protected $datasetFactory;
 
     /** @var \Symfony\Component\HttpFoundation\RequestStack */
     private $requestStack;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -65,7 +65,7 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getIdentifier(): string
     {
@@ -73,7 +73,7 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName(): string
     {
@@ -82,7 +82,7 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getOrder(): int
     {
@@ -96,7 +96,7 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
      *
      * @return bool
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function evaluate(array $parameters): bool
     {
@@ -116,7 +116,8 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
     public function renderView(array $parameters): string
     {
         $currentPage = $this->requestStack->getCurrentRequest()->query->getInt(
-            self::PAGINATION_PARAM_NAME, 1
+            self::PAGINATION_PARAM_NAME,
+            1
         );
 
         $pagination = new Pagerfanta(
@@ -125,7 +126,7 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
         $pagination->setMaxPerPage($this->configResolver->getParameter('pagination.content_draft_limit'));
         $pagination->setCurrentPage(min(max($currentPage, 1), $pagination->getNbPages()));
 
-        return $this->twig->render('@ezdesign/ui/dashboard/tab/my_draft_list.html.twig', [
+        return $this->twig->render('@ibexadesign/ui/dashboard/tab/my_draft_list.html.twig', [
             'data' => $pagination->getCurrentPageResults(),
             'pager' => $pagination,
             'pager_options' => [
@@ -134,3 +135,5 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
         ]);
     }
 }
+
+class_alias(MyDraftsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\Dashboard\MyDraftsTab');

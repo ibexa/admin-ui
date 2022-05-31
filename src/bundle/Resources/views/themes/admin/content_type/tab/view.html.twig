@@ -1,127 +1,98 @@
-{% import "@ezdesign/content_type/macros.html.twig" as macros %}
+{% import "@ibexadesign/content_type/macros.html.twig" as macros %}
 
 {% trans_default_domain 'content_type' %}
 {% set current_language = app.request.get('languageCode') ?: language_code %}
 
-<div class="container ez-container">
-    <section class="ez-fieldgroup">
-        <h2 class="ez-fieldgroup__name">{{ "content_type.global_properties"|trans|desc("Global properties") }}</h2>
-        {% if languages|length > 1 %}
-            <form class="form-inline justify-content-end mb-4">
-                <select class="form-control ez-location-language-change">
-                    {% for language in languages %}
-                        <option value="{{ path('ezplatform.content_type.view', {
+{% set global_properties_items = [
+    {
+        label: 'content_type.name'|trans|desc('Name'),
+        content: content_type.names[current_language],
+    },
+    {
+        label: 'content_type.identifier'|trans|desc('Identifier'),
+        content: content_type.identifier,
+    },
+    {
+        label: 'content_type.description'|trans|desc('Description'),
+        content: content_type.descriptions[current_language]|default(''),
+    },
+    {
+        label: 'content_type.name_schema'|trans|desc('Content name pattern'),
+        content: content_type.nameSchema,
+    },
+    {
+        label: 'content_type.url_alias_schema'|trans|desc('URL alias name pattern'),
+        content: content_type.urlAliasSchema,
+    },
+    {
+        label: 'content_type.container'|trans|desc('Container'),
+        content: content_type.isContainer ? 'yes'|trans|desc('Yes') : 'no'|trans|desc('No'),
+    },
+    {
+        label: 'content_type.default_children_sorting'|trans|desc('Sort children by default by:'),
+        content: ('content_type.sort_field.' ~ content_type.defaultSortField)|trans(domain='content_type') ~ ' / ' ~ ('content_type.sort_order.' ~ content_type.defaultSortOrder)|trans(domain='content_type'),
+    },
+    {
+        label: 'content_type.default_sort'|trans|desc('Sort children by default in order:'),
+        content: ("content_type.sort_order." ~ content_type.defaultSortOrder)|trans(domain="content_type"),
+    },
+    {
+        label: "content_type.default_availability"|trans|desc('Make content available even with missing translations'),
+        content: content_type.defaultAlwaysAvailable ? 'content_type.default_availability.available'|trans|desc('Available') : 'content_type.default_availability.not_available'|trans|desc('Not available'),
+    },
+] %}
+{% set global_properties_headline_items %}
+    {% if languages|length > 1 %}
+        <form class="form-inline justify-content-end mb-4">
+            <select class="form-control ibexa-location-language-change">
+                {% for language in languages %}
+                    <option
+                        value="{{ path('ibexa.content_type.view', {
                             'contentTypeId': content_type.id,
                             'contentTypeGroupId': content_type_group.id,
                             'languageCode': language.languageCode,
-                            '_fragment': constant('EzSystems\\EzPlatformAdminUi\\Tab\\ContentType\\ViewTab::URI_FRAGMENT'),
+                            '_fragment': constant('Ibexa\\AdminUi\\Tab\\ContentType\\ViewTab::URI_FRAGMENT'),
                         }) }}"
                         {% if current_language == language.languageCode %} selected="selected" {% endif %}
-                        >{{ language.name }}</option>
-                    {% endfor %}
-                </select>
-            </form>
-        {% endif %}
-        <div class="ez-fieldgroup__content">
-            <header class="ez-table-header">
-                <div class="ez-table-header__headline">{{ "content_type.content_type"|trans|desc("Content Type") }}</div>
-            </header>
+                    >
+                        {{ language.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+    {% endif %}
+{% endset %}
 
-            <table class="ez-table table table-hover mb-3">
-                <thead>
-                <tr>
-                    <th>{{ "content_type.name"|trans|desc("Name") }}</th>
-                    <th>{{ "content_type.identifier"|trans|desc("Identifier") }}</th>
-                    <th>{{ "content_type.description"|trans|desc("Description") }}</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td class="ez-table__cell">{{ content_type.names[current_language] }}</td>
-                    <td class="ez-table__cell">{{ content_type.identifier }}</td>
-                    <td class="ez-table__cell">{{ content_type.descriptions[current_language]|default('') }}</td>
-                    <td class="ez-table__cell ez-table__cell--has-action-btns">
-                        {% if can_update %}
-                            {{ macros.content_type_edit(content_type, content_type_group, 'btn btn-icon mx-2') }}
-                        {% endif %}
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+{% include '@ibexadesign/ui/component/details/details.html.twig' with {
+    headline: "content_type.global_properties"|trans|desc("Global properties"),
+    headline_items: global_properties_headline_items,
+    items: global_properties_items,
+} only %}
 
-            <table class="ez-table table ez-table--list">
-                <tbody>
-                <tr class="ez-table__row">
-                    <td class="ez-table__cell">{{ "content_type.name_schema"|trans|desc("Content name pattern") }}</td>
-                    <td class="ez-table__cell">{{ content_type.nameSchema }}</td>
-                </tr>
-                <tr class="ez-table__row">
-                    <td class="ez-table__cell">{{ "content_type.url_alias_schema"|trans|desc("URL alias name pattern") }}</td>
-                    <td class="ez-table__cell">{{ content_type.urlAliasSchema }}</td>
-                </tr>
-                <tr class="ez-table__row">
-                    <td class="ez-table__cell">{{ "content_type.container"|trans|desc("Container") }}</td>
-                    <td class="ez-table__cell">{{ content_type.isContainer ? 'yes'|trans|desc("Yes") : 'no'|trans|desc("No") }}</td>
-                </tr>
-                <tr class="ez-table__row">
-                    <td class="ez-table__cell">{{ "content_type.default_children_sorting"|trans|desc("Sort children by default by:") }}</td>
-                    <td class="ez-table__cell">
-                        {{ ("content_type.sort_field." ~ content_type.defaultSortField)|trans(domain="content_type") }} / {{ ("content_type.sort_order." ~ content_type.defaultSortOrder)|trans(domain="content_type") }}
-                    </td>
-                </tr>
-                <tr class="ez-table__row">
-                    <td class="ez-table__cell">{{ "content_type.default_sort"|trans|desc("Sort children by default in order:") }}</td>
-                    <td class="ez-table__cell">
-                        {{ ("content_type.sort_order." ~ content_type.defaultSortOrder)|trans(domain="content_type") }}
-                    </td>
-                </tr>
-                <tr class="ez-table__row">
-                    <td class="ez-table__cell">
-                        {{ "content_type.default_availability"|trans|desc('Make content available even with missing translations') }}
-                        <p class="small">
-                            {{ "content_type.default_availability.help"|trans|desc("Content of this Content Type will be available in the main language even if there is no translation.") }}
-                        </p>
-                    </td>
-                    <td class="ez-table__cell">
-                        {% if content_type.defaultAlwaysAvailable %}
-                            {{ 'content_type.default_availability.available'|trans|desc("Available") }}
-                        {% else %}
-                            {{ 'content_type.default_availability.not_available'|trans|desc("Not available") }}
-                        {% endif %}
-                    </td>
-                </tr>
-                </tbody>
-            </table>    
-        </div>
-    </section>
-
-    <section class="ez-fieldgroup">
-        <h2 class="ez-fieldgroup__name">{{ "content_type.content_field_definitions"|trans|desc("Content Field definitions") }}</h2>
-        <div class="ez-fieldgroup__content">
-            {% for group, field_definitions in field_definitions_by_group %}
-                <header class="ez-table-header">
-                    <div class="ez-table-header__headline">{{ group|capitalize }}</div>
-                </header>
-                <table class="table table-hover ez-table">
-                    <thead>
-                    <tr>
-                        <th class="ez-table__cell--field-definitions-head" scope="col">Name</th>
-                        <th class="ez-table__cell--field-definitions-head" scope="col">Identifier</th>
-                        <th class="ez-table__cell--field-definitions-head" scope="col">Type</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for field_definition in field_definitions %}
-                        <tr>
-                            <td class="ez-table__cell" scope="row">{{ field_definition.names[current_language] }}</td>
-                            <td class="ez-table__cell">{{ field_definition.identifier }}</td>
-                            <td class="ez-table__cell">{{ field_definition.fieldTypeIdentifier }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+<section class="ibexa-fieldgroup">
+    <h2 class="ibexa-fieldgroup__name">{{ "content_type.content_field_definitions"|trans|desc("Content Field definitions") }}</h2>
+    <div class="ibexa-fieldgroup__content">
+        {% for group, field_definitions in field_definitions_by_group %}
+            {% set body_rows = [] %}
+            {% for field_definition in field_definitions %}
+                {% set body_rows = body_rows|merge([{
+                    cols: [
+                        { content: field_definition.names[current_language] },
+                        { content: field_definition.identifier },
+                        { content: field_definition.fieldTypeIdentifier },
+                    ]
+                }]) %}
             {% endfor %}
-        </div>
-    </section>
-</div>
+
+            {% include '@ibexadesign/ui/component/table/table.html.twig' with {
+                headline: group|capitalize,
+                head_cols: [
+                    { content: 'Name', class: 'ibexa-table__head-cell--field-definitions-head' },
+                    { content: 'Identifier', class: 'ibexa-table__head-cell--field-definitions-head' },
+                    { content: 'Type', class: 'ibexa-table__head-cell--field-definitions-head' },
+                ],
+                body_rows,
+            } %}
+        {% endfor %}
+    </div>
+</section>

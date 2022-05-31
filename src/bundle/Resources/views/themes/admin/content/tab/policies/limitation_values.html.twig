@@ -1,10 +1,10 @@
-{% extends '@ezdesign/limitation/limitation_values.html.twig' %}
+{% extends '@ibexadesign/limitation/limitation_values.html.twig' %}
 
 {% block ez_limitation_node_value %}
     {% apply spaceless %}
         {% for path in values %}
             {% for value in path %}
-                <a href="{{ path('_ez_content_view', {'contentId': value.id, 'locationId': value.mainLocationId}) }}" >{{ value.name }}</a>
+                <a href="{{ path('ibexa.content.view', {'contentId': value.id, 'locationId': value.mainLocationId}) }}" >{{ value.name }}</a>
                 {% if not loop.last %} / {% endif %}
             {% endfor %}
             {% if not loop.last %}, {% endif %}
@@ -16,7 +16,7 @@
     {% apply spaceless %}
         {% for path in values %}
             {% for value in path %}
-                <a href="{{ path('_ez_content_view', {'contentId': value.id, 'locationId': value.mainLocationId}) }}" >{{ value.name }}</a>
+                <a href="{{ path('ibexa.content.view', {'contentId': value.id, 'locationId': value.mainLocationId}) }}" >{{ value.name }}</a>
                 {% if not loop.last %} / {% endif %}
             {% endfor %}
             {% if not loop.last %}, {% endif %}

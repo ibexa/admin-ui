@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Menu\Admin\ObjectState;
+namespace Ibexa\AdminUi\Menu\Admin\ObjectState;
 
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
-use EzSystems\EzPlatformAdminUi\Menu\AbstractBuilder;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -23,8 +23,8 @@ use Knp\Menu\ItemInterface;
 class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__SAVE = 'object_state_edit__sidebar_right__save';
-    const ITEM__CANCEL = 'object_state_edit__sidebar_right__cancel';
+    public const ITEM__SAVE = 'object_state_edit__sidebar_right__save';
+    public const ITEM__CANCEL = 'object_state_edit__sidebar_right__cancel';
 
     /**
      * @return string
@@ -55,21 +55,20 @@ class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implements Tran
             self::ITEM__SAVE => $this->createMenuItem(
                 self::ITEM__SAVE,
                 [
+                    'extras' => ['primary' => true],
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => sprintf('#%s', $saveId),
                     ],
-                    'extras' => ['icon' => 'save'],
                 ]
             ),
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'route' => 'ezplatform.object_state.group.view',
+                    'route' => 'ibexa.object_state.group.view',
                     'routeParameters' => [
                         'objectStateGroupId' => $groupId,
                     ],
-                    'extras' => ['icon' => 'circle-close'],
                 ]
             ),
         ]);
@@ -88,3 +87,5 @@ class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implements Tran
         ];
     }
 }
+
+class_alias(ObjectStateEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\ObjectState\ObjectStateEditRightSidebarBuilder');

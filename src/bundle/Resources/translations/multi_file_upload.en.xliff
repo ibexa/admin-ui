@@ -37,9 +37,14 @@
         <note>key: disallowed_type.message</note>
       </trans-unit>
       <trans-unit id="694f61c4eb35d09307bcf40e14159061c6ba1f35" resname="drop_action.message">
-        <source>Drag your files to the browser window or select them</source>
-        <target state="new">Drag your files to the browser window or select them</target>
+        <source>Drag and drop file</source>
+        <target state="new">Drag and drop file</target>
         <note>key: drop_action.message</note>
+      </trans-unit>
+      <trans-unit id="731fcd17e28af2907a63b974bab9c1dfa96aad54" resname="drop_action.separator">
+        <source>or</source>
+        <target state="new">or</target>
+        <note>key: drop_action.separator</note>
       </trans-unit>
       <trans-unit id="ec408ab37730af3a79d49ee278f3b215ce89057c" resname="edit.label">
         <source>Edit</source>
@@ -52,18 +57,23 @@
         <note>key: max_file_size.message</note>
       </trans-unit>
       <trans-unit id="412c9936722fbbcd34664fdbfe33880fad7ef998" resname="multi_file_upload_open_btn.label">
-        <source>Upload sub-items</source>
-        <target state="new">Upload sub-items</target>
+        <source>Upload</source>
+        <target state="new">Upload</target>
         <note>key: multi_file_upload_open_btn.label</note>
       </trans-unit>
+      <trans-unit id="b23e0c9a0c723cb5fc100bbf270a045cb6c895da" resname="upload.progress_bar.uploading">
+        <source>Uploading...</source>
+        <target state="new">Uploading...</target>
+        <note>key: upload.progress_bar.uploading</note>
+      </trans-unit>
       <trans-unit id="76d7ffabd7e8c5d27a9b732dd5f15d1da68ff00c" resname="upload.success.message">
-        <source>Uploaded</source>
-        <target state="new">Uploaded</target>
+        <source>100% Uploaded</source>
+        <target state="new">100% Uploaded</target>
         <note>key: upload.success.message</note>
       </trans-unit>
       <trans-unit id="13ad49603f42b4ec5f9328d94f90e4f6d7ba6203" resname="upload_btn.label">
-        <source>Upload sub-items</source>
-        <target state="new">Upload sub-items</target>
+        <source>Upload file</source>
+        <target state="new">Upload file</target>
         <note>key: upload_btn.label</note>
       </trans-unit>
       <trans-unit id="6b2bc429ffc374b49b5de9e3563d3d5a7668e4b2" resname="upload_popup.close">

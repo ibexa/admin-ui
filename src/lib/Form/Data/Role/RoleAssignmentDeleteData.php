@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Role;
+namespace Ibexa\AdminUi\Form\Data\Role;
 
-use eZ\Publish\API\Repository\Values\User\RoleAssignment;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
 
 class RoleAssignmentDeleteData
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\RoleAssignment */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment */
     private $roleAssignment;
 
     public function __construct(?RoleAssignment $roleAssignment = null)
@@ -21,7 +21,7 @@ class RoleAssignmentDeleteData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\User\RoleAssignment
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment
      */
     public function getRoleAssignment(): ?RoleAssignment
     {
@@ -29,10 +29,12 @@ class RoleAssignmentDeleteData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\RoleAssignment $roleAssignment
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment $roleAssignment
      */
     public function setRoleAssignment(RoleAssignment $roleAssignment)
     {
         $this->roleAssignment = $roleAssignment;
     }
 }
+
+class_alias(RoleAssignmentDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleAssignmentDeleteData');

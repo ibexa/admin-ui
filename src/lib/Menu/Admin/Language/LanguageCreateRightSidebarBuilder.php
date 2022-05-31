@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu\Admin\Language;
+namespace Ibexa\AdminUi\Menu\Admin\Language;
 
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
-use EzSystems\EzPlatformAdminUi\Menu\AbstractBuilder;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
-use EzSystems\EzPlatformAdminUi\Menu\MenuItemFactory;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\MenuItemFactory;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -24,8 +24,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class LanguageCreateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__CREATE = 'language_create__sidebar_right__create';
-    const ITEM__CANCEL = 'language_create__sidebar_right__cancel';
+    public const ITEM__CREATE = 'language_create__sidebar_right__create';
+    public const ITEM__CANCEL = 'language_create__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
@@ -66,18 +66,17 @@ class LanguageCreateRightSidebarBuilder extends AbstractBuilder implements Trans
             self::ITEM__CREATE => $this->createMenuItem(
                 self::ITEM__CREATE,
                 [
+                    'extras' => ['primary' => true],
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => '#language_create_save',
                     ],
-                    'extras' => ['icon' => 'publish'],
                 ]
             ),
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'extras' => ['icon' => 'circle-close'],
-                    'route' => 'ezplatform.language.list',
+                    'route' => 'ibexa.language.list',
                 ]
             ),
         ]);
@@ -96,3 +95,5 @@ class LanguageCreateRightSidebarBuilder extends AbstractBuilder implements Trans
         ];
     }
 }
+
+class_alias(LanguageCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\Language\LanguageCreateRightSidebarBuilder');

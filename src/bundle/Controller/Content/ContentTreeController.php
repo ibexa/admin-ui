@@ -6,29 +6,29 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller\Content;
+namespace Ibexa\Bundle\AdminUi\Controller\Content;
 
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode;
-use EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\Node;
-use EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\Root;
-use EzSystems\EzPlatformAdminUi\UI\Module\ContentTree\NodeFactory;
-use EzSystems\EzPlatformRest\Message;
-use EzSystems\EzPlatformRest\Server\Controller as RestController;
+use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode;
+use Ibexa\AdminUi\REST\Value\ContentTree\Node;
+use Ibexa\AdminUi\REST\Value\ContentTree\Root;
+use Ibexa\AdminUi\UI\Module\ContentTree\NodeFactory;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Rest\Message;
+use Ibexa\Rest\Server\Controller as RestController;
 use Symfony\Component\HttpFoundation\Request;
 
 class ContentTreeController extends RestController
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Module\ContentTree\NodeFactory */
+    /** @var \Ibexa\AdminUi\UI\Module\ContentTree\NodeFactory */
     private $contentTreeNodeFactory;
 
     /**
-     * @param \eZ\Publish\API\Repository\LocationService $locationService
-     * @param \EzSystems\EzPlatformAdminUi\UI\Module\ContentTree\NodeFactory $contentTreeNodeFactory
+     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
+     * @param \Ibexa\AdminUi\UI\Module\ContentTree\NodeFactory $contentTreeNodeFactory
      */
     public function __construct(
         LocationService $locationService,
@@ -39,9 +39,9 @@ class ContentTreeController extends RestController
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function loadChildrenAction(
         Request $request,
@@ -68,15 +68,15 @@ class ContentTreeController extends RestController
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\Root
+     * @return \Ibexa\AdminUi\REST\Value\ContentTree\Root
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function loadSubtreeAction(Request $request): Root
     {
-        /** @var \EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\LoadSubtreeRequest $loadSubtreeRequest */
+        /** @var \Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequest $loadSubtreeRequest */
         $loadSubtreeRequest = $this->inputDispatcher->parse(
             new Message(
                 ['Content-Type' => $request->headers->get('Content-Type')],
@@ -111,3 +111,5 @@ class ContentTreeController extends RestController
         return new Root($elements);
     }
 }
+
+class_alias(ContentTreeController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\Content\ContentTreeController');

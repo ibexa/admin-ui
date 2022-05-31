@@ -7,60 +7,63 @@
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use Ibexa\AdminUi\Behat\Component\RightMenu;
+use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
+use Ibexa\AdminUi\Behat\Component\TableNavigationTab;
+use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 
 class UserSettingsPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\RightMenu */
-    private $rightMenu;
+    private ContentActionsMenu $contentActionsMenu;
 
-    public function __construct(Session $session, Router $router, RightMenu $rightMenu)
+    private TableNavigationTab $tableNavigationTab;
+
+    public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu, TableNavigationTab $tableNavigationTab)
     {
         parent::__construct($session, $router);
-        $this->rightMenu = $rightMenu;
+        $this->contentActionsMenu = $contentActionsMenu;
+        $this->tableNavigationTab = $tableNavigationTab;
     }
 
     public function verifyIsLoaded(): void
     {
+        $this->contentActionsMenu->verifyIsLoaded();
         $this->getHTMLPage()->find($this->getLocator('title'))->assert()->textEquals('User Settings');
+    }
+
+    public function switchTab(string $tabName): void
+    {
+        $this->tableNavigationTab->goToTab($tabName);
+    }
+
+    public function changePassword(): void
+    {
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('button'))
+            ->getByCriterion(new ElementTextCriterion('Change password'))
+            ->click();
     }
 
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('title', '.ez-page-title__content-name'),
+            new VisibleCSSLocator('button', '.ibexa-btn'),
+            new VisibleCSSLocator('title', '.ibexa-page-title__content-name'),
             new VisibleCSSLocator('autosaveDraftEditButton', 'a[href$="autosave"]'),
             new VisibleCSSLocator('autosaveDraftValueDropdown', '#user_setting_update_value'),
             new VisibleCSSLocator('autosaveIntervalEdit', 'a[href$="interval"]'),
         ];
     }
 
-    public function openAutosaveDraftEditionPage(): void
+    protected function getRoute(): string
     {
-        $this->getHTMLPage()->find($this->getLocator('autosaveDraftEditButton'))->click();
-    }
-
-    public function openAutosaveDraftIntervalEditionPage(): void
-    {
-        $this->getHTMLPage()->find($this->getLocator('autosaveIntervalEdit'))->click();
-    }
-
-    public function disableAutosave(): void
-    {
-        $this->rightMenu->verifyIsLoaded();
-        $this->getHTMLPage()->find($this->getLocator('autosaveDraftValueDropdown'))->selectOption('disabled');
+        return '/user/settings/list';
     }
 
     public function getName(): string
     {
         return 'User Settings';
-    }
-
-    protected function getRoute(): string
-    {
-        return '/user/settings/list';
     }
 }

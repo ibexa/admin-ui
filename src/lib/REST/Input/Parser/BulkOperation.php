@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\REST\Input\Parser;
+namespace Ibexa\AdminUi\REST\Input\Parser;
 
-use EzSystems\EzPlatformAdminUi\REST\Value\BulkOperation as BulkOperationValue;
-use EzSystems\EzPlatformRest\Exceptions;
-use EzSystems\EzPlatformRest\Input\BaseParser;
-use EzSystems\EzPlatformRest\Input\ParsingDispatcher;
+use Ibexa\AdminUi\REST\Value\BulkOperation as BulkOperationValue;
+use Ibexa\Contracts\Rest\Exceptions;
+use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
+use Ibexa\Rest\Input\BaseParser;
 
 class BulkOperation extends BaseParser
 {
@@ -19,9 +19,9 @@ class BulkOperation extends BaseParser
      * Parse input structure.
      *
      * @param array $data
-     * @param \EzSystems\EzPlatformRest\Input\ParsingDispatcher $parsingDispatcher
+     * @param \Ibexa\Contracts\Rest\Input\ParsingDispatcher $parsingDispatcher
      *
-     * @return \EzSystems\EzPlatformAdminUi\REST\Value\BulkOperation
+     * @return \Ibexa\AdminUi\REST\Value\BulkOperation
      */
     public function parse(array $data, ParsingDispatcher $parsingDispatcher)
     {
@@ -37,9 +37,11 @@ class BulkOperation extends BaseParser
 
         $operations = [];
         foreach ($operationData as $operationId => $operation) {
-            $operations[$operationId] = $parsingDispatcher->parse($operation, 'application/vnd.ez.api.internal.Operation');
+            $operations[$operationId] = $parsingDispatcher->parse($operation, 'application/vnd.ibexa.api.internal.Operation');
         }
 
         return new BulkOperationValue($operations);
     }
 }
+
+class_alias(BulkOperation::class, 'EzSystems\EzPlatformAdminUi\REST\Input\Parser\BulkOperation');

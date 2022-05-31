@@ -1,5 +1,5 @@
-(function(global, doc, eZ) {
-    class MultiInputFieldValidator extends eZ.BaseFieldValidator {
+(function (global, doc, ibexa) {
+    class MultiInputFieldValidator extends ibexa.BaseFieldValidator {
         constructor({ containerSelectors, ...restProps }) {
             super(restProps);
 
@@ -19,5 +19,5 @@
         }
     }
 
-    eZ.addConfig('MultiInputFieldValidator', MultiInputFieldValidator);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('MultiInputFieldValidator', MultiInputFieldValidator);
+})(window, window.document, window.ibexa);

@@ -6,23 +6,24 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\RoleService;
-use eZ\Publish\API\Repository\Values\User\Policy;
-use eZ\Publish\API\Repository\Values\User\Role;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
-use EzSystems\EzPlatformAdminUi\Form\Data\Policy\PoliciesDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\DataMapper\PolicyCreateMapper;
-use EzSystems\EzPlatformAdminUi\Form\DataMapper\PolicyUpdateMapper;
-use EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\AdminUi\Form\Data\Policy\PoliciesDeleteData;
+use Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData;
+use Ibexa\AdminUi\Form\Data\Policy\PolicyDeleteData;
+use Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData;
+use Ibexa\AdminUi\Form\DataMapper\PolicyCreateMapper;
+use Ibexa\AdminUi\Form\DataMapper\PolicyUpdateMapper;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\Values\User\Policy;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -31,25 +32,25 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PolicyController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \eZ\Publish\API\Repository\RoleService */
+    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
     private $roleService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataMapper\PolicyCreateMapper */
+    /** @var \Ibexa\AdminUi\Form\DataMapper\PolicyCreateMapper */
     private $policyCreateMapper;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataMapper\PolicyUpdateMapper */
+    /** @var \Ibexa\AdminUi\Form\DataMapper\PolicyUpdateMapper */
     private $policyUpdateMapper;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -71,14 +72,14 @@ class PolicyController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      * @param string $routeName
      * @param int $policyPage
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Pagerfanta\Exception\OutOfRangeCurrentPageException
      * @throws \Pagerfanta\Exception\NotIntegerCurrentPageException
      * @throws \Pagerfanta\Exception\LessThan1CurrentPageException
@@ -94,7 +95,7 @@ class PolicyController extends Controller
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.policy_limit'));
         $pagerfanta->setCurrentPage(min($policyPage, $pagerfanta->getNbPages()));
 
-        /** @var \eZ\Publish\API\Repository\Values\User\Policy[] $policies */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\Policy[] $policies */
         $policies = $pagerfanta->getCurrentPageResults();
 
         $isEditable = [];
@@ -110,7 +111,7 @@ class PolicyController extends Controller
             new PoliciesDeleteData($role, $this->getPoliciesNumbers($policies))
         );
 
-        return $this->render('@ezdesign/user/policy/list.html.twig', [
+        return $this->render('@ibexadesign/user/policy/list.html.twig', [
             'form_policies_delete' => $deletePoliciesForm->createView(),
             'is_editable' => $isEditable,
             'role' => $role,
@@ -122,7 +123,7 @@ class PolicyController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -155,7 +156,7 @@ class PolicyController extends Controller
                         'role'
                     );
 
-                    return new RedirectResponse($this->generateUrl('ezplatform.policy.create_with_limitation', [
+                    return new RedirectResponse($this->generateUrl('ibexa.policy.create_with_limitation', [
                         'roleId' => $role->id,
                         'policyModule' => $policyCreateStruct->module,
                         'policyFunction' => $policyCreateStruct->function,
@@ -178,7 +179,7 @@ class PolicyController extends Controller
                     'role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
                 ]));
             });
@@ -188,7 +189,7 @@ class PolicyController extends Controller
             }
         }
 
-        return $this->render('@ezdesign/user/policy/add.html.twig', [
+        return $this->render('@ibexadesign/user/policy/add.html.twig', [
             'role' => $role,
             'form' => $form->createView(),
         ]);
@@ -196,13 +197,13 @@ class PolicyController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
-     * @param \eZ\Publish\API\Repository\Values\User\Policy $policy
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Policy $policy
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \InvalidArgumentException
      */
     public function updateAction(Request $request, Role $role, Policy $policy): Response
@@ -222,7 +223,7 @@ class PolicyController extends Controller
                 'role'
             );
 
-            return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+            return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                 'roleId' => $role->id,
             ]));
         }
@@ -253,7 +254,7 @@ class PolicyController extends Controller
                     'role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
                 ]));
             });
@@ -263,7 +264,7 @@ class PolicyController extends Controller
             }
         }
 
-        return $this->render('@ezdesign/user/policy/edit.html.twig', [
+        return $this->render('@ibexadesign/user/policy/edit.html.twig', [
             'role' => $role,
             'policy' => $policy,
             'form' => $form->createView(),
@@ -272,7 +273,7 @@ class PolicyController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      * @param string $policyModule
      * @param string $policyFunction
      *
@@ -303,7 +304,7 @@ class PolicyController extends Controller
                     'role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
                 ]));
             });
@@ -313,7 +314,7 @@ class PolicyController extends Controller
             }
         }
 
-        return $this->render('@ezdesign/user/policy/create_with_limitation.html.twig', [
+        return $this->render('@ibexadesign/user/policy/create_with_limitation.html.twig', [
             'role' => $role,
             'form' => $form->createView(),
         ]);
@@ -321,8 +322,8 @@ class PolicyController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
-     * @param \eZ\Publish\API\Repository\Values\User\Policy $policy
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Policy $policy
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -355,7 +356,7 @@ class PolicyController extends Controller
                     'role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
                 ]));
             });
@@ -365,7 +366,7 @@ class PolicyController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.role.view', [
+        return $this->redirect($this->generateUrl('ibexa.role.view', [
             'roleId' => $role->id,
         ]));
     }
@@ -374,7 +375,7 @@ class PolicyController extends Controller
      * Handles removing policies based on submitted form.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -411,7 +412,7 @@ class PolicyController extends Controller
                     'role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
                 ]));
             });
@@ -421,13 +422,13 @@ class PolicyController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.role.view', [
+        return $this->redirect($this->generateUrl('ibexa.role.view', [
             'roleId' => $role->id,
         ]));
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\Policy[] $policies
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Policy[] $policies
      *
      * @return array
      */
@@ -438,3 +439,5 @@ class PolicyController extends Controller
         return array_combine($policiesNumbers, array_fill_keys($policiesNumbers, false));
     }
 }
+
+class_alias(PolicyController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\PolicyController');
