@@ -21,8 +21,9 @@ class SecurityLoginPass implements CompilerPassInterface
     {
         $successHandlerDef = $container->getDefinition('security.authentication.success_handler');
         $successHandlerDef->setClass(RedirectToDashboardAuthenticationSuccessHandler::class);
-        $successHandlerDef->addArgument($container->getParameter('ibexa.site_access.groups'));
-        $successHandlerDef->addArgument('ibexa.dashboard');
+        $successHandlerDef->setArgument('$logger', $successHandlerDef->getArgument(2));
+        $successHandlerDef->setArgument('$siteAccessGroups', $container->getParameter('ibexa.site_access.groups'));
+        $successHandlerDef->setArgument('$defaultTargetPath', 'ibexa.dashboard');
     }
 }
 
