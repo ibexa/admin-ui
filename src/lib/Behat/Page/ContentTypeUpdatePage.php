@@ -33,8 +33,6 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
         $lastFieldDefinition->mouseOver();
         $lastFieldDefinition->assert()->isVisible();
         $lastFieldDefinition->click();
-//        $this->getHTMLPage()->setTimeout(5)
-//            ->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(), $fieldToggleLocator));
     }
 
     public function specifyLocators(): array

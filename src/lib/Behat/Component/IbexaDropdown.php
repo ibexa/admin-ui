@@ -17,9 +17,7 @@ class IbexaDropdown extends Component
 {
     public function verifyIsLoaded(): void
     {
-//        $this->getHTMLPage()
-//            ->setTimeout(2)
-//            ->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(), $this->getLocator('isIbexaDropdownVisible')));
+        //TODO: check if needed
     }
 
     protected function specifyLocators(): array
