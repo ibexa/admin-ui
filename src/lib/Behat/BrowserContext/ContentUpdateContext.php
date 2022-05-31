@@ -115,13 +115,21 @@ class ContentUpdateContext implements Context
     }
 
     /**
-     * @When I wait for :autosaveIntervalTime seconds for Content Item to be autosaved
+     * @When I wait for Content Item to be autosaved
      */
-    public function iWaitForAutosaveNotification(int $autosaveIntervalTime): void
+    public function iWaitForAutosaveNotification(): void
     {
         $this->contentUpdateItemPage->verifyIsLoaded();
         $this->contentUpdateItemPage->verifyAutosaveNotificationIsDisplayed();
-        sleep($autosaveIntervalTime + 3);
         $this->contentUpdateItemPage->verifyAutosaveDraftIsSavedNotificationIsDisplayed();
+    }
+
+    /**
+     * @When I check if "Autosave is off" notification is displayed
+     */
+    public function iCheckAutosaveNotification(): void
+    {
+        $this->contentUpdateItemPage->verifyIsLoaded();
+        $this->contentUpdateItemPage->verifyAutosaveIsOffNotificationIsDisplayed();
     }
 }

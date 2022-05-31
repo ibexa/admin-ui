@@ -8,7 +8,9 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
+use Ibexa\AdminUi\Behat\Component\IbexaDropdown;
 use Ibexa\AdminUi\Behat\Component\TableNavigationTab;
+use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
@@ -20,11 +22,14 @@ class UserSettingsPage extends Page
 
     private TableNavigationTab $tableNavigationTab;
 
-    public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu, TableNavigationTab $tableNavigationTab)
+    private IbexaDropdown $ibexaDropdown;
+
+    public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu, TableNavigationTab $tableNavigationTab, IbexaDropdown $ibexaDropdown)
     {
         parent::__construct($session, $router);
         $this->contentActionsMenu = $contentActionsMenu;
         $this->tableNavigationTab = $tableNavigationTab;
+        $this->ibexaDropdown = $ibexaDropdown;
     }
 
     public function verifyIsLoaded(): void
@@ -50,11 +55,31 @@ class UserSettingsPage extends Page
     {
         return [
             new VisibleCSSLocator('button', '.ibexa-btn'),
-            new VisibleCSSLocator('title', '.ibexa-page-title__content-name'),
-            new VisibleCSSLocator('autosaveDraftEditButton', 'a[href$="autosave"]'),
-            new VisibleCSSLocator('autosaveDraftValueDropdown', '#user_setting_update_value'),
-            new VisibleCSSLocator('autosaveIntervalEdit', 'a[href$="interval"]'),
+            new VisibleCSSLocator('title', '.ibexa-edit-header__title'),
+            new VisibleCSSLocator('autosaveDraftValueDropdown', '#user_setting_update_autosave div.ibexa-dropdown__wrapper > ul'),
+            new VisibleCSSLocator('autosaveIntervalEdit', '#user_setting_update_autosave_interval_value'),
         ];
+    }
+
+    public function openAutosaveDraftEditionPage(): void
+    {
+        $this->getHTMLPage()
+            ->findAll(new VisibleCSSLocator('settingsSection', '#ibexa-tab-my-preferences .ibexa-details'))
+            ->getByCriterion(new ChildElementTextCriterion(new VisibleCSSLocator('settingHeader', '.ibexa-table-header'), 'Edit Content'))
+            ->find(new VisibleCSSLocator('editButton', '[data-bs-original-title="Edit"]'))
+            ->click();
+    }
+
+    public function openAutosaveDraftIntervalEditionPage(): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('autosaveIntervalEdit'))->click();
+    }
+
+    public function disableAutosave(): void
+    {
+        $this->contentActionsMenu->verifyIsLoaded();
+        $this->getHTMLPage()->find($this->getLocator('autosaveDraftValueDropdown'))->click();
+        $this->ibexaDropdown->selectOption('disabled');
     }
 
     protected function getRoute(): string

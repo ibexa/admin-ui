@@ -12,7 +12,7 @@ Feature: Content Items creation
       | *      | *        |
     And I create a user "AutosaveEnabledTestUser" with last name "AutosaveEnabledTestLastName" in group "AutosaveEnabledTestGroup"
     And I assign user "AutosaveEnabledTestUser" to role "autosaveEnabledTestRole"
-    And I set autosave interval value to "5" for user "AutosaveEnabledTestUser"
+    And I set autosave interval value to "15" for user "AutosaveEnabledTestUser"
     And I open Login page in admin SiteAccess
     And I log in as "AutosaveEnabledTestUser" with password "Passw0rd-42"
     And I'm on Content view Page for root
@@ -21,7 +21,7 @@ Feature: Content Items creation
       | label       | value                       |
       | Title       | Test Article Autosave draft |
       | Short title | Test Article Autosave draft |
-    And I wait for 5 seconds for Content Item to be autosaved
+    And I wait for Content Item to be autosaved
     And I click on the close button
     And I open the "Dashboard" page in admin SiteAccess
     Then there's draft "Test Article Autosave draft" on Dashboard list
@@ -46,6 +46,7 @@ Feature: Content Items creation
       | label       | value                       |
       | Title       | Test Article Autosave Off draft |
       | Short title | Test Article Autosave Off draft |
+    And I check if "Autosave is off" notification is displayed
     And I click on the close button
     And I open the "Dashboard" page in admin SiteAccess
     Then there's no draft "Test Article Autosave Off draft" on Dashboard list
