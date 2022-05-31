@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Security\Authentication;
 
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Ibexa\Core\MVC\Symfony\Security\Authentication\DefaultAuthenticationSuccessHandler;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\HttpUtils;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
@@ -29,14 +30,16 @@ class RedirectToDashboardAuthenticationSuccessHandler extends DefaultAuthenticat
      * @param array $options
      * @param array $siteAccessGroups
      * @param string $defaultTargetPath
+     * @param \Psr\Log\LoggerInterface|null $logger
      */
     public function __construct(
         HttpUtils $httpUtils,
         array $options,
         array $siteAccessGroups,
-        string $defaultTargetPath
+        string $defaultTargetPath,
+        LoggerInterface $logger = null
     ) {
-        parent::__construct($httpUtils, $options);
+        parent::__construct($httpUtils, $options, $logger);
         $this->siteAccessGroups = $siteAccessGroups;
         $this->defaultTargetPath = $defaultTargetPath;
     }
