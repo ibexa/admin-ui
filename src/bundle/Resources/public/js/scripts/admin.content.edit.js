@@ -136,7 +136,7 @@
         if (lastSection && lastSection.offsetHeight) {
             const contentColumn = doc.querySelector('.ibexa-main-container__content-column');
             const contentContainer = contentColumn.querySelector('.ibexa-edit-content form');
-            const header = doc.querySelector('.ibexa-edit-header');
+            const header = doc.querySelector('.ibexa-edit-header .ibexa-edit-header__container');
             const heightFromLastSection = contentContainer.offsetHeight - lastSection.offsetTop;
             const contentColumnBodyHeight = contentColumn.offsetHeight - header.offsetHeight;
             const heightDiff = contentColumnBodyHeight - heightFromLastSection;

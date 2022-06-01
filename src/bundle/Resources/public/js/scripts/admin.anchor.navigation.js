@@ -1,4 +1,5 @@
 (function (global, doc) {
+    const EDIT_CONTENT_TOP_PADDING = 42;
     const formContainerNode = doc.querySelector('.ibexa-edit-content');
     const allSections = [...doc.querySelectorAll('.ibexa-anchor-navigation-sections__section')];
     const isVerticalScrollVisible = () => {
@@ -21,7 +22,7 @@
 
         if (isVerticalScrollVisible()) {
             formContainerNode.scrollTo({
-                top: targetSection.offsetTop,
+                top: targetSection.offsetTop + EDIT_CONTENT_TOP_PADDING,
                 behavior: 'smooth',
             });
         } else {
