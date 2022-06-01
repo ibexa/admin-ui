@@ -32,6 +32,8 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
         $lastFieldDefinition->mouseOver();
         $lastFieldDefinition->assert()->isVisible();
         $lastFieldDefinition->click();
+        $this->getHTMLPage()->setTimeout(5)
+            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('fieldDefinitionOpenContainer')));
     }
 
     public function specifyLocators(): array
