@@ -32,6 +32,8 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
         $lastFieldDefinition->mouseOver();
         $lastFieldDefinition->assert()->isVisible();
         $lastFieldDefinition->click();
+        $this->getHTMLPage()->setTimeout(5)
+            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('fieldDefinitionOpenContainer')));
     }
 
     public function specifyLocators(): array
@@ -45,8 +47,11 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
             new VisibleCSSLocator('workspace', '#content_collapse > div.ibexa-collapse__body-content > div'),
             new VisibleCSSLocator('fieldDefinitionToggle', '.ibexa-collapse:nth-last-child(2) > div.ibexa-collapse__header > button:last-child:not([data-bs-target="#content_collapse"])'),
             new VisibleCSSLocator('selectLaunchEditorMode', '.form-check .ibexa-input--radio'),
-            new VisibleCSSLocator('fieldDefinitionOpenContainer', '[data-collapsed="false"] .ibexa-content-type-edit__field-definition-content'),
+            //new VisibleCSSLocator('fieldDefinitionOpenContainer', '[data-collapsed="false"] .ibexa-content-type-edit__field-definition-content'),
+            new VisibleCSSLocator('fieldDefinitionOpenContainer','#content_collapse > div > div[data-collapsed="false"]'),
             new VisibleCSSLocator('selectBlocksDropdown', '.ibexa-page-select-items__toggler'),
+            new VisibleCSSLocator('','#ezplatform_content_forms_contenttype_update_fieldDefinitionsData_content_page_collapse:last-child'),
+
         ]);
     }
 
