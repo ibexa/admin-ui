@@ -24,7 +24,7 @@
             this.attachDeleteEvents = this.attachDeleteEvents.bind(this);
             this.adjustButtonLabel = this.adjustButtonLabel.bind(this);
 
-            ibexa.helpers.middleEllipsis.parseAll();
+            ibexa.helpers.ellipsis.middle.parseAll();
             this.attachDeleteEvents();
 
             this.disabledObserver = new MutationObserver((mutationsList) => {
@@ -78,7 +78,7 @@
             });
 
             this.inputField.dispatchEvent(new Event('change'));
-            ibexa.helpers.middleEllipsis.parseAll();
+            ibexa.helpers.ellipsis.middle.parseAll();
             this.toggleDeleteButtons();
             this.adjustButtonLabel();
         }
