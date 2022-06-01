@@ -131,17 +131,18 @@
         return ibexa.adminUiConfig.autosave.enabled && form.querySelector('[name="ezplatform_content_forms_content_edit[autosave]"]');
     };
     const fitSections = () => {
-        const contentColumn = doc.querySelector('.ibexa-main-container__content-column');
         const lastSection = doc.querySelector('.ibexa-anchor-navigation-sections .ibexa-anchor-navigation-sections__section:last-child');
 
         if (lastSection && lastSection.offsetHeight) {
-            const lastSectionHeight = lastSection.offsetHeight;
-            const headerHeight = doc.querySelector('.ibexa-edit-header').offsetHeight;
-            const contentColumnBodyHeight = contentColumn.offsetHeight - headerHeight;
-            const heightDiff = contentColumnBodyHeight - lastSectionHeight;
+            const contentColumn = doc.querySelector('.ibexa-main-container__content-column');
+            const contentContainer = contentColumn.querySelector('.ibexa-edit-content form');
+            const headerContainer = doc.querySelector('.ibexa-edit-header .ibexa-edit-header__container');
+            const heightFromLastSection = contentContainer.offsetHeight - lastSection.offsetTop;
+            const contentColumnBodyHeight = contentColumn.offsetHeight - headerContainer.offsetHeight;
+            const heightDiff = contentColumnBodyHeight - heightFromLastSection;
 
             if (heightDiff > 0) {
-                lastSection.style.paddingBottom = `${heightDiff}px`;
+                contentContainer.style.paddingBottom = `${heightDiff}px`;
             }
         }
     };
