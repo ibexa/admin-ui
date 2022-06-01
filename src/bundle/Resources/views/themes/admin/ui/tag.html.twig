@@ -4,7 +4,9 @@
 
 <div {{ html.attributes(tag_attributes) }}>
     <div class="ibexa-tag__content" {% if is_loading_state %} hidden {% endif %}>
-        {{ content }}
+        {{ include('@ibexadesign/ui/component/middle_ellipsis/middle_ellipsis.html.twig', {
+            name: content,
+        }) }}
     </div>
     <div class="ibexa-tag__spinner" {% if not is_loading_state %} hidden {% endif %}>
         <svg class="ibexa-icon ibexa-icon--small ibexa-spin">

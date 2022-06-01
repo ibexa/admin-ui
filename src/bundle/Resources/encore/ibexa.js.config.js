@@ -16,6 +16,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/helpers/cookies.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/tag.view.select.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/object.instances.js'),
+    path.resolve(__dirname, '../public/js/scripts/helpers/middle.ellipsis.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.format.date.js'),
     path.resolve(__dirname, '../public/js/scripts/core/draggable.js'),
     path.resolve(__dirname, '../public/js/scripts/core/dropdown.js'),
@@ -52,6 +53,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/double.click.mark.js'),
     path.resolve(__dirname, '../public/js/scripts/autogenerate.identifier.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.back.to.top.js'),
+    path.resolve(__dirname, '../public/js/scripts/admin.middle.ellipsis.js'),
 ];
 const fieldTypes = [];
 
