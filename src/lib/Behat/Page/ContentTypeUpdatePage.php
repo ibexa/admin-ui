@@ -25,15 +25,6 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
             ->setValue($value);
     }
 
-//    public function fillFieldDefinitionFieldWithValueDuringEdit(string $fieldName, string $label, string $value)
-//    {
-//        $this->expandLastFieldDefinition();
-//        $this->getHTMLPage()->find($this->getLocator('fieldDefinitionOpenContainerEdit'))
-//            ->findAll($this->getLocator('field'))->getByCriterion(new ElementTextCriterion($label))
-//            ->find($this->getLocator('fieldInput'))
-//            ->setValue($value);
-//    }
-
     public function expandLastFieldDefinition(): void
     {
         $fieldToggleLocator = $this->getLocator('fieldDefinitionToggle');
