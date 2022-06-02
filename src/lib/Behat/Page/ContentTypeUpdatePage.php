@@ -18,14 +18,14 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
 {
     public function fillFieldDefinitionFieldWithValue(string $fieldName, string $label, string $value)
     {
-        $this->expandLastFieldDefinition();
+        $this->expandLastFieldDefinition('fieldDefinitionOpenContainer');
         $this->getHTMLPage()->find($this->getLocator('fieldDefinitionOpenContainer'))
             ->findAll($this->getLocator('field'))->getByCriterion(new ElementTextCriterion($label))
             ->find($this->getLocator('fieldInput'))
             ->setValue($value);
     }
 
-    public function expandLastFieldDefinition(): void
+    public function expandLastFieldDefinition(string $locatorValue): void
     {
         $fieldToggleLocator = $this->getLocator('fieldDefinitionToggle');
         $lastFieldDefinition = $this->getHTMLPage()->find($fieldToggleLocator);
@@ -33,7 +33,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
         $lastFieldDefinition->assert()->isVisible();
         $lastFieldDefinition->click();
         $this->getHTMLPage()->setTimeout(5)
-            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('fieldDefinitionOpenContainer')));
+            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator($locatorValue)));
     }
 
     public function specifyLocators(): array
@@ -48,6 +48,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
             new VisibleCSSLocator('fieldDefinitionToggle', '.ibexa-collapse:nth-last-child(2) > div.ibexa-collapse__header > button:last-child:not([data-bs-target="#content_collapse"])'),
             new VisibleCSSLocator('selectLaunchEditorMode', '.form-check .ibexa-input--radio'),
             new VisibleCSSLocator('fieldDefinitionOpenContainer', '[data-collapsed="false"] .ibexa-content-type-edit__field-definition-content'),
+            new VisibleCSSLocator('fieldDefinitionOpenContainerEdit', '#content_collapse > div > div[data-collapsed="false"]'),
             new VisibleCSSLocator('selectBlocksDropdown', '.ibexa-page-select-items__toggler'),
         ]);
     }
