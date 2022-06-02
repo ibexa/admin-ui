@@ -235,7 +235,7 @@ class ContentTypeContext implements Context
     public function iCheckBlockInField($blockName)
     {
         $this->contentTypeUpdatePage->verifyIsLoaded();
-        $this->contentTypeUpdatePage->expandLastFieldDefinition();
+        $this->contentTypeUpdatePage->expandLastFieldDefinitionDuringEdit();
         $this->contentTypeUpdatePage->expandDefaultBlocksOption();
         $this->contentTypeUpdatePage->selectBlock($blockName);
     }
@@ -246,7 +246,7 @@ class ContentTypeContext implements Context
     public function iCheckEditorLaunchModeOption(string $viewMode): void
     {
         $this->contentTypeUpdatePage->verifyIsLoaded();
-        $this->contentTypeUpdatePage->expandLastFieldDefinition();
+        $this->contentTypeUpdatePage->expandLastFieldDefinitionDuringEdit();
         $this->contentTypeUpdatePage->selectEditorLaunchMode($viewMode);
     }
 }
