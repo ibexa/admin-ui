@@ -18,14 +18,14 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
 {
     public function fillFieldDefinitionFieldWithValue(string $fieldName, string $label, string $value)
     {
-        $this->expandLastFieldDefinition();
+        $this->expandLastFieldDefinition('fieldDefinitionOpenContainer');
         $this->getHTMLPage()->find($this->getLocator('fieldDefinitionOpenContainer'))
             ->findAll($this->getLocator('field'))->getByCriterion(new ElementTextCriterion($label))
             ->find($this->getLocator('fieldInput'))
             ->setValue($value);
     }
 
-    public function expandLastFieldDefinition(): void
+    public function expandLastFieldDefinition(string $locatorValue): void
     {
         $fieldToggleLocator = $this->getLocator('fieldDefinitionToggle');
         $lastFieldDefinition = $this->getHTMLPage()->find($fieldToggleLocator);
@@ -33,18 +33,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
         $lastFieldDefinition->assert()->isVisible();
         $lastFieldDefinition->click();
         $this->getHTMLPage()->setTimeout(5)
-            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('fieldDefinitionOpenContainer')));
-    }
-
-    public function expandLastFieldDefinitionDuringEdit(): void
-    {
-        $fieldToggleLocator = $this->getLocator('fieldDefinitionToggle');
-        $lastFieldDefinition = $this->getHTMLPage()->find($fieldToggleLocator);
-        $lastFieldDefinition->mouseOver();
-        $lastFieldDefinition->assert()->isVisible();
-        $lastFieldDefinition->click();
-        $this->getHTMLPage()->setTimeout(5)
-            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('fieldDefinitionOpenContainerEdit')));
+            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator($locatorValue)));
     }
 
     public function specifyLocators(): array
