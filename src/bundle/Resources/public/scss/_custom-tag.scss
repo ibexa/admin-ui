@@ -1,4 +1,4 @@
-.ez-custom-tag {
+.ibexa-custom-tag {
     max-width: 50%;
     border: calculateRem(1px) solid $ibexa-color-primary;
     margin: calculateRem(16px) 0;
@@ -12,7 +12,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: $ibexa-white;
+        background-color: $ibexa-color-white;
         padding: calculateRem(2px) calculateRem(2px) calculateRem(2px) calculateRem(8px);
         border-top-left-radius: calculateRem(5px);
         border-top-right-radius: calculateRem(5px);
@@ -22,7 +22,7 @@
         }
 
         &-btns {
-            background-color: $ibexa-white;
+            background-color: $ibexa-color-white;
             border: calculateRem(2px) solid $ibexa-color-primary;
             border-radius: calculateRem(5px);
             display: flex;
@@ -34,7 +34,7 @@
             border-radius: calculateRem(5px);
             padding: calculateRem(6px) calculateRem(8px);
 
-            .ez-icon {
+            .ibexa-icon {
                 fill: $ibexa-color-primary;
             }
         }
@@ -57,12 +57,12 @@
             display: block;
         }
 
-        & > .ez-custom-tag__header {
-            .ez-custom-tag__header-btn--attributes {
+        & > .ibexa-custom-tag__header {
+            .ibexa-custom-tag__header-btn--attributes {
                 background-color: $ibexa-color-primary;
 
-                .ez-icon {
-                    fill: $ibexa-white;
+                .ibexa-icon {
+                    fill: $ibexa-color-white;
                 }
             }
         }
@@ -76,7 +76,7 @@
         &[data-ezelement='eztemplateinline'] {
             padding: 0 calculateRem(8px);
             margin: 0 calculateRem(4px);
-            background-color: $ibexa-white;
+            background-color: $ibexa-color-white;
             border: none;
             display: inline-flex;
             max-width: none;
@@ -86,21 +86,21 @@
             }
         }
 
-        & > .ez-custom-tag__header {
-            .ez-custom-tag__header-btn--content {
+        & > .ibexa-custom-tag__header {
+            .ibexa-custom-tag__header-btn--content {
                 background-color: $ibexa-color-primary;
 
-                .ez-icon {
-                    fill: $ibexa-white;
+                .ibexa-icon {
+                    fill: $ibexa-color-white;
                 }
             }
         }
     }
 }
 
-.ez-field-edit--ezrichtext {
+.ibexa-field-edit--ezrichtext {
     .cke_widget_ezcustomtag,
-    .ez-custom-tag {
+    .ibexa-custom-tag {
         &[data-ezalign='right'] {
             float: none;
             margin-left: auto;

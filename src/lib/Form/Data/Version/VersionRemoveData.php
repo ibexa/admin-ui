@@ -6,23 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Version;
+namespace Ibexa\AdminUi\Form\Data\Version;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 /**
  * @todo Add validation
  */
 class VersionRemoveData
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
     protected $contentInfo;
 
     /** @var array|null */
     protected $versions;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
      * @param array|null $versions
      */
     public function __construct(?ContentInfo $contentInfo = null, array $versions = [])
@@ -32,7 +32,7 @@ class VersionRemoveData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
      */
     public function getContentInfo(): ?ContentInfo
     {
@@ -40,7 +40,7 @@ class VersionRemoveData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
      */
     public function setContentInfo(?ContentInfo $contentInfo)
     {
@@ -63,3 +63,5 @@ class VersionRemoveData
         $this->versions = $versions;
     }
 }
+
+class_alias(VersionRemoveData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Version\VersionRemoveData');

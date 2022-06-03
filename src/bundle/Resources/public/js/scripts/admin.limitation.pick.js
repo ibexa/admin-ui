@@ -1,21 +1,18 @@
-(function(global, doc, eZ, React, ReactDOM, Translator) {
-    const SELECTOR_LOCATION_LIMITATION_BTN = '.ez-pick-location-limitation-button';
-    const SELECTOR_EZ_TAG = '.ez-tag';
+(function (global, doc, ibexa, React, ReactDOM, Translator) {
+    const SELECTOR_LOCATION_LIMITATION_BTN = '.ibexa-pick-location-limitation-button';
+    const SELECTOR_IBEXA_TAG = '.ibexa-tag';
     const IDS_SEPARATOR = ',';
-    const SELECTOR_CUSTOM_DROPDOWN_CONTAINER = '.ez-update-policy__action-wrapper';
-    const SELECTOR_SOURCE_INPUT = '.ez-update-policy__source-input';
-    const SELECTOR_ITEMS = '.ez-custom-dropdown__items';
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const udwContainer = doc.getElementById('react-udw');
     const limitationBtns = doc.querySelectorAll(SELECTOR_LOCATION_LIMITATION_BTN);
     const findLocationsByIdList = (pathArraysWithoutRoot, callback) => {
         const bulkOperations = getBulkOperations(pathArraysWithoutRoot);
-        const request = new Request('/api/ezp/v2/bulk', {
+        const request = new Request('/api/ibexa/v2/bulk', {
             method: 'POST',
             headers: {
-                Accept: 'application/vnd.ez.api.BulkOperationResponse+json',
-                'Content-Type': 'application/vnd.ez.api.BulkOperation+json',
+                Accept: 'application/vnd.ibexa.api.BulkOperationResponse+json',
+                'Content-Type': 'application/vnd.ibexa.api.BulkOperation+json',
                 'X-Siteaccess': siteaccess,
                 'X-CSRF-Token': token,
             },
@@ -30,24 +27,24 @@
         const errorMessage = Translator.trans(
             /*@Desc("Could not fetch content names")*/ 'limitation.pick.error',
             {},
-            'universal_discovery_widget'
+            'universal_discovery_widget',
         );
 
         fetch(request)
-            .then(eZ.helpers.request.getJsonFromResponse)
+            .then(ibexa.helpers.request.getJsonFromResponse)
             .then(callback)
-            .catch(() => eZ.helpers.notification.showErrorNotification(errorMessage));
+            .catch(() => ibexa.helpers.notification.showErrorNotification(errorMessage));
     };
     const getBulkOperations = (pathArraysWithoutRoot) =>
         pathArraysWithoutRoot.reduce((operations, pathArray) => {
             const locationId = pathArray[pathArray.length - 1];
 
             operations[locationId] = {
-                uri: '/api/ezp/v2/views',
+                uri: '/api/ibexa/v2/views',
                 method: 'POST',
                 headers: {
-                    Accept: 'application/vnd.ez.api.View+json; version=1.1',
-                    'Content-Type': 'application/vnd.ez.api.ViewInput+json; version=1.1',
+                    Accept: 'application/vnd.ibexa.api.View+json; version=1.1',
+                    'Content-Type': 'application/vnd.ibexa.api.ViewInput+json; version=1.1',
                     'X-Requested-With': 'XMLHttpRequest',
                 },
                 content: JSON.stringify({
@@ -94,12 +91,17 @@
         selectedItems.forEach((location) => {
             const locationId = location.id;
             const container = doc.createElement('ul');
-            const renderedItem = tagTemplate.replace('{{ location_id }}', locationId);
 
+            container.insertAdjacentHTML('beforeend', tagTemplate);
+
+            const tagTemplateUnescaped = container.innerHTML;
+            const renderedItem = tagTemplateUnescaped.replace('{{ location_id }}', locationId);
+
+            container.innerHTML = '';
             container.insertAdjacentHTML('beforeend', renderedItem);
 
             const listItemNode = container.querySelector('li');
-            const tagNode = listItemNode.querySelector(SELECTOR_EZ_TAG);
+            const tagNode = listItemNode.querySelector(SELECTOR_IBEXA_TAG);
 
             attachTagEventHandlers(limitationBtn, tagNode);
             fragment.append(listItemNode);
@@ -119,8 +121,8 @@
             Object.entries(operations).forEach(([locationId, { content }]) => {
                 const viewData = JSON.parse(content);
                 const tag = tagsList.querySelector(`[data-location-id="${locationId}"]`);
-                const tagContent = tag.querySelector('.ez-tag__content');
-                const tagSpinner = tag.querySelector('.ez-tag__spinner');
+                const tagContent = tag.querySelector('.ibexa-tag__content');
+                const tagSpinner = tag.querySelector('.ibexa-tag__spinner');
 
                 tagContent.innerText = buildContentBreadcrumbs(viewData);
 
@@ -137,13 +139,13 @@
     };
     const handleTagRemove = (limitationBtn, tag) => {
         const removedLocationId = tag.dataset.locationId;
-        const locationInputSelector = limitationBtn.dataset.locationInputSelector;
+        const { locationInputSelector } = limitationBtn.dataset;
 
         removeLocationFromInput(locationInputSelector, removedLocationId);
         tag.remove();
     };
     const attachTagEventHandlers = (limitationBtn, tag) => {
-        const removeTagBtn = tag.querySelector('.ez-tag__remove-btn');
+        const removeTagBtn = tag.querySelector('.ibexa-tag__remove-btn');
 
         removeTagBtn.addEventListener('click', () => handleTagRemove(limitationBtn, tag), false);
     };
@@ -169,7 +171,7 @@
         const title = Translator.trans(/*@Desc("Choose Locations")*/ 'subtree_limitation.title', {}, 'universal_discovery_widget');
 
         ReactDOM.render(
-            React.createElement(eZ.modules.UniversalDiscovery, {
+            React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: handleUdwConfirm.bind(this, event.target),
                 onCancel: closeUDW,
                 title,
@@ -177,26 +179,15 @@
                 selectedLocations: selectedLocationsIds,
                 ...config,
             }),
-            udwContainer
+            udwContainer,
         );
     };
 
     limitationBtns.forEach((limitationBtn) => {
         const tagsList = doc.querySelector(limitationBtn.dataset.selectedLocationListSelector);
-        const tags = tagsList.querySelectorAll(SELECTOR_EZ_TAG);
+        const tags = tagsList.querySelectorAll(SELECTOR_IBEXA_TAG);
 
         tags.forEach(attachTagEventHandlers.bind(null, limitationBtn));
         limitationBtn.addEventListener('click', openUDW, false);
     });
-
-    doc.querySelectorAll(SELECTOR_CUSTOM_DROPDOWN_CONTAINER).forEach((container) => {
-        const sourceInput = container.querySelector(SELECTOR_SOURCE_INPUT);
-        const dropdown = new eZ.core.CustomDropdown({
-            container,
-            sourceInput,
-            itemsContainer: container.querySelector(SELECTOR_ITEMS)
-        });
-
-        dropdown.init();
-    });
-})(window, window.document, window.eZ, window.React, window.ReactDOM, window.Translator);
+})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator);

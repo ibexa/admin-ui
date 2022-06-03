@@ -1,76 +1,35 @@
-(function (global, doc, React, ReactDOM, eZ, localStorage) {
-    const KEY_CONTENT_TREE_EXPANDED = 'ez-content-tree-expanded';
-    const CLASS_CONTENT_TREE_EXPANDED = 'ez-content-tree-container--expanded';
-    const CLASS_CONTENT_TREE_ANIMATE = 'ez-content-tree-container--animate';
-    const CLASS_BTN_CONTENT_TREE_EXPANDED = 'ez-btn--content-tree-expanded';
-    const token = doc.querySelector('meta[name="CSRF-Token"]').content;
-    const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
-    const contentTreeContainer = doc.querySelector('.ez-content-tree-container');
-    const contentTreeWrapper = doc.querySelector('.ez-content-tree-container__wrapper');
-    const btn = doc.querySelector('.ez-btn--toggle-content-tree');
-    const { currentLocationPath, treeRootLocationId } = contentTreeContainer.dataset;
-    const userId = window.eZ.helpers.user.getId();
-    let frame = null;
-    const toggleContentTreePanel = () => {
-        doc.activeElement.blur();
-        contentTreeContainer.classList.toggle(CLASS_CONTENT_TREE_EXPANDED);
-        contentTreeContainer.classList.add(CLASS_CONTENT_TREE_ANIMATE);
-        btn.classList.toggle(CLASS_BTN_CONTENT_TREE_EXPANDED);
-        updateContentTreeWrapperHeight();
+(function (global, doc, React, ReactDOM, ibexa) {
+    const contentTreeContainer = doc.querySelector('.ibexa-content-tree-container');
 
-        const isContentTreeExpanded = contentTreeContainer.classList.contains(CLASS_CONTENT_TREE_EXPANDED);
-
-        saveContentTreeExpandedState(userId, isContentTreeExpanded);
-        eZ.helpers.tooltips.hideAll();
-    };
-    const updateContentTreeWrapperHeight = () => {
-        const height = Math.min(window.innerHeight - contentTreeContainer.getBoundingClientRect().top, window.innerHeight);
-
-        contentTreeWrapper.style.height = `${height}px`;
-    };
-    const handleViewportChange = () => {
-        if (frame) {
-            cancelAnimationFrame(frame);
-        }
-
-        frame = requestAnimationFrame(updateContentTreeWrapperHeight);
-    };
-    const saveContentTreeExpandedState = (userId, isExpanded) => {
-        let expandedState = JSON.parse(localStorage.getItem(KEY_CONTENT_TREE_EXPANDED));
-
-        if (!(expandedState instanceof Object)) {
-            expandedState = {};
-        }
-
-        expandedState[userId] = isExpanded;
-
-        localStorage.setItem(KEY_CONTENT_TREE_EXPANDED, JSON.stringify(expandedState));
-    };
-    const isContentTreeExpanded = (userId) => {
-        const expandedState = JSON.parse(localStorage.getItem(KEY_CONTENT_TREE_EXPANDED));
-
-        return expandedState && expandedState[userId];
-    };
-
-    ReactDOM.render(
-        React.createElement(eZ.modules.ContentTree, {
-            userId,
-            currentLocationPath,
-            rootLocationId: parseInt(treeRootLocationId, 10),
-            restInfo: { token, siteaccess },
-        }),
-        contentTreeWrapper
-    );
-
-    btn.addEventListener('click', toggleContentTreePanel, false);
-
-    if (isContentTreeExpanded(userId)) {
-        contentTreeContainer.classList.add(CLASS_CONTENT_TREE_EXPANDED);
-        btn.classList.add(CLASS_BTN_CONTENT_TREE_EXPANDED);
+    if (!contentTreeContainer) {
+        return;
     }
 
-    updateContentTreeWrapperHeight();
+    const token = doc.querySelector('meta[name="CSRF-Token"]').content;
+    const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
+    const contentTreeRootElement = doc.querySelector('.ibexa-content-tree-container__root');
+    const { currentLocationPath, treeRootLocationId } = contentTreeContainer.dataset;
+    const userId = window.ibexa.helpers.user.getId();
+    const removeContentTreeContainerWidth = (event) => {
+        if (event.detail.id !== 'ibexa-content-tree') {
+            return;
+        }
 
-    doc.addEventListener('scroll', handleViewportChange, { capture: false, passive: true });
-    window.addEventListener('resize', handleViewportChange, { capture: false, passive: true });
-})(window, window.document, window.React, window.ReactDOM, window.eZ, window.localStorage);
+        contentTreeContainer.style.width = null;
+    };
+    const renderTree = () => {
+        ReactDOM.render(
+            React.createElement(ibexa.modules.ContentTree, {
+                userId,
+                currentLocationPath,
+                rootLocationId: parseInt(treeRootLocationId, 10),
+                restInfo: { token, siteaccess },
+            }),
+            contentTreeRootElement,
+        );
+    };
+
+    doc.body.addEventListener('ibexa-tb-rendered', removeContentTreeContainerWidth);
+
+    renderTree();
+})(window, window.document, window.React, window.ReactDOM, window.ibexa);

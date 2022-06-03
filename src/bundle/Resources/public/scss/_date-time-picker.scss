@@ -1,0 +1,32 @@
+.ibexa-date-time-picker {
+    max-width: 30ch;
+    position: relative;
+
+    &__input {
+        &[readonly] {
+            background-color: $ibexa-color-white;
+        }
+    }
+
+    .flatpickr-wrapper {
+        width: 100%;
+    }
+
+    .ibexa-input-text-wrapper__actions {
+        top: calculateRem(24px);
+    }
+
+    &--small {
+        .ibexa-input-text-wrapper__actions {
+            top: calculateRem(16px);
+        }
+    }
+
+    &--inline-datetime-popup {
+        .ibexa-date-time-picker {
+            &__input {
+                margin-bottom: calculateRem(4px);
+            }
+        }
+    }
+}

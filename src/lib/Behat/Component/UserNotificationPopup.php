@@ -49,9 +49,9 @@ class UserNotificationPopup extends Component
     {
         return [
             new VisibleCSSLocator('notificationsPopupTitle', '#view-notifications .modal-title'),
-            new VisibleCSSLocator('notificationItem', '.ez-notifications-modal__item'),
-            new VisibleCSSLocator('notificationType', '.ez-notifications-modal__type'),
-            new VisibleCSSLocator('notificationDescription', '.ez-notifications-modal__description'),
+            new VisibleCSSLocator('notificationItem', '.ibexa-notifications-modal__item'),
+            new VisibleCSSLocator('notificationType', '.ibexa-notifications-modal__type'),
+            new VisibleCSSLocator('notificationDescription', '.ibexa-notifications-modal__description'),
         ];
     }
 }
