@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data;
+namespace Ibexa\AdminUi\Form\Data;
 
-use eZ\Publish\API\Repository\Values\User\Policy;
+use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 
 class PolicyData
 {
@@ -82,3 +82,5 @@ class PolicyData
         return $data;
     }
 }
+
+class_alias(PolicyData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\PolicyData');

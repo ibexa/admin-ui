@@ -1,27 +1,31 @@
 .m-ud {
-    background-color: $ibexa-white;
     position: fixed;
     z-index: 99999;
     top: 0;
     left: 0;
     height: 100vh;
     width: 100vw;
+    padding: calculateRem(16px);
+    background-color: $ibexa-color-dark;
 
     .c-grid {
+        overflow-x: hidden;
+        overflow-y: auto;
+
         &__items-wrapper {
             .c-thumbnail {
-                .ez-icon {
+                .ibexa-icon {
                     width: calculateRem(80px);
                     height: calculateRem(80px);
-                    fill: $ibexa-color-base-dark;
+                    fill: $ibexa-color-dark-300;
                 }
             }
         }
 
         &--marked {
             .c-thumbnail {
-                .ez-icon {
-                    fill: $ibexa-black;
+                .ibexa-icon {
+                    fill: $ibexa-color-dark;
                 }
             }
         }
@@ -29,14 +33,14 @@
 
     .c-selected-locations-item {
         .c-thumbnail {
-            .ez-icon {
-                fill: $ibexa-color-base-dark;
+            .ibexa-icon {
+                fill: $ibexa-color-dark-300;
             }
         }
     }
 }
 
-.ez-is-branch-resizing {
+.ibexa-is-branch-resizing {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;

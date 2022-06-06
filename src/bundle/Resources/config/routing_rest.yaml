@@ -2,19 +2,19 @@
 # Bulk Operation
 #
 
-ezplatform.bulk_operation:
+ibexa.rest.bulk_operation:
     path: /bulk
     options:
         expose: true
     defaults:
-        _controller: 'EzSystems\EzPlatformAdminUiBundle\Controller\BulkOperation\BulkOperationController::bulkAction'
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\BulkOperation\BulkOperationController::bulkAction'
     methods: ['POST']
 
 #
 # Location Tree
 #
 
-ezplatform.location.tree.load_children:
+ibexa.rest.location.tree.load_children:
     # @todo change name to content tree
     path: /location/tree/load-subitems/{parentLocationId}/{limit}/{offset}
     methods: ['GET']
@@ -23,15 +23,42 @@ ezplatform.location.tree.load_children:
     requirements:
         parentLocationId: \d+
     defaults:
-        _controller: 'EzSystems\EzPlatformAdminUiBundle\Controller\Content\ContentTreeController::loadChildrenAction'
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\Content\ContentTreeController::loadChildrenAction'
         limit: 10
         offset: 0
 
-ezplatform.location.tree.load_subtree:
+ibexa.rest.location.tree.load_subtree:
     # @todo change name to content tree
     path: /location/tree/load-subtree
     methods: ['POST']
     options:
         expose: true
     defaults:
-        _controller: 'EzSystems\EzPlatformAdminUiBundle\Controller\Content\ContentTreeController::loadSubtreeAction'
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\Content\ContentTreeController::loadSubtreeAction'
+
+#
+# Content type create/edit form
+#
+
+ibexa.content_type.field_definition.create:
+    path: /contenttypegroup/{contentTypeGroupId}/contenttype/{contentTypeId}/add_field_definition/{toLanguageCode}
+    methods: ['POST']
+    controller: 'Ibexa\Bundle\AdminUi\Controller\FieldDefinitionController::addFieldDefinitionAction'
+    defaults:
+        toLanguageCode: ~
+    requirements:
+        contentTypeGroupId: \d+
+
+ibexa.content_type.field_definition.remove:
+    path: /contenttypegroup/{contentTypeGroupId}/contenttype/{contentTypeId}/remove_field_definition
+    methods: ['DELETE']
+    controller: 'Ibexa\Bundle\AdminUi\Controller\FieldDefinitionController::removeFieldDefinitionAction'
+    requirements:
+        contentTypeGroupId: \d+
+
+ibexa.content_type.field_definition.reorder:
+    path: /contenttypegroup/{contentTypeGroupId}/contenttype/{contentTypeId}/reorder_field_definitions
+    methods: ['PUT']
+    controller: 'Ibexa\Bundle\AdminUi\Controller\FieldDefinitionController::reorderFieldDefinitionsAction'
+    requirements:
+        contentTypeGroupId: \d+

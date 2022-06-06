@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\ObjectState;
+namespace Ibexa\AdminUi\Form\Data\ObjectState;
 
 class ObjectStatesDeleteData
 {
-    /** @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectState[]|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[]|null */
     protected $objectStates;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectState[]|null $objectStates
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[]|null $objectStates
      */
     public function __construct(array $objectStates = [])
     {
@@ -22,7 +22,7 @@ class ObjectStatesDeleteData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ObjectState\ObjectState[]|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[]|null
      */
     public function getObjectStates(): ?array
     {
@@ -30,10 +30,12 @@ class ObjectStatesDeleteData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectState[]|null $objectStates
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[]|null $objectStates
      */
     public function setObjectStates(?array $objectStates)
     {
         $this->objectStates = $objectStates;
     }
 }
+
+class_alias(ObjectStatesDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStatesDeleteData');

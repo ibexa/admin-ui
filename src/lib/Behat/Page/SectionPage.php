@@ -9,28 +9,18 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use eZ\Publish\API\Repository\Repository;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
+use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
+use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
-use PHPUnit\Framework\Assert;
+use Ibexa\Contracts\Core\Repository\Repository;
 
 class SectionPage extends Page
 {
-    /** @var string locator for container of Content list */
-    public $secondListContainerLocator = 'section:nth-of-type(2)';
-
-    /** @var \Ibexa\AdminUi\Behat\Component\AdminList[] */
-    public $adminLists;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\AdminList */
-    public $adminList;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog[] */
-    public $dialogs;
-
     /** @var string */
     private $expectedSectionName;
 
@@ -40,24 +30,21 @@ class SectionPage extends Page
     /** @var \Ibexa\AdminUi\Behat\Component\Table\TableInterface */
     private $contentItemsTable;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\TableInterface */
-    private $sectionInformationTable;
-
     /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
     private $dialog;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
     public function __construct(
-        Session $session, Router $router,
+        Session $session,
+        Router $router,
         TableBuilder $tableBuilder,
         Dialog $dialog,
-        Repository $repository)
-    {
+        Repository $repository
+    ) {
         parent::__construct($session, $router);
         $this->contentItemsTable = $tableBuilder->newTable()->withParentLocator($this->getLocator('contentItemsTable'))->build();
-        $this->sectionInformationTable = $tableBuilder->newTable()->withParentLocator($this->getLocator('sectionInfoTable'))->build();
         $this->dialog = $dialog;
         $this->repository = $repository;
     }
@@ -69,7 +56,19 @@ class SectionPage extends Page
 
     public function hasProperties(array $sectionProperties): bool
     {
-        return $this->sectionInformationTable->hasElement($sectionProperties);
+        foreach ($sectionProperties as $label => $value) {
+            $isExpectedValuePresent = $this->getHTMLPage()
+                    ->findAll($this->getLocator('sectionPropertiesItem'))
+                    ->getByCriterion(new ChildElementTextCriterion($this->getLocator('sectionPropertiesLabel'), $label))
+                    ->find($this->getLocator('sectionPropertiesValue'))
+                    ->getText() === $value;
+
+            if (!$isExpectedValuePresent) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function hasAssignedItem(array $elementData): bool
@@ -79,7 +78,10 @@ class SectionPage extends Page
 
     public function edit()
     {
-        $this->sectionInformationTable->getTableRow(['Name' => $this->expectedSectionName])->edit();
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('button'))
+            ->getByCriterion(new ElementTextCriterion('Edit'))
+            ->click();
     }
 
     public function assignContentItems()
@@ -94,7 +96,10 @@ class SectionPage extends Page
 
     public function delete()
     {
-        $this->getHTMLPage()->find($this->getLocator('deleteButton'))->click();
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('button'))
+            ->getByCriterion(new ElementTextCriterion('Delete'))
+            ->click();
         $this->dialog->verifyIsLoaded();
         $this->dialog->confirm();
     }
@@ -102,7 +107,8 @@ class SectionPage extends Page
     protected function getRoute(): string
     {
         return sprintf(
-            '/section/view/%d', $this->expectedSectionId
+            '/section/view/%d',
+            $this->expectedSectionId
         );
     }
 
@@ -125,10 +131,11 @@ class SectionPage extends Page
 
     public function verifyIsLoaded(): void
     {
-        Assert::assertEquals(
-            sprintf('Section: %s', $this->expectedSectionName),
-            $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText()
-        );
+        $this->getHTMLPage()
+            ->setTimeout(3)
+            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('contentItemsTable')))
+            ->find($this->getLocator('pageTitle'))
+            ->assert()->textEquals($this->expectedSectionName);
     }
 
     public function getName(): string
@@ -139,11 +146,14 @@ class SectionPage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-header h1'),
-            new VisibleCSSLocator('contentItemsTable', '.ez-container:nth-of-type(2)'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
+            new VisibleCSSLocator('contentItemsTable', '.ibexa-main-container__content-column .ibexa-table'),
             new VisibleCSSLocator('assignButton', '#section_content_assign_locations_select_content'),
-            new VisibleCSSLocator('sectionInfoTable', '.ez-container:nth-of-type(1)'),
-            new VisibleCSSLocator('deleteButton', 'button[data-original-title="Delete Section"]'),
+            new VisibleCSSLocator('sectionInfoTable', '.ibexa-container .ibexa-table'),
+            new VisibleCSSLocator('button', '.ibexa-btn'),
+            new VisibleCSSLocator('sectionPropertiesItem', '.ibexa-details__item'),
+            new VisibleCSSLocator('sectionPropertiesLabel', '.ibexa-details__item-label'),
+            new VisibleCSSLocator('sectionPropertiesValue', '.ibexa-details__item-content'),
         ];
     }
 }

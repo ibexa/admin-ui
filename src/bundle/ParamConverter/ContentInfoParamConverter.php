@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\ParamConverter;
+namespace Ibexa\Bundle\AdminUi\ParamConverter;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,13 +17,13 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ContentInfoParamConverter implements ParamConverterInterface
 {
-    const PARAMETER_CONTENT_INFO_ID = 'contentInfoId';
+    public const PARAMETER_CONTENT_INFO_ID = 'contentInfoId';
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentTypeService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentTypeService
      */
     public function __construct(ContentService $contentTypeService)
     {
@@ -31,7 +31,7 @@ class ContentInfoParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
@@ -48,10 +48,12 @@ class ContentInfoParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(ParamConverter $configuration)
     {
         return ContentInfo::class === $configuration->getClass();
     }
 }
+
+class_alias(ContentInfoParamConverter::class, 'EzSystems\EzPlatformAdminUiBundle\ParamConverter\ContentInfoParamConverter');

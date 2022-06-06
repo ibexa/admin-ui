@@ -5,6 +5,7 @@
         width: 100%;
         height: 100%;
         border: none;
+        border-radius: $ibexa-border-radius;
     }
 
     &__actions {
@@ -15,24 +16,6 @@
     }
 
     &__cancel-button {
-        background-color: $ibexa-color-base-dark;
-        color: $ibexa-white;
         margin-right: calculateRem(16px);
-
-        &:hover {
-            color: $ibexa-white;
-        }
-    }
-
-    &--footer-visible {
-        .m-content-create {
-            &__iframe {
-                height: calc(100% - #{calculateRem(60px)});
-            }
-
-            &__actions {
-                display: flex;
-            }
-        }
     }
 }

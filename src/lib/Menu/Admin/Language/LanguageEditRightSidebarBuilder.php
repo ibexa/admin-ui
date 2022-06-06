@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu\Admin\Language;
+namespace Ibexa\AdminUi\Menu\Admin\Language;
 
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
-use EzSystems\EzPlatformAdminUi\Menu\AbstractBuilder;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
-use EzSystems\EzPlatformAdminUi\Menu\MenuItemFactory;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\MenuItemFactory;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -24,17 +24,17 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class LanguageEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__SAVE = 'language_edit__sidebar_right__save';
-    const ITEM__CANCEL = 'language_edit__sidebar_right__cancel';
+    public const ITEM__SAVE = 'language_edit__sidebar_right__save';
+    public const ITEM__CANCEL = 'language_edit__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
 
     public function __construct(
-         MenuItemFactory $factory,
-         EventDispatcherInterface $eventDispatcher,
-         TranslatorInterface $translator
-     ) {
+        MenuItemFactory $factory,
+        EventDispatcherInterface $eventDispatcher,
+        TranslatorInterface $translator
+    ) {
         parent::__construct($factory, $eventDispatcher);
 
         $this->translator = $translator;
@@ -59,7 +59,7 @@ class LanguageEditRightSidebarBuilder extends AbstractBuilder implements Transla
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Language $language */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language $language */
         $saveId = $options['save_id'];
 
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
@@ -69,18 +69,17 @@ class LanguageEditRightSidebarBuilder extends AbstractBuilder implements Transla
             self::ITEM__SAVE => $this->createMenuItem(
                 self::ITEM__SAVE,
                 [
+                    'extras' => ['primary' => true],
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => sprintf('#%s', $saveId),
                     ],
-                    'extras' => ['icon' => 'save'],
                 ]
             ),
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'extras' => ['icon' => 'circle-close'],
-                    'route' => 'ezplatform.language.list',
+                    'route' => 'ibexa.language.list',
                 ]
             ),
         ]);
@@ -99,3 +98,5 @@ class LanguageEditRightSidebarBuilder extends AbstractBuilder implements Transla
         ];
     }
 }
+
+class_alias(LanguageEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\Language\LanguageEditRightSidebarBuilder');
