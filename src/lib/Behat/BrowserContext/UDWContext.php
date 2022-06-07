@@ -52,6 +52,14 @@ class UDWContext implements Context
         $this->universalDiscoveryWidget->cancel();
     }
 
+    /**
+     * @When I open Search from UDW
+     */
+    public function iOpenSearchUDW(): void
+    {
+        $this->universalDiscoveryWidget->openSearch();
+    }
+
     /** @When I confirm the selection in UDW */
     public function iConfirmSelection(): void
     {
@@ -96,5 +104,21 @@ class UDWContext implements Context
     public function editSelectedContent(): void
     {
         $this->universalDiscoveryWidget->editSelectedContent();
+    }
+
+    /**
+     * @Given I search for content item :item through UDW
+     */
+    public function searchForContentItem(string $item): void
+    {
+        $this->universalDiscoveryWidget->searchForContent($item);
+    }
+
+    /**
+     * @Given I select :item (content) item in search results through UDW
+     */
+    public function selectItemInSearchResults(string $item): void
+    {
+        $this->universalDiscoveryWidget->selectInSearchResults($item);
     }
 }
