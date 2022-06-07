@@ -10,9 +10,12 @@ namespace Ibexa\AdminUi\UI\Module\ContentTree;
 
 use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode;
 use Ibexa\AdminUi\REST\Value\ContentTree\Node;
+use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
@@ -23,6 +26,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Helper\TranslationHelper;
+use Ibexa\Core\Repository\Repository;
 
 /**
  * @internal
@@ -34,6 +38,8 @@ final class NodeFactory
         'DatePublished' => SortClause\DatePublished::class,
         'ContentName' => SortClause\ContentName::class,
     ];
+
+    private BookmarkService $bookmarkService;
 
     /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
@@ -47,20 +53,30 @@ final class NodeFactory
     /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
+    private PermissionResolver $permissionResolver;
+
+    private Repository $repository;
+
     /** @var int */
     private $maxLocationIdsInSingleAggregation;
 
     public function __construct(
+        BookmarkService $bookmarkService,
         ContentService $contentService,
         SearchService $searchService,
         TranslationHelper $translationHelper,
         ConfigResolverInterface $configResolver,
+        PermissionResolver $permissionResolver,
+        Repository $repository,
         int $maxLocationIdsInSingleAggregation
     ) {
+        $this->bookmarkService = $bookmarkService;
         $this->contentService = $contentService;
         $this->searchService = $searchService;
         $this->translationHelper = $translationHelper;
         $this->configResolver = $configResolver;
+        $this->permissionResolver = $permissionResolver;
+        $this->repository = $repository;
         $this->maxLocationIdsInSingleAggregation = $maxLocationIdsInSingleAggregation;
     }
 
@@ -344,7 +360,19 @@ final class NodeFactory
             $location->invisible || $location->hidden,
             $limit,
             $totalChildrenCount,
+            $this->getReverseRelationsCount($contentInfo),
+            $this->bookmarkService->isBookmarked($location),
             $children
+        );
+    }
+
+    private function getReverseRelationsCount(ContentInfo $contentInfo): int
+    {
+        return $this->permissionResolver->sudo(
+            static function (Repository $repository) use ($contentInfo): int {
+                return $repository->getContentService()->countReverseRelations($contentInfo);
+            },
+            $this->repository
         );
     }
 
