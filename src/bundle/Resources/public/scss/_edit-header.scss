@@ -162,6 +162,10 @@
                 height: 0;
                 overflow: hidden;
             }
+
+            &__title {
+                min-height: calculateRem(34px);
+            }
         }
 
         .ibexa-autosave {
