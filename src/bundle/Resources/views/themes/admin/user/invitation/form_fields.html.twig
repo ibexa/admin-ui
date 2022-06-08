@@ -1,0 +1,23 @@
+{% extends '@ibexadesign/ui/form_fields.html.twig' %}
+
+{% block _user_invitation_emails_entry_widget %}
+    <div class="ibexa-user-invitation-modal__entry">
+        {{ form_widget(form, {
+            wrapper_attr: {
+                class: 'ibexa-user-invitation-modal__entry-email-wrapper',
+            },
+            attr: {
+                type: 'email',
+                class: 'ibexa-user-invitation-modal__entry-email',
+            },
+        }) }}
+        <button
+            type="button"
+            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-user-invitation-modal__entry-delete-btn"
+        >
+            <svg class="ibexa-icon ibexa-icon--small">
+                <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
+            </svg>
+        </button>
+    </div>
+{% endblock %}

@@ -1,0 +1,103 @@
+.ibexa-user-invitation-modal {
+    .modal-body {
+        padding-bottom: 0;
+    }
+
+    &__entries {
+        display: grid;
+        grid-row-gap: calculateRem(14px);
+    }
+
+    &__labels,
+    &__entry {
+        display: grid;
+        align-items: center;
+    }
+
+    &__entry-email-wrapper {
+        margin-right: calculateRem(16px);
+    }
+
+    &__add-next-btn {
+        margin-top: calculateRem(8px);
+    }
+
+    &__upload {
+        margin-top: calculateRem(24px);
+        border-width: calculateRem(1px) 0;
+        border-style: solid;
+        border-color: $ibexa-color-light-500;
+    }
+
+    &__upload-file-message {
+        display: flex;
+        justify-content: center;
+        margin: calculateRem(12px) 0;
+
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__drop {
+        border: calculateRem(1px) dashed $ibexa-color-dark-300;
+        border-radius: $ibexa-border-radius;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: calculateRem(24px);
+
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__drop-message {
+        cursor: auto;
+        font-weight: bold;
+        margin-top: calculateRem(24px);
+        color: $ibexa-color-dark-400;
+    }
+
+    &__or {
+        color: $ibexa-color-dark-400;
+        margin-bottom: calculateRem(8px);
+    }
+
+    &__file-select {
+        margin-bottom: calculateRem(30px);
+    }
+
+    &__uploaded-file {
+        display: flex;
+        align-items: center;
+
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__uploaded-item-icon {
+        margin-right: calculateRem(16px);
+    }
+
+    &__uploaded-item-info,
+    &__uploaded-item-size {
+        font-size: $ibexa-text-font-size-small;
+        color: $ibexa-color-dark-400;
+        margin-left: calculateRem(16px);
+    }
+
+    &__uploaded-item-info {
+        margin-left: auto;
+
+        .ibexa-icon {
+            fill: $ibexa-color-success;
+        }
+    }
+
+    &__uploaded-item-size {
+        margin-left: calculateRem(16px);
+    }
+}

@@ -8,14 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\User;
 
-use Ibexa\AdminUi\Form\Type\Content\ContentInfoType;
-use Ibexa\CorporateAccount\Form\Data\Invitation\SimpleInvitationData;
-use Ibexa\CorporateAccount\Form\Type\Invitation\SimpleInvitationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class UserInvitationType extends AbstractType
 {
@@ -39,7 +37,20 @@ final class UserInvitationType extends AbstractType
             ->add(
                 'send',
                 SubmitType::class,
+                [
+                    'label' => /** @Desc("Send") */ 'user.invitation.submit',
+                    'attr' => [
+                        'class' => 'ibexa-btn ibexa-btn--primary',
+                    ],
+                ]
             )
         ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'translation_domain' => 'forms',
+        ]);
     }
 }

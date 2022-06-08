@@ -1,10 +1,17 @@
 {% extends "@ibexadesign/ui/layout.html.twig" %}
 
-{% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
-
 {% block content %}
-    {{ form_start(form) }}
-    {{ form_widget(form.emails) }}
-    {{ form_widget(form.send) }}
-    {{ form_end(form) }}
+    {% include '@ibexadesign/user/invitation/modal.html.twig' %}
+    <button
+        class="btn ibexa-btn ibexa-btn--tertiary"
+        data-bs-toggle="modal"
+        data-bs-target="#ibexa-user-invitation-modal"
+    >
+        <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
+            <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
+        </svg>
+        <span class="ibexa-btn__label">
+            {{ 'TODO' }}
+        </span>
+    </button>
 {% endblock %}

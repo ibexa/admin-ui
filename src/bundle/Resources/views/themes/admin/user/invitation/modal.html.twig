@@ -1,0 +1,132 @@
+{% form_theme form '@ibexadesign/user/invitation/form_fields.html.twig' %}
+{% trans_default_domain 'user_invitation' %}
+
+{% set entries %}
+    {% block entries %}
+        {% for emails in form.emails %}
+            {{ form_widget(emails) }}
+        {% endfor %}
+    {% endblock %}
+{% endset %}
+
+{% set entry_prototype %}
+    {% block entry_prototype %}
+        {{ form_widget(form.children.emails.vars.prototype) }}
+    {% endblock %}
+{% endset %}
+
+{% set entries_labels %}
+    {% block entries_labels %}
+        <label class="ibexa-label ibexa-user-invitation-modal__label">
+            {{ 'modal.email_address'|trans|desc('Email Address') }}
+        </label>
+    {% endblock %}
+{% endset %}
+
+{% set info = 'modal.info'|trans|desc('Enter your team members email addresses.') %}
+
+{% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
+    title: 'invite_members'|trans|desc('Invite Members'),
+    class: 'ibexa-user-invitation-modal ' ~ extra_class|default(''),
+    id: 'ibexa-user-invitation-modal',
+    size: modal_size|default('medium'),
+} %}
+    {% form_theme form '@ibexadesign/company/invitation/form_fields.html.twig' %}
+    {% trans_default_domain 'user_invitation' %}
+
+    {% block content_before %}
+        {{ form_start(form) }}
+    {% endblock %}
+    {% block body_content %}
+        <div class="ibexa-user-invitation-modal__body">
+            <div class="ibexa-user-invitation-modal__info">
+                {{ info }}
+            </div>
+            <div class="ibexa-user-invitation-modal__main">
+                <div class="ibexa-user-invitation-modal__labels">
+                    {{ entries_labels }}
+                </div>
+                <div
+                    class="ibexa-user-invitation-modal__entries"
+                    data-prototype="{{ entry_prototype|e('html_attr') }}"
+                >
+                    {{ entries }}
+                </div>
+                <button
+                    type="button"
+                    class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-user-invitation-modal__add-next-btn"
+                >
+                    <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
+                        <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
+                    </svg>
+                    <span class="ibexa-btn__label">
+                        {{ 'modal.add_next'|trans|desc('Add next') }}
+                    </span>
+                </button>
+            </div>
+            <div class="ibexa-user-invitation-modal__upload">
+                <div class="ibexa-user-invitation-modal__upload-file-message">
+                    {{ 'modal.or_upload'|trans|desc(
+                        'Or upload a file with one email address per line'
+                    ) }}
+                </div>
+                <div class="ibexa-user-invitation-modal__drop">
+                    <div class="ibexa-user-invitation-modal__drop-message">
+                        {{ 'modal.drop'|trans|desc('Drag and drop file') }}
+                    </div>
+                    <div class="ibexa-user-invitation-modal__or">
+                        {{ 'modal.or'|trans|desc('or') }}
+                    </div>
+                    <button
+                        type="button"
+                        class="btn ibexa-btn ibexa-btn--secondary ibexa-user-invitation-modal__file-select"
+                        tabIndex="-1"
+                    >
+                        {{ 'modal.upload_local'|trans|desc('Upload a local file') }}
+                    </button>
+                    <input
+                        id="ibexa-user-invitation-modal-file-input"
+                        class="ibexa-user-invitation-modal__file-input"
+                        type="file"
+                        name="files"
+                        hidden
+                    />
+                </div>
+                <div class="ibexa-user-invitation-modal__uploaded-file ibexa-user-invitation-modal__uploaded-file--hidden">
+                    <svg class="ibexa-icon ibexa-icon--small ibexa-user-invitation-modal__uploaded-item-icon">
+                        <use xlink:href="{{ ibexa_icon_path('image') }}"></use>
+                    </svg>
+                    <div class="ibexa-user-invitation-modal__uploaded-item-name"></div>
+                    <div class="ibexa-user-invitation-modal__uploaded-item-size"></div>
+                    <div class="ibexa-user-invitation-modal__uploaded-item-info">
+                        <svg class="ibexa-icon ibexa-icon--tiny ibexa-user-invitation-modal__uploaded-item-checkmark">
+                            <use xlink:href="{{ ibexa_icon_path('checkmark') }}"></use>
+                        </svg>
+                        {{ 'modal.fully_uploaded'|trans|desc('100% Uploaded') }}
+                    </div>
+                    <button
+                        type="button"
+                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-user-invitation-modal__uploaded-item-delete-btn"
+                    >
+                        <svg class="ibexa-icon ibexa-icon--small">
+                            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    {% block footer_content %}
+        {{ form_widget(form.send) }}
+        <button
+            type="button"
+            class="btn ibexa-btn ibexa-btn--secondary ibexa-user-invitation-modal__cancel-btn"
+            data-bs-dismiss="modal"
+        >
+            {{ 'modal.cancel.label'|trans|desc('Cancel') }}
+        </button>
+    {% endblock %}
+    {% block content_after %}
+        {{ form_end(form) }}
+    {% endblock %}
+{% endembed %}

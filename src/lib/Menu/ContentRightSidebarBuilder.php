@@ -206,6 +206,10 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
                     self::ITEM__INVITE,
                     [
                         'extras' => ['orderNumber' => 15],
+                        'attributes' => [
+                            'data-bs-toggle' => 'modal',
+                            'data-bs-target' => '#ibexa-user-invitation-modal',
+                        ]
                     ]
                 )
             );

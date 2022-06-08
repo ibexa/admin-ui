@@ -91,18 +91,20 @@ final class InvitationController
                     /** @todo refresh invitation? */
                     $this->notificationHandler->info(
                     /** @Desc("Invitations for %email% already exists") */
-                        'ibexa.corporate_accounts.invitations.invitation_exist',
+                        'ibexa.user.invitations.invitation_exist',
                         [
                             'email' => $struct->getEmail(),
-                        ]
+                        ],
+                        'user_invitation'
                     );
                 } catch (UserAlreadyExistsException $exception) {
                     $this->notificationHandler->info(
                     /** @Desc("User with %email% already exists") */
-                        'ibexa.corporate_accounts.invitations.user_exist',
+                        'ibexa.user.invitations.user_exist',
                         [
                             'email' => $struct->getEmail(),
-                        ]
+                        ],
+                        'user_invitation'
                     );
                 }
             }
@@ -110,7 +112,9 @@ final class InvitationController
             if ($atLeastOneWasSent) {
                 $this->notificationHandler->success(
                 /** @Desc("Invitations sent") */
-                    'ibexa.corporate_accounts.invitations.success',
+                    'ibexa.user.invitations.success',
+                    [],
+                    'user_invitation'
                 );
 
                 return new RedirectResponse($this->urlGenerator->generate('ibexa.content.view', [

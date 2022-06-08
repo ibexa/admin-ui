@@ -20,8 +20,10 @@ use Ibexa\AdminUi\Form\Data\User\UserEditData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentEditTranslationChoiceLoader;
 use Ibexa\AdminUi\Form\Type\Content\ContentVisibilityUpdateType;
+use Ibexa\AdminUi\Form\Type\User\UserInvitationType;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\AdminUi\Specification\ContentIsUser;
+use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
 use Ibexa\AdminUi\UI\Module\Subitems\ContentViewParameterSupplier as SubitemsContentViewParameterSupplier;
 use Ibexa\AdminUi\UI\Service\PathService;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
@@ -175,6 +177,7 @@ class ContentViewController extends Controller
         $this->supplyRolePagination($view, $request);
         $this->supplyPolicyPagination($view, $request);
         $this->supplyIsLocationBookmarked($view);
+        $this->supplyUserInvitation($view);
 
         return $view;
     }
@@ -524,6 +527,35 @@ class ContentViewController extends Controller
         );
 
         $view->addParameters(['content_has_reverse_relations' => $hasReverseRelations]);
+    }
+
+    /**
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
+     */
+    private function supplyUserInvitation(ContentView $view): void
+    {
+        $content = $view->getContent();
+        $contentType = $this->contentTypeService->loadContentType(
+            $view->getContent()->contentInfo->contentTypeId,
+            $this->userLanguagePreferenceProvider->getPreferredLanguages()
+        );
+        $contentIsUserGroup = (new ContentTypeIsUserGroup($this->configResolver->getParameter('user_group_content_type_identifier')))
+            ->isSatisfiedBy($contentType);
+        $canSendInvitation = $this->permissionResolver->canUser(
+            'user',
+            'invite',
+            $content
+        );
+
+        if ($contentIsUserGroup && $canSendInvitation) {
+            $userInvitation = $this->sfFormFactory->create(
+                UserInvitationType::class
+            );
+
+            $view->addParameters([
+                'form_user_invitation' => $userInvitation->createView(),
+            ]);
+        }
     }
 }
 
