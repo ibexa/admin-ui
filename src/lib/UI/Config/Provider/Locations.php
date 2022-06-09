@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Config\Provider;
+namespace Ibexa\AdminUi\UI\Config\Provider;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzPlatformAdminUi\UI\Config\ProviderInterface;
+use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 final class Locations implements ProviderInterface
 {
@@ -17,7 +17,7 @@ final class Locations implements ProviderInterface
     private const CONTENT_STRUCTURE_IDENTIFIER = 'contentStructure';
     private const USERS_IDENTIFIER = 'users';
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -35,3 +35,5 @@ final class Locations implements ProviderInterface
         ];
     }
 }
+
+class_alias(Locations::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Locations');

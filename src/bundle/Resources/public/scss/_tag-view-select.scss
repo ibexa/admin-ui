@@ -1,0 +1,111 @@
+.ibexa-tag-view-select {
+    border: calculateRem(1px) solid $ibexa-color-dark-200;
+    border-radius: $ibexa-border-radius;
+    padding: calculateRem(24px);
+
+    &__info {
+        @include ibexa-font-sans-serif();
+
+        font-size: $ibexa-text-font-size-medium;
+        color: $ibexa-color-black;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__selected-list {
+        display: flex;
+        flex-wrap: wrap;
+        margin: calculateRem(10px) 0;
+        min-height: calculateRem(24px);
+    }
+
+    &__selected-item-tag {
+        display: inline-flex;
+        align-items: center;
+        height: calculateRem(24px);
+        max-width: 100%;
+        padding: 0 calculateRem(8px);
+        border-radius: $ibexa-border-radius;
+        background-color: $ibexa-color-light-400;
+        font-size: $ibexa-text-font-size-small;
+        line-height: calculateRem(18px);
+        margin-top: calculateRem(5px);
+        margin-bottom: calculateRem(5px);
+
+        &:not(:last-of-type) {
+            margin-right: calculateRem(8px);
+        }
+
+        &--ellipsized {
+            .ibexa-tag-view-select {
+                &__selected-item-tag-content {
+                    &--start {
+                        margin-right: calculateRem(-10px);
+                    }
+
+                    &--end {
+                        margin-left: calculateRem(-10px);
+                        width: initial;
+                    }
+                }
+
+                &__selected-item-tag-ellipsize {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+
+    &__selected-item-tag-ellipsize {
+        display: none;
+    }
+
+    &__selected-item-tag-content {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: transparent;
+
+        &--start {
+            width: 100%;
+
+            .ibexa-tag-view-select__selected-item-tag-content-ellipsized {
+                color: $ibexa-color-black;
+            }
+        }
+
+        &--end {
+            width: 0;
+            direction: rtl;
+            text-align: right;
+
+            .ibexa-tag-view-select__selected-item-tag-content-ellipsized {
+                color: $ibexa-color-black;
+            }
+        }
+    }
+
+    &__selected-item-tag-remove-btn {
+        padding: 0;
+        margin-left: calculateRem(12px);
+        display: flex;
+    }
+
+    &:disabled,
+    &[disabled] {
+        border-color: $ibexa-color-light;
+
+        .ibexa-tag-view-select {
+            &__info {
+                color: $ibexa-color-dark-300;
+            }
+
+            &__selected_item {
+                color: $ibexa-color-dark-400;
+                fill: $ibexa-color-dark-400;
+                background-color: $ibexa-color-light-300;
+            }
+        }
+    }
+}

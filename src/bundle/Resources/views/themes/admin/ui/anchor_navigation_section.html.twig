@@ -1,0 +1,12 @@
+ <div
+    data-anchor-section-id="#{{ anchor_section_key|slug }}"
+    class="row ibexa-anchor-navigation-sections__section {{ anchor_section_class|default('') }}"
+>
+    {% block anchor_section_content %}
+        <div class="offset-1 col-7">
+            {% block anchor_section_header %}{% endblock %}
+            {% block anchor_section_body %}{% endblock %}
+            {% block anchor_section_footer %}{% endblock %}
+        </div>
+    {% endblock %}
+</div>

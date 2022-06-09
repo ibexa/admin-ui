@@ -1,9 +1,10 @@
-.ez-trash-search-form {
+.ibexa-trash-search-form {
     margin: calculateRem(16px) 0;
 
     &__inputs-group {
         display: flex;
         justify-content: space-between;
+        flex-flow: wrap;
     }
 
     &__item {
@@ -17,24 +18,24 @@
         &--creator {
             position: relative;
 
-            .ez-trash-search-form {
+            .ibexa-trash-search-form {
                 &__input-wrapper {
                     position: relative;
                 }
 
                 &__input {
-                    + .ez-icon {
+                    + .ibexa-icon {
                         display: none;
                     }
 
                     &:disabled {
                         cursor: auto;
-                        background-color: $ibexa-white;
-                        color: $ibexa-black;
+                        background-color: $ibexa-color-white;
+                        color: $ibexa-color-black;
                         padding-right: calculateRem(32px);
                         text-overflow: ellipsis;
 
-                        & + .ez-icon {
+                        & + .ibexa-icon {
                             display: block;
                             position: absolute;
                             bottom: calculateRem(7px);
@@ -55,7 +56,7 @@
         min-width: 100%;
         border-radius: calculateRem(5px);
         margin-bottom: 0;
-        background-color: $ibexa-color-base-light;
+        background-color: $ibexa-color-light-200;
         max-height: calculateRem(300px);
         overflow: auto;
         transform: scaleY(1);
@@ -73,12 +74,12 @@
     }
 
     &__input {
-        &:disabled + .ez-btn--reset-creator {
+        &:disabled + .ibexa-btn--reset-creator {
             display: block;
         }
     }
 
-    .ez-btn--reset-creator {
+    .ibexa-btn--reset-creator {
         display: none;
         position: absolute;
         right: calculateRem(5px);
@@ -89,8 +90,8 @@
         height: 0;
         opacity: 0;
         margin-top: calculateRem(8px);
-        background: $ibexa-white;
-        border: calculateRem(1px) solid $ibexa-white;
+        background: $ibexa-color-white;
+        border: calculateRem(1px) solid $ibexa-color-white;
         border-radius: calculateRem(4px);
         transition: all 0.2s ease-in;
         pointer-events: none;

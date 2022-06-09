@@ -47,8 +47,6 @@ const Pagination = ({ totalCount, itemsPerPage, proximity, activePageIndex, onPa
         return null;
     }
 
-    const backLabel = Translator.trans(/*@Desc("Back")*/ 'pagination.back', {}, 'sub_items');
-    const nextLabel = Translator.trans(/*@Desc("Next")*/ 'pagination.next', {}, 'sub_items');
     const previousPage = activePageIndex - 1;
     const nextPage = activePageIndex + 1;
     const isFirstPage = activePageIndex === 0;
@@ -56,12 +54,14 @@ const Pagination = ({ totalCount, itemsPerPage, proximity, activePageIndex, onPa
     const pages = computePages({ proximity, activePageIndex, pagesCount, separator: DOTS });
     const paginationButtons = pages.map((page, index) => {
         if (page === DOTS) {
-            return <PaginationButton key={`dots-${index}`} label={DOTS} disabled={true} />;
+            const key = `dots-${index}`;
+
+            return <PaginationButton key={key} label={DOTS} disabled={true} />;
         }
 
         const isCurrentPage = page === activePageIndex + 1;
         const additionalClasses = isCurrentPage ? 'active' : '';
-        const label = '' + page;
+        const label = `${page}`;
 
         return (
             <PaginationButton
@@ -76,10 +76,9 @@ const Pagination = ({ totalCount, itemsPerPage, proximity, activePageIndex, onPa
     });
 
     return (
-        <ul className="c-pagination pagination">
+        <ul className="c-pagination pagination ibexa-pagination__navigation">
             <PaginationButton
                 pageIndex={previousPage}
-                label={backLabel}
                 additionalClasses="prev"
                 disabled={isFirstPage || paginationDisabled}
                 onPageChange={onPageChange}
@@ -87,7 +86,6 @@ const Pagination = ({ totalCount, itemsPerPage, proximity, activePageIndex, onPa
             {paginationButtons}
             <PaginationButton
                 pageIndex={nextPage}
-                label={nextLabel}
                 additionalClasses="next"
                 disabled={isLastPage || paginationDisabled}
                 onPageChange={onPageChange}

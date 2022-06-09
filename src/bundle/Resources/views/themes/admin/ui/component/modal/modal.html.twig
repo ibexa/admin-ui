@@ -1,0 +1,118 @@
+{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+
+{% set no_header = no_header|default(false) %}
+
+{% set size = size|default('') %}
+{% if size == 'small' %}
+    {% set size_class = 'modal-sm' %}
+{% elseif size == 'large' %}
+    {% set size_class = 'modal-lg' %}
+{% elseif size == 'extra-large' %}
+    {% set size_class = 'modal-xl' %}
+{% endif %}
+
+{% set attr = attr|default({})|merge({
+    class: ('modal fade ibexa-modal '
+        ~ (subtitle|default(false) ? 'ibexa-modal--has-subtitle ' : '')
+        ~ (no_header|default(false) ? 'ibexa-modal--no-header ')
+        ~ (no_header_border|default(false) ? 'ibexa-modal--no-header-border ')
+        ~ class|default('') ~ ' '
+        ~ attr.class|default(''))|trim,
+    tabindex: attr.tabindex|default('-1'),
+    role: attr.role|default('dialog'),
+}) %}
+
+{% if id is defined %}
+    {% set attr = attr|default({})|merge({
+        id,
+    }) %}
+{% endif %}
+
+{% if has_static_backdrop|default(false) %}
+    {% set attr = attr|merge({
+        'data-bs-backdrop': attr['data-bs-backdrop']|default('static')
+    }) %}
+{% endif %}
+
+{% set attr_dialog = attr_dialog|default({})|merge({
+    class: ('modal-dialog '
+        ~ (size_class is defined ? size_class ~ ' ')
+        ~ attr_dialog.class|default(''))|trim,
+    role: attr_dialog.role|default('document'),
+}) %}
+
+{% set attr_content = attr_content|default({})|merge({
+    class: ('modal-content '
+        ~ attr_content.class|default(''))|trim,
+}) %}
+
+{% set attr_title = attr_title|default({})|merge({
+    class: ('modal-title ' ~ attr_title.class|default(''))|trim,
+}) %}
+
+{% set close_btn_title = 'close_btn.title'|trans({}, 'modal')|desc('Close') %}
+{% set close_btn_aria_label = 'close_btn.aria_label'|trans({}, 'modal')|desc('Close') %}
+{% set attr_close_btn = attr_close_btn|default({})|merge({
+    class: ('close ' ~ attr_close_btn.class|default(''))|trim,
+    type: attr_close_btn.type|default('button'),
+    title: attr_close_btn.title|default(close_btn_title),
+    'data-bs-dismiss': attr_close_btn['data-bs-dismiss']|default('modal'),
+    'aria-label': attr_close_btn['aria-label']|default(close_btn_aria_label),
+}) %}
+
+{% set close_btn %}
+    <button {{ html.attributes(attr_close_btn) }}>
+        <svg
+            class="ibexa-icon ibexa-icon--small-medium"
+            aria-hidden="true"
+        >
+            <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
+        </svg>
+    </button>
+{% endset %}
+
+<div {{ html.attributes(attr) }}>
+    {% block dialog %}
+        <div {{ html.attributes(attr_dialog) }}>
+            {% block content_before %}{% endblock %}
+            {% block content %}
+                <div {{ html.attributes(attr_content) }}>
+                    {% block header %}
+                        {% if no_header %}
+                            {{ close_btn }}
+                        {% else %}
+                            <div class="modal-header">
+                                <h5 {{ html.attributes(attr_title) }}>
+                                    {{ title|default('') }}
+                                </h5>
+                                {{ close_btn }}
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                    {% block subheader %}
+                        {% if subtitle is defined %}
+                            <div class="ibexa-modal__subheader">
+                                {{ subtitle }}
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                    {% block body %}
+                        {% if block('body_content') is defined %}
+                            <div class="modal-body">
+                                {{ block('body_content') }}
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                    {% block footer %}
+                        {% if block('footer_content') is defined %}
+                            <div class="modal-footer">
+                                {{ block('footer_content') }}
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                </div>
+            {% endblock %}
+            {% block content_after %}{% endblock %}
+        </div>
+    {% endblock %}
+</div>

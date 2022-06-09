@@ -9,12 +9,13 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Component\Component;
+use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
+use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
 
 class UniversalDiscoveryWidget extends Component
 {
@@ -34,13 +35,16 @@ class UniversalDiscoveryWidget extends Component
         $itemName = $pathParts[count($pathParts) - 1];
 
         if ($this->isMultiSelect()) {
-            $this->addItemToMultiselection($itemName, count($pathParts));
+            $this->addItemToMultiSelection($itemName, count($pathParts));
         }
     }
 
     public function confirm(): void
     {
         $this->getHTMLPage()->find($this->getLocator('confirmButton'))->click();
+        $this->getHTMLPage()
+            ->setTimeout(3)
+            ->waitUntilCondition(new ElementNotExistsCondition($this->getHTMLPage(), $this->getLocator('udw')));
     }
 
     public function cancel(): void
@@ -48,46 +52,25 @@ class UniversalDiscoveryWidget extends Component
         $this->getHTMLPage()->find($this->getLocator('cancelButton'))->click();
     }
 
-    public function openPreview(): void
+    public function openSearch(): void
     {
-        $this->getHTMLPage()->setTimeout(self::SHORT_TIMEOUT)->find($this->getLocator('previewButton'))->click();
+        $this->getHTMLPage()->find($this->getLocator('searchButton'))->click();
     }
 
     public function verifyIsLoaded(): void
     {
-        $expectedTabTitles = ['Browse', 'Bookmarks', 'Search'];
-
-        $tabs = $this->getHTMLPage()->findAll($this->getLocator('categoryTabSelector'));
-        $foundExpectedTitles = [];
-        foreach ($tabs as $tab) {
-            $tabText = $tab->getText();
-            if (in_array($tabText, $expectedTabTitles)) {
-                $foundExpectedTitles[] = $tabText;
-            }
-        }
-
-        Assert::assertEquals($expectedTabTitles, $foundExpectedTitles);
+        $this->getHTMLPage()->find($this->getLocator('udw'))->assert()->isVisible();
     }
 
     protected function isMultiSelect(): bool
     {
-        return $this->getHTMLPage()
-            ->setTimeout(self::SHORT_TIMEOUT)
-            ->findAll($this->getLocator('multiSelectAddButton'))
-            ->any()
-        ;
+        return $this->getHTMLPage()->setTimeout(0)->findAll($this->getLocator('multiselect'))->any();
     }
 
     protected function addItemToMultiSelection(string $itemName, int $level): void
     {
-        $currentSelectedItemLocator = new CSSLocator('currentSelectedItem', sprintf($this->getLocator('treeLevelSelectedFormat')->getSelector(), $level));
-        $this->getHTMLPage()->findAll($currentSelectedItemLocator)->getByCriterion(new ElementTextCriterion($itemName))->mouseOver();
-
-        $addItemLocator = new CSSLocator('addItemLocator', sprintf($this->getLocator('currentlySelectedAddItemButtonFormat')->getSelector(), $level));
-        $this->getHTMLPage()->find($addItemLocator)->click();
-
-        $addedItemLocator = new CSSLocator('addedItemLocator', sprintf($this->getLocator('currentlySelectedItemAddedFormat')->getSelector(), $level));
-        Assert::assertTrue($this->getHTMLPage()->find($addedItemLocator)->isVisible());
+        $treeElementsLocator = new CSSLocator('', sprintf($this->getLocator('treeLevelElementsFormat')->getSelector(), $level));
+        $this->getHTMLPage()->findAll($treeElementsLocator)->getByCriterion(new ElementTextCriterion($itemName))->find($this->getLocator('input'))->click();
     }
 
     protected function selectTreeBranch(string $itemName, int $level): void
@@ -113,17 +96,7 @@ class UniversalDiscoveryWidget extends Component
         $treeElementsLocator = new CSSLocator('', sprintf($this->getLocator('treeLevelElementsFormat')->getSelector(), $level));
         $selectedTreeElementLocator = new CSSLocator('', sprintf($this->getLocator('treeLevelSelectedFormat')->getSelector(), $level));
 
-        if ($this->getHTMLPage()->findAll($treeElementsLocator)->count() % 50 === 0) {
-            $scrollableElement = new VisibleCSSLocator('scrollable', sprintf(
-                    '.c-finder-branch:nth-of-type(%d) .c-finder-branch__items-wrapper', $level)
-            );
-            $this->getHTMLPage()->find($scrollableElement)->scrollToBottom($this->getSession());
-            $this->getHTMLPage()
-                ->setTimeout(3)
-                ->waitUntilCondition(new ElementNotExistsCondition($this->getHTMLPage(), $this->getLocator('loadMoreSpinner')));
-        }
-
-        $this->getHTMLPage()->findAll($treeElementsLocator)->getByCriterion(new ElementTextCriterion($itemName))->click();
+        $this->getHTMLPage()->findAll($treeElementsLocator)->getByCriterion(new ElementTextCriterion($itemName))->find($this->getLocator('elementName'))->click();
         $this->getHTMLPage()->findAll($selectedTreeElementLocator)->getByCriterion(new ElementTextCriterion($itemName))->assert()->isVisible();
 
         if ($willNextLevelBeReloaded) {
@@ -147,7 +120,7 @@ class UniversalDiscoveryWidget extends Component
 
     public function bookmarkContentItem(): void
     {
-        $this->getHTMLPage()->find($this->getLocator('bookmarkButton'))->click();
+        $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('bookmarkButton'))->click();
         $this->getHTMLPage()->setTimeout(3)->waitUntil(function () {
             return $this->isBookmarked();
         }, 'The icon did not change to bookmarked one');
@@ -155,29 +128,36 @@ class UniversalDiscoveryWidget extends Component
 
     public function isBookmarked(): bool
     {
-        $htmlFragment = $this->getHTMLPage()
-            ->find($this->getLocator('bookmarkButton'))
-            ->getOuterHtml();
-
-        return strpos($htmlFragment, 'bookmark-active') !== false;
+        return $this->getHTMLPage()->find($this->getLocator('bookmarkButton'))->getText() === 'Remove from bookmarks';
     }
 
-    public function changeTab(string $tabName): void
+    public function changeTab($tabName): void
     {
         $this->getHTMLPage()->findAll($this->getLocator('categoryTabSelector'))
-             ->getByCriterion(new ElementTextCriterion($tabName))
-             ->click();
-
-        $this->getHTMLPage()->find($this->getLocator('selectedTab'))->assert()->textEquals($tabName);
+             ->getByCriterion(new ElementAttributeCriterion('data-bs-original-title', $tabName))->click();
+        $this->getHTMLPage()->findAll($this->getLocator('selectedTab'))
+             ->getByCriterion(new ElementAttributeCriterion('title', $tabName))->assert()->isVisible();
     }
 
     public function selectBookmark(string $bookmarkName): void
     {
-        $this->getHTMLPage()->findAll($this->getLocator('bookmarkedItem'))
-             ->getByCriterion(new ElementTextCriterion($bookmarkName))
-             ->click();
+        $this->getHTMLPage()->setTimeout(self::SHORT_TIMEOUT)->findAll($this->getLocator('bookmarkedItem'))
+            ->getByCriterion(new ElementTextCriterion($bookmarkName))
+            ->click();
 
         $this->getHTMLPage()->find($this->getLocator('markedBookmarkedItem'))->assert()->textEquals($bookmarkName);
+    }
+
+    public function editSelectedContent(): void
+    {
+        $this->getHTMLPage()->setTimeout(self::SHORT_TIMEOUT)->find($this->getLocator('editButton'))->click();
+        $iframeLocator = $this->getLocator('iframe');
+        $script = sprintf("document.querySelector('%s').setAttribute('name','editIframe')", $iframeLocator->getSelector());
+        $this->getHTMLPage()->setTimeout(self::SHORT_TIMEOUT)->waitUntilCondition(
+            new ElementExistsCondition($this->getHTMLPage(), $iframeLocator)
+        );
+        $this->getHTMLPage()->executeJavaScript($script);
+        $this->getSession()->switchToIFrame('editIframe');
     }
 
     public function searchForContent(string $name): void
@@ -188,7 +168,7 @@ class UniversalDiscoveryWidget extends Component
         $this->getHTMLPage()
             ->setTimeout(self::SHORT_TIMEOUT)
             ->find($this->getLocator('searchResults'))
-            ->assert()->textContains('Search results');
+            ->assert()->textContains('Results for');
     }
 
     public function selectInSearchResults(string $name): void
@@ -203,32 +183,32 @@ class UniversalDiscoveryWidget extends Component
     {
         return [
             // general selectors
-            new CSSLocator('confirmButton', '.c-selected-locations__confirm-button'),
-            new CSSLocator('categoryTabSelector', '.c-tab-selector__item'),
+            new VisibleCSSLocator('udw', '.m-ud'),
+            new CSSLocator('confirmButton', '.c-actions-menu__confirm-btn'),
             new CSSLocator('cancelButton', '.c-top-menu__cancel-btn'),
             new CSSLocator('mainWindow', '.m-ud'),
             new CSSLocator('selectedLocationsTab', '.c-selected-locations'),
+            new CSSLocator('categoryTabSelector', '.c-tab-selector__item'),
             new CSSLocator('selectedTab', '.c-tab-selector__item--selected'),
+            new VisibleCSSLocator('iframe', '.c-content-edit__iframe'),
+            new VisibleCSSLocator('multiselect', '.m-ud .c-finder-leaf .ibexa-input--checkbox'),
             // selectors for path traversal
             new CSSLocator('treeLevelFormat', '.c-finder-branch:nth-child(%d)'),
             new CSSLocator('treeLevelElementsFormat', '.c-finder-branch:nth-of-type(%d) .c-finder-leaf'),
+            new CSSLocator('elementName', '.c-finder-leaf__name'),
+            new CSSLocator('input', '.c-udw-toggle-selection'),
             new CSSLocator('treeLevelSelectedFormat', '.c-finder-branch:nth-of-type(%d) .c-finder-leaf--marked'),
-            new VisibleCSSLocator('loadMoreSpinner', '.c-finder-branch__loading-spinner'),
-            // selectors for multiitem selection
-            new CSSLocator('multiSelectAddButton', '.c-toggle-selection-button'),
             // itemActions
-            new CSSLocator('previewButton', '.c-content-meta-preview__preview-button'),
-            new CSSLocator('currentlySelectedItemAddedFormat', '.c-finder-branch:nth-of-type(%d) .c-finder-leaf--marked .c-toggle-selection-button.c-toggle-selection-button--selected'),
-            new CSSLocator('currentlySelectedAddItemButtonFormat', '.c-finder-branch:nth-of-type(%d) .c-finder-leaf--marked .c-toggle-selection-button'),
+            new CSSLocator('editButton', '.c-content-edit-button__btn'),
             // bookmarks
             new VisibleCSSLocator('bookmarkButton', '.c-content-meta-preview__toggle-bookmark-button'),
             new VisibleCSSLocator('bookmarkedItem', '.c-bookmarks-list__item-name'),
             new VisibleCSSLocator('markedBookmarkedItem', '.c-bookmarks-list__item--marked'),
             // search
-            new VisibleCSSLocator('inputField', '.c-search__input'),
-            new VisibleCSSLocator('searchButton', '.c-search__search-btn'),
-            new VisibleCSSLocator('searchResults', '.c-content-table__title'),
-            new VisibleCSSLocator('targetResult', '.c-content-table-item td:nth-child(2)'),
+            new VisibleCSSLocator('inputField', '.c-top-menu-search-input__search-input'),
+            new VisibleCSSLocator('searchButton', '.c-top-menu-search-input__search-btn'),
+            new VisibleCSSLocator('searchResults', '.c-search__table-title'),
+            new VisibleCSSLocator('targetResult', '.ibexa-table__row td:nth-child(2)'),
         ];
     }
 

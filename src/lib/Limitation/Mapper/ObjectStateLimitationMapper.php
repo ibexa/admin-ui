@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Limitation\Mapper;
+namespace Ibexa\AdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\ObjectStateService;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use EzSystems\EzPlatformAdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\ObjectStateService;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
@@ -19,7 +19,7 @@ class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implement
     use LoggerAwareTrait;
 
     /**
-     * @var \eZ\Publish\API\Repository\ObjectStateService
+     * @var \Ibexa\Contracts\Core\Repository\ObjectStateService
      */
     private $objectStateService;
 
@@ -69,3 +69,5 @@ class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implement
         return $groupName . ':' . $stateName;
     }
 }
+
+class_alias(ObjectStateLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\ObjectStateLimitationMapper');

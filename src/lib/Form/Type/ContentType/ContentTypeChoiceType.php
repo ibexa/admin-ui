@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\ContentType;
+namespace Ibexa\AdminUi\Form\Type\ContentType;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader;
+use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,15 +19,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ContentTypeChoiceType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     protected $contentTypeService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader */
+    /** @var \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader */
     private $contentTypeChoiceLoader;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
-     * @param \EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader $contentTypeChoiceLoader
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
+     * @param \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader $contentTypeChoiceLoader
      */
     public function __construct(
         ContentTypeService $contentTypeService,
@@ -53,3 +53,5 @@ class ContentTypeChoiceType extends AbstractType
             ]);
     }
 }
+
+class_alias(ContentTypeChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\ContentTypeChoiceType');
