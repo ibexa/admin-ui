@@ -1,195 +1,211 @@
 import { fileSizeToString } from '@ibexa-admin-ui/src/bundle/ui-dev/src/modules/multi-file-upload/helpers/text.helper';
 
-(function (global, doc, ibexa) {
-    const modal = doc.querySelector('.ibexa-user-invitation-modal');
+export class UserInvitationModal {
+    constructor(options = {}) {
+        if (!options.modal) {
+            throw new Error('No valid modal option provided');
+        }
 
-    if (!modal) {
-        return;
+        this.modal = options.modal;
+        this.addNextBtn = this.modal.querySelector('.ibexa-user-invitation-modal__add-next-btn');
+        this.entriesContainer = this.modal.querySelector('.ibexa-user-invitation-modal__entries');
+        this.entryPrototype = this.entriesContainer.dataset.prototype;
+        this.fileUploadMessage = this.modal.querySelector('.ibexa-user-invitation-modal__upload-file-message');
+        this.dropZone = this.modal.querySelector('.ibexa-user-invitation-modal__drop');
+        this.uploadLocalFileBtn = this.modal.querySelector('.ibexa-user-invitation-modal__file-select');
+        this.fileInput = this.modal.querySelector('.ibexa-user-invitation-modal__file-input');
+        this.uploadedFileNode = this.modal.querySelector('.ibexa-user-invitation-modal__uploaded-file');
+        this.uploadedItemNameNode = this.uploadedFileNode.querySelector('.ibexa-user-invitation-modal__uploaded-item-name');
+        this.uploadedItemSizeNode = this.uploadedFileNode.querySelector('.ibexa-user-invitation-modal__uploaded-item-size');
+        this.uploadedFileDeleteBtn = this.uploadedFileNode.querySelector('.ibexa-user-invitation-modal__uploaded-item-delete-btn');
+        this.initialEntries = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
+
+        this.attachEntryListeners = this.attachEntryListeners.bind(this);
+        this.preventDefaultAction = this.preventDefaultAction.bind(this);
+        this.handleEntryAdd = this.handleEntryAdd.bind(this);
+        this.handleEntryDelete = this.handleEntryDelete.bind(this);
+        this.handleDropUpload = this.handleDropUpload.bind(this);
+        this.handleInputUpload = this.handleInputUpload.bind(this);
+        this.handleFileDelete = this.handleFileDelete.bind(this);
     }
 
-    const addNextBtn = doc.querySelector('.ibexa-user-invitation-modal__add-next-btn');
-    const entriesContainer = doc.querySelector('.ibexa-user-invitation-modal__entries');
-    const entryPrototype = entriesContainer.dataset.prototype;
-    const fileUploadMessage = doc.querySelector('.ibexa-user-invitation-modal__upload-file-message');
-    const dropZone = doc.querySelector('.ibexa-user-invitation-modal__drop');
-    const uploadLocalFileBtn = doc.querySelector('.ibexa-user-invitation-modal__file-select');
-    const fileInput = doc.querySelector('.ibexa-user-invitation-modal__file-input');
-    const uploadedFileNode = doc.querySelector('.ibexa-user-invitation-modal__uploaded-file');
-    const uploadedItemNameNode = uploadedFileNode.querySelector('.ibexa-user-invitation-modal__uploaded-item-name');
-    const uploadedItemSizeNode = uploadedFileNode.querySelector('.ibexa-user-invitation-modal__uploaded-item-size');
-    const uploadedFileDeleteBtn = uploadedFileNode.querySelector('.ibexa-user-invitation-modal__uploaded-item-delete-btn');
-    const initialEntries = entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
-    let entryCounter = doc.querySelectorAll('.ibexa-user-invitation-modal__entry').length;
-    const addEntry = (isFileRelated = false, invitationData = null) => {
-        const entryPrototypeRendered = entryPrototype.replaceAll('__name__', entryCounter);
+    processCSVInvitationFile() {
+        throw new Error('processCSVInvitationFile should be overridden in subclass.');
+    }
 
-        entryCounter = entryCounter + 1;
-        entriesContainer.insertAdjacentHTML('beforeend', entryPrototypeRendered);
+    // eslint-disable-next-line no-unused-vars
+    resetEntry(entry) {
+        throw new Error('resetEntry should be overridden in subclass.');
+    }
 
-        const insertedEntry = entriesContainer.querySelector(':scope > :last-child');
+    isEntryEmpty(entry) {
+        throw new Error('isEntryEmpty should be overridden in subclass.');
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    addEntry(isFileRelated = false, invitationData = null) {
+        const entryPrototypeRendered = this.entryPrototype.replaceAll('__name__', this.entryCounter);
+
+        this.entryCounter = this.entryCounter + 1;
+        this.entriesContainer.insertAdjacentHTML('beforeend', entryPrototypeRendered);
+
+        const insertedEntry = this.entriesContainer.querySelector(':scope > :last-child');
 
         if (isFileRelated) {
             insertedEntry.classList.add('ibexa-user-invitation-modal__entry--file-related');
         }
 
-        attachEntryListeners(insertedEntry);
+        this.attachEntryListeners(insertedEntry);
 
-        modal.dispatchEvent(
-            new CustomEvent('ibexa-user-invitation-modal:entry-added', {
-                detail: {
-                    insertedEntry,
-                    isFileRelated,
-                    invitationData,
-                },
-            }),
-        );
-    };
-    const deleteEntry = (entry, isForceRemove = false) => {
-        const entryNodes = entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
+        return { insertedEntry };
+    }
+
+    deleteEntry(entry, isForceRemove = false) {
+        const entryNodes = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
         const isLastEntry = entryNodes.length === 1;
 
+        console.log('d1')
         if (isLastEntry && !isForceRemove) {
-            modal.dispatchEvent(
-                new CustomEvent('ibexa-user-invitation-modal:reset-entry', {
-                    detail: {
-                        entry,
-                    },
-                }),
-            );
+            this.resetEntry(entry);
         } else {
             entry.remove();
         }
-    };
-    const deleteTrailingEntriesIfEmpty = () => {
-        const lastEntry = entriesContainer.querySelector(':scope > :last-child');
+    }
+
+    deleteTrailingEntriesIfEmpty() {
+        const lastEntry = this.entriesContainer.querySelector(':scope > :last-child');
 
         if (!lastEntry) {
+
             return;
         }
 
-        const emailInput = lastEntry.querySelector('.ibexa-user-invitation-modal__entry-email');
-        const dropdownNode = lastEntry.querySelector('.ibexa-dropdown');
-        const dropdown = ibexa.helpers.objectInstances.getInstance(dropdownNode);
-        const dropdownSelectedOption = dropdown.getSelectedItems()[0];
-        const dropdownFirstOption = dropdownNode.querySelector('.ibexa-dropdown__source option');
-
-        if (!emailInput.value && dropdownSelectedOption === dropdownFirstOption) {
-            deleteEntry(lastEntry, true);
-            deleteTrailingEntriesIfEmpty();
+        if (this.isEntryEmpty(lastEntry)) {
+            this.deleteEntry(lastEntry, true);
+            this.deleteTrailingEntriesIfEmpty();
         }
-    };
-    const handleEntryAdd = () => {
-        addEntry();
-    };
-    const handleEntryDelete = (event) => {
+    }
+
+    handleEntryAdd() {
+        this.addEntry();
+    }
+
+    handleEntryDelete(event) {
         const deleteBtn = event.currentTarget;
         const entry = deleteBtn.closest('.ibexa-user-invitation-modal__entry');
 
-        deleteEntry(entry);
-    };
-    const attachEntryListeners = (entry) => {
+        this.deleteEntry(entry);
+    }
+
+    attachEntryListeners(entry) {
         const deleteEntryBtn = entry.querySelector('.ibexa-user-invitation-modal__entry-delete-btn');
 
-        deleteEntryBtn.addEventListener('click', handleEntryDelete, false);
-    };
-    const handleFileDelete = () => {
-        const fileRelatedEntries = entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry--file-related');
-        const entriesCount = entriesContainer.children.length;
+        deleteEntryBtn.addEventListener('click', this.handleEntryDelete, false);
+    }
+
+    handleFileDelete() {
+        const fileRelatedEntries = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry--file-related');
+        const entriesCount = this.entriesContainer.children.length;
         const areAllEntriesFileRelated = fileRelatedEntries.length === entriesCount;
 
-        fileRelatedEntries.forEach((entry) => deleteEntry(entry));
-        toggleUpload(false);
-        toggleUploadedFileInfo(true);
+        fileRelatedEntries.forEach((entry) => this.deleteEntry(entry, true));
+        this.toggleUpload(false);
+        this.toggleUploadedFileInfo(true);
 
         if (areAllEntriesFileRelated) {
-            addEntry();
+            console.log('asdf')
+            this.addEntry();
         }
-    };
-    const toggleUpload = (isForceHide) => {
-        fileUploadMessage.classList.toggle('ibexa-user-invitation-modal__upload-file-message--hidden', isForceHide);
-        dropZone.classList.toggle('ibexa-user-invitation-modal__drop--hidden', isForceHide);
-    };
-    const toggleUploadedFileInfo = (isForceHide) => {
-        uploadedFileNode.classList.toggle('ibexa-user-invitation-modal__uploaded-file--hidden', isForceHide);
-    };
-    const setUploadedFileData = (name, size) => {
-        uploadedItemNameNode.innerText = name;
-        uploadedItemSizeNode.innerText = fileSizeToString(size);
-    };
-    const clearForm = () => {
-        const entries = entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
+    }
 
-        entries.forEach((entry) => deleteEntry(entry));
-        toggleUpload(false);
-        toggleUploadedFileInfo(true);
-    };
-    const preventDefaultAction = (event) => {
+    toggleUpload(isForceHide) {
+        this.fileUploadMessage.classList.toggle('ibexa-user-invitation-modal__upload-file-message--hidden', isForceHide);
+        this.dropZone.classList.toggle('ibexa-user-invitation-modal__drop--hidden', isForceHide);
+    }
+
+    toggleUploadedFileInfo(isForceHide) {
+        this.uploadedFileNode.classList.toggle('ibexa-user-invitation-modal__uploaded-file--hidden', isForceHide);
+    }
+
+    setUploadedFileData(name, size) {
+        this.uploadedItemNameNode.innerText = name;
+        this.uploadedItemSizeNode.innerText = fileSizeToString(size);
+    }
+
+    clearForm() {
+        const entries = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
+
+        entries.forEach((entry) => this.deleteEntry(entry));
+        this.toggleUpload(false);
+        this.toggleUploadedFileInfo(true);
+    }
+
+    preventDefaultAction(event) {
         event.preventDefault();
         event.stopPropagation();
-    };
-    const handleInvitationFile = (file) => {
-        setUploadedFileData(file.name, file.size);
-        toggleUpload(true);
-        toggleUploadedFileInfo(false);
+    }
 
-        modal.dispatchEvent(
-            new CustomEvent('ibexa-user-invitation-modal:process-file', {
-                detail: {
-                    file,
-                    callback: (invitationsData)=> {
-                        deleteTrailingEntriesIfEmpty();
-                        invitationsData.forEach((invitationData) => {
-                            addEntry(true, invitationData);
-                        })
-                    }
-                },
-            }),
-        );
-    };
-    const handleInputUpload = (event) => {
-        preventDefaultAction(event);
+    handleInvitationFile(file) {
+        this.setUploadedFileData(file.name, file.size);
+        this.toggleUpload(true);
+        this.toggleUploadedFileInfo(false);
+        this.processCSVInvitationFile(file).then((invitationsData) => {
+            this.deleteTrailingEntriesIfEmpty();
+            invitationsData.forEach((invitationData) => {
+                this.addEntry(true, invitationData);
+            });
+        });
+    }
 
-        const file = fileInput.files[0];
+    handleInputUpload(event) {
+        this.preventDefaultAction(event);
+
+        const file = this.fileInput.files[0];
 
         if (file) {
-            handleInvitationFile(file);
+            this.handleInvitationFile(file);
         }
-    };
-    const handleDropUpload = (event) => {
-        preventDefaultAction(event);
+    }
+
+    handleDropUpload(event) {
+        this.preventDefaultAction(event);
 
         const file = event.dataTransfer.files[0];
 
         if (file) {
-            handleInvitationFile(file);
+            this.handleInvitationFile(file);
         }
-    };
+    }
 
-    initialEntries.forEach(attachEntryListeners);
+    init() {
+        this.entryCounter = this.modal.querySelectorAll('.ibexa-user-invitation-modal__entry').length;
 
-    modal.addEventListener('shown.bs.modal', function () {
-        window.addEventListener('drop', preventDefaultAction, false);
-        window.addEventListener('dragover', preventDefaultAction, false);
-    });
+        this.initialEntries.forEach(this.attachEntryListeners);
 
-    modal.addEventListener('hidden.bs.modal', function () {
-        window.removeEventListener('drop', preventDefaultAction, false);
-        window.removeEventListener('dragover', preventDefaultAction, false);
-        clearForm();
-    });
+        this.modal.addEventListener('shown.bs.modal', () => {
+            window.addEventListener('drop', this.preventDefaultAction, false);
+            window.addEventListener('dragover', this.preventDefaultAction, false);
+        });
 
-    addNextBtn.addEventListener('click', handleEntryAdd, false);
+        this.modal.addEventListener('hidden.bs.modal', () => {
+            window.removeEventListener('drop', this.preventDefaultAction, false);
+            window.removeEventListener('dragover', this.preventDefaultAction, false);
+            this.clearForm();
+        });
 
-    dropZone.addEventListener('drop', handleDropUpload, false);
-    uploadLocalFileBtn.addEventListener(
-        'click',
-        (event) => {
-            event.preventDefault();
-            fileInput.value = '';
-            fileInput.click();
-        },
-        false,
-    );
-    fileInput.addEventListener('change', handleInputUpload, false);
-    uploadedFileDeleteBtn.addEventListener('click', handleFileDelete, false);
-})(window, window.document, window.ibexa);
+        this.addNextBtn.addEventListener('click', this.handleEntryAdd, false);
+
+        this.dropZone.addEventListener('drop', this.handleDropUpload, false);
+        this.uploadLocalFileBtn.addEventListener(
+            'click',
+            (event) => {
+                event.preventDefault();
+                this.fileInput.value = '';
+                this.fileInput.click();
+            },
+            false,
+        );
+        this.fileInput.addEventListener('change', this.handleInputUpload, false);
+        this.uploadedFileDeleteBtn.addEventListener('click', this.handleFileDelete, false);
+    }
+}

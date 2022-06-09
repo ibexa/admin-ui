@@ -1,3 +1,5 @@
+import { UserInvitationModal } from './user.invitation.modal';
+
 (function (global, doc) {
     const modal = doc.querySelector('.ibexa-user-group-invitation');
 
@@ -5,41 +7,40 @@
         return;
     }
 
-    const processCSVInvitationFile = (file) => {
-        return file.text().then((text) => {
-            const lineRegexp = /^([^;\r\n]+)$/gm;
-            const matchedData = [...text.matchAll(lineRegexp)];
-            const invitationsData = matchedData.map(([, email, role]) => [email, role]);
+    class UserGroupInvitationModal extends UserInvitationModal {
+        processCSVInvitationFile(file) {
+            return file.text().then((text) => {
+                const lineRegexp = /^([^;\r\n]+)$/gm;
+                const matchedData = [...text.matchAll(lineRegexp)];
+                const invitationsData = matchedData.map(([, email, role]) => [email, role]);
 
-            return invitationsData;
-        });
-    };
-    const handleEntryAdded = (event) => {
-        const {
-            detail: { insertedEntry, invitationData },
-        } = event;
-        const email = invitationData?.email ?? null;
-        const emailInput = insertedEntry.querySelector('.ibexa-user-invitation-modal__entry-email');
+                return invitationsData;
+            });
+        }
 
-        emailInput.value = email;
-    };
-    const handleEntryReset = (event) => {
-        const {
-            detail: { entry },
-        } = event;
-        const emailInput = entry.querySelector('.ibexa-user-invitation-modal__entry-email');
+        resetEntry(entry) {
+            const emailInput = entry.querySelector('.ibexa-user-group-invitation__entry-email');
 
-        emailInput.value = null;
-    };
-    const handleFileProcess = (event) => {
-        const {
-            detail: { file, callback },
-        } = event;
+            emailInput.value = null;
+        }
 
-        processCSVInvitationFile(file).then(callback);
-    };
+        isEntryEmpty(entry) {
+            const emailInput = entry.querySelector('.ibexa-user-group-invitation__entry-email');
 
-    modal.addEventListener('ibexa-user-invitation-modal:entry-added', handleEntryAdded, false);
-    modal.addEventListener('ibexa-user-invitation-modal:reset-entry', handleEntryReset, false);
-    modal.addEventListener('ibexa-user-invitation-modal:process-file', handleFileProcess, false);
+            return !emailInput.value;
+        }
+
+        addEntry(isFileRelated = false, invitationData = null) {
+            const { insertedEntry } = super.addEntry(isFileRelated, invitationData);
+
+            const email = invitationData?.email ?? null;
+            const emailInput = insertedEntry.querySelector('.ibexa-user-group-invitation__entry-email');
+
+            emailInput.value = email;
+        }
+    }
+
+    const userInvitationModal = new UserGroupInvitationModal({ modal });
+
+    userInvitationModal.init();
 })(window, window.document, window.ibexa);
