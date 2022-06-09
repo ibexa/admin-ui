@@ -1,6 +1,8 @@
 .ibexa-user-group-invitation {
-    .ibexa-user-invitation-modal__labels,
-    .ibexa-user-invitation-modal__entry {
-        grid-template-columns: 1fr calculateRem(48px);
+    .ibexa-user-invitation-modal {
+        &__labels,
+        &__entry {
+            grid-template-columns: 1fr calculateRem(48px);
+        }
     }
 }

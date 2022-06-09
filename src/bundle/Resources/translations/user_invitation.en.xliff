@@ -41,20 +41,10 @@
         <target state="new">Drag and drop file</target>
         <note>key: modal.drop</note>
       </trans-unit>
-      <trans-unit id="0ac5837ba570c72c15eae58ab98735697a790528" resname="modal.email_address">
-        <source>Email Address</source>
-        <target state="new">Email Address</target>
-        <note>key: modal.email_address</note>
-      </trans-unit>
       <trans-unit id="7d791f0b05b55fccb086c613f460c5d28150dab3" resname="modal.fully_uploaded">
         <source>100% Uploaded</source>
         <target state="new">100% Uploaded</target>
         <note>key: modal.fully_uploaded</note>
-      </trans-unit>
-      <trans-unit id="b57923cd51800de1a02208a4765ab1b14d437c50" resname="modal.info">
-        <source>Enter your team members email addresses.</source>
-        <target state="new">Enter your team members email addresses.</target>
-        <note>key: modal.info</note>
       </trans-unit>
       <trans-unit id="490ee1463548a5ef886d6620191efeda447f2404" resname="modal.or">
         <source>or</source>

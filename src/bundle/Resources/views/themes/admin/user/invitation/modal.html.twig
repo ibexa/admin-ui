@@ -1,29 +1,16 @@
-{% form_theme form '@ibexadesign/user/invitation/form_fields.html.twig' %}
 {% trans_default_domain 'user_invitation' %}
 
 {% set entries %}
-    {% block entries %}
-        {% for emails in form.emails %}
-            {{ form_widget(emails) }}
-        {% endfor %}
-    {% endblock %}
+    {% block entries %}{% endblock %}
 {% endset %}
 
 {% set entry_prototype %}
-    {% block entry_prototype %}
-        {{ form_widget(form.children.emails.vars.prototype) }}
-    {% endblock %}
+    {% block entry_prototype %}{% endblock %}
 {% endset %}
 
 {% set entries_labels %}
-    {% block entries_labels %}
-        <label class="ibexa-label ibexa-user-invitation-modal__label">
-            {{ 'modal.email_address'|trans|desc('Email Address') }}
-        </label>
-    {% endblock %}
+    {% block entries_labels %}{% endblock %}
 {% endset %}
-
-{% set info = 'modal.info'|trans|desc('Enter your team members email addresses.') %}
 
 {% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
     title: 'invite_members'|trans|desc('Invite Members'),

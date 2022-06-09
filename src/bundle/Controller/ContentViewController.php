@@ -555,8 +555,8 @@ class ContentViewController extends Controller
                     'action' => $this->generateUrl(
                         'ibexa.user.invite.to_group',
                         [
-                        'userGroupId' => $content->contentInfo->id,
-                    ]
+                            'userGroupId' => $content->contentInfo->id,
+                        ]
                     ),
                     'method' => Request::METHOD_POST,
                 ]
