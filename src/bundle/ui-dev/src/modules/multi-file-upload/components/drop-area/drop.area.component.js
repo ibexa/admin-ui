@@ -38,6 +38,8 @@ export default class DropAreaComponent extends Component {
     handleUpload(event) {
         this.props.preventDefaultAction(event);
         this.props.addItemsToUpload(this.props.processUploadedFiles(event));
+
+        event.currentTarget.value = null;
     }
 
     componentDidMount() {
