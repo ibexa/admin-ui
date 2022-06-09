@@ -1,5 +1,5 @@
 (function (global, doc) {
-    const modal = doc.querySelector('.ibexa-user-invitation-modal');
+    const modal = doc.querySelector('.ibexa-user-group-invitation');
 
     if (!modal) {
         return;
