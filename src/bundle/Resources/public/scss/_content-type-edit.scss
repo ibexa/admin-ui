@@ -89,6 +89,7 @@
 
                     &__body-content {
                         padding: 0 calculateRem(24px) calculateRem(20px);
+                        min-height: calculateRem(410px);
                     }
                 }
             }
@@ -103,6 +104,10 @@
                 border-radius: $ibexa-border-radius;
                 border: calculateRem(1px) solid $ibexa-color-light;
                 box-shadow: $ibexa-content-type-edit-field-shadow;
+
+                &:hover {
+                    border-color: $ibexa-color-dark;
+                }
 
                 .ibexa-collapse {
                     &__header {
@@ -157,6 +162,40 @@
                             }
                         }
                     }
+                }
+            }
+
+            &--field-definition-highlight {
+                border-color: $ibexa-color-info;
+
+                .ibexa-collapse__header {
+                    background-color: $ibexa-color-info-100;
+                }
+
+                .ibexa-collapse__header-label {
+                    color: $ibexa-color-info;
+                }
+
+                .ibexa-collapse__draggable-btn .ibexa-icon,
+                .ibexa-icon {
+                    fill: $ibexa-color-info;
+                }
+            }
+
+            &--field-definition-error {
+                border-color: $ibexa-color-danger;
+
+                .ibexa-collapse__header {
+                    background-color: $ibexa-color-danger-100;
+                }
+
+                .ibexa-collapse__header-label {
+                    color: $ibexa-color-danger;
+                }
+
+                .ibexa-collapse__draggable-btn .ibexa-icon,
+                .ibexa-icon {
+                    fill: $ibexa-color-danger;
                 }
             }
 
