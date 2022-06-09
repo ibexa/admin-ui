@@ -90,7 +90,7 @@ final class InvitationController
                 } catch (InvitationAlreadyExistsException $exception) {
                     /** @todo refresh invitation? */
                     $this->notificationHandler->info(
-                    /** @Desc("Invitations for %email% already exists") */
+                        /** @Desc("Invitations for %email% already exists") */
                         'ibexa.user.invitations.invitation_exist',
                         [
                             'email' => $struct->getEmail(),
@@ -99,7 +99,7 @@ final class InvitationController
                     );
                 } catch (UserAlreadyExistsException $exception) {
                     $this->notificationHandler->info(
-                    /** @Desc("User with %email% already exists") */
+                        /** @Desc("User with %email% already exists") */
                         'ibexa.user.invitations.user_exist',
                         [
                             'email' => $struct->getEmail(),
@@ -111,7 +111,7 @@ final class InvitationController
 
             if ($atLeastOneWasSent) {
                 $this->notificationHandler->success(
-                /** @Desc("Invitations sent") */
+                    /** @Desc("Invitations sent") */
                     'ibexa.user.invitations.success',
                     [],
                     'user_invitation'

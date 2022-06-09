@@ -549,7 +549,17 @@ class ContentViewController extends Controller
 
         if ($contentIsUserGroup && $canSendInvitation) {
             $userInvitation = $this->sfFormFactory->create(
-                UserInvitationType::class
+                UserInvitationType::class,
+                null,
+                [
+                    'action' => $this->generateUrl(
+                        'ibexa.user.invite.to_group',
+                        [
+                        'userGroupId' => $content->contentInfo->id,
+                    ]
+                    ),
+                    'method' => Request::METHOD_POST,
+                ]
             );
 
             $view->addParameters([

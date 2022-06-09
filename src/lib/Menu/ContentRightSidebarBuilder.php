@@ -209,7 +209,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
                         'attributes' => [
                             'data-bs-toggle' => 'modal',
                             'data-bs-target' => '#ibexa-user-invitation-modal',
-                        ]
+                        ],
                     ]
                 )
             );
