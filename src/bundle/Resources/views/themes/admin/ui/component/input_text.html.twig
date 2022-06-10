@@ -19,7 +19,7 @@
                 </svg>
             </button>
             {% if has_search %}
-                <button type="submit" class="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search" tabindex="-1">
+                <button type="{{ search_button_type|default('submit') }}" class="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search" tabindex="-1">
                     <svg class="ibexa-icon ibexa-icon--small">
                         <use xlink:href="{{ ibexa_icon_path('search') }}"></use>
                     </svg>
