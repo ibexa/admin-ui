@@ -296,9 +296,9 @@
             });
 
             groups.forEach((group) => {
-                const isHidden = !group.querySelectorAll('.ibexa-dropdown__item:not(.ibexa-dropdown__item--hidden)').length;
+                const areAllItemsHidden = !group.querySelectorAll('.ibexa-dropdown__item:not(.ibexa-dropdown__item--hidden)').length;
 
-                group.classList.toggle('ibexa-dropdown__item-group--hidden', isHidden);
+                group.classList.toggle('ibexa-dropdown__item-group--hidden', areAllItemsHidden);
             });
 
             if (separator && !hideSeparator) {
