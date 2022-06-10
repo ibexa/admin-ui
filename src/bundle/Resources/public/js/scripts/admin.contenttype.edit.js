@@ -87,7 +87,6 @@
 
         fieldNode.classList.add('ibexa-collapse--field-definition-highlight');
         targetContainer.insertBefore(fieldNode, targetPlace);
-        removeDragPlaceholders();
 
         return fieldNode;
     };
@@ -129,6 +128,7 @@
     const insertFieldDefinitionNode = (fieldNode) => {
         const fieldDefinitionNode = createFieldDefinitionNode(fieldNode);
 
+        removeDragPlaceholders();
         attachFieldDefinitionNodeEvents(fieldDefinitionNode);
         dispatchInsertFieldDefinitionNode(fieldDefinitionNode);
 
@@ -215,6 +215,7 @@
     };
     const reorderFields = () => {
         createFieldDefinitionNode(currentDraggedItem);
+        removeDragPlaceholders();
 
         const fieldsOrder = [...doc.querySelectorAll('.ibexa-collapse--field-definition')].map(
             (fieldDefinition) => fieldDefinition.dataset.fieldDefinitionIdentifier,
