@@ -358,23 +358,6 @@
             &__selection-info {
                 border: none;
                 padding: 0 calculateRem(16px);
-
-                &::before {
-                    display: none;
-                }
-
-                &:after {
-                    content: '';
-                    position: absolute;
-                    right: calculateRem(8px);
-                    width: 0;
-                    height: 0;
-                    border-style: solid;
-                    border-width: calculateRem(6px) calculateRem(3px) 0 calculateRem(3px);
-                    border-color: $ibexa-color-dark transparent transparent transparent;
-                    transform: translate(0, -50%);
-                    background: none;
-                }
             }
         }
     }
