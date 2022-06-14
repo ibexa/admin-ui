@@ -276,6 +276,7 @@
         filterItems(event) {
             const forceShowItems = event.currentTarget.value.length < MINIMUM_LETTERS_TO_FILTER;
             const allItems = [...this.itemsListContainer.querySelectorAll('[data-filter-value]')];
+            const groups = [...this.itemsListContainer.querySelectorAll('.ibexa-dropdown__item-group')];
             const separator = this.itemsListContainer.querySelector('.ibexa-dropdown__separator');
             let hideSeparator = true;
 
@@ -292,6 +293,12 @@
                 }
 
                 item.classList.toggle('ibexa-dropdown__item--hidden', !isItemVisible);
+            });
+
+            groups.forEach((group) => {
+                const areAllItemsHidden = !group.querySelectorAll('.ibexa-dropdown__item:not(.ibexa-dropdown__item--hidden)').length;
+
+                group.classList.toggle('ibexa-dropdown__item-group--hidden', areAllItemsHidden);
             });
 
             if (separator && !hideSeparator) {
