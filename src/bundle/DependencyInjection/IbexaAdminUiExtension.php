@@ -6,13 +6,12 @@
  */
 namespace Ibexa\Bundle\AdminUi\DependencyInjection;
 
+use Ibexa\Contracts\Core\Container\Encore\ConfigurationDumper as IbexaEncoreConfigurationDumper;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Yaml\Yaml;
 
@@ -72,13 +71,9 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
             $loader->load('services/test/components.yaml');
         }
 
-        $bundlesMetadata = $container->getParameter('kernel.bundles_metadata');
-        $rootPath = $container->getParameter('kernel.project_dir') . '/';
-        $targetPath = 'var/encore';
-
-        foreach (self::WEBPACK_CONFIG_NAMES as $configName => $configFiles) {
-            $this->dumpConfigurationPathsToFile($configName, $configFiles, $rootPath, $targetPath, $bundlesMetadata);
-        }
+        (new IbexaEncoreConfigurationDumper($container))->dumpCustomConfiguration(
+            self::WEBPACK_CONFIG_NAMES
+        );
     }
 
     /**
@@ -159,57 +154,6 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
                 ],
             ],
         ]);
-    }
-
-    /**
-     * Looks for Resources/encore/ files in every registered and enabled bundle.
-     * Dumps json list of paths to files it finds.
-     *
-     * @param string $targetPath Where to put Ibexa Encore paths configuration file (default: var/encore)
-     */
-    private function dumpConfigurationPathsToFile(
-        string $configName,
-        array $configFiles,
-        string $rootPath,
-        string $targetPath,
-        array $bundlesMetadata
-    ): void {
-        $filesystem = new Filesystem();
-        $paths = [];
-
-        foreach ($configFiles as $configFile => $options) {
-            $finder = new Finder();
-            $finder
-                ->in(array_column($bundlesMetadata, 'path'))
-                ->path('Resources/encore')
-                ->name($configFile)
-                ->files();
-
-            /** @var \Symfony\Component\Finder\SplFileInfo $fileInfo */
-            foreach ($finder as $fileInfo) {
-                if ($options['deprecated'] ?? false) {
-                    trigger_deprecation(
-                        'ibexa/admin-ui',
-                        '4.0.0',
-                        'Support for old configuration files is deprecated, please update name of %s file, to %s',
-                        $fileInfo->getPathname(),
-                        $options['alternative']
-                    );
-                }
-
-                $paths[] = preg_replace(
-                    '/^' . preg_quote($rootPath, '/') . '/',
-                    './',
-                    $fileInfo->getRealPath()
-                );
-            }
-        }
-
-        $filesystem->mkdir($rootPath . '/' . $targetPath);
-        $filesystem->dumpFile(
-            $rootPath . $targetPath . '/' . $configName,
-            sprintf('module.exports = %s;', json_encode($paths))
-        );
     }
 
     private function shouldLoadTestServices(ContainerBuilder $container): bool
