@@ -251,6 +251,12 @@
         }
     }
 
+    &__item-group {
+        &--hidden {
+            display: none;
+        }
+    }
+
     &__item-group-label {
         font-weight: bold;
     }
