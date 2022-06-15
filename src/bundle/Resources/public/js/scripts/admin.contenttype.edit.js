@@ -1,5 +1,4 @@
 (function (global, doc, ibexa, Routing, Translator) {
-    const TIMEOUT_REMOVE_PLACEHOLDERS = 1500;
     const SELECTOR_INPUTS_TO_VALIDATE = '.ibexa-input[required]:not([disabled]):not([hidden])';
     let targetContainer = null;
     let sourceContainer = null;
@@ -439,7 +438,6 @@
         const draggable = new FieldDefinitionDraggable({
             itemsContainer: collapseCotentNode,
             selectorItem: '.ibexa-collapse--field-definition',
-            timeoutRemovePlaceholders: TIMEOUT_REMOVE_PLACEHOLDERS,
             selectorPlaceholder: '.ibexa-field-definitions-placeholder',
             selectorPreventDrag: '.ibexa-collapse__body',
         });
