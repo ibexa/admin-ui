@@ -7,6 +7,7 @@
         ~ (no_labels|default(false) ? 'ibexa-adaptive-filters--no-labels ')
         ~ (no_collapsible_items|default(false) ? 'ibexa-adaptive-filters--no-collapsible-items ')
         ~ (is_inside_container|default(false) ? 'ibexa-adaptive-filters--inside-container ')
+        ~ (is_inside_tabs|default(false) ? 'ibexa-adaptive-filters--inside-tabs ')
         ~ attr.class|default(''))|trim,
 }) %}
 {% set attr_form = attr_form|default({}) %}
