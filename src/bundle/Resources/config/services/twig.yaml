@@ -25,3 +25,7 @@ services:
             - '@Ibexa\AdminUi\Limitation\Templating\LimitationBlockRenderer'
         tags:
             - { name: twig.extension }
+
+    Ibexa\Bundle\AdminUi\Templating\Twig\IntlExtension:
+        tags:
+            - { name: twig.extension }

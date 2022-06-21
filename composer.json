@@ -45,6 +45,7 @@
         "symfony/options-resolver": "^5.0",
         "symfony/asset": "^5.0",
         "symfony/yaml": "^5.0",
+        "symfony/intl": "^5.0",
         "jms/translation-bundle": "^1.5",
         "ibexa/core": "~4.2.0@dev",
         "ibexa/content-forms": "~4.2.0@dev",
