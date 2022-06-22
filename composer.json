@@ -46,7 +46,7 @@
         "symfony/asset": "^5.0",
         "symfony/yaml": "^5.0",
         "jms/translation-bundle": "^1.5",
-        "ibexa/core": "~4.1.0@dev",
+        "ibexa/core": "~4.1.6@dev",
         "ibexa/content-forms": "~4.1.0@dev",
         "ibexa/design-engine": "~4.1.0@dev",
         "ibexa/user": "~4.1.0@dev",
