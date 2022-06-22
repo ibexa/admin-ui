@@ -16,17 +16,19 @@
             <span class="ibexa-header-user-menu__notice-dot ibexa-header-user-menu__notice-dot--no-notice"></span>
         </div>
         <button class="ibexa-header-user-menu__toggler">
-            {% if user_image.mimeType == "image/svg+xml" %}
-                <svg width="30" height="30" xmlns="http://www.w3.org/2000/svg">
-                    <use xlink:href="{{ user_image.resource }}"></use>
-                </svg>
-            {% else %}
-                <img
-                    class="ibexa-header-user-menu__image"
-                    src="{{ user_image.resource }}"
-                    alt="{{ user.name }}"
-                />
-            {% endif %}
+            <div class="ibexa-header-user-menu__thumbnail">
+                {% if user_image.mimeType == "image/svg+xml" %}
+                    <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                        <use xlink:href="{{ user_image.resource }}"></use>
+                    </svg>
+                {% else %}
+                    <img
+                        class="ibexa-header-user-menu__image"
+                        src="{{ user_image.resource }}"
+                        alt="{{ user.name }}"
+                    />
+                {% endif %}
+            </div>
         </button>
 
         {{ include('@ibexadesign/account/notifications/modal.html.twig') }}
