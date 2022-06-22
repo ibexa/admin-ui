@@ -29,6 +29,12 @@
         margin: calculateRem(-33px) calculateRem(-33px) calculateRem(24px) calculateRem(-33px);
     }
 
+    &--inside-tabs {
+        margin: calculateRem(-11px) calculateRem(-25px) 0 calculateRem(-25px);
+        border-top: 0;
+        border-radius: 0 0 $ibexa-border-radius $ibexa-border-radius;
+    }
+
     &__visible {
         display: flex;
         align-items: flex-end;

@@ -23,14 +23,6 @@
         font-size: $ibexa-text-font-size-small;
     }
 
-    &__image {
-        width: calculateRem(30px);
-        height: calculateRem(30px);
-        border: calculateRem(3px) solid $ibexa-color-black;
-        border-radius: 50%;
-        cursor: pointer;
-    }
-
     &__toggler {
         display: flex;
         align-items: center;
@@ -46,6 +38,12 @@
             border-right: calculateRem(4px) solid transparent;
             border-top: calculateRem(4px) solid $ibexa-color-white;
         }
+    }
+
+    &__thumbnail-wrapper {
+        display: flex;
+        border: calculateRem(3px) solid $ibexa-color-black;
+        border-radius: 50%;
     }
 
     &__notifications-toggler {
