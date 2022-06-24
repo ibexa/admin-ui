@@ -2,26 +2,22 @@
 
 {% set user_image = user_content.thumbnail %}
 
-{% set attr = attr|default({})|merge({
-    class: ('ibexa-user-thumbnail ' ~ attr.class|default(''))|trim,
-}) %}
-
 {% if user_image.mimeType == 'image/svg+xml' %}
-    {% set attr_svg = attr|merge(attr_svg|default({}))|merge({
-        class: ('ibexa-user-thumbnail--svg ' ~ attr.class|default('') ~ attr_svg.class|default(''))|trim,
-        width: attr_svg.width is defined ? attr_svg.width : (attr.width is defined ? attr.width : '24'),
-        height: attr_svg.height is defined ? attr_svg.height : (attr.height is defined ? attr.height : '24'),
-        xmlns: attr_svg.xmlns is defined ? attr_svg.xmlns : (attr.xmlns is defined ? attr.xmlns : 'http://www.w3.org/2000/svg'),
+    {% set attr_svg = attr_svg|default({})|merge({
+        class: ('ibexa-user-thumbnail--svg ' ~ attr_svg.class|default(''))|trim,
+        width: attr_svg.width is defined ? attr_svg.width : '24',
+        height: attr_svg.height is defined ? attr_svg.height : '24',
+        xmlns: attr_svg.xmlns is defined ? attr_svg.xmlns : 'http://www.w3.org/2000/svg',
     }) %}
 
     <svg {{ html.attributes(attr_svg|default({})) }}>
         <use xlink:href="{{ user_image.resource }}"></use>
     </svg>
 {% else %}
-    {% set attr_img = attr|merge(attr_img|default({}))|merge({
-        class: ('ibexa-user-thumbnail--img ' ~ attr.class|default('') ~ attr_img.class|default(''))|trim,
-        src: attr_img.src is defined ? attr_img.src : (attr.src is defined ? attr.src : user_image.resource),
-        alt: attr_img.alt is defined ? attr_img.alt : (attr.alt is defined ? attr.alt : user.name),
+    {% set attr_img = attr_img|default({})|merge({
+        class: ('ibexa-user-thumbnail--img ' ~ attr_img.class|default(''))|trim,
+        src: attr_img.src is defined ? attr_img.src : user_image.resource,
+        alt: attr_img.alt is defined ? attr_img.alt : user.name,
     }) %}
 
     <img {{ html.attributes(attr_img|default({})) }}/>
