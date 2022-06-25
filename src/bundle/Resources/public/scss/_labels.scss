@@ -10,6 +10,10 @@
     padding-top: 0;
     padding-bottom: 0;
 
+    .ibexa-icon {
+        fill: $ibexa-color-dark-400;
+    }
+
     &--checkbox-radio {
         font-size: calculateRem(14px);
         line-height: calculateRem(21px);
