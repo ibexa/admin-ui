@@ -14,7 +14,9 @@
             {% for item in items %}
                 <div class="ibexa-details__item">
                     <div class="ibexa-details__item-label ibexa-label">{{ item.label }}</div>
-                    <div class="ibexa-details__item-content">{{ item.content }}</div>
+                    <div class="ibexa-details__item-content">
+                        {{ item.content_raw is defined ? item.content_raw|raw : item.content }}
+                    </div>
                 </div>
             {% endfor %}
         </div>
