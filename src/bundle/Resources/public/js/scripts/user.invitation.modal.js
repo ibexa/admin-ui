@@ -38,6 +38,7 @@ export class UserInvitationModal {
         throw new Error('resetEntry should be overridden in subclass.');
     }
 
+    // eslint-disable-next-line no-unused-vars
     isEntryEmpty(entry) {
         throw new Error('isEntryEmpty should be overridden in subclass.');
     }
