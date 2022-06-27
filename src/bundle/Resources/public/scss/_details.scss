@@ -6,6 +6,10 @@
     &__items {
         display: flex;
         flex-wrap: wrap;
+
+        &--vertical {
+            display: block;
+        }
     }
 
     &__item {
@@ -14,7 +18,7 @@
 
         .ibexa-label {
             margin-top: calculateRem(8px);
-            margin-bottom: calculateRem(4px);
+            margin-bottom: 0;
         }
     }
 }
