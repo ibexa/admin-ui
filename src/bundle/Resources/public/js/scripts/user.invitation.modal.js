@@ -64,7 +64,6 @@ export class UserInvitationModal {
         const entryNodes = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
         const isLastEntry = entryNodes.length === 1;
 
-        console.log('d1')
         if (isLastEntry && !isForceRemove) {
             this.resetEntry(entry);
         } else {
@@ -76,7 +75,6 @@ export class UserInvitationModal {
         const lastEntry = this.entriesContainer.querySelector(':scope > :last-child');
 
         if (!lastEntry) {
-
             return;
         }
 
@@ -113,7 +111,6 @@ export class UserInvitationModal {
         this.toggleUploadedFileInfo(true);
 
         if (areAllEntriesFileRelated) {
-            console.log('asdf')
             this.addEntry();
         }
     }
