@@ -35,6 +35,7 @@ use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
@@ -529,18 +530,17 @@ class ContentViewController extends Controller
         $view->addParameters(['content_has_reverse_relations' => $hasReverseRelations]);
     }
 
-    /**
-     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
-     */
     private function supplyUserInvitation(ContentView $view): void
     {
         $content = $view->getContent();
         $contentType = $this->contentTypeService->loadContentType(
-            $view->getContent()->contentInfo->contentTypeId,
+            $view->getContent()->getVersionInfo()->getContentInfo()->contentTypeId,
             $this->userLanguagePreferenceProvider->getPreferredLanguages()
         );
-        $contentIsUserGroup = (new ContentTypeIsUserGroup($this->configResolver->getParameter('user_group_content_type_identifier')))
+        $userGroupContentTypeIdentifier = $this->configResolver->getParameter('user_group_content_type_identifier');
+        $contentIsUserGroup = (new ContentTypeIsUserGroup($userGroupContentTypeIdentifier))
             ->isSatisfiedBy($contentType);
+        
         $canSendInvitation = $this->permissionResolver->canUser(
             'user',
             'invite',
@@ -548,24 +548,29 @@ class ContentViewController extends Controller
         );
 
         if ($contentIsUserGroup && $canSendInvitation) {
-            $userInvitation = $this->sfFormFactory->create(
-                UserInvitationType::class,
-                null,
-                [
-                    'action' => $this->generateUrl(
-                        'ibexa.user.invite.to_group',
-                        [
-                            'userGroupId' => $content->contentInfo->id,
-                        ]
-                    ),
-                    'method' => Request::METHOD_POST,
-                ]
-            );
+            $userInvitationForm = $this->getInvitationForm($content);
 
             $view->addParameters([
-                'form_user_invitation' => $userInvitation->createView(),
+                'form_user_invitation' => $userInvitationForm->createView(),
             ]);
         }
+    }
+
+    private function getInvitationForm(Content $content): FormInterface
+    {
+        return $this->sfFormFactory->create(
+            UserInvitationType::class,
+            null,
+            [
+                'action' => $this->generateUrl(
+                    'ibexa.user.invite.to_group',
+                    [
+                        'userGroupId' => $content->getVersionInfo()->getContentInfo()->id,
+                    ]
+                ),
+                'method' => Request::METHOD_POST,
+            ]
+        );
     }
 }
 

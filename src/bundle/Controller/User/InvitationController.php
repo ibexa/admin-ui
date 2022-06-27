@@ -89,7 +89,7 @@ final class InvitationController
                     $atLeastOneWasSent = true;
                 } catch (InvitationAlreadyExistsException $exception) {
                     $this->notificationHandler->info(
-                        /** @Desc("Invitations for %email% already exists") */
+                        /** @Desc("Invitation for %email% already exists") */
                         'ibexa.user.invitations.invitation_exist',
                         [
                             'email' => $struct->getEmail(),
@@ -118,7 +118,7 @@ final class InvitationController
 
                 return new RedirectResponse($this->urlGenerator->generate('ibexa.content.view', [
                     'contentId' => $group->id,
-                    'locationId' => $group->contentInfo->mainLocationId,
+                    'locationId' => $group->getVersionInfo()->getContentInfo()->mainLocationId,
                 ]));
             }
         }

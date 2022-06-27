@@ -7,8 +7,8 @@
     </header>
     <body>
       <trans-unit id="f38b1e5444d2424d3f1a9f86b6dc7846e771fece" resname="ibexa.user.invitations.invitation_exist">
-        <source>Invitations for %email% already exists</source>
-        <target state="new">Invitations for %email% already exists</target>
+        <source>Invitation for %email% already exists</source>
+        <target state="new">Invitation for %email% already exists</target>
         <note>key: ibexa.user.invitations.invitation_exist</note>
       </trans-unit>
       <trans-unit id="38e2c44a346ffd4c7b37468e79f64984684e9169" resname="ibexa.user.invitations.success">
