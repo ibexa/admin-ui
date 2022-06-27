@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block entry_prototype %}
-    {% form_theme form '@ibexadesign/company/invitation/form_fields.html.twig' %}
+    {% form_theme form '@ibexadesign/content/modal/user_group_invitation_modal_form_fields.html.twig' %}
     {% trans_default_domain 'locationview' %}
 
     {{ form_widget(form.children.emails.vars.prototype) }}
