@@ -540,7 +540,7 @@ class ContentViewController extends Controller
         $userGroupContentTypeIdentifier = $this->configResolver->getParameter('user_group_content_type_identifier');
         $contentIsUserGroup = (new ContentTypeIsUserGroup($userGroupContentTypeIdentifier))
             ->isSatisfiedBy($contentType);
-        
+
         $canSendInvitation = $this->permissionResolver->canUser(
             'user',
             'invite',
