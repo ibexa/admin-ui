@@ -88,7 +88,6 @@ final class InvitationController
                     $this->sender->sendInvitation($invitation);
                     $atLeastOneWasSent = true;
                 } catch (InvitationAlreadyExistsException $exception) {
-                    /** @todo refresh invitation? */
                     $this->notificationHandler->info(
                         /** @Desc("Invitations for %email% already exists") */
                         'ibexa.user.invitations.invitation_exist',
