@@ -24,9 +24,8 @@
     }
 
     &__image {
-        width: calculateRem(30px);
-        height: calculateRem(30px);
-        border: calculateRem(3px) solid $ibexa-color-black;
+        width: calculateRem(24px);
+        height: calculateRem(24px);
         border-radius: 50%;
         cursor: pointer;
     }
@@ -46,6 +45,12 @@
             border-right: calculateRem(4px) solid transparent;
             border-top: calculateRem(4px) solid $ibexa-color-white;
         }
+    }
+
+    &__thumbnail {
+        display: flex;
+        border: calculateRem(3px) solid $ibexa-color-black;
+        border-radius: 50%;
     }
 
     &__notifications-toggler {
