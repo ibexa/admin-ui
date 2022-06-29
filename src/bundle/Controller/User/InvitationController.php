@@ -92,7 +92,7 @@ final class InvitationController
                         /** @Desc("Invitation for %email% already exists") */
                         'ibexa.user.invitations.invitation_exist',
                         [
-                            'email' => $struct->getEmail(),
+                            '%email%' => $struct->getEmail(),
                         ],
                         'user_invitation'
                     );
@@ -101,7 +101,7 @@ final class InvitationController
                         /** @Desc("User with %email% already exists") */
                         'ibexa.user.invitations.user_exist',
                         [
-                            'email' => $struct->getEmail(),
+                            '%email%' => $struct->getEmail(),
                         ],
                         'user_invitation'
                     );
@@ -115,19 +115,12 @@ final class InvitationController
                     [],
                     'user_invitation'
                 );
-
-                return new RedirectResponse($this->urlGenerator->generate('ibexa.content.view', [
-                    'contentId' => $group->id,
-                    'locationId' => $group->getVersionInfo()->getContentInfo()->mainLocationId,
-                ]));
             }
         }
 
-        return new Response($this->twig->render(
-            '@ibexadesign/user/invitation/invite_emails.html.twig',
-            [
-                'form' => $form->createView(),
-            ]
-        ));
+        return new RedirectResponse($this->urlGenerator->generate('ibexa.content.view', [
+            'contentId' => $group->id,
+            'locationId' => $group->getVersionInfo()->getContentInfo()->mainLocationId,
+        ]));
     }
 }
