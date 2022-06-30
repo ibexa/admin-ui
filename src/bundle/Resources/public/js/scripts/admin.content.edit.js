@@ -130,22 +130,6 @@
     const isAutosaveEnabled = () => {
         return ibexa.adminUiConfig.autosave.enabled && form.querySelector('[name="ezplatform_content_forms_content_edit[autosave]"]');
     };
-    const fitSections = () => {
-        const lastSection = doc.querySelector('.ibexa-anchor-navigation-sections .ibexa-anchor-navigation-sections__section:last-child');
-
-        if (lastSection && lastSection.offsetHeight) {
-            const contentColumn = doc.querySelector('.ibexa-main-container__content-column');
-            const contentContainer = contentColumn.querySelector('.ibexa-edit-content__container');
-            const headerContainer = doc.querySelector('.ibexa-edit-header .ibexa-edit-header__container');
-            const heightFromLastSection = contentContainer.offsetHeight - lastSection.offsetTop;
-            const contentColumnBodyHeight = contentColumn.offsetHeight - headerContainer.offsetHeight;
-            const heightDiff = contentColumnBodyHeight - heightFromLastSection;
-
-            if (heightDiff > 0) {
-                contentContainer.style.paddingBottom = `${heightDiff}px`;
-            }
-        }
-    };
 
     if (isAutosaveEnabled()) {
         const AUTOSAVE_SUBMIT_BUTTON_NAME = 'ezplatform_content_forms_content_edit[autosave]';
@@ -231,8 +215,6 @@
         btn.dataset.isFormValid = 0;
         btn.addEventListener('click', clickHandler, false);
     });
-
-    fitSections();
 
     menuButtonsToValidate.forEach((btn) => {
         btn.addEventListener('click', validateHandler, false);
