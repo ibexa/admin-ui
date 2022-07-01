@@ -16,18 +16,10 @@
             <span class="ibexa-header-user-menu__notice-dot ibexa-header-user-menu__notice-dot--no-notice"></span>
         </div>
         <button class="ibexa-header-user-menu__toggler">
-            <div class="ibexa-header-user-menu__thumbnail">
-                {% if user_image.mimeType == "image/svg+xml" %}
-                    <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-                        <use xlink:href="{{ user_image.resource }}"></use>
-                    </svg>
-                {% else %}
-                    <img
-                        class="ibexa-header-user-menu__image"
-                        src="{{ user_image.resource }}"
-                        alt="{{ user.name }}"
-                    />
-                {% endif %}
+            <div class="ibexa-header-user-menu__thumbnail-wrapper">
+                {% include '@ibexadesign/ui/component/user_thumbnail/user_thumbnail.html.twig' with {
+                    user_content: user.content,
+                } %}
             </div>
         </button>
 

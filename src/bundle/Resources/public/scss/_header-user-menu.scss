@@ -23,13 +23,6 @@
         font-size: $ibexa-text-font-size-small;
     }
 
-    &__image {
-        width: calculateRem(24px);
-        height: calculateRem(24px);
-        border-radius: 50%;
-        cursor: pointer;
-    }
-
     &__toggler {
         display: flex;
         align-items: center;
@@ -47,7 +40,7 @@
         }
     }
 
-    &__thumbnail {
+    &__thumbnail-wrapper {
         display: flex;
         border: calculateRem(3px) solid $ibexa-color-black;
         border-radius: 50%;
