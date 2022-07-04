@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { computePages } from '../../../../../Resources/public/js/scripts/helpers/pagination.helper';
 import PaginationButton from './pagination.button';
 
 const DOTS = '...';
+const { ibexa } = window;
 
 const Pagination = ({ totalCount, itemsPerPage, proximity, activePageIndex, onPageChange, disabled: paginationDisabled }) => {
     const pagesCount = Math.ceil(totalCount / itemsPerPage);
@@ -17,7 +17,7 @@ const Pagination = ({ totalCount, itemsPerPage, proximity, activePageIndex, onPa
     const nextPage = activePageIndex + 1;
     const isFirstPage = activePageIndex === 0;
     const isLastPage = activePageIndex + 1 === pagesCount;
-    const pages = computePages({ proximity, activePageIndex, pagesCount, separator: DOTS });
+    const pages = ibexa.helpers.pagination.computePages({ proximity, activePageIndex, pagesCount, separator: DOTS });
     const paginationButtons = pages.map((page, index) => {
         if (page === DOTS) {
             const key = `dots-${index}`;
