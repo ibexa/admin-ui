@@ -12,7 +12,7 @@ import { UserInvitationModal } from './user.invitation.modal';
             return file.text().then((text) => {
                 const lineRegexp = /^([^;\r\n]+)$/gm;
                 const matchedData = [...text.matchAll(lineRegexp)];
-                const invitationsData = matchedData.map(([, email, role]) => [email, role]);
+                const invitationsData = matchedData.map(([email]) => ({ email }));
 
                 return invitationsData;
             });
