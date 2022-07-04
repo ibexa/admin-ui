@@ -26,6 +26,7 @@ final class UserInvitationType extends AbstractType
                 [
                     'entry_type' => EmailType::class,
                     'allow_add' => true,
+                    'allow_delete' => true,
                     'data' => [''],
                     'label' => false,
                     'entry_options' => [
