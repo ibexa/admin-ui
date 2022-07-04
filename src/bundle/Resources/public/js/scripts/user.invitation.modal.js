@@ -148,6 +148,10 @@ export class UserInvitationModal {
         this.toggleUpload(true);
         this.toggleUploadedFileInfo(false);
         this.processCSVInvitationFile(file).then((invitationsData) => {
+            if (!invitationsData.length) {
+                return;
+            }
+
             this.deleteTrailingEntriesIfEmpty();
             invitationsData.forEach((invitationData) => {
                 this.addEntry(true, invitationData);
