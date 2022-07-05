@@ -143,7 +143,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
     {
         $container->prependExtensionConfig('jms_translation', [
             'configs' => [
-                'ezplatform_admin_ui' => [
+                'ibexa_admin_ui' => [
                     'dirs' => [
                         __DIR__ . '/../../../src/',
                     ],
