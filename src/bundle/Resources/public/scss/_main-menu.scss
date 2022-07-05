@@ -65,13 +65,12 @@
 
             .ibexa-main-menu {
                 &__items-list {
-                    width: calculateRem(210px);
+                    width: calculateRem(216px);
                     transition: width $ibexa-admin-transition-duration;
                     padding-top: calculateRem(8px);
                 }
 
                 &__item {
-                    margin: calculateRem(2px) 0;
                     padding: 0;
                     white-space: nowrap;
                     overflow: hidden;
@@ -86,6 +85,7 @@
                     padding: calculateRem(10px);
 
                     &--group {
+                        padding: calculateRem(9px) calculateRem(10px) calculateRem(5px);
                         color: $ibexa-color-light-700;
                         font-size: $ibexa-text-font-size-small;
                     }
@@ -153,13 +153,13 @@
         align-items: center;
         width: inherit;
         margin: 0;
-        padding: 0 calculateRem(6px);
+        padding: 0;
         list-style: none;
     }
 
     &__item {
         width: 100%;
-        padding: calculateRem(10px) 0;
+        padding: calculateRem(8px) 0;
         opacity: 1;
 
         &--popup-container {
@@ -183,6 +183,15 @@
         &--group-name {
             color: $ibexa-color-light-700;
             position: relative;
+            margin-top: calculateRem(13px);
+
+            & > .ibexa-main-menu__item-action {
+                height: initial;
+            }
+
+            .ibexa-main-menu__item-action + .ibexa-main-menu__items-list {
+                padding-top: 0;
+            }
 
             &::after {
                 content: '';
@@ -199,12 +208,13 @@
     &__item-action {
         display: flex;
         align-items: center;
-        margin: 0 calculateRem(6px);
+        margin: 0 calculateRem(12px);
         padding: 0;
         text-decoration: none;
         border-radius: $ibexa-border-radius;
         border: calculateRem(2px) solid transparent;
         height: calculateRem(48px);
+        min-width: calculateRem(48px);
 
         &:focus {
             border-color: $ibexa-color-info-800;
