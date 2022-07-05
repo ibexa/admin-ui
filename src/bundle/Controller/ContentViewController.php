@@ -20,8 +20,10 @@ use Ibexa\AdminUi\Form\Data\User\UserEditData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentEditTranslationChoiceLoader;
 use Ibexa\AdminUi\Form\Type\Content\ContentVisibilityUpdateType;
+use Ibexa\AdminUi\Form\Type\User\UserInvitationType;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\AdminUi\Specification\ContentIsUser;
+use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
 use Ibexa\AdminUi\UI\Module\Subitems\ContentViewParameterSupplier as SubitemsContentViewParameterSupplier;
 use Ibexa\AdminUi\UI\Service\PathService;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
@@ -33,6 +35,7 @@ use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
@@ -175,6 +178,7 @@ class ContentViewController extends Controller
         $this->supplyRolePagination($view, $request);
         $this->supplyPolicyPagination($view, $request);
         $this->supplyIsLocationBookmarked($view);
+        $this->supplyUserInvitation($view);
 
         return $view;
     }
@@ -524,6 +528,49 @@ class ContentViewController extends Controller
         );
 
         $view->addParameters(['content_has_reverse_relations' => $hasReverseRelations]);
+    }
+
+    private function supplyUserInvitation(ContentView $view): void
+    {
+        $content = $view->getContent();
+        $contentType = $this->contentTypeService->loadContentType(
+            $view->getContent()->getVersionInfo()->getContentInfo()->contentTypeId,
+            $this->userLanguagePreferenceProvider->getPreferredLanguages()
+        );
+        $userGroupContentTypeIdentifier = $this->configResolver->getParameter('user_group_content_type_identifier');
+        $contentIsUserGroup = (new ContentTypeIsUserGroup($userGroupContentTypeIdentifier))
+            ->isSatisfiedBy($contentType);
+
+        $canSendInvitation = $this->permissionResolver->canUser(
+            'user',
+            'invite',
+            $content
+        );
+
+        if ($contentIsUserGroup && $canSendInvitation) {
+            $userInvitationForm = $this->getInvitationForm($content);
+
+            $view->addParameters([
+                'form_user_invitation' => $userInvitationForm->createView(),
+            ]);
+        }
+    }
+
+    private function getInvitationForm(Content $content): FormInterface
+    {
+        return $this->sfFormFactory->create(
+            UserInvitationType::class,
+            null,
+            [
+                'action' => $this->generateUrl(
+                    'ibexa.user.invite.to_group',
+                    [
+                        'userGroupId' => $content->getVersionInfo()->getContentInfo()->id,
+                    ]
+                ),
+                'method' => Request::METHOD_POST,
+            ]
+        );
     }
 }
 

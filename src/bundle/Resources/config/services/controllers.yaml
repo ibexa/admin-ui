@@ -210,3 +210,5 @@ services:
         parent: Ibexa\Rest\Server\Controller
         tags: ['controller.service_arguments']
         autowire: true
+
+    Ibexa\Bundle\AdminUi\Controller\User\InvitationController: ~

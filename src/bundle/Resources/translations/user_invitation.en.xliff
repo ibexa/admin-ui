@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="not.available">
+    <header>
+      <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+      <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+    </header>
+    <body>
+      <trans-unit id="f38b1e5444d2424d3f1a9f86b6dc7846e771fece" resname="ibexa.user.invitations.invitation_exist">
+        <source>Invitation for %email% already exists</source>
+        <target state="new">Invitation for %email% already exists</target>
+        <note>key: ibexa.user.invitations.invitation_exist</note>
+      </trans-unit>
+      <trans-unit id="38e2c44a346ffd4c7b37468e79f64984684e9169" resname="ibexa.user.invitations.success">
+        <source>Invitations sent</source>
+        <target state="new">Invitations sent</target>
+        <note>key: ibexa.user.invitations.success</note>
+      </trans-unit>
+      <trans-unit id="d0348762df1838c70a95330d7bf7afbb5eb82343" resname="ibexa.user.invitations.user_exist">
+        <source>User with %email% already exists</source>
+        <target state="new">User with %email% already exists</target>
+        <note>key: ibexa.user.invitations.user_exist</note>
+      </trans-unit>
+      <trans-unit id="9f469393b5cf51c7dbe2ffaa03c7a17f3a6959e3" resname="invite_members">
+        <source>Invite Members</source>
+        <target state="new">Invite Members</target>
+        <note>key: invite_members</note>
+      </trans-unit>
+      <trans-unit id="82ccb764a0c57728622cce47455e8d1aeb5e088c" resname="modal.add_next">
+        <source>Add next</source>
+        <target state="new">Add next</target>
+        <note>key: modal.add_next</note>
+      </trans-unit>
+      <trans-unit id="1c40d44e40ab42abe7534935a99891ee83b78fe7" resname="modal.cancel.label">
+        <source>Cancel</source>
+        <target state="new">Cancel</target>
+        <note>key: modal.cancel.label</note>
+      </trans-unit>
+      <trans-unit id="7fe6937710fc7ea8e9233c52f19086aa536bc9d2" resname="modal.drop">
+        <source>Drag and drop file</source>
+        <target state="new">Drag and drop file</target>
+        <note>key: modal.drop</note>
+      </trans-unit>
+      <trans-unit id="7d791f0b05b55fccb086c613f460c5d28150dab3" resname="modal.fully_uploaded">
+        <source>100% Uploaded</source>
+        <target state="new">100% Uploaded</target>
+        <note>key: modal.fully_uploaded</note>
+      </trans-unit>
+      <trans-unit id="490ee1463548a5ef886d6620191efeda447f2404" resname="modal.or">
+        <source>or</source>
+        <target state="new">or</target>
+        <note>key: modal.or</note>
+      </trans-unit>
+      <trans-unit id="29116d0fe8e9abb27e7083ff31e58e9b065e6a58" resname="modal.or_upload">
+        <source>Or upload a file with one email address per line</source>
+        <target state="new">Or upload a file with one email address per line</target>
+        <note>key: modal.or_upload</note>
+      </trans-unit>
+      <trans-unit id="59b523724cdbdfb52e036c354f224966a2a0b5c2" resname="modal.upload_local">
+        <source>Upload a local file</source>
+        <target state="new">Upload a local file</target>
+        <note>key: modal.upload_local</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

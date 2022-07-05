@@ -45,6 +45,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     public const ITEM__DELETE = 'content__sidebar_right__delete';
     public const ITEM__HIDE = 'content__sidebar_right__hide';
     public const ITEM__REVEAL = 'content__sidebar_right__reveal';
+    public const ITEM__INVITE = 'content__sidebar_right__invite';
 
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
@@ -193,6 +194,27 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             ),
         ]);
 
+        $canSendInvitation = $this->permissionResolver->canUser(
+            'user',
+            'invite',
+            $content
+        );
+
+        if ($contentIsUserGroup && $canSendInvitation) {
+            $menu->addChild(
+                $this->createMenuItem(
+                    self::ITEM__INVITE,
+                    [
+                        'extras' => ['orderNumber' => 15],
+                        'attributes' => [
+                            'data-bs-toggle' => 'modal',
+                            'data-bs-target' => '#ibexa-user-invitation-modal',
+                        ],
+                    ]
+                )
+            );
+        }
+
         $this->addEditMenuItem($menu, $contentIsUser, $canEdit);
 
         $menu->addChild(
@@ -287,6 +309,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             (new Message(self::ITEM__DELETE, 'menu'))->setDesc('Delete'),
             (new Message(self::ITEM__HIDE, 'menu'))->setDesc('Hide'),
             (new Message(self::ITEM__REVEAL, 'menu'))->setDesc('Reveal'),
+            (new Message(self::ITEM__INVITE, 'menu'))->setDesc('Invite members'),
         ];
     }
 

@@ -162,6 +162,13 @@
                     ></div>
                     {% include '@ibexadesign/content/modal/location_bulk_action_failed.html.twig' only %}
                     {% endif %}
+
+                    {% if form_user_invitation is defined %}
+                        {% include '@ibexadesign/content/modal/user_group_invitation_modal.html.twig' with {
+                            form: form_user_invitation,
+                            extra_class: 'ibexa-user-group-invitation',
+                        } %}
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -183,5 +190,6 @@
 
 {% block javascripts %}
     {{ encore_entry_script_tags('ibexa-admin-ui-location-view-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-user-invitation-modal', null, 'ibexa') }}
     {{ encore_entry_script_tags('ibexa-admin-ui-tabs-js', null, 'ibexa') }}
 {% endblock %}

@@ -971,6 +971,11 @@
         <target>User / All functions</target>
         <note>key: role.policy.user.all_functions</note>
       </trans-unit>
+      <trans-unit id="587199065d14880416b8061b73788e731a201c27" resname="role.policy.user.invite">
+        <source>User / Invite</source>
+        <target>User / Invite</target>
+        <note>key: role.policy.user.invite</note>
+      </trans-unit>
       <trans-unit id="f25505dc2f59df21e3125664c4fdad951d82df3b" resname="role.policy.user.login">
         <source>User / Login</source>
         <target>User / Login</target>
@@ -1155,6 +1160,11 @@
         <source>Delete permanently</source>
         <target state="new">Delete permanently</target>
         <note>key: trash_empty_form.empty</note>
+      </trans-unit>
+      <trans-unit id="4d530164d6f917754a1625bae48c2a323197ac7a" resname="user.invitation.submit">
+        <source>Send</source>
+        <target state="new">Send</target>
+        <note>key: user.invitation.submit</note>
       </trans-unit>
       <trans-unit id="7fb1cbcd94553ff377f8e1e4461246af38e14e85" resname="user_delete_form.delete">
         <source>Delete</source>

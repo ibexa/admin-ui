@@ -76,6 +76,16 @@
         <target state="new">Remove from Bookmarks</target>
         <note>key: location.bookmark.remove</note>
       </trans-unit>
+      <trans-unit id="0ac5837ba570c72c15eae58ab98735697a790528" resname="modal.email_address">
+        <source>Email Address</source>
+        <target state="new">Email Address</target>
+        <note>key: modal.email_address</note>
+      </trans-unit>
+      <trans-unit id="b57923cd51800de1a02208a4765ab1b14d437c50" resname="modal.info">
+        <source>Enter your team members email addresses.</source>
+        <target state="new">Enter your team members email addresses.</target>
+        <note>key: modal.info</note>
+      </trans-unit>
       <trans-unit id="4fd9a40170cf4bc5acff719c14eaf2d15fc9942d" resname="tab.details.change_section ">
         <source>Change Section</source>
         <target state="new">Change Section</target>

@@ -162,6 +162,7 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/admin.version.edit.conflict.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.location.bookmark.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.main.translation.update.js'),
+            path.resolve(__dirname, '../public/js/scripts/user.group.invitation.js'),
         ])
         .addEntry('ibexa-admin-ui-modal-location-trash-js', [path.resolve(__dirname, '../public/js/scripts/admin.trash.js')])
         .addEntry('ibexa-admin-ui-modal-location-trash-container-js', [
@@ -238,6 +239,7 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/admin.input.text.js'),
             path.resolve(__dirname, '../public/js/scripts/login.js'),
         ])
+        .addEntry('ibexa-admin-ui-user-invitation-modal', [path.resolve(__dirname, '../public/js/scripts/user.invitation.modal.js')])
         .addEntry('ibexa-admin-ui-tabs-js', [
             path.resolve(__dirname, '../public/js/scripts/admin.location.tab.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.location.adaptive.tabs.js'),

@@ -669,6 +669,11 @@ ibexa.user.update:
     options:
         expose: true
 
+ibexa.user.invite.to_group:
+    path: /user/invite/to-group/{userGroupId}
+    controller: Ibexa\Bundle\AdminUi\Controller\User\InvitationController::sendInvitationsAction
+    methods: ['POST']
+
 #
 # Custom URL alias
 #
