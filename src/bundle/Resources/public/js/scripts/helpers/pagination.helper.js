@@ -14,7 +14,7 @@
      *
      * @returns {Array}
      */
-    const computePages = ({ proximity, activePageIndex, pagesCount, separator }) => {
+    const computePages = ({ proximity = 2, activePageIndex, pagesCount, separator = '...' }) => {
         const pages = [];
         let wasSeparator = false;
 
