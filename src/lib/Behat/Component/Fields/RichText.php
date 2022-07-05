@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component\Fields;
 
 use Behat\Mink\Session;
+use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Element\Mapper\ElementTextMapper;
@@ -73,6 +74,11 @@ class RichText extends FieldTypeComponent
             ->findAll($this->getLocator('toolbarElement'))
             ->getByCriterion(new ElementTextCriterion('Paragraph'))
             ->click();
+        $this->getHTMLPage()
+            ->setTimeout(3)
+            ->waitUntilCondition(
+                new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('styleDropdown'))
+            );
         $this->getHTMLPage()
             ->findAll($this->getLocator('styleDropdownItem'))
             ->getByCriterion(new ElementTextCriterion($style))
@@ -157,6 +163,7 @@ class RichText extends FieldTypeComponent
             new VisibleCSSLocator('toolbarElement', '.ck-button'),
             new VisibleCSSLocator('toolbarDropdown', '.ck-dropdown'),
             new VisibleCSSLocator('styleDropdownItem', '.ck-list__item'),
+            new VisibleCSSLocator('styleDropdown', '.ck-heading-dropdown .ck-dropdown__panel-visible'),
             new VisibleCSSLocator('unorderedListElement', '.ibexa-data-source__richtext ul li'),
             new VisibleCSSLocator('embedInlineTitle', '.ibexa-embed-inline .ibexa-embed-content__title'),
             new VisibleCSSLocator('embedTitle', '.ibexa-embed .ibexa-embed-content__title'),
