@@ -43,6 +43,7 @@ class SectionsPage extends Page
 
     public function assignContentItems(string $sectionName)
     {
+        $this->getHTMLPage()->find($this->getLocator('scrollableContainer'))->scrollToBottom($this->getSession());
         $this->table->getTableRow(['Name' => $sectionName])->assign();
     }
 
@@ -94,6 +95,7 @@ class SectionsPage extends Page
             new VisibleCSSLocator('createButton', '.ibexa-icon--create'),
             new VisibleCSSLocator('deleteButton', '.ibexa-icon--trash,button[data-bs-original-title^="Delete"]'),
             new VisibleCSSLocator('tableContainer', '.ibexa-container'),
+            new VisibleCSSLocator('scrollableContainer', '.ibexa-back-to-top-scroll-container'),
         ];
     }
 }
