@@ -1,27 +1,36 @@
 (function (global, doc, ibexa, React, ReactDOM) {
-    const SELECTOR_RESET_STARTING_LOCATION_BTN = '.ibexa-btn--reset-starting-location';
-    const resetStartingLocationBtns = doc.querySelectorAll(SELECTOR_RESET_STARTING_LOCATION_BTN);
-    const udwBtns = doc.querySelectorAll('.ibexa-btn--udw-relation-default-location');
+    const SELECTOR_RESET_STARTING_LOCATION_BTN = '.ibexa-tag__remove-btn';
+    const defaultLocationContainers = doc.querySelectorAll('.ibexa-default-location');
     const udwContainer = doc.getElementById('react-udw');
     let udwRoot = null;
     const closeUDW = () => udwRoot.unmount();
+    const renderTagItem = (container, [item]) => {
+        const template = container.dataset.template.replaceAll('{{ content }}', item.name);
+
+        container.innerHTML = template;
+
+        const deleteBtn = container.querySelector(SELECTOR_RESET_STARTING_LOCATION_BTN);
+
+        ibexa.helpers.ellipsis.middle.parseAll();
+
+        deleteBtn.addEventListener('click', resetStartingLocation, false);
+    };
     const onConfirm = (btn, items) => {
         closeUDW();
 
         const locationId = items[0].id;
-        const locationName = items[0].ContentInfo.Content.TranslatedName;
-        const objectRelationListSettingsWrapper = btn.closest('.ezobjectrelationlist-settings');
-        const objectRelationSettingsWrapper = btn.closest('.ezobjectrelation-settings');
+        const container = btn.closest('.ibexa-default-location');
+        const pathSelector = container.querySelector('.ibexa-default-location__path-selector');
 
-        toggleResetStartingLocationBtn(btn.parentNode.querySelector(SELECTOR_RESET_STARTING_LOCATION_BTN), true);
+        container.querySelector(btn.dataset.relationRootInputSelector).value = locationId;
 
-        if (objectRelationListSettingsWrapper) {
-            objectRelationListSettingsWrapper.querySelector(btn.dataset.relationRootInputSelector).value = locationId;
-            objectRelationListSettingsWrapper.querySelector(btn.dataset.relationSelectedRootNameSelector).innerHTML = locationName;
-        } else {
-            objectRelationSettingsWrapper.querySelector(btn.dataset.relationRootInputSelector).value = locationId;
-            objectRelationSettingsWrapper.querySelector(btn.dataset.relationSelectedRootNameSelector).innerHTML = locationName;
-        }
+        pathSelector.classList.add('ibexa-default-location__path-selector--filled');
+
+        ibexa.helpers.tagViewSelect.buildItemsFromUDWResponse(
+            items,
+            (item) => item.pathString,
+            renderTagItem.bind(null, container.querySelector('.ibexa-default-location__selected-path')),
+        );
     };
     const onCancel = () => closeUDW();
     const openUDW = (event) => {
@@ -40,27 +49,33 @@
             }),
         );
     };
-    const toggleResetStartingLocationBtn = (button, isEnabled) => {
-        if (isEnabled) {
-            button.removeAttribute('disabled');
-        } else {
-            button.setAttribute('disabled', true);
-        }
-    };
-    const resetStartingLocation = (event) => {
-        const button = event.currentTarget;
-        const { relationRootInputSelector, relationSelectedRootNameSelector } = button.dataset;
+    const resetStartingLocation = ({ currentTarget }) => {
+        const container = currentTarget.closest('.ibexa-default-location');
+        const udwBtn = container.querySelector('.ibexa-btn--udw-relation-default-location');
+        const pathSelector = container.querySelector('.ibexa-default-location__path-selector');
+        const { relationRootInputSelector } = udwBtn.dataset;
 
-        doc.querySelector(relationRootInputSelector).value = '';
-        doc.querySelector(relationSelectedRootNameSelector).innerHTML = '';
-
-        toggleResetStartingLocationBtn(button, false);
+        container.querySelector(relationRootInputSelector).value = '';
+        container.querySelector('.ibexa-default-location__selected-path').innerHTML = '';
+        pathSelector.classList.remove('ibexa-default-location__path-selector--filled');
     };
-    const attachEvents = (btns) => {
-        btns.forEach((btn) => btn.addEventListener('click', openUDW, false));
-    };
+    const attachEvents = (container) => {
+        const udwBtn = container.querySelector('.ibexa-btn--udw-relation-default-location');
+        const deleteBtn = container.querySelector(SELECTOR_RESET_STARTING_LOCATION_BTN);
+        const choices = container.querySelectorAll('input[type="radio"]');
 
-    attachEvents(udwBtns);
+        udwBtn.addEventListener('click', openUDW, false);
+        deleteBtn?.addEventListener('click', resetStartingLocation, false);
+        choices.forEach((choice) => choice.addEventListener('change', toggleDisabledState.bind(null, container), false));
+    };
+    const toggleDisabledState = (container) => {
+        const locationBtn = container.querySelector('.ibexa-btn--udw-relation-default-location');
+        const deleteBtn = container.querySelector(SELECTOR_RESET_STARTING_LOCATION_BTN);
+        const isDisabled = !container.querySelector('input[value="1"]').checked;
+
+        locationBtn.classList.toggle('disabled', isDisabled);
+        deleteBtn?.classList.toggle('disabled', isDisabled);
+    };
 
     doc.body.addEventListener(
         'ibexa-drop-field-definition',
@@ -68,15 +83,22 @@
             const { nodes } = event.detail;
 
             nodes.forEach((node) => {
-                const addLocationBtns = node.querySelectorAll('.ibexa-btn--udw-relation-default-location');
-                const removeLocationBtns = node.querySelectorAll(SELECTOR_RESET_STARTING_LOCATION_BTN);
+                const defaultLocationContainer = node.querySelector('.ibexa-default-location');
 
-                attachEvents(addLocationBtns);
-                removeLocationBtns.forEach((btn) => btn.addEventListener('click', resetStartingLocation, false));
+                if (!defaultLocationContainer) {
+                    return;
+                }
+
+                attachEvents(defaultLocationContainer);
+                toggleDisabledState(defaultLocationContainer);
             });
         },
         false,
     );
 
-    resetStartingLocationBtns.forEach((btn) => btn.addEventListener('click', resetStartingLocation, false));
+    defaultLocationContainers.forEach((defaultLocationContainer) => {
+        attachEvents(defaultLocationContainer);
+        toggleDisabledState(defaultLocationContainer);
+        ibexa.helpers.ellipsis.middle.parseAll();
+    });
 })(window, window.document, window.ibexa, window.React, window.ReactDOM);

@@ -275,6 +275,7 @@ class ContentOnTheFlyController extends Controller
             ContentEditType::class,
             $contentUpdate,
             [
+                'location' => $location,
                 'languageCode' => $languageCode,
                 'mainLanguageCode' => $content->contentInfo->mainLanguageCode,
                 'content' => $content,

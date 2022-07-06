@@ -1,0 +1,56 @@
+{% block radio_label %}
+    {% if form.parent is defined and "ibexa_form_type_location_choice" in form.parent.vars.block_prefixes and value == "1" %}
+        {% set form_default_location = form.parent.parent %}
+        {% set is_path_selected = form_default_location.location.vars.destination_location is not null %}
+        
+        {{- block('checkbox_radio_label') -}}
+        <div 
+            class="
+                ibexa-default-location__path-selector
+                {% if is_path_selected %}ibexa-default-location__path-selector--filled{% endif %}
+            "
+        >
+            <button
+                data-universaldiscovery-title="{{ "field_definition.ezobjectrelationlist.selection_root_udw_title"
+                |trans({}, "content_type")
+                |desc("Select where to start browsing for Relations") }}"
+                class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-btn--udw-relation-default-location"
+                data-relation-root-input-selector="#{{ form_default_location.location.vars.id }}"
+                data-starting-location-id="{{ ibexa_admin_ui_config.universalDiscoveryWidget.startingLocationId|default(1) }}"
+                data-udw-config="{{ ibexa_udw_config('single_container', {}) }}"
+            >
+                <span class="ibexa-btn__label ibexa-btn__label--select">
+                    {{ "field_definition.ezobjectrelationlist.selection_root_udw_button"|trans({}, "content_type")|desc("Select path") }}
+                </span>
+                <span class="ibexa-btn__label ibexa-btn__label--change">
+                    {{ "field_definition.ezobjectrelationlist.change_root_udw_button"|trans({}, "content_type")|desc("Change path") }}
+                </span>
+            </button>
+            <div 
+                class="ibexa-default-location__selected-path"
+                data-template="{{ include('@ibexadesign/ui/tag.html.twig', {
+                    'content': "{{ content }}",
+                    'is_loading_state': false,
+                })|e('html_attr')  }}"
+            >
+                {% if is_path_selected %}
+                    {% set path_locations = ibexa_path_to_locations(form_default_location.location.vars.destination_location.pathString) %}
+                    {% set content_breadcrumbs = '' %}
+                    {% for location in path_locations %}
+                        {% set content_breadcrumbs = content_breadcrumbs ~ ibexa_content_name(location.contentInfo) %}
+                        {% if not loop.last %}
+                            {% set content_breadcrumbs = content_breadcrumbs ~ ' / ' %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {{ include('@ibexadesign/ui/tag.html.twig', {
+                        'content': content_breadcrumbs,
+                        'is_loading_state': false,
+                    }) }}
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        {{- block('checkbox_radio_label') -}}
+    {% endif %}
+{% endblock %}
