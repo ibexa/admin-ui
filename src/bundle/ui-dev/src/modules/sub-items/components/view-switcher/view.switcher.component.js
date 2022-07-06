@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import SimpleDropdown from '../../../common/simple-dropdown/simple.dropdown';
 
-import ViewSwitcherButton from './view.switcher.button.component';
+import { VIEW_MODE_TABLE, VIEW_MODE_GRID } from '../../sub.items.module';
+
+const { Translator } = window;
 
 const ViewSwitcherComponent = ({ onViewChange, activeView, isDisabled }) => {
     let componentClassName = 'c-view-switcher';
@@ -10,26 +13,31 @@ const ViewSwitcherComponent = ({ onViewChange, activeView, isDisabled }) => {
         componentClassName = `${componentClassName} ${componentClassName}--disabled`;
     }
 
-    const listViewBtnLabel = Translator.trans(/*@Desc("View as list")*/ 'switch_to_list_view.btn.label', {}, 'sub_items');
-    const gridViewBtnLabel = Translator.trans(/*@Desc("View as grid")*/ 'switch_to_grid_view.btn.label', {}, 'sub_items');
+    const viewLabel = Translator.trans(/*@Desc("View")*/ 'view_switcher.view', {}, 'sub_items');
+    const switchView = ({ value }) => {
+        onViewChange(value);
+    };
+    const viewOptions = [
+        {
+            iconName: 'view-list',
+            label: Translator.trans(/*@Desc("List view")*/ 'view_switcher.list_view', {}, 'sub_items'),
+            value: VIEW_MODE_TABLE,
+        },
+        {
+            iconName: 'view-grid',
+            label: Translator.trans(/*@Desc("Grid view")*/ 'view_switcher.grid_view', {}, 'sub_items'),
+            value: VIEW_MODE_GRID,
+        },
+    ];
+    const selectedOption = viewOptions.find((option) => option.value === activeView);
 
     return (
         <div className={componentClassName}>
-            <ViewSwitcherButton
-                id="table"
-                icon="view-list"
-                title={listViewBtnLabel}
-                onClick={onViewChange}
-                activeView={activeView}
-                isDisabled={isDisabled}
-            />
-            <ViewSwitcherButton
-                id="grid"
-                icon="view-grid"
-                title={gridViewBtnLabel}
-                onClick={onViewChange}
-                activeView={activeView}
-                isDisabled={isDisabled}
+            <SimpleDropdown
+                options={viewOptions}
+                selectedOption={selectedOption}
+                onOptionClick={switchView}
+                selectedItemLabel={viewLabel}
             />
         </div>
     );

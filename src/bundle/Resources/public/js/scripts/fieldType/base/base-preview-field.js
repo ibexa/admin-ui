@@ -1,7 +1,7 @@
-(function(global, doc, eZ) {
-    const SELECTOR_DATA = '.ez-field-edit__data';
-    const SELECTOR_PREVIEW = '.ez-field-edit__preview';
-    const SELECTOR_BTN_REMOVE = '.ez-field-edit-preview__action--remove';
+(function (global, doc, ibexa) {
+    const SELECTOR_DATA = '.ibexa-field-edit__data';
+    const SELECTOR_PREVIEW = '.ibexa-field-edit__preview';
+    const SELECTOR_BTN_REMOVE = '.ibexa-field-edit-preview__action--remove';
 
     class BasePreviewField {
         constructor({ fieldContainer, allowedFileTypes, fileTypeAccept, validator }) {
@@ -20,7 +20,7 @@
             const dataMaxSize = +this.inputField.dataset.maxFileSize;
 
             this.maxFileSize = parseInt(dataMaxSize, 10);
-            this.showPreviewEventName = 'ez-base:show-preview';
+            this.showPreviewEventName = 'ibexa-base:show-preview';
         }
 
         /**
@@ -35,14 +35,13 @@
             const kilobyte = 1024;
             let size = parseInt(bytes, 10) || 0;
             let unitIndex = 0;
-            let decimalUnits;
 
             while (size >= kilobyte) {
                 size = size / kilobyte;
                 unitIndex++;
             }
 
-            decimalUnits = unitIndex < 1 ? 0 : 1;
+            const decimalUnits = unitIndex < 1 ? 0 : 1;
 
             const sizeFixed = size.toFixed(size >= 10 || decimalUnits);
             const unit = units[unitIndex];
@@ -78,7 +77,7 @@
          * @param {Event} event
          */
         handleDropFile(event) {
-            const file = event.dataTransfer.files[0];
+            const [file] = event.dataTransfer.files;
 
             if (!this.checkCanDrop(file)) {
                 return;
@@ -100,7 +99,7 @@
          * @method showFileSizeError
          */
         showFileSizeError() {
-            this.inputField.dispatchEvent(new CustomEvent('ez-invalid-file-size'));
+            this.inputField.dispatchEvent(new CustomEvent('ibexa-invalid-file-size'));
         }
 
         /**
@@ -137,7 +136,7 @@
                 return this.resetInputField();
             }
 
-            this.fieldContainer.querySelector('.ez-field-edit__option--remove-media').checked = false;
+            this.fieldContainer.querySelector('.ibexa-field-edit__option--remove-media').checked = false;
 
             this.showPreview(event);
         }
@@ -171,7 +170,7 @@
          * @param {Event} event
          */
         loadDroppedFilePreview(event) {
-            console.log('CUSTOMIZE RENDERING DROPPED FILE PREVIEW', event);
+            console.log('CUSTOMIZE RENDERING DROPPED FILE PREVIEW', event); // eslint-disable-line no-console
         }
 
         /**
@@ -185,7 +184,7 @@
             this.fieldContainer.querySelector(SELECTOR_DATA).removeAttribute('hidden');
             this.fieldContainer.querySelector(SELECTOR_PREVIEW).setAttribute('hidden', true);
             this.fieldContainer.classList.remove('is-invalid');
-            this.fieldContainer.querySelectorAll('.ez-field-edit__error').forEach((element) => element.remove());
+            this.fieldContainer.querySelectorAll('.ibexa-field-edit__error').forEach((element) => element.remove());
 
             btnRemove.removeEventListener('click', this.handleRemoveFile);
 
@@ -204,7 +203,7 @@
             this.inputField.parentNode.replaceChild(clonedInput, this.inputField);
             this.inputField = clonedInput;
             this.inputField.addEventListener('change', this.handleInputChange, false);
-            this.fieldContainer.querySelector('.ez-field-edit__option--remove-media').checked = true;
+            this.fieldContainer.querySelector('.ibexa-field-edit__option--remove-media').checked = true;
 
             this.validator.reinit();
         }
@@ -238,7 +237,7 @@
          * @method initializeDropZone
          */
         initializeDropZone() {
-            const dropZone = this.fieldContainer.querySelector('.ez-field-edit__preview[hidden] + .ez-field-edit__data');
+            const dropZone = this.fieldContainer.querySelector('.ibexa-field-edit__preview[hidden] + .ibexa-field-edit__data');
 
             if (dropZone) {
                 dropZone.addEventListener('drop', this.handleDropFile, false);
@@ -251,7 +250,7 @@
          * @method initializePreview
          */
         initializePreview() {
-            const preview = this.fieldContainer.querySelector('.ez-field-edit__preview');
+            const preview = this.fieldContainer.querySelector('.ibexa-field-edit__preview');
 
             if (!preview.hasAttribute('hidden')) {
                 this.showPreview();
@@ -264,7 +263,7 @@
          * @method init
          */
         init() {
-            this.btnAdd = this.fieldContainer.querySelector('.ez-data-source__btn-add');
+            this.btnAdd = this.fieldContainer.querySelector('.ibexa-data-source__btn-add');
 
             this.btnAdd.addEventListener('click', this.openFileSelector, false);
             this.inputField.addEventListener('change', this.handleInputChange, false);
@@ -280,5 +279,5 @@
         }
     }
 
-    eZ.addConfig('BasePreviewField', BasePreviewField);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('BasePreviewField', BasePreviewField);
+})(window, window.document, window.ibexa);

@@ -6,53 +6,54 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UniversalDiscovery;
+namespace Ibexa\AdminUi\UniversalDiscovery;
 
-use eZ\Publish\API\Repository\BookmarkService;
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use EzSystems\EzPlatformAdminUi\Permission\LookupLimitationsTransformer;
-use EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface;
-use EzSystems\EzPlatformAdminUi\QueryType\LocationPathQueryType;
-use EzSystems\EzPlatformRest\Output\Visitor;
-use EzSystems\EzPlatformRest\Server\Values\Version;
+use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
+use Ibexa\AdminUi\QueryType\LocationPathQueryType;
+use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider;
+use Ibexa\Contracts\Core\Repository\BookmarkService;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Rest\Output\Visitor;
+use Ibexa\Rest\Server\Values\Version;
 
 class UniversalDiscoveryProvider implements Provider
 {
     private const COLUMNS_NUMBER = 4;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\SearchService */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     private $searchService;
 
-    /** @var \EzSystems\EzPlatformRest\Output\Visitor */
+    /** @var \Ibexa\Contracts\Rest\Output\Visitor */
     private $visitor;
 
-    /** @var \eZ\Publish\API\Repository\BookmarkService */
+    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
     private $bookmarkService;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
     private $permissionChecker;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\LookupLimitationsTransformer */
+    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
     private $lookupLimitationsTransformer;
 
-    /** @var \EzSystems\EzPlatformAdminUi\QueryType\LocationPathQueryType */
+    /** @var \Ibexa\AdminUi\QueryType\LocationPathQueryType */
     private $locationPathQueryType;
 
     private $sortClauseClassMap = [
@@ -154,7 +155,8 @@ class UniversalDiscoveryProvider implements Provider
         return array_map(
             static function (SearchHit $searchHit) {
                 return $searchHit->valueObject;
-            }, $searchResult->searchHits
+            },
+            $searchResult->searchHits
         );
     }
 
@@ -168,7 +170,7 @@ class UniversalDiscoveryProvider implements Provider
 
         return array_map(
             function (SearchHit $searchHit) {
-                /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
                 $location = $searchHit->valueObject;
 
                 return [
@@ -219,7 +221,7 @@ class UniversalDiscoveryProvider implements Provider
 
         return array_map(
             function (SearchHit $searchHit) {
-                /** @var \eZ\Publish\API\Repository\Values\Content\Content $content */
+                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
                 $content = $searchHit->valueObject;
 
                 return $this->getRestFormat(
@@ -371,3 +373,5 @@ class UniversalDiscoveryProvider implements Provider
         return $locations;
     }
 }
+
+class_alias(UniversalDiscoveryProvider::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\UniversalDiscoveryProvider');

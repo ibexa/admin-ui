@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\DataTransformer;
+namespace Ibexa\AdminUi\Form\DataTransformer;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\UserService;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -18,11 +18,11 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class UserCollectionTransformer implements DataTransformerInterface
 {
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     protected $userService;
 
     /**
-     * @param \eZ\Publish\API\Repository\UserService $userService
+     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
      */
     public function __construct(UserService $userService)
     {
@@ -50,7 +50,7 @@ class UserCollectionTransformer implements DataTransformerInterface
      *
      * @return array
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not an integer
      *                                                                         or if the value can not be transformed
      */
@@ -73,3 +73,5 @@ class UserCollectionTransformer implements DataTransformerInterface
         }
     }
 }
+
+class_alias(UserCollectionTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\UserCollectionTransformer');

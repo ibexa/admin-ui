@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Siteaccess;
+namespace Ibexa\AdminUi\Siteaccess;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 interface SiteaccessResolverInterface
 {
     /**
      * Accepts $location and returns all siteaccesses in which Content item can be previewed.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param int|null $versionNo
      * @param string|null $languageCode
      *
@@ -30,7 +30,7 @@ interface SiteaccessResolverInterface
     /**
      * Returns a complete list of Site Access objects.
      *
-     * @return \eZ\Publish\Core\MVC\Symfony\SiteAccess[]
+     * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
      */
     public function getSiteAccessesListForLocation(
         Location $location,
@@ -45,3 +45,5 @@ interface SiteaccessResolverInterface
      */
     public function getSiteaccesses(): array;
 }
+
+class_alias(SiteaccessResolverInterface::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessResolverInterface');

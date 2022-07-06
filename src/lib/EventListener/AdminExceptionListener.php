@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\EventListener;
+namespace Ibexa\AdminUi\EventListener;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface;
-use EzSystems\EzPlatformAdminUiBundle\EzPlatformAdminUiBundle;
+use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
+use Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +24,7 @@ use Twig\Error\RuntimeError;
 
 class AdminExceptionListener
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface */
     protected $notificationHandler;
 
     /** @var \Twig\Environment */
@@ -47,7 +47,7 @@ class AdminExceptionListener
 
     /**
      * @param \Twig\Environment $twig
-     * @param \EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface $notificationHandler
+     * @param \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface $notificationHandler
      * @param \Symfony\WebpackEncoreBundle\Asset\TagRenderer $encoreTagRenderer
      * @param \Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface $entrypointLookupCollection
      * @param array $siteAccessGroups
@@ -98,7 +98,9 @@ class AdminExceptionListener
         $code = $response->getStatusCode();
 
         // map exception to UI notification
-        $this->notificationHandler->error(/** @Ignore */ $this->getNotificationMessage($exception));
+        $this->notificationHandler->error(/** @Ignore */
+        $this->getNotificationMessage($exception)
+        );
 
         if ($exception instanceof RuntimeError) {
             // If exception is coming from the template where encore already
@@ -110,13 +112,13 @@ class AdminExceptionListener
 
         switch ($code) {
             case 404:
-                $content = $this->twig->render('@ezdesign/ui/error_page/404.html.twig');
+                $content = $this->twig->render('@ibexadesign/ui/error_page/404.html.twig');
                 break;
             case 403:
-                $content = $this->twig->render('@ezdesign/ui/error_page/403.html.twig');
+                $content = $this->twig->render('@ibexadesign/ui/error_page/403.html.twig');
                 break;
             default:
-                $content = $this->twig->render('@ezdesign/ui/error_page/unknown.html.twig');
+                $content = $this->twig->render('@ibexadesign/ui/error_page/unknown.html.twig');
                 break;
         }
 
@@ -133,10 +135,10 @@ class AdminExceptionListener
     {
         $request = $event->getRequest();
 
-        /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess $siteAccess */
+        /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteAccess */
         $siteAccess = $request->get('siteaccess', new SiteAccess('default'));
 
-        return \in_array($siteAccess->name, $this->siteAccessGroups[EzPlatformAdminUiBundle::ADMIN_GROUP_NAME]);
+        return \in_array($siteAccess->name, $this->siteAccessGroups[IbexaAdminUiBundle::ADMIN_GROUP_NAME]);
     }
 
     /**
@@ -160,3 +162,5 @@ class AdminExceptionListener
         return sprintf('%s [in %s:%d]', $message, $relativePathname, $line);
     }
 }
+
+class_alias(AdminExceptionListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\AdminExceptionListener');

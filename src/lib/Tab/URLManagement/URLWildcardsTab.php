@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\URLManagement;
+namespace Ibexa\AdminUi\Tab\URLManagement;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\URLWildcardService;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzPlatformAdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Type\URLWildcard\URLWildcardDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\URLWildcard\URLWildcardType;
-use EzSystems\EzPlatformAdminUi\Tab\AbstractTab;
-use EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface;
+use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
 use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardListData;
+use Ibexa\AdminUi\Form\Type\URLWildcard\URLWildcardDeleteType;
 use Ibexa\AdminUi\Form\Type\URLWildcard\URLWildcardListType;
+use Ibexa\AdminUi\Form\Type\URLWildcard\URLWildcardType;
 use Ibexa\AdminUi\Pagination\Pagerfanta\URLWildcardAdapter;
+use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\URLWildcardService;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\URLWildcardQuery;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,15 +34,15 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
 {
     private const PAGINATION_PARAM_NAME = 'url-wildcards-page';
 
-    public const URI_FRAGMENT = 'ez-tab-link-manager-url-wildcards';
+    public const URI_FRAGMENT = 'ibexa-tab-link-manager-url-wildcards';
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     protected $permissionResolver;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \eZ\Publish\API\Repository\URLWildcardService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLWildcardService */
     private $urlWildcardService;
 
     /** @var \Symfony\Component\HttpFoundation\RequestStack */
@@ -70,7 +70,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getIdentifier(): string
     {
@@ -78,7 +78,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName(): string
     {
@@ -87,7 +87,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getOrder(): int
     {
@@ -102,14 +102,15 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function renderView(array $parameters): string
     {
         $limit = $this->configResolver->getParameter('pagination.url_wildcards');
         $currentRequest = $this->requestStack->getCurrentRequest();
         $page = $this->requestStack->getCurrentRequest()->query->getInt(
-            self::PAGINATION_PARAM_NAME, 1
+            self::PAGINATION_PARAM_NAME,
+            1
         );
 
         $data = new URLWildcardListData();
@@ -155,7 +156,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
         $urlWildcardsEnabled = $this->configResolver->getParameter('url_wildcards.enabled');
         $canManageWildcards = $this->permissionResolver->hasAccess('content', 'urltranslator');
 
-        return $this->twig->render('@ezdesign/url_wildcard/list.html.twig', [
+        return $this->twig->render('@ibexadesign/url_wildcard/list.html.twig', [
             'url_wildcards' => $urlWildcardLists,
             'pager_options' => [
                 'pageParameter' => '[' . self::PAGINATION_PARAM_NAME . ']',
@@ -199,3 +200,5 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
         return $query;
     }
 }
+
+class_alias(URLWildcardsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\URLManagement\URLWildcardsTab');

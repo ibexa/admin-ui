@@ -51,10 +51,11 @@ class ContentUpdateContext implements Context
     }
 
     /**
-     * @When the :fieldName field cannot be edited due to limitation
+     * @When the :fieldName field in :fieldGroup field group cannot be edited due to limitation
      */
-    public function theFieldCannotBeEditedDueToLimitation(string $fieldName): void
+    public function theFieldCannotBeEditedDueToLimitation(string $fieldName, string $fieldGroup): void
     {
+        $this->contentUpdateItemPage->switchToFieldGroup($fieldGroup);
         $this->contentUpdateItemPage->verifyFieldCannotBeEditedDueToLimitation($fieldName);
     }
 
@@ -114,13 +115,21 @@ class ContentUpdateContext implements Context
     }
 
     /**
-     * @When I wait for :autosaveIntervalTime seconds for Content Item to be autosaved
+     * @When I wait for Content Item to be autosaved
      */
-    public function iWaitForAutosaveNotification(int $autosaveIntervalTime): void
+    public function iWaitForAutosaveNotification(): void
     {
         $this->contentUpdateItemPage->verifyIsLoaded();
         $this->contentUpdateItemPage->verifyAutosaveNotificationIsDisplayed();
-        sleep($autosaveIntervalTime + 3);
         $this->contentUpdateItemPage->verifyAutosaveDraftIsSavedNotificationIsDisplayed();
+    }
+
+    /**
+     * @When I check if "Autosave is off" notification is displayed
+     */
+    public function iCheckAutosaveNotification(): void
+    {
+        $this->contentUpdateItemPage->verifyIsLoaded();
+        $this->contentUpdateItemPage->verifyAutosaveIsOffNotificationIsDisplayed();
     }
 }

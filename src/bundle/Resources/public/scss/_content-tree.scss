@@ -1,45 +1,30 @@
-.ez-content-view,
-.ez-bookmark-list-view,
-.ez-search-view,
-.ez-trash-list-view,
-.ez-drafts-list-view {
-    .ez-content-container {
+.ibexa-content-view,
+.ibexa-bookmark-list-view,
+.ibexa-search-view,
+.ibexa-trash-list-view,
+.ibexa-drafts-list-view {
+    .ibexa-content-container {
         min-width: 0;
     }
 
-    .ez-content-tree-container {
+    .ibexa-content-tree-container {
         position: relative;
-        top: calculateRem(8px);
+        top: 0;
         flex: 0 0 auto;
-        max-width: 0;
-        background: $ibexa-white;
+        background: $ibexa-color-white;
         color: inherit;
-        transform: scaleX(0);
-        transform-origin: left;
+        box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info, 0.05);
 
-        &--animate {
-            transition: $ibexa-admin-widget-close-transition;
-
-            &.ez-content-tree-container--expanded {
-                transition: $ibexa-admin-widget-open-transition;
-            }
-        }
-
-        &--expanded {
-            transform-origin: left;
-            transform: scaleX(1);
-            display: initial;
-            max-width: 33vw;
-        }
-
-        &__wrapper {
+        &__root {
             position: -webkit-sticky;
             position: sticky;
             top: 0;
+            height: 100%;
+            overflow: auto;
         }
     }
 
-    .ez-view-container {
+    .ibexa-view-container {
         flex: 1 1 auto;
         min-width: 0;
     }

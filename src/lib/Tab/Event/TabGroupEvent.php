@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\Event;
+namespace Ibexa\AdminUi\Tab\Event;
 
-use EzSystems\EzPlatformAdminUi\Tab\TabGroup;
+use Ibexa\AdminUi\Tab\TabGroup;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class TabGroupEvent extends Event
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Tab\TabGroup */
+    /** @var \Ibexa\AdminUi\Tab\TabGroup */
     private $data;
 
     /** @var array */
     private $parameters;
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\Tab\TabGroup
+     * @return \Ibexa\AdminUi\Tab\TabGroup
      */
     public function getData(): TabGroup
     {
@@ -28,7 +28,7 @@ class TabGroupEvent extends Event
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Tab\TabGroup $data
+     * @param \Ibexa\AdminUi\Tab\TabGroup $data
      */
     public function setData(TabGroup $data)
     {
@@ -51,3 +51,5 @@ class TabGroupEvent extends Event
         $this->parameters = $parameters;
     }
 }
+
+class_alias(TabGroupEvent::class, 'EzSystems\EzPlatformAdminUi\Tab\Event\TabGroupEvent');
