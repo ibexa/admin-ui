@@ -340,6 +340,7 @@
 
 {%- block form_widget_simple -%}
     {%- set has_search = has_search|default(false) -%}
+    {%- set clear_button_type = clear_button_type|default('button') -%}
     {%- set type = type|default('text') -%}
     {%- set is_text_input = type == 'text' or type == 'number' or force_text|default(false) -%}
     {%- if is_text_input -%}
