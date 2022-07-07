@@ -15,6 +15,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/helpers/table.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/cookies.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/tag.view.select.helper.js'),
+    path.resolve(__dirname, '../public/js/scripts/helpers/pagination.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/object.instances.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/middle.ellipsis.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.format.date.js'),
