@@ -2,7 +2,7 @@
     <td class="ibexa-table__empty-table-cell" colspan="{{ colspan|default(9999) }}">
         <img
             class="ibexa-table__empty-table-image"
-            src="/bundles/ibexaadminui/img/ibexa-empty-table.svg"
+            src="{{ empty_image|default(asset('/bundles/ibexaadminui/img/ibexa-empty-table.svg')) }}"
             alt="{{ empty_table_info_text|default('Table is empty') }}"
         />
         <div class="ibexa-table__empty-table-text">

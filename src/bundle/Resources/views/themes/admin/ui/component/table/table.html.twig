@@ -41,6 +41,7 @@
                             {% block tbody_empty %}
                                 {% include '@ibexadesign/ui/component/table/empty_table_body_row.html.twig' with {
                                     colspan: head_cols|length,
+                                    empty_image: empty_image|default(asset('/bundles/ibexaadminui/img/ibexa-empty-table.svg'))
                                 } %}
                             {% endblock %}
                         {% else %}
