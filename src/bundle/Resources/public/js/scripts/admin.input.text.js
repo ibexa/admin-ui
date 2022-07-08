@@ -1,6 +1,6 @@
 (function (global, doc) {
-    const clearText = (event) => {
-        const inputWrapper = event.target.closest('.ibexa-input-text-wrapper');
+    const clearText = ({ currentTarget }) => {
+        const inputWrapper = currentTarget.closest('.ibexa-input-text-wrapper');
         const textInput = inputWrapper.querySelector('.ibexa-input--text');
 
         textInput.value = '';
@@ -8,6 +8,10 @@
 
         if (!textInput.readOnly) {
             textInput.select();
+        }
+
+        if (currentTarget.hasAttribute('data-send-form-after-clearing')) {
+            currentTarget.closest('form').submit();
         }
     };
     const attachListenersToAllInputs = () => {
