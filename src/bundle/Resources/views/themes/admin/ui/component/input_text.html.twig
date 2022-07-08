@@ -1,6 +1,7 @@
 {% import '@ibexadesign/ui/component/macros.html.twig' as html %}
 
 {% set has_search = has_search|default(false) %}
+{% set should_clear_button_send_form = should_clear_button_send_form|default(false) %}
 {% set wrapper_attr = wrapper_attr|default({})|merge({
     class: (wrapper_attr.class|default('')
         ~ ' ibexa-input-text-wrapper'
@@ -13,7 +14,12 @@
     {% block content %}{% endblock %}
     <div class="ibexa-input-text-wrapper__actions">
         {% block actions %}
-            <button type="{{ clear_button_type|default('button') }}" class="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear" tabindex="-1">
+            <button 
+                type="button" 
+                class="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear" 
+                tabindex="-1"
+                {% if should_clear_button_send_form %}data-send-form-after-clearing{% endif %}
+            >
                 <svg class="ibexa-icon">
                     <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
                 </svg>
