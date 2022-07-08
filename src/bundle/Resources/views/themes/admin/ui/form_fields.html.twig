@@ -350,7 +350,7 @@
         {%- set input_html -%}
             {{ parent() }}
         {%- endset -%}
-        {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search } -%}
+        {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search, should_clear_button_send_form } -%}
             {% block content %}
                 {{ input_html }}
             {% endblock %}
