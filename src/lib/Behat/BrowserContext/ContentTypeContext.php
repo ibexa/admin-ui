@@ -117,6 +117,7 @@ class ContentTypeContext implements Context
      */
     public function iSelectCategory(string $categoryName): void
     {
+        $this->contentTypeUpdatePage->verifyIsLoaded();
         $this->contentTypeUpdatePage->clickAddButton();
         $this->contentTypeUpdatePage->selectContentTypeCategory($categoryName);
     }
