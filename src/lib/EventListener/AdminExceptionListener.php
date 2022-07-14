@@ -99,7 +99,7 @@ class AdminExceptionListener
 
         // map exception to UI notification
         $this->notificationHandler->error(/** @Ignore */
-        $this->getNotificationMessage($exception)
+            $this->getNotificationMessage($exception)
         );
 
         if ($exception instanceof RuntimeError) {

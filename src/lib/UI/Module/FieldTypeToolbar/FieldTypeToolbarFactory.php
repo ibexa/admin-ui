@@ -64,7 +64,7 @@ final class FieldTypeToolbarFactory
     private function getFieldTypeLabel(string $fieldTypeIdentifier): string
     {
         return $this->translator->trans(/** @Ignore */
-        $fieldTypeIdentifier . '.name',
+            $fieldTypeIdentifier . '.name',
             [],
             'fieldtypes'
         );

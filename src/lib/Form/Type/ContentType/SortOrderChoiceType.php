@@ -66,12 +66,12 @@ class SortOrderChoiceType extends AbstractType
     {
         return [
             $this->translator->trans(/** @Desc("Ascending") */
-            'content_type.sort_field.ascending',
+                'content_type.sort_field.ascending',
                 [],
                 'content_type'
             ) => Location::SORT_ORDER_ASC,
             $this->translator->trans(/** @Desc("Descending") */
-            'content_type.sort_field.descending',
+                'content_type.sort_field.descending',
                 [],
                 'content_type'
             ) => Location::SORT_ORDER_DESC,
