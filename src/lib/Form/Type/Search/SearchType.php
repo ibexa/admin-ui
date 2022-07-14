@@ -102,22 +102,22 @@ final class SearchType extends AbstractType
     {
         return [
             $this->translator->trans(/** @Desc("Last week") */
-            'search.last_week',
+                'search.last_week',
                 [],
                 'search'
             ) => 'P0Y0M7D',
             $this->translator->trans(/** @Desc("Last month") */
-            'search.last_month',
+                'search.last_month',
                 [],
                 'search'
             ) => 'P0Y1M0D',
             $this->translator->trans(/** @Desc("Last year") */
-            'search.last_year',
+                'search.last_year',
                 [],
                 'search'
             ) => 'P1Y0M0D',
             $this->translator->trans(/** @Desc("Custom range") */
-            'search.custom_range',
+                'search.custom_range',
                 [],
                 'search'
             ) => 'custom_range',

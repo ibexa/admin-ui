@@ -26,7 +26,7 @@ class GroupLimitationMapper extends MultipleSelectionBasedMapper implements Limi
     {
         return [
             1 => $this->translator->trans(/** @Desc("Self") */
-            'policy.limitation.group.self',
+                'policy.limitation.group.self',
                 [],
                 'ezplatform_content_forms_role'
             ),
@@ -37,7 +37,7 @@ class GroupLimitationMapper extends MultipleSelectionBasedMapper implements Limi
     {
         return [
             $this->translator->trans(/** @Desc("Self") */
-            'policy.limitation.group.self',
+                'policy.limitation.group.self',
                 [],
                 'ezplatform_content_forms_role'
             ),

@@ -84,19 +84,19 @@ class SubmitHandler implements UserActionsSubmitHandler
                 }
             } catch (ForbiddenException | NotFoundException | UnauthorizedException $e) {
                 $this->notificationHandler->error(/** @Ignore */
-                $e->getMessage()
+                    $e->getMessage()
                 );
             } catch (Exception $e) {
                 $this->logException($e);
 
                 $this->notificationHandler->error(/** @Ignore */
-                $e->getMessage()
+                    $e->getMessage()
                 );
             }
         } else {
             foreach ($form->getErrors(true, true) as $formError) {
                 $this->notificationHandler->warning(/** @Ignore */
-                $formError->getMessage()
+                    $formError->getMessage()
                 );
             }
         }

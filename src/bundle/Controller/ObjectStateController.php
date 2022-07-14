@@ -148,8 +148,8 @@ class ObjectStateController extends Controller
                     $objectState = $this->objectStateService->createObjectState($objectStateGroup, $createStruct);
 
                     $this->notificationHandler->success(
-                            /** @Desc("Object state '%name%' created.") */
-                            'object_state.create.success',
+                        /** @Desc("Object state '%name%' created.") */
+                        'object_state.create.success',
                         ['%name%' => $data->getName()],
                         'object_state'
                     );

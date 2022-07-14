@@ -115,8 +115,8 @@ class AssetController extends Controller
     private function createInvalidCsrfResponse(): JsonResponse
     {
         $errorMessage = $this->translator->trans(
-/** @Desc("Missing or invalid CSRF token") */
-'asset.upload.invalid_csrf',
+            /** @Desc("Missing or invalid CSRF token") */
+            'asset.upload.invalid_csrf',
             [],
             'assets'
         );

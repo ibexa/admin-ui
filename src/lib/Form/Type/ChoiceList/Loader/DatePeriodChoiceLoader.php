@@ -37,22 +37,22 @@ class DatePeriodChoiceLoader extends BaseChoiceLoader
     {
         return [
             $this->translator->trans(/** @Desc("Last week") */
-            'date_period_choice.last_week',
+                'date_period_choice.last_week',
                 [],
                 'date_period'
             ) => 'P0Y0M7D',
             $this->translator->trans(/** @Desc("Last month") */
-            'date_period_choice.last_month',
+                'date_period_choice.last_month',
                 [],
                 'date_period'
             ) => 'P0Y1M0D',
             $this->translator->trans(/** @Desc("Last year") */
-            'date_period_choice.last_year',
+                'date_period_choice.last_year',
                 [],
                 'date_period'
             ) => 'P1Y0M0D',
             $this->translator->trans(/** @Desc("Custom range") */
-            'date_period_choice.custom_range',
+                'date_period_choice.custom_range',
                 [],
                 'date_period'
             ) => 'custom_range',

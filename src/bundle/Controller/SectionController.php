@@ -418,7 +418,7 @@ class SectionController extends Controller
                 ]));
             } catch (Exception $e) {
                 $this->notificationHandler->error(/** @Ignore */
-                $e->getMessage()
+                    $e->getMessage()
                 );
             }
         }
@@ -460,7 +460,7 @@ class SectionController extends Controller
                 ]));
             } catch (Exception $e) {
                 $this->notificationHandler->error(/** @Ignore */
-                $e->getMessage()
+                    $e->getMessage()
                 );
             }
         }
