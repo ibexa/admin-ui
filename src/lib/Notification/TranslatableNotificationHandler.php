@@ -39,7 +39,7 @@ final class TranslatableNotificationHandler implements TranslatableNotificationH
             $locale
         );
         $this->notificationHandler->info(/** @Ignore */
-        $translatedMessage
+            $translatedMessage
         );
     }
 
@@ -53,7 +53,7 @@ final class TranslatableNotificationHandler implements TranslatableNotificationH
             $locale
         );
         $this->notificationHandler->success(/** @Ignore */
-        $translatedMessage
+            $translatedMessage
         );
     }
 
@@ -67,7 +67,7 @@ final class TranslatableNotificationHandler implements TranslatableNotificationH
             $locale
         );
         $this->notificationHandler->warning(/** @Ignore */
-        $translatedMessage
+            $translatedMessage
         );
     }
 
@@ -81,7 +81,7 @@ final class TranslatableNotificationHandler implements TranslatableNotificationH
             $locale
         );
         $this->notificationHandler->error(/** @Ignore */
-        $translatedMessage
+            $translatedMessage
         );
     }
 }
