@@ -58,6 +58,7 @@
                     this.recreateOptions();
                 }
             });
+            this.currentSelectedValue = this.sourceInput.value;
 
             this.createSelectedItem = this.createSelectedItem.bind(this);
             this.hideOptions = this.hideOptions.bind(this);
@@ -96,7 +97,7 @@
             return selectedItemNode;
         }
 
-        clearCurrentSelection() {
+        clearCurrentSelection(shouldFireChangeEvent = true) {
             const overflowNumber = this.selectedItemsContainer.querySelector('.ibexa-dropdown__selected-overflow-number').cloneNode();
 
             this.sourceInput.querySelectorAll('option').forEach((option) => (option.selected = false));
@@ -105,6 +106,10 @@
                 .forEach((option) => option.classList.remove('ibexa-dropdown__item--selected'));
             this.selectedItemsContainer.innerHTML = '';
             this.selectedItemsContainer.append(overflowNumber);
+
+            if (shouldFireChangeEvent) {
+                this.fireValueChangedEvent();
+            }
         }
 
         hideOptions() {
@@ -130,7 +135,7 @@
 
             if (this.canSelectOnlyOne && selected) {
                 this.hideOptions();
-                this.clearCurrentSelection();
+                this.clearCurrentSelection(false);
             }
 
             if (value) {
@@ -160,7 +165,12 @@
             }
 
             this.fitItems();
-            this.fireValueChangedEvent();
+
+            if (this.currentSelectedValue !== value) {
+                this.fireValueChangedEvent();
+
+                this.currentSelectedValue = value;
+            }
         }
 
         onInteractionOutside(event) {
@@ -338,7 +348,7 @@
 
             const selectedItems = this.getSelectedItems();
 
-            this.clearCurrentSelection();
+            this.clearCurrentSelection(false);
             this.fitItems();
             selectedItems.forEach((selectedItem) => {
                 this.selectOption(selectedItem.value);
