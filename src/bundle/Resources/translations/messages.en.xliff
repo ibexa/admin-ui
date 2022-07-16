@@ -86,6 +86,11 @@
         <target state="new">Get to know Ibexa DXP</target>
         <note>key: base.need_assistance</note>
       </trans-unit>
+      <trans-unit id="2db35ee6d4dcf83edd936a8a8a6baabd1e4ffd76" resname="base.registration">
+        <source>Registration</source>
+        <target state="new">Registration</target>
+        <note>key: base.registration</note>
+      </trans-unit>
       <trans-unit id="34e898c4a61c4925b523416b0c7ecd9574d8e48b" resname="base.visit_support">
         <source><![CDATA[See the %ibexa_documentation_link%<br/>or %ibexa_contact_link%]]></source>
         <target state="new"><![CDATA[See the %ibexa_documentation_link%<br/>or %ibexa_contact_link%]]></target>

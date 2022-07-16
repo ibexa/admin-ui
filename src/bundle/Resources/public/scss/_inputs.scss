@@ -398,6 +398,7 @@
         }
     }
 
+    &--password,
     &--search {
         .ibexa-input--text {
             padding-right: calculateRem(56px);

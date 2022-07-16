@@ -1,7 +1,13 @@
 .ibexa-login {
     height: 100%;
+    min-height: 100vh;
+    overflow: auto;
     background-image: url('/bundles/ibexaadminui/img/login-background.jpg');
     background-size: cover;
+
+    .ibexa-label {
+        margin-top: calculateRem(40px);
+    }
 
     &__logo {
         position: absolute;
@@ -16,6 +22,10 @@
         flex-direction: column;
         justify-content: space-between;
         padding: calculateRem(24px);
+        height: 63vh;
+        align-self: flex-start; /* needed for position: sticky ref. https://stackoverflow.com/questions/44446671/my-position-sticky-element-isnt-sticky-when-using-flexbox#answer-44446672 */
+        position: sticky;
+        top: calculateRem(48px);
     }
 
     &__info-headline {
@@ -31,6 +41,7 @@
         min-height: calculateRem(600px);
         border-radius: $ibexa-border-radius;
         padding: calculateRem(90px) calculateRem(120px);
+        align-self: flex-start;
     }
 
     &__content-wrapper {
@@ -41,6 +52,7 @@
 
     &__content-row {
         justify-content: center;
+        padding: calculateRem(48px) 0;
     }
 
     &__support-wrapper {
@@ -75,24 +87,10 @@
         }
     }
 
-    &__password-visibility-toggler {
-        position: absolute;
-        right: calculateRem(8px);
-        bottom: calculateRem(12px);
-        z-index: 1;
-        margin-left: auto;
-        border: none;
-        outline: none;
-
-        &:focus {
-            border: none;
-            outline: none;
-        }
-    }
-
     &__btn {
         margin-top: calculateRem(16px);
 
+        &--register,
         &--sign-in {
             width: 100%;
             justify-content: center;
@@ -117,12 +115,6 @@
         justify-content: center;
         margin-top: calculateRem(14px);
         font-size: $ibexa-text-font-size-medium;
-    }
-
-    &__input-label-wrapper {
-        .ibexa-label {
-            margin-top: calculateRem(40px);
-        }
     }
 
     &__forgot-password-form {
