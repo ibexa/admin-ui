@@ -45,22 +45,21 @@
                         <div class="ibexa-login__input-label-wrapper">
                             <label class="ibexa-label" for="password">{{ 'authentication.password'|trans|desc('Password') }}</label>
                         </div>
-                        <input
-                            type="password"
-                            id="password"
-                            class="form-control ibexa-input ibexa-input--text ibexa-login__input--password"
-                            name="_password"
-                            required="required"
-                            tabindex="2"
-                        />
-                        <button type="button" class="ibexa-login__password-visibility-toggler" tabindex="5">
-                            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--dark ibexa-icon--view">
-                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{ ibexa_icon_path('view') }}"></use>
-                            </svg>
-                            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--dark ibexa-icon--view-hide d-none">
-                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{ ibexa_icon_path('view-hide') }}"></use>
-                            </svg>
-                        </button>
+                        {%- embed '@ibexadesign/ui/component/input_text.html.twig' with {
+                            type: 'password',
+                        } -%}
+                            {% block content %}
+                                <input
+                                    type="password"
+                                    id="password"
+                                    class="form-control ibexa-input ibexa-input--text ibexa-login__input ibexa-login__input--password"
+                                    name="_password"
+                                    required="required"
+                                    tabindex="2"
+                                    placeholder=" "
+                                />
+                            {% endblock %}
+                        {%- endembed -%}
                     </div>
 
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}" />

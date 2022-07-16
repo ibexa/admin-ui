@@ -3,6 +3,16 @@
 {% use '@ibexadesign/ui/form_fields/toggle_widget.html.twig' %}
 {% use '@ibexadesign/ui/form_fields/dropdown_widget.html.twig' %}
 
+{%- block button_widget -%}
+    {%- set attr = attr|merge({class: (attr.class|default('btn ibexa-btn ibexa-btn--secondary'))|trim}) -%}
+    {{- parent() -}}
+{%- endblock button_widget %}
+
+{%- block submit_widget -%}
+    {%- set attr = attr|merge({class: (attr.class|default('btn ibexa-btn ibexa-btn--primary'))|trim}) -%}
+    {{- parent() -}}
+{%- endblock submit_widget %}
+
 {% block form_label -%}
     {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ibexa-label')|trim}) -%}
     {%- set is_only_errors = label is same as(false) -%}
@@ -307,7 +317,6 @@
         } %}
     </div>
 {%- endblock -%}
-
 
 {%- block _trash_search_trashed_widget -%}
     {{ form_widget(form) }}
