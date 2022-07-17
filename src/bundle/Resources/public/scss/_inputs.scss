@@ -90,6 +90,10 @@
     &--date {
         height: calculateRem(48px);
         padding-right: calculateRem(36px);
+
+        &[readonly] {
+            padding-right: calculateRem(12px);
+        }
     }
 
     &--small {
@@ -409,6 +413,7 @@
 .ibexa-input--text:placeholder-shown + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--clear,
 .ibexa-input--text:disabled + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--clear,
 .ibexa-input--text[hidden] + .ibexa-input-text-wrapper__actions,
+.ibexa-input--text[readonly] + .ibexa-input-text-wrapper__actions,
 .ibexa-input-text-wrapper__action-btn--clear.ibexa-input-text-wrapper__action-btn--is-hidden {
     display: none;
 }
