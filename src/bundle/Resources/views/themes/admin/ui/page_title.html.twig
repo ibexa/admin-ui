@@ -4,7 +4,7 @@
             <h1 class="ibexa-page-title__title">
                 {{ title }}
                 {% if tag is defined %}
-                    <div class="ibexa-badge">
+                    <div class="ibexa-badge {{ tag_extra_classes|default('') }}">
                         {{ tag }}
                     </div>
                 {% endif %}
