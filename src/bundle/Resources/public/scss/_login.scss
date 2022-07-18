@@ -22,10 +22,7 @@
         flex-direction: column;
         justify-content: space-between;
         padding: calculateRem(24px);
-        height: 63vh;
-        align-self: flex-start; /* needed for position: sticky ref. https://stackoverflow.com/questions/44446671/my-position-sticky-element-isnt-sticky-when-using-flexbox#answer-44446672 */
-        position: sticky;
-        top: calculateRem(48px);
+        max-height: 90vh;
     }
 
     &__info-headline {
