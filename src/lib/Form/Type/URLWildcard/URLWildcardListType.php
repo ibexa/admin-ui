@@ -14,7 +14,7 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -35,7 +35,7 @@ final class URLWildcardListType extends AbstractType implements TranslationConta
             'required' => false,
         ]);
 
-        $builder->add('searchQuery', TextareaType::class, [
+        $builder->add('searchQuery', SearchType::class, [
             'required' => false,
         ]);
 
