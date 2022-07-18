@@ -57,6 +57,12 @@
     {%- endfor -%}
 {%- endblock -%}
 
+{%- block search_widget -%} 
+    {% set has_search = true %}
+    
+    {{ block('form_widget_simple') }}
+{%- endblock -%}
+
 {%- block _search_query_widget -%}
     {% set has_search = true %}
 
