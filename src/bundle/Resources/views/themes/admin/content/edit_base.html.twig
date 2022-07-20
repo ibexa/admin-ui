@@ -59,13 +59,13 @@
                             {% for key, group in grouped_fields %}
                                 {% embed '@ibexadesign/ui/anchor_navigation_section.html.twig' with {
                                     anchor_section_key: key,
-                                    parentSelf: _self,
+                                    parent_self: _self,
                                 } %}
                                     {% trans_default_domain 'content_edit' %}
-                                    {% import parentSelf as parentSelf %}
+                                    {% import parent_self as parent_self %}
 
                                     {% block anchor_section_body %}
-                                        {{ parentSelf.renderFieldGroup(group, form) }}
+                                        {{ parent_self.renderFieldGroup(group, form) }}
                                     {% endblock %}
                                 {% endembed %}
                             {% endfor %}
