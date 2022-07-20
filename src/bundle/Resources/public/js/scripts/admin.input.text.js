@@ -31,10 +31,10 @@
     };
     const attachListenersToAllInputs = () => {
         const textInputClearBtns = doc.querySelectorAll('.ibexa-input-text-wrapper__action-btn--clear');
-        const passwordTogglersBtns = doc.querySelectorAll('.ibexa-input-text-wrapper__action-btn--password-toggler');
+        const passwordTogglerBtns = doc.querySelectorAll('.ibexa-input-text-wrapper__action-btn--password-toggler');
 
         textInputClearBtns.forEach((clearBtn) => clearBtn.addEventListener('click', clearText, false));
-        passwordTogglersBtns.forEach((passwordTogglerBtn) => passwordTogglerBtn.addEventListener('click', togglePasswordVisibility, false));
+        passwordTogglerBtns.forEach((passwordTogglerBtn) => passwordTogglerBtn.addEventListener('click', togglePasswordVisibility, false));
     };
 
     doc.body.addEventListener('ibexa-inputs:added', attachListenersToAllInputs, false);
