@@ -16,6 +16,7 @@
     }
 
     .ibexa-badge {
-        margin-left: calculateRem(8px);
+        margin: calculateRem(5px) 0 0 calculateRem(16px);
+        font-family: $ibexa-font-family;
     }
 }
