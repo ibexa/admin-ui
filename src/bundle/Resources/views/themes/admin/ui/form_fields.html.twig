@@ -4,12 +4,12 @@
 {% use '@ibexadesign/ui/form_fields/dropdown_widget.html.twig' %}
 
 {%- block button_widget -%}
-    {%- set attr = attr|merge({class: (attr.class|default('btn ibexa-btn ibexa-btn--secondary'))|trim}) -%}
+    {%- set attr = attr|merge({class: (attr.class|default('ibexa-btn ibexa-btn--secondary') ~ ' btn')|trim}) -%}
     {{- parent() -}}
 {%- endblock button_widget %}
 
 {%- block submit_widget -%}
-    {%- set attr = attr|merge({class: (attr.class|default('btn ibexa-btn ibexa-btn--primary'))|trim}) -%}
+    {%- set attr = attr|merge({class: (attr.class|default('ibexa-btn ibexa-btn--primary'))|trim}) -%}
     {{- parent() -}}
 {%- endblock submit_widget %}
 
