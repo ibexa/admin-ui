@@ -73,6 +73,10 @@ form:not(.form-inline) {
     box-sizing: border-box;
     margin-top: calculateRem(4px);
 
+    &:not(& > &) {
+        flex-direction: column;
+    }
+
     &__icon {
         fill: $ibexa-color-danger;
         margin-right: calculateRem(4px);
