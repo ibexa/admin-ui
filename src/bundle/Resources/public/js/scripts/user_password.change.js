@@ -59,9 +59,10 @@
         const confirmPassword = confirmPasswordInput.value.trim();
         const isNotEmptyPassword = checkIsNotEmpty(newPasswordInput) && checkIsNotEmpty(confirmPasswordInput);
         const passwordMatch = newPassword === confirmPassword;
+        const areBothPasswordsFilled = newPassword !== '' && confirmPassword !== '';
         const message = ibexa.errors.notSamePasswords;
 
-        if (!passwordMatch) {
+        if (!passwordMatch && areBothPasswordsFilled) {
             toggleError(!passwordMatch, message, confirmPasswordInput);
         }
 
@@ -113,5 +114,6 @@
     oldPasswordInput.addEventListener('blur', (event) => checkIsNotEmpty(event.currentTarget), false);
     newPasswordInput.addEventListener('blur', (event) => checkIsNotEmpty(event.currentTarget), false);
     confirmPasswordInput.addEventListener('blur', (event) => checkIsNotEmpty(event.currentTarget), false);
+    newPasswordInput.addEventListener('blur', comparePasswords, false);
     confirmPasswordInput.addEventListener('blur', comparePasswords, false);
 })(window, window.document, window.ibexa);
