@@ -74,7 +74,6 @@ form:not(.form-inline) {
     @include ibexa-font-sans-serif();
 
     display: flex;
-    flex-direction: column;
     font-size: $ibexa-text-font-size-small;
     font-style: normal;
     color: $ibexa-color-danger;
