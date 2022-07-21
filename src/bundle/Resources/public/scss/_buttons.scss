@@ -32,6 +32,10 @@
             box-shadow: $ibexa-btn-focus-box-shadow, $ibexa-btn-hover-box-shadow;
         }
 
+        &:focus {
+            color: $ibexa-color-white;
+        }
+
         &.disabled,
         &[disabled],
         &:disabled {
