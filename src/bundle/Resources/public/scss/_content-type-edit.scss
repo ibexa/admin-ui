@@ -75,8 +75,12 @@
 
         .ibexa-collapse {
             &--field-definitions-group {
-                margin-bottom: calculateRem(32px);
+                margin-bottom: calculateRem(22px);
                 border-radius: $ibexa-border-radius;
+
+                &.ibexa-collapse--hidden {
+                    margin: 0;
+                }
 
                 .ibexa-collapse {
                     &__header {
@@ -183,7 +187,7 @@
         align-items: center;
         position: relative;
         height: calculateRem(80px);
-        margin: calculateRem(24px) 0;
+        margin-bottom: calculateRem(24px);
         border: calculateRem(1px) dashed $ibexa-color-light-600;
         border-radius: $ibexa-border-radius;
     }
