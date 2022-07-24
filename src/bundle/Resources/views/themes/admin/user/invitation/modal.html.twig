@@ -13,10 +13,11 @@
 {% endset %}
 
 {% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
-    title: 'invite_members'|trans|desc('Invite Members'),
+    title: 'modal.title'|trans|desc('Invite Members'),
+    subtitle: info,
     class: 'ibexa-user-invitation-modal ' ~ extra_class|default(''),
     id: 'ibexa-user-invitation-modal',
-    size: modal_size|default('medium'),
+    size: modal_size|default('large'),
 } %}
     {% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
     {% trans_default_domain 'user_invitation' %}
@@ -26,8 +27,30 @@
     {% endblock %}
     {% block body_content %}
         <div class="ibexa-user-invitation-modal__body">
-            <div class="ibexa-user-invitation-modal__info">
-                {{ info }}
+            <div class="ibexa-user-invitation-modal__search">
+                {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
+                    type: 'warning',
+                    title: 'modal.issue.bad_file.alert.message'|trans|desc(
+                        'This file has no valid email address or may be empty.<br>Check your file and try again.'),
+                } only %}
+                {% embed '@ibexadesign/ui/component/alert/alert.html.twig' with {
+                    type: 'warning',
+                    title: 'modal.issue.bad_file.alert.message'|trans|desc(
+                        'Please review the problems below.'),
+                } only %}
+                    {% block extra_content %}
+                        asdf
+                    {% endblock %}
+                {% endembed %}
+                {% embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true, search_button_type: 'button' } %}
+                    {% block content %}
+                        <input
+                            type="text"
+                            class="form-control ibexa-input ibexa-input--text ibexa-user-invitation-modal__search-input"
+                            placeholder="{{ 'modal.search.placeholder'|trans|desc('Search...') }}"
+                        />
+                    {% endblock %}
+                {% endembed %}
             </div>
             <div class="ibexa-user-invitation-modal__main">
                 <div class="ibexa-user-invitation-modal__labels">
@@ -38,6 +61,11 @@
                     data-prototype="{{ entry_prototype|e('html_attr') }}"
                 >
                     {{ entries }}
+                </div>
+                <div class="ibexa-user-invitation-modal__search-no-entries ibexa-user-invitation-modal__search-no-entries--hidden">
+                    {{ 'modal.search.no_entries'|trans|desc(
+                        'No entries match search.'
+                    ) }}
                 </div>
                 <button
                     type="button"
@@ -77,27 +105,6 @@
                         type="file"
                         hidden
                     />
-                </div>
-                <div class="ibexa-user-invitation-modal__uploaded-file ibexa-user-invitation-modal__uploaded-file--hidden">
-                    <svg class="ibexa-icon ibexa-icon--small ibexa-user-invitation-modal__uploaded-item-icon">
-                        <use xlink:href="{{ ibexa_icon_path('image') }}"></use>
-                    </svg>
-                    <div class="ibexa-user-invitation-modal__uploaded-item-name"></div>
-                    <div class="ibexa-user-invitation-modal__uploaded-item-size"></div>
-                    <div class="ibexa-user-invitation-modal__uploaded-item-info">
-                        <svg class="ibexa-icon ibexa-icon--tiny ibexa-user-invitation-modal__uploaded-item-checkmark">
-                            <use xlink:href="{{ ibexa_icon_path('checkmark') }}"></use>
-                        </svg>
-                        {{ 'modal.fully_uploaded'|trans|desc('100% Uploaded') }}
-                    </div>
-                    <button
-                        type="button"
-                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-user-invitation-modal__uploaded-item-delete-btn"
-                    >
-                        <svg class="ibexa-icon ibexa-icon--small">
-                            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                        </svg>
-                    </button>
                 </div>
             </div>
         </div>

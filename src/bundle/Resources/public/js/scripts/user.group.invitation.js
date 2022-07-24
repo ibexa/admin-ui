@@ -38,6 +38,20 @@ import { UserInvitationModal } from './user.invitation.modal';
 
             emailInput.value = email;
         }
+
+        checkEntryMatchesSearch(entry, searchText) {
+            const emailInput = entry.querySelector('.ibexa-user-group-invitation__entry-email');
+            const email = emailInput.value;
+
+            return email.includes(searchText);
+        }
+
+        checkEntriesAreDuplicate(entry, entryToCompare) {
+            const entryEmailInput = entry.querySelector('.ibexa-user-group-invitation__entry-email');
+            const entryToCompareEmailInput = entryToCompare.querySelector('.ibexa-user-group-invitation__entry-email');
+
+            return entryEmailInput.value === entryToCompareEmailInput.value;
+        }
     }
 
     const userInvitationModal = new UserGroupInvitationModal({ modal });

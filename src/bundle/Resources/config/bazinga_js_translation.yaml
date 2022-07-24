@@ -9,3 +9,4 @@ active_domains:
     - 'sub_items'
     - 'content_tree'
     - 'trash_ui'
+    - 'user_invitation'
