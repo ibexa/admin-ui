@@ -74,16 +74,20 @@
     }
 
     &__input {
-        &:disabled + .ibexa-btn--reset-creator {
-            display: block;
+        &.ibexa-input.form-control:disabled {
+            background-color: $ibexa-color-white;
+
+            & + .ibexa-btn--reset-creator {
+                display: block;
+            }
         }
     }
 
     .ibexa-btn--reset-creator {
         display: none;
         position: absolute;
-        right: calculateRem(5px);
-        bottom: calculateRem(9px);
+        right: 0;
+        bottom: calculateRem(1px);
     }
 
     &__range-wrapper {
