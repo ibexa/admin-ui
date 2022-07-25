@@ -22,87 +22,74 @@
     } %}
 {% endblock %}
 
-{% block content %}
-    <section class="container ibexa-container">
-        {% set body_row_cols = [] %}
-
-        {% set body_row_cols = body_row_cols|merge([
-            { content: language.name },
-            { content: language.languageCode },
-            { content: language.id },
-        ]) %}
-
-        {% set col_raw %}
-            <input
-                type="checkbox"
-                title="{{ language.enabled ? 'language.enabled'|trans|desc('Enabled') : 'language.enabled'|trans|desc('Enabled') }}"
-                disabled
-                {% if language.enabled %}checked{% endif %}
-            >
-        {% endset %}
-        {% set body_row_cols = body_row_cols|merge([{
-            content: col_raw,
-            raw: true,
-        }]) %}
-
-        {% set col_raw %}
-            {% if can_administrate %}
+{% block context_menu %}
+    {% if can_administrate %}
+        <ul class="ibexa-context-menu">
+            <li class="ibexa-context-menu__item">
                 <a
                     href="{{ path('ibexa.language.edit', {'languageId': language.id}) }}"
-                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
-                    title="{{ 'language.edit'|trans|desc('Edit') }}"
+                    class="btn ibexa-btn ibexa-btn--primary"
                 >
-                    <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
-                        <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                    </svg>
+                    <span class="ibexa-btn__label">
+                        {{ 'language.edit'|trans|desc('Edit') }}
+                    </span>
                 </a>
-            {% endif %}
-        {% endset %}
-        {% set body_row_cols = body_row_cols|merge([{
-            has_action_btns: true,
-            content: col_raw,
-            raw: true,
-        }]) %}
+            </li>
+            <li class="ibexa-context-menu__item">
+                {{ form_start(deleteForm, {"action": path("ibexa.language.delete", {"languageId": language.id, "redirectErrorsTo": "view"})}) }}
+                    {{ form_widget(deleteForm.language) }}
 
-        {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
+                    <button
+                        type="button"
+                        class="btn ibexa-btn ibexa-btn--secondary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#delete-language-modal"
+                    >
+                        <span class="ibexa-btn__label">
+                            {{ 'language.delete_language'|trans|desc('Delete') }}
+                        </span>
+                    </button>
+
+                    {% include '@ibexadesign/language/modal/delete_confirmation.html.twig' with {'deleteForm': deleteForm} %}
+                {{ form_end(deleteForm) }}
+            </li>
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% set enable_checkbox_raw %}
+        <input
+            type="checkbox"
+            title="{{ language.enabled ? 'language.enabled'|trans|desc('Enabled') : 'language.enabled'|trans|desc('Enabled') }}"
+            class="ibexa-input ibexa-input--checkbox"
+            disabled
+            {% if language.enabled %}checked{% endif %}
+        >
+    {% endset %}
+    {% set language_items = [
+        {
+            label: 'language.name.label'|trans|desc('Name'),
+            content: language.name,
+        },
+        {
+            label: 'language.code.label'|trans|desc('Language code'),
+            content: language.languageCode,
+        },
+        {
+            label: 'language.id.label'|trans|desc('ID'),
+            content: language.id,
+        },
+        {
+            label: 'language.enabled.label'|trans|desc('Enabled'),
+            content: enable_checkbox_raw,
+        },
+    ] %}
+
+    <section class="container ibexa-container">
+        {% include '@ibexadesign/ui/component/details/details.html.twig' with {
             headline: 'language.information.header'|trans|desc('Language information'),
-            head_cols: [
-                { content: 'language.name.label'|trans|desc('Name') },
-                { content: 'language.code.label'|trans|desc('Language code') },
-                { content: 'language.id.label'|trans|desc('ID') },
-                { content: 'language.enabled.label'|trans|desc('Enabled') },
-                { },
-            ],
-            body_rows: [{ cols: body_row_cols }],
-        } %}
-            {% block header %}
-                {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
-                    {% block actions %}
-                        {% if can_administrate %}
-                            {{ form_start(deleteForm, {"action": path("ibexa.language.delete", {"languageId": language.id, "redirectErrorsTo": "view"})}) }}
-
-                            {{ form_widget(deleteForm.language) }}
-                            <button
-                                type="button"
-                                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-                                data-bs-toggle="modal"
-                                data-bs-target="#delete-language-modal"
-                            >
-                                <svg class="ibexa-icon ibexa-icon--small">
-                                    <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                                </svg>
-                                <span class="ibexa-btn__label">
-                                    {{ 'language.delete_language'|trans|desc('Delete') }}
-                                </span>
-                            </button>
-
-                            {% include '@ibexadesign/language/modal/delete_confirmation.html.twig' with {'deleteForm': deleteForm} %}
-
-                            {{ form_end(deleteForm) }}
-                        {% endif %}
-                    {% endblock %}
-                {% endembed %}
-            {% endblock %}
-        {% endembed %}
+            items: language_items,
+        } only %}
     </section>
 {% endblock %}
