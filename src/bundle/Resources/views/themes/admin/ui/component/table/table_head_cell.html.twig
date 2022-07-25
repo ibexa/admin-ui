@@ -6,6 +6,7 @@
         {%- if has_checkbox|default(false) %} ibexa-table__header-cell--checkbox{%- endif -%}
         {%- if has_icon|default(false) %} ibexa-table__header-cell--has-icon{%- endif -%}
         {%- if is_close_left|default(false) %} ibexa-table__header-cell--close-left {% endif %}
+        {%- if center_content|default(false) %} ibexa-table__header-cell--content-center {% endif %}
         {{ class|default('') -}}"
     {{ html.attributes(attr|default({})) }}
 >
