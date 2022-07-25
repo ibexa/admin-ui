@@ -3,8 +3,16 @@
     position: relative;
 
     &__input {
+        width: 100%;
+        padding: calculateRem(6px) calculateRem(36px) calculateRem(6px) calculateRem(12px);
+
         &[readonly] {
             background-color: $ibexa-color-white;
+        }
+
+        &[disabled] {
+            background-color: $ibexa-color-light-300;
+            border-color: $ibexa-color-light-300;
         }
     }
 
