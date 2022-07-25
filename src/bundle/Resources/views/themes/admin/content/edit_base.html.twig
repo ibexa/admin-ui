@@ -23,6 +23,30 @@
     {% include '@ibexadesign/ui/anchor_navigation_menu.html.twig' with anchor_params %}
 {% endblock %}
 
+{% macro renderFormField(formField) -%}
+    {% if not formField.rendered %}
+        {% if formField.value is defined %}
+            {{- form_widget(formField) -}}
+        {% else %}
+            <div class="ibexa-field-edit ibexa-field-edit--eznoneditable">
+                {{- form_label(formField) -}}
+                <p class="non-editable">
+                    {{ 'content.field.non_editable'|trans|desc('This Field Type is not editable') }}
+                </p>
+                {% do formField.setRendered() %}
+            </div>
+        {% endif %}
+    {% endif %}
+{%- endmacro -%}
+
+{% macro renderFieldGroup(group, form) -%}
+    {% for field in group %}
+        {% set formField = form.fieldsData[field] %}
+
+        {{ _self.renderFormField(formField) }}
+    {% endfor %}
+{%- endmacro -%}
+
 {% block content %}
     <div class="ibexa-edit-content__container">
         {% block form_before %}{% endblock %}
@@ -34,47 +58,21 @@
                         <div class="ibexa-anchor-navigation-sections">
                             {% for key, group in grouped_fields %}
                                 {% embed '@ibexadesign/ui/anchor_navigation_section.html.twig' with {
-                                    anchor_section_key: key
+                                    anchor_section_key: key,
+                                    parent_self: _self,
                                 } %}
                                     {% trans_default_domain 'content_edit' %}
+                                    {% import parent_self as parent_self %}
 
                                     {% block anchor_section_body %}
-                                        {% for field in group %}
-                                            {% set formField = form.fieldsData[field] %}
-
-                                            {% if not formField.rendered %}
-                                                {% if formField.value is defined %}
-                                                    {{- form_widget(formField) -}}
-                                                {% else %}
-                                                    <div class="ibexa-field-edit ibexa-field-edit--eznoneditable">
-                                                        {{- form_label(formField) -}}
-                                                        <p class="non-editable">
-                                                            {{ "content.field.non_editable"|trans|desc('This Field Type is not editable') }}
-                                                        </p>
-                                                        {% do formField.setRendered() %}
-                                                    </div>
-                                                {% endif %}
-                                            {% endif %}
-                                        {% endfor %}
+                                        {{ parent_self.renderFieldGroup(group, form) }}
                                     {% endblock %}
                                 {% endembed %}
                             {% endfor %}
                         </div>
                     {% else %}
-                        {% for field in form.fieldsData %}
-                            {% if not field.rendered %}
-                                {% if field.value is defined %}
-                                    {{- form_widget(field) -}}
-                                {% else %}
-                                    <div class="ibexa-field-edit ibexa-field-edit--eznoneditable">
-                                        {{- form_label(field) -}}
-                                        <p class="non-editable">
-                                            {{ "content.field.non_editable"|trans|desc('This Field Type is not editable') }}
-                                        </p>
-                                        {% do field.setRendered() %}
-                                    </div>
-                                {% endif %}
-                            {% endif %}
+                        {% for formField in form.fieldsData %}
+                            {{ _self.renderFormField(formField) }}
                         {%- endfor %}
                     {% endif %}
                 {% endblock %}
