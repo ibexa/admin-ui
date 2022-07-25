@@ -86,6 +86,11 @@
         <target state="new">Languages</target>
         <note>key: language.list</note>
       </trans-unit>
+      <trans-unit id="825e3401f4b5a95c82ecfabdc39fcc8d31607e3c" resname="language.list_number_of_results">
+        <source>List (%number_of_results%)</source>
+        <target state="new">List (%number_of_results%)</target>
+        <note>key: language.list_number_of_results</note>
+      </trans-unit>
       <trans-unit id="2a52961302ce7dfa4a21c5e0bcc239f5a9a36cfe" resname="language.modal.message">
         <source>Do you want to delete the language(s)?</source>
         <target state="new">Do you want to delete the language(s)?</target>

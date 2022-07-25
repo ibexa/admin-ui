@@ -91,6 +91,10 @@
         &--field-definitions-head {
             width: calc(100% / 3);
         }
+
+        &--content-center {
+            text-align: center;
+        }
     }
 
     &__header-cell-checkbox {
@@ -147,6 +151,10 @@
 
         &--limitation {
             width: 70%;
+        }
+
+        &--content-center {
+            text-align: center;
         }
     }
 
