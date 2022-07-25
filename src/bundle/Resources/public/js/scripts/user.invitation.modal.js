@@ -1,4 +1,4 @@
-import { fileSizeToString } from '@ibexa-admin-ui/src/bundle/ui-dev/src/modules/multi-file-upload/helpers/text.helper';
+const { ibexa, Translator } = window;
 
 export class UserInvitationModal {
     constructor(options = {}) {
@@ -7,6 +7,16 @@ export class UserInvitationModal {
         }
 
         this.modal = options.modal;
+        this.search = this.modal.querySelector('.ibexa-user-invitation-modal__search');
+        this.searchInput = this.search.querySelector('.ibexa-user-invitation-modal__search-input');
+        this.searchBtn = this.search.querySelector('.ibexa-input-text-wrapper__action-btn--search');
+        this.searchNoEntries = this.modal.querySelector('.ibexa-user-invitation-modal__search-no-entries');
+        this.badFileAlert = this.modal.querySelector('.ibexa-user-invitation-modal__bad-file-alert');
+        this.badFileAlertCloseBtn = this.badFileAlert.querySelector('.ibexa-alert__close-btn');
+        this.issuesAlert = this.modal.querySelector('.ibexa-user-invitation-modal__issues-alert');
+        this.issuesAlertIssuesContainer = this.modal.querySelector('.ibexa-user-invitation-modal__issues-alert-issues');
+        this.issuesAlertCloseBtn = this.issuesAlert.querySelector('.ibexa-alert__close-btn');
+        this.goToNextIssueBtn = this.issuesAlert.querySelector('.ibexa-user-invitation-modal__next-issue-btn');
         this.addNextBtn = this.modal.querySelector('.ibexa-user-invitation-modal__add-next-btn');
         this.entriesContainer = this.modal.querySelector('.ibexa-user-invitation-modal__entries');
         this.entryPrototype = this.entriesContainer.dataset.prototype;
@@ -14,11 +24,7 @@ export class UserInvitationModal {
         this.dropZone = this.modal.querySelector('.ibexa-user-invitation-modal__drop');
         this.uploadLocalFileBtn = this.modal.querySelector('.ibexa-user-invitation-modal__file-select');
         this.fileInput = this.modal.querySelector('.ibexa-user-invitation-modal__file-input');
-        this.uploadedFileNode = this.modal.querySelector('.ibexa-user-invitation-modal__uploaded-file');
-        this.uploadedItemNameNode = this.uploadedFileNode.querySelector('.ibexa-user-invitation-modal__uploaded-item-name');
-        this.uploadedItemSizeNode = this.uploadedFileNode.querySelector('.ibexa-user-invitation-modal__uploaded-item-size');
-        this.uploadedFileDeleteBtn = this.uploadedFileNode.querySelector('.ibexa-user-invitation-modal__uploaded-item-delete-btn');
-        this.initialEntries = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
+        this.lastScrolledToEntryWithIssue = null;
 
         this.attachEntryListeners = this.attachEntryListeners.bind(this);
         this.preventDefaultAction = this.preventDefaultAction.bind(this);
@@ -26,21 +32,166 @@ export class UserInvitationModal {
         this.handleEntryDelete = this.handleEntryDelete.bind(this);
         this.handleDropUpload = this.handleDropUpload.bind(this);
         this.handleInputUpload = this.handleInputUpload.bind(this);
-        this.handleFileDelete = this.handleFileDelete.bind(this);
-    }
-
-    processCSVInvitationFile() {
-        throw new Error('processCSVInvitationFile should be overridden in subclass.');
+        this.handleSearch = this.handleSearch.bind(this);
+        this.handleEmailValidation = this.handleEmailValidation.bind(this);
+        this.scrollToNextIssue = this.scrollToNextIssue.bind(this);
     }
 
     // eslint-disable-next-line no-unused-vars
+    processCSVInvitationFile(file) {
+        throw new Error('processCSVInvitationFile should be overridden in subclass.');
+    }
+
+    countFilledLinesInFile(file) {
+        return file.text().then((text) => {
+            const nonEmptyLineRegexp = /^([^\r\n]+)$/gm;
+            const matchedData = [...text.matchAll(nonEmptyLineRegexp)];
+
+            return matchedData.length;
+        });
+    }
+
     resetEntry(entry) {
-        throw new Error('resetEntry should be overridden in subclass.');
+        this.toggleInvalidEmailState(entry, false);
+        this.toggleDuplicateEntryState(entry, false);
     }
 
     // eslint-disable-next-line no-unused-vars
     isEntryEmpty(entry) {
         throw new Error('isEntryEmpty should be overridden in subclass.');
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    checkEntryMatchesSearch(entry, searchText) {
+        throw new Error('checkEntryMatchesSearch should be overridden in subclass.');
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    checkIsEntryDuplicate(invitationData, entryToCompare) {
+        throw new Error('checkIsEntryDuplicate should be overridden in subclass.');
+    }
+
+    checkHasEntryIssue(entry) {
+        const hasInvalidEmailIssue = !!entry.querySelector('.ibexa-user-invitation-modal__issue-email-not-valid');
+        const hasDuplicateIssue = !!entry.querySelector('.ibexa-user-invitation-modal__issue-duplicate');
+
+        return hasInvalidEmailIssue || hasDuplicateIssue;
+    }
+
+    findDuplicateEntry(invitationData, entriesToCompare) {
+        for (const entryToCompare of entriesToCompare) {
+            if (this.checkIsEntryDuplicate(invitationData, entryToCompare)) {
+                return entryToCompare;
+            }
+        }
+
+        return null;
+    }
+
+    toggleDuplicateEntryState(entry, isDuplicate) {
+        const duplicateEntryError = entry.querySelector('.ibexa-user-invitation-modal__entry-issues');
+
+        if (isDuplicate) {
+            if (!duplicateEntryError) {
+                const template = this.entriesContainer.dataset.duplicateInfoTemplate;
+                const entryIssuesContainer = entry.querySelector('.ibexa-user-invitation-modal__entry-issues');
+
+                entryIssuesContainer.insertAdjacentHTML('beforeend', template);
+            }
+        } else {
+            if (duplicateEntryError) {
+                duplicateEntryError.remove();
+            }
+        }
+    }
+
+    toggleInvalidEmailState(entry, isError) {
+        const invalidEmailError = entry.querySelector('.ibexa-user-invitation-modal__issue-email-not-valid');
+        const emailInput = entry.querySelector('.ibexa-user-invitation-modal__email-wrapper .ibexa-input--text');
+
+        if (isError) {
+            if (!invalidEmailError) {
+                const template = this.entriesContainer.dataset.invalidEmailTemplate;
+                const entryIssuesContainer = entry.querySelector('.ibexa-user-invitation-modal__entry-issues');
+
+                entryIssuesContainer.insertAdjacentHTML('afterbegin', template);
+            }
+        } else {
+            if (invalidEmailError) {
+                invalidEmailError.remove();
+            }
+        }
+
+        emailInput.classList.toggle('is-invalid', isError);
+    }
+
+    validateEmail(emailInput) {
+        const isEmpty = !emailInput.value.trim();
+        const isValid = ibexa.errors.emailRegexp.test(emailInput.value);
+        const isError = !isEmpty && !isValid;
+
+        return isError;
+    }
+
+    validateEntryEmail(entry) {
+        const emailInput = entry.querySelector('.ibexa-user-invitation-modal__email-wrapper .ibexa-input--text');
+        const isError = this.validateEmail(emailInput);
+
+        this.toggleInvalidEmailState(entry, isError);
+        this.manageIssuesAlert();
+    }
+
+    handleEmailValidation(event) {
+        const emailInput = event.currentTarget;
+        const entry = emailInput.closest('.ibexa-user-invitation-modal__entry');
+
+        this.validateEntryEmail(entry);
+    }
+
+    prepareIssuesAlert(invalidEmailsCount, duplicateEntryCount) {
+        const messages = [];
+
+        if (invalidEmailsCount) {
+            const invalidEmailsMessage = Translator.trans(
+                /*@Desc("Invalid emails (%count%)")*/ 'modal.entry_issues.alert.invalid_emails',
+                { count: invalidEmailsCount },
+                'user_invitation',
+            );
+
+            messages.push(invalidEmailsMessage);
+        }
+
+        if (duplicateEntryCount) {
+            const duplicatedEmailsMessage = Translator.trans(
+                /*@Desc("Duplicated emails (%count%)")*/ 'modal.entry_issues.alert.duplicate_emails',
+                { count: duplicateEntryCount },
+                'user_invitation',
+            );
+
+            messages.push(duplicatedEmailsMessage);
+        }
+
+        this.issuesAlertIssuesContainer.innerText = messages.join(' | ');
+    }
+
+    manageIssuesAlert() {
+        const invalidEmailsCount = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__issue-email-not-valid').length;
+        const duplicateEntryCount = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__issue-duplicate').length;
+        const isAnyIssue = invalidEmailsCount || duplicateEntryCount;
+
+        if (isAnyIssue) {
+            this.prepareIssuesAlert(invalidEmailsCount, duplicateEntryCount);
+        }
+
+        this.toggleIssuesAlert(isAnyIssue);
+    }
+
+    toggleIssuesAlert(show) {
+        this.issuesAlert.classList.toggle('ibexa-user-invitation-modal__issues-alert--hidden', !show);
+    }
+
+    toggleBadFileAlert(show) {
+        this.badFileAlert.classList.toggle('ibexa-user-invitation-modal__bad-file-alert--hidden', !show);
     }
 
     // eslint-disable-next-line no-unused-vars
@@ -68,6 +219,10 @@ export class UserInvitationModal {
         if (isLastEntry && !isForceRemove) {
             this.resetEntry(entry);
         } else {
+            if (entry === this.lastScrolledToEntryWithIssue) {
+                this.lastScrolledToEntryWithIssue = this.lastScrolledToEntryWithIssue.previousElementSibling;
+            }
+
             entry.remove();
         }
     }
@@ -82,11 +237,13 @@ export class UserInvitationModal {
         if (this.isEntryEmpty(lastEntry)) {
             this.deleteEntry(lastEntry, true);
             this.deleteTrailingEntriesIfEmpty();
+            this.manageIssuesAlert();
         }
     }
 
     handleEntryAdd() {
         this.addEntry();
+        this.manageIssuesAlert();
     }
 
     handleEntryDelete(event) {
@@ -94,26 +251,74 @@ export class UserInvitationModal {
         const entry = deleteBtn.closest('.ibexa-user-invitation-modal__entry');
 
         this.deleteEntry(entry);
+        this.manageIssuesAlert();
     }
 
     attachEntryListeners(entry) {
         const deleteEntryBtn = entry.querySelector('.ibexa-user-invitation-modal__entry-delete-btn');
+        const emailInput = entry.querySelector('.ibexa-user-invitation-modal__email-wrapper .ibexa-input--text');
 
         deleteEntryBtn.addEventListener('click', this.handleEntryDelete, false);
+        emailInput.addEventListener('blur', this.handleEmailValidation, false);
     }
 
-    handleFileDelete() {
-        const fileRelatedEntries = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry--file-related');
-        const entriesCount = this.entriesContainer.children.length;
-        const areAllEntriesFileRelated = fileRelatedEntries.length === entriesCount;
+    getNextEntryWithIssue() {
+        const entries = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
+        const firstEntryWithIssue = [...entries].find(this.checkHasEntryIssue);
 
-        fileRelatedEntries.forEach((entry) => this.deleteEntry(entry, true));
-        this.toggleUpload(false);
-        this.toggleUploadedFileInfo(true);
-
-        if (areAllEntriesFileRelated) {
-            this.addEntry();
+        if (!firstEntryWithIssue) {
+            return;
         }
+
+        let nextEntryWithIssue = null;
+
+        if (!this.lastScrolledToEntryWithIssue) {
+            nextEntryWithIssue = firstEntryWithIssue;
+        } else {
+            let currentlyCheckedEntry = this.lastScrolledToEntryWithIssue;
+
+            while (currentlyCheckedEntry.nextElementSibling) {
+                currentlyCheckedEntry = currentlyCheckedEntry.nextElementSibling;
+
+                if (this.checkHasEntryIssue(currentlyCheckedEntry)) {
+                    nextEntryWithIssue = currentlyCheckedEntry;
+                    break;
+                }
+            }
+
+            if (!nextEntryWithIssue) {
+                nextEntryWithIssue = firstEntryWithIssue;
+            }
+        }
+
+        return nextEntryWithIssue;
+    }
+
+    scrollToNextIssue() {
+        const nextEntryWithIssue = this.getNextEntryWithIssue();
+        const scrollTopOffset = 124;
+        const entryScrollPosition = nextEntryWithIssue.getBoundingClientRect().top + window.pageYOffset - scrollTopOffset;
+
+        this.modal.scrollTo({ top: entryScrollPosition, behavior: 'smooth' });
+        this.lastScrolledToEntryWithIssue = nextEntryWithIssue;
+    }
+
+    searchEntries(searchText) {
+        const entries = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
+
+        entries.forEach((entry) => {
+            const doesEntryMatchSearch = this.checkEntryMatchesSearch(entry, searchText);
+
+            entry.classList.toggle('ibexa-user-invitation-modal__entry--not-matching-search', !doesEntryMatchSearch);
+        });
+    }
+
+    toggleSearchNoEntriesBasedOnSearch() {
+        const isAnyEntryShowed = !!this.modal.querySelectorAll(
+            '.ibexa-user-invitation-modal__entry:not(.ibexa-user-invitation-modal__entry--not-matching-search)',
+        ).length;
+
+        this.searchNoEntries.classList.toggle('ibexa-user-invitation-modal__search-no-entries--hidden', isAnyEntryShowed);
     }
 
     toggleUpload(isForceHide) {
@@ -121,21 +326,22 @@ export class UserInvitationModal {
         this.dropZone.classList.toggle('ibexa-user-invitation-modal__drop--hidden', isForceHide);
     }
 
-    toggleUploadedFileInfo(isForceHide) {
-        this.uploadedFileNode.classList.toggle('ibexa-user-invitation-modal__uploaded-file--hidden', isForceHide);
-    }
+    showUploadedFileNotification(fileName) {
+        const message = Translator.trans(
+            /*@Desc("File %fileName% was uploaded")*/ 'modal.file_uploaded.notification.message',
+            { fileName },
+            'user_invitation',
+        );
 
-    setUploadedFileData(name, size) {
-        this.uploadedItemNameNode.innerText = name;
-        this.uploadedItemSizeNode.innerText = fileSizeToString(size);
+        ibexa.helpers.notification.showInfoNotification(message);
     }
 
     clearForm() {
         const entries = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
 
         entries.forEach((entry) => this.deleteEntry(entry));
+        this.manageIssuesAlert();
         this.toggleUpload(false);
-        this.toggleUploadedFileInfo(true);
     }
 
     preventDefaultAction(event) {
@@ -143,19 +349,34 @@ export class UserInvitationModal {
         event.stopPropagation();
     }
 
-    handleInvitationFile(file) {
-        this.setUploadedFileData(file.name, file.size);
+    async handleInvitationFile(file) {
         this.toggleUpload(true);
-        this.toggleUploadedFileInfo(false);
-        this.processCSVInvitationFile(file).then((invitationsData) => {
-            if (!invitationsData.length) {
-                return;
-            }
+        this.showUploadedFileNotification(file.name);
 
-            this.deleteTrailingEntriesIfEmpty();
-            invitationsData.forEach((invitationData) => {
+        const numberOfNonEmptyLines = await this.countFilledLinesInFile(file);
+        const invitationsData = await this.processCSVInvitationFile(file);
+
+        if (numberOfNonEmptyLines === 0 || numberOfNonEmptyLines !== invitationsData.length) {
+            this.toggleBadFileAlert(true);
+            this.toggleUpload(false);
+
+            return;
+        }
+
+        this.toggleBadFileAlert(false);
+        this.deleteTrailingEntriesIfEmpty();
+
+        const entriesBeforeFileAdded = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
+
+        invitationsData.forEach((invitationData) => {
+            const duplicateEntry = this.findDuplicateEntry(invitationData, entriesBeforeFileAdded);
+
+            if (duplicateEntry) {
+                this.toggleDuplicateEntryState(duplicateEntry);
+                this.manageIssuesAlert();
+            } else {
                 this.addEntry(true, invitationData);
-            });
+            }
         });
     }
 
@@ -179,8 +400,14 @@ export class UserInvitationModal {
         }
     }
 
+    handleSearch() {
+        this.searchEntries(this.searchInput.value);
+        this.toggleSearchNoEntriesBasedOnSearch();
+    }
+
     init() {
-        this.entryCounter = this.modal.querySelectorAll('.ibexa-user-invitation-modal__entry').length;
+        this.initialEntries = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
+        this.entryCounter = this.initialEntries.length;
 
         this.initialEntries.forEach(this.attachEntryListeners);
 
@@ -208,6 +435,12 @@ export class UserInvitationModal {
             false,
         );
         this.fileInput.addEventListener('change', this.handleInputUpload, false);
-        this.uploadedFileDeleteBtn.addEventListener('click', this.handleFileDelete, false);
+
+        this.badFileAlertCloseBtn.addEventListener('click', () => this.toggleBadFileAlert(false), false);
+        this.issuesAlertCloseBtn.addEventListener('click', () => this.toggleIssuesAlert(false), false);
+        this.goToNextIssueBtn.addEventListener('click', this.scrollToNextIssue, false);
+
+        this.searchInput.addEventListener('keyup', this.handleSearch, false);
+        this.searchBtn.addEventListener('keyup', this.handleSearch, false);
     }
 }

@@ -8,6 +8,11 @@
     border-width: 0 0 0 calculateRem(3px);
     border-left-style: solid;
 
+    &--no-close-btn {
+        grid-template: 'icon content actions';
+        grid-template-columns: calculateRem(32px) 1fr auto;
+    }
+
     &__icon-wrapper {
         grid-area: icon;
         margin-top: calculateRem(2px);

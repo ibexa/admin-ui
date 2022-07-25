@@ -8,7 +8,10 @@
 } %}
 
 <div
-    class="alert ibexa-alert ibexa-alert--{{ type }} {% if is_toast|default(false) %}ibexa-alert--toast{% endif %} {{ class|default('') -}}"
+    class="alert ibexa-alert ibexa-alert--{{ type }}
+        {% if not show_close_btn|default(false) %}ibexa-alert--no-close-btn{% endif %}
+        {% if is_toast|default(false) %}ibexa-alert--toast{% endif %}
+        {{ class|default('') -}}"
     role="alert"
     {{ html.attributes(attr|default({})) }}
 >

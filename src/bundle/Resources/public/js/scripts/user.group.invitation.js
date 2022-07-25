@@ -19,6 +19,8 @@ import { UserInvitationModal } from './user.invitation.modal';
         }
 
         resetEntry(entry) {
+            super.resetEntry(entry);
+
             const emailInput = entry.querySelector('.ibexa-user-group-invitation__entry-email');
 
             emailInput.value = null;
@@ -37,6 +39,21 @@ import { UserInvitationModal } from './user.invitation.modal';
             const emailInput = insertedEntry.querySelector('.ibexa-user-group-invitation__entry-email');
 
             emailInput.value = email;
+
+            this.validateEntryEmail(insertedEntry);
+        }
+
+        checkEntryMatchesSearch(entry, searchText) {
+            const emailInput = entry.querySelector('.ibexa-user-group-invitation__entry-email');
+            const email = emailInput.value;
+
+            return email.includes(searchText);
+        }
+
+        checkIsEntryDuplicate(invitationData, entryToCompare) {
+            const entryToCompareEmailInput = entryToCompare.querySelector('.ibexa-user-group-invitation__entry-email');
+
+            return invitationData.email === entryToCompareEmailInput.value;
         }
     }
 

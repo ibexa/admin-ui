@@ -1,0 +1,12 @@
+<div class="ibexa-user-invitation-modal__entry">
+    {% block entry_form_fields %}{% endblock %}
+    <button
+        type="button"
+        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-user-invitation-modal__entry-delete-btn"
+    >
+        <svg class="ibexa-icon ibexa-icon--small">
+            <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
+        </svg>
+    </button>
+    <div class="ibexa-user-invitation-modal__entry-issues"></div>
+</div>
