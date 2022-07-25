@@ -42,8 +42,7 @@
 {%- endblock %}
 
 {% block form_row_subfield -%}
-    {% set wrapper_class = 'ibexa-data-source__field ibexa-data-source__field--' ~ name ~ ' ibexa-data-source__field ibexa-data-source__field--' ~ name %}
-    {% set wrapper_class = wrapper_class|replace({'___name___': name}) %}
+    {% set wrapper_class = 'ibexa-data-source__field ibexa-data-source__field--' ~ name %}
     {% if required %}{% set wrapper_class = (wrapper_class ~ ' ibexa-data-source__field--required ibexa-data-source__field--required')|trim %}{% endif %}
     {% if errors|length > 0 %}{% set wrapper_class = (wrapper_class|default('') ~ ' is-invalid')|trim %}{% endif %}
 
@@ -135,9 +134,11 @@
                 {{ block('form_help') }}
             {% endwith %}
         {% endif %}
-        <div class="ibexa-form-error">
-            {{ block('form_errors') }}
-        </div>
+        {% if form.vars.errors|length > 0 %}
+            <div class="ibexa-form-error">
+                {{- block('form_errors') -}}
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
 

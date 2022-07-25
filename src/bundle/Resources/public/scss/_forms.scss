@@ -14,7 +14,15 @@ form:not(.form-inline) {
     }
 
     .form-control[readonly] {
-        background-color: $ibexa-color-white;
+        color: $ibexa-color-dark-300;
+        background-color: $ibexa-color-light-300;
+        border-color: $ibexa-color-light-300;
+
+        &:focus {
+            outline: none;
+            box-shadow: none;
+            border-color: $ibexa-color-light-300;
+        }
     }
 
     .form-control:focus {
