@@ -573,6 +573,11 @@
         <target state="new">Do you want to delete the Object state group(s)?</target>
         <note>key: object_state_group.modal.message</note>
       </trans-unit>
+      <trans-unit id="77e814db3b3f1bd68101d274277bee08d164f0a2" resname="policy.limitation.none">
+        <source>None</source>
+        <target state="new">None</target>
+        <note>key: policy.limitation.none</note>
+      </trans-unit>
       <trans-unit id="fda44832f6a675807e1bcd01460231f7117d9e1e" resname="policy.modal.message">
         <source>Do you want to delete the Policy?</source>
         <target state="new">Do you want to delete the Policy?</target>
