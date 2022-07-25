@@ -18,15 +18,6 @@ import { UserInvitationModal } from './user.invitation.modal';
             });
         }
 
-        countFilledLinesInFile(file) {
-            return file.text().then((text) => {
-                const nonEmptyLineRegexp = /^([^\r\n]+)$/gm;
-                const matchedData = [...text.matchAll(nonEmptyLineRegexp)];
-
-                return matchedData.length;
-            });
-        }
-
         resetEntry(entry) {
             super.resetEntry(entry);
 

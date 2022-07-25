@@ -42,9 +42,13 @@ export class UserInvitationModal {
         throw new Error('processCSVInvitationFile should be overridden in subclass.');
     }
 
-    // eslint-disable-next-line no-unused-vars
     countFilledLinesInFile(file) {
-        throw new Error('countFilledLinesInFile should be overridden in subclass.');
+        return file.text().then((text) => {
+            const nonEmptyLineRegexp = /^([^\r\n]+)$/gm;
+            const matchedData = [...text.matchAll(nonEmptyLineRegexp)];
+
+            return matchedData.length;
+        });
     }
 
     resetEntry(entry) {
