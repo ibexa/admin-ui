@@ -646,6 +646,11 @@
         <target state="new">Windows Media Player</target>
         <note>key: field_definition.ezmedia.type_windows_media_player</note>
       </trans-unit>
+      <trans-unit id="5c87db6ede75b694bb886f8f5d2a8e7ded178984" resname="field_definition.ezobjectrelation.change_root_udw_button">
+        <source>Change path</source>
+        <target state="new">Change path</target>
+        <note>key: field_definition.ezobjectrelation.change_root_udw_button</note>
+      </trans-unit>
       <trans-unit id="f053b9ad361ba885b30445ed11ddfe4b27aab906" resname="field_definition.ezobjectrelation.root_default_location">
         <source>Root Default Location</source>
         <target state="new">Root Default Location</target>
@@ -661,11 +666,6 @@
         <target state="new">Starting Location</target>
         <note>key: field_definition.ezobjectrelation.selection_root</note>
       </trans-unit>
-      <trans-unit id="fde392a84bc4f5ab5afef425e9e3bb353313e9d6" resname="field_definition.ezobjectrelation.selection_root_reset_title">
-        <source>Reset starting location</source>
-        <target state="new">Reset starting location</target>
-        <note>key: field_definition.ezobjectrelation.selection_root_reset_title</note>
-      </trans-unit>
       <trans-unit id="e03e262fad0802fdee49aac136644b35450e1eab" resname="field_definition.ezobjectrelation.selection_root_udw_button">
         <source>Select path</source>
         <target state="new">Select path</target>
@@ -675,6 +675,11 @@
         <source>Select where to start browsing for a Relation</source>
         <target state="new">Select where to start browsing for a Relation</target>
         <note>key: field_definition.ezobjectrelation.selection_root_udw_title</note>
+      </trans-unit>
+      <trans-unit id="51c6fd07886f716a7b5c07bdbb4b8dc9b71501cd" resname="field_definition.ezobjectrelationlist.change_root_udw_button">
+        <source>Change path</source>
+        <target state="new">Change path</target>
+        <note>key: field_definition.ezobjectrelationlist.change_root_udw_button</note>
       </trans-unit>
       <trans-unit id="f1875b4118b34bfd5679af65821e72af204755ed" resname="field_definition.ezobjectrelationlist.root_default_location">
         <source>Root Default Location</source>

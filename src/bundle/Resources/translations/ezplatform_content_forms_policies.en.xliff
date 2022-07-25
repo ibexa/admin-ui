@@ -111,6 +111,11 @@
         <target>Taxonomy</target>
         <note>key: policy.limitation.identifier.taxonomy</note>
       </trans-unit>
+      <trans-unit id="097f571a3c731c66c83230e465f4b3c9af811add" resname="policy.limitation.identifier.userpermissions">
+        <source>UserPermissions</source>
+        <target>UserPermissions</target>
+        <note>key: policy.limitation.identifier.userpermissions</note>
+      </trans-unit>
       <trans-unit id="ae8d9836b92dd7d303929104953d877fa9c14fed" resname="policy.limitation.identifier.versionlock">
         <source>VersionLock</source>
         <target>VersionLock</target>
