@@ -3,7 +3,8 @@
     background-color: $ibexa-color-white;
 
     .ibexa-raw-content-title {
-        padding: calculateRem(16px) calculateRem(24px);
+        margin-top: calculateRem(30px);
+        padding: 0 0 calculateRem(16px) 0;
         color: $ibexa-color-black;
         align-items: center;
         border-bottom: calculateRem(1px) solid $ibexa-color-light;
