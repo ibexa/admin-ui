@@ -17,7 +17,6 @@
     subtitle: info,
     class: 'ibexa-user-invitation-modal ' ~ extra_class|default(''),
     id: 'ibexa-user-invitation-modal',
-    size: modal_size|default('large'),
 } %}
     {% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
     {% trans_default_domain 'user_invitation' %}
@@ -27,22 +26,47 @@
     {% endblock %}
     {% block body_content %}
         <div class="ibexa-user-invitation-modal__body">
+            {% embed '@ibexadesign/ui/component/alert/alert.html.twig' with {
+                type: 'warning',
+                class: 'ibexa-user-invitation-modal__bad-file-alert ibexa-user-invitation-modal__bad-file-alert--hidden',
+                show_close_btn: true,
+            } only %}
+                {% trans_default_domain 'user_invitation' %}
+
+                {% block title %}
+                    <div class="ibexa-alert__title">
+                        {{ 'modal.issue.bad_file.alert.message'|trans|desc(
+                            'This file has no valid entries or may be empty.<br>Check your file and try again.')|raw }}
+                    </div>
+                {% endblock %}
+            {% endembed %}
+            {% embed '@ibexadesign/ui/component/alert/alert.html.twig' with {
+                type: 'warning',
+                title: 'modal.entry_issues.alert.message'|trans|desc(
+                    'Please review the problems below.'),
+                class: 'ibexa-user-invitation-modal__issues-alert ibexa-user-invitation-modal__issues-alert--hidden',
+                show_close_btn: true,
+            } only %}
+                {% trans_default_domain 'user_invitation' %}
+
+                {% block extra_content %}
+                    <div class="ibexa-user-invitation-modal__issues-alert-issues"></div>
+                {% endblock %}
+                {% block actions %}
+                    <button
+                        type="button"
+                        class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-user-invitation-modal__next-issue-btn"
+                    >
+                        <span class="ibexa-btn__label">
+                            {{ 'modal.entry_issues.alert.go_to_next'|trans|desc('Go to next issue') }}
+                        </span>
+                    </button>
+                {% endblock %}
+            {% endembed %}
             <div class="ibexa-user-invitation-modal__search">
-                {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
-                    type: 'warning',
-                    title: 'modal.issue.bad_file.alert.message'|trans|desc(
-                        'This file has no valid email address or may be empty.<br>Check your file and try again.'),
-                } only %}
-                {% embed '@ibexadesign/ui/component/alert/alert.html.twig' with {
-                    type: 'warning',
-                    title: 'modal.issue.bad_file.alert.message'|trans|desc(
-                        'Please review the problems below.'),
-                } only %}
-                    {% block extra_content %}
-                        asdf
-                    {% endblock %}
-                {% endembed %}
                 {% embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true, search_button_type: 'button' } %}
+                    {% trans_default_domain 'user_invitation' %}
+
                     {% block content %}
                         <input
                             type="text"
@@ -59,6 +83,8 @@
                 <div
                     class="ibexa-user-invitation-modal__entries"
                     data-prototype="{{ entry_prototype|e('html_attr') }}"
+                    data-duplicate-info-template="{{ include('@ibexadesign/user/invitation/issue_duplicate.html.twig')|e('html_attr') }}"
+                    data-invalid-email-template="{{ include('@ibexadesign/user/invitation/issue_email_not_valid.html.twig')|e('html_attr') }}"
                 >
                     {{ entries }}
                 </div>
@@ -103,6 +129,7 @@
                         id="ibexa-user-invitation-modal-file-input"
                         class="ibexa-user-invitation-modal__file-input"
                         type="file"
+                        accept=".csv"
                         hidden
                     />
                 </div>

@@ -21,11 +21,6 @@
         <target state="new">User with %email% already exists</target>
         <note>key: ibexa.user.invitations.user_exist</note>
       </trans-unit>
-      <trans-unit id="9f469393b5cf51c7dbe2ffaa03c7a17f3a6959e3" resname="invite_members">
-        <source>Invite Members</source>
-        <target state="new">Invite Members</target>
-        <note>key: invite_members</note>
-      </trans-unit>
       <trans-unit id="82ccb764a0c57728622cce47455e8d1aeb5e088c" resname="modal.add_next">
         <source>Add next</source>
         <target state="new">Add next</target>
@@ -41,10 +36,45 @@
         <target state="new">Drag and drop file</target>
         <note>key: modal.drop</note>
       </trans-unit>
-      <trans-unit id="7d791f0b05b55fccb086c613f460c5d28150dab3" resname="modal.fully_uploaded">
-        <source>100% Uploaded</source>
-        <target state="new">100% Uploaded</target>
-        <note>key: modal.fully_uploaded</note>
+      <trans-unit id="0a8067f383ddf3e9c308a65b0fcd66bfb1ecd38e" resname="modal.entry_issues.alert.duplicate_emails">
+        <source>Duplicated emails (%count%)</source>
+        <target state="new">Duplicated emails (%count%)</target>
+        <note>key: modal.entry_issues.alert.duplicate_emails</note>
+      </trans-unit>
+      <trans-unit id="7b6c1913c1228485af394c170a67e65a7224b9b1" resname="modal.entry_issues.alert.go_to_next">
+        <source>Go to next issue</source>
+        <target state="new">Go to next issue</target>
+        <note>key: modal.entry_issues.alert.go_to_next</note>
+      </trans-unit>
+      <trans-unit id="d41a67a4c6e8826e16ecb3b8e4b5849feae538bf" resname="modal.entry_issues.alert.invalid_emails">
+        <source>Invalid emails (%count%)</source>
+        <target state="new">Invalid emails (%count%)</target>
+        <note>key: modal.entry_issues.alert.invalid_emails</note>
+      </trans-unit>
+      <trans-unit id="2dd50ad1fdafc2c6099e39dad7ad676293aba3a7" resname="modal.entry_issues.alert.message">
+        <source>Please review the problems below.</source>
+        <target state="new">Please review the problems below.</target>
+        <note>key: modal.entry_issues.alert.message</note>
+      </trans-unit>
+      <trans-unit id="4a31fb849c9ab96b7d20081629e7aa4d3b6fc78b" resname="modal.file_uploaded.notification.message">
+        <source>File %fileName% was uploaded</source>
+        <target state="new">File %fileName% was uploaded</target>
+        <note>key: modal.file_uploaded.notification.message</note>
+      </trans-unit>
+      <trans-unit id="a89aa4f2fe7be667c66c1deeb229e80f71181bef" resname="modal.issue.bad_file.alert.message">
+        <source><![CDATA[This file has no valid entries or may be empty.<br>Check your file and try again.]]></source>
+        <target state="new"><![CDATA[This file has no valid entries or may be empty.<br>Check your file and try again.]]></target>
+        <note>key: modal.issue.bad_file.alert.message</note>
+      </trans-unit>
+      <trans-unit id="ced65d98fa61646be5b3cff4a199f6191e9565e8" resname="modal.issue.email.invalid.message">
+        <source>Invalid email format</source>
+        <target state="new">Invalid email format</target>
+        <note>key: modal.issue.email.invalid.message</note>
+      </trans-unit>
+      <trans-unit id="b343fdc1707b04f903db66cb60e073869869e0aa" resname="modal.issue.entry.deuplicate.merged">
+        <source>Merged</source>
+        <target state="new">Merged</target>
+        <note>key: modal.issue.entry.deuplicate.merged</note>
       </trans-unit>
       <trans-unit id="490ee1463548a5ef886d6620191efeda447f2404" resname="modal.or">
         <source>or</source>
@@ -55,6 +85,21 @@
         <source>Or upload a file with one email address per line</source>
         <target state="new">Or upload a file with one email address per line</target>
         <note>key: modal.or_upload</note>
+      </trans-unit>
+      <trans-unit id="e24ff29c6da3a5f357a58c012cd82181af2f080e" resname="modal.search.no_entries">
+        <source>No entries match search.</source>
+        <target state="new">No entries match search.</target>
+        <note>key: modal.search.no_entries</note>
+      </trans-unit>
+      <trans-unit id="4eb38f2e1191d6cd77cf5002b8c70949a2c44631" resname="modal.search.placeholder">
+        <source>Search...</source>
+        <target state="new">Search...</target>
+        <note>key: modal.search.placeholder</note>
+      </trans-unit>
+      <trans-unit id="08a5f336891a76fbd5fce4f454bb2d71b1df0223" resname="modal.title">
+        <source>Invite Members</source>
+        <target state="new">Invite Members</target>
+        <note>key: modal.title</note>
       </trans-unit>
       <trans-unit id="59b523724cdbdfb52e036c354f224966a2a0b5c2" resname="modal.upload_local">
         <source>Upload a local file</source>

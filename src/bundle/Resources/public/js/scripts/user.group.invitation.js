@@ -18,7 +18,18 @@ import { UserInvitationModal } from './user.invitation.modal';
             });
         }
 
+        countFilledLinesInFile(file) {
+            return file.text().then((text) => {
+                const nonEmptyLineRegexp = /^([^\r\n]+)$/gm;
+                const matchedData = [...text.matchAll(nonEmptyLineRegexp)];
+
+                return matchedData.length;
+            });
+        }
+
         resetEntry(entry) {
+            super.resetEntry(entry);
+
             const emailInput = entry.querySelector('.ibexa-user-group-invitation__entry-email');
 
             emailInput.value = null;
@@ -37,6 +48,8 @@ import { UserInvitationModal } from './user.invitation.modal';
             const emailInput = insertedEntry.querySelector('.ibexa-user-group-invitation__entry-email');
 
             emailInput.value = email;
+
+            this.validateEntryEmail(insertedEntry)
         }
 
         checkEntryMatchesSearch(entry, searchText) {
@@ -46,11 +59,10 @@ import { UserInvitationModal } from './user.invitation.modal';
             return email.includes(searchText);
         }
 
-        checkEntriesAreDuplicate(entry, entryToCompare) {
-            const entryEmailInput = entry.querySelector('.ibexa-user-group-invitation__entry-email');
+        checkIsEntryDuplicate(invitationData, entryToCompare) {
             const entryToCompareEmailInput = entryToCompare.querySelector('.ibexa-user-group-invitation__entry-email');
 
-            return entryEmailInput.value === entryToCompareEmailInput.value;
+            return invitationData.email === entryToCompareEmailInput.value;
         }
     }
 
