@@ -49,7 +49,7 @@ import { UserInvitationModal } from './user.invitation.modal';
 
             emailInput.value = email;
 
-            this.validateEntryEmail(insertedEntry)
+            this.validateEntryEmail(insertedEntry);
         }
 
         checkEntryMatchesSearch(entry, searchText) {
