@@ -238,12 +238,14 @@ export class UserInvitationModal {
             this.deleteEntry(lastEntry, true);
             this.deleteTrailingEntriesIfEmpty();
             this.manageIssuesAlert();
+            this.updateModalTitle();
         }
     }
 
     handleEntryAdd() {
         this.addEntry();
         this.manageIssuesAlert();
+        this.updateModalTitle();
     }
 
     handleEntryDelete(event) {
@@ -252,6 +254,7 @@ export class UserInvitationModal {
 
         this.deleteEntry(entry);
         this.manageIssuesAlert();
+        this.updateModalTitle();
     }
 
     attachEntryListeners(entry) {
@@ -328,7 +331,7 @@ export class UserInvitationModal {
 
     showUploadedFileNotification(fileName) {
         const message = Translator.trans(
-            /*@Desc("File %fileName% was uploaded")*/ 'modal.file_uploaded.notification.message',
+            /*@Desc("File %fileName% was uploaded")*/ 'modal.file_uploaded.message',
             { fileName },
             'user_invitation',
         );
@@ -341,6 +344,7 @@ export class UserInvitationModal {
 
         entries.forEach((entry) => this.deleteEntry(entry));
         this.manageIssuesAlert();
+        this.updateModalTitle();
         this.toggleUpload(false);
     }
 
@@ -405,6 +409,17 @@ export class UserInvitationModal {
         this.toggleSearchNoEntriesBasedOnSearch();
     }
 
+    updateModalTitle() {
+        const titleNode = this.modal.querySelector('.modal-title');
+        const invitationsCount = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry').length;
+
+        titleNode.innerText = Translator.trans(
+            /*@Desc("Invite members (%invitationsCount%)")*/ 'modal.title',
+            { invitationsCount },
+            'user_invitation',
+        );
+    }
+
     init() {
         this.initialEntries = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
         this.entryCounter = this.initialEntries.length;
@@ -442,5 +457,7 @@ export class UserInvitationModal {
 
         this.searchInput.addEventListener('keyup', this.handleSearch, false);
         this.searchBtn.addEventListener('keyup', this.handleSearch, false);
+
+        this.updateModalTitle();
     }
 }

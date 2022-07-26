@@ -56,10 +56,10 @@
         <target state="new">Please review the problems below.</target>
         <note>key: modal.entry_issues.alert.message</note>
       </trans-unit>
-      <trans-unit id="4a31fb849c9ab96b7d20081629e7aa4d3b6fc78b" resname="modal.file_uploaded.notification.message">
+      <trans-unit id="80bb3b8dd64e241684d30a6081918b6bbc6c1598" resname="modal.file_uploaded.message">
         <source>File %fileName% was uploaded</source>
         <target state="new">File %fileName% was uploaded</target>
-        <note>key: modal.file_uploaded.notification.message</note>
+        <note>key: modal.file_uploaded.message</note>
       </trans-unit>
       <trans-unit id="a89aa4f2fe7be667c66c1deeb229e80f71181bef" resname="modal.issue.bad_file.alert.message">
         <source><![CDATA[This file has no valid entries or may be empty.<br>Check your file and try again.]]></source>
@@ -97,8 +97,8 @@
         <note>key: modal.search.placeholder</note>
       </trans-unit>
       <trans-unit id="08a5f336891a76fbd5fce4f454bb2d71b1df0223" resname="modal.title">
-        <source>Invite Members</source>
-        <target state="new">Invite Members</target>
+        <source>Invite members (%invitationsCount%)</source>
+        <target state="new">Invite members (%invitationsCount%)</target>
         <note>key: modal.title</note>
       </trans-unit>
       <trans-unit id="59b523724cdbdfb52e036c354f224966a2a0b5c2" resname="modal.upload_local">
