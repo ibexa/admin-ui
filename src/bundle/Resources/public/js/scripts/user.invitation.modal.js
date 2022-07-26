@@ -414,8 +414,8 @@ export class UserInvitationModal {
         const invitationsCount = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry').length;
 
         titleNode.innerText = Translator.trans(
-            /*@Desc("Invite members (%invitationsCount%)")*/ 'modal.title',
-            { invitationsCount },
+            /*@Desc("Invite members (%invitations_count%)")*/ 'modal.title',
+            { invitations_count: invitationsCount },
             'user_invitation',
         );
     }

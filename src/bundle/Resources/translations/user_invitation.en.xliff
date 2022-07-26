@@ -97,8 +97,8 @@
         <note>key: modal.search.placeholder</note>
       </trans-unit>
       <trans-unit id="08a5f336891a76fbd5fce4f454bb2d71b1df0223" resname="modal.title">
-        <source>Invite members (%invitationsCount%)</source>
-        <target state="new">Invite members (%invitationsCount%)</target>
+        <source>Invite members (%invitations_count%)</source>
+        <target state="new">Invite members (%invitations_count%)</target>
         <note>key: modal.title</note>
       </trans-unit>
       <trans-unit id="59b523724cdbdfb52e036c354f224966a2a0b5c2" resname="modal.upload_local">
