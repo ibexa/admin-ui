@@ -89,7 +89,7 @@ export class UserInvitationModal {
     }
 
     toggleDuplicateEntryState(entry, isDuplicate) {
-        const duplicateEntryError = entry.querySelector('.ibexa-user-invitation-modal__entry-issues');
+        const duplicateEntryError = entry.querySelector('.ibexa-user-invitation-modal__issue-duplicate');
 
         if (isDuplicate) {
             if (!duplicateEntryError) {
@@ -372,7 +372,7 @@ export class UserInvitationModal {
             const duplicateEntry = this.findDuplicateEntry(invitationData, entriesBeforeFileAdded);
 
             if (duplicateEntry) {
-                this.toggleDuplicateEntryState(duplicateEntry);
+                this.toggleDuplicateEntryState(duplicateEntry, true);
                 this.manageIssuesAlert();
             } else {
                 this.addEntry(true, invitationData);
