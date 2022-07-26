@@ -134,7 +134,7 @@ class UniversalDiscoveryWidget extends Component
     public function changeTab($tabName): void
     {
         $this->getHTMLPage()->findAll($this->getLocator('categoryTabSelector'))
-             ->getByCriterion(new ElementAttributeCriterion('data-bs-original-title', $tabName))->click();
+             ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName))->click();
         $this->getHTMLPage()->findAll($this->getLocator('selectedTab'))
              ->getByCriterion(new ElementAttributeCriterion('title', $tabName))->assert()->isVisible();
     }

@@ -117,6 +117,8 @@
                     : 'body';
                 const iframe = document.querySelector(tooltipNode.dataset.tooltipIframeSelector);
 
+                tooltipNode.dataset.originalTitle = tooltipNode.title;
+
                 new bootstrap.Tooltip(tooltipNode, {
                     delay,
                     placement,

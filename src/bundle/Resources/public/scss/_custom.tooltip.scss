@@ -5,35 +5,47 @@
         opacity: 1;
     }
 
-    &.bs-tooltip-top &__arrow {
-        height: calculateRem(8px);
+    &.bs-tooltip-top,
+    &[data-popper-placement='top'] {
+        .ibexa-tooltip__arrow {
+            height: calculateRem(8px);
 
-        &::before {
-            border-top-color: $ibexa-color-white;
+            &::before {
+                border-top-color: $ibexa-color-white;
+            }
         }
     }
 
-    &.bs-tooltip-end &__arrow {
-        width: calculateRem(8px);
+    &.bs-tooltip-end,
+    &[data-popper-placement='right'] {
+        .ibexa-tooltip__arrow {
+            width: calculateRem(8px);
 
-        &::before {
-            border-right-color: $ibexa-color-white;
+            &::before {
+                border-right-color: $ibexa-color-white;
+            }
         }
     }
 
-    &.bs-tooltip-bottom &__arrow {
-        height: calculateRem(8px);
+    &.bs-tooltip-bottom,
+    &[data-popper-placement='bottom'] {
+        .ibexa-tooltip__arrow {
+            height: calculateRem(8px);
 
-        &::before {
-            border-bottom-color: $ibexa-color-white;
+            &::before {
+                border-bottom-color: $ibexa-color-white;
+            }
         }
     }
 
-    &.bs-tooltip-start &__arrow {
-        width: calculateRem(8px);
+    &.bs-tooltip-start,
+    &[data-popper-placement='left'] {
+        .ibexa-tooltip__arrow {
+            width: calculateRem(8px);
 
-        &::before {
-            border-left-color: $ibexa-color-white;
+            &::before {
+                border-left-color: $ibexa-color-white;
+            }
         }
     }
 
@@ -59,27 +71,39 @@
         }
 
         &.ibexa-tooltip {
-            &.bs-tooltip-top .ibexa-tooltip__arrow {
-                &::before {
-                    border-top-color: $ibexa-color-complementary-strong;
+            &.bs-tooltip-top,
+            &[data-popper-placement='top'] {
+                .ibexa-tooltip__arrow {
+                    &::before {
+                        border-top-color: $ibexa-color-complementary-strong;
+                    }
                 }
             }
 
-            &.bs-tooltip-end .ibexa-tooltip__arrow {
-                &::before {
-                    border-right-color: $ibexa-color-complementary-strong;
+            &.bs-tooltip-end,
+            &[data-popper-placement='right'] {
+                .ibexa-tooltip__arrow {
+                    &::before {
+                        border-right-color: $ibexa-color-complementary-strong;
+                    }
                 }
             }
 
-            &.bs-tooltip-bottom .ibexa-tooltip__arrow {
-                &::before {
-                    border-bottom-color: $ibexa-color-complementary-strong;
+            &.bs-tooltip-bottom,
+            &[data-popper-placement='bottom'] {
+                .ibexa-tooltip__arrow {
+                    &::before {
+                        border-bottom-color: $ibexa-color-complementary-strong;
+                    }
                 }
             }
 
-            &.bs-tooltip-start .ibexa-tooltip__arrow {
-                &::before {
-                    border-left-color: $ibexa-color-complementary-strong;
+            &.bs-tooltip-start,
+            &[data-popper-placement='left'] {
+                .ibexa-tooltip__arrow {
+                    &::before {
+                        border-left-color: $ibexa-color-complementary-strong;
+                    }
                 }
             }
         }
@@ -96,27 +120,39 @@
         }
 
         &.ibexa-tooltip {
-            &.bs-tooltip-top .ibexa-tooltip__arrow {
-                &::before {
-                    border-top-color: $ibexa-color-info;
+            &.bs-tooltip-top,
+            &[data-popper-placement='top'] {
+                .ibexa-tooltip__arrow {
+                    &::before {
+                        border-top-color: $ibexa-color-info;
+                    }
                 }
             }
 
-            &.bs-tooltip-end .ibexa-tooltip__arrow {
-                &::before {
-                    border-right-color: $ibexa-color-info;
+            &.bs-tooltip-end,
+            &[data-popper-placement='right'] {
+                .ibexa-tooltip__arrow {
+                    &::before {
+                        border-right-color: $ibexa-color-info;
+                    }
                 }
             }
 
-            &.bs-tooltip-bottom .ibexa-tooltip__arrow {
-                &::before {
-                    border-bottom-color: $ibexa-color-info;
+            &.bs-tooltip-bottom,
+            &[data-popper-placement='bottom'] {
+                .ibexa-tooltip__arrow {
+                    &::before {
+                        border-bottom-color: $ibexa-color-info;
+                    }
                 }
             }
 
-            &.bs-tooltip-start .ibexa-tooltip__arrow {
-                &::before {
-                    border-left-color: $ibexa-color-info;
+            &.bs-tooltip-start,
+            &[data-popper-placement='left'] {
+                .ibexa-tooltip__arrow {
+                    &::before {
+                        border-left-color: $ibexa-color-info;
+                    }
                 }
             }
         }
