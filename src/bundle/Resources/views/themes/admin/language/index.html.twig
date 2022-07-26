@@ -61,7 +61,7 @@
     {% set enable_checkbox_raw %}
         <input
             type="checkbox"
-            title="{{ language.enabled ? 'language.enabled'|trans|desc('Enabled') : 'language.enabled'|trans|desc('Enabled') }}"
+            title="{{ language.enabled ? 'language.enabled'|trans|desc('Enabled') : 'language.disabled'|trans|desc('Disabled') }}"
             class="ibexa-input ibexa-input--checkbox"
             disabled
             {% if language.enabled %}checked{% endif %}
