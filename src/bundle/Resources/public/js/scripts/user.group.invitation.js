@@ -33,7 +33,8 @@ import { UserInvitationModal } from './user.invitation.modal';
         }
 
         addEntry(isFileRelated = false, invitationData = null) {
-            const { insertedEntry } = super.addEntry(isFileRelated, invitationData);
+            const addEntryData = super.addEntry(isFileRelated, invitationData);
+            const { insertedEntry } = addEntryData;
 
             const email = invitationData?.email ?? null;
             const emailInput = insertedEntry.querySelector('.ibexa-user-group-invitation__entry-email');
@@ -41,6 +42,8 @@ import { UserInvitationModal } from './user.invitation.modal';
             emailInput.value = email;
 
             this.validateEntryEmail(insertedEntry);
+
+            return addEntryData;
         }
 
         checkEntryMatchesSearch(entry, searchText) {
