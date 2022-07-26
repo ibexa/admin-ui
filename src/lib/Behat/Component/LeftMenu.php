@@ -21,7 +21,7 @@ class LeftMenu extends Component
     public function goToTab(string $tabName): void
     {
         $buttonCriteron = new LogicalOrCriterion([
-            new ElementAttributeCriterion('data-bs-original-title', $tabName),
+            new ElementAttributeCriterion('data-original-title', $tabName),
             new ElementTextCriterion($tabName),
         ]);
 

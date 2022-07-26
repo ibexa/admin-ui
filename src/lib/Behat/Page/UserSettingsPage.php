@@ -66,7 +66,7 @@ class UserSettingsPage extends Page
         $this->getHTMLPage()
             ->findAll(new VisibleCSSLocator('settingsSection', '#ibexa-tab-my-preferences .ibexa-details'))
             ->getByCriterion(new ChildElementTextCriterion(new VisibleCSSLocator('settingHeader', '.ibexa-table-header'), 'Edit Content'))
-            ->find(new VisibleCSSLocator('editButton', '[data-bs-original-title="Edit"]'))
+            ->find(new VisibleCSSLocator('editButton', '[data-original-title="Edit"]'))
             ->click();
     }
 

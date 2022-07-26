@@ -108,8 +108,6 @@
 
                 if (firstLevelMenuNode.classList.contains('ibexa-main-menu__navbar--collapsed')) {
                     item.setAttribute('title', label);
-                } else {
-                    item.removeAttribute('data-bs-original-title');
                 }
 
                 ibexa.helpers.tooltips.parse(mainMenuNode);

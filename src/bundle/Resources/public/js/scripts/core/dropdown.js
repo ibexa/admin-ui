@@ -419,7 +419,6 @@
                 },
                 { dropdown: this },
             );
-            this.itemsPopover._element.removeAttribute('data-bs-original-title');
             this.itemsPopover._element.removeAttribute('title');
 
             if (this.isDynamic) {
