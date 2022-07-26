@@ -19,6 +19,14 @@
         <script>
             window.ibexa = window.eZ = {
                 addConfig: (path, value, shouldMerge = false) => {
+                    window.document.body?.dispatchEvent(new CustomEvent('ibexa-config:add', {
+                        detail: {
+                            path,
+                            value,
+                            shouldMerge,
+                        }
+                    }));
+
                     const keys = path.split('.');
                     const lastIndex = keys.length - 1;
                     const objectConstructorName = 'Object';
