@@ -39,6 +39,19 @@
         margin: 0;
     }
 
+    &__list-item-checkmark {
+        position: absolute;
+        right: calculateRem(4px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: calculateRem(20px);
+        height: calculateRem(20px);
+        border-radius: 50%;
+        background: $ibexa-color-light-400;
+    }
+
+
     &__list-item {
         font-size: $ibexa-text-font-size-medium;
         padding: calculateRem(9px) calculateRem(40px) calculateRem(9px) calculateRem(15px);
@@ -49,10 +62,11 @@
             position: relative;
 
             .c-simple-dropdown__list-item-checkmark {
+                display: flex;
                 position: absolute;
                 top: 50%;
                 right: calculateRem(15px);
-                margin-top: calculateRem(-8px);
+                margin-top: calculateRem(-10px);
             }
         }
 
