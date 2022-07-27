@@ -41,8 +41,6 @@ import { UserInvitationModal } from './user.invitation.modal';
 
             emailInput.value = email;
 
-            this.validateEntryEmail(insertedEntry);
-
             return addEntryData;
         }
 

@@ -7,9 +7,9 @@ export class UserInvitationModal {
         }
 
         this.modal = options.modal;
-        this.search = this.modal.querySelector('.ibexa-user-invitation-modal__search');
-        this.searchInput = this.search.querySelector('.ibexa-user-invitation-modal__search-input');
-        this.searchBtn = this.search.querySelector('.ibexa-input-text-wrapper__action-btn--search');
+        this.stickyTopContainer = this.modal.querySelector('.ibexa-user-invitation-modal__sticky-top');
+        this.searchInput = this.modal.querySelector('.ibexa-user-invitation-modal__search-input');
+        this.searchBtn = this.modal.querySelector('.ibexa-input-text-wrapper__action-btn--search');
         this.searchNoEntries = this.modal.querySelector('.ibexa-user-invitation-modal__search-no-entries');
         this.badFileAlert = this.modal.querySelector('.ibexa-user-invitation-modal__bad-file-alert');
         this.badFileAlertCloseBtn = this.badFileAlert.querySelector('.ibexa-alert__close-btn');
@@ -52,7 +52,7 @@ export class UserInvitationModal {
     }
 
     resetEntry(entry) {
-        this.toggleInvalidEmailState(entry, false);
+        this.toggleInvalidEmailState(entry, { isEmptyError: false, isInvalidFormatError: false });
         this.toggleDuplicateEntryState(entry, false);
     }
 
@@ -72,10 +72,11 @@ export class UserInvitationModal {
     }
 
     checkHasEntryIssue(entry) {
-        const hasInvalidEmailIssue = !!entry.querySelector('.ibexa-user-invitation-modal__issue-email-not-valid');
+        const hasEmptyEmailIssue = !!entry.querySelector('.ibexa-user-invitation-modal__issue-email-empty');
+        const hasInvalidEmailIssue = !!entry.querySelector('.ibexa-user-invitation-modal__issue-email-invalid-format');
         const hasDuplicateIssue = !!entry.querySelector('.ibexa-user-invitation-modal__issue-duplicate');
 
-        return hasInvalidEmailIssue || hasDuplicateIssue;
+        return hasEmptyEmailIssue || hasInvalidEmailIssue || hasDuplicateIssue;
     }
 
     findDuplicateEntry(invitationData, entriesToCompare) {
@@ -88,56 +89,56 @@ export class UserInvitationModal {
         return null;
     }
 
-    toggleDuplicateEntryState(entry, isDuplicate) {
-        const duplicateEntryError = entry.querySelector('.ibexa-user-invitation-modal__issue-duplicate');
+    toggleIssueNode(entry, issueNode, show, position, template) {
+        const entryIssuesContainer = entry.querySelector('.ibexa-user-invitation-modal__entry-issues');
 
-        if (isDuplicate) {
-            if (!duplicateEntryError) {
-                const template = this.entriesContainer.dataset.duplicateInfoTemplate;
-                const entryIssuesContainer = entry.querySelector('.ibexa-user-invitation-modal__entry-issues');
-
-                entryIssuesContainer.insertAdjacentHTML('beforeend', template);
+        if (show) {
+            if (!issueNode) {
+                entryIssuesContainer.insertAdjacentHTML(position, template);
             }
         } else {
-            if (duplicateEntryError) {
-                duplicateEntryError.remove();
+            if (issueNode) {
+                issueNode.remove();
             }
         }
     }
 
-    toggleInvalidEmailState(entry, isError) {
-        const invalidEmailError = entry.querySelector('.ibexa-user-invitation-modal__issue-email-not-valid');
+    toggleDuplicateEntryState(entry, isDuplicate) {
+        const duplicateEntryIssueNode = entry.querySelector('.ibexa-user-invitation-modal__issue-duplicate');
+        const { issueDuplicateInfoTemplate } = this.entriesContainer.dataset;
+
+        this.toggleIssueNode(entry, duplicateEntryIssueNode, isDuplicate, 'beforeend', issueDuplicateInfoTemplate);
+    }
+
+    toggleInvalidEmailState(entry, { isEmptyError, isInvalidFormatError }) {
+        const emptyEmailIssueNode = entry.querySelector('.ibexa-user-invitation-modal__issue-email-empty');
+        const invalidEmailIssueNode = entry.querySelector('.ibexa-user-invitation-modal__issue-email-invalid-format');
+        const { issueInvalidEmailTemplate, issueEmptyEmailTemplate } = this.entriesContainer.dataset;
         const emailInput = entry.querySelector('.ibexa-user-invitation-modal__email-wrapper .ibexa-input--text');
 
-        if (isError) {
-            if (!invalidEmailError) {
-                const template = this.entriesContainer.dataset.invalidEmailTemplate;
-                const entryIssuesContainer = entry.querySelector('.ibexa-user-invitation-modal__entry-issues');
+        emailInput.classList.toggle('is-invalid', isEmptyError || isInvalidFormatError);
 
-                entryIssuesContainer.insertAdjacentHTML('afterbegin', template);
-            }
-        } else {
-            if (invalidEmailError) {
-                invalidEmailError.remove();
-            }
-        }
-
-        emailInput.classList.toggle('is-invalid', isError);
+        this.toggleIssueNode(entry, emptyEmailIssueNode, isEmptyError, 'afterbegin', issueEmptyEmailTemplate);
+        this.toggleIssueNode(entry, invalidEmailIssueNode, isInvalidFormatError, 'afterbegin', issueInvalidEmailTemplate);
     }
 
     validateEmail(emailInput) {
         const isEmpty = !emailInput.value.trim();
-        const isValid = ibexa.errors.emailRegexp.test(emailInput.value);
-        const isError = !isEmpty && !isValid;
 
-        return isError;
+        if (isEmpty) {
+            return { isEmptyError: isEmpty, isInvalidFormatError: false };
+        }
+
+        const isValid = ibexa.errors.emailRegexp.test(emailInput.value);
+
+        return { isEmptyError: false, isInvalidFormatError: !isValid };
     }
 
     validateEntryEmail(entry) {
         const emailInput = entry.querySelector('.ibexa-user-invitation-modal__email-wrapper .ibexa-input--text');
-        const isError = this.validateEmail(emailInput);
+        const errors = this.validateEmail(emailInput);
 
-        this.toggleInvalidEmailState(entry, isError);
+        this.toggleInvalidEmailState(entry, errors);
         this.manageIssuesAlert();
     }
 
@@ -148,8 +149,18 @@ export class UserInvitationModal {
         this.validateEntryEmail(entry);
     }
 
-    prepareIssuesAlert(invalidEmailsCount, duplicateEntryCount) {
+    prepareIssuesAlert(emptyEmailsCount, invalidEmailsCount, duplicateEntryCount) {
         const messages = [];
+
+        if (emptyEmailsCount) {
+            const emptyEmailsMessage = Translator.trans(
+                /*@Desc("Empty emails (%count%)")*/ 'modal.entry_issues.alert.empty_emails',
+                { count: emptyEmailsCount },
+                'user_invitation',
+            );
+
+            messages.push(emptyEmailsMessage);
+        }
 
         if (invalidEmailsCount) {
             const invalidEmailsMessage = Translator.trans(
@@ -175,12 +186,15 @@ export class UserInvitationModal {
     }
 
     manageIssuesAlert() {
-        const invalidEmailsCount = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__issue-email-not-valid').length;
+        const emptyEmailsCount = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__issue-email-empty').length;
+        const invalidEmailsCount = this.entriesContainer.querySelectorAll(
+            '.ibexa-user-invitation-modal__issue-email-invalid-format',
+        ).length;
         const duplicateEntryCount = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__issue-duplicate').length;
-        const isAnyIssue = invalidEmailsCount || duplicateEntryCount;
+        const isAnyIssue = emptyEmailsCount || invalidEmailsCount || duplicateEntryCount;
 
         if (isAnyIssue) {
-            this.prepareIssuesAlert(invalidEmailsCount, duplicateEntryCount);
+            this.prepareIssuesAlert(emptyEmailsCount, invalidEmailsCount, duplicateEntryCount);
         }
 
         this.toggleIssuesAlert(isAnyIssue);
@@ -299,7 +313,7 @@ export class UserInvitationModal {
 
     scrollToNextIssue() {
         const nextEntryWithIssue = this.getNextEntryWithIssue();
-        const scrollTopOffset = 124;
+        const scrollTopOffset = this.stickyTopContainer.offsetHeight;
         const entryScrollPosition = nextEntryWithIssue.getBoundingClientRect().top + window.pageYOffset - scrollTopOffset;
 
         this.modal.scrollTo({ top: entryScrollPosition, behavior: 'smooth' });
@@ -379,7 +393,9 @@ export class UserInvitationModal {
                 this.toggleDuplicateEntryState(duplicateEntry, true);
                 this.manageIssuesAlert();
             } else {
-                this.addEntry(true, invitationData);
+                const { insertedEntry } = this.addEntry(true, invitationData);
+
+                this.validateEntryEmail(insertedEntry);
             }
         });
     }
@@ -424,7 +440,16 @@ export class UserInvitationModal {
         this.initialEntries = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
         this.entryCounter = this.initialEntries.length;
 
-        this.initialEntries.forEach(this.attachEntryListeners);
+        this.initialEntries.forEach((initialEntry) => {
+            this.attachEntryListeners(initialEntry);
+
+            const emailInput = initialEntry.querySelector('.ibexa-user-invitation-modal__email-wrapper .ibexa-input--text');
+            const isEmailEmpty = !emailInput.value;
+
+            if (!isEmailEmpty) {
+                this.validateEntryEmail(initialEntry);
+            }
+        });
 
         this.modal.addEventListener('shown.bs.modal', () => {
             window.addEventListener('drop', this.preventDefaultAction, false);
