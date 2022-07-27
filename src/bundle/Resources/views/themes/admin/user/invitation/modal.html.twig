@@ -22,7 +22,10 @@
     {% trans_default_domain 'user_invitation' %}
 
     {% block content_before %}
-        {{ form_start(form, { attr: { novalidate: true, }}) }}
+        {{ form_start(form, { attr: {
+            novalidate: true,
+            class: 'ibexa-user-invitation-modal__form',
+        }}) }}
     {% endblock %}
     {% block body_content %}
         <div class="ibexa-user-invitation-modal__body">
@@ -138,7 +141,18 @@
         </div>
     {% endblock %}
     {% block footer_content %}
-        {{ form_widget(form.send) }}
+        <button
+            type="button"
+            class="btn ibexa-btn ibexa-btn--primary ibexa-user-invitation-modal__fake-submit-btn"
+        >
+            {{ 'modal.submit.label'|trans|desc('Send') }}
+        </button>
+        {{ form_widget(form.send, {
+            attr: {
+                hidden: true,
+                class: 'btn ibexa-btn ibexa-btn--primary ibexa-user-invitation-modal__real-submit-btn',
+            },
+        }) }}
         <button
             type="button"
             class="btn ibexa-btn ibexa-btn--secondary ibexa-user-invitation-modal__cancel-btn"

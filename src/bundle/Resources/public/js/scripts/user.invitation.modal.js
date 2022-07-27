@@ -24,6 +24,8 @@ export class UserInvitationModal {
         this.dropZone = this.modal.querySelector('.ibexa-user-invitation-modal__drop');
         this.uploadLocalFileBtn = this.modal.querySelector('.ibexa-user-invitation-modal__file-select');
         this.fileInput = this.modal.querySelector('.ibexa-user-invitation-modal__file-input');
+        this.fakeSubmitBtn = this.modal.querySelector('.ibexa-user-invitation-modal__fake-submit-btn');
+        this.realSubmitBtn = this.modal.querySelector('.ibexa-user-invitation-modal__real-submit-btn');
         this.lastScrolledToEntryWithIssue = null;
 
         this.attachEntryListeners = this.attachEntryListeners.bind(this);
@@ -140,6 +142,8 @@ export class UserInvitationModal {
 
         this.toggleInvalidEmailState(entry, errors);
         this.manageIssuesAlert();
+
+        return errors.isEmptyError || errors.isInvalidFormatError;
     }
 
     handleEmailValidation(event) {
@@ -482,6 +486,19 @@ export class UserInvitationModal {
 
         this.searchInput.addEventListener('keyup', this.handleSearch, false);
         this.searchBtn.addEventListener('keyup', this.handleSearch, false);
+
+        this.fakeSubmitBtn.addEventListener(
+            'click',
+            () => {
+                const allEntries = [...this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry')];
+                const isFormValid = allEntries.map((entry) => this.validateEntryEmail(entry)).every((isError) => !isError);
+
+                if (isFormValid) {
+                    this.realSubmitBtn.click();
+                }
+            },
+            false,
+        );
 
         this.updateModalTitle();
     }
