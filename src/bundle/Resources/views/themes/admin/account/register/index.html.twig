@@ -1,0 +1,29 @@
+{% extends '@ibexadesign/account/base.html.twig' %}
+
+{% form_theme form '@ibexadesign/ui/form_fields.html.twig'  %}
+
+{%- block content -%}
+    <h2 class="ibexa-login__actions-headline">{{ 'base.registration'|trans|desc('Registration') }}</h2>
+
+    {% block login_form %}
+        {{ form_start(form) }}
+
+        {% for key, field in form.children.fieldsData.children %}
+            {% if key == 'user_account' %}
+                {% for user_account_field in field.children.value.children %}
+                    {{ form_row(user_account_field) }}
+                {% endfor %}
+            {% else %}
+                {{ form_widget(field) }}
+            {% endif %}
+        {% endfor %}
+        {{ form_widget(form.children.register, {
+            attr: { class: 'btn ibexa-btn ibexa-btn--primary ibexa-login__btn ibexa-login__btn--register' }
+        }) }}
+        {{ form_widget(form) }}
+
+        {{ form_end(form) }}
+    {% endblock %}
+
+    {{ encore_entry_script_tags('ibexa-admin-ui-login-js', null, 'ibexa') }}
+{%- endblock content -%}

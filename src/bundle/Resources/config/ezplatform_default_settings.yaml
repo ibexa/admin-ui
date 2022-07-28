@@ -62,6 +62,8 @@ parameters:
     ibexa.site_access.config.admin_group.user_reset_password.templates.form: "@@ibexadesign/account/reset_password/index.html.twig"
     ibexa.site_access.config.admin_group.user_reset_password.templates.invalid_link: "@@ibexadesign/account/reset_password/invalid_link_page.html.twig"
     ibexa.site_access.config.admin_group.user_reset_password.templates.success: "@@ibexadesign/account/reset_password/confirmation_page.html.twig"
+    ibexa.site_access.config.admin_group.user_registration.templates.form: "@@ibexadesign/account/register/index.html.twig"
+    ibexa.site_access.config.admin_group.user_registration.templates.confirmation: "@@ibexadesign/account/register/register_confirmation.html.twig"
     ibexa.site_access.config.admin_group.user_edit.templates.update: '@@ibexadesign/user/edit.html.twig'
     ibexa.site_access.config.admin_group.user_edit.templates.create: '@@ibexadesign/user/create.html.twig'
 

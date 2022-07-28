@@ -86,6 +86,11 @@
         <target state="new">Get to know Ibexa DXP</target>
         <note>key: base.need_assistance</note>
       </trans-unit>
+      <trans-unit id="2db35ee6d4dcf83edd936a8a8a6baabd1e4ffd76" resname="base.registration">
+        <source>Registration</source>
+        <target state="new">Registration</target>
+        <note>key: base.registration</note>
+      </trans-unit>
       <trans-unit id="34e898c4a61c4925b523416b0c7ecd9574d8e48b" resname="base.visit_support">
         <source><![CDATA[See the %ibexa_documentation_link%<br/>or %ibexa_contact_link%]]></source>
         <target state="new"><![CDATA[See the %ibexa_documentation_link%<br/>or %ibexa_contact_link%]]></target>
@@ -422,6 +427,16 @@
         <source>Reset your password</source>
         <target state="new">Reset your password</target>
         <note>key: ezplatform.forgot_user_password.reset_your_password</note>
+      </trans-unit>
+      <trans-unit id="264649149b7563144f9e2c462b13477dc7441302" resname="ezplatform.registration_confirmation.header">
+        <source>Your account has been created</source>
+        <target state="new">Your account has been created</target>
+        <note>key: ezplatform.registration_confirmation.header</note>
+      </trans-unit>
+      <trans-unit id="63659642d9d91abcadbb45d00a12db2277ce53b5" resname="ezplatform.registration_confirmation.message">
+        <source><![CDATA[Thank you for creating an account. You can now <a href="%login%">log in</a>]]></source>
+        <target state="new"><![CDATA[Thank you for creating an account. You can now <a href="%login%">log in</a>]]></target>
+        <note>key: ezplatform.registration_confirmation.message</note>
       </trans-unit>
       <trans-unit id="40dd2934190789b016771a0fc3b41dcdfe0bb920" resname="ezplatform.reset_user_password.change_password">
         <source>Change password</source>
