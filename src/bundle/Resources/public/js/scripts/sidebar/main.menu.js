@@ -38,15 +38,15 @@
 
         doc.removeEventListener('mousemove', collapseSecondLevelMenu);
     };
-    const showSecondLevelMenu = (event) => {
-        if (!event.currentTarget.dataset.bsToggle) {
+    const showSecondLevelMenu = ({ currentTarget }) => {
+        if (!currentTarget.dataset.bsToggle) {
             return;
         }
 
         firstLevelMenuNode.classList.add('ibexa-main-menu__navbar--collapsed');
         secondLevelMenuNode.classList.remove('ibexa-main-menu__navbar--hidden');
 
-        parseMenuTitles();
+        currentTarget.blur();
 
         if (secondLevelMenuNode.classList.contains('ibexa-main-menu__navbar--collapsed')) {
             toggleSecondLevelMenu();
