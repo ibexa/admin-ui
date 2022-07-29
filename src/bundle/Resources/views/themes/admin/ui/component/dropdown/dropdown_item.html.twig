@@ -37,9 +37,11 @@
         {% endif %}
         <span class="ibexa-dropdown__item-label">{{ item_label }}</span>
         {% if not multiple|default(false) %}
-            <svg class="ibexa-icon ibexa-icon--small ibexa-dropdown__item-check">
-                <use xlink:href="{{ ibexa_icon_path('checkmark') }}"></use>
-            </svg>
+            <div class="ibexa-dropdown__item-check">
+                <svg class="ibexa-icon ibexa-icon--tiny-small ibexa-dropdown__item-check-icon">
+                    <use xlink:href="{{ ibexa_icon_path('checkmark') }}"></use>
+                </svg>
+            </div>
         {% endif %}
     </li>
 {% endif %}

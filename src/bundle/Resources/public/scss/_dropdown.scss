@@ -193,6 +193,18 @@
         overflow-y: auto;
     }
 
+    &__item-check {
+        position: absolute;
+        right: calculateRem(4px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: calculateRem(20px);
+        height: calculateRem(20px);
+        border-radius: 50%;
+        background: $ibexa-color-light-400;
+    }
+
     &__item {
         padding: calculateRem(9px) calculateRem(15px);
         line-height: calculateRem(21px);
@@ -212,7 +224,7 @@
             padding-right: calculateRem(36px);
 
             .ibexa-dropdown__item-check {
-                display: block;
+                display: flex;
             }
         }
 
@@ -220,7 +232,7 @@
             margin: 0 calculateRem(16px) 0 0;
         }
 
-        .ibexa-icon {
+        .ibexa-icon:not(.ibexa-dropdown__item-check-icon) {
             margin-right: calculateRem(8px);
         }
 
@@ -263,12 +275,6 @@
 
     &__item-group-list {
         padding-left: 0;
-    }
-
-    &__item-check {
-        position: absolute;
-        right: calculateRem(4px);
-        display: none;
     }
 
     &__separator {
