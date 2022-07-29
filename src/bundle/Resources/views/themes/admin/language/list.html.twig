@@ -29,9 +29,6 @@
                     href="{{ path('ibexa.language.create') }}"
                     class="btn ibexa-btn ibexa-btn--primary"
                 >
-                    <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
-                        <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-                    </svg>
                     <span class="ibexa-btn__label">
                         {{ 'language.new'|trans|desc('Add language') }}
                     </span>
@@ -90,6 +87,7 @@
             {% endset %}
             {% set body_row_cols = body_row_cols|merge([{
                 content: col_raw,
+                center_content: true,
                 raw: true,
             }]) %}
 
@@ -116,13 +114,16 @@
         {% endfor %}
 
         {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-            headline: 'language.list'|trans|desc('Languages'),
+            headline: 'language.list.number_of_results'|trans({ '%number_of_results%': pager.nbResults })|desc('List (%number_of_results%)'),
             head_cols: [
                 { has_checkbox: true },
                 { content: 'language.name'|trans|desc('Name') },
                 { content: 'language.code'|trans|desc('Code') },
                 { content: 'language.id'|trans|desc('ID') },
-                { content: 'language.enabled'|trans|desc('Enabled') },
+                {
+                    content: 'language.enabled'|trans|desc('Enabled'),
+                    center_content: true,
+                },
                 { },
             ],
             body_rows,
