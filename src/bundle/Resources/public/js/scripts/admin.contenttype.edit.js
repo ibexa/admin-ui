@@ -328,6 +328,11 @@
     };
     const scrollToInvalidInput = () => {
         const firstInvalidInput = editForm.querySelector('.ibexa-input.is-invalid');
+
+        if (!firstInvalidInput) {
+            return;
+        }
+
         const fieldDefinition = firstInvalidInput.closest('.ibexa-collapse--field-definition');
         const scrollToNode = fieldDefinition ?? firstInvalidInput;
 
