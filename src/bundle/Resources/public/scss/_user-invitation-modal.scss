@@ -1,7 +1,7 @@
 .ibexa-user-invitation-modal {
     &.ibexa-modal {
         .modal-dialog {
-            max-width: 700px;
+            max-width: calculateRem(700px);
         }
     }
 
@@ -85,7 +85,7 @@
         align-items: center;
         height: calculateRem(48px);
         font-style: italic;
-        font-size: calculateRem(14px);
+        font-size: $ibexa-text-font-size-medium;
         color: $ibexa-color-dark-400;
 
         &--hidden {
