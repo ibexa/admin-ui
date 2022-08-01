@@ -402,6 +402,7 @@ export class UserInvitationModal {
                 this.validateEntryEmail(insertedEntry);
             }
         });
+        this.updateModalTitle()
     }
 
     handleInputUpload(event) {
