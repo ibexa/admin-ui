@@ -16,6 +16,10 @@
         box-shadow: $ibexa-btn-focus-box-shadow;
     }
 
+    &:hover {
+        border-color: transparent;
+    }
+
     &--primary {
         color: $ibexa-color-white;
         fill: $ibexa-color-white;
@@ -106,7 +110,6 @@
 
         &:hover {
             color: $ibexa-color-primary;
-            border-color: transparent;
 
             .ibexa-icon {
                 fill: $ibexa-color-primary;
