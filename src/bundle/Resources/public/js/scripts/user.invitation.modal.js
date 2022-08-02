@@ -226,6 +226,7 @@ export class UserInvitationModal {
         }
 
         this.attachEntryListeners(insertedEntry);
+        document.body.dispatchEvent(new CustomEvent('ibexa-inputs:added'));
 
         return { insertedEntry };
     }
