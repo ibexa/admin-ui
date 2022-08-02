@@ -106,6 +106,7 @@
 
         &:hover {
             color: $ibexa-color-primary;
+            border-color: transparent;
 
             .ibexa-icon {
                 fill: $ibexa-color-primary;
@@ -125,7 +126,7 @@
         &:disabled {
             color: $ibexa-color-dark-300;
             fill: $ibexa-color-dark-300;
-            border: none;
+            border-color: transparent;
         }
     }
 
