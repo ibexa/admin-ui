@@ -22,10 +22,13 @@
     {% trans_default_domain 'user_invitation' %}
 
     {% block content_before %}
-        {{ form_start(form, { attr: {
-            novalidate: true,
-            class: 'ibexa-user-invitation-modal__form',
-        }}) }}
+        {{ form_start(form, {
+            action: action|default(form.vars.action),
+            attr: {
+                novalidate: true,
+                class: 'ibexa-user-invitation-modal__form',
+            }
+        }) }}
     {% endblock %}
     {% block body_content %}
         <div class="ibexa-user-invitation-modal__body">
