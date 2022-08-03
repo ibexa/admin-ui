@@ -76,6 +76,16 @@
         <target state="new">Save</target>
         <note>key: content_create__sidebar_right__save_draft</note>
       </trans-unit>
+      <trans-unit id="89b456c2ec176d6a0878d0992424a2a41d89b3ba" resname="content_edit__anchor_menu__content">
+        <source>Content</source>
+        <target state="new">Content</target>
+        <note>key: content_edit__anchor_menu__content</note>
+      </trans-unit>
+      <trans-unit id="84cd0d095ea2a1c6f98c298609a49adca5c3b663" resname="content_edit__anchor_menu__meta">
+        <source>Meta</source>
+        <target state="new">Meta</target>
+        <note>key: content_edit__anchor_menu__meta</note>
+      </trans-unit>
       <trans-unit id="af459eaf05dedc87eb0c462732e59da18bedb340" resname="content_edit__sidebar_right__cancel">
         <source>Delete draft</source>
         <target state="new">Delete draft</target>

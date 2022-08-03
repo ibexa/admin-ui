@@ -21,6 +21,7 @@ class ConfigureMenuEvent extends Event
     public const USER_MENU = 'ezplatform_admin_ui.menu_configure.user_menu';
     public const CONTENT_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.content_sidebar_right';
     public const CONTENT_EDIT_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.content_edit_sidebar_right';
+    public const CONTENT_EDIT_ANCHOR_MENU = 'ibexa.admin_ui.menu_configure.content_edit_anchor_menu';
     public const CONTENT_CREATE_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.content_create_sidebar_right';
     public const CONTENT_SIDEBAR_LEFT = 'ezplatform_admin_ui.menu_configure.content_sidebar_left';
     public const TRASH_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.trash_sidebar_right';
