@@ -128,6 +128,7 @@ class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Translatio
             static fn (array $config) => true === $config['meta']
         ));
 
+        $items = [];
         $order = 0;
         foreach ($metaFieldTypeIdentifiers as $metaFieldTypeIdentifier) {
             if (false === $contentType->hasFieldDefinitionOfType($metaFieldTypeIdentifier)) {
