@@ -1,4 +1,8 @@
 (function (global, doc) {
+    if (doc.querySelector('.ibexa-navigation-menu')) {
+        return;
+    }
+
     const EDIT_CONTENT_TOP_PADDING = 42;
     const formContainerNode = doc.querySelector('.ibexa-edit-content');
     const allSections = [...doc.querySelectorAll('.ibexa-anchor-navigation-sections__section')];

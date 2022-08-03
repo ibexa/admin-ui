@@ -55,6 +55,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/autogenerate.identifier.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.back.to.top.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.middle.ellipsis.js'),
+    path.resolve(__dirname, '../public/js/scripts/admin.anchor.sections.navigation'),
 ];
 const fieldTypes = [];
 
