@@ -28,6 +28,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 class AdminUiForms extends AbstractParser
 {
     public const FORM_TEMPLATES_PARAM = 'admin_ui_forms.content_edit_form_templates';
+    public const FIELDTYPES_PARAM = 'admin_ui_forms.content_edit.fieldtypes';
 
     /**
      * Adds semantic configuration definition.
@@ -39,13 +40,47 @@ class AdminUiForms extends AbstractParser
         $nodeBuilder
             ->arrayNode('admin_ui_forms')
                 ->info('Admin UI forms configuration settings')
+                ->beforeNormalization()
+                    ->always(static function (array $array): array {
+                        // handle deprecated config
+                        if (isset($array['content_edit_form_templates'])) {
+                            $array['content_edit']['form_templates'] = $array['content_edit_form_templates'];
+                            unset($array['content_edit_form_templates']);
+                        }
+
+                        return $array;
+                    })
+                ->end()
                 ->children()
-                    ->arrayNode('content_edit_form_templates')
-                        ->info('A list of Content Edit (and create) default Twig form templates')
-                        ->arrayPrototype()
-                            ->children()
-                                ->scalarNode('template')->end()
-                                ->integerNode('priority')->end()
+                    ->arrayNode('content_edit')
+                        ->info('Content Edit form configuration')
+                        ->children()
+                            ->arrayNode('form_templates')
+                                ->info('A list of Content Edit (and create) default Twig form templates')
+                                ->setDeprecated(
+                                    'ibexa/admin-ui',
+                                    '4.2.0',
+                                    'Setting "admin_ui.content_edit_form_templates" is deprecated. Use "admin_ui.content_edit.form_templates" instead.'
+                                )
+                                ->arrayPrototype()
+                                    ->children()
+                                        ->scalarNode('template')->end()
+                                        ->integerNode('priority')->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                            ->arrayNode('fieldtypes')
+                                ->info('Configuration for specific FieldTypes')
+                                ->useAttributeAsKey('identifier')
+                                ->arrayPrototype()
+                                    ->children()
+                                        ->scalarNode('identifier')->end()
+                                        ->booleanNode('meta')
+                                            ->info('Make this fieldtype a part of Meta group')
+                                            ->defaultFalse()
+                                        ->end()
+                                    ->end()
+                                ->end()
                             ->end()
                         ->end()
                     ->end()
@@ -61,17 +96,27 @@ class AdminUiForms extends AbstractParser
         $currentScope,
         ContextualizerInterface $contextualizer
     ): void {
-        if (!empty($scopeSettings['admin_ui_forms']['content_edit_form_templates'])) {
+        if (!empty($scopeSettings['admin_ui_forms']['content_edit']['form_templates'])) {
             $scopeSettings['admin_ui_forms.content_edit_form_templates'] = $this->processContentEditFormTemplates(
-                $scopeSettings['admin_ui_forms']['content_edit_form_templates']
+                $scopeSettings['admin_ui_forms']['content_edit']['form_templates']
             );
-            unset($scopeSettings['admin_ui_forms']['content_edit_form_templates']);
+            unset($scopeSettings['admin_ui_forms']['content_edit']['form_templates']);
+        }
+
+        if (!empty($scopeSettings['admin_ui_forms']['content_edit']['fieldtypes'])) {
+            $scopeSettings['admin_ui_forms.content_edit.fieldtypes'] = $scopeSettings['admin_ui_forms']['content_edit']['fieldtypes'];
+            unset($scopeSettings['admin_ui_forms']['content_edit']['fieldtypes']);
         }
 
         $contextualizer->setContextualParameter(
             static::FORM_TEMPLATES_PARAM,
             $currentScope,
             $scopeSettings['admin_ui_forms.content_edit_form_templates'] ?? []
+        );
+        $contextualizer->setContextualParameter(
+            static::FIELDTYPES_PARAM,
+            $currentScope,
+            $scopeSettings['admin_ui_forms.content_edit.fieldtypes'] ?? []
         );
     }
 
@@ -81,6 +126,7 @@ class AdminUiForms extends AbstractParser
     public function postMap(array $config, ContextualizerInterface $contextualizer)
     {
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit_form_templates', $config);
+        $contextualizer->mapConfigArray('admin_ui_forms.content_edit.fieldtypes', $config);
     }
 
     /**

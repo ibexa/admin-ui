@@ -40,10 +40,12 @@ class AdminUiFormsTest extends TestCase
     {
         $scopeSettings = [
             'admin_ui_forms' => [
-                'content_edit_form_templates' => [
-                    ['template' => 'my_template-01.html.twig', 'priority' => 1],
-                    ['template' => 'my_template-02.html.twig', 'priority' => 0],
-                    ['template' => 'my_template-03.html.twig', 'priority' => 2],
+                'content_edit' => [
+                    'form_templates' => [
+                        ['template' => 'my_template-01.html.twig', 'priority' => 1],
+                        ['template' => 'my_template-02.html.twig', 'priority' => 0],
+                        ['template' => 'my_template-03.html.twig', 'priority' => 2],
+                    ],
                 ],
             ],
         ];
@@ -56,12 +58,60 @@ class AdminUiFormsTest extends TestCase
         ];
 
         $this->contextualizer
-            ->expects($this->once())
+            ->expects($this->atLeast(2))
             ->method('setContextualParameter')
-            ->with(
-                AdminUiForms::FORM_TEMPLATES_PARAM,
-                $currentScope,
-                $expectedTemplatesList
+            ->withConsecutive(
+                [
+                    AdminUiForms::FORM_TEMPLATES_PARAM,
+                    $currentScope,
+                    $expectedTemplatesList,
+                ],
+                [
+                    AdminUiForms::FIELDTYPES_PARAM,
+                    $currentScope,
+                    [],
+                ],
+            );
+
+        $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
+    }
+
+    /**
+     * Test given fieldtype settings are mapped.
+     */
+    public function testContentEditFieldTypesAreMapped()
+    {
+        $scopeSettings = [
+            'admin_ui_forms' => [
+                'content_edit' => [
+                    'fieldtypes' => [
+                        'my_fieldtype' => ['meta' => true],
+                        'my_fieldtype_2' => ['meta' => false],
+                    ],
+                ],
+            ],
+        ];
+        $currentScope = 'admin_group';
+
+        $expectedFieldTypeSettings = [
+            'my_fieldtype' => ['meta' => true],
+            'my_fieldtype_2' => ['meta' => false],
+        ];
+
+        $this->contextualizer
+            ->expects($this->atLeast(2))
+            ->method('setContextualParameter')
+            ->withConsecutive(
+                [
+                    AdminUiForms::FORM_TEMPLATES_PARAM,
+                    $currentScope,
+                    [],
+                ],
+                [
+                    AdminUiForms::FIELDTYPES_PARAM,
+                    $currentScope,
+                    $expectedFieldTypeSettings,
+                ],
             );
 
         $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
