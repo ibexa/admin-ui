@@ -7,3 +7,7 @@ services:
     Ibexa\AdminUi\Component\Content\PreviewUnavailableTwigComponent:
         tags:
             - { name: ibexa.admin_ui.component, group: 'content-edit-form-before' }
+
+    Ibexa\AdminUi\Component\Content\ContentEditMetaFieldsComponent:
+        tags:
+            - { name: ibexa.admin_ui.component, group: 'content-edit-sections' }

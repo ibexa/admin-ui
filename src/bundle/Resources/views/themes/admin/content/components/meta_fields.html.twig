@@ -1,0 +1,15 @@
+{% extends '@ibexadesign/ui/component/anchor_navigation/primary_section.html.twig' %}
+
+{% set data_id = 'ibexa-edit-content-sections-meta' %}
+
+{% block sections %}
+    {% for identifier in meta_fields %}
+        {% embed '@ibexadesign/ui/component/anchor_navigation/secondary_section.html.twig' with {'form': form, 'identifier': identifier} %}
+            {% set data_id = 'ibexa-edit-content-sections-meta-' ~ identifier %}
+            {% block content %}
+                {% import '@ibexadesign/content/edit_base.html.twig' as edit_base %}
+                {{ edit_base.renderFormField(form.fieldsData[identifier]) }}
+            {% endblock %}
+        {% endembed %}
+    {% endfor %}
+{% endblock %}

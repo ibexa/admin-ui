@@ -51,6 +51,17 @@
     </div>
 {% endblock %}
 
+{% block content_sections %}
+    {{ ibexa_render_component_group('content-edit-sections', {
+        'form': form,
+        'content': content,
+        'content_type': content_type,
+        'location': location,
+        'parent_location': parent_location,
+        'language': language
+    }) }}
+{% endblock %}
+
 {% block form_after %}
     {{ ibexa_render_component_group('content-edit-form-after', {
         'content': content,
