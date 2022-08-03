@@ -401,3 +401,7 @@ services:
     Ibexa\AdminUi\Form\Type\ContentType\FieldDefinitionsCollectionType:
         tags:
             - { name: form.type }
+
+    Ibexa\AdminUi\Form\Provider\GroupedNonMetaFormFieldsProvider:
+        arguments:
+            $innerGroupedContentFormFieldsProvider: '@Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsProviderInterface'
