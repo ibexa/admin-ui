@@ -32,9 +32,6 @@ class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Translatio
         $this->configResolver = $configResolver;
     }
 
-    /**
-     * @return string
-     */
     protected function getConfigureEventName(): string
     {
         return ConfigureMenuEvent::CONTENT_EDIT_ANCHOR_MENU;
@@ -116,8 +113,6 @@ class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Translatio
     }
 
     /**
-     * @param array<string, array<string>> $groupedFields
-     *
      * @return array<\Knp\Menu\ItemInterface>
      */
     private function getMetaFieldItems(ContentType $contentType): array
