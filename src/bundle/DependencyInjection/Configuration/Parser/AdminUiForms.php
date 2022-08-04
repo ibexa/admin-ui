@@ -28,7 +28,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 class AdminUiForms extends AbstractParser
 {
     public const FORM_TEMPLATES_PARAM = 'admin_ui_forms.content_edit_form_templates';
-    public const FIELDTYPES_PARAM = 'admin_ui_forms.content_edit.fieldtypes';
+    public const FIELD_TYPES_PARAM = 'admin_ui_forms.content_edit.fieldtypes';
 
     /**
      * Adds semantic configuration definition.
@@ -114,7 +114,7 @@ class AdminUiForms extends AbstractParser
             $scopeSettings['admin_ui_forms.content_edit_form_templates'] ?? []
         );
         $contextualizer->setContextualParameter(
-            static::FIELDTYPES_PARAM,
+            static::FIELD_TYPES_PARAM,
             $currentScope,
             $scopeSettings['admin_ui_forms.content_edit.fieldtypes'] ?? []
         );

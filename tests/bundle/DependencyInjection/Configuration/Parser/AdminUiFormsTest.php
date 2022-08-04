@@ -67,7 +67,7 @@ class AdminUiFormsTest extends TestCase
                     $expectedTemplatesList,
                 ],
                 [
-                    AdminUiForms::FIELDTYPES_PARAM,
+                    AdminUiForms::FIELD_TYPES_PARAM,
                     $currentScope,
                     [],
                 ],
@@ -108,7 +108,7 @@ class AdminUiFormsTest extends TestCase
                     [],
                 ],
                 [
-                    AdminUiForms::FIELDTYPES_PARAM,
+                    AdminUiForms::FIELD_TYPES_PARAM,
                     $currentScope,
                     $expectedFieldTypeSettings,
                 ],
