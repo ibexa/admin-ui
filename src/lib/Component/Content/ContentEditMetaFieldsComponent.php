@@ -63,6 +63,11 @@ class ContentEditMetaFieldsComponent implements Renderable
     {
         $fieldTypeConfig = $this->configResolver->getParameter('admin_ui_forms.content_edit.fieldtypes');
 
-        return array_keys(array_filter($fieldTypeConfig, static fn (array $config) => true === $config['meta']));
+        return array_keys(
+            array_filter(
+                $fieldTypeConfig,
+                static fn (array $config): bool => true === $config['meta']
+            )
+        );
     }
 }

@@ -52,6 +52,11 @@ final class GroupedNonMetaFormFieldsProvider implements GroupedContentFormFields
     {
         $fieldTypesConfig = $this->configResolver->getParameter('admin_ui_forms.content_edit.fieldtypes');
 
-        return array_keys(array_filter($fieldTypesConfig, static fn (array $config) => true === $config['meta']));
+        return array_keys(
+            array_filter(
+                $fieldTypesConfig,
+                static fn (array $config): bool => true === $config['meta']
+            )
+        );
     }
 }

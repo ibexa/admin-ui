@@ -79,7 +79,7 @@ class AdminUiFormsTest extends TestCase
     /**
      * Test given fieldtype settings are mapped.
      */
-    public function testContentEditFieldTypesAreMapped()
+    public function testContentEditFieldTypesAreMapped(): void
     {
         $scopeSettings = [
             'admin_ui_forms' => [

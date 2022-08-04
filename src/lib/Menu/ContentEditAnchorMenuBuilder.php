@@ -10,6 +10,7 @@ use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -19,6 +20,8 @@ class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Translatio
 {
     public const ITEM__CONTENT = 'content_edit__anchor_menu__content';
     public const ITEM__META = 'content_edit__anchor_menu__meta';
+
+    private const ITEM_ORDER_SPAN = 10;
 
     private ConfigResolverInterface $configResolver;
 
@@ -75,7 +78,7 @@ class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Translatio
                 [
                     'attributes' => ['data-target-id' => 'ibexa-edit-content-sections-meta'],
                     'extras' => [
-                        'orderNumber' => 50,
+                        'orderNumber' => 20,
                     ],
                 ]
             );
@@ -98,7 +101,7 @@ class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Translatio
         $items = [];
         $order = 0;
         foreach ($groupedFields as $group => $fields) {
-            $order = $order + 10;
+            $order += self::ITEM_ORDER_SPAN;
             $items[$group] = $this->createMenuItem($group, [
                 'attributes' => [
                     'data-target-id' => sprintf('ibexa-edit-content-sections-content-fields-%s', mb_strtolower($group)),
@@ -120,7 +123,7 @@ class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Translatio
         $fieldTypeSettings = $this->configResolver->getParameter('admin_ui_forms.content_edit.fieldtypes');
         $metaFieldTypeIdentifiers = array_keys(array_filter(
             $fieldTypeSettings,
-            static fn (array $config) => true === $config['meta']
+            static fn (array $config): bool => true === $config['meta']
         ));
 
         $items = [];
@@ -133,23 +136,31 @@ class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Translatio
             $fieldDefinitions = $contentType->getFieldDefinitionsOfType($metaFieldTypeIdentifier);
             foreach ($fieldDefinitions as $fieldDefinition) {
                 $fieldDefIdentifier = $fieldDefinition->identifier;
-                $order = $order + 10;
-                $items[$fieldDefIdentifier] = $this->createMenuItem(
-                    $fieldDefIdentifier,
-                    [
-                        'label' => $fieldDefinition->getName(),
-                        'attributes' => [
-                            'data-target-id' => sprintf('ibexa-edit-content-sections-meta-%s', $fieldDefIdentifier),
-                        ],
-                        'extras' => [
-                            'orderNumber' => $order,
-                        ],
-                    ]
-                );
+                $order += self::ITEM_ORDER_SPAN;
+                $items[$fieldDefIdentifier] = $this->createSecondLevelItem($fieldDefIdentifier, $fieldDefinition, $order);
             }
         }
 
         return $items;
+    }
+
+    private function createSecondLevelItem(
+        string $fieldDefIdentifier,
+        FieldDefinition $fieldDefinition,
+        int $order
+    ): ItemInterface {
+        return $this->createMenuItem(
+            $fieldDefIdentifier,
+            [
+                'label' => $fieldDefinition->getName(),
+                'attributes' => [
+                    'data-target-id' => sprintf('ibexa-edit-content-sections-meta-%s', $fieldDefIdentifier),
+                ],
+                'extras' => [
+                    'orderNumber' => $order,
+                ],
+            ]
+        );
     }
 
     /**
