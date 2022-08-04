@@ -73,7 +73,7 @@ final class SetViewParametersListenerTest extends TestCase
         );
     }
 
-    public function testSetViewTemplateParameters()
+    public function testSetViewTemplateParameters(): void
     {
         $locationA = new Core\Location(['id' => self::EXAMPLE_LOCATION_A_ID]);
         $locationB = new Core\Location(['id' => self::EXAMPLE_LOCATION_B_ID]);
@@ -115,7 +115,7 @@ final class SetViewParametersListenerTest extends TestCase
         return new Core\Location(['id' => 3, 'parentLocationId' => $parentLocationId]);
     }
 
-    public function testSetViewTemplateParametersWithMainLocationId()
+    public function testSetViewTemplateParametersWithMainLocationId(): void
     {
         $mainLocationId = 123;
         $parentLocationId = 456;
@@ -153,7 +153,7 @@ final class SetViewParametersListenerTest extends TestCase
         $this->assertSame(reset($parentLocations), $contentView->getParameter('parent_location'));
     }
 
-    public function testSetViewTemplateParametersWithoutContentEditViewInstance()
+    public function testSetViewTemplateParametersWithoutContentEditViewInstance(): void
     {
         $contentView = $this->createMock(View::class);
 
@@ -167,7 +167,7 @@ final class SetViewParametersListenerTest extends TestCase
         );
     }
 
-    public function testSetUserUpdateViewTemplateParametersWithoutUserUpdateViewInstance()
+    public function testSetUserUpdateViewTemplateParametersWithoutUserUpdateViewInstance(): void
     {
         $view = $this->createMock(View::class);
 
@@ -181,7 +181,7 @@ final class SetViewParametersListenerTest extends TestCase
         );
     }
 
-    public function testSetUserUpdateViewTemplateParameters()
+    public function testSetUserUpdateViewTemplateParameters(): void
     {
         $ownerId = 42;
 
@@ -202,7 +202,7 @@ final class SetViewParametersListenerTest extends TestCase
         $this->assertSame($user, $userUpdateView->getParameter('creator'));
     }
 
-    public function testSetGroupedFieldsParameter()
+    public function testSetGroupedFieldsParameter(): void
     {
         $fieldsDataChildren = [
             'name' => $this->createMock(FormInterface::class),
@@ -237,7 +237,7 @@ final class SetViewParametersListenerTest extends TestCase
         $this->assertSame($groupedFields, $contentEditView->getParameter('grouped_fields'));
     }
 
-    public function testSubscribedEvents()
+    public function testSubscribedEvents(): void
     {
         $this->locationService
             ->expects(self::never())
