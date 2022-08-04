@@ -11,6 +11,7 @@ namespace Ibexa\Tests\AdminUi\EventListener;
 use Ibexa\AdminUi\EventListener\SetViewParametersListener;
 use Ibexa\ContentForms\Content\View\ContentEditView;
 use Ibexa\ContentForms\User\View\UserUpdateView;
+use Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsProviderInterface;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\UserService;
@@ -22,6 +23,7 @@ use Ibexa\Core\MVC\Symfony\View\View;
 use Ibexa\Core\Repository\Values\Content as Core;
 use Ibexa\Core\Repository\Values\User\User as CoreUser;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\FormInterface;
 
 final class SetViewParametersListenerTest extends TestCase
 {
@@ -44,6 +46,9 @@ final class SetViewParametersListenerTest extends TestCase
     /** @var \Ibexa\Contracts\Core\Repository\Repository|\PHPUnit\Framework\MockObject\MockObject */
     private $repository;
 
+    /** @var \Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsProviderInterface|\PHPUnit\Framework\MockObject\MockObject */
+    private $groupedContentFormFieldsProvider;
+
     public function setUp(): void
     {
         $contentInfo = $this->generateContentInfo();
@@ -58,11 +63,13 @@ final class SetViewParametersListenerTest extends TestCase
         $this->locationService = $this->createMock(LocationService::class);
         $this->userService = $this->createMock(UserService::class);
         $this->repository = $this->createMock(Repository::class);
+        $this->groupedContentFormFieldsProvider = $this->createMock(GroupedContentFormFieldsProviderInterface::class);
 
         $this->viewParametersListener = new SetViewParametersListener(
             $this->locationService,
             $this->userService,
-            $this->repository
+            $this->repository,
+            $this->groupedContentFormFieldsProvider
         );
     }
 
@@ -195,6 +202,41 @@ final class SetViewParametersListenerTest extends TestCase
         $this->assertSame($user, $userUpdateView->getParameter('creator'));
     }
 
+    public function testSetGroupedFieldsParameter()
+    {
+        $fieldsDataChildren = [
+            'name' => $this->createMock(FormInterface::class),
+            'short_name' => $this->createMock(FormInterface::class),
+            'description' => $this->createMock(FormInterface::class),
+        ];
+        $fieldsDataForm = $this->createMock(FormInterface::class);
+        $fieldsDataForm
+            ->method('all')
+            ->willReturn($fieldsDataChildren);
+
+        $form = $this->createMock(FormInterface::class);
+        $form
+            ->method('get')
+            ->with('fieldsData')
+            ->willReturn($fieldsDataForm);
+
+        $contentEditView = new ContentEditView();
+        $contentEditView->setForm($form);
+
+        $groupedFields = [
+            'Content' => ['name', 'short_name', 'description'],
+        ];
+
+        $this->groupedContentFormFieldsProvider
+            ->method('getGroupedFields')
+            ->with($fieldsDataChildren)
+            ->willReturn($groupedFields);
+
+        $this->viewParametersListener->setGroupedFieldsParameter(new PreContentViewEvent($contentEditView));
+
+        $this->assertSame($groupedFields, $contentEditView->getParameter('grouped_fields'));
+    }
+
     public function testSubscribedEvents()
     {
         $this->locationService
@@ -207,6 +249,7 @@ final class SetViewParametersListenerTest extends TestCase
                 ['setUserUpdateViewTemplateParameters', 5],
                 ['setContentTranslateViewTemplateParameters', 10],
                 ['setContentCreateViewTemplateParameters', 10],
+                ['setGroupedFieldsParameter', 20],
             ],
         ];
 
