@@ -17,6 +17,7 @@
         border: 0;
         flex-basis: 100%;
         text-align: center;
+        overflow: hidden;
 
         &--active {
             background-color: $ibexa-color-white;
@@ -92,5 +93,10 @@
 
     &__secondary-item-label {
         max-width: calc(100% - #{calculateRem(45px)});
+    }
+
+    &__item-label {
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 }

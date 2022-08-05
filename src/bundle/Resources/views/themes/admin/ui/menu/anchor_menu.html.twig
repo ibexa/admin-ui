@@ -133,7 +133,9 @@
     {%- set itemTagElement = itemTagElement|default('button') %}
 
     <{{ itemTagElement }}{{ knp_menu.attributes(attributes) }}>
-    {{ block('label') }}
+        <div class="ibexa-navigation-menu__item-label" title="{{ block('label')|raw }}">
+            {{ block('label') }}
+        </div>
     </{{ itemTagElement }}>
 {% endblock %}
 

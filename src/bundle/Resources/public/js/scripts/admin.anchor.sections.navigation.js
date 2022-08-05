@@ -1,5 +1,7 @@
-(function (global, doc) {
-    if (!doc.querySelector('.ibexa-navigation-menu')) {
+(function (global, doc, ibexa) {
+    const navigationMenu = doc.querySelector('.ibexa-navigation-menu');
+
+    if (!navigationMenu) {
         return;
     }
 
@@ -153,4 +155,5 @@
     bindSecondaryMenuEvents();
     bindScrollContainerEvents();
     fitSecondarySections();
-})(window, window.document);
+    ibexa.helpers.tooltips.parse(navigationMenu);
+})(window, window.document, window.ibexa);
