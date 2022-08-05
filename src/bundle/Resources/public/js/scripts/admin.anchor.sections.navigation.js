@@ -23,7 +23,7 @@
         contentContainer.style.paddingBottom = '0px';
 
         if (!firstSection.isSameNode(lastSection) && lastSection && lastSection.offsetHeight) {
-            const headerContainer = doc.querySelector('.ibexa-edit-header .ibexa-edit-header__container');
+            const headerContainer = doc.querySelector('.ibexa-edit-header__container');
             const heightFromLastSection = contentContainer.offsetHeight - lastSection.offsetTop;
             const contentColumnBodyHeight = contentColumn.offsetHeight - headerContainer.offsetHeight;
             const heightDiff = contentColumnBodyHeight - heightFromLastSection;
@@ -67,7 +67,7 @@
         items.forEach((item) => item.classList.toggle('ibexa-navigation-menu__secondary--active', item.isSameNode(node)));
     };
     const onSelectPrimaryMenuList = (event) => {
-        const { targetId } = event.target.dataset;
+        const { targetId } = event.currentTarget.dataset;
         const secondaryMenuNode = doc.querySelector(`.ibexa-navigation-menu__secondary[data-id="${targetId}"]`);
         const primaryMenuItems = doc.querySelectorAll('.ibexa-navigation-menu__primary--list .ibexa-navigation-menu__primary-item');
 
@@ -81,7 +81,7 @@
         }
     };
     const onSelectPrimaryMenuDropdown = (event) => {
-        const targetId = event.target.value;
+        const targetId = event.currentTarget.value;
         const secondaryMenuNode = doc.querySelector(`.ibexa-navigation-menu__secondary[data-id="${targetId}"]`);
 
         showPrimarySection(targetId);
@@ -116,7 +116,7 @@
     };
     const bindScrollContainerEvents = () => {
         const allSections = [...doc.querySelectorAll('.ibexa-edit-content__secondary-section')];
-        const headerContainer = doc.querySelector('.ibexa-edit-header .ibexa-edit-header__container');
+        const headerContainer = doc.querySelector('.ibexa-edit-header__container');
         let previousFirstVisibleSection = null;
 
         if (formContainerNode && allSections.length) {
