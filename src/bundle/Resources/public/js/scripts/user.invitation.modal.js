@@ -372,38 +372,39 @@ export class UserInvitationModal {
         event.stopPropagation();
     }
 
-    async handleInvitationFile(file) {
+    handleInvitationFile(file) {
         this.toggleUpload(true);
         this.showUploadedFileNotification(file.name);
 
-        const numberOfNonEmptyLines = await this.countFilledLinesInFile(file);
-        const invitationsData = await this.processCSVInvitationFile(file);
+        this.countFilledLinesInFile(file).then((numberOfNonEmptyLines) => {
+            this.processCSVInvitationFile(file).then((invitationsData) => {
+                if (numberOfNonEmptyLines === 0 || numberOfNonEmptyLines !== invitationsData.length) {
+                    this.toggleBadFileAlert(true);
+                    this.toggleUpload(false);
 
-        if (numberOfNonEmptyLines === 0 || numberOfNonEmptyLines !== invitationsData.length) {
-            this.toggleBadFileAlert(true);
-            this.toggleUpload(false);
+                    return;
+                }
 
-            return;
-        }
+                this.toggleBadFileAlert(false);
+                this.deleteTrailingEntriesIfEmpty();
 
-        this.toggleBadFileAlert(false);
-        this.deleteTrailingEntriesIfEmpty();
+                const entriesBeforeFileAdded = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
 
-        const entriesBeforeFileAdded = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
+                invitationsData.forEach((invitationData) => {
+                    const duplicateEntry = this.findDuplicateEntry(invitationData, entriesBeforeFileAdded);
 
-        invitationsData.forEach((invitationData) => {
-            const duplicateEntry = this.findDuplicateEntry(invitationData, entriesBeforeFileAdded);
+                    if (duplicateEntry) {
+                        this.toggleDuplicateEntryState(duplicateEntry, true);
+                        this.manageIssuesAlert();
+                    } else {
+                        const { insertedEntry } = this.addEntry(true, invitationData);
 
-            if (duplicateEntry) {
-                this.toggleDuplicateEntryState(duplicateEntry, true);
-                this.manageIssuesAlert();
-            } else {
-                const { insertedEntry } = this.addEntry(true, invitationData);
-
-                this.validateEntryEmail(insertedEntry);
-            }
+                        this.validateEntryEmail(insertedEntry);
+                    }
+                });
+                this.updateModalTitle();
+            });
         });
-        this.updateModalTitle();
     }
 
     handleInputUpload(event) {
