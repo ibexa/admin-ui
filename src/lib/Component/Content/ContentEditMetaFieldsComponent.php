@@ -47,7 +47,7 @@ class ContentEditMetaFieldsComponent implements Renderable
         $parameters['meta_fields'] = [];
         foreach ($metaFieldTypeIdentifiers as $identifier) {
             $fields = $contentType->getFieldDefinitionsOfType($identifier);
-            $parameters['meta_fields'] += array_column($fields->toArray(), 'identifier');
+            $parameters['meta_fields'] = array_merge($parameters['meta_fields'], array_column($fields->toArray(), 'identifier'));
         }
 
         return $this->twig->render(
