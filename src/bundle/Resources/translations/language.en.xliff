@@ -31,6 +31,11 @@
         <target state="new">Language '%name%' removed.</target>
         <note>key: language.delete.success</note>
       </trans-unit>
+      <trans-unit id="71ec7cf0f6cecec112438059bf15066f4ccb5ba1" resname="language.delete_language">
+        <source>Delete</source>
+        <target state="new">Delete</target>
+        <note>key: language.delete_language</note>
+      </trans-unit>
       <trans-unit id="0c028c20c9b353fbd7b71bfef8b4ae3dcbd0d7e4" resname="language.disabled">
         <source>Disabled</source>
         <target state="new">Disabled</target>
