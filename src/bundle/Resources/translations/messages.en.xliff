@@ -513,11 +513,6 @@
         <target state="new">Delete</target>
         <note>key: language.delete</note>
       </trans-unit>
-      <trans-unit id="71ec7cf0f6cecec112438059bf15066f4ccb5ba1" resname="language.delete_language">
-        <source>Delete</source>
-        <target state="new">Delete</target>
-        <note>key: language.delete_language</note>
-      </trans-unit>
       <trans-unit id="2a52961302ce7dfa4a21c5e0bcc239f5a9a36cfe" resname="language.modal.message">
         <source>Do you want to delete the language(s)?</source>
         <target state="new">Do you want to delete the language(s)?</target>
