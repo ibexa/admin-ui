@@ -1,6 +1,4 @@
 .ibexa-trash-search-form {
-    margin: calculateRem(16px) 0;
-
     &__inputs-group {
         display: flex;
         justify-content: space-between;
@@ -17,6 +15,7 @@
 
         &--creator {
             position: relative;
+            width: 100%;
 
             .ibexa-trash-search-form {
                 &__input-wrapper {
@@ -87,21 +86,26 @@
         display: none;
         position: absolute;
         right: 0;
-        bottom: calculateRem(1px);
+        bottom: 0;
+
+        &:hover {
+            border-color: transparent;
+        }
     }
 
     &__range-wrapper {
-        height: 0;
+        width: 0;
         opacity: 0;
-        margin-top: calculateRem(8px);
         background: $ibexa-color-white;
         border: calculateRem(1px) solid $ibexa-color-white;
         border-radius: calculateRem(4px);
-        transition: all 0.2s ease-in;
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
         pointer-events: none;
+        overflow: hidden;
 
         &--visible {
-            height: calculateRem(40px);
+            width: auto;
+            margin-left: calculateRem(16px);
             opacity: 1;
             pointer-events: auto;
         }
