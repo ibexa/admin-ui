@@ -328,11 +328,6 @@
     };
     const scrollToInvalidInput = () => {
         const firstInvalidInput = editForm.querySelector('.ibexa-input.is-invalid');
-
-        if (!firstInvalidInput) {
-            return;
-        }
-
         const fieldDefinition = firstInvalidInput.closest('.ibexa-collapse--field-definition');
         const scrollToNode = fieldDefinition ?? firstInvalidInput;
 
@@ -460,16 +455,14 @@
 
             validateForm();
 
-            if (!fieldDefinitionsCount) {
-                isEditFormValid = false;
-                ibexa.helpers.notification.showErrorNotification(noFieldsAddedError);
-            }
-
-            if (!isEditFormValid) {
+            if (isEditFormValid) {
+                if (!fieldDefinitionsCount) {
+                    event.preventDefault();
+                    ibexa.helpers.notification.showErrorNotification(noFieldsAddedError);
+                }
+            } else {
                 event.preventDefault();
                 scrollToInvalidInput();
-
-                return;
             }
         },
         false,
