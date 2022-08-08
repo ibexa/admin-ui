@@ -45,7 +45,7 @@
             class="ibexa-dropdown__selection-info"
             data-min-item-width="{{ min_item_width }}"
             {% if selected_item_label is defined %}
-                data-selected-item-label="{{ selected_item_label }}"
+                data-selected-item-label="{{ selected_item_label|e('html_attr') }}"
             {% endif %}
             data-icon-template="{{ include('@ibexadesign/ui/component/dropdown/dropdown_selected_item_icon.html.twig', {
                 icon: '{{ icon }}',
@@ -106,7 +106,7 @@
 
             <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-overflow-number" hidden></li>
         </ul>
-        <div class="ibexa-dropdown__items {{ choices_flat|length < min_search_items ? 'ibexa-dropdown__items--search-hidden' }}">
+        <div class="ibexa-dropdown__items {{ items_class|default('') }} {{ choices_flat|length < min_search_items ? 'ibexa-dropdown__items--search-hidden' }}">
             {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true } -%}
                 {% block content %}
                     <input
