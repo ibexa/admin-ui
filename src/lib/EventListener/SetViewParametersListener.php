@@ -12,6 +12,7 @@ use Ibexa\AdminUi\View\ContentTranslateView;
 use Ibexa\ContentForms\Content\View\ContentCreateView;
 use Ibexa\ContentForms\Content\View\ContentEditView;
 use Ibexa\ContentForms\User\View\UserUpdateView;
+use Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsProviderInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Repository;
@@ -23,6 +24,7 @@ use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -30,28 +32,24 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class SetViewParametersListener implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    protected $locationService;
+    protected LocationService $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    protected $userService;
+    protected UserService $userService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
-     */
+    private GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider;
+
     public function __construct(
         LocationService $locationService,
         UserService $userService,
-        Repository $repository
+        Repository $repository,
+        GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider
     ) {
         $this->locationService = $locationService;
         $this->userService = $userService;
         $this->repository = $repository;
+        $this->groupedContentFormFieldsProvider = $groupedContentFormFieldsProvider;
     }
 
     /**
@@ -67,6 +65,7 @@ class SetViewParametersListener implements EventSubscriberInterface
                 ['setUserUpdateViewTemplateParameters', 5],
                 ['setContentTranslateViewTemplateParameters', 10],
                 ['setContentCreateViewTemplateParameters', 10],
+                ['setGroupedFieldsParameter', 20],
             ],
         ];
     }
@@ -177,6 +176,21 @@ class SetViewParametersListener implements EventSubscriberInterface
         $contentView->addParameters([
             'content_create_struct' => $contentView->getForm()->getData(),
         ]);
+    }
+
+    public function setGroupedFieldsParameter(PreContentViewEvent $event): void
+    {
+        $view = $event->getContentView();
+        if (!$view instanceof ContentEditView) {
+            return;
+        }
+
+        $parameters = $view->getParameters();
+        $parameters['grouped_fields'] = $this->groupedContentFormFieldsProvider->getGroupedFields(
+            $view->getForm()->get('fieldsData')->all()
+        );
+
+        $view->setParameters($parameters);
     }
 
     /**

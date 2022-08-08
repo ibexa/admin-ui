@@ -20,7 +20,9 @@
         }) %}
     {% endif %}
 
-    {% include '@ibexadesign/ui/anchor_navigation_menu.html.twig' with anchor_params %}
+    {% block anchor_menu %}
+        {% include '@ibexadesign/ui/anchor_navigation_menu.html.twig' with anchor_params %}
+    {% endblock %}
 {% endblock %}
 
 {% macro renderFormField(formField) -%}
@@ -53,12 +55,16 @@
 
         {% block form %}
             {{ form_start(form, {'attr': {'class': 'ibexa-form-validate ibexa-form'}}) }}
-                {% block form_fields %}
-                    {% if grouped_fields|length > 1 %}
+            <div class="ibexa-edit-content__sections">
+                <div
+                    class="ibexa-edit-content__primary-section ibexa-edit-content__primary-section--active"
+                    data-id="ibexa-edit-content-sections-content-fields"
+                >
+                    {% block form_fields %}
                         <div class="ibexa-anchor-navigation-sections">
                             {% for key, group in grouped_fields %}
                                 {% embed '@ibexadesign/ui/anchor_navigation_section.html.twig' with {
-                                    anchor_section_key: key,
+                                    anchor_section_key: 'ibexa-edit-content-sections-content-fields-' ~ key|lower,
                                     parent_self: _self,
                                 } %}
                                     {% trans_default_domain 'content_edit' %}
@@ -70,12 +76,10 @@
                                 {% endembed %}
                             {% endfor %}
                         </div>
-                    {% else %}
-                        {% for formField in form.fieldsData %}
-                            {{ _self.renderFormField(formField) }}
-                        {%- endfor %}
-                    {% endif %}
-                {% endblock %}
+                    {% endblock %}
+                </div>
+                {% block content_sections %}{% endblock %}
+            </div>
             {{ form_end(form) }}
         {% endblock %}
 

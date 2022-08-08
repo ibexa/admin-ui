@@ -16,8 +16,8 @@
     &--without-anchor-menu-items {
         .ibexa-main-container {
             &__side-column {
-                width: 15%;
-                max-width: calculateRem(200px);
+                min-width: calculateRem(240px);
+                max-width: calculateRem(240px);
             }
 
             &__content-column {
@@ -30,7 +30,8 @@
         .ibexa-main-container {
             &__side-column {
                 width: 25%;
-                max-width: calculateRem(350px);
+                min-width: calculateRem(300px);
+                max-width: calculateRem(400px);
             }
 
             &__content-column {

@@ -1,0 +1,180 @@
+{% extends '@KnpMenu/menu.html.twig' %}
+
+{% block anchor_menu_list %}
+    {% if item.hasChildren and options.depth is not same as(0) and item.displayChildren %}
+        {% import _self as knp_menu %}
+        <{{ tagElement }}{{ knp_menu.attributes(listAttributes) }}>
+        {{ block('anchor_menu_children') }}
+        </{{ tagElement }}>
+    {% endif %}
+{% endblock %}
+
+{% block anchor_menu_children %}
+    {# save current variables #}
+    {% set currentOptions = options %}
+    {% set currentItem = item %}
+    {# update the depth for children #}
+    {% if options.depth is not none %}
+        {% set options = options|merge({'depth': currentOptions.depth - 1}) %}
+    {% endif %}
+    {# update the matchingDepth for children #}
+    {% if options.matchingDepth is not none and options.matchingDepth > 0 %}
+        {% set options = options|merge({'matchingDepth': currentOptions.matchingDepth - 1}) %}
+    {% endif %}
+
+    {{ block(innerChildrenBlock|default('children')) }}
+
+    {# restore current variables #}
+    {% set item = currentItem %}
+    {% set options = currentOptions %}
+{% endblock %}
+
+{% block children_1st_level %}
+    {% for item in currentItem.children %}
+        {%- set itemClass = 'ibexa-navigation-menu__primary-item' %}
+        {%- if loop.first %}
+            {%- set itemClass = itemClass ~ ' ibexa-navigation-menu__primary-item--active' %}
+        {%- endif %}
+        {%- do item.setAttribute('class', (item.getAttribute('class') ~ ' ' ~ itemClass)|trim) -%}
+        {%- do item.setAttribute('type', 'button') -%}
+        {{ block('anchor_menu_item') }}
+    {% endfor %}
+{% endblock %}
+
+{% block children_1st_level_dropdown %}
+    {% for item in currentItem.children %}
+        {%- set itemClass = 'ibexa-navigation-menu__primary-item' %}
+        {%- if loop.first %}
+            {%- set itemClass = itemClass ~ ' ibexa-navigation-menu__primary-item--active' %}
+        {%- endif %}
+        {%- do item.setAttribute('class', (item.getAttribute('class') ~ ' ' ~ itemClass)|trim) -%}
+        {%- do item.setAttribute('type', 'button') -%}
+    {% endfor %}
+
+    {% set value = '' %}
+    {% set choices = [] %}
+    {% for item in currentItem.children %}
+        {% if loop.first %}
+            {% set value = item.getAttribute('data-target-id') %}
+        {% endif %}
+        {% set choices = choices|merge([{
+            value: item.getAttribute('data-target-id'),
+            label: block('label'),
+        }]) %}
+    {% endfor %}
+
+    {% set source %}
+        <select class="form-control ibexa-input">
+            {% for item in currentItem.children %}
+                <option value="{{ item.getAttribute('data-target-id') }}">
+                    {{ block('label') }}
+                </option>
+            {% endfor %}
+        </select>
+    {% endset %}
+
+    {% include '@ibexadesign/ui/component/dropdown/dropdown.html.twig' with {
+        source: source,
+        choices: choices,
+        value: value,
+    } %}
+{% endblock %}
+
+{% block children_2nd_level %}
+    {% for item in currentItem.children %}
+        {%- set itemClass = 'ibexa-navigation-menu__secondary-item-btn' %}
+        {%- if loop.first %}
+            {%- set itemClass = itemClass ~ ' ibexa-navigation-menu__secondary-item-btn--active' %}
+        {%- endif %}
+        {%- do item.setAttribute('class', (item.getAttribute('class') ~ ' ' ~ itemClass)|trim) -%}
+        {%- do item.setAttribute('type', 'button') -%}
+        {%- do item.setLabelAttribute('class', 'ibexa-navigation-menu__secondary-item-btn-label') -%}
+        {{ block('anchor_menu_item') }}
+    {% endfor %}
+{% endblock %}
+
+{% block anchor_menu_item %}
+    {% if item.displayed %}
+        {# building the class of the item #}
+        {%- set classes = item.attribute('class') is not empty ? [item.attribute('class')] : [] %}
+        {%- if matcher.isCurrent(item) %}
+            {%- set classes = classes|merge([options.currentClass]) %}
+        {%- elseif matcher.isAncestor(item, options.matchingDepth) %}
+            {%- set classes = classes|merge([options.ancestorClass]) %}
+        {%- endif %}
+        {%- if item.actsLikeFirst %}
+            {%- set classes = classes|merge([options.firstClass]) %}
+        {%- endif %}
+        {%- if item.actsLikeLast %}
+            {%- set classes = classes|merge([options.lastClass]) %}
+        {%- endif %}
+
+        {# Mark item as "leaf" (no children) or as "branch" (has children that are displayed) #}
+        {% if item.hasChildren and options.depth is not same as(0) %}
+            {% if options.branch_class is not empty and item.displayChildren %}
+                {%- set classes = classes|merge([options.branch_class]) %}
+            {% endif %}
+        {% elseif options.leaf_class is not empty %}
+            {%- set classes = classes|merge([options.leaf_class]) %}
+        {%- endif %}
+
+        {%- set attributes = item.attributes %}
+        {%- if classes is not empty %}
+            {%- set attributes = attributes|merge({'class': classes|join(' ')}) %}
+        {%- endif %}
+
+        {{ block(innerItemBlock|default('item')) }}
+    {% endif %}
+{% endblock %}
+
+{% block item_1st_level %}
+    {% import _self as knp_menu %}
+
+    {%- set itemTagElement = itemTagElement|default('button') %}
+
+    <{{ itemTagElement }}{{ knp_menu.attributes(attributes) }}>
+        <div class="ibexa-navigation-menu__item-label" title="{{ block('label')|raw }}">
+            {{ block('label') }}
+        </div>
+    </{{ itemTagElement }}>
+{% endblock %}
+
+{% block item_2nd_level %}
+    {% import _self as knp_menu %}
+
+    {%- set itemTagElement = itemTagElement|default('button') %}
+
+    <li class="ibexa-navigation-menu__secondary-item">
+        <{{ itemTagElement }}{{ knp_menu.attributes(attributes) }}>
+            <span{{ knp_menu.attributes(item.labelAttributes) }}>{{ block('label') }}</span>
+        </{{ itemTagElement }}>
+    </li>
+{% endblock %}
+
+{% block root %}
+    <div class="ibexa-navigation-menu">
+        {% if item.count() < 4 %}
+            {% set listAttributes = item.childrenAttributes|merge({'class': (listAttributes.class|default('') ~ ' ibexa-navigation-menu__primary ibexa-navigation-menu__primary--list')|trim}) %}
+            {% set innerChildrenBlock = 'children_1st_level' %}
+            {% set innerItemBlock = 'item_1st_level' %}
+            {% set tagElement = 'div' %}
+            {% set itemTagElement = 'button' %}
+        {% else %}
+            {% set listAttributes = item.childrenAttributes|merge({'class': (listAttributes.class|default('') ~ ' ibexa-navigation-menu__dropdown-wrapper ibexa-navigation-menu__primary--dropdown')|trim}) %}
+            {% set innerChildrenBlock = 'children_1st_level_dropdown' %}
+            {% set tagElement = 'div' %}
+        {% endif %}
+        {{ block('anchor_menu_list') -}}
+
+        <div class="ibexa-navigation-menu__secondary-wrapper">
+            {% for item in item.children %}
+                {% set listAttributes = {'class': 'ibexa-navigation-menu__secondary' ~ (loop.first ? ' ibexa-navigation-menu__secondary--active' : ''), 'data-id': item.getAttribute('data-target-id')} %}
+                {% set innerChildrenBlock = 'children_2nd_level' %}
+                {% set innerItemBlock = 'item_2nd_level' %}
+                {% set tagElement = 'ul' %}
+                {% set itemTagElement = 'button' %}
+                {{ block('anchor_menu_list') -}}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

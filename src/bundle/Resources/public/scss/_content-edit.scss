@@ -8,4 +8,12 @@
             max-width: calculateRem(1600px);
         }
     }
+
+    &__primary-section {
+        display: none;
+
+        &--active {
+            display: block;
+        }
+    }
 }

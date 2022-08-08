@@ -16,22 +16,23 @@
     </div>
 
     <div class="ibexa-anchor-navigation-menu__body">
-        {% if items|default([])|length > 1 %}
-            <ul class="ibexa-anchor-navigation-menu__items">
-                {% for item in items %}
-                    {% set sanitized_item = item|slug %}
-
-                    <li class="ibexa-anchor-navigation-menu__item">
-                        <button
-                            type="button"
-                            class="ibexa-anchor-navigation-menu__item-btn {% if loop.first %}ibexa-anchor-navigation-menu__item-btn--active{% endif %}" 
-                            data-anchor-target-section-id="#{{ sanitized_item }}"
-                        >
-                            <span class="ibexa-anchor-navigation-menu__item-btn-label">{{ item }}</span>
-                        </button>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+        {% block navigation_menu_body %}
+            {% if items|default([])|length > 1 %}
+                <ul class="ibexa-anchor-navigation-menu__items">
+                    {% for item in items %}
+                        {% set sanitized_item = item|slug %}
+                        <li class="ibexa-anchor-navigation-menu__item">
+                            <button
+                                type="button"
+                                class="ibexa-anchor-navigation-menu__item-btn {% if loop.first %}ibexa-anchor-navigation-menu__item-btn--active{% endif %}"
+                                data-anchor-target-section-id="#{{ sanitized_item }}"
+                            >
+                                <span class="ibexa-anchor-navigation-menu__item-btn-label">{{ item }}</span>
+                            </button>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endblock %}
     </div>
 </div>
