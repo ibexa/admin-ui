@@ -416,6 +416,7 @@
                     customClass: 'ibexa-dropdown-popover',
                     content: this.itemsPopoverContent,
                     container: 'body',
+                    fallbackPostion: ['bottom', 'top'],
                 },
                 { dropdown: this },
             );
