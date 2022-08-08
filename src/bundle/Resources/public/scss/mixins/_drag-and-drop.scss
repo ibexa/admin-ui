@@ -152,6 +152,10 @@
         background: $ibexa-color-light-400;
         opacity: 0.5;
     }
+
+    &:hover {
+        border-color: $ibexa-color-dark;
+    }
 }
 
 @mixin drag-item {
