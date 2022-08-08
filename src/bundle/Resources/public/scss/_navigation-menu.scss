@@ -69,7 +69,7 @@
             color: $ibexa-color-info;
             font-weight: 600;
 
-            &:before {
+            &::before {
                 background-color: $ibexa-color-info;
             }
         }
@@ -79,13 +79,13 @@
             background: $ibexa-color-info-100;
             font-weight: 600;
 
-            &:before {
+            &::before {
                 background-color: $ibexa-color-info;
             }
         }
 
         &--invalid {
-            &:after {
+            &::after {
                 opacity: 1;
             }
         }

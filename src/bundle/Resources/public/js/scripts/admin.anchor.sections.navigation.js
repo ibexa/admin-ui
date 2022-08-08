@@ -18,13 +18,13 @@
     const fitSecondarySections = () => {
         const primarySection = doc.querySelector('.ibexa-edit-content__primary-section--active');
         const contentColumn = doc.querySelector('.ibexa-main-container__content-column');
-        const firstSection = primarySection.querySelector('.ibexa-edit-content__secondary-section:first-child');
-        const lastSection = primarySection.querySelector('.ibexa-edit-content__secondary-section:last-child');
+        const firstSection = primarySection.firstElementChild;
+        const lastSection = primarySection.lastElementChild;
         const contentContainer = contentColumn.querySelector('.ibexa-edit-content__container');
 
         contentContainer.style.paddingBottom = '0px';
 
-        if (!firstSection.isSameNode(lastSection) && lastSection && lastSection.offsetHeight) {
+        if (!firstSection.isSameNode(lastSection) && lastSection.offsetHeight) {
             const headerContainer = doc.querySelector('.ibexa-edit-header__container');
             const heightFromLastSection = contentContainer.offsetHeight - lastSection.offsetTop;
             const contentColumnBodyHeight = contentColumn.offsetHeight - headerContainer.offsetHeight;
@@ -74,7 +74,7 @@
         const primaryMenuItems = doc.querySelectorAll('.ibexa-navigation-menu__primary--list .ibexa-navigation-menu__primary-item');
 
         primaryMenuItems.forEach((item) => {
-            item.classList.toggle('ibexa-navigation-menu__primary-item--active', item.isSameNode(event.target));
+            item.classList.toggle('ibexa-navigation-menu__primary-item--active', item.isSameNode(event.currentTarget));
         });
         showPrimarySection(targetId);
 
@@ -97,12 +97,12 @@
 
         navigateTo(targetId);
     };
-    const bindPrimaryMenuListEvents = () => {
+    const attachPrimaryMenuListEvents = () => {
         const items = doc.querySelectorAll('.ibexa-navigation-menu__primary--list .ibexa-navigation-menu__primary-item');
 
         items.forEach((item) => item.addEventListener('click', onSelectPrimaryMenuList, false));
     };
-    const bindPrimaryMenuDropdownEvents = () => {
+    const attachPrimaryMenuDropdownEvents = () => {
         const sourceSelect = doc.querySelector('.ibexa-navigation-menu__primary--dropdown .ibexa-dropdown__source .ibexa-input');
 
         if (!sourceSelect) {
@@ -111,14 +111,14 @@
 
         sourceSelect.addEventListener('change', onSelectPrimaryMenuDropdown, false);
     };
-    const bindSecondaryMenuEvents = () => {
+    const attachSecondaryMenuEvents = () => {
         const items = doc.querySelectorAll('.ibexa-navigation-menu .ibexa-navigation-menu__secondary-item-btn');
 
         items.forEach((item) => item.addEventListener('click', onSelectSecondaryMenu, false));
     };
-    const bindScrollContainerEvents = () => {
-        const allSections = [...doc.querySelectorAll('.ibexa-edit-content__secondary-section')];
-        const headerContainer = doc.querySelector('.ibexa-edit-header__container');
+    const attachScrollContainerEvents = () => {
+        const allSections = [...formContainerNode.querySelectorAll('.ibexa-edit-content__secondary-section')];
+        const headerContainer = formContainerNode.querySelector('.ibexa-edit-header__container');
         let previousFirstVisibleSection = null;
 
         if (formContainerNode && allSections.length) {
@@ -150,10 +150,10 @@
         }
     };
 
-    bindPrimaryMenuListEvents();
-    bindPrimaryMenuDropdownEvents();
-    bindSecondaryMenuEvents();
-    bindScrollContainerEvents();
+    attachPrimaryMenuListEvents();
+    attachPrimaryMenuDropdownEvents();
+    attachSecondaryMenuEvents();
+    attachScrollContainerEvents();
     fitSecondarySections();
     ibexa.helpers.tooltips.parse(navigationMenu);
 })(window, window.document, window.ibexa);
