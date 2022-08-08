@@ -118,7 +118,7 @@
     };
     const attachScrollContainerEvents = () => {
         const allSections = [...formContainerNode.querySelectorAll('.ibexa-edit-content__secondary-section')];
-        const headerContainer = formContainerNode.querySelector('.ibexa-edit-header__container');
+        const headerContainer = doc.querySelector('.ibexa-edit-header__container');
         let previousFirstVisibleSection = null;
 
         if (formContainerNode && allSections.length) {
