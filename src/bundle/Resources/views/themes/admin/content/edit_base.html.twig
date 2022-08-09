@@ -77,11 +77,13 @@
                                     {% endembed %}
                                 {% endfor %}
                             {% else %}
-                                {% for identifier, formField in form.fieldsData %}
-                                    {% if identifier not in ignored_content_fields|default([]) %}
-                                        {{ _self.renderFormField(formField) }}
-                                    {% endif %}
-                                {%- endfor %}
+                                <div class="ibexa-edit-content__secondary-section" data-id="ibexa-edit-content-sections-content-fields-{{ grouped_fields|keys|first|lower }}">
+                                    {% for identifier, formField in form.fieldsData %}
+                                        {% if identifier not in ignored_content_fields|default([]) %}
+                                            {{ _self.renderFormField(formField) }}
+                                        {% endif %}
+                                    {%- endfor %}
+                                </div>
                             {% endif %}
                         </div>
                     {% endblock %}
