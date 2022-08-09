@@ -224,7 +224,7 @@ final class SetViewParametersListenerTest extends TestCase
         $this->assertSame($user, $userUpdateView->getParameter('creator'));
     }
 
-    public function testSetGroupedFieldsParameter(): void
+    public function testSetContentFieldsParameters(): void
     {
         $fields = [
             'name' => 'ezstring',
@@ -255,50 +255,17 @@ final class SetViewParametersListenerTest extends TestCase
         $groupedFields = [
             'Content' => ['name', 'short_name', 'description'],
         ];
+        $ignoredContentFields = ['tags'];
 
         $this->groupedContentFormFieldsProvider
             ->method('getGroupedFields')
             ->with($fieldsDataChildren)
             ->willReturn($groupedFields);
 
-        $this->viewParametersListener->setGroupedFieldsParameter(new PreContentViewEvent($contentEditView));
-
-        $this->assertSame($groupedFields, $contentEditView->getParameter('grouped_fields'));
-    }
-
-    public function testSetIgnoredContentFieldsParameter(): void
-    {
-        $fields = [
-            'name' => 'ezstring',
-            'short_name' => 'ezstring',
-            'description' => 'ezrichtext',
-            'tags' => 'ibexa_taxonomy_entry_assignment',
-        ];
-
-        $fieldsDataChildren = [];
-        foreach ($fields as $identifier => $type) {
-            $fieldsDataChildren[$identifier] = $this->createFieldMock($identifier, $type);
-        }
-
-        $fieldsDataForm = $this->createMock(FormInterface::class);
-        $fieldsDataForm
-            ->method('all')
-            ->willReturn($fieldsDataChildren);
-
-        $form = $this->createMock(FormInterface::class);
-        $form
-            ->method('get')
-            ->with('fieldsData')
-            ->willReturn($fieldsDataForm);
-
-        $contentEditView = new ContentEditView();
-        $contentEditView->setForm($form);
-
-        $ignoredContentFields = ['tags'];
-
-        $this->viewParametersListener->setGroupedFieldsParameter(new PreContentViewEvent($contentEditView));
+        $this->viewParametersListener->setContentFieldsParameters(new PreContentViewEvent($contentEditView));
 
         $this->assertSame($ignoredContentFields, $contentEditView->getParameter('ignored_content_fields'));
+        $this->assertSame($groupedFields, $contentEditView->getParameter('grouped_fields'));
     }
 
     public function testSubscribedEvents(): void
@@ -313,7 +280,7 @@ final class SetViewParametersListenerTest extends TestCase
                 ['setUserUpdateViewTemplateParameters', 5],
                 ['setContentTranslateViewTemplateParameters', 10],
                 ['setContentCreateViewTemplateParameters', 10],
-                ['setGroupedFieldsParameter', 20],
+                ['setContentFieldsParameters', 20],
             ],
         ];
 

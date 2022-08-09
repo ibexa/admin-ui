@@ -70,7 +70,7 @@ class SetViewParametersListener implements EventSubscriberInterface
                 ['setUserUpdateViewTemplateParameters', 5],
                 ['setContentTranslateViewTemplateParameters', 10],
                 ['setContentCreateViewTemplateParameters', 10],
-                ['setGroupedFieldsParameter', 20],
+                ['setContentFieldsParameters', 20],
             ],
         ];
     }
@@ -183,7 +183,7 @@ class SetViewParametersListener implements EventSubscriberInterface
         ]);
     }
 
-    public function setGroupedFieldsParameter(PreContentViewEvent $event): void
+    public function setContentFieldsParameters(PreContentViewEvent $event): void
     {
         $view = $event->getContentView();
         if (!$view instanceof ContentEditView) {
