@@ -77,8 +77,10 @@
                                     {% endembed %}
                                 {% endfor %}
                             {% else %}
-                                {% for formField in form.fieldsData %}
-                                    {{ _self.renderFormField(formField) }}
+                                {% for identifier, formField in form.fieldsData %}
+                                    {% if identifier not in ignored_content_fields|default([]) %}
+                                        {{ _self.renderFormField(formField) }}
+                                    {% endif %}
                                 {%- endfor %}
                             {% endif %}
                         </div>
