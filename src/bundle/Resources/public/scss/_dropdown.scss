@@ -443,7 +443,7 @@
         .ibexa-dropdown {
             &__selection-info {
                 border: none;
-                padding: 0 calculateRem(16px);
+                padding: 0 calculateRem(24px) 0 calculateRem(16px);
             }
         }
     }
