@@ -62,19 +62,29 @@
                 >
                     {% block form_fields %}
                         <div class="ibexa-anchor-navigation-sections">
-                            {% for key, group in grouped_fields %}
-                                {% embed '@ibexadesign/ui/anchor_navigation_section.html.twig' with {
-                                    anchor_section_key: 'ibexa-edit-content-sections-content-fields-' ~ key|lower,
-                                    parent_self: _self,
-                                } %}
-                                    {% trans_default_domain 'content_edit' %}
-                                    {% import parent_self as parent_self %}
+                            {% if grouped_fields|length > 1 %}
+                                {% for key, group in grouped_fields %}
+                                    {% embed '@ibexadesign/ui/anchor_navigation_section.html.twig' with {
+                                        anchor_section_key: 'ibexa-edit-content-sections-content-fields-' ~ key|lower,
+                                        parent_self: _self,
+                                    } %}
+                                        {% trans_default_domain 'content_edit' %}
+                                        {% import parent_self as parent_self %}
 
-                                    {% block anchor_section_body %}
-                                        {{ parent_self.renderFieldGroup(group, form) }}
-                                    {% endblock %}
-                                {% endembed %}
-                            {% endfor %}
+                                        {% block anchor_section_body %}
+                                            {{ parent_self.renderFieldGroup(group, form) }}
+                                        {% endblock %}
+                                    {% endembed %}
+                                {% endfor %}
+                            {% else %}
+                                <div class="ibexa-edit-content__secondary-section" data-id="ibexa-edit-content-sections-content-fields-{{ grouped_fields|keys|first|lower }}">
+                                    {% for identifier, formField in form.fieldsData %}
+                                        {% if identifier not in ignored_content_fields|default([]) %}
+                                            {{ _self.renderFormField(formField) }}
+                                        {% endif %}
+                                    {%- endfor %}
+                                </div>
+                            {% endif %}
                         </div>
                     {% endblock %}
                 </div>

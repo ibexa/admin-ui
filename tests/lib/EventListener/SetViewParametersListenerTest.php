@@ -12,16 +12,21 @@ use Ibexa\AdminUi\EventListener\SetViewParametersListener;
 use Ibexa\ContentForms\Content\View\ContentEditView;
 use Ibexa\ContentForms\User\View\UserUpdateView;
 use Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsProviderInterface;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content as API;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\User\User as APIUser;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\View\View;
 use Ibexa\Core\Repository\Values\Content as Core;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\User\User as CoreUser;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormInterface;
 
@@ -46,6 +51,9 @@ final class SetViewParametersListenerTest extends TestCase
     /** @var \Ibexa\Contracts\Core\Repository\Repository|\PHPUnit\Framework\MockObject\MockObject */
     private $repository;
 
+    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    private ConfigResolverInterface $configResolver;
+
     /** @var \Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsProviderInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $groupedContentFormFieldsProvider;
 
@@ -63,12 +71,26 @@ final class SetViewParametersListenerTest extends TestCase
         $this->locationService = $this->createMock(LocationService::class);
         $this->userService = $this->createMock(UserService::class);
         $this->repository = $this->createMock(Repository::class);
+
+        $this->configResolver = $this->createMock(ConfigResolverInterface::class);
+        $this->configResolver
+            ->method('getParameter')
+            ->with('admin_ui_forms.content_edit.fieldtypes')
+            ->willReturn(
+                [
+                    'ibexa_taxonomy_entry_assignment' => [
+                        'meta' => true,
+                    ],
+                ]
+            );
+
         $this->groupedContentFormFieldsProvider = $this->createMock(GroupedContentFormFieldsProviderInterface::class);
 
         $this->viewParametersListener = new SetViewParametersListener(
             $this->locationService,
             $this->userService,
             $this->repository,
+            $this->configResolver,
             $this->groupedContentFormFieldsProvider
         );
     }
@@ -202,13 +224,20 @@ final class SetViewParametersListenerTest extends TestCase
         $this->assertSame($user, $userUpdateView->getParameter('creator'));
     }
 
-    public function testSetGroupedFieldsParameter(): void
+    public function testSetContentFieldsParameters(): void
     {
-        $fieldsDataChildren = [
-            'name' => $this->createMock(FormInterface::class),
-            'short_name' => $this->createMock(FormInterface::class),
-            'description' => $this->createMock(FormInterface::class),
+        $fields = [
+            'name' => 'ezstring',
+            'short_name' => 'ezstring',
+            'description' => 'ezrichtext',
+            'tags' => 'ibexa_taxonomy_entry_assignment',
         ];
+
+        $fieldsDataChildren = [];
+        foreach ($fields as $identifier => $type) {
+            $fieldsDataChildren[$identifier] = $this->createFieldMock($identifier, $type);
+        }
+
         $fieldsDataForm = $this->createMock(FormInterface::class);
         $fieldsDataForm
             ->method('all')
@@ -226,14 +255,16 @@ final class SetViewParametersListenerTest extends TestCase
         $groupedFields = [
             'Content' => ['name', 'short_name', 'description'],
         ];
+        $ignoredContentFields = ['tags'];
 
         $this->groupedContentFormFieldsProvider
             ->method('getGroupedFields')
             ->with($fieldsDataChildren)
             ->willReturn($groupedFields);
 
-        $this->viewParametersListener->setGroupedFieldsParameter(new PreContentViewEvent($contentEditView));
+        $this->viewParametersListener->setContentFieldsParameters(new PreContentViewEvent($contentEditView));
 
+        $this->assertSame($ignoredContentFields, $contentEditView->getParameter('ignored_content_fields'));
         $this->assertSame($groupedFields, $contentEditView->getParameter('grouped_fields'));
     }
 
@@ -249,7 +280,7 @@ final class SetViewParametersListenerTest extends TestCase
                 ['setUserUpdateViewTemplateParameters', 5],
                 ['setContentTranslateViewTemplateParameters', 10],
                 ['setContentCreateViewTemplateParameters', 10],
-                ['setGroupedFieldsParameter', 20],
+                ['setContentFieldsParameters', 20],
             ],
         ];
 
@@ -311,6 +342,29 @@ final class SetViewParametersListenerTest extends TestCase
         $content = $this->generateContent($versionInfo);
 
         return new CoreUser(['content' => $content]);
+    }
+
+    /**
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field|\PHPUnit\Framework\MockObject\MockObject
+     */
+    private function createFieldMock(string $identifier, string $type): MockObject
+    {
+        $data = new FieldData([
+            'field' => new Field([
+                'fieldDefIdentifier' => $identifier,
+                'fieldTypeIdentifier' => $type,
+            ]),
+            'fieldDefinition' => new FieldDefinition([
+                'fieldTypeIdentifier' => $type,
+            ]),
+        ]);
+
+        $field = $this->createMock(FormInterface::class);
+        $field
+            ->method('getData')
+            ->willReturn($data);
+
+        return $field;
     }
 }
 

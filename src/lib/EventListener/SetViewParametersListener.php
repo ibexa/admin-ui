@@ -20,6 +20,7 @@ use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
@@ -40,15 +41,19 @@ class SetViewParametersListener implements EventSubscriberInterface
 
     private GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider;
 
+    private ConfigResolverInterface $configResolver;
+
     public function __construct(
         LocationService $locationService,
         UserService $userService,
         Repository $repository,
+        ConfigResolverInterface $configResolver,
         GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider
     ) {
         $this->locationService = $locationService;
         $this->userService = $userService;
         $this->repository = $repository;
+        $this->configResolver = $configResolver;
         $this->groupedContentFormFieldsProvider = $groupedContentFormFieldsProvider;
     }
 
@@ -65,7 +70,7 @@ class SetViewParametersListener implements EventSubscriberInterface
                 ['setUserUpdateViewTemplateParameters', 5],
                 ['setContentTranslateViewTemplateParameters', 10],
                 ['setContentCreateViewTemplateParameters', 10],
-                ['setGroupedFieldsParameter', 20],
+                ['setContentFieldsParameters', 20],
             ],
         ];
     }
@@ -178,7 +183,7 @@ class SetViewParametersListener implements EventSubscriberInterface
         ]);
     }
 
-    public function setGroupedFieldsParameter(PreContentViewEvent $event): void
+    public function setContentFieldsParameters(PreContentViewEvent $event): void
     {
         $view = $event->getContentView();
         if (!$view instanceof ContentEditView) {
@@ -189,6 +194,7 @@ class SetViewParametersListener implements EventSubscriberInterface
         $parameters['grouped_fields'] = $this->groupedContentFormFieldsProvider->getGroupedFields(
             $view->getForm()->get('fieldsData')->all()
         );
+        $parameters['ignored_content_fields'] = $this->getIgnoredContentFields($view->getForm()->get('fieldsData')->all());
 
         $view->setParameters($parameters);
     }
@@ -243,6 +249,34 @@ class SetViewParametersListener implements EventSubscriberInterface
                 return $repository->getLocationService()->loadLocation($location->parentLocationId);
             }
         );
+    }
+
+    /**
+     * @param array<\Symfony\Component\Form\FormInterface> $fieldsData
+     *
+     * @return array<string>
+     */
+    private function getIgnoredContentFields(array $fieldsData): array
+    {
+        $fieldTypeConfig = $this->configResolver->getParameter('admin_ui_forms.content_edit.fieldtypes');
+
+        $ignoredFieldTypes = array_keys(
+            array_filter(
+                $fieldTypeConfig,
+                static fn (array $config): bool => true === $config['meta']
+            )
+        );
+
+        $ignoredFieldIdentifiers = [];
+        foreach ($fieldsData as $fieldIdentifier => $fieldData) {
+            if (!in_array($fieldData->getData()->fieldDefinition->fieldTypeIdentifier, $ignoredFieldTypes, true)) {
+                continue;
+            }
+
+            $ignoredFieldIdentifiers[] = $fieldIdentifier;
+        }
+
+        return $ignoredFieldIdentifiers;
     }
 }
 

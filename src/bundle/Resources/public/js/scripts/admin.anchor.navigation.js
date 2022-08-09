@@ -5,24 +5,38 @@
 
     const EDIT_CONTENT_TOP_PADDING = 42;
     const formContainerNode = doc.querySelector('.ibexa-edit-content');
-    const allSections = [...doc.querySelectorAll('.ibexa-anchor-navigation-sections__section')];
+    const allSections = [...doc.querySelectorAll('.ibexa-anchor-navigation-sections__section, .ibexa-edit-content__secondary-section')];
     const isVerticalScrollVisible = () => {
         const { scrollHeight, offsetHeight } = formContainerNode;
 
         return scrollHeight > offsetHeight;
     };
+    const removeStartingHashChar = (sectionId) => {
+        if (sectionId && sectionId[0] === '#') {
+            return sectionId.slice(1);
+        }
+
+        return sectionId;
+    };
     const showSection = (sectionId) => {
         doc.querySelectorAll('.ibexa-anchor-navigation-menu__item-btn').forEach((btn) => {
             const { anchorTargetSectionId } = btn.dataset;
 
-            btn.classList.toggle('ibexa-anchor-navigation-menu__item-btn--active', anchorTargetSectionId === sectionId);
+            btn.classList.toggle(
+                'ibexa-anchor-navigation-menu__item-btn--active',
+                removeStartingHashChar(anchorTargetSectionId) === removeStartingHashChar(sectionId),
+            );
         });
     };
     const navigateTo = (event) => {
         const { anchorTargetSectionId } = event.currentTarget.dataset;
-        const targetSection = [...doc.querySelectorAll('.ibexa-anchor-navigation-sections__section')].find(
-            (section) => section.dataset.anchorSectionId === anchorTargetSectionId,
-        );
+        const targetSection = [
+            ...doc.querySelectorAll('.ibexa-anchor-navigation-sections__section, .ibexa-edit-content__secondary-section'),
+        ].find((section) => {
+            const sectionId = section.dataset.id || section.dataset.anchorSectionId;
+
+            return removeStartingHashChar(sectionId) === removeStartingHashChar(anchorTargetSectionId);
+        });
 
         if (isVerticalScrollVisible()) {
             formContainerNode.scrollTo({
@@ -49,7 +63,7 @@
             });
 
             if (activeSection) {
-                const activeSectionId = activeSection.dataset.anchorSectionId;
+                const activeSectionId = activeSection.dataset.id ?? activeSection.dataset.anchorSectionId;
 
                 showSection(activeSectionId);
             }
