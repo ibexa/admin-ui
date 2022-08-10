@@ -22,57 +22,68 @@
 {% endblock %}
 
 {% block content %}
-    {%  set trashSearchParams = app.request.get('trash_search') %}
+    {%  set trash_search_params = app.request.get('trash_search') %}
 
-    <div class="align-items-stretch ibexa-main-row">
-        <section class="container ibexa-container">
-            {{ form_start(form_search, { attr: { class: 'ibexa-trash-search-form' } }) }}
-                <div class="ibexa-trash-search-form__inputs-group">
+     <div class="ibexa-container">
+        {% set collapsible_items = [
+            form_row(form_search.content_type, {
+                'attr': {'class': 'ibexa-trash-search-form__item ibexa-trash-search-form__item--auto-send'}
+            }),
+            form_row(form_search.trashed, {
+                'attr': {'data-target-selector': '.ibexa-trash-search-form__range-wrapper--select-trashed-range'}
+            }),
+        ] %}
+
+        {% if can_view_section %}
+            {% set collapsible_items = collapsible_items|merge([
+                form_row(form_search.section, {
+                    'attr': {'class': 'ibexa-trash-search-form__item ibexa-trash-search-form__item--auto-send'}
+                })
+            ]) %}
+        {% endif %}
+
+        {% embed '@ibexadesign/ui/component/adaptive_filters/adaptive_filters.html.twig' with {
+            form: form_search,
+            is_inside_container: true,
+            collapsible_items: collapsible_items,
+            attr: {
+                class: 'ibexa-trash-search-form'
+            }
+        } %}
+            {% trans_default_domain 'trash' %}
+
+            {% block static_left_input %}
+                <div class="ibexa-trash-search-form__item ibexa-trash-search-form__item--creator">
                     {% set creator = form_search.vars.data ? form_search.vars.data.creator : '' %}
+                    {% set creator_exists =  creator is not empty ? true : false %}
 
-                    {{ form_widget(form_search.content_type, {
-                        'attr': {'class': 'ibexa-trash-search-form__item ibexa-trash-search-form__item--auto-send'}
-                    }) }}
-                    {% if can_view_section %}
-                        {{ form_widget(form_search.section, {
-                            'attr': {'class': 'ibexa-trash-search-form__item ibexa-trash-search-form__item--auto-send'}
-                        }) }}
-                    {% endif %}
-
-                    <div class='ibexa-trash-search-form__item ibexa-trash-search-form__item--trashed'>
-                        {{ form_widget(form_search.trashed, {
-                            'attr': {'data-target-selector': '.ibexa-trash-search-form__range-wrapper--select-trashed-range'}
-                        }) }}
+                    <div class="ibexa-trash-search-form__input-wrapper">
+                        <input
+                            type="text"
+                            class="form-control ibexa-input ibexa-input--text ibexa-trash-search-form__input"
+                            data-content-type-identifiers="{{ user_content_type_identifier|join(',') }}"
+                            value="{{ creator_exists ? ibexa_content_name(creator) }}"
+                            placeholder="{{ 'search.creator_input.placeholder'|trans|desc('Type creator\'s name') }}"
+                            {{ creator_exists ? 'disabled'  }}
+                        >
+                        <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--reset-creator">
+                            <svg class="ibexa-icon ibexa-icon--tiny-small ibexa-icon--reset">
+                                <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
+                            </svg>
+                        </button>
                     </div>
-                    <div class="ibexa-trash-search-form__item ibexa-trash-search-form__item--creator">
-                        {% set creator = form_search.vars.data ? form_search.vars.data.creator : '' %}
-                        {% set creatorExists =  creator is not empty ? true : false %}
-                        <div class="ibexa-trash-search-form__input-wrapper">
-                            <input
-                                type="text"
-                                class="form-control ibexa-input ibexa-input--text ibexa-trash-search-form__input"
-                                data-content-type-identifiers="{{ user_content_type_identifier|join(',') }}"
-                                value="{{ creatorExists ? ibexa_content_name(creator) }}"
-                                placeholder="{{ 'search.creator_input.placeholder'|trans|desc('Type creator\'s name') }}"
-                                {{ creatorExists ? 'disabled'  }}
-                            >
-                            <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--reset-creator">
-                                <svg class="ibexa-icon ibexa-icon--small ibexa-icon--reset">
-                                    <use xlink:href="{{ ibexa_icon_path('circle-close') }}"></use>
-                                </svg>
-                            </button>
-                        </div>
-                        <ul class="ibexa-trash-search-form__user-list ibexa-trash-search-form__user-list--hidden"></ul>
-                    </div>
-
-                    {{ form_widget(form_search.creator, {'attr': {'hidden': 'hidden'}}) }}
-                    {{ form_widget(form_search.sort, {'attr': {'hidden': 'hidden'}}) }}
-                    {{ form_widget(form_search.trashed_interval, {'attr': {'hidden': 'hidden'}}) }}
+                    <ul class="ibexa-trash-search-form__user-list ibexa-trash-search-form__user-list--hidden"></ul>
                 </div>
-            {{ form_end(form_search) }}
 
-            {{ form_start(form_trash_item_restore, {
-                'action': path('ibexa.trash.restore', { 'trash_search': trashSearchParams })
+                {{ form_widget(form_search.creator, {'attr': {'hidden': 'hidden'}}) }}
+                {{ form_widget(form_search.sort, {'attr': {'hidden': 'hidden'}}) }}
+                {{ form_widget(form_search.trashed_interval, {'attr': {'hidden': 'hidden'}}) }}
+            {% endblock %}
+            {% block actions %}{% endblock %}
+        {% endembed %}
+
+        {{ form_start(form_trash_item_restore, {
+                'action': path('ibexa.trash.restore', { 'trash_search': trash_search_params })
             }) }}
 
             {% if form_search.vars.data.sort is defined %}
@@ -282,7 +293,7 @@
             {{ form_end(form_trash_item_restore, { 'render_rest': false }) }}
 
             {{ form_start(form_trash_item_delete, {
-                'action': path('ibexa.trash.delete', { 'trash_search': trashSearchParams })
+                'action': path('ibexa.trash.delete', { 'trash_search': trash_search_params })
             }) }}
             {% for key, form in form_trash_item_delete.trash_items %}
                 {% set trash_item = trash_items[key] %}
@@ -301,8 +312,7 @@
                 } %}
             {% endif %}
             {% include '@ibexadesign/trash/modal/empty_trash_confirmation.html.twig' with {'form': form_trash_empty, 'trash_items_count': pager.nbResults} %}
-        </section>
-    </div>
+     </div> 
 {% endblock %}
 
 {% block react_modules %}

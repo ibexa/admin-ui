@@ -318,8 +318,8 @@
     </div>
 {%- endblock -%}
 
-{%- block _trash_search_trashed_widget -%}
-    {{ form_widget(form) }}
+{%- block _trash_search_trashed_row -%}
+    {{ form_row(form) }}
     <div
         class="ibexa-trash-search-form__range-wrapper ibexa-trash-search-form__range-wrapper--select-trashed-range {% if form.vars.data == "custom_range" %}ibexa-trash-search-form__range-wrapper--visible{% endif %}"
         data-period-selector="#trash_search_trashed_interval_date_interval"
