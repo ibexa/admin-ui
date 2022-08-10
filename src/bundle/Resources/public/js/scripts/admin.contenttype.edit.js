@@ -455,16 +455,14 @@
 
             validateForm();
 
-            if (!fieldDefinitionsCount) {
-                isEditFormValid = false;
-                ibexa.helpers.notification.showErrorNotification(noFieldsAddedError);
-            }
-
-            if (!isEditFormValid) {
+            if (isEditFormValid) {
+                if (!fieldDefinitionsCount) {
+                    event.preventDefault();
+                    ibexa.helpers.notification.showErrorNotification(noFieldsAddedError);
+                }
+            } else {
                 event.preventDefault();
                 scrollToInvalidInput();
-
-                return;
             }
         },
         false,
