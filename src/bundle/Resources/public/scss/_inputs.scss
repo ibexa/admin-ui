@@ -214,6 +214,8 @@
 .ibexa-toggle {
     display: flex;
     align-items: center;
+    width: calculateRem(77px);
+    cursor: pointer;
 
     &__switcher {
         box-sizing: content-box;
@@ -252,6 +254,7 @@
     &__label {
         font-size: calculateRem(12px);
         margin-left: calculateRem(8px);
+        user-select: none;
 
         &--off {
             display: inline;
@@ -286,13 +289,17 @@
     }
 
     &--is-disabled {
+        cursor: not-allowed;
+
         .ibexa-toggle {
             &__switcher {
                 background-color: $ibexa-color-light-400;
+                cursor: not-allowed;
             }
 
             &__indicator {
                 background-color: $ibexa-color-dark-300;
+                cursor: not-allowed;
             }
 
             &__label {
@@ -329,24 +336,6 @@
                     &__indicator {
                         transform: translateX(calculateRem(19px));
                     }
-                }
-            }
-        }
-    }
-
-    &:hover {
-        .ibexa-toggle {
-            &__switcher,
-            &__indicator {
-                cursor: pointer;
-            }
-        }
-
-        &.ibexa-toggle--is-disabled {
-            .ibexa-toggle {
-                &__switcher,
-                &__indicator {
-                    cursor: not-allowed;
                 }
             }
         }
