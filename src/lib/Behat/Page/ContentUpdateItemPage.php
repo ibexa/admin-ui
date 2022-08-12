@@ -93,7 +93,7 @@ class ContentUpdateItemPage extends Page
     {
         return [
             new VisibleCSSLocator('pageTitle', '.ibexa-edit-header__title'),
-            new VisibleCSSLocator('formElement', '[name=ezplatform_content_forms_content_edit]'),
+            new VisibleCSSLocator('formElement', '[name=ezplatform_content_forms_content_edit],[name="product_create"]'),
             new VisibleCSSLocator('closeButton', '.ibexa-anchor-navigation-menu__close'),
             new VisibleCSSLocator('nthField', '.ibexa-field-edit:nth-of-type(%s)'),
             new VisibleCSSLocator('fieldGroupNthField', '[data-anchor-section-id="%s"] .ibexa-field-edit:nth-of-type(%s)'),
@@ -169,7 +169,7 @@ class ContentUpdateItemPage extends Page
         }
 
         $fieldClass = $this->getHTMLPage()->find($fieldLocator)->getAttribute('class');
-        preg_match('/ibexa-field-edit--ez[a-z]*/', $fieldClass, $matches);
+        preg_match('/ibexa-field-edit--[ez|ibexa][a-z_]*/', $fieldClass, $matches);
 
         return explode('--', $matches[0])[1];
     }
