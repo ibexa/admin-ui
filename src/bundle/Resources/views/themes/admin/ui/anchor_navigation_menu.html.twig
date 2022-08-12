@@ -18,16 +18,16 @@
     <div class="ibexa-anchor-navigation-menu__body">
         {% block navigation_menu_body %}
             {% if items|default([])|length > 1 %}
-                <ul class="ibexa-anchor-navigation-menu__items">
+                <ul class="ibexa-anchor-navigation-menu__sections ibexa-anchor-navigation-menu__sections--active">
                     {% for item in items %}
                         {% set sanitized_item = item|slug %}
-                        <li class="ibexa-anchor-navigation-menu__item">
+                        <li class="ibexa-anchor-navigation-menu__sections-item">
                             <button
                                 type="button"
-                                class="ibexa-anchor-navigation-menu__item-btn {% if loop.first %}ibexa-anchor-navigation-menu__item-btn--active{% endif %}"
-                                data-anchor-target-section-id="#{{ sanitized_item }}"
+                                class="ibexa-anchor-navigation-menu__sections-item-btn {% if loop.first %}ibexa-anchor-navigation-menu__sections-item-btn--active{% endif %}"
+                                data-target-id="#{{ sanitized_item }}"
                             >
-                                <span class="ibexa-anchor-navigation-menu__item-btn-label">{{ item }}</span>
+                                <span class="ibexa-anchor-navigation-menu__sections-item-btn-label">{{ item }}</span>
                             </button>
                         </li>
                     {% endfor %}

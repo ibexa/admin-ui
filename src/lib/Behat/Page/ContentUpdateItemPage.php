@@ -96,7 +96,7 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator('formElement', 'form.ibexa-form'),
             new VisibleCSSLocator('closeButton', '.ibexa-anchor-navigation-menu__close'),
             new VisibleCSSLocator('nthField', '.ibexa-field-edit:nth-of-type(%s)'),
-            new VisibleCSSLocator('fieldGroupNthField', '[data-anchor-section-id="%s"] .ibexa-field-edit:nth-of-type(%s)'),
+            new VisibleCSSLocator('fieldGroupNthField', '[data-id="%s"] .ibexa-field-edit:nth-of-type(%s)'),
             new VisibleCSSLocator('noneditableFieldClass', 'ibexa-field-edit--eznoneditable'),
             new VisibleCSSLocator('fieldOfType', '.ibexa-field-edit--%s'),
             new VisibleCSSLocator('navigationTabs', '.ibexa-anchor-navigation-menu__item'),
@@ -132,8 +132,8 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator(
                 'fieldLabelWithCategories',
                 sprintf(
-                    '[data-anchor-section-id="%1$s"] .ibexa-field-edit .ibexa-field-edit__label, [data-anchor-section-id="%1$s"] .ibexa-field-edit--eznoneditable .ibexa-label',
-                    $activeSections->single()->getAttribute('data-anchor-target-section-id')
+                    '[data-id="%1$s"] .ibexa-field-edit .ibexa-field-edit__label, [data-id="%1$s"] .ibexa-field-edit--eznoneditable .ibexa-label',
+                    $activeSections->single()->getAttribute('data-target-id')
                 )
             ) :
             new VisibleCSSLocator('fieldLabel', ' .ibexa-field-edit .ibexa-field-edit__label, .ibexa-field-edit--eznoneditable .ibexa-label');

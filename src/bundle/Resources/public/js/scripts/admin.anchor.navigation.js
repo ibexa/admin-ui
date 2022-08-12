@@ -1,72 +1,174 @@
-(function (global, doc) {
-    if (doc.querySelector('.ibexa-navigation-menu')) {
+(function (global, doc, ibexa) {
+    const navigationMenu = doc.querySelector('.ibexa-anchor-navigation-menu');
+
+    if (!navigationMenu) {
         return;
     }
 
-    const EDIT_CONTENT_TOP_PADDING = 42;
+    const header = doc.querySelector('.ibexa-edit-header');
+    const headerContainer = header.querySelector('.ibexa-edit-header__container');
+    const SECTION_ADJUST_MARGIN_TOP = 20;
     const formContainerNode = doc.querySelector('.ibexa-edit-content');
-    const allSections = [...doc.querySelectorAll('.ibexa-anchor-navigation-sections__section, .ibexa-edit-content__secondary-section')];
-    const isVerticalScrollVisible = () => {
-        const { scrollHeight, offsetHeight } = formContainerNode;
+    const getSectionGroupActiveItems = () => {
+        const sectionGroupNode = formContainerNode.querySelector('.ibexa-anchor-navigation__section-group') ?? formContainerNode;
+        const sections = sectionGroupNode.querySelectorAll('.ibexa-anchor-navigation__section');
 
-        return scrollHeight > offsetHeight;
+        return [...sections];
     };
-    const removeStartingHashChar = (sectionId) => {
-        if (sectionId && sectionId[0] === '#') {
-            return sectionId.slice(1);
+    let currentlyVisibleSections = getSectionGroupActiveItems();
+    const attachSectionGroupsMenuListEvents = () => {
+        const items = doc.querySelectorAll(
+            '.ibexa-anchor-navigation-menu__section-groups--list .ibexa-anchor-navigation-menu__section-groups-item',
+        );
+
+        items.forEach((item) => item.addEventListener('click', onSelectSectionGroupsMenuList, false));
+    };
+    const attachSectionGroupsMenuDropdownEvents = () => {
+        const sourceSelect = doc.querySelector(
+            '.ibexa-anchor-navigation-menu__section-groups--dropdown .ibexa-dropdown__source .ibexa-input',
+        );
+
+        if (!sourceSelect) {
+            return;
         }
 
-        return sectionId;
+        sourceSelect.addEventListener('change', onSelectSectionGroupsMenuDropdown, false);
     };
-    const showSection = (sectionId) => {
-        doc.querySelectorAll('.ibexa-anchor-navigation-menu__item-btn').forEach((btn) => {
-            const { anchorTargetSectionId } = btn.dataset;
+    const onSelectSectionGroupsMenuList = (event) => {
+        const { targetId } = event.currentTarget.dataset;
+        const sectionsMenuNode = doc.querySelector(`.ibexa-anchor-navigation-menu__sections[data-id="${targetId}"]`);
+        const sectionGroupsMenuItems = doc.querySelectorAll(
+            '.ibexa-anchor-navigation-menu__section-groups--list .ibexa-anchor-navigation-menu__section-groups-item',
+        );
 
-            btn.classList.toggle(
-                'ibexa-anchor-navigation-menu__item-btn--active',
-                removeStartingHashChar(anchorTargetSectionId) === removeStartingHashChar(sectionId),
-            );
+        sectionGroupsMenuItems.forEach((item) => {
+            item.classList.toggle('ibexa-anchor-navigation-menu__section-groups-item--active', item.isSameNode(event.currentTarget));
+        });
+        showSectionGroup(targetId);
+        showSectionsMenu(sectionsMenuNode);
+    };
+    const onSelectSectionGroupsMenuDropdown = (event) => {
+        const targetId = event.currentTarget.value;
+        const sectionsMenuNode = doc.querySelector(`.ibexa-anchor-navigation-menu__sections[data-id="${targetId}"]`);
+
+        showSectionGroup(targetId);
+        showSectionsMenu(sectionsMenuNode);
+    };
+    const showSectionsMenu = (node) => {
+        const items = doc.querySelectorAll('.ibexa-anchor-navigation-menu__sections');
+
+        items.forEach((item) => item.classList.toggle('ibexa-anchor-navigation-menu__sections--active', item.isSameNode(node)));
+    };
+    const showSectionGroup = (id) => {
+        const sectionGroupItems = formContainerNode.querySelectorAll('.ibexa-anchor-navigation__section-group');
+
+        sectionGroupItems.forEach((item) => {
+            item.classList.toggle('ibexa-anchor-navigation__section-group--active', item.dataset.id === id);
+        });
+
+        currentlyVisibleSections = getSectionGroupActiveItems();
+
+        fitSections();
+    };
+    const attachSectionsMenuEvents = () => {
+        const items = doc.querySelectorAll('.ibexa-anchor-navigation-menu .ibexa-anchor-navigation-menu__sections-item-btn');
+
+        items.forEach((item) => item.addEventListener('click', onSelectSectionsMenu, false));
+    };
+    const onSelectSectionsMenu = (event) => {
+        const { targetId } = event.currentTarget.dataset;
+
+        navigateTo(targetId);
+    };
+    const navigateTo = (targetId) => {
+        const sectionNode = formContainerNode.querySelector(`.ibexa-anchor-navigation__section[data-id="${targetId}"]`);
+        const headerBottomContainerHeight = header.offsetHeight - headerContainer.offsetHeight;
+        console.log(sectionNode);
+        formContainerNode.scrollTo({
+            top: sectionNode.offsetTop,
+            behavior: 'smooth',
         });
     };
-    const navigateTo = (event) => {
-        const { anchorTargetSectionId } = event.currentTarget.dataset;
-        const targetSection = [
-            ...doc.querySelectorAll('.ibexa-anchor-navigation-sections__section, .ibexa-edit-content__secondary-section'),
-        ].find((section) => {
-            const sectionId = section.dataset.id || section.dataset.anchorSectionId;
+    const getFirstSection = (sectionGroup) => {
+        return sectionGroup.querySelector('.ibexa-anchor-navigation__section');
+    };
+    const getLastSection = (sectionGroup) => {
+        const sections = sectionGroup.querySelectorAll('.ibexa-anchor-navigation__section');
+        return sections ? [...sections].at(-1) : null;
+    };
+    const fitSections = () => {
+        const sectionGroup =
+            formContainerNode.querySelector('.ibexa-anchor-navigation__section-group--active') ??
+            formContainerNode.querySelector('.ibexa-anchor-navigation-sections');
 
-            return removeStartingHashChar(sectionId) === removeStartingHashChar(anchorTargetSectionId);
-        });
-
-        if (isVerticalScrollVisible()) {
-            formContainerNode.scrollTo({
-                top: targetSection.offsetTop + EDIT_CONTENT_TOP_PADDING,
-                behavior: 'smooth',
-            });
-        } else {
-            showSection(anchorTargetSectionId);
+        if (!sectionGroup) {
+            return;
         }
-    };
 
-    doc.querySelectorAll('.ibexa-anchor-navigation-menu__item-btn').forEach((btn) => {
-        btn.addEventListener('click', navigateTo, false);
-    });
+        const contentColumn = doc.querySelector('.ibexa-main-container__content-column');
+        const contentContainer = contentColumn.querySelector('.ibexa-edit-content__container');
+        const firstSection = getFirstSection(sectionGroup);
+        const lastSection = getLastSection(sectionGroup);
 
-    if (formContainerNode && allSections.length) {
-        formContainerNode.addEventListener('scroll', () => {
-            const position = formContainerNode.scrollTop;
-            const activeSection = allSections.find((section) => {
-                const start = section.offsetTop;
-                const end = section.offsetHeight + section.offsetTop;
+        contentContainer.style.paddingBottom = '0px';
 
-                return position >= start && position < end;
-            });
+        if (!firstSection.isSameNode(lastSection) && lastSection.offsetHeight) {
+            const heightFromLastSection = contentContainer.offsetHeight - lastSection.offsetTop;
+            const contentColumnBodyHeight = contentColumn.offsetHeight - headerContainer.offsetHeight;
+            const heightDiff = contentColumnBodyHeight - heightFromLastSection;
 
-            if (activeSection) {
-                const activeSectionId = activeSection.dataset.id ?? activeSection.dataset.anchorSectionId;
-
-                showSection(activeSectionId);
+            if (heightDiff > 0) {
+                contentContainer.style.paddingBottom = `${heightDiff}px`;
             }
+        }
+    };
+    const attachScrollContainerEvents = () => {
+        const allSections = [...formContainerNode.querySelectorAll('.ibexa-anchor-navigation__section')];
+        let previousFirstVisibleSection = null;
+
+        if (formContainerNode && allSections.length) {
+            formContainerNode.addEventListener('scroll', () => {
+                let firstVisibleSection = currentlyVisibleSections.find((section) => {
+                    const { top, height } = section.getBoundingClientRect();
+                    const headerBottomContainerHeight = header.offsetHeight - headerContainer.offsetHeight;
+
+                    return top + height >= headerContainer.offsetHeight + headerBottomContainerHeight + SECTION_ADJUST_MARGIN_TOP;
+                });
+
+                if (!firstVisibleSection) {
+                    firstVisibleSection = currentlyVisibleSections.at(-1);
+                }
+
+                if (previousFirstVisibleSection === firstVisibleSection) {
+                    return;
+                }
+
+                previousFirstVisibleSection = firstVisibleSection;
+
+                const targetId = firstVisibleSection.dataset.id;
+
+                const secondaryMenuNode = doc.querySelector(
+                    `.ibexa-anchor-navigation-menu__sections--active .ibexa-anchor-navigation-menu__sections-item-btn[data-target-id="${targetId}"]`,
+                );
+
+                setActiveSecondaryMenu(secondaryMenuNode);
+            });
+        }
+    };
+    const setActiveSecondaryMenu = (node) => {
+        const secondaryMenuItems = doc.querySelectorAll(
+            '.ibexa-anchor-navigation-menu__sections--active .ibexa-anchor-navigation-menu__sections-item-btn',
+        );
+
+        secondaryMenuItems.forEach((item) => {
+            item.classList.toggle('ibexa-anchor-navigation-menu__sections-item-btn--active', item.isSameNode(node));
         });
-    }
-})(window, window.document);
+    };
+
+    attachSectionGroupsMenuListEvents();
+    attachSectionGroupsMenuDropdownEvents();
+    attachSectionsMenuEvents();
+    attachScrollContainerEvents();
+    fitSections();
+    ibexa.helpers.tooltips.parse(navigationMenu);
+})(window, window.document, window.ibexa);

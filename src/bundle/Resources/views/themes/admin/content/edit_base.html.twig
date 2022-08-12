@@ -55,9 +55,9 @@
 
         {% block form %}
             {{ form_start(form, {'attr': {'class': 'ibexa-form-validate ibexa-form'}}) }}
-            <div class="ibexa-edit-content__sections">
+            <div class="ibexa-anchor-navigation__sections">
                 <div
-                    class="ibexa-edit-content__primary-section ibexa-edit-content__primary-section--active"
+                    class="ibexa-anchor-navigation__section-group ibexa-anchor-navigation__section-group--active"
                     data-id="ibexa-edit-content-sections-content-fields"
                 >
                     {% block form_fields %}
@@ -77,7 +77,7 @@
                                     {% endembed %}
                                 {% endfor %}
                             {% else %}
-                                <div class="ibexa-edit-content__secondary-section" data-id="ibexa-edit-content-sections-content-fields-{{ grouped_fields|keys|first|lower }}">
+                                <div class="ibexa-anchor-navigation__section" data-id="ibexa-edit-content-sections-content-fields-{{ grouped_fields|keys|first|lower }}">
                                     {% for identifier, formField in form.fieldsData %}
                                         {% if identifier not in ignored_content_fields|default([]) %}
                                             {{ _self.renderFormField(formField) }}

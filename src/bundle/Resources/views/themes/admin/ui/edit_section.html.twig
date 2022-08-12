@@ -2,9 +2,9 @@
 
 {% set attr = attr|default({})|merge({
     class: (attr.class|default('')
-            ~ ' ibexa-anchor-navigation-sections__section'
+            ~ ' ibexa-anchor-navigation-sections__section ibexa-anchor-navigation__section'
         )|trim,
-    'data-anchor-section-id': section_id,
+    'data-id': section_id,
 }) %}
 
 <div {{ html.attributes(attr) }}>
