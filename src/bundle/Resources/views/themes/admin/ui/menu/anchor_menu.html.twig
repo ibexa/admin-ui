@@ -77,7 +77,12 @@
         source: source,
         choices: choices,
         value: value,
+        item_icon: 'warning-triangle',
+        item_icon_class: 'ibexa-anchor-navigation-menu__item-error ibexa-anchor-navigation-menu__item-error--hidden'
     } %}
+    <div class="ibexa-form-error ibexa-anchor-navigation-menu__error ibexa-anchor-navigation-menu__error--hidden">
+        <em class="ibexa-field-edit__error">There is error in form</em> {# TODO: waiting for correct text #}
+    </div>
 {% endblock %}
 
 {% block children_2nd_level %}
@@ -135,6 +140,9 @@
     <{{ itemTagElement }}{{ knp_menu.attributes(attributes) }}>
         <div class="ibexa-anchor-navigation-menu__item-label" title="{{ block('label')|raw }}">
             {{ block('label') }}
+            <svg class="ibexa-icon ibexa-icon--small ibexa-anchor-navigation-menu__item-error ibexa-anchor-navigation-menu__item-error--hidden">
+                <use xlink:href="{{ ibexa_icon_path('warning-triangle') }}"></use>
+            </svg>
         </div>
     </{{ itemTagElement }}>
 {% endblock %}
@@ -164,7 +172,7 @@
             {% set innerChildrenBlock = 'children_1st_level_dropdown' %}
             {% set tagElement = 'div' %}
         {% endif %}
-        {% if item.count() != 2 %}
+        {% if item.count() != 0 %}
             {{ block('anchor_menu_list') -}}
         {% endif %}
 

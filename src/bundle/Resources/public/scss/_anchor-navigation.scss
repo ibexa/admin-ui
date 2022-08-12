@@ -140,4 +140,19 @@
         text-overflow: ellipsis;
         overflow: hidden;
     }
+
+    &__item-error {
+        margin-top: calculateRem(-3px);
+        fill: $ibexa-color-danger;
+
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__error {
+        &--hidden {
+            display: none;
+        }
+    }
 }

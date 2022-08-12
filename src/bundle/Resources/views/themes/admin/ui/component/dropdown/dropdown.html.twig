@@ -16,6 +16,8 @@
 {% set is_disabled = is_disabled|default(false) %}
 {% set is_selector = is_selector|default(false) %}
 {% set has_select_all_toggler = has_select_all_toggler|default(false) %}
+{% set item_icon = item_icon|default() %}
+{% set item_icon_class = item_icon_class|default('') %}
 
 {% macro get_translated_label(label, translation_domain) %}
     {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
@@ -134,6 +136,8 @@
                 class="ibexa-dropdown__items-list"
                 data-template="{{ include('@ibexadesign/ui/component/dropdown/dropdown_item.html.twig', {
                     custom_form: true,
+                    icon: item_icon,
+                    icon_class: item_icon_class,
                     choice: {
                         value: '{{ value }}',
                         label: '{{ label }}',
@@ -148,13 +152,13 @@
                     {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice: placeholder_choice, custom_form: true, icon: 'interface-block' } %}
                 {% endif %}
                 {% for choice in preferred_choices %}
-                    {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice, preferred_choice: true, custom_form } %}
+                    {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice, preferred_choice: true, custom_form, icon: item_icon, icon_class: item_icon_class } %}
                 {% endfor %}
                 {% if preferred_choices|length > 0 %}
                     <hr class="ibexa-dropdown__separator" />
                 {% endif %}
                 {% for choice in choices %}
-                    {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice, custom_form } %}
+                    {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice, custom_form, icon: item_icon, icon_class: item_icon_class } %}
                 {% endfor %}
             </ul>
         </div>

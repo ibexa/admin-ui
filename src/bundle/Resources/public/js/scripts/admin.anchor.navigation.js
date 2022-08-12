@@ -82,8 +82,7 @@
     };
     const navigateTo = (targetId) => {
         const sectionNode = formContainerNode.querySelector(`.ibexa-anchor-navigation__section[data-id="${targetId}"]`);
-        const headerBottomContainerHeight = header.offsetHeight - headerContainer.offsetHeight;
-        console.log(sectionNode);
+
         formContainerNode.scrollTo({
             top: sectionNode.offsetTop,
             behavior: 'smooth',
@@ -106,14 +105,14 @@
         }
 
         const contentColumn = doc.querySelector('.ibexa-main-container__content-column');
-        const contentContainer = contentColumn.querySelector('.ibexa-edit-content__container');
         const firstSection = getFirstSection(sectionGroup);
         const lastSection = getLastSection(sectionGroup);
+        const contentContainer = lastSection.closest('.ibexa-edit-content__container');
 
         contentContainer.style.paddingBottom = '0px';
 
         if (!firstSection.isSameNode(lastSection) && lastSection.offsetHeight) {
-            const heightFromLastSection = contentContainer.offsetHeight - lastSection.offsetTop;
+            const heightFromLastSection = contentContainer.offsetHeight + contentContainer.offsetTop - lastSection.offsetTop;
             const contentColumnBodyHeight = contentColumn.offsetHeight - headerContainer.offsetHeight;
             const heightDiff = contentColumnBodyHeight - heightFromLastSection;
 
@@ -164,11 +163,55 @@
             item.classList.toggle('ibexa-anchor-navigation-menu__sections-item-btn--active', item.isSameNode(node));
         });
     };
+    const attachListenForIsInvalidClass = () => {
+        const classChangedCallback = (mutationList) => {
+            mutationList.forEach((mutation) => {
+                const { oldValue, target } = mutation;
+                const hadIsInvalidClass = oldValue.includes('.is-invalid');
+                const hasIsInvalidClass = target.classList.contains('is-invalid');
+
+                if (hadIsInvalidClass !== hasIsInvalidClass) {
+                    const sectionGroup = target.closest('.ibexa-anchor-navigation__section-group');
+
+                    if (!sectionGroup) {
+                        return;
+                    }
+
+                    const { id } = sectionGroup.dataset;
+                    const hasGroupError = !!sectionGroup.querySelector('.is-invalid');
+                    const correspodingMenuItem =
+                        doc.querySelector(`.ibexa-anchor-navigation-menu__section-groups-item[data-target-id="${id}"]`) ??
+                        doc.querySelector(`.ibexa-anchor-navigation-menu .ibexa-dropdown__item[data-value="${id}"]`);
+                    const errorIconNode = correspodingMenuItem.querySelector('.ibexa-anchor-navigation-menu__item-error');
+                    const dropdownWidget = doc.querySelector('.ibexa-anchor-navigation-menu .ibexa-dropdown');
+                    errorIconNode.classList.toggle('ibexa-anchor-navigation-menu__item-error--hidden', !hasGroupError);
+
+                    if (dropdownWidget) {
+                        const hasError = !!dropdownWidget.querySelector(
+                            '.ibexa-anchor-navigation-menu__item-error:not(ibexa-anchor-navigation-menu__item-error--hidden)',
+                        );
+                        const errorDropdownContainer = doc.querySelector('.ibexa-anchor-navigation-menu__error');
+
+                        errorDropdownContainer.classList.toggle('ibexa-anchor-navigation-menu__error--hidden', !hasError);
+                    }
+                }
+            });
+        };
+        const observer = new MutationObserver(classChangedCallback);
+
+        observer.observe(formContainerNode, {
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['class'],
+            attributeOldValue: true,
+        });
+    };
 
     attachSectionGroupsMenuListEvents();
     attachSectionGroupsMenuDropdownEvents();
     attachSectionsMenuEvents();
     attachScrollContainerEvents();
+    attachListenForIsInvalidClass();
     fitSections();
     ibexa.helpers.tooltips.parse(navigationMenu);
 })(window, window.document, window.ibexa);
