@@ -11,3 +11,4 @@ active_domains:
     - 'trash_ui'
     - 'user_invitation'
     - 'content_type'
+    - 'messages'

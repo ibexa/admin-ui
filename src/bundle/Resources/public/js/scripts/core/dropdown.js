@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, bootstrap) {
+(function (global, doc, ibexa, Translator, bootstrap) {
     const EVENT_VALUE_CHANGED = 'change';
     const RESTRICTED_AREA_ITEMS_CONTAINER = 190;
     const MINIMUM_LETTERS_TO_FILTER = 3;
@@ -46,6 +46,7 @@
             this.itemsContainer = this.container.querySelector('.ibexa-dropdown__items');
             this.itemsListContainer = this.itemsContainer.querySelector('.ibexa-dropdown__items-list');
             this.itemsFilterInput = this.itemsContainer.querySelector('.ibexa-dropdown__items-filter');
+            this.selectionTogglerBtn = this.itemsContainer.querySelector('.ibexa-dropdown__selection-toggler-btn');
 
             this.isDynamic = this.container.classList.contains('ibexa-dropdown--dynamic');
             this.canSelectOnlyOne = !this.sourceInput?.multiple;
@@ -69,6 +70,8 @@
             this.onOptionClick = this.onOptionClick.bind(this);
             this.fireValueChangedEvent = this.fireValueChangedEvent.bind(this);
             this.filterItems = this.filterItems.bind(this);
+            this.toggleItemsSelection = this.toggleItemsSelection.bind(this);
+            this.setSelectionTogglerLabel = this.setSelectionTogglerLabel.bind(this);
             this.onPopoverShow = this.onPopoverShow.bind(this);
             this.onPopoverHide = this.onPopoverHide.bind(this);
             this.itemsPopoverContent = this.itemsPopoverContent.bind(this);
@@ -101,9 +104,15 @@
             const overflowNumber = this.selectedItemsContainer.querySelector('.ibexa-dropdown__selected-overflow-number').cloneNode();
 
             this.sourceInput.querySelectorAll('option').forEach((option) => (option.selected = false));
-            this.itemsListContainer
-                .querySelectorAll('.ibexa-dropdown__item--selected')
-                .forEach((option) => option.classList.remove('ibexa-dropdown__item--selected'));
+            this.itemsListContainer.querySelectorAll('.ibexa-dropdown__item--selected').forEach((option) => {
+                const checkbox = option.querySelector('.ibexa-input--checkbox');
+
+                option.classList.remove('ibexa-dropdown__item--selected');
+
+                if (checkbox) {
+                    checkbox.checked = false;
+                }
+            });
             this.selectedItemsContainer.innerHTML = '';
             this.selectedItemsContainer.append(overflowNumber);
 
@@ -382,12 +391,34 @@
             this.container.classList.toggle('ibexa-dropdown--focused', isFocused);
         }
 
+        toggleItemsSelection() {
+            const items = this.itemsContainer.querySelectorAll('.ibexa-dropdown__item');
+            const selectedItems = this.getSelectedItems();
+            const areSomeItemsSelected = !!selectedItems.length;
+
+            areSomeItemsSelected ? this.clearCurrentSelection() : items.forEach((item) => this.selectOption(item.dataset.value));
+            this.fitItems();
+        }
+
         onSourceFocus() {
             this.toggleSourceFocus(true);
         }
 
         onSourceBlur() {
             this.toggleSourceFocus(false);
+        }
+
+        setSelectionTogglerLabel() {
+            const selectedItems = this.getSelectedItems();
+            const label = selectedItems.length
+                ? Translator.trans(
+                      /*@Desc("Clear (%selected_items_count%)")*/ 'dropdown.clear',
+                      { selected_items_count: selectedItems.length },
+                      'messages',
+                  )
+                : Translator.trans(/*@Desc("Select All")*/ 'dropdown.select_all', {}, 'messages');
+
+            this.selectionTogglerBtn.innerHTML = label;
         }
 
         init() {
@@ -426,6 +457,11 @@
                 this.selectFirstOption();
             }
 
+            if (this.selectionTogglerBtn) {
+                this.selectionTogglerBtn.addEventListener('click', this.toggleItemsSelection, false);
+                this.sourceInput.addEventListener('change', this.setSelectionTogglerLabel, false);
+            }
+
             this.hideOptions();
             this.fitItems();
 
@@ -447,4 +483,4 @@
     }
 
     ibexa.addConfig('core.Dropdown', Dropdown);
-})(window, window.document, window.ibexa, window.bootstrap);
+})(window, window.document, window.ibexa, window.Translator, window.bootstrap);
