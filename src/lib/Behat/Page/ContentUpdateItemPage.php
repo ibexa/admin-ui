@@ -93,7 +93,7 @@ class ContentUpdateItemPage extends Page
     {
         return [
             new VisibleCSSLocator('pageTitle', '.ibexa-edit-header__title'),
-            new VisibleCSSLocator('formElement', '[name=ezplatform_content_forms_content_edit],[name="product_create"]'),
+            new VisibleCSSLocator('formElement', '[name=ezplatform_content_forms_content_edit],[name="product_create"], [name="product_update"]'),
             new VisibleCSSLocator('closeButton', '.ibexa-anchor-navigation-menu__close'),
             new VisibleCSSLocator('nthField', '.ibexa-field-edit:nth-of-type(%s)'),
             new VisibleCSSLocator('fieldGroupNthField', '[data-anchor-section-id="%s"] .ibexa-field-edit:nth-of-type(%s)'),
