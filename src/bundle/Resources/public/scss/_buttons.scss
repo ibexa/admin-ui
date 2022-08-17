@@ -174,8 +174,8 @@
             background-color: $ibexa-color-info;
 
             &:focus {
-                box-shadow: $ibexa-btn-focus-box-shadow-info, $ibexa-btn-hover-box-shadow-info;
                 color: $ibexa-color-white;
+                box-shadow: $ibexa-btn-focus-box-shadow-info, $ibexa-btn-hover-box-shadow-info;
             }
         }
     }
