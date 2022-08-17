@@ -1,6 +1,5 @@
 (function (global, doc, ibexa, Translator, moment) {
     const ENTER_KEY_CODE = 13;
-    const SIMPLIFIED_MESSAGE_TIMEOUT = 3000;
     const STATUS_ERROR = 'error';
     const STATUS_OFF = 'off';
     const STATUS_ON = 'on';
@@ -136,7 +135,6 @@
         const autosave = doc.querySelector('.ibexa-autosave');
         const autosaveStatusSavedNode = autosave.querySelector('.ibexa-autosave__status-saved');
         let currentAutosaveStatus = autosave.classList.contains('ibexa-autosave--on') ? STATUS_ON : STATUS_OFF;
-        let simplifiedMessageTimeoutId = null;
         const generateCssStatusClass = (status) => `ibexa-autosave--${status}`;
         const setAutosaveStatus = (newStatus) => {
             if (!autosave) {
@@ -147,7 +145,7 @@
             const newCssStatusClass = generateCssStatusClass(newStatus);
 
             autosave.classList.remove(oldCssStatusClass);
-            autosave.classList.remove('ibexa-autosave--saved-simplified');
+            autosave.classList.remove('ibexa-autosave--saved');
             autosave.classList.add(newCssStatusClass);
 
             currentAutosaveStatus = newStatus;
@@ -167,26 +165,13 @@
             );
 
             autosaveStatusSavedNode.innerHTML = saveMessage;
-            setDelayedDraftSavedSimplifiedMessage();
-        };
-        const setDelayedDraftSavedSimplifiedMessage = () => {
-            simplifiedMessageTimeoutId = setTimeout(() => {
-                const savedMessage = Translator.trans(
-                    /*@Desc("Saved")*/ 'content_edit.autosave.status_saved.message.simplified',
-                    {},
-                    'content',
-                );
-
-                autosaveStatusSavedNode.innerHTML = savedMessage;
-                autosave.classList.add('ibexa-autosave--saved-simplified');
-            }, SIMPLIFIED_MESSAGE_TIMEOUT);
+            autosave.classList.add('ibexa-autosave--saved');
         };
 
         setInterval(() => {
             const formData = new FormData(form);
 
             formData.set(AUTOSAVE_SUBMIT_BUTTON_NAME, true);
-            clearTimeout(simplifiedMessageTimeoutId);
             setAutosaveStatus(STATUS_SAVING);
 
             fetch(form.target || window.location.href, { method: 'POST', body: formData })
