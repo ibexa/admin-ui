@@ -280,7 +280,7 @@
             const itemFilterValueLowerCase = itemFilterValue.toLowerCase();
             const searchedTermLowerCase = searchedTerm.toLowerCase();
 
-            return itemFilterValueLowerCase.indexOf(searchedTermLowerCase) === 0;
+            return itemFilterValueLowerCase.includes(searchedTermLowerCase);
         }
 
         filterItems(event) {
