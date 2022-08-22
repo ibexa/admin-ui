@@ -171,8 +171,10 @@
         &:hover {
             color: $ibexa-color-white;
             box-shadow: 0 0 0 transparent, $ibexa-btn-hover-box-shadow-info;
+            background-color: $ibexa-color-info;
 
             &:focus {
+                color: $ibexa-color-white;
                 box-shadow: $ibexa-btn-focus-box-shadow-info, $ibexa-btn-hover-box-shadow-info;
             }
         }
@@ -187,6 +189,14 @@
             color: $ibexa-color-dark;
             fill: $ibexa-color-dark;
             border-color: $ibexa-color-dark;
+        }
+
+        &.ibexa-btn--inverted-hover {
+            &:hover {
+                color: $ibexa-color-white;
+                fill: $ibexa-color-white;
+                border-color: $ibexa-color-white;
+            }
         }
 
         &:focus {
