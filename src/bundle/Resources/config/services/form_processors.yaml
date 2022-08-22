@@ -41,7 +41,7 @@ services:
             - "@router"
             - '%ibexa.content_forms.form_processor.content_type.options%'
         calls:
-            - [ setGroupsList, [ '@Ibexa\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList' ] ]
+            - [ setGroupsList, [ '@Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList' ] ]
 
     Ibexa\AdminUi\Form\Processor\PreviewFormProcessor: ~
 

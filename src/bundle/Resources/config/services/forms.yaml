@@ -172,7 +172,7 @@ services:
             $fieldTypeService: '@ibexa.api.service.field_type'
             $thumbnailStrategy: '@Ibexa\Core\Repository\Strategy\ContentThumbnail\Field\ContentFieldStrategy'
         calls:
-            - [setGroupsList, ['@Ibexa\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList']]
+            - [setGroupsList, ['@Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList']]
         tags:
             - { name: form.type, alias: ezplatform_content_forms_fielddefinition_update }
 
