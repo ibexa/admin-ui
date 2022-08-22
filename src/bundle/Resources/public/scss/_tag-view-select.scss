@@ -35,10 +35,6 @@
         &:not(:last-of-type) {
             margin-right: calculateRem(8px);
         }
-
-        .ibexa-middle-ellipsis {
-            max-width: calc(100% - #{calculateRem(20px)});
-        }
     }
 
     $color-versions: 'primary' $ibexa-color-primary $ibexa-color-primary-200, 'secondary' $ibexa-color-dark $ibexa-color-light-500,
