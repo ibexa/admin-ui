@@ -64,6 +64,8 @@
 
     &__content {
         padding: 0 calculateRem(32px);
+        max-height: calc(100% - #{calculateRem(90px)});
+        overflow: auto;
 
         .form-group {
             margin-bottom: 0;
