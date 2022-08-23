@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 
 import Tab from './components/tab/tab';
 import BookmarksList from './components/bookmarks-list/bookmarks.list';
@@ -21,6 +21,7 @@ import { loadAccordionData } from './services/universal.discovery.service';
 const { Translator, ibexa } = window;
 
 const BookmarksTabModule = () => {
+    const shouldRestorePreviousStateRef = useRef(true);
     const restInfo = useContext(RestInfoContext);
     const tabsConfig = useContext(TabsConfigContext);
     const [currentView] = useContext(CurrentViewContext);
@@ -28,7 +29,7 @@ const BookmarksTabModule = () => {
     const [sorting] = useContext(SortingContext);
     const [sortOrder] = useContext(SortOrderContext);
     const rootLocationId = useContext(RootLocationIdContext);
-    const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [bookmarkedLocationMarked, setBookmarkedLocationMarked] = useState(null);
     const views = {
         grid: <GridView itemsPerPage={tabsConfig.bookmarks.itemsPerPage} />,
@@ -44,10 +45,23 @@ const BookmarksTabModule = () => {
     };
 
     useEffect(() => {
+        setMarkedLocationId(null);
+        dispatchLoadedLocationsAction({ type: 'CLEAR_LOCATIONS' });
+
+        return () => {
+            if (shouldRestorePreviousStateRef.current) {
+                setMarkedLocationId(markedLocationId);
+                dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: loadedLocationsMap });
+            }
+        };
+    }, []);
+
+    useEffect(() => {
         if (!bookmarkedLocationMarked) {
             return;
         }
 
+        shouldRestorePreviousStateRef.current = false;
         setMarkedLocationId(bookmarkedLocationMarked);
         loadAccordionData(
             {
