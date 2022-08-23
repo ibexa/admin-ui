@@ -29,7 +29,7 @@ const BookmarksTabModule = () => {
     const [sorting] = useContext(SortingContext);
     const [sortOrder] = useContext(SortOrderContext);
     const rootLocationId = useContext(RootLocationIdContext);
-    const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [bookmarkedLocationMarked, setBookmarkedLocationMarked] = useState(null);
     const views = {
         grid: <GridView itemsPerPage={tabsConfig.bookmarks.itemsPerPage} />,
