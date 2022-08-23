@@ -18,6 +18,14 @@
 
         &__language-form {
             display: flex;
+
+            .ibexa-label {
+                margin: calculateRem(8px) calculateRem(8px) 0;
+            }
+
+            .ibexa-dropdown {
+                margin: 0;
+            }
         }
     }
 }
