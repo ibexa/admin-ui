@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, Translator, bootstrap) {
+(function (global, doc, ibexa, bootstrap, Translator) {
     const EVENT_VALUE_CHANGED = 'change';
     const RESTRICTED_AREA_ITEMS_CONTAINER = 190;
     const MINIMUM_LETTERS_TO_FILTER = 3;
@@ -396,7 +396,12 @@
             const selectedItems = this.getSelectedItems();
             const areSomeItemsSelected = !!selectedItems.length;
 
-            areSomeItemsSelected ? this.clearCurrentSelection() : items.forEach((item) => this.selectOption(item.dataset.value));
+            if (areSomeItemsSelected) {
+                this.clearCurrentSelection();
+            } else {
+                items.forEach((item) => this.selectOption(item.dataset.value));
+            }
+
             this.fitItems();
         }
 
@@ -483,4 +488,4 @@
     }
 
     ibexa.addConfig('core.Dropdown', Dropdown);
-})(window, window.document, window.ibexa, window.Translator, window.bootstrap);
+})(window, window.document, window.ibexa, window.bootstrap, window.Translator);
