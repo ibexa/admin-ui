@@ -51,6 +51,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/double.click.mark.js'),
     path.resolve(__dirname, '../public/js/scripts/autogenerate.identifier.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.back.to.top.js'),
+    path.resolve(__dirname, '../public/js/scripts/widgets/flatpickr.js'),
 ];
 const fieldTypes = [];
 
