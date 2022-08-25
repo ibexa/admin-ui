@@ -206,6 +206,21 @@
         text-overflow: ellipsis;
     }
 
+    &__notice {
+        color: $ibexa-color-dark-400;
+        font-weight: normal;
+        font-family: $ibexa-font-family;
+        font-size: $ibexa-text-font-size-small;
+
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__notice-icon {
+        fill: $ibexa-color-dark-400;
+    }
+
     &__actions {
         display: flex;
         align-items: center;
