@@ -59,7 +59,7 @@ class ContentItemAdminPreview extends Component
         ];
     }
 
-    private function getFieldPosition(string $fieldLabel): int
+    protected function getFieldPosition(string $fieldLabel): int
     {
         $fields = $this->getHTMLPage()->findAll($this->getLocator('fieldName'))->assert()->hasElements();
 
@@ -73,7 +73,7 @@ class ContentItemAdminPreview extends Component
         }
     }
 
-    private function detectFieldTypeIdentifier(CSSLocator $fieldValueLocator)
+    protected function detectFieldTypeIdentifier(CSSLocator $fieldValueLocator)
     {
         $fieldClass = $this->getHTMLPage()
             ->find(CSSLocatorBuilder::base($fieldValueLocator)->withDescendant($this->getLocator('fieldValueContainer'))->build())
