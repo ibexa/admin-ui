@@ -13,13 +13,13 @@ use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use Ibexa\Behat\Core\Debug\InteractiveDebuggerTrait;
 use Traversable;
+use Ibexa\Behat\Core\Debug\InteractiveDebuggerTrait;
 
 class ContentItemAdminPreview extends Component
 {use InteractiveDebuggerTrait;
     /** @var \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponentInterface[] */
-    private $fieldTypeComponents;
+    protected $fieldTypeComponents;
 
     public function __construct(Session $session, Traversable $fieldTypeComponents)
     {
@@ -28,7 +28,7 @@ class ContentItemAdminPreview extends Component
     }
 
     public function verifyFieldHasValues(string $fieldLabel, array $expectedValues, ?string $fieldTypeIdentifier)
-    {
+    { $this->setInteractiveBreakpoint();
         $fieldPosition = $this->getFieldPosition($fieldLabel);
         $nthFieldLocator = new VisibleCSSLocator('', sprintf($this->getLocator('nthFieldContainer')->getSelector(), $fieldPosition, $fieldPosition));
 
@@ -52,9 +52,9 @@ class ContentItemAdminPreview extends Component
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('nthFieldContainer', 'div.ibexa-content-field:nth-of-type(%s), div.ibexa-pc-product-item-preview:nth-of-type(%s)'),
-            new VisibleCSSLocator('fieldName', '.ibexa-content-field__name, .ibexa-pc-product-item-preview__label'),
-            new VisibleCSSLocator('fieldValue', '.ibexa-content-field__value, .ibexa-pc-product-item-preview__value'),
+            new VisibleCSSLocator('nthFieldContainer', 'div.ibexa-content-field:nth-of-type(%s)'),
+            new VisibleCSSLocator('fieldName', '.ibexa-content-field__name'),
+            new VisibleCSSLocator('fieldValue', '.ibexa-content-field__value'),
             new VisibleCSSLocator('fieldValueContainer', ':first-child'),
         ];
     }
