@@ -60,13 +60,11 @@ class ContentItemAdminPreview extends Component
 
     private function getFieldPosition(string $fieldLabel): int
     {
-        $searchText = sprintf('%s:', $fieldLabel);
-
         $fields = $this->getHTMLPage()->findAll($this->getLocator('fieldName'))->assert()->hasElements();
 
         $fieldPosition = 1;
         foreach ($fields as $field) {
-            if ($field->getText() === $searchText) {
+            if ($field->getText() === $fieldLabel) {
                 return $fieldPosition;
             }
 
