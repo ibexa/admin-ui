@@ -102,6 +102,10 @@ const ContentCreateWidget = () => {
         }));
 
     useEffect(() => {
+        setSelectedLanguage(preselectedLanguage || firstLanguageCode);
+    }, [preselectedLanguage, firstLanguageCode]);
+
+    useEffect(() => {
         ibexa.helpers.tooltips.parse(refContentTree.current);
     }, []);
 

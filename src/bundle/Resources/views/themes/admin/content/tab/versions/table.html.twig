@@ -112,6 +112,7 @@
                                             </svg>
                                         </a>
                                     {% elseif is_draft %}
+                                        {% set edit_draft_disabled = (version.author and version.author.id != ibexa_admin_ui_config.user.user.id) %}
                                         <button
                                             data-content-draft-edit-url="{{ edit_url }}"
                                             data-version-has-conflict-url="{{ path('ibexa.version.has_no_conflict', {
@@ -121,8 +122,9 @@
                                             }) }}"
                                             data-content-id="{{ version.contentInfo.id }}"
                                             data-language-code="{{ version.initialLanguageCode }}"
-                                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2 ibexa-btn--content-draft-edit"
+                                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2 ibexa-btn--content-draft-edit {% if edit_draft_disabled %}ibexa-btn--prevented{% endif %}"
                                             title="{{ 'tab.versions.table.action.draft.edit'|trans|desc('Edit draft') }}"
+                                            {% if edit_draft_disabled %}disabled{% endif %}
                                         >
                                             <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
                                                 <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
