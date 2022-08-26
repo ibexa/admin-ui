@@ -13,22 +13,20 @@ use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use Traversable;
-use Ibexa\Behat\Core\Debug\InteractiveDebuggerTrait;
 
 class ContentItemAdminPreview extends Component
-{use InteractiveDebuggerTrait;
+{
     /** @var \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponentInterface[] */
     protected $fieldTypeComponents;
 
-    public function __construct(Session $session, Traversable $fieldTypeComponents)
+    public function __construct(Session $session, iterable $fieldTypeComponents)
     {
         parent::__construct($session);
-        $this->fieldTypeComponents = iterator_to_array($fieldTypeComponents);
+        $this->fieldTypeComponents = $fieldTypeComponents;
     }
 
     public function verifyFieldHasValues(string $fieldLabel, array $expectedValues, ?string $fieldTypeIdentifier)
-    { $this->setInteractiveBreakpoint();
+    {
         $fieldPosition = $this->getFieldPosition($fieldLabel);
         $nthFieldLocator = new VisibleCSSLocator('', sprintf($this->getLocator('nthFieldContainer')->getSelector(), $fieldPosition, $fieldPosition));
 
