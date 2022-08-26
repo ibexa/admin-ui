@@ -88,7 +88,7 @@
         ],
         body_rows,
         show_notice: show_table_notice,
-        notice_message: 'content_type.view.list.notice'|trans|desc('You cannot delete disabled Content Type, they are used in other places.'),
+        notice_message: 'content_type.view.list.cannot_delete_notice'|trans|desc('You cannot delete disabled Content Types, it is used in other places.'),
     } %}
         {% block header %}
             {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}

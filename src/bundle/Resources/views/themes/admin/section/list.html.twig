@@ -136,7 +136,7 @@
             body_rows,
             empty_table_info_text: 'dashboard.tab.my_drafts.empty'|trans|desc('No content. Drafts you create will show up here'),
             show_notice: show_table_notice,
-            notice_message: 'section.list.notice'|trans|desc('You cannot delete disabled Sections, they are used in other places.'),
+            notice_message: 'section.list.cannot_delete_notice'|trans|desc('You cannot delete disabled sections, it has assigned content.'),
         } %}
             {% block header %}
                 {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
