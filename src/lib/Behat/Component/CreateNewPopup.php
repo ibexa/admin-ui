@@ -9,9 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component;
 
 use Behat\Mink\Session;
-use Ibexa\AdminUi\Behat\Component\IbexaDropdown;
 use Ibexa\Behat\Browser\Component\Component;
-use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
+use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class CreateNewPopup extends Component
@@ -36,8 +35,8 @@ class CreateNewPopup extends Component
 
     public function selectFromDropdown(string $dropdownLabel, string $dropdownValue): void
     {
-        $definition = $this->getHTMLPage()->setTimeout(5)->findAll($this->getLocator('dropdownLabel'))
-            ->getByCriterion(new ElementTextCriterion($dropdownLabel));
+        $definition = $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('popup'))->findAll($this->getLocator('formGroup'))
+            ->getByCriterion(new ChildElementTextCriterion($this->getLocator('dropdownLabel'), $dropdownLabel));
         if ($definition->find($this->getLocator('dropdownValue'))->getText() === $dropdownValue) {
             return;
         }
@@ -60,14 +59,14 @@ class CreateNewPopup extends Component
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('popup', '.iibexa-extra-actions'),
-            new VisibleCSSLocator('popupHeader', '.iibexa-extra-actions__header'),
+            new VisibleCSSLocator('popupHeader', '.ibexa-extra-actions__header'),
             new VisibleCSSLocator('addButton', '.ibexa-extra-actions__pre-form-btns .ibexa-btn--primary'),
             new VisibleCSSLocator('cancelButton', '.ibexa-extra-actions__pre-form-btns .ibexa-btn--secondary'),
+            new VisibleCSSLocator('popup', '.ibexa-extra-actions:not(.ibexa-extra-actions--hidden)'),
+            new VisibleCSSLocator('formGroup', '.form-group'),
             new VisibleCSSLocator('dropdown', '.ibexa-dropdown'),
             new VisibleCSSLocator('dropdownLabel', '.ibexa-label'),
             new VisibleCSSLocator('dropdownValue', '.ibexa-dropdown__selection-info'),
         ];
     }
-
 }
