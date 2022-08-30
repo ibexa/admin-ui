@@ -6,6 +6,7 @@
  */
 namespace Ibexa\AdminUi\Form\Processor\ContentType;
 
+use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\Contracts\AdminUi\Event\FormEvents;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
@@ -20,6 +21,8 @@ use Symfony\Component\Routing\RouterInterface;
 
 class ContentTypeFormProcessor implements EventSubscriberInterface
 {
+    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
+
     /**
      * @var \Ibexa\Contracts\Core\Repository\ContentTypeService
      */
@@ -40,8 +43,13 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
      */
     private $groupsList;
 
-    public function __construct(ContentTypeService $contentTypeService, RouterInterface $router, array $options = [])
-    {
+    public function __construct(
+        ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
+        ContentTypeService $contentTypeService,
+        RouterInterface $router,
+        array $options = []
+    ) {
+        $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
         $this->contentTypeService = $contentTypeService;
         $this->router = $router;
         $this->setOptions($options);
@@ -82,6 +90,14 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         foreach ($contentTypeData->getFlatFieldDefinitionsData() as $fieldDefData) {
             $this->contentTypeService->updateFieldDefinition($contentTypeDraft, $fieldDefData->fieldDefinition, $fieldDefData);
         }
+
+        // Update enabled FieldDefinitions and remove disabled.
+        foreach ($contentTypeData->getFlatTabsFieldDefinitionsData() as $fieldDefData) {
+            $fieldDefData->enabled
+                ? $this->contentTypeService->updateFieldDefinition($contentTypeDraft, $fieldDefData->fieldDefinition, $fieldDefData)
+                : $this->contentTypeService->removeFieldDefinition($contentTypeDraft, $fieldDefData->fieldDefinition);
+        }
+
         $contentTypeData->sortFieldDefinitions();
         $this->contentTypeService->updateContentTypeDraft($contentTypeDraft, $contentTypeData);
     }
