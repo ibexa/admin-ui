@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+declare(strict_types=1);
+
+namespace Ibexa\AdminUi\Config\AdminUiForms;
+
+use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\AdminUiForms;
+use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+
+/**
+ * @internal
+ */
+final class ContentTypeFieldTypesResolver implements ContentTypeFieldTypesResolverInterface
+{
+    private ConfigResolverInterface $configResolver;
+
+    public function __construct(ConfigResolverInterface $configResolver)
+    {
+        $this->configResolver = $configResolver;
+    }
+
+    public function getFieldTypes(): array
+    {
+        if (
+            !$this->configResolver->hasParameter(
+                AdminUiForms::CONTENT_TYPE_FIELD_TYPES_PARAM,
+                null,
+                IbexaAdminUiBundle::ADMIN_GROUP_NAME
+            )
+        ) {
+            return [];
+        }
+
+        return $this->configResolver->getParameter(
+            AdminUiForms::CONTENT_TYPE_FIELD_TYPES_PARAM,
+            null,
+            IbexaAdminUiBundle::ADMIN_GROUP_NAME
+        );
+    }
+}
