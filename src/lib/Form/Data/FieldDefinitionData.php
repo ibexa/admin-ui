@@ -15,9 +15,15 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStru
  *
  * @property \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition $fieldDefinition
  * @property \Ibexa\AdminUi\Form\Data\ContentTypeData $contentTypeData
+ * @property bool $enabled
  */
 class FieldDefinitionData extends FieldDefinitionUpdateStruct
 {
+    /**
+     * @var bool
+     */
+    public $enabled;
+
     /**
      * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition
      */
