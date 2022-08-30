@@ -104,6 +104,10 @@ class ContentTypeUpdateType extends AbstractType
                 'languageCode' => $options['languageCode'],
                 'mainLanguageCode' => $options['mainLanguageCode'],
             ])
+            ->add('tabsFieldDefinitionsData', FieldDefinitionsCollectionType::class, [
+                'languageCode' => $options['languageCode'],
+                'mainLanguageCode' => $options['mainLanguageCode'],
+            ])
             ->add('saveContentType', SubmitType::class, ['label' => /** @Desc("Apply") */ 'content_type.save'])
             ->add('removeDraft', SubmitType::class, ['label' => /** @Desc("Cancel") */ 'content_type.remove_draft', 'validation_groups' => false])
             ->add('publishContentType', SubmitType::class, [
