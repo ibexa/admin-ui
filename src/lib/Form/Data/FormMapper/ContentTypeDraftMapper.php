@@ -8,10 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\FormMapper;
 
+use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\Contracts\AdminUi\Event\FieldDefinitionMappingEvent;
 use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
@@ -20,6 +23,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentTypeDraftMapper implements FormDataMapperInterface
 {
+    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
+
+    private ContentTypeService $contentTypeService;
+
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
     private $eventDispatcher;
 
@@ -30,9 +37,13 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
+        ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
+        ContentTypeService $contentTypeService,
         EventDispatcherInterface $eventDispatcher,
         FieldsGroupsList $fieldsGroupsList
     ) {
+        $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
+        $this->contentTypeService = $contentTypeService;
         $this->eventDispatcher = $eventDispatcher;
         $this->fieldsGroupsList = $fieldsGroupsList;
     }
@@ -80,10 +91,19 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
             $contentTypeData->descriptions[$language->languageCode] = $contentTypeDraft->getDescription($baseLanguage->languageCode);
         }
 
+        $excludedFieldTypes = $this->contentTypeFieldTypesResolver->getFieldTypes();
+
+        try {
+            $contentType = $this->contentTypeService->loadContentType($contentTypeDraft->id);
+        } catch (NotFoundException $exception) {
+            $contentType = null;
+        }
+
         foreach ($contentTypeDraft->fieldDefinitions as $fieldDef) {
             $fieldDefinitionData = new FieldDefinitionData([
                 'fieldDefinition' => $fieldDef,
                 'contentTypeData' => $contentTypeData,
+                'enabled' => null !== $contentType && null !== $contentType->getFieldDefinition($fieldDef->identifier),
             ]);
 
             $event = new FieldDefinitionMappingEvent(
@@ -98,7 +118,11 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
                 $fieldDefinitionData->fieldGroup = $this->fieldsGroupsList->getDefaultGroup();
             }
 
-            $contentTypeData->addFieldDefinitionData($event->getFieldDefinitionData());
+            if (!array_key_exists($fieldDef->fieldTypeIdentifier, $excludedFieldTypes)) {
+                $contentTypeData->addFieldDefinitionData($event->getFieldDefinitionData());
+            } else {
+                $contentTypeData->addTabsFieldDefinitionData($event->getFieldDefinitionData());
+            }
         }
         $contentTypeData->sortFieldDefinitions();
 
