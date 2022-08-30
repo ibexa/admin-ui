@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Module\FieldTypeToolbar;
 
+use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values\FieldTypeToolbar;
 use Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values\FieldTypeToolbarItem;
 use Ibexa\Core\FieldType\FieldTypeRegistry;
@@ -18,14 +19,18 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class FieldTypeToolbarFactory
 {
-    /** @var \Ibexa\Core\FieldType\FieldTypeRegistry */
-    private $fieldTypeRegistry;
+    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private FieldTypeRegistry $fieldTypeRegistry;
 
-    public function __construct(FieldTypeRegistry $fieldTypeRegistry, TranslatorInterface $translator)
-    {
+    private TranslatorInterface $translator;
+
+    public function __construct(
+        ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
+        FieldTypeRegistry $fieldTypeRegistry,
+        TranslatorInterface $translator
+    ) {
+        $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
         $this->fieldTypeRegistry = $fieldTypeRegistry;
         $this->translator = $translator;
     }
@@ -53,8 +58,12 @@ final class FieldTypeToolbarFactory
      */
     private function getAvailableFieldTypes(): iterable
     {
+        $excludedFieldTypes = $this->contentTypeFieldTypesResolver->getFieldTypes();
+
         foreach ($this->fieldTypeRegistry->getConcreteFieldTypesIdentifiers() as $identifier) {
-            yield $this->fieldTypeRegistry->getFieldType($identifier);
+            if (!array_key_exists($identifier, $excludedFieldTypes)) {
+                yield $this->fieldTypeRegistry->getFieldType($identifier);
+            }
         }
     }
 
