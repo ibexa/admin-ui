@@ -20,6 +20,9 @@
     'extra_actions': extra_actions
 } -%}
     {% block body_content %}
+        {% if field_definition.enabled is defined %}
+            {{ form_row(field_definition.enabled) }}
+        {% endif %}
         {{ form_row(field_definition.name) }}
         {{ form_row(field_definition.identifier) }}
         {{ form_row(field_definition.description) }}
