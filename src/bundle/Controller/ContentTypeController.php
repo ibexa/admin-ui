@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
+use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypeCopyData;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypeEditData;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypesDeleteData;
@@ -22,6 +23,8 @@ use Ibexa\AdminUi\Tab\ContentType\TranslationsTab;
 use Ibexa\AdminUi\UI\Module\FieldTypeToolbar\FieldTypeToolbarFactory;
 use Ibexa\AdminUi\View\ContentTypeCreateView;
 use Ibexa\AdminUi\View\ContentTypeEditView;
+use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\AdminUiForms;
+use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
 use Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
@@ -33,9 +36,14 @@ use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -47,6 +55,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ContentTypeController extends Controller
 {
+    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
+
     /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
@@ -85,7 +95,10 @@ class ContentTypeController extends Controller
     /** @var \Ibexa\AdminUi\UI\Module\FieldTypeToolbar\FieldTypeToolbarFactory */
     private $fieldTypeToolbarFactory;
 
+    private FieldsGroupsList $fieldsGroupsList;
+
     public function __construct(
+        ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
         TranslatableNotificationHandlerInterface $notificationHandler,
         TranslatorInterface $translator,
         ContentTypeService $contentTypeService,
@@ -97,8 +110,10 @@ class ContentTypeController extends Controller
         ContentTypeFormFactory $contentTypeFormFactory,
         ContentTypeDraftMapper $contentTypeDraftMapper,
         ConfigResolverInterface $configResolver,
-        FieldTypeToolbarFactory $fieldTypeToolbarFactory
+        FieldTypeToolbarFactory $fieldTypeToolbarFactory,
+        FieldsGroupsList $fieldsGroupsList
     ) {
+        $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
         $this->notificationHandler = $notificationHandler;
         $this->translator = $translator;
         $this->contentTypeService = $contentTypeService;
@@ -111,6 +126,7 @@ class ContentTypeController extends Controller
         $this->contentTypeDraftMapper = $contentTypeDraftMapper;
         $this->configResolver = $configResolver;
         $this->fieldTypeToolbarFactory = $fieldTypeToolbarFactory;
+        $this->fieldsGroupsList = $fieldsGroupsList;
     }
 
     /**
@@ -189,6 +205,8 @@ class ContentTypeController extends Controller
         $createStruct = $this->contentTypeService->newContentTypeCreateStruct('__new__' . md5((string)microtime(true)));
         $createStruct->mainLanguageCode = $mainLanguageCode;
         $createStruct->names = [$mainLanguageCode => 'New Content Type'];
+
+        $this->addTabsFieldDefinitions($createStruct, new Language(['languageCode' => $mainLanguageCode]));
 
         try {
             $contentTypeDraft = $this->contentTypeService->createContentType($createStruct, [$group]);
@@ -375,8 +393,10 @@ class ContentTypeController extends Controller
             null,
             ['contentType' => $contentType]
         );
-        $form->handleRequest($request);
 
+        $this->addTabsFieldDefinitions($contentTypeDraft);
+
+        $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (ContentTypeEditData $data) use ($contentTypeDraft) {
                 $contentTypeGroup = $data->getContentTypeGroup();
@@ -719,6 +739,7 @@ class ContentTypeController extends Controller
         Language $language = null,
         ?Language $baseLanguage = null
     ): FormInterface {
+        $this->addTabsFieldDefinitions($contentTypeDraft, $language);
         $contentTypeData = $this->contentTypeDraftMapper->mapToFormData(
             $contentTypeDraft,
             [
@@ -757,6 +778,113 @@ class ContentTypeController extends Controller
         ]);
 
         return $formBuilder->getForm();
+    }
+
+    private function addTabsFieldDefinitions(
+        ValueObject $contentType,
+        ?Language $language = null
+    ): void {
+        $fieldTypes = $this->contentTypeFieldTypesResolver->getFieldTypes();
+
+        if (null === $language) {
+            $languages = $this->configResolver->getParameter('languages');
+            $language = new Language(['languageCode' => reset($languages)]);
+        }
+
+        foreach ($fieldTypes as $identifier => $fieldTypeConfig) {
+            $fieldGroup = $this->getDefaultMetaDataFieldTypeGroup() ?? $this->fieldsGroupsList->getDefaultGroup();
+
+            if ($this->isTabsFieldDefinitionExists($identifier, $fieldGroup, $contentType)) {
+                continue;
+            }
+
+            $fieldDefinitionCreateStruct = $this->createTabFieldDefinitionCreateStruct(
+                $identifier,
+                $fieldGroup,
+                $language,
+                $this->getNextFieldPosition($contentType)
+            );
+
+            if ($contentType instanceof ContentTypeDraft) {
+                $this->contentTypeService->addFieldDefinition($contentType, $fieldDefinitionCreateStruct);
+            }
+
+            if ($contentType instanceof ContentTypeCreateStruct) {
+                $contentType->addFieldDefinition($fieldDefinitionCreateStruct);
+            }
+        }
+    }
+
+    private function createTabFieldDefinitionCreateStruct(
+        string $identifier,
+        string $fieldGroup,
+        Language $language,
+        int $position
+    ): FieldDefinitionCreateStruct {
+        $fieldDefinitionCreateStruct = $this->contentTypeService->newFieldDefinitionCreateStruct(
+            uniqid('field_'),
+            $identifier
+        );
+
+        $fieldDefinitionCreateStruct->fieldGroup = $fieldGroup;
+        $fieldDefinitionCreateStruct->names = [
+            $language->languageCode => 'New field type',
+        ];
+
+        $fieldDefinitionCreateStruct->position = $position;
+
+        return $fieldDefinitionCreateStruct;
+    }
+
+    private function isTabsFieldDefinitionExists(
+        string $fieldTypeIdentifier,
+        string $fieldTypeGroup,
+        ValueObject $contentType
+    ): bool {
+        foreach ($contentType->fieldDefinitions as $fieldDefinition) {
+            if (
+                $fieldDefinition->fieldTypeIdentifier === $fieldTypeIdentifier
+                && $fieldDefinition->fieldGroup === $fieldTypeGroup
+            ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function getNextFieldPosition(ValueObject $contentType): int
+    {
+        $fieldDefinitions = $contentType->fieldDefinitions;
+
+        if (is_array($fieldDefinitions) && !empty($fieldDefinitions)) {
+            return end($fieldDefinitions)->position + 1;
+        }
+
+        if ($fieldDefinitions instanceof FieldDefinitionCollection && !$fieldDefinitions->isEmpty()) {
+            return $contentType->fieldDefinitions->last()->position + 1;
+        }
+
+        return 0;
+    }
+
+    private function getDefaultMetaDataFieldTypeGroup(): ?string
+    {
+        if (
+            !$this->configResolver->hasParameter(
+                AdminUiForms::CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM,
+                null,
+                IbexaAdminUiBundle::ADMIN_GROUP_NAME
+            )
+        ) {
+            return null;
+        }
+
+        return $this->configResolver->getParameter(
+            AdminUiForms::CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM,
+            null,
+            IbexaAdminUiBundle::ADMIN_GROUP_NAME
+        );
     }
 
     /**
