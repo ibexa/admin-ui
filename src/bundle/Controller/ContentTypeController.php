@@ -198,14 +198,13 @@ class ContentTypeController extends Controller
     public function addAction(ContentTypeGroup $group)
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'create'));
-        $languages = $this->configResolver->getParameter('languages');
-        $mainLanguageCode = reset($languages);
+        $mainLanguageCode = $this->languageService->getDefaultLanguageCode();
 
         $createStruct = $this->contentTypeService->newContentTypeCreateStruct('__new__' . md5((string)microtime(true)));
         $createStruct->mainLanguageCode = $mainLanguageCode;
         $createStruct->names = [$mainLanguageCode => 'New Content Type'];
 
-        $this->addMetaFieldDefinitions($createStruct, new Language(['languageCode' => $mainLanguageCode]));
+        $this->addMetaFieldDefinitions($createStruct, $this->languageService->loadLanguage($mainLanguageCode));
 
         try {
             $contentTypeDraft = $this->contentTypeService->createContentType($createStruct, [$group]);
@@ -786,8 +785,7 @@ class ContentTypeController extends Controller
         $fieldTypes = $this->contentTypeFieldTypesResolver->getFieldTypes();
 
         if (null === $language) {
-            $languages = $this->configResolver->getParameter('languages');
-            $language = new Language(['languageCode' => reset($languages)]);
+            $language = $this->languageService->loadLanguage($this->languageService->getDefaultLanguageCode());
         }
 
         foreach ($fieldTypes as $identifier => $fieldTypeConfig) {
