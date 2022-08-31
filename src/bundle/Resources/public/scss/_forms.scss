@@ -13,7 +13,7 @@ form:not(.form-inline) {
         background-color: $ibexa-color-white;
     }
 
-    .form-control[readonly] {
+    .form-control:not(.flatpickr-input)[readonly] {
         color: $ibexa-color-dark-300;
         background-color: $ibexa-color-light-300;
         border-color: $ibexa-color-light-300;
