@@ -95,3 +95,10 @@
             {{ form_widget(form._token) }}
         {{ form_end(form, {'render_rest': false }) }}
 {% endblock %}
+
+{% block content_type_sections %}
+    {{ ibexa_render_component_group('content-type-edit-sections', {
+        'form': form,
+        'content_type': content_type,
+    }) }}
+{% endblock %}
