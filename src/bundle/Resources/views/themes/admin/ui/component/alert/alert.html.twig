@@ -28,9 +28,7 @@
         <div class="ibexa-alert__content {% if show_subtitle_below|default(false) %}ibexa-alert__content--subtitle-below{% endif %}">
             {% block title %}
                 {% if title is defined %}
-                    <div class="ibexa-alert__title">
-                        {{ title }}
-                    </div>
+                    <div class="ibexa-alert__title">{{ title }}</div>
                 {% endif %}
             {% endblock %}
             {% block subtitle %}
