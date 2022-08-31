@@ -18,7 +18,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    public const ITEM__CONTENT = 'content_type_edit__anchor_menu__content';
+    public const ITEM__CONTENT_TYPE = 'content_type_edit__anchor_menu__content';
     public const ITEM__META = 'content_type_edit__anchor_menu__meta';
 
     private const ITEM_ORDER_SPAN = 10;
@@ -55,8 +55,8 @@ final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements 
         $groupedFields = $options['grouped_fields'];
 
         $items = [
-            self::ITEM__CONTENT => $this->createMenuItem(
-                self::ITEM__CONTENT,
+            self::ITEM__CONTENT_TYPE => $this->createMenuItem(
+                self::ITEM__CONTENT_TYPE,
                 [
                     'attributes' => ['data-target-id' => 'ibexa-edit-content-type-sections-content-fields'],
                     'extras' => [
@@ -66,7 +66,7 @@ final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements 
             ),
         ];
 
-        $items[self::ITEM__CONTENT]->setChildren(
+        $items[self::ITEM__CONTENT_TYPE]->setChildren(
             $this->getContentFieldGroupItems($groupedFields)
         );
 
@@ -169,7 +169,7 @@ final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements 
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__CONTENT, 'menu'))->setDesc('Content'),
+            (new Message(self::ITEM__CONTENT_TYPE, 'menu'))->setDesc('Content Type'),
             (new Message(self::ITEM__META, 'menu'))->setDesc('Meta'),
         ];
     }
