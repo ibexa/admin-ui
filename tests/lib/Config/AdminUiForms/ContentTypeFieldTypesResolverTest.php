@@ -19,7 +19,6 @@ use PHPUnit\Framework\TestCase;
 final class ContentTypeFieldTypesResolverTest extends TestCase
 {
     private const PARAM_NAME = 'admin_ui_forms.content_type_edit.fieldtypes';
-    private const SCOPE = 'admin_group';
 
     private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
 
@@ -87,11 +86,7 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
         $this->configResolver
             ->expects(self::once())
             ->method('hasParameter')
-            ->with(
-                self::PARAM_NAME,
-                null,
-                self::SCOPE
-            )
+            ->with(self::PARAM_NAME)
             ->willReturn($hasParameter);
     }
 
@@ -101,11 +96,7 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
             $this->configResolver
                 ->expects(self::once())
                 ->method('getParameter')
-                ->with(
-                    self::PARAM_NAME,
-                    null,
-                    self::SCOPE
-                )
+                ->with(self::PARAM_NAME)
                 ->willReturn($configuredFieldTypes);
         }
     }

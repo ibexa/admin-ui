@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Config\AdminUiForms;
 
 use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\AdminUiForms;
-use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 /**
@@ -26,20 +25,10 @@ final class ContentTypeFieldTypesResolver implements ContentTypeFieldTypesResolv
 
     public function getFieldTypes(): array
     {
-        if (
-            !$this->configResolver->hasParameter(
-                AdminUiForms::CONTENT_TYPE_FIELD_TYPES_PARAM,
-                null,
-                IbexaAdminUiBundle::ADMIN_GROUP_NAME
-            )
-        ) {
+        if (!$this->configResolver->hasParameter(AdminUiForms::CONTENT_TYPE_FIELD_TYPES_PARAM)) {
             return [];
         }
 
-        return $this->configResolver->getParameter(
-            AdminUiForms::CONTENT_TYPE_FIELD_TYPES_PARAM,
-            null,
-            IbexaAdminUiBundle::ADMIN_GROUP_NAME
-        );
+        return $this->configResolver->getParameter(AdminUiForms::CONTENT_TYPE_FIELD_TYPES_PARAM);
     }
 }

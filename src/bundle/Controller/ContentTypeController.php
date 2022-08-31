@@ -24,7 +24,6 @@ use Ibexa\AdminUi\UI\Module\FieldTypeToolbar\FieldTypeToolbarFactory;
 use Ibexa\AdminUi\View\ContentTypeCreateView;
 use Ibexa\AdminUi\View\ContentTypeEditView;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\AdminUiForms;
-use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
 use Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
@@ -870,21 +869,11 @@ class ContentTypeController extends Controller
 
     private function getDefaultMetaDataFieldTypeGroup(): ?string
     {
-        if (
-            !$this->configResolver->hasParameter(
-                AdminUiForms::CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM,
-                null,
-                IbexaAdminUiBundle::ADMIN_GROUP_NAME
-            )
-        ) {
+        if (!$this->configResolver->hasParameter(AdminUiForms::CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM)) {
             return null;
         }
 
-        return $this->configResolver->getParameter(
-            AdminUiForms::CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM,
-            null,
-            IbexaAdminUiBundle::ADMIN_GROUP_NAME
-        );
+        return $this->configResolver->getParameter(AdminUiForms::CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM);
     }
 
     /**
