@@ -100,10 +100,14 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
         }
 
         foreach ($contentTypeDraft->fieldDefinitions as $fieldDef) {
+            $enabled = array_key_exists($fieldDef->fieldTypeIdentifier, $excludedFieldTypes)
+                && null !== $contentType
+                && null !== $contentType->getFieldDefinition($fieldDef->identifier);
+
             $fieldDefinitionData = new FieldDefinitionData([
                 'fieldDefinition' => $fieldDef,
                 'contentTypeData' => $contentTypeData,
-                'enabled' => null !== $contentType && null !== $contentType->getFieldDefinition($fieldDef->identifier),
+                'enabled' => $enabled,
             ]);
 
             $event = new FieldDefinitionMappingEvent(
