@@ -6,6 +6,7 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\Processor;
 
+use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor;
@@ -24,9 +25,15 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 
-class ContentTypeFormProcessorTest extends TestCase
+/**
+ * @covers \Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor
+ */
+final class ContentTypeFormProcessorTest extends TestCase
 {
     private const EXAMPLE_CONTENT_TYPE_ID = 1;
+
+    /** @var \Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
+    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
 
     /**
      * @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject
@@ -50,12 +57,16 @@ class ContentTypeFormProcessorTest extends TestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
+        $this->contentTypeFieldTypesResolver = $this->createMock(ContentTypeFieldTypesResolverInterface::class);
         $this->contentTypeService = $this->createMock(ContentTypeService::class);
         $this->router = $this->createMock(RouterInterface::class);
         $this->groupsList = $this->createMock(FieldsGroupsList::class);
 
-        $this->formProcessor = new ContentTypeFormProcessor($this->contentTypeService, $this->router);
+        $this->formProcessor = new ContentTypeFormProcessor(
+            $this->contentTypeFieldTypesResolver,
+            $this->contentTypeService,
+            $this->router
+        );
         $this->formProcessor->setGroupsList($this->groupsList);
     }
 
@@ -225,7 +236,12 @@ class ContentTypeFormProcessorTest extends TestCase
             ->with($redirectRoute)
             ->willReturn($redirectUrl);
         $expectedRedirectResponse = new RedirectResponse($redirectUrl);
-        $formProcessor = new \Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor($this->contentTypeService, $this->router, ['redirectRouteAfterPublish' => $redirectRoute]);
+        $formProcessor = new ContentTypeFormProcessor(
+            $this->contentTypeFieldTypesResolver,
+            $this->contentTypeService,
+            $this->router,
+            ['redirectRouteAfterPublish' => $redirectRoute]
+        );
         $formProcessor->processPublishContentType($event);
         self::assertTrue($event->hasResponse());
         self::assertEquals($expectedRedirectResponse, $event->getResponse());
@@ -345,7 +361,12 @@ class ContentTypeFormProcessorTest extends TestCase
             ->with($redirectRoute)
             ->willReturn($redirectUrl);
         $expectedRedirectResponse = new RedirectResponse($redirectUrl);
-        $formProcessor = new ContentTypeFormProcessor($this->contentTypeService, $this->router, ['redirectRouteAfterPublish' => $redirectRoute]);
+        $formProcessor = new ContentTypeFormProcessor(
+            $this->contentTypeFieldTypesResolver,
+            $this->contentTypeService,
+            $this->router,
+            ['redirectRouteAfterPublish' => $redirectRoute]
+        );
         $formProcessor->processRemoveContentTypeDraft($event);
         self::assertTrue($event->hasResponse());
         self::assertEquals($expectedRedirectResponse, $event->getResponse());

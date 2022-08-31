@@ -6,11 +6,15 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\Data\FormMapper;
 
+use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\AdminUi\Form\Data\FormMapper\ContentTypeDraftMapper;
 use Ibexa\Contracts\AdminUi\Event\FieldDefinitionMappingEvent;
+use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\FieldType\Value;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
@@ -20,86 +24,158 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
-class ContentTypeDraftMapperTest extends TestCase
+/**
+ * @covers \Ibexa\AdminUi\Form\Data\FormMapper\ContentTypeDraftMapper
+ */
+final class ContentTypeDraftMapperTest extends TestCase
 {
-    public function testMapToFormData()
+    private FormDataMapperInterface $contentTypeDraftMapper;
+
+    /** @var \Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
+    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
+
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
+    private ContentTypeService $contentTypeService;
+
+    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface|\PHPUnit\Framework\MockObject\MockObject */
+    private EventDispatcherInterface $eventDispatcher;
+
+    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList|\PHPUnit\Framework\MockObject\MockObject */
+    private FieldsGroupsList $fieldsGroupsList;
+
+    protected function setUp(): void
     {
-        $fieldDef1 = new FieldDefinition([
-            'identifier' => 'identifier1',
-            'fieldTypeIdentifier' => 'ezstring',
-            'names' => ['fre-FR' => 'foo'],
+        $this->contentTypeFieldTypesResolver = $this->createMock(ContentTypeFieldTypesResolverInterface::class);
+        $this->contentTypeService = $this->createMock(ContentTypeService::class);
+        $this->eventDispatcher = $this->createMock(EventDispatcherInterface::class);
+        $this->fieldGroupList = $this->createMock(FieldsGroupsList::class);
+
+        $this->contentTypeDraftMapper = new ContentTypeDraftMapper(
+            $this->contentTypeFieldTypesResolver,
+            $this->contentTypeService,
+            $this->eventDispatcher,
+            $this->fieldGroupList
+        );
+    }
+
+    public function testMapToFormData(): void
+    {
+        $fieldDefs = $this->createFieldDefinitions();
+        $contentTypeDraft = $this->createContentTypeDraft($fieldDefs);
+        $expectedContentTypeData = $this->createContentTypeData($contentTypeDraft);
+        $fieldDefinitionsData = $this->createFieldDefinitionsData($fieldDefs, $expectedContentTypeData);
+
+        foreach ($fieldDefinitionsData as $fieldDefinitionData) {
+            $expectedContentTypeData->addFieldDefinitionData($fieldDefinitionData);
+        }
+
+        $this->mockContentTypeFieldTypesResolverGetFieldTypes();
+        $this->mockEventDispatcherDispatch();
+        $this->mockFieldGroupListGetDefaultGroup();
+
+        self::assertEquals(
+            $expectedContentTypeData,
+            $this->contentTypeDraftMapper->mapToFormData($contentTypeDraft)
+        );
+    }
+
+    /**
+     * @return array<\Ibexa\Core\Repository\Values\ContentType\FieldDefinition>
+     */
+    private function createFieldDefinitions(): array
+    {
+        $fieldDefinitions = [];
+        $fieldDefinitionsConfig = [
+            'ezstring' => [
+                'identifier' => 'identifier1',
+                'defaultValue' => $this->getMockForAbstractClass(Value::class),
+                'name' => 'Foo',
+                'position' => 0,
+            ],
+            'eztext' => [
+                'identifier' => 'identifier2',
+                'defaultValue' => $this->getMockForAbstractClass(Value::class),
+                'name' => 'Bar',
+                'position' => 2,
+            ],
+            'ezrichtext' => [
+                'identifier' => 'identifier3',
+                'defaultValue' => null,
+                'name' => 'Baz',
+                'position' => 5,
+            ],
+        ];
+
+        foreach ($fieldDefinitionsConfig as $fieldTypeIdentifier => $config) {
+            $fieldDefinitions[] = $this->createFieldDefinition(
+                $fieldTypeIdentifier,
+                $config['identifier'],
+                $config['name'],
+                $config['position'],
+                $config['defaultValue']
+            );
+        }
+
+        return $fieldDefinitions;
+    }
+
+    /**
+     * @param array<string, array{
+     *     'fieldTypeIdentifier': string,
+     *     'identifier': string,
+     *     'defaultValue': ?\Ibexa\Contracts\Core\Repository\Values\ValueObject,
+     *     'name': string,
+     *     'position': int,
+     * }> $fieldDefinitions
+     */
+    private function createContentTypeDraft(array $fieldDefinitions): ContentTypeDraft
+    {
+        return new ContentTypeDraft([
+            'innerContentType' => new ContentType([
+                'id' => 123,
+                'fieldDefinitions' => $fieldDefinitions,
+                'identifier' => 'identifier',
+                'remoteId' => 'remoteId',
+                'urlAliasSchema' => 'urlAliasSchema',
+                'nameSchema' => 'nameSchema',
+                'isContainer' => true,
+                'mainLanguageCode' => 'fre-FR',
+                'defaultSortField' => Location::SORT_FIELD_NAME,
+                'defaultSortOrder' => Location::SORT_ORDER_ASC,
+                'defaultAlwaysAvailable' => true,
+                'names' => ['fre-FR' => 'Français', 'eng-GB' => 'English'],
+                'descriptions' => ['fre-FR' => 'Vive le sucre !!!', 'eng-GB' => 'Sugar rules!!!'],
+            ]),
+        ]);
+    }
+
+    private function createFieldDefinition(
+        string $fieldTypeIdentifier,
+        string $identifier,
+        string $name,
+        int $position,
+        ?ValueObject $defaultValue
+    ): FieldDefinition {
+        return new FieldDefinition([
+            'identifier' => $identifier,
+            'fieldTypeIdentifier' => $fieldTypeIdentifier,
+            'names' => ['fre-FR' => $name],
             'descriptions' => ['fre-FR' => 'some description'],
             'fieldGroup' => 'foo',
-            'position' => 0,
+            'position' => $position,
             'isTranslatable' => true,
             'isRequired' => true,
             'isInfoCollector' => false,
             'validatorConfiguration' => ['validator' => 'config'],
             'fieldSettings' => ['field' => 'settings'],
-            'defaultValue' => $this->getMockForAbstractClass(Value::class),
+            'defaultValue' => $defaultValue,
             'isSearchable' => true,
         ]);
-        $fieldDef2 = new FieldDefinition([
-            'identifier' => 'identifier2',
-            'fieldTypeIdentifier' => 'eztext',
-            'names' => ['fre-FR' => 'foo2'],
-            'descriptions' => ['fre-FR' => 'some description 2'],
-            'fieldGroup' => 'foo2',
-            'position' => 15,
-            'isTranslatable' => false,
-            'isRequired' => false,
-            'isInfoCollector' => true,
-            'validatorConfiguration' => ['validator2' => 'config'],
-            'fieldSettings' => ['field2' => 'settings'],
-            'defaultValue' => null,
-            'isSearchable' => false,
-        ]);
-        $fieldDef3 = new FieldDefinition([
-            'identifier' => 'identifiea3',
-            'fieldTypeIdentifier' => 'eztext',
-            'names' => ['fre-FR' => 'foo3'],
-            'descriptions' => ['fre-FR' => 'some description 3'],
-            'fieldGroup' => 'foo3',
-            'position' => 15,
-            'isTranslatable' => false,
-            'isRequired' => false,
-            'isInfoCollector' => true,
-            'validatorConfiguration' => ['validator3' => 'config'],
-            'fieldSettings' => ['field3' => 'settings'],
-            'defaultValue' => null,
-            'isSearchable' => false,
-        ]);
-        $fieldDefs = [$fieldDef1, $fieldDef2, $fieldDef3];
+    }
 
-        $identifier = 'identifier';
-        $remoteId = 'remoteId';
-        $urlAliasSchema = 'urlAliasSchema';
-        $nameSchema = 'nameSchema';
-        $isContainer = true;
-        $mainLanguageCode = 'fre-FR';
-        $defaultSortField = Location::SORT_FIELD_NAME;
-        $defaultSortOrder = Location::SORT_ORDER_ASC;
-        $defaultAlwaysAvailable = true;
-        $names = ['fre-FR' => 'Français', 'eng-GB' => 'English'];
-        $descriptions = ['fre-FR' => 'Vive le sucre !!!', 'eng-GB' => 'Sugar rules!!!'];
-        $contentTypeDraft = new ContentTypeDraft([
-            'innerContentType' => new ContentType([
-                'fieldDefinitions' => $fieldDefs,
-                'identifier' => $identifier,
-                'remoteId' => $remoteId,
-                'urlAliasSchema' => $urlAliasSchema,
-                'nameSchema' => $nameSchema,
-                'isContainer' => $isContainer,
-                'mainLanguageCode' => $mainLanguageCode,
-                'defaultSortField' => $defaultSortField,
-                'defaultSortOrder' => $defaultSortOrder,
-                'defaultAlwaysAvailable' => $defaultAlwaysAvailable,
-                'names' => $names,
-                'descriptions' => $descriptions,
-            ]),
-        ]);
-
-        $expectedContentTypeData = new ContentTypeData([
+    private function createContentTypeData(ContentTypeDraft $contentTypeDraft): ContentTypeData
+    {
+        return new ContentTypeData([
             'contentTypeDraft' => $contentTypeDraft,
             'identifier' => $contentTypeDraft->identifier,
             'remoteId' => $contentTypeDraft->remoteId,
@@ -114,58 +190,62 @@ class ContentTypeDraftMapperTest extends TestCase
             'descriptions' => $contentTypeDraft->getDescriptions(),
             'languageCode' => $contentTypeDraft->mainLanguageCode,
         ]);
-        $expectedFieldDefData1 = new FieldDefinitionData([
-            'fieldDefinition' => $fieldDef1,
-            'contentTypeData' => $expectedContentTypeData,
-            'identifier' => $fieldDef1->identifier,
-            'names' => $fieldDef1->names,
-            'descriptions' => $fieldDef1->descriptions,
-            'fieldGroup' => $fieldDef1->fieldGroup,
-            'position' => $fieldDef1->position,
-            'isTranslatable' => $fieldDef1->isTranslatable,
-            'isRequired' => $fieldDef1->isRequired,
-            'isInfoCollector' => $fieldDef1->isInfoCollector,
-            'validatorConfiguration' => $fieldDef1->validatorConfiguration,
-            'fieldSettings' => $fieldDef1->fieldSettings,
-            'defaultValue' => $fieldDef1->defaultValue,
-            'isSearchable' => $fieldDef1->isSearchable,
-        ]);
-        $expectedContentTypeData->addFieldDefinitionData($expectedFieldDefData1);
-        $expectedFieldDefData3 = new FieldDefinitionData([
-            'fieldDefinition' => $fieldDef3,
-            'contentTypeData' => $expectedContentTypeData, 'identifier' => $fieldDef3->identifier,
-            'names' => $fieldDef3->names,
-            'descriptions' => $fieldDef3->descriptions,
-            'fieldGroup' => $fieldDef3->fieldGroup,
-            'position' => $fieldDef3->position,
-            'isTranslatable' => $fieldDef3->isTranslatable,
-            'isRequired' => $fieldDef3->isRequired,
-            'isInfoCollector' => $fieldDef3->isInfoCollector,
-            'validatorConfiguration' => $fieldDef3->validatorConfiguration,
-            'fieldSettings' => $fieldDef3->fieldSettings,
-            'defaultValue' => $fieldDef3->defaultValue,
-            'isSearchable' => $fieldDef3->isSearchable,
-        ]);
-        $expectedContentTypeData->addFieldDefinitionData($expectedFieldDefData3);
-        $expectedFieldDefData2 = new FieldDefinitionData([
-            'fieldDefinition' => $fieldDef2,
-            'contentTypeData' => $expectedContentTypeData, 'identifier' => $fieldDef2->identifier,
-            'names' => $fieldDef2->names,
-            'descriptions' => $fieldDef2->descriptions,
-            'fieldGroup' => $fieldDef2->fieldGroup,
-            'position' => $fieldDef2->position,
-            'isTranslatable' => $fieldDef2->isTranslatable,
-            'isRequired' => $fieldDef2->isRequired,
-            'isInfoCollector' => $fieldDef2->isInfoCollector,
-            'validatorConfiguration' => $fieldDef2->validatorConfiguration,
-            'fieldSettings' => $fieldDef2->fieldSettings,
-            'defaultValue' => $fieldDef2->defaultValue,
-            'isSearchable' => $fieldDef2->isSearchable,
-        ]);
-        $expectedContentTypeData->addFieldDefinitionData($expectedFieldDefData2);
+    }
 
-        $eventDispatcherMock = $this->createMock(EventDispatcherInterface::class);
-        $eventDispatcherMock
+    /**
+     * @param array<\Ibexa\Core\Repository\Values\ContentType\FieldDefinition> $fieldDefinitions
+     */
+    private function createFieldDefinitionsData(
+        array $fieldDefinitions,
+        ContentTypeData $contentTypeData
+    ): array {
+        $fieldDefinitionsData = [];
+        foreach ($fieldDefinitions as $fieldDefinition) {
+            $fieldDefinitionsData[] = $this->createFieldDefinitionData($fieldDefinition, $contentTypeData);
+        }
+
+        return $fieldDefinitionsData;
+    }
+
+    private function createFieldDefinitionData(
+        FieldDefinition $fieldDefinition,
+        ContentTypeData $contentTypeData
+    ): FieldDefinitionData {
+        return new FieldDefinitionData([
+            'fieldDefinition' => $fieldDefinition,
+            'contentTypeData' => $contentTypeData,
+            'identifier' => $fieldDefinition->identifier,
+            'names' => $fieldDefinition->names,
+            'descriptions' => $fieldDefinition->descriptions,
+            'fieldGroup' => $fieldDefinition->fieldGroup,
+            'position' => $fieldDefinition->position,
+            'isTranslatable' => $fieldDefinition->isTranslatable,
+            'isRequired' => $fieldDefinition->isRequired,
+            'isInfoCollector' => $fieldDefinition->isInfoCollector,
+            'validatorConfiguration' => $fieldDefinition->validatorConfiguration,
+            'fieldSettings' => $fieldDefinition->fieldSettings,
+            'defaultValue' => $fieldDefinition->defaultValue,
+            'isSearchable' => $fieldDefinition->isSearchable,
+        ]);
+    }
+
+    private function mockContentTypeFieldTypesResolverGetFieldTypes(): void
+    {
+        $this->contentTypeFieldTypesResolver
+            ->expects(self::once())
+            ->method('getFieldTypes')
+            ->willReturn(
+                [
+                    'identifier1' => [
+                        'meta' => true,
+                    ],
+                ]
+            );
+    }
+
+    private function mockEventDispatcherDispatch(): void
+    {
+        $this->eventDispatcher
             ->method('dispatch')
             ->with($this->isInstanceOf(FieldDefinitionMappingEvent::class), FieldDefinitionMappingEvent::NAME)
             ->willReturnCallback(
@@ -181,8 +261,7 @@ class ContentTypeDraftMapperTest extends TestCase
                     $fieldDefinitionData->isTranslatable = $fieldDefinition->isTranslatable;
                     $fieldDefinitionData->isRequired = $fieldDefinition->isRequired;
                     $fieldDefinitionData->isInfoCollector = $fieldDefinition->isInfoCollector;
-                    $fieldDefinitionData->validatorConfiguration = $fieldDefinition->getValidatorConfiguration(
-                    );
+                    $fieldDefinitionData->validatorConfiguration = $fieldDefinition->getValidatorConfiguration();
                     $fieldDefinitionData->fieldSettings = $fieldDefinition->getFieldSettings();
                     $fieldDefinitionData->defaultValue = $fieldDefinition->defaultValue;
                     $fieldDefinitionData->isSearchable = $fieldDefinition->isSearchable;
@@ -192,14 +271,13 @@ class ContentTypeDraftMapperTest extends TestCase
                     return $event;
                 }
             );
+    }
 
-        $fieldGroupList = $this->createMock(FieldsGroupsList::class);
-        $fieldGroupList->method('getDefaultGroup')
+    private function mockFieldGroupListGetDefaultGroup(): void
+    {
+        $this->fieldGroupList
+            ->method('getDefaultGroup')
             ->willReturn('foo');
-
-        $contentTypeDraftMapper = new ContentTypeDraftMapper($eventDispatcherMock, $fieldGroupList);
-
-        self::assertEquals($expectedContentTypeData, $contentTypeDraftMapper->mapToFormData($contentTypeDraft));
     }
 }
 
