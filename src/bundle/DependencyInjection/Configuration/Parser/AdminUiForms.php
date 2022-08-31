@@ -29,7 +29,6 @@ class AdminUiForms extends AbstractParser
 {
     public const FORM_TEMPLATES_PARAM = 'admin_ui_forms.content_edit_form_templates';
     public const FIELD_TYPES_PARAM = 'admin_ui_forms.content_edit.fieldtypes';
-    public const CONTENT_TYPE_FORM_TEMPLATES_PARAM = 'admin_ui_forms.content_type_edit.form_templates';
     public const CONTENT_TYPE_FIELD_TYPES_PARAM = 'admin_ui_forms.content_type_edit.fieldtypes';
     public const CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM = 'admin_ui_forms.content_type_edit.default_meta_field_type_group';
 
@@ -103,15 +102,6 @@ class AdminUiForms extends AbstractParser
                                     ->thenInvalid('The group name "%s" contains illegal characters. Group names should start with a letter, digit or underscore and only contain letters, digits, numbers, underscores ("_"), hyphens ("-") and colons (":").')
                                 ->end()
                             ->end()
-                            ->arrayNode('form_templates')
-                                ->info('A list of Content Type Edit (and create) default Twig form templates')
-                                ->arrayPrototype()
-                                    ->children()
-                                        ->scalarNode('template')->end()
-                                        ->integerNode('priority')->end()
-                                    ->end()
-                                ->end()
-                            ->end()
                             ->arrayNode('fieldtypes')
                                 ->info('Configuration for specific FieldTypes')
                                 ->useAttributeAsKey('identifier')
@@ -151,13 +141,6 @@ class AdminUiForms extends AbstractParser
             unset($scopeSettings['admin_ui_forms']['content_edit']['fieldtypes']);
         }
 
-        if (!empty($scopeSettings['admin_ui_forms']['content_type_edit']['form_templates'])) {
-            $scopeSettings['admin_ui_forms.content_type_edit_form_templates'] = $this->processContentEditFormTemplates(
-                $scopeSettings['admin_ui_forms']['content_type_edit']['form_templates']
-            );
-            unset($scopeSettings['admin_ui_forms']['content_edit']['form_templates']);
-        }
-
         if (!empty($scopeSettings['admin_ui_forms']['content_type_edit']['fieldtypes'])) {
             $scopeSettings['admin_ui_forms.content_type_edit.fieldtypes'] = $scopeSettings['admin_ui_forms']['content_type_edit']['fieldtypes'];
             unset($scopeSettings['admin_ui_forms']['content_type_edit']['fieldtypes']);
@@ -169,28 +152,22 @@ class AdminUiForms extends AbstractParser
         }
 
         $contextualizer->setContextualParameter(
-            static::FORM_TEMPLATES_PARAM,
+            self::FORM_TEMPLATES_PARAM,
             $currentScope,
             $scopeSettings['admin_ui_forms.content_edit_form_templates'] ?? []
         );
         $contextualizer->setContextualParameter(
-            static::FIELD_TYPES_PARAM,
+            self::FIELD_TYPES_PARAM,
             $currentScope,
             $scopeSettings['admin_ui_forms.content_edit.fieldtypes'] ?? []
         );
-
         $contextualizer->setContextualParameter(
-            static::CONTENT_TYPE_FORM_TEMPLATES_PARAM,
-            $currentScope,
-            $scopeSettings['admin_ui_forms.content_type_edit.form_templates'] ?? []
-        );
-        $contextualizer->setContextualParameter(
-            static::CONTENT_TYPE_FIELD_TYPES_PARAM,
+            self::CONTENT_TYPE_FIELD_TYPES_PARAM,
             $currentScope,
             $scopeSettings['admin_ui_forms.content_type_edit.fieldtypes'] ?? []
         );
         $contextualizer->setContextualParameter(
-            static::CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM,
+            self::CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM,
             $currentScope,
             $scopeSettings['admin_ui_forms.content_type_edit.default_meta_field_type_group'] ?? []
         );
@@ -203,9 +180,8 @@ class AdminUiForms extends AbstractParser
     {
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit_form_templates', $config);
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit.fieldtypes', $config);
-        $contextualizer->mapConfigArray('admin_ui_forms.content_type_edit.form_templates', $config);
         $contextualizer->mapConfigArray('admin_ui_forms.content_type_edit.fieldtypes', $config);
-        $contextualizer->mapConfigArray('admin_ui_forms.content_type_edit.default_meta_field_type_group', $config);
+        $contextualizer->mapSetting('admin_ui_forms.content_type_edit.default_meta_field_type_group', $config);
     }
 
     /**
