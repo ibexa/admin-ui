@@ -206,7 +206,7 @@ class ContentTypeController extends Controller
         $createStruct->mainLanguageCode = $mainLanguageCode;
         $createStruct->names = [$mainLanguageCode => 'New Content Type'];
 
-        $this->addTabsFieldDefinitions($createStruct, new Language(['languageCode' => $mainLanguageCode]));
+        $this->addMetaFieldDefinitions($createStruct, new Language(['languageCode' => $mainLanguageCode]));
 
         try {
             $contentTypeDraft = $this->contentTypeService->createContentType($createStruct, [$group]);
@@ -394,7 +394,7 @@ class ContentTypeController extends Controller
             ['contentType' => $contentType]
         );
 
-        $this->addTabsFieldDefinitions($contentTypeDraft);
+        $this->addMetaFieldDefinitions($contentTypeDraft);
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
@@ -739,7 +739,7 @@ class ContentTypeController extends Controller
         Language $language = null,
         ?Language $baseLanguage = null
     ): FormInterface {
-        $this->addTabsFieldDefinitions($contentTypeDraft, $language);
+        $this->addMetaFieldDefinitions($contentTypeDraft, $language);
         $contentTypeData = $this->contentTypeDraftMapper->mapToFormData(
             $contentTypeDraft,
             [
@@ -780,7 +780,7 @@ class ContentTypeController extends Controller
         return $formBuilder->getForm();
     }
 
-    private function addTabsFieldDefinitions(
+    private function addMetaFieldDefinitions(
         ValueObject $contentType,
         ?Language $language = null
     ): void {
@@ -794,7 +794,7 @@ class ContentTypeController extends Controller
         foreach ($fieldTypes as $identifier => $fieldTypeConfig) {
             $fieldGroup = $this->getDefaultMetaDataFieldTypeGroup() ?? $this->fieldsGroupsList->getDefaultGroup();
 
-            if ($this->isTabsFieldDefinitionExists($identifier, $fieldGroup, $contentType)) {
+            if ($this->isMetaFieldDefinitionExists($identifier, $fieldGroup, $contentType)) {
                 continue;
             }
 
@@ -836,7 +836,7 @@ class ContentTypeController extends Controller
         return $fieldDefinitionCreateStruct;
     }
 
-    private function isTabsFieldDefinitionExists(
+    private function isMetaFieldDefinitionExists(
         string $fieldTypeIdentifier,
         string $fieldTypeGroup,
         ValueObject $contentType

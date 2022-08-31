@@ -104,7 +104,7 @@ class ContentTypeUpdateType extends AbstractType
                 'languageCode' => $options['languageCode'],
                 'mainLanguageCode' => $options['mainLanguageCode'],
             ])
-            ->add('tabsFieldDefinitionsData', FieldDefinitionsCollectionType::class, [
+            ->add('metaFieldDefinitionsData', FieldDefinitionsCollectionType::class, [
                 'languageCode' => $options['languageCode'],
                 'mainLanguageCode' => $options['mainLanguageCode'],
             ])

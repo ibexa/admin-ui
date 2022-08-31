@@ -65,26 +65,26 @@ final class ContentTypeDraftMapperTest extends TestCase
     public function testMapToFormData(): void
     {
         $fieldDefs = $this->createFieldDefinitionCollectionForFieldDefinitionsData();
-        $tabsFieldDefs = $this->createFieldDefinitionCollectionForTabsFieldDefinitionsData();
+        $metaFieldDefs = $this->createFieldDefinitionCollectionForMetaFieldDefinitionsData();
         $contentType = $this->createContentType(
             new FieldDefinitionCollection(
                 array_merge(
                     iterator_to_array($fieldDefs),
-                    iterator_to_array($tabsFieldDefs),
+                    iterator_to_array($metaFieldDefs),
                 )
             )
         );
         $contentTypeDraft = $this->createContentTypeDraft($contentType);
         $expectedContentTypeData = $this->createContentTypeData($contentTypeDraft);
         $fieldDefinitionsData = $this->createFieldDefinitionsData($fieldDefs, $expectedContentTypeData);
-        $tabsFieldDefinitionsData = $this->createFieldDefinitionsData($tabsFieldDefs, $expectedContentTypeData);
+        $metaFieldDefinitionsData = $this->createFieldDefinitionsData($metaFieldDefs, $expectedContentTypeData);
 
         foreach ($fieldDefinitionsData as $fieldDefinitionData) {
             $expectedContentTypeData->addFieldDefinitionData($fieldDefinitionData);
         }
 
-        foreach ($tabsFieldDefinitionsData as $fieldDefinitionData) {
-            $expectedContentTypeData->addTabsFieldDefinitionData($fieldDefinitionData);
+        foreach ($metaFieldDefinitionsData as $fieldDefinitionData) {
+            $expectedContentTypeData->addMetaFieldDefinitionData($fieldDefinitionData);
         }
 
         $this->mockContentTypeFieldTypesResolverGetFieldTypes();
@@ -142,7 +142,7 @@ final class ContentTypeDraftMapperTest extends TestCase
         );
     }
 
-    private function createFieldDefinitionCollectionForTabsFieldDefinitionsData(): FieldDefinitionCollectionInterface
+    private function createFieldDefinitionCollectionForMetaFieldDefinitionsData(): FieldDefinitionCollectionInterface
     {
         return $this->createFieldDefinitionCollection(
             [

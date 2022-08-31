@@ -92,7 +92,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         }
 
         // Update enabled FieldDefinitions and remove disabled.
-        foreach ($contentTypeData->getFlatTabsFieldDefinitionsData() as $fieldDefData) {
+        foreach ($contentTypeData->getFlatMetaFieldDefinitionsData() as $fieldDefData) {
             $fieldDefData->enabled
                 ? $this->contentTypeService->updateFieldDefinition($contentTypeDraft, $fieldDefData->fieldDefinition, $fieldDefData)
                 : $this->contentTypeService->removeFieldDefinition($contentTypeDraft, $fieldDefData->fieldDefinition);

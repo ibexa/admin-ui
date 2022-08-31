@@ -125,7 +125,7 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
             if (!array_key_exists($fieldDef->fieldTypeIdentifier, $excludedFieldTypes)) {
                 $contentTypeData->addFieldDefinitionData($event->getFieldDefinitionData());
             } else {
-                $contentTypeData->addTabsFieldDefinitionData($event->getFieldDefinitionData());
+                $contentTypeData->addMetaFieldDefinitionData($event->getFieldDefinitionData());
             }
         }
         $contentTypeData->sortFieldDefinitions();
