@@ -13,17 +13,16 @@ use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use Traversable;
 
 class ContentItemAdminPreview extends Component
 {
     /** @var \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponentInterface[] */
-    private $fieldTypeComponents;
+    protected $fieldTypeComponents;
 
-    public function __construct(Session $session, Traversable $fieldTypeComponents)
+    public function __construct(Session $session, iterable $fieldTypeComponents)
     {
         parent::__construct($session);
-        $this->fieldTypeComponents = iterator_to_array($fieldTypeComponents);
+        $this->fieldTypeComponents = $fieldTypeComponents;
     }
 
     public function verifyFieldHasValues(string $fieldLabel, array $expectedValues, ?string $fieldTypeIdentifier)
@@ -58,7 +57,7 @@ class ContentItemAdminPreview extends Component
         ];
     }
 
-    private function getFieldPosition(string $fieldLabel): int
+    protected function getFieldPosition(string $fieldLabel): int
     {
         $fields = $this->getHTMLPage()->findAll($this->getLocator('fieldName'))->assert()->hasElements();
 
@@ -72,7 +71,7 @@ class ContentItemAdminPreview extends Component
         }
     }
 
-    private function detectFieldTypeIdentifier(CSSLocator $fieldValueLocator)
+    protected function detectFieldTypeIdentifier(CSSLocator $fieldValueLocator)
     {
         $fieldClass = $this->getHTMLPage()
             ->find(CSSLocatorBuilder::base($fieldValueLocator)->withDescendant($this->getLocator('fieldValueContainer'))->build())
@@ -90,7 +89,7 @@ class ContentItemAdminPreview extends Component
             return 'ezboolean';
         }
 
-        $fieldTypeIdentifierRegex = '/ez[a-z]*-field/';
+        $fieldTypeIdentifierRegex = '/ez|ibexa[a-z_]*-field/';
         preg_match($fieldTypeIdentifierRegex, $fieldClass, $matches);
 
         return explode('-', $matches[0])[0];
