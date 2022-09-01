@@ -37,7 +37,6 @@ services:
 
     Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor:
         arguments:
-            - '@Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface'
             - '@ibexa.api.service.content_type'
             - "@router"
             - '%ibexa.content_forms.form_processor.content_type.options%'

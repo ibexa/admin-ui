@@ -6,7 +6,6 @@
  */
 namespace Ibexa\Tests\AdminUi\Form\Processor;
 
-use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor;
@@ -31,9 +30,6 @@ use Symfony\Component\Routing\RouterInterface;
 final class ContentTypeFormProcessorTest extends TestCase
 {
     private const EXAMPLE_CONTENT_TYPE_ID = 1;
-
-    /** @var \Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
 
     /**
      * @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject
