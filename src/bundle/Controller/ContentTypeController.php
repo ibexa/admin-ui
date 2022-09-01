@@ -782,21 +782,21 @@ class ContentTypeController extends Controller
         ValueObject $contentType,
         ?Language $language = null
     ): void {
-        $fieldTypes = $this->contentTypeFieldTypesResolver->getFieldTypes();
+        $metaFieldTypeIdentifiers = $this->contentTypeFieldTypesResolver->getMetaFieldTypeIdentifiers();
 
         if (null === $language) {
             $language = $this->languageService->loadLanguage($this->languageService->getDefaultLanguageCode());
         }
 
-        foreach ($fieldTypes as $identifier => $fieldTypeConfig) {
+        foreach ($metaFieldTypeIdentifiers as $metaFieldTypeIdentifier) {
             $fieldGroup = $this->getDefaultMetaDataFieldTypeGroup() ?? $this->fieldsGroupsList->getDefaultGroup();
 
-            if ($this->isMetaFieldDefinitionExists($identifier, $fieldGroup, $contentType)) {
+            if ($this->isMetaFieldDefinitionExists($metaFieldTypeIdentifier, $fieldGroup, $contentType)) {
                 continue;
             }
 
             $fieldDefinitionCreateStruct = $this->createTabFieldDefinitionCreateStruct(
-                $identifier,
+                $metaFieldTypeIdentifier,
                 $fieldGroup,
                 $language,
                 $this->getNextFieldPosition($contentType)

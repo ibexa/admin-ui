@@ -91,7 +91,7 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
             $contentTypeData->descriptions[$language->languageCode] = $contentTypeDraft->getDescription($baseLanguage->languageCode);
         }
 
-        $excludedFieldTypes = $this->contentTypeFieldTypesResolver->getFieldTypes();
+        $metaFieldTypeIdentifiers = $this->contentTypeFieldTypesResolver->getMetaFieldTypeIdentifiers();
 
         try {
             $contentType = $this->contentTypeService->loadContentType($contentTypeDraft->id);
@@ -100,7 +100,9 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
         }
 
         foreach ($contentTypeDraft->fieldDefinitions as $fieldDef) {
-            $enabled = array_key_exists($fieldDef->fieldTypeIdentifier, $excludedFieldTypes)
+            $isMetaFieldType = in_array($fieldDef->fieldTypeIdentifier, $metaFieldTypeIdentifiers, true);
+
+            $enabled = $isMetaFieldType
                 && null !== $contentType
                 && null !== $contentType->getFieldDefinition($fieldDef->identifier);
 
@@ -122,10 +124,10 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
                 $fieldDefinitionData->fieldGroup = $this->fieldsGroupsList->getDefaultGroup();
             }
 
-            if (!array_key_exists($fieldDef->fieldTypeIdentifier, $excludedFieldTypes)) {
-                $contentTypeData->addFieldDefinitionData($event->getFieldDefinitionData());
-            } else {
+            if ($isMetaFieldType) {
                 $contentTypeData->addMetaFieldDefinitionData($event->getFieldDefinitionData());
+            } else {
+                $contentTypeData->addFieldDefinitionData($event->getFieldDefinitionData());
             }
         }
         $contentTypeData->sortFieldDefinitions();

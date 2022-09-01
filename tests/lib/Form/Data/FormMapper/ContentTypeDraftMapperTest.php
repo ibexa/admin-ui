@@ -87,7 +87,7 @@ final class ContentTypeDraftMapperTest extends TestCase
             $expectedContentTypeData->addMetaFieldDefinitionData($fieldDefinitionData);
         }
 
-        $this->mockContentTypeFieldTypesResolverGetFieldTypes();
+        $this->mockContentTypeFieldTypesResolverGetMetaFieldTypeIdentifiers();
         $this->mockContentTypeServiceLoadContentType(123, $contentType);
         $this->mockEventDispatcherDispatch();
         $this->mockFieldGroupListGetDefaultGroup();
@@ -263,16 +263,14 @@ final class ContentTypeDraftMapperTest extends TestCase
         ]);
     }
 
-    private function mockContentTypeFieldTypesResolverGetFieldTypes(): void
+    private function mockContentTypeFieldTypesResolverGetMetaFieldTypeIdentifiers(): void
     {
         $this->contentTypeFieldTypesResolver
             ->expects(self::once())
-            ->method('getFieldTypes')
+            ->method('getMetaFieldTypeIdentifiers')
             ->willReturn(
                 [
-                    self::TAB_FIELD_DEF_IDENTIFIER => [
-                        'meta' => true,
-                    ],
+                    self::TAB_FIELD_DEF_IDENTIFIER,
                 ]
             );
     }

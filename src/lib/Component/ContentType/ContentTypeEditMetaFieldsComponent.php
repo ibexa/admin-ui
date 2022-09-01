@@ -8,24 +8,24 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Component\ContentType;
 
+use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\Contracts\AdminUi\Component\Renderable;
-use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Twig\Environment;
 
 final class ContentTypeEditMetaFieldsComponent implements Renderable
 {
     private const NO_CONTENT = '';
 
+    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
+
     private Environment $twig;
 
-    private ConfigResolverInterface $configResolver;
-
     public function __construct(
-        Environment $twig,
-        ConfigResolverInterface $configResolver
+        ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
+        Environment $twig
     ) {
+        $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
         $this->twig = $twig;
-        $this->configResolver = $configResolver;
     }
 
     /**
@@ -38,7 +38,7 @@ final class ContentTypeEditMetaFieldsComponent implements Renderable
         /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
         $contentType = $parameters['content_type'];
 
-        $metaFieldTypeIdentifiers = $this->getMetaFieldTypeIdentifiers();
+        $metaFieldTypeIdentifiers = $this->contentTypeFieldTypesResolver->getMetaFieldTypeIdentifiers();
 
         if (empty($metaFieldTypeIdentifiers)) {
             return self::NO_CONTENT;
@@ -47,27 +47,15 @@ final class ContentTypeEditMetaFieldsComponent implements Renderable
         $parameters['meta_fields'] = [];
         foreach ($metaFieldTypeIdentifiers as $identifier) {
             $fields = $contentType->getFieldDefinitionsOfType($identifier);
-            $parameters['meta_fields'] = array_merge($parameters['meta_fields'], array_column($fields->toArray(), 'identifier'));
+            $parameters['meta_fields'] = array_merge(
+                $parameters['meta_fields'],
+                array_column($fields->toArray(), 'identifier')
+            );
         }
 
         return $this->twig->render(
             '@ibexadesign/content_type/components/meta_fields.html.twig',
             $parameters
-        );
-    }
-
-    /**
-     * @return array<string>
-     */
-    private function getMetaFieldTypeIdentifiers(): array
-    {
-        $fieldTypeConfig = $this->configResolver->getParameter('admin_ui_forms.content_type_edit.fieldtypes');
-
-        return array_keys(
-            array_filter(
-                $fieldTypeConfig,
-                static fn (array $config): bool => true === $config['meta']
-            )
         );
     }
 }

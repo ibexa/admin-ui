@@ -19,4 +19,9 @@ interface ContentTypeFieldTypesResolverInterface
      * }>
      */
     public function getFieldTypes(): array;
+
+    /**
+     * @return array<string>
+     */
+    public function getMetaFieldTypeIdentifiers(): array;
 }

@@ -31,4 +31,16 @@ final class ContentTypeFieldTypesResolver implements ContentTypeFieldTypesResolv
 
         return $this->configResolver->getParameter(AdminUiForms::CONTENT_TYPE_FIELD_TYPES_PARAM);
     }
+
+    public function getMetaFieldTypeIdentifiers(): array
+    {
+        $fieldTypeConfig = $this->getFieldTypes();
+
+        return array_keys(
+            array_filter(
+                $fieldTypeConfig,
+                static fn (array $config): bool => true === $config['meta']
+            )
+        );
+    }
 }

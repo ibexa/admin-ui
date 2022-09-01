@@ -58,10 +58,10 @@ final class FieldTypeToolbarFactory
      */
     private function getAvailableFieldTypes(): iterable
     {
-        $excludedFieldTypes = $this->contentTypeFieldTypesResolver->getFieldTypes();
+        $metaFieldTypeIdentifiers = $this->contentTypeFieldTypesResolver->getMetaFieldTypeIdentifiers();
 
         foreach ($this->fieldTypeRegistry->getConcreteFieldTypesIdentifiers() as $identifier) {
-            if (!array_key_exists($identifier, $excludedFieldTypes)) {
+            if (!in_array($identifier, $metaFieldTypeIdentifiers, true)) {
                 yield $this->fieldTypeRegistry->getFieldType($identifier);
             }
         }
