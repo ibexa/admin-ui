@@ -57,13 +57,11 @@ final class ContentTypeFormProcessorTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->contentTypeFieldTypesResolver = $this->createMock(ContentTypeFieldTypesResolverInterface::class);
         $this->contentTypeService = $this->createMock(ContentTypeService::class);
         $this->router = $this->createMock(RouterInterface::class);
         $this->groupsList = $this->createMock(FieldsGroupsList::class);
 
         $this->formProcessor = new ContentTypeFormProcessor(
-            $this->contentTypeFieldTypesResolver,
             $this->contentTypeService,
             $this->router
         );
@@ -237,7 +235,6 @@ final class ContentTypeFormProcessorTest extends TestCase
             ->willReturn($redirectUrl);
         $expectedRedirectResponse = new RedirectResponse($redirectUrl);
         $formProcessor = new ContentTypeFormProcessor(
-            $this->contentTypeFieldTypesResolver,
             $this->contentTypeService,
             $this->router,
             ['redirectRouteAfterPublish' => $redirectRoute]
@@ -362,7 +359,6 @@ final class ContentTypeFormProcessorTest extends TestCase
             ->willReturn($redirectUrl);
         $expectedRedirectResponse = new RedirectResponse($redirectUrl);
         $formProcessor = new ContentTypeFormProcessor(
-            $this->contentTypeFieldTypesResolver,
             $this->contentTypeService,
             $this->router,
             ['redirectRouteAfterPublish' => $redirectRoute]
