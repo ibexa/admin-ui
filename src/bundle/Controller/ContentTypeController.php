@@ -43,6 +43,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStru
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
+use Ibexa\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -55,6 +56,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ContentTypeController extends Controller
 {
     private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
+
+    private LocaleConverterInterface $localeConverter;
 
     /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
@@ -98,6 +101,7 @@ class ContentTypeController extends Controller
 
     public function __construct(
         ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
+        LocaleConverterInterface $localeConverter,
         TranslatableNotificationHandlerInterface $notificationHandler,
         TranslatorInterface $translator,
         ContentTypeService $contentTypeService,
@@ -113,6 +117,7 @@ class ContentTypeController extends Controller
         FieldsGroupsList $fieldsGroupsList
     ) {
         $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
+        $this->localeConverter = $localeConverter;
         $this->notificationHandler = $notificationHandler;
         $this->translator = $translator;
         $this->contentTypeService = $contentTypeService;
@@ -795,7 +800,7 @@ class ContentTypeController extends Controller
                 continue;
             }
 
-            $fieldDefinitionCreateStruct = $this->createTabFieldDefinitionCreateStruct(
+            $fieldDefinitionCreateStruct = $this->createMetaFieldDefinitionCreateStruct(
                 $metaFieldTypeIdentifier,
                 $fieldGroup,
                 $language,
@@ -812,7 +817,7 @@ class ContentTypeController extends Controller
         }
     }
 
-    private function createTabFieldDefinitionCreateStruct(
+    private function createMetaFieldDefinitionCreateStruct(
         string $identifier,
         string $fieldGroup,
         Language $language,
@@ -824,8 +829,15 @@ class ContentTypeController extends Controller
         );
 
         $fieldDefinitionCreateStruct->fieldGroup = $fieldGroup;
+        $label = $this->translator->trans(/** @Ignore */
+            $identifier . '.name',
+            [],
+            'fieldtypes',
+            $this->localeConverter->convertToPOSIX($language->languageCode)
+        );
+
         $fieldDefinitionCreateStruct->names = [
-            $language->languageCode => 'New field type',
+            $language->languageCode => $label,
         ];
 
         $fieldDefinitionCreateStruct->position = $position;
