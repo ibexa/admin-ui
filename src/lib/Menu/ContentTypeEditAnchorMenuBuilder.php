@@ -6,10 +6,10 @@
  */
 namespace Ibexa\AdminUi\Menu;
 
+use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
-use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
-use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
@@ -18,21 +18,20 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    public const ITEM__CONTENT_TYPE = 'content_type_edit__anchor_menu__content';
     public const ITEM__META = 'content_type_edit__anchor_menu__meta';
 
     private const ITEM_ORDER_SPAN = 10;
 
-    private ConfigResolverInterface $configResolver;
+    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
 
     public function __construct(
         MenuItemFactory $factory,
         EventDispatcherInterface $eventDispatcher,
-        ConfigResolverInterface $configResolver
+        ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver
     ) {
         parent::__construct($factory, $eventDispatcher);
 
-        $this->configResolver = $configResolver;
+        $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
     }
 
     protected function getConfigureEventName(): string
@@ -48,29 +47,10 @@ final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements 
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
-        /** @var \Ibexa\Core\Repository\Values\ContentType\ContentType $contentType */
-        $contentType = $options['content_type'];
+        /** @var \Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft */
+        $contentTypeDraft = $options['content_type'];
 
-        /** @var array<string, array<string>> $groupedFields */
-        $groupedFields = $options['grouped_fields'];
-
-        $items = [
-            self::ITEM__CONTENT_TYPE => $this->createMenuItem(
-                self::ITEM__CONTENT_TYPE,
-                [
-                    'attributes' => ['data-target-id' => 'ibexa-edit-content-type-sections-content-fields'],
-                    'extras' => [
-                        'orderNumber' => 10,
-                    ],
-                ]
-            ),
-        ];
-
-        $items[self::ITEM__CONTENT_TYPE]->setChildren(
-            $this->getContentFieldGroupItems($groupedFields)
-        );
-
-        $metaFields = $this->getMetaFieldItems($contentType);
+        $metaFields = $this->getMetaFieldItems($contentTypeDraft);
 
         if (!empty($metaFields)) {
             $items[self::ITEM__META] = $this->createMenuItem(
@@ -92,39 +72,11 @@ final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements 
     }
 
     /**
-     * @param array<string, array<string>> $groupedFields
-     *
      * @return array<\Knp\Menu\ItemInterface>
      */
-    private function getContentFieldGroupItems(array $groupedFields): array
+    private function getMetaFieldItems(ContentTypeDraft $contentType): array
     {
-        $items = [];
-        $order = 0;
-        foreach ($groupedFields as $group => $fields) {
-            $order += self::ITEM_ORDER_SPAN;
-            $items[$group] = $this->createMenuItem($group, [
-                'attributes' => [
-                    'data-target-id' => sprintf('ibexa-edit-content-type-sections-content-fields-%s', mb_strtolower($group)),
-                ],
-                'extras' => [
-                    'orderNumber' => $order,
-                ],
-            ]);
-        }
-
-        return $items;
-    }
-
-    /**
-     * @return array<\Knp\Menu\ItemInterface>
-     */
-    private function getMetaFieldItems(ContentType $contentType): array
-    {
-        $fieldTypeSettings = $this->configResolver->getParameter('admin_ui_forms.content_type_edit.fieldtypes');
-        $metaFieldTypeIdentifiers = array_keys(array_filter(
-            $fieldTypeSettings,
-            static fn (array $config): bool => true === $config['meta']
-        ));
+        $metaFieldTypeIdentifiers = $this->contentTypeFieldTypesResolver->getMetaFieldTypeIdentifiers();
 
         $items = [];
         $order = 0;
@@ -169,7 +121,6 @@ final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements 
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__CONTENT_TYPE, 'menu'))->setDesc('Content Type'),
             (new Message(self::ITEM__META, 'menu'))->setDesc('Meta'),
         ];
     }
