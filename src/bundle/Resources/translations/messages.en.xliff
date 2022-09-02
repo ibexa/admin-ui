@@ -286,6 +286,11 @@
         <target state="new"><![CDATA[No data collected<br/> for the selected period]]></target>
         <note>key: dashboard.charts.no_data</note>
       </trans-unit>
+      <trans-unit id="8fedbb70c8494c057fb45930e46671a659bae616" resname="dropdown.clear">
+        <source>Clear (%selected_items_count%)</source>
+        <target state="new">Clear (%selected_items_count%)</target>
+        <note>key: dropdown.clear</note>
+      </trans-unit>
       <trans-unit id="a3390555f717ffd9b3560f17198e5a437899967f" resname="dropdown.placeholder">
         <source>Choose an option</source>
         <target state="new">Choose an option</target>
@@ -300,6 +305,11 @@
         <source>Search...</source>
         <target state="new">Search...</target>
         <note>key: dropdown.search</note>
+      </trans-unit>
+      <trans-unit id="3f446c9bfc8591ebdb9a2bc8fa98410bdcc4ced2" resname="dropdown.select_all">
+        <source>Select All</source>
+        <target state="new">Select All</target>
+        <note>key: dropdown.select_all</note>
       </trans-unit>
       <trans-unit id="7cb40cbc703336ab1285e81ebf100b82b05a0e27" resname="error.page.403.actions">
         <source><![CDATA[Contact your administrator to request access.<br/>Go back to the <a href="%dashboard%">dashboard</a> or <a href="%search%">search</a> for another item.]]></source>

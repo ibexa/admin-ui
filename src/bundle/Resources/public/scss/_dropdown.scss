@@ -157,6 +157,16 @@
         }
     }
 
+    &__selection-toggler-btn {
+        display: flex;
+        margin: calculateRem(8px) calculateRem(21px) 0;
+        padding: 0;
+        border: none;
+        outline: none;
+        font-size: $ibexa-text-font-size-medium;
+        text-decoration: underline;
+    }
+
     &__items {
         width: 100%;
         background: $ibexa-color-white;

@@ -5,6 +5,7 @@
 %}
 {% set preferred_choices = preferred_choices|default([]) %}
 {% set min_search_items = min_search_items|default(5) %}
+{% set min_select_all_toggler_items = min_select_all_toggler_items|default(5) %}
 {% set min_item_width = min_item_width|default(100) %}
 {% set custom_form = custom_form is defined ? custom_form : true %}
 {% set translation_domain = translation_domain|default(false) %}
@@ -14,6 +15,7 @@
 {% set is_dynamic = is_dynamic|default(false) %}
 {% set is_disabled = is_disabled|default(false) %}
 {% set is_selector = is_selector|default(false) %}
+{% set has_select_all_toggler = has_select_all_toggler|default(false) %}
 
 {% macro get_translated_label(label, translation_domain) %}
     {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
@@ -116,6 +118,18 @@
                     />
                 {% endblock %}
             {%- endembed -%}
+
+            {% if has_select_all_toggler and choices_flat|length >= min_select_all_toggler_items %}
+                {% set selection_toggler_label = value|length
+                    ? 'dropdown.clear'|trans({ '%selected_items_count%': value|length })|desc("Clear (%selected_items_count%)")
+                    : 'dropdown.select_all'|trans({ '%values_count%': value|length })|desc("Select All")
+                %}
+
+                <button type="button" class="ibexa-dropdown__selection-toggler-btn">
+                    {{ selection_toggler_label }}
+                </button>
+            {% endif %}
+
             <ul
                 class="ibexa-dropdown__items-list"
                 data-template="{{ include('@ibexadesign/ui/component/dropdown/dropdown_item.html.twig', {
