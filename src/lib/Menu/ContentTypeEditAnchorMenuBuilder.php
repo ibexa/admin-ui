@@ -18,7 +18,8 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    public const ITEM__META = 'content_type_edit__anchor_menu__meta';
+    public const ITEM__GLOBAL_PROPERTIES = 'content_type_edit__anchor_menu__global_properties';
+    public const ITEM__FIELD_DEFINITIONS = 'content_type_edit__anchor_menu__field_definitions';
 
     private const ITEM_ORDER_SPAN = 10;
 
@@ -50,23 +51,33 @@ final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements 
         /** @var \Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft */
         $contentTypeDraft = $options['content_type'];
 
-        $metaFields = $this->getMetaFieldItems($contentTypeDraft);
-
-        if (!empty($metaFields)) {
-            $items[self::ITEM__META] = $this->createMenuItem(
-                self::ITEM__META,
+        $items = [
+            $this->createMenuItem(
+                self::ITEM__GLOBAL_PROPERTIES,
                 [
-                    'attributes' => ['data-target-id' => 'ibexa-edit-content-type-sections-meta'],
+                    'attributes' => ['data-target-id' => 'Global-properties'],
+                    'extras' => [
+                        'orderNumber' => 10,
+                    ],
+                ]
+            ),
+            $this->createMenuItem(
+                self::ITEM__FIELD_DEFINITIONS,
+                [
+                    'attributes' => ['data-target-id' => 'Field-definitions'],
                     'extras' => [
                         'orderNumber' => 20,
                     ],
                 ]
-            );
+            ),
+        ];
 
-            $items[self::ITEM__META]->setChildren($metaFields);
-        }
-
-        $menu->setChildren($items);
+        $menu->setChildren(
+            array_merge(
+                $items,
+                $this->getMetaFieldItems($contentTypeDraft)
+            )
+        );
 
         return $menu;
     }
@@ -89,14 +100,14 @@ final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements 
             foreach ($fieldDefinitions as $fieldDefinition) {
                 $fieldDefIdentifier = $fieldDefinition->identifier;
                 $order += self::ITEM_ORDER_SPAN;
-                $items[$fieldDefIdentifier] = $this->createSecondLevelItem($fieldDefIdentifier, $fieldDefinition, $order);
+                $items[$fieldDefIdentifier] = $this->createMetaMenuItem($fieldDefIdentifier, $fieldDefinition, $order);
             }
         }
 
         return $items;
     }
 
-    private function createSecondLevelItem(
+    private function createMetaMenuItem(
         string $fieldDefIdentifier,
         FieldDefinition $fieldDefinition,
         int $order
@@ -121,7 +132,8 @@ final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements 
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__META, 'menu'))->setDesc('Meta'),
+            (new Message(self::ITEM__GLOBAL_PROPERTIES, 'menu'))->setDesc('Global properties'),
+            (new Message(self::ITEM__FIELD_DEFINITIONS, 'menu'))->setDesc('Field definitions'),
         ];
     }
 }

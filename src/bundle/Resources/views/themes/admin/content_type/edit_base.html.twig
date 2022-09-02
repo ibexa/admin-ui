@@ -15,6 +15,18 @@
 
 {% block main_container_class %}{{ parent() }} ibexa-content-type-edit ibexa-main-container--with-anchor-menu-items{% endblock %}
 
+{% block left_sidebar %}
+    {% set content_type_edit_anchor_menu = knp_menu_get('ibexa.admin_ui.menu.content_type_edit.anchor_menu', [], {
+        'content_type': content_type,
+    }) %}
+
+    {% block navigation_menu_body %}
+        {{ knp_menu_render(content_type_edit_anchor_menu, {
+            'template': '@ibexadesign/ui/menu/content_type_anchor_menu.html.twig' })
+        }}
+    {% endblock %}
+{% endblock %}
+
 {% block content %}
     {% block form %}{% endblock %}
     {% block content_type_sections %}{% endblock %}
