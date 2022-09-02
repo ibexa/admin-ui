@@ -4,15 +4,6 @@ system:
             content_edit:
                 form_templates:
                     - { template: '@ibexadesign/content/form_fields.html.twig', priority: 0 }
-            content_type_edit:
-                default_meta_field_type_group: 'cos_tam'
-                fieldtypes:
-                    ezstring:
-                        meta: true
-                    ibexa_taxonomy_entry:
-                        meta: true
-                    ibexa_taxonomy_entry_assignment:
-                        meta: true
 
         field_templates:
             - { template: '@ibexadesign/ui/field_type/preview/content_fields.html.twig', priority: 20 }
