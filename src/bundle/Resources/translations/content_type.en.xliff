@@ -321,6 +321,11 @@
         <target state="new">Some of the Fields are disabled when translating a Content Type. To modify them, edit the Content Type in the main language.</target>
         <note>key: content_type.view.edit.notranslatable_fields_disabled</note>
       </trans-unit>
+      <trans-unit id="da5f710198c48c803b3d0e2272e488903f92e569" resname="content_type.view.list.cannot_delete_notice">
+        <source>You cannot delete disabled Content Types, it is used in other places.</source>
+        <target state="new">You cannot delete disabled Content Types, it is used in other places.</target>
+        <note>key: content_type.view.list.cannot_delete_notice</note>
+      </trans-unit>
       <trans-unit id="bef02fc3d41e74bf002af93b413a2a203a04db1a" resname="content_type.view.list.column.id">
         <source>ID</source>
         <target state="new">ID</target>
@@ -420,6 +425,11 @@
         <source>Edit</source>
         <target state="new">Edit</target>
         <note>key: content_type_group.view.list.action.edit</note>
+      </trans-unit>
+      <trans-unit id="5aa9caad73d044de86886dd25688b5d1267c1f6b" resname="content_type_group.view.list.cannot_delete_notice">
+        <source>You cannot delete disable content groups, it contains a Content Type.</source>
+        <target state="new">You cannot delete disable content groups, it contains a Content Type.</target>
+        <note>key: content_type_group.view.list.cannot_delete_notice</note>
       </trans-unit>
       <trans-unit id="125bee275441fe2bd28cb9388b790c634d8ae3c6" resname="content_type_group.view.list.column.content_types_count">
         <source>Number of Content Types</source>

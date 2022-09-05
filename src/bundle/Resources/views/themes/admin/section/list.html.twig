@@ -47,11 +47,17 @@
 {% block content %}
     <section class="container ibexa-container">
         {% set body_rows = [] %}
+        {% set show_table_notice = false %}
+
         {% for section in pager.currentPageResults %}
             {% set body_row_cols = [] %}
 
             {% set col_raw %}
                 {% if can_edit %}
+                    {% if not show_table_notice and not deletable[section.id] %}
+                        {% set show_table_notice = true %}
+                    {% endif %}
+
                     {{ form_widget(form_sections_delete.sections[section.id], {
                         "disabled": not deletable[section.id]
                     }) }}
@@ -129,6 +135,8 @@
             ],
             body_rows,
             empty_table_info_text: 'dashboard.tab.my_drafts.empty'|trans|desc('No content. Drafts you create will show up here'),
+            show_notice: show_table_notice,
+            notice_message: 'section.list.cannot_delete_notice'|trans|desc('You cannot delete disabled sections, it has assigned content.'),
         } %}
             {% block header %}
                 {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}

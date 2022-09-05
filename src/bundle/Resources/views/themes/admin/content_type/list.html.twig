@@ -6,11 +6,17 @@
 
 <section class="container ibexa-container">
     {% set body_rows = [] %}
+    {% set show_table_notice = false %}
+
     {% for content_type in pager.currentPageResults %}
         {% set body_row_cols = [] %}
 
         {% set col_raw %}
             {% if can_delete %}
+                {% if not show_table_notice and not deletable[content_type.id] %}
+                    {% set show_table_notice = true %}
+                {% endif %}
+
                 {{ form_widget(form_content_types_delete.content_types[content_type.id], {"disabled": not deletable[content_type.id]}) }}
             {% else %}
                 {% do form_content_types_delete.content_types.setRendered %}
@@ -81,6 +87,8 @@
             { },
         ],
         body_rows,
+        show_notice: show_table_notice,
+        notice_message: 'content_type.view.list.cannot_delete_notice'|trans|desc('You cannot delete disabled Content Types, it is used in other places.'),
     } %}
         {% block header %}
             {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}

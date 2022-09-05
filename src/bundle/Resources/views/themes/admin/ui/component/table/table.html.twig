@@ -8,6 +8,10 @@
             headline,
             actions: actions|default(null),
             headline_title: headline_title|default(headline|default('')),
+            notice_class: notice_class|default(''),
+            notice_message: notice_message|default(''),
+            notice_icon: notice_icon|default('about-info'),
+            show_notice: show_notice|default(false),
         } only %}
     {% endif %}
 {% endblock %}
