@@ -115,7 +115,7 @@
         {% endembed %}
     {{ form_end(form_content_location_remove) }}
 
-    {% if pager is defined and pager.haveToPaginate %}
+    {% if pager is defined and pager is not null and pager.haveToPaginate %}
         <div class="row justify-content-center align-items-center mb-2 ibexa-pagination__spacing">
                 <span class="ibexa-pagination__text">
                     {{ 'pagination.viewing'|trans({
