@@ -22,7 +22,7 @@ class FieldDefinitionData extends FieldDefinitionUpdateStruct
     /**
      * @var bool
      */
-    public $enabled;
+    public bool $enabled;
 
     /**
      * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition
