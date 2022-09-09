@@ -30,8 +30,6 @@ final class ContentTypeEditMetaFieldsComponent implements Renderable
 
     /**
      * @param array<string, mixed> $parameters
-     *
-     * @return string
      */
     public function render(array $parameters = []): string
     {
