@@ -17,7 +17,6 @@
 
     <div class="ibexa-anchor-navigation-menu__body">
         {% block navigation_menu_body %}
-
             {% if item.children|default([])|length > 1 %}
                 <ul class="ibexa-anchor-navigation-menu__items">
                     {% for item in item.children %}
