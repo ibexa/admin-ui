@@ -123,7 +123,7 @@
             ],
             body_rows,
             show_notice: show_table_notice,
-            notice_message: 'content_type_group.view.list.cannot_delete_notice'|trans|desc('You cannot delete disable content groups, it contains a Content Type.'),
+            notice_message: 'content_type_group.view.list.cannot_delete_notice'|trans|desc('You cannot delete the disabled Content Type groups, because they contain Content Types.'),
         } %}
             {% block header %}
                 {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
