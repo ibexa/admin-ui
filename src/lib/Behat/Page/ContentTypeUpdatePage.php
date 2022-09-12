@@ -79,6 +79,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
     public function clickAddButton(): void
     {
         $this->getHTMLPage()->find($this->getLocator('contentTypeAddButton'))->mouseOver();
+        usleep(100 * 5000); // 500ms
         $this->getHTMLPage()->find($this->getLocator('contentTypeAddButton'))->click();
         $this->getHTMLPage()
             ->setTimeout(3)
