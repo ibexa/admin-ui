@@ -12,7 +12,7 @@ services:
 
     Ibexa\Bundle\AdminUi\Templating\Twig\FieldGroupRenderingExtension:
         arguments:
-            - '@Ibexa\Core\Helper\FieldsGroups\ArrayTranslatorFieldsGroupsList'
+            - '@Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList'
         tags:
             - { name: twig.extension }
 
