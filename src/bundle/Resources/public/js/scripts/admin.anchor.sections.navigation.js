@@ -33,7 +33,6 @@
 
         contentContainer.style.paddingBottom = '0px';
 
-        console.log(!firstSection.isSameNode(lastSection) && lastSection.offsetHeight);
         if (!firstSection.isSameNode(lastSection) && lastSection.offsetHeight) {
             const headerContainer = doc.querySelector('.ibexa-edit-header__container');
             const heightFromLastSection = contentContainer.offsetHeight - lastSection.offsetTop;
