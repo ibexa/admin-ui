@@ -1,0 +1,65 @@
+{% extends '@KnpMenu/menu.html.twig' %}
+
+{% block root %}
+    {% set user = ibexa_admin_ui_config.user.user %}
+    {% set user_image = user.content.thumbnail %}
+
+    <div class="ibexa-header-user-menu">
+        <div
+            class="ibexa-header-user-menu__notifications-toggler"
+            data-bs-toggle="modal"
+            data-bs-target="#view-notifications"
+        >
+            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--light">
+                <use xlink:href="{{ ibexa_icon_path('bell') }}"></use>
+            </svg>
+            <span class="ibexa-header-user-menu__notice-dot ibexa-header-user-menu__notice-dot--no-notice"></span>
+        </div>
+        <button class="ibexa-header-user-menu__toggler">
+            <div class="ibexa-header-user-menu__thumbnail">
+                {% if user_image.mimeType == "image/svg+xml" %}
+                    <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                        <use xlink:href="{{ user_image.resource }}"></use>
+                    </svg>
+                {% else %}
+                    <img
+                        class="ibexa-header-user-menu__image"
+                        src="{{ user_image.resource }}"
+                        alt="{{ user.name }}"
+                    />
+                {% endif %}
+            </div>
+        </button>
+
+        {{ include('@ibexadesign/account/notifications/modal.html.twig') }}
+
+        <div class="ibexa-header-user-menu__popup-menu ibexa-popup-menu ibexa-popup-menu--hidden">
+            <div class="ibexa-header-user-menu__popup-menu-title">
+                {{ 'user_menu.popup_menu.title'|trans({'%userName%': user.name})|desc('Logged as %userName%') }}
+            </div>
+            {{ parent() }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block item %}
+    {% if item.name != 'root' %}
+        {% set link_attributes = item.linkAttributes|merge({'class': (item.linkAttributes.class|default('') ~ ' ibexa-popup-menu__item-content')|trim}) %}
+        {% set attributes = item.attributes|merge({'class': (item.attributes.class|default('') ~ ' ibexa-popup-menu__item')|trim}) %}
+        
+        {% do item.setLinkAttributes(link_attributes) %}
+        {% do item.setAttributes(attributes) %}
+    {% endif %}
+
+    {% if item.getExtra('template') is not null %}
+        {% include item.getExtra('template') ignore missing with options only %}
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block linkElement %}
+    {% import _self as knp_menu %}
+    
+    <a href="{{ item.uri }}"{{ knp_menu.attributes(item.linkAttributes) }}>{{ block('label') }}</a>
+{% endblock %}

@@ -29,14 +29,6 @@ class LanguageContext implements Context
     }
 
     /**
-     * @When I create a new Language
-     */
-    public function createNewLanguage(): void
-    {
-        $this->languagesPage->create();
-    }
-
-    /**
      * @When  I delete the language
      */
     public function deleteLanguage(): void

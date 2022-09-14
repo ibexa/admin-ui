@@ -4,18 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\UI\Config\Provider\Module;
+namespace Ibexa\AdminUi\UI\Config\Provider\Module;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzPlatformAdminUi\UI\Config\ProviderInterface;
+use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 class ContentTree implements ProviderInterface
 {
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /**
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
      */
     public function __construct(
         ConfigResolverInterface $configResolver
@@ -41,3 +41,5 @@ class ContentTree implements ProviderInterface
         ];
     }
 }
+
+class_alias(ContentTree::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Module\ContentTree');

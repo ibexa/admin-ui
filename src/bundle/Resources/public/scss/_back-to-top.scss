@@ -1,0 +1,43 @@
+.ibexa-back-to-top {
+    position: fixed;
+    bottom: calculateRem(16px);
+    right: calculateRem(32px);
+
+    &__btn {
+        height: calculateRem(62px);
+        min-width: calculateRem(62px);
+        border-radius: calculateRem(31px);
+        padding: calculateRem(15px) calculateRem(18px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $ibexa-color-white;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity $ibexa-admin-transition-duration $ibexa-admin-transition;
+
+        &--visible {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    &__title {
+        display: none;
+        padding-right: calculateRem(8px);
+
+        &--visible {
+            display: inline-block;
+        }
+    }
+
+    &__icon.ibexa-icon {
+        transform: rotate(90deg);
+        margin-right: 0;
+        fill: $ibexa-color-dark;
+    }
+}
+
+.ibexa-back-to-top-scroll-container {
+    padding-bottom: calculateRem(64px);
+}

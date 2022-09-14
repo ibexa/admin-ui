@@ -4,12 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\DataMapper;
+namespace Ibexa\AdminUi\Form\DataMapper;
 
-use eZ\Publish\API\Repository\Values\Content\ContentMetadataUpdateStruct;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData;
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
+use Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData;
+use Ibexa\Contracts\AdminUi\Form\DataMapper\DataMapperInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * Maps between ContentMetadataUpdateStruct and ContentMetadataUpdateData objects.
@@ -19,11 +20,11 @@ class ContentMainLocationUpdateMapper implements DataMapperInterface
     /**
      * Maps given ContentMetadataUpdateStruct object to a ContentMainLocationUpdateData object.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentMetadataUpdateStruct|\eZ\Publish\API\Repository\Values\ValueObject $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData
+     * @return \Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function map(ValueObject $value): ContentMainLocationUpdateData
     {
@@ -41,11 +42,11 @@ class ContentMainLocationUpdateMapper implements DataMapperInterface
     /**
      * Maps given ContentMainLocationUpdateData object to a ContentMetadataUpdateStruct object.
      *
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData $data
+     * @param \Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData $data
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentMetadataUpdateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function reverseMap($data): ContentMetadataUpdateStruct
     {
@@ -58,3 +59,5 @@ class ContentMainLocationUpdateMapper implements DataMapperInterface
         ]);
     }
 }
+
+class_alias(ContentMainLocationUpdateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\ContentMainLocationUpdateMapper');

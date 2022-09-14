@@ -6,12 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
 use Exception;
-use eZ\Publish\Core\FieldType\Image\Value as ImageValue;
-use eZ\Publish\Core\FieldType\ImageAsset\AssetMapper as ImageAssetMapper;
-use EzSystems\EzPlatformAdminUi\Form\Data\Asset\ImageAssetUploadData;
+use Ibexa\AdminUi\Form\Data\Asset\ImageAssetUploadData;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Core\FieldType\Image\Value as ImageValue;
+use Ibexa\Core\FieldType\ImageAsset\AssetMapper as ImageAssetMapper;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,10 +24,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AssetController extends Controller
 {
-    const CSRF_TOKEN_HEADER = 'X-CSRF-Token';
+    public const CSRF_TOKEN_HEADER = 'X-CSRF-Token';
 
-    const LANGUAGE_CODE_KEY = 'languageCode';
-    const FILE_KEY = 'file';
+    public const LANGUAGE_CODE_KEY = 'languageCode';
+    public const FILE_KEY = 'file';
 
     /** @var \Symfony\Component\Validator\Validator\ValidatorInterface */
     private $validator;
@@ -34,7 +35,7 @@ class AssetController extends Controller
     /** @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface */
     private $csrfTokenManager;
 
-    /** @var \eZ\Publish\Core\FieldType\ImageAsset\AssetMapper */
+    /** @var \Ibexa\Core\FieldType\ImageAsset\AssetMapper */
     private $imageAssetMapper;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
@@ -43,15 +44,15 @@ class AssetController extends Controller
     /**
      * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
      * @param \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $csrfTokenManager
-     * @param \eZ\Publish\Core\FieldType\ImageAsset\AssetMapper $imageAssetMapper
+     * @param \Ibexa\Core\FieldType\ImageAsset\AssetMapper $imageAssetMapper
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
      */
     public function __construct(
         ValidatorInterface $validator,
         CsrfTokenManagerInterface $csrfTokenManager,
         ImageAssetMapper $imageAssetMapper,
-        TranslatorInterface $translator)
-    {
+        TranslatorInterface $translator
+    ) {
         $this->validator = $validator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->imageAssetMapper = $imageAssetMapper;
@@ -63,7 +64,7 @@ class AssetController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      */
     public function uploadImageAction(Request $request): Response
     {
@@ -114,7 +115,10 @@ class AssetController extends Controller
     private function createInvalidCsrfResponse(): JsonResponse
     {
         $errorMessage = $this->translator->trans(
-/** @Desc("Missing or invalid CSRF token") */ 'asset.upload.invalid_csrf', [], 'assets'
+            /** @Desc("Missing or invalid CSRF token") */
+            'asset.upload.invalid_csrf',
+            [],
+            'assets'
         );
 
         return $this->createGenericErrorResponse($errorMessage);
@@ -162,3 +166,5 @@ class AssetController extends Controller
         );
     }
 }
+
+class_alias(AssetController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\AssetController');

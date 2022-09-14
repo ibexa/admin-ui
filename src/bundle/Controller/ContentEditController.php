@@ -4,23 +4,24 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\LocationService;
-use EzSystems\EzPlatformAdminUi\Event\ContentProxyTranslateEvent;
-use EzSystems\EzPlatformAdminUi\View\ContentTranslateSuccessView;
-use EzSystems\EzPlatformAdminUi\View\ContentTranslateView;
 use Ibexa\AdminUi\Event\CancelEditVersionDraftEvent;
+use Ibexa\AdminUi\View\ContentTranslateSuccessView;
+use Ibexa\AdminUi\View\ContentTranslateView;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Event\ContentProxyTranslateEvent;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\LocationService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ContentEditController extends Controller
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
     /** @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface */
@@ -42,7 +43,7 @@ class ContentEditController extends Controller
         string $toLanguageCode,
         ?int $locationId = null
     ): Response {
-        /** @var \EzSystems\EzPlatformAdminUi\Event\ContentProxyTranslateEvent $event */
+        /** @var \Ibexa\Contracts\AdminUi\Event\ContentProxyTranslateEvent $event */
         $event = $this->eventDispatcher->dispatch(
             new ContentProxyTranslateEvent(
                 $contentId,
@@ -58,7 +59,7 @@ class ContentEditController extends Controller
         }
 
         // Fallback to "translate"
-        return $this->redirectToRoute('ezplatform.content.translate', [
+        return $this->redirectToRoute('ibexa.content.translate', [
             'contentId' => $contentId,
             'fromLanguageCode' => $fromLanguageCode,
             'toLanguageCode' => $toLanguageCode,
@@ -66,9 +67,9 @@ class ContentEditController extends Controller
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\View\ContentTranslateView $view
+     * @param \Ibexa\AdminUi\View\ContentTranslateView $view
      *
-     * @return \EzSystems\EzPlatformAdminUi\View\ContentTranslateView
+     * @return \Ibexa\AdminUi\View\ContentTranslateView
      */
     public function translateAction(ContentTranslateView $view): ContentTranslateView
     {
@@ -76,9 +77,9 @@ class ContentEditController extends Controller
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\View\ContentTranslateSuccessView $view
+     * @param \Ibexa\AdminUi\View\ContentTranslateSuccessView $view
      *
-     * @return \EzSystems\EzPlatformAdminUi\View\ContentTranslateSuccessView
+     * @return \Ibexa\AdminUi\View\ContentTranslateSuccessView
      */
     public function translationSuccessAction(ContentTranslateSuccessView $view): ContentTranslateSuccessView
     {
@@ -104,3 +105,5 @@ class ContentEditController extends Controller
         return $response ?? $this->redirectToLocation($referrerlocation);
     }
 }
+
+class_alias(ContentEditController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentEditController');

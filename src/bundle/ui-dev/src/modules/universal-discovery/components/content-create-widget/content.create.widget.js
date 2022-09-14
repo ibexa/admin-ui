@@ -4,6 +4,7 @@ import Icon from '../../../common/icon/icon';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import {
+    DropdownPortalRefContext,
     CreateContentWidgetContext,
     ActiveTabContext,
     ContentOnTheFlyDataContext,
@@ -12,17 +13,21 @@ import {
     ContentOnTheFlyConfigContext,
     AllowedContentTypesContext,
 } from '../../universal.discovery.module';
+import Dropdown from '../../../common/dropdown/dropdown';
 
-const configLanguages = window.eZ.adminUiConfig.languages;
+const { Translator, ibexa } = window;
+
+const configLanguages = Object.values(ibexa.adminUiConfig.languages.mappings);
 const languages = configLanguages.priority.map((languageCode) => {
     return configLanguages.mappings[languageCode];
 });
-const contentTypes = Object.entries(window.eZ.adminUiConfig.contentTypes);
+const contentTypes = Object.entries(ibexa.adminUiConfig.contentTypes);
 
 const ContentCreateWidget = () => {
     const refContentTree = useRef(null);
-    const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
-    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const dropdownListRef = useContext(DropdownPortalRefContext);
+    const [markedLocationId] = useContext(MarkedLocationIdContext);
+    const [loadedLocationsMap] = useContext(LoadedLocationsMapContext);
     const { allowedLanguages, preselectedLanguage, preselectedContentType } = useContext(ContentOnTheFlyConfigContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const selectedLocation = loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === markedLocationId);
@@ -40,9 +45,9 @@ const ContentCreateWidget = () => {
     const firstLanguageCode = filteredLanguages.length ? filteredLanguages[0].languageCode : '';
     const [selectedLanguage, setSelectedLanguage] = useState(preselectedLanguage || firstLanguageCode);
     const [selectedContentType, setSelectedContentType] = useState(preselectedContentType);
-    const [activeTab, setActiveTab] = useContext(ActiveTabContext);
+    const [, setActiveTab] = useContext(ActiveTabContext);
     const [createContentVisible, setCreateContentVisible] = useContext(CreateContentWidgetContext);
-    const [contentOnTheFlyData, setContentOnTheFlyData] = useContext(ContentOnTheFlyDataContext);
+    const [, setContentOnTheFlyData] = useContext(ContentOnTheFlyDataContext);
     const close = () => {
         setCreateContentVisible(false);
     };
@@ -51,7 +56,7 @@ const ContentCreateWidget = () => {
 
         setFilterQuery(query);
     };
-    const updateSelectedLanguage = (event) => setSelectedLanguage(event.target.value);
+    const updateSelectedLanguage = (value) => setSelectedLanguage(value);
     const isConfirmDisabled = !selectedContentType || !selectedLanguage || markedLocationId === 1;
     const createContent = () => {
         setContentOnTheFlyData({
@@ -65,114 +70,168 @@ const ContentCreateWidget = () => {
     const selectLanguageLabel = Translator.trans(
         /*@Desc("Select a language")*/ 'create_content.select_language',
         {},
-        'universal_discovery_widget'
+        'universal_discovery_widget',
     );
     const selectContentType = Translator.trans(
         /*@Desc("Select a Content Type")*/ 'create_content.select_content_type',
         {},
-        'universal_discovery_widget'
+        'universal_discovery_widget',
     );
-    const createLabel = Translator.trans(/*@Desc("Create")*/ 'create_content.create', {}, 'universal_discovery_widget');
+    const createLabel = Translator.trans(/*@Desc("Create new")*/ 'create_content.create', {}, 'universal_discovery_widget');
     const closeLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'universal_discovery_widget');
     const cancelLabel = Translator.trans(/*@Desc("Cancel")*/ 'content_create.cancel.label', {}, 'universal_discovery_widget');
+    const placeholder = Translator.trans(/*@Desc("Type to refine")*/ 'content_create.placeholder', {}, 'universal_discovery_widget');
+    const filtersDescLabel = Translator.trans(
+        /*@Desc("Or choose from list")*/ 'content.create.filters.desc',
+        {},
+        'universal_discovery_widget',
+    );
+    const createUnderLabel = Translator.trans(
+        /*@Desc("under %content_name%")*/ 'content.create.editing_details',
+        { content_name: selectedLocation?.location?.ContentInfo.Content.TranslatedName },
+        'universal_discovery_widget',
+    );
     const widgetClassName = createCssClassNames({
+        'ibexa-extra-actions': true,
+        'ibexa-extra-actions--create': true,
+        'ibexa-extra-actions--hidden': !createContentVisible,
         'c-content-create': true,
-        'c-content-create--hidden': !createContentVisible,
     });
+    const languageOptions = languages
+        .filter((language) => language.enabled)
+        .map((language) => ({
+            value: language.languageCode,
+            label: language.name,
+        }));
 
     useEffect(() => {
-        setSelectedLanguage(preselectedLanguage || firstLanguageCode)
+        setSelectedLanguage(preselectedLanguage || firstLanguageCode);
     }, [preselectedLanguage, firstLanguageCode]);
-    
+
     useEffect(() => {
-        window.eZ.helpers.tooltips.parse(refContentTree.current);
+        ibexa.helpers.tooltips.parse(refContentTree.current);
     }, []);
 
     return (
-        <div className={widgetClassName} ref={refContentTree}>
-            <div className="c-content-create__header">
-                <div className="c-content-create__header-title">{createContentLabel}</div>
-                <button
-                    type="button"
-                    className="c-content-create__close-button"
-                    onClick={close}
-                    title={closeLabel}
-                    data-tooltip-container-selector=".c-udw-tab">
-                    <Icon name="discard" extraClasses="ez-icon--small" />
-                </button>
-            </div>
-            <div className="c-content-create__language-selector-wrapper">
-                <div className="c-content-create__language-selector-label">{selectLanguageLabel}</div>
-                <select className="form-control" onChange={updateSelectedLanguage} value={selectedLanguage}>
-                    {filteredLanguages.map((language) => {
-                        if (!language.enabled) {
-                            return null;
-                        }
-
-                        return (
-                            <option key={language.id} value={language.languageCode} onChange={updateSelectedLanguage}>
-                                {language.name}
-                            </option>
-                        );
-                    })}
-                </select>
-            </div>
-            <div className="c-content-create__select-content-type-wrapper">
-                <div className="c-content-create__select-content-type-label">{selectContentType}</div>
-                <input autoFocus className="form-control" type="text" placeholder="Type to refine" onChange={updateFilterQuery} />
-                <div className="c-content-create__content-type-list">
-                    {contentTypes.map(([groupName, groupItems]) => {
-                        const isHidden = groupItems.every((groupItem) => {
-                            return (
-                                (filterQuery && !groupItem.name.toLowerCase().includes(filterQuery)) ||
-                                (selectedLocation &&
-                                    selectedLocation.permissions &&
-                                    selectedLocation.permissions.create.restrictedContentTypeIds.length &&
-                                    !selectedLocation.permissions.create.restrictedContentTypeIds.includes(groupItem.id.toString())) ||
-                                (allowedContentTypes && !allowedContentTypes.includes(groupItem.identifier))
-                            );
-                        });
-
-                        return (
-                            <div className="c-content-create__group" key={groupName}>
-                                <div className="c-content-create__group-name" hidden={isHidden}>
-                                    {groupName}
-                                </div>
-                                {groupItems.map(({ name, thumbnail, identifier, id }) => {
-                                    const isHidden =
-                                        (filterQuery && !name.toLowerCase().includes(filterQuery)) ||
-                                        (selectedLocation &&
-                                            selectedLocation.permissions &&
-                                            selectedLocation.permissions.create.restrictedContentTypeIds.length &&
-                                            !selectedLocation.permissions.create.restrictedContentTypeIds.includes(id.toString())) ||
-                                        (allowedContentTypes && !allowedContentTypes.includes(identifier));
-                                    const className = createCssClassNames({
-                                        'c-content-create__group-item': true,
-                                        'c-content-create__group-item--selected': identifier === selectedContentType,
-                                    });
-                                    const updateSelectedContentType = () => setSelectedContentType(identifier);
-
-                                    return (
-                                        <div hidden={isHidden} key={identifier} className={className} onClick={updateSelectedContentType}>
-                                            <div className="c-content-create__group-item-icon">
-                                                <Icon customPath={thumbnail} extraClasses="ez-icon--small" />
-                                            </div>
-                                            <div className="c-content-create__group-item-name">{name}</div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        );
-                    })}
+        <div className="ibexa-extra-actions-container">
+            <div className="ibexa-extra-actions-container__backdrop" hidden={!createContentVisible} onClick={close} />
+            <div className={widgetClassName} ref={refContentTree}>
+                <div className="ibexa-extra-actions__header">
+                    <h3>{createContentLabel}</h3>
+                    <button
+                        type="button"
+                        className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--close"
+                        onClick={close}
+                        title={closeLabel}
+                        data-tooltip-container-selector=".c-udw-tab"
+                    >
+                        <Icon name="discard" extraClasses="ibexa-icon--small" />
+                    </button>
+                    <div className="ibexa-extra-actions__header-subtitle">{createUnderLabel}</div>
                 </div>
-            </div>
-            <div className="c-content-create__confirm-wrapper">
-                <button className="c-content-create__confirm-button btn btn-primary" onClick={createContent} disabled={isConfirmDisabled}>
-                    {createLabel}
-                </button>
-                <button className="ez-btn ez-btn--no-border" onClick={close}>
-                    {cancelLabel}
-                </button>
+                <div className="ibexa-extra-actions__content">
+                    <label className="ibexa-label ibexa-extra-actions__section-header">{selectLanguageLabel}</label>
+                    <div className="ibexa-extra-actions__section-content">
+                        <Dropdown
+                            dropdownListRef={dropdownListRef}
+                            onChange={updateSelectedLanguage}
+                            single={true}
+                            value={selectedLanguage}
+                            options={languageOptions}
+                            extraClasses="c-udw-dropdown"
+                        />
+                    </div>
+                    <label className="ibexa-label ibexa-extra-actions__section-header">{selectContentType}</label>
+                    <div className="ibexa-extra-actions__section-content ibexa-extra-actions__section-content--content-type">
+                        <div className="ibexa-instant-filter">
+                            <div className="ibexa-instant-filter__input-wrapper">
+                                <input
+                                    autoFocus={true}
+                                    className="ibexa-instant-filter__input ibexa-input ibexa-input--text form-control"
+                                    type="text"
+                                    placeholder={placeholder}
+                                    onChange={updateFilterQuery}
+                                />
+                            </div>
+                        </div>
+                        <div className="ibexa-instant-filter__desc">{filtersDescLabel}</div>
+                        <div className="ibexa-instant-filter__items">
+                            {contentTypes.map(([groupName, groupItems]) => {
+                                const restrictedContentTypeIds = selectedLocation?.permissions?.create.restrictedContentTypeIds ?? [];
+                                const isHiddenGroup = groupItems.every((groupItem) => {
+                                    const isNotSearchedName = filterQuery && !groupItem.name.toLowerCase().includes(filterQuery);
+                                    const hasNotPermission =
+                                        restrictedContentTypeIds.length && !restrictedContentTypeIds.includes(groupItem.id.toString());
+                                    const isNotAllowedContentType =
+                                        allowedContentTypes && !allowedContentTypes.includes(groupItem.identifier);
+                                    const isHiddenByConfig = groupItem.isHidden;
+
+                                    return isNotSearchedName || hasNotPermission || isNotAllowedContentType || isHiddenByConfig;
+                                });
+
+                                if (isHiddenGroup) {
+                                    return null;
+                                }
+
+                                return (
+                                    <div className="ibexa-instant-filter__group" key={groupName}>
+                                        <div className="ibexa-instant-filter__group-name">{groupName}</div>
+                                        {groupItems.map(({ name, thumbnail, identifier, id, isHidden: isHiddenByConfig }) => {
+                                            const isHidden =
+                                                isHiddenByConfig ||
+                                                (filterQuery && !name.toLowerCase().includes(filterQuery)) ||
+                                                (selectedLocation &&
+                                                    selectedLocation.permissions &&
+                                                    selectedLocation.permissions.create.restrictedContentTypeIds.length &&
+                                                    !selectedLocation.permissions.create.restrictedContentTypeIds.includes(
+                                                        id.toString(),
+                                                    )) ||
+                                                (allowedContentTypes && !allowedContentTypes.includes(identifier));
+                                            const className = createCssClassNames({
+                                                'ibexa-instant-filter__group-item': true,
+                                                'ibexa-instant-filter__group-item--selected': identifier === selectedContentType,
+                                            });
+                                            const updateSelectedContentType = () => setSelectedContentType(identifier);
+
+                                            if (isHidden) {
+                                                return null;
+                                            }
+
+                                            return (
+                                                <div
+                                                    hidden={isHidden}
+                                                    key={identifier}
+                                                    className={className}
+                                                    onClick={updateSelectedContentType}
+                                                >
+                                                    <Icon customPath={thumbnail} extraClasses="ibexa-icon--small" />
+                                                    <div className="form-check">
+                                                        <div className="ibexa-label ibexa-label--checkbox-radio form-check-label">
+                                                            {name}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </div>
+                <div className="c-content-create__confirm-wrapper">
+                    <button
+                        className="c-content-create__confirm-button btn ibexa-btn ibexa-btn--primary"
+                        onClick={createContent}
+                        disabled={isConfirmDisabled}
+                        type="button"
+                    >
+                        {createLabel}
+                    </button>
+                    <button className="btn ibexa-btn ibexa-btn--secondary" onClick={close} type="button">
+                        {cancelLabel}
+                    </button>
+                </div>
             </div>
         </div>
     );
