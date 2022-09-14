@@ -6,6 +6,7 @@
     }
 
     const SECTION_ADJUST_MARGIN_TOP = 20;
+    const CONTENT_PADDING_TOP = 42;
     const formContainerNode = doc.querySelector('.ibexa-edit-content');
     const getSecondarySectionActiveItems = () => {
         const secondarySectionItems = formContainerNode.querySelectorAll(
@@ -49,7 +50,7 @@
         const secondarySectionNode = formContainerNode.querySelector(`.ibexa-edit-content__secondary-section[data-id="${targetId}"]`);
 
         formContainerNode.scrollTo({
-            top: secondarySectionNode.offsetTop + 42,
+            top: secondarySectionNode.offsetTop + CONTENT_PADDING_TOP,
             behavior: 'smooth',
         });
     };
