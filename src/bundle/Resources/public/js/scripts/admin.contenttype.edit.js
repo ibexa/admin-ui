@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, Routing, Translator) {
+(function (global, doc, ibexa, Routing, Translator, bootstrap) {
     const SELECTOR_INPUTS_TO_VALIDATE = '.ibexa-input[required]:not([disabled]):not([hidden])';
     const TIMEOUT_REMOVE_HIGHLIGHT = 3000;
     let targetContainer = null;
@@ -282,27 +282,30 @@
         };
 
         collapseNode.classList.add('ibexa-collapse--field-definition-removing');
+        bootstrap.Collapse.getOrCreateInstance(collapseNode.querySelector('.ibexa-collapse__body'), {
+            toggle: false,
+        }).hide();
+        event.currentTarget.blur();
 
-        // setTimeout(() => {
-            // collapseNode.classList.add('ibexa-collapse--field-definition-remove-animation');
+        setTimeout(() => {
+            collapseNode.classList.add('ibexa-collapse--field-definition-remove-animation');
 
-            // collapseNode.addEventListener('animationend', () => {
-            //     collapseNode.remove();
-            //     afterChangeGroup();
-            // });
+            collapseNode.addEventListener('animationend', () => {
+                collapseNode.remove();
+                afterChangeGroup();
+            });
             fetch(generateRequest('remove', bodyData))
                 .then(ibexa.helpers.request.getTextFromResponse)
                 .then(() => {
                     collapseNode.classList.add('ibexa-collapse--field-definition-remove-animation');
-        
+
                     collapseNode.addEventListener('animationend', () => {
                         collapseNode.remove();
                         afterChangeGroup();
                     });
                 })
                 .catch(ibexa.helpers.notification.showErrorNotification);
-        // }, 1000);
-
+        }, 1000);
     };
     const validateInput = (input) => {
         const isInputEmpty = !input.value;
@@ -442,7 +445,6 @@
             return item.isSameNode(this.anchoredPlaceholder) ? 0 : event.clientY;
         }
 
-
         onDragStart(event) {
             super.onDragStart(event);
 
@@ -556,4 +558,4 @@
     );
 
     toggleAddGroupTriggerBtnState();
-})(window, window.document, window.ibexa, window.Routing, window.Translator);
+})(window, window.document, window.ibexa, window.Routing, window.Translator, window.bootstrap);

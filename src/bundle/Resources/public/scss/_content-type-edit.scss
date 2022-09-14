@@ -144,6 +144,7 @@
                         margin-left: 0;
                     }
 
+                    &__toggle-btn,
                     &__extra-action-button {
                         &:hover {
                             .ibexa-icon {
@@ -188,30 +189,37 @@
             }
 
             &--field-definition-removing {
-                border-color: $ibexa-color-dark-200;
-                animation: pulse-field 0.2s 1;
+                border-color: $ibexa-color-light-300;
+                animation: field-remove-pulse 0.2s 1;
                 transform-origin: center;
+                pointer-events: none;
 
                 &:hover {
-                    border-color: $ibexa-color-dark-200;
+                    border-color: $ibexa-color-light-300;
                 }
 
                 .ibexa-collapse__header {
-                    background-color: $ibexa-color-dark-100;
+                    background-color: $ibexa-color-light-300;
                 }
 
                 .ibexa-collapse__header-label {
-                    color: $ibexa-color-dark-200;
+                    color: $ibexa-color-light-500;
                 }
 
                 .ibexa-collapse__draggable-btn .ibexa-icon,
                 .ibexa-icon {
-                    fill: $ibexa-color-dark-200;
+                    fill: $ibexa-color-light-500;
                 }
             }
 
             &--field-definition-remove-animation {
                 animation: remove-field 1s 1;
+            }
+
+            &--field-definition-loading {
+                animation: field-add-pulse 1s 1;
+                pointer-events: none;
+
             }
 
             &--field-definition-highlight {
@@ -318,17 +326,32 @@
     }
 }
 
-@keyframes pulse-field {
+@keyframes field-remove-pulse {
     0% {
-        border-color: $ibexa-color-dark-100;
-        box-shadow: 0 0 0 0 $ibexa-color-dark-100;
+        border-color: $ibexa-color-light-300;
+        box-shadow: 0 0 0 0 $ibexa-color-light-300;
     }
     50% {
-        border-color: $ibexa-color-dark-100;
-        box-shadow: 0 0 0 10px $ibexa-color-dark-100;
+        border-color: $ibexa-color-light-300;
+        box-shadow: 0 0 0 calculateRem(10px) $ibexa-color-light-300;
     }
     100% {
-        border-color: $ibexa-color-dark-100;
-        box-shadow: 0 0 0 0 $ibexa-color-dark-100;
+        border-color: $ibexa-color-light-300;
+        box-shadow: 0 0 0 0 $ibexa-color-light-300;
+    }
+}
+
+@keyframes field-add-pulse {
+    0% {
+        border-color: $ibexa-color-info-100;
+        box-shadow: 0 0 0 0 $ibexa-color-info-100;
+    }
+    50% {
+        border-color: $ibexa-color-info-100;
+        box-shadow: 0 0 0 calculateRem(10px) $ibexa-color-info-100;
+    }
+    100% {
+        border-color: $ibexa-color-info-100;
+        box-shadow: 0 0 0 0 $ibexa-color-info-100;
     }
 }
