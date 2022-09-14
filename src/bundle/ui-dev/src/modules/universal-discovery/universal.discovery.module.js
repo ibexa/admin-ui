@@ -143,7 +143,7 @@ const UniversalDiscoveryModule = (props) => {
     const [editOnTheFlyData, setEditOnTheFlyData] = useState({});
     const [contentTypesInfoMap, setContentTypesInfoMap] = useState({});
     const [isFetchLocationHookBlocked, setIsFetchLocationHookBlocked] = useState(
-        props.startingLocationId && props.startingLocationId !== 1 && props.startingLocationId !== props.rootLocationId
+        props.startingLocationId && props.startingLocationId !== 1 && props.startingLocationId !== props.rootLocationId,
     );
     const [searchText, setSearchText] = useState('');
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useLoadedLocationsReducer([
@@ -358,7 +358,9 @@ const UniversalDiscoveryModule = (props) => {
                                                                     <CancelContext.Provider value={props.onCancel}>
                                                                         <ConfirmContext.Provider value={onConfirm}>
                                                                             <SortingContext.Provider value={[sorting, setSorting]}>
-                                                                                <SortOrderContext.Provider value={[sortOrder, setSortOrder]}>
+                                                                                <SortOrderContext.Provider
+                                                                                    value={[sortOrder, setSortOrder]}
+                                                                                >
                                                                                     <CurrentViewContext.Provider
                                                                                         value={[currentView, setCurrentView]}
                                                                                     >
