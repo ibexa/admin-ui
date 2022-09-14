@@ -27,7 +27,6 @@
     const fitSecondarySections = () => {
         const primarySection = doc.querySelector('.ibexa-edit-content__primary-section--active');
         const contentColumn = doc.querySelector('.ibexa-main-container__content-column');
-
         const firstSection = getFirstSection(primarySection);
         const lastSection = getLastSection(primarySection);
         const contentContainer = contentColumn.querySelector('.ibexa-edit-content__container');
