@@ -108,6 +108,11 @@
         const contentColumn = doc.querySelector('.ibexa-main-container__content-column');
         const firstSection = getFirstSection(sectionGroup);
         const lastSection = getLastSection(sectionGroup);
+
+        if (!firstSection) {
+            return;
+        }
+
         const contentContainer = lastSection.closest('.ibexa-edit-content__container');
 
         contentContainer.style.paddingBottom = '0px';
