@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser;
+namespace Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\AbstractParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\AbstractParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 /**
@@ -27,7 +27,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  */
 class AdminUiForms extends AbstractParser
 {
-    const FORM_TEMPLATES_PARAM = 'admin_ui_forms.content_edit_form_templates';
+    public const FORM_TEMPLATES_PARAM = 'admin_ui_forms.content_edit_form_templates';
 
     /**
      * Adds semantic configuration definition.
@@ -54,7 +54,7 @@ class AdminUiForms extends AbstractParser
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function mapConfig(
         array &$scopeSettings,
@@ -76,7 +76,7 @@ class AdminUiForms extends AbstractParser
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function postMap(array $config, ContextualizerInterface $contextualizer)
     {
@@ -107,3 +107,5 @@ class AdminUiForms extends AbstractParser
         return array_column($formTemplates, 'template');
     }
 }
+
+class_alias(AdminUiForms::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\AdminUiForms');

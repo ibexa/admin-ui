@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Content\CustomUrl;
+namespace Ibexa\AdminUi\Form\Data\Content\CustomUrl;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class CustomUrlRemoveData
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
     private $location;
 
     /** @var array */
     private $urlAliases;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      * @param array $urlAliases
      */
     public function __construct(
@@ -31,7 +31,7 @@ class CustomUrlRemoveData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     public function getLocation(): ?Location
     {
@@ -39,9 +39,9 @@ class CustomUrlRemoveData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData
+     * @return \Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData
      */
     public function setLocation(?Location $location): self
     {
@@ -61,7 +61,7 @@ class CustomUrlRemoveData
     /**
      * @param array $urlAliases
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData
+     * @return \Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData
      */
     public function setUrlAliases(array $urlAliases): self
     {
@@ -70,3 +70,5 @@ class CustomUrlRemoveData
         return $this;
     }
 }
+
+class_alias(CustomUrlRemoveData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData');
