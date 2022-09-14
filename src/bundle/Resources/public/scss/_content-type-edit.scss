@@ -103,6 +103,7 @@
 
                     &__body-content {
                         padding: 0 calculateRem(24px) calculateRem(20px);
+                        min-height: calculateRem(410px);
                     }
                 }
             }
@@ -117,6 +118,10 @@
                 border-radius: $ibexa-border-radius;
                 border: calculateRem(1px) solid $ibexa-color-light;
                 box-shadow: $ibexa-content-type-edit-field-shadow;
+
+                &:hover {
+                    border-color: $ibexa-color-dark;
+                }
 
                 .ibexa-collapse {
                     &__header {
@@ -139,8 +144,16 @@
                         margin-left: 0;
                     }
 
-                    &__extra-action-button--remove-field-definitions {
-                        margin-left: auto;
+                    &__extra-action-button {
+                        &:hover {
+                            .ibexa-icon {
+                                fill: $ibexa-color-primary;
+                            }
+                        }
+
+                        &--remove-field-definitions {
+                            margin-left: auto;
+                        }
                     }
 
                     &__toggle-btn:not(.ibexa-collapse__toggle-btn--status) {
@@ -171,6 +184,67 @@
                             }
                         }
                     }
+                }
+            }
+
+            &--field-definition-removing {
+                border-color: $ibexa-color-dark-200;
+                animation: pulse-field 0.2s 1;
+                transform-origin: center;
+
+                &:hover {
+                    border-color: $ibexa-color-dark-200;
+                }
+
+                .ibexa-collapse__header {
+                    background-color: $ibexa-color-dark-100;
+                }
+
+                .ibexa-collapse__header-label {
+                    color: $ibexa-color-dark-200;
+                }
+
+                .ibexa-collapse__draggable-btn .ibexa-icon,
+                .ibexa-icon {
+                    fill: $ibexa-color-dark-200;
+                }
+            }
+
+            &--field-definition-remove-animation {
+                animation: remove-field 1s 1;
+            }
+
+            &--field-definition-highlight {
+                border-color: $ibexa-color-info;
+
+                .ibexa-collapse__header {
+                    background-color: $ibexa-color-info-100;
+                }
+
+                .ibexa-collapse__header-label {
+                    color: $ibexa-color-info;
+                }
+
+                .ibexa-collapse__draggable-btn .ibexa-icon,
+                .ibexa-icon {
+                    fill: $ibexa-color-info;
+                }
+            }
+
+            &--field-definition-error {
+                border-color: $ibexa-color-danger;
+
+                .ibexa-collapse__header {
+                    background-color: $ibexa-color-danger-100;
+                }
+
+                .ibexa-collapse__header-label {
+                    color: $ibexa-color-danger;
+                }
+
+                .ibexa-collapse__draggable-btn .ibexa-icon,
+                .ibexa-icon {
+                    fill: $ibexa-color-danger;
                 }
             }
 
@@ -233,4 +307,28 @@
 
 .ibexa-field-definitions-empty-group {
     @include empty-drop-zone;
+}
+
+@keyframes remove-field {
+    100% {
+        height: 0;
+        margin-bottom: 0;
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+@keyframes pulse-field {
+    0% {
+        border-color: $ibexa-color-dark-100;
+        box-shadow: 0 0 0 0 $ibexa-color-dark-100;
+    }
+    50% {
+        border-color: $ibexa-color-dark-100;
+        box-shadow: 0 0 0 10px $ibexa-color-dark-100;
+    }
+    100% {
+        border-color: $ibexa-color-dark-100;
+        box-shadow: 0 0 0 0 $ibexa-color-dark-100;
+    }
 }

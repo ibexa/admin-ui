@@ -19,6 +19,7 @@
             this.addPlaceholder = this.addPlaceholder.bind(this);
             this.removePlaceholder = this.removePlaceholder.bind(this);
             this.attachEventHandlersToItem = this.attachEventHandlersToItem.bind(this);
+            this.getPlaceholderNode = this.getPlaceholderNode.bind(this);
         }
 
         attachEventHandlersToItem(item) {
@@ -36,6 +37,14 @@
             }
         }
 
+        getPlaceholderNode(target) {
+            return target.closest(`${this.selectorItem}:not(${this.selectorPlaceholder})`);
+        }
+
+        getPlaceholderPosition(item, event) {
+            return event.clientY;
+        }
+
         onDragStart(event) {
             event.dataTransfer.dropEffect = 'move';
             event.dataTransfer.setData('text/html', event.currentTarget);
@@ -51,14 +60,16 @@
         }
 
         onDragOver(event) {
-            const item = event.target.closest(`${this.selectorItem}:not(${this.selectorPlaceholder})`);
+            const item = this.getPlaceholderNode(event.target);
 
             if (!item) {
                 return false;
             }
 
+            const positionY = this.getPlaceholderPosition(item, event);
+
             this.removePlaceholder();
-            this.addPlaceholder(item, event.clientY);
+            this.addPlaceholder(item, positionY);
         }
 
         onDrop() {

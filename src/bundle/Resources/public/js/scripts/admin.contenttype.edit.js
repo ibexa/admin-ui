@@ -1,5 +1,6 @@
 (function (global, doc, ibexa, Routing, Translator) {
     const SELECTOR_INPUTS_TO_VALIDATE = '.ibexa-input[required]:not([disabled]):not([hidden])';
+    const TIMEOUT_REMOVE_HIGHLIGHT = 3000;
     let targetContainer = null;
     let sourceContainer = null;
     let currentDraggedItem = null;
@@ -14,6 +15,7 @@
     const filterFieldInput = doc.querySelector('.ibexa-available-field-types__sidebar-filter');
     const popupMenuElement = sectionsNode.querySelector('.ibexa-popup-menu');
     const addGroupTriggerBtn = sectionsNode.querySelector('.ibexa-content-type-edit__add-field-definitions-group-btn');
+    const fieldDefinitionsGroups = doc.querySelectorAll('.ibexa-collapse--field-definitions-group');
     const noFieldsAddedError = Translator.trans(
         /*@Desc("You have to add at least one field definition")*/ 'content_type.edit.error.no_added_fields_definition',
         {},
@@ -216,6 +218,7 @@
         fetch(generateRequest('add', bodyData, languageCode))
             .then(ibexa.helpers.request.getTextFromResponse)
             .then((response) => {
+                removeLoadingField();
                 insertFieldDefinitionNode(response);
                 afterChangeGroup();
             })
@@ -224,6 +227,8 @@
     const reorderFields = () => {
         createFieldDefinitionNode(currentDraggedItem);
         removeDragPlaceholders();
+
+        currentDraggedItem.classList.add('ibexa-collapse--field-definition-highlight');
 
         const fieldsOrder = [...doc.querySelectorAll('.ibexa-collapse--field-definition')].map(
             (fieldDefinition) => fieldDefinition.dataset.fieldDefinitionIdentifier,
@@ -276,13 +281,28 @@
             },
         };
 
-        fetch(generateRequest('remove', bodyData))
-            .then(ibexa.helpers.request.getTextFromResponse)
-            .then(() => {
-                collapseNode.remove();
-                afterChangeGroup();
-            })
-            .catch(ibexa.helpers.notification.showErrorNotification);
+        collapseNode.classList.add('ibexa-collapse--field-definition-removing');
+
+        // setTimeout(() => {
+            // collapseNode.classList.add('ibexa-collapse--field-definition-remove-animation');
+
+            // collapseNode.addEventListener('animationend', () => {
+            //     collapseNode.remove();
+            //     afterChangeGroup();
+            // });
+            fetch(generateRequest('remove', bodyData))
+                .then(ibexa.helpers.request.getTextFromResponse)
+                .then(() => {
+                    collapseNode.classList.add('ibexa-collapse--field-definition-remove-animation');
+        
+                    collapseNode.addEventListener('animationend', () => {
+                        collapseNode.remove();
+                        afterChangeGroup();
+                    });
+                })
+                .catch(ibexa.helpers.notification.showErrorNotification);
+        // }, 1000);
+
     };
     const validateInput = (input) => {
         const isInputEmpty = !input.value;
@@ -343,17 +363,43 @@
 
         scrollToNode.scrollIntoView({ behavior: 'smooth' });
     };
+    const setActiveGroup = (group) => {
+        const currentActiveGroup = doc.querySelector(
+            '.ibexa-collapse--field-definitions-group.ibexa-collapse--active-field-definitions-group',
+        );
+
+        currentActiveGroup?.classList.remove('ibexa-collapse--active-field-definitions-group');
+        group.classList.add('ibexa-collapse--active-field-definitions-group');
+    };
+    const removeLoadingField = () => {
+        const field = doc.querySelector('.ibexa-collapse--field-definition-loading');
+
+        field.remove();
+    };
+    const removeHighlight = () => {
+        const field = doc.querySelector('.ibexa-collapse--field-definition-highlight');
+
+        field?.classList.remove('ibexa-collapse--field-definition-highlight');
+    };
     class FieldDefinitionDraggable extends ibexa.core.Draggable {
+        constructor(config) {
+            super(config);
+
+            this.emptyContainer = this.itemsContainer.querySelector('.ibexa-field-definitions-empty-group');
+            this.anchoredPlaceholder = this.itemsContainer.querySelector('.ibexa-field-definitions-placeholder--anchored');
+            this.getPlaceholderNode = this.getPlaceholderNode.bind(this);
+            this.getPlaceholderPosition = this.getPlaceholderPosition.bind(this);
+        }
         onDrop(event) {
             targetContainer = event.currentTarget;
 
             const dragContainerItems = targetContainer.querySelectorAll(
                 '.ibexa-collapse--field-definition, .ibexa-field-definitions-placeholder:not(.ibexa-field-definitions-placeholder--anchored)',
             );
-            const currentActiveGroup = doc.querySelector(
-                '.ibexa-collapse--field-definitions-group.ibexa-collapse--active-field-definitions-group',
-            );
             const targetContainerGroup = targetContainer.closest('.ibexa-collapse--field-definitions-group');
+            const targetContainerList = targetContainerGroup.closest('.ibexa-content-type-edit__field-definitions-group-list');
+            const fieldTemplate = targetContainerList.dataset.template;
+            const fieldRendered = fieldTemplate.replace('{{ type }}', currentDraggedItem.dataset.itemIdentifier);
 
             draggedItemPosition = [...dragContainerItems].findIndex((item, index, array) => {
                 return item.classList.contains('ibexa-field-definitions-placeholder') && index < array.length - 1;
@@ -362,14 +408,40 @@
             if (sourceContainer.isEqualNode(targetContainer)) {
                 reorderFields();
             } else {
+                createFieldDefinitionNode(fieldRendered);
                 addField();
             }
 
-            currentActiveGroup?.classList.remove('ibexa-collapse--active-field-definitions-group');
-            targetContainerGroup.classList.add('ibexa-collapse--active-field-definitions-group');
-
+            setActiveGroup(targetContainerGroup);
             removeDragPlaceholders();
+
+            global.setTimeout(() => {
+                removeHighlight();
+            }, TIMEOUT_REMOVE_HIGHLIGHT);
         }
+
+        getPlaceholderNode(target) {
+            const draggableItem = target.closest(`${this.selectorItem}:not(${this.selectorPlaceholder})`);
+
+            if (draggableItem) {
+                return draggableItem;
+            }
+
+            if (this.emptyContainer.contains(target)) {
+                return this.emptyContainer;
+            }
+
+            if (this.anchoredPlaceholder.contains(target)) {
+                return this.anchoredPlaceholder;
+            }
+
+            return null;
+        }
+
+        getPlaceholderPosition(item, event) {
+            return item.isSameNode(this.anchoredPlaceholder) ? 0 : event.clientY;
+        }
+
 
         onDragStart(event) {
             super.onDragStart(event);
@@ -456,6 +528,7 @@
         draggableGroups.push(draggable);
     });
 
+    fieldDefinitionsGroups.forEach((group) => group.addEventListener('click', () => setActiveGroup(group), false));
     inputsToValidate.forEach(attachValidateEvents);
 
     editForm.addEventListener(

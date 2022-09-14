@@ -1,5 +1,22 @@
 <div class="ibexa-content-type-edit__field-definitions-group">
-    <div class="ibexa-content-type-edit__field-definitions-group-list">
+    {% set extra_actions = [
+        { 'icon_name': 'discard', 'button_class': 'ibexa-collapse__extra-action-button--remove-field-definitions'}
+    ] %}
+
+    <div
+        class="ibexa-content-type-edit__field-definitions-group-list"
+        data-template="{{ include("@ibexadesign/ui/component/collapse.html.twig", {
+            'is_expanded': false,
+            'is_draggable': true,
+            'class': 'ibexa-collapse--field-definition ibexa-collapse--field-definition-highlight ibexa-collapse--field-definition-loading',
+            'body_id': 'loading_collapse',
+            'header_label': 'content_type.view.edit.default_header'|trans|desc('New field type') ~ ' ({{ type }})',
+            'data_attr': {
+                'data-field-definition-identifier': 'loading-collapse',
+            },
+            'extra_actions': extra_actions
+        })|e('html_attr') }}"
+    >
         {% set should_show_first = true %}
 
         {% for field_defintions in grouped_field_defintions %}
@@ -20,7 +37,7 @@
                 'header_label': id | ibexa_field_group_name,
                 'is_expanded': true,
                 'extra_actions': [
-                    { 'icon_name': 'trash', 'button_class':  'ibexa-btn--ghost ibexa-collapse__extra-action-button--remove-field-definitions-group'}
+                    { 'icon_name': 'discard', 'button_class': 'ibexa-btn--ghost ibexa-collapse__extra-action-button--remove-field-definitions-group'}
                 ],
                 'data_attr': {
                     'data-fields-group-id':  id
