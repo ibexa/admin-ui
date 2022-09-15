@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
-use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypeCopyData;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypeEditData;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypesDeleteData;
@@ -19,11 +18,11 @@ use Ibexa\AdminUi\Form\Factory\ContentTypeFormFactory;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Form\Type\ContentType\ContentTypeUpdateType;
+use Ibexa\AdminUi\Service\MetaFieldType\MetaFieldDefinitionServiceInterface;
 use Ibexa\AdminUi\Tab\ContentType\TranslationsTab;
 use Ibexa\AdminUi\UI\Module\FieldTypeToolbar\FieldTypeToolbarFactory;
 use Ibexa\AdminUi\View\ContentTypeCreateView;
 use Ibexa\AdminUi\View\ContentTypeEditView;
-use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\AdminUiForms;
 use Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
@@ -35,15 +34,9 @@ use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
-use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
-use Ibexa\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -55,10 +48,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ContentTypeController extends Controller
 {
-    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
-
-    private LocaleConverterInterface $localeConverter;
-
     /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
@@ -97,11 +86,9 @@ class ContentTypeController extends Controller
     /** @var \Ibexa\AdminUi\UI\Module\FieldTypeToolbar\FieldTypeToolbarFactory */
     private $fieldTypeToolbarFactory;
 
-    private FieldsGroupsList $fieldsGroupsList;
+    private MetaFieldDefinitionServiceInterface $metaFieldDefinitionService;
 
     public function __construct(
-        ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
-        LocaleConverterInterface $localeConverter,
         TranslatableNotificationHandlerInterface $notificationHandler,
         TranslatorInterface $translator,
         ContentTypeService $contentTypeService,
@@ -114,10 +101,8 @@ class ContentTypeController extends Controller
         ContentTypeDraftMapper $contentTypeDraftMapper,
         ConfigResolverInterface $configResolver,
         FieldTypeToolbarFactory $fieldTypeToolbarFactory,
-        FieldsGroupsList $fieldsGroupsList
+        MetaFieldDefinitionServiceInterface $metaFieldDefinitionService
     ) {
-        $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
-        $this->localeConverter = $localeConverter;
         $this->notificationHandler = $notificationHandler;
         $this->translator = $translator;
         $this->contentTypeService = $contentTypeService;
@@ -130,7 +115,7 @@ class ContentTypeController extends Controller
         $this->contentTypeDraftMapper = $contentTypeDraftMapper;
         $this->configResolver = $configResolver;
         $this->fieldTypeToolbarFactory = $fieldTypeToolbarFactory;
-        $this->fieldsGroupsList = $fieldsGroupsList;
+        $this->metaFieldDefinitionService = $metaFieldDefinitionService;
     }
 
     /**
@@ -209,7 +194,7 @@ class ContentTypeController extends Controller
         $createStruct->mainLanguageCode = $mainLanguageCode;
         $createStruct->names = [$mainLanguageCode => 'New Content Type'];
 
-        $this->addMetaFieldDefinitions($createStruct, $this->languageService->loadLanguage($mainLanguageCode));
+        $this->metaFieldDefinitionService->addMetaFieldDefinitions($createStruct, $this->languageService->loadLanguage($mainLanguageCode));
 
         try {
             $contentTypeDraft = $this->contentTypeService->createContentType($createStruct, [$group]);
@@ -397,7 +382,7 @@ class ContentTypeController extends Controller
             ['contentType' => $contentType]
         );
 
-        $this->addMetaFieldDefinitions($contentTypeDraft);
+        $this->metaFieldDefinitionService->addMetaFieldDefinitions($contentTypeDraft);
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
@@ -742,7 +727,7 @@ class ContentTypeController extends Controller
         Language $language = null,
         ?Language $baseLanguage = null
     ): FormInterface {
-        $this->addMetaFieldDefinitions($contentTypeDraft, $language);
+        $this->metaFieldDefinitionService->addMetaFieldDefinitions($contentTypeDraft, $language);
         $contentTypeData = $this->contentTypeDraftMapper->mapToFormData(
             $contentTypeDraft,
             [
@@ -781,109 +766,6 @@ class ContentTypeController extends Controller
         ]);
 
         return $formBuilder->getForm();
-    }
-
-    private function addMetaFieldDefinitions(
-        ValueObject $contentType,
-        ?Language $language = null
-    ): void {
-        $metaFieldTypeIdentifiers = $this->contentTypeFieldTypesResolver->getMetaFieldTypeIdentifiers();
-
-        if (null === $language) {
-            $language = $this->languageService->loadLanguage($this->languageService->getDefaultLanguageCode());
-        }
-
-        foreach ($metaFieldTypeIdentifiers as $metaFieldTypeIdentifier) {
-            $fieldGroup = $this->getDefaultMetaDataFieldTypeGroup() ?? $this->fieldsGroupsList->getDefaultGroup();
-
-            if ($this->isMetaFieldDefinitionExists($metaFieldTypeIdentifier, $fieldGroup, $contentType)) {
-                continue;
-            }
-
-            $fieldDefinitionCreateStruct = $this->createMetaFieldDefinitionCreateStruct(
-                $metaFieldTypeIdentifier,
-                $fieldGroup,
-                $language,
-                $this->getNextFieldPosition($contentType)
-            );
-
-            if ($contentType instanceof ContentTypeDraft) {
-                $this->contentTypeService->addFieldDefinition($contentType, $fieldDefinitionCreateStruct);
-            }
-
-            if ($contentType instanceof ContentTypeCreateStruct) {
-                $contentType->addFieldDefinition($fieldDefinitionCreateStruct);
-            }
-        }
-    }
-
-    private function createMetaFieldDefinitionCreateStruct(
-        string $identifier,
-        string $fieldGroup,
-        Language $language,
-        int $position
-    ): FieldDefinitionCreateStruct {
-        $fieldDefinitionCreateStruct = $this->contentTypeService->newFieldDefinitionCreateStruct(
-            uniqid('field_'),
-            $identifier
-        );
-
-        $fieldDefinitionCreateStruct->fieldGroup = $fieldGroup;
-        $label = $this->translator->trans(/** @Ignore */
-            $identifier . '.name',
-            [],
-            'fieldtypes',
-            $this->localeConverter->convertToPOSIX($language->languageCode)
-        );
-
-        $fieldDefinitionCreateStruct->names = [
-            $language->languageCode => $label,
-        ];
-
-        $fieldDefinitionCreateStruct->position = $position;
-
-        return $fieldDefinitionCreateStruct;
-    }
-
-    private function isMetaFieldDefinitionExists(
-        string $fieldTypeIdentifier,
-        string $fieldTypeGroup,
-        ValueObject $contentType
-    ): bool {
-        foreach ($contentType->fieldDefinitions as $fieldDefinition) {
-            if (
-                $fieldDefinition->fieldTypeIdentifier === $fieldTypeIdentifier
-                && $fieldDefinition->fieldGroup === $fieldTypeGroup
-            ) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private function getNextFieldPosition(ValueObject $contentType): int
-    {
-        $fieldDefinitions = $contentType->fieldDefinitions;
-
-        if (is_array($fieldDefinitions) && !empty($fieldDefinitions)) {
-            return end($fieldDefinitions)->position + 1;
-        }
-
-        if ($fieldDefinitions instanceof FieldDefinitionCollection && !$fieldDefinitions->isEmpty()) {
-            return $contentType->fieldDefinitions->last()->position + 1;
-        }
-
-        return 0;
-    }
-
-    private function getDefaultMetaDataFieldTypeGroup(): ?string
-    {
-        if (!$this->configResolver->hasParameter(AdminUiForms::CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM)) {
-            return null;
-        }
-
-        return $this->configResolver->getParameter(AdminUiForms::CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM);
     }
 
     /**

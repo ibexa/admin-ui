@@ -19,9 +19,6 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStru
  */
 class FieldDefinitionData extends FieldDefinitionUpdateStruct
 {
-    /**
-     * @var bool
-     */
     public bool $enabled;
 
     /**
