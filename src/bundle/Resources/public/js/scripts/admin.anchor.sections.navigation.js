@@ -20,9 +20,9 @@
         return sectionGroup.querySelector('.ibexa-edit-content__secondary-section');
     };
     const getLastSection = (sectionGroup) => {
-        const sections = sectionGroup.querySelectorAll('.ibexa-edit-content__secondary-section');
+        const sections = [...sectionGroup.querySelectorAll('.ibexa-edit-content__secondary-section')];
 
-        return sections ? [...sections].at(-1) : null;
+        return sections[sections.length - 1];
     };
     const fitSecondarySections = () => {
         const primarySection = doc.querySelector('.ibexa-edit-content__primary-section--active');
