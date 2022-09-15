@@ -6,6 +6,7 @@
     }
 
     const SECTION_ADJUST_MARGIN_TOP = 20;
+    const CONTENT_PADDING_TOP = 42;
     const formContainerNode = doc.querySelector('.ibexa-edit-content');
     const getSecondarySectionActiveItems = () => {
         const secondarySectionItems = formContainerNode.querySelectorAll(
@@ -15,11 +16,19 @@
         return [...secondarySectionItems];
     };
     let currentlyVisibleSections = getSecondarySectionActiveItems();
+    const getFirstSection = (sectionGroup) => {
+        return sectionGroup.querySelector('.ibexa-edit-content__secondary-section');
+    };
+    const getLastSection = (sectionGroup) => {
+        const sections = [...sectionGroup.querySelectorAll('.ibexa-edit-content__secondary-section')];
+
+        return sections[sections.length - 1];
+    };
     const fitSecondarySections = () => {
         const primarySection = doc.querySelector('.ibexa-edit-content__primary-section--active');
         const contentColumn = doc.querySelector('.ibexa-main-container__content-column');
-        const firstSection = primarySection.firstElementChild;
-        const lastSection = primarySection.lastElementChild;
+        const firstSection = getFirstSection(primarySection);
+        const lastSection = getLastSection(primarySection);
         const contentContainer = contentColumn.querySelector('.ibexa-edit-content__container');
 
         contentContainer.style.paddingBottom = '0px';
@@ -39,7 +48,7 @@
         const secondarySectionNode = formContainerNode.querySelector(`.ibexa-edit-content__secondary-section[data-id="${targetId}"]`);
 
         formContainerNode.scrollTo({
-            top: secondarySectionNode.offsetTop,
+            top: secondarySectionNode.offsetTop + CONTENT_PADDING_TOP,
             behavior: 'smooth',
         });
     };
