@@ -17,7 +17,7 @@ import Dropdown from '../../../common/dropdown/dropdown';
 
 const { Translator, ibexa } = window;
 
-const configLanguages = Object.values(ibexa.adminUiConfig.languages.mappings);
+const configLanguages = ibexa.adminUiConfig.languages;
 const languages = configLanguages.priority.map((languageCode) => {
     return configLanguages.mappings[languageCode];
 });
