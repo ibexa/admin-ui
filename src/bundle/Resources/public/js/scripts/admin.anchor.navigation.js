@@ -92,9 +92,9 @@
         return sectionGroup.querySelector('.ibexa-anchor-navigation__section');
     };
     const getLastSection = (sectionGroup) => {
-        const sections = sectionGroup.querySelectorAll('.ibexa-anchor-navigation__section');
+        const sections = [...sectionGroup.querySelectorAll('.ibexa-anchor-navigation__section')];
 
-        return sections ? [...sections].at(-1) : null;
+        return sections[sections.length - 1];
     };
     const fitSections = () => {
         const sectionGroup =
