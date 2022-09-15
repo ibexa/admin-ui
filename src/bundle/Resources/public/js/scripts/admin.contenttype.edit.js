@@ -6,6 +6,7 @@
     let currentDraggedItem = null;
     let draggedItemPosition = null;
     let isEditFormValid = false;
+    let previousDraggedPosition = null;
     const editForm = doc.querySelector('.ibexa-content-type-edit-form');
     let inputsToValidate = editForm.querySelectorAll(SELECTOR_INPUTS_TO_VALIDATE);
     const draggableGroups = [];
@@ -229,6 +230,7 @@
         removeDragPlaceholders();
 
         currentDraggedItem.classList.add('ibexa-collapse--field-definition-highlight');
+        currentDraggedItem.classList.add('ibexa-collapse--field-definition-loading');
 
         const fieldsOrder = [...doc.querySelectorAll('.ibexa-collapse--field-definition')].map(
             (fieldDefinition) => fieldDefinition.dataset.fieldDefinitionIdentifier,
@@ -242,8 +244,15 @@
 
         fetch(request)
             .then(ibexa.helpers.request.getTextFromResponse)
-            .then(() => afterChangeGroup())
-            .catch(ibexa.helpers.notification.showErrorNotification);
+            .then(() => {
+                currentDraggedItem.classList.remove('ibexa-collapse--field-definition-loading');
+                afterChangeGroup();
+            })
+            .catch((error) => {
+                previousDraggedPosition.after(currentDraggedItem);
+
+                return ibexa.helpers.notification.showErrorNotification(error);
+            });
     };
     const removeFieldsGroup = (event) => {
         if (event.currentTarget.hasAttribute('disabled')) {
@@ -287,25 +296,28 @@
         }).hide();
         event.currentTarget.blur();
 
-        setTimeout(() => {
-            collapseNode.classList.add('ibexa-collapse--field-definition-remove-animation');
+        fetch(generateRequest('remove', bodyData))
+            .then(ibexa.helpers.request.getTextFromResponse)
+            .then(() => {
+                collapseNode.classList.add('ibexa-collapse--field-definition-remove-animation');
 
-            collapseNode.addEventListener('animationend', () => {
-                collapseNode.remove();
-                afterChangeGroup();
+                collapseNode.addEventListener('animationend', () => {
+                    collapseNode.remove();
+                    afterChangeGroup();
+                });
+            })
+            .catch((error) => {
+                const clearFieldRemoveError = () => {
+                    collapseNode.classList.remove('ibexa-collapse--field-definition-error');
+                    collapseNode.removeEventListener('click', clearFieldRemoveError, false);
+                };
+
+                collapseNode.classList.remove('ibexa-collapse--field-definition-removing');
+                collapseNode.classList.add('ibexa-collapse--field-definition-error');
+                collapseNode.addEventListener('click', clearFieldRemoveError, true);
+
+                return ibexa.helpers.notification.showErrorNotification(error);
             });
-            fetch(generateRequest('remove', bodyData))
-                .then(ibexa.helpers.request.getTextFromResponse)
-                .then(() => {
-                    collapseNode.classList.add('ibexa-collapse--field-definition-remove-animation');
-
-                    collapseNode.addEventListener('animationend', () => {
-                        collapseNode.remove();
-                        afterChangeGroup();
-                    });
-                })
-                .catch(ibexa.helpers.notification.showErrorNotification);
-        }, 1000);
     };
     const validateInput = (input) => {
         const isInputEmpty = !input.value;
@@ -449,6 +461,7 @@
             super.onDragStart(event);
 
             currentDraggedItem = event.currentTarget;
+            previousDraggedPosition = event.currentTarget.previousElementSibling;
             sourceContainer = currentDraggedItem.parentNode;
         }
 

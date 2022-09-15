@@ -44,6 +44,7 @@ final class FieldDefinitionController extends RestController
         Language $language,
         ?Language $baseLanguage = null
     ): RedirectResponse {
+        throw new Exceptions\InvalidArgumentException();
         /** @var \Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionCreate $input */
         $input = $this->inputDispatcher->parse(
             new Message(
@@ -88,6 +89,8 @@ final class FieldDefinitionController extends RestController
         ContentTypeGroup $group,
         ContentTypeDraft $contentTypeDraft
     ): Values\OK {
+
+
         /** @var \Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionDelete $input */
         $input = $this->inputDispatcher->parse(
             new Message(
@@ -98,6 +101,7 @@ final class FieldDefinitionController extends RestController
 
         $this->repository->beginTransaction();
         try {
+            throw new Exceptions\InvalidArgumentException();
             foreach ($input->fieldDefinitionIdentifiers as $identifier) {
                 if (!$contentTypeDraft->fieldDefinitions->has($identifier)) {
                     throw new Exceptions\NotFoundException("No field definition with $identifier found");
@@ -138,6 +142,7 @@ final class FieldDefinitionController extends RestController
 
         $this->repository->beginTransaction();
         try {
+            throw new Exceptions\InvalidArgumentException();
             foreach ($input->fieldDefinitionIdentifiers as $position => $identifier) {
                 $updateStruct = $this->contentTypeService->newFieldDefinitionUpdateStruct();
                 $updateStruct->position = $position;
