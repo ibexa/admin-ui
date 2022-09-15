@@ -124,6 +124,7 @@ export const CreateContentWidgetContext = createContext();
 export const ContentOnTheFlyDataContext = createContext();
 export const ContentOnTheFlyConfigContext = createContext();
 export const EditOnTheFlyDataContext = createContext();
+export const BlockFetchLocationHookContext = createContext();
 export const SearchTextContext = createContext();
 export const DropdownPortalRefContext = createContext();
 
@@ -141,6 +142,9 @@ const UniversalDiscoveryModule = (props) => {
     const [contentOnTheFlyData, setContentOnTheFlyData] = useState({});
     const [editOnTheFlyData, setEditOnTheFlyData] = useState({});
     const [contentTypesInfoMap, setContentTypesInfoMap] = useState({});
+    const [isFetchLocationHookBlocked, setIsFetchLocationHookBlocked] = useState(
+        props.startingLocationId && props.startingLocationId !== 1 && props.startingLocationId !== props.rootLocationId,
+    );
     const [searchText, setSearchText] = useState('');
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useLoadedLocationsReducer([
         { parentLocationId: props.rootLocationId, subitems: [] },
@@ -319,6 +323,7 @@ const UniversalDiscoveryModule = (props) => {
             (locationsMap) => {
                 dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: locationsMap });
                 setMarkedLocationId(props.startingLocationId);
+                setIsFetchLocationHookBlocked(false);
             },
         );
     }, [props.startingLocationId]);
@@ -338,103 +343,107 @@ const UniversalDiscoveryModule = (props) => {
         <div className={className}>
             <UDWContext.Provider value={true}>
                 <RestInfoContext.Provider value={restInfo}>
-                    <AllowRedirectsContext.Provider value={props.allowRedirects}>
-                        <AllowConfirmationContext.Provider value={props.allowConfirmation}>
-                            <ContentTypesInfoMapContext.Provider value={contentTypesInfoMap}>
-                                <ContentTypesMapContext.Provider value={contentTypesMapGlobal}>
-                                    <MultipleConfigContext.Provider value={[props.multiple, props.multipleItemsLimit]}>
-                                        <ContainersOnlyContext.Provider value={props.containersOnly}>
-                                            <AllowedContentTypesContext.Provider value={props.allowedContentTypes}>
-                                                <ActiveTabContext.Provider value={[activeTab, setActiveTab]}>
-                                                    <TabsContext.Provider value={tabs}>
-                                                        <TabsConfigContext.Provider value={props.tabsConfig}>
-                                                            <TitleContext.Provider value={props.title}>
-                                                                <CancelContext.Provider value={props.onCancel}>
-                                                                    <ConfirmContext.Provider value={onConfirm}>
-                                                                        <SortingContext.Provider value={[sorting, setSorting]}>
-                                                                            <SortOrderContext.Provider value={[sortOrder, setSortOrder]}>
-                                                                                <CurrentViewContext.Provider
-                                                                                    value={[currentView, setCurrentView]}
+                    <BlockFetchLocationHookContext.Provider value={[isFetchLocationHookBlocked, setIsFetchLocationHookBlocked]}>
+                        <AllowRedirectsContext.Provider value={props.allowRedirects}>
+                            <AllowConfirmationContext.Provider value={props.allowConfirmation}>
+                                <ContentTypesInfoMapContext.Provider value={contentTypesInfoMap}>
+                                    <ContentTypesMapContext.Provider value={contentTypesMapGlobal}>
+                                        <MultipleConfigContext.Provider value={[props.multiple, props.multipleItemsLimit]}>
+                                            <ContainersOnlyContext.Provider value={props.containersOnly}>
+                                                <AllowedContentTypesContext.Provider value={props.allowedContentTypes}>
+                                                    <ActiveTabContext.Provider value={[activeTab, setActiveTab]}>
+                                                        <TabsContext.Provider value={tabs}>
+                                                            <TabsConfigContext.Provider value={props.tabsConfig}>
+                                                                <TitleContext.Provider value={props.title}>
+                                                                    <CancelContext.Provider value={props.onCancel}>
+                                                                        <ConfirmContext.Provider value={onConfirm}>
+                                                                            <SortingContext.Provider value={[sorting, setSorting]}>
+                                                                                <SortOrderContext.Provider
+                                                                                    value={[sortOrder, setSortOrder]}
                                                                                 >
-                                                                                    <MarkedLocationIdContext.Provider
-                                                                                        value={[markedLocationId, setMarkedLocationId]}
+                                                                                    <CurrentViewContext.Provider
+                                                                                        value={[currentView, setCurrentView]}
                                                                                     >
-                                                                                        <LoadedLocationsMapContext.Provider
-                                                                                            value={[
-                                                                                                loadedLocationsMap,
-                                                                                                dispatchLoadedLocationsAction,
-                                                                                            ]}
+                                                                                        <MarkedLocationIdContext.Provider
+                                                                                            value={[markedLocationId, setMarkedLocationId]}
                                                                                         >
-                                                                                            <RootLocationIdContext.Provider
-                                                                                                value={props.rootLocationId}
+                                                                                            <LoadedLocationsMapContext.Provider
+                                                                                                value={[
+                                                                                                    loadedLocationsMap,
+                                                                                                    dispatchLoadedLocationsAction,
+                                                                                                ]}
                                                                                             >
-                                                                                                <SelectedLocationsContext.Provider
-                                                                                                    value={[
-                                                                                                        selectedLocations,
-                                                                                                        dispatchSelectedLocationsAction,
-                                                                                                    ]}
+                                                                                                <RootLocationIdContext.Provider
+                                                                                                    value={props.rootLocationId}
                                                                                                 >
-                                                                                                    <CreateContentWidgetContext.Provider
+                                                                                                    <SelectedLocationsContext.Provider
                                                                                                         value={[
-                                                                                                            createContentVisible,
-                                                                                                            setCreateContentVisible,
+                                                                                                            selectedLocations,
+                                                                                                            dispatchSelectedLocationsAction,
                                                                                                         ]}
                                                                                                     >
-                                                                                                        <ContentOnTheFlyDataContext.Provider
+                                                                                                        <CreateContentWidgetContext.Provider
                                                                                                             value={[
-                                                                                                                contentOnTheFlyData,
-                                                                                                                setContentOnTheFlyData,
+                                                                                                                createContentVisible,
+                                                                                                                setCreateContentVisible,
                                                                                                             ]}
                                                                                                         >
-                                                                                                            <ContentOnTheFlyConfigContext.Provider
-                                                                                                                value={
-                                                                                                                    props.contentOnTheFly
-                                                                                                                }
+                                                                                                            <ContentOnTheFlyDataContext.Provider
+                                                                                                                value={[
+                                                                                                                    contentOnTheFlyData,
+                                                                                                                    setContentOnTheFlyData,
+                                                                                                                ]}
                                                                                                             >
-                                                                                                                <EditOnTheFlyDataContext.Provider
-                                                                                                                    value={[
-                                                                                                                        editOnTheFlyData,
-                                                                                                                        setEditOnTheFlyData,
-                                                                                                                    ]}
+                                                                                                                <ContentOnTheFlyConfigContext.Provider
+                                                                                                                    value={
+                                                                                                                        props.contentOnTheFly
+                                                                                                                    }
                                                                                                                 >
-                                                                                                                    <SearchTextContext.Provider
+                                                                                                                    <EditOnTheFlyDataContext.Provider
                                                                                                                         value={[
-                                                                                                                            searchText,
-                                                                                                                            setSearchText,
+                                                                                                                            editOnTheFlyData,
+                                                                                                                            setEditOnTheFlyData,
                                                                                                                         ]}
                                                                                                                     >
-                                                                                                                        <DropdownPortalRefContext.Provider
-                                                                                                                            value={
-                                                                                                                                dropdownPortalRef
-                                                                                                                            }
+                                                                                                                        <SearchTextContext.Provider
+                                                                                                                            value={[
+                                                                                                                                searchText,
+                                                                                                                                setSearchText,
+                                                                                                                            ]}
                                                                                                                         >
-                                                                                                                            <Tab />
-                                                                                                                        </DropdownPortalRefContext.Provider>
-                                                                                                                    </SearchTextContext.Provider>
-                                                                                                                </EditOnTheFlyDataContext.Provider>
-                                                                                                            </ContentOnTheFlyConfigContext.Provider>
-                                                                                                        </ContentOnTheFlyDataContext.Provider>
-                                                                                                    </CreateContentWidgetContext.Provider>
-                                                                                                </SelectedLocationsContext.Provider>
-                                                                                            </RootLocationIdContext.Provider>
-                                                                                        </LoadedLocationsMapContext.Provider>
-                                                                                    </MarkedLocationIdContext.Provider>
-                                                                                </CurrentViewContext.Provider>
-                                                                            </SortOrderContext.Provider>
-                                                                        </SortingContext.Provider>
-                                                                    </ConfirmContext.Provider>
-                                                                </CancelContext.Provider>
-                                                            </TitleContext.Provider>
-                                                        </TabsConfigContext.Provider>
-                                                    </TabsContext.Provider>
-                                                </ActiveTabContext.Provider>
-                                            </AllowedContentTypesContext.Provider>
-                                        </ContainersOnlyContext.Provider>
-                                    </MultipleConfigContext.Provider>
-                                </ContentTypesMapContext.Provider>
-                            </ContentTypesInfoMapContext.Provider>
-                        </AllowConfirmationContext.Provider>
-                    </AllowRedirectsContext.Provider>
+                                                                                                                            <DropdownPortalRefContext.Provider
+                                                                                                                                value={
+                                                                                                                                    dropdownPortalRef
+                                                                                                                                }
+                                                                                                                            >
+                                                                                                                                <Tab />
+                                                                                                                            </DropdownPortalRefContext.Provider>
+                                                                                                                        </SearchTextContext.Provider>
+                                                                                                                    </EditOnTheFlyDataContext.Provider>
+                                                                                                                </ContentOnTheFlyConfigContext.Provider>
+                                                                                                            </ContentOnTheFlyDataContext.Provider>
+                                                                                                        </CreateContentWidgetContext.Provider>
+                                                                                                    </SelectedLocationsContext.Provider>
+                                                                                                </RootLocationIdContext.Provider>
+                                                                                            </LoadedLocationsMapContext.Provider>
+                                                                                        </MarkedLocationIdContext.Provider>
+                                                                                    </CurrentViewContext.Provider>
+                                                                                </SortOrderContext.Provider>
+                                                                            </SortingContext.Provider>
+                                                                        </ConfirmContext.Provider>
+                                                                    </CancelContext.Provider>
+                                                                </TitleContext.Provider>
+                                                            </TabsConfigContext.Provider>
+                                                        </TabsContext.Provider>
+                                                    </ActiveTabContext.Provider>
+                                                </AllowedContentTypesContext.Provider>
+                                            </ContainersOnlyContext.Provider>
+                                        </MultipleConfigContext.Provider>
+                                    </ContentTypesMapContext.Provider>
+                                </ContentTypesInfoMapContext.Provider>
+                            </AllowConfirmationContext.Provider>
+                        </AllowRedirectsContext.Provider>
+                    </BlockFetchLocationHookContext.Provider>
                 </RestInfoContext.Provider>
             </UDWContext.Provider>
         </div>
