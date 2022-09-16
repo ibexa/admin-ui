@@ -23,6 +23,11 @@ final class ContentTypeFieldTypesResolver implements ContentTypeFieldTypesResolv
         $this->configResolver = $configResolver;
     }
 
+    /**
+     * @return array<string, array{
+     *     'meta'?: bool
+     * }>
+     */
     public function getFieldTypes(): array
     {
         if (!$this->configResolver->hasParameter(AdminUiForms::CONTENT_TYPE_FIELD_TYPES_PARAM)) {
@@ -32,6 +37,9 @@ final class ContentTypeFieldTypesResolver implements ContentTypeFieldTypesResolv
         return $this->configResolver->getParameter(AdminUiForms::CONTENT_TYPE_FIELD_TYPES_PARAM);
     }
 
+    /**
+     * @return array<string>
+     */
     public function getMetaFieldTypeIdentifiers(): array
     {
         $fieldTypeConfig = $this->getFieldTypes();
