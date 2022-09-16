@@ -70,6 +70,8 @@
 
             this.removePlaceholder();
             this.addPlaceholder(item, positionY);
+
+            return true;
         }
 
         onDrop() {

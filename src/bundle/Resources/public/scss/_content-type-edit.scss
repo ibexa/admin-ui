@@ -221,10 +221,6 @@
                 pointer-events: none;
             }
 
-            &--field-definition-error {
-                animation: field-error-pulse 1s 1;
-            }
-
             &--field-definition-highlight {
                 border-color: $ibexa-color-info;
 
@@ -336,6 +332,10 @@
     }
     10% {
         border-color: $ibexa-color-light-300;
+        box-shadow: 0 0 0 0 $ibexa-color-light-300;
+    }
+    20% {
+        border-color: $ibexa-color-light-300;
         box-shadow: 0 0 0 calculateRem(10px) $ibexa-color-light-300;
     }
     100% {
@@ -351,25 +351,14 @@
     }
     10% {
         border-color: $ibexa-color-info-100;
+        box-shadow: 0 0 0 0 $ibexa-color-info-100;
+    }
+    20% {
+        border-color: $ibexa-color-info-100;
         box-shadow: 0 0 0 calculateRem(10px) $ibexa-color-info-100;
     }
     100% {
         border-color: $ibexa-color-info-100;
         box-shadow: 0 0 0 0 $ibexa-color-info-100;
-    }
-}
-
-@keyframes field-error-pulse {
-    0% {
-        border-color: $ibexa-color-danger-100;
-        box-shadow: 0 0 0 0 $ibexa-color-danger-100;
-    }
-    10% {
-        border-color: $ibexa-color-danger-100;
-        box-shadow: 0 0 0 calculateRem(10px) $ibexa-color-danger-100;
-    }
-    100% {
-        border-color: $ibexa-color-danger-100;
-        box-shadow: 0 0 0 0 $ibexa-color-danger-100;
     }
 }

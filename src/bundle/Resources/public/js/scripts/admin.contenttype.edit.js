@@ -6,7 +6,6 @@
     let currentDraggedItem = null;
     let draggedItemPosition = null;
     let isEditFormValid = false;
-    let previousDraggedPosition = null;
     const editForm = doc.querySelector('.ibexa-content-type-edit-form');
     let inputsToValidate = editForm.querySelectorAll(SELECTOR_INPUTS_TO_VALIDATE);
     const draggableGroups = [];
@@ -248,11 +247,7 @@
                 currentDraggedItem.classList.remove('ibexa-collapse--field-definition-loading');
                 afterChangeGroup();
             })
-            .catch((error) => {
-                previousDraggedPosition.after(currentDraggedItem);
-
-                return ibexa.helpers.notification.showErrorNotification(error);
-            });
+            .catch(ibexa.helpers.notification.showErrorNotification);
     };
     const removeFieldsGroup = (event) => {
         if (event.currentTarget.hasAttribute('disabled')) {
@@ -306,18 +301,7 @@
                     afterChangeGroup();
                 });
             })
-            .catch((error) => {
-                const clearFieldRemoveError = () => {
-                    collapseNode.classList.remove('ibexa-collapse--field-definition-error');
-                    collapseNode.removeEventListener('click', clearFieldRemoveError, false);
-                };
-
-                collapseNode.classList.remove('ibexa-collapse--field-definition-removing');
-                collapseNode.classList.add('ibexa-collapse--field-definition-error');
-                collapseNode.addEventListener('click', clearFieldRemoveError, true);
-
-                return ibexa.helpers.notification.showErrorNotification(error);
-            });
+            .catch(ibexa.helpers.notification.showErrorNotification);
     };
     const validateInput = (input) => {
         const isInputEmpty = !input.value;
@@ -461,12 +445,41 @@
             super.onDragStart(event);
 
             currentDraggedItem = event.currentTarget;
-            previousDraggedPosition = event.currentTarget.previousElementSibling;
             sourceContainer = currentDraggedItem.parentNode;
+        }
+
+        onDragOver(event) {
+            const isDragSuccessful = super.onDragOver(event);
+
+            if (!isDragSuccessful) {
+                return false;
+            }
+
+            const item = this.getPlaceholderNode(event.target);
+
+            if (item.isSameNode(this.emptyContainer)) {
+                this.emptyContainer.classList.toggle('ibexa-field-definitions-empty-group--hidden');
+            }
+
+            return true;
         }
 
         onDragEnd() {
             currentDraggedItem.style.removeProperty('display');
+        }
+
+        init() {
+            super.init();
+
+            doc.body.addEventListener('dragover', (event) => {
+                if (!this.itemsContainer.contains(event.target)) {
+                    const groupFieldsDefinitionCount = this.itemsContainer.querySelectorAll('.ibexa-collapse--field-definition').length;
+
+                    this.emptyContainer.classList.toggle('ibexa-field-definitions-empty-group--hidden', groupFieldsDefinitionCount !== 0);
+                } else {
+                    event.preventDefault();
+                }
+            });
         }
     }
 

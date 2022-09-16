@@ -5,7 +5,11 @@
 
 {% if not field_definition.vars.disable_remove|default(false) %}
     {% set extra_actions = extra_actions|merge([
-        { 'icon_name': 'discard', 'icon_size_class': 'ibexa-icon--tiny-small', 'button_class': 'ibexa-collapse__extra-action-button--remove-field-definitions'}
+        {
+            'icon_name': 'discard',
+            'icon_size_class': 'ibexa-icon--tiny-small',
+            'button_class': 'ibexa-collapse__extra-action-button--remove-field-definitions',
+        }
     ]) %}
 {% endif %}
 {%- embed "@ibexadesign/ui/component/collapse.html.twig" with {
