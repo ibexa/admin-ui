@@ -1,3 +1,19 @@
+.ibexa-anchor-navigation {
+    &__section-group {
+        display: none;
+
+        &--active {
+            display: block;
+        }
+    }
+
+    &__sections {
+        .card {
+            position: unset;
+        }
+    }
+}
+
 .ibexa-anchor-navigation-menu {
     &__header {
         height: calculateRem(87px);
@@ -8,19 +24,61 @@
     &__body {
         height: calc(100% - #{calculateRem(87px)});
         overflow: auto;
+        padding: calculateRem(25px);
+        font-size: $ibexa-text-font-size-medium;
     }
 
     &__close {
         font-weight: 600;
     }
 
-    &__items {
-        margin: 0;
-        padding: calculateRem(16px);
-        list-style: none;
+    &__section-groups {
+        min-width: calculateRem(350px);
+        max-width: calculateRem(400px);
+        width: 25vw;
+        height: calculateRem(48px);
+
+        &--list {
+            padding: calculateRem(4px);
+            border-radius: $ibexa-border-radius;
+            background-color: $ibexa-color-light-300;
+            display: flex;
+        }
     }
 
-    &__item-btn {
+    &__section-groups-item {
+        height: calculateRem(40px);
+        padding: calculateRem(10px);
+        border-radius: $ibexa-border-radius;
+        border: 0;
+        flex-basis: 100%;
+        text-align: center;
+        overflow: hidden;
+
+        &--active {
+            background-color: $ibexa-color-white;
+            font-weight: 600;
+        }
+    }
+
+    &__sections {
+        min-width: calculateRem(240px);
+        list-style: none;
+        display: none;
+        padding-left: 0;
+
+        &:not(:first-child) {
+            margin: calculateRem(24px) 0 0;
+            padding: calculateRem(24px) 0 0;
+            border-top: calculateRem(1px) solid $ibexa-color-light;
+        }
+
+        &--active {
+            display: block;
+        }
+    }
+
+    &__sections-item-btn {
         display: inline-flex;
         width: 100%;
         padding: calculateRem(11px) calculateRem(15px);
@@ -52,7 +110,7 @@
             color: $ibexa-color-info;
             font-weight: 600;
 
-            &:before {
+            &::before {
                 background-color: $ibexa-color-info;
             }
         }
@@ -62,19 +120,39 @@
             background: $ibexa-color-info-100;
             font-weight: 600;
 
-            &:before {
+            &::before {
                 background-color: $ibexa-color-info;
             }
         }
 
         &--invalid {
-            &:after {
+            &::after {
                 opacity: 1;
             }
         }
     }
 
-    &__item-btn-label {
+    &__sections-item-label {
         max-width: calc(100% - #{calculateRem(45px)});
+    }
+
+    &__item-label {
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    &__item-error {
+        margin-top: calculateRem(-3px);
+        fill: $ibexa-color-danger;
+
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__error {
+        &--hidden {
+            display: none;
+        }
     }
 }

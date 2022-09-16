@@ -83,7 +83,7 @@ class AdminUpdateItemPage extends Page
             new VisibleCSSLocator('formElement', '.ibexa-main-container '),
             new VisibleCSSLocator('closeButton', '.ibexa-content-edit-container__close'),
             new VisibleCSSLocator('button', '.container button'),
-            new VisibleCSSLocator('tab', '.ibexa-anchor-navigation-menu__item'),
+            new VisibleCSSLocator('tab', '.ibexa-anchor-navigation-menu__sections-item'),
             new VisibleCSSLocator('fieldInput', 'input'),
         ];
     }
