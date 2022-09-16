@@ -96,7 +96,7 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator('formElement', 'form.ibexa-form'),
             new VisibleCSSLocator('closeButton', '.ibexa-anchor-navigation-menu__close'),
             new VisibleCSSLocator('nthField', '.ibexa-field-edit:nth-of-type(%s)'),
-            new VisibleCSSLocator('fieldGroupNthField', 'div.ibexa-edit-content__primary-section.ibexa-edit-content__primary-section--active > div > div > div > div:nth-child(%s) > div'), //wywalic?
+            new VisibleCSSLocator('fieldGroupNthField', '[data-id="%s"] .ibexa-field-edit:nth-of-type(%s)'),
             new VisibleCSSLocator('noneditableFieldClass', 'ibexa-field-edit--eznoneditable'),
             new VisibleCSSLocator('fieldOfType', '.ibexa-field-edit--%s'),
             new VisibleCSSLocator('navigationTabs', '.ibexa-navigation-menu__secondary-item-btn'),
@@ -182,16 +182,15 @@ class ContentUpdateItemPage extends Page
             ->findAll($this->getLocator('navigationTabs'))
             ->getByCriterion(new ElementTextCriterion($tabName))
             ->click();
+        $this->getHTMLPage()->setTimeout(5)
+            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('navigationTabs')));
     }
 
     public function verifyFieldCannotBeEditedDueToLimitation(string $fieldName)
     {
-        //        $activeSections = $this->getHTMLPage()
-//            ->setTimeout(3)
-//            ->findAll(new VisibleCSSLocator('activeSection', '.ibexa-navigation-menu__secondary-item-btn--active'));
+        $activeSections = $this->getHTMLPage()->findAll(new VisibleCSSLocator('activeSection', '.ibexa-navigation-menu__secondary-item-btn--active'));
         $fieldLocator = new VisibleCSSLocator('', sprintf($this
-            ->getLocator('fieldGroupNthField')->getSelector(), $this->getFieldPosition($fieldName)));
-        //   $activeSections->single()->getAttribute('data-anchor-target-section-id'), $this->getFieldPosition($fieldName)));
+            ->getLocator('fieldGroupNthField')->getSelector(), $activeSections->single()->getAttribute('data-target-id'), $this->getFieldPosition($fieldName)));
         $this->getHTMLPage()->find($fieldLocator)->assert()->hasClass('ibexa-field-edit--disabled');
     }
 
