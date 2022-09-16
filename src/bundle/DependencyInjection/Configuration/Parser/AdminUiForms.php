@@ -169,7 +169,7 @@ class AdminUiForms extends AbstractParser
         $contextualizer->setContextualParameter(
             self::CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM,
             $currentScope,
-            $scopeSettings['admin_ui_forms.content_type_edit.default_meta_field_type_group'] ?? []
+            $scopeSettings['admin_ui_forms.content_type_edit.default_meta_field_type_group'] ?? null
         );
     }
 
