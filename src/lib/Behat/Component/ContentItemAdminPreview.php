@@ -51,9 +51,9 @@ class ContentItemAdminPreview extends Component
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('nthFieldContainer', 'div.ez-content-field:nth-of-type(%s)'),
-            new VisibleCSSLocator('fieldName', '.ez-content-field-name'),
-            new VisibleCSSLocator('fieldValue', '.ez-content-field-value'),
+            new VisibleCSSLocator('nthFieldContainer', 'div.ibexa-content-field:nth-of-type(%s)'),
+            new VisibleCSSLocator('fieldName', '.ibexa-content-field__name'),
+            new VisibleCSSLocator('fieldValue', '.ibexa-content-field__value'),
             new VisibleCSSLocator('fieldValueContainer', ':first-child'),
         ];
     }
@@ -62,7 +62,7 @@ class ContentItemAdminPreview extends Component
     {
         $searchText = sprintf('%s:', $fieldLabel);
 
-        $fields = $this->getHTMLPage()->findAll($this->getLocator('fieldName'));
+        $fields = $this->getHTMLPage()->findAll($this->getLocator('fieldName'))->assert()->hasElements();
 
         $fieldPosition = 1;
         foreach ($fields as $field) {
@@ -78,14 +78,13 @@ class ContentItemAdminPreview extends Component
     {
         $fieldClass = $this->getHTMLPage()
             ->find(CSSLocatorBuilder::base($fieldValueLocator)->withDescendant($this->getLocator('fieldValueContainer'))->build())
-            ->getAttribute('class')
-        ;
+            ->getAttribute('class');
 
-        if ('ez-scrollable-table-wrapper mb-0' === $fieldClass) {
+        if ('ibexa-scrollable-table-wrapper mb-0' === $fieldClass) {
             return 'ezuser';
         }
 
-        if (false !== strpos($fieldClass, 'ez-scrollable-table-wrapper')) {
+        if (false !== strpos($fieldClass, 'ibexa-table-header')) {
             return 'ezmatrix';
         }
 

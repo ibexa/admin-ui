@@ -1,0 +1,36 @@
+
+{% set is_small = is_small|default(false) %}
+{% set is_datetime_popup_inline = is_datetime_popup_inline|default(false) %}
+
+{% set wrapper_attr = wrapper_attr|default({})|merge({
+    class: (wrapper_attr.class|default('')
+        ~ ' ibexa-date-time-picker'
+        ~ (is_small ? ' ibexa-date-time-picker--small')
+        ~ (is_datetime_popup_inline ? ' ibexa-date-time-picker--inline-datetime-popup')
+    )|trim
+}) %}
+{% set input_attr = input_attr|default({})|merge({
+    class: (input_attr.class|default('')
+        ~ ' ibexa-input ibexa-input--text ibexa-date-time-picker__input flatpickr flatpickr-input'
+        ~ (is_small ? ' ibexa-input--small')
+    )|trim,
+    readonly: 'readonly',
+    type: 'text',
+    placeholder: input_attr.placeholder|default(' '),
+}) %}
+
+{% embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: false } %}
+    {% import '@ibexadesign/ui/component/macros.html.twig' as html %}
+
+    {% block content %}
+        <input {{ html.attributes(input_attr) }} />
+    {% endblock %}
+    {% block actions %}
+        {{ parent() }}
+        <div class="ibexa-input-text-wrapper__action-btn">
+            <svg class="ibexa-icon ibexa-icon--small">
+                <use xlink:href="{{ ibexa_icon_path('date') }}"></use>
+            </svg>
+        </div>
+    {% endblock %}
+{% endembed %}

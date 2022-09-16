@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\FormMapper;
+namespace Ibexa\AdminUi\Form\Data\FormMapper;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\User\User;
-use EzSystems\EzPlatformContentForms\Data\Content\FieldData;
-use EzSystems\EzPlatformContentForms\Data\User\UserUpdateData;
+use Ibexa\ContentForms\Data\User\UserUpdateData;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -20,13 +20,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class UserUpdateMapper
 {
     /**
-     * Maps a ValueObject from eZ content repository to a data usable as underlying form data (e.g. create/update struct).
+     * Maps a ValueObject from Ibexa content repository to a data usable as underlying form data (e.g. create/update struct).
      *
-     * @param \eZ\Publish\API\Repository\Values\User\User $user
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $user
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      * @param array $params
      *
-     * @return \EzSystems\EzPlatformContentForms\Data\User\UserUpdateData
+     * @return \Ibexa\ContentForms\Data\User\UserUpdateData
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
      * @throws \Symfony\Component\OptionsResolver\Exception\OptionDefinitionException
@@ -66,3 +66,5 @@ class UserUpdateMapper
             ->setRequired(['languageCode']);
     }
 }
+
+class_alias(UserUpdateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\Data\FormMapper\UserUpdateMapper');

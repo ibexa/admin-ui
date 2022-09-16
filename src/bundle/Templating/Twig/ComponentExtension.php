@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Templating\Twig;
+namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
-use EzSystems\EzPlatformAdminUi\Component\Registry as ComponentRegistry;
-use EzSystems\EzPlatformAdminUi\Component\Renderer\RendererInterface;
+use Ibexa\AdminUi\Component\Registry as ComponentRegistry;
+use Ibexa\Contracts\AdminUi\Component\Renderer\RendererInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -33,10 +33,28 @@ class ComponentExtension extends AbstractExtension
             new TwigFunction(
                 'ez_render_component_group',
                 [$this, 'renderComponentGroup'],
-                ['is_safe' => ['html']]
+                [
+                    'is_safe' => ['html'],
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_render_component_group',
+                ]
             ),
             new TwigFunction(
                 'ez_render_component',
+                [$this, 'renderComponent'],
+                [
+                    'is_safe' => ['html'],
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_render_component',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_render_component_group',
+                [$this, 'renderComponentGroup'],
+                ['is_safe' => ['html']]
+            ),
+            new TwigFunction(
+                'ibexa_render_component',
                 [$this, 'renderComponent'],
                 ['is_safe' => ['html']]
             ),
@@ -53,3 +71,5 @@ class ComponentExtension extends AbstractExtension
         return $this->renderer->renderSingle($group, $id, $parameters);
     }
 }
+
+class_alias(ComponentExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\ComponentExtension');

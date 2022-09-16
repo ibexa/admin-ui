@@ -4,22 +4,22 @@ services:
         autoconfigure: true
         public: false
 
-    EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessResolverInterface: '@EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessResolver'
+    Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface: '@Ibexa\AdminUi\Siteaccess\SiteaccessResolver'
 
-    EzSystems\EzPlatformAdminUi\Siteaccess\SiteAccessKeyGenerator: ~
+    Ibexa\AdminUi\Siteaccess\SiteAccessKeyGenerator: ~
 
-    EzSystems\EzPlatformAdminUi\Siteaccess\SiteAccessNameGenerator: ~
+    Ibexa\AdminUi\Siteaccess\SiteAccessNameGenerator: ~
 
-    EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessResolver:
+    Ibexa\AdminUi\Siteaccess\SiteaccessResolver:
         arguments:
-            $siteaccessPreviewVoters: !tagged ezplatform.admin_ui.siteaccess_preview_voter
-            $siteAccessService: '@ezpublish.siteaccess_service'
+            $siteaccessPreviewVoters: !tagged ibexa.admin_ui.site_access.preview.voter
+            $siteAccessService: '@Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService'
 
-    EzSystems\EzPlatformAdminUi\Siteaccess\NonAdminSiteaccessResolver:
+    Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver:
         arguments:
-            $siteAccessGroups: '%ezpublish.siteaccess.groups%'
+            $siteAccessGroups: '%ibexa.site_access.groups%'
 
-    EzSystems\EzPlatformAdminUi\Siteaccess\AdminSiteaccessPreviewVoter:
+    Ibexa\AdminUi\Siteaccess\AdminSiteaccessPreviewVoter:
         arguments:
-            $repositoryConfigurationProvider: '@ezpublish.api.repository_configuration_provider'
-        tags: ['ezplatform.admin_ui.siteaccess_preview_voter']
+            $repositoryConfigurationProvider: '@Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider'
+        tags: [ ibexa.admin_ui.site_access.preview.voter ]

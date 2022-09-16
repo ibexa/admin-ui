@@ -1,133 +1,184 @@
 {% trans_default_domain 'locationview' %}
 {% import _self as tab %}
-{% form_theme form_content_location_add '@ezdesign/ui/form/flat_widgets.html.twig' %}
-{% form_theme form_content_location_remove '@ezdesign/ui/form/flat_widgets.html.twig' %}
+{% form_theme form_content_location_add '@ibexadesign/ui/form/flat_widgets.html.twig' %}
+{% form_theme form_content_location_remove with ['@ibexadesign/ui/form/flat_widgets.html.twig', '@ibexadesign/ui/form_fields.html.twig'] %}
 
-<section>
-    {{ form(form_content_location_add, {'action': path('ezplatform.location.add')}) }}
-    {% include '@ezdesign/ui/table_header.html.twig' with {
-        header_text: 'tab.locations.content_locations'|trans|desc('Content Locations'),
-        tools: tab.table_header_tools(form_content_location_add, form_content_location_remove, can_add)
-    } %}
-    {{ form_start(form_content_location_remove, {
-        'action': path('ezplatform.location.remove'),
-        'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-locations' }
-    }) }}
-    <div class="ez-scrollable-table-wrapper">
-        <table class="ez-table table table-hover">
-            <thead>
-            <tr>
-                <th></th>
-                <th>{{ 'tab.locations.path'|trans|desc('Path') }}</th>
-                <th>{{ 'tab.locations.subitems'|trans|desc('Sub-items') }}</th>
-                <th colspan="2">{{ 'tab.locations.visibility'|trans|desc('Visibility') }}</th>
-                <th>{{ 'tab.locations.main'|trans|desc('Main') }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% if locations is not empty %}
-                {% for location in locations %}
-                    <tr>
-                        <td class="ez-table__cell ez-table__cell--has-checkbox">
-                            {{ form_widget(form_content_location_remove.locations[location.id], {'attr': {'class': 'ez-input ez-input--checkbox', 'disabled': not location.canDelete}}) }}
-                        </td>
-                        <td class="ez-table__cell">
-                            {% include '@ezdesign/ui/location_path.html.twig' with {'locations': location.pathLocations, 'link_last_element': true} %}
-                        </td>
-                        <td class="ez-table__cell">{{ location.childCount }}</td>
-                        <td class="ez-table__cell">
-                            <label class="ez-checkbox-icon {{ not location.explicitlyHidden ? 'is-checked' }}{% if not can_hide[location.id] %} disabled{% endif %}"
-                                   title="{{ 'tab.locations.visibility'|trans|desc('Visibility') }}">
-                                <svg class="ez-icon ez-icon-view">
-                                    <use xlink:href="{{ ez_icon_path('view') }}"></use>
-                                </svg>
-                                <svg class="ez-icon ez-icon-view-hide">
-                                    <use xlink:href="{{ ez_icon_path('view-hide') }}"></use>
-                                </svg>
+<section class="ibexa-content-locations">
+    {{ form(form_content_location_add, {'action': path('ibexa.location.add')}) }}
+        {% set body_rows = [] %}
+        {% if locations is not empty %}
+            {% for location in locations %}
+                {% set body_row_cols = [] %}
+
+                {% set col_raw %}
+                    {{ form_widget(form_content_location_remove.locations[location.id], {'attr': {'disabled': not location.canDelete}}) }}
+                {% endset %}
+                {% set body_row_cols = body_row_cols|merge([{
+                    has_checkbox: true,
+                    content: col_raw,
+                    raw: true,
+                }]) %}
+
+                {% set col_raw %}
+                    {% include '@ibexadesign/ui/location_path.html.twig' with {'locations': location.pathLocations, 'link_last_element': true} %}
+                {% endset %}
+                {% set body_row_cols = body_row_cols|merge([{
+                    content: col_raw,
+                    raw: true,
+                }]) %}
+
+                {% set body_row_cols = body_row_cols|merge([
+                    { content: '' },
+                ]) %}
+
+                {% set col_raw %}
+                    <input
+                        class="ibexa-input ibexa-input--radio"
+                        type="radio"
+                        {{ location.main ? 'checked' }}
+                        {{ not location.canEdit ? 'disabled' }}
+                        name="updateMainLocation"
+                        value="{{ location.id }}"
+                    >
+                {% endset %}
+                {% set body_row_cols = body_row_cols|merge([{
+                    content: col_raw,
+                    raw: true,
+                }]) %}
+
+                {% set col_raw %}
+                    <div class="ibexa-content-locations__visibility-toggler">
+                        <div class="ibexa-toggle ibexa-toggle--checkbox {{ not can_hide[location.id] ? 'ibexa-toggle--is-disabled' }} {{ not location.explicitlyHidden ? 'ibexa-toggle--is-checked' }}">
+                            <label class="ibexa-toggle__switcher">
+                                <span class="ibexa-toggle__indicator"></span>
                                 <input
-                                    class="ez-checkbox-icon__checkbox"
+                                    type="checkbox"
+                                    class="ibexa-toggle__input ibexa-content-locations__visibility-checkbox"
                                     {{ not location.explicitlyHidden ? 'checked' }}
                                     type="checkbox"
                                     name="updateVisibility"
-                                    {% if not can_hide[location.id] %} disabled="disabled"{% endif %}
-                                    value="{{ location.id }}"/>
+                                    {{ not can_hide[location.id] ? 'disabled' }}
+                                    value="{{ location.id }}"
+                                />
                             </label>
-                            {% if location.invisible %}
-                                <span class="ml-2">
-                                    {{ 'tab.locations.hidden_content_or_superior'|trans|desc('Content or its ancestor is hidden') }}
-                                </span>
-                            {% endif %}
-                        </td>
-                        <td class="ez-table__cell"></td>
-                        <td class="ez-table__cell">
-                            <input
-                                class="ez-input ez-input--radio"
-                                type="radio"
-                                {{ location.main ? 'checked' }}
-                                {{ not location.canEdit ? 'disabled' }}
-                                name="updateMainLocation"
-                                value="{{ location.id }}"/>
-                        </td>
-                    </tr>
-                {% endfor %}
-            {% endif %}
-            </tbody>
-        </table>
-    </div>
+                            <span class="ibexa-toggle__label ibexa-toggle__label--on">
+                                {{ 'toggle_widget.label.on'|trans|desc('On') }}
+                            </span>
+                            <span class="ibexa-toggle__label ibexa-toggle__label--off mr-2">
+                                {{ 'toggle_widget.label.off'|trans|desc('Off') }}
+                            </span>
+                        </div>
+                        <label class="ibexa-content-locations__visibility-toggler-label {{ not location.invisible ? 'ibexa-content-locations__visibility-toggler-label--hidden' }}">
+                            <svg class="ibexa-icon ibexa-icon--small ">
+                                <use xlink:href="{{ ibexa_icon_path('system-information') }}"></use>
+                            </svg>
+                            {{ 'tab.locations.hidden_content_or_superior'|trans|desc('Content or its ancestor is hidden') }}
+                        </label>
+                    </div>
+                {% endset %}
+
+                {% set body_row_cols = body_row_cols|merge([{
+                    content: col_raw,
+                    raw: true,
+                }]) %}
+
+                {% set body_row_cols = body_row_cols|merge([
+                    { content: location.childCount },
+                ]) %}
+
+                {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
+            {% endfor %}
+        {% endif %}
+
+        {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
+            headline: 'tab.locations.content_locations'|trans|desc('Content Locations'),
+            head_cols: [
+                { has_checkbox: true },
+                { content: 'tab.locations.path'|trans|desc('Path'),
+                    attr: { colspan: 2 }
+                },
+                { content: 'tab.locations.main'|trans|desc('Main') },
+                { content: 'tab.locations.visibility'|trans|desc('Visibility'),
+                    class: 'ibexa-table__header-cell--visibility-toggler'
+                },
+                { content: 'tab.locations.subitems'|trans|desc('Sub-items') },
+            ],
+            body_rows,
+            actions: tab.table_header_tools(form_content_location_add, form_content_location_remove, can_add),
+        } %}
+            {% block between_header_and_table %}
+                {{ form_start(form_content_location_remove, {
+                    'action': path('ibexa.location.remove'),
+                    'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-locations' }
+                }) }}
+            {% endblock %}
+        {% endembed %}
     {{ form_end(form_content_location_remove) }}
 
     {% if pager is defined and pager.haveToPaginate %}
-        <div class="row justify-content-center align-items-center mb-2 ez-pagination__spacing">
-                <span class="ez-pagination__text">
+        <div class="row justify-content-center align-items-center mb-2 ibexa-pagination__spacing">
+                <span class="ibexa-pagination__text">
                     {{ 'pagination.viewing'|trans({
                         '%viewing%': pager.currentPageResults|length,
                         '%total%': pager.nbResults}, 'pagination')|desc('Viewing %viewing% out of %total% items')|raw }}
                 </span>
         </div>
-        <div class="row justify-content-center align-items-center ez-pagination__btn mb-5">
-            {{ pagerfanta(pager, 'ez', pager_options|merge({
+        <div class="row justify-content-center align-items-center ibexa-pagination__btn mb-5">
+            {{ pagerfanta(pager, 'ibexa', pager_options|merge({
                 'routeParams': {
-                    '_fragment': 'ez-tab-location-view-locations'
+                    '_fragment': 'ibexa-tab-location-view-locations'
                 }
             })) }}
         </div>
     {% endif %}
 
-    {{ form(form_content_location_update_visibility, {'action': path('ezplatform.location.update_visibility')}) }}
-    {{ form(form_content_location_main_update, {'action': path('ezplatform.content.update_main_location')}) }}
+    {{ form_start(form_content_location_update_visibility, {'action': path('ibexa.location.update_visibility')}) }}
+        {{ form_row(form_content_location_update_visibility.location) }}
+        {{ form_row(form_content_location_update_visibility.hidden, {
+            label_attr: { hidden: true }
+        }) }}
+        {{ form_row(form_content_location_update_visibility.set) }}
+    {{ form_end(form_content_location_update_visibility) }}
 
+    {{ form(form_content_location_main_update, {'action': path('ibexa.content.update_main_location')}) }}
 </section>
 
-{% include '@ezdesign/content/tab/locations/panel_swap.html.twig' with {
+{% include '@ibexadesign/content/tab/locations/panel_swap.html.twig' with {
     'form': form_content_location_swap,
     'can_swap': can_swap
 } %}
 
 {% macro table_header_tools(form_add, form_remove, can_add) %}
     <button
-            data-udw-config="{{ ez_udw_config('add_location', {}) }}"
-            class="btn btn-icon btn--udw-add"
-            title="{{ 'tab.locations.action.add'|trans|desc('Add Location') }}"
-            {{ not can_add ? 'disabled' }}>
-        <svg class="ez-icon ez-icon-create">
-            <use xlink:href="{{ ez_icon_path('create') }}"></use>
+        data-udw-config="{{ ibexa_udw_config('add_location', {}) }}"
+        class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-btn--udw-add"
+        {{ not can_add ? 'disabled' }}
+    >
+        <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
+            <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
         </svg>
+        <span class="ibexa-btn__label">
+            {{ 'tab.locations.action.add'|trans|desc('Add new') }}
+        </span>
     </button>
 
     {% set modal_data_target = 'delete-content-types-modal' %}
     <button
-            id="delete-locations"
-            type="button"
-            class="btn btn-icon"
-            disabled
-            data-toggle="modal"
-            data-target="#{{ modal_data_target }}"
-            title="{{ 'tab.locations.action.delete'|trans|desc('Delete Location') }}">
-        <svg class="ez-icon ez-icon-trash">
-            <use xlink:href="{{ ez_icon_path('trash') }}"></use>
+        id="delete-locations"
+        type="button"
+        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+        disabled
+        data-bs-toggle="modal"
+        data-bs-target="#{{ modal_data_target }}"
+    >
+        <svg class="ibexa-icon ibexa-icon--small ibexa-icon--trash">
+            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
         </svg>
+        <span class="ibexa-btn__label">
+            {{ 'tab.locations.action.delete'|trans|desc('Delete') }}
+        </span>
     </button>
-    {% include '@ezdesign/ui/modal/bulk_delete_confirmation.html.twig' with {
+    {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
         'id': modal_data_target,
         'message': 'tab.locations.modal.message'|trans|desc('Do you want to delete the Location? All its sub-items will be sent to Trash.'),
         'data_click': '#' ~ form_remove.remove.vars.id,

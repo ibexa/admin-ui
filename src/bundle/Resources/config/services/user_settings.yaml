@@ -1,8 +1,8 @@
 parameters:
-    ezsettings.admin_group.user_settings_update_view_defaults:
+    ibexa.site_access.config.admin_group.user_settings_update_view_defaults:
         full:
             default:
-                template: "@@ezdesign/account/settings/update.html.twig"
+                template: "@@ibexadesign/account/settings/update.html.twig"
                 match: []
 
 services:
@@ -11,12 +11,12 @@ services:
         autoconfigure: true
         public: false
 
-    EzSystems\EzPlatformAdminUi\UserSetting\Autosave:
+    Ibexa\AdminUi\UserSetting\Autosave:
         tags:
-            - { name: ezplatform.admin_ui.user_setting.value, identifier: autosave, priority: 0 }
-            - { name: ezplatform.admin_ui.user_setting.form_mapper, identifier: autosave }
+            - { name: ibexa.user.setting.value, identifier: autosave, group: content_edit, priority: 30 }
+            - { name: ibexa.user.setting.mapper.form, identifier: autosave }
 
-    EzSystems\EzPlatformAdminUi\UserSetting\AutosaveInterval:
+    Ibexa\AdminUi\UserSetting\AutosaveInterval:
         tags:
-            - { name: ezplatform.admin_ui.user_setting.value, identifier: autosave_interval, priority: 0 }
-            - { name: ezplatform.admin_ui.user_setting.form_mapper, identifier: autosave_interval }
+            - { name: ibexa.user.setting.value, identifier: autosave_interval, group: content_edit, priority: 20 }
+            - { name: ibexa.user.setting.mapper.form, identifier: autosave_interval }
