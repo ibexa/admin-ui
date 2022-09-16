@@ -35,7 +35,6 @@ final class ContentTypeEditMetaFieldsComponent implements Renderable
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
         $contentType = $parameters['content_type'];
-
         $metaFieldTypeIdentifiers = $this->contentTypeFieldTypesResolver->getMetaFieldTypeIdentifiers();
 
         if (empty($metaFieldTypeIdentifiers)) {
