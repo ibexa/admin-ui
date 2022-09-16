@@ -42,8 +42,6 @@
     &--text,
     &--textarea,
     &--date {
-        @include ibexa-font-sans-serif();
-
         font-size: $ibexa-text-font-size-medium;
         color: $ibexa-color-dark;
         line-height: calculateRem(21px);
@@ -78,8 +76,6 @@
         }
 
         &::placeholder {
-            @include ibexa-font-sans-serif();
-
             color: $ibexa-color-dark-400;
             font-size: $ibexa-text-font-size-medium;
             line-height: calculateRem(21px);

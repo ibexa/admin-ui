@@ -1,6 +1,5 @@
 .ibexa-label {
     @include label-required();
-    @include ibexa-font-sans-serif();
 
     font-size: $ibexa-text-font-size-small;
     color: $ibexa-color-dark-400;
