@@ -104,7 +104,6 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator('autosaveIsOnInfo', '.ibexa-autosave__status-on'),
             new VisibleCSSLocator('autosaveSavedInfo', '.ibexa-autosave__status-saved'),
             new VisibleCSSLocator('autosaveIsOffInfo', '.ibexa-autosave__status-off'),
-            new VisibleCSSLocator('activeSection2', '.ibexa-navigation-menu__secondary-item-btn--active'),
         ];
     }
 
