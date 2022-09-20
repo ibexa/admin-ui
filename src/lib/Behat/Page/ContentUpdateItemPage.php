@@ -100,7 +100,7 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator('fieldGroupNthField', '[data-id="%s"] .ibexa-field-edit:nth-of-type(%s)'),
             new VisibleCSSLocator('noneditableFieldClass', 'ibexa-field-edit--eznoneditable'),
             new VisibleCSSLocator('fieldOfType', '.ibexa-field-edit--%s'),
-            new VisibleCSSLocator('navigationTabs', '.ibexa-navigation-menu__secondary-item-btn'),
+            new VisibleCSSLocator('navigationTabs', '.ibexa-anchor-navigation-menu__sections-item-btn'),
             new VisibleCSSLocator('autosaveIsOnInfo', '.ibexa-autosave__status-on'),
             new VisibleCSSLocator('autosaveSavedInfo', '.ibexa-autosave__status-saved'),
             new VisibleCSSLocator('autosaveIsOffInfo', '.ibexa-autosave__status-off'),
@@ -131,7 +131,7 @@ class ContentUpdateItemPage extends Page
     {
         $activeSections = $this->getHTMLPage()
             ->setTimeout(0)
-            ->findAll(new VisibleCSSLocator('activeSection', '.ibexa-navigation-menu__secondary-item-btn--active'));
+            ->findAll(new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__sections-item-btn--active'));
         $fieldLabelLocator = $activeSections->any() ?
             new VisibleCSSLocator(
                 'fieldLabelWithCategories',
@@ -180,18 +180,18 @@ class ContentUpdateItemPage extends Page
 
     public function switchToFieldGroup(string $tabName): void
     {
-        $this->getHTMLPage()
+        $this->getHTMLPage()->setTimeout(3)
             ->findAll($this->getLocator('navigationTabs'))
             ->getByCriterion(new ElementTextCriterion($tabName))
             ->click();
         $this->getHTMLPage()
             ->setTimeout(10)
-            ->waitUntilCondition(new ElementHasTextCondition($this->getHTMLPage(), new VisibleCSSLocator('activeSection', '.ibexa-navigation-menu__secondary-item-btn--active'), $tabName));
+            ->waitUntilCondition(new ElementHasTextCondition($this->getHTMLPage(), new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__sections-item-btn--active'), $tabName));
     }
 
     public function verifyFieldCannotBeEditedDueToLimitation(string $fieldName)
     {
-        $activeSections = $this->getHTMLPage()->findAll(new VisibleCSSLocator('activeSection', '.ibexa-navigation-menu__secondary-item-btn--active'));
+        $activeSections = $this->getHTMLPage()->findAll(new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__sections-item-btn--active'));
         $fieldLocator = new VisibleCSSLocator('', sprintf($this
             ->getLocator('fieldGroupNthField')->getSelector(), $activeSections->single()->getAttribute('data-target-id'), $this->getFieldPosition($fieldName)));
         $this->getHTMLPage()->find($fieldLocator)->assert()->hasClass('ibexa-field-edit--disabled');
