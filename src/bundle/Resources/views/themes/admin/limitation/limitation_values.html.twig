@@ -141,3 +141,15 @@
         {% endfor %}
     {% endapply %}
 {% endblock %}
+
+{% block ez_limitation_memberof_value %}
+    {% apply spaceless %}
+        {{ values|join(', ') }}
+    {% endapply %}
+{% endblock %}
+
+{% block ez_limitation_role_value %}
+    {% apply spaceless %}
+        {{ values|join(', ') }}
+    {% endapply %}
+{% endblock %}
