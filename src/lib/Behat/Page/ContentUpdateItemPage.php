@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent;
 use Ibexa\AdminUi\Behat\Component\Notification;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
+use Ibexa\Behat\Browser\Element\Condition\ElementHasTextCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextFragmentCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -103,6 +104,7 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator('autosaveIsOnInfo', '.ibexa-autosave__status-on'),
             new VisibleCSSLocator('autosaveSavedInfo', '.ibexa-autosave__status-saved'),
             new VisibleCSSLocator('autosaveIsOffInfo', '.ibexa-autosave__status-off'),
+            new VisibleCSSLocator('activeSection2', '.ibexa-navigation-menu__secondary-item-btn--active'),
         ];
     }
 
@@ -182,8 +184,9 @@ class ContentUpdateItemPage extends Page
             ->findAll($this->getLocator('navigationTabs'))
             ->getByCriterion(new ElementTextCriterion($tabName))
             ->click();
-        $this->getHTMLPage()->setTimeout(5)
-            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('navigationTabs')));
+        $this->getHTMLPage()
+            ->setTimeout(10)
+            ->waitUntilCondition(new ElementHasTextCondition($this->getHTMLPage(), new VisibleCSSLocator('activeSection', '.ibexa-navigation-menu__secondary-item-btn--active'), $tabName));
     }
 
     public function verifyFieldCannotBeEditedDueToLimitation(string $fieldName)
