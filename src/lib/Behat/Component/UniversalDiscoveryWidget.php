@@ -146,6 +146,7 @@ class UniversalDiscoveryWidget extends Component
             ->click();
 
         $this->getHTMLPage()->find($this->getLocator('markedBookmarkedItem'))->assert()->textEquals($bookmarkName);
+        $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('contentPreview'))->assert()->isVisible();
     }
 
     public function editSelectedContent(): void
@@ -199,6 +200,7 @@ class UniversalDiscoveryWidget extends Component
             new CSSLocator('input', '.c-udw-toggle-selection'),
             new CSSLocator('treeLevelSelectedFormat', '.c-finder-branch:nth-of-type(%d) .c-finder-leaf--marked'),
             // itemActions
+            new VisibleCSSLocator('contentPreview', '.c-content-meta-preview'),
             new CSSLocator('editButton', '.c-content-edit-button__btn'),
             // bookmarks
             new VisibleCSSLocator('bookmarkButton', '.c-content-meta-preview__toggle-bookmark-button'),
