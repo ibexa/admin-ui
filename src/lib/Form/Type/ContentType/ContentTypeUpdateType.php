@@ -107,6 +107,7 @@ class ContentTypeUpdateType extends AbstractType
             ->add('metaFieldDefinitionsData', FieldDefinitionsCollectionType::class, [
                 'languageCode' => $options['languageCode'],
                 'mainLanguageCode' => $options['mainLanguageCode'],
+                'block_prefix' => 'meta_field_definitions_data',
             ])
             ->add('saveContentType', SubmitType::class, ['label' => /** @Desc("Apply") */ 'content_type.save'])
             ->add('removeDraft', SubmitType::class, ['label' => /** @Desc("Cancel") */ 'content_type.remove_draft', 'validation_groups' => false])
