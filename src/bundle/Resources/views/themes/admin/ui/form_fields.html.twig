@@ -444,7 +444,12 @@
     {{- form_row(form.enabled, { label: 'meta.enabled'|trans({
         '%type%': form.name.vars.value,
     })|desc('Enable %type% for this content type') }) -}}
-    {{- form(form) -}}
+
+    {% for form_field in form.children %}
+        {% if form_field.isRendered() == false %}
+            {{ form_row(form_field) }}
+        {% endif %}
+    {% endfor %}
 {%- endblock %}
 
 {% block content_type_meta_field_definition_enabled_row -%}
