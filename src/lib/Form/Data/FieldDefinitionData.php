@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data;
+namespace Ibexa\AdminUi\Form\Data;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
 
 /**
  * Base class for FieldDefinition forms, with corresponding FieldDefinition object.
  *
- * @property \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition $fieldDefinition
- * @property \EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData $contentTypeData
+ * @property \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition $fieldDefinition
+ * @property \Ibexa\AdminUi\Form\Data\ContentTypeData $contentTypeData
  */
 class FieldDefinitionData extends FieldDefinitionUpdateStruct
 {
     /**
-     * @var \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition
+     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition
      */
     protected $fieldDefinition;
 
@@ -27,7 +27,7 @@ class FieldDefinitionData extends FieldDefinitionUpdateStruct
      * ContentTypeData holding current FieldDefinitionData.
      * Mainly used for validation.
      *
-     * @var \EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData
+     * @var \Ibexa\AdminUi\Form\Data\ContentTypeData
      */
     protected $contentTypeData;
 
@@ -41,3 +41,5 @@ class_alias(
     FieldDefinitionData::class,
     \EzSystems\RepositoryForms\Data\FieldDefinitionData::class
 );
+
+class_alias(FieldDefinitionData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData');

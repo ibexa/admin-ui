@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\REST\Value\ContentTree;
+namespace Ibexa\AdminUi\REST\Value\ContentTree;
 
-use EzSystems\EzPlatformRest\Value as RestValue;
+use Ibexa\Rest\Value as RestValue;
 
 class Node extends RestValue
 {
@@ -39,7 +39,11 @@ class Node extends RestValue
     /** @var int */
     public $totalChildrenCount;
 
-    /** @var \EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\Node[] */
+    public int $reverseRelationsCount;
+
+    public bool $isBookmarked;
+
+    /** @var \Ibexa\AdminUi\REST\Value\ContentTree\Node[] */
     public $children;
 
     /**
@@ -52,7 +56,7 @@ class Node extends RestValue
      * @param bool $isInvisible
      * @param int $displayLimit
      * @param int $totalChildrenCount
-     * @param \EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\Node[] $children
+     * @param \Ibexa\AdminUi\REST\Value\ContentTree\Node[] $children
      */
     public function __construct(
         int $depth,
@@ -64,6 +68,8 @@ class Node extends RestValue
         bool $isInvisible,
         int $displayLimit,
         int $totalChildrenCount,
+        int $reverseRelationsCount,
+        bool $isBookmarked,
         array $children = []
     ) {
         $this->depth = $depth;
@@ -75,6 +81,10 @@ class Node extends RestValue
         $this->isContainer = $isContainer;
         $this->totalChildrenCount = $totalChildrenCount;
         $this->displayLimit = $displayLimit;
+        $this->reverseRelationsCount = $reverseRelationsCount;
+        $this->isBookmarked = $isBookmarked;
         $this->children = $children;
     }
 }
+
+class_alias(Node::class, 'EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\Node');

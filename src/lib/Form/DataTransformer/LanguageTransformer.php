@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\DataTransformer;
+namespace Ibexa\AdminUi\Form\DataTransformer;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -19,11 +19,11 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class LanguageTransformer implements DataTransformerInterface
 {
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     protected $languageService;
 
     /**
-     * @param \eZ\Publish\API\Repository\LanguageService $languageService
+     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
      */
     public function __construct(LanguageService $languageService)
     {
@@ -33,7 +33,7 @@ class LanguageTransformer implements DataTransformerInterface
     /**
      * Transforms a domain specific Language object into a Language's ID.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $value
      *
      * @return string|null
      *
@@ -57,9 +57,9 @@ class LanguageTransformer implements DataTransformerInterface
      *
      * @param string|null $value
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the value can not be found
      */
     public function reverseTransform($value)
@@ -81,3 +81,5 @@ class LanguageTransformer implements DataTransformerInterface
         }
     }
 }
+
+class_alias(LanguageTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\LanguageTransformer');

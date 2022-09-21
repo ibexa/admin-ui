@@ -1,5 +1,5 @@
-(function(global, doc) {
-    const toggleForms = doc.querySelectorAll('.ez-toggle-btn-state-radio');
+(function (global, doc) {
+    const toggleForms = doc.querySelectorAll('.ibexa-toggle-btn-state-radio');
 
     toggleForms.forEach((toggleForm) => {
         const radioInputs = [...toggleForm.querySelectorAll('input[type="radio"]')];

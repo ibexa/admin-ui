@@ -4,11 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu;
+namespace Ibexa\AdminUi\Menu;
 
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
-use eZ\Publish\API\Repository\Values\Content\Section;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -23,8 +24,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class SectionEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__SAVE = 'section_edit__sidebar_right__save';
-    const ITEM__CANCEL = 'section_edit__sidebar_right__cancel';
+    public const ITEM__SAVE = 'section_edit__sidebar_right__save';
+    public const ITEM__CANCEL = 'section_edit__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
@@ -58,7 +59,7 @@ class SectionEditRightSidebarBuilder extends AbstractBuilder implements Translat
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Section $section */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section $section */
         $section = $options['section'];
 
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
@@ -68,18 +69,17 @@ class SectionEditRightSidebarBuilder extends AbstractBuilder implements Translat
             self::ITEM__SAVE => $this->createMenuItem(
                 self::ITEM__SAVE,
                 [
+                    'extras' => ['primary' => true],
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => sprintf('#update-section-%d_update', $section->id),
                     ],
-                    'extras' => ['icon' => 'save'],
                 ]
             ),
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'extras' => ['icon' => 'circle-close'],
-                    'route' => 'ezplatform.section.list',
+                    'route' => 'ibexa.section.list',
                 ]
             ),
         ]);
@@ -98,3 +98,5 @@ class SectionEditRightSidebarBuilder extends AbstractBuilder implements Translat
         ];
     }
 }
+
+class_alias(SectionEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\SectionEditRightSidebarBuilder');

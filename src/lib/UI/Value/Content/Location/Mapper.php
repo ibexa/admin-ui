@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Value\Content\Location;
+namespace Ibexa\AdminUi\UI\Value\Content\Location;
 
-use EzSystems\EzPlatformAdminUi\UI\Value;
-use EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory;
+use Ibexa\AdminUi\UI\Value;
+use Ibexa\AdminUi\UI\Value\ValueFactory;
 
 final class Mapper
 {
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory */
+    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
     private $valueFactory;
 
     public function __construct(
@@ -23,7 +23,7 @@ final class Mapper
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location[] $locations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
      *
      * @return Value\Content\Location[]
      */
@@ -38,7 +38,7 @@ final class Mapper
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location[] $locations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
      *
      * @return Value\Content\Location[]
      */
@@ -54,3 +54,5 @@ final class Mapper
         return $locations;
     }
 }
+
+class_alias(Mapper::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\Location\Mapper');

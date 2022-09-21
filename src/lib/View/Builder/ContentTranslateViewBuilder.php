@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\View\Builder;
+namespace Ibexa\AdminUi\View\Builder;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
-use eZ\Publish\Core\MVC\Symfony\View\Builder\ViewBuilder;
-use eZ\Publish\Core\MVC\Symfony\View\Configurator;
-use eZ\Publish\Core\MVC\Symfony\View\ParametersInjector;
-use EzSystems\EzPlatformAdminUi\View\ContentTranslateSuccessView;
-use EzSystems\EzPlatformAdminUi\View\ContentTranslateView;
-use EzSystems\EzPlatformContentForms\Form\ActionDispatcher\ActionDispatcherInterface;
+use Ibexa\AdminUi\View\ContentTranslateSuccessView;
+use Ibexa\AdminUi\View\ContentTranslateView;
+use Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
+use Ibexa\Core\MVC\Symfony\View\Builder\ViewBuilder;
+use Ibexa\Core\MVC\Symfony\View\Configurator;
+use Ibexa\Core\MVC\Symfony\View\ParametersInjector;
 
 /**
  * Builds ContentEditView objects.
@@ -28,27 +28,27 @@ use EzSystems\EzPlatformContentForms\Form\ActionDispatcher\ActionDispatcherInter
  */
 class ContentTranslateViewBuilder implements ViewBuilder
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\Configurator */
+    /** @var \Ibexa\Core\MVC\Symfony\View\Configurator */
     private $viewConfigurator;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\View\ParametersInjector */
+    /** @var \Ibexa\Core\MVC\Symfony\View\ParametersInjector */
     private $viewParametersInjector;
 
-    /** @var \EzSystems\EzPlatformContentForms\Form\ActionDispatcher\ActionDispatcherInterface */
+    /** @var \Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface */
     private $contentActionDispatcher;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
     private $languagePreferenceProvider;
 
     /**
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\Core\MVC\Symfony\View\Configurator $viewConfigurator
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ParametersInjector $viewParametersInjector
-     * @param \EzSystems\EzPlatformContentForms\Form\ActionDispatcher\ActionDispatcherInterface $contentActionDispatcher
-     * @param \eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $languagePreferenceProvider
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param \Ibexa\Core\MVC\Symfony\View\Configurator $viewConfigurator
+     * @param \Ibexa\Core\MVC\Symfony\View\ParametersInjector $viewParametersInjector
+     * @param \Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface $contentActionDispatcher
+     * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $languagePreferenceProvider
      */
     public function __construct(
         Repository $repository,
@@ -65,25 +65,25 @@ class ContentTranslateViewBuilder implements ViewBuilder
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function matches($argument)
     {
-        return 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentEditController::translateAction' === $argument;
+        return 'Ibexa\Bundle\AdminUi\Controller\ContentEditController::translateAction' === $argument;
     }
 
     /**
      * @param array $parameters
      *
-     * @return \EzSystems\EzPlatformAdminUi\View\ContentTranslateSuccessView|\EzSystems\EzPlatformAdminUi\View\ContentTranslateView
+     * @return \Ibexa\AdminUi\View\ContentTranslateSuccessView|\Ibexa\AdminUi\View\ContentTranslateView
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentType
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function buildView(array $parameters)
     {
@@ -142,10 +142,10 @@ class ContentTranslateViewBuilder implements ViewBuilder
      * @param array $languages
      * @param int|null $versionNo
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function loadContent(int $contentId, array $languages = [], int $versionNo = null): Content
     {
@@ -158,10 +158,10 @@ class ContentTranslateViewBuilder implements ViewBuilder
      * @param int $locationId
      * @param array|null $languages
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function loadLocation(int $locationId, array $languages = null): Location
     {
@@ -173,9 +173,9 @@ class ContentTranslateViewBuilder implements ViewBuilder
      *
      * @param string $languageCode
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function loadLanguage(string $languageCode): Language
     {
@@ -185,10 +185,10 @@ class ContentTranslateViewBuilder implements ViewBuilder
     /**
      * @param array $parameters
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function resolveFromLanguage(array $parameters): ?Language
     {
@@ -206,10 +206,10 @@ class ContentTranslateViewBuilder implements ViewBuilder
     /**
      * @param array $parameters
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function resolveToLanguage(array $parameters): Language
     {
@@ -229,15 +229,15 @@ class ContentTranslateViewBuilder implements ViewBuilder
 
     /**
      * @param array $parameters
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function resolveContent(array $parameters, ?Location $location, ?Language $language): Content
     {
@@ -262,12 +262,12 @@ class ContentTranslateViewBuilder implements ViewBuilder
 
     /**
      * @param array $parameters
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function resolveLocation(array $parameters, ?Language $language): ?Location
     {
@@ -285,3 +285,5 @@ class ContentTranslateViewBuilder implements ViewBuilder
         return null;
     }
 }
+
+class_alias(ContentTranslateViewBuilder::class, 'EzSystems\EzPlatformAdminUi\View\Builder\ContentTranslateViewBuilder');
