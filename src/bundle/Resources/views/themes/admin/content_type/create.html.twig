@@ -75,6 +75,8 @@
                         {% endblock %}
                     {% endembed %}
                 </div>
+
+                {{form_row(form.metaFieldDefinitionsData)}}
             {% endblock %}
         </div>
         {{ form_widget(form.saveContentType, { attr: { hidden: 'hidden' }}) }}

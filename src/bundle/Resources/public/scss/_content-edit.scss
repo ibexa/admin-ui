@@ -7,5 +7,13 @@
         &--wide {
             max-width: calculateRem(1600px);
         }
+
+        &--seo {
+            .ibexa-content-type-edit__section-column-header {
+                border-top: 1px solid #E0E0E8;
+                padding-top: calculateRem(16px);
+                margin-top: calculateRem(40px);
+            }
+        }
     }
 }

@@ -414,3 +414,45 @@
         {{- form_errors(form) -}}
     </{{ element|default('div') }}>
 {%- endblock form_row %}
+
+{% block _ezplatform_content_forms_contenttype_update_metaFieldDefinitionsData_row -%}
+    {%- set filled_group_key = form.vars.value|keys|first -%}
+    {%- set group_form = form.children[filled_group_key]|first -%}
+    {{dump(group_form)}}
+
+    <div class="ibexa-edit-content__container ibexa-edit-content__container--seo">
+        {% embed "@ibexadesign/content_type/edit_section.html.twig" with {
+            section_id: "#ibexa-edit-content-type-sections-meta-" ~ group_form.vars.value.identifier,
+            is_active: false,
+            one_column_layout: true,
+        } %}
+            {% block title %}
+                {{ 'content_type.view.edit.seo'|trans|desc('SEO') }}
+            {% endblock %}
+
+            {% block left_column %}
+                {{ form_widget(group_form)}}
+            {% endblock %}
+        {% endembed %}
+    </div>
+{%- endblock %}
+
+{% block ezplatform_content_forms_fielddefinition_update_widget -%}
+    {{- form_row(form.enabled, { label: 'seo.enabled'|trans|desc('Enable SEO for this content type') }) -}}
+    {{- form(form) -}}
+
+{%- endblock %}
+
+{% block _ezplatform_content_forms_contenttype_update_metaFieldDefinitionsData_content_entry_enabled_row -%}
+    {% use '@ibexadesign/ui/form_fields/toggle_widget.html.twig' %}
+
+    {{ block('form_label') }}
+    {{ block('toggle_widget') }}
+{%- endblock %}
+
+{% block seo_field_row -%}
+    <h2 class="ibexa-content-type-edit__section-column-header">{{- label -}}</h2>
+    {{- form_widget(form) -}}
+    {{- form_help(form) -}}
+    {{- form_errors(form) -}}
+{%- endblock %}
