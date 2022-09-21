@@ -543,6 +543,11 @@
         <target state="new">I understand the consequences of this action.</target>
         <note>key: location_trash_form.confirm_label</note>
       </trans-unit>
+      <trans-unit id="8c2261eecf1e143eaf524c34f4f89608929c5c81" resname="meta.enabled">
+        <source>Enable %type% for this content type</source>
+        <target state="new">Enable %type% for this content type</target>
+        <note>key: meta.enabled</note>
+      </trans-unit>
       <trans-unit id="7fe072f41348fb097b6bb018eec4f1b1bc9cffc3" resname="modal.cancel">
         <source>Cancel</source>
         <target state="new">Cancel</target>
@@ -667,11 +672,6 @@
         <source>Do you want to delete the Section(s)?</source>
         <target state="new">Do you want to delete the Section(s)?</target>
         <note>key: section.modal.message</note>
-      </trans-unit>
-      <trans-unit id="54ffa830273195adb335b36e1df03d3caf3d963a" resname="seo.enabled">
-        <source>Enable SEO for this content type</source>
-        <target state="new">Enable SEO for this content type</target>
-        <note>key: seo.enabled</note>
       </trans-unit>
       <trans-unit id="1152c93462d8bed85642b961f01ed63a6f2525ab" resname="tab.locations.location_content_swap">
         <source>Swap Locations</source>

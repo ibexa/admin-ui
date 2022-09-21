@@ -15,10 +15,24 @@
         padding: 0;
     }
 
+    .ibexa-edit-content__container--meta {
+        .ibexa-content-type-edit {
+            &__section-column-header {
+                border-top: 1px solid #E0E0E8;
+                padding-top: calculateRem(16px);
+                margin-top: calculateRem(16px);
+            }
+
+            &__section {
+                margin-bottom: 0;
+            }
+        }
+    }
+
     &__section {
         display: flex;
         flex-wrap: wrap;
-        margin: 0 0 calculateRem(50px) 0;
+        margin: 0 0 calculateRem(32px) 0;
 
         &--one-column-layout {
             .ibexa-content-type-edit__section-column {
