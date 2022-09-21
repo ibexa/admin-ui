@@ -18,7 +18,7 @@
     .ibexa-edit-content__container--meta {
         .ibexa-content-type-edit {
             &__section-column-header {
-                border-top: 1px solid #E0E0E8;
+                border-top: 1px solid $ibexa-color-light;
                 padding-top: calculateRem(16px);
                 margin-top: calculateRem(16px);
             }
