@@ -40,6 +40,7 @@ final class FieldDefinitionsCollectionType extends AbstractType
                 'entry_options' => [
                     'languageCode' => $options['languageCode'],
                     'mainLanguageCode' => $options['mainLanguageCode'],
+                    'block_prefix' => 'content_type_field_definition',
                 ],
                 'label' => /** @Desc("Content Field definitions") */ 'content_type.field_definitions_data',
                 'allow_add' => true,

@@ -145,6 +145,7 @@ class FieldDefinitionType extends AbstractType
                     [
                         'required' => true,
                         'label' => /** @Desc("Enabled") */ 'field_definition.enabled',
+                        'block_prefix' => 'content_type_meta_field_definition_enabled',
                     ]
                 );
             }
