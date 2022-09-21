@@ -20,11 +20,22 @@
         'content_type': content_type,
     }) %}
 
-    {% block navigation_menu_body %}
-        {{ knp_menu_render(content_type_edit_anchor_menu, {
-            'template': '@ibexadesign/ui/menu/content_type_anchor_menu.html.twig' })
-        }}
-    {% endblock %}
+    {% embed '@ibexadesign/ui/anchor_navigation_menu.html.twig' with anchor_params %}
+        {% block navigation_menu_body %}
+            {% set items = [] %}
+
+            {% if content_type_edit_anchor_menu|default([])|length > 1 %}
+                {% for item in content_type_edit_anchor_menu %}
+                    {% set items = items|merge([{
+                        target_id: item.attributes['data-target-id'],
+                        label: item.label ? item.name,
+                    }]) %}
+                {% endfor %}
+            {% endif %}
+
+            {{parent()}}
+        {% endblock %}
+    {% endembed %}
 {% endblock %}
 
 {% block content %}

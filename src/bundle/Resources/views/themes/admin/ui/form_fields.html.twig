@@ -418,7 +418,6 @@
 {% block _ezplatform_content_forms_contenttype_update_metaFieldDefinitionsData_row -%}
     {%- set filled_group_key = form.vars.value|keys|first -%}
     {%- set group_form = form.children[filled_group_key]|first -%}
-    {{dump(group_form)}}
 
     <div class="ibexa-edit-content__container ibexa-edit-content__container--seo">
         {% embed "@ibexadesign/content_type/edit_section.html.twig" with {
