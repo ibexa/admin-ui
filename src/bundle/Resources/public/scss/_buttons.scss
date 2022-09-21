@@ -1,6 +1,6 @@
 @import 'extra-actions';
 
-.ibexa-btn {
+.ibexa-btn.ibexa-btn {
     display: inline-flex;
     white-space: nowrap;
     padding: calculateRem(14px) calculateRem(15px);
@@ -60,6 +60,7 @@
 
         &:focus {
             color: $ibexa-color-primary;
+            border-color: $ibexa-color-primary;
         }
 
         &:hover {
@@ -68,6 +69,11 @@
 
             .ibexa-icon {
                 fill: $ibexa-color-dark;
+            }
+
+            &:active {
+                color: $ibexa-color-primary;
+                border-color: $ibexa-color-primary;
             }
         }
 
@@ -118,6 +124,7 @@
         }
 
         &:focus {
+            color: $ibexa-color-primary;
             border-color: $ibexa-color-primary;
 
             .ibexa-icon {
