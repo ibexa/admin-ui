@@ -246,6 +246,11 @@
         <target state="new">Search...</target>
         <note>key: content_type.view.edit.search</note>
       </trans-unit>
+      <trans-unit id="6cf3d774e8b9e13d11f9f7525f1a6eaa6a892320" resname="content_type.view.edit.seo">
+        <source>SEO</source>
+        <target state="new">SEO</target>
+        <note>key: content_type.view.edit.seo</note>
+      </trans-unit>
       <trans-unit id="803a61fc8cf4e7bdfcf27432bb35e379a4971134" resname="content_type.view.list.action.add">
         <source>Add new</source>
         <target state="new">Add new</target>
@@ -662,6 +667,11 @@
         <source>Do you want to delete the Section(s)?</source>
         <target state="new">Do you want to delete the Section(s)?</target>
         <note>key: section.modal.message</note>
+      </trans-unit>
+      <trans-unit id="54ffa830273195adb335b36e1df03d3caf3d963a" resname="seo.enabled">
+        <source>Enable SEO for this content type</source>
+        <target state="new">Enable SEO for this content type</target>
+        <note>key: seo.enabled</note>
       </trans-unit>
       <trans-unit id="1152c93462d8bed85642b961f01ed63a6f2525ab" resname="tab.locations.location_content_swap">
         <source>Swap Locations</source>
