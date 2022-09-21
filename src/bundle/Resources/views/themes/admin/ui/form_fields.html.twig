@@ -415,7 +415,7 @@
     </{{ element|default('div') }}>
 {%- endblock form_row %}
 
-{% block _ezplatform_content_forms_contenttype_update_metaFieldDefinitionsData_row -%}
+{% block content_type_meta_field_definitions_data_row -%}
     {%- set filled_group_key = form.vars.value|keys|first -%}
     {%- set group_form = form.children[filled_group_key]|first -%}
 
@@ -436,12 +436,12 @@
     </div>
 {%- endblock %}
 
-{% block ezplatform_content_forms_fielddefinition_update_widget -%}
+{% block content_type_field_definition_widget -%}
     {{- form_row(form.enabled, { label: 'seo.enabled'|trans|desc('Enable SEO for this content type') }) -}}
     {{- form(form) -}}
 {%- endblock %}
 
-{% block _ezplatform_content_forms_contenttype_update_metaFieldDefinitionsData_content_entry_enabled_row -%}
+{% block content_type_meta_field_definition_enabled_row -%}
     {% use '@ibexadesign/ui/form_fields/toggle_widget.html.twig' %}
 
     <div class="form-group">
