@@ -28,7 +28,7 @@
                 {% for item in content_type_edit_anchor_menu %}
                     {% set items = items|merge([{
                         target_id: item.attributes['data-target-id'],
-                        label: item.label ? item.name,
+                        label: item.label is defined ? item.label : item.name,
                     }]) %}
                 {% endfor %}
             {% endif %}

@@ -444,8 +444,10 @@
 {% block _ezplatform_content_forms_contenttype_update_metaFieldDefinitionsData_content_entry_enabled_row -%}
     {% use '@ibexadesign/ui/form_fields/toggle_widget.html.twig' %}
 
-    {{ block('form_label') }}
-    {{ block('toggle_widget') }}
+    <div class="form-group">
+        {{ block('form_label') }}
+        {{ block('toggle_widget') }}
+    </form>
 {%- endblock %}
 
 {% block seo_field_row -%}
