@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent;
 use Ibexa\AdminUi\Behat\Component\Notification;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
+use Ibexa\Behat\Browser\Element\Condition\ElementHasTextCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextFragmentCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -99,7 +100,7 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator('fieldGroupNthField', '[data-id="%s"] .ibexa-field-edit:nth-of-type(%s)'),
             new VisibleCSSLocator('noneditableFieldClass', 'ibexa-field-edit--eznoneditable'),
             new VisibleCSSLocator('fieldOfType', '.ibexa-field-edit--%s'),
-            new VisibleCSSLocator('navigationTabs', '.ibexa-anchor-navigation-menu__sections-item'),
+            new VisibleCSSLocator('navigationTabs', '.ibexa-anchor-navigation-menu__sections-item-btn'),
             new VisibleCSSLocator('autosaveIsOnInfo', '.ibexa-autosave__status-on'),
             new VisibleCSSLocator('autosaveSavedInfo', '.ibexa-autosave__status-saved'),
             new VisibleCSSLocator('autosaveIsOffInfo', '.ibexa-autosave__status-off'),
@@ -127,7 +128,9 @@ class ContentUpdateItemPage extends Page
 
     protected function getFieldPosition(string $fieldName): int
     {
-        $activeSections = $this->getHTMLPage()->findAll(new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__sections-item-btn--active'));
+        $activeSections = $this->getHTMLPage()
+            ->setTimeout(0)
+            ->findAll(new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__sections-item-btn--active'));
         $fieldLabelLocator = $activeSections->any() ?
             new VisibleCSSLocator(
                 'fieldLabelWithCategories',
@@ -176,17 +179,20 @@ class ContentUpdateItemPage extends Page
 
     public function switchToFieldGroup(string $tabName): void
     {
-        $this->getHTMLPage()
+        $this->getHTMLPage()->setTimeout(3)
             ->findAll($this->getLocator('navigationTabs'))
             ->getByCriterion(new ElementTextCriterion($tabName))
             ->click();
+        $this->getHTMLPage()
+            ->setTimeout(10)
+            ->waitUntilCondition(new ElementHasTextCondition($this->getHTMLPage(), new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__sections-item-btn--active'), $tabName));
     }
 
     public function verifyFieldCannotBeEditedDueToLimitation(string $fieldName)
     {
         $activeSections = $this->getHTMLPage()->findAll(new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__sections-item-btn--active'));
         $fieldLocator = new VisibleCSSLocator('', sprintf($this
-            ->getLocator('fieldGroupNthField')->getSelector(), $activeSections->single()->getAttribute('data-anchor-target-section-id'), $this->getFieldPosition($fieldName)));
+            ->getLocator('fieldGroupNthField')->getSelector(), $activeSections->single()->getAttribute('data-target-id'), $this->getFieldPosition($fieldName)));
         $this->getHTMLPage()->find($fieldLocator)->assert()->hasClass('ibexa-field-edit--disabled');
     }
 
