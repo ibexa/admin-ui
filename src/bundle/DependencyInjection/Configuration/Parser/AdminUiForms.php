@@ -109,7 +109,7 @@ class AdminUiForms extends AbstractParser
                                     ->children()
                                         ->scalarNode('identifier')->end()
                                         ->booleanNode('meta')
-                                            ->info('Make this fieldtype a part of Meta group')
+                                            ->info('Make this field_type a part of Meta group')
                                             ->defaultFalse()
                                         ->end()
                                     ->end()
