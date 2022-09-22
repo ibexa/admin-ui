@@ -141,9 +141,11 @@ class UniversalDiscoveryWidget extends Component
 
     public function selectBookmark(string $bookmarkName): void
     {
-        $this->getHTMLPage()->setTimeout(self::SHORT_TIMEOUT)->findAll($this->getLocator('bookmarkedItem'))
-            ->getByCriterion(new ElementTextCriterion($bookmarkName))
-            ->click();
+        $this->getHTMLPage()
+             ->setTimeout(5)
+             ->findAll($this->getLocator('bookmarkedItem'))
+             ->getByCriterion(new ElementTextCriterion($bookmarkName))
+             ->click();
 
         $this->getHTMLPage()->find($this->getLocator('markedBookmarkedItem'))->assert()->textEquals($bookmarkName);
         $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('contentPreview'))->assert()->isVisible();
