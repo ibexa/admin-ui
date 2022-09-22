@@ -102,7 +102,7 @@ class AdminUiForms extends AbstractParser
                                     ->thenInvalid('The group name "%s" contains illegal characters. Group names should start with a letter, digit or underscore and only contain letters, digits, numbers, underscores ("_"), hyphens ("-") and colons (":").')
                                 ->end()
                             ->end()
-                            ->arrayNode('fieldtypes')
+                            ->arrayNode('field_types')
                                 ->info('Configuration for specific Field Types')
                                 ->useAttributeAsKey('identifier')
                                 ->arrayPrototype()
