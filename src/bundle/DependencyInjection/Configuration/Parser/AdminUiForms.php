@@ -29,7 +29,7 @@ class AdminUiForms extends AbstractParser
 {
     public const FORM_TEMPLATES_PARAM = 'admin_ui_forms.content_edit_form_templates';
     public const FIELD_TYPES_PARAM = 'admin_ui_forms.content_edit.fieldtypes';
-    public const CONTENT_TYPE_FIELD_TYPES_PARAM = 'admin_ui_forms.content_type_edit.fieldtypes';
+    public const CONTENT_TYPE_FIELD_TYPES_PARAM = 'admin_ui_forms.content_type_edit.field_types';
     public const CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM = 'admin_ui_forms.content_type_edit.default_meta_field_type_group';
 
     private const GROUP_NAME_PATTERN = '/^[a-zA-Z0-9_][a-zA-Z0-9_\-:]*$/D';
@@ -141,9 +141,9 @@ class AdminUiForms extends AbstractParser
             unset($scopeSettings['admin_ui_forms']['content_edit']['fieldtypes']);
         }
 
-        if (!empty($scopeSettings['admin_ui_forms']['content_type_edit']['fieldtypes'])) {
-            $scopeSettings['admin_ui_forms.content_type_edit.fieldtypes'] = $scopeSettings['admin_ui_forms']['content_type_edit']['fieldtypes'];
-            unset($scopeSettings['admin_ui_forms']['content_type_edit']['fieldtypes']);
+        if (!empty($scopeSettings['admin_ui_forms']['content_type_edit']['field_types'])) {
+            $scopeSettings['admin_ui_forms.content_type_edit.field_types'] = $scopeSettings['admin_ui_forms']['content_type_edit']['field_types'];
+            unset($scopeSettings['admin_ui_forms']['content_type_edit']['field_types']);
         }
 
         if (!empty($scopeSettings['admin_ui_forms']['content_type_edit']['default_meta_field_type_group'])) {
@@ -164,7 +164,7 @@ class AdminUiForms extends AbstractParser
         $contextualizer->setContextualParameter(
             self::CONTENT_TYPE_FIELD_TYPES_PARAM,
             $currentScope,
-            $scopeSettings['admin_ui_forms.content_type_edit.fieldtypes'] ?? []
+            $scopeSettings['admin_ui_forms.content_type_edit.field_types'] ?? []
         );
         $contextualizer->setContextualParameter(
             self::CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM,
@@ -180,7 +180,7 @@ class AdminUiForms extends AbstractParser
     {
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit_form_templates', $config);
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit.fieldtypes', $config);
-        $contextualizer->mapConfigArray('admin_ui_forms.content_type_edit.fieldtypes', $config);
+        $contextualizer->mapConfigArray('admin_ui_forms.content_type_edit.field_types', $config);
         $contextualizer->mapSetting('admin_ui_forms.content_type_edit.default_meta_field_type_group', $config);
     }
 
