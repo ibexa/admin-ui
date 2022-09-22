@@ -103,7 +103,7 @@ class AdminUiForms extends AbstractParser
                                 ->end()
                             ->end()
                             ->arrayNode('fieldtypes')
-                                ->info('Configuration for specific FieldTypes')
+                                ->info('Configuration for specific Field Types')
                                 ->useAttributeAsKey('identifier')
                                 ->arrayPrototype()
                                     ->children()
