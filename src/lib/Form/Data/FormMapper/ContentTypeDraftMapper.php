@@ -104,7 +104,7 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
 
             $enabled = $isMetaFieldType
                 && null !== $contentType
-                && null !== $contentType->getFieldDefinition($fieldDef->identifier);
+                && $contentType->hasFieldDefinition($fieldDef->identifier);
 
             $fieldDefinitionData = new FieldDefinitionData([
                 'fieldDefinition' => $fieldDef,
