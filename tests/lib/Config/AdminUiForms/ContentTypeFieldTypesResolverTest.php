@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class ContentTypeFieldTypesResolverTest extends TestCase
 {
-    private const PARAM_NAME = 'admin_ui_forms.content_type_edit.fieldtypes';
+    private const PARAM_NAME = 'admin_ui_forms.content_type_edit.field_types';
 
     private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
 
