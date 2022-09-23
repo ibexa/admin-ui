@@ -74,7 +74,10 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
 
     public function addMetaFieldDefinitionData(FieldDefinitionData $fieldDefinitionData): void
     {
-        $this->metaFieldDefinitionsData[$fieldDefinitionData->fieldGroup][$fieldDefinitionData->identifier] = $fieldDefinitionData;
+        $fieldGroup = $fieldDefinitionData->fieldGroup;
+        $identifier = $fieldDefinitionData->identifier;
+
+        $this->metaFieldDefinitionsData[$fieldGroup][$identifier] = $fieldDefinitionData;
     }
 
     public function replaceFieldDefinitionData(string $fieldDefinitionIdentifier, FieldDefinitionData $fieldDefinitionData): void

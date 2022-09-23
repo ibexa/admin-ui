@@ -102,8 +102,7 @@ class AdminUiForms extends AbstractParser
                                                 || !preg_match(self::GROUP_NAME_PATTERN, $groupName);
                                         }
                                     )
-                                    ->thenInvalid('The group name "%s" contains illegal characters. 
-                                    Group names should start with a letter, digit or underscore and only contain letters, digits, numbers, underscores ("_"), hyphens ("-") and colons (":").')
+                                    ->thenInvalid('The group name "%s" contains illegal characters. Group names should start with a letter, digit or underscore and only contain letters, digits, numbers, underscores ("_"), hyphens ("-") and colons (":").')
                                 ->end()
                             ->end()
                             ->arrayNode('field_types')
