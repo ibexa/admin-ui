@@ -12,6 +12,9 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
+/**
+ * @internal
+ */
 interface MetaFieldDefinitionServiceInterface
 {
     public function addMetaFieldDefinitions(

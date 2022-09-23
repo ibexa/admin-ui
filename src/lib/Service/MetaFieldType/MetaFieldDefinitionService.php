@@ -22,6 +22,9 @@ use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Ibexa\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @internal
+ */
 final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInterface
 {
     private ConfigResolverInterface $configResolver;
