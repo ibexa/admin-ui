@@ -312,6 +312,10 @@
     @include drag-item-placeholder;
 }
 
+.ibexa-field-definitions-placeholder-full {
+    @include drag-item-placeholder-full;
+}
+
 .ibexa-field-definitions-empty-group {
     @include empty-drop-zone;
 }

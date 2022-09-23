@@ -64,12 +64,13 @@
                             {% endfor %}
 
                             {% set field_definitions_placeholder_class = [
-                                'ibexa-field-definitions-placeholder--anchored',
-                                not field_defintions|length ? 'ibexa-field-definitions-placeholder--hidden'
+                                'ibexa-field-definitions-placeholder-full--anchored',
+                                not field_defintions|length ? 'ibexa-field-definitions-placeholder-full--hidden'
                             ] %}
 
                             {%- include "@ibexadesign/content_type/field_definitions_placeholder.html.twig" with {
-                                'field_definitions_placeholder_class': field_definitions_placeholder_class|join(' ')
+                                'field_definitions_placeholder_class': field_definitions_placeholder_class|join(' '),
+                                'full_placeholder': true,
                             } -%}
                         {% endblock %}
                     </div>
