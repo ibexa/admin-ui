@@ -417,7 +417,7 @@
 
 {% block content_type_meta_field_definitions_data_row -%}
     {% set filled_group_key = form.vars.value|keys|first %}
-    {% set group_forms = form.children[filled_group_key] %}
+    {% set group_forms = form.children[filled_group_key]|default([]) %}
 
     <div class="ibexa-edit-content__container ibexa-edit-content__container--meta">
         {% for group_form in group_forms %}
