@@ -112,6 +112,7 @@ class AdminUiForms extends AbstractParser
                                             ->info('Make this field_type a part of Meta group')
                                             ->defaultFalse()
                                         ->end()
+                                        ->integerNode('position')->isRequired()->end()
                                     ->end()
                                 ->end()
                             ->end()

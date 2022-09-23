@@ -90,18 +90,15 @@ final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements 
         $metaFieldTypeIdentifiers = $this->contentTypeFieldTypesResolver->getMetaFieldTypeIdentifiers();
 
         $items = [];
-        $order = 0;
-        foreach ($metaFieldTypeIdentifiers as $metaFieldTypeIdentifier) {
-            if (false === $contentType->hasFieldDefinitionOfType($metaFieldTypeIdentifier)) {
+
+        foreach ($contentType->getFieldDefinitions() as $fieldDefinition) {
+            if (!in_array($fieldDefinition->fieldTypeIdentifier, $metaFieldTypeIdentifiers, true)) {
                 continue;
             }
 
-            $fieldDefinitions = $contentType->getFieldDefinitionsOfType($metaFieldTypeIdentifier);
-            foreach ($fieldDefinitions as $fieldDefinition) {
-                $fieldDefIdentifier = $fieldDefinition->identifier;
-                $order += self::ITEM_ORDER_SPAN;
-                $items[$fieldDefIdentifier] = $this->createMetaMenuItem($fieldDefIdentifier, $fieldDefinition, $order);
-            }
+            $fieldDefIdentifier = $fieldDefinition->identifier;
+            $order = $fieldDefinition->position + self::ITEM_ORDER_SPAN;
+            $items[$fieldDefIdentifier] = $this->createMetaMenuItem($fieldDefIdentifier, $fieldDefinition, $order);
         }
 
         return $items;

@@ -25,7 +25,8 @@ final class ContentTypeFieldTypesResolver implements ContentTypeFieldTypesResolv
 
     /**
      * @return array<string, array{
-     *     'meta'?: bool
+     *     'position': int,
+     *     'meta'?: bool,
      * }>
      */
     public function getFieldTypes(): array
@@ -34,7 +35,12 @@ final class ContentTypeFieldTypesResolver implements ContentTypeFieldTypesResolv
             return [];
         }
 
-        return $this->configResolver->getParameter(AdminUiForms::CONTENT_TYPE_FIELD_TYPES_PARAM);
+        $metaFieldTypes = $this->configResolver->getParameter(AdminUiForms::CONTENT_TYPE_FIELD_TYPES_PARAM);
+        $positions = array_column($metaFieldTypes, 'position');
+
+        array_multisort($positions, SORT_REGULAR, $metaFieldTypes);
+
+        return $metaFieldTypes;
     }
 
     /**

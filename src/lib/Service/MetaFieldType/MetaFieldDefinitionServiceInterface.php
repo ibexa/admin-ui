@@ -32,7 +32,5 @@ interface MetaFieldDefinitionServiceInterface
         ValueObject $contentType
     ): bool;
 
-    public function getNextFieldPosition(ValueObject $contentType): int;
-
     public function getDefaultMetaDataFieldTypeGroup(): ?string;
 }

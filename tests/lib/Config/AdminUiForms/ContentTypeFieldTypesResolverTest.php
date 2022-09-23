@@ -37,7 +37,8 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
      * @param array{
      *      bool,
      *      array<string, array{
-     *          'meta': bool
+     *          'position': int,
+     *          'meta'?: bool,
      *      }>
      * } $expectedFieldTypes
      */
@@ -56,7 +57,8 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
      * @return iterable<array{
      *      bool,
      *      array<string, array{
-     *          'meta': bool
+     *          'position': int,
+     *          'meta'?: bool,
      *      }>
      * }>
      */
@@ -70,12 +72,16 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
         yield [
             true,
             [
-                'foo',
+                'foo' => [
+                    'position' => 1,
+                ],
                 'bar' => [
                     'meta' => true,
+                    'position' => 2,
                 ],
                 'baz' => [
                     'meta' => false,
+                    'position' => 10,
                 ],
             ],
         ];

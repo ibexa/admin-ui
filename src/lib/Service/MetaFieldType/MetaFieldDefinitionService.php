@@ -15,7 +15,6 @@ use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
@@ -59,13 +58,13 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
 
     public function addMetaFieldDefinitions(ValueObject $contentType, ?Language $language = null): void
     {
-        $metaFieldTypeIdentifiers = $this->contentTypeFieldTypesResolver->getMetaFieldTypeIdentifiers();
+        $metaFieldTypes = $this->contentTypeFieldTypesResolver->getFieldTypes();
 
         if (null === $language) {
             $language = $this->languageService->loadLanguage($this->languageService->getDefaultLanguageCode());
         }
 
-        foreach ($metaFieldTypeIdentifiers as $metaFieldTypeIdentifier) {
+        foreach ($metaFieldTypes as $metaFieldTypeIdentifier => $metaFieldTypeSettings) {
             $fieldGroup = $this->getDefaultMetaDataFieldTypeGroup() ?? $this->fieldsGroupsList->getDefaultGroup();
 
             if ($this->metaFieldDefinitionExists($metaFieldTypeIdentifier, $fieldGroup, $contentType)) {
@@ -76,7 +75,7 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
                 $metaFieldTypeIdentifier,
                 $fieldGroup,
                 $language,
-                $this->getNextFieldPosition($contentType)
+                $metaFieldTypeSettings['position']
             );
 
             if ($contentType instanceof ContentTypeDraft) {
@@ -132,21 +131,6 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
         }
 
         return false;
-    }
-
-    public function getNextFieldPosition(ValueObject $contentType): int
-    {
-        $fieldDefinitions = $contentType->fieldDefinitions;
-
-        if (is_array($fieldDefinitions) && !empty($fieldDefinitions)) {
-            return end($fieldDefinitions)->position + 1;
-        }
-
-        if ($fieldDefinitions instanceof FieldDefinitionCollection && !$fieldDefinitions->isEmpty()) {
-            return $contentType->fieldDefinitions->last()->position + 1;
-        }
-
-        return 0;
     }
 
     public function getDefaultMetaDataFieldTypeGroup(): ?string
