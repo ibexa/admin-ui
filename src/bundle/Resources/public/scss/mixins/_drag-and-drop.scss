@@ -66,7 +66,6 @@
     $self: &;
 
     height: auto;
-    overflow: hidden;
 
     &__title-bar {
         display: flex;
@@ -287,6 +286,7 @@
 }
 
 @mixin drag-item-placeholder {
+    display: flex;
     height: calculateRem(4px);
     border-radius: 2px;
     background-color: $ibexa-color-info;
