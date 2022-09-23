@@ -454,7 +454,6 @@
                     customClass: 'ibexa-dropdown-popover',
                     content: this.itemsPopoverContent,
                     container: modalDialog || 'body',
-                    fallbackPostion: ['bottom', 'top'],
                 },
                 { dropdown: this },
             );
