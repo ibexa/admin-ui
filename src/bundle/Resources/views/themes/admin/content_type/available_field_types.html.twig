@@ -18,11 +18,11 @@
         {% for item in field_type_toolbar %}
             <li
                 class="ibexa-available-field-type"
+                data-item-identifier="{{ item.identifier }}"
             >
             <div
                 draggable="{{ is_draggable is not defined or is_draggable == true ? 'true' : 'false' }}"
                 class="ibexa-available-field-type__content"
-                data-item-identifier="{{ item.identifier }}"
             >
                 <div class="ibexa-available-field-type__drag">
                     <svg class="ibexa-icon ibexa-available-field-type__drag-icon ibexa-icon--tiny-small">
