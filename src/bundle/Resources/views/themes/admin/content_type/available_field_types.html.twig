@@ -17,8 +17,11 @@
     <ul class="ibexa-available-field-types__list">
         {% for item in field_type_toolbar %}
             <li
-                draggable="{{ is_draggable is not defined or is_draggable == true ? 'true' : 'false' }}"
                 class="ibexa-available-field-type"
+            >
+            <div
+                draggable="{{ is_draggable is not defined or is_draggable == true ? 'true' : 'false' }}"
+                class="ibexa-available-field-type__content"
                 data-item-identifier="{{ item.identifier }}"
             >
                 <div class="ibexa-available-field-type__drag">
@@ -32,6 +35,7 @@
                     </svg>
                 </div>
                 <div class="ibexa-available-field-type__label">{{ item.name }}</div>
+                </div>
             </li>
         {% endfor %}
     </ul>
