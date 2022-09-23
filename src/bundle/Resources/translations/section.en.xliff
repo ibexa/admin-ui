@@ -102,8 +102,8 @@
         <note>key: section.identifier</note>
       </trans-unit>
       <trans-unit id="d91e051a7d7b54b42011fb6fc61bbb3997340d2a" resname="section.list.cannot_delete_notice">
-        <source>You cannot delete disabled sections, it has assigned content.</source>
-        <target state="new">You cannot delete disabled sections, it has assigned content.</target>
+        <source>You cannot delete the disabled sections, because they have assigned content.</source>
+        <target state="new">You cannot delete the disabled sections, because they have assigned content.</target>
         <note>key: section.list.cannot_delete_notice</note>
       </trans-unit>
       <trans-unit id="d0db9c352babe46e30354a78d9b3eccd226d7602" resname="section.list.title">
