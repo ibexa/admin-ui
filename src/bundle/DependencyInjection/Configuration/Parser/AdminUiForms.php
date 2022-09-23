@@ -110,6 +110,7 @@ class AdminUiForms extends AbstractParser
                                         ->ifTrue(
                                             static function (array $config): bool {
                                                 $isMeta = $config['meta'] ?? false;
+
                                                 return $isMeta && !isset($config['position']);
                                             }
                                         )
