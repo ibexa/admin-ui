@@ -110,11 +110,7 @@ class AdminUiForms extends AbstractParser
                                         ->ifTrue(
                                             static function (array $config): bool {
                                                 $isMeta = $config['meta'] ?? false;
-                                                if ($isMeta && !isset($config['position'])) {
-                                                    return true;
-                                                }
-
-                                                return false;
+                                                return $isMeta && !isset($config['position']);
                                             }
                                         )
                                         ->thenInvalid('The "position" option is required for all Meta Field Types')
