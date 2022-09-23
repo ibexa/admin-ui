@@ -34,13 +34,10 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
     /**
      * @dataProvider provideDataForTestGetFieldTypes
      *
-     * @param array{
-     *      bool,
-     *      array<string, array{
-     *          'position': int,
-     *          'meta'?: bool,
-     *      }>
-     * } $expectedFieldTypes
+     * @param array<string, array{
+     *     'position'?: int,
+     *     'meta'?: bool,
+     *  }> $expectedFieldTypes
      */
     public function testGetFieldTypes(bool $hasParameter, array $expectedFieldTypes): void
     {
@@ -54,11 +51,61 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
     }
 
     /**
+     * @dataProvider provideDataForTestGetMetaFieldTypes
+     *
+     * @param array<string, array{
+     *     'position'?: int,
+     *     'meta'?: bool,
+     *  }> $fieldTypes
+     * @param array<string, array{
+     *     'meta': bool,
+     *     'position': int,
+     *  }>
+     * $expectedMetaFieldTypes
+     */
+    public function testGetMetaFieldTypes(
+        bool $hasParameter,
+        array $fieldTypes,
+        array $expectedMetaFieldTypes
+    ): void {
+        $this->mockConfigResolverHasParameter($hasParameter);
+        $this->mockConfigResolverGetParameter($hasParameter, $fieldTypes);
+
+        self::assertEquals(
+            $expectedMetaFieldTypes,
+            $this->contentTypeFieldTypesResolver->getMetaFieldTypes()
+        );
+    }
+
+    /**
+     * @dataProvider provideDataForTestGetMetaFieldTypeIdentifiers
+     *
+     * @param array<string, array{
+     *     'meta'?: bool,
+     *     'position'?: int,
+     *  }> $metaFieldTypes
+     * @param array<string> $expectedIdentifiers
+     */
+    public function testGetMetaFieldTypeIdentifiers(
+        bool $hasParameter,
+        array $metaFieldTypes,
+        array $expectedIdentifiers
+    ): void {
+        $this->mockConfigResolverHasParameter($hasParameter);
+        $this->mockConfigResolverGetParameter($hasParameter, $metaFieldTypes);
+
+        self::assertEquals(
+            $expectedIdentifiers,
+            $this->contentTypeFieldTypesResolver->getMetaFieldTypeIdentifiers()
+        );
+    }
+
+    /**
      * @return iterable<array{
      *      bool,
      *      array<string, array{
-     *          'position': int,
      *          'meta'?: bool,
+     *          'position'?: int,
      *      }>
      * }>
      */
@@ -72,9 +119,7 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
         yield [
             true,
             [
-                'foo' => [
-                    'position' => 1,
-                ],
+                'foo' => [],
                 'bar' => [
                     'meta' => true,
                     'position' => 2,
@@ -84,6 +129,87 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
                     'position' => 10,
                 ],
             ],
+        ];
+    }
+
+    /**
+     * @return iterable<array{
+     *      bool,
+     *      array<string, array{
+     *          'meta'?: bool,
+     *          'position'?: int,
+     *      }>,
+     *      array<string, array{
+     *          'meta': bool,
+     *          'position': int,
+     *      }>
+     * }>
+     */
+    public function provideDataForTestGetMetaFieldTypes(): iterable
+    {
+        yield [
+            false,
+            [],
+            [],
+        ];
+
+        $foo = [
+            'meta' => true,
+            'position' => 2,
+        ];
+
+        $bar = [
+            'meta' => true,
+            'position' => 10,
+        ];
+
+        yield [
+            true,
+            [
+                'bar' => $bar,
+                'foo' => $foo,
+                'baz' => [
+                    'meta' => false,
+                ],
+            ],
+            [
+                'foo' => $foo,
+                'bar' => $bar,
+            ],
+        ];
+    }
+
+    /**
+     * @return iterable<array{
+     *      bool,
+     *      array<string, array{
+     *          'meta': bool,
+     *          'position': int,
+     *      }>,
+     *      array<string>
+     * }>
+     */
+    public function provideDataForTestGetMetaFieldTypeIdentifiers(): iterable
+    {
+        yield [
+            false,
+            [],
+            [],
+        ];
+
+        yield [
+            true,
+            [
+                'foo' => [
+                    'meta' => true,
+                    'position' => 1,
+                ],
+                'bar' => [
+                    'meta' => true,
+                    'position' => 2,
+                ],
+            ],
+            ['foo', 'bar'],
         ];
     }
 

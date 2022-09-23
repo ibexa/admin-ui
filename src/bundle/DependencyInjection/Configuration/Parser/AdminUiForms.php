@@ -106,13 +106,26 @@ class AdminUiForms extends AbstractParser
                                 ->info('Configuration for specific Field Types')
                                 ->useAttributeAsKey('identifier')
                                 ->arrayPrototype()
+                                    ->beforeNormalization()
+                                        ->ifTrue(
+                                            static function (array $config): bool {
+                                                $isMeta = $config['meta'] ?? false;
+                                                if ($isMeta && !isset($config['position'])) {
+                                                    return true;
+                                                }
+
+                                                return false;
+                                            }
+                                        )
+                                        ->thenInvalid('The "position" option is required for all Meta Field Types')
+                                    ->end()
                                     ->children()
                                         ->scalarNode('identifier')->end()
                                         ->booleanNode('meta')
                                             ->info('Make this field_type a part of Meta group')
                                             ->defaultFalse()
                                         ->end()
-                                        ->integerNode('position')->isRequired()->end()
+                                        ->integerNode('position')->end()
                                     ->end()
                                 ->end()
                             ->end()

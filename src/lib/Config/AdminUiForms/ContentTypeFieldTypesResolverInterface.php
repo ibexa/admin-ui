@@ -15,11 +15,19 @@ interface ContentTypeFieldTypesResolverInterface
 {
     /**
      * @return array<string, array{
-     *     'position': int,
      *     'meta'?: bool,
+     *     'position'?: int,
      * }>
      */
     public function getFieldTypes(): array;
+
+    /**
+     * @return array<string, array{
+     *     'meta': bool,
+     *     'position': int,
+     * }>
+     */
+    public function getMetaFieldTypes(): array;
 
     /**
      * @return array<string>

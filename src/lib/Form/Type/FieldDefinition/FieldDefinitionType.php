@@ -144,7 +144,7 @@ class FieldDefinitionType extends AbstractType
                     CheckboxType::class,
                     [
                         'required' => true,
-                        'label' => /** @Desc("Enabled") */ 'field_definition.enabled',
+                        'label' => false,
                         'block_prefix' => 'content_type_meta_field_definition_enabled',
                     ]
                 );

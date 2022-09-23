@@ -58,7 +58,7 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
 
     public function addMetaFieldDefinitions(ValueObject $contentType, ?Language $language = null): void
     {
-        $metaFieldTypes = $this->contentTypeFieldTypesResolver->getFieldTypes();
+        $metaFieldTypes = $this->contentTypeFieldTypesResolver->getMetaFieldTypes();
 
         if (null === $language) {
             $language = $this->languageService->loadLanguage($this->languageService->getDefaultLanguageCode());

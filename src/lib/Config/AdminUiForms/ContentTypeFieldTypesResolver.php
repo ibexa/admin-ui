@@ -35,10 +35,22 @@ final class ContentTypeFieldTypesResolver implements ContentTypeFieldTypesResolv
             return [];
         }
 
-        $metaFieldTypes = $this->configResolver->getParameter(AdminUiForms::CONTENT_TYPE_FIELD_TYPES_PARAM);
+        return $this->configResolver->getParameter(AdminUiForms::CONTENT_TYPE_FIELD_TYPES_PARAM);
+    }
+
+    public function getMetaFieldTypes(): array
+    {
+        $fieldTypes = $this->getFieldTypes();
+        $metaFieldTypes = array_filter(
+            $fieldTypes,
+            static fn (array $config): bool => true === $config['meta']
+        );
+
         $positions = array_column($metaFieldTypes, 'position');
 
-        array_multisort($positions, SORT_REGULAR, $metaFieldTypes);
+        if (!empty($positions)) {
+            array_multisort($positions, SORT_REGULAR, $metaFieldTypes);
+        }
 
         return $metaFieldTypes;
     }
@@ -48,13 +60,6 @@ final class ContentTypeFieldTypesResolver implements ContentTypeFieldTypesResolv
      */
     public function getMetaFieldTypeIdentifiers(): array
     {
-        $fieldTypeConfig = $this->getFieldTypes();
-
-        return array_keys(
-            array_filter(
-                $fieldTypeConfig,
-                static fn (array $config): bool => true === $config['meta']
-            )
-        );
+        return array_keys($this->getMetaFieldTypes());
     }
 }
