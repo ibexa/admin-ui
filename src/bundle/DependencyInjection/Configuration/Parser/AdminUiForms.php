@@ -30,7 +30,8 @@ class AdminUiForms extends AbstractParser
     public const FORM_TEMPLATES_PARAM = 'admin_ui_forms.content_edit_form_templates';
     public const FIELD_TYPES_PARAM = 'admin_ui_forms.content_edit.fieldtypes';
     public const CONTENT_TYPE_FIELD_TYPES_PARAM = 'admin_ui_forms.content_type_edit.field_types';
-    public const CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM = 'admin_ui_forms.content_type_edit.default_meta_field_type_group';
+    public const CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM =
+        'admin_ui_forms.content_type_edit.default_meta_field_type_group';
 
     private const GROUP_NAME_PATTERN = '/^[a-zA-Z0-9_][a-zA-Z0-9_\-:]*$/D';
 
@@ -96,10 +97,13 @@ class AdminUiForms extends AbstractParser
                                 ->beforeNormalization()
                                     ->ifTrue(
                                         static function (string $groupName): bool {
-                                            return empty($groupName) || !preg_match(self::GROUP_NAME_PATTERN, $groupName);
+                                            return
+                                                empty($groupName)
+                                                || !preg_match(self::GROUP_NAME_PATTERN, $groupName);
                                         }
                                     )
-                                    ->thenInvalid('The group name "%s" contains illegal characters. Group names should start with a letter, digit or underscore and only contain letters, digits, numbers, underscores ("_"), hyphens ("-") and colons (":").')
+                                    ->thenInvalid('The group name "%s" contains illegal characters. 
+                                    Group names should start with a letter, digit or underscore and only contain letters, digits, numbers, underscores ("_"), hyphens ("-") and colons (":").')
                                 ->end()
                             ->end()
                             ->arrayNode('field_types')
@@ -148,17 +152,20 @@ class AdminUiForms extends AbstractParser
         }
 
         if (!empty($scopeSettings['admin_ui_forms']['content_edit']['fieldtypes'])) {
-            $scopeSettings['admin_ui_forms.content_edit.fieldtypes'] = $scopeSettings['admin_ui_forms']['content_edit']['fieldtypes'];
+            $scopeSettings['admin_ui_forms.content_edit.fieldtypes'] =
+                $scopeSettings['admin_ui_forms']['content_edit']['fieldtypes'];
             unset($scopeSettings['admin_ui_forms']['content_edit']['fieldtypes']);
         }
 
         if (!empty($scopeSettings['admin_ui_forms']['content_type_edit']['field_types'])) {
-            $scopeSettings['admin_ui_forms.content_type_edit.field_types'] = $scopeSettings['admin_ui_forms']['content_type_edit']['field_types'];
+            $scopeSettings['admin_ui_forms.content_type_edit.field_types'] =
+                $scopeSettings['admin_ui_forms']['content_type_edit']['field_types'];
             unset($scopeSettings['admin_ui_forms']['content_type_edit']['field_types']);
         }
 
         if (!empty($scopeSettings['admin_ui_forms']['content_type_edit']['default_meta_field_type_group'])) {
-            $scopeSettings['admin_ui_forms.content_type_edit.default_meta_field_type_group'] = $scopeSettings['admin_ui_forms']['content_type_edit']['default_meta_field_type_group'];
+            $scopeSettings['admin_ui_forms.content_type_edit.default_meta_field_type_group'] =
+                $scopeSettings['admin_ui_forms']['content_type_edit']['default_meta_field_type_group'];
             unset($scopeSettings['admin_ui_forms']['content_type_edit']['default_meta_field_type_group']);
         }
 

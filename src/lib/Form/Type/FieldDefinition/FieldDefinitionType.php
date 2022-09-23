@@ -138,7 +138,13 @@ class FieldDefinitionType extends AbstractType
             $fieldTypeIdentifier = $data->getFieldTypeIdentifier();
             $fieldType = $this->fieldTypeService->getFieldType($fieldTypeIdentifier);
             $isTranslation = $data->contentTypeData->languageCode !== $data->contentTypeData->mainLanguageCode;
-            if (in_array($fieldTypeIdentifier, $this->contentTypeFieldTypesResolver->getMetaFieldTypeIdentifiers(), true)) {
+            if (
+                in_array(
+                    $fieldTypeIdentifier,
+                    $this->contentTypeFieldTypesResolver->getMetaFieldTypeIdentifiers(),
+                    true
+                )
+            ) {
                 $form->add(
                     'enabled',
                     CheckboxType::class,

@@ -194,7 +194,10 @@ class ContentTypeController extends Controller
         $createStruct->mainLanguageCode = $mainLanguageCode;
         $createStruct->names = [$mainLanguageCode => 'New Content Type'];
 
-        $this->metaFieldDefinitionService->addMetaFieldDefinitions($createStruct, $this->languageService->loadLanguage($mainLanguageCode));
+        $this->metaFieldDefinitionService->addMetaFieldDefinitions(
+            $createStruct,
+            $this->languageService->loadLanguage($mainLanguageCode)
+        );
 
         try {
             $contentTypeDraft = $this->contentTypeService->createContentType($createStruct, [$group]);
