@@ -21,7 +21,7 @@
         border-color: transparent;
     }
 
-    &--primary {
+    &--primary.ibexa-btn {
         color: $ibexa-color-white;
         fill: $ibexa-color-white;
         background-image: $ibexa-gradient-danger-primary;
@@ -52,7 +52,7 @@
         }
     }
 
-    &--secondary {
+    &--secondary.ibexa-btn {
         color: $ibexa-color-primary;
         fill: $ibexa-color-primary;
         background-color: transparent;
@@ -60,6 +60,7 @@
 
         &:focus {
             color: $ibexa-color-primary;
+            border-color: $ibexa-color-primary;
         }
 
         &:hover {
@@ -68,6 +69,11 @@
 
             .ibexa-icon {
                 fill: $ibexa-color-dark;
+            }
+
+            &:active {
+                color: $ibexa-color-primary;
+                border-color: $ibexa-color-primary;
             }
         }
 
@@ -81,7 +87,7 @@
         }
     }
 
-    &--tertiary {
+    &--tertiary.ibexa-btn {
         color: $ibexa-color-dark;
         fill: $ibexa-color-dark;
         background-color: transparent;
@@ -105,7 +111,7 @@
         }
     }
 
-    &--ghost {
+    &--ghost.ibexa-btn {
         color: $ibexa-color-dark;
         fill: $ibexa-color-dark;
 
@@ -118,6 +124,7 @@
         }
 
         &:focus {
+            color: $ibexa-color-primary;
             border-color: $ibexa-color-primary;
 
             .ibexa-icon {
@@ -134,7 +141,7 @@
         }
     }
 
-    &--dark {
+    &--dark.ibexa-btn {
         color: $ibexa-color-white;
         fill: $ibexa-color-white;
         background-color: $ibexa-color-dark;
@@ -162,7 +169,7 @@
         }
     }
 
-    &--filled-info {
+    &--filled-info.ibexa-btn {
         color: $ibexa-color-white;
         fill: $ibexa-color-white;
         border-color: $ibexa-color-info;
@@ -180,7 +187,7 @@
         }
     }
 
-    &--info {
+    &--info.ibexa-btn {
         color: $ibexa-color-info;
         fill: $ibexa-color-info;
         border-color: $ibexa-color-info;
@@ -204,7 +211,7 @@
         }
     }
 
-    &--neon-info {
+    &--neon-info.ibexa-btn {
         border-radius: $ibexa-border-radius;
 
         .ibexa-icon {
@@ -221,7 +228,7 @@
         }
     }
 
-    &--selector {
+    &--selector.ibexa-btn {
         color: $ibexa-color-dark;
         fill: $ibexa-color-dark;
         padding: calculateRem(11px) calculateRem(12px);
