@@ -444,7 +444,7 @@
                 return;
             }
 
-            const modal = this.container.closest('.modal');
+            const modalDialog = this.container.closest('.modal-dialog');
 
             this.itemsPopover = new DropdownPopover(
                 this.selectedItemsContainer,
@@ -453,8 +453,7 @@
                     placement: 'bottom',
                     customClass: 'ibexa-dropdown-popover',
                     content: this.itemsPopoverContent,
-                    container: modal || 'body',
-                    fallbackPostion: ['bottom', 'top'],
+                    container: modalDialog || 'body',
                 },
                 { dropdown: this },
             );
