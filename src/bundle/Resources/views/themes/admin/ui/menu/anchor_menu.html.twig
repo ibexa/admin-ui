@@ -174,7 +174,7 @@
             {% set innerChildrenBlock = 'children_1st_level_dropdown' %}
             {% set tagElement = 'div' %}
         {% endif %}
-        {% if item.count() != 0 %}
+        {% if item.count() > 1 %}
             {{ block('anchor_menu_list') -}}
         {% endif %}
 

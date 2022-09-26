@@ -3,6 +3,7 @@
         max-width: initial;
         background: initial;
         border: 0;
+        pointer-events: all; // for popovers inside .modal-dialog
     }
 
     .popover-arrow {
