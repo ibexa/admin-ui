@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Component;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Condition\ElementTransitionHasEndedCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
+use Ibexa\Behat\Browser\Element\Criterion\ElementTextFragmentCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class IbexaDropdown extends Component
@@ -33,11 +34,22 @@ class IbexaDropdown extends Component
 
     public function selectOption(string $value)
     {
-        $this->verifyIsLoaded();
         $dropdownOptionLocator = $this->getLocator('ibexaDropdownExtended');
         $listElement = $this->getHTMLPage()
             ->findAll($dropdownOptionLocator)
             ->getByCriterion(new ElementTextCriterion($value));
+        usleep(2000000);
+        $listElement->mouseOver();
+        usleep(2000000);
+        $listElement->find($this->getLocator('ibexaDropdownLabel'))->click();
+    }
+
+    public function selectOptionByValueFragment(string $valueFragment)
+    {
+        $dropdownOptionLocator = $this->getLocator('ibexaDropdownExtended');
+        $listElement = $this->getHTMLPage()
+            ->findAll($dropdownOptionLocator)
+            ->getByCriterion(new ElementTextFragmentCriterion($valueFragment));
         usleep(2000000);
         $listElement->mouseOver();
         usleep(2000000);
