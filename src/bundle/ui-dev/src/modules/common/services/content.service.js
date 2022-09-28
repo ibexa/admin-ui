@@ -26,7 +26,7 @@ export const loadContentInfo = (contentIds, callback) => {
     fetch(request)
         .then(handleRequestResponse)
         .then(callback)
-        .catch(() => window.eZ.helpers.notification.showErrorNotification('Cannot load content info'));
+        .catch(() => window.ibexa.helpers.notification.showErrorNotification('Cannot load content info'));
 };
 
 export const findContentBySearchQuery = (query, callback) => {
@@ -55,5 +55,5 @@ export const findContentBySearchQuery = (query, callback) => {
     fetch(request)
         .then(handleRequestResponse)
         .then(callback)
-        .catch(() => window.eZ.helpers.notification.showErrorNotification('Cannot find content by a search query'));
+        .catch(() => window.ibexa.helpers.notification.showErrorNotification('Cannot find content by a search query'));
 };

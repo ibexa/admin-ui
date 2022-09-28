@@ -1,39 +1,39 @@
-{% extends '@ezdesign/ui/base.html.twig' %}
+{% set view_base_layout = '@ibexadesign/ui/layout.html.twig' %}
+{% extends '@ibexadesign/ui/edit_base.html.twig' %}
 
 {% trans_default_domain 'user_settings' %}
 
-{% block breadcrumbs_admin %}
-    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
-        { value: 'list.title'|trans|desc('User Settings') }
-    ]} %}
-{% endblock %}
+{% block body_class %}ibexa-user-settings-update-view{% endblock %}
 
-{% block page_title_admin %}
-    {% include '@ezdesign/ui/page_title.html.twig' with {
+{% set anchor_params = {
+    close_href: path('ibexa.user_settings.list'),
+} %}
+
+{% block header %}
+    {% set user_setting_update_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_setting_update.sidebar_right', [], {'user_setting': user_setting}) %}
+
+    {% include '@ibexadesign/ui/edit_header.html.twig' with {
+        action_name: 'list.title'|trans|desc('User Settings'),
         title: 'list.title'|trans|desc('User Settings'),
-        icon_name: 'user'
+        context_actions: knp_menu_render(user_setting_update_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
 {% endblock %}
 
-{% block body_class %}ez-user-settings-update-view{% endblock %}
+{% block content %}
+    {% form_theme form '@ibexadesign/ui/form_fields.html.twig' '@ibexadesign/account/settings/update_datetime_format.html.twig' %}
 
-{% block form %}
-    {% form_theme form '@ezdesign/ui/form_fields.html.twig' %}
-    <section class="container ez-container">
+    <div class="ibexa-edit-content__container">
         {{ form_start(form) }}
-        {{ form_widget(form.identifier, {'attr': {'hidden': 'hidden'}}) }}
-        <div class="ez-table-header ground-base">
-            <div class="ez-table-header__headline">{{ user_setting.name }}</div>
-        </div>
-        <div class="bg-white p-4">
-            {{ form_row(form.value) }}
-        </div>
-        {{ form_widget(form.update, {'attr': {'hidden': 'hidden'}}) }}
+            {{ form_widget(form.identifier, {'attr': {'hidden': 'hidden'}}) }}
+            {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
+                headline: user_setting_group.name
+            } %}
+            {% for user_setting in user_setting_group.settings %}
+                <div>
+                    {{ form_widget(attribute(form, user_setting.identifier)) }}
+                </div>
+            {% endfor %}
+            {{ form_widget(form.update, {'attr': {'hidden': 'hidden'}}) }}
         {{ form_end(form) }}
-    </section>
-{% endblock %}
-
-{% block right_sidebar %}
-    {% set user_setting_update_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_setting_update.sidebar_right', [], {'user_setting': user_setting}) %}
-    {{ knp_menu_render(user_setting_update_sidebar_right, {'template': '@ezdesign/ui/menu/sidebar_right.html.twig'}) }}
+    </div>
 {% endblock %}
