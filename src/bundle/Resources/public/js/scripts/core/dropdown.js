@@ -444,8 +444,6 @@
                 return;
             }
 
-            const modalDialog = this.container.closest('.modal-dialog');
-
             this.itemsPopover = new DropdownPopover(
                 this.selectedItemsContainer,
                 {
@@ -453,7 +451,7 @@
                     placement: 'bottom',
                     customClass: 'ibexa-dropdown-popover',
                     content: this.itemsPopoverContent,
-                    container: modalDialog || 'body',
+                    container: 'body',
                 },
                 { dropdown: this },
             );
@@ -478,6 +476,31 @@
                 .forEach((option) => option.addEventListener('click', this.onOptionClick, false));
 
             if (this.itemsFilterInput) {
+                const modal = this.container.closest('.modal');
+                const popupInputs = this.itemsContainer.querySelectorAll('input');
+
+                popupInputs.forEach((popupInput) =>
+                    popupInput.addEventListener(
+                        'focusin',
+                        () => {
+                            const modalInstance = bootstrap.Modal.getInstance(modal);
+
+                            if (modalInstance) {
+                                modalInstance._focustrap.deactivate();
+
+                                this.itemsFilterInput.addEventListener(
+                                    'focusout',
+                                    () => {
+                                        modalInstance._focustrap.activate();
+                                    },
+                                    { once: true },
+                                );
+                            }
+                        },
+                        false,
+                    ),
+                );
+
                 this.itemsFilterInput.addEventListener('keyup', this.filterItems, false);
                 this.itemsFilterInput.addEventListener('input', this.filterItems, false);
             }
