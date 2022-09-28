@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
+use Ibexa\Behat\Browser\Element\Condition\ElementsCountCondition;
+use Ibexa\Behat\Browser\Element\Condition\ElementTransitionHasEndedCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Mapper\ElementTextMapper;
@@ -39,7 +41,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
     public function specifyLocators(): array
     {
         return array_merge(parent::specifyLocators(), [
-            new VisibleCSSLocator('fieldDefinitionContainer', '.ibexa-collapse--field-definition  div.ibexa-collapse__header'),
+            new VisibleCSSLocator('fieldDefinition', '.ibexa-collapse--field-definition'),
             new VisibleCSSLocator('field', '.form-group'),
             new VisibleCSSLocator('contentTypeAddButton', '.ibexa-content-type-edit__add-field-definitions-group-btn'),
             new VisibleCSSLocator('contentTypeCategoryList', ' div.ibexa-content-type-edit__add-field-definitions-group > ul > li:nth-child(n):not(.ibexa-popup-menu__item-action--disabled)'),
@@ -55,24 +57,18 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
 
     public function addFieldDefinition(string $fieldName)
     {
-        $availableFieldLabel = $this->getLocator('availableFieldLabelList');
-        $listElement = $this->getHTMLPage()
-            ->findAll($availableFieldLabel)
-            ->getByCriterion(new ElementTextCriterion($fieldName));
-        $listElement->mouseOver();
+        $currentFieldDefinitionCount = $this->getHTMLPage()->findAll($this->getLocator('fieldDefinition'))->count();
 
-        $fieldPosition = array_search(
-            $fieldName,
-            $this->getHTMLPage()->findAll($this->getLocator('availableFieldLabelList'))->mapBy(new ElementTextMapper()),
-            true
-        ) + 1; // CSS selectors are 1-indexed
+        $fieldPosition = array_search($fieldName, $this->getHTMLPage()->findAll($this->getLocator('availableFieldLabelList'))->mapBy(new ElementTextMapper()), true) + 1;
+        $fieldSelector = new VisibleCSSLocator('field', sprintf('.ibexa-available-field-types__list li:nth-child(%d) .ibexa-available-field-type__content', $fieldPosition));
+        $this->getHTMLPage()->find($fieldSelector)->mouseOver();
+        $this->getHTMLPage()->setTimeout(3)->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(), $fieldSelector));
 
-        $availableFieldLabelsScript = "document.querySelector('.ibexa-available-field-types__list > li:nth-child(%d) > .ibexa-available-field-type__label')";
-        $scriptToExecute = sprintf($availableFieldLabelsScript, $fieldPosition);
-        $this->getSession()->executeScript($scriptToExecute);
+        $fieldScript = sprintf("document.querySelector('%s')", $fieldSelector->getSelector());
+        $workspaceScript = sprintf("document.querySelector('%s')", $this->getLocator('workspace')->getSelector());
+        $this->getHTMLPage()->dragAndDrop($fieldScript, $workspaceScript, $workspaceScript);
 
-        $workspace = sprintf('document.querySelector(\'%s\')', $this->getLocator('workspace')->getSelector());
-        $this->getHTMLPage()->dragAndDrop($scriptToExecute, $workspace, $workspace);
+        $this->getHTMLPage()->setTimeout(3)->waitUntilCondition(new ElementsCountCondition($this->getHTMLPage(), $this->getLocator('fieldDefinition'), $currentFieldDefinitionCount + 1));
         usleep(1500000); //TODO: add proper wait condition
     }
 
