@@ -54,7 +54,6 @@ class ObjectStateCreateRightSidebarBuilder extends AbstractBuilder implements Tr
             self::ITEM__CREATE => $this->createMenuItem(
                 self::ITEM__CREATE,
                 [
-                    'extras' => ['primary' => true],
                     'attributes' => [
                         'class' => 'ibexa-btn--trigger',
                         'data-click' => '#object_state_create_create',

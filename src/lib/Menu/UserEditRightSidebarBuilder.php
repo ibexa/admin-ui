@@ -54,7 +54,6 @@ class UserEditRightSidebarBuilder extends AbstractBuilder implements Translation
                         'class' => 'ibexa-btn--trigger',
                         'data-click' => '#ezplatform_content_forms_user_update_update',
                     ],
-                    'extras' => ['primary' => true],
                 ]
             ),
             self::ITEM__CANCEL => $this->createMenuItem(

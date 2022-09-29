@@ -54,7 +54,6 @@ class UserCreateRightSidebarBuilder extends AbstractBuilder implements Translati
                         'class' => 'ibexa-btn--trigger',
                         'data-click' => '#ezplatform_content_forms_user_create_create',
                     ],
-                    'extras' => ['primary' => true],
                 ]
             ),
             self::ITEM__CANCEL => $this->createMenuItem(

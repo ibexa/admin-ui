@@ -3,6 +3,13 @@
 {% block root %}
     {% set menu_items %}
         {% for item in item.children %}
+            {% if loop.first %}
+                {%- do item.setExtras(item.extras|merge({
+                    primary: true,
+                    noDefaultBtnStyling: false,
+                })) -%}
+            {% endif %}
+
             {{ block('item') }}
         {% endfor %}
     {% endset %}
@@ -14,12 +21,11 @@
 {% endblock %}
 
 {% block item -%}
-
     {%- set default_classes = 'btn ibexa-btn' -%}
 
     {% if not item.extras.noDefaultBtnStyling|default(false) %}
         {% if item.extras.primary|default(false) %}
-            {%- set default_classes = default_classes ~ ' ibexa-btn--primary' -%}
+            {%- set default_classes = default_classes ~ ' ' ~ options.primary_item_class|default('ibexa-btn--primary') -%}
         {% else %}
             {%- set default_classes = default_classes ~ ' ibexa-btn--secondary' -%}
         {% endif %}
