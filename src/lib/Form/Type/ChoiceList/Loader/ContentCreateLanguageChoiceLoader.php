@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader;
+namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
 class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader */
+    /** @var \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader */
     private $languageChoiceLoader;
 
     /** @var string[] */
     private $restrictedLanguagesCodes;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader $languageChoiceLoader
+     * @param \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader $languageChoiceLoader
      * @param array $restrictedLanguagesCodes
      */
     public function __construct(
@@ -33,7 +33,7 @@ class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadChoiceList($value = null)
     {
@@ -51,7 +51,7 @@ class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadChoicesForValues(array $values, $value = null)
     {
@@ -65,7 +65,7 @@ class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadValuesForChoices(array $choices, $value = null)
     {
@@ -83,3 +83,5 @@ class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
         return $this->loadChoiceList($value)->getValuesForChoices($choices);
     }
 }
+
+class_alias(ContentCreateLanguageChoiceLoader::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\ContentCreateLanguageChoiceLoader');

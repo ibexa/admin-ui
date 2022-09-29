@@ -65,10 +65,8 @@ class ContentTypeGroupsPage extends Page
             'Content Type groups',
             $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText()
         );
-        Assert::assertEquals(
-            'Content Type groups',
-            $this->getHTMLPage()->find($this->getLocator('listHeader'))->getText()
-        );
+        $this->getHTMLPage()
+            ->find($this->getLocator('listHeader'))->assert()->textContains('Content Type groups');
     }
 
     public function getName(): string
@@ -84,10 +82,10 @@ class ContentTypeGroupsPage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-header h1'),
-            new VisibleCSSLocator('listHeader', '.ez-table-header .ez-table-header__headline, header .ez-table__headline, header h5'),
-            new VisibleCSSLocator('createButton', '.ez-icon-create'),
-            new VisibleCSSLocator('trashButton', '.ez-icon-trash,button[data-original-title^="Delete"]'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
+            new VisibleCSSLocator('listHeader', '.ibexa-table-header .ibexa-table-header__headline, header .ibexa-table__headline, header h5'),
+            new VisibleCSSLocator('createButton', '.ibexa-icon--create'),
+            new VisibleCSSLocator('trashButton', '.ibexa-icon--trash,button[data-original-title^="Delete"]'),
         ];
     }
 }

@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\ContentType;
+namespace Ibexa\AdminUi\Form\Type\ContentType;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -65,8 +65,18 @@ class SortOrderChoiceType extends AbstractType
     private function getSortOrder()
     {
         return [
-            $this->translator->trans(/** @Desc("Ascending") */ 'content_type.sort_field.ascending', [], 'content_type') => Location::SORT_ORDER_ASC,
-            $this->translator->trans(/** @Desc("Descending") */ 'content_type.sort_field.descending', [], 'content_type') => Location::SORT_ORDER_DESC,
+            $this->translator->trans(/** @Desc("Ascending") */
+                'content_type.sort_field.ascending',
+                [],
+                'content_type'
+            ) => Location::SORT_ORDER_ASC,
+            $this->translator->trans(/** @Desc("Descending") */
+                'content_type.sort_field.descending',
+                [],
+                'content_type'
+            ) => Location::SORT_ORDER_DESC,
         ];
     }
 }
+
+class_alias(SortOrderChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\SortOrderChoiceType');

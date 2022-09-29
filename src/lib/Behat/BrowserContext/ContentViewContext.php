@@ -10,11 +10,10 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
-use EzSystems\Behat\Core\Behat\ArgumentParser;
 use Ibexa\AdminUi\Behat\Component\DraftConflictDialog;
-use Ibexa\AdminUi\Behat\Component\LeftMenu;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\AdminUi\Behat\Page\ContentViewPage;
+use Ibexa\Behat\Core\Behat\ArgumentParser;
 use PHPUnit\Framework\Assert;
 
 class ContentViewContext implements Context
@@ -23,9 +22,6 @@ class ContentViewContext implements Context
 
     /** @var \Ibexa\AdminUi\Behat\Page\ContentViewPage */
     private $contentViewPage;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\LeftMenu */
-    private $leftMenu;
 
     /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
     private $universalDiscoveryWidget;
@@ -36,13 +32,11 @@ class ContentViewContext implements Context
     public function __construct(
         ArgumentParser $argumentParser,
         ContentViewPage $contentViewPage,
-        LeftMenu $leftMenu,
         UniversalDiscoveryWidget $universalDiscoveryWidget,
         DraftConflictDialog $draftConflictDialog
     ) {
         $this->argumentParser = $argumentParser;
         $this->contentViewPage = $contentViewPage;
-        $this->leftMenu = $leftMenu;
         $this->universalDiscoveryWidget = $universalDiscoveryWidget;
         $this->draftConflictDialog = $draftConflictDialog;
     }
@@ -67,7 +61,7 @@ class ContentViewContext implements Context
     /**
      * @Given I add a new Location under :newLocationPath
      */
-    public function iAddNewLocation($newLocationPath): void
+    public function iAddNewLocation(string $newLocationPath): void
     {
         $newLocationPath = $this->argumentParser->replaceRootKeyword($newLocationPath);
         $this->contentViewPage->addLocation($newLocationPath);
@@ -105,19 +99,6 @@ class ContentViewContext implements Context
     public function startEditingContent(string $language = null): void
     {
         $this->contentViewPage->editContent($language);
-    }
-
-    /**
-     * @Given I open UDW and go to :itemPath
-     */
-    public function iOpenUDWAndGoTo(string $itemPath): void
-    {
-        $this->leftMenu->verifyIsLoaded();
-        $this->leftMenu->browse();
-
-        $this->universalDiscoveryWidget->verifyIsLoaded();
-        $this->universalDiscoveryWidget->selectContent($this->argumentParser->replaceRootKeyword($itemPath));
-        $this->universalDiscoveryWidget->openPreview();
     }
 
     /**

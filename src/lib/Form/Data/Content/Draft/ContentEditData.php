@@ -6,35 +6,35 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft;
+namespace Ibexa\AdminUi\Form\Data\Content\Draft;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 
 /**
  * @todo Add validation. $language have to be validated that $versionInfo indeed has this language
  */
 class ContentEditData
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
     protected $location;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
     protected $contentInfo;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\VersionInfo|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null */
     protected $versionInfo;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
     protected $language;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo|null $contentInfo
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo|null $versionInfo
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $language
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      */
     public function __construct(
         ?ContentInfo $contentInfo = null,
@@ -49,7 +49,7 @@ class ContentEditData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     public function getLocation(): ?Location
     {
@@ -57,7 +57,7 @@ class ContentEditData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      *
      * @return self
      */
@@ -69,7 +69,7 @@ class ContentEditData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
      */
     public function getContentInfo(): ?ContentInfo
     {
@@ -77,7 +77,7 @@ class ContentEditData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
      *
      * @return self
      */
@@ -89,7 +89,7 @@ class ContentEditData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\VersionInfo|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null
      */
     public function getVersionInfo(): ?VersionInfo
     {
@@ -97,7 +97,7 @@ class ContentEditData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo|null $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null $versionInfo
      *
      * @return self
      */
@@ -109,7 +109,7 @@ class ContentEditData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      */
     public function getLanguage(): ?Language
     {
@@ -117,7 +117,7 @@ class ContentEditData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
      *
      * @return self
      */
@@ -128,3 +128,5 @@ class ContentEditData
         return $this;
     }
 }
+
+class_alias(ContentEditData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentEditData');

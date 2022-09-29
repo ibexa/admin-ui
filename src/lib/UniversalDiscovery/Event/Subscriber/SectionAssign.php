@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber;
+namespace Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation;
-use EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface;
-use EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
+use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
+use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SectionAssign implements EventSubscriberInterface
@@ -20,18 +20,18 @@ class SectionAssign implements EventSubscriberInterface
     /** @var array */
     private $restrictedContentTypes;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
     private $permissionChecker;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
     /**
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
-     * @param \EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface $permissionChecker
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
+     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
+     * @param \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface $permissionChecker
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function __construct(
         PermissionResolver $permissionResolver,
@@ -55,7 +55,7 @@ class SectionAssign implements EventSubscriberInterface
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event
+     * @param \Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event
      */
     public function onUdwConfigResolve(ConfigResolveEvent $event): void
     {
@@ -108,3 +108,5 @@ class SectionAssign implements EventSubscriberInterface
         return !empty($this->restrictedContentTypes);
     }
 }
+
+class_alias(SectionAssign::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\SectionAssign');

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Config;
+namespace Ibexa\AdminUi\UI\Config;
 
 use RuntimeException;
 
@@ -23,28 +23,35 @@ class ConfigWrapper implements \ArrayAccess, \JsonSerializable
         $this->config = $config;
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->config[$offset]);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->config[$offset];
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         throw new RuntimeException('Configuration is readonly');
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         throw new RuntimeException('Configuration is readonly');
     }
 
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->config;
     }
 }
+
+class_alias(ConfigWrapper::class, 'EzSystems\EzPlatformAdminUi\UI\Config\ConfigWrapper');

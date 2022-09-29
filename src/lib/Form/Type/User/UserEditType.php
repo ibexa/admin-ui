@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\User;
+namespace Ibexa\AdminUi\Form\Type\User;
 
-use eZ\Publish\API\Repository\LanguageService;
-use EzSystems\EzPlatformAdminUi\Form\Data\User\UserEditData;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\ContentInfoType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\LocationType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\VersionInfoType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Language\LanguageChoiceType;
+use Ibexa\AdminUi\Form\Data\User\UserEditData;
+use Ibexa\AdminUi\Form\Type\Content\ContentInfoType;
+use Ibexa\AdminUi\Form\Type\Content\LocationType;
+use Ibexa\AdminUi\Form\Type\Content\VersionInfoType;
+use Ibexa\AdminUi\Form\Type\Language\LanguageChoiceType;
+use Ibexa\Contracts\Core\Repository\LanguageService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -22,11 +22,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserEditType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     protected $languageService;
 
     /**
-     * @param \eZ\Publish\API\Repository\LanguageService $languageService
+     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
      */
     public function __construct(LanguageService $languageService)
     {
@@ -96,3 +96,5 @@ class UserEditType extends AbstractType
         return $languageOptions;
     }
 }
+
+class_alias(UserEditType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\User\UserEditType');

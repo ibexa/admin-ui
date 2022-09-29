@@ -4,10 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\FieldType\Mapper;
+namespace Ibexa\AdminUi\FieldType\Mapper;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData;
-use EzSystems\EzPlatformContentForms\Form\Type\LocationType;
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\Form\Type\RelationType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormInterface;
@@ -19,11 +20,16 @@ class RelationListFormMapper extends AbstractRelationFormMapper
     {
         $isTranslation = $data->contentTypeData->languageCode !== $data->contentTypeData->mainLanguageCode;
         $fieldDefinitionForm
-            ->add('selectionDefaultLocation', LocationType::class, [
+            ->add('selectionDefaultLocation', RelationType::class, [
                 'required' => false,
                 'property_path' => 'fieldSettings[selectionDefaultLocation]',
                 'label' => /** @Desc("Default Location") */ 'field_definition.ezobjectrelationlist.selection_default_location',
                 'disabled' => $isTranslation,
+            ])
+            ->add('rootDefaultLocation', CheckboxType::class, [
+                'required' => false,
+                'label' => /** @Desc("Root Default Location") */ 'field_definition.ezobjectrelationlist.root_default_location',
+                'property_path' => 'fieldSettings[rootDefaultLocation]',
             ])
             ->add('selectionContentTypes', ChoiceType::class, [
                 'choices' => $this->getContentTypesHash(),
@@ -54,3 +60,5 @@ class RelationListFormMapper extends AbstractRelationFormMapper
             ]);
     }
 }
+
+class_alias(RelationListFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\RelationListFormMapper');

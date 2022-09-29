@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Limitation\Mapper;
+namespace Ibexa\AdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use EzSystems\EzPlatformAdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
@@ -18,7 +18,7 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
     use LoggerAwareTrait;
 
     /**
-     * @var \eZ\Publish\API\Repository\ContentTypeService
+     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService
      */
     private $contentTypeService;
 
@@ -54,3 +54,5 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
         return $values;
     }
 }
+
+class_alias(ContentTypeLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\ContentTypeLimitationMapper');

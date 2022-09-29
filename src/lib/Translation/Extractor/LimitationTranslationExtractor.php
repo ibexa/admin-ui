@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Translation\Extractor;
+namespace Ibexa\AdminUi\Translation\Extractor;
 
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Model\MessageCatalogue;
@@ -17,8 +17,8 @@ use JMS\TranslationBundle\Translation\ExtractorInterface;
  */
 class LimitationTranslationExtractor implements ExtractorInterface
 {
-    const MESSAGE_DOMAIN = 'ezplatform_content_forms_policies';
-    const MESSAGE_ID_PREFIX = 'policy.limitation.identifier.';
+    public const MESSAGE_DOMAIN = 'ezplatform_content_forms_policies';
+    public const MESSAGE_ID_PREFIX = 'policy.limitation.identifier.';
 
     /**
      * @var array
@@ -88,3 +88,5 @@ class LimitationTranslationExtractor implements ExtractorInterface
         return $limitationTypes;
     }
 }
+
+class_alias(LimitationTranslationExtractor::class, 'EzSystems\EzPlatformAdminUi\Translation\Extractor\LimitationTranslationExtractor');

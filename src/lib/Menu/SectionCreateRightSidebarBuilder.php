@@ -4,10 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu;
+namespace Ibexa\AdminUi\Menu;
 
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -22,8 +23,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class SectionCreateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__CREATE = 'section_create__sidebar_right__create';
-    const ITEM__CANCEL = 'section_create__sidebar_right__cancel';
+    public const ITEM__CREATE = 'section_create__sidebar_right__create';
+    public const ITEM__CANCEL = 'section_create__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
@@ -64,18 +65,17 @@ class SectionCreateRightSidebarBuilder extends AbstractBuilder implements Transl
             self::ITEM__CREATE => $this->createMenuItem(
                 self::ITEM__CREATE,
                 [
+                    'extras' => ['primary' => true],
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => '#section_create_create',
                     ],
-                    'extras' => ['icon' => 'publish'],
                 ]
             ),
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'extras' => ['icon' => 'circle-close'],
-                    'route' => 'ezplatform.section.list',
+                    'route' => 'ibexa.section.list',
                 ]
             ),
         ]);
@@ -94,3 +94,5 @@ class SectionCreateRightSidebarBuilder extends AbstractBuilder implements Transl
         ];
     }
 }
+
+class_alias(SectionCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\SectionCreateRightSidebarBuilder');
