@@ -39,7 +39,7 @@ class ContentUpdateItemPage extends Page
         Session $session,
         Router $router,
         ContentActionsMenu $contentActionsMenu,
-        Traversable $fieldTypeComponents,
+        iterable $fieldTypeComponents,
         Notification $notification
     ) {
         parent::__construct($session, $router);
