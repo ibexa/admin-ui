@@ -30,7 +30,7 @@ class ContentUpdateItemPage extends Page
     private $pageTitle;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent[] */
-    private $fieldTypeComponents;
+    protected $fieldTypeComponents;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Notification */
     private $notification;
@@ -44,7 +44,7 @@ class ContentUpdateItemPage extends Page
     ) {
         parent::__construct($session, $router);
         $this->contentActionsMenu = $contentActionsMenu;
-        $this->fieldTypeComponents = iterator_to_array($fieldTypeComponents);
+        $this->fieldTypeComponents = $fieldTypeComponents;
         $this->notification = $notification;
     }
 
