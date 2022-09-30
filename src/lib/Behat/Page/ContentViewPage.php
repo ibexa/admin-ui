@@ -14,8 +14,10 @@ use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\ContentItemAdminPreview;
 use Ibexa\AdminUi\Behat\Component\ContentTypePicker;
 use Ibexa\AdminUi\Behat\Component\Dialog;
+use Ibexa\AdminUi\Behat\Component\IbexaDropdown;
 use Ibexa\AdminUi\Behat\Component\LanguagePicker;
 use Ibexa\AdminUi\Behat\Component\SubItemsList;
+use Ibexa\AdminUi\Behat\Component\TranslationDialog;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
@@ -57,6 +59,9 @@ class ContentViewPage extends Page
     /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
     private $dialog;
 
+    /** @var \Ibexa\AdminUi\Behat\Component\TranslationDialog */
+    private $translationDialog;
+
     private $route;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Breadcrumb */
@@ -80,6 +85,9 @@ class ContentViewPage extends Page
     /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
     private $universalDiscoveryWidget;
 
+    /** @var \Ibexa\AdminUi\Behat\Component\IbexaDropdown */
+    private $ibexaDropdown;
+
     public function __construct(
         Session $session,
         Router $router,
@@ -89,12 +97,14 @@ class ContentViewPage extends Page
         ContentUpdateItemPage $contentUpdatePage,
         LanguagePicker $languagePicker,
         Dialog $dialog,
+        TranslationDialog $translationDialog,
         Repository $repository,
         Breadcrumb $breadcrumb,
         ContentItemAdminPreview $contentItemAdminPreview,
         UserUpdatePage $userUpdatePage,
         ArgumentParser $argumentParser,
-        UniversalDiscoveryWidget $universalDiscoveryWidget
+        UniversalDiscoveryWidget $universalDiscoveryWidget,
+        IbexaDropdown $ibexaDropdown
     ) {
         parent::__construct($session, $router);
 
@@ -104,12 +114,14 @@ class ContentViewPage extends Page
         $this->contentUpdatePage = $contentUpdatePage;
         $this->languagePicker = $languagePicker;
         $this->dialog = $dialog;
+        $this->translationDialog = $translationDialog;
         $this->breadcrumb = $breadcrumb;
         $this->contentItemAdminPreview = $contentItemAdminPreview;
         $this->userUpdatePage = $userUpdatePage;
         $this->repository = $repository;
         $this->argumentParser = $argumentParser;
         $this->universalDiscoveryWidget = $universalDiscoveryWidget;
+        $this->ibexaDropdown = $ibexaDropdown;
     }
 
     public function startCreatingContent(string $contentTypeName, string $language = null)
@@ -131,8 +143,21 @@ class ContentViewPage extends Page
 
     public function switchToTab(string $tabName): void
     {
-        $this->getHTMLPage()
+        $tabs = $this->getHTMLPage()
             ->findAll($this->getLocator('tab'))
+            ->filterBy(new ElementTextCriterion($tabName));
+
+        if ($tabs->any()) {
+            $tab = $tabs->first();
+            $tab->click();
+
+            return;
+        }
+
+        $this->getHTMLPage()->find($this->getLocator('moreTab'))->click();
+
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('popupMenuItem'))
             ->getByCriterion(new ElementTextCriterion($tabName))
             ->click();
     }
@@ -143,6 +168,25 @@ class ContentViewPage extends Page
         $this->universalDiscoveryWidget->verifyIsLoaded();
         $this->universalDiscoveryWidget->selectContent($newLocationPath);
         $this->universalDiscoveryWidget->confirm();
+    }
+
+    public function addTranslation(string $language, string $base): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('addTranslationButton'))->click();
+        $this->translationDialog->verifyIsLoaded();
+        $this->translationDialog->selectNewTranslation($language);
+        if ($base != 'none') {
+            $this->translationDialog->selectBaseTranslation($base);
+        }
+        $this->translationDialog->confirm();
+    }
+
+    public function choosePreview(string $language): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('ibexaDropdownPreview'))->click();
+        $this->ibexaDropdown->verifyIsLoaded();
+        $this->ibexaDropdown->selectOption($language);
+        $this->verifyIsLoaded();
     }
 
     public function goToSubItem(string $contentItemName): void
@@ -258,6 +302,10 @@ class ContentViewPage extends Page
             new VisibleCSSLocator('addLocationButton', '#ibexa-tab-location-view-locations .ibexa-table-header__actions .ibexa-btn--udw-add'),
             new VisibleCSSLocator('bookmarkButton', '.ibexa-add-to-bookmarks'),
             new VisibleCSSLocator('isBookmarked', '.ibexa-add-to-bookmarks--checked'),
+            new VisibleCSSLocator('addTranslationButton', '#ibexa-tab-location-view-translations .ibexa-table-header__actions .ibexa-btn--add-translation'),
+            new VisibleCSSLocator('ibexaDropdownPreview', '.ibexa-raw-content-title__language-form .ibexa-dropdown__selection-info'),
+            new VisibleCSSLocator('moreTab', '.ibexa-tabs__tab--more'),
+            new VisibleCSSLocator('popupMenuItem', '.ibexa-popup-menu__item .ibexa-popup-menu__item-content'),
         ];
     }
 
