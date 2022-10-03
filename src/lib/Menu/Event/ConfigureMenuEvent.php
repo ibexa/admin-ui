@@ -41,6 +41,7 @@ class ConfigureMenuEvent extends Event
     public const CONTENT_TYPE_GROUP_EDIT_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.content_type_group_edit_sidebar_right';
     public const CONTENT_TYPE_CREATE_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.content_type_create_sidebar_right';
     public const CONTENT_TYPE_EDIT_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.content_type_edit_sidebar_right';
+    public const CONTENT_TYPE_EDIT_ANCHOR_MENU = 'ibexa.admin_ui.menu_configure.content_type_edit_anchor_menu';
     public const URL_EDIT_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.url_edit_sidebar_right';
     public const URL_WILDCARD_EDIT_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.url_wildcard_edit_sidebar_right';
     public const USER_PASSWORD_CHANGE_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.user_password_change_sidebar_right';

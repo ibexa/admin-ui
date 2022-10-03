@@ -6,5 +6,6 @@ services:
 
     Ibexa\AdminUi\UI\Module\FieldTypeToolbar\FieldTypeToolbarFactory:
         arguments:
+            - '@Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface'
             - '@Ibexa\Core\FieldType\FieldTypeRegistry'
             - '@translator'

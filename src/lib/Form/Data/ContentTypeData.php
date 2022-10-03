@@ -25,6 +25,9 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
     /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData[][] */
     public $fieldDefinitionsData = [];
 
+    /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData[][] */
+    public array $metaFieldDefinitionsData = [];
+
     /**
      * Language Code of currently edited contentTypeDraft.
      *
@@ -52,9 +55,29 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
         }
     }
 
+    /**
+     * @return iterable<string, \Ibexa\AdminUi\Form\Data\FieldDefinitionData>
+     */
+    public function getFlatMetaFieldDefinitionsData(): iterable
+    {
+        foreach ($this->metaFieldDefinitionsData as $outerKey => $fieldDefinitionGroupData) {
+            foreach ($fieldDefinitionGroupData as $innerKey => $fieldDefinitionData) {
+                yield "$outerKey.$innerKey" => $fieldDefinitionData;
+            }
+        }
+    }
+
     public function addFieldDefinitionData(FieldDefinitionData $fieldDefinitionData): void
     {
         $this->fieldDefinitionsData[$fieldDefinitionData->fieldGroup][$fieldDefinitionData->identifier] = $fieldDefinitionData;
+    }
+
+    public function addMetaFieldDefinitionData(FieldDefinitionData $fieldDefinitionData): void
+    {
+        $fieldGroup = $fieldDefinitionData->fieldGroup;
+        $identifier = $fieldDefinitionData->identifier;
+
+        $this->metaFieldDefinitionsData[$fieldGroup][$identifier] = $fieldDefinitionData;
     }
 
     public function replaceFieldDefinitionData(string $fieldDefinitionIdentifier, FieldDefinitionData $fieldDefinitionData): void

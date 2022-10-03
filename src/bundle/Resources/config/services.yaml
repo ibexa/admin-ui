@@ -1,5 +1,6 @@
 imports:
     - { resource: services/service_aliases.yaml }
+    - { resource: services/config.yaml }
     - { resource: services/controllers.yaml }
     - { resource: services/tabs.yaml }
     - { resource: services/menu.yaml }
@@ -12,6 +13,7 @@ imports:
     - { resource: services/modules/field_type_toolbar.yaml }
     - { resource: services/form_processors.yaml }
     - { resource: services/validators.yaml }
+    - { resource: services/services.yaml }
     - { resource: services/siteaccess.yaml }
     - { resource: services/universal_discovery_widget.yaml }
     - { resource: services/utils.yaml }

@@ -1,5 +1,6 @@
 imports:
     - { resource: services/components/content/edit.yaml }
+    - { resource: services/components/content_type/edit.yaml }
 
 services:
     _defaults:

@@ -33,9 +33,9 @@
     }
 
     &__section-groups {
-        min-width: calculateRem(350px);
-        max-width: calculateRem(400px);
-        width: 25vw;
+        min-width: calculateRem(280px);
+        max-width: calculateRem(420px);
+        width: calc(25vw - #{calculateRem(50px)});
         height: calculateRem(48px);
 
         &--list {

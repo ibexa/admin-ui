@@ -34,6 +34,16 @@
         }
 
         &.ibexa-main-container {
+            &--with-anchor-menu-items {
+                .ibexa-main-container {
+                    &__side-column {
+                        min-width: calculateRem(330px);
+                        max-width: calculateRem(470px);
+                        width: 25vw;
+                    }
+                }
+            }
+
             &--no-border {
                 padding: 0;
 
