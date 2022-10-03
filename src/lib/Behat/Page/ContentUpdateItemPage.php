@@ -20,7 +20,6 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use PHPUnit\Framework\Assert;
-use Traversable;
 
 class ContentUpdateItemPage extends Page
 {
