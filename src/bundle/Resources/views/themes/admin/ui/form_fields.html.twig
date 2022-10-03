@@ -414,3 +414,56 @@
         {{- form_errors(form) -}}
     </{{ element|default('div') }}>
 {%- endblock form_row %}
+
+{% block content_type_meta_field_definitions_data_row -%}
+    {% set filled_group_key = form.vars.value|keys|first %}
+    {% set group_forms = form.children[filled_group_key]|default([]) %}
+
+    <div class="ibexa-edit-content__container ibexa-edit-content__container--meta">
+        {% for group_form in group_forms %}
+            {% set field_definition = group_form.vars.value %}
+
+            {% embed "@ibexadesign/content_type/edit_section.html.twig" with {
+                section_id: "#ibexa-edit-content-type-sections-meta-" ~ field_definition.identifier,
+                is_active: false,
+                one_column_layout: true,
+            } %}
+                {% block title %}
+                    {{ group_form.name.vars.value }}
+                {% endblock %}
+
+                {% block left_column %}
+                    {{ form_widget(group_form)}}
+                {% endblock %}
+            {% endembed %}
+        {% endfor %}
+    </div>
+{%- endblock %}
+
+{% block content_type_field_definition_widget -%}
+    {{- form_row(form.enabled, { label: 'meta.enabled'|trans({
+        '%type%': form.name.vars.value,
+    })|desc('Enable %type% for this content type') }) -}}
+
+    {% for form_field in form.children %}
+        {% if form_field.isRendered() == false %}
+            {{ form_row(form_field) }}
+        {% endif %}
+    {% endfor %}
+{%- endblock %}
+
+{% block content_type_meta_field_definition_enabled_row -%}
+    {% use '@ibexadesign/ui/form_fields/toggle_widget.html.twig' %}
+
+    <div class="form-group">
+        {{ block('form_label') }}
+        {{ block('toggle_widget') }}
+    </div>
+{%- endblock %}
+
+{% block seo_field_row -%}
+    <h2 class="ibexa-content-type-edit__section-column-header">{{- label -}}</h2>
+    {{- form_widget(form) -}}
+    {{- form_help(form) -}}
+    {{- form_errors(form) -}}
+{%- endblock %}

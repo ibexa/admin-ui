@@ -18,6 +18,7 @@ use Ibexa\AdminUi\Form\Factory\ContentTypeFormFactory;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Form\Type\ContentType\ContentTypeUpdateType;
+use Ibexa\AdminUi\Service\MetaFieldType\MetaFieldDefinitionServiceInterface;
 use Ibexa\AdminUi\Tab\ContentType\TranslationsTab;
 use Ibexa\AdminUi\UI\Module\FieldTypeToolbar\FieldTypeToolbarFactory;
 use Ibexa\AdminUi\View\ContentTypeCreateView;
@@ -85,6 +86,8 @@ class ContentTypeController extends Controller
     /** @var \Ibexa\AdminUi\UI\Module\FieldTypeToolbar\FieldTypeToolbarFactory */
     private $fieldTypeToolbarFactory;
 
+    private MetaFieldDefinitionServiceInterface $metaFieldDefinitionService;
+
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
         TranslatorInterface $translator,
@@ -97,7 +100,8 @@ class ContentTypeController extends Controller
         ContentTypeFormFactory $contentTypeFormFactory,
         ContentTypeDraftMapper $contentTypeDraftMapper,
         ConfigResolverInterface $configResolver,
-        FieldTypeToolbarFactory $fieldTypeToolbarFactory
+        FieldTypeToolbarFactory $fieldTypeToolbarFactory,
+        MetaFieldDefinitionServiceInterface $metaFieldDefinitionService
     ) {
         $this->notificationHandler = $notificationHandler;
         $this->translator = $translator;
@@ -111,6 +115,7 @@ class ContentTypeController extends Controller
         $this->contentTypeDraftMapper = $contentTypeDraftMapper;
         $this->configResolver = $configResolver;
         $this->fieldTypeToolbarFactory = $fieldTypeToolbarFactory;
+        $this->metaFieldDefinitionService = $metaFieldDefinitionService;
     }
 
     /**
@@ -183,12 +188,16 @@ class ContentTypeController extends Controller
     public function addAction(ContentTypeGroup $group)
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'create'));
-        $languages = $this->configResolver->getParameter('languages');
-        $mainLanguageCode = reset($languages);
+        $mainLanguageCode = $this->languageService->getDefaultLanguageCode();
 
         $createStruct = $this->contentTypeService->newContentTypeCreateStruct('__new__' . md5((string)microtime(true)));
         $createStruct->mainLanguageCode = $mainLanguageCode;
         $createStruct->names = [$mainLanguageCode => 'New Content Type'];
+
+        $this->metaFieldDefinitionService->addMetaFieldDefinitions(
+            $createStruct,
+            $this->languageService->loadLanguage($mainLanguageCode)
+        );
 
         try {
             $contentTypeDraft = $this->contentTypeService->createContentType($createStruct, [$group]);
@@ -375,8 +384,10 @@ class ContentTypeController extends Controller
             null,
             ['contentType' => $contentType]
         );
-        $form->handleRequest($request);
 
+        $this->metaFieldDefinitionService->addMetaFieldDefinitions($contentTypeDraft);
+
+        $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (ContentTypeEditData $data) use ($contentTypeDraft) {
                 $contentTypeGroup = $data->getContentTypeGroup();
@@ -719,6 +730,7 @@ class ContentTypeController extends Controller
         Language $language = null,
         ?Language $baseLanguage = null
     ): FormInterface {
+        $this->metaFieldDefinitionService->addMetaFieldDefinitions($contentTypeDraft, $language);
         $contentTypeData = $this->contentTypeDraftMapper->mapToFormData(
             $contentTypeDraft,
             [

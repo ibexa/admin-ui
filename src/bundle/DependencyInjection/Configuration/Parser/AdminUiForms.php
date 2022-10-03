@@ -29,6 +29,11 @@ class AdminUiForms extends AbstractParser
 {
     public const FORM_TEMPLATES_PARAM = 'admin_ui_forms.content_edit_form_templates';
     public const FIELD_TYPES_PARAM = 'admin_ui_forms.content_edit.fieldtypes';
+    public const CONTENT_TYPE_FIELD_TYPES_PARAM = 'admin_ui_forms.content_type_edit.field_types';
+    public const CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM =
+        'admin_ui_forms.content_type_edit.default_meta_field_type_group';
+
+    private const GROUP_NAME_PATTERN = '/^[a-zA-Z0-9_][a-zA-Z0-9_\-:]*$/D';
 
     /**
      * Adds semantic configuration definition.
@@ -84,6 +89,48 @@ class AdminUiForms extends AbstractParser
                             ->end()
                         ->end()
                     ->end()
+                    ->arrayNode('content_type_edit')
+                        ->info('Content Type Edit form configuration')
+                        ->children()
+                            ->scalarNode('default_meta_field_type_group')
+                                ->info('Group name used to add meta field types')
+                                ->beforeNormalization()
+                                    ->ifTrue(
+                                        static function (string $groupName): bool {
+                                            return
+                                                empty($groupName)
+                                                || !preg_match(self::GROUP_NAME_PATTERN, $groupName);
+                                        }
+                                    )
+                                    ->thenInvalid('The group name "%s" contains illegal characters. Group names should start with a letter, digit or underscore and only contain letters, digits, numbers, underscores ("_"), hyphens ("-") and colons (":").')
+                                ->end()
+                            ->end()
+                            ->arrayNode('field_types')
+                                ->info('Configuration for specific Field Types')
+                                ->useAttributeAsKey('identifier')
+                                ->arrayPrototype()
+                                    ->beforeNormalization()
+                                        ->ifTrue(
+                                            static function (array $config): bool {
+                                                $isMeta = $config['meta'] ?? false;
+
+                                                return $isMeta && !isset($config['position']);
+                                            }
+                                        )
+                                        ->thenInvalid('The "position" option is required for all Meta Field Types')
+                                    ->end()
+                                    ->children()
+                                        ->scalarNode('identifier')->end()
+                                        ->booleanNode('meta')
+                                            ->info('Make this field_type a part of Meta group')
+                                            ->defaultFalse()
+                                        ->end()
+                                        ->integerNode('position')->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
                 ->end()
             ->end();
     }
@@ -104,19 +151,42 @@ class AdminUiForms extends AbstractParser
         }
 
         if (!empty($scopeSettings['admin_ui_forms']['content_edit']['fieldtypes'])) {
-            $scopeSettings['admin_ui_forms.content_edit.fieldtypes'] = $scopeSettings['admin_ui_forms']['content_edit']['fieldtypes'];
+            $scopeSettings['admin_ui_forms.content_edit.fieldtypes'] =
+                $scopeSettings['admin_ui_forms']['content_edit']['fieldtypes'];
             unset($scopeSettings['admin_ui_forms']['content_edit']['fieldtypes']);
         }
 
+        if (!empty($scopeSettings['admin_ui_forms']['content_type_edit']['field_types'])) {
+            $scopeSettings['admin_ui_forms.content_type_edit.field_types'] =
+                $scopeSettings['admin_ui_forms']['content_type_edit']['field_types'];
+            unset($scopeSettings['admin_ui_forms']['content_type_edit']['field_types']);
+        }
+
+        if (!empty($scopeSettings['admin_ui_forms']['content_type_edit']['default_meta_field_type_group'])) {
+            $scopeSettings['admin_ui_forms.content_type_edit.default_meta_field_type_group'] =
+                $scopeSettings['admin_ui_forms']['content_type_edit']['default_meta_field_type_group'];
+            unset($scopeSettings['admin_ui_forms']['content_type_edit']['default_meta_field_type_group']);
+        }
+
         $contextualizer->setContextualParameter(
-            static::FORM_TEMPLATES_PARAM,
+            self::FORM_TEMPLATES_PARAM,
             $currentScope,
             $scopeSettings['admin_ui_forms.content_edit_form_templates'] ?? []
         );
         $contextualizer->setContextualParameter(
-            static::FIELD_TYPES_PARAM,
+            self::FIELD_TYPES_PARAM,
             $currentScope,
             $scopeSettings['admin_ui_forms.content_edit.fieldtypes'] ?? []
+        );
+        $contextualizer->setContextualParameter(
+            self::CONTENT_TYPE_FIELD_TYPES_PARAM,
+            $currentScope,
+            $scopeSettings['admin_ui_forms.content_type_edit.field_types'] ?? []
+        );
+        $contextualizer->setContextualParameter(
+            self::CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM,
+            $currentScope,
+            $scopeSettings['admin_ui_forms.content_type_edit.default_meta_field_type_group'] ?? null
         );
     }
 
@@ -127,6 +197,8 @@ class AdminUiForms extends AbstractParser
     {
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit_form_templates', $config);
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit.fieldtypes', $config);
+        $contextualizer->mapConfigArray('admin_ui_forms.content_type_edit.field_types', $config);
+        $contextualizer->mapSetting('admin_ui_forms.content_type_edit.default_meta_field_type_group', $config);
     }
 
     /**

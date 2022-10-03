@@ -40,8 +40,11 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
      */
     private $groupsList;
 
-    public function __construct(ContentTypeService $contentTypeService, RouterInterface $router, array $options = [])
-    {
+    public function __construct(
+        ContentTypeService $contentTypeService,
+        RouterInterface $router,
+        array $options = []
+    ) {
         $this->contentTypeService = $contentTypeService;
         $this->router = $router;
         $this->setOptions($options);
@@ -82,6 +85,20 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         foreach ($contentTypeData->getFlatFieldDefinitionsData() as $fieldDefData) {
             $this->contentTypeService->updateFieldDefinition($contentTypeDraft, $fieldDefData->fieldDefinition, $fieldDefData);
         }
+
+        // Update enabled FieldDefinitions and remove disabled.
+        foreach ($contentTypeData->getFlatMetaFieldDefinitionsData() as $fieldDefData) {
+            if ($fieldDefData->enabled) {
+                $this->contentTypeService->updateFieldDefinition(
+                    $contentTypeDraft,
+                    $fieldDefData->fieldDefinition,
+                    $fieldDefData
+                );
+            } else {
+                $this->contentTypeService->removeFieldDefinition($contentTypeDraft, $fieldDefData->fieldDefinition);
+            }
+        }
+
         $contentTypeData->sortFieldDefinitions();
         $this->contentTypeService->updateContentTypeDraft($contentTypeDraft, $contentTypeData);
     }

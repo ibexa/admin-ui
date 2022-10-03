@@ -24,7 +24,10 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 
-class ContentTypeFormProcessorTest extends TestCase
+/**
+ * @covers \Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor
+ */
+final class ContentTypeFormProcessorTest extends TestCase
 {
     private const EXAMPLE_CONTENT_TYPE_ID = 1;
 
@@ -50,12 +53,14 @@ class ContentTypeFormProcessorTest extends TestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
         $this->contentTypeService = $this->createMock(ContentTypeService::class);
         $this->router = $this->createMock(RouterInterface::class);
         $this->groupsList = $this->createMock(FieldsGroupsList::class);
 
-        $this->formProcessor = new ContentTypeFormProcessor($this->contentTypeService, $this->router);
+        $this->formProcessor = new ContentTypeFormProcessor(
+            $this->contentTypeService,
+            $this->router
+        );
         $this->formProcessor->setGroupsList($this->groupsList);
     }
 
@@ -225,7 +230,11 @@ class ContentTypeFormProcessorTest extends TestCase
             ->with($redirectRoute)
             ->willReturn($redirectUrl);
         $expectedRedirectResponse = new RedirectResponse($redirectUrl);
-        $formProcessor = new \Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor($this->contentTypeService, $this->router, ['redirectRouteAfterPublish' => $redirectRoute]);
+        $formProcessor = new ContentTypeFormProcessor(
+            $this->contentTypeService,
+            $this->router,
+            ['redirectRouteAfterPublish' => $redirectRoute]
+        );
         $formProcessor->processPublishContentType($event);
         self::assertTrue($event->hasResponse());
         self::assertEquals($expectedRedirectResponse, $event->getResponse());
@@ -345,7 +354,11 @@ class ContentTypeFormProcessorTest extends TestCase
             ->with($redirectRoute)
             ->willReturn($redirectUrl);
         $expectedRedirectResponse = new RedirectResponse($redirectUrl);
-        $formProcessor = new ContentTypeFormProcessor($this->contentTypeService, $this->router, ['redirectRouteAfterPublish' => $redirectRoute]);
+        $formProcessor = new ContentTypeFormProcessor(
+            $this->contentTypeService,
+            $this->router,
+            ['redirectRouteAfterPublish' => $redirectRoute]
+        );
         $formProcessor->processRemoveContentTypeDraft($event);
         self::assertTrue($event->hasResponse());
         self::assertEquals($expectedRedirectResponse, $event->getResponse());

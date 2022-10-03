@@ -6,6 +6,7 @@
  */
 namespace Ibexa\AdminUi\Form\Type\FieldDefinition;
 
+use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\AdminUi\Form\DataTransformer\TranslatablePropertyTransformer;
@@ -29,6 +30,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class FieldDefinitionType extends AbstractType
 {
+    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
+
     /** @var \Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface */
     private $fieldTypeMapperDispatcher;
 
@@ -41,8 +44,13 @@ class FieldDefinitionType extends AbstractType
     /** @var \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy */
     private $thumbnailStrategy;
 
-    public function __construct(FieldTypeDefinitionFormMapperDispatcherInterface $fieldTypeMapperDispatcher, FieldTypeService $fieldTypeService, ThumbnailStrategy $thumbnailStrategy)
-    {
+    public function __construct(
+        ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
+        FieldTypeDefinitionFormMapperDispatcherInterface $fieldTypeMapperDispatcher,
+        FieldTypeService $fieldTypeService,
+        ThumbnailStrategy $thumbnailStrategy
+    ) {
+        $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
         $this->fieldTypeMapperDispatcher = $fieldTypeMapperDispatcher;
         $this->fieldTypeService = $fieldTypeService;
         $this->thumbnailStrategy = $thumbnailStrategy;
@@ -130,6 +138,24 @@ class FieldDefinitionType extends AbstractType
             $fieldTypeIdentifier = $data->getFieldTypeIdentifier();
             $fieldType = $this->fieldTypeService->getFieldType($fieldTypeIdentifier);
             $isTranslation = $data->contentTypeData->languageCode !== $data->contentTypeData->mainLanguageCode;
+            if (
+                in_array(
+                    $fieldTypeIdentifier,
+                    $this->contentTypeFieldTypesResolver->getMetaFieldTypeIdentifiers(),
+                    true
+                )
+            ) {
+                $form->add(
+                    'enabled',
+                    CheckboxType::class,
+                    [
+                        'required' => true,
+                        'label' => false,
+                        'block_prefix' => 'content_type_meta_field_definition_enabled',
+                    ]
+                );
+            }
+
             // isSearchable field should be present only if the FieldType allows it.
             $form->add('isSearchable', CheckboxType::class, [
                 'required' => false,

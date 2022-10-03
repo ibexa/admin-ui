@@ -246,6 +246,11 @@
         <target state="new">Search...</target>
         <note>key: content_type.view.edit.search</note>
       </trans-unit>
+      <trans-unit id="6cf3d774e8b9e13d11f9f7525f1a6eaa6a892320" resname="content_type.view.edit.seo">
+        <source>SEO</source>
+        <target state="new">SEO</target>
+        <note>key: content_type.view.edit.seo</note>
+      </trans-unit>
       <trans-unit id="803a61fc8cf4e7bdfcf27432bb35e379a4971134" resname="content_type.view.list.action.add">
         <source>Add new</source>
         <target state="new">Add new</target>
@@ -537,6 +542,11 @@
         <source>I understand the consequences of this action.</source>
         <target state="new">I understand the consequences of this action.</target>
         <note>key: location_trash_form.confirm_label</note>
+      </trans-unit>
+      <trans-unit id="8c2261eecf1e143eaf524c34f4f89608929c5c81" resname="meta.enabled">
+        <source>Enable %type% for this content type</source>
+        <target state="new">Enable %type% for this content type</target>
+        <note>key: meta.enabled</note>
       </trans-unit>
       <trans-unit id="7fe072f41348fb097b6bb018eec4f1b1bc9cffc3" resname="modal.cancel">
         <source>Cancel</source>

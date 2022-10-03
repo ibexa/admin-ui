@@ -18,6 +18,8 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStru
  */
 class FieldDefinitionData extends FieldDefinitionUpdateStruct
 {
+    public bool $enabled;
+
     /**
      * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition
      */
