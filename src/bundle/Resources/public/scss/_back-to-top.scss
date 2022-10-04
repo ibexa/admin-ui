@@ -3,7 +3,7 @@
     bottom: calculateRem(16px);
     right: calculateRem(32px);
 
-    &__btn {
+    .btn.ibexa-back-to-top__btn {
         height: calculateRem(62px);
         min-width: calculateRem(62px);
         border-radius: calculateRem(31px);
