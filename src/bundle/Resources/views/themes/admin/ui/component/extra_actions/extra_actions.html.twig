@@ -1,10 +1,11 @@
 {% import "@ibexadesign/ui/component/macros.html.twig" as html %}
 
 {% set attr = attr|default({})|merge({
-    class: ('bexa-extra-actions '
+    class: ('ibexa-extra-actions '
         ~ (id is defined ? 'ibexa-extra-actions--' ~ id ~ ' ')
-        ~ (is_visible|default(false) ? 'ibexa-extra-actions--hidden')
+        ~ (not is_visible|default(false) ? 'ibexa-extra-actions--hidden ')
         ~ attr.class|default(''))|trim,
+    'data-actions': id,
 }) %}
 
 <div {{ html.attributes(attr) }}>
