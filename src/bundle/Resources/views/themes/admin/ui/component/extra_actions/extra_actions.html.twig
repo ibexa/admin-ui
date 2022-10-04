@@ -1,0 +1,22 @@
+{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+
+{% set attr = attr|default({})|merge({
+    class: ('bexa-extra-actions '
+        ~ (id is defined ? 'ibexa-extra-actions--' ~ id ~ ' ')
+        ~ (is_visible|default(false) ? 'ibexa-extra-actions--hidden')
+        ~ attr.class|default(''))|trim,
+}) %}
+
+<div {{ html.attributes(attr) }}>
+    <div class="ibexa-extra-actions__header">
+        <h3>{{ title|default('') }}</h3>
+        <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--close">
+            <svg class="ibexa-icon ibexa-icon--small">
+                <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
+            </svg>
+        </button>
+    </div>
+    <div class="ibexa-extra-actions__content">
+        {% block content %}{% endblock %}
+    </div>
+</div>

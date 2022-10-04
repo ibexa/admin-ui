@@ -1,0 +1,9 @@
+{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+
+{% set attr = attr|default({})|merge({
+    class: ('ibexa-extra-actions-container ' ~ attr.class|default(''))|trim,
+}) %}
+
+<div {{ html.attributes(attr) }}>
+    {% block content %}{% endblock %}
+</div>
