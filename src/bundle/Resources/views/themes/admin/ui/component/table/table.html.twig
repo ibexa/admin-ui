@@ -7,7 +7,7 @@
         {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
             headline,
             actions: actions|default(null),
-            headline_title: headline_title|default(headline|default('')),
+            headline_title: headline_title|default(''),
             notice_class: notice_class|default(''),
             notice_message: notice_message|default(''),
             notice_icon: notice_icon|default('about-info'),
