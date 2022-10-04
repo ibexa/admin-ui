@@ -1,5 +1,7 @@
 {% extends '@ibexadesign/ui/edit_base.html.twig' %}
 
+{% from '@ibexadesign/content/edit_macros.html.twig' import renderFormField, renderFieldGroup %}
+
 {% trans_default_domain 'content_edit' %}
 
 {% set grouped_fields = grouped_fields|default([]) %}
@@ -25,30 +27,6 @@
     {% endblock %}
 {% endblock %}
 
-{% macro renderFormField(formField) -%}
-    {% if not formField.rendered %}
-        {% if formField.value is defined %}
-            {{- form_widget(formField) -}}
-        {% else %}
-            <div class="ibexa-field-edit ibexa-field-edit--eznoneditable">
-                {{- form_label(formField) -}}
-                <p class="non-editable">
-                    {{ 'content.field.non_editable'|trans|desc('This Field Type is not editable') }}
-                </p>
-                {% do formField.setRendered() %}
-            </div>
-        {% endif %}
-    {% endif %}
-{%- endmacro -%}
-
-{% macro renderFieldGroup(group, form) -%}
-    {% for field in group %}
-        {% set formField = form.fieldsData[field] %}
-
-        {{ _self.renderFormField(formField) }}
-    {% endfor %}
-{%- endmacro -%}
-
 {% block content %}
     <div class="ibexa-edit-content__container">
         {% block form_before %}{% endblock %}
@@ -66,13 +44,12 @@
                                 {% for key, group in grouped_fields %}
                                     {% embed '@ibexadesign/ui/anchor_navigation_section.html.twig' with {
                                         anchor_section_key: 'ibexa-edit-content-sections-content-fields-' ~ key|lower,
-                                        parent_self: _self,
                                     } %}
                                         {% trans_default_domain 'content_edit' %}
-                                        {% import parent_self as parent_self %}
+                                        {% from '@ibexadesign/content/edit_macros.html.twig' import renderFieldGroup %}
 
                                         {% block anchor_section_body %}
-                                            {{ parent_self.renderFieldGroup(group, form) }}
+                                            {{ renderFieldGroup(group, form) }}
                                         {% endblock %}
                                     {% endembed %}
                                 {% endfor %}
@@ -80,7 +57,7 @@
                                 <div class="ibexa-anchor-navigation__section" data-id="ibexa-edit-content-sections-content-fields-{{ grouped_fields|keys|first|lower }}">
                                     {% for identifier, formField in form.fieldsData %}
                                         {% if identifier not in ignored_content_fields|default([]) %}
-                                            {{ _self.renderFormField(formField) }}
+                                            {{ renderFormField(formField) }}
                                         {% endif %}
                                     {%- endfor %}
                                 </div>
