@@ -147,10 +147,6 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
                 data: data.fileReader.result.replace(/^.*;base64,/, ''),
             };
 
-            if (data.file.type.startsWith('image/')) {
-                fileValue.alternativeText = data.file.name;
-            }
-
             const fields = [
                 { fieldDefinitionIdentifier: mapping.nameFieldIdentifier, fieldValue: data.file.name },
                 { fieldDefinitionIdentifier: mapping.contentFieldIdentifier, fieldValue: fileValue },
