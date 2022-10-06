@@ -12,16 +12,6 @@
             this.dropdown = dropdown;
         }
 
-        toggle(event) {
-            if (event.target.classList.contains('ibexa-dropdown__remove-selection')) {
-                this.dropdown.deselectOption(event.target.closest('.ibexa-dropdown__selected-item'));
-
-                return;
-            }
-
-            super.toggle(event);
-        }
-
         show() {
             if (this.dropdown.container.classList.contains('ibexa-dropdown--disabled')) {
                 return;
@@ -81,6 +71,15 @@
             ibexa.helpers.objectInstances.setInstance(this.container, this);
         }
 
+        attachSelectedItemEvents(item) {
+            const removeSelectionBtn = item.querySelector('.ibexa-dropdown__remove-selection');
+
+            removeSelectionBtn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                this.deselectOption(item);
+            });
+        }
+
         createSelectedItem(value, label, icon) {
             const container = doc.createElement('div');
             const selectedItemRendered = this.selectedItemTemplate.replace('{{ value }}', value).replace('{{ label }}', label);
@@ -88,6 +87,8 @@
             container.insertAdjacentHTML('beforeend', selectedItemRendered);
 
             const selectedItemNode = container.querySelector('.ibexa-dropdown__selected-item');
+            const removeSelectionBtn = selectedItemNode.querySelector('.ibexa-dropdown__remove-selection');
+
             if (icon) {
                 const iconWrapper = container.querySelector('.ibexa-dropdown__selected-item-icon');
                 const selectedItemIconRendered = this.selectedItemIconTemplate.replace('{{ icon }}', icon);
@@ -96,6 +97,13 @@
             }
 
             selectedItemNode.classList.toggle('ibexa-dropdown__selected-item--has-icon', !!icon);
+
+            this.attachSelectedItemEvents(selectedItemNode);
+
+            removeSelectionBtn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                this.deselectOption(selectedItemNode);
+            });
 
             return selectedItemNode;
         }
@@ -444,8 +452,6 @@
                 return;
             }
 
-            const modalDialog = this.container.closest('.modal-dialog');
-
             this.itemsPopover = new DropdownPopover(
                 this.selectedItemsContainer,
                 {
@@ -453,7 +459,7 @@
                     placement: 'bottom',
                     customClass: 'ibexa-dropdown-popover',
                     content: this.itemsPopoverContent,
-                    container: modalDialog || 'body',
+                    container: 'body',
                 },
                 { dropdown: this },
             );
@@ -478,6 +484,31 @@
                 .forEach((option) => option.addEventListener('click', this.onOptionClick, false));
 
             if (this.itemsFilterInput) {
+                const modal = this.container.closest('.modal');
+                const popupInputs = this.itemsContainer.querySelectorAll('input');
+
+                popupInputs.forEach((popupInput) =>
+                    popupInput.addEventListener(
+                        'focusin',
+                        () => {
+                            const modalInstance = bootstrap.Modal.getInstance(modal);
+
+                            if (modalInstance) {
+                                modalInstance._focustrap.deactivate();
+
+                                this.itemsFilterInput.addEventListener(
+                                    'focusout',
+                                    () => {
+                                        modalInstance._focustrap.activate();
+                                    },
+                                    { once: true },
+                                );
+                            }
+                        },
+                        false,
+                    ),
+                );
+
                 this.itemsFilterInput.addEventListener('keyup', this.filterItems, false);
                 this.itemsFilterInput.addEventListener('input', this.filterItems, false);
             }
@@ -485,6 +516,12 @@
             this.sourceOptionsObserver.observe(this.sourceInput, {
                 childList: true,
             });
+
+            const selectedItems = this.container.querySelectorAll(
+                '.ibexa-dropdown__selected-item:not(.ibexa-dropdown__selected-overflow-number):not(.ibexa-dropdown__selected-placeholder)',
+            );
+
+            selectedItems.forEach((selectedItem) => this.attachSelectedItemEvents(selectedItem));
         }
     }
 
