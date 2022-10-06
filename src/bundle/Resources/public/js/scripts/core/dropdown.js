@@ -12,16 +12,6 @@
             this.dropdown = dropdown;
         }
 
-        toggle(event) {
-            if (event.target.classList.contains('ibexa-dropdown__remove-selection')) {
-                this.dropdown.deselectOption(event.target.closest('.ibexa-dropdown__selected-item'));
-
-                return;
-            }
-
-            super.toggle(event);
-        }
-
         show() {
             if (this.dropdown.container.classList.contains('ibexa-dropdown--disabled')) {
                 return;
@@ -88,6 +78,8 @@
             container.insertAdjacentHTML('beforeend', selectedItemRendered);
 
             const selectedItemNode = container.querySelector('.ibexa-dropdown__selected-item');
+            const removeSelectionBtn = selectedItemNode.querySelector('.ibexa-dropdown__remove-selection');
+
             if (icon) {
                 const iconWrapper = container.querySelector('.ibexa-dropdown__selected-item-icon');
                 const selectedItemIconRendered = this.selectedItemIconTemplate.replace('{{ icon }}', icon);
@@ -96,6 +88,11 @@
             }
 
             selectedItemNode.classList.toggle('ibexa-dropdown__selected-item--has-icon', !!icon);
+
+            removeSelectionBtn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                this.deselectOption(selectedItemNode);
+            });
 
             return selectedItemNode;
         }
