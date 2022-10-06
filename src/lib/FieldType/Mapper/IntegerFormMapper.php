@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\FieldType\Mapper;
+namespace Ibexa\AdminUi\FieldType\Mapper;
 
-use EzSystems\EzPlatformAdminUi\FieldType\FieldDefinitionFormMapperInterface;
-use EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData;
-use EzSystems\EzPlatformContentForms\Form\Type\FieldType\IntegerFieldType;
+use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\Form\Type\FieldType\IntegerFieldType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,7 +34,9 @@ class IntegerFormMapper implements FieldDefinitionFormMapperInterface
 
         $fieldDefinitionForm
             ->add(
-                'minValue', IntegerType::class, [
+                'minValue',
+                IntegerType::class,
+                [
                     'required' => false,
                     'property_path' => 'validatorConfiguration[IntegerValueValidator][minIntegerValue]',
                     'label' => /** @Desc("Minimum value") */ 'field_definition.ezinteger.min_value',
@@ -42,7 +44,9 @@ class IntegerFormMapper implements FieldDefinitionFormMapperInterface
                 ]
             )
             ->add(
-                'maxValue', IntegerType::class, [
+                'maxValue',
+                IntegerType::class,
+                [
                     'required' => false,
                     'property_path' => 'validatorConfiguration[IntegerValueValidator][maxIntegerValue]',
                     'label' => /** @Desc("Maximum value") */ 'field_definition.ezinteger.max_value',
@@ -60,3 +64,5 @@ class IntegerFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
+
+class_alias(IntegerFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\IntegerFormMapper');

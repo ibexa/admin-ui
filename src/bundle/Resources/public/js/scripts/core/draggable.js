@@ -1,6 +1,6 @@
-(function(global, doc, eZ) {
-    const SELECTOR_PLACEHOLDER = '.ez-draggable__placeholder';
-    const TIMEOUT_REMOVE_PLACEHOLDERS = 500;
+(function (global, doc, ibexa) {
+    const SELECTOR_PLACEHOLDER = '.ibexa-draggable__placeholder';
+    const SELECTOR_PREVENT_DRAG = '.ibexa-draggable__prevent-drag';
 
     class Draggable {
         constructor(config) {
@@ -10,6 +10,7 @@
             this.itemsContainer = config.itemsContainer;
             this.selectorItem = config.selectorItem;
             this.selectorPlaceholder = config.selectorPlaceholder || SELECTOR_PLACEHOLDER;
+            this.selectorPreventDrag = config.selectorPreventDrag || SELECTOR_PREVENT_DRAG;
 
             this.onDragStart = this.onDragStart.bind(this);
             this.onDragEnd = this.onDragEnd.bind(this);
@@ -17,14 +18,22 @@
             this.onDrop = this.onDrop.bind(this);
             this.addPlaceholder = this.addPlaceholder.bind(this);
             this.removePlaceholder = this.removePlaceholder.bind(this);
-            this.removePlaceholderAfterTimeout = this.removePlaceholderAfterTimeout.bind(this);
             this.attachEventHandlersToItem = this.attachEventHandlersToItem.bind(this);
         }
 
         attachEventHandlersToItem(item) {
             item.ondragstart = this.onDragStart;
             item.ondragend = this.onDragEnd;
-            item.ondrag = this.removePlaceholderAfterTimeout;
+
+            const preventedNode = item.querySelector(this.selectorPreventDrag);
+
+            if (preventedNode) {
+                preventedNode.draggable = true;
+                preventedNode.ondragstart = (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                };
+            }
         }
 
         onDragStart(event) {
@@ -68,7 +77,6 @@
             this.placeholder = container.querySelector(this.selectorPlaceholder);
 
             this.itemsContainer.insertBefore(this.placeholder, where);
-            this.removePlaceholderAfterTimeout();
         }
 
         removePlaceholder() {
@@ -77,15 +85,17 @@
             }
         }
 
-        removePlaceholderAfterTimeout() {
-            global.clearTimeout(this.onDragOverTimeout);
-
-            this.onDragOverTimeout = global.setTimeout(() => this.removePlaceholder(), TIMEOUT_REMOVE_PLACEHOLDERS);
-        }
-
         init() {
             this.itemsContainer.ondragover = this.onDragOver;
             this.itemsContainer.addEventListener('drop', this.onDrop, false);
+
+            doc.body.addEventListener('dragover', (event) => {
+                if (!this.itemsContainer.contains(event.target)) {
+                    this.removePlaceholder();
+                } else {
+                    event.preventDefault();
+                }
+            });
 
             this.itemsContainer.querySelectorAll(this.selectorItem).forEach(this.attachEventHandlersToItem);
         }
@@ -97,5 +107,5 @@
         }
     }
 
-    eZ.addConfig('core.Draggable', Draggable);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('core.Draggable', Draggable);
+})(window, window.document, window.ibexa);

@@ -1,0 +1,51 @@
+.ibexa-middle-ellipsis {
+    display: inline-flex;
+    max-width: 100%;
+
+    &--ellipsized {
+        .ibexa-middle-ellipsis {
+            &__name {
+                &--start {
+                    margin-right: calculateRem(-10px);
+                }
+
+                &--end {
+                    margin-left: calculateRem(-10px);
+                    width: initial;
+                }
+            }
+
+            &__separator {
+                display: inline-block;
+            }
+        }
+    }
+
+    &__separator {
+        display: none;
+    }
+
+    &__name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: transparent;
+
+        &--start,
+        &--end {
+            .ibexa-middle-ellipsis__name-ellipsized {
+                color: $ibexa-color-black;
+            }
+        }
+
+        &--start {
+            width: 100%;
+        }
+
+        &--end {
+            width: 0;
+            direction: rtl;
+            text-align: right;
+        }
+    }
+}

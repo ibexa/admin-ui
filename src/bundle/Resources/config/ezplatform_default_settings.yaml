@@ -1,79 +1,84 @@
 parameters:
     # System Location IDs
-    ezsettings.default.location_ids.content_structure: 2
-    ezsettings.default.location_ids.media: 43
-    ezsettings.default.location_ids.users: 5
+    ibexa.site_access.config.default.location_ids.content_structure: 2
+    ibexa.site_access.config.default.location_ids.media: 43
+    ibexa.site_access.config.default.location_ids.users: 5
 
     # Pagination limits
-    ezsettings.admin_group.pagination.search_limit: 10
-    ezsettings.admin_group.pagination.trash_limit: 10
-    ezsettings.admin_group.pagination.section_limit: 10
-    ezsettings.admin_group.pagination.language_limit: 10
-    ezsettings.admin_group.pagination.role_limit: 10
-    ezsettings.admin_group.pagination.content_type_group_limit: 10
-    ezsettings.admin_group.pagination.content_type_limit: 10
-    ezsettings.admin_group.pagination.role_assignment_limit: 10
-    ezsettings.admin_group.pagination.policy_limit: 10
-    ezsettings.admin_group.pagination.version_draft_limit: 5
-    ezsettings.admin_group.pagination.reverse_relation_limit: 10
-    ezsettings.admin_group.pagination.content_system_url_limit: 5
-    ezsettings.admin_group.pagination.content_custom_url_limit: 5
-    ezsettings.admin_group.pagination.content_role_limit: 5
-    ezsettings.admin_group.pagination.content_policy_limit: 5
-    ezsettings.admin_group.pagination.bookmark_limit: 10
-    ezsettings.admin_group.pagination.notification_limit: 5
-    ezsettings.admin_group.pagination.user_settings_limit: 10
-    ezsettings.admin_group.pagination.content_draft_limit: 10
-    ezsettings.admin_group.pagination.location_limit: 10
-    ezsettings.admin_group.pagination.url_wildcards: 10
+    ibexa.site_access.config.admin_group.pagination.search_limit: 10
+    ibexa.site_access.config.admin_group.pagination.trash_limit: 10
+    ibexa.site_access.config.admin_group.pagination.section_limit: 10
+    ibexa.site_access.config.admin_group.pagination.language_limit: 10
+    ibexa.site_access.config.admin_group.pagination.role_limit: 10
+    ibexa.site_access.config.admin_group.pagination.content_type_group_limit: 10
+    ibexa.site_access.config.admin_group.pagination.content_type_limit: 10
+    ibexa.site_access.config.admin_group.pagination.role_assignment_limit: 10
+    ibexa.site_access.config.admin_group.pagination.policy_limit: 10
+    ibexa.site_access.config.admin_group.pagination.version_draft_limit: 5
+    ibexa.site_access.config.admin_group.pagination.reverse_relation_limit: 10
+    ibexa.site_access.config.admin_group.pagination.content_system_url_limit: 5
+    ibexa.site_access.config.admin_group.pagination.content_custom_url_limit: 5
+    ibexa.site_access.config.admin_group.pagination.content_role_limit: 5
+    ibexa.site_access.config.admin_group.pagination.content_policy_limit: 5
+    ibexa.site_access.config.admin_group.pagination.bookmark_limit: 10
+    ibexa.site_access.config.admin_group.pagination.notification_limit: 5
+    ibexa.site_access.config.admin_group.pagination.user_settings_limit: 10
+    ibexa.site_access.config.admin_group.pagination.content_draft_limit: 10
+    ibexa.site_access.config.admin_group.pagination.location_limit: 10
+    ibexa.site_access.config.admin_group.pagination.url_wildcards: 10
 
     # Security
-    ezsettings.admin_group.security.token_interval_spec: PT1H
+    ibexa.site_access.config.admin_group.security.token_interval_spec: PT1H
 
     # Subitems Module
-    ezsettings.default.subitems_module.limit: 10
+    ibexa.site_access.config.default.subitems_module.limit: 10
 
     # User identifier
-    ezsettings.admin_group.user_content_type_identifier: ['user']
+    ibexa.site_access.config.admin_group.user_content_type_identifier: ['user']
 
     # User Group identifier
-    ezsettings.admin_group.user_group_content_type_identifier: ['user_group']
+    ibexa.site_access.config.admin_group.user_group_content_type_identifier: ['user_group']
 
     # Subtree Operations
-    ezsettings.admin_group.subtree_operations.copy_subtree.limit: 100
+    ibexa.site_access.config.admin_group.subtree_operations.copy_subtree.limit: 100
 
     # Notifications
-    ezsettings.admin_group.notifications.error.timeout: 0
-    ezsettings.admin_group.notifications.warning.timeout: 0
-    ezsettings.admin_group.notifications.success.timeout: 5000
-    ezsettings.admin_group.notifications.info.timeout: 0
+    ibexa.site_access.config.admin_group.notifications.error.timeout: 0
+    ibexa.site_access.config.admin_group.notifications.warning.timeout: 0
+    ibexa.site_access.config.admin_group.notifications.success.timeout: 5000
+    ibexa.site_access.config.admin_group.notifications.info.timeout: 0
 
     # Views
-    ezsettings.default.content_translate_view: {}
-    ezsettings.default.limitation_value_templates:
-        - { template: '@@ezdesign/limitation/limitation_values.html.twig', priority: 0 }
-    ezsettings.admin_group.user_settings.templates.list: "@@ezdesign/account/settings/list.html.twig"
-    ezsettings.admin_group.user_settings.templates.update: "@@ezdesign/account/settings/update.html.twig"
-    ezsettings.admin_group.user_change_password.templates.form: "@@ezdesign/account/change_password/index.html.twig"
-    ezsettings.admin_group.user_forgot_password.templates.form: "@@ezdesign/account/forgot_password/index.html.twig"
-    ezsettings.admin_group.user_forgot_password_success.templates.form: "@@ezdesign/account/forgot_password/confirmation_page.html.twig"
-    ezsettings.admin_group.user_forgot_password_login.templates.form: "@@ezdesign/account/forgot_password/index_with_login.html.twig"
-    ezsettings.admin_group.user_forgot_password.templates.mail: "@@ezdesign/account/forgot_password/mail.html.twig"
-    ezsettings.admin_group.user_reset_password.templates.form: "@@ezdesign/account/reset_password/index.html.twig"
-    ezsettings.admin_group.user_reset_password.templates.invalid_link: "@@ezdesign/account/reset_password/invalid_link_page.html.twig"
-    ezsettings.admin_group.user_reset_password.templates.success: "@@ezdesign/account/reset_password/confirmation_page.html.twig"
-    ezsettings.admin_group.user_edit.templates.update: '@@ezdesign/user/edit.html.twig'
-    ezsettings.admin_group.user_edit.templates.create: '@@ezdesign/user/create.html.twig'
+    ibexa.site_access.config.default.content_translate_view: {}
+    ibexa.site_access.config.default.limitation_value_templates:
+        - { template: '@@ibexadesign/limitation/limitation_values.html.twig', priority: 0 }
+    ibexa.site_access.config.admin_group.user_settings.templates.list: "@@ibexadesign/account/settings/list.html.twig"
+    ibexa.site_access.config.admin_group.user_settings.templates.update: "@@ibexadesign/account/settings/update.html.twig"
+    ibexa.site_access.config.admin_group.user_change_password.templates.form: "@@ibexadesign/account/change_password/index.html.twig"
+    ibexa.site_access.config.admin_group.user_forgot_password.templates.form: "@@ibexadesign/account/forgot_password/index.html.twig"
+    ibexa.site_access.config.admin_group.user_forgot_password_success.templates.form: "@@ibexadesign/account/forgot_password/confirmation_page.html.twig"
+    ibexa.site_access.config.admin_group.user_forgot_password_login.templates.form: "@@ibexadesign/account/forgot_password/index_with_login.html.twig"
+    ibexa.site_access.config.admin_group.user_forgot_password.templates.mail: "@@ibexadesign/account/forgot_password/mail.html.twig"
+    ibexa.site_access.config.admin_group.user_reset_password.templates.form: "@@ibexadesign/account/reset_password/index.html.twig"
+    ibexa.site_access.config.admin_group.user_reset_password.templates.invalid_link: "@@ibexadesign/account/reset_password/invalid_link_page.html.twig"
+    ibexa.site_access.config.admin_group.user_reset_password.templates.success: "@@ibexadesign/account/reset_password/confirmation_page.html.twig"
+    ibexa.site_access.config.admin_group.user_registration.templates.form: "@@ibexadesign/account/register/index.html.twig"
+    ibexa.site_access.config.admin_group.user_registration.templates.confirmation: "@@ibexadesign/account/register/register_confirmation.html.twig"
+    ibexa.site_access.config.admin_group.user_edit.templates.update: '@@ibexadesign/user/edit.html.twig'
+    ibexa.site_access.config.admin_group.user_edit.templates.create: '@@ibexadesign/user/create.html.twig'
 
     # Content Tree Module
-    ezsettings.admin_group.content_tree_module.load_more_limit: 30
-    ezsettings.admin_group.content_tree_module.children_load_max_limit: 200
-    ezsettings.admin_group.content_tree_module.tree_max_depth: 10
-    ezsettings.admin_group.content_tree_module.allowed_content_types: []
-    ezsettings.admin_group.content_tree_module.ignored_content_types: []
-    ezsettings.admin_group.content_tree_module.tree_root_location_id: ~
-    ezsettings.default.content_tree_module.contextual_tree_root_location_ids: []
+    ibexa.site_access.config.admin_group.content_tree_module.load_more_limit: 30
+    ibexa.site_access.config.admin_group.content_tree_module.children_load_max_limit: 200
+    ibexa.site_access.config.admin_group.content_tree_module.tree_max_depth: 10
+    ibexa.site_access.config.admin_group.content_tree_module.allowed_content_types: []
+    ibexa.site_access.config.admin_group.content_tree_module.ignored_content_types: []
+    ibexa.site_access.config.admin_group.content_tree_module.tree_root_location_id: ~
+    ibexa.site_access.config.default.content_tree_module.contextual_tree_root_location_ids: []
 
     # Autosave
-    ezsettings.admin_group.autosave.enabled: true
-    ezsettings.admin_group.autosave.interval: 60
+    ibexa.site_access.config.default.autosave.enabled: false
+    ibexa.site_access.config.default.autosave.interval: 60
+
+    ibexa.site_access.config.admin_group.autosave.enabled: true
+    ibexa.site_access.config.admin_group.autosave.interval: 60

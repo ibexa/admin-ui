@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\DataTransformer;
+namespace Ibexa\AdminUi\Form\DataTransformer;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\RoleService;
-use eZ\Publish\API\Repository\Values\User\RoleAssignment as APIRoleAssignment;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment as APIRoleAssignment;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -19,11 +19,11 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class RoleAssignmentTransformer implements DataTransformerInterface
 {
-    /** @var \eZ\Publish\API\Repository\RoleService */
+    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
     protected $roleService;
 
     /**
-     * @param \eZ\Publish\API\Repository\RoleService $roleService
+     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
      */
     public function __construct(RoleService $roleService)
     {
@@ -57,10 +57,10 @@ class RoleAssignmentTransformer implements DataTransformerInterface
      *
      * @param mixed $value
      *
-     * @return \eZ\Publish\API\Repository\Values\User\RoleAssignment|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment|null
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function reverseTransform($value): ?APIRoleAssignment
     {
@@ -79,3 +79,5 @@ class RoleAssignmentTransformer implements DataTransformerInterface
         }
     }
 }
+
+class_alias(RoleAssignmentTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\RoleAssignmentTransformer');

@@ -1,0 +1,143 @@
+.ibexa-user-invitation-modal {
+    &.ibexa-modal {
+        .modal-dialog {
+            max-width: calculateRem(700px);
+        }
+    }
+
+    .modal-body {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .modal-footer {
+        position: sticky;
+        bottom: 0;
+        background: $ibexa-color-white;
+        border-top-width: calculateRem(1px);
+    }
+
+    .ibexa-alert {
+        &__actions {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    &__body {
+        position: relative;
+    }
+
+    &__main {
+        margin-right: calculateRem(-8px);
+    }
+
+    &__issues-alert {
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__issues-alert-issues {
+        font-size: $ibexa-text-font-size-medium;
+    }
+
+    &__bad-file-alert {
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__sticky-top {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: $ibexa-color-white;
+        padding-top: calculateRem(16px);
+    }
+
+    &__labels {
+        top: calculateRem(76px);
+        margin-right: calculateRem(-4px);
+    }
+
+    &__entries {
+        display: grid;
+        grid-row-gap: calculateRem(14px);
+        padding: calculateRem(4px) 0;
+    }
+
+    &__labels,
+    &__entry {
+        display: grid;
+        align-items: center;
+    }
+
+    &__entry {
+        &--not-matching-search {
+            display: none;
+        }
+    }
+
+    &__search-no-entries {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calculateRem(48px);
+        font-style: italic;
+        font-size: $ibexa-text-font-size-medium;
+        color: $ibexa-color-dark-400;
+
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__add-next-btn {
+        margin-top: calculateRem(8px);
+    }
+
+    &__upload {
+        margin-top: calculateRem(24px);
+    }
+
+    &__upload-file-message {
+        display: flex;
+        justify-content: center;
+        margin: calculateRem(12px) 0;
+
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__drop {
+        border: calculateRem(1px) dashed $ibexa-color-dark-300;
+        border-radius: $ibexa-border-radius;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: calculateRem(24px);
+
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__drop-message {
+        cursor: auto;
+        font-weight: bold;
+        margin-top: calculateRem(24px);
+        color: $ibexa-color-dark-400;
+    }
+
+    &__or {
+        color: $ibexa-color-dark-400;
+        margin-bottom: calculateRem(8px);
+    }
+
+    &__file-select {
+        margin-bottom: calculateRem(30px);
+    }
+}
