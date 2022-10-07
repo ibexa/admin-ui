@@ -26,7 +26,7 @@
                                     <div class="ibexa-content-field">
                                         <div class="ibexa-content-field__name">{{ field_definition.name }}</div>
                                         <div class="ibexa-content-field__value">
-                                            {% if ibexa_field_is_empty(content, field_definition.identifier) and field_definition.fieldTypeIdentifier is not same as('ezboolean') %}
+                                            {% if ibexa_field_is_empty(content, field_definition.identifier) %}
                                                 <em>{{ 'fieldview.field.empty'|trans({}, 'fieldview')|desc('This field is empty') }}</em>
                                             {% else %}
                                                 {{ ibexa_render_field(content, field_definition.identifier, {location: location}) }}
