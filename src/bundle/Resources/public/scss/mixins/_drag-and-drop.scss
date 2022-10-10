@@ -129,7 +129,7 @@
         border: calculateRem(1px) solid $ibexa-color-light;
         border-radius: $ibexa-border-radius;
         box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(20px) calculateRem(-7px) rgba($ibexa-color-info, 0.05);
-        transition: all 0.3s $ibexa-admin-transition;
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
         &[draggable='true'] {
             cursor: grab;
@@ -212,7 +212,6 @@
             border-color: $ibexa-color-info-300;
             background-color: $ibexa-color-info-100;
             animation: item-highlight-pulse 1s 1;
-            pointer-events: none;
         }
     }
 
@@ -247,7 +246,7 @@
         border: calculateRem(1px) solid $ibexa-color-light;
         border-radius: $ibexa-border-radius;
         box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(20px) calculateRem(-7px) rgba($ibexa-color-info, 0.05);
-        transition: all 0.3s $ibexa-admin-transition;
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
         &[draggable='true'] {
             cursor: grab;
@@ -300,7 +299,7 @@
 @mixin drag-item-placeholder {
     display: flex;
     height: calculateRem(4px);
-    border-radius: 2px;
+    border-radius: calculateRem(2px);
     background-color: $ibexa-color-info;
     margin: 0 0 calculateRem(8px) 0;
 
