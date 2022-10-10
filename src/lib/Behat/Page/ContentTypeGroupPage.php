@@ -52,6 +52,7 @@ class ContentTypeGroupPage extends Page
 
     public function edit(string $contentTypeName): void
     {
+        $this->getHTMLPage()->find($this->getLocator('scrollableContainer'))->scrollToBottom($this->getSession());
         $this->table->getTableRow(['Name' => $contentTypeName])->edit();
     }
 
@@ -133,6 +134,7 @@ class ContentTypeGroupPage extends Page
             new VisibleCSSLocator('deleteButton', '.ibexa-icon--trash,button[data-original-title^="Delete"]'),
             new VisibleCSSLocator('tableItem', '.ibexa-main-container tbody tr'),
             new VisibleCSSLocator('contentTypeLabel', '.ibexa-table__cell > a'),
+            new VisibleCSSLocator('scrollableContainer', '.ibexa-back-to-top-scroll-container'),
         ];
     }
 }
