@@ -229,7 +229,7 @@
     }
 
     &--is-removed {
-        animation: remove-field 1s 1;
+        animation: remove-field 1s 1 forwards;
     }
 
     &--is-error {
