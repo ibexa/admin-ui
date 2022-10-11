@@ -32,7 +32,6 @@
     }
 
     &--expanded {
-        top: calculateRem(73px);
         bottom: calculateRem(100px);
         min-width: calculateRem(491px);
 
