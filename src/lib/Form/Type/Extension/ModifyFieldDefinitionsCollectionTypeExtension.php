@@ -22,12 +22,12 @@ final class ModifyFieldDefinitionsCollectionTypeExtension extends AbstractTypeEx
 {
     private string $fieldTypeIdentifier;
 
-    /** @var array<string> */
+    /** @var array<string, mixed> */
     private array $modifiedOptions;
 
     /**
      * @param string $fieldTypeIdentifier
-     * @param array<string> $modifiedOptions
+     * @param array<string, mixed> $modifiedOptions
      */
     public function __construct(string $fieldTypeIdentifier, array $modifiedOptions)
     {
