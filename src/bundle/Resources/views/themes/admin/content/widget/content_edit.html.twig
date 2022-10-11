@@ -5,7 +5,7 @@
 <div class="ibexa-extra-actions ibexa-extra-actions--edit ibexa-extra-actions--hidden {% if form.language.vars.choices|length == 1 %} ibexa-extra-actions--prevent-show {% endif %}" data-actions="{{ data_actions }}">
     <div class="ibexa-extra-actions__header">
         <h3>{{ 'content.edit.select_language'|trans|desc('Select translation') }} (<span class="ibexa-extra-actions__counter">{{ form.language.vars.choices|length }}</span>)</h3>
-        <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--close">
+        <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text ibexa-btn--close">
             <svg class="ibexa-icon ibexa-icon--small">
                 <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
             </svg>
