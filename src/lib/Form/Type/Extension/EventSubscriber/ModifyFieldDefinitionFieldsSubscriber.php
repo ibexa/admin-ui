@@ -16,7 +16,7 @@ use Symfony\Component\Form\FormEvents;
 /**
  * Modifies CT editing form by rebuilding field definition list with custom options on given field type.
  */
-final class DisableFieldDefinitionFieldsSubscriber implements EventSubscriberInterface
+final class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInterface
 {
     private string $fieldTypeIdentifier;
 
@@ -65,10 +65,7 @@ final class DisableFieldDefinitionFieldsSubscriber implements EventSubscriberInt
 
             $options = array_merge(
                 $baseFieldForm->getConfig()->getOptions(),
-                array_fill_keys(
-                    array_values($this->modifiedOptions),
-                    true
-                )
+                $this->modifiedOptions
             );
 
             $form->add($baseFieldFormName, FieldDefinitionType::class, $options);

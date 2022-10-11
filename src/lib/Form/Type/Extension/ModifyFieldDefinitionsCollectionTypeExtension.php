@@ -9,16 +9,16 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\Extension;
 
 use Ibexa\AdminUi\Form\Type\ContentType\FieldDefinitionsCollectionType;
-use Ibexa\AdminUi\Form\Type\Extension\EventSubscriber\DisableFieldDefinitionFieldsSubscriber;
+use Ibexa\AdminUi\Form\Type\Extension\EventSubscriber\ModifyFieldDefinitionFieldsSubscriber;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Extension for Field Definition list in Content Type editing form.
  *
- * Hooks up event subscriber used to enforce disabling fields for given field type.
+ * Hooks up event subscriber used to enforce modifying fields for given field type.
  */
-final class DisableFieldDefinitionsCollectionTypeExtension extends AbstractTypeExtension
+final class ModifyFieldDefinitionsCollectionTypeExtension extends AbstractTypeExtension
 {
     private string $fieldTypeIdentifier;
 
@@ -37,7 +37,7 @@ final class DisableFieldDefinitionsCollectionTypeExtension extends AbstractTypeE
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $subscriber = new DisableFieldDefinitionFieldsSubscriber($this->fieldTypeIdentifier, $this->modifiedOptions);
+        $subscriber = new ModifyFieldDefinitionFieldsSubscriber($this->fieldTypeIdentifier, $this->modifiedOptions);
 
         foreach ($builder->all() as $fieldTypeGroup) {
             $fieldTypeGroup->addEventSubscriber($subscriber);

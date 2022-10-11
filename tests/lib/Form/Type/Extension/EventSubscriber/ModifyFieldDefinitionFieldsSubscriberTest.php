@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Tests\AdminUi\Form\Type\Extension\EventSubscriber;
 
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
-use Ibexa\AdminUi\Form\Type\Extension\EventSubscriber\DisableFieldDefinitionFieldsSubscriber;
+use Ibexa\AdminUi\Form\Type\Extension\EventSubscriber\ModifyFieldDefinitionFieldsSubscriber;
 use Ibexa\AdminUi\Form\Type\FieldDefinition\FieldDefinitionType;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use PHPUnit\Framework\TestCase;
@@ -18,19 +18,19 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * @covers \Ibexa\AdminUi\Form\Type\Extension\EventSubscriber\DisableFieldDefinitionFieldsSubscriber
+ * @covers \Ibexa\AdminUi\Form\Type\Extension\EventSubscriber\ModifyFieldDefinitionFieldsSubscriber
  */
-final class DisableFieldDefinitionFieldsSubscriberTest extends TestCase
+final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
 {
     private const FIELD_TYPE_IDENTIFIER = 'foo';
     private const MODIFIED_OPTIONS = [
-        'disable_identifier_field',
-        'disable_required_field',
-        'disable_translatable_field',
-        'disable_remove',
+        'disable_identifier_field' => true,
+        'disable_required_field' => true,
+        'disable_translatable_field' => true,
+        'disable_remove' => true,
     ];
 
-    private DisableFieldDefinitionFieldsSubscriber $disableFieldDefinitionFieldsSubscriber;
+    private ModifyFieldDefinitionFieldsSubscriber $modifyFieldDefinitionFieldsSubscriber;
 
     /** @var \Symfony\Component\Form\FormInterface|\PHPUnit\Framework\MockObject\MockObject */
     private FormInterface $form;
@@ -41,7 +41,7 @@ final class DisableFieldDefinitionFieldsSubscriberTest extends TestCase
     {
         $this->form = $this->createMock(FormInterface::class);
         $this->formBuilder = $this->createMock(FormBuilderInterface::class);
-        $this->disableFieldDefinitionFieldsSubscriber = new DisableFieldDefinitionFieldsSubscriber(
+        $this->modifyFieldDefinitionFieldsSubscriber = new ModifyFieldDefinitionFieldsSubscriber(
             self::FIELD_TYPE_IDENTIFIER,
             self::MODIFIED_OPTIONS
         );
@@ -65,20 +65,15 @@ final class DisableFieldDefinitionFieldsSubscriberTest extends TestCase
         $this->mockFormBuilderGetOptions($options);
         $this->mockFormRemove($fieldIdentifier);
 
-        $options['disable_required_field'] = true;
-
         $this->mockFormAdd(
             $fieldIdentifier,
             array_merge(
                 $options,
-                array_fill_keys(
-                    array_values(self::MODIFIED_OPTIONS),
-                    true
-                )
+                self::MODIFIED_OPTIONS
             )
         );
 
-        $this->disableFieldDefinitionFieldsSubscriber->onPreSetData($event);
+        $this->modifyFieldDefinitionFieldsSubscriber->onPreSetData($event);
     }
 
     private function getFormData(string $identifier): array
