@@ -95,7 +95,7 @@
             targetPlace = [...items].find((item, index) => index === draggedItemPosition);
         }
 
-        fieldNode.classList.add('ibexa-collapse--field-definition-highlight');
+        fieldNode.classList.add('ibexa-collapse--field-definition-highlighted');
         targetContainer.insertBefore(fieldNode, targetPlace);
 
         return fieldNode;
@@ -228,7 +228,7 @@
         createFieldDefinitionNode(currentDraggedItem);
         removeDragPlaceholders();
 
-        currentDraggedItem.classList.add('ibexa-collapse--field-definition-highlight');
+        currentDraggedItem.classList.add('ibexa-collapse--field-definition-highlighted');
         currentDraggedItem.classList.add('ibexa-collapse--field-definition-loading');
 
         const fieldsOrder = [...doc.querySelectorAll('.ibexa-collapse--field-definition')].map(
@@ -376,9 +376,9 @@
         field.remove();
     };
     const removeHighlight = () => {
-        const field = doc.querySelector('.ibexa-collapse--field-definition-highlight');
+        const field = doc.querySelector('.ibexa-collapse--field-definition-highlighted');
 
-        field?.classList.remove('ibexa-collapse--field-definition-highlight');
+        field?.classList.remove('ibexa-collapse--field-definition-highlighted');
     };
     class FieldDefinitionDraggable extends ibexa.core.Draggable {
         constructor(config) {
@@ -386,9 +386,11 @@
 
             this.emptyContainer = this.itemsContainer.querySelector('.ibexa-field-definitions-empty-group');
             this.anchoredPlaceholder = this.itemsContainer.querySelector('.ibexa-field-definitions-placeholder-full--anchored');
+
             this.getPlaceholderNode = this.getPlaceholderNode.bind(this);
-            this.getPlaceholderPosition = this.getPlaceholderPosition.bind(this);
+            this.getPlaceholderPositionTop = this.getPlaceholderPositionTop.bind(this);
         }
+
         onDrop(event) {
             targetContainer = event.currentTarget;
 
@@ -437,7 +439,7 @@
             return null;
         }
 
-        getPlaceholderPosition(item, event) {
+        getPlaceholderPositionTop(item, event) {
             return item.isSameNode(this.anchoredPlaceholder) ? 0 : event.clientY;
         }
 

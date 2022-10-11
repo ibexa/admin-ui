@@ -207,7 +207,7 @@
         }
     }
 
-    &--is-highlighted {
+    &--highlighted {
         #{$self}__content {
             border-color: $ibexa-color-info-300;
             background-color: $ibexa-color-info-100;
@@ -228,11 +228,11 @@
         }
     }
 
-    &--is-removed {
+    &--removed {
         animation: remove-field 1s 1 forwards;
     }
 
-    &--is-error {
+    &--error {
         #{$self}__content {
             border-color: $ibexa-color-danger;
         }

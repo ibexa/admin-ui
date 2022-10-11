@@ -14,10 +14,10 @@
             this.selectorPreventDrag = config.selectorPreventDrag || SELECTOR_PREVENT_DRAG;
             this.selectorItemContent = `${this.selectorItem}__content`;
             this.itemMainClass = this.selectorItem.slice(1);
-            this.highlightClass = `${this.itemMainClass}--is-highlighted`;
+            this.highlightClass = `${this.itemMainClass}--highlighted`;
             this.draggingOutClass = `${this.itemMainClass}--is-dragging-out`;
             this.removingClass = `${this.itemMainClass}--is-removing`;
-            this.removedClass = `${this.itemMainClass}--is-removed`;
+            this.removedClass = `${this.itemMainClass}--removed`;
 
             this.onDragStart = this.onDragStart.bind(this);
             this.onDragEnd = this.onDragEnd.bind(this);
@@ -76,7 +76,7 @@
             return target.closest(`${this.selectorItem}:not(${this.selectorPlaceholder})`);
         }
 
-        getPlaceholderPosition(item, event) {
+        getPlaceholderPositionTop(item, event) {
             return event.clientY;
         }
 
@@ -109,7 +109,7 @@
                 return false;
             }
 
-            const positionY = this.getPlaceholderPosition(item, event);
+            const positionY = this.getPlaceholderPositionTop(item, event);
 
             this.removePlaceholder();
             this.addPlaceholder(item, positionY);
