@@ -1,4 +1,6 @@
-{% macro renderFormField(formField) -%}
+{% macro render_form_field(formField) -%}
+    {% trans_default_domain 'content_edit' %}
+
     {% if not formField.rendered %}
         {% if formField.value is defined %}
             {{- form_widget(formField) -}}
@@ -14,10 +16,10 @@
     {% endif %}
 {%- endmacro -%}
 
-{% macro renderFieldGroup(group, form) -%}
+{% macro render_field_group(group, form) -%}
     {% for field in group %}
         {% set formField = form.fieldsData[field] %}
 
-        {{ _self.renderFormField(formField) }}
+        {{ _self.render_form_field(formField) }}
     {% endfor %}
 {%- endmacro -%}
