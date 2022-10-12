@@ -116,8 +116,9 @@
                     ? tooltipNode.closest(tooltipNode.dataset.tooltipContainerSelector)
                     : 'body';
                 const iframe = document.querySelector(tooltipNode.dataset.tooltipIframeSelector);
+                const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipNode);
 
-                tooltipNode.dataset.originalTitle = tooltipNode.title;
+                tooltipNode.dataset.originalTitle = tooltipInstance ? tooltipInstance._getTitle() : tooltipNode.title;
 
                 new bootstrap.Tooltip(tooltipNode, {
                     delay,
