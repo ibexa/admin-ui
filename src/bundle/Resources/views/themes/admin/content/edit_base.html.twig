@@ -1,7 +1,5 @@
 {% extends '@ibexadesign/ui/edit_base.html.twig' %}
 
-{% from '@ibexadesign/content/edit_macros.html.twig' import render_form_field as renderFormField, render_field_group as renderFieldGroup %}
-
 {% trans_default_domain 'content_edit' %}
 
 {% set grouped_fields = grouped_fields|default([]) %}
@@ -46,10 +44,10 @@
                                         anchor_section_key: 'ibexa-edit-content-sections-content-fields-' ~ key|lower,
                                     } %}
                                         {% trans_default_domain 'content_edit' %}
-                                        {% from '@ibexadesign/content/edit_macros.html.twig' import renderFieldGroup %}
+                                        {% from '@ibexadesign/content/edit_macros.html.twig' import render_form_field, render_field_group %}
 
                                         {% block anchor_section_body %}
-                                            {{ renderFieldGroup(group, form) }}
+                                            {{ render_field_group(group, form) }}
                                         {% endblock %}
                                     {% endembed %}
                                 {% endfor %}
@@ -57,7 +55,7 @@
                                 <div class="ibexa-anchor-navigation__section" data-id="ibexa-edit-content-sections-content-fields-{{ grouped_fields|keys|first|lower }}">
                                     {% for identifier, formField in form.fieldsData %}
                                         {% if identifier not in ignored_content_fields|default([]) %}
-                                            {{ renderFormField(formField) }}
+                                            {{ render_form_field(formField) }}
                                         {% endif %}
                                     {%- endfor %}
                                 </div>
