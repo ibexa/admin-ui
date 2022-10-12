@@ -9,7 +9,7 @@
 
     const backToTopBtnTitle = backToTopBtn.querySelector('.ibexa-back-to-top__title');
     let currentBackToTopAnchorHeight = backToTopAnchor.offsetHeight;
-    const toggleBackToTopBtnText = (container) => {
+    const setBackToTopBtnTextVisibility = (container) => {
         const isTitleVisible = Math.abs(container.scrollHeight - container.scrollTop - container.clientHeight) <= 2;
 
         backToTopBtn.classList.toggle('ibexa-back-to-top__btn--visible', container.scrollTop !== 0);
@@ -20,7 +20,7 @@
     backToTopScrollContainer.addEventListener('scroll', (event) => {
         const container = event.target;
 
-        toggleBackToTopBtnText(container);
+        setBackToTopBtnTextVisibility(container);
     });
     backToTopBtn.addEventListener('click', () => {
         backToTopAnchor.scrollIntoView({
@@ -35,7 +35,7 @@
 
         currentBackToTopAnchorHeight = entries[0].target.clientHeight;
 
-        toggleBackToTopBtnText(backToTopScrollContainer);
+        setBackToTopBtnTextVisibility(backToTopScrollContainer);
     });
 
     resizeObserver.observe(backToTopAnchor);
