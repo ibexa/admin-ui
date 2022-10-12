@@ -132,6 +132,8 @@
                                </div>`,
                 });
 
+                tooltipNode.title = '';
+
                 tooltipNode.addEventListener('inserted.bs.tooltip', (event) => {
                     lastInsertTooltipTarget = event.currentTarget;
                 });
