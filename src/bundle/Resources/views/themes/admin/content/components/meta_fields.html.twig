@@ -8,7 +8,7 @@
             {% set data_id = 'ibexa-edit-content-sections-meta-' ~ identifier %}
             {% block content %}
                 {% import '@ibexadesign/content/edit_base.html.twig' as edit_base %}
-                {{ edit_base.renderFormField(form.fieldsData[identifier]) }}
+                {{ edit_base.render_form_field(form.fieldsData[identifier]) }}
             {% endblock %}
         {% endembed %}
     {% endfor %}
