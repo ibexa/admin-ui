@@ -96,8 +96,14 @@
                 </div>
             </div>
 
-            {{ form_widget(form.publishContentType, { attr: { class: 'ibexa-content-type-edit__publish-content-type', hidden: 'hidden' }}) }}
-            {{ form_widget(form.removeDraft, {'attr': { 'hidden': 'hidden' }}) }}
+            {{ form_widget(form.publishContentType, { attr: {
+                class: 'ibexa-content-type-edit__publish-content-type',
+                hidden: 'hidden'
+            }}) }}
+            {{ form_widget(form.removeDraft, { attr: {
+                class: 'ibexa-content-type-edit__remove-draft',
+                hidden: 'hidden'
+            }}) }}
 
             {{ form_widget(form._token) }}
         {{ form_end(form, {'render_rest': false }) }}
