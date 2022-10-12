@@ -356,21 +356,6 @@
         <target>Content / View embed</target>
         <note>key: role.policy.content.view_embed</note>
       </trans-unit>
-      <trans-unit id="f938e848fa6c25d45263ada27ca43832057f94de" resname="role.policy.corporate_account">
-        <source>Corporate account</source>
-        <target>Corporate account</target>
-        <note>key: role.policy.corporate_account</note>
-      </trans-unit>
-      <trans-unit id="1fed374e8a15282056cd5fec354ca5a76fee47f4" resname="role.policy.corporate_account.all_functions">
-        <source>Corporate account / All functions</source>
-        <target>Corporate account / All functions</target>
-        <note>key: role.policy.corporate_account.all_functions</note>
-      </trans-unit>
-      <trans-unit id="1ae2fe0d3b79c36625831e7f1788ab00dcccfbc7" resname="role.policy.corporate_account.edit">
-        <source>Corporate account / Edit</source>
-        <target>Corporate account / Edit</target>
-        <note>key: role.policy.corporate_account.edit</note>
-      </trans-unit>
       <trans-unit id="db177b099d9b5b0999743c67123b420af739ada4" resname="role.policy.customer_group">
         <source>Customer group</source>
         <target>Customer group</target>

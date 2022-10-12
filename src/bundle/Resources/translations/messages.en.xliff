@@ -246,11 +246,6 @@
         <target state="new">Search...</target>
         <note>key: content_type.view.edit.search</note>
       </trans-unit>
-      <trans-unit id="6cf3d774e8b9e13d11f9f7525f1a6eaa6a892320" resname="content_type.view.edit.seo">
-        <source>SEO</source>
-        <target state="new">SEO</target>
-        <note>key: content_type.view.edit.seo</note>
-      </trans-unit>
       <trans-unit id="803a61fc8cf4e7bdfcf27432bb35e379a4971134" resname="content_type.view.list.action.add">
         <source>Add new</source>
         <target state="new">Add new</target>
