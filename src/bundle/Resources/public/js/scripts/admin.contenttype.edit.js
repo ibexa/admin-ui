@@ -453,7 +453,7 @@
         (event) => {
             const { submitter } = event;
 
-            if (!submitter.classList.contains('ibexa-content-type-edit__remove-draft')) {
+            if (!submitter?.getAttribute('formnovalidate')) {
                 const fieldDefinitionsCount = doc.querySelectorAll('.ibexa-collapse--field-definition').length;
 
                 validateForm();

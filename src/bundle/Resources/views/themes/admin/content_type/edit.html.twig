@@ -101,8 +101,8 @@
                 hidden: 'hidden'
             }}) }}
             {{ form_widget(form.removeDraft, { attr: {
-                class: 'ibexa-content-type-edit__remove-draft',
-                hidden: 'hidden'
+                hidden: 'hidden',
+                formnovalidate: true,
             }}) }}
 
             {{ form_widget(form._token) }}
