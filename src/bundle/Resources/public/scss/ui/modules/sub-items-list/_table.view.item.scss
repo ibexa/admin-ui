@@ -135,6 +135,12 @@
                 align-items: center;
             }
         }
+
+        &:hover {
+            .ibexa-icon {
+                fill: $ibexa-color-primary;
+            }
+        }
     }
 
     &__link {
