@@ -120,6 +120,10 @@
 
                 tooltipNode.dataset.originalTitle = tooltipInstance ? tooltipInstance._getTitle() : tooltipNode.title;
 
+                if (tooltipInstance) {
+                    tooltipInstance.dispose();
+                }
+
                 new bootstrap.Tooltip(tooltipNode, {
                     delay,
                     placement,
