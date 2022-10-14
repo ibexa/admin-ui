@@ -453,7 +453,7 @@
         (event) => {
             const { submitter } = event;
 
-            if (!submitter?.getAttribute('formnovalidate')) {
+            if (!submitter?.hasAttribute('formnovalidate')) {
                 const fieldDefinitionsCount = doc.querySelectorAll('.ibexa-collapse--field-definition').length;
 
                 validateForm();
