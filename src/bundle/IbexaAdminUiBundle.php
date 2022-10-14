@@ -65,7 +65,6 @@ class IbexaAdminUiBundle extends Bundle
             new Parser\Module\ContentTree(),
             new Parser\Pagination(),
             new Parser\Security(),
-            new Parser\UserIdentifier(),
             new Parser\UserGroupIdentifier(),
             new Parser\SubtreeOperations(),
             new Parser\Notifications(),
