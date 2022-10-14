@@ -186,7 +186,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             self::ITEM__CREATE => $this->createMenuItem(
                 self::ITEM__CREATE,
                 [
-                    'extras' => ['icon' => 'create', 'orderNumber' => 10, 'primary' => true],
+                    'extras' => ['icon' => 'create', 'orderNumber' => 10],
                     'attributes' => $canCreate
                         ? $createAttributes
                         : array_merge($createAttributes, ['disabled' => 'disabled']),

@@ -69,7 +69,6 @@ class SectionEditRightSidebarBuilder extends AbstractBuilder implements Translat
             self::ITEM__SAVE => $this->createMenuItem(
                 self::ITEM__SAVE,
                 [
-                    'extras' => ['primary' => true],
                     'attributes' => [
                         'class' => 'ibexa-btn--trigger',
                         'data-click' => sprintf('#update-section-%d_update', $section->id),
