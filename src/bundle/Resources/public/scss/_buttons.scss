@@ -175,6 +175,10 @@
         border-color: $ibexa-color-info;
         background-color: $ibexa-color-info;
 
+        &:focus {
+            box-shadow: $ibexa-btn-focus-box-shadow-info;
+        }
+
         &:hover {
             color: $ibexa-color-white;
             box-shadow: 0 0 0 transparent, $ibexa-btn-hover-box-shadow-info;
@@ -191,6 +195,10 @@
         color: $ibexa-color-info;
         fill: $ibexa-color-info;
         border-color: $ibexa-color-info;
+
+        &:focus {
+            box-shadow: $ibexa-btn-focus-box-shadow-info;
+        }
 
         &:hover {
             color: $ibexa-color-dark;
