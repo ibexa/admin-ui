@@ -65,7 +65,6 @@ class SectionCreateRightSidebarBuilder extends AbstractBuilder implements Transl
             self::ITEM__CREATE => $this->createMenuItem(
                 self::ITEM__CREATE,
                 [
-                    'extras' => ['primary' => true],
                     'attributes' => [
                         'class' => 'ibexa-btn--trigger',
                         'data-click' => '#section_create_create',

@@ -66,7 +66,6 @@ class ContentTypeGroupCreateRightSidebarBuilder extends AbstractBuilder implemen
             self::ITEM__CREATE => $this->createMenuItem(
                 self::ITEM__CREATE,
                 [
-                    'extras' => ['primary' => true],
                     'attributes' => [
                         'class' => 'ibexa-btn--trigger',
                         'data-click' => '#content_type_group_create_create',

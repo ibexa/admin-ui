@@ -69,7 +69,6 @@ class ContentTypeEditRightSidebarBuilder extends AbstractBuilder implements Tran
             self::ITEM__SAVE => $this->createMenuItem(
                 self::ITEM__SAVE,
                 [
-                    'extras' => ['primary' => true],
                     'attributes' => [
                         'class' => 'ibexa-btn--trigger ibexa-btn--save-content-type',
                         'data-click' => sprintf('#%s', $contentTypeEditFormView['publishContentType']->vars['id']),
