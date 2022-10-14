@@ -116,6 +116,13 @@
                     ? tooltipNode.closest(tooltipNode.dataset.tooltipContainerSelector)
                     : 'body';
                 const iframe = document.querySelector(tooltipNode.dataset.tooltipIframeSelector);
+                const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipNode);
+
+                if (tooltipInstance) {
+                    tooltipNode.title = tooltipInstance._getTitle();
+
+                    tooltipInstance.dispose();
+                }
 
                 tooltipNode.dataset.originalTitle = tooltipNode.title;
 
@@ -131,6 +138,8 @@
                                     <div class="tooltip-inner ibexa-tooltip__inner"></div>
                                </div>`,
                 });
+
+                tooltipNode.title = '';
 
                 tooltipNode.addEventListener('inserted.bs.tooltip', (event) => {
                     lastInsertTooltipTarget = event.currentTarget;
