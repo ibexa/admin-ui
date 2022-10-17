@@ -16,13 +16,13 @@
     };
     const clearText = ({ currentTarget }) => {
         const inputWrapper = currentTarget.closest('.ibexa-input-text-wrapper');
-        const textInput = inputWrapper.querySelector('.ibexa-input--text');
+        const input = inputWrapper.querySelector('.ibexa-input--text, .ibexa-input--date');
 
-        textInput.value = '';
-        textInput.dispatchEvent(new Event('input'));
+        input.value = '';
+        input.dispatchEvent(new Event('input'));
 
-        if (!textInput.readOnly) {
-            textInput.select();
+        if (!input.readOnly) {
+            input.select();
         }
 
         if (currentTarget.hasAttribute('data-send-form-after-clearing')) {
@@ -30,10 +30,13 @@
         }
     };
     const attachListenersToAllInputs = () => {
-        const textInputClearBtns = doc.querySelectorAll('.ibexa-input-text-wrapper__action-btn--clear');
+        const inputClearBtns = doc.querySelectorAll(`
+                .ibexa-input--text + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--clear,
+                .ibexa-input--date + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--clear
+        `);
         const passwordTogglerBtns = doc.querySelectorAll('.ibexa-input-text-wrapper__action-btn--password-toggler');
 
-        textInputClearBtns.forEach((clearBtn) => clearBtn.addEventListener('click', clearText, false));
+        inputClearBtns.forEach((clearBtn) => clearBtn.addEventListener('click', clearText, false));
         passwordTogglerBtns.forEach((passwordTogglerBtn) => passwordTogglerBtn.addEventListener('click', togglePasswordVisibility, false));
     };
 

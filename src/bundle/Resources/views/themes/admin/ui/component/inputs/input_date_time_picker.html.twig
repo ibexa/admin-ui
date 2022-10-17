@@ -11,7 +11,7 @@
 }) %}
 {% set input_attr = input_attr|default({})|merge({
     class: (input_attr.class|default('')
-        ~ ' ibexa-input ibexa-input--text ibexa-date-time-picker__input flatpickr flatpickr-input'
+        ~ ' ibexa-input ibexa-input--date ibexa-date-time-picker__input flatpickr flatpickr-input'
         ~ (is_small ? ' ibexa-input--small')
     )|trim,
     readonly: 'readonly',
