@@ -451,18 +451,22 @@
     editForm.addEventListener(
         'submit',
         (event) => {
-            const fieldDefinitionsCount = doc.querySelectorAll('.ibexa-collapse--field-definition').length;
+            const { submitter } = event;
 
-            validateForm();
+            if (!submitter?.hasAttribute('formnovalidate')) {
+                const fieldDefinitionsCount = doc.querySelectorAll('.ibexa-collapse--field-definition').length;
 
-            if (isEditFormValid) {
-                if (!fieldDefinitionsCount) {
+                validateForm();
+
+                if (isEditFormValid) {
+                    if (!fieldDefinitionsCount) {
+                        event.preventDefault();
+                        ibexa.helpers.notification.showErrorNotification(noFieldsAddedError);
+                    }
+                } else {
                     event.preventDefault();
-                    ibexa.helpers.notification.showErrorNotification(noFieldsAddedError);
+                    scrollToInvalidInput();
                 }
-            } else {
-                event.preventDefault();
-                scrollToInvalidInput();
             }
         },
         false,
