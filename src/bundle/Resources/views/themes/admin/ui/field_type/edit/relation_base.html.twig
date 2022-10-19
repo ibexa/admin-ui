@@ -9,11 +9,21 @@
     {% set readonly = attr.readonly|default(false) %}
 
     {% set col_raw_checkbox_template %}
-        <input type="checkbox" class="ibexa-input ibexa-input--checkbox" value="{{ '{{ content_id }}' }}">
+        <input
+            type="checkbox"
+            class="ibexa-input ibexa-input--checkbox"
+            value="{{ '{{ content_id }}' }}"
+            {{ readonly ? 'disabled' }}
+        >
     {% endset %}
 
     {% set col_raw_order_input_template %}
-        <input class="ibexa-relations__order-input ibexa-input ibexa-input--small form-control" type="number" value="{{ '{{ order }}' }}">
+        <input
+            class="ibexa-relations__order-input ibexa-input ibexa-input--small form-control"
+            type="number"
+            value="{{ '{{ order }}' }}"
+            {{ readonly ? 'disabled' }}
+        >
     {% endset %}
 
     {% set col_raw_actions %}
@@ -21,6 +31,7 @@
             type="button"
             class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-relations__table-action--remove-item ibexa-btn"
             title="{{ 'ezobjectrelationlist.delete_selected_relations'|trans|desc('Delete') }}"
+            {{ readonly ? 'disabled' }}
         >
             <svg class="ibexa-icon ibexa-icon--small">
                 <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
@@ -86,6 +97,7 @@
                         type="checkbox"
                         class="ibexa-input ibexa-input--checkbox"
                         value="{{ relation.contentInfo.id }}"
+                        {{ readonly ? 'disabled' }}
                     >
                 {% endset %}
 
@@ -94,6 +106,7 @@
                         class="ibexa-relations__order-input ibexa-input ibexa-input--small form-control"
                         type="number"
                         value="{{ loop.index }}"
+                        {{ readonly ? 'disabled' }}
                     >
                 {% endset %}
 
@@ -151,6 +164,7 @@
                         class="ibexa-relations__order-input ibexa-input ibexa-input--small form-control"
                         type="number"
                         value="{{ loop.index }}"
+                        {{ readonly ? 'disabled' }}
                     >
                 {% endset %}
 
@@ -231,7 +245,7 @@
                                     'allowed_content_types': allowed_content_types
                                 }) }}"
                                 type="button"
-                                class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-relations__table-action--create ibexa-btn"
+                                class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-relations__table-action--create ibexa-btn {{ readonly ? 'ibexa-relations__table-action--disabled' }}"
                                 disabled
                                 {% if not has_relations %}hidden="true"{% endif %}
                             >
