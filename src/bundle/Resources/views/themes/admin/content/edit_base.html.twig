@@ -71,6 +71,10 @@
                                         {% trans_default_domain 'content_edit' %}
                                         {% import parent_self as parent_self %}
 
+                                        {% block anchor_section_header %}
+                                            <h2 class="ibexa-edit-content__section-header">{{ key }}</h2>
+                                        {% endblock %}
+
                                         {% block anchor_section_body %}
                                             {{ parent_self.renderFieldGroup(group, form) }}
                                         {% endblock %}
