@@ -6,6 +6,11 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
+      <trans-unit id="0ba4dd0a3e03edbb23ad81c27bb921449e811cdc" resname="policy.limitation.identifier.changeowner">
+        <source>ChangeOwner</source>
+        <target>ChangeOwner</target>
+        <note>key: policy.limitation.identifier.changeowner</note>
+      </trans-unit>
       <trans-unit id="3742f2cc514848bd4a5eb03430e412d44f5d9ec2" resname="policy.limitation.identifier.class">
         <source>Content Type</source>
         <target>Content Type</target>
