@@ -11,6 +11,7 @@ use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\AdminUi\Translation\Extractor\LimitationTranslationExtractor;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\ChangeOwnerLimitationType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -65,7 +66,7 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
     private function getSelectionChoices(): array
     {
         return [
-            -1 => $this->translator->trans(/** @Desc("Forbid") */
+            ChangeOwnerLimitationType::LIMITATION_VALUE_SELF => $this->translator->trans(/** @Desc("Forbid") */
                 'policy.limitation.change_owner.forbid',
                 [],
                 'ibexa_content_forms_role'
