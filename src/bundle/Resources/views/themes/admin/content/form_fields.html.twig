@@ -139,6 +139,16 @@
     </div>
 {% endblock %}
 
+{%- block ezplatform_fieldtype_ezurl_widget -%}
+    {%- if form.parent is empty -%}
+        {{ form_errors(form) }}
+    {%- endif -%}
+    {% for child in form|filter(child => not child.rendered) %}
+        {{- form_row(child, { attr: { readonly: attr.readonly|default(false) }}) -}}
+    {% endfor %}
+    {{- form_rest(form) -}}
+{%- endblock ezplatform_fieldtype_ezurl_widget -%}
+
 {%- block form_widget_compound -%}
     {%- if form.parent is empty -%}
         {{ form_errors(form) }}

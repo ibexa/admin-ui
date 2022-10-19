@@ -20,7 +20,7 @@
         {% set main_class = main_class ~ ' ibexa-toggle--is-checked' %}
         {% set attr = attr|merge({ 'checked': 'checked' }) %}
     {% endif %}
-    {% if disabled|default(false) %}
+    {% if disabled|default(false) or attr.readonly|default(false) %}
         {% set main_class = main_class ~ ' ibexa-toggle--is-disabled' %}
     {% endif %}
     {% if value is defined %}

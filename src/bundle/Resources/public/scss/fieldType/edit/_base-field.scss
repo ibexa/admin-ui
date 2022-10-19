@@ -31,7 +31,7 @@
 
     &--nontranslatable,
     &--disabled {
-        pointer-events: none;
+        pointer-events: nonce;
 
         .ibexa-label {
             color: $ibexa-color-black-300;

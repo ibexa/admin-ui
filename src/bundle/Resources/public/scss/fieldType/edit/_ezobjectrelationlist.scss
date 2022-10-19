@@ -64,4 +64,12 @@
             margin-right: calculateRem(4px);
         }
     }
+
+    &.ibexa-field-edit--nontranslatable {
+        .ibexa-relations__helper-text,
+        .ibexa-relations__info-text,
+        .ibexa-relations__info-sub-text {
+            color: $ibexa-color-dark-300;
+        }
+    }
 }

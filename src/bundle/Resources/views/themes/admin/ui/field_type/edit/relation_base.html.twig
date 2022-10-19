@@ -6,6 +6,7 @@
     {% set has_relations = relations|length > 0 %}
     {% set allowed_content_types = form.parent.vars.value.fieldDefinition.fieldSettings.selectionContentTypes %}
     {% set helper = helper|default('') %}
+    {% set readonly = attr.readonly|default(false) %}
 
     {% set col_raw_checkbox_template %}
         <input type="checkbox" class="ibexa-input ibexa-input--checkbox" value="{{ '{{ content_id }}' }}">
@@ -266,6 +267,7 @@
             data-limit="{{limit}}"
             class="ibexa-relations__cta-btn btn ibexa-btn ibexa-btn--secondary"
             type="button"
+            {{ readonly|default(false) ? 'disabled' }}
         >
             <span class="ibexa-relations__cta-btn-label">
                 {{ 'ezobjectrelationlist.cta.select'|trans|desc('Select Item') }}

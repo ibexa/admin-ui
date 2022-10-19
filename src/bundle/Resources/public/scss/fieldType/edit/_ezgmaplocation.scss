@@ -64,6 +64,10 @@
                 border-left: none;
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;
+
+                &[disabled] {
+                    background-color: $ibexa-color-light-300;
+                }
             }
 
             .ibexa-btn--search-by-address {

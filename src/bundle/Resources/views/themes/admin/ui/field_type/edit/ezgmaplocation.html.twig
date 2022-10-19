@@ -1,13 +1,19 @@
 {% trans_default_domain 'ezplatform_content_forms_content' %}
 
 {%- block ezplatform_fieldtype_ezgmaplocation_widget -%}
+    {% set readonly = attr.readonly|default(false) %}
+
     <div class="ibexa-data-source__map"></div>
     <div class="ibexa-data-source__options">
         <div class="ibexa-data-source__field ibexa-data-source__field--address">
             <div class="ibexa-data-source__input-wrapper">
-                {{ form_widget(form.address, {'attr': {'class': 'ibexa-data-source__input', 'placeholder': 'ezgmaplocation.input.placeholder'|trans|desc('Search address')}}) }}
+                {{ form_widget(form.address, {'attr': {'class': 'ibexa-data-source__input', 'placeholder': 'ezgmaplocation.input.placeholder'|trans|desc('Search address'), readonly: readonly }}) }}
                 <div class="ibexa-data-source__locate-me">
-                    <button type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--locate-me">
+                    <button
+                        type="button"
+                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--locate-me"
+                        {{ readonly ? 'disabled' }}
+                    >
                         <svg class="ibexa-icon ibexa-icon--small-medium">
                             <use xlink:href="{{ ibexa_icon_path('localize') }}"></use>
                         </svg>
@@ -24,8 +30,8 @@
             {{ 'ezgmaplocation.text.info'|trans|desc('or enter geographical coordinates') }}
         </div>
         <div class="ibexa-data-source__coordinates">
-            {{ form_row(form.latitude, { 'attr': { 'data-value': form.latitude.vars.value }}) }}
-            {{ form_row(form.longitude, { 'attr': { 'data-value': form.longitude.vars.value }}) }}
+            {{ form_row(form.latitude, { 'attr': { 'data-value': form.latitude.vars.value, readonly: readonly }}) }}
+            {{ form_row(form.longitude, { 'attr': { 'data-value': form.longitude.vars.value, readonly: readonly }}) }}
         </div>
     </div>
 {%- endblock -%}
