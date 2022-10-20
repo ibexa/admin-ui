@@ -59,7 +59,6 @@
 
         onInput(event) {
             event.preventDefault();
-            this.clearBtn.classList.toggle('ibexa-input-text-wrapper__action-btn--is-hidden', this.inputField.value === '');
 
             if (event.target.value === '' && this.inputField.dataset.timestamp !== '') {
                 this.clear();
@@ -70,7 +69,6 @@
             this.flatpickrInstance = flatpickr(this.inputField, this.flatpickrConfig);
 
             this.inputField.addEventListener('input', this.onInput, false);
-            this.clearBtn.classList.toggle('ibexa-input-text-wrapper__action-btn--is-hidden', this.inputField.value === '');
         }
     }
 
