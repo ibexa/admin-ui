@@ -68,7 +68,8 @@
     &.ibexa-field-edit--nontranslatable {
         .ibexa-relations__helper-text,
         .ibexa-relations__info-text,
-        .ibexa-relations__info-sub-text {
+        .ibexa-relations__info-sub-text,
+        .ibexa-table__cell {
             color: $ibexa-color-dark-300;
         }
     }

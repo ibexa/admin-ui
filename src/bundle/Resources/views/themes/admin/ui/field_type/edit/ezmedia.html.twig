@@ -11,6 +11,8 @@
 {% block ezmedia_preview %}
     {% form_theme form '@ibexadesign/ui/field_type/edit/binary_base_fields.html.twig' %}
 
+    {% set readonly = attr.readonly|default(false) %}
+
     <div class="ibexa-field-edit-preview">
         <div class="ibexa-field-edit-preview__visual">
             <div class="ibexa-field-edit-preview__media-wrapper ibexa-field-edit-preview__media-wrapper--loading">
@@ -18,6 +20,7 @@
                     <button 
                         type="button" 
                         class="ibexa-field-edit-preview__action--remove btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                        {{ readonly ? 'disabled' }}
                     >
                         <svg class="ibexa-icon ibexa-icon--small">
                             <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
@@ -28,6 +31,7 @@
                         class="ibexa-field-edit-preview__action--preview btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
                         href="{{ form.parent.vars.value.value.uri }}"
                         target="_blank"
+                        {{ readonly ? 'disabled' }}
                     >
                         <svg class="ibexa-icon ibexa-icon--small">
                             <use xlink:href="{{ ibexa_icon_path('open-newtab') }}"></use>
@@ -46,8 +50,6 @@
                 </video>
             </div>
 
-
-
             <div class="ibexa-field-edit-preview__details">
                 <span class="ibexa-field-edit-preview__file-name-wrapper">
                     <label class="ibexa-label form-label">{{ 'content.field_type.ezmedia.file_name.label'|trans|desc('File name') }}</label>
@@ -59,8 +61,8 @@
                 </span>
                 <div class="ibexa-field-edit-preview__settings">
                     <div class="ibexa-field-edit-preview__dimensions">
-                        {{ form_row(form.width, {'label_attr': {'class': 'ibexa-field-edit-preview__label'}}) }}
-                        {{ form_row(form.height, {'label_attr': {'class': 'ibexa-field-edit-preview__label'}}) }}
+                        {{ form_row(form.width, {'label_attr': {'class': 'ibexa-field-edit-preview__label'}, attr: { readonly: readonly }}) }}
+                        {{ form_row(form.height, {'label_attr': {'class': 'ibexa-field-edit-preview__label'}, attr: { readonly: readonly }}) }}
                     </div>
                 </div>
                 <div class="ibexa-field-edit-preview__control">
@@ -68,9 +70,9 @@
                         {{ 'content.field_type.ezmedia.player_settings'|trans({}, 'ezplatform_content_forms_content')|desc('Player settings') }}
                     </label>
                     <div class="ibexa-field-edit-preview__toggles">
-                        {{ form_row(form.hasController, {'label_attr': {'class': 'checkbox-inline'}}) }}
-                        {{ form_row(form.autoplay, {'label_attr': {'class': 'checkbox-inline'}}) }}
-                        {{ form_row(form.loop, {'label_attr': {'class': 'checkbox-inline'}}) }}
+                        {{ form_row(form.hasController, {'label_attr': {'class': 'checkbox-inline'}, attr: { disabled: readonly }}) }}
+                        {{ form_row(form.autoplay, {'label_attr': {'class': 'checkbox-inline'}, attr: { disabled: readonly }}) }}
+                        {{ form_row(form.loop, {'label_attr': {'class': 'checkbox-inline'}, attr: { disabled: readonly }}) }}
                     </div>
                 </div>
             </div>

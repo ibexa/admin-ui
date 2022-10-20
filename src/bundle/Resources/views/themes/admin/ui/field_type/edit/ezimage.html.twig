@@ -12,6 +12,8 @@
 {% block ezimage_preview %}
     {% form_theme form '@ibexadesign/ui/field_type/edit/binary_base_fields.html.twig' %}
 
+    {% set readonly = attr.readonly|default(false) %}
+
     <div class="ibexa-field-edit-preview">
         <div class="ibexa-field-edit-preview__visual">
             <div class="ibexa-field-edit-preview__media-wrapper">
@@ -19,6 +21,7 @@
                     <button
                         type="button"
                         class="ibexa-field-edit-preview__action ibexa-field-edit-preview__action--remove btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                        {{ readonly ? 'disabled' }}
                     >
                         <svg class="ibexa-icon ibexa-icon--small">
                             <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
@@ -29,6 +32,7 @@
                         class="ibexa-field-edit-preview__action ibexa-field-edit-preview__action--preview btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
                         href="{{ form.parent.vars.value.value.uri }}"
                         target="_blank"
+                        {{ readonly ? 'disabled' }}
                     >
                         <svg class="ibexa-icon ibexa-icon--small">
                             <use xlink:href="{{ ibexa_icon_path('open-newtab') }}"></use>
@@ -39,7 +43,8 @@
                         'image-edit-actions-after',
                         {
                             'fieldDefinitionIdentifier' : form.parent.vars.value.fieldDefinition.identifier,
-                            'contentId' : app.request.get('contentId')
+                            'contentId' : app.request.get('contentId'),
+                            'disabled': readonly ? true : false,
                         }
                     ) }}
                 </div>
@@ -73,11 +78,11 @@
             <div class="ibexa-field-edit-preview__image-alt">
                 {% set alternative_text_label_class = form.vars.is_alternative_text_required ? 'required' : '' %}
                 {{ form_row(form.alternativeText, {
-                    attr: { 'data-is-required': form.vars.is_alternative_text_required },
+                    attr: { 'data-is-required': form.vars.is_alternative_text_required, readonly: readonly },
                     label_attr: { 'class': alternative_text_label_class }
                 }) }}
             </div>
-            {{ form_widget(form.additionalData, {attr: {class: 'ibexa-field-edit-preview__additional-data'}}) }}
+            {{ form_widget(form.additionalData, {attr: {class: 'ibexa-field-edit-preview__additional-data', readonly: readonly }}) }}
         </div>
     </div>
 {% endblock %}

@@ -21,8 +21,6 @@
 {%- endblock -%}
 
 {% block ezplatform_fieldtype_ezimageasset_widget_container %}
-
-{{dump(attr)}}
     <div class="ibexa-field-edit-spinner">
         <svg class="ibexa-icon ibexa-spin">
             <use xlink:href="{{ ibexa_icon_path('spinner') }}"></use>
@@ -66,6 +64,7 @@
     <button
         class="btn ibexa-btn ibexa-btn--secondary ibexa-data-source__btn-select"
         data-udw-config="{{ ibexa_udw_config('image_asset', {}) }}"
+        {{ attr.readonly|default(false)  ? 'disabled' }}
     >
         {{ 'fieldtype.ezimageasset.select.label'|trans|desc('Select from library') }}
     </button>
@@ -74,6 +73,7 @@
 {% block ezimageasset_preview %}
     {% form_theme form '@ibexadesign/ui/field_type/edit/binary_base_fields.html.twig' %}
 
+    {% set readonly = attr.readonly|default(false) %}
     {% set destination_content_url = destination_content_url ?? '//:0' %}
     {% set destination_content_name = destination_content_name ?? '' %}
     {% set image_uri = image_uri ?? '' %}
@@ -99,6 +99,7 @@
                     <button
                         type="button"
                         class="ibexa-field-edit-preview__action--remove btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                        {{ readonly ? 'disabled' }}
                     >
                         <svg class="ibexa-icon ibexa-icon--small">
                             <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
@@ -109,6 +110,7 @@
                         class="ibexa-field-edit-preview__action--preview btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
                         href="{{ destination_content_url }}"
                         target="_blank"
+                        {{ readonly ? 'disabled' }}
                     >
                         <svg class="ibexa-icon ibexa-icon--small">
                             <use xlink:href="{{ ibexa_icon_path('open-newtab') }}"></use>
@@ -119,7 +121,8 @@
                         'image-edit-actions-after',
                         {
                             'fieldDefinitionIdentifier' : form.parent.vars.value.fieldDefinition.identifier,
-                            'contentId' : app.request.get('contentId')
+                            'contentId' : app.request.get('contentId'),
+                            'disabled': readonly ? true : false,
                         }
                     ) }}
                 </div>
@@ -140,7 +143,7 @@
                 </div>
             </div>
             <div class="ibexa-field-edit-preview__image-alt">
-                {{ form_row(form.alternativeText) }}
+                {{ form_row(form.alternativeText, { attr: { readonly: readonly }}) }}
             </div>
         </div>
     </div>

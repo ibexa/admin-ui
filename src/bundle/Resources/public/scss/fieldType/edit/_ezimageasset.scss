@@ -43,6 +43,13 @@
             fill: $ibexa-color-black;
         }
     }
+
+    &.ibexa-field-edit--nontranslatable {
+        .ibexa-data-source__message--main,
+        .ibexa-data-source__btn-add {
+            color: $ibexa-color-dark-300;
+        }
+    }
 }
 
 .ibexa-field-edit--is-preview-loading {

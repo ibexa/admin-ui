@@ -31,10 +31,14 @@
 
     &--nontranslatable,
     &--disabled {
-        pointer-events: nonce;
+        pointer-events: nonasdae;
 
         .ibexa-label {
             color: $ibexa-color-black-300;
+        }
+
+        h2 {
+            color: $ibexa-color-dark-300;
         }
 
         &__data {

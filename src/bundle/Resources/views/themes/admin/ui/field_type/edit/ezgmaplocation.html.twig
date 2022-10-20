@@ -3,7 +3,7 @@
 {%- block ezplatform_fieldtype_ezgmaplocation_widget -%}
     {% set readonly = attr.readonly|default(false) %}
 
-    <div class="ibexa-data-source__map"></div>
+    <div class="ibexa-data-source__map {{ readonly ? 'ibexa-data-source__map--disabled' }}"></div>
     <div class="ibexa-data-source__options">
         <div class="ibexa-data-source__field ibexa-data-source__field--address">
             <div class="ibexa-data-source__input-wrapper">

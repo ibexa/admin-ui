@@ -1,6 +1,7 @@
 .ibexa-field-edit--ezgmaplocation {
     .ibexa-data-source {
         display: flex;
+        position: relative;
 
         &__map {
             z-index: 0;
@@ -8,6 +9,19 @@
             height: calculateRem(400px);
             border-top-left-radius: $ibexa-border-radius;
             border-bottom-left-radius: $ibexa-border-radius;
+            position: relative;
+
+            &--disabled::after {
+                position: absolute;
+                background: rgba($ibexa-color-light-500, 0.8);
+                z-index: 2000;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                content: '';
+                display: block;
+            }
         }
 
         &__field--address {
