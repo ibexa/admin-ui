@@ -546,6 +546,9 @@
                 const fieldTemplate = targetContainerList.dataset.template;
                 const fieldRendered = fieldTemplate.replace('{{ type }}', currentDraggedItem.dataset.itemIdentifier);
 
+                activeTargetContainer
+                    .querySelector('.ibexa-field-definitions-empty-group')
+                    .classList.add('ibexa-field-definitions-empty-group--hidden');
                 createFieldDefinitionNode(fieldRendered);
                 addField();
 

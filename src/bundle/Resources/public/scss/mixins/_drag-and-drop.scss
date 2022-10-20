@@ -97,6 +97,7 @@
 
     &--collapsed {
         height: calculateRem(34px);
+        overflow: hidden;
     }
 }
 
@@ -118,6 +119,10 @@
             border-color: $ibexa-color-dark;
             transform: scale(1.02) translateX(-10px);
             box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info, 0.2);
+        }
+
+        #{$self}__drag-icon {
+            fill: $ibexa-color-dark;
         }
     }
 
