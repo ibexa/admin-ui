@@ -187,6 +187,11 @@
                     const correspondingMenuItem =
                         doc.querySelector(`.ibexa-anchor-navigation-menu__section-groups-item[data-target-id="${id}"]`) ??
                         doc.querySelector(`.ibexa-anchor-navigation-menu .ibexa-dropdown__item[data-value="${id}"]`);
+
+                    if (!correspondingMenuItem) {
+                        return;
+                    }
+
                     const errorIconNode = correspondingMenuItem.querySelector('.ibexa-anchor-navigation-menu__item-error');
                     const dropdownWidget = doc.querySelector('.ibexa-anchor-navigation-menu .ibexa-dropdown');
 
