@@ -118,7 +118,7 @@
         #{$self}__content {
             border-color: $ibexa-color-dark;
             transform: scale(1.02) translateX(-10px);
-            box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info, 0.2);
+            box-shadow: calculateRem(4px) calculateRem(10px) calculateRem(17px) 0 rgba($ibexa-color-info, 0.2);
         }
 
         #{$self}__drag-icon {
@@ -133,7 +133,7 @@
         padding: calculateRem(13px) calculateRem(10px);
         border: calculateRem(1px) solid $ibexa-color-light;
         border-radius: $ibexa-border-radius;
-        box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(20px) calculateRem(-7px) rgba($ibexa-color-info, 0.05);
+        box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 rgba($ibexa-color-info, 0.05);
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
         &[draggable='true'] {
@@ -178,7 +178,7 @@
                 border-color: $ibexa-color-light;
                 background: $ibexa-color-light-400;
                 transform: none;
-                box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(20px) calculateRem(-7px) rgba($ibexa-color-info, 0.05);
+                box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 rgba($ibexa-color-info, 0.05);
             }
         }
     }
@@ -250,7 +250,7 @@
         padding: calculateRem(12px) calculateRem(16px);
         border: calculateRem(1px) solid $ibexa-color-light;
         border-radius: $ibexa-border-radius;
-        box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(20px) calculateRem(-7px) rgba($ibexa-color-info, 0.05);
+        box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 rgba($ibexa-color-info, 0.05);
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
         &[draggable='true'] {
@@ -428,6 +428,6 @@
     100% {
         border-color: $ibexa-color-info-300;
         background-color: $ibexa-color-info-100;
-        box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(20px) calculateRem(-7px) rgba($ibexa-color-info, 0.05);
+        box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 rgba($ibexa-color-info, 0.05);
     }
 }
