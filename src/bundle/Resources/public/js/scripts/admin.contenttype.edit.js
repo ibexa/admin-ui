@@ -70,9 +70,7 @@
         });
     };
     const removeDragPlaceholders = () => {
-        const placeholderNodes = doc.querySelectorAll(
-            '.ibexa-field-definitions-placeholder:not(.ibexa-field-definitions-placeholder-full--anchored)',
-        );
+        const placeholderNodes = doc.querySelectorAll('.ibexa-field-definitions-placeholder');
 
         placeholderNodes.forEach((placeholderNode) => placeholderNode.remove());
     };
@@ -88,7 +86,7 @@
         }
 
         if (draggedItemPosition === -1) {
-            targetPlace = targetContainer.querySelector('.ibexa-field-definitions-placeholder-full--anchored');
+            targetPlace = targetContainer.lastChild;
         } else if (draggedItemPosition === 0) {
             targetPlace = targetContainer.firstChild;
         } else {
@@ -173,11 +171,9 @@
         groups.forEach((group) => {
             const groupFieldsDefinitionCount = group.querySelectorAll('.ibexa-collapse--field-definition').length;
             const emptyGroupPlaceholder = group.querySelector('.ibexa-field-definitions-empty-group');
-            const anchoredPlaceholder = group.querySelector('.ibexa-field-definitions-placeholder-full--anchored');
             const removeBtn = group.querySelector('.ibexa-collapse__extra-action-button--remove-field-definitions-group');
 
             emptyGroupPlaceholder.classList.toggle('ibexa-field-definitions-empty-group--hidden', groupFieldsDefinitionCount !== 0);
-            anchoredPlaceholder.classList.toggle('ibexa-field-definitions-placeholder--hidden', groupFieldsDefinitionCount === 0);
             removeBtn.disabled = groupFieldsDefinitionCount > 0;
         });
 
@@ -385,7 +381,6 @@
             super(config);
 
             this.emptyContainer = this.itemsContainer.querySelector('.ibexa-field-definitions-empty-group');
-            this.anchoredPlaceholder = this.itemsContainer.querySelector('.ibexa-field-definitions-placeholder-full--anchored');
 
             this.getPlaceholderNode = this.getPlaceholderNode.bind(this);
             this.getPlaceholderPositionTop = this.getPlaceholderPositionTop.bind(this);
@@ -394,9 +389,7 @@
         onDrop(event) {
             targetContainer = event.currentTarget;
 
-            const dragContainerItems = targetContainer.querySelectorAll(
-                '.ibexa-collapse--field-definition, .ibexa-field-definitions-placeholder:not(.ibexa-field-definitions-placeholder-full--anchored)',
-            );
+            const dragContainerItems = targetContainer.querySelectorAll('.ibexa-collapse--field-definition');
             const targetContainerGroup = targetContainer.closest('.ibexa-collapse--field-definitions-group');
             const targetContainerList = targetContainerGroup.closest('.ibexa-content-type-edit__field-definitions-group-list');
             const fieldTemplate = targetContainerList.dataset.template;
@@ -432,15 +425,7 @@
                 return this.emptyContainer;
             }
 
-            if (this.anchoredPlaceholder.contains(target)) {
-                return this.anchoredPlaceholder;
-            }
-
             return null;
-        }
-
-        getPlaceholderPositionTop(item, event) {
-            return item.isSameNode(this.anchoredPlaceholder) ? 0 : event.clientY;
         }
 
         onDragStart(event) {
