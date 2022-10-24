@@ -10,24 +10,24 @@ namespace Ibexa\AdminUi\Validator\Constraints;
 
 use Ibexa\AdminUi\Specification\Location\IsWithinCopySubtreeLimit;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
-use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class LocationIsWithinCopySubtreeLimitValidator extends ConstraintValidator
 {
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
-    private $searchService;
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    private $locationService;
 
     /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
-        SearchService $searchService,
+        LocationService $locationService,
         ConfigResolverInterface $configResolver
     ) {
-        $this->searchService = $searchService;
+        $this->locationService = $locationService;
         $this->configResolver = $configResolver;
     }
 
@@ -45,7 +45,7 @@ class LocationIsWithinCopySubtreeLimitValidator extends ConstraintValidator
 
         $isWithinCopySubtreeLimit = new IsWithinCopySubtreeLimit(
             $this->configResolver->getParameter('subtree_operations.copy_subtree.limit'),
-            $this->searchService
+            $this->locationService
         );
         try {
             if (!$isWithinCopySubtreeLimit->isSatisfiedBy($location)) {
