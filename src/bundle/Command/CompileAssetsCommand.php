@@ -57,7 +57,7 @@ class CompileAssetsCommand extends Command implements BackwardCompatibleCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $timeout = $input->getOption('timeout');
+        $timeout = (float)$input->getOption('timeout');
         $env = $input->getOption('env');
         $configName = $input->getOption('config-name');
 
