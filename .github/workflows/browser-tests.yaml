@@ -10,7 +10,7 @@ on:
 jobs:
     admin-ui:
         name: "AdminUI"
-        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
+        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@add-colors
         with:
             project-edition: 'oss'
             project-version: '4.3.x-dev'
