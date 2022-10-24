@@ -10,9 +10,8 @@ namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
 use Ibexa\AdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimit;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimitValidator;
-use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -20,11 +19,10 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class LocationIsWithinCopySubtreeLimitValidatorTest extends TestCase
 {
-    /** @var int */
-    private $copyLimit;
+    private const COPY_LIMIT = 10;
 
     /** @var \Ibexa\Contracts\Core\Repository\SearchService|\PHPUnit\Framework\MockObject\MockObject */
-    private $searchService;
+    private $locationService;
 
     /** @var \Symfony\Component\Validator\Context\ExecutionContextInterface */
     private $executionContext;
@@ -37,12 +35,17 @@ class LocationIsWithinCopySubtreeLimitValidatorTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->copyLimit = 10;
         $configResolver = $this->createMock(ConfigResolverInterface::class);
-        $configResolver->method('getParameter')->with('subtree_operations.copy_subtree.limit')->willReturn($this->copyLimit);
-        $this->searchService = $this->createMock(SearchService::class);
+        $configResolver
+            ->method('getParameter')
+            ->with('subtree_operations.copy_subtree.limit')
+            ->willReturn(self::COPY_LIMIT);
+        $this->locationService = $this->createMock(LocationService::class);
         $this->executionContext = $this->createMock(ExecutionContextInterface::class);
-        $this->validator = new LocationIsWithinCopySubtreeLimitValidator($this->searchService, $configResolver);
+        $this->validator = new LocationIsWithinCopySubtreeLimitValidator(
+            $this->locationService,
+            $configResolver
+        );
         $this->validator->initialize($this->executionContext);
         $this->location = $this
             ->getMockBuilder(Location::class)
@@ -51,15 +54,9 @@ class LocationIsWithinCopySubtreeLimitValidatorTest extends TestCase
             ->getMock();
     }
 
-    public function testValid()
+    public function testValid(): void
     {
-        $searchResults = $this
-            ->getMockBuilder(SearchResult::class)
-            ->setMethodsExcept(['__get'])
-            ->setConstructorArgs([['totalCount' => 5]])
-            ->getMock();
-
-        $this->searchService->method('findLocations')->willReturn($searchResults);
+        $this->locationService->method('count')->willReturn(5);
 
         $this->executionContext
             ->expects($this->never())
@@ -68,15 +65,9 @@ class LocationIsWithinCopySubtreeLimitValidatorTest extends TestCase
         $this->validator->validate($this->location, new LocationIsWithinCopySubtreeLimit());
     }
 
-    public function testInvalid()
+    public function testInvalid(): void
     {
-        $searchResults = $this
-            ->getMockBuilder(SearchResult::class)
-            ->setMethodsExcept(['__get'])
-            ->setConstructorArgs([['totalCount' => 15]])
-            ->getMock();
-
-        $this->searchService->method('findLocations')->willReturn($searchResults);
+        $this->locationService->method('count')->willReturn(15);
 
         $constraintViolationBuilder = $this
             ->getMockBuilder(ConstraintViolationBuilderInterface::class)

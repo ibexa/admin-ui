@@ -9,28 +9,27 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Specification\Location;
 
 use Ibexa\AdminUi\Specification\AbstractSpecification;
-use Ibexa\Contracts\Core\Repository\SearchService;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 
+/**
+ * @internal
+ */
 class IsWithinCopySubtreeLimit extends AbstractSpecification
 {
     /** @var int */
     private $copyLimit;
 
     /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $searchService;
+    private $locationService;
 
-    /**
-     * @param int $copyLimit
-     * @param \Ibexa\Contracts\Core\Repository\SearchService $searchService
-     */
     public function __construct(
         int $copyLimit,
-        SearchService $searchService
+        LocationService $locationService
     ) {
         $this->copyLimit = $copyLimit;
-        $this->searchService = $searchService;
+        $this->locationService = $locationService;
     }
 
     /**
@@ -38,7 +37,7 @@ class IsWithinCopySubtreeLimit extends AbstractSpecification
      *
      * @return bool
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function isSatisfiedBy($item): bool
     {
@@ -50,18 +49,9 @@ class IsWithinCopySubtreeLimit extends AbstractSpecification
             return false;
         }
 
-        $query = new LocationQuery([
-            'filter' => new Criterion\Subtree($item->pathString),
-            'limit' => 0,
-        ]);
+        $filter = new Filter(new Criterion\Subtree($item->pathString));
 
-        $searchResults = $this->searchService->findLocations($query);
-
-        if ($this->copyLimit >= $searchResults->totalCount) {
-            return true;
-        }
-
-        return false;
+        return $this->copyLimit >= $this->locationService->count($filter);
     }
 }
 

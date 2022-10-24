@@ -19,8 +19,8 @@ use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
+use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
-use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use JMS\TranslationBundle\Model\Message;
@@ -56,8 +56,8 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     /** @var \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver */
     private $udwConfigResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
-    private $searchService;
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    private $locationService;
 
     /** @var \Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension */
     private $udwExtension;
@@ -71,7 +71,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         PermissionResolver $permissionResolver,
         ConfigResolver $udwConfigResolver,
         ConfigResolverInterface $configResolver,
-        SearchService $searchService,
+        LocationService $locationService,
         UniversalDiscoveryExtension $udwExtension,
         PermissionCheckerInterface $permissionChecker
     ) {
@@ -80,7 +80,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         $this->permissionResolver = $permissionResolver;
         $this->configResolver = $configResolver;
         $this->udwConfigResolver = $udwConfigResolver;
-        $this->searchService = $searchService;
+        $this->locationService = $locationService;
         $this->udwExtension = $udwExtension;
         $this->permissionChecker = $permissionChecker;
     }
@@ -102,7 +102,6 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function createStructure(array $options): ItemInterface
     {
@@ -432,7 +431,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
 
         $canCopySubtree = (new IsWithinCopySubtreeLimit(
             $copyLimit,
-            $this->searchService
+            $this->locationService
         ))->and((new IsRoot())->not())->isSatisfiedBy($location);
 
         return $canCopySubtree && $hasCreatePermission;
