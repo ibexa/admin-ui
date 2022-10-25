@@ -10,6 +10,14 @@
             border-bottom-left-radius: $ibexa-border-radius;
         }
 
+        &__field--address {
+            .ibexa-input {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+                padding-left: calculateRem(48px);
+            }
+        }
+
         &__coordinates {
             display: flex;
             justify-content: space-between;
@@ -32,10 +40,7 @@
             padding: calculateRem(24px);
 
             .ibexa-input {
-                border-top-right-radius: 0;
-                border-bottom-right-radius: 0;
                 margin-bottom: 0;
-                padding-left: calculateRem(48px);
             }
         }
 
