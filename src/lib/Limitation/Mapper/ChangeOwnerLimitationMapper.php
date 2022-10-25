@@ -13,11 +13,13 @@ use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\AdminUi\Translation\Extractor\LimitationTranslationExtractor;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ChangeOwnerLimitation;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterface, LimitationFormMapperInterface
+final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterface, LimitationFormMapperInterface, TranslationContainerInterface
 {
     private TranslatorInterface $translator;
 
@@ -80,5 +82,16 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
     public function setFormTemplate(string $formTemplate): void
     {
         $this->formTemplate = $formTemplate;
+    }
+
+    /**
+     * @return \JMS\TranslationBundle\Model\Message[]
+     */
+    public static function getTranslationMessages(): array
+    {
+        return [
+            (new Message('policy.limitation.identifier.changeowner', 'ibexa_content_forms_policies'))
+                ->setDesc('Change Owner'),
+        ];
     }
 }
