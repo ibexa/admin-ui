@@ -4,12 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
+
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
 use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\AdminUi\Translation\Extractor\LimitationTranslationExtractor;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ChangeOwnerLimitation;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -20,24 +21,23 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
 {
     private TranslatorInterface $translator;
 
-    private PermissionResolver $permissionResolver;
-
     private ?string $formTemplate = null;
 
     public function __construct(
-        TranslatorInterface $translator,
-        PermissionResolver $permissionResolver
+        TranslatorInterface $translator
     ) {
         $this->translator = $translator;
-        $this->permissionResolver = $permissionResolver;
     }
 
+    /**
+     * @return int[]
+     */
     public function mapLimitationValue(Limitation $limitation): array
     {
         return $limitation->limitationValues;
     }
 
-    public function mapLimitationForm(FormInterface $form, Limitation $data)
+    public function mapLimitationForm(FormInterface $form, Limitation $data): void
     {
         $options = [
             'multiple' => true,
@@ -55,6 +55,9 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
         return $this->formTemplate;
     }
 
+    /**
+     * @return int[]
+     */
     public function filterLimitationValues(Limitation $limitation): array
     {
         return $limitation->limitationValues;
