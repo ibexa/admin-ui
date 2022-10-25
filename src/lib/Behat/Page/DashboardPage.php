@@ -53,7 +53,7 @@ class DashboardPage extends Page
 
     public function verifyIsLoaded(): void
     {
-        $this->getHTMLPage()->find($this->getLocator('pageTitle'))->assert()->textEquals('My dashboard');
+        $this->getHTMLPage()->find($this->getLocator('pageTitle'))->assert()->textEquals('My super fancy dashboard');
         $this->getHTMLPage()->findAll($this->getLocator('tableTitle'))
             ->getByCriterion(new ElementTextCriterion('My content'))
             ->assert()->isVisible();
