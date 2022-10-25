@@ -212,7 +212,6 @@ services:
     Ibexa\AdminUi\Limitation\Mapper\ChangeOwnerLimitationMapper:
         arguments:
             $translator: '@translator'
-            $permissionResolver: '@Ibexa\Contracts\Core\Repository\PermissionResolver'
         calls:
             - [setFormTemplate, ['%ibexa.content_forms.limitation.multiple_selection.template%']]
         tags:
