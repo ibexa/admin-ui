@@ -55,9 +55,7 @@ const GridView = ({ itemsPerPage }) => {
     return (
         <div className="c-grid" onScroll={loadMore}>
             <Breadcrumbs />
-            <div className="ibexa-grid-view c-grid__items-wrapper">
-                {locationData.subitems.map(renderItem)}
-            </div>
+            <div className="ibexa-grid-view c-grid__items-wrapper">{locationData.subitems.map(renderItem)}</div>
         </div>
     );
 };
