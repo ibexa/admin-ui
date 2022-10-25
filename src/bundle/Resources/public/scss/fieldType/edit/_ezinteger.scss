@@ -1,9 +1,4 @@
 .ibexa-field-edit--ezinteger {
-    .ibexa-input-text-wrapper--type-number {
-        width: calculateRem(100px);
-        height: calculateRem(48px);
-    }
-
     .ibexa-data-source__input {
         &::-webkit-inner-spin-button {
             margin-left: calculateRem(24px);
