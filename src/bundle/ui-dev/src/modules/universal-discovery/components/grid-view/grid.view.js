@@ -53,9 +53,11 @@ const GridView = ({ itemsPerPage }) => {
     }, [loadedLocations, dispatchLoadedLocationsAction, isLoading]);
 
     return (
-        <div className="c-grid" onScroll={loadMore}>
+        <div className="c-grid">
             <Breadcrumbs />
-            <div className="ibexa-grid-view c-grid__items-wrapper">{locationData.subitems.map(renderItem)}</div>
+            <div className="ibexa-grid-view c-grid__items-wrapper" onScroll={loadMore}>
+                {locationData.subitems.map(renderItem)}
+            </div>
         </div>
     );
 };
