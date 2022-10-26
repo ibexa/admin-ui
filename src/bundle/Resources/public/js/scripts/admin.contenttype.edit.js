@@ -1,10 +1,8 @@
 (function (global, doc, ibexa, Routing, Translator, bootstrap) {
     const SELECTOR_INPUTS_TO_VALIDATE = '.ibexa-input[required]:not([disabled]):not([hidden])';
     const TIMEOUT_REMOVE_HIGHLIGHT = 3000;
-    let targetContainer = null;
     let sourceContainer = null;
     let currentDraggedItem = null;
-    let draggedItemPosition = null;
     let isEditFormValid = false;
     const editForm = doc.querySelector('.ibexa-content-type-edit-form');
     let inputsToValidate = editForm.querySelectorAll(SELECTOR_INPUTS_TO_VALIDATE);
@@ -74,7 +72,7 @@
 
         placeholderNodes.forEach((placeholderNode) => placeholderNode.remove());
     };
-    const createFieldDefinitionNode = (fieldNode) => {
+    const createFieldDefinitionNode = (fieldNode, { targetContainer, draggedItemPosition }) => {
         let targetPlace = '';
         const items = targetContainer.querySelectorAll('.ibexa-collapse');
 
@@ -98,7 +96,7 @@
 
         return fieldNode;
     };
-    const attachFieldDefinitionNodeEvents = (fieldNode) => {
+    const attachFieldDefinitionNodeEvents = (fieldNode, { targetContainer }) => {
         const fieldGroupInput = fieldNode.querySelector('.ibexa-input--field-group');
         const removeFieldsBtn = fieldNode.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions');
         const fieldInputsToValidate = fieldNode.querySelectorAll(SELECTOR_INPUTS_TO_VALIDATE);
@@ -133,11 +131,11 @@
             }),
         );
     };
-    const insertFieldDefinitionNode = (fieldNode) => {
-        const fieldDefinitionNode = createFieldDefinitionNode(fieldNode);
+    const insertFieldDefinitionNode = (fieldNode, { targetContainer, draggedItemPosition }) => {
+        const fieldDefinitionNode = createFieldDefinitionNode(fieldNode, { targetContainer, draggedItemPosition });
 
         removeDragPlaceholders();
-        attachFieldDefinitionNodeEvents(fieldDefinitionNode);
+        attachFieldDefinitionNodeEvents(fieldDefinitionNode, { targetContainer });
         dispatchInsertFieldDefinitionNode(fieldDefinitionNode);
 
         return fieldDefinitionNode;
@@ -188,9 +186,9 @@
             fieldDefinition.querySelector('.ibexa-input--position').value = index;
         });
     };
-    const addField = () => {
+    const addField = ({ targetContainer, draggedItemPosition }) => {
         if (!sourceContainer.classList.contains('ibexa-available-field-types__list')) {
-            insertFieldDefinitionNode(currentDraggedItem);
+            insertFieldDefinitionNode(currentDraggedItem, { targetContainer, draggedItemPosition });
             afterChangeGroup();
 
             return;
@@ -215,13 +213,13 @@
             .then(ibexa.helpers.request.getTextFromResponse)
             .then((response) => {
                 removeLoadingField();
-                insertFieldDefinitionNode(response);
+                insertFieldDefinitionNode(response, { targetContainer, draggedItemPosition });
                 afterChangeGroup();
             })
             .catch(ibexa.helpers.notification.showErrorNotification);
     };
-    const reorderFields = () => {
-        createFieldDefinitionNode(currentDraggedItem);
+    const reorderFields = ({ targetContainer, draggedItemPosition }) => {
+        createFieldDefinitionNode(currentDraggedItem, { targetContainer, draggedItemPosition });
         removeDragPlaceholders();
 
         currentDraggedItem.classList.add('ibexa-collapse--field-definition-highlighted');
@@ -387,23 +385,25 @@
         }
 
         onDrop(event) {
-            targetContainer = event.currentTarget;
-
+            const targetContainer = event.currentTarget;
             const dragContainerItems = targetContainer.querySelectorAll('.ibexa-collapse--field-definition');
             const targetContainerGroup = targetContainer.closest('.ibexa-collapse--field-definitions-group');
             const targetContainerList = targetContainerGroup.closest('.ibexa-content-type-edit__field-definitions-group-list');
             const fieldTemplate = targetContainerList.dataset.template;
             const fieldRendered = fieldTemplate.replace('{{ type }}', currentDraggedItem.dataset.itemIdentifier);
-
-            draggedItemPosition = [...dragContainerItems].findIndex((item, index, array) => {
+            let draggedItemPosition = [...dragContainerItems].findIndex((item, index, array) => {
                 return item.classList.contains('ibexa-field-definitions-placeholder') && index < array.length - 1;
             });
 
+            if (draggedItemPosition === -1) {
+                draggedItemPosition = targetContainer.querySelectorAll('.ibexa-collapse--field-definition').length;
+            }
+
             if (sourceContainer.isEqualNode(targetContainer)) {
-                reorderFields();
+                reorderFields({ targetContainer, draggedItemPosition });
             } else {
-                createFieldDefinitionNode(fieldRendered);
-                addField();
+                createFieldDefinitionNode(fieldRendered, { targetContainer, draggedItemPosition });
+                addField({ targetContainer, draggedItemPosition });
             }
 
             setActiveGroup(targetContainerGroup);
@@ -513,29 +513,28 @@
         availableField.addEventListener(
             'click',
             (event) => {
-                const activeTargetContainer = doc.querySelector(
+                const targetContainer = doc.querySelector(
                     '.ibexa-collapse--field-definitions-group.ibexa-collapse--active-field-definitions-group .ibexa-content-type-edit__field-definition-drop-zone',
                 );
 
-                if (!activeTargetContainer) {
+                if (!targetContainer) {
                     return;
                 }
 
                 currentDraggedItem = event.currentTarget;
                 sourceContainer = currentDraggedItem.parentNode;
-                draggedItemPosition = -1;
-                targetContainer = activeTargetContainer;
 
+                const draggedItemPosition = targetContainer.querySelectorAll('.ibexa-collapse--field-definition').length;
                 const targetContainerGroup = targetContainer.closest('.ibexa-collapse--field-definitions-group');
                 const targetContainerList = targetContainerGroup.closest('.ibexa-content-type-edit__field-definitions-group-list');
                 const fieldTemplate = targetContainerList.dataset.template;
                 const fieldRendered = fieldTemplate.replace('{{ type }}', currentDraggedItem.dataset.itemIdentifier);
 
-                activeTargetContainer
+                targetContainer
                     .querySelector('.ibexa-field-definitions-empty-group')
                     .classList.add('ibexa-field-definitions-empty-group--hidden');
-                createFieldDefinitionNode(fieldRendered);
-                addField();
+                createFieldDefinitionNode(fieldRendered, { targetContainer, draggedItemPosition });
+                addField({ targetContainer, draggedItemPosition });
 
                 global.setTimeout(() => {
                     removeHighlight();
