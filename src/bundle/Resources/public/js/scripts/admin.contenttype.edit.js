@@ -414,14 +414,14 @@
             }, TIMEOUT_REMOVE_HIGHLIGHT);
         }
 
-        getPlaceholderNode(target) {
-            const draggableItem = target.closest(`${this.selectorItem}:not(${this.selectorPlaceholder})`);
+        getPlaceholderNode(event) {
+            const draggableItem = super.getPlaceholderNode(event);
 
             if (draggableItem) {
                 return draggableItem;
             }
 
-            if (this.emptyContainer.contains(target)) {
+            if (this.emptyContainer.contains(event.target)) {
                 return this.emptyContainer;
             }
 
@@ -442,7 +442,7 @@
                 return false;
             }
 
-            const item = this.getPlaceholderNode(event.target);
+            const item = this.getPlaceholderNode(event);
 
             if (item.isSameNode(this.emptyContainer)) {
                 this.emptyContainer.classList.toggle('ibexa-field-definitions-empty-group--hidden');

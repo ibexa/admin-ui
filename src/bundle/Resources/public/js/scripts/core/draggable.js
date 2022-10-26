@@ -72,8 +72,25 @@
             highlightedItem?.classList.remove(this.highlightClass);
         }
 
-        getPlaceholderNode(target) {
-            return target.closest(`${this.selectorItem}:not(${this.selectorPlaceholder})`);
+        getPlaceholderNode(event) {
+            const { target, clientY } = event;
+
+            const itemNode = target.closest(`${this.selectorItem}:not(${this.selectorPlaceholder})`);
+
+            if (itemNode) {
+                return itemNode;
+            }
+
+            const items = [...this.itemsContainer.querySelectorAll(this.selectorItem)];
+            items.reverse();
+
+            const insertAfterItem = items.find((item) => {
+                const { top } = item.getBoundingClientRect();
+
+                return top <= clientY;
+            });
+
+            return insertAfterItem;
         }
 
         getPlaceholderPositionTop(item, event) {
@@ -103,7 +120,7 @@
         }
 
         onDragOver(event) {
-            const item = this.getPlaceholderNode(event.target);
+            const item = this.getPlaceholderNode(event);
 
             if (!item) {
                 return false;
