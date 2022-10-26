@@ -9,8 +9,7 @@
     background-color: $ibexa-color-dark;
 
     .c-grid {
-        overflow-x: hidden;
-        overflow-y: auto;
+        overflow: hidden;
 
         &__items-wrapper {
             .c-thumbnail {
