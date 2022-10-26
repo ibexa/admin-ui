@@ -65,7 +65,7 @@
             'items': grouped_field_defintions|keys|map(group => {
                 'label': group | ibexa_field_group_name,
                 'content_class': grouped_field_defintions[group] is not empty or (group is same as(grouped_field_defintions|keys|first) and should_show_first) 
-                    ? 'ibexa-popup-menu__item-content--disabled ' 
+                    ? 'ibexa-popup-menu__item-content--disabled '
                     : '',
                 'action_attr': {
                     'data-related-collapse-selector': '.ibexa-field-definitions-group-' ~ group
