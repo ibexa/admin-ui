@@ -14,10 +14,18 @@
     }
 
     &--light {
+        color: $ibexa-color-light;
+    }
+
+    &--white {
         color: $ibexa-color-white;
     }
 
     &--dark {
-        color: $ibexa-color-black;
+        color: $ibexa-color-dark;
+    }
+
+    &--black {
+        color: $ibexa-color-white;
     }
 }
