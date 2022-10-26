@@ -134,11 +134,11 @@ class ContentViewPage extends Page
         $this->contentTypePicker->select($contentTypeName);
     }
 
-    public function startCreatingUser(string $user)
+    public function startCreatingUser(string $contentTypeName)
     {
         $this->contentActionsMenu->clickButton('Create content');
         $this->contentTypePicker->verifyIsLoaded();
-        $this->contentTypePicker->select($user);
+        $this->contentTypePicker->select($contentTypeName);
     }
 
     public function switchToTab(string $tabName): void

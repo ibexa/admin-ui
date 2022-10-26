@@ -86,11 +86,11 @@ class ContentViewContext implements Context
 
     /**
      * @Given I start creating a new User
-     * @Given I start creating a new User using :user Content Type
+     * @Given I start creating a new User using :contentTypeName Content Type
      */
-    public function startCreatingUser(string $user = 'User'): void
+    public function startCreatingUser(string $contentTypeName = 'User'): void
     {
-        $this->contentViewPage->startCreatingUser($user);
+        $this->contentViewPage->startCreatingUser($contentTypeName);
     }
 
     /**
