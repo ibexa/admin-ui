@@ -481,5 +481,6 @@
         },
         false,
     );
+
     toggleAddGroupTriggerBtnState();
 })(window, window.document, window.ibexa, window.Routing, window.Translator);
