@@ -118,9 +118,9 @@
 
             bulkDeleteButton.setAttribute('disabled', 'disabled');
 
-            const authorRowsExist = !!container.querySelector(SELECTOR_AUTHOR);
+            const authorsRowsExist = !!container.querySelector(SELECTOR_AUTHOR);
 
-            if (!authorRowsExist) {
+            if (!authorsRowsExist) {
                 container.querySelector('.ibexa-btn--add-author').click();
             }
 
