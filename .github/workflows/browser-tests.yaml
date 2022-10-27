@@ -14,6 +14,7 @@ jobs:
         with:
             project-edition: 'oss'
             project-version: '4.3.x-dev'
+            ci-scripts-branch: add-colors
             test-suite:  '--profile=browser --suite=admin-ui-full'
             test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
             test-setup-phase-2: '--profile=setup --suite=content-translation --mode=standard'
