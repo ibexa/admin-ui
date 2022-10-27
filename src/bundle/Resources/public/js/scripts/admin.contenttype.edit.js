@@ -49,11 +49,11 @@
     });
     const toggleAddGroupTriggerBtnState = () => {
         const addGroupBtns = doc.querySelectorAll('.ibexa-content-type-edit__add-field-definitions-group [data-related-collapse-selector]');
-        const areEveryAddGroupBtnsDisabled = [...addGroupBtns].every((btn) =>
+        const areAllAddGroupBtnsDisabled = [...addGroupBtns].every((btn) =>
             btn.classList.contains('ibexa-popup-menu__item-content--disabled'),
         );
 
-        addGroupTriggerBtn.disabled = areEveryAddGroupBtnsDisabled;
+        addGroupTriggerBtn.disabled = areAllAddGroupBtnsDisabled;
     };
     const searchField = (event) => {
         const fieldFilterQueryLowerCase = event.currentTarget.value.toLowerCase();
