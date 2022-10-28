@@ -209,6 +209,15 @@ services:
             - { name: ibexa.admin_ui.limitation.mapper.form, limitationType: Subtree }
             - { name: ibexa.admin_ui.limitation.mapper.value, limitationType: Subtree }
 
+    Ibexa\AdminUi\Limitation\Mapper\ChangeOwnerLimitationMapper:
+        arguments:
+            $translator: '@translator'
+        calls:
+            - [setFormTemplate, ['%ibexa.content_forms.limitation.multiple_selection.template%']]
+        tags:
+            - { name: ibexa.admin_ui.limitation.mapper.form, limitationType: ChangeOwner }
+            - { name: ibexa.admin_ui.limitation.mapper.value, limitationType: ChangeOwner }
+
     Ibexa\AdminUi\Limitation\Mapper\UserPermissionsLimitationMapper:
         autowire: true
         autoconfigure: false

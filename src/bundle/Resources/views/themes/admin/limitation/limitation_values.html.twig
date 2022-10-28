@@ -36,6 +36,12 @@
 {% endapply %}
 {% endblock %}
 
+{% block ez_limitation_changeowner_value %}
+    {% apply spaceless %}
+        {{ values|join(', ') }}
+    {% endapply %}
+{% endblock %}
+
 {% block ez_limitation_parentowner_value %}
 {% apply spaceless %}
     {{ values|join(', ') }}

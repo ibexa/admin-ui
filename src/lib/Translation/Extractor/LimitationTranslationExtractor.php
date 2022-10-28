@@ -43,7 +43,7 @@ class LimitationTranslationExtractor implements ExtractorInterface
             $message = new Message\XliffMessage($id, self::MESSAGE_DOMAIN);
             $message->setNew(false);
             $message->setMeaning($limitationType);
-            $message->setDesc($limitationType);
+            $message->setDesc($this->getReadableName($limitationType));
             $message->setLocaleString($limitationType);
             $message->addNote('key: ' . $id);
 
@@ -86,6 +86,22 @@ class LimitationTranslationExtractor implements ExtractorInterface
         }
 
         return $limitationTypes;
+    }
+
+    private function getReadableName(string $input): string
+    {
+        $parts = preg_split(
+            '/(^[^A-Z]+|[A-Z][^A-Z]+)/',
+            $input,
+            -1,
+            PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE
+        );
+
+        if (!is_array($parts)) {
+            return $input;
+        }
+
+        return implode(' ', $parts);
     }
 }
 
