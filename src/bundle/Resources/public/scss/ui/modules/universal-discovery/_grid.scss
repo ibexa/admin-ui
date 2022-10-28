@@ -4,6 +4,7 @@
     &__items-wrapper {
         padding: 0 calculateRem(16px) calculateRem(16px);
         overflow: auto;
+        max-height: calc(100% - #{calculateRem(30px)});
     }
 
     .ibexa-grid-view-item {
