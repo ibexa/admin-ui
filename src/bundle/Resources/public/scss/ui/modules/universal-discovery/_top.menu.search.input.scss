@@ -1,4 +1,6 @@
 .c-top-menu-search-input {
+    margin-left: calculateRem(8px);
+
     &--search-opened {
         .c-top-menu-search-input {
             &__search-input {
