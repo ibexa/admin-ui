@@ -247,7 +247,7 @@ class ContentTypeContext implements Context
     public function iCheckEditorLaunchModeOption(string $viewMode): void
     {
         $this->contentTypeUpdatePage->verifyIsLoaded();
-        $this->contentTypeUpdatePage->expandLastFieldDefinition('fieldDefinitionOpenContainerEdit');
+        $this->contentTypeUpdatePage->expandLastFieldDefinition();
         $this->contentTypeUpdatePage->selectEditorLaunchMode($viewMode);
     }
 }

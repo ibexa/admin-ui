@@ -20,22 +20,26 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
 {
     public function fillFieldDefinitionFieldWithValue(string $fieldName, string $label, string $value)
     {
-        $this->expandLastFieldDefinition('fieldDefinitionOpenContainer');
-        $this->getHTMLPage()->find($this->getLocator('fieldDefinitionOpenContainer'))
+        $this->expandLastFieldDefinition();
+        $this->getHTMLPage()
+            ->find($this->getLocator('fieldDefinitionOpenContainer'))
             ->findAll($this->getLocator('field'))->getByCriterion(new ElementTextCriterion($label))
             ->find($this->getLocator('fieldInput'))
             ->setValue($value);
     }
 
-    public function expandLastFieldDefinition(string $locatorValue): void
+    public function expandLastFieldDefinition(): void
     {
-        $fieldToggleLocator = $this->getLocator('fieldDefinitionToggle');
-        $lastFieldDefinition = $this->getHTMLPage()->find($fieldToggleLocator);
+        $fieldDefinitionLocator = new VisibleCSSLocator(
+            'lastFieldDefinition',
+            'div.ibexa-collapse__body-content div.ibexa-collapse--field-definition'
+        );
+        $lastFieldDefinition = $this->getHTMLPage()->findAll($fieldDefinitionLocator)->last();
         $lastFieldDefinition->mouseOver();
         $lastFieldDefinition->assert()->isVisible();
         $lastFieldDefinition->click();
-        $this->getHTMLPage()->setTimeout(5)
-            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator($locatorValue)));
+
+        $this->getHTMLPage()->waitUntilCondition(new ElementTransitionHasEndedCondition($lastFieldDefinition, new VisibleCSSLocator('transition', 'div')));
     }
 
     public function specifyLocators(): array
@@ -46,11 +50,10 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
             new VisibleCSSLocator('contentTypeAddButton', '.ibexa-content-type-edit__add-field-definitions-group-btn'),
             new VisibleCSSLocator('contentTypeCategoryList', ' div.ibexa-content-type-edit__add-field-definitions-group > ul > li:nth-child(n):not(.ibexa-popup-menu__item-action--disabled)'),
             new VisibleCSSLocator('availableFieldLabelList', '.ibexa-available-field-types__list > li:not(.ibexa-available-field-type--hidden)'),
-            new VisibleCSSLocator('workspace', '.ibexa-field-definitions-placeholder-full'),
+            new VisibleCSSLocator('workspace', '.ibexa-collapse__body-content'),
             new VisibleCSSLocator('fieldDefinitionToggle', '.ibexa-collapse:nth-last-child(2) > div.ibexa-collapse__header > button:last-child:not([data-bs-target="#content_collapse"])'),
             new VisibleCSSLocator('selectLaunchEditorMode', '.form-check .ibexa-input--radio'),
             new VisibleCSSLocator('fieldDefinitionOpenContainer', '[data-collapsed="false"] .ibexa-content-type-edit__field-definition-content'),
-            new VisibleCSSLocator('fieldDefinitionOpenContainerEdit', '#content_collapse > div > div[data-collapsed="false"]'),
             new VisibleCSSLocator('selectBlocksDropdown', '.ibexa-page-select-items__toggler'),
             new VisibleCSSLocator('fieldDefinitionSearch', '.ibexa-available-field-types__sidebar-filter'),
         ]);
@@ -76,6 +79,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
         $this->getHTMLPage()->dragAndDrop($fieldScript, $workspaceScript, $workspaceScript);
 
         $this->getHTMLPage()->setTimeout(3)->waitUntilCondition(new ElementsCountCondition($this->getHTMLPage(), $this->getLocator('fieldDefinition'), $currentFieldDefinitionCount + 1));
+
         usleep(1500000); //TODO: add proper wait condition
     }
 
