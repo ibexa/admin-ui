@@ -1,6 +1,14 @@
 (function (global, doc, ibexa) {
-    const parseAll = () => {
+    const parseAll = (baseElement = doc) => {
+        if (!baseElement) {
+            return;
+        }
+
         const middleEllipsisContainers = [...doc.querySelectorAll('.ibexa-middle-ellipsis')];
+
+        if (baseElement instanceof Element) {
+            middleEllipsisContainers.push(baseElement);
+        }
 
         middleEllipsisContainers.forEach((middleEllipsisContainer) => {
             const partStart = middleEllipsisContainer.querySelector('.ibexa-middle-ellipsis__name--start');
@@ -9,8 +17,18 @@
             ibexa.helpers.tooltips.parse(middleEllipsisContainer);
         });
     };
+    const update = (baseElement, content) => {
+        const contentElements = [...baseElement.querySelectorAll('.ibexa-middle-ellipsis__name-ellipsized')];
+
+        baseElement.dataset.bsOriginalTitle = content;
+        contentElements.forEach((contentElement) => {
+            contentElement.innerHTML = content;
+        });
+        parseAll(baseElement);
+    };
 
     ibexa.addConfig('helpers.ellipsis.middle', {
         parseAll,
+        update,
     });
 })(window, window.document, window.ibexa);
