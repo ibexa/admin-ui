@@ -183,7 +183,11 @@
         });
 
         doc.querySelectorAll('.ibexa-collapse--field-definition').forEach((fieldDefinition, index) => {
-            fieldDefinition.querySelector('.ibexa-input--position').value = index;
+            const positionInput = fieldDefinition.querySelector('.ibexa-input--position');
+
+            if (positionInput) {
+                fieldDefinition.querySelector('.ibexa-input--position').value = index;
+            }
         });
     };
     const addField = ({ targetContainer, draggedItemPosition }) => {
