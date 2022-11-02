@@ -301,6 +301,11 @@
         <target state="new">No options available</target>
         <note>key: dropdown.placeholder.empty</note>
       </trans-unit>
+      <trans-unit id="40f8da5227ff717dc8e4d57dc26c074c25c00d3a" resname="dropdown.placeholder.empty.label">
+        <source>None</source>
+        <target state="new">None</target>
+        <note>key: dropdown.placeholder.empty.label</note>
+      </trans-unit>
       <trans-unit id="272e650f8667b4f4fcb7032b85b98ef4a9974f0f" resname="dropdown.search">
         <source>Search...</source>
         <target state="new">Search...</target>
