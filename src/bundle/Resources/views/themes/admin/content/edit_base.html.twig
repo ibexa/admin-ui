@@ -48,6 +48,10 @@
                                         {% trans_default_domain 'content_edit' %}
                                         {% import '@ibexadesign/content/edit_macros.html.twig' as edit_macros %}
 
+                                        {% block anchor_section_header %}
+                                            <h2 class="ibexa-edit-content__section-header">{{ key }}</h2>
+                                        {% endblock %}
+
                                         {% block anchor_section_body %}
                                             {{ edit_macros.render_field_group(group, form) }}
                                         {% endblock %}

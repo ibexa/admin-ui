@@ -104,7 +104,7 @@ class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Translatio
             $order += self::ITEM_ORDER_SPAN;
             $items[$group] = $this->createMenuItem($group, [
                 'attributes' => [
-                    'data-target-id' => sprintf('ibexa-edit-content-sections-content-fields-%s', mb_strtolower($group)),
+                    'data-target-id' => sprintf('ibexa-edit-content-sections-content-fields-%s', str_replace(' ', '-', mb_strtolower($group))),
                 ],
                 'extras' => [
                     'orderNumber' => $order,

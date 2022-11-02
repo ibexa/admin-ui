@@ -115,15 +115,16 @@
 
         const contentContainer = lastSection.closest('.ibexa-edit-content__container');
 
-        contentContainer.style.paddingBottom = '0px';
-
         if (!firstSection.isSameNode(lastSection) && lastSection.offsetHeight) {
-            const heightFromLastSection = contentContainer.offsetHeight + contentContainer.offsetTop - lastSection.offsetTop;
-            const contentColumnBodyHeight = contentColumn.offsetHeight - headerContainer.offsetHeight;
-            const heightDiff = contentColumnBodyHeight - heightFromLastSection;
+            const lastSectionHeight = lastSection.offsetHeight;
+            const headerHeight = headerContainer.offsetHeight;
+            const contentColumnHeight = contentColumn.offsetHeight;
+            const additionalContentHeight = contentContainer.offsetHeight - sectionGroup.offsetHeight;
+            const valueToCorrectHeightDiff = headerHeight + SECTION_ADJUST_MARGIN_TOP + additionalContentHeight;
+            const lastSectionHeightDiff = contentColumnHeight - lastSectionHeight - valueToCorrectHeightDiff;
 
-            if (heightDiff > 0) {
-                contentContainer.style.paddingBottom = `${heightDiff}px`;
+            if (lastSectionHeightDiff > 0) {
+                contentContainer.style.paddingBottom = `${lastSectionHeightDiff}px`;
             }
         }
     };
