@@ -76,9 +76,11 @@
                         </li>
                     {% else %}
                         {% if placeholder is defined and placeholder is not none %}
+                            {% set default_label = 'dropdown.placeholder'|trans()|desc('Choose an option') %}
+
                             {% include '@ibexadesign/ui/component/dropdown/dropdown_selected_item.html.twig' with {
                                 value: '',
-                                label: _self.get_translated_label(placeholder, translation_domain),
+                                label: _self.get_translated_label(placeholder, translation_domain)|trim|default(default_label),
                             } %}
                         {% else %}
                             {% set first_choice = choices_flat|first %}
@@ -145,11 +147,13 @@
                 })|e('html_attr') }}"
             >
                 {% if not multiple and placeholder is defined and placeholder is not none %}
+                    {% set default_label = 'dropdown.placeholder.empty.label'|trans|desc('None') %}
                     {% set placeholder_choice = {
                         value: '',
-                        label: _self.get_translated_label(placeholder, translation_domain),
+                        label: _self.get_translated_label(placeholder, translation_domain)|trim|default(default_label),
                     } %}
-                    {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice: placeholder_choice, custom_form: true, icon: 'interface-block' } %}
+
+                    {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice: placeholder_choice, custom_form: true } %}
                 {% endif %}
                 {% for choice in preferred_choices %}
                     {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice, preferred_choice: true, custom_form, icon: item_icon, icon_class: item_icon_class } %}
