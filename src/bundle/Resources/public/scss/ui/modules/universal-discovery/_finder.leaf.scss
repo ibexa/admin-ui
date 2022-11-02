@@ -74,7 +74,6 @@
         font-size: $ibexa-text-font-size-medium;
         line-height: calculateRem(21px);
         color: $ibexa-color-dark;
-        margin-left: calculateRem(16px);
         flex: 1;
 
         .ibexa-icon {
@@ -94,5 +93,9 @@
             margin-top: calculateRem(-1px);
             fill: $ibexa-color-dark;
         }
+    }
+
+    .c-udw-toggle-selection {
+        margin-right: calculateRem(15px);
     }
 }
