@@ -16,18 +16,11 @@
     }
 
     .ibexa-edit-content__container--meta {
-        margin-top: calculateRem(-40px);
-
         .ibexa-content-type-edit {
             &__section-column-header {
-                border-top: 1px solid $ibexa-color-light;
+                border-top: calculateRem(1px) solid $ibexa-color-light;
                 padding-top: calculateRem(16px);
                 margin-top: calculateRem(40px);
-            }
-
-            &__section,
-            &__section-column {
-                margin-bottom: 0;
             }
         }
     }

@@ -8,4 +8,8 @@
             max-width: calculateRem(1600px);
         }
     }
+
+    &__section-header {
+        padding-top: calculateRem(16px);
+    }
 }
