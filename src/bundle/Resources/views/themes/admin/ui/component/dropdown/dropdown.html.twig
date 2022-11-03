@@ -1,3 +1,4 @@
+{% trans_default_domain 'dropdown' %}
 
 {% set choices_flat = choices
     | map(choice => choice.choices is defined ? choice.choices : [choice])

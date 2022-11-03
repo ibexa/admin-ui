@@ -443,7 +443,7 @@
 {% block content_type_field_definition_widget -%}
     {{- form_row(form.enabled, { label: 'meta.enabled'|trans({
         '%type%': form.name.vars.value,
-    })|desc('Enable %type% for this content type') }) -}}
+    }, 'content_type')|desc('Enable %type% for this content type') }) -}}
 
     {% for form_field in form.children %}
         {% if form_field.isRendered() == false %}

@@ -291,21 +291,6 @@
         <target state="new">Clear (%selected_items_count%)</target>
         <note>key: dropdown.clear</note>
       </trans-unit>
-      <trans-unit id="a3390555f717ffd9b3560f17198e5a437899967f" resname="dropdown.placeholder">
-        <source>Choose an option</source>
-        <target state="new">Choose an option</target>
-        <note>key: dropdown.placeholder</note>
-      </trans-unit>
-      <trans-unit id="49f6d75aca8da375a2a79c0778934bc45a8ffe8c" resname="dropdown.placeholder.empty">
-        <source>No options available</source>
-        <target state="new">No options available</target>
-        <note>key: dropdown.placeholder.empty</note>
-      </trans-unit>
-      <trans-unit id="40f8da5227ff717dc8e4d57dc26c074c25c00d3a" resname="dropdown.placeholder.empty.label">
-        <source>None</source>
-        <target state="new">None</target>
-        <note>key: dropdown.placeholder.empty.label</note>
-      </trans-unit>
       <trans-unit id="272e650f8667b4f4fcb7032b85b98ef4a9974f0f" resname="dropdown.search">
         <source>Search...</source>
         <target state="new">Search...</target>
@@ -542,11 +527,6 @@
         <source>I understand the consequences of this action.</source>
         <target state="new">I understand the consequences of this action.</target>
         <note>key: location_trash_form.confirm_label</note>
-      </trans-unit>
-      <trans-unit id="8c2261eecf1e143eaf524c34f4f89608929c5c81" resname="meta.enabled">
-        <source>Enable %type% for this content type</source>
-        <target state="new">Enable %type% for this content type</target>
-        <note>key: meta.enabled</note>
       </trans-unit>
       <trans-unit id="7fe072f41348fb097b6bb018eec4f1b1bc9cffc3" resname="modal.cancel">
         <source>Cancel</source>
