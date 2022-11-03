@@ -44,8 +44,17 @@
 
             doc.querySelector(relatedCollapseSelector).classList.remove('ibexa-collapse--hidden');
             afterChangeGroup();
+            toggleAddGroupTriggerBtnState();
         },
     });
+    const toggleAddGroupTriggerBtnState = () => {
+        const addGroupBtns = doc.querySelectorAll('.ibexa-content-type-edit__add-field-definitions-group [data-related-collapse-selector]');
+        const areAllAddGroupBtnsDisabled = [...addGroupBtns].every((btn) =>
+            btn.classList.contains('ibexa-popup-menu__item-content--disabled'),
+        );
+
+        addGroupTriggerBtn.disabled = areAllAddGroupBtnsDisabled;
+    };
     const searchField = (event) => {
         const fieldFilterQueryLowerCase = event.currentTarget.value.toLowerCase();
         const fields = doc.querySelectorAll('.ibexa-available-field-types__list .ibexa-available-field-type');
@@ -254,6 +263,7 @@
                     fieldDefinition.remove();
                 });
                 afterChangeGroup();
+                toggleAddGroupTriggerBtnState();
             })
             .catch(ibexa.helpers.notification.showErrorNotification);
     };
@@ -471,4 +481,6 @@
         },
         false,
     );
+
+    toggleAddGroupTriggerBtnState();
 })(window, window.document, window.ibexa, window.Routing, window.Translator);
