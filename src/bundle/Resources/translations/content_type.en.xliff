@@ -881,6 +881,11 @@
         <target state="new">Update</target>
         <note>key: location_update_form.update</note>
       </trans-unit>
+      <trans-unit id="8c2261eecf1e143eaf524c34f4f89608929c5c81" resname="meta.enabled">
+        <source>Enable %type% for this content type</source>
+        <target state="new">Enable %type% for this content type</target>
+        <note>key: meta.enabled</note>
+      </trans-unit>
       <trans-unit id="fd1286353570c5703799ba76999323b7c7447b06" resname="no">
         <source>No</source>
         <target state="new">No</target>
