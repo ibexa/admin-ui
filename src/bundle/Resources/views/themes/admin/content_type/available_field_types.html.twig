@@ -17,21 +17,25 @@
     <ul class="ibexa-available-field-types__list">
         {% for item in field_type_toolbar %}
             <li
-                draggable="{{ is_draggable is not defined or is_draggable == true ? 'true' : 'false' }}"
                 class="ibexa-available-field-type"
                 data-item-identifier="{{ item.identifier }}"
             >
-                <div class="ibexa-available-field-type__drag">
-                    <svg class="ibexa-icon ibexa-available-field-type__drag-icon ibexa-icon--tiny-small">
-                        <use xlink:href="{{ ibexa_icon_path('drag') }}"></use>
-                    </svg>
+                <div
+                    draggable="{{ is_draggable is not defined or is_draggable == true ? 'true' : 'false' }}"
+                    class="ibexa-available-field-type__content"
+                >
+                    <div class="ibexa-available-field-type__drag">
+                        <svg class="ibexa-icon ibexa-available-field-type__drag-icon ibexa-icon--tiny-small">
+                            <use xlink:href="{{ ibexa_icon_path('drag') }}"></use>
+                        </svg>
+                    </div>
+                    <div class="ibexa-available-field-type__type">
+                        <svg class="ibexa-icon ibexa-available-field-type__type-icon ibexa-icon--small">
+                            <use xlink:href="{{ ibexa_icon_path('input-number') }}"></use>
+                        </svg>
+                    </div>
+                    <div class="ibexa-available-field-type__label">{{ item.name }}</div>
                 </div>
-                <div class="ibexa-available-field-type__type">
-                    <svg class="ibexa-icon ibexa-available-field-type__type-icon ibexa-icon--small">
-                        <use xlink:href="{{ ibexa_icon_path('input-number') }}"></use>
-                    </svg>
-                </div>
-                <div class="ibexa-available-field-type__label">{{ item.name }}</div>
             </li>
         {% endfor %}
     </ul>

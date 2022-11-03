@@ -66,7 +66,6 @@
     $self: &;
 
     height: auto;
-    overflow: hidden;
 
     &__title-bar {
         display: flex;
@@ -98,24 +97,48 @@
 
     &--collapsed {
         height: calculateRem(34px);
+        overflow: hidden;
     }
 }
 
 @mixin sidebar-drag-item {
+    $self: &;
+
+    background: $ibexa-color-light-300;
+    margin-bottom: calculateRem(8px);
+    border-radius: $ibexa-border-radius;
     display: flex;
     width: 100%;
-    margin-bottom: calculateRem(8px);
-    padding: calculateRem(13px) calculateRem(10px);
-    border: calculateRem(1px) solid $ibexa-color-light;
-    border-radius: $ibexa-border-radius;
-    box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(20px) calculateRem(-7px) rgba($ibexa-color-info, 0.05);
-
-    &[draggable='true'] {
-        cursor: grab;
-    }
 
     &:last-of-type {
         margin-bottom: calculateRem(24px);
+    }
+
+    &:hover {
+        #{$self}__content {
+            border-color: $ibexa-color-dark;
+            transform: scale(1.02) translateX(-10px);
+            box-shadow: calculateRem(4px) calculateRem(10px) calculateRem(17px) 0 rgba($ibexa-color-info, 0.2);
+        }
+
+        #{$self}__drag-icon {
+            fill: $ibexa-color-dark;
+        }
+    }
+
+    &__content {
+        background: $ibexa-color-white;
+        display: flex;
+        width: 100%;
+        padding: calculateRem(13px) calculateRem(10px);
+        border: calculateRem(1px) solid $ibexa-color-light;
+        border-radius: $ibexa-border-radius;
+        box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 rgba($ibexa-color-info, 0.05);
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+
+        &[draggable='true'] {
+            cursor: grab;
+        }
     }
 
     &__drag {
@@ -147,25 +170,93 @@
         display: none;
     }
 
-    &--unavailable,
-    &--is-dragging-out {
-        background: $ibexa-color-light-400;
+    &--unavailable {
         opacity: 0.5;
+
+        &:hover {
+            #{$self}__content {
+                border-color: $ibexa-color-light;
+                background: $ibexa-color-light-400;
+                transform: none;
+                box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 rgba($ibexa-color-info, 0.05);
+            }
+        }
     }
 
-    &:hover {
-        border-color: $ibexa-color-dark;
+    &--is-dragging-out {
+        #{$self}__content {
+            opacity: 0;
+        }
     }
 }
 
 @mixin drag-item {
+    $self: &;
+
     display: flex;
-    width: 100%;
-    padding: calculateRem(12px) calculateRem(16px);
-    background-color: $ibexa-color-white;
+    background: $ibexa-color-light-300;
+    margin-bottom: calculateRem(8px);
     border-radius: $ibexa-border-radius;
-    border: calculateRem(1px) solid $ibexa-color-light;
-    box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(20px) calculateRem(-7px) rgba($ibexa-color-info, 0.05);
+
+    &:hover:not(&--is-non-interactive) {
+        #{$self}__content {
+            border-color: $ibexa-color-dark;
+            transform: scale(1.02) translateX(-10px);
+            box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info, 0.2);
+        }
+    }
+
+    &--is-dragging-out {
+        #{$self}__content {
+            opacity: 0;
+        }
+    }
+
+    &--highlighted {
+        #{$self}__content {
+            border-color: $ibexa-color-info-300;
+            background-color: $ibexa-color-info-100;
+            animation: item-highlight-pulse 1s 1;
+        }
+    }
+
+    &--is-removing {
+        #{$self}__content {
+            border-color: $ibexa-color-light-300;
+            animation: item-remove-pulse 0.2s 1;
+            transform-origin: center;
+            pointer-events: none;
+
+            &:hover {
+                border-color: $ibexa-color-light-300;
+            }
+        }
+    }
+
+    &--removed {
+        animation: remove-field 1s 1 forwards;
+    }
+
+    &--error {
+        #{$self}__content {
+            border-color: $ibexa-color-danger;
+        }
+    }
+
+    &__content {
+        display: flex;
+        background-color: $ibexa-color-white;
+        width: 100%;
+        padding: calculateRem(12px) calculateRem(16px);
+        border: calculateRem(1px) solid $ibexa-color-light;
+        border-radius: $ibexa-border-radius;
+        box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 rgba($ibexa-color-info, 0.05);
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+
+        &[draggable='true'] {
+            cursor: grab;
+        }
+    }
 
     &__left-col {
         display: flex;
@@ -211,6 +302,22 @@
 }
 
 @mixin drag-item-placeholder {
+    display: flex;
+    height: calculateRem(4px);
+    border-radius: calculateRem(2px);
+    background-color: $ibexa-color-info;
+    margin: 0 0 calculateRem(8px) 0;
+
+    &--anchored {
+        background-color: $ibexa-color-light-300;
+    }
+
+    &--hidden {
+        display: none;
+    }
+}
+
+@mixin drag-item-placeholder-full {
     $self: &;
 
     display: flex;
@@ -271,5 +378,56 @@
 
     &--hidden {
         display: none;
+    }
+}
+
+@keyframes remove-field {
+    100% {
+        height: 0;
+        margin-bottom: 0;
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+@keyframes item-remove-pulse {
+    0% {
+        border-color: $ibexa-color-light-300;
+        box-shadow: 0 0 0 0 $ibexa-color-light-300;
+    }
+    10% {
+        border-color: $ibexa-color-light-300;
+        box-shadow: 0 0 0 0 $ibexa-color-light-300;
+    }
+    20% {
+        border-color: $ibexa-color-light-300;
+        box-shadow: 0 0 0 calculateRem(10px) $ibexa-color-light-300;
+    }
+    100% {
+        border-color: $ibexa-color-light-300;
+        box-shadow: 0 0 0 0 $ibexa-color-light-300;
+    }
+}
+
+@keyframes item-highlight-pulse {
+    0% {
+        border-color: $ibexa-color-info-300;
+        background-color: $ibexa-color-info-100;
+        box-shadow: 0 0 0 0 $ibexa-color-info-100;
+    }
+    10% {
+        border-color: $ibexa-color-info-300;
+        background-color: $ibexa-color-info-100;
+        box-shadow: 0 0 0 0 $ibexa-color-info-100;
+    }
+    20% {
+        border-color: $ibexa-color-info-300;
+        background-color: $ibexa-color-info-100;
+        box-shadow: 0 0 0 calculateRem(10px) $ibexa-color-info-100;
+    }
+    100% {
+        border-color: $ibexa-color-info-300;
+        background-color: $ibexa-color-info-100;
+        box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 rgba($ibexa-color-info, 0.05);
     }
 }
