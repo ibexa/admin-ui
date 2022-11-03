@@ -118,6 +118,12 @@
 
             bulkDeleteButton.setAttribute('disabled', 'disabled');
 
+            const authorsRowsExist = !!container.querySelector(SELECTOR_AUTHOR);
+
+            if (!authorsRowsExist) {
+                container.querySelector('.ibexa-btn--add-author').click();
+            }
+
             this.updateDisabledState(container);
             this.reinit();
         }
