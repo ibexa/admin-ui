@@ -10,7 +10,11 @@
 			<div class="col-6 offset-6 ibexa-content-edit-header__column ibexa-context-menu-wrapper">
 				<div class="ibexa-content-edit-header__context-actions">
 					{% if (description is defined and description|length) or content is defined %}
-						<div class="ibexa-content-edit-header__tooltip" title="{% include '@ibexadesign/content/edit/content_header_tooltip.html.twig' %}">
+						<div
+							class="ibexa-content-edit-header__tooltip"
+							title="{% include '@ibexadesign/content/edit/content_header_tooltip.html.twig' %}"
+							data-tooltip-use-html
+						>
 							<svg class="ibexa-icon ibexa-icon--small">
 								<use xlink:href="{{ ibexa_icon_path('about') }}"></use>
 							</svg>
