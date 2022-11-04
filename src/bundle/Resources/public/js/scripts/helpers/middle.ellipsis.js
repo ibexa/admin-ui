@@ -1,4 +1,9 @@
 (function (global, doc, ibexa) {
+    const resizeEllipsisObserver = new ResizeObserver((entries) => {
+        entries.forEach((entry) => {
+            parseAll(entry.target);
+        });
+    });
     const parseAll = (baseElement = doc) => {
         if (!baseElement) {
             return;
@@ -15,6 +20,8 @@
 
             middleEllipsisContainer.classList.toggle('ibexa-middle-ellipsis--ellipsized', partStart.scrollWidth > partStart.offsetWidth);
             ibexa.helpers.tooltips.parse(middleEllipsisContainer);
+
+            resizeEllipsisObserver.observe(middleEllipsisContainer);
         });
     };
     const update = (baseElement, content) => {
