@@ -112,6 +112,7 @@
                 const extraClass = tooltipNode.dataset.tooltipExtraClass ?? '';
                 const placement = tooltipNode.dataset.tooltipPlacement ?? 'bottom';
                 const trigger = tooltipNode.dataset.tooltipTrigger ?? 'hover focus';
+                const useHtml = tooltipNode.dataset.tooltipUseHtml !== undefined;
                 const container = tooltipNode.dataset.tooltipContainerSelector
                     ? tooltipNode.closest(tooltipNode.dataset.tooltipContainerSelector)
                     : 'body';
@@ -132,7 +133,7 @@
                     trigger,
                     container,
                     popperConfig: modifyPopperConfig.bind(null, iframe),
-                    html: true,
+                    html: useHtml,
                     template: `<div class="tooltip ibexa-tooltip ${extraClass}">
                                     <div class="tooltip-arrow ibexa-tooltip__arrow"></div>
                                     <div class="tooltip-inner ibexa-tooltip__inner"></div>
