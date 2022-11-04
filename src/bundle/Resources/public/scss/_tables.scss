@@ -43,6 +43,10 @@
             min-height: calculateRem(16px);
             margin-top: 0;
         }
+
+        .ibexa-dropdown {
+            margin-left: 0;
+        }
     }
 
     &__empty-table-cell {
