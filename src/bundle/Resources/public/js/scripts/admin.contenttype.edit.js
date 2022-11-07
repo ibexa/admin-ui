@@ -390,7 +390,7 @@
 
         onDrop(event) {
             const targetContainer = event.currentTarget;
-            const dragContainerItems = targetContainer.querySelectorAll('.ibexa-collapse--field-definition');
+            const dragContainerItems = targetContainer.querySelectorAll('.ibexa-collapse--field-definition, .ibexa-field-definitions-placeholder');
             const targetContainerGroup = targetContainer.closest('.ibexa-collapse--field-definitions-group');
             const targetContainerList = targetContainerGroup.closest('.ibexa-content-type-edit__field-definitions-group-list');
             const fieldTemplate = targetContainerList.dataset.template;
