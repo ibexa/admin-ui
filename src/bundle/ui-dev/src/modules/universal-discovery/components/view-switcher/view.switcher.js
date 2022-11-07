@@ -22,6 +22,7 @@ const ViewSwitcher = ({ isDisabled }) => {
                 onOptionClick={onOptionClick}
                 isDisabled={isDisabled}
                 selectedItemLabel={viewLabel}
+                isSwitcher={true}
             />
         </div>
     );

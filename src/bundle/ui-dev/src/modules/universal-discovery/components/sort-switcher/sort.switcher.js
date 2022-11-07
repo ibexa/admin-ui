@@ -22,6 +22,7 @@ const SortSwitcher = ({ isDisabled }) => {
                 selectedOption={selectedOption}
                 onOptionClick={onOptionClick}
                 isDisabled={isDisabled}
+                isSwitcher={true}
             />
         </div>
     );
