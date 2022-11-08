@@ -248,11 +248,11 @@
             .catch(ibexa.helpers.notification.showErrorNotification);
     };
     const reorderFields = ({ targetContainer, draggedItemPosition }) => {
-        createFieldDefinitionNode(currentDraggedItem, { targetContainer, draggedItemPosition });
+        const reorderedField = createFieldDefinitionNode(currentDraggedItem, { targetContainer, draggedItemPosition });
         removeDragPlaceholders();
 
-        currentDraggedItem.classList.add('ibexa-collapse--field-definition-highlighted');
-        currentDraggedItem.classList.add('ibexa-collapse--field-definition-loading');
+        reorderedField.classList.add('ibexa-collapse--field-definition-highlighted');
+        reorderedField.classList.add('ibexa-collapse--field-definition-loading');
 
         const fieldsOrder = [...doc.querySelectorAll('.ibexa-collapse--field-definition')].map(
             (fieldDefinition) => fieldDefinition.dataset.fieldDefinitionIdentifier,
@@ -264,10 +264,14 @@
         };
         const request = generateRequest('reorder', bodyData);
 
+        global.setTimeout(() => {
+            removeHighlight(reorderedField);
+        }, TIMEOUT_REMOVE_HIGHLIGHT);
+
         fetch(request)
             .then(ibexa.helpers.request.getTextFromResponse)
             .then(() => {
-                currentDraggedItem.classList.remove('ibexa-collapse--field-definition-loading');
+                reorderedField.classList.remove('ibexa-collapse--field-definition-loading');
                 afterChangeGroup();
             })
             .catch(ibexa.helpers.notification.showErrorNotification);

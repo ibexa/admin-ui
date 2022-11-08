@@ -136,7 +136,7 @@
             this.placeholderPositionData = {
                 item,
                 positionY,
-            }
+            };
 
             this.removePlaceholder();
 
@@ -175,7 +175,10 @@
             this.itemsContainer.addEventListener('drop', this.onDrop, false);
 
             doc.body.addEventListener('dragover', (event) => {
-                if (!this.itemsContainer.contains(event.target) && !event.target.classList.contains('ibexa-field-definitions-placeholder')) {
+                if (
+                    !this.itemsContainer.contains(event.target) &&
+                    !event.target.classList.contains('ibexa-field-definitions-placeholder')
+                ) {
                     this.removePlaceholder();
                 } else {
                     event.preventDefault();
