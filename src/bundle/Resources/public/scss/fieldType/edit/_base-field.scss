@@ -25,6 +25,10 @@
         flex-direction: column;
     }
 
+    .form-control {
+        margin-bottom: 0;
+    }
+
     &--nontranslatable,
     &--disabled {
         pointer-events: none;
