@@ -105,13 +105,24 @@
                 &__actions {
                     display: flex;
                     position: absolute;
-                    top: calculateRem(8px);
-                    right: calculateRem(8px);
+                    top: 0;
+                    right: 0;
                     border-radius: $ibexa-border-radius;
                     padding: calculateRem(4px);
-                    background-color: rgba($ibexa-color-white, 0.75);
+                    background-color: $ibexa-color-white;
+                    box-shadow: calculateRem(-4px) calculateRem(10px) calculateRem(20px) 0 rgba($ibexa-color-info, 0.15);
                     z-index: 1;
                 }
+            }
+        }
+
+        &__file-name-wrapper {
+            overflow: hidden;
+
+            .ibexa-field-edit-preview__file-name {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
             }
         }
     }

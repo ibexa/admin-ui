@@ -134,6 +134,11 @@
 
         &--has-checkbox {
             width: calculateRem(48px);
+
+            .ibexa-input--checkbox {
+                float: left;
+                margin-bottom: 0;
+            }
         }
 
         .table &--has-icon {
@@ -181,7 +186,9 @@
 
     &--not-striped {
         .ibexa-table__row {
-            background-color: $ibexa-color-white;
+            .ibexa-table__cell {
+                background-color: $ibexa-color-white;
+            }
         }
     }
 }

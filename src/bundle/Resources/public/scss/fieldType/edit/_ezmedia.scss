@@ -42,8 +42,6 @@
 
         &__dimensions {
             input[type='number'] {
-                width: 10ch;
-
                 &.is-invalid {
                     @include input-invalid;
 
