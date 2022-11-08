@@ -124,7 +124,7 @@
         {% endfor %}
 
         {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-            headline: 'section.list.title'|trans|desc('Sections'),
+            headline: 'section.list.header'|trans({ '%count%': pager.getNbResults() })|desc('List (%count%)'),
             head_cols: [
                 { has_checkbox: true },
                 { content: 'section.name'|trans|desc('Name') },

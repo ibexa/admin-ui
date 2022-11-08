@@ -42,8 +42,8 @@
         <note>key: section.assigned_content.empty_desc</note>
       </trans-unit>
       <trans-unit id="60771f4109f17ae27080b34e9322fd7cb02f45b3" resname="section.assigned_content.header">
-        <source>Content items in '%name%' (%count%)</source>
-        <target state="new">Content items in '%name%' (%count%)</target>
+        <source>List (%count%)</source>
+        <target state="new">List (%count%)</target>
         <note>key: section.assigned_content.header</note>
       </trans-unit>
       <trans-unit id="adcc2af264c7ae84e69396a8ff7ea5a259abd01e" resname="section.assigned_content.name">
@@ -105,6 +105,11 @@
         <source>You cannot delete the disabled sections, because they have assigned content.</source>
         <target state="new">You cannot delete the disabled sections, because they have assigned content.</target>
         <note>key: section.list.cannot_delete_notice</note>
+      </trans-unit>
+      <trans-unit id="af43b9670a874f50f42d31377f5156143ac2a08a" resname="section.list.header">
+        <source>List (%count%)</source>
+        <target state="new">List (%count%)</target>
+        <note>key: section.list.header</note>
       </trans-unit>
       <trans-unit id="d0db9c352babe46e30354a78d9b3eccd226d7602" resname="section.list.title">
         <source>Sections</source>

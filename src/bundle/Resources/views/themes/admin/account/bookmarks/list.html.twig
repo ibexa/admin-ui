@@ -80,7 +80,7 @@
                 'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#bookmark_remove_remove' }
             }) }}
             {% include '@ibexadesign/ui/component/table/table.html.twig' with {
-                headline: 'bookmark.table.header'|trans|desc('Bookmarks') ~ ' (' ~ pager.count ~ ')',
+                headline: 'bookmark.table.header'|trans|desc('List') ~ ' (' ~ pager.getNbResults() ~ ')',
                 head_cols: [
                     { has_checkbox: true },
                     { has_icon: true },

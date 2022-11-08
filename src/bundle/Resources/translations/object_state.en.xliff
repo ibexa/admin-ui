@@ -122,8 +122,8 @@
         <note>key: object_state.view.list.action.edit</note>
       </trans-unit>
       <trans-unit id="9af39e306536772c1d7cd402ab587fee66b0231b" resname="object_state.view.list.title">
-        <source>Object states (%count%)</source>
-        <target state="new">Object states (%count%)</target>
+        <source>List (%count%)</source>
+        <target state="new">List (%count%)</target>
         <note>key: object_state.view.list.title</note>
       </trans-unit>
       <trans-unit id="dc3b85ca7a255f5f7b961727623f0fc11a3678f0" resname="object_state.view.title">
@@ -260,6 +260,11 @@
         <source>Edit</source>
         <target state="new">Edit</target>
         <note>key: object_state_group.view.list.action.edit</note>
+      </trans-unit>
+      <trans-unit id="af7e9f3a2e28db843d0c42e493a8ac8fa8849a48" resname="object_state_group.view.list.header">
+        <source>List (%count%)</source>
+        <target state="new">List (%count%)</target>
+        <note>key: object_state_group.view.list.header</note>
       </trans-unit>
       <trans-unit id="3c3517b187620f232ad40b3fe46da9e3bb66866a" resname="object_state_group.view.list.title">
         <source>Object state groups</source>

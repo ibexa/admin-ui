@@ -72,7 +72,7 @@
     {% endfor %}
 
     {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-        headline: 'policy.view.list.title.count'|trans({'%count%': role.policies|length})|desc('Policies (%count%)'),
+        headline: 'policy.view.list.title.count'|trans({'%count%': role.policies|length})|desc('List (%count%)'),
         head_cols: [
             { has_checkbox: true },
             { content: 'policy.view.list.panel.policies.column.module'|trans|desc('Module') },

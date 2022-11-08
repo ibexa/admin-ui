@@ -43,10 +43,7 @@
 {% endfor %}
 
 {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-    headline: 'section.assigned_content.header'|trans({
-            '%name%': section.name,
-            '%count%': pagerfanta.nbResults
-        })|desc('Content items in \'%name%\' (%count%)'),
+    headline: 'section.assigned_content.header'|trans({ '%count%': pagerfanta.nbResults })|desc('List (%count%)'),
     head_cols: [
         { content: 'section.assigned_content.name'|trans|desc('Name') },
         { content: 'section.assigned_content.type'|trans|desc('Content Type') },

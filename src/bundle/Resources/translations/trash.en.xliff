@@ -11,6 +11,16 @@
         <target state="new">Type creator's name</target>
         <note>key: search.creator_input.placeholder</note>
       </trans-unit>
+      <trans-unit id="af8d69944eb0c723ea5e4d51ce34461d37485711" resname="site.list.count">
+        <source>List (%count%)</source>
+        <target state="new">List (%count%)</target>
+        <note>key: site.list.count</note>
+      </trans-unit>
+      <trans-unit id="fe8a976fe946a1a248b13f520f1781bac44ec729" resname="site.list.count_results">
+        <source>Results (%count%)</source>
+        <target state="new">Results (%count%)</target>
+        <note>key: site.list.count_results</note>
+      </trans-unit>
       <trans-unit id="6aa460340bed42d0d1baf9d1ea542c83a3f00821" resname="trash">
         <source>Trash</source>
         <target state="new">Trash</target>
@@ -110,11 +120,6 @@
         <source>Section</source>
         <target state="new">Section</target>
         <note>key: trash.section</note>
-      </trans-unit>
-      <trans-unit id="06b530d8c8b3d7af7b3f2df9f5102927e7275de4" resname="trash.table.header">
-        <source>Trash</source>
-        <target state="new">Trash</target>
-        <note>key: trash.table.header</note>
       </trans-unit>
     </body>
   </file>

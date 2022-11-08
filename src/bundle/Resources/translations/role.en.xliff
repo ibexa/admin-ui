@@ -112,8 +112,8 @@
         <note>key: policy.view.list.title</note>
       </trans-unit>
       <trans-unit id="bcb306dff55cc9a5c5b0277414dd1aab59c96176" resname="policy.view.list.title.count">
-        <source>Policies (%count%)</source>
-        <target state="new">Policies (%count%)</target>
+        <source>List (%count%)</source>
+        <target state="new">List (%count%)</target>
         <note>key: policy.view.list.title.count</note>
       </trans-unit>
       <trans-unit id="9b1c2c53df24e9d0d141037860eb87d2878bdb05" resname="policy.view.policy.title">
@@ -232,8 +232,8 @@
         <note>key: role.view.list.column.name</note>
       </trans-unit>
       <trans-unit id="a0c33e3728b23f13b825e36808834a6930551873" resname="role.view.list.title">
-        <source>Roles</source>
-        <target state="new">Roles</target>
+        <source>List</source>
+        <target state="new">List</target>
         <note>key: role.view.list.title</note>
       </trans-unit>
       <trans-unit id="ed20cb1159498f2085d5df44b0d43c977abaa791" resname="role.view.view.title">
@@ -291,10 +291,10 @@
         <target state="new">User/Group</target>
         <note>key: role_assignment.view.list.panel.assignments.column.user_group</note>
       </trans-unit>
-      <trans-unit id="4b3ecf13ffafd795bc971bc6292ea7f5a0bbe64c" resname="role_assignment.view.list.title.count">
-        <source>Assignments (%count%)</source>
-        <target state="new">Assignments (%count%)</target>
-        <note>key: role_assignment.view.list.title.count</note>
+      <trans-unit id="b152833aa8e0248096e41ded7c2f10bb778e363b" resname="role_assignment.view.list.title">
+        <source>Assignments</source>
+        <target state="new">Assignments</target>
+        <note>key: role_assignment.view.list.title</note>
       </trans-unit>
       <trans-unit id="ed6ad791e1da76394f851307e19efdabb22a1595" resname="role_assignment.view.select.groups">
         <source>Select User Groups</source>

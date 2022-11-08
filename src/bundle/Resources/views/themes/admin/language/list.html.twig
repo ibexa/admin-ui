@@ -114,7 +114,7 @@
         {% endfor %}
 
         {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-            headline: 'language.list.number_of_results'|trans({ '%number_of_results%': pager.nbResults })|desc('List (%number_of_results%)'),
+            headline: 'language.list.number_of_results'|trans({ '%number_of_results%': pager.getNbResults() })|desc('List (%number_of_results%)'),
             head_cols: [
                 { has_checkbox: true },
                 { content: 'language.name'|trans|desc('Name') },

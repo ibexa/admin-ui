@@ -52,8 +52,8 @@
         <note>key: url_wildcard.label.type</note>
       </trans-unit>
       <trans-unit id="e656d6fad42e88206dbf86e5229b6f3f6ceb8eff" resname="url_wildcard.list.title">
-        <source>URL wildcards</source>
-        <target state="new">URL wildcards</target>
+        <source>List</source>
+        <target state="new">List</target>
         <note>key: url_wildcard.list.title</note>
       </trans-unit>
       <trans-unit id="ba35963490c40e4b68169e8d9e7c59bd62677aa7" resname="url_wildcard.modal.create.cancel">

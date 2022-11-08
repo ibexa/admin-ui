@@ -110,7 +110,7 @@
         {% endfor %}
 
         {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-            headline: 'role.view.list.title'|trans|desc('Roles'),
+            headline: 'role.view.list.title'|trans|desc('List') ~ ' (' ~ pager.getNbResults() ~ ')',
             head_cols: [
                 { has_checkbox: true },
                 { content: 'role.view.list.column.name'|trans|desc('Name') },

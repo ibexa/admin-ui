@@ -67,8 +67,8 @@
         <note>key: drafts.list.version</note>
       </trans-unit>
       <trans-unit id="8db5ed41af83e43b26fd95de8c718eef14b2c239" resname="drafts.table.header">
-        <source>Drafts</source>
-        <target state="new">Drafts</target>
+        <source>List</source>
+        <target state="new">List</target>
         <note>key: drafts.table.header</note>
       </trans-unit>
     </body>

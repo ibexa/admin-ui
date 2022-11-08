@@ -91,7 +91,7 @@
     {% endfor %}
 
     {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-        headline: 'url_wildcard.list.title'|trans|desc('URL wildcards'),
+        headline: 'url_wildcard.list.title'|trans|desc('List') ~ ' (' ~ url_wildcards.getNbResults() ~ ')',
         head_cols: [
             { has_checkbox: true },
             { content: 'url_wildcard.label.alias'|trans|desc('URL alias wildcard') },

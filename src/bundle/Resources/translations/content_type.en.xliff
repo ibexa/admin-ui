@@ -357,8 +357,8 @@
         <note>key: content_type.view.list.column.name</note>
       </trans-unit>
       <trans-unit id="7c8c43d61131312dbeeeac5dc536a4f95154f33d" resname="content_type.view.list.title">
-        <source>Content Types in '%identifier%'</source>
-        <target state="new">Content Types in '%identifier%'</target>
+        <source>List (%identifier%)</source>
+        <target state="new">List (%identifier%)</target>
         <note>key: content_type.view.list.title</note>
       </trans-unit>
       <trans-unit id="dc7335e54d834bb6a342bf0bcb113850de4b69f9" resname="content_type.view.view.title">
@@ -455,6 +455,11 @@
         <source>Name</source>
         <target state="new">Name</target>
         <note>key: content_type_group.view.list.column.identifier</note>
+      </trans-unit>
+      <trans-unit id="5a60350c969abd67a0ef3e71b8e78255f6191fa1" resname="content_type_group.view.list.header">
+        <source>List (%count%)</source>
+        <target state="new">List (%count%)</target>
+        <note>key: content_type_group.view.list.header</note>
       </trans-unit>
       <trans-unit id="9522e89ad894375dcf878ae282bdd793946fc375" resname="content_type_group.view.list.title">
         <source>Content Type groups</source>
