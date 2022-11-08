@@ -29,7 +29,7 @@
         margin-left: calculateRem(8px);
         border: none;
 
-        &:after {
+        &::after {
             content: '';
             width: 0;
             height: 0;
@@ -37,6 +37,12 @@
             border-left: calculateRem(4px) solid transparent;
             border-right: calculateRem(4px) solid transparent;
             border-top: calculateRem(4px) solid $ibexa-color-white;
+        }
+
+        &:hover {
+            &::after {
+                border-top: calculateRem(4px) solid $ibexa-color-info;
+            }
         }
     }
 
@@ -53,6 +59,12 @@
         height: calculateRem(24px);
         padding-bottom: calculateRem(4px);
         cursor: pointer;
+
+        &:hover {
+            .ibexa-icon {
+                fill: $ibexa-color-info;
+            }
+        }
     }
 
     &__notice-dot {

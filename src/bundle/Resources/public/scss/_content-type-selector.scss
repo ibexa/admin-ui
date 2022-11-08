@@ -10,15 +10,31 @@
             border-bottom: calculateRem(1px) solid transparent;
             transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
+            .ibexa-icon--toggle {
+                position: absolute;
+                right: calculateRem(12px);
+                transition: var(--bs-accordion-btn-icon-transition);
+            }
+
             &:not(.collapsed) {
                 box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info, 0.05);
                 border-bottom-color: $ibexa-color-light;
+
+                .ibexa-icon--toggle {
+                    transform: var(--bs-accordion-btn-icon-transform);
+                }
+            }
+
+            &:hover {
+                color: $ibexa-color-primary;
+
+                .ibexa-icon--toggle {
+                    fill: $ibexa-color-primary;
+                }
             }
 
             &::after {
-                width: calculateRem(12px);
-                height: calculateRem(12px);
-                background-size: unset;
+                display: none;
             }
         }
     }

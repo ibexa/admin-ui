@@ -30,7 +30,7 @@
             {% if is_password_input %}
                 <button
                     type="button"
-                    class="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--password-toggler"
+                    class="btn ibexa-btn ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--password-toggler"
                     tabindex="5"
                 >
                     <svg class="ibexa-icon ibexa-icon--small ibexa-input-text-wrapper__password-show">
@@ -41,7 +41,7 @@
                     </svg>
                 </button>
             {% elseif has_search %}
-                <button type="{{ search_button_type|default('submit') }}" class="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search" tabindex="-1">
+                <button type="{{ search_button_type|default('submit') }}" class="btn ibexa-btn ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search" tabindex="-1">
                     <svg class="ibexa-icon ibexa-icon--small">
                         <use xlink:href="{{ ibexa_icon_path('search') }}"></use>
                     </svg>

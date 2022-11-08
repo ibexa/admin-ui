@@ -93,6 +93,10 @@
                 <span class="ibexa-content-type-selector__group-title accordion-header">
                     <button type="button" class="accordion-button {% if not loop.first %} collapsed{% endif %}" data-bs-toggle="collapse" data-bs-target="#{{ group_label }}">
                         {{ choice_translation_domain is same as(false) ? group_label : group_label|trans({}, choice_translation_domain) }}
+
+                        <svg class="ibexa-icon ibexa-icon--tiny-small ibexa-icon--toggle">
+                            <use xlink:href="{{ ibexa_icon_path('caret-down') }}"></use>
+                        </svg>
                     </button>
                 </span>
                 <div class="ibexa-content-type-selector__list-wrapper accordion-collapse collapse{% if loop.first %} show{% endif %}" id="{{ group_label }}">
