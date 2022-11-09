@@ -35,7 +35,13 @@ const TabSelector = () => {
                 });
 
                 return (
-                    <div className={className} key={tab.id} onClick={onClick} title={tab.label}>
+                    <div
+                        className={className}
+                        key={tab.id}
+                        onClick={onClick}
+                        title={tab.label}
+                        data-tooltip-container-selector=".c-udw-tab"
+                    >
                         <Icon customPath={tab.icon} extraClasses="ibexa-icon--small-medium" />
                     </div>
                 );
