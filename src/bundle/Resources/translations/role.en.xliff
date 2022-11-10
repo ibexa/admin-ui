@@ -111,11 +111,6 @@
         <target state="new">Policies</target>
         <note>key: policy.view.list.title</note>
       </trans-unit>
-      <trans-unit id="bcb306dff55cc9a5c5b0277414dd1aab59c96176" resname="policy.view.list.title.count">
-        <source>List (%count%)</source>
-        <target state="new">List (%count%)</target>
-        <note>key: policy.view.list.title.count</note>
-      </trans-unit>
       <trans-unit id="9b1c2c53df24e9d0d141037860eb87d2878bdb05" resname="policy.view.policy.title">
         <source>Policy type:</source>
         <target state="new">Policy type:</target>
@@ -230,11 +225,6 @@
         <source>Name</source>
         <target state="new">Name</target>
         <note>key: role.view.list.column.name</note>
-      </trans-unit>
-      <trans-unit id="a0c33e3728b23f13b825e36808834a6930551873" resname="role.view.list.title">
-        <source>List</source>
-        <target state="new">List</target>
-        <note>key: role.view.list.title</note>
       </trans-unit>
       <trans-unit id="ed20cb1159498f2085d5df44b0d43c977abaa791" resname="role.view.view.title">
         <source>Role "%identifier%"</source>

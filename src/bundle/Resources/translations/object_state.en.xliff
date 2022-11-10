@@ -121,11 +121,6 @@
         <target state="new">Edit</target>
         <note>key: object_state.view.list.action.edit</note>
       </trans-unit>
-      <trans-unit id="9af39e306536772c1d7cd402ab587fee66b0231b" resname="object_state.view.list.title">
-        <source>List (%count%)</source>
-        <target state="new">List (%count%)</target>
-        <note>key: object_state.view.list.title</note>
-      </trans-unit>
       <trans-unit id="dc3b85ca7a255f5f7b961727623f0fc11a3678f0" resname="object_state.view.title">
         <source>Object state: %name%</source>
         <target state="new">Object state: %name%</target>
