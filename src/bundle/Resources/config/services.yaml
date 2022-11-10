@@ -36,6 +36,7 @@ imports:
     - { resource: services/user.yaml }
     - { resource: services/commands.yaml }
     - { resource: services/icons.yaml }
+    - { resource: services/role_form_mappers.yaml }
 
 services:
     _defaults:

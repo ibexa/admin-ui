@@ -219,8 +219,26 @@ services:
             $roleService: '@ibexa.api.service.role'
             $userService: '@ibexa.api.service.user'
         calls:
-            - [setLogger, ['@?logger']]
             - [ setFormTemplate, [ '%ibexa.content_forms.limitation.multiple_selection.template%' ] ]
         tags:
             - { name: ibexa.admin_ui.limitation.mapper.form, limitationType: UserPermissions }
             - { name: ibexa.admin_ui.limitation.mapper.value, limitationType: UserPermissions }
+
+    Ibexa\AdminUi\Limitation\Mapper\MemberOfLimitationMapper:
+        parent: Ibexa\AdminUi\Limitation\Mapper\MultipleSelectionBasedMapper
+        arguments:
+            $userService: '@ibexa.api.service.user'
+            $repository: '@ibexa.api.repository'
+            $contentService: '@ibexa.api.service.content'
+            $translator: '@translator'
+        tags:
+            - { name: ibexa.admin_ui.limitation.mapper.form, limitationType: MemberOf }
+            - { name: ibexa.admin_ui.limitation.mapper.value, limitationType: MemberOf }
+
+    Ibexa\AdminUi\Limitation\Mapper\RoleLimitationMapper:
+        parent: Ibexa\AdminUi\Limitation\Mapper\MultipleSelectionBasedMapper
+        arguments:
+            $roleService: '@ibexa.api.service.role'
+        tags:
+            - { name: ibexa.admin_ui.limitation.mapper.form, limitationType: Role }
+            - { name: ibexa.admin_ui.limitation.mapper.value, limitationType: Role }
