@@ -4,6 +4,8 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
+
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
 use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
@@ -15,8 +17,6 @@ use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\User\Form\ChoiceList\Loader\UserGroupsChoiceLoader;
-use Psr\Log\LoggerAwareTrait;
-use Psr\Log\NullLogger;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -24,8 +24,6 @@ use Symfony\Component\Form\FormInterface;
 
 final class UserPermissionsLimitationMapper implements LimitationValueMapperInterface, LimitationFormMapperInterface
 {
-    use LoggerAwareTrait;
-
     private RoleService $roleService;
 
     private UserService $userService;
@@ -42,7 +40,6 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
         RoleService $roleService,
         UserService $userService
     ) {
-        $this->logger = new NullLogger();
         $this->roleService = $roleService;
         $this->userService = $userService;
         $this->repository = $repository;
@@ -100,7 +97,6 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
             'multiple' => true,
             'required' => false,
         ]);
-
         $form->add($sub);
     }
 
