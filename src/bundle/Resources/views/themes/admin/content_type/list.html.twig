@@ -76,7 +76,7 @@
     {% endfor %}
 
     {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-        headline: 'content_type.view.list.title'|trans({ '%identifier%': pager.getNbResults() })|desc('List (%identifier%)'),
+        headline: macros.headline(pager.getNbResults()),
         head_cols: [
             { has_checkbox: true },
             { has_icon: true },

@@ -1,5 +1,7 @@
 {% extends "@ibexadesign/ui/layout.html.twig" %}
 
+{% from '@ibexadesign/ui/component/macros.html.twig' import headline %}
+
 {% trans_default_domain 'trash' %}
 
 {% form_theme form_trash_item_restore '@ibexadesign/ui/form_fields.html.twig' %}
@@ -231,13 +233,9 @@
             ]) %}
 
             {% set hasSearchParams = trash_search_params ? trash_search_params.creator or trash_search_params.content_type or trash_search_params.trashed or trash_search_params.section : false %}
-            {% set headline = hasSearchParams
-                ? 'site.list.count_results'|trans({ '%count%': pager.getNbResults })|desc('Results (%count%)')
-                : 'site.list.count'|trans({ '%count%': pager.getNbResults })|desc('List (%count%)')
-            %}
 
             {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-                headline,
+                headline: headline(pager.getNbResults(), hasSearchParams),
                 head_cols,
                 body_rows,
                 empty_table_info_text: 'trash.empty'|trans|desc('Trash is empty. Content you send to Trash will show up here.'),

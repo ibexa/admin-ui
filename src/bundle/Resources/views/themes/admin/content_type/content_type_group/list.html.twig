@@ -1,5 +1,7 @@
 {% extends "@ibexadesign/ui/layout.html.twig" %}
 
+{% from '@ibexadesign/ui/component/macros.html.twig' import headline %}
+
 {% form_theme form_content_type_groups_delete '@ibexadesign/ui/form_fields.html.twig'  %}
 
 {% trans_default_domain 'content_type' %}
@@ -113,7 +115,7 @@
         {% endfor %}
 
         {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-            headline: 'content_type_group.view.list.header'|trans({ '%count%': pager.getNbResults() })|desc('List (%count%)'),
+            headline: headline(pager.getNbResults()),
             head_cols: [
                 { has_checkbox: true },
                 { content: 'content_type_group.view.list.column.identifier'|trans|desc('Name') },

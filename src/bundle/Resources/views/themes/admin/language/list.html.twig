@@ -1,5 +1,7 @@
 {% extends "@ibexadesign/ui/layout.html.twig" %}
 
+{% from '@ibexadesign/ui/component/macros.html.twig' import headline %}
+
 {% form_theme form_languages_delete '@ibexadesign/ui/form_fields.html.twig'  %}
 
 {% trans_default_domain 'language' %}
@@ -114,7 +116,7 @@
         {% endfor %}
 
         {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-            headline: 'language.list.number_of_results'|trans({ '%number_of_results%': pager.getNbResults() })|desc('List (%number_of_results%)'),
+            headline: headline(pager.getNbResults()),
             head_cols: [
                 { has_checkbox: true },
                 { content: 'language.name'|trans|desc('Name') },
