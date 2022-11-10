@@ -256,11 +256,6 @@
         <target state="new">Edit</target>
         <note>key: object_state_group.view.list.action.edit</note>
       </trans-unit>
-      <trans-unit id="af7e9f3a2e28db843d0c42e493a8ac8fa8849a48" resname="object_state_group.view.list.header">
-        <source>List (%count%)</source>
-        <target state="new">List (%count%)</target>
-        <note>key: object_state_group.view.list.header</note>
-      </trans-unit>
       <trans-unit id="3c3517b187620f232ad40b3fe46da9e3bb66866a" resname="object_state_group.view.list.title">
         <source>Object state groups</source>
         <target state="new">Object state groups</target>
