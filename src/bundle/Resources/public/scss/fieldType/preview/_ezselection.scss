@@ -1,4 +1,4 @@
-.ez-field-preview--ezselection-multiple {
+.ibexa-field-preview--ezselection-multiple {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
@@ -6,20 +6,12 @@
     align-items: center;
     flex-wrap: wrap;
 
-    .ez-selection__item {
-        display: inline-block;
-        padding: calculateRem(8px) calculateRem(16px);
-        background: $ibexa-white;
-        border-radius: calculateRem(4px);
-        margin: calculateRem(4px);
-        min-height: calculateRem(40px);
+    .ibexa-selection__item {
+        margin-right: calculateRem(8px);
+        padding: calculateRem(4px) calculateRem(10px);
     }
 }
 
-.ez-field-preview--ezselection-single {
-    display: inline-block;
-    padding: calculateRem(8px) calculateRem(16px);
-    background: $ibexa-white;
-    border-radius: calculateRem(4px);
-    margin: calculateRem(4px);
+.ibexa-field-preview--ezselection-single {
+    padding: calculateRem(4px) calculateRem(10px);
 }

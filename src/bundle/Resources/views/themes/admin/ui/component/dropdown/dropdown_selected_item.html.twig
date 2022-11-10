@@ -1,0 +1,12 @@
+<li
+    class="ibexa-dropdown__selected-item {% if icon is defined and icon %}ibexa-dropdown__selected-item--has-icon{% endif %}"
+    data-value="{{ value }}"
+>
+    <span class="ibexa-dropdown__selected-item-icon">
+        {% if icon is defined and icon %}
+            {{ include('@ibexadesign/ui/component/dropdown/dropdown_selected_item_icon.html.twig', { icon }) }}
+        {% endif %}
+    </span>
+    {{ label }}
+    <span class="ibexa-dropdown__remove-selection"></span>
+</li>

@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Type\URL;
+namespace Ibexa\AdminUi\Form\Type\URL;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\URL\URLListData;
+use Ibexa\AdminUi\Form\Data\URL\URLListData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -36,16 +36,28 @@ class URLListType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('status', ChoiceType::class, [
             'choices' => [
-                $this->translator->trans(/** @Desc("Invalid") */ 'url.status.invalid', [], 'ezplatform_content_forms_url') => false,
-                $this->translator->trans(/** @Desc("Valid") */ 'url.status.valid', [], 'ezplatform_content_forms_url') => true,
+                $this->translator->trans(/** @Desc("Invalid") */
+                    'url.status.invalid',
+                    [],
+                    'ezplatform_content_forms_url'
+                ) => false,
+                $this->translator->trans(/** @Desc("Valid") */
+                    'url.status.valid',
+                    [],
+                    'ezplatform_content_forms_url'
+                ) => true,
             ],
-            'placeholder' => $this->translator->trans(/** @Desc("All") */ 'url.status.all', [], 'ezplatform_content_forms_url'),
+            'placeholder' => $this->translator->trans(/** @Desc("All") */
+                'url.status.all',
+                [],
+                'ezplatform_content_forms_url'
+            ),
             'required' => false,
         ]);
 
@@ -58,7 +70,7 @@ class URLListType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -69,7 +81,7 @@ class URLListType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -77,10 +89,12 @@ class URLListType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getBlockPrefix()
     {
         return 'ezplatform_content_forms_url_list';
     }
 }
+
+class_alias(URLListType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\URL\URLListType');

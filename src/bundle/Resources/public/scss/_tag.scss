@@ -1,32 +1,59 @@
-.ez-tag {
-    border: calculateRem(1px) solid $ibexa-color-base-dark;
-    border-radius: $ibexa-border-radius;
-    background: $ibexa-color-base;
-    padding: calculateRem(8px) calculateRem(48px) calculateRem(8px) calculateRem(8px);
-    display: inline-block;
+.ibexa-tag {
+    display: inline-flex;
+    align-items: center;
     position: relative;
+    height: calculateRem(24px);
+    padding: calculateRem(4px) calculateRem(24px) calculateRem(4px) calculateRem(10px);
+    border-radius: calculateRem(12px);
+    background-color: $ibexa-color-light-500;
+    max-width: 100%;
 
     &__content {
-        line-height: calculateRem(22px);
+        font-size: $ibexa-text-font-size-small;
+        font-weight: normal;
+        max-width: 100%;
     }
 
     &__spinner {
         height: calculateRem(22px);
         line-height: 0;
+
+        .ibexa-icon {
+            fill: $ibexa-color-dark;
+        }
     }
 
     &__remove-btn {
         position: absolute;
-        top: calc(50% - #{calculateRem(12px)});
-        right: calculateRem(6px);
+        right: calculateRem(8px);
         cursor: pointer;
         border: 0;
         padding: 0;
         outline: none;
         line-height: 0;
 
-        .ez-icon {
-            fill: $ibexa-color-base-black;
+        &:disabled,
+        &[disabled] {
+            cursor: not-allowed;
+        }
+    }
+
+    $color-versions: 'primary' $ibexa-color-primary $ibexa-color-primary-200, 'secondary' $ibexa-color-dark $ibexa-color-light-500,
+        'info' $ibexa-color-info $ibexa-color-info-200, 'danger' $ibexa-color-danger $ibexa-color-danger-200,
+        'success' $ibexa-color-success $ibexa-color-success-200, 'complementary' $ibexa-color-complementary $ibexa-color-complementary-200;
+
+    @each $name, $color-text, $color-background in $color-versions {
+        &--#{$name} {
+            color: $color-text;
+            background-color: $color-background;
+
+            .ibexa-tag {
+                &__remove-btn,
+                &__spinner,
+                .ibexa-icon {
+                    fill: $color-text;
+                }
+            }
         }
     }
 }

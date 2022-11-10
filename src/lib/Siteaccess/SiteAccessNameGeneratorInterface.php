@@ -6,11 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Siteaccess;
+namespace Ibexa\AdminUi\Siteaccess;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 
 interface SiteAccessNameGeneratorInterface
 {
     public function generate(SiteAccess $siteAccessIdentifier): string;
 }
+
+class_alias(SiteAccessNameGeneratorInterface::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\SiteAccessNameGeneratorInterface');

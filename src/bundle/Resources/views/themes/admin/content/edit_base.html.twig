@@ -1,0 +1,114 @@
+{% extends '@ibexadesign/ui/edit_base.html.twig' %}
+
+{% trans_default_domain 'content_edit' %}
+
+{% set grouped_fields = grouped_fields|default([]) %}
+{% set anchor_params = { items: grouped_fields|keys } %}
+{% set is_autosave_enabled = ibexa_user_settings['autosave'] is same as('enabled') %}
+{% set form_has_autosave = form.autosave is defined %}
+{% set default_form_templates = ibexa_admin_ui_config.contentEditFormTemplates %}
+{% set form_templates = form_templates is defined ? default_form_templates|merge(form_templates) : default_form_templates %}
+
+{% form_theme form with form_templates %}
+
+{% block left_sidebar %}
+    {% if without_close_button is not defined or without_close_button != true %}
+        {% set referrer_location = content is defined and is_published ? location : parent_location %}
+
+        {% set anchor_params = anchor_params|merge({
+            close_href: close_href|default(path('ibexa.content.view', { 'contentId': referrer_location.contentId, 'locationId': referrer_location.id }))
+        }) %}
+    {% endif %}
+
+    {% block anchor_menu %}
+        {% include '@ibexadesign/ui/anchor_navigation_menu.html.twig' with anchor_params %}
+    {% endblock %}
+{% endblock %}
+
+{% macro renderFormField(formField) -%}
+    {% if not formField.rendered %}
+        {% if formField.value is defined %}
+            {{- form_widget(formField) -}}
+        {% else %}
+            <div class="ibexa-field-edit ibexa-field-edit--eznoneditable">
+                {{- form_label(formField) -}}
+                <p class="non-editable">
+                    {{ 'content.field.non_editable'|trans|desc('This Field Type is not editable') }}
+                </p>
+                {% do formField.setRendered() %}
+            </div>
+        {% endif %}
+    {% endif %}
+{%- endmacro -%}
+
+{% macro renderFieldGroup(group, form) -%}
+    {% for field in group %}
+        {% set formField = form.fieldsData[field] %}
+
+        {{ _self.renderFormField(formField) }}
+    {% endfor %}
+{%- endmacro -%}
+
+{% block content %}
+    <div class="ibexa-edit-content__container">
+        {% block form_before %}{% endblock %}
+
+        {% block form %}
+            {{ form_start(form, {'attr': {'class': 'ibexa-form-validate ibexa-form'}}) }}
+            <div class="ibexa-anchor-navigation__sections">
+                <div
+                    class="ibexa-anchor-navigation__section-group ibexa-anchor-navigation__section-group--active"
+                    data-id="#ibexa-edit-content-sections-content-fields"
+                >
+                    {% block form_fields %}
+                        <div class="ibexa-anchor-navigation-sections">
+                            {% if grouped_fields|length > 1 %}
+                                {% for key, group in grouped_fields %}
+                                    {% embed '@ibexadesign/ui/anchor_navigation_section.html.twig' with {
+                                        anchor_section_key: 'ibexa-edit-content-sections-content-fields-' ~ key|lower,
+                                        parent_self: _self,
+                                    } %}
+                                        {% trans_default_domain 'content_edit' %}
+                                        {% import parent_self as parent_self %}
+
+                                        {% block anchor_section_header %}
+                                            <h2 class="ibexa-edit-content__section-header">{{ key }}</h2>
+                                        {% endblock %}
+
+                                        {% block anchor_section_body %}
+                                            {{ parent_self.renderFieldGroup(group, form) }}
+                                        {% endblock %}
+                                    {% endembed %}
+                                {% endfor %}
+                            {% else %}
+                                <div class="ibexa-anchor-navigation__section" data-id="ibexa-edit-content-sections-content-fields-{{ grouped_fields|keys|first|lower }}">
+                                    {% for identifier, formField in form.fieldsData %}
+                                        {% if identifier not in ignored_content_fields|default([]) %}
+                                            {{ _self.renderFormField(formField) }}
+                                        {% endif %}
+                                    {%- endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endblock %}
+                </div>
+                {% block content_sections %}{% endblock %}
+            </div>
+            {{ form_end(form) }}
+        {% endblock %}
+
+        {% block form_after %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% include '@ibexadesign/content/edit/javascripts.html.twig' %}
+    {{ encore_entry_script_tags('ibexa-admin-ui-tabs-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-edit-base-js', null, 'ibexa') }}
+{% endblock %}
+
+{% block stylesheets %}
+    {% include '@ibexadesign/content/edit/stylesheets.html.twig' %}
+{% endblock %}

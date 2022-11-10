@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Content\CustomUrl;
+namespace Ibexa\AdminUi\Form\Data\Content\CustomUrl;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class CustomUrlAddData
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
     private $location;
 
     /** @var string|null */
     private $path;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
     private $language;
 
     /** @var bool */
@@ -48,7 +48,7 @@ class CustomUrlAddData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     public function getLocation(): ?Location
     {
@@ -56,7 +56,7 @@ class CustomUrlAddData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      *
      * @return CustomUrlAddData
      */
@@ -68,7 +68,7 @@ class CustomUrlAddData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      */
     public function getLanguage(): ?Language
     {
@@ -76,7 +76,7 @@ class CustomUrlAddData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
      *
      * @return CustomUrlAddData
      */
@@ -159,3 +159,5 @@ class CustomUrlAddData
         return $this;
     }
 }
+
+class_alias(CustomUrlAddData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData');

@@ -6,23 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller\Version;
+namespace Ibexa\Bundle\AdminUi\Controller\Version;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use EzSystems\EzPlatformAdminUi\Specification\Version\VersionHasConflict;
-use EzSystems\EzPlatformAdminUiBundle\Controller\Controller;
+use Ibexa\AdminUi\Specification\Version\VersionHasConflict;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Core\Base\Exceptions\BadStateException;
 use Symfony\Component\HttpFoundation\Response;
 
 class VersionConflictController extends Controller
 {
     /**
-     * @var \eZ\Publish\API\Repository\ContentService
+     * @var \Ibexa\Contracts\Core\Repository\ContentService
      */
     private $contentService;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
      */
     public function __construct(ContentService $contentService)
     {
@@ -40,9 +40,9 @@ class VersionConflictController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\Core\Base\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Core\Base\Exceptions\BadStateException
      */
     public function versionHasNoConflictAction(int $contentId, int $versionNo, string $languageCode): Response
     {
@@ -59,3 +59,5 @@ class VersionConflictController extends Controller
         return new Response();
     }
 }
+
+class_alias(VersionConflictController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\Version\VersionConflictController');

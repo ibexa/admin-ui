@@ -117,6 +117,31 @@
 {% endapply %}
 {% endblock %}
 
+{% block ez_limitation_userpermissions_value %}
+    {% apply spaceless %}
+        <br>
+        {{ "role.policy.limitation.userpermissions.role_title"
+        |trans({}, "ezplatform_content_forms_role")
+        |desc("Roles:") }}
+        {% if values['roles'] is empty %}
+            {{- 'policy.limitation.none'|trans|desc('None') -}}
+        {% endif %}
+        {% for role in values['roles'] %}
+            {{ role.identifier }}{% if not loop.last %},{% else %}{% endif %}
+        {% endfor %}
+        <br>
+        {{ "role.policy.limitation.userpermissions.user_groups_title"
+        |trans({}, "ezplatform_content_forms_role")
+        |desc("User Groups:") }}
+        {% if values['user_groups'] is empty %}
+            {{- 'policy.limitation.none'|trans|desc('None') -}}
+        {% endif %}
+        {% for user_group in values['user_groups'] %}
+            {{ user_group.name }}{% if not loop.last %},{% else %}{% endif %}
+        {% endfor %}
+    {% endapply %}
+{% endblock %}
+
 {% block ez_limitation_memberof_value %}
     {% apply spaceless %}
         {{ values|join(', ') }}

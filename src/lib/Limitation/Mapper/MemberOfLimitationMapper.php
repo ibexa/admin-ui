@@ -8,31 +8,26 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\ContentName;
-use eZ\Publish\API\Repository\Values\Filter\Filter;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use EzSystems\EzPlatformAdminUi\Limitation\LimitationValueMapperInterface;
-use EzSystems\EzPlatformAdminUi\Limitation\Mapper\MultipleSelectionBasedMapper;
+use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\ContentName;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Core\Limitation\MemberOfLimitationType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class MemberOfLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
 {
-    /** @var \eZ\Publish\API\Repository\UserService */
-    private $userService;
+    private UserService $userService;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(
         UserService $userService,
@@ -74,7 +69,7 @@ final class MemberOfLimitationMapper extends MultipleSelectionBasedMapper implem
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\User\UserGroup[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[]
      */
     private function loadUserGroups(): array
     {

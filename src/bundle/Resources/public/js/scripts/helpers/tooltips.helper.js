@@ -1,10 +1,15 @@
-(function(global, doc, eZ, $) {
+(function (global, doc, ibexa, bootstrap) {
     let lastInsertTooltipTarget = null;
     const TOOLTIPS_SELECTOR = '[title]';
     const observerConfig = {
         childList: true,
         subtree: true,
     };
+    const resizeEllipsisObserver = new ResizeObserver((entries) => {
+        entries.forEach((entry) => {
+            ibexa.helpers.tooltips.parse(entry.target);
+        });
+    });
     const observer = new MutationObserver((mutationsList) => {
         if (lastInsertTooltipTarget) {
             mutationsList.forEach((mutation) => {
@@ -12,9 +17,9 @@
 
                 if (removedNodes.length) {
                     removedNodes.forEach((removedNode) => {
-                        if (removedNode.classList && !removedNode.classList.contains('ez-tooltip')) {
+                        if (removedNode.classList && !removedNode.classList.contains('ibexa-tooltip')) {
                             lastInsertTooltipTarget = null;
-                            doc.querySelectorAll('.ez-tooltip.show').forEach((tooltipNode) => {
+                            doc.querySelectorAll('.ibexa-tooltip.show').forEach((tooltipNode) => {
                                 tooltipNode.remove();
                             });
                         }
@@ -23,36 +28,121 @@
             });
         }
     });
+    const modifyPopperConfig = (iframe, defaultBsPopperConfig) => {
+        if (!iframe) {
+            return defaultBsPopperConfig;
+        }
+
+        const iframeDOMRect = iframe.getBoundingClientRect();
+        const offsetX = iframeDOMRect.x;
+        const offsetY = iframeDOMRect.y;
+        const offsetModifier = {
+            name: 'offset',
+            options: {
+                offset: ({ placement }) => {
+                    const [basePlacement] = placement.split('-');
+
+                    switch (basePlacement) {
+                        case 'top':
+                            return [offsetX, -offsetY];
+                        case 'bottom':
+                            return [offsetX, offsetY];
+                        case 'right':
+                            return [offsetY, offsetX];
+                        case 'left':
+                            return [offsetY, -offsetX];
+                        default:
+                            return [];
+                    }
+                },
+            },
+        };
+        const offsetModifierIndex = defaultBsPopperConfig.modifiers.findIndex((modifier) => modifier.name == 'offset');
+
+        if (offsetModifierIndex != -1) {
+            defaultBsPopperConfig.modifiers[offsetModifierIndex] = offsetModifier;
+        } else {
+            defaultBsPopperConfig.modifiers.push(offsetModifier);
+        }
+
+        return defaultBsPopperConfig;
+    };
     const parse = (baseElement = doc) => {
         if (!baseElement) {
             return;
         }
 
-        const tooltipNodes = baseElement.querySelectorAll(TOOLTIPS_SELECTOR);
+        const tooltipNodes = [...baseElement.querySelectorAll(TOOLTIPS_SELECTOR)];
 
-        for (tooltipNode of tooltipNodes) {
-            if (tooltipNode.title) {
+        if (baseElement instanceof Element) {
+            tooltipNodes.push(baseElement);
+        }
+
+        for (const tooltipNode of tooltipNodes) {
+            if (tooltipNode.hasAttribute('title')) {
+                const hasEllipsisStyle = getComputedStyle(tooltipNode).textOverflow === 'ellipsis';
+
+                if (hasEllipsisStyle) {
+                    resizeEllipsisObserver.observe(tooltipNode);
+
+                    const isEllipsized = tooltipNode.scrollWidth > tooltipNode.offsetWidth;
+                    const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipNode);
+
+                    if (tooltipInstance) {
+                        if (!isEllipsized) {
+                            tooltipInstance.dispose();
+                        }
+
+                        continue;
+                    }
+
+                    if (isEllipsized) {
+                        if (tooltipNode.dataset.title) {
+                            tooltipNode.title = tooltipNode.dataset.title;
+                        }
+                    } else {
+                        continue;
+                    }
+                }
+
                 const delay = {
-                    show: tooltipNode.dataset.delayShow || 150,
-                    hide: tooltipNode.dataset.delayHide || 75,
+                    show: parseInt(tooltipNode.dataset.delayShow, 10) ?? 150,
+                    hide: parseInt(tooltipNode.dataset.delayHide, 10) ?? 75,
                 };
-                const extraClasses = tooltipNode.dataset.extraClasses || '';
-                const placement = tooltipNode.dataset.placement || 'bottom';
-                const container = tooltipNode.dataset.tooltipContainerSelector ?
-                    tooltipNode.closest(tooltipNode.dataset.tooltipContainerSelector) :
-                    'body';
+                const extraClass = tooltipNode.dataset.tooltipExtraClass ?? '';
+                const placement = tooltipNode.dataset.tooltipPlacement ?? 'bottom';
+                const trigger = tooltipNode.dataset.tooltipTrigger ?? 'hover focus';
+                const useHtml = tooltipNode.dataset.tooltipUseHtml !== undefined;
+                const container = tooltipNode.dataset.tooltipContainerSelector
+                    ? tooltipNode.closest(tooltipNode.dataset.tooltipContainerSelector)
+                    : 'body';
+                const iframe = document.querySelector(tooltipNode.dataset.tooltipIframeSelector);
+                const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipNode);
 
-                $(tooltipNode).tooltip({
+                if (tooltipInstance) {
+                    tooltipNode.title = tooltipInstance._getTitle();
+
+                    tooltipInstance.dispose();
+                }
+
+                tooltipNode.dataset.originalTitle = tooltipNode.title;
+
+                new bootstrap.Tooltip(tooltipNode, {
                     delay,
                     placement,
+                    trigger,
                     container,
-                    template: `<div class="tooltip ez-tooltip ${extraClasses}">
-                                    <div class="arrow ez-tooltip__arrow"></div>
-                                    <div class="tooltip-inner ez-tooltip__inner"></div>
+                    popperConfig: modifyPopperConfig.bind(null, iframe),
+                    html: useHtml,
+                    template: `<div class="tooltip ibexa-tooltip ${extraClass}">
+                                    <div class="tooltip-arrow ibexa-tooltip__arrow"></div>
+                                    <div class="tooltip-inner ibexa-tooltip__inner"></div>
                                </div>`,
                 });
 
-                $(tooltipNode).on('inserted.bs.tooltip', (event) => {
+                tooltipNode.title = '';
+
+                tooltipNode.addEventListener('inserted.bs.tooltip', (event) => {
                     lastInsertTooltipTarget = event.currentTarget;
                 });
             }
@@ -65,15 +155,15 @@
 
         const tooltipsNode = baseElement.querySelectorAll(TOOLTIPS_SELECTOR);
 
-        for (tooltipNode of tooltipsNode) {
-            $(tooltipNode).tooltip('hide');
+        for (const tooltipNode of tooltipsNode) {
+            bootstrap.Tooltip.getOrCreateInstance(tooltipNode).hide();
         }
     };
 
     observer.observe(doc.querySelector('body'), observerConfig);
 
-    eZ.addConfig('helpers.tooltips', {
+    ibexa.addConfig('helpers.tooltips', {
         parse,
         hideAll,
     });
-})(window, window.document, window.eZ, window.jQuery);
+})(window, window.document, window.ibexa, window.bootstrap);
