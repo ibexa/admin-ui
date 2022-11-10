@@ -18,6 +18,7 @@
             this.draggingOutClass = `${this.itemMainClass}--is-dragging-out`;
             this.removingClass = `${this.itemMainClass}--is-removing`;
             this.removedClass = `${this.itemMainClass}--removed`;
+            this.placeholderPositionData = {};
 
             this.onDragStart = this.onDragStart.bind(this);
             this.onDragEnd = this.onDragEnd.bind(this);
@@ -128,7 +129,17 @@
 
             const positionY = this.getPlaceholderPositionTop(item, event);
 
+            if (item.isSameNode(this.placeholderPositionData.item) && this.placeholderPositionData.positionY === positionY) {
+                return false;
+            }
+
+            this.placeholderPositionData = {
+                item,
+                positionY,
+            };
+
             this.removePlaceholder();
+
             this.addPlaceholder(item, positionY);
 
             return true;
@@ -164,7 +175,10 @@
             this.itemsContainer.addEventListener('drop', this.onDrop, false);
 
             doc.body.addEventListener('dragover', (event) => {
-                if (!this.itemsContainer.contains(event.target)) {
+                if (
+                    !this.itemsContainer.contains(event.target) &&
+                    !event.target.classList.contains('ibexa-field-definitions-placeholder')
+                ) {
                     this.removePlaceholder();
                 } else {
                     event.preventDefault();
