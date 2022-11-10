@@ -12,13 +12,15 @@
 {%- endmacro -%}
 
 {% macro headline(count, hasFilters = false, fraze = null) %}
+    {% set headline_content = 'list.headline'|trans({ '%count%': count })|desc('List (%count%)') %}
+
     {% if hasFilters %}
-        {% if fraze %}
-            {{ 'list.headline.results.search'|trans({ '%count%': count, '%fraze%': fraze })|desc('Results for "%fraze%" (%count%)') }}
-        {% else %}
-            {{ 'list.headline.results'|trans({ '%count%': count })|desc('Results (%count%)') }}
-        {% endif %}
-    {% else %}
-        {{ 'list.headline'|trans({ '%count%': count })|desc('List (%count%)') }}
+        {% set headline_content = 'list.headline.results'|trans({ '%count%': count })|desc('Results (%count%)') %}
     {% endif %}
+
+    {% if fraze %}
+        {% set headline_content = 'list.headline.results.search'|trans({ '%count%': count, '%fraze%': fraze })|desc('Results for "%fraze%" (%count%)') %}
+    {% endif %}
+
+    {{ headline_content }}
 {% endmacro %}
