@@ -11,15 +11,15 @@
     {%- endfor -%}
 {%- endmacro -%}
 
-{% macro headline(count, hasFilters = false, fraze = null) %}
+{% macro headline(count, hasFilters = false, phrase = null) %}
     {% set headline_content = 'list.headline'|trans({ '%count%': count })|desc('List (%count%)') %}
 
     {% if hasFilters %}
         {% set headline_content = 'list.headline.results'|trans({ '%count%': count })|desc('Results (%count%)') %}
     {% endif %}
 
-    {% if fraze %}
-        {% set headline_content = 'list.headline.results.search'|trans({ '%count%': count, '%fraze%': fraze })|desc('Results for "%fraze%" (%count%)') %}
+    {% if phrase %}
+        {% set headline_content = 'list.headline.results.search'|trans({ '%count%': count, '%phrase%': phrase })|desc('Results for "%phrase%" (%count%)') %}
     {% endif %}
 
     {{ headline_content }}
