@@ -18,6 +18,7 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
         'ibexa-dropdown': true,
         'ibexa-dropdown--single': single,
         'ibexa-dropdown--small': small,
+        'ibexa-dropdown--expanded': isExpanded,
         [extraClasses]: true,
     });
     const toggleExpanded = () => {

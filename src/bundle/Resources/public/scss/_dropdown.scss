@@ -44,7 +44,6 @@
             width: calculateRem(10px);
             height: calculateRem(1px);
             background: $ibexa-color-dark;
-            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
         }
 
         &::before {
@@ -467,6 +466,18 @@
 
             &__item-label {
                 font-size: $ibexa-text-font-size-small;
+            }
+        }
+    }
+
+    &--expanded {
+        .ibexa-dropdown__selection-info {
+            &::before {
+                transform: rotate(45deg);
+            }
+
+            &::after {
+                transform: rotate(-45deg);
             }
         }
     }
