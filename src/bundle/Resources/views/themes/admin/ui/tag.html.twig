@@ -2,7 +2,7 @@
 
 {% set is_deletable = is_deletable is defined ? is_deletable : true %}
 {% set tag_attributes = tag_attributes|default({})|merge({
-    'class': (tag_attributes.class|default('') ~ ' ibexa-tag' ~ (is_deletable ? ' ibexa-tag--deletable'))|trim
+    class: (tag_attributes.class|default('') ~ ' ibexa-tag' ~ (is_deletable ? ' ibexa-tag--deletable'))|trim
 }) %}
 
 <div {{ html.attributes(tag_attributes) }}>

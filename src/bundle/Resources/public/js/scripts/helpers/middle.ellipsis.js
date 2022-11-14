@@ -4,12 +4,14 @@
             parseAll(entry.target);
         });
     });
-    const parseAll = (baseElement = doc) => {
+    const parse = (baseElement = doc) => {
         if (!baseElement) {
+            console.warn('No baseElement provided');
+
             return;
         }
 
-        const middleEllipsisContainers = [...doc.querySelectorAll('.ibexa-middle-ellipsis')];
+        const middleEllipsisContainers = [...baseElement.querySelectorAll('.ibexa-middle-ellipsis')];
 
         if (baseElement instanceof Element) {
             middleEllipsisContainers.push(baseElement);
@@ -24,12 +26,15 @@
             resizeEllipsisObserver.observe(middleEllipsisContainer);
         });
     };
+    // @deprecated, will be removed in 5.0
+    const parseAll = () => parse(doc);
     const update = (baseElement, content) => {
         const contentElements = [...baseElement.querySelectorAll('.ibexa-middle-ellipsis__name-ellipsized')];
+        const contentEscaped = ibexa.helpers.text.escapeHTML(content);
 
-        baseElement.dataset.bsOriginalTitle = content;
+        baseElement.dataset.bsOriginalTitle = contentEscaped;
         contentElements.forEach((contentElement) => {
-            contentElement.innerHTML = content;
+            contentElement.innerHTML = contentEscaped;
         });
         parseAll(baseElement);
     };
