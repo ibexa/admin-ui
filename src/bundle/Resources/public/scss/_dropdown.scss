@@ -300,7 +300,8 @@
     &--focused {
         .ibexa-dropdown {
             &__selection-info {
-                box-shadow: 0 0 calculateRem(3px) 0 rgba($ibexa-color-primary, 0.75);
+                border-color: $ibexa-color-primary;
+                box-shadow: 0 0 0 calculateRem(2px) rgba($ibexa-color-primary, 0.2);
             }
         }
     }
