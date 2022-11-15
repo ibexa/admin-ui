@@ -1,6 +1,6 @@
 {% trans_default_domain 'role' %}
 
-{% from '@ibexadesign/ui/component/macros.html.twig' import headline %}
+{% from '@ibexadesign/ui/component/macros.html.twig' import results_headline %}
 
 {% form_theme form_policies_delete '@ibexadesign/ui/form_fields.html.twig'  %}
 
@@ -74,7 +74,7 @@
     {% endfor %}
 
     {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-        headline: headline(role.policies|length),
+        headline: custom_results_headline|default(results_headline(role.policies|length)),
         head_cols: [
             { has_checkbox: true },
             { content: 'policy.view.list.panel.policies.column.module'|trans|desc('Module') },

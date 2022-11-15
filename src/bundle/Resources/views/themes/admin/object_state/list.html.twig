@@ -1,6 +1,6 @@
 {% form_theme form_states_delete '@ibexadesign/ui/form_fields.html.twig'  %}
 
-{% from '@ibexadesign/ui/component/macros.html.twig' import headline %}
+{% from '@ibexadesign/ui/component/macros.html.twig' import results_headline %}
 
 {% trans_default_domain 'object_state' %}
 
@@ -60,7 +60,7 @@
     {% endfor %}
 
     {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-        headline: headline(object_states|length),
+        headline: custom_results_headline|default(results_headline(object_states|length)),
         head_cols: [
             { has_checkbox: true },
             { content: 'object_state.name'|trans|desc('Object state name') },

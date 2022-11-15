@@ -1,6 +1,6 @@
 {% extends "@ibexadesign/ui/layout.html.twig" %}
 
-{% from '@ibexadesign/ui/component/macros.html.twig' import headline %}
+{% from '@ibexadesign/ui/component/macros.html.twig' import results_headline %}
 
 {% trans_default_domain 'drafts' %}
 
@@ -117,7 +117,7 @@
                 }
             }) }}
             {% include '@ibexadesign/ui/component/table/table.html.twig' with {
-                headline: headline(pager.getNbResults()),
+                headline: custom_results_headline|default(results_headline(pager.getNbResults())),
                 head_cols: [
                     { has_checkbox: true },
                     { has_icon: true },

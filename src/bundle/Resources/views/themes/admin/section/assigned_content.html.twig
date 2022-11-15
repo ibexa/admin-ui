@@ -1,6 +1,6 @@
 {% trans_default_domain 'section' %}
 
-{% from '@ibexadesign/ui/component/macros.html.twig' import headline %}
+{% from '@ibexadesign/ui/component/macros.html.twig' import results_headline %}
 
 {% form_theme form_section_content_assign '@ibexadesign/ui/form_fields.html.twig' '@ibexadesign/ui/form/assign_section_widget.html.twig'  %}
 
@@ -45,7 +45,7 @@
 {% endfor %}
 
 {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-    headline: headline(pagerfanta.nbResults),
+    headline: custom_results_headline|default(results_headline(pagerfanta.nbResults)),
     head_cols: [
         { content: 'section.assigned_content.name'|trans|desc('Name') },
         { content: 'section.assigned_content.type'|trans|desc('Content Type') },

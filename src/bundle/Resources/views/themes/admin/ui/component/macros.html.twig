@@ -1,5 +1,3 @@
-{% trans_default_domain 'list' %}
-
 {% macro attributes(attr) -%}
     {%- for attrname, attrvalue in attr -%}
         {{- " " -}}
@@ -11,10 +9,11 @@
     {%- endfor -%}
 {%- endmacro -%}
 
-{% macro headline(count, hasFilters = false, phrase = null) %}
+{% macro results_headline(count, has_filters = false, phrase = null) %}
+    {% trans_default_domain 'list' %}
     {% set headline_content = 'list.headline'|trans({ '%count%': count })|desc('List (%count%)') %}
 
-    {% if hasFilters %}
+    {% if has_filters %}
         {% set headline_content = 'list.headline.results'|trans({ '%count%': count })|desc('Results (%count%)') %}
     {% endif %}
 

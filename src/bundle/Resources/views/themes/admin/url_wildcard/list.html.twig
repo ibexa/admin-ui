@@ -1,6 +1,6 @@
 {% trans_default_domain "ezplatform_url_wildcard" %}
 
-{% from '@ibexadesign/ui/component/macros.html.twig' import headline %}
+{% from '@ibexadesign/ui/component/macros.html.twig' import results_headline %}
 
 {% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
 {% form_theme form_list '@ibexadesign/ui/form_fields.html.twig' %}
@@ -93,7 +93,7 @@
     {% endfor %}
 
     {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-        headline: headline(url_wildcards.getNbResults()),
+        headline: custom_results_headline|default(results_headline(url_wildcards.getNbResults())),
         head_cols: [
             { has_checkbox: true },
             { content: 'url_wildcard.label.alias'|trans|desc('URL alias wildcard') },
