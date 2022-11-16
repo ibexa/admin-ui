@@ -2,7 +2,7 @@
     background-color: $ibexa-color-white;
     position: fixed;
     top: calculateRem(95px);
-    right: 0;
+    right: calculateRem(16px);
     min-height: calculateRem(60px);
     min-width: calculateRem(390px);
     border: calculateRem(1px) solid $ibexa-color-light;
@@ -34,6 +34,7 @@
     &--expanded {
         bottom: calculateRem(100px);
         min-width: calculateRem(491px);
+        overflow: hidden;
 
         .c-selected-locations {
             &__items-wrapper {
@@ -47,6 +48,7 @@
         overflow: auto;
         padding: 0 calculateRem(38px) calculateRem(16px) calculateRem(22px);
         border-top: calculateRem(1px) solid $ibexa-color-light;
+        height: calc(100% - calculateRem(70px));
     }
 
     &__actions {
