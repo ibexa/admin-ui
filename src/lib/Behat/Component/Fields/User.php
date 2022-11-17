@@ -6,6 +6,7 @@
  */
 namespace Ibexa\AdminUi\Behat\Component\Fields;
 
+use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Mapper\ElementTextMapper;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
@@ -106,7 +107,7 @@ class User extends FieldTypeComponent
         if ($isCurrentlyEnabled !== $enabled) {
             $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator('buttonEnabledToggle'))->click();
             $this->getHTMLPage()
-                ->setTimeout(30)
+                ->setTimeout(10)
                 ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('buttonEnabledToggleConfirmation')));
         }
     }
