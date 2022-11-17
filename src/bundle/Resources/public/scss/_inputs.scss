@@ -400,6 +400,12 @@
             padding-right: calculateRem(56px);
         }
     }
+
+    &:hover {
+        .ibexa-input {
+            border-color: $ibexa-color-primary;
+        }
+    }
 }
 
 .ibexa-input--date:placeholder-shown + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--clear,
