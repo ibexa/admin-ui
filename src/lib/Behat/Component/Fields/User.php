@@ -96,6 +96,7 @@ class User extends FieldTypeComponent
             new VisibleCSSLocator('email', '#ezplatform_content_forms_user_create_fieldsData_user_account_value_email,#ezplatform_content_forms_user_update_fieldsData_user_account_value_email'),
             new CSSLocator('buttonEnabledState', '#ezplatform_content_forms_user_create_fieldsData_user_account_value_enabled,#ezplatform_content_forms_user_update_fieldsData_user_account_value_enabled'),
             new VisibleCSSLocator('buttonEnabledToggle', '.ibexa-toggle__switcher'),
+            new VisibleCSSLocator('buttonEnabledToggleConfirmation', '.ibexa-toggle--is-checked'),
         ];
     }
 
@@ -104,6 +105,9 @@ class User extends FieldTypeComponent
         $isCurrentlyEnabled = $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator('buttonEnabledState'))->getValue() === '1';
         if ($isCurrentlyEnabled !== $enabled) {
             $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator('buttonEnabledToggle'))->click();
+            $this->getHTMLPage()
+                ->setTimeout(3)
+                ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('buttonEnabledToggleConfirmation')));
         }
     }
 }
