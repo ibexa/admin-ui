@@ -106,7 +106,7 @@ class User extends FieldTypeComponent
         if ($isCurrentlyEnabled !== $enabled) {
             $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator('buttonEnabledToggle'))->click();
             $this->getHTMLPage()
-                ->setTimeout(3)
+                ->setTimeout(10)
                 ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('buttonEnabledToggleConfirmation')));
         }
     }
