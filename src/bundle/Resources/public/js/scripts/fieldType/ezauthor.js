@@ -76,7 +76,9 @@
             const isEnabled = parentNode.querySelectorAll(SELECTOR_AUTHOR).length > 1;
 
             parentNode.querySelectorAll(SELECTOR_REMOVE_AUTHOR).forEach((btn) => {
-                if (isEnabled) {
+                const forceDisabled = btn.parentElement.classList.contains('ibexa-data-source__actions--disabled');
+
+                if (isEnabled && !forceDisabled) {
                     btn.removeAttribute('disabled');
                 } else {
                     btn.setAttribute('disabled', true);

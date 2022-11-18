@@ -143,7 +143,9 @@
     {%- if form.parent is empty -%}
         {{ form_errors(form) }}
     {%- endif -%}
-    {{- block('form_rows') -}}
+    {% with { attr: attr } %}
+        {{- block('form_rows') -}}
+    {% endwith %}
     {{- form_rest(form) -}}
 {%- endblock form_widget_compound -%}
 
@@ -153,3 +155,9 @@
 {%- endblock number_widget -%}
 
 {% block form_label_errors %}{% endblock %}
+
+{%- block form_rows -%}
+    {% for child in form|filter(child => not child.rendered) %}
+        {{- form_row(child, { attr: attr|default({}) }) -}}
+    {% endfor %}
+{%- endblock form_rows -%}

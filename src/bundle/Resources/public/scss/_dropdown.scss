@@ -435,7 +435,6 @@
     &--disabled {
         .ibexa-dropdown {
             &__selection-info {
-                border-color: transparent;
                 background: $ibexa-color-light-300;
                 cursor: not-allowed;
 
@@ -454,6 +453,18 @@
             &__selection-info {
                 border: none;
                 padding: 0 calculateRem(24px) 0 calculateRem(16px);
+            }
+        }
+
+        &.ibexa-dropdown--disabled {
+            .ibexa-dropdown__selection-info {
+                background-color: transparent;
+                color: $ibexa-color-dark-300;
+
+                &::before,
+                &::after {
+                    background-color: $ibexa-color-dark-300;
+                }
             }
         }
     }

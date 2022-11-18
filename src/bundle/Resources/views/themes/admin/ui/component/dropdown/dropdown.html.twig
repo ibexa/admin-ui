@@ -14,7 +14,7 @@
 {% set multiple = multiple|default(false) %}
 {% set no_items = choices_flat|length == 0 %}
 {% set is_dynamic = is_dynamic|default(false) %}
-{% set is_disabled = is_disabled|default(false) %}
+{% set is_disabled = is_disabled|default(false) or attr.readonly|default(false) %}
 {% set is_selector = is_selector|default(false) %}
 {% set has_select_all_toggler = has_select_all_toggler|default(false) %}
 {% set item_icon = item_icon|default() %}
