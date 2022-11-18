@@ -126,4 +126,12 @@
             }
         }
     }
+
+    &.ibexa-field-edit--nontranslatable {
+        .ibexa-data-source__label-text,
+        p,
+        a {
+            color: $ibexa-color-dark-300;
+        }
+    }
 }

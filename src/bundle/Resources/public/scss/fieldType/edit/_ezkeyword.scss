@@ -49,4 +49,20 @@
         background: none;
         border: 0 none;
     }
+
+    &.ibexa-field-edit--nontranslatable {
+        .ibexa-data-source__taggify {
+            background-color: $ibexa-color-light-300;
+            pointer-events: none;
+
+            .taggify__tag {
+                background-color: $ibexa-color-light-500;
+                color: $ibexa-color-dark-400;
+
+                .taggify__btn--remove {
+                    color: $ibexa-color-dark-400;
+                }
+            }
+        }
+    }
 }

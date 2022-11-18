@@ -171,7 +171,9 @@
                 return;
             }
 
-            const methodName = !selectedItemsLimit || selectedItems.length < selectedItemsLimit ? 'removeAttribute' : 'setAttribute';
+            const forceDisabled = addBtn.classList.contains('ibexa-relations__table-action--disabled');
+            const methodName =
+                !forceDisabled && (!selectedItemsLimit || selectedItems.length < selectedItemsLimit) ? 'removeAttribute' : 'setAttribute';
 
             addBtn[methodName]('disabled', true);
         };

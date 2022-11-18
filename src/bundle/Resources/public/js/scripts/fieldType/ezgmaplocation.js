@@ -455,11 +455,23 @@
         const areCoordsSet = !!longitudeInput.value.length && !!latitudeInput.value.length;
         const locateMeBtn = field.querySelector('.ibexa-data-source__locate-me .btn');
         const searchBtn = field.querySelector('.ibexa-btn--search-by-address');
-        const mapConfig = {
+        const mapContainer = field.querySelector('.ibexa-data-source__map');
+        let mapConfig = {
             zoom: areCoordsSet ? 15 : 1,
             center: areCoordsSet ? [parseFloat(latitudeInput.value), parseFloat(longitudeInput.value)] : [0, 0],
         };
-        const map = Leaflet.map(field.querySelector('.ibexa-data-source__map'), mapConfig);
+
+        if (mapContainer.classList.contains('ibexa-data-source__map--disabled')) {
+            mapConfig = {
+                ...mapConfig,
+                zoomControl: false,
+                scrollWheelZoom: false,
+                dragging: false,
+                tap: false,
+            };
+        }
+
+        const map = Leaflet.map(mapContainer, mapConfig);
 
         maps.push(map);
         longitudeInput.value = longitudeInput.dataset.value.replace(',', '.');
@@ -598,6 +610,10 @@
 
         if (areCoordsSet) {
             updateMapState(mapConfig.center[0], mapConfig.center[1]);
+        }
+
+        if (mapContainer.classList.contains('ibexa-data-source__map--disabled')) {
+            return;
         }
 
         addressInput.addEventListener(EVENT_KEYUP, handleAddressInput, false);
