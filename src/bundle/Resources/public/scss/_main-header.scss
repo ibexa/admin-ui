@@ -46,11 +46,17 @@
         border-color: $ibexa-color-info;
         background: $ibexa-color-info-800;
 
-        &.ibexa-input--text:not(:disabled) {
-            &:focus,
-            &:hover {
-                border-color: $ibexa-color-info;
-                background: $ibexa-color-info-800;
+        &.ibexa-input--text:not(:focus):placeholder-shown {
+            border-color: transparent;
+        }
+
+        &.ibexa-input--text {
+            &:not(:disabled) {
+                &:focus,
+                &:hover {
+                    border-color: $ibexa-color-info;
+                    background: $ibexa-color-info-800;
+                }
             }
         }
 
@@ -58,20 +64,32 @@
             color: $ibexa-color-light;
         }
 
-        &.ibexa-input--text:not(:focus):placeholder-shown {
-            border-color: transparent;
-        }
-
         &::placeholder {
             color: $ibexa-color-light;
         }
     }
 
-    .ibexa-input-text-wrapper__action-btn--search {
-        background: $ibexa-color-info-600;
-        width: calculateRem(58px);
-        height: calculateRem(48px);
-        transform: translateX(10px);
+    .ibexa-input-text-wrapper__action-btn {
+        &:hover {
+            .ibexa-icon {
+                fill: $ibexa-color-info;
+            }
+        }
+
+        &--search {
+            background: $ibexa-color-info-600;
+            width: calculateRem(58px);
+            height: calculateRem(48px);
+            transform: translateX(10px);
+
+            &:hover {
+                box-shadow: 0 calculateRem(22px) calculateRem(24px) 0 rgba($ibexa-color-info, 0.2);
+
+                .ibexa-icon {
+                    fill: $ibexa-color-white;
+                }
+            }
+        }
     }
 
     &__user-menu-column {
@@ -80,8 +98,16 @@
         align-items: center;
         justify-content: flex-end;
     }
-}
 
-.ibexa-input--text:not(:focus):placeholder-shown + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--search {
-    background-color: transparent;
+    .ibexa-input--text:not(:focus):placeholder-shown + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--search {
+        background-color: transparent;
+
+        &:hover {
+            box-shadow: none;
+
+            .ibexa-icon {
+                fill: $ibexa-color-info;
+            }
+        }
+    }
 }
