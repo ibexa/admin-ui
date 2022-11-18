@@ -34,7 +34,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
         $lastFieldDefinition->assert()->isVisible();
         $lastFieldDefinition->click();
         $this->getHTMLPage()->setTimeout(5)
-            ->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(),$fieldToggleLocator));
+            ->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(), $fieldToggleLocator));
         $this->getHTMLPage()->setTimeout(5)
             ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator($locatorValue)));
     }
