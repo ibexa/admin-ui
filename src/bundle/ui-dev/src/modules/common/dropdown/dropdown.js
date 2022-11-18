@@ -18,6 +18,7 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
         'ibexa-dropdown': true,
         'ibexa-dropdown--single': single,
         'ibexa-dropdown--small': small,
+        'ibexa-dropdown--expanded': isExpanded,
         [extraClasses]: true,
     });
     const toggleExpanded = () => {
@@ -52,6 +53,9 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
                 }}
             >
                 <span className="ibexa-dropdown__item-label">{item.label}</span>
+                <div className="ibexa-dropdown__item-check">
+                    <Icon name="checkmark" extraClasses="ibexa-icon--tiny-small ibexa-dropdown__item-check-icon" />
+                </div>
             </li>
         );
     };
