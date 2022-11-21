@@ -20,7 +20,6 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use PHPUnit\Framework\Assert;
-use Traversable;
 
 class ContentUpdateItemPage extends Page
 {
@@ -30,7 +29,7 @@ class ContentUpdateItemPage extends Page
     private $pageTitle;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent[] */
-    private $fieldTypeComponents;
+    protected $fieldTypeComponents;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Notification */
     private $notification;
@@ -39,12 +38,12 @@ class ContentUpdateItemPage extends Page
         Session $session,
         Router $router,
         ContentActionsMenu $contentActionsMenu,
-        Traversable $fieldTypeComponents,
+        iterable $fieldTypeComponents,
         Notification $notification
     ) {
         parent::__construct($session, $router);
         $this->contentActionsMenu = $contentActionsMenu;
-        $this->fieldTypeComponents = iterator_to_array($fieldTypeComponents);
+        $this->fieldTypeComponents = $fieldTypeComponents;
         $this->notification = $notification;
     }
 
@@ -104,6 +103,8 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator('autosaveIsOnInfo', '.ibexa-autosave__status-on'),
             new VisibleCSSLocator('autosaveSavedInfo', '.ibexa-autosave__status-saved'),
             new VisibleCSSLocator('autosaveIsOffInfo', '.ibexa-autosave__status-off'),
+            new VisibleCSSLocator('section', '[data-id="%1$s"] .ibexa-field-edit .ibexa-field-edit__label, [data-id="%1$s"] .ibexa-field-edit--eznoneditable .ibexa-label'),
+            new VisibleCSSLocator('fieldLabel', ' .ibexa-field-edit .ibexa-field-edit__label, .ibexa-field-edit--eznoneditable .ibexa-label'),
         ];
     }
 
@@ -135,11 +136,11 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator(
                 'fieldLabelWithCategories',
                 sprintf(
-                    '[data-id="%1$s"] .ibexa-field-edit .ibexa-field-edit__label, [data-id="%1$s"] .ibexa-field-edit--eznoneditable .ibexa-label',
+                    $this->getLocator('section')->getSelector(),
                     $activeSections->single()->getAttribute('data-target-id')
                 )
             ) :
-            new VisibleCSSLocator('fieldLabel', ' .ibexa-field-edit .ibexa-field-edit__label, .ibexa-field-edit--eznoneditable .ibexa-label');
+            $this->getLocator('fieldLabel');
 
         $fieldElements = $this->getHTMLPage()->setTimeout(5)->findAll($fieldLabelLocator);
 

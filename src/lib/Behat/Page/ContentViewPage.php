@@ -298,7 +298,7 @@ class ContentViewPage extends Page
             new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
             new VisibleCSSLocator('contentType', '.ibexa-page-title .ibexa-icon-tag'),
             new VisibleCSSLocator('mainContainer', '.ibexa-tab-content #ibexa-tab-location-view-content'),
-            new VisibleCSSLocator('tab', '.ibexa-content-container .ibexa-tabs .ibexa-tabs__link'),
+            new VisibleCSSLocator('tab', '.ibexa-tabs .ibexa-tabs__link'),
             new VisibleCSSLocator('addLocationButton', '#ibexa-tab-location-view-locations .ibexa-table-header__actions .ibexa-btn--udw-add'),
             new VisibleCSSLocator('bookmarkButton', '.ibexa-add-to-bookmarks'),
             new VisibleCSSLocator('isBookmarked', '.ibexa-add-to-bookmarks--checked'),
