@@ -1,4 +1,8 @@
-(function (moment) {
+(function (moment, ibexa) {
+    const { backOfficeLanguage } = ibexa.adminUiConfig;
+
+    moment.locale(backOfficeLanguage);
+
     /*
         ([yqLdDeEcaZ])\1* -> find any pattern of one or repeated one of these characters
         or
@@ -80,4 +84,4 @@
 
         return this.format(form);
     };
-})(window.moment);
+})(window.moment, window.ibexa);

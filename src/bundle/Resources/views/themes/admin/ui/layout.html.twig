@@ -108,7 +108,7 @@
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/create-react-class/create-react-class.min.js') }}"></script>
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/prop-types/prop-types.min.js') }}"></script>
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/flatpickr/dist/flatpickr.min.js') }}"></script>
-        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/moment/min/moment.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/moment/min/moment-with-locales.min.js') }}"></script>
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/moment-timezone/builds/moment-timezone-with-data.min.js') }}"></script>
         <script src="{{ asset('bundles/bazingajstranslation/js/translator.min.js') }}"></script>
         <script src="{{ asset('assets/translations/config.js') }}"></script>
@@ -155,14 +155,14 @@
                                     'currentClass': 'active',
                                     'ancestorClass': 'active'
                                 }) }}
-                            
+
                                 {{ knp_menu_render(main_menu, {
                                     'depth': 2,
                                     'template': '@ibexadesign/ui/menu/main_2nd_level.html.twig',
                                     'currentClass': 'active',
                                     'ancestorClass': 'active'
                                 }) }}
-                                
+
                                 {% block content_tree %}{% endblock %}
                             </nav>
                         {% endblock %}
