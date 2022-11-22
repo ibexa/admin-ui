@@ -39,7 +39,8 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
         $lastFieldDefinition->assert()->isVisible();
         $lastFieldDefinition->click();
 
-        $this->getHTMLPage()->waitUntilCondition(new ElementTransitionHasEndedCondition($lastFieldDefinition, new VisibleCSSLocator('transition', 'div')));
+        $this->getHTMLPage()->setTimeout(10)
+            ->waitUntilCondition(new ElementTransitionHasEndedCondition($lastFieldDefinition, new VisibleCSSLocator('transition', 'div')));
     }
 
     public function specifyLocators(): array
