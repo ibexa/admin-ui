@@ -267,6 +267,11 @@
         }
     }
 
+    &__pane-header {
+        margin: calculateRem(30px) 0 calculateRem(15px);
+        line-height: calculateRem(33px);
+    }
+
     &--rolled-up {
         height: calculateRem(24px);
         border-radius: 0 0 calculateRem(10px) calculateRem(10px);
