@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useCallback } from 'react';
 
 import Icon from '../../../common/icon/icon';
 
@@ -20,6 +20,14 @@ const TabSelector = () => {
             }),
         [tabs, tabsConfig],
     );
+    const selectorItemTooltipCallbackRef = useCallback(
+        (node) => {
+            if (node) {
+                ibexa.helpers.tooltips.parse(node);
+            }
+        },
+        [],
+    );
 
     return (
         <div className="c-tab-selector">
@@ -36,6 +44,7 @@ const TabSelector = () => {
 
                 return (
                     <div
+                        ref={selectorItemTooltipCallbackRef}
                         className={className}
                         key={tab.id}
                         onClick={onClick}
