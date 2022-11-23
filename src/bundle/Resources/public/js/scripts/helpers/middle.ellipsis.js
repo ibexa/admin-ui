@@ -1,12 +1,14 @@
 (function (global, doc, ibexa) {
     const resizeEllipsisObserver = new ResizeObserver((entries) => {
         entries.forEach((entry) => {
-            parseAll(entry.target);
+            parse(entry.target);
         });
     });
     const parse = (baseElement = doc) => {
-        if (!baseElement) {
-            console.warn('No baseElement provided');
+        const isHTMLElement = baseElement instanceof Element || baseElement instanceof Document;
+
+        if (!isHTMLElement) {
+            console.warn('Provided element does not belong to Document interface');
 
             return;
         }
@@ -36,10 +38,11 @@
         contentElements.forEach((contentElement) => {
             contentElement.innerHTML = contentEscaped;
         });
-        parseAll(baseElement);
+        parse(baseElement);
     };
 
     ibexa.addConfig('helpers.ellipsis.middle', {
+        parse,
         parseAll,
         update,
     });
