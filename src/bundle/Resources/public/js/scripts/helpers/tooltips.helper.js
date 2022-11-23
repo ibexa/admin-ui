@@ -167,9 +167,9 @@
             bootstrap.Tooltip.getOrCreateInstance(tooltipNode).hide();
         }
     };
-    const observe = (baseElement = doc.querySelector('body')) => {
+    const observe = (baseElement = doc) => {
         observer.observe(baseElement, observerConfig);
-    }
+    };
 
     ibexa.addConfig('helpers.tooltips', {
         parse,
