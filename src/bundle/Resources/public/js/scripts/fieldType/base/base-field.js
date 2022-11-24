@@ -111,12 +111,7 @@
          * @memberof BaseFieldValidator
          */
         createErrorNode(message) {
-            const errorNode = doc.createElement('em');
-
-            errorNode.classList.add('ibexa-field-edit__error');
-            errorNode.innerHTML = message;
-
-            return errorNode;
+            return ibexa.helpers.formError.formatLine(message);
         }
 
         /**

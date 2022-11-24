@@ -81,6 +81,7 @@
                     attr: { 'data-is-required': form.vars.is_alternative_text_required, readonly: readonly },
                     label_attr: { 'class': alternative_text_label_class }
                 }) }}
+                {{ form_errors(form.alternativeText) }}
             </div>
             {{ form_widget(form.additionalData, {attr: {class: 'ibexa-field-edit-preview__additional-data', readonly: readonly }}) }}
         </div>

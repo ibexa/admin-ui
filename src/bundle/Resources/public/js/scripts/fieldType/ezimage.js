@@ -84,8 +84,9 @@
             const dataContainer = this.fieldContainer.querySelector('.ibexa-field-edit__data');
             const isFileFieldEmpty = fileField.files && !fileField.files.length && dataContainer && !dataContainer.hasAttribute('hidden');
             const { isRequired } = event.target.dataset;
+            const alreadyIsError = this.fieldContainer.classList.contains(this.classInvalid);
             const isEmpty = !event.target.value;
-            const isError = isEmpty && isRequired && !isFileFieldEmpty;
+            const isError = alreadyIsError || (isEmpty && isRequired && !isFileFieldEmpty);
             const label = event.target.closest(SELECTOR_ALT_WRAPPER).querySelector('.ibexa-data-source__label').innerHTML;
             const result = { isError };
 
@@ -113,7 +114,7 @@
                     eventName: 'blur',
                     callback: 'validateAltInput',
                     invalidStateSelectors: ['.ibexa-data-source__field--alternativeText'],
-                    errorNodeSelectors: [`${SELECTOR_ALT_WRAPPER} .ibexa-data-source__label-wrapper`],
+                    errorNodeSelectors: [`${SELECTOR_ALT_WRAPPER} .ibexa-form-error`],
                 },
                 {
                     isValueValidator: false,
@@ -128,7 +129,7 @@
                     eventName: EVENT_CANCEL_ERROR,
                     callback: 'cancelErrors',
                     invalidStateSelectors: ['.ibexa-data-source__field--alternativeText'],
-                    errorNodeSelectors: [`${SELECTOR_ALT_WRAPPER} .ibexa-data-source__label-wrapper`],
+                    errorNodeSelectors: [`${SELECTOR_ALT_WRAPPER} .ibexa-form-error`],
                 },
             ],
         });
