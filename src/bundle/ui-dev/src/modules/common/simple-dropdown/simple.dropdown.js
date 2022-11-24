@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../helpers/css.class.names';
 import Icon from '../icon/icon';
 
-const SimpleDropdown = ({ options, selectedOption, extraClasses, onOptionClick, isDisabled, selectedItemLabel }) => {
+const SimpleDropdown = ({ options, selectedOption, extraClasses, onOptionClick, isDisabled, selectedItemLabel, isSwitcher }) => {
     const containerRef = useRef();
     const [isExpanded, setIsExpanded] = useState(false);
     const dropdownClass = createCssClassNames({
         'c-simple-dropdown': true,
         'c-simple-dropdown--expanded': isExpanded,
         'c-simple-dropdown--disabled': isDisabled,
+        'c-simple-dropdown--switcher': isSwitcher,
         [extraClasses]: true,
     });
     const toggleExpanded = () => {
@@ -114,12 +115,14 @@ SimpleDropdown.propTypes = {
     onOptionClick: PropTypes.func.isRequired,
     isDisabled: PropTypes.bool,
     selectedItemLabel: PropTypes.string,
+    isSwitcher: PropTypes.bool,
 };
 
 SimpleDropdown.defaultProps = {
     isDisabled: false,
     extraClasses: '',
     selectedItemLabel: '',
+    isSwitcher: false,
 };
 
 export default SimpleDropdown;

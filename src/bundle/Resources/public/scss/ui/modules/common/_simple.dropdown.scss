@@ -105,6 +105,14 @@
         transform: rotate(90deg);
     }
 
+    &:hover {
+        border-color: $ibexa-color-primary;
+
+        .c-simple-dropdown__expand-icon {
+            fill: $ibexa-color-primary;
+        }
+    }
+
     &--expanded &__items {
         opacity: 1;
         height: auto;
@@ -121,11 +129,17 @@
         }
     }
 
-    &:hover {
-        border-color: $ibexa-color-primary;
+    &--switcher {
+        &:hover {
+            border-color: transparent;
 
-        .c-simple-dropdown__expand-icon {
-            fill: $ibexa-color-primary;
+            .c-simple-dropdown__selected {
+                color: $ibexa-color-primary;
+
+                .ibexa-icon {
+                    fill: $ibexa-color-primary;
+                }
+            }
         }
     }
 }
