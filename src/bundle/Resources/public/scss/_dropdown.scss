@@ -473,6 +473,12 @@
         .ibexa-dropdown {
             &__selection-info {
                 border: none;
+
+                &:hover {
+                    .ibexa-dropdown__selected-item {
+                        color: $ibexa-color-primary;
+                    }
+                }
             }
 
             &__item-label {

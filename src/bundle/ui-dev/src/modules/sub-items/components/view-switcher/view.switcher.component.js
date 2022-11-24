@@ -38,6 +38,7 @@ const ViewSwitcherComponent = ({ onViewChange, activeView, isDisabled }) => {
                 selectedOption={selectedOption}
                 onOptionClick={switchView}
                 selectedItemLabel={viewLabel}
+                isSwitcher={true}
             />
         </div>
     );
