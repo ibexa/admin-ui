@@ -3,7 +3,7 @@
     align-items: center;
     padding: calculateRem(5px);
     margin-bottom: calculateRem(8px);
-    border-top: calculateRem(1px) solid $ibexa-color-light;
+    border: calculateRem(1px) solid $ibexa-color-light;
     border-radius: $ibexa-border-radius;
     box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 rgba($ibexa-color-black, 0.05);
 
@@ -38,6 +38,7 @@
     &__actions-wrapper {
         display: flex;
         justify-content: flex-end;
+        align-items: center;
     }
 
     &__remove-button {

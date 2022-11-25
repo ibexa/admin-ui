@@ -42,7 +42,7 @@ const SelectedLocations = () => {
         return <div className="c-selected-locations__selection-counter">{selectedLabel}</div>;
     };
     const renderToggleButton = () => {
-        const iconName = isExpanded ? 'caret-next' : 'caret-back';
+        const iconName = isExpanded ? 'caret-back' : 'caret-next';
 
         return (
             <button
@@ -59,13 +59,13 @@ const SelectedLocations = () => {
         );
     };
     const renderActionButtons = () => {
-        const removeAllLabel = Translator.trans(/*@Desc("Remove all")*/ 'selected_locations.remove_all', {}, 'universal_discovery_widget');
+        const removeAllLabel = Translator.trans(/*@Desc("Deselect all")*/ 'selected_locations.deselect_all', {}, 'universal_discovery_widget');
 
         return (
             <div className="c-selected-locations__actions">
                 <button
                     type="button"
-                    className="c-selected-locations__clear-selection-button btn ibexa-btn ibexa-btn--secondary"
+                    className="c-selected-locations__clear-selection-button btn ibexa-btn ibexa-btn--small ibexa-btn--secondary"
                     onClick={clearSelection}
                 >
                     {removeAllLabel}

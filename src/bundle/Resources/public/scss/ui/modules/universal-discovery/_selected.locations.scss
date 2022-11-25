@@ -16,10 +16,11 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: calculateRem(12px) calculateRem(12px) calculateRem(12px) calculateRem(32px);
+        padding: calculateRem(7px) calculateRem(12px) calculateRem(7px) calculateRem(22px);
     }
 
     &__selection-counter {
+        color: $ibexa-color-dark;
         font-size: calculateRem(22px);
         font-weight: 600;
         padding-right: calculateRem(16px);

@@ -39,7 +39,7 @@ const SelectedLocationsItem = ({ location, permissions }) => {
     return (
         <div className="c-selected-locations-item" ref={refSelectedLocationsItem}>
             <div className="c-selected-locations-item__image-wrapper">
-                <Thumbnail thumbnailData={thumbnailData} />
+                <Thumbnail thumbnailData={thumbnailData} iconExtraClasses="ibexa-icon--small" />
             </div>
             <div className="c-selected-locations-item__info">
                 <span className="c-selected-locations-item__info-name">{location.ContentInfo.Content.TranslatedName}</span>
