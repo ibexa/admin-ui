@@ -42,7 +42,7 @@ const SelectedLocations = () => {
         return <div className="c-selected-locations__selection-counter">{selectedLabel}</div>;
     };
     const renderToggleButton = () => {
-        const iconName = isExpanded ? 'caret-back' : 'caret-next';
+        const iconName = isExpanded ? 'caret-double-back' : 'caret-double-next';
 
         return (
             <button
@@ -53,7 +53,6 @@ const SelectedLocations = () => {
                 title={togglerLabel}
                 data-tooltip-container-selector=".c-udw-tab"
             >
-                <Icon name={iconName} extraClasses="ibexa-icon--small" />
                 <Icon name={iconName} extraClasses="ibexa-icon--small" />
             </button>
         );

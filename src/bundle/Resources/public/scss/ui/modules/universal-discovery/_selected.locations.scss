@@ -26,12 +26,6 @@
         padding-right: calculateRem(16px);
     }
 
-    &__toggle-button {
-        .ibexa-icon:first-child {
-            margin-right: calculateRem(-6px);
-        }
-    }
-
     &--expanded {
         bottom: calculateRem(100px);
         min-width: calculateRem(491px);
