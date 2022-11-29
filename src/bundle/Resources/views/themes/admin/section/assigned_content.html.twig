@@ -45,7 +45,7 @@
 {% endfor %}
 
 {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-    headline: custom_results_headline|default(results_headline(pagerfanta.nbResults)),
+    headline: custom_results_headline ?? results_headline(pagerfanta.nbResults),
     head_cols: [
         { content: 'section.assigned_content.name'|trans|desc('Name') },
         { content: 'section.assigned_content.type'|trans|desc('Content Type') },

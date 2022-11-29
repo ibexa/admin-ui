@@ -104,7 +104,7 @@
         {% endfor %}
 
         {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-            headline: custom_results_headline|default(results_headline(object_state_groups|length)),
+            headline: custom_results_headline ?? results_headline(object_state_groups|length),
             head_cols: [
                 { has_checkbox: true },
                 { content: 'object_state_group.name'|trans|desc('Object state group name') },

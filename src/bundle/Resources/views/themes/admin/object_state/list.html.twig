@@ -60,7 +60,7 @@
     {% endfor %}
 
     {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-        headline: custom_results_headline|default(results_headline(object_states|length)),
+        headline: custom_results_headline ?? results_headline(object_states|length),
         head_cols: [
             { has_checkbox: true },
             { content: 'object_state.name'|trans|desc('Object state name') },

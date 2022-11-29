@@ -74,7 +74,7 @@
     {% endfor %}
 
     {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-        headline: custom_results_headline|default(results_headline(role.policies|length)),
+        headline: custom_results_headline ?? results_headline(role.policies|length),
         head_cols: [
             { has_checkbox: true },
             { content: 'policy.view.list.panel.policies.column.module'|trans|desc('Module') },
