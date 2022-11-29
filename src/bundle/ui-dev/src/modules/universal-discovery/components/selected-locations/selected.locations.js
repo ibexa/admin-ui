@@ -58,7 +58,11 @@ const SelectedLocations = () => {
         );
     };
     const renderActionButtons = () => {
-        const removeAllLabel = Translator.trans(/*@Desc("Deselect all")*/ 'selected_locations.deselect_all', {}, 'universal_discovery_widget');
+        const removeAllLabel = Translator.trans(
+            /*@Desc("Deselect all")*/ 'selected_locations.deselect_all',
+            {},
+            'universal_discovery_widget',
+        );
 
         return (
             <div className="c-selected-locations__actions">
