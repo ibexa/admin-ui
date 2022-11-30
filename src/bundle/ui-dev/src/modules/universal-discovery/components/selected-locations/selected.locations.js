@@ -42,7 +42,7 @@ const SelectedLocations = () => {
         return <div className="c-selected-locations__selection-counter">{selectedLabel}</div>;
     };
     const renderToggleButton = () => {
-        const iconName = isExpanded ? 'caret-double-back' : 'caret-double-next';
+        const iconName = isExpanded ? 'caret-double-next' : 'caret-double-back';
 
         return (
             <button
