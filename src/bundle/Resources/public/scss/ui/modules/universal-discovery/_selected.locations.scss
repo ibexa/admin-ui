@@ -2,7 +2,7 @@
     background-color: $ibexa-color-white;
     position: fixed;
     top: calculateRem(95px);
-    right: 0;
+    right: calculateRem(16px);
     min-height: calculateRem(60px);
     min-width: calculateRem(390px);
     border: calculateRem(1px) solid $ibexa-color-light;
@@ -16,24 +16,20 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: calculateRem(12px) calculateRem(12px) calculateRem(12px) calculateRem(32px);
+        padding: calculateRem(7px) calculateRem(12px) calculateRem(7px) calculateRem(22px);
     }
 
     &__selection-counter {
+        color: $ibexa-color-dark;
         font-size: calculateRem(22px);
         font-weight: 600;
         padding-right: calculateRem(16px);
     }
 
-    &__toggle-button {
-        .ibexa-icon:first-child {
-            margin-right: calculateRem(-6px);
-        }
-    }
-
     &--expanded {
         bottom: calculateRem(100px);
         min-width: calculateRem(491px);
+        overflow: hidden;
 
         .c-selected-locations {
             &__items-wrapper {
@@ -47,6 +43,7 @@
         overflow: auto;
         padding: 0 calculateRem(38px) calculateRem(16px) calculateRem(22px);
         border-top: calculateRem(1px) solid $ibexa-color-light;
+        height: calc(100% - calculateRem(70px));
     }
 
     &__actions {
