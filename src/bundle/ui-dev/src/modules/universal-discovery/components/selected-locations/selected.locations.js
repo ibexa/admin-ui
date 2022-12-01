@@ -101,9 +101,8 @@ const SelectedLocations = () => {
         ibexa.helpers.tooltips.parse(refSelectedLocations.current);
         ibexa.helpers.tooltips.hideAll();
 
-        if (refTogglerButton.current) {
-            refTogglerButton.current.dataset.originalTitle = togglerLabel;
-        }
+        const toggleButtonTooltip = bootstrap.Tooltip.getInstance('.c-selected-locations__toggle-button');
+        toggleButtonTooltip.setContent({ '.tooltip-inner': togglerLabel });
     }, [isExpanded]);
 
     if (!allowConfirmation) {
