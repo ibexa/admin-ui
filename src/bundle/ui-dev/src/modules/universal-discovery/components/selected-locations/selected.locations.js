@@ -6,7 +6,7 @@ import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
 import { SelectedLocationsContext, AllowConfirmationContext } from '../../universal.discovery.module';
 
-const { Translator, ibexa } = window;
+const { Translator, ibexa, bootstrap } = window;
 
 const SelectedLocations = () => {
     const refSelectedLocations = useRef(null);
