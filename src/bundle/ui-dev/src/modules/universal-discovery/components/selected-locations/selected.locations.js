@@ -101,7 +101,7 @@ const SelectedLocations = () => {
         ibexa.helpers.tooltips.parse(refSelectedLocations.current);
         ibexa.helpers.tooltips.hideAll();
 
-        const toggleButtonTooltip = bootstrap.Tooltip.getInstance('.c-selected-locations__toggle-button');
+        const toggleButtonTooltip = bootstrap.Tooltip.getOrCreateInstance('.c-selected-locations__toggle-button');
         toggleButtonTooltip.setContent({ '.tooltip-inner': togglerLabel });
     }, [isExpanded]);
 
