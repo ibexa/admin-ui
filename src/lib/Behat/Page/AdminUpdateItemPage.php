@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
+use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Locator\XPathLocator;
@@ -92,7 +93,7 @@ class AdminUpdateItemPage extends Page
     {
         return $this->getHTMLPage()
             ->findAll(new XPathLocator('input', '//label/..'))
-            ->getByCriterion(new ElementTextCriterion($fieldName))
+            ->getByCriterion(new ChildElementTextCriterion(new VisibleCSSLocator('input', 'label'), $fieldName))
             ->find(new VisibleCSSLocator('input', 'input'));
     }
 }
