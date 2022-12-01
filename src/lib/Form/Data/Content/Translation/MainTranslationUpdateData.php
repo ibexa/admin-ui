@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation;
+namespace Ibexa\AdminUi\Form\Data\Content\Translation;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class MainTranslationUpdateData
@@ -16,7 +16,7 @@ class MainTranslationUpdateData
     /**
      * @Assert\NotBlank()
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Content|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Content|null
      */
     public $content;
 
@@ -28,7 +28,7 @@ class MainTranslationUpdateData
     public $languageCode;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content|null $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content|null $content
      * @param string|null $languageCode
      */
     public function __construct(
@@ -40,7 +40,7 @@ class MainTranslationUpdateData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Content|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content|null
      */
     public function getContent(): ?Content
     {
@@ -48,7 +48,7 @@ class MainTranslationUpdateData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content|null $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content|null $contentInfo
      */
     public function setContent(?Content $contentInfo = null)
     {
@@ -71,3 +71,5 @@ class MainTranslationUpdateData
         $this->languageCode = $languageCode;
     }
 }
+
+class_alias(MainTranslationUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\MainTranslationUpdateData');

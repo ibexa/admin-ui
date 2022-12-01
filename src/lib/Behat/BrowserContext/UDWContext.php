@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
-use EzSystems\Behat\Core\Behat\ArgumentParser;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
+use Ibexa\Behat\Core\Behat\ArgumentParser;
 use PHPUnit\Framework\Assert;
 
 class UDWContext implements Context
@@ -52,6 +52,14 @@ class UDWContext implements Context
         $this->universalDiscoveryWidget->cancel();
     }
 
+    /**
+     * @When I open Search from UDW
+     */
+    public function iOpenSearchUDW(): void
+    {
+        $this->universalDiscoveryWidget->openSearch();
+    }
+
     /** @When I confirm the selection in UDW */
     public function iConfirmSelection(): void
     {
@@ -91,11 +99,11 @@ class UDWContext implements Context
     }
 
     /**
-     * @Given I preview selected content
+     * @Given I edit selected content
      */
-    public function previewBookmarkedContent(): void
+    public function editSelectedContent(): void
     {
-        $this->universalDiscoveryWidget->openPreview();
+        $this->universalDiscoveryWidget->editSelectedContent();
     }
 
     /**

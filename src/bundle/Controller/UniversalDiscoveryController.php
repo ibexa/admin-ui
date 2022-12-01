@@ -6,17 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use EzSystems\EzPlatformAdminUi\UniversalDiscovery\Provider;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class UniversalDiscoveryController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\UniversalDiscovery\Provider */
+    /** @var \Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider */
     private $provider;
 
     public function __construct(
@@ -79,7 +80,9 @@ class UniversalDiscoveryController extends Controller
         $rootLocationId = $request->query->getInt('rootLocationId', Provider::ROOT_LOCATION_ID);
 
         $sortClause = $this->provider->getSortClause($sortClauseName, $sortOrder);
-        $breadcrumbLocations = $this->provider->getBreadcrumbLocations($locationId);
+        $breadcrumbLocations = $locationId !== $rootLocationId
+            ? $this->provider->getBreadcrumbLocations($locationId, $rootLocationId)
+            : [];
 
         $columns = $this->provider->getColumns($locationId, $limit, $sortClause, false, $rootLocationId);
 
@@ -118,3 +121,5 @@ class UniversalDiscoveryController extends Controller
         ]);
     }
 }
+
+class_alias(UniversalDiscoveryController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\UniversalDiscoveryController');

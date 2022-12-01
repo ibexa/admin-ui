@@ -4,9 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Limitation;
+namespace Ibexa\AdminUi\Limitation;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Symfony\Component\Form\FormInterface;
 
 /**
@@ -25,7 +25,7 @@ interface LimitationFormMapperInterface
      * - OR add field(s) that map to "limitationValues" property from $data.
      *
      * @param \Symfony\Component\Form\FormInterface $form form for current Limitation
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $data underlying data for current Limitation form
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $data underlying data for current Limitation form
      */
     public function mapLimitationForm(FormInterface $form, Limitation $data);
 
@@ -40,7 +40,7 @@ interface LimitationFormMapperInterface
      * This method will be called when FormEvents::SUBMIT is called.
      * It gives the opportunity to filter/manipulate limitation values.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation $limitation
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
      */
     public function filterLimitationValues(Limitation $limitation);
 }
@@ -49,3 +49,5 @@ class_alias(
     LimitationFormMapperInterface::class,
     \EzSystems\RepositoryForms\Limitation\LimitationFormMapperInterface::class
 );
+
+class_alias(LimitationFormMapperInterface::class, 'EzSystems\EzPlatformAdminUi\Limitation\LimitationFormMapperInterface');

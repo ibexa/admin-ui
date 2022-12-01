@@ -51,6 +51,16 @@
         <target state="new">Editing Limitations for '%limitationTypeIdentifier%' is not available.</target>
         <note>key: role.policy.limitation.not_implemented</note>
       </trans-unit>
+      <trans-unit id="6e6115f8e643b119a030e79d964280d51d7f254c" resname="role.policy.limitation.userpermissions.role_title">
+        <source>Roles:</source>
+        <target state="new">Roles:</target>
+        <note>key: role.policy.limitation.userpermissions.role_title</note>
+      </trans-unit>
+      <trans-unit id="d4d3dd0f27d3408bb66b16d7218872d81c4fa7bb" resname="role.policy.limitation.userpermissions.user_groups_title">
+        <source>User Groups:</source>
+        <target state="new">User Groups:</target>
+        <note>key: role.policy.limitation.userpermissions.user_groups_title</note>
+      </trans-unit>
       <trans-unit id="d3c70d265ab037db5ade02a8b738b5981353c7ac" resname="role.policy.type">
         <source>Type</source>
         <target state="new">Type</target>

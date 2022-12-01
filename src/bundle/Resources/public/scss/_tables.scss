@@ -1,273 +1,245 @@
-.ez-table {
-    border-spacing: 0 calculateRem(1px);
+.ibexa-table {
+    font-family: $font-family-sans-serif;
+    font-size: $ibexa-text-font-size;
+    line-height: calculateRem(24px);
+    border-spacing: 0;
+    background-color: $ibexa-color-white;
+    margin-bottom: 0;
 
-    &__header {
-        display: flex;
-        justify-content: space-between;
-        background-color: $ibexa-white;
-        align-items: center;
-        padding: 0 calculateRem(20px);
-        min-height: calculateRem(50px);
-        border-radius: calculateRem(4px) calculateRem(4px) 0 0;
+    &.table > :not(caption) > * > * {
+        box-shadow: none;
     }
 
-    &__headline {
-        font-size: calculateRem(16px);
-        margin-bottom: 0;
-        font-weight: bold;
-        color: $ibexa-black;
+    &__row:nth-child(odd) {
+        .ibexa-table__cell {
+            background-color: $ibexa-color-light-300;
+        }
+    }
+
+    &__row:nth-child(even) {
+        .ibexa-table__cell {
+            background-color: $ibexa-color-white;
+        }
+    }
+
+    &__cell:first-child {
+        border-top-left-radius: $ibexa-border-radius;
+        border-bottom-left-radius: $ibexa-border-radius;
+    }
+
+    &__cell:last-child {
+        border-top-right-radius: $ibexa-border-radius;
+        border-bottom-right-radius: $ibexa-border-radius;
+    }
+
+    &__cell.ibexa-table__cell {
+        vertical-align: middle;
+        padding: calculateRem(12px) calculateRem(16px);
+        height: calculateRem(68px);
+
+        .form-check {
+            display: flex;
+            margin-bottom: 0;
+            min-height: calculateRem(16px);
+            margin-top: 0;
+        }
+
+        .ibexa-dropdown {
+            margin-left: 0;
+        }
+    }
+
+    &__empty-table-cell {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $ibexa-color-white;
+    }
+
+    &__empty-table-text {
+        @include ibexa-font-sans-serif();
+
+        max-width: calculateRem(440px);
+        margin-left: calculateRem(56px);
+        color: $ibexa-color-dark-400;
+    }
+
+    &__empty-table-info-text {
+        margin-bottom: calculateRem(16px);
+        font-weight: $headings-font-weight;
+        font-family: $headings-font-family;
+        font-size: $ibexa-text-font-size-extra-large;
+    }
+
+    &__empty-table-action-text {
+        margin-bottom: calculateRem(16px);
     }
 
     &__header-cell {
         .table & {
-            border-top: calculateRem(1px) solid $ibexa-color-base;
-            border-bottom: calculateRem(1px) solid $ibexa-color-base;
+            @include ibexa-font-sans-serif();
+
+            font-size: $ibexa-text-font-size-small;
+            font-weight: normal;
+            color: $ibexa-color-dark-400;
+            line-height: calculateRem(18px);
+            vertical-align: middle;
+            border-bottom: 0;
+            padding: calculateRem(18px) calculateRem(16px);
         }
 
         .table &--has-icon {
-            width: calculateRem(52px);
+            max-width: calculateRem(52px);
         }
 
-        .table &--after-icon {
-            padding-left: 0;
+        &--field-definitions-head {
+            width: calc(100% / 3);
+        }
+
+        &--content-center {
+            text-align: center;
+        }
+    }
+
+    &__header-cell-checkbox {
+        &.ibexa-input--checkbox {
+            margin-bottom: 0;
         }
     }
 
     &__sort-column {
         position: relative;
         cursor: pointer;
-
-        &:hover {
-            text-decoration: none;
-        }
+        display: inline-block;
 
         &:after {
-            content: '';
+            content: url('/bundles/ibexaadminui/img/down.svg');
             position: absolute;
-            width: 0;
-            height: 0;
-            top: calculateRem(9px);
+            width: calculateRem(5px);
+            height: calculateRem(13px);
+            top: calc(50% - #{calculateRem(7px)});
             right: calculateRem(-10px);
+            transform: rotate(180deg);
+            display: none;
         }
 
         &--asc:after {
-            border-left: calculateRem(3px) solid transparent;
-            border-right: calculateRem(3px) solid transparent;
-            border-bottom: calculateRem(5px) solid $ibexa-black;
+            display: block;
         }
 
         &--desc::after {
-            border-left: calculateRem(3px) solid transparent;
-            border-right: calculateRem(3px) solid transparent;
-            border-top: calculateRem(5px) solid $ibexa-black;
+            display: block;
+            transform: none;
         }
     }
 
     &__cell {
         vertical-align: middle;
 
-        &--field-definitions-head {
-            width: calc(100% / 3);
-        }
-
-        .table &--has-action-btns {
-            padding-right: calculateRem(20px);
-            text-align: right;
-
-            .btn {
-                margin: 0 calculateRem(5px);
-            }
-        }
-
-        .table &--has-text-info {
-            padding: calculateRem(16px) calculateRem(8px);
-            text-align: center;
-        }
-
         &--has-checkbox {
-            width: 5%;
+            width: calculateRem(48px);
+
+            .ibexa-input--checkbox {
+                float: left;
+                margin-bottom: 0;
+            }
         }
 
         .table &--has-icon {
-            padding: calculateRem(17px) calculateRem(16px) 0 calculateRem(16px);
-            width: calculateRem(24px);
-            text-align: right;
             line-height: 0;
-
-            .ez-icon {
-                margin-top: calculateRem(-2px);
-            }
-        }
-
-        .table &--after-icon {
-            padding-left: 0;
-        }
-
-        .table &--name {
-            max-width: calculateRem(350px);
-            text-overflow: ellipsis;
-            overflow: hidden;
+            width: calculateRem(32px);
         }
 
         &--no-content {
             margin-bottom: calculateRem(48px);
             padding: calculateRem(12px) calculateRem(16px);
-            background-color: $ibexa-white;
+            background-color: $ibexa-color-white;
             font-style: italic;
-            color: $ibexa-black;
+            color: $ibexa-color-black;
         }
 
         &--limitation {
             width: 70%;
         }
+
+        &--content-center {
+            text-align: center;
+        }
+    }
+
+    .table &__cell--close-left,
+    .table &__header-cell--close-left {
+        padding-left: 0;
+    }
+
+    .table &__header-cell--checkbox {
+        display: flex;
+    }
+
+    &__cell-btns-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
     }
 
     &__cell-link,
     &__cell-link:hover {
-        color: $ibexa-color-font;
+        color: $ibexa-color-dark;
         text-decoration: none;
+    }
+
+    &--not-striped {
+        .ibexa-table__row {
+            .ibexa-table__cell {
+                background-color: $ibexa-color-white;
+            }
+        }
     }
 }
 
-.ez-table-header {
+.ibexa-table-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: calculateRem(16px) calculateRem(8px) calculateRem(16px);
-    background-color: $ibexa-white;
+    margin-top: calculateRem(30px);
+    padding-bottom: calculateRem(15px);
+    border-bottom: calculateRem(1px) solid $ibexa-color-dark-200;
 
     &__headline {
-        font-size: calculateRem(16px);
-        margin-bottom: 0;
-        font-weight: bold;
-        color: $ibexa-black;
-        max-width: 100%;
+        @include ibexa-font-sans-serif();
+
+        font-size: $ibexa-text-font-size-large;
+        line-height: calculateRem(33px);
+        color: $ibexa-color-black;
+        font-weight: 600;
+        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    &__tools {
+    &__notice {
+        color: $ibexa-color-dark-400;
+        font-weight: normal;
+        font-family: $ibexa-font-family;
+        font-size: $ibexa-text-font-size-small;
+
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__notice-icon {
+        fill: $ibexa-color-dark-400;
+        margin-right: calculateRem(8px);
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
         white-space: nowrap;
 
         .btn {
             margin: 0 calculateRem(5px);
-        }
-    }
-
-    &--bordered-bottom {
-        border-bottom: calculateRem(1px) solid $ibexa-color-base;
-    }
-}
-
-.ez-table-header.ground-base {
-    background-color: $ibexa-white;
-}
-
-.table {
-    border-spacing: 0 calculateRem(1px);
-    border-collapse: separate;
-    margin-bottom: calculateRem(48px);
-
-    thead {
-        th {
-            padding: calculateRem(12px) calculateRem(16px);
-            color: $ibexa-color-base-dark;
-            font-weight: normal;
-            vertical-align: top;
-            border-top: calculateRem(1px) solid $ibexa-color-base;
-            border-bottom: calculateRem(1px) solid $ibexa-color-base;
-        }
-    }
-
-    td {
-        .checkbox label {
-            margin-bottom: 0;
-        }
-    }
-}
-
-.ez-dashboard {
-    .table:not(.ez-table__draft-conflict) {
-        margin-bottom: 0;
-    }
-
-    .ez-table {
-        &__header-cell {
-            border-top: none;
-        }
-    }
-}
-
-.ez-table-no-content {
-    margin: 0;
-    padding: 0 calculateRem(24px) calculateRem(24px);
-    overflow-x: auto;
-    background-color: $ibexa-white;
-    font-style: italic;
-    font-size: calculateRem(14px);
-    color: $ibexa-color-font;
-}
-
-.ez-table {
-    &--no-border {
-        td {
-            border: none;
-        }
-    }
-
-    &--no-bordered-top {
-        thead th {
-            border-top-width: 0;
-        }
-    }
-
-    &--list {
-        background: none;
-        margin-bottom: calculateRem(48px);
-
-        .ez-table {
-            &__cell {
-                font-size: calculateRem(16px);
-                border: none;
-
-                &:first-child {
-                    font-weight: bold;
-                    width: calc(100% / 3);
-                }
-
-                &:last-child {
-                    width: (calc((100% / 3) * 2));
-                }
-            }
-        }
-    }
-}
-
-.ez-checkbox-cell {
-    width: 5%;
-}
-
-.ez-limitation-cell {
-    width: 70%;
-}
-
-.ez-scrollable-table-wrapper {
-    overflow-x: auto;
-    margin-bottom: calculateRem(48px);
-
-    table {
-        margin-bottom: 0;
-    }
-}
-
-.ez-link-manager-view {
-    .ez-table__row {
-        .ez-table__cell {
-            &--has-action-btns {
-                display: flex;
-                justify-content: space-between;
-                width: auto;
-            }
         }
     }
 }
