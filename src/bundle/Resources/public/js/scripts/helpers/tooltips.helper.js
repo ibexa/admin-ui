@@ -13,7 +13,15 @@
     const observer = new MutationObserver((mutationsList) => {
         if (lastInsertTooltipTarget) {
             mutationsList.forEach((mutation) => {
-                const { removedNodes } = mutation;
+                const { addedNodes, removedNodes } = mutation;
+
+                if (addedNodes.length) {
+                    addedNodes.forEach((addedNode) => {
+                        if (addedNode instanceof Element) {
+                            parse(addedNode);
+                        }
+                    });
+                }
 
                 if (removedNodes.length) {
                     removedNodes.forEach((removedNode) => {
@@ -159,11 +167,13 @@
             bootstrap.Tooltip.getOrCreateInstance(tooltipNode).hide();
         }
     };
-
-    observer.observe(doc.querySelector('body'), observerConfig);
+    const observe = (baseElement = doc) => {
+        observer.observe(baseElement, observerConfig);
+    };
 
     ibexa.addConfig('helpers.tooltips', {
         parse,
         hideAll,
+        observe,
     });
 })(window, window.document, window.ibexa, window.bootstrap);
