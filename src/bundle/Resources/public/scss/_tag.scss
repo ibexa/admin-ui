@@ -3,7 +3,7 @@
     align-items: center;
     position: relative;
     height: calculateRem(24px);
-    padding: calculateRem(4px) calculateRem(24px) calculateRem(4px) calculateRem(10px);
+    padding: calculateRem(4px) calculateRem(10px);
     border-radius: calculateRem(12px);
     background-color: $ibexa-color-light-500;
     max-width: 100%;
@@ -24,6 +24,7 @@
     }
 
     &__remove-btn {
+        display: none;
         position: absolute;
         right: calculateRem(8px);
         cursor: pointer;
@@ -35,6 +36,14 @@
         &:disabled,
         &[disabled] {
             cursor: not-allowed;
+        }
+    }
+
+    &--deletable {
+        padding-right: calculateRem(24px);
+
+        .ibexa-tag__remove-btn {
+            display: inline-block;
         }
     }
 
