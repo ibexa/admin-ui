@@ -6,7 +6,7 @@
     }
 
     const header = doc.querySelector('.ibexa-edit-header');
-    const headerContainer = header.querySelector('.ibexa-edit-header__container');
+    const headerContainer = header?.querySelector('.ibexa-edit-header__container');
     const SECTION_ADJUST_MARGIN_TOP = 20;
     const formContainerNode = doc.querySelector('.ibexa-edit-content');
     const getSectionGroupActiveItems = () => {
@@ -117,7 +117,7 @@
 
         if (!firstSection.isSameNode(lastSection) && lastSection.offsetHeight) {
             const lastSectionHeight = lastSection.offsetHeight;
-            const headerHeight = headerContainer.offsetHeight;
+            const headerHeight = headerContainer?.offsetHeight;
             const contentColumnHeight = contentColumn.offsetHeight;
             const additionalContentHeight = contentContainer.offsetHeight - sectionGroup.offsetHeight;
             const valueToCorrectHeightDiff = headerHeight + SECTION_ADJUST_MARGIN_TOP + additionalContentHeight;
@@ -136,9 +136,9 @@
             formContainerNode.addEventListener('scroll', () => {
                 let firstVisibleSection = currentlyVisibleSections.find((section) => {
                     const { top, height } = section.getBoundingClientRect();
-                    const headerBottomContainerHeight = header.offsetHeight - headerContainer.offsetHeight;
+                    const headerBottomContainerHeight = header.offsetHeight - headerContainer?.offsetHeight;
 
-                    return top + height >= headerContainer.offsetHeight + headerBottomContainerHeight + SECTION_ADJUST_MARGIN_TOP;
+                    return top + height >= headerContainer?.offsetHeight + headerBottomContainerHeight + SECTION_ADJUST_MARGIN_TOP;
                 });
 
                 if (!firstVisibleSection) {
