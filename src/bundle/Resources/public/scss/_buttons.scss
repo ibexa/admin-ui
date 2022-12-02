@@ -289,14 +289,16 @@
             fill: $ibexa-color-danger;
         }
 
+        &:hover {
+            .ibexa-icon {
+                fill: $ibexa-color-info;
+            }
+        }
+
         &:not(.ibexa-btn--selected) {
             &:hover,
             &:focus {
                 border-color: $ibexa-color-info;
-
-                .ibexa-icon {
-                    fill: $ibexa-color-info;
-                }
             }
         }
 
