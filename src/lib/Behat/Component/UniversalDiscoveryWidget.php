@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
+use Ibexa\Behat\Browser\Element\Condition\ElementHasTextCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
@@ -36,7 +37,13 @@ class UniversalDiscoveryWidget extends Component
 
         if ($this->isMultiSelect()) {
             $this->addItemToMultiSelection($itemName, count($pathParts));
+
+            return;
         }
+
+        $this->getHTMLPage()->setTimeout(5)->waitUntilCondition(
+            new ElementHasTextCondition($this->getHTMLPage(), $this->getLocator('selectedItemName'), $itemName)
+        );
     }
 
     public function confirm(): void
@@ -195,6 +202,7 @@ class UniversalDiscoveryWidget extends Component
             new CSSLocator('selectedTab', '.c-tab-selector__item--selected'),
             new VisibleCSSLocator('iframe', '.c-content-edit__iframe'),
             new VisibleCSSLocator('multiselect', '.m-ud .c-finder-leaf .ibexa-input--checkbox'),
+            new VisibleCSSLocator('selectedItemName', '.c-content-meta-preview__content-name'),
             // selectors for path traversal
             new CSSLocator('treeLevelFormat', '.c-finder-branch:nth-child(%d)'),
             new CSSLocator('treeLevelElementsFormat', '.c-finder-branch:nth-of-type(%d) .c-finder-leaf'),
