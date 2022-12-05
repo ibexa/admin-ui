@@ -142,7 +142,7 @@ class UniversalDiscoveryWidget extends Component
     {
         $this->getHTMLPage()->findAll($this->getLocator('categoryTabSelector'))
              ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName))->click();
-        $this->getHTMLPage()->findAll($this->getLocator('selectedTab'))
+        $this->getHTMLPage()->setTimeout(3)->findAll($this->getLocator('selectedTab'))
              ->getByCriterion(new ElementAttributeCriterion('data-bs-original-title', $tabName))->assert()->isVisible();
     }
 
@@ -214,6 +214,7 @@ class UniversalDiscoveryWidget extends Component
             new CSSLocator('editButton', '.c-content-edit-button__btn'),
             // bookmarks
             new VisibleCSSLocator('bookmarkButton', '.c-content-meta-preview__toggle-bookmark-button'),
+            new VisibleCSSLocator('bookmarkPanel', '.c-bookmarks-list'),
             new VisibleCSSLocator('bookmarkedItem', '.c-bookmarks-list__item-name'),
             new VisibleCSSLocator('markedBookmarkedItem', '.c-bookmarks-list__item--marked'),
             // search
