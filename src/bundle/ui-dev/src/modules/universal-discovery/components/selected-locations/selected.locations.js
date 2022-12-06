@@ -6,7 +6,7 @@ import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
 import { SelectedLocationsContext, AllowConfirmationContext } from '../../universal.discovery.module';
 
-const { Translator, ibexa } = window;
+const { Translator, ibexa, bootstrap } = window;
 
 const SelectedLocations = () => {
     const refSelectedLocations = useRef(null);
@@ -101,9 +101,9 @@ const SelectedLocations = () => {
         ibexa.helpers.tooltips.parse(refSelectedLocations.current);
         ibexa.helpers.tooltips.hideAll();
 
-        if (refTogglerButton.current) {
-            refTogglerButton.current.dataset.originalTitle = togglerLabel;
-        }
+        const toggleButtonTooltip = bootstrap.Tooltip.getOrCreateInstance('.c-selected-locations__toggle-button');
+
+        toggleButtonTooltip.setContent({ '.tooltip-inner': togglerLabel });
     }, [isExpanded]);
 
     if (!allowConfirmation) {
