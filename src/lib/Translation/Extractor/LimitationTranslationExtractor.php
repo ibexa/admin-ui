@@ -14,6 +14,8 @@ use JMS\TranslationBundle\Translation\ExtractorInterface;
 
 /**
  * Generates translation strings for limitation types.
+ *
+ * @deprecated Since ibexa/admin-ui 4.4: The "LimitationTranslationExtractor" class is deprecated, will be removed in 5.0.
  */
 class LimitationTranslationExtractor implements ExtractorInterface
 {
@@ -33,8 +35,13 @@ class LimitationTranslationExtractor implements ExtractorInterface
         $this->policyMap = $policyMap;
     }
 
+    /**
+     * @deprecated Since ibexa/admin-ui 4.4: The method "LimitationTranslationExtractor::extract()" method is deprecated, will be removed in 5.0.
+     */
     public function extract()
     {
+        trigger_deprecation('ibexa/admin', '4.4', 'The %s() method is deprecated, will be removed in 5.0.', __METHOD__);
+
         $catalogue = new MessageCatalogue();
 
         foreach ($this->getLimitationTypes() as $limitationType) {
