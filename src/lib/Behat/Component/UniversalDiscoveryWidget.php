@@ -41,9 +41,13 @@ class UniversalDiscoveryWidget extends Component
             return;
         }
 
-        $this->getHTMLPage()->setTimeout(5)->waitUntilCondition(
-            new ElementHasTextCondition($this->getHTMLPage(), $this->getLocator('selectedItemName'), $itemName)
-        );
+        $this->getHTMLPage()
+            ->setTimeout(5)
+            ->waitUntilCondition(
+                new ElementHasTextCondition($this->getHTMLPage(), $this->getLocator('selectedItemName'), $itemName)
+            )->find($this->getLocator('selectedItemName'))
+            ->assert()->isVisible();
+        $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('previewImage'))->assert()->isVisible();
     }
 
     public function confirm(): void
@@ -204,6 +208,7 @@ class UniversalDiscoveryWidget extends Component
             new VisibleCSSLocator('iframe', '.c-content-edit__iframe'),
             new VisibleCSSLocator('multiselect', '.m-ud .c-finder-leaf .ibexa-input--checkbox'),
             new VisibleCSSLocator('selectedItemName', '.c-content-meta-preview__content-name'),
+            new VisibleCSSLocator('previewImage', '.c-content-meta-preview__preview'),
             // selectors for path traversal
             new CSSLocator('treeLevelFormat', '.c-finder-branch:nth-child(%d)'),
             new CSSLocator('treeLevelElementsFormat', '.c-finder-branch:nth-of-type(%d) .c-finder-leaf'),
