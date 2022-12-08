@@ -71,6 +71,11 @@ class TableRow extends Component
         return $this->element->find($this->locatorCollection->get($headerName))->getText();
     }
 
+    public function getElement(): ElementInterface
+    {
+        return $this->element;
+    }
+
     public function verifyIsLoaded(): void
     {
     }
