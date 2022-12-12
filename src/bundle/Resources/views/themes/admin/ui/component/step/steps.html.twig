@@ -1,0 +1,16 @@
+{% set activeIndex = 0 %}
+{% for step in steps %}
+    {% if step.name == step_name %}{% set activeIndex = step.id %}{% endif %}
+{% endfor %}
+
+<div class="{{ 'ibexa-step' ~ ' ' ~ steps_content_class|default('') }}">
+    <ul class="ibexa-step__wrapper">
+        {% for step in steps %}
+            {% embed '@ibexadesign/ui/component/step/step.html.twig' with step %}
+                {% block content %}
+                    {{ step.content|default('')|raw }}
+                {% endblock %}
+            {% endembed %}
+        {% endfor %}
+    </ul>
+</div>

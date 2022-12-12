@@ -1,0 +1,7 @@
+<li
+    class="ibexa-step__item {% if step_name == step.name %}ibexa-step__item--active{% endif %} {% if activeIndex > loop.index %}ibexa-step__item--prev{% endif %}"
+    data-step-id={{ step.id }}
+>
+    <span class="ibexa-step__label">{{ step.title }}</span>
+    <div class="ibexa-step__indicator"></div>
+</li>
