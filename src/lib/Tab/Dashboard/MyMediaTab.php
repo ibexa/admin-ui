@@ -8,9 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\Dashboard;
 
-use Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
-use Ibexa\AdminUi\Tab\Dashboard\AbstractMediaTab;
+use Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter;
 use Pagerfanta\Pagerfanta;
 
 class MyMediaTab extends AbstractMediaTab implements OrderedTabInterface
