@@ -8,6 +8,10 @@ services:
 
     Ibexa\AdminUi\QueryType\ContentSubtreeQueryType: ~
 
+    Ibexa\AdminUi\QueryType\ContentLocationSubtreeQueryType: ~
+
     Ibexa\AdminUi\QueryType\MediaSubtreeQueryType: ~
+
+    Ibexa\AdminUi\QueryType\MediaLocationSubtreeQueryType: ~
 
     Ibexa\AdminUi\QueryType\TrashSearchQueryType: ~

@@ -11,15 +11,23 @@ services:
         parent: Ibexa\Contracts\AdminUi\Tab\AbstractTab
         public: false
         arguments:
-            $contentSubtreeQueryType: '@Ibexa\AdminUi\QueryType\ContentSubtreeQueryType'
+            $contentLocationSubtreeQueryType: '@Ibexa\AdminUi\QueryType\ContentLocationSubtreeQueryType'
         tags:
             - { name: ibexa.admin_ui.tab, group: dashboard-my }
+
+    Ibexa\AdminUi\Tab\Dashboard\EveryoneContentTab:
+        parent: Ibexa\Contracts\AdminUi\Tab\AbstractTab
+        public: false
+        arguments:
+            $contentLocationSubtreeQueryType: '@Ibexa\AdminUi\QueryType\ContentLocationSubtreeQueryType'
+        tags:
+            - { name: ibexa.admin_ui.tab, group: dashboard-everyone }
 
     Ibexa\AdminUi\Tab\Dashboard\MyMediaTab:
         parent: Ibexa\Contracts\AdminUi\Tab\AbstractTab
         public: false
         arguments:
-            $mediaSubtreeQueryType: '@Ibexa\AdminUi\QueryType\MediaSubtreeQueryType'
+            $mediaLocationSubtreeQueryType: '@Ibexa\AdminUi\QueryType\MediaLocationSubtreeQueryType'
         tags:
             - { name: ibexa.admin_ui.tab, group: dashboard-my }
 
@@ -27,20 +35,17 @@ services:
         parent: Ibexa\Contracts\AdminUi\Tab\AbstractTab
         public: false
         arguments:
-            $mediaSubtreeQueryType: '@Ibexa\AdminUi\QueryType\MediaSubtreeQueryType'
-        tags:
-            - { name: ibexa.admin_ui.tab, group: dashboard-everyone }
-
-    Ibexa\AdminUi\Tab\Dashboard\EveryoneContentTab:
-        parent: Ibexa\Contracts\AdminUi\Tab\AbstractTab
-        public: false
-        arguments:
-            $contentSubtreeQueryType: '@Ibexa\AdminUi\QueryType\ContentSubtreeQueryType'
+            $mediaLocationSubtreeQueryType: '@Ibexa\AdminUi\QueryType\MediaLocationSubtreeQueryType'
         tags:
             - { name: ibexa.admin_ui.tab, group: dashboard-everyone }
 
     Ibexa\AdminUi\Tab\Dashboard\PagerContentToDataMapper:
+        deprecated: 'Service "%service_id%" is deprecated. Use "Ibexa\AdminUi\Tab\Dashboard\PagerLocationToDataMapper" instead'
         parent: Ibexa\AdminUi\Pagination\Mapper\AbstractPagerContentToDataMapper
+        autowire: true
+        public: false
+
+    Ibexa\AdminUi\Tab\Dashboard\PagerLocationToDataMapper:
         autowire: true
         public: false
 
