@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser;
+namespace Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\AbstractParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\AbstractParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 /**
@@ -27,7 +27,13 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  */
 class AdminUiForms extends AbstractParser
 {
-    const FORM_TEMPLATES_PARAM = 'admin_ui_forms.content_edit_form_templates';
+    public const FORM_TEMPLATES_PARAM = 'admin_ui_forms.content_edit_form_templates';
+    public const FIELD_TYPES_PARAM = 'admin_ui_forms.content_edit.fieldtypes';
+    public const CONTENT_TYPE_FIELD_TYPES_PARAM = 'admin_ui_forms.content_type_edit.field_types';
+    public const CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM =
+        'admin_ui_forms.content_type_edit.default_meta_field_type_group';
+
+    private const GROUP_NAME_PATTERN = '/^[a-zA-Z0-9_][a-zA-Z0-9_\-:]*$/D';
 
     /**
      * Adds semantic configuration definition.
@@ -39,13 +45,89 @@ class AdminUiForms extends AbstractParser
         $nodeBuilder
             ->arrayNode('admin_ui_forms')
                 ->info('Admin UI forms configuration settings')
+                ->beforeNormalization()
+                    ->always(static function (array $array): array {
+                        // handle deprecated config
+                        if (isset($array['content_edit_form_templates'])) {
+                            $array['content_edit']['form_templates'] = $array['content_edit_form_templates'];
+                            unset($array['content_edit_form_templates']);
+                        }
+
+                        return $array;
+                    })
+                ->end()
                 ->children()
-                    ->arrayNode('content_edit_form_templates')
-                        ->info('A list of Content Edit (and create) default Twig form templates')
-                        ->arrayPrototype()
-                            ->children()
-                                ->scalarNode('template')->end()
-                                ->integerNode('priority')->end()
+                    ->arrayNode('content_edit')
+                        ->info('Content Edit form configuration')
+                        ->children()
+                            ->arrayNode('form_templates')
+                                ->info('A list of Content Edit (and create) default Twig form templates')
+                                ->setDeprecated(
+                                    'ibexa/admin-ui',
+                                    '4.2.0',
+                                    'Setting "admin_ui.content_edit_form_templates" is deprecated. Use "admin_ui.content_edit.form_templates" instead.'
+                                )
+                                ->arrayPrototype()
+                                    ->children()
+                                        ->scalarNode('template')->end()
+                                        ->integerNode('priority')->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                            ->arrayNode('fieldtypes')
+                                ->info('Configuration for specific FieldTypes')
+                                ->useAttributeAsKey('identifier')
+                                ->arrayPrototype()
+                                    ->children()
+                                        ->scalarNode('identifier')->end()
+                                        ->booleanNode('meta')
+                                            ->info('Make this fieldtype a part of Meta group')
+                                            ->defaultFalse()
+                                        ->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                    ->arrayNode('content_type_edit')
+                        ->info('Content Type Edit form configuration')
+                        ->children()
+                            ->scalarNode('default_meta_field_type_group')
+                                ->info('Group name used to add meta field types')
+                                ->beforeNormalization()
+                                    ->ifTrue(
+                                        static function (string $groupName): bool {
+                                            return
+                                                empty($groupName)
+                                                || !preg_match(self::GROUP_NAME_PATTERN, $groupName);
+                                        }
+                                    )
+                                    ->thenInvalid('The group name "%s" contains illegal characters. Group names should start with a letter, digit or underscore and only contain letters, digits, numbers, underscores ("_"), hyphens ("-") and colons (":").')
+                                ->end()
+                            ->end()
+                            ->arrayNode('field_types')
+                                ->info('Configuration for specific Field Types')
+                                ->useAttributeAsKey('identifier')
+                                ->arrayPrototype()
+                                    ->beforeNormalization()
+                                        ->ifTrue(
+                                            static function (array $config): bool {
+                                                $isMeta = $config['meta'] ?? false;
+
+                                                return $isMeta && !isset($config['position']);
+                                            }
+                                        )
+                                        ->thenInvalid('The "position" option is required for all Meta Field Types')
+                                    ->end()
+                                    ->children()
+                                        ->scalarNode('identifier')->end()
+                                        ->booleanNode('meta')
+                                            ->info('Make this field_type a part of Meta group')
+                                            ->defaultFalse()
+                                        ->end()
+                                        ->integerNode('position')->end()
+                                    ->end()
+                                ->end()
                             ->end()
                         ->end()
                     ->end()
@@ -54,33 +136,69 @@ class AdminUiForms extends AbstractParser
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function mapConfig(
         array &$scopeSettings,
         $currentScope,
         ContextualizerInterface $contextualizer
     ): void {
-        if (!empty($scopeSettings['admin_ui_forms']['content_edit_form_templates'])) {
+        if (!empty($scopeSettings['admin_ui_forms']['content_edit']['form_templates'])) {
             $scopeSettings['admin_ui_forms.content_edit_form_templates'] = $this->processContentEditFormTemplates(
-                $scopeSettings['admin_ui_forms']['content_edit_form_templates']
+                $scopeSettings['admin_ui_forms']['content_edit']['form_templates']
             );
-            unset($scopeSettings['admin_ui_forms']['content_edit_form_templates']);
+            unset($scopeSettings['admin_ui_forms']['content_edit']['form_templates']);
+        }
+
+        if (!empty($scopeSettings['admin_ui_forms']['content_edit']['fieldtypes'])) {
+            $scopeSettings['admin_ui_forms.content_edit.fieldtypes'] =
+                $scopeSettings['admin_ui_forms']['content_edit']['fieldtypes'];
+            unset($scopeSettings['admin_ui_forms']['content_edit']['fieldtypes']);
+        }
+
+        if (!empty($scopeSettings['admin_ui_forms']['content_type_edit']['field_types'])) {
+            $scopeSettings['admin_ui_forms.content_type_edit.field_types'] =
+                $scopeSettings['admin_ui_forms']['content_type_edit']['field_types'];
+            unset($scopeSettings['admin_ui_forms']['content_type_edit']['field_types']);
+        }
+
+        if (!empty($scopeSettings['admin_ui_forms']['content_type_edit']['default_meta_field_type_group'])) {
+            $scopeSettings['admin_ui_forms.content_type_edit.default_meta_field_type_group'] =
+                $scopeSettings['admin_ui_forms']['content_type_edit']['default_meta_field_type_group'];
+            unset($scopeSettings['admin_ui_forms']['content_type_edit']['default_meta_field_type_group']);
         }
 
         $contextualizer->setContextualParameter(
-            static::FORM_TEMPLATES_PARAM,
+            self::FORM_TEMPLATES_PARAM,
             $currentScope,
             $scopeSettings['admin_ui_forms.content_edit_form_templates'] ?? []
+        );
+        $contextualizer->setContextualParameter(
+            self::FIELD_TYPES_PARAM,
+            $currentScope,
+            $scopeSettings['admin_ui_forms.content_edit.fieldtypes'] ?? []
+        );
+        $contextualizer->setContextualParameter(
+            self::CONTENT_TYPE_FIELD_TYPES_PARAM,
+            $currentScope,
+            $scopeSettings['admin_ui_forms.content_type_edit.field_types'] ?? []
+        );
+        $contextualizer->setContextualParameter(
+            self::CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM,
+            $currentScope,
+            $scopeSettings['admin_ui_forms.content_type_edit.default_meta_field_type_group'] ?? null
         );
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function postMap(array $config, ContextualizerInterface $contextualizer)
     {
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit_form_templates', $config);
+        $contextualizer->mapConfigArray('admin_ui_forms.content_edit.fieldtypes', $config);
+        $contextualizer->mapConfigArray('admin_ui_forms.content_type_edit.field_types', $config);
+        $contextualizer->mapSetting('admin_ui_forms.content_type_edit.default_meta_field_type_group', $config);
     }
 
     /**
@@ -107,3 +225,5 @@ class AdminUiForms extends AbstractParser
         return array_column($formTemplates, 'template');
     }
 }
+
+class_alias(AdminUiForms::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\AdminUiForms');

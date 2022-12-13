@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Templating\Twig;
+namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
-use EzSystems\EzPlatformAdminUi\UI\Config\Aggregator;
-use EzSystems\EzPlatformAdminUi\UI\Config\ConfigWrapper;
+use Ibexa\AdminUi\UI\Config\Aggregator;
+use Ibexa\AdminUi\UI\Config\ConfigWrapper;
 use ProxyManager\Factory\LazyLoadingValueHolderFactory;
 use ProxyManager\Proxy\LazyLoadingInterface;
 use Twig\Environment;
@@ -17,19 +17,19 @@ use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 
 /**
- * Exports `ez_admin_ui_config` providing UI Config as a global Twig variable.
+ * Exports `ibexa_admin_ui_config` providing UI Config as a global Twig variable.
  */
 class UiConfigExtension extends AbstractExtension implements GlobalsInterface
 {
     /** @var \Twig\Environment */
     protected $twig;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Config\Aggregator */
+    /** @var \Ibexa\AdminUi\UI\Config\Aggregator */
     protected $aggregator;
 
     /**
      * @param \Twig\Environment $twig
-     * @param \EzSystems\EzPlatformAdminUi\UI\Config\Aggregator $aggregator
+     * @param \Ibexa\AdminUi\UI\Config\Aggregator $aggregator
      */
     public function __construct(Environment $twig, Aggregator $aggregator)
     {
@@ -42,15 +42,19 @@ class UiConfigExtension extends AbstractExtension implements GlobalsInterface
      */
     public function getGlobals(): array
     {
+        $configWrapper = $this->createConfigWrapper();
+
         return [
-            'ez_admin_ui_config' => $this->createConfigWrapper(),
+            /** @deprecated ez_admin_ui_config is deprecated since 4.0, use ibexa_admin_ui_config instead */
+            'ez_admin_ui_config' => $configWrapper,
+            'ibexa_admin_ui_config' => $configWrapper,
         ];
     }
 
     /**
      * Create lazy loaded configuration.
      *
-     * @return \EzSystems\EzPlatformAdminUi\UI\Config\ConfigWrapper
+     * @return \Ibexa\AdminUi\UI\Config\ConfigWrapper
      */
     private function createConfigWrapper(): ConfigWrapper
     {
@@ -65,3 +69,5 @@ class UiConfigExtension extends AbstractExtension implements GlobalsInterface
         return $factory->createProxy(ConfigWrapper::class, $initializer);
     }
 }
+
+class_alias(UiConfigExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\UiConfigExtension');

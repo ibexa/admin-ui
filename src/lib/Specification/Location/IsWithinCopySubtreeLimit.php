@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Specification\Location;
+namespace Ibexa\AdminUi\Specification\Location;
 
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Filter\Filter;
-use EzSystems\EzPlatformAdminUi\Specification\AbstractSpecification;
+use Ibexa\AdminUi\Specification\AbstractSpecification;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 
 /**
  * @internal
@@ -21,7 +21,7 @@ class IsWithinCopySubtreeLimit extends AbstractSpecification
     /** @var int */
     private $copyLimit;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
     public function __construct(
@@ -33,11 +33,11 @@ class IsWithinCopySubtreeLimit extends AbstractSpecification
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $item
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
      *
      * @return bool
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function isSatisfiedBy($item): bool
     {
@@ -54,3 +54,5 @@ class IsWithinCopySubtreeLimit extends AbstractSpecification
         return $this->copyLimit >= $this->locationService->count($filter);
     }
 }
+
+class_alias(IsWithinCopySubtreeLimit::class, 'EzSystems\EzPlatformAdminUi\Specification\Location\IsWithinCopySubtreeLimit');

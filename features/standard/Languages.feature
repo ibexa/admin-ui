@@ -10,7 +10,7 @@ Feature: Languages management
 
   @javascript
   Scenario: Changes can be discarded while creating new Language
-    When I create a new Language
+    When I click on the edit action bar button "Add language"
       And I set fields
         | label         | value   |
         | Name          | Deutsch |
@@ -21,7 +21,7 @@ Feature: Languages management
 
   @javascript
   Scenario: New Language can be added
-    When I create a new Language
+    When I click on the edit action bar button "Add language"
       And I set fields
         | label         | value   |
         | Name          | Deutsch |
@@ -34,7 +34,7 @@ Feature: Languages management
 
   @javascript
   Scenario: New Language with existing language code cannot be added
-    When I create a new Language
+    When I click on the edit action bar button "Add language"
       And I set fields
         | label         | value          |
         | Name          | Deutsch Second |

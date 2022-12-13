@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\DataTransformer;
+namespace Ibexa\AdminUi\Form\DataTransformer;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class ContentTransformer implements DataTransformerInterface
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     protected $contentService;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
      */
     public function __construct(ContentService $contentService)
     {
@@ -30,7 +30,7 @@ class ContentTransformer implements DataTransformerInterface
     /**
      * Transforms a domain specific Content object into a Content's ID.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content|null $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content|null $value
      *
      * @return int|null
      */
@@ -52,9 +52,9 @@ class ContentTransformer implements DataTransformerInterface
      *
      * @param string|null $value
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content|null
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function reverseTransform($value): ?Content
     {
@@ -73,3 +73,5 @@ class ContentTransformer implements DataTransformerInterface
         }
     }
 }
+
+class_alias(ContentTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\ContentTransformer');

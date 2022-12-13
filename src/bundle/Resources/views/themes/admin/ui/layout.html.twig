@@ -4,20 +4,20 @@
         <meta charset="UTF-8" />
         <meta name="CSRF-Token" content="{{ csrf_token('authenticate') }}" />
         <meta name="SiteAccess" content="{{ app.request.get('siteaccess').name }}" />
-        <meta name="UserId" content="{{ ez_admin_ui_config.user.user.id }}" />
+        <meta name="UserId" content="{{ ibexa_admin_ui_config.user.user.id }}" />
         <script>
             const userAgent = navigator.userAgent.toLowerCase();
 
             if (userAgent.indexOf('chrome') < 0 && userAgent.indexOf('safari') >= 0) {
                 window.onpageshow = (event) => {
                     if (event.persisted) {
-                        document.body.classList.remove('ez-prevent-click');
+                        document.body.classList.remove('ibexa-prevent-click');
                     }
                 };
             }
         </script>
         <script>
-            window.eZ = {
+            window.ibexa = window.eZ = {
                 addConfig: (path, value, shouldMerge = false) => {
                     const keys = path.split('.');
                     const lastIndex = keys.length - 1;
@@ -51,16 +51,16 @@
                         }
 
                         return currentObj[nextKey];
-                    }, window.eZ);
+                    }, window.ibexa);
                 },
             };
         </script>
         {% block meta %}
         {% endblock %}
         <script>
-            window.eZ.addConfig('adminUiConfig', {{ ez_admin_ui_config|json_encode|raw }});
-            window.eZ.addConfig('richText', {{ ez_richtext_config|json_encode|raw }});
-            window.eZ.addConfig('errors', {
+            window.ibexa.addConfig('adminUiConfig', {{ ibexa_admin_ui_config|json_encode|raw }});
+            window.ibexa.addConfig('richText', {{ ibexa_richtext_config|json_encode|raw }});
+            window.ibexa.addConfig('errors', {
                 emailRegexp: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                 emptyField: '{{ 'js.error.empty.field'|trans({}, 'validators')|desc('{fieldName} Field is required') }}',
                 invalidEmail: '{{ 'js.error.invalid_email'|trans({}, 'validators')|desc('A valid email address is required') }}',
@@ -80,98 +80,153 @@
                 outOfRangeValue: '{{ 'js.error.out_of_range_value'|trans({}, 'validators')|desc('{fieldName} value is out of range. The value must be between {min} and {max}') }}'
             });
 
-            window.CKEDITOR_BASEPATH = window.ALLOYEDITOR_BASEPATH = "/bundles/ezplatformadminuiassets/vendors/alloyeditor/dist/alloy-editor/";
+            window.CKEDITOR_BASEPATH = window.ALLOYEDITOR_BASEPATH = "/bundles/ibexaadminuiassets/vendors/alloyeditor/dist/alloy-editor/";
         </script>
         <script src="/bundles/fosjsrouting/js/router.js"></script>
         <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
         {% if app.request.locale == 'ach_UG' %}
             <script type="text/javascript">
                 var _jipt = [];
-                _jipt.push(['project', 'ezplatform']);
+                _jipt.push(['project', 'ibexa']);
             </script>
             <script type="text/javascript" src="//cdn.crowdin.com/jipt/jipt.js"></script>
         {% endif %}
         <title>{% block title %}Ibexa DXP{% endblock %}</title>
-        {{ encore_entry_link_tags('ezplatform-admin-ui-layout-css', null, 'ezplatform') }}
+        {{ encore_entry_link_tags('ibexa-admin-ui-layout-css', null, 'ibexa') }}
         {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('bundles/ezplatformadminui/img/favicon.ico') }}" />
-        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('bundles/ezplatformadminui/img/favicon-16x16.png') }}" />
-        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('bundles/ezplatformadminui/img/favicon-32x32.png') }}" />
-        {{ ez_render_component_group('stylesheet-head') }}
-        {{ ez_render_component_group('script-head') }}
+        <link rel="icon" type="image/x-icon" href="{{ asset('bundles/ibexaadminui/img/favicon.ico') }}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('bundles/ibexaadminui/img/favicon-16x16.png') }}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('bundles/ibexaadminui/img/favicon-32x32.png') }}" />
 
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/react/umd/react.production.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/react-dom/umd/react-dom.production.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/jquery/dist/jquery.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/popper.js/dist/umd/popper.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/create-react-class/create-react-class.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/prop-types/prop-types.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/flatpickr/dist/flatpickr.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/moment/min/moment-with-locales.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/moment-timezone/builds/moment-timezone-with-data.min.js') }}"></script>
+        {{ ibexa_render_component_group('stylesheet-head') }}
+        {{ ibexa_render_component_group('script-head') }}
+
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/react/umd/react.production.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/react-dom/umd/react-dom.production.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/@popperjs/core/dist/umd/popper.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/create-react-class/create-react-class.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/prop-types/prop-types.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/flatpickr/dist/flatpickr.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/moment/min/moment-with-locales.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/moment-timezone/builds/moment-timezone-with-data.min.js') }}"></script>
         <script src="{{ asset('bundles/bazingajstranslation/js/translator.min.js') }}"></script>
         <script src="{{ asset('assets/translations/config.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/alloyeditor/dist/alloy-editor/alloy-editor-no-react-min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/chart-js/dist/Chart.min.js') }}"></script>
-        <script src="{{ asset('bundles/ezplatformadminuiassets/vendors/js-md5/build/md5.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/chart-js/dist/Chart.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/js-md5/build/md5.min.js') }}"></script>
     </head>
     <body class="{% block body_class %}{% endblock %}">
-        <div id="react-udw" data-filter-subtree-udw-config="{{ ez_udw_config('single_container', {}) }}"></div>
+        <div id="react-udw" data-filter-subtree-udw-config="{{ ibexa_udw_config('single_container', {}) }}"></div>
 
-        {% block navigation %}
-            {% include '@ezdesign/ui/menu/top_navigation.html.twig' %}
-        {% endblock %}
-        {% block header %}
-            <div class="container-fluid ez-header {% block header_class %}{% endblock %}">
-                <div class="container">
-                    {% block breadcrumbs %}{% endblock %}
-                    {% block page_title %}{% endblock %}
+        {% block header_row %}
+            <div class="ibexa-main-header">
+                <div class="ibexa-main-header__brand-column">
+                    <a class="ibexa-main-header__brand" href="{{ url('ibexa.dashboard') }}">
+                        <img class="ibexa-main-header__brand-image" src="{{ asset('bundles/ibexaadminui/img/ibexa-logo.svg') }}" alt="Ibexa" />
+                    </a>
+                </div>
+                <div class="ibexa-main-header__search-column">
+                    {{ ibexa_render_component_group('global-search') }}
+                </div>
+                <div class="ibexa-main-header__user-menu-column">
+                    {{ knp_menu_render('ezplatform_admin_ui.menu.user', {
+                        'depth': 1,
+                        'template': '@ibexadesign/ui/menu/user.html.twig'
+                    }) }}
                 </div>
             </div>
         {% endblock %}
 
-        <div class="container-fluid ez-main-container">
-            {% block content %}
+        {% block main_container %}
+            <div class="ibexa-main-container {% block main_container_class %}{% endblock %}">
+                {% block side_column %}
+                    <div class="ibexa-main-container__side-column {% block side_column_class %}{% endblock %}">
+                        {% block left_sidebar %}
+                            {% set main_menu_context = {
+                                'location': location ?? null,
+                                'content': content ?? null
+                            } %}
+                            {% set main_menu = knp_menu_get('ezplatform_admin_ui.menu.main', [], main_menu_context) %}
 
-                {% block left_sidebar %}
-                    <div class="ez-side-menu">
-                        <div class="ez-sticky-container">
-                            {{ knp_menu_render('ezplatform_admin_ui.menu.content.sidebar_left', {'template': '@ezdesign/ui/menu/sidebar_left.html.twig'}) }}
+                            <nav class="ibexa-main-menu">
+                                {{ knp_menu_render(main_menu, {
+                                    'depth': 1,
+                                    'template': '@ibexadesign/ui/menu/main.html.twig',
+                                    'currentClass': 'active',
+                                    'ancestorClass': 'active'
+                                }) }}
+
+                                {{ knp_menu_render(main_menu, {
+                                    'depth': 2,
+                                    'template': '@ibexadesign/ui/menu/main_2nd_level.html.twig',
+                                    'currentClass': 'active',
+                                    'ancestorClass': 'active'
+                                }) }}
+
+                                {% block content_tree %}{% endblock %}
+                            </nav>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+
+                {% block content_column %}
+                    <div
+                        class="ibexa-main-container__content-column
+                            {%- if not is_back_to_top_disabled|default(false) %} ibexa-back-to-top-scroll-container{% endif %}"
+                    >
+                        <div class="container ibexa-back-to-top-anchor">
+                            {% block content_header %}
+                                <div class="ibexa-page-header-wrapper">
+                                    <div class="ibexa-breadcrums-wrapper">
+                                        {% block breadcrumbs %}{% endblock %}
+                                    </div>
+                                    <div class="ibexa-content-menu-wrapper">
+                                        {% block context_menu %}{% endblock %}
+                                    </div>
+                                    <div class="ibexa-header-wrapper">
+                                        {% block header %}{% endblock %}
+                                    </div>
+                                </div>
+                            {% endblock %}
+                            {% block content %}{% endblock %}
                         </div>
                     </div>
-                    <div class="ez-content-tree-container"
-                        data-tree-root-location-id="{{ content_tree_module_root|default(ez_admin_ui_config['contentTree']['treeRootLocationId']) }}"
-                        data-current-location-path="{{ location_path|default('') }}">
-                        <div class="ez-content-tree-container__wrapper"></div>
-                    </div>
-                {% endblock left_sidebar %}
-
-            {% endblock content %}
-        </div>
-
-        {% block footer %}
-            {% include '@ezdesign/ui/footer.html.twig' %}
+                {% endblock %}
+            </div>
         {% endblock %}
 
         <div
-            class="ez-notifications-container"
+            class="ibexa-notifications-container"
             data-notifications="{{ app.flashes|json_encode() }}"
-            data-template="{{ include('@ezdesign/ui/notification.html.twig', {
+            data-template="{{ include('@ibexadesign/ui/notification.html.twig', {
                 label: '{{ label }}',
                 message: '{{ message }}',
-                badge: '{{ badge }}'
             })|e('html_attr')  }}"></div>
-        <div class="ez-modal-wrapper"></div>
+        <div class="ibexa-modal-wrapper"></div>
 
-        {{ encore_entry_script_tags('ezplatform-admin-ui-layout-js', null, 'ezplatform') }}
-        {{ encore_entry_script_tags('ezplatform-admin-ui-udw-tabs-js', null, 'ezplatform') }}
-        {{ encore_entry_script_tags('ezplatform-admin-ui-udw-extras-js', null, 'ezplatform') }}
-        {{ encore_entry_script_tags('ezplatform-admin-ui-udw-js', null, 'ezplatform') }}
+        {% if not is_back_to_top_disabled|default(false) %}
+            {% block back_to_top %}
+                <div class="ibexa-back-to-top">
+                    <button type="button" class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--no-text ibexa-back-to-top__btn">
+                        <span class="ibexa-back-to-top__title">
+                            {{ 'back.to.top'|trans|desc('Go to top') }}
+                        </span>
+                        <svg class="ibexa-icon ibexa-icon--medium ibexa-back-to-top__icon">
+                            <use xlink:href="{{ ibexa_icon_path('back') }}"></use>
+                        </svg>
+                    </button>
+                </div>
+            {% endblock %}
+        {% endif %}
+
+        {{ encore_entry_script_tags('ibexa-admin-ui-layout-js', null, 'ibexa') }}
+        {{ encore_entry_script_tags('ibexa-admin-ui-udw-tabs-js', null, 'ibexa') }}
+        {{ encore_entry_script_tags('ibexa-admin-ui-udw-extras-js', null, 'ibexa') }}
+        {{ encore_entry_script_tags('ibexa-admin-ui-udw-js', null, 'ibexa') }}
 
         {% block react_modules %}{% endblock %}
         {% block javascripts %}{% endblock %}
-        {{ ez_render_component_group('stylesheet-body') }}
-        {{ ez_render_component_group('script-body') }}
+        {{ ibexa_render_component_group('stylesheet-body') }}
+        {{ ibexa_render_component_group('script-body') }}
     </body>
 </html>

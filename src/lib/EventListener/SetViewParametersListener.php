@@ -6,23 +6,26 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\EventListener;
+namespace Ibexa\AdminUi\EventListener;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\View\View;
-use EzSystems\EzPlatformAdminUi\View\ContentTranslateView;
-use EzSystems\EzPlatformContentForms\Content\View\ContentCreateView;
-use EzSystems\EzPlatformContentForms\Content\View\ContentEditView;
-use EzSystems\EzPlatformContentForms\User\View\UserUpdateView;
+use Ibexa\AdminUi\View\ContentTranslateView;
+use Ibexa\ContentForms\Content\View\ContentCreateView;
+use Ibexa\ContentForms\Content\View\ContentEditView;
+use Ibexa\ContentForms\User\View\UserUpdateView;
+use Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsProviderInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\MVC\Symfony\View\View;
+use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -30,28 +33,28 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class SetViewParametersListener implements EventSubscriberInterface
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
-    protected $locationService;
+    protected LocationService $locationService;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
-    protected $userService;
+    protected UserService $userService;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
-    /**
-     * @param \eZ\Publish\API\Repository\LocationService $locationService
-     * @param \eZ\Publish\API\Repository\UserService $userService
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     */
+    private GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider;
+
+    private ConfigResolverInterface $configResolver;
+
     public function __construct(
         LocationService $locationService,
         UserService $userService,
-        Repository $repository
+        Repository $repository,
+        ConfigResolverInterface $configResolver,
+        GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider
     ) {
         $this->locationService = $locationService;
         $this->userService = $userService;
         $this->repository = $repository;
+        $this->configResolver = $configResolver;
+        $this->groupedContentFormFieldsProvider = $groupedContentFormFieldsProvider;
     }
 
     /**
@@ -67,17 +70,18 @@ class SetViewParametersListener implements EventSubscriberInterface
                 ['setUserUpdateViewTemplateParameters', 5],
                 ['setContentTranslateViewTemplateParameters', 10],
                 ['setContentCreateViewTemplateParameters', 10],
+                ['setContentFieldsParameters', 20],
             ],
         ];
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent $event
+     * @param \Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent $event
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function setContentEditViewTemplateParameters(PreContentViewEvent $event): void
     {
@@ -87,7 +91,7 @@ class SetViewParametersListener implements EventSubscriberInterface
             return;
         }
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Content $content */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
         $content = $contentView->getParameter('content');
         $location = $contentView->hasParameter('location') ? $contentView->getParameter('location') : null;
         $isPublished = null !== $content->contentInfo->mainLocationId && $content->contentInfo->published;
@@ -109,12 +113,12 @@ class SetViewParametersListener implements EventSubscriberInterface
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent $event
+     * @param \Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent $event
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function setContentTranslateViewTemplateParameters(PreContentViewEvent $event): void
     {
@@ -124,7 +128,7 @@ class SetViewParametersListener implements EventSubscriberInterface
             return;
         }
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Content $content */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
         $content = $contentView->getContent();
         $location = $contentView->getLocation();
         $isPublished = null !== $content->contentInfo->mainLocationId && $content->contentInfo->published;
@@ -146,7 +150,7 @@ class SetViewParametersListener implements EventSubscriberInterface
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent $event
+     * @param \Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent $event
      */
     public function setUserUpdateViewTemplateParameters(PreContentViewEvent $event): void
     {
@@ -156,7 +160,7 @@ class SetViewParametersListener implements EventSubscriberInterface
             return;
         }
 
-        /** @var \eZ\Publish\API\Repository\Values\User\User $user */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\User $user */
         $user = $contentView->getParameter('user');
         $contentInfo = $user->versionInfo->contentInfo;
 
@@ -164,7 +168,7 @@ class SetViewParametersListener implements EventSubscriberInterface
     }
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\Event\PreContentViewEvent $event
+     * @param \Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent $event
      */
     public function setContentCreateViewTemplateParameters(PreContentViewEvent $event): void
     {
@@ -179,9 +183,25 @@ class SetViewParametersListener implements EventSubscriberInterface
         ]);
     }
 
+    public function setContentFieldsParameters(PreContentViewEvent $event): void
+    {
+        $view = $event->getContentView();
+        if (!$view instanceof ContentEditView) {
+            return;
+        }
+
+        $parameters = $view->getParameters();
+        $parameters['grouped_fields'] = $this->groupedContentFormFieldsProvider->getGroupedFields(
+            $view->getForm()->get('fieldsData')->all()
+        );
+        $parameters['ignored_content_fields'] = $this->getIgnoredContentFields($view->getForm()->get('fieldsData')->all());
+
+        $view->setParameters($parameters);
+    }
+
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \eZ\Publish\Core\MVC\Symfony\View\View $contentView
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Core\MVC\Symfony\View\View $contentView
      */
     private function processCreator(ContentInfo $contentInfo, View $contentView): void
     {
@@ -197,16 +217,16 @@ class SetViewParametersListener implements EventSubscriberInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      * @param bool $isPublished
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
      *
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function resolveParentLocation(Content $content, ?Location $location, bool $isPublished): Location
     {
@@ -230,4 +250,34 @@ class SetViewParametersListener implements EventSubscriberInterface
             }
         );
     }
+
+    /**
+     * @param array<\Symfony\Component\Form\FormInterface> $fieldsData
+     *
+     * @return array<string>
+     */
+    private function getIgnoredContentFields(array $fieldsData): array
+    {
+        $fieldTypeConfig = $this->configResolver->getParameter('admin_ui_forms.content_edit.fieldtypes');
+
+        $ignoredFieldTypes = array_keys(
+            array_filter(
+                $fieldTypeConfig,
+                static fn (array $config): bool => true === $config['meta']
+            )
+        );
+
+        $ignoredFieldIdentifiers = [];
+        foreach ($fieldsData as $fieldIdentifier => $fieldData) {
+            if (!in_array($fieldData->getData()->fieldDefinition->fieldTypeIdentifier, $ignoredFieldTypes, true)) {
+                continue;
+            }
+
+            $ignoredFieldIdentifiers[] = $fieldIdentifier;
+        }
+
+        return $ignoredFieldIdentifiers;
+    }
 }
+
+class_alias(SetViewParametersListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\SetViewParametersListener');
