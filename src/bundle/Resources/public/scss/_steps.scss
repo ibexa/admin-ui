@@ -3,7 +3,7 @@
     position: relative;
     width: 100%;
     align-items: center;
-    padding: calculateRem(19.5px) calculateRem(20px) calculateRem(18.5px);
+    padding: calculateRem(20px);
 
     &__wrapper {
         display: inline-flex;
@@ -13,7 +13,7 @@
 
     &__separator {
         width: 100%;
-        border-bottom: 1px solid $ibexa-color-light;
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
     }
 
     &__actions {
