@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../../common/icon/icon';
 import { createCssClassNames } from '../../common/helpers/css.class.names';
 
 const { Translator } = window;
@@ -19,9 +17,9 @@ const Search = ({ onChange, placeholder, extraClasses, value }) => {
 };
 
 Search.propTypes = {
-    placeholder: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
     onChange: PropTypes.func.isRequired,
-    extraClasses: PropTypes.string.isRequired,
+    extraClasses: PropTypes.string,
     value: PropTypes.string.isRequired,
 };
 
