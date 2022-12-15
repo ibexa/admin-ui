@@ -6,39 +6,40 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\BookmarkService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzPlatformAdminUi\Form\Data\Bookmark\BookmarkRemoveData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentEditData;
-use EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\BookmarkAdapter;
-use EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\Form\Data\Bookmark\BookmarkRemoveData;
+use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\AdminUi\Pagination\Pagerfanta\BookmarkAdapter;
+use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\Core\Repository\BookmarkService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class BookmarkController extends Controller
 {
-    /** @var \eZ\Publish\API\Repository\BookmarkService */
+    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
     private $bookmarkService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory */
+    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     private $datasetFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -82,7 +83,7 @@ class BookmarkController extends Controller
         );
 
         return $this->render(
-            '@ezdesign/account/bookmarks/list.html.twig',
+            '@ibexadesign/account/bookmarks/list.html.twig',
             $viewParameters = [
                 'pager' => $pagerfanta,
                 'form_edit' => $editForm->createView(),
@@ -111,7 +112,7 @@ class BookmarkController extends Controller
                     );
                 }
 
-                return $this->redirectToRoute('ezplatform.bookmark.list');
+                return $this->redirectToRoute('ibexa.bookmark.list');
             });
 
             if ($result instanceof Response) {
@@ -119,7 +120,7 @@ class BookmarkController extends Controller
             }
         }
 
-        return $this->redirectToRoute('ezplatform.bookmark.list');
+        return $this->redirectToRoute('ibexa.bookmark.list');
     }
 
     /**
@@ -134,3 +135,5 @@ class BookmarkController extends Controller
         return array_combine($bookmarks, array_fill_keys($bookmarks, false));
     }
 }
+
+class_alias(BookmarkController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\BookmarkController');

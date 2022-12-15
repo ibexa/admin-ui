@@ -51,16 +51,6 @@
         <target state="new">Type</target>
         <note>key: url_wildcard.label.type</note>
       </trans-unit>
-      <trans-unit id="316f9f0d65ecd76792e8b79bccb094ffd281e7a2" resname="url_wildcard.list.action.create">
-        <source>Create a URL wildcard</source>
-        <target state="new">Create a URL wildcard</target>
-        <note>key: url_wildcard.list.action.create</note>
-      </trans-unit>
-      <trans-unit id="3f12e58e0ba64a84239826e8fec1ebe129595cc3" resname="url_wildcard.list.action.delete">
-        <source>Delete URL wildcards</source>
-        <target state="new">Delete URL wildcards</target>
-        <note>key: url_wildcard.list.action.delete</note>
-      </trans-unit>
       <trans-unit id="e656d6fad42e88206dbf86e5229b6f3f6ceb8eff" resname="url_wildcard.list.title">
         <source>URL wildcards</source>
         <target state="new">URL wildcards</target>
@@ -70,11 +60,6 @@
         <source>Cancel</source>
         <target state="new">Cancel</target>
         <note>key: url_wildcard.modal.create.cancel</note>
-      </trans-unit>
-      <trans-unit id="3b106aba8acc4b0b7bf7174a49b66ba9411d224a" resname="url_wildcard.modal.create.close">
-        <source>Close</source>
-        <target state="new">Close</target>
-        <note>key: url_wildcard.modal.create.close</note>
       </trans-unit>
       <trans-unit id="75d2bf0fb2fc725c0e6909a48601346997114d22" resname="url_wildcard.modal.create.redirect">
         <source>Redirect to wildcard destination</source>
@@ -101,10 +86,15 @@
         <target state="new">URL wildcard</target>
         <note>key: url_wildcard.modal.create.url.wildcard</note>
       </trans-unit>
-      <trans-unit id="b33b3b1380dda4782c33124620ac87c596acb020" resname="url_wildcard.modal.message">
-        <source>Are you sure you want to delete selected URL wildcard(s)?</source>
-        <target state="new">Are you sure you want to delete selected URL wildcard(s)?</target>
-        <note>key: url_wildcard.modal.message</note>
+      <trans-unit id="d5f8b02988ca5a63f52253b3eec84f9cc8f799cd" resname="url_wildcard.search.placeholder">
+        <source>Search for URL wildcards</source>
+        <target state="new">Search for URL wildcards</target>
+        <note>key: url_wildcard.search.placeholder</note>
+      </trans-unit>
+      <trans-unit id="5646653e7d129c0a5c96b6b87e99eeb9d92a6fee" resname="url_wildcard.type.all">
+        <source>All</source>
+        <target state="new">All</target>
+        <note>key: url_wildcard.type.all</note>
       </trans-unit>
       <trans-unit id="a3115263bb80e6486cc16154e23fecd398c0b352" resname="url_wildcard.type.direct">
         <source>Direct</source>
@@ -115,21 +105,6 @@
         <source>Forward</source>
         <target state="new">Forward</target>
         <note>key: url_wildcard.type.forward</note>
-      </trans-unit>
-      <trans-unit id="5646653e7d129c0a5c96b6b87e99eeb9d92a6fee" resname="url_wildcard.type.all">
-        <source>All</source>
-        <target state="new">All</target>
-        <note>key: url_wildcard.type.all</note>
-      </trans-unit>
-      <trans-unit id="d5f8b02988ca5a63f52253b3eec84f9cc8f799cd" resname="url_wildcard.search.placeholder">
-        <source>Search for URL wildcards</source>
-        <target state="new">Search for URL wildcards</target>
-        <note>key: url_wildcard.search.placeholder</note>
-      </trans-unit>
-      <trans-unit id="fc64faec5bb26550f5008c70a89e7ba76f0d5dd1" resname="url_wildcard.search">
-        <source>Search</source>
-        <target state="new">Search</target>
-        <note>key: url_wildcard.search</note>
       </trans-unit>
     </body>
   </file>

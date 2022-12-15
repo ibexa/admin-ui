@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UniversalDiscovery;
+namespace Ibexa\AdminUi\UniversalDiscovery;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
+use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ConfigResolver
@@ -21,11 +21,11 @@ class ConfigResolver
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
     protected $eventDispatcher;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     protected $configResolver;
 
     /**
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
@@ -55,7 +55,7 @@ class ConfigResolver
         $configResolveEvent->setContext($context);
         $configResolveEvent->setConfig($config);
 
-        /** @var \EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event */
+        /** @var \Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event */
         $event = $this->eventDispatcher->dispatch($configResolveEvent, ConfigResolveEvent::NAME);
 
         return $event->getConfig();
@@ -121,3 +121,5 @@ class ConfigResolver
         return $udwConfiguration[$configName] ?? [];
     }
 }
+
+class_alias(ConfigResolver::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\ConfigResolver');

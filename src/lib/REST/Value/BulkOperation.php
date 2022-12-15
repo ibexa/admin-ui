@@ -6,20 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\REST\Value;
+namespace Ibexa\AdminUi\REST\Value;
 
-use EzSystems\EzPlatformRest\Value as RestValue;
+use Ibexa\Rest\Value as RestValue;
 
 class BulkOperation extends RestValue
 {
-    /** @var \EzSystems\EzPlatformAdminUi\REST\Value\Operation[] */
+    /** @var \Ibexa\AdminUi\REST\Value\Operation[] */
     public $operations;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\REST\Value\Operation[] $operations
+     * @param \Ibexa\AdminUi\REST\Value\Operation[] $operations
      */
     public function __construct(array $operations)
     {
         $this->operations = $operations;
     }
 }
+
+class_alias(BulkOperation::class, 'EzSystems\EzPlatformAdminUi\REST\Value\BulkOperation');

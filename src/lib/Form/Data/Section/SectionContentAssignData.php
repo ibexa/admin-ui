@@ -6,24 +6,24 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Section;
+namespace Ibexa\AdminUi\Form\Data\Section;
 
-use eZ\Publish\API\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 
 /**
  * @todo add validation
  */
 class SectionContentAssignData
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Section|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null */
     protected $section;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
     protected $locations;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Section|null $section
-     * @param \eZ\Publish\API\Repository\Values\Content\Location[] $locations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
      */
     public function __construct(?Section $section = null, array $locations = [])
     {
@@ -32,7 +32,7 @@ class SectionContentAssignData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Section|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section|null
      */
     public function getSection(): ?Section
     {
@@ -40,7 +40,7 @@ class SectionContentAssignData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Section|null $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
      */
     public function setSection(?Section $section)
     {
@@ -48,7 +48,7 @@ class SectionContentAssignData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      */
     public function getLocations(): array
     {
@@ -56,10 +56,12 @@ class SectionContentAssignData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location[] $locations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
      */
     public function setLocations(array $locations)
     {
         $this->locations = $locations;
     }
 }
+
+class_alias(SectionContentAssignData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionContentAssignData');

@@ -1,39 +1,36 @@
 {% trans_default_domain 'locationview' %}
 
-<div
-    class="modal fade ez-modal ez-modal--table-content ez-modal--bulk-action-failed ez-bulk-action-failed-modal"
-    id="bulk-action-failed-modal"
-    tabindex="-1"
-    role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">{{ 'content.view.subitems.bulk_action.limited_permissions'|trans|desc('Limited user permissions') }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <svg class="ez-icon ez-icon--medium" aria-hidden="true">
-                        <use xlink:href="{{ ez_icon_path('discard') }}"></use>
-                    </svg>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="ez-table-header">
-                    <div class="ez-table-header__headline"></div>
-                </div>
-                <table
-                    data-table-row-template="{{ include('@ezdesign/content/modal/location_bulk_action_failed_row.html.twig', {
-                        'content_name': '{{ content_name }}',
-                        'content_type_name': '{{ content_type_name }}'
-                    })|e('html_attr') }}"
-                    class="table table-hover ez-bulk-action-failed-modal__table mb-0">
-                    <thead>
-                        <tr>
-                            <th>{{ 'bulk_action.failed.modal.content_name'|trans|desc('Name') }}</th>
-                            <th>{{ 'bulk_action.failed.modal.content_type_name'|trans|desc('Content Type') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="ez-bulk-action-failed-modal__table-body"></tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+{% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
+    title: 'content.view.subitems.bulk_action.limited_permissions'|trans|desc('Limited user permissions'),
+    class: 'ibexa-modal--bulk-action-failed ibexa-bulk-action-failed-modal',
+    no_header_border: true,
+    id: 'bulk-action-failed-modal',
+} %}
+    {% trans_default_domain 'locationview' %}
+
+    {% block body_content %}
+        {% set table_row_template %}
+            {{ include('@ibexadesign/ui/component/table/table_body_row.html.twig', {
+                body_row_cols: [
+                    { content: '{{ content_name }}' },
+                    { content: '{{ content_type_name }}' },
+                ],
+            }) }}
+        {% endset %}
+
+        {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
+            headline: ' ',
+            head_cols: [
+                { content: 'bulk_action.failed.modal.content_name'|trans|desc('Name') },
+                { content: 'bulk_action.failed.modal.content_type_name'|trans|desc('Content Type') },
+            ],
+            class: 'ibexa-bulk-action-failed-modal__table',
+            table_body_class: 'ibexa-bulk-action-failed-modal__table-body',
+            attr: {
+                'data-row-template': table_row_template,
+            },
+        } %}
+            {% block tbody %}{% endblock %}
+        {% endembed %}
+    {% endblock %}
+{% endembed %}

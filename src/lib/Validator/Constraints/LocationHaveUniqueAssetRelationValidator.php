@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Validator\Constraints;
+namespace Ibexa\AdminUi\Validator\Constraints;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException;
-use EzSystems\EzPlatformAdminUi\Specification\Content\ContentHaveUniqueRelation;
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
+use Ibexa\AdminUi\Specification\Content\ContentHaveUniqueRelation;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class LocationHaveUniqueAssetRelationValidator extends ConstraintValidator
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
      */
     public function __construct(ContentService $contentService)
     {
@@ -31,7 +31,7 @@ class LocationHaveUniqueAssetRelationValidator extends ConstraintValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location The value that should be validated
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location The value that should be validated
      * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
      */
     public function validate($location, Constraint $constraint)
@@ -54,3 +54,5 @@ class LocationHaveUniqueAssetRelationValidator extends ConstraintValidator
         }
     }
 }
+
+class_alias(LocationHaveUniqueAssetRelationValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationHaveUniqueAssetRelationValidator');

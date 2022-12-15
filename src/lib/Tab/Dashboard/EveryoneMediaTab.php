@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\Dashboard;
+namespace Ibexa\AdminUi\Tab\Dashboard;
 
-use eZ\Publish\Core\Pagination\Pagerfanta\LocationSearchAdapter;
-use EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface;
+use Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\AdminUi\Tab\Dashboard\AbstractMediaTab;
 use Pagerfanta\Pagerfanta;
 
@@ -49,8 +49,10 @@ class EveryoneMediaTab extends AbstractMediaTab implements OrderedTabInterface
         $pager->setMaxPerPage($limit);
         $pager->setCurrentPage($page);
 
-        return $this->twig->render('@ezdesign/ui/dashboard/tab/all_media.html.twig', [
+        return $this->twig->render('@ibexadesign/ui/dashboard/tab/all_media.html.twig', [
             'data' => $this->pagerLocationToDataMapper->map($pager, true),
         ]);
     }
 }
+
+class_alias(EveryoneMediaTab::class, 'EzSystems\EzPlatformAdminUi\Tab\Dashboard\EveryoneMediaTab');

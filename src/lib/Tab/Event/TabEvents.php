@@ -6,29 +6,31 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\Event;
+namespace Ibexa\AdminUi\Tab\Event;
 
 class TabEvents
 {
     /**
      * Happens just after tabs group creation.
      */
-    const TAB_GROUP_INITIALIZE = 'ezplatform.tab.group.initialize';
+    public const TAB_GROUP_INITIALIZE = 'ezplatform.tab.group.initialize';
 
     /**
      * Happens just before rendering tabs group.
      */
-    const TAB_GROUP_PRE_RENDER = 'ezplatform.tab.group.pre_render';
+    public const TAB_GROUP_PRE_RENDER = 'ezplatform.tab.group.pre_render';
 
     /**
      * Happens just before rendering tab.
      */
-    const TAB_PRE_RENDER = 'ezplatform.tab.pre_render';
+    public const TAB_PRE_RENDER = 'ezplatform.tab.pre_render';
 
     /**
      * Is dispatched on tabs extending AbstractEventDispatchingTab.
      *
      * Allows to manipulate template path and parameters before rendering by Twig.
      */
-    const TAB_RENDER = 'ezplatform.tab.render';
+    public const TAB_RENDER = 'ezplatform.tab.render';
 }
+
+class_alias(TabEvents::class, 'EzSystems\EzPlatformAdminUi\Tab\Event\TabEvents');

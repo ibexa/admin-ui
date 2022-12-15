@@ -32,6 +32,9 @@ class TableRow extends Component
 
     public function goToItem(): void
     {
+        // TODO: Revisit during redesign
+        $this->element->find($this->getLocator('link'))->mouseOver();
+        usleep(100 * 5000); // 500ms
         $this->element->find($this->getLocator('link'))->click();
     }
 
@@ -42,17 +45,35 @@ class TableRow extends Component
 
     public function edit(): void
     {
+        // TODO: Revisit during redesign
+        $this->element->find($this->getLocator('edit'))->mouseOver();
+        usleep(100 * 5000); // 500ms
         $this->element->find($this->getLocator('edit'))->click();
+    }
+
+    public function copy(): void
+    {
+        // TODO: Revisit during redesign
+        $this->element->find($this->getLocator('copy'))->mouseOver();
+        usleep(100 * 5000); // 500ms
+        $this->element->find($this->getLocator('copy'))->click();
     }
 
     public function assign(): void
     {
+        // TODO: Revisit during redesign
+        $this->element->mouseOver();
         $this->element->find($this->getLocator('assign'))->click();
     }
 
     public function getCellValue(string $headerName): string
     {
         return $this->element->find($this->locatorCollection->get($headerName))->getText();
+    }
+
+    public function getCell(string $headerName): ElementInterface
+    {
+        return $this->element->find($this->locatorCollection->get($headerName));
     }
 
     public function verifyIsLoaded(): void
@@ -75,7 +96,8 @@ class TableRow extends Component
             new VisibleCSSLocator('link', 'a'),
             new VisibleCSSLocator('checkbox', 'input[type=checkbox]'),
             new VisibleCSSLocator('assign', '[data-original-title="Assign content"],[data-original-title="Assign to Users/Groups"]'),
-            new VisibleCSSLocator('edit', '.ez-icon-edit,[data-original-title="Edit"]'),
+            new VisibleCSSLocator('edit', '.ibexa-icon--edit,[data-original-title="Edit"]'),
+            new VisibleCSSLocator('copy', '[data-original-title="Copy"]'),
         ];
     }
 }
