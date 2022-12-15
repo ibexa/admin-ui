@@ -8,47 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\Dashboard;
 
-use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
-use Ibexa\Contracts\Core\Repository\SearchService;
-use Ibexa\Core\Pagination\Pagerfanta\ContentSearchAdapter;
-use Ibexa\Core\QueryType\QueryType;
+use Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter;
 use Pagerfanta\Pagerfanta;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\Environment;
 
-class EveryoneContentTab extends AbstractTab implements OrderedTabInterface
+class EveryoneContentTab extends AbstractContentTab implements OrderedTabInterface
 {
-    /** @var \Ibexa\AdminUi\Tab\Dashboard\PagerContentToDataMapper */
-    protected $pagerContentToDataMapper;
-
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
-    protected $searchService;
-
-    /** @var \Ibexa\Core\QueryType\QueryType */
-    private $contentSubtreeQueryType;
-
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Ibexa\AdminUi\Tab\Dashboard\PagerContentToDataMapper $pagerContentToDataMapper
-     * @param \Ibexa\Contracts\Core\Repository\SearchService $searchService
-     * @param \Ibexa\Core\QueryType\QueryType $contentSubtreeQueryType
-     */
-    public function __construct(
-        Environment $twig,
-        TranslatorInterface $translator,
-        PagerContentToDataMapper $pagerContentToDataMapper,
-        SearchService $searchService,
-        QueryType $contentSubtreeQueryType
-    ) {
-        parent::__construct($twig, $translator);
-
-        $this->pagerContentToDataMapper = $pagerContentToDataMapper;
-        $this->searchService = $searchService;
-        $this->contentSubtreeQueryType = $contentSubtreeQueryType;
-    }
-
     public function getIdentifier(): string
     {
         return 'everyone-content';
@@ -72,8 +37,8 @@ class EveryoneContentTab extends AbstractTab implements OrderedTabInterface
         $limit = 10;
 
         $pager = new Pagerfanta(
-            new ContentSearchAdapter(
-                $this->contentSubtreeQueryType->getQuery(),
+            new LocationSearchAdapter(
+                $this->contentLocationSubtreeQueryType->getQuery(),
                 $this->searchService
             )
         );
@@ -81,7 +46,7 @@ class EveryoneContentTab extends AbstractTab implements OrderedTabInterface
         $pager->setCurrentPage($page);
 
         return $this->twig->render('@ibexadesign/ui/dashboard/tab/all_content.html.twig', [
-            'data' => $this->pagerContentToDataMapper->map($pager),
+            'data' => $this->pagerLocationToDataMapper->map($pager, true),
         ]);
     }
 }
