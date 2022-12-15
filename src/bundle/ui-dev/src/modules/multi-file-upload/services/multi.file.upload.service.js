@@ -133,10 +133,10 @@ const getContentTypeByIdentifier = ({ token, siteaccess }, identifier) => {
  * @returns {Promise}
  */
 const getFieldDefinitionByIdentifier = ({ token, siteaccess }, contentTypeId, fieldIdentifier) => {
-    const request = new Request(`/api/ezp/v2/content/types/${contentTypeId}/fieldDefinition/${fieldIdentifier}`, {
+    const request = new Request(`/api/ibexa/v2/content/types/${contentTypeId}/fieldDefinition/${fieldIdentifier}`, {
         method: 'GET',
         headers: {
-            Accept: 'application/vnd.ez.api.FieldDefinition+json',
+            Accept: 'application/vnd.ibexa.api.FieldDefinition+json',
             'X-Siteaccess': siteaccess,
             'X-CSRF-Token': token,
         },
@@ -164,7 +164,15 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
 
     return getContentTypeByIdentifier(config, mapping.contentTypeIdentifier)
         .then((response) => response.json())
-        .catch(() => window.ibexa.helpers.notification.showErrorNotification(Translator.trans(/*@Desc("Cannot get content type by identifier")*/ 'cannot_get_content_type_identifier.message', {}, 'multi_file_upload')))
+        .catch(() =>
+            window.ibexa.helpers.notification.showErrorNotification(
+                Translator.trans(
+                    /*@Desc("Cannot get content type by identifier")*/ 'cannot_get_content_type_identifier.message',
+                    {},
+                    'multi_file_upload',
+                ),
+            ),
+        )
         .then((response) => {
             const fileValue = {
                 fileName: data.file.name,
@@ -172,11 +180,19 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
             };
 
             const contentType = response.ContentTypeInfoList.ContentType[0];
-            const contentFieldIdentifier = mapping.contentFieldIdentifier;
+            const { contentFieldIdentifier } = mapping;
 
             return getFieldDefinitionByIdentifier(config, contentType.id, contentFieldIdentifier)
                 .then((response) => response.json())
-                .catch(() => window.eZ.helpers.notification.showErrorNotification(Translator.trans(/*@Desc("Cannot get content type by identifier")*/ 'cannot_get_content_type_identifier.message', {}, 'multi_file_upload')))
+                .catch(() =>
+                    window.ibexa.helpers.notification.showErrorNotification(
+                        Translator.trans(
+                            /*@Desc("Cannot get content type by identifier")*/ 'cannot_get_content_type_identifier.message',
+                            {},
+                            'multi_file_upload',
+                        ),
+                    ),
+                )
                 .then((response) => {
                     const fieldDefinition = response.FieldDefinition;
 
@@ -204,9 +220,25 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
 
                     return struct;
                 })
-                .catch(() => window.eZ.helpers.notification.showErrorNotification(Translator.trans(/*@Desc("Cannot create content structure")*/ 'cannot_create_content_structure.message', {}, 'multi_file_upload')));
+                .catch(() =>
+                    window.ibexa.helpers.notification.showErrorNotification(
+                        Translator.trans(
+                            /*@Desc("Cannot create content structure")*/ 'cannot_create_content_structure.message',
+                            {},
+                            'multi_file_upload',
+                        ),
+                    ),
+                );
         })
-        .catch(() => window.ibexa.helpers.notification.showErrorNotification(Translator.trans(/*@Desc("Cannot create content structure")*/ 'cannot_create_content_structure.message', {}, 'multi_file_upload')));
+        .catch(() =>
+            window.ibexa.helpers.notification.showErrorNotification(
+                Translator.trans(
+                    /*@Desc("Cannot create content structure")*/ 'cannot_create_content_structure.message',
+                    {},
+                    'multi_file_upload',
+                ),
+            ),
+        );
 };
 
 /**
