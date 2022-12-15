@@ -8,9 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\Dashboard;
 
-use Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
-use Ibexa\AdminUi\Tab\Dashboard\AbstractContentTab;
+use Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter;
 use Pagerfanta\Pagerfanta;
 
 class MyContentTab extends AbstractContentTab implements OrderedTabInterface
@@ -31,9 +30,6 @@ class MyContentTab extends AbstractContentTab implements OrderedTabInterface
         return 200;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function renderView(array $parameters): string
     {
         /** @todo Handle pagination */
