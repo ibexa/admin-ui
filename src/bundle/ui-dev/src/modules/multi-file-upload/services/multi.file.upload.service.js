@@ -185,7 +185,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
             const { contentFieldIdentifier } = mapping;
 
             return getFieldDefinitionByIdentifier(config, contentType.id, contentFieldIdentifier)
-                .then((response) => response.json())
+                .then((parsedResponse) => parsedResponse.json())
                 .catch(() =>
                     window.ibexa.helpers.notification.showErrorNotification(
                         Translator.trans(
@@ -195,8 +195,8 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
                         ),
                     ),
                 )
-                .then((response) => {
-                    const fieldDefinition = response.FieldDefinition;
+                .then((parsedResponse) => {
+                    const fieldDefinition = parsedResponse.FieldDefinition;
 
                     if (fieldDefinition.fieldType === 'ezimage') {
                         fileValue.alternativeText = data.file.name;
