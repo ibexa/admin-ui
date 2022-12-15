@@ -1,3 +1,5 @@
+const { Translator } = window;
+
 /**
  * Handles ready state change of request
  *
