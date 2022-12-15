@@ -7,8 +7,8 @@
     </header>
     <body>
       <trans-unit id="b9b7f78038b71a27e7b4c2d2978a3946bb48c90b" resname="dashboard.create">
-        <source>Create</source>
-        <target state="new">Create</target>
+        <source>Create content</source>
+        <target state="new">Create content</target>
         <note>key: dashboard.create</note>
       </trans-unit>
       <trans-unit id="8f2d000c044a9f04c457499e57f6fbbb8360e23f" resname="dashboard.tab.all_content.empty">

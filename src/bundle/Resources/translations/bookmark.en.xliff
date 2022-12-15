@@ -7,8 +7,8 @@
     </header>
     <body>
       <trans-unit id="5cc4d552faa942983e3eb8ec85c053aeb1e42ae4" resname="bookmark.button.remove">
-        <source>Remove from bookmarks</source>
-        <target state="new">Remove from bookmarks</target>
+        <source>Delete</source>
+        <target state="new">Delete</target>
         <note>key: bookmark.button.remove</note>
       </trans-unit>
       <trans-unit id="c2c1dc512033aabc10e0c6a46cf5e99355f5c750" resname="bookmark.headline">

@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\ParamConverter;
+namespace Ibexa\Bundle\AdminUi\ParamConverter;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,17 +19,17 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ContentParamConverter implements ParamConverterInterface
 {
-    const PARAMETER_CONTENT_ID = 'contentId';
-    const PARAMETER_VERSION_NO = 'versionNo';
-    const PARAMETER_LANGUAGE_CODE = 'languageCode';
+    public const PARAMETER_CONTENT_ID = 'contentId';
+    public const PARAMETER_VERSION_NO = 'versionNo';
+    public const PARAMETER_LANGUAGE_CODE = 'languageCode';
 
     /**
-     * @var \eZ\Publish\API\Repository\ContentService
+     * @var \Ibexa\Contracts\Core\Repository\ContentService
      */
     private $contentService;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
      */
     public function __construct(ContentService $contentService)
     {
@@ -37,10 +37,10 @@ class ContentParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function apply(Request $request, ParamConverter $configuration): bool
     {
@@ -60,10 +60,12 @@ class ContentParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supports(ParamConverter $configuration): bool
     {
         return Content::class === $configuration->getClass();
     }
 }
+
+class_alias(ContentParamConverter::class, 'EzSystems\EzPlatformAdminUiBundle\ParamConverter\ContentParamConverter');

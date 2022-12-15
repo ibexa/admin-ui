@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Content\Location;
+namespace Ibexa\AdminUi\Form\Data\Content\Location;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 class ContentLocationAddData
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
     protected $contentInfo;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
     protected $newLocations;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo|null $currentLocation
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $currentLocation
      * @param array $newLocations
      */
     public function __construct(
@@ -31,7 +31,7 @@ class ContentLocationAddData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
      */
     public function getContentInfo(): ?ContentInfo
     {
@@ -39,7 +39,7 @@ class ContentLocationAddData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
      */
     public function setContentInfo(?ContentInfo $contentInfo)
     {
@@ -47,7 +47,7 @@ class ContentLocationAddData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      */
     public function getNewLocations(): array
     {
@@ -55,10 +55,12 @@ class ContentLocationAddData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location[] $newLocations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $newLocations
      */
     public function setNewLocations(array $newLocations)
     {
         $this->newLocations = $newLocations;
     }
 }
+
+class_alias(ContentLocationAddData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentLocationAddData');

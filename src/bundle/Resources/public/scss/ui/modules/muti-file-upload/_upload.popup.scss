@@ -1,12 +1,12 @@
 .c-upload-popup {
-    background: rgba($ibexa-black, 0.35);
+    background: rgba($ibexa-color-black, 0.35);
     position: fixed;
     z-index: 99999;
     top: 0;
     left: 0;
     height: 100vh;
     width: 100vw;
-    color: $ibexa-color-font;
+    color: $ibexa-color-dark;
 
     .c-tooltip-popup {
         width: 100%;
@@ -23,10 +23,6 @@
 
             padding: $modal-header-padding-y $modal-header-padding-x;
             border-bottom: $modal-header-border-width solid $modal-header-border-color;
-        }
-
-        &__title {
-            @include modal-title();
         }
 
         &__content {

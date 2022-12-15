@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser;
+namespace Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\AbstractParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\AbstractParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 /**
@@ -74,3 +74,5 @@ class SubtreePath extends AbstractParser
         }
     }
 }
+
+class_alias(SubtreePath::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\SubtreePath');

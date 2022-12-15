@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\LocationView;
+namespace Ibexa\AdminUi\Tab\LocationView;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzPlatformAdminUi\Specification\ContentType\ContentTypeIsUser;
-use EzSystems\EzPlatformAdminUi\Specification\ContentType\ContentTypeIsUserGroup;
-use EzSystems\EzPlatformAdminUi\Specification\OrSpecification;
-use EzSystems\EzPlatformAdminUi\Tab\AbstractEventDispatchingTab;
-use EzSystems\EzPlatformAdminUi\Tab\ConditionalTabInterface;
-use EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface;
-use EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
+use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
+use Ibexa\AdminUi\Specification\OrSpecification;
+use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
+use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -25,15 +25,15 @@ use Twig\Environment;
 
 class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterface, ConditionalTabInterface
 {
-    const URI_FRAGMENT = 'ez-tab-location-view-roles';
+    public const URI_FRAGMENT = 'ibexa-tab-location-view-roles';
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory */
+    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     protected $datasetFactory;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     protected $permissionResolver;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     protected $configResolver;
 
     public function __construct(
@@ -85,8 +85,8 @@ class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterfac
      *
      * @return bool
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function evaluate(array $parameters): bool
     {
@@ -94,7 +94,7 @@ class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterfac
             return false;
         }
 
-        /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
         $contentType = $parameters['contentType'];
 
         $isUser = new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier'));
@@ -105,19 +105,19 @@ class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterfac
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplate(): string
     {
-        return '@ezdesign/content/tab/roles/tab.html.twig';
+        return '@ibexadesign/content/tab/roles/tab.html.twig';
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
         $location = $contextParameters['location'];
 
         $rolesPaginationParams = $contextParameters['roles_pagination_params'];
@@ -140,3 +140,5 @@ class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterfac
         return array_replace($contextParameters, $viewParameters);
     }
 }
+
+class_alias(RolesTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\RolesTab');

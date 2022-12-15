@@ -6,11 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\Dashboard;
+namespace Ibexa\AdminUi\Tab\Dashboard;
 
-use eZ\Publish\Core\Pagination\Pagerfanta\LocationSearchAdapter;
-use EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface;
-use Ibexa\AdminUi\Tab\Dashboard\AbstractContentTab;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter;
 use Pagerfanta\Pagerfanta;
 
 class MyContentTab extends AbstractContentTab implements OrderedTabInterface
@@ -31,9 +30,6 @@ class MyContentTab extends AbstractContentTab implements OrderedTabInterface
         return 200;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function renderView(array $parameters): string
     {
         /** @todo Handle pagination */
@@ -49,8 +45,10 @@ class MyContentTab extends AbstractContentTab implements OrderedTabInterface
         $pager->setMaxPerPage($limit);
         $pager->setCurrentPage($page);
 
-        return $this->twig->render('@ezdesign/ui/dashboard/tab/my_content.html.twig', [
+        return $this->twig->render('@ibexadesign/ui/dashboard/tab/my_content.html.twig', [
             'data' => $this->pagerLocationToDataMapper->map($pager),
         ]);
     }
 }
+
+class_alias(MyContentTab::class, 'EzSystems\EzPlatformAdminUi\Tab\Dashboard\MyContentTab');
