@@ -7,8 +7,8 @@
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
 use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
-use Ibexa\AdminUi\Translation\Extractor\LimitationTranslationExtractor;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 
@@ -28,7 +28,7 @@ abstract class MultipleSelectionBasedMapper implements LimitationFormMapperInter
     {
         $options = $this->getChoiceFieldOptions() + [
             'multiple' => true,
-            'label' => LimitationTranslationExtractor::identifierToLabel($data->getIdentifier()),
+            'label' => LimitationIdentifierToLabelConverter::convert($data->getIdentifier()),
             'required' => false,
         ];
         $choices = $this->getSelectionChoices();

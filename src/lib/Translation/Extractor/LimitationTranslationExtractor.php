@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Translation\Extractor;
 
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Model\MessageCatalogue;
 use JMS\TranslationBundle\Translation\ExtractorInterface;
@@ -20,7 +21,7 @@ use JMS\TranslationBundle\Translation\ExtractorInterface;
 class LimitationTranslationExtractor implements ExtractorInterface
 {
     public const MESSAGE_DOMAIN = 'ezplatform_content_forms_policies';
-    public const MESSAGE_ID_PREFIX = 'policy.limitation.identifier.';
+    public const MESSAGE_ID_PREFIX = LimitationIdentifierToLabelConverter::MESSAGE_ID_PREFIX;
 
     /**
      * @var array
@@ -63,11 +64,15 @@ class LimitationTranslationExtractor implements ExtractorInterface
     /**
      * @param string $limitationIdentifier
      *
+     * @deprecated Since ibexa/admin-ui 4.4: The method "LimitationTranslationExtractor::identifierToLabel()" method is deprecated, will be removed in 5.0. Use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter::convert() instead.
+     *
      * @return string
      */
     public static function identifierToLabel(string $limitationIdentifier): string
     {
-        return self::MESSAGE_ID_PREFIX . strtolower($limitationIdentifier);
+        trigger_deprecation('ibexa/admin', '4.4', 'The %s() method is deprecated, will be removed in 5.0. Use %s::convert() instead.', __METHOD__, LimitationIdentifierToLabelConverter::class);
+
+        return LimitationIdentifierToLabelConverter::convert($limitationIdentifier);
     }
 
     /**
