@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../../common/helpers/css.class.names';
 
 const { Translator } = window;
-const defaultPlaceholder = Translator.trans(/*@Desc("Search...")*/ 'dropdown.placeholder', {}, 'universal_discovery_widget');
+const defaultPlaceholder = Translator.trans(/*@Desc("Search...")*/ 'search.placeholder', {}, 'universal_discovery_widget');
 
 const Search = ({ onChange, placeholder, extraClasses, value }) => {
     const searchClassName = createCssClassNames({
