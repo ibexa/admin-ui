@@ -38,7 +38,7 @@ class ContentPreviewPage extends Page
             new VisibleCSSLocator('desktop', '.ibexa-preview-header .ibexa-preview-header__item--actions .ibexa-icon--desktop'),
             new VisibleCSSLocator('tablet', '.ibexa-preview-header .ibexa-preview-header__item--actions .ibexa-icon--tablet'),
             new VisibleCSSLocator('mobile', '.ibexa-preview-header .ibexa-preview-header__item--actions .ibexa-icon--mobile'),
-            new VisibleCSSLocator('selectedView', '.ibexa-preview-header__action--selected'),
+            new VisibleCSSLocator('selectedView', '.ibexa-btn--selected'),
         ];
     }
 
