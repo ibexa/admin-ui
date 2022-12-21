@@ -10,7 +10,7 @@
 {%- endmacro -%}
 
 {% macro results_headline(count, has_filters = false, phrase = null) %}
-    {% trans_default_domain 'headline' %}
+    {% trans_default_domain 'ibexa_headline' %}
     {% set headline_content = 'headline.list'|trans({ '%count%': count })|desc('List (%count%)') %}
 
     {% if has_filters %}
