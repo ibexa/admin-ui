@@ -10,13 +10,13 @@ use Ibexa\AdminUi\Form\DataTransformer\UDWBasedValueModelTransformer;
 use Ibexa\AdminUi\Form\DataTransformer\UDWBasedValueViewTransformer;
 use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
-use Ibexa\AdminUi\Translation\Extractor\LimitationTranslationExtractor;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Ancestor;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\Path;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormInterface;
 
@@ -71,7 +71,7 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
                 ->createBuilder()
                 ->create('limitationValues', HiddenType::class, [
                     'required' => false,
-                    'label' => LimitationTranslationExtractor::identifierToLabel($data->getIdentifier()),
+                    'label' => LimitationIdentifierToLabelConverter::convert($data->getIdentifier()),
                 ])
                 ->addViewTransformer(new UDWBasedValueViewTransformer($this->locationService))
                 ->addModelTransformer(new UDWBasedValueModelTransformer($this->locationService))

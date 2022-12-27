@@ -10,12 +10,12 @@ namespace Ibexa\AdminUi\Limitation\Mapper;
 
 use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
-use Ibexa\AdminUi\Translation\Extractor\LimitationTranslationExtractor;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
 use Ibexa\User\Form\ChoiceList\Loader\UserGroupsChoiceLoader;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -55,7 +55,9 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
             ->create(
                 'limitationValues',
                 FormType::class,
-                ['label' => LimitationTranslationExtractor::identifierToLabel($data->getIdentifier())]
+                [
+                    'label' => LimitationIdentifierToLabelConverter::convert($data->getIdentifier()),
+                ]
             )
             ->setAutoInitialize(false)
             ->getForm();

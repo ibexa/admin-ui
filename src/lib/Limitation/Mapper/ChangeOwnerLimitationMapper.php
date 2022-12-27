@@ -10,9 +10,9 @@ namespace Ibexa\AdminUi\Limitation\Mapper;
 
 use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
-use Ibexa\AdminUi\Translation\Extractor\LimitationTranslationExtractor;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ChangeOwnerLimitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -43,7 +43,7 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
             'multiple' => true,
             'expanded' => false,
             'required' => false,
-            'label' => LimitationTranslationExtractor::identifierToLabel($data->getIdentifier()),
+            'label' => LimitationIdentifierToLabelConverter::convert($data->getIdentifier()),
             'choices' => array_flip($this->getSelectionChoices()),
         ];
 

@@ -9,6 +9,7 @@ services:
             - { name: jms_translation.file_visitor }
 
     Ibexa\AdminUi\Translation\Extractor\PolicyTranslationExtractor:
+        deprecated: 'Since ibexa/admin-ui 4.4: The "%service_id%" service is deprecated, will be removed in 5.0'
         arguments:
             - '%ibexa.api.role.policy_map%'
         tags:
@@ -19,6 +20,7 @@ services:
             - { name: jms_translation.extractor, alias: ez_location_sorting }
 
     Ibexa\AdminUi\Translation\Extractor\LimitationTranslationExtractor:
+        deprecated: 'Since ibexa/admin-ui 4.4: The "%service_id%" service is deprecated, will be removed in 5.0'
         arguments:
             - '%ibexa.api.role.policy_map%'
         tags:

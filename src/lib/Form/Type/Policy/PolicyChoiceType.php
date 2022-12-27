@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Policy;
 
-use Ibexa\AdminUi\Translation\Extractor\PolicyTranslationExtractor;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -18,6 +17,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PolicyChoiceType extends AbstractType
 {
+    public const MESSAGE_DOMAIN = 'forms';
+    public const MESSAGE_ID_PREFIX = 'role.policy.';
+    public const ALL_MODULES = 'all_modules';
+    public const ALL_FUNCTIONS = 'all_functions';
+    public const ALL_MODULES_ALL_FUNCTIONS = 'all_modules_all_functions';
+
     /** @var array */
     private $policyChoices;
 
@@ -94,20 +99,20 @@ class PolicyChoiceType extends AbstractType
     private function buildPolicyChoicesFromMap(array $policyMap): array
     {
         $policyChoices = [
-            PolicyTranslationExtractor::MESSAGE_ID_PREFIX . PolicyTranslationExtractor::ALL_MODULES => [
-                PolicyTranslationExtractor::MESSAGE_ID_PREFIX . PolicyTranslationExtractor::ALL_MODULES_ALL_FUNCTIONS => '*|*',
+            self::MESSAGE_ID_PREFIX . self::ALL_MODULES => [
+                self::MESSAGE_ID_PREFIX . self::ALL_MODULES_ALL_FUNCTIONS => '*|*',
              ],
         ];
 
         foreach ($policyMap as $module => $functionList) {
-            $moduleKey = PolicyTranslationExtractor::MESSAGE_ID_PREFIX . $module;
+            $moduleKey = self::MESSAGE_ID_PREFIX . $module;
             // For each module, add possibility to grant access to all functions.
             $policyChoices[$moduleKey] = [
-                $moduleKey . '.' . PolicyTranslationExtractor::ALL_FUNCTIONS => "$module|*",
+                $moduleKey . '.' . self::ALL_FUNCTIONS => "$module|*",
             ];
 
             foreach ($functionList as $function => $limitationList) {
-                $moduleFunctionKey = PolicyTranslationExtractor::MESSAGE_ID_PREFIX . "{$module}.{$function}";
+                $moduleFunctionKey = self::MESSAGE_ID_PREFIX . "{$module}.{$function}";
                 $policyChoices[$moduleKey][$moduleFunctionKey] = "$module|$function";
             }
         }
