@@ -107,7 +107,7 @@ class AdminExceptionListener
             // rendered resources it would result in no CSS/JS on error page.
             // Thus we reset TagRenderer to prevent it from breaking error page.
             $this->encoreTagRenderer->reset();
-            $this->entrypointLookupCollection->getEntrypointLookup('ezplatform')->reset();
+            $this->entrypointLookupCollection->getEntrypointLookup('ibexa')->reset();
         }
 
         switch ($code) {
