@@ -129,10 +129,12 @@
                     {{ ibexa_render_component_group('global-search') }}
                 </div>
                 <div class="ibexa-main-header__user-menu-column">
-                    {{ knp_menu_render('ezplatform_admin_ui.menu.user', {
-                        'depth': 1,
-                        'template': '@ibexadesign/ui/menu/user.html.twig'
-                    }) }}
+                    {% block user_menu %}
+                        {{ knp_menu_render('ezplatform_admin_ui.menu.user', {
+                            'depth': 1,
+                            'template': '@ibexadesign/ui/menu/user.html.twig'
+                        }) }}
+                    {% endblock %}
                 </div>
             </div>
         {% endblock %}
