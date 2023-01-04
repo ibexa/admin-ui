@@ -7,18 +7,16 @@
     {% endif %}
 {% endfor %}
 
-{% set steps_attr = steps_attr|default({})|merge({
-    class: ('ibexa-step '
-        ~ (steps_class|default('')|trim)
-        ~ steps_attr.class|default(''))|trim,
+{% set attr = attr|default({})|merge({
+    class: ('ibexa-step ' ~ attr.class|default(''))|trim,
 }) %}
 
-<div {{ html.attributes(steps_attr) }}>
+<div {{ html.attributes(attr) }}>
     <ul class="ibexa-step__wrapper">
         {% for step in steps %}
             {% include '@ibexadesign/ui/component/step/step.html.twig' with {
                 step,
-                previous_step: active_index > loop.index
+                is_previous_step: active_index > loop.index
             } %}
         {% endfor %}
     </ul>

@@ -3,7 +3,7 @@
 {% set step_attr = step_attr|default({})|merge({
     class: ('ibexa-step__item '
         ~ (step_name == step.name ? 'ibexa-step__item--active ' : '')
-        ~ (previous_step ? 'ibexa-step__item--prev ' : '')
+        ~ (is_previous_step ? 'ibexa-step__item--prev ' : '')
         ~ step_attr.class|default(''))|trim,
     'data-step-id': step.id
 }) %}
