@@ -1,5 +1,7 @@
 {% extends "@ibexadesign/ui/layout.html.twig" %}
 
+{% from '@ibexadesign/ui/component/macros.html.twig' import results_headline %}
+
 {% trans_default_domain 'role' %}
 
 {% form_theme form_roles_delete '@ibexadesign/ui/form_fields.html.twig'  %}
@@ -110,7 +112,7 @@
         {% endfor %}
 
         {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-            headline: 'role.view.list.title'|trans|desc('Roles'),
+            headline: custom_results_headline ?? results_headline(pager.getNbResults()), 
             head_cols: [
                 { has_checkbox: true },
                 { content: 'role.view.list.column.name'|trans|desc('Name') },

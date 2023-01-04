@@ -41,11 +41,6 @@
         <target state="new">Content items you assign to this Section will show up here.</target>
         <note>key: section.assigned_content.empty_desc</note>
       </trans-unit>
-      <trans-unit id="60771f4109f17ae27080b34e9322fd7cb02f45b3" resname="section.assigned_content.header">
-        <source>Content items in '%name%' (%count%)</source>
-        <target state="new">Content items in '%name%' (%count%)</target>
-        <note>key: section.assigned_content.header</note>
-      </trans-unit>
       <trans-unit id="adcc2af264c7ae84e69396a8ff7ea5a259abd01e" resname="section.assigned_content.name">
         <source>Name</source>
         <target state="new">Name</target>

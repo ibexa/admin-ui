@@ -1,5 +1,7 @@
 {% extends "@ibexadesign/ui/layout.html.twig" %}
 
+{% from '@ibexadesign/ui/component/macros.html.twig' import results_headline %}
+
 {% trans_default_domain 'bookmark' %}
 
 {% form_theme form_remove '@ibexadesign/ui/form_fields.html.twig' %}
@@ -80,7 +82,7 @@
                 'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#bookmark_remove_remove' }
             }) }}
             {% include '@ibexadesign/ui/component/table/table.html.twig' with {
-                headline: 'bookmark.table.header'|trans|desc('Bookmarks') ~ ' (' ~ pager.count ~ ')',
+                headline: custom_results_headline ?? results_headline(pager.getNbResults()),
                 head_cols: [
                     { has_checkbox: true },
                     { has_icon: true },

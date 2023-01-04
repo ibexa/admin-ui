@@ -102,7 +102,7 @@ class ContentTypeGroupPage extends Page
             ->assert()->textEquals($this->expectedName);
         $this->getHTMLPage()
             ->find($this->getLocator('listHeader'))
-            ->assert()->textContains(sprintf("Content Types in '%s'", $this->expectedName));
+            ->assert()->textContains('List');
     }
 
     public function setExpectedContentTypeGroupName(string $expectedName)

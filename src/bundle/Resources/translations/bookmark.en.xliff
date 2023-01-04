@@ -41,11 +41,6 @@
         <target state="new">Path</target>
         <note>key: bookmark.list.path</note>
       </trans-unit>
-      <trans-unit id="0cf4491e1bb4fde851986596d3adfb4dbe2f5a17" resname="bookmark.table.header">
-        <source>Bookmarks</source>
-        <target state="new">Bookmarks</target>
-        <note>key: bookmark.table.header</note>
-      </trans-unit>
     </body>
   </file>
 </xliff>
