@@ -1,18 +1,25 @@
-{% set activeIndex = 0 %}
+{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+
+{% set active_index = null %}
 {% for step in steps %}
     {% if step.name == step_name %}
-        {% set activeIndex = step.id %}
+        {% set active_index = loop.index %}
     {% endif %}
 {% endfor %}
 
-<div class="{{ 'ibexa-step' ~ ' ' ~ steps_content_class|default('') }}">
+{% set steps_attr = steps_attr|default({})|merge({
+    class: ('ibexa-step '
+        ~ (steps_class|default('')|trim)
+        ~ steps_attr.class|default(''))|trim,
+}) %}
+
+<div {{ html.attributes(steps_attr) }}>
     <ul class="ibexa-step__wrapper">
         {% for step in steps %}
-            {% embed '@ibexadesign/ui/component/step/step.html.twig' with step %}
-                {% block content %}
-                    {{ step.content|default('')|raw }}
-                {% endblock %}
-            {% endembed %}
+            {% include '@ibexadesign/ui/component/step/step.html.twig' with {
+                step,
+                previous_step: active_index > loop.index
+            } %}
         {% endfor %}
     </ul>
 </div>

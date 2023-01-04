@@ -28,6 +28,18 @@
     &__item {
         margin-right: calculateRem(16px);
         list-style: none;
+
+        &--active {
+            .ibexa-step__indicator {
+                background-color: $ibexa-color-info;
+            }
+        }
+
+        &--prev {
+            .ibexa-step__indicator {
+                background-color: $ibexa-color-dark;
+            }
+        }
     }
 
     &__label {
@@ -44,12 +56,5 @@
         width: calculateRem(82px);
         height: calculateRem(4px);
         background-color: $ibexa-color-light;
-
-        .ibexa-step__item--active > & {
-            background-color: $ibexa-color-info;
-        }
-        .ibexa-step__item--prev > & {
-            background-color: $ibexa-color-dark;
-        }
     }
 }
