@@ -1,6 +1,7 @@
 {% trans_default_domain 'content_type' %}
 
 {% import "@ibexadesign/content_type/macros.html.twig" as macros %}
+{% from '@ibexadesign/ui/component/macros.html.twig' import results_headline %}
 
 {% form_theme form_content_types_delete '@ibexadesign/ui/form_fields.html.twig'  %}
 
@@ -76,7 +77,7 @@
     {% endfor %}
 
     {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-        headline: 'content_type.view.list.title'|trans({ '%identifier%': content_type_group.identifier })|desc('Content Types in \'%identifier%\''),
+        headline: custom_results_headline ?? results_headline(pager.getNbResults()),
         head_cols: [
             { has_checkbox: true },
             { has_icon: true },

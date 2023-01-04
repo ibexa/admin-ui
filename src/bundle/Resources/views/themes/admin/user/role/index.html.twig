@@ -25,7 +25,7 @@
             {% embed '@ibexadesign/ui/component/tab/tabs.html.twig' with {
                 tabs: [
                     { id: 'policies', label: 'policy.view.list.title'|trans|desc('Policies'), active: true },
-                    { id: 'users-and-groups', label: 'role_assignment.view.list.title.count'|trans({'%count%': assignments|length})|desc('Assignments (%count%)') },
+                    { id: 'users-and-groups', label: 'role_assignment.view.list.title'|trans|desc('Assignments') },
                 ]
             } %}
                 {% block tab_content %}

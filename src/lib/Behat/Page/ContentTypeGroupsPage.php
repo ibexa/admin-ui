@@ -66,7 +66,7 @@ class ContentTypeGroupsPage extends Page
             $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText()
         );
         $this->getHTMLPage()
-            ->find($this->getLocator('listHeader'))->assert()->textContains('Content Type groups');
+            ->find($this->getLocator('listHeader'))->assert()->textContains('List');
     }
 
     public function getName(): string

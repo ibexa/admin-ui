@@ -111,11 +111,6 @@
         <target state="new">Section</target>
         <note>key: trash.section</note>
       </trans-unit>
-      <trans-unit id="06b530d8c8b3d7af7b3f2df9f5102927e7275de4" resname="trash.table.header">
-        <source>Trash</source>
-        <target state="new">Trash</target>
-        <note>key: trash.table.header</note>
-      </trans-unit>
     </body>
   </file>
 </xliff>
