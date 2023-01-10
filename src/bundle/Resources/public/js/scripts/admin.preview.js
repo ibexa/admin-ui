@@ -1,5 +1,5 @@
 (function (global, doc) {
-    const CLASS_BTN_SELECTED = 'ibexa-preview-header__action--selected';
+    const CLASS_BTN_SELECTED = 'ibexa-btn--selected';
     const SELECTOR_BTN_ACTION = '.ibexa-preview-header__action';
     const SELECTOR_PREVIEW_SITEACCESS_SELECT = '.ibexa-preview-header__item--siteaccess select';
     const removeSelectedState = () => doc.querySelectorAll(SELECTOR_BTN_ACTION).forEach((btn) => btn.classList.remove(CLASS_BTN_SELECTED));

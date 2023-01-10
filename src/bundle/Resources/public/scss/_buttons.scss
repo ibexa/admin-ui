@@ -281,12 +281,20 @@
         &.ibexa-btn--selected {
             background-color: $ibexa-color-info-200;
             fill: $ibexa-color-info;
+            cursor: default;
+            pointer-events: none;
         }
 
         &.ibexa-btn--error {
             background-color: $ibexa-color-danger-100;
             border-color: $ibexa-color-danger;
             fill: $ibexa-color-danger;
+        }
+
+        &:hover {
+            .ibexa-icon {
+                fill: $ibexa-color-info;
+            }
         }
 
         &:not(.ibexa-btn--selected) {
