@@ -70,6 +70,7 @@ class PolicyChoiceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            'translation_domain' => 'forms',
             'choices' => $this->policyChoices,
         ]);
     }
