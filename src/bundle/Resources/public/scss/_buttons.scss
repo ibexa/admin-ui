@@ -281,8 +281,6 @@
         &.ibexa-btn--selected {
             background-color: $ibexa-color-info-200;
             fill: $ibexa-color-info;
-            cursor: default;
-            pointer-events: none;
         }
 
         &.ibexa-btn--error {
