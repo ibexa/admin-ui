@@ -27,20 +27,6 @@
     color: $ibexa-color-danger;
     align-items: center;
     box-sizing: border-box;
-
-    &:before {
-        content: '!';
-        font-size: calculateRem(12px);
-        display: flex;
-        width: calculateRem(14px);
-        height: calculateRem(14px);
-        color: $ibexa-color-white;
-        background: $ibexa-color-danger;
-        border-radius: 50%;
-        justify-content: center;
-        align-items: center;
-        margin-right: calculateRem(5px);
-    }
 }
 
 @mixin error-under-input {
