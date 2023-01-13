@@ -271,6 +271,11 @@
         <target state="new">Try more general keywords.</target>
         <note>key: search.no_results.hint.more_general</note>
       </trans-unit>
+      <trans-unit id="2b096dbbbcadb6a316903dce656706b528229e21" resname="search.placeholder">
+        <source>Search...</source>
+        <target state="new">Search...</target>
+        <note>key: search.placeholder</note>
+      </trans-unit>
       <trans-unit id="69f8e58ee01f604b377aaa638cabe3f245b45a73" resname="search.search_results">
         <source>Results for “%search_phrase%” (%total%)</source>
         <target state="new">Results for “%search_phrase%” (%total%)</target>
