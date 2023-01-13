@@ -161,6 +161,11 @@
         <target>All modules / All functions</target>
         <note>key: role.policy.all_modules_all_functions</note>
       </trans-unit>
+      <trans-unit id="d3c70d265ab037db5ade02a8b738b5981353c7ac" resname="role.policy.type">
+        <source>Policy</source>
+        <target state="new">Policy</target>
+        <note>key: role.policy.type</note>
+      </trans-unit>
       <trans-unit id="ca6964415cb051927cf1d4092e4a6f49de0748c0" resname="role.policy.type.choose">
         <source>Choose a Policy</source>
         <target state="new">Choose a Policy</target>
