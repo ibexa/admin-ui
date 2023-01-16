@@ -11,6 +11,7 @@
             this.container = config.container;
             this.fieldWrapper = this.container.querySelector('.ibexa-date-time-picker');
             this.inputField = this.fieldWrapper.querySelector('.ibexa-date-time-picker__input');
+            this.calendarIcon = this.fieldWrapper.querySelector('.ibexa-input-text-wrapper__action-btn--calendar-icon');
             this.clearBtn = this.fieldWrapper.querySelector('.ibexa-input-text-wrapper__action-btn--clear');
             this.customOnChange = config.onChange;
 
@@ -95,6 +96,13 @@
             this.flatpickrInstance = flatpickr(this.inputField, this.flatpickrConfig);
 
             this.inputField.addEventListener('input', this.onInput, false);
+            this.calendarIcon.addEventListener(
+                'click',
+                () => {
+                    this.flatpickrInstance.toggle();
+                },
+                false,
+            );
 
             if (this.flatpickrInstance.config.enableTime) {
                 this.flatpickrInstance.minuteElement.addEventListener('keyup', this.onKeyUp.bind(this, true), false);

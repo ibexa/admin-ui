@@ -19,8 +19,20 @@
         width: 100%;
     }
 
-    .ibexa-input-text-wrapper__actions {
-        top: calculateRem(24px);
+    .ibexa-input-text-wrapper {
+        &__actions {
+            top: calculateRem(24px);
+        }
+
+        &__action-btn--calendar-icon {
+            &:hover {
+                cursor: pointer;
+
+                .ibexa-icon {
+                    fill: $ibexa-color-primary;
+                }
+            }
+        }
     }
 
     &--small {
