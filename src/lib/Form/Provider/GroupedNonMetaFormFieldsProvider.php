@@ -42,7 +42,11 @@ final class GroupedNonMetaFormFieldsProvider implements GroupedContentFormFields
         foreach ($groupedFields as $group => $fields) {
             $groupedFields[$group] = array_filter(
                 $fields,
-                static function (string $fieldIdentifier) use ($fieldsDataForm, $identifiers, $metaFieldIdentifiers): bool {
+                static function (string $fieldIdentifier) use (
+                    $fieldsDataForm,
+                    $identifiers,
+                    $metaFieldIdentifiers
+                ): bool {
                     $fieldData = $fieldsDataForm[$fieldIdentifier]->getNormData();
                     $fieldTypeIdentifier = $fieldData->fieldDefinition->fieldTypeIdentifier;
                     $fieldIdentifier = $fieldData->fieldDefinition->identifier;

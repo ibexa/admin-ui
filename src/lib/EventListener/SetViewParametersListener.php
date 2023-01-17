@@ -283,7 +283,8 @@ class SetViewParametersListener implements EventSubscriberInterface
         $metaFieldIdentifiers = array_keys(
             array_filter(
                 $fieldsData,
-                static fn (FormInterface $field): bool => true === in_array($field->getData()->fieldDefinition->fieldGroup, $metaFieldGroups)
+                static fn (FormInterface $field): bool => true
+                    === in_array($field->getData()->fieldDefinition->fieldGroup, $metaFieldGroups)
             )
         );
 
