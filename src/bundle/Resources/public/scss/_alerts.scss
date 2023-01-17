@@ -58,8 +58,6 @@
 
     &__title,
     &__subtitle {
-        @include ibexa-font-sans-serif();
-
         word-break: break-word;
     }
 

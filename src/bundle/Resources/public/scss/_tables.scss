@@ -1,5 +1,4 @@
 .ibexa-table {
-    font-family: $font-family-sans-serif;
     font-size: $ibexa-text-font-size;
     line-height: calculateRem(24px);
     border-spacing: 0;
@@ -57,8 +56,6 @@
     }
 
     &__empty-table-text {
-        @include ibexa-font-sans-serif();
-
         max-width: calculateRem(440px);
         margin-left: calculateRem(56px);
         color: $ibexa-color-dark-400;
@@ -77,8 +74,6 @@
 
     &__header-cell {
         .table & {
-            @include ibexa-font-sans-serif();
-
             font-size: $ibexa-text-font-size-small;
             font-weight: normal;
             color: $ibexa-color-dark-400;
@@ -206,8 +201,6 @@
     border-bottom: calculateRem(1px) solid $ibexa-color-dark-200;
 
     &__headline {
-        @include ibexa-font-sans-serif();
-
         font-size: $ibexa-text-font-size-large;
         line-height: calculateRem(33px);
         color: $ibexa-color-black;

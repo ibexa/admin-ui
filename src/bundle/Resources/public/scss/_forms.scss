@@ -69,8 +69,6 @@ form:not(.form-inline) {
 }
 
 .ibexa-form-error {
-    @include ibexa-font-sans-serif();
-
     display: flex;
     font-size: $ibexa-text-font-size-small;
     font-style: normal;
@@ -90,8 +88,6 @@ form:not(.form-inline) {
 }
 
 .ibexa-form-help {
-    @include ibexa-font-sans-serif();
-
     display: flex;
     font-size: $ibexa-text-font-size-small;
     color: $ibexa-color-dark-400;

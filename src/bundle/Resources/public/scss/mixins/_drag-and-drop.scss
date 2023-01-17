@@ -295,8 +295,6 @@
 }
 
 @mixin drag-item-label {
-    @include ibexa-font-sans-serif();
-
     font-size: $ibexa-text-font-size-medium;
     font-weight: 600;
 }
