@@ -27,6 +27,7 @@ use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\View\View;
 use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * @todo It should use ViewEvents::FILTER_VIEW_PARAMETERS event instead.
@@ -276,7 +277,17 @@ class SetViewParametersListener implements EventSubscriberInterface
             $ignoredFieldIdentifiers[] = $fieldIdentifier;
         }
 
-        return $ignoredFieldIdentifiers;
+        $metaFieldGroups = $this->configResolver->getParameter(
+            'admin_ui_forms.content_edit.meta_fieldgroup_list'
+        );
+        $metaFieldIdentifiers = array_keys(
+            array_filter(
+                $fieldsData,
+                static fn (FormInterface $field): bool => true === in_array($field->getData()->fieldDefinition->fieldGroup, $metaFieldGroups)
+            )
+        );
+
+        return array_merge($ignoredFieldIdentifiers, $metaFieldIdentifiers);
     }
 }
 

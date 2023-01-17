@@ -116,6 +116,47 @@ class AdminUiFormsTest extends TestCase
 
         $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
     }
+
+    /**
+     * Test 'meta_fieldgroup_list' fieldtype settings are mapped.
+     */
+    public function testContentEditMetaFieldgroupListIsMapped(): void
+    {
+        $scopeSettings = [
+            'admin_ui_forms' => [
+                'content_edit' => [
+                    'meta_fieldgroup_list' => [
+                        'metadata',
+                        'seo',
+                    ],
+                ],
+            ],
+        ];
+        $currentScope = 'admin_group';
+
+        $this->contextualizer
+            ->expects($this->atLeast(2))
+            ->method('setContextualParameter')
+            ->withConsecutive(
+                [
+                    AdminUiForms::FORM_TEMPLATES_PARAM,
+                    $currentScope,
+                    [],
+                ],
+                [
+                    AdminUiForms::FIELD_TYPES_PARAM,
+                    $currentScope,
+                    [],
+                ],
+                [
+                    AdminUiForms::META_FIELDGROUP_LIST_PARAM,
+                    $currentScope,
+                    ['metadata', 'seo'],
+                ],
+            );
+
+        $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
+    }
 }
 
 class_alias(AdminUiFormsTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\DependencyInjection\Configuration\Parser\AdminUiFormsTest');

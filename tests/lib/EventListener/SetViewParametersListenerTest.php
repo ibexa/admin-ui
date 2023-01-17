@@ -75,13 +75,17 @@ final class SetViewParametersListenerTest extends TestCase
         $this->configResolver = $this->createMock(ConfigResolverInterface::class);
         $this->configResolver
             ->method('getParameter')
-            ->with('admin_ui_forms.content_edit.fieldtypes')
-            ->willReturn(
+            ->withConsecutive(
+                ['admin_ui_forms.content_edit.fieldtypes'],
+                ['admin_ui_forms.content_edit.meta_fieldgroup_list']
+            )
+            ->willReturnOnConsecutiveCalls(
                 [
                     'ibexa_taxonomy_entry_assignment' => [
                         'meta' => true,
                     ],
-                ]
+                ],
+                ['metadata']
             );
 
         $this->groupedContentFormFieldsProvider = $this->createMock(GroupedContentFormFieldsProviderInterface::class);
@@ -227,15 +231,35 @@ final class SetViewParametersListenerTest extends TestCase
     public function testSetContentFieldsParameters(): void
     {
         $fields = [
-            'name' => 'ezstring',
-            'short_name' => 'ezstring',
-            'description' => 'ezrichtext',
-            'tags' => 'ibexa_taxonomy_entry_assignment',
+            'name' => [
+                'type' => 'ezstring',
+                'group' => 'content',
+            ],
+            'short_name' => [
+                'type' => 'ezstring',
+                'group' => 'content',
+            ],
+            'description' => [
+                'type' => 'ezrichtext',
+                'group' => 'content',
+            ],
+            'tags' => [
+                'type' => 'ibexa_taxonomy_entry_assignment',
+                'group' => 'content',
+            ],
+            'metadata_field' => [
+                'type' => 'ezstring',
+                'group' => 'metadata',
+            ],
         ];
 
         $fieldsDataChildren = [];
-        foreach ($fields as $identifier => $type) {
-            $fieldsDataChildren[$identifier] = $this->createFieldMock($identifier, $type);
+        foreach ($fields as $identifier => $data) {
+            $fieldsDataChildren[$identifier] = $this->createFieldMock(
+                $identifier,
+                $data['type'],
+                $data['group']
+            );
         }
 
         $fieldsDataForm = $this->createMock(FormInterface::class);
@@ -255,7 +279,7 @@ final class SetViewParametersListenerTest extends TestCase
         $groupedFields = [
             'Content' => ['name', 'short_name', 'description'],
         ];
-        $ignoredContentFields = ['tags'];
+        $ignoredContentFields = ['tags', 'metadata_field'];
 
         $this->groupedContentFormFieldsProvider
             ->method('getGroupedFields')
@@ -347,7 +371,7 @@ final class SetViewParametersListenerTest extends TestCase
     /**
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field|\PHPUnit\Framework\MockObject\MockObject
      */
-    private function createFieldMock(string $identifier, string $type): MockObject
+    private function createFieldMock(string $identifier, string $type, string $fieldGroup = 'content'): MockObject
     {
         $data = new FieldData([
             'field' => new Field([
@@ -356,6 +380,7 @@ final class SetViewParametersListenerTest extends TestCase
             ]),
             'fieldDefinition' => new FieldDefinition([
                 'fieldTypeIdentifier' => $type,
+                'fieldGroup' => $fieldGroup,
             ]),
         ]);
 

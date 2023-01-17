@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Component\Content;
 
 use Ibexa\Contracts\AdminUi\Component\Renderable;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Twig\Environment;
 
 class ContentEditMetaFieldsComponent implements Renderable
@@ -39,16 +40,29 @@ class ContentEditMetaFieldsComponent implements Renderable
         $contentType = $parameters['content_type'];
 
         $metaFieldTypeIdentifiers = $this->getMetaFieldTypeIdentifiers();
+        $metaFieldGroups = $this->configResolver->getParameter(
+            'admin_ui_forms.content_edit.meta_fieldgroup_list'
+        );
+        $metaFieldDefinitionCollection = $contentType->fieldDefinitions->filter(
+            static fn (FieldDefinition $field): bool => true === in_array($field->fieldGroup, $metaFieldGroups),
+        );
 
-        if (empty($metaFieldTypeIdentifiers)) {
+        if (empty($metaFieldTypeIdentifiers) && $metaFieldDefinitionCollection->isEmpty()) {
             return self::NO_CONTENT;
         }
 
-        $parameters['meta_fields'] = [];
+        $metaFields = [];
+
+        foreach ($metaFieldDefinitionCollection as $fieldDefinition) {
+            $metaFields[] = $fieldDefinition->identifier;
+        }
+
         foreach ($metaFieldTypeIdentifiers as $identifier) {
             $fields = $contentType->getFieldDefinitionsOfType($identifier);
-            $parameters['meta_fields'] = array_merge($parameters['meta_fields'], array_column($fields->toArray(), 'identifier'));
+            $metaFields = array_merge($metaFields, array_column($fields->toArray(), 'identifier'));
         }
+
+        $parameters['meta_fields'] = array_unique($metaFields);
 
         return $this->twig->render(
             '@ibexadesign/content/components/meta_fields.html.twig',

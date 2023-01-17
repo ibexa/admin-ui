@@ -2,6 +2,8 @@ system:
     admin_group:
         admin_ui_forms:
             content_edit:
+                meta_fieldgroup_list:
+                    - metadata
                 form_templates:
                     - { template: '@ibexadesign/content/form_fields.html.twig', priority: 0 }
 
