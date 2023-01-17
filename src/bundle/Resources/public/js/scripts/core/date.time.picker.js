@@ -65,10 +65,38 @@
             }
         }
 
+        onKeyUp(isMinute, event) {
+            const inputValue = event.target.value;
+
+            if (inputValue.length === 0) {
+                return;
+            }
+
+            const value = parseInt(inputValue, 10);
+
+            if (typeof value === 'number' && value >= 0) {
+                const flatpickrDate = this.flatpickrInstance.selectedDates[0];
+
+                if (isMinute) {
+                    flatpickrDate.setMinutes(value);
+                } else {
+                    flatpickrDate.setHours(value);
+                }
+
+                if (this.flatpickrConfig.minDate.getTime() > flatpickrDate.getTime()) {
+                    return;
+                }
+
+                this.flatpickrInstance.setDate(flatpickrDate, true);
+            }
+        }
+
         init() {
             this.flatpickrInstance = flatpickr(this.inputField, this.flatpickrConfig);
 
             this.inputField.addEventListener('input', this.onInput, false);
+            this.flatpickrInstance.minuteElement.addEventListener('keyup', this.onKeyUp.bind(this, true), false);
+            this.flatpickrInstance.hourElement.addEventListener('keyup', this.onKeyUp.bind(this, false), false);
         }
     }
 
