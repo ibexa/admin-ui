@@ -23,16 +23,6 @@
         &__actions {
             top: calculateRem(24px);
         }
-
-        &__action-btn--calendar-icon {
-            &:hover {
-                cursor: pointer;
-
-                .ibexa-icon {
-                    fill: $ibexa-color-primary;
-                }
-            }
-        }
     }
 
     &--small {

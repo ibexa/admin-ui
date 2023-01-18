@@ -6,12 +6,14 @@
         time_24hr: true,
         formatDate: (date) => formatShortDateTime(date, null),
     };
+
     class DateTimePicker {
         constructor(config) {
             this.container = config.container;
             this.fieldWrapper = this.container.querySelector('.ibexa-date-time-picker');
             this.inputField = this.fieldWrapper.querySelector('.ibexa-date-time-picker__input');
-            this.calendarIcon = this.fieldWrapper.querySelector('.ibexa-input-text-wrapper__action-btn--calendar-icon');
+            this.actionsWrapper = this.fieldWrapper.querySelector('.ibexa-input-text-wrapper__actions');
+            this.calendarButton = this.actionsWrapper.querySelector('.ibexa-input-text-wrapper__action-btn--calendar');
             this.clearBtn = this.fieldWrapper.querySelector('.ibexa-input-text-wrapper__action-btn--clear');
             this.customOnChange = config.onChange;
 
@@ -24,6 +26,7 @@
                 ...DEFAULT_CONFIG,
                 inline: this.fieldWrapper.classList.contains('ibexa-date-time-picker--inline-datetime-popup'),
                 onChange: this.onChange,
+                ignoredFocusElements: [this.actionsWrapper],
                 ...(config.flatpickrConfig ?? {}),
             };
 
@@ -96,10 +99,10 @@
             this.flatpickrInstance = flatpickr(this.inputField, this.flatpickrConfig);
 
             this.inputField.addEventListener('input', this.onInput, false);
-            this.calendarIcon.addEventListener(
+            this.calendarButton.addEventListener(
                 'click',
                 () => {
-                    this.flatpickrInstance.toggle();
+                    this.flatpickrInstance.open();
                 },
                 false,
             );
