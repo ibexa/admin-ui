@@ -77,7 +77,7 @@ final class SetViewParametersListenerTest extends TestCase
             ->method('getParameter')
             ->withConsecutive(
                 ['admin_ui_forms.content_edit.fieldtypes'],
-                ['admin_ui_forms.content_edit.meta_fieldgroup_list']
+                ['admin_ui_forms.content_edit.meta_field_groups_list']
             )
             ->willReturnOnConsecutiveCalls(
                 [

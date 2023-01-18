@@ -118,14 +118,14 @@ class AdminUiFormsTest extends TestCase
     }
 
     /**
-     * Test 'meta_fieldgroup_list' fieldtype settings are mapped.
+     * Test 'meta_field_groups_list' fieldtype settings are mapped.
      */
     public function testContentEditMetaFieldgroupListIsMapped(): void
     {
         $scopeSettings = [
             'admin_ui_forms' => [
                 'content_edit' => [
-                    'meta_fieldgroup_list' => [
+                    'meta_field_groups_list' => [
                         'metadata',
                         'seo',
                     ],
@@ -149,7 +149,7 @@ class AdminUiFormsTest extends TestCase
                     [],
                 ],
                 [
-                    AdminUiForms::META_FIELDGROUP_LIST_PARAM,
+                    AdminUiForms::META_FIELD_GROUPS_LIST_PARAM,
                     $currentScope,
                     ['metadata', 'seo'],
                 ],

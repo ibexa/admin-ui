@@ -278,7 +278,7 @@ class SetViewParametersListener implements EventSubscriberInterface
         }
 
         $metaFieldGroups = $this->configResolver->getParameter(
-            'admin_ui_forms.content_edit.meta_fieldgroup_list'
+            'admin_ui_forms.content_edit.meta_field_groups_list'
         );
         $metaFieldIdentifiers = array_keys(
             array_filter(

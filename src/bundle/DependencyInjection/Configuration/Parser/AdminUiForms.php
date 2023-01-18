@@ -29,7 +29,7 @@ class AdminUiForms extends AbstractParser
 {
     public const FORM_TEMPLATES_PARAM = 'admin_ui_forms.content_edit_form_templates';
     public const FIELD_TYPES_PARAM = 'admin_ui_forms.content_edit.fieldtypes';
-    public const META_FIELDGROUP_LIST_PARAM = 'admin_ui_forms.content_edit.meta_fieldgroup_list';
+    public const META_FIELD_GROUPS_LIST_PARAM = 'admin_ui_forms.content_edit.meta_field_groups_list';
     public const CONTENT_TYPE_FIELD_TYPES_PARAM = 'admin_ui_forms.content_type_edit.field_types';
     public const CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM =
         'admin_ui_forms.content_type_edit.default_meta_field_type_group';
@@ -88,7 +88,7 @@ class AdminUiForms extends AbstractParser
                                     ->end()
                                 ->end()
                             ->end()
-                            ->arrayNode('meta_fieldgroup_list')
+                            ->arrayNode('meta_field_groups_list')
                                 ->performNoDeepMerging()
                                 ->scalarPrototype()->end()
                                 ->info('List of field groups that would be placed under a meta section in a content form')
@@ -163,10 +163,10 @@ class AdminUiForms extends AbstractParser
             unset($scopeSettings['admin_ui_forms']['content_edit']['fieldtypes']);
         }
 
-        if (!empty($scopeSettings['admin_ui_forms']['content_edit']['meta_fieldgroup_list'])) {
-            $scopeSettings['admin_ui_forms.content_edit.meta_fieldgroup_list'] =
-                $scopeSettings['admin_ui_forms']['content_edit']['meta_fieldgroup_list'];
-            unset($scopeSettings['admin_ui_forms']['content_edit']['meta_fieldgroup_list']);
+        if (!empty($scopeSettings['admin_ui_forms']['content_edit']['meta_field_groups_list'])) {
+            $scopeSettings['admin_ui_forms.content_edit.meta_field_groups_list'] =
+                $scopeSettings['admin_ui_forms']['content_edit']['meta_field_groups_list'];
+            unset($scopeSettings['admin_ui_forms']['content_edit']['meta_field_groups_list']);
         }
 
         if (!empty($scopeSettings['admin_ui_forms']['content_type_edit']['field_types'])) {
@@ -192,9 +192,9 @@ class AdminUiForms extends AbstractParser
             $scopeSettings['admin_ui_forms.content_edit.fieldtypes'] ?? []
         );
         $contextualizer->setContextualParameter(
-            self::META_FIELDGROUP_LIST_PARAM,
+            self::META_FIELD_GROUPS_LIST_PARAM,
             $currentScope,
-            $scopeSettings['admin_ui_forms.content_edit.meta_fieldgroup_list'] ?? []
+            $scopeSettings['admin_ui_forms.content_edit.meta_field_groups_list'] ?? []
         );
         $contextualizer->setContextualParameter(
             self::CONTENT_TYPE_FIELD_TYPES_PARAM,
@@ -215,7 +215,7 @@ class AdminUiForms extends AbstractParser
     {
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit_form_templates', $config);
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit.fieldtypes', $config);
-        $contextualizer->mapConfigArray('admin_ui_forms.content_edit.meta_fieldgroup_list', $config);
+        $contextualizer->mapConfigArray('admin_ui_forms.content_edit.meta_field_groups_list', $config);
         $contextualizer->mapConfigArray('admin_ui_forms.content_type_edit.field_types', $config);
         $contextualizer->mapSetting('admin_ui_forms.content_type_edit.default_meta_field_type_group', $config);
     }

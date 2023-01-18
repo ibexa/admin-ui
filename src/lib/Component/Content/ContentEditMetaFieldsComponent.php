@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Component\Content;
 
 use Ibexa\Contracts\AdminUi\Component\Renderable;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Twig\Environment;
@@ -40,22 +42,13 @@ class ContentEditMetaFieldsComponent implements Renderable
         $contentType = $parameters['content_type'];
 
         $metaFieldTypeIdentifiers = $this->getMetaFieldTypeIdentifiers();
-        $metaFieldGroups = $this->configResolver->getParameter(
-            'admin_ui_forms.content_edit.meta_fieldgroup_list'
-        );
-        $metaFieldDefinitionCollection = $contentType->fieldDefinitions->filter(
-            static fn (FieldDefinition $field): bool => true === in_array($field->fieldGroup, $metaFieldGroups),
-        );
+        $metaFieldDefinitionCollection = $this->getMetaFieldDefinitionCollection($contentType);
 
         if (empty($metaFieldTypeIdentifiers) && $metaFieldDefinitionCollection->isEmpty()) {
             return self::NO_CONTENT;
         }
 
-        $metaFields = [];
-
-        foreach ($metaFieldDefinitionCollection as $fieldDefinition) {
-            $metaFields[] = $fieldDefinition->identifier;
-        }
+        $metaFields = $this->mapMetaFieldDefinitionCollectionToIdentifiers($metaFieldDefinitionCollection);
 
         foreach ($metaFieldTypeIdentifiers as $identifier) {
             $fields = $contentType->getFieldDefinitionsOfType($identifier);
@@ -83,5 +76,22 @@ class ContentEditMetaFieldsComponent implements Renderable
                 static fn (array $config): bool => true === $config['meta']
             )
         );
+    }
+
+    private function getMetaFieldDefinitionCollection(ContentType $contentType): FieldDefinitionCollection
+    {
+        $metaFieldGroups = $this->configResolver->getParameter(
+            'admin_ui_forms.content_edit.meta_field_groups_list'
+        );
+
+        return $contentType->fieldDefinitions->filter(
+            static fn (FieldDefinition $field): bool => true === in_array($field->fieldGroup, $metaFieldGroups),
+        );
+    }
+
+    private function mapMetaFieldDefinitionCollectionToIdentifiers(
+        FieldDefinitionCollection $metaFieldDefinitionCollection
+    ): array {
+        return array_column($metaFieldDefinitionCollection->toArray(), 'identifier');
     }
 }

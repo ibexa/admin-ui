@@ -81,6 +81,6 @@ final class GroupedNonMetaFormFieldsProvider implements GroupedContentFormFields
      */
     private function getMetaFieldGroups(): array
     {
-        return $this->configResolver->getParameter('admin_ui_forms.content_edit.meta_fieldgroup_list');
+        return $this->configResolver->getParameter('admin_ui_forms.content_edit.meta_field_groups_list');
     }
 }

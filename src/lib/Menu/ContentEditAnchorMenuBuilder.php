@@ -127,7 +127,7 @@ class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Translatio
         ));
 
         $metaFieldGroups = $this->configResolver->getParameter(
-            'admin_ui_forms.content_edit.meta_fieldgroup_list'
+            'admin_ui_forms.content_edit.meta_field_groups_list'
         );
         $metaFieldDefinitionCollection = $contentType->fieldDefinitions->filter(
             static fn (FieldDefinition $field): bool => true === in_array($field->fieldGroup, $metaFieldGroups),
