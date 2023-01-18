@@ -389,6 +389,16 @@
         }
     }
 
+    &--extra-btn {
+        .ibexa-input-text-wrapper__actions {
+            right: 0;
+        }
+
+        .ibexa-input-text-wrapper__action-btn--clear {
+            margin-right: calculateRem(5px);
+        }
+    }
+
     &:hover {
         .ibexa-input {
             border-color: $ibexa-color-primary;

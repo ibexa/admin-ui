@@ -3,6 +3,14 @@
 {% set is_password_type = type|default('') == 'password' %}
 {% set is_password_input = is_password_input|default(is_password_type) %}
 {% set has_search = has_search|default(false) %}
+{% set extra_btn = extra_btn|default({})|merge({
+    label: extra_btn.label|default(''),
+    attr: extra_btn.attr|default({})|merge({
+        class: (extra_btn.attr.class|default('')
+            ~ ' btn ibexa-btn ibexa-btn--info ibexa-input-text-wrapper__action-btn--extra-btn'
+        )|trim
+    })
+}) %}
 {% set should_clear_button_send_form = should_clear_button_send_form|default(false) %}
 {% set wrapper_attr = wrapper_attr|default({})|merge({
     class: (wrapper_attr.class|default('')
@@ -10,6 +18,7 @@
         ~ (has_search ? ' ibexa-input-text-wrapper--search')
         ~ (is_password_input ? ' ibexa-input-text-wrapper--password')
         ~ (type is defined ? " ibexa-input-text-wrapper--type-#{type}")
+        ~ (extra_btn.label ? ' ibexa-input-text-wrapper--extra-btn')
     )|trim
 }) %}
 
@@ -45,6 +54,13 @@
                     <svg class="ibexa-icon ibexa-icon--small">
                         <use xlink:href="{{ ibexa_icon_path('search') }}"></use>
                     </svg>
+                </button>
+            {% elseif extra_btn.label is not empty %}
+                <button
+                    type="button"
+                    {{html.attributes(extra_btn.attr)}}
+                >
+                    {{- extra_btn.label -}}
                 </button>
             {% endif %}
         {% endblock %}

@@ -39,8 +39,35 @@
         inputClearBtns.forEach((clearBtn) => clearBtn.addEventListener('click', clearText, false));
         passwordTogglerBtns.forEach((passwordTogglerBtn) => passwordTogglerBtn.addEventListener('click', togglePasswordVisibility, false));
     };
+    const handleInputChange = ({ target: { value } }, btn) => {
+        if (value === '') {
+            btn.disabled = true;
+        } else {
+            btn.disabled = false;
+        }
+    };
+    const initExtraBtns = (event) => {
+        const extraBtns = event.detail?.iframe.contentWindow.document.querySelectorAll('.ibexa-input-text-wrapper__action-btn--extra-btn');
+
+        extraBtns.forEach((btn) => {
+            const input = btn.closest('.ibexa-input-text-wrapper').querySelector('input');
+
+            if (!input) {
+                return;
+            }
+
+            const marginClearButton = 5;
+            const marginWidth = 24;
+            const paddingRight = `${btn.offsetWidth + marginClearButton + marginWidth}px`;
+            btn.disabled = true;
+
+            input.style.paddingRight = paddingRight;
+            input.addEventListener('input', (inputEvent) => handleInputChange(inputEvent, btn), false);
+        });
+    };
 
     doc.body.addEventListener('ibexa-inputs:added', attachListenersToAllInputs, false);
+    doc.body.addEventListener('ibexa-page-builder:iframe-loaded', initExtraBtns, false);
 
     attachListenersToAllInputs();
 })(window, window.document);
