@@ -4,9 +4,9 @@
 {% set is_password_input = is_password_input|default(is_password_type) %}
 {% set has_search = has_search|default(false) %}
 {% set extra_btn = extra_btn|default({})|merge({
-    type: extra_btn.type|default('button'),
     label: extra_btn.label|default(''),
     attr: extra_btn.attr|default({})|merge({
+        type: extra_btn.type|default('button'),
         class: (extra_btn.attr.class|default('')
             ~ ' btn ibexa-btn ibexa-btn--info ibexa-input-text-wrapper__action-btn--extra-btn'
         )|trim
