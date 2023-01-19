@@ -95,8 +95,11 @@
             this.flatpickrInstance = flatpickr(this.inputField, this.flatpickrConfig);
 
             this.inputField.addEventListener('input', this.onInput, false);
-            this.flatpickrInstance.minuteElement.addEventListener('keyup', this.onKeyUp.bind(this, true), false);
-            this.flatpickrInstance.hourElement.addEventListener('keyup', this.onKeyUp.bind(this, false), false);
+
+            if (this.flatpickrInstance.config.enableTime) {
+                this.flatpickrInstance.minuteElement.addEventListener('keyup', this.onKeyUp.bind(this, true), false);
+                this.flatpickrInstance.hourElement.addEventListener('keyup', this.onKeyUp.bind(this, false), false);
+            }
         }
     }
 
