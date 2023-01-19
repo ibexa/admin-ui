@@ -4,6 +4,7 @@
 {% set is_password_input = is_password_input|default(is_password_type) %}
 {% set has_search = has_search|default(false) %}
 {% set extra_btn = extra_btn|default({})|merge({
+    type: extra_btn.type|default('button'),
     label: extra_btn.label|default(''),
     attr: extra_btn.attr|default({})|merge({
         class: (extra_btn.attr.class|default('')
@@ -56,10 +57,7 @@
                     </svg>
                 </button>
             {% elseif extra_btn.label is not empty %}
-                <button
-                    type="button"
-                    {{html.attributes(extra_btn.attr)}}
-                >
+                <button {{html.attributes(extra_btn.attr)}}>
                     {{- extra_btn.label -}}
                 </button>
             {% endif %}

@@ -40,11 +40,7 @@
         passwordTogglerBtns.forEach((passwordTogglerBtn) => passwordTogglerBtn.addEventListener('click', togglePasswordVisibility, false));
     };
     const handleInputChange = ({ target: { value } }, btn) => {
-        if (value === '') {
-            btn.disabled = true;
-        } else {
-            btn.disabled = false;
-        }
+        btn.disabled = value === '';
     };
     const initExtraBtns = (event) => {
         const extraBtns = event.detail?.iframe.contentWindow.document.querySelectorAll('.ibexa-input-text-wrapper__action-btn--extra-btn');
@@ -59,8 +55,8 @@
             const marginClearButton = 5;
             const marginWidth = 24;
             const paddingRight = `${btn.offsetWidth + marginClearButton + marginWidth}px`;
-            btn.disabled = true;
 
+            btn.disabled = true;
             input.style.paddingRight = paddingRight;
             input.addEventListener('input', (inputEvent) => handleInputChange(inputEvent, btn), false);
         });
