@@ -43,7 +43,7 @@
         btn.disabled = value === '';
     };
     const initExtraBtns = (event) => {
-        const extraBtns = event.detail?.iframe.contentWindow.document.querySelectorAll('.ibexa-input-text-wrapper__action-btn--extra-btn');
+        const extraBtns = doc.querySelectorAll('.ibexa-input-text-wrapper__action-btn--extra-btn');
 
         extraBtns.forEach((btn) => {
             const input = btn.closest('.ibexa-input-text-wrapper').querySelector('input');
