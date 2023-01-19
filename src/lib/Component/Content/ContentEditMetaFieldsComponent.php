@@ -85,7 +85,7 @@ class ContentEditMetaFieldsComponent implements Renderable
         );
 
         return $contentType->fieldDefinitions->filter(
-            static fn (FieldDefinition $field): bool => true === in_array($field->fieldGroup, $metaFieldGroups),
+            static fn (FieldDefinition $field): bool => in_array($field->fieldGroup, $metaFieldGroups, true),
         );
     }
 

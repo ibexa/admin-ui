@@ -34,8 +34,11 @@ final class GroupedNonMetaFormFieldsProvider implements GroupedContentFormFields
         $metaFieldIdentifiers = array_keys(
             array_filter(
                 $fieldsDataForm,
-                static fn (FormInterface $field): bool => true
-                    === in_array($field->getData()->fieldDefinition->fieldGroup, $metaFieldGroups)
+                static fn (FormInterface $field): bool => in_array(
+                    $field->getData()->fieldDefinition->fieldGroup,
+                    $metaFieldGroups,
+                    true
+                )
             )
         );
 
@@ -53,7 +56,7 @@ final class GroupedNonMetaFormFieldsProvider implements GroupedContentFormFields
                     $fieldIdentifier = $fieldData->fieldDefinition->identifier;
 
                     return !in_array($fieldTypeIdentifier, $identifiers, true)
-                        && !in_array($fieldIdentifier, $metaFieldIdentifiers);
+                        && !in_array($fieldIdentifier, $metaFieldIdentifiers, true);
                 }
             );
         }

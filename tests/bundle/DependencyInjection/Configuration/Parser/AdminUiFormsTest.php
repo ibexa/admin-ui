@@ -58,7 +58,7 @@ class AdminUiFormsTest extends TestCase
         ];
 
         $this->contextualizer
-            ->expects($this->atLeast(2))
+            ->expects(self::atLeast(2))
             ->method('setContextualParameter')
             ->withConsecutive(
                 [
@@ -99,7 +99,7 @@ class AdminUiFormsTest extends TestCase
         ];
 
         $this->contextualizer
-            ->expects($this->atLeast(2))
+            ->expects(self::atLeast(2))
             ->method('setContextualParameter')
             ->withConsecutive(
                 [
@@ -135,7 +135,7 @@ class AdminUiFormsTest extends TestCase
         $currentScope = 'admin_group';
 
         $this->contextualizer
-            ->expects($this->atLeast(2))
+            ->expects(self::atLeast(2))
             ->method('setContextualParameter')
             ->withConsecutive(
                 [

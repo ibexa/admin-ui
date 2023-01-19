@@ -130,7 +130,7 @@ class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Translatio
             'admin_ui_forms.content_edit.meta_field_groups_list'
         );
         $metaFieldDefinitionCollection = $contentType->fieldDefinitions->filter(
-            static fn (FieldDefinition $field): bool => true === in_array($field->fieldGroup, $metaFieldGroups),
+            static fn (FieldDefinition $field): bool => in_array($field->fieldGroup, $metaFieldGroups, true),
         );
 
         $items = [];
@@ -153,9 +153,11 @@ class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Translatio
             foreach ($fieldDefinitions as $fieldDefinition) {
                 $fieldDefIdentifier = $fieldDefinition->identifier;
                 $order += self::ITEM_ORDER_SPAN;
-                if (!isset($items[$fieldDefIdentifier])) {
-                    $items[$fieldDefIdentifier] = $this->createSecondLevelItem($fieldDefIdentifier, $fieldDefinition, $order);
-                }
+                $items[$fieldDefIdentifier] ??= $this->createSecondLevelItem(
+                    $fieldDefIdentifier,
+                    $fieldDefinition,
+                    $order
+                );
             }
         }
 
