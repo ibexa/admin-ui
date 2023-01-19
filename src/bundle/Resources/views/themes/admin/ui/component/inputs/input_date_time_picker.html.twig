@@ -27,7 +27,10 @@
     {% endblock %}
     {% block actions %}
         {{ parent() }}
-        <button type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--calendar">
+        <button
+            type="button"
+            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--calendar"
+        >
             <svg class="ibexa-icon ibexa-icon--small">
                 <use xlink:href="{{ ibexa_icon_path('date') }}"></use>
             </svg>

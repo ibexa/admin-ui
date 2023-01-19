@@ -13,7 +13,7 @@
             this.fieldWrapper = this.container.querySelector('.ibexa-date-time-picker');
             this.inputField = this.fieldWrapper.querySelector('.ibexa-date-time-picker__input');
             this.actionsWrapper = this.fieldWrapper.querySelector('.ibexa-input-text-wrapper__actions');
-            this.calendarButton = this.actionsWrapper.querySelector('.ibexa-input-text-wrapper__action-btn--calendar');
+            this.calendarBtn = this.actionsWrapper.querySelector('.ibexa-input-text-wrapper__action-btn--calendar');
             this.clearBtn = this.fieldWrapper.querySelector('.ibexa-input-text-wrapper__action-btn--clear');
             this.customOnChange = config.onChange;
 
@@ -99,18 +99,15 @@
             this.flatpickrInstance = flatpickr(this.inputField, this.flatpickrConfig);
 
             this.inputField.addEventListener('input', this.onInput, false);
-            this.calendarButton.addEventListener(
+            this.flatpickrInstance.minuteElement.addEventListener('keyup', this.onKeyUp.bind(this, true), false);
+            this.flatpickrInstance.hourElement.addEventListener('keyup', this.onKeyUp.bind(this, false), false);
+            this.calendarBtn.addEventListener(
                 'click',
                 () => {
                     this.flatpickrInstance.open();
                 },
                 false,
             );
-
-            if (this.flatpickrInstance.config.enableTime) {
-                this.flatpickrInstance.minuteElement.addEventListener('keyup', this.onKeyUp.bind(this, true), false);
-                this.flatpickrInstance.hourElement.addEventListener('keyup', this.onKeyUp.bind(this, false), false);
-            }
         }
     }
 
