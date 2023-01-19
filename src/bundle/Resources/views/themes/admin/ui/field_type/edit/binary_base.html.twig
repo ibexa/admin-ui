@@ -52,6 +52,9 @@
     {% if max_file_size is defined and max_file_size > 0 %}
         <div class="ibexa-data-source__message--filesize">{{ 'fieldtype.binary_base.max_file_size'|trans({'%size%': max_file_size|default(0)|ibexa_file_size(2)})|desc('Max file size: %size%') }}</div>
     {% endif %}
+
+    {% set attr = attr|merge({ hidden: 'hidden' }) %}
+
     {{- form_widget(form.file, {'attr': attr}) -}}
     {{- form_widget(form.remove, {'attr': {
         'hidden': 'hidden',

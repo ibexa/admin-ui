@@ -16,16 +16,6 @@
         }
     }
 
-    .form-control-file,
-    .custom-file-input {
-        opacity: 0;
-        height: calculateRem(1px);
-    }
-
-    .custom-file {
-        display: none;
-    }
-
     .ibexa-field-edit__data {
         position: relative;
         border: calculateRem(1px) dashed $ibexa-color-dark-300;
