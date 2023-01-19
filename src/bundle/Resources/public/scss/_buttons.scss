@@ -153,6 +153,36 @@
         }
     }
 
+    &--ghost-info.ibexa-btn {
+        color: $ibexa-color-dark;
+        fill: $ibexa-color-dark;
+
+        &:hover {
+            color: $ibexa-color-info;
+
+            .ibexa-icon {
+                fill: $ibexa-color-info;
+            }
+        }
+
+        &:focus {
+            color: $ibexa-color-info;
+            border-color: $ibexa-color-info;
+
+            .ibexa-icon {
+                fill: $ibexa-color-info;
+            }
+        }
+
+        &.disabled,
+        &[disabled],
+        &:disabled {
+            color: $ibexa-color-dark-300;
+            fill: $ibexa-color-dark-300;
+            border-color: transparent;
+        }
+    }
+
     &--dark.ibexa-btn {
         color: $ibexa-color-white;
         fill: $ibexa-color-white;
