@@ -42,19 +42,21 @@
     const handleInputChange = ({ target: { value } }, btn) => {
         btn.disabled = value === '';
     };
-    const initExtraBtns = (event) => {
+    const initExtraBtns = () => {
         const extraBtns = doc.querySelectorAll('.ibexa-input-text-wrapper__action-btn--extra-btn');
 
         extraBtns.forEach((btn) => {
             const input = btn.closest('.ibexa-input-text-wrapper').querySelector('input');
+            const clearButton = btn.previousElementSibling;
+            const clearButtonStyles = global.getComputedStyle(clearButton);
+            const clearButtonMarginRight = parseInt(clearButtonStyles.getPropertyValue('margin-right'), 10);
+            const clearButtonWidth = parseInt(clearButtonStyles.getPropertyValue('width'), 10);
 
-            if (!input) {
+            if (!input && clearButton.classList.contains('ibexa-input-text-wrapper__action-btn--clear')) {
                 return;
             }
 
-            const marginClearButton = 5;
-            const marginWidth = 24;
-            const paddingRight = `${btn.offsetWidth + marginClearButton + marginWidth}px`;
+            const paddingRight = `${btn.offsetWidth + clearButtonMarginRight + clearButtonWidth}px`;
 
             btn.disabled = true;
             input.style.paddingRight = paddingRight;
@@ -63,7 +65,7 @@
     };
 
     doc.body.addEventListener('ibexa-inputs:added', attachListenersToAllInputs, false);
-    doc.body.addEventListener('ibexa-page-builder:iframe-loaded', initExtraBtns, false);
+    doc.body.addEventListener('ibexa-inputs:init-extra-btn', initExtraBtns, false);
 
     attachListenersToAllInputs();
 })(window, window.document);
