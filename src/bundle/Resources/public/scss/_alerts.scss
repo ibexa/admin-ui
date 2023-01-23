@@ -75,19 +75,6 @@
         }
     }
 
-    &--info-mini {
-        display: flex;
-        padding: calculateRem(5px);
-        margin: 0;
-        color: $ibexa-color-dark-400;
-
-        .ibexa-alert__title {
-            font-size: $ibexa-text-font-size-small;
-            font-weight: $ibexa-font-weight-normal;
-            line-height: 1.5;
-        }
-    }
-
     &--error {
         color: $ibexa-color-danger;
         background-color: $ibexa-color-danger-100;
