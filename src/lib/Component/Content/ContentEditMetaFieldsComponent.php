@@ -89,6 +89,9 @@ class ContentEditMetaFieldsComponent implements Renderable
         );
     }
 
+    /**
+     * @return array<string>
+     */
     private function mapMetaFieldDefinitionCollectionToIdentifiers(
         FieldDefinitionCollection $metaFieldDefinitionCollection
     ): array {
