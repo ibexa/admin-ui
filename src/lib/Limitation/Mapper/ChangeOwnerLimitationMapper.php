@@ -64,7 +64,7 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
     }
 
     /**
-     * @return array<?int, string>
+     * @return array<int, string>
      */
     private function getSelectionChoices(): array
     {
