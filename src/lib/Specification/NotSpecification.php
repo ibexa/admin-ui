@@ -8,29 +8,24 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification;
 
+use Ibexa\Contracts\Core\Specification\NotSpecification as BaseNotSpecification;
+use Ibexa\Contracts\Core\Specification\SpecificationInterface;
+
+/**
+ * @deprecated 4.4.0 Use \Ibexa\Contracts\Core\Specification\NotSpecification
+ */
 class NotSpecification extends AbstractSpecification
 {
-    /**
-     * @var SpecificationInterface
-     */
-    private $specification;
+    private SpecificationInterface $baseSpecification;
 
-    /**
-     * @param SpecificationInterface $specification
-     */
     public function __construct(SpecificationInterface $specification)
     {
-        $this->specification = $specification;
+        $this->baseSpecification = new BaseNotSpecification($specification);
     }
 
-    /**
-     * @param $item
-     *
-     * @return bool
-     */
     public function isSatisfiedBy($item): bool
     {
-        return !$this->specification->isSatisfiedBy($item);
+        return $this->baseSpecification->isSatisfiedBy($item);
     }
 }
 

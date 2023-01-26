@@ -8,33 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification;
 
-interface SpecificationInterface
+use Ibexa\Contracts\Core\Specification\SpecificationInterface as BaseSpecificationInterface;
+
+/**
+ * @deprecated 4.4.0 Use \Ibexa\Contracts\Core\Specification\SpecificationInterface
+ */
+interface SpecificationInterface extends BaseSpecificationInterface
 {
-    /**
-     * @param $item
-     *
-     * @return bool
-     */
-    public function isSatisfiedBy($item): bool;
-
-    /**
-     * @param SpecificationInterface $other
-     *
-     * @return SpecificationInterface
-     */
-    public function and(SpecificationInterface $other): SpecificationInterface;
-
-    /**
-     * @param SpecificationInterface $other
-     *
-     * @return SpecificationInterface
-     */
-    public function or(SpecificationInterface $other): SpecificationInterface;
-
-    /**
-     * @return SpecificationInterface
-     */
-    public function not(): SpecificationInterface;
 }
 
 class_alias(SpecificationInterface::class, 'EzSystems\EzPlatformAdminUi\Specification\SpecificationInterface');
