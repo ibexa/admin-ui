@@ -60,6 +60,14 @@ class ContentUpdateContext implements Context
     }
 
     /**
+     * @When the :fieldName field cannot be edited due to limitation
+     */
+    public function FieldCannotBeEditedDueToLimitation(string $fieldName): void
+    {
+        $this->contentUpdateItemPage->verifyFieldCannotBeEditedDueToLimitation($fieldName);
+    }
+
+    /**
      * @When I set content fields for user
      */
     public function iSetFieldsForUser(TableNode $table): void
@@ -112,6 +120,15 @@ class ContentUpdateContext implements Context
     {
         $this->contentUpdateItemPage->verifyIsLoaded();
         $this->contentUpdateItemPage->switchToFieldGroup($tabName);
+    }
+
+    /**
+     * @When I switch to :tabName field tab
+     */
+    public function iSwitchToContentGroup(string $tabName)
+    {
+        $this->contentUpdateItemPage->verifyIsLoaded();
+        $this->contentUpdateItemPage->switchToFieldTab($tabName);
     }
 
     /**
