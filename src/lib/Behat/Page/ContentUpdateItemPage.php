@@ -203,7 +203,7 @@ class ContentUpdateItemPage extends Page
 
     public function verifyFieldCannotBeEditedDueToLimitation(string $fieldName)
     {
-        $activeSections = $this->getHTMLPage()->findAll(new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__sections-item-btn--active'));
+        $activeSections = $this->getHTMLPage()->findAll(new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__section-groups-item--active'));
         $fieldLocator = new VisibleCSSLocator('', sprintf($this
             ->getLocator('fieldGroupNthField')->getSelector(), $activeSections->single()->getAttribute('data-target-id'), $this->getFieldPosition($fieldName)));
         $this->getHTMLPage()->find($fieldLocator)->assert()->hasClass('ibexa-field-edit--disabled');
