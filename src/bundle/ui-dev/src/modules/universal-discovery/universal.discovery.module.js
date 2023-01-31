@@ -300,6 +300,7 @@ const UniversalDiscoveryModule = (props) => {
                 locations: clonedSelectedLocation,
             });
         });
+
         return () => {
             abortControllerRef.current?.abort();
         };
