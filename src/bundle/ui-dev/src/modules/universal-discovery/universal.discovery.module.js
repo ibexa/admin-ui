@@ -170,7 +170,7 @@ const UniversalDiscoveryModule = (props) => {
             loadLocationsWithPermissions({ locationIds, signal: abortControllerRef.current.signal }, (response) => resolve(response));
         });
     };
-    const loadVersions = (hasSignal = true) => {
+    const loadVersions = (signal = null) => {
         const locationsWithoutVersion = selectedLocations.filter(
             (selectedItem) => !selectedItem.location.ContentInfo.Content.CurrentVersion.Version,
         );
@@ -182,14 +182,12 @@ const UniversalDiscoveryModule = (props) => {
         const contentId = locationsWithoutVersion.map((item) => item.location.ContentInfo.Content._id).join(',');
 
         return new Promise((resolve) => {
-            loadContentInfo({ ...restInfo, contentId, signal: hasSignal ? abortControllerRef.current.signal : null }, (response) =>
-                resolve(response),
-            );
+            loadContentInfo({ ...restInfo, contentId, signal }, (response) => resolve(response));
         });
     };
     const onConfirm = useCallback(
         (selectedItems = selectedLocations) => {
-            loadVersions(false).then((locationsWithVersions) => {
+            loadVersions().then((locationsWithVersions) => {
                 const clonedSelectedLocation = deepClone(selectedItems);
 
                 if (Array.isArray(locationsWithVersions)) {
@@ -268,7 +266,7 @@ const UniversalDiscoveryModule = (props) => {
 
         abortControllerRef.current = new AbortController();
 
-        Promise.all([loadPermissions(), loadVersions()]).then((response) => {
+        Promise.all([loadPermissions(), loadVersions(abortControllerRef.current.signal)]).then((response) => {
             const [locationsWithPermissions, locationsWithVersions] = response;
 
             if (!locationsWithPermissions.length && !locationsWithVersions.length) {
@@ -302,6 +300,9 @@ const UniversalDiscoveryModule = (props) => {
                 locations: clonedSelectedLocation,
             });
         });
+        return () => {
+            abortControllerRef.current?.abort();
+        };
     }, [selectedLocations]);
 
     useEffect(() => {
