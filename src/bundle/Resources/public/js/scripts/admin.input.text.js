@@ -41,7 +41,7 @@
         recalculateStyling();
     };
     const handleInputChange = ({ target: { value } }, btn) => {
-        btn.disabled = value === '';
+        btn.disabled = value.trim() === '';
     };
     const recalculateStyling = () => {
         const extraBtns = doc.querySelectorAll('.ibexa-input-text-wrapper__action-btn--extra-btn');
