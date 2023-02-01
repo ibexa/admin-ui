@@ -15,6 +15,7 @@ use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\ElementInterface;
+use Ibexa\Behat\Browser\Element\Mapper\ElementTextMapper;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
@@ -146,9 +147,20 @@ class UniversalDiscoveryWidget extends Component
     {
         $this->getHTMLPage()->findAll($this->getLocator('categoryTabSelector'))
              ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName))->click();
-        $this->getHTMLPage()->setTimeout(5)->find(
-            new VisibleCSSLocator('selectedTab', sprintf('.c-tab-selector__item--selected[data-original-title=%s]', $tabName))
-        )->assert()->isVisible();
+
+        $tabPosition = 1 + array_search(
+            $tabName,
+            $this->getHTMLPage()
+                ->findAll($this->getLocator('categoryTabSelector'))
+                ->mapBy(new ElementTextMapper()),
+            true
+        );
+
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('categoryTabSelector'))
+            ->toArray()[$tabPosition]
+            ->assert()->hasClass('c-tab-selector__item--selected')
+            ->assert()->isVisible();
     }
 
     public function selectBookmark(string $bookmarkName): void
