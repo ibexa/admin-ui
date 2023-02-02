@@ -365,7 +365,7 @@
     {%- if is_text_input -%}
         {%- set attr = attr|merge({class: (attr.class|default('') ~ ' ibexa-input ibexa-input--text')|trim}) -%}
         {%- set empty_placeholder_for_hiding_clear_btn_with_css = ' ' -%}
-        {%- set attr = attr|merge({placeholder: (attr.placeholder is defined) ? attr.placeholder : empty_placeholder_for_hiding_clear_btn_with_css}) -%}
+        {%- set attr = attr|merge({placeholder: (attr.placeholder is defined and attr.placeholder is not null) ? attr.placeholder : empty_placeholder_for_hiding_clear_btn_with_css}) -%}
         {%- set input_html -%}
             {{ parent() }}
         {%- endset -%}
