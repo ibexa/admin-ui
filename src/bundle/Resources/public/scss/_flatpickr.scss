@@ -5,6 +5,14 @@
     }
 }
 
+.flatpickr-calendar {
+    .flatpickr-confirm {
+        .ibexa-icon {
+            margin-left: calculateRem(8px);
+        }
+    }
+}
+
 @-webkit-keyframes eZfpFadeInDown {
     from {
         opacity: 0;
