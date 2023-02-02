@@ -15,7 +15,7 @@
 
         const middleEllipsisContainers = [...baseElement.querySelectorAll('.ibexa-middle-ellipsis')];
 
-        if (baseElement instanceof Element) {
+        if (baseElement instanceof Element && baseElement.classList.contains('ibexa-middle-ellipsis')) {
             middleEllipsisContainers.push(baseElement);
         }
 
