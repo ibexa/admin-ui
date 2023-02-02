@@ -22,7 +22,10 @@ class UniqueContentTypeIdentifier extends Constraint implements TranslationConta
      */
     public $message = 'ez.content_type.identifier.unique';
 
-    public static function getTranslationMessages()
+    /**
+     * @return array<\JMS\TranslationBundle\Model\Message>
+     */
+    public static function getTranslationMessages(): array
     {
         return [
             Message::create('ez.content_type.identifier.unique', 'validators')

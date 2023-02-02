@@ -22,7 +22,10 @@ class UniqueFieldDefinitionIdentifier extends Constraint implements TranslationC
      */
     public $message = 'ez.field_definition.identifier.unique';
 
-    public static function getTranslationMessages()
+    /**
+     * @return array<\JMS\TranslationBundle\Model\Message>
+     */
+    public static function getTranslationMessages(): array
     {
         return [
             Message::create('ez.field_definition.identifier.unique', 'validators')
