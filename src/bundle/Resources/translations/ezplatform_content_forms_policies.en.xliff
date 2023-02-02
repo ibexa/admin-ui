@@ -81,15 +81,15 @@
         <target>Personalization Access</target>
         <note>key: policy.limitation.identifier.personalizationaccess</note>
       </trans-unit>
-      <trans-unit id="9f2e53e094725bbc243ad777547724ab923a31d1" resname="policy.limitation.identifier.role">
-        <source>Role</source>
-        <target>Role</target>
-        <note>key: policy.limitation.identifier.role</note>
-      </trans-unit>
       <trans-unit id="af73694f5c5e5868af7948fb04f0d6bfe7ee6ad4" resname="policy.limitation.identifier.producttype">
         <source>Product Type</source>
         <target>Product Type</target>
         <note>key: policy.limitation.identifier.producttype</note>
+      </trans-unit>
+      <trans-unit id="9f2e53e094725bbc243ad777547724ab923a31d1" resname="policy.limitation.identifier.role">
+        <source>Role</source>
+        <target>Role</target>
+        <note>key: policy.limitation.identifier.role</note>
       </trans-unit>
       <trans-unit id="bb77b27363dad566197a200290f0f0b18baa4705" resname="policy.limitation.identifier.section">
         <source>Section</source>
