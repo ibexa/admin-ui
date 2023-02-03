@@ -349,6 +349,7 @@
                 { content: 'ezobjectrelationlist.content_type'|trans|desc('Content Type') },
                 { content: 'ezobjectrelationlist.created'|trans|desc('Created') },
             ],
+            show_head_cols_if_empty: true,
         } %}
             {% block tbody %}
                 {% for contentId in field.value.destinationContentIds %}
@@ -494,6 +495,7 @@
                 { content: 'ezobjectrelation.content_type'|trans|desc('Content Type') },
                 { content: 'ezobjectrelation.version_created'|trans|desc('Version created') },
             ],
+            show_head_cols_if_empty: true,
         } %}
             {% block tbody %}
                 {% embed '@ibexadesign/ui/component/table/table_body_row.html.twig' with { field: field } %}
