@@ -37,5 +37,23 @@
                 margin-bottom: calculateRem(4px);
             }
         }
+
+        .ibexa-input-text-wrapper__action-btn--calendar {
+            &:hover {
+                .ibexa-icon {
+                    fill: $ibexa-color-dark;
+                }
+            }
+
+            &:focus {
+                color: transparent;
+                border-color: transparent;
+                box-shadow: none;
+    
+                .ibexa-icon {
+                    fill: $ibexa-color-dark;
+                }
+            }
+        }
     }
 }
