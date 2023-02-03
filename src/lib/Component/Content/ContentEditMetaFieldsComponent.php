@@ -9,7 +9,10 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Component\Content;
 
 use Ibexa\Contracts\AdminUi\Component\Renderable;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Twig\Environment;
 
 class ContentEditMetaFieldsComponent implements Renderable
@@ -39,16 +42,20 @@ class ContentEditMetaFieldsComponent implements Renderable
         $contentType = $parameters['content_type'];
 
         $metaFieldTypeIdentifiers = $this->getMetaFieldTypeIdentifiers();
+        $metaFieldDefinitionCollection = $this->getMetaFieldDefinitionCollection($contentType);
 
-        if (empty($metaFieldTypeIdentifiers)) {
+        if (empty($metaFieldTypeIdentifiers) && $metaFieldDefinitionCollection->isEmpty()) {
             return self::NO_CONTENT;
         }
 
-        $parameters['meta_fields'] = [];
+        $metaFields = $this->mapMetaFieldDefinitionCollectionToIdentifiers($metaFieldDefinitionCollection);
+
         foreach ($metaFieldTypeIdentifiers as $identifier) {
             $fields = $contentType->getFieldDefinitionsOfType($identifier);
-            $parameters['meta_fields'] = array_merge($parameters['meta_fields'], array_column($fields->toArray(), 'identifier'));
+            $metaFields = array_merge($metaFields, array_column($fields->toArray(), 'identifier'));
         }
+
+        $parameters['meta_fields'] = array_unique($metaFields);
 
         return $this->twig->render(
             '@ibexadesign/content/components/meta_fields.html.twig',
@@ -69,5 +76,25 @@ class ContentEditMetaFieldsComponent implements Renderable
                 static fn (array $config): bool => true === $config['meta']
             )
         );
+    }
+
+    private function getMetaFieldDefinitionCollection(ContentType $contentType): FieldDefinitionCollection
+    {
+        $metaFieldGroups = $this->configResolver->getParameter(
+            'admin_ui_forms.content_edit.meta_field_groups_list'
+        );
+
+        return $contentType->fieldDefinitions->filter(
+            static fn (FieldDefinition $field): bool => in_array($field->fieldGroup, $metaFieldGroups, true),
+        );
+    }
+
+    /**
+     * @return array<string>
+     */
+    private function mapMetaFieldDefinitionCollectionToIdentifiers(
+        FieldDefinitionCollection $metaFieldDefinitionCollection
+    ): array {
+        return array_column($metaFieldDefinitionCollection->toArray(), 'identifier');
     }
 }

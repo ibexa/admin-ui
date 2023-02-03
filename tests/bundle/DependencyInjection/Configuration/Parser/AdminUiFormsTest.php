@@ -58,7 +58,7 @@ class AdminUiFormsTest extends TestCase
         ];
 
         $this->contextualizer
-            ->expects($this->atLeast(2))
+            ->expects(self::atLeast(2))
             ->method('setContextualParameter')
             ->withConsecutive(
                 [
@@ -99,7 +99,7 @@ class AdminUiFormsTest extends TestCase
         ];
 
         $this->contextualizer
-            ->expects($this->atLeast(2))
+            ->expects(self::atLeast(2))
             ->method('setContextualParameter')
             ->withConsecutive(
                 [
@@ -111,6 +111,47 @@ class AdminUiFormsTest extends TestCase
                     AdminUiForms::FIELD_TYPES_PARAM,
                     $currentScope,
                     $expectedFieldTypeSettings,
+                ],
+            );
+
+        $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
+    }
+
+    /**
+     * Test 'meta_field_groups_list' fieldtype settings are mapped.
+     */
+    public function testContentEditMetaFieldgroupListIsMapped(): void
+    {
+        $scopeSettings = [
+            'admin_ui_forms' => [
+                'content_edit' => [
+                    'meta_field_groups_list' => [
+                        'metadata',
+                        'seo',
+                    ],
+                ],
+            ],
+        ];
+        $currentScope = 'admin_group';
+
+        $this->contextualizer
+            ->expects(self::atLeast(2))
+            ->method('setContextualParameter')
+            ->withConsecutive(
+                [
+                    AdminUiForms::FORM_TEMPLATES_PARAM,
+                    $currentScope,
+                    [],
+                ],
+                [
+                    AdminUiForms::FIELD_TYPES_PARAM,
+                    $currentScope,
+                    [],
+                ],
+                [
+                    AdminUiForms::META_FIELD_GROUPS_LIST_PARAM,
+                    $currentScope,
+                    ['metadata', 'seo'],
                 ],
             );
 
