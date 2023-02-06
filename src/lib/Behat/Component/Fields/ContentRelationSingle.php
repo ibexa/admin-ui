@@ -87,7 +87,7 @@ class ContentRelationSingle extends FieldTypeComponent
 
         $viewPatternRegex = '/Single relation[\w\/,: ]* %s [\w \/,:]*/';
 
-        Assert::assertRegExp(
+        Assert::assertMatchesRegularExpression(
             sprintf($viewPatternRegex, $value),
             $this->getHTMLPage()->find($this->parentLocator)->getText(),
             'Field has wrong value'
