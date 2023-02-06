@@ -10,14 +10,14 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 
 class BookmarksPage extends Page
 {
-    /** \Ibexa\AdminUi\Behat\Component\Table\TableInterface */
-    private $table;
+    private TableInterface $table;
 
     public function __construct(Session $session, Router $router, TableBuilder $tableBuilder)
     {
@@ -55,8 +55,8 @@ class BookmarksPage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-page-title__content-name'),
-            new VisibleCSSLocator('itemName', 'tr .ez-table__cell--after-icon'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title__title'),
+            new VisibleCSSLocator('itemName', 'tr .ibexa-table__cell--after-icon'),
         ];
     }
 

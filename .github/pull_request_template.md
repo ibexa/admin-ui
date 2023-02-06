@@ -6,7 +6,7 @@
 | BC breaks?    | yes/no
 | Tests pass?   | yes/no
 | Doc needed?   | yes/no
-| License       | [GPL-2.0](https://github.com/ezsystems/ezplatform-admin-ui/blob/master/LICENSE)
+| License       | [GPL-2.0](https://github.com/ibexa/admin-ui/blob/main/LICENSE)
 <!-- Keep in mind: Your contribution has to be compatible with GPL-2.0 as well: https://www.gnu.org/licenses/old-licenses/gpl-2.0-faq.html#GPLModuleLicense -->
 
 

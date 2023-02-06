@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Component\Event;
+namespace Ibexa\AdminUi\Component\Event;
 
-use EzSystems\EzPlatformAdminUi\Component\Registry;
+use Ibexa\AdminUi\Component\Registry;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class RenderGroupEvent extends Event
 {
-    const NAME = 'ezplatform_admin_ui.component.render_group';
+    public const NAME = 'ezplatform_admin_ui.component.render_group';
 
-    /** @var \EzSystems\EzPlatformAdminUi\Component\Registry */
+    /** @var \Ibexa\AdminUi\Component\Registry */
     private $registry;
 
     /** @var string */
@@ -25,7 +25,7 @@ class RenderGroupEvent extends Event
     private $parameters;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Component\Registry $registry
+     * @param \Ibexa\AdminUi\Component\Registry $registry
      * @param string $groupName
      * @param array $parameters
      */
@@ -68,3 +68,5 @@ class RenderGroupEvent extends Event
         return $this->parameters;
     }
 }
+
+class_alias(RenderGroupEvent::class, 'EzSystems\EzPlatformAdminUi\Component\Event\RenderGroupEvent');

@@ -8,52 +8,46 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\Dashboard;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\Core\Repository\LocationResolver\LocationResolver;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Core\Repository\LocationResolver\LocationResolver;
 use Pagerfanta\Pagerfanta;
 
 final class PagerLocationToDataMapper
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
-    /** @var \eZ\Publish\Core\Repository\LocationResolver\LocationResolver */
+    /** @var \Ibexa\Core\Repository\LocationResolver\LocationResolver */
     private $locationResolver;
 
     public function __construct(
         ContentService $contentService,
-        ContentTypeService $contentTypeService,
         UserService $userService,
         LocationResolver $locationResolver
     ) {
         $this->contentService = $contentService;
-        $this->contentTypeService = $contentTypeService;
         $this->userService = $userService;
         $this->locationResolver = $locationResolver;
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function map(Pagerfanta $pager, bool $doMapVersionInfoData = false): array
     {
         $data = [];
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
         foreach ($pager as $location) {
             $contentInfo = $location->contentInfo;
             $versionInfo = $doMapVersionInfoData ? $this->contentService->loadVersionInfo($contentInfo) : null;

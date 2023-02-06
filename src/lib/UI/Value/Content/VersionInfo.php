@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Value\Content;
+namespace Ibexa\AdminUi\UI\Value\Content;
 
-use eZ\Publish\API\Repository\Values\Content\VersionInfo as APIVersionInfo;
-use eZ\Publish\Core\Repository\Values\Content\VersionInfo as CoreVersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Core\Repository\Values\Content\VersionInfo as CoreVersionInfo;
 
 /**
  * Extends original value object in order to provide additional fields.
@@ -17,11 +17,11 @@ use eZ\Publish\Core\Repository\Values\Content\VersionInfo as CoreVersionInfo;
  */
 class VersionInfo extends CoreVersionInfo
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\User */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User */
     protected $author;
 
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\Language[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
      */
     protected $translations;
 
@@ -33,7 +33,7 @@ class VersionInfo extends CoreVersionInfo
     protected $userCanRemove;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      * @param array $properties
      */
     public function __construct(APIVersionInfo $versionInfo, array $properties = [])
@@ -51,3 +51,5 @@ class VersionInfo extends CoreVersionInfo
         return $this->userCanRemove;
     }
 }
+
+class_alias(VersionInfo::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\VersionInfo');

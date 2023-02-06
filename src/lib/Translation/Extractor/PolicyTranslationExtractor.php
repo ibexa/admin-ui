@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Translation\Extractor;
+namespace Ibexa\AdminUi\Translation\Extractor;
 
 use JMS\TranslationBundle\Model\Message\XliffMessage;
 use JMS\TranslationBundle\Model\MessageCatalogue;
@@ -17,11 +17,11 @@ use JMS\TranslationBundle\Translation\ExtractorInterface;
  */
 class PolicyTranslationExtractor implements ExtractorInterface
 {
-    const MESSAGE_DOMAIN = 'forms';
-    const MESSAGE_ID_PREFIX = 'role.policy.';
-    const ALL_MODULES = 'all_modules';
-    const ALL_FUNCTIONS = 'all_functions';
-    const ALL_MODULES_ALL_FUNCTIONS = 'all_modules_all_functions';
+    public const MESSAGE_DOMAIN = 'forms';
+    public const MESSAGE_ID_PREFIX = 'role.policy.';
+    public const ALL_MODULES = 'all_modules';
+    public const ALL_FUNCTIONS = 'all_functions';
+    public const ALL_MODULES_ALL_FUNCTIONS = 'all_modules_all_functions';
 
     /** @var array */
     private $policyMap;
@@ -97,3 +97,5 @@ class PolicyTranslationExtractor implements ExtractorInterface
         return ucfirst(trim(str_replace($search, $replace, strtolower(preg_replace(['/([A-Z])/', '/[_\s]+/'], ['_$1', ' '], $text)))));
     }
 }
+
+class_alias(PolicyTranslationExtractor::class, 'EzSystems\EzPlatformAdminUi\Translation\Extractor\PolicyTranslationExtractor');

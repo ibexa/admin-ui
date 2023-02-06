@@ -1,110 +1,128 @@
-import React, { useContext, useState, useEffect, useCallback } from 'react';
+import React, { useContext, useState, useEffect, useCallback, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-import { createCssClassNames } from '../../../common/helpers/css.class.names';
-import { SelectedContentTypesContext, SelectedSectionContext, SelectedSubtreeContext } from '../search/search';
-import { findLocationsById } from '../../services/universal.discovery.service';
-import { RestInfoContext } from '../../universal.discovery.module';
+import {
+    SelectedContentTypesContext,
+    SelectedSectionContext,
+    SelectedSubtreeContext,
+    SelectedLanguageContext,
+    SelectedSubtreeBreadcrumbsContext,
+} from '../search/search';
+import UniversalDiscoveryModule, { DropdownPortalRefContext } from '../../universal.discovery.module';
 
+import Dropdown from '../../../common/dropdown/dropdown';
 import ContentTypeSelector from '../content-type-selector/content.type.selector';
 import Icon from '../../../common/icon/icon';
 
-const Filters = ({ isCollapsed, search }) => {
+const { Translator, ibexa } = window;
+
+const languages = Object.values(ibexa.adminUiConfig.languages.mappings);
+
+const Filters = ({ search }) => {
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
     const [selectedSection, setSelectedSection] = useContext(SelectedSectionContext);
     const [selectedSubtree, setSelectedSubtree] = useContext(SelectedSubtreeContext);
-    const [subtreeBreadcrumbs, setSubtreeBreadcrumbs] = useState('');
+    const [selectedLanguage, setSelectedLanguage] = useContext(SelectedLanguageContext);
+    const [selectedSubtreeBreadcrumbs, setSelectedSubtreeBreadcrumbs] = useContext(SelectedSubtreeBreadcrumbsContext);
+    const prevSelectedLanguage = useRef(selectedLanguage);
+    const dropdownListRef = useContext(DropdownPortalRefContext);
     const [filtersCleared, setFiltersCleared] = useState(false);
-    const restInfo = useContext(RestInfoContext);
+    const [isNestedUdwOpened, setIsNestedUdwOpened] = useState(false);
+    const filterSubtreeUdwConfig = JSON.parse(window.document.querySelector('#react-udw').dataset.filterSubtreeUdwConfig);
+    const handleNestedUdwConfirm = (items) => {
+        const { removeRootFromPathString, findLocationsByIds, buildLocationsBreadcrumbs } = ibexa.helpers.location;
+        const [{ pathString }] = items;
+
+        findLocationsByIds(removeRootFromPathString(pathString), (locations) =>
+            setSelectedSubtreeBreadcrumbs(buildLocationsBreadcrumbs(locations), pathString),
+        );
+
+        setSelectedSubtree(pathString);
+        setIsNestedUdwOpened(false);
+    };
+
+    const nestedUdwConfig = {
+        onConfirm: handleNestedUdwConfirm,
+        onCancel: () => setIsNestedUdwOpened(false),
+        tabs: ibexa.adminUiConfig.universalDiscoveryWidget.tabs,
+        title: 'Browsing content',
+        ...filterSubtreeUdwConfig,
+    };
+    const nestedUdwContainer = useRef(window.document.createElement('div'));
+    const updateSelectedLanguage = (value) => setSelectedLanguage(value);
     const clearFilters = () => {
         dispatchSelectedContentTypesAction({ type: 'CLEAR_CONTENT_TYPES' });
         setSelectedSection('');
-        clearSelectedSubree();
+        clearSelectedSubtree();
         setFiltersCleared(true);
     };
-    const clearSelectedSubree = () => {
+    const clearSelectedSubtree = () => {
         setSelectedSubtree('');
-        setSubtreeBreadcrumbs('');
+        setSelectedSubtreeBreadcrumbs('');
     };
-    const wrapperClassName = createCssClassNames({
-        'c-filters': true,
-        'ez-filters': true,
-        'ez-filters--collapsed': isCollapsed,
-    });
-    const updateSection = (event) => {
-        const value = event.target.value;
-
-        setSelectedSection(value);
-    };
-    const openUdw = () => {
-        const udwContainer = window.document.createElement('div');
-        const config = JSON.parse(window.document.querySelector('#react-udw').dataset.filterSubtreeUdwConfig);
-        const closeUDW = () => {
-            ReactDOM.unmountComponentAtNode(udwContainer);
-            udwContainer.remove();
-        };
-        const onConfirm = (items) => {
-            const pathString = items[0].pathString;
-            const pathArray = pathString.split('/').filter((val) => val);
-            const id = pathArray.splice(1, pathArray.length - 1).join();
-
-            findLocationsById({ ...restInfo, id }, (locations) => {
-                const breadcrumbs = locations.map((location) => location.ContentInfo.Content.TranslatedName).join(' / ');
-
-                setSubtreeBreadcrumbs(breadcrumbs);
-            });
-
-            setSelectedSubtree(pathString);
-
-            closeUDW();
-        };
-
-        window.document.body.append(udwContainer);
-
-        const mergedConfig = {
-            onConfirm,
-            onCancel: closeUDW,
-            tabs: window.eZ.adminUiConfig.universalDiscoveryWidget.tabs,
-            title: 'Browsing content',
-            ...config,
-        };
-
-        ReactDOM.render(React.createElement(eZ.modules.UniversalDiscovery, mergedConfig), udwContainer);
-    };
+    const updateSection = (value) => setSelectedSection(value);
     const makeSearch = useCallback(() => search(0), [search]);
-    const isApplyButtonEnabled = !!selectedContentTypes.length || !!selectedSection || !!selectedSubtree;
-    const renderSelectContentButton = () => {
-        if (selectedSubtree) {
-            return null;
-        }
-
-        return (
-            <button className="btn btn-secondary ez-btn--udw-select-location" type="button" onClick={openUdw}>
-                Select content
-            </button>
-        );
-    };
+    const isApplyButtonEnabled =
+        !!selectedContentTypes.length || !!selectedSection || !!selectedSubtree || prevSelectedLanguage.current !== selectedLanguage;
     const renderSubtreeBreadcrumbs = () => {
-        if (!subtreeBreadcrumbs) {
+        if (!selectedSubtreeBreadcrumbs) {
             return null;
         }
 
         return (
-            <div className="ez-tag">
-                <div className="ez-tag__content">{subtreeBreadcrumbs}</div>
-                <button type="button" className="ez-tag__remove-btn" onClick={clearSelectedSubree}>
-                    <Icon name="discard" extraClasses="ez-icon--small ez-icon--dark" />
-                </button>
+            <div className="ibexa-tag-view-select__selected-list">
+                <div className="ibexa-tag-view-select__selected-item-tag">
+                    {selectedSubtreeBreadcrumbs}
+                    <button
+                        type="button"
+                        className="btn ibexa-tag-view-select__selected-item-tag-remove-btn"
+                        onClick={clearSelectedSubtree}
+                    >
+                        <Icon name="discard" extraClasses="ibexa-icon--tiny" />
+                    </button>
+                </div>
             </div>
         );
     };
-    const contentTypeLabel = Translator.trans(/*@Desc("Content Type")*/ 'filters.content_type', {}, 'universal_discovery_widget');
+    const renderSelectContentButton = () => {
+        const selectLabel = Translator.trans(
+            /*@Desc("Select content")*/ 'filters.tag_view_select.select',
+            {},
+            'universal_discovery_widget',
+        );
+        const changeLabel = Translator.trans(
+            /*@Desc("Change content")*/ 'filters.tag_view_change.select',
+            {},
+            'universal_discovery_widget',
+        );
+
+        return (
+            <button
+                className="ibexa-tag-view-select__btn-select-path btn ibexa-btn ibexa-btn--secondary"
+                type="button"
+                onClick={() => setIsNestedUdwOpened(true)}
+            >
+                {selectedSubtree ? changeLabel : selectLabel}
+            </button>
+        );
+    };
+    const filtersLabel = Translator.trans(/*@Desc("Filters")*/ 'filters.title', {}, 'universal_discovery_widget');
+    const languageLabel = Translator.trans(/*@Desc("Language")*/ 'filters.language', {}, 'universal_discovery_widget');
     const sectionLabel = Translator.trans(/*@Desc("Section")*/ 'filters.section', {}, 'universal_discovery_widget');
-    const anySectionLabel = Translator.trans(/*@Desc("Any section")*/ 'filters.any_section', {}, 'universal_discovery_widget');
     const subtreeLabel = Translator.trans(/*@Desc("Subtree")*/ 'filters.subtree', {}, 'universal_discovery_widget');
     const clearLabel = Translator.trans(/*@Desc("Clear")*/ 'filters.clear', {}, 'universal_discovery_widget');
     const applyLabel = Translator.trans(/*@Desc("Apply")*/ 'filters.apply', {}, 'universal_discovery_widget');
+    const languageOptions = languages
+        .filter((language) => language.enabled)
+        .map((language) => ({
+            value: language.languageCode,
+            label: language.name,
+        }));
+    const sectionOptions = Object.entries(ibexa.adminUiConfig.sections).map(([sectionIdentifier, sectionName]) => ({
+        value: sectionIdentifier,
+        label: sectionName,
+    }));
 
     useEffect(() => {
         if (filtersCleared) {
@@ -113,50 +131,70 @@ const Filters = ({ isCollapsed, search }) => {
         }
     }, [filtersCleared, makeSearch]);
 
+    useEffect(() => {
+        window.document.body.append(nestedUdwContainer.current);
+
+        return () => {
+            nestedUdwContainer.current.remove();
+        };
+    });
+
     return (
-        <div className={wrapperClassName}>
-            <div className="ez-filters__row">
-                <div className="ez-filters__item ez-filters__item--content-type">
-                    <label className="ez-label">{contentTypeLabel}</label>
-                    <ContentTypeSelector />
+        <>
+            {isNestedUdwOpened && ReactDOM.createPortal(<UniversalDiscoveryModule {...nestedUdwConfig} />, nestedUdwContainer.current)}
+            <div className="c-filters">
+                <div className="c-filters__header">
+                    <div className="c-filters__header-content">{filtersLabel}</div>
+                    <div className="c-filters__header-actions">
+                        <button className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small" type="button" onClick={clearFilters}>
+                            {clearLabel}
+                        </button>
+                        <button
+                            type="submit"
+                            className="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-btn--apply"
+                            onClick={makeSearch}
+                            disabled={!isApplyButtonEnabled}
+                        >
+                            {applyLabel}
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div className="ez-filters__row">
-                <div className="ez-filters__item ez-filters__item--section">
-                    <label className="ez-label">{sectionLabel}</label>
-                    <select className="ez-filters__select form-control" onChange={updateSection} value={selectedSection}>
-                        <option value={''}>{anySectionLabel}</option>
-                        {Object.entries(window.eZ.adminUiConfig.sections).map(([sectionIdentifier, sectionName]) => {
-                            return (
-                                <option key={sectionIdentifier} value={sectionIdentifier}>
-                                    {sectionName}
-                                </option>
-                            );
-                        })}
-                    </select>
+                <div className="c-filters__row c-filters__row--language">
+                    <div className="c-filters__row-title">{languageLabel}</div>
+                    <Dropdown
+                        dropdownListRef={dropdownListRef}
+                        single={true}
+                        onChange={updateSelectedLanguage}
+                        value={selectedLanguage}
+                        options={languageOptions}
+                        extraClasses="c-udw-dropdown"
+                    />
                 </div>
-                <div className="ez-filters__item ez-filters__item--subtree">
-                    <label className="ez-label">{subtreeLabel}:</label>
-                    <div>
-                        {renderSelectContentButton()}
+                <ContentTypeSelector />
+                <div className="c-filters__row">
+                    <div className="c-filters__row-title">{sectionLabel}</div>
+                    <Dropdown
+                        dropdownListRef={dropdownListRef}
+                        single={true}
+                        onChange={updateSection}
+                        value={selectedSection}
+                        options={sectionOptions}
+                        extraClasses="c-udw-dropdown"
+                    />
+                </div>
+                <div className="c-filters__row">
+                    <div className="c-filters__row-title">{subtreeLabel}</div>
+                    <div className="ibexa-tag-view-select">
                         {renderSubtreeBreadcrumbs()}
+                        {renderSelectContentButton()}
                     </div>
                 </div>
             </div>
-            <div className="ez-filters__btns">
-                <button type="submit" className="btn btn-primary ez-btn-apply" onClick={makeSearch} disabled={!isApplyButtonEnabled}>
-                    {applyLabel}
-                </button>
-                <button className="ez-btn ez-btn--no-border" onClick={clearFilters}>
-                    {clearLabel}
-                </button>
-            </div>
-        </div>
+        </>
     );
 };
 
 Filters.propTypes = {
-    isCollapsed: PropTypes.bool.isRequired,
     search: PropTypes.func.isRequired,
 };
 

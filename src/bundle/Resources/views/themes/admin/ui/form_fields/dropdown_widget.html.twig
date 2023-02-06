@@ -1,0 +1,32 @@
+{%- block choice_widget -%}
+    {% if expanded %}
+        {{- block('choice_widget_expanded') -}}
+    {% else %}
+        {% set attr = attr|default({})|merge({
+            'class': (attr.class|default('') ~ ' ibexa-input ibexa-input--select')|trim,
+        }) %}
+        {% set source %}
+            {{- block('choice_widget_collapsed') -}}
+        {% endset %}
+
+        {% include '@ibexadesign/ui/component/dropdown/dropdown.html.twig' with {
+            source: source,
+            choices: choices,
+            preferred_choices: preferred_choices,
+            value: form.vars.value,
+            multiple: form.vars.multiple,
+            custom_init: attr.dropdown_custom_init|default(false),
+            class: attr.dropdown_class|default(''),
+            translation_domain: choice_translation_domain|default(false),
+            custom_form: false,
+            class: attr.dropdown_class|default(''),
+            is_disabled: attr.disabled|default(false) or disabled|default(false),
+            is_hidden: attr.dropdown_hidden|default(false),
+            is_small: attr.is_small|default(false),
+            is_ghost: attr.is_ghost|default(false),
+            is_selector: attr.is_selector|default(false),
+            is_dynamic: attr.is_dynamic|default(false),
+            has_select_all_toggler: attr.has_select_all_toggler|default(false),
+        } %}
+    {% endif %}
+{%- endblock choice_widget -%}

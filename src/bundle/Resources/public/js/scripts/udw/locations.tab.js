@@ -1,10 +1,16 @@
-(function(global, doc, eZ, React, ReactDOM, Translator) {
-    const btns = doc.querySelectorAll('.btn--udw-add');
+(function (global, doc, ibexa, React, ReactDOM, Translator) {
+    const btns = doc.querySelectorAll('.ibexa-btn--udw-add');
     const submitButton = doc.querySelector('#content_location_add_add');
     const form = doc.querySelector('form[name="content_location_add"]');
+
+    if (!form) {
+        return;
+    }
+
     const input = form.querySelector('#content_location_add_new_locations');
     const udwContainer = doc.getElementById('react-udw');
-    const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
+    let udwRoot = null;
+    const closeUDW = () => udwRoot.unmount();
     const onConfirm = (items) => {
         closeUDW();
 
@@ -19,8 +25,9 @@
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
         const title = Translator.trans(/*@Desc("Select Location")*/ 'add_location.title', {}, 'universal_discovery_widget');
 
-        ReactDOM.render(
-            React.createElement(eZ.modules.UniversalDiscovery, {
+        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot.render(
+            React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm,
                 onCancel,
                 containersOnly: true,
@@ -28,9 +35,8 @@
                 multiple: false,
                 ...config,
             }),
-            udwContainer
         );
     };
 
     btns.forEach((btn) => btn.addEventListener('click', openUDW, false));
-})(window, window.document, window.eZ, window.React, window.ReactDOM, window.Translator);
+})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator);
