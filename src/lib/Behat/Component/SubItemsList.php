@@ -46,14 +46,20 @@ class SubItemsList extends Component
             return;
         }
 
-        $header = $this->getHTMLPage()->findAll($this->getLocator('horizontalHeaders'))->getByCriterion(new ElementTextCriterion($columnName));
+        $header = $this->getHTMLPage()
+            ->setTimeout(3)
+            ->findAll($this->getLocator('horizontalHeaders'))
+            ->getByCriterion(new ElementTextCriterion($columnName));
         $header->mouseOver();
         usleep(100 * 2500); // 250 ms TODO: Remove after redesign
         $header->click();
         $isSortedDescending = $this->getHTMLPage()->findAll($this->getLocator('sortingOrderDescending'))->any();
 
         if (!$isSortedDescending && !$ascending) {
-            $header = $this->getHTMLPage()->findAll($this->getLocator('horizontalHeaders'))->getByCriterion(new ElementTextCriterion($columnName));
+            $header = $this->getHTMLPage()
+                ->setTimeout(3)
+                ->findAll($this->getLocator('horizontalHeaders'))
+                ->getByCriterion(new ElementTextCriterion($columnName));
             $header->mouseOver();
             usleep(100 * 2500); // 250 ms TODO: Remove after redesign
             $header->click();
