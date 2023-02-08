@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class SiteAccessLimitationMapperTest extends TestCase
 {
-    public function testMapLimitationValue()
+    public function testMapLimitationValue(): void
     {
         $siteAccessList = [
             '2356372769' => 'foo',
@@ -39,15 +39,19 @@ class SiteAccessLimitationMapperTest extends TestCase
         $siteAccessesGeneratorInterface = $this->createMock(SiteAccessKeyGeneratorInterface::class);
         $siteAccessesGeneratorInterface
             ->method('generate')
-            ->willReturn('2356372769');
+            // re-map SiteAccess crc32 identifiers back to string, as the keys get stored as integers
+            ->willReturnOnConsecutiveCalls(...array_map('strval', array_keys($siteAccessList)));
 
         $siteAccessService = $this->createMock(SiteAccessServiceInterface::class);
         $siteAccessService->method('getAll')->willReturn($siteAccesses);
 
-        $mapper = new SiteAccessLimitationMapper($siteAccessService, $siteAccessesGeneratorInterface);
+        $mapper = new SiteAccessLimitationMapper(
+            $siteAccessService,
+            $siteAccessesGeneratorInterface
+        );
         $result = $mapper->mapLimitationValue($limitation);
 
-        $this->assertEquals(array_values($siteAccessList), $result);
+        self::assertEquals(array_values($siteAccessList), $result);
     }
 }
 
