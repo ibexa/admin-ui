@@ -6,12 +6,14 @@
  */
 namespace Ibexa\AdminUi\Validator\Constraints;
 
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Validator\Constraint;
 
 /**
  * @Annotation
  */
-class UniqueFieldDefinitionIdentifier extends Constraint
+class UniqueFieldDefinitionIdentifier extends Constraint implements TranslationContainerInterface
 {
     /**
      * %identifier% placeholder is passed.
@@ -19,6 +21,17 @@ class UniqueFieldDefinitionIdentifier extends Constraint
      * @var string
      */
     public $message = 'ez.field_definition.identifier.unique';
+
+    /**
+     * @return array<\JMS\TranslationBundle\Model\Message>
+     */
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create('ez.field_definition.identifier.unique', 'validators')
+                ->setDesc('The Field definition identifier "%identifier%" is used by another Field definition. Enter a unique identifier.'),
+        ];
+    }
 
     public function getTargets()
     {
