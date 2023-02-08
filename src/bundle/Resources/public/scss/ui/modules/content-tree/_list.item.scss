@@ -181,7 +181,7 @@
     .c-list {
         opacity: 0;
         list-style: none;
-        max-height: 0;
+        display: none;
         max-width: 0;
         overflow: hidden;
     }
@@ -220,7 +220,7 @@
 
         > .c-list {
             opacity: 1;
-            max-height: calculateRem(20000px);
+            display: block;
             max-width: initial;
             overflow: initial;
         }
