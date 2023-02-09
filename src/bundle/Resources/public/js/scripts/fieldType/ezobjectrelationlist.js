@@ -100,6 +100,7 @@
             closeUDW();
             updateFieldState();
             updateAddBtnState();
+            relationsTable.dispatchEvent(new CustomEvent('ibexa-refresh-main-table-checkbox'));
         };
         const openUDW = (event) => {
             event.preventDefault();
