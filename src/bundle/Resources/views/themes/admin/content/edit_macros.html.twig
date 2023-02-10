@@ -1,0 +1,25 @@
+{% macro render_form_field(formField) -%}
+    {% trans_default_domain 'content_edit' %}
+
+    {% if not formField.rendered %}
+        {% if formField.value is defined %}
+            {{- form_widget(formField) -}}
+        {% else %}
+            <div class="ibexa-field-edit ibexa-field-edit--eznoneditable">
+                {{- form_label(formField) -}}
+                <p class="non-editable">
+                    {{ 'content.field.non_editable'|trans|desc('This Field Type is not editable') }}
+                </p>
+                {% do formField.setRendered() %}
+            </div>
+        {% endif %}
+    {% endif %}
+{%- endmacro -%}
+
+{% macro render_field_group(group, form) -%}
+    {% for field in group %}
+        {% set formField = form.fieldsData[field] %}
+
+        {{ _self.render_form_field(formField) }}
+    {% endfor %}
+{%- endmacro -%}

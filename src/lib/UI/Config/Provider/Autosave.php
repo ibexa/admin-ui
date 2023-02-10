@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Config\Provider;
+namespace Ibexa\AdminUi\UI\Config\Provider;
 
-use EzSystems\EzPlatformAdminUi\UI\Config\ProviderInterface;
-use EzSystems\EzPlatformAdminUi\UserSetting\Autosave as AutosaveSetting;
-use EzSystems\EzPlatformUser\UserSetting\UserSettingService;
+use Ibexa\AdminUi\UserSetting\Autosave as AutosaveSetting;
+use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\User\UserSetting\UserSettingService;
 
 class Autosave implements ProviderInterface
 {
-    /** @var \EzSystems\EzPlatformUser\UserSetting\UserSettingService */
+    /** @var \Ibexa\User\UserSetting\UserSettingService */
     private $userSettingService;
 
     public function __construct(
@@ -34,3 +34,5 @@ class Autosave implements ProviderInterface
         ];
     }
 }
+
+class_alias(Autosave::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Autosave');

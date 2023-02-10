@@ -6,28 +6,28 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Dataset;
+namespace Ibexa\AdminUi\UI\Dataset;
 
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory;
+use Ibexa\AdminUi\UI\Value\ValueFactory;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
 class TranslationsDataset
 {
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     protected $languageService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory */
+    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
     protected $valueFactory;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[] */
     protected $data;
 
     /**
-     * @param \eZ\Publish\API\Repository\LanguageService $languageService
-     * @param \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory $valueFactory
+     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
+     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
      */
     public function __construct(LanguageService $languageService, ValueFactory $valueFactory)
     {
@@ -36,7 +36,7 @@ class TranslationsDataset
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      *
      * @return TranslationsDataset
      */
@@ -58,11 +58,11 @@ class TranslationsDataset
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\TranslationsDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\TranslationsDataset
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function loadFromContentType(ContentType $contentType): self
     {
@@ -82,7 +82,7 @@ class TranslationsDataset
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
      */
     public function getTranslations(): array
     {
@@ -90,10 +90,12 @@ class TranslationsDataset
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
      */
     public function getLanguageCodes(): array
     {
         return array_column($this->data, 'languageCode');
     }
 }
+
+class_alias(TranslationsDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\TranslationsDataset');

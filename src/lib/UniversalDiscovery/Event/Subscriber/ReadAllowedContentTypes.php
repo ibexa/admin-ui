@@ -6,24 +6,24 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber;
+namespace Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\User\Limitation\ContentTypeLimitation;
-use EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface;
-use EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
+use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
+use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ReadAllowedContentTypes implements EventSubscriberInterface
 {
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
     private $permissionChecker;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
     /** @var string[]|null */
@@ -40,7 +40,7 @@ final class ReadAllowedContentTypes implements EventSubscriberInterface
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function getAllowedContentTypesIdentifiers(array $contentTypesAllowedViaConfig): ?array
     {
@@ -88,3 +88,5 @@ final class ReadAllowedContentTypes implements EventSubscriberInterface
         $event->setConfig($config);
     }
 }
+
+class_alias(ReadAllowedContentTypes::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\ReadAllowedContentTypes');

@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\ContentType\Translation;
+namespace Ibexa\AdminUi\Form\Type\ContentType\Translation;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\LanguageService;
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentType\Translation\TranslationAddData;
-use EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\AvailableTranslationLanguageChoiceLoader;
-use EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\BaseTranslationLanguageChoiceLoader;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\ContentTypeType;
-use EzSystems\EzPlatformAdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupType;
+use Ibexa\AdminUi\Form\Data\ContentType\Translation\TranslationAddData;
+use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\AvailableTranslationLanguageChoiceLoader;
+use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\BaseTranslationLanguageChoiceLoader;
+use Ibexa\AdminUi\Form\Type\Content\ContentTypeType;
+use Ibexa\AdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupType;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\LanguageService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -27,15 +27,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TranslationAddType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     protected $languageService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
     /**
-     * @param \eZ\Publish\API\Repository\LanguageService $languageService
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
+     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
      */
     public function __construct(
         LanguageService $languageService,
@@ -93,8 +93,8 @@ class TranslationAddType extends AbstractType
      *
      * @param \Symfony\Component\Form\FormEvent $event
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException
      * @throws \Symfony\Component\Form\Exception\LogicException
      * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException
@@ -104,7 +104,7 @@ class TranslationAddType extends AbstractType
         $contentLanguages = [];
         $form = $event->getForm();
 
-        /** @var \EzSystems\EzPlatformAdminUi\Form\Data\ContentType\Translation\TranslationAddData $data */
+        /** @var \Ibexa\AdminUi\Form\Data\ContentType\Translation\TranslationAddData $data */
         $data = $event->getData();
         $contentType = $data->getContentType();
 
@@ -120,8 +120,8 @@ class TranslationAddType extends AbstractType
      *
      * @param \Symfony\Component\Form\FormEvent $event
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException
      * @throws \Symfony\Component\Form\Exception\LogicException
      * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException
@@ -183,6 +183,7 @@ class TranslationAddType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'choice_loader' => new AvailableTranslationLanguageChoiceLoader($this->languageService, $contentLanguages),
+                    'label' => /** @Desc("Target language") */ 'translation.language.label',
                     'choice_value' => 'languageCode',
                     'choice_label' => 'name',
                 ]
@@ -192,13 +193,16 @@ class TranslationAddType extends AbstractType
                 ChoiceType::class,
                 [
                     'required' => false,
-                    'placeholder' => true,
+                    'placeholder' => /** @Desc("No language") */ 'translation.base_language.no_language',
                     'multiple' => false,
                     'expanded' => false,
                     'choice_loader' => new BaseTranslationLanguageChoiceLoader($this->languageService, $contentLanguages),
+                    'label' => /** @Desc("Source language") */ 'translation.base_language.label',
                     'choice_value' => 'languageCode',
                     'choice_label' => 'name',
                 ]
             );
     }
 }
+
+class_alias(TranslationAddType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\Translation\TranslationAddType');

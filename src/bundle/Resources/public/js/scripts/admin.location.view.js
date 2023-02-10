@@ -1,31 +1,17 @@
-(function(global, doc, localStorage, $, React, ReactDOM, eZ, Routing, Translator) {
+(function (global, doc, localStorage, bootstrap, React, ReactDOM, ibexa, Routing, Translator) {
     const SELECTOR_MODAL_BULK_ACTION_FAIL = '#bulk-action-failed-modal';
-    const listContainers = doc.querySelectorAll('.ez-sil');
-    const mfuContainer = doc.querySelector('#ez-mfu');
+    const listContainers = doc.querySelectorAll('.ibexa-sil');
+    const mfuContainer = doc.querySelector('#ibexa-mfu');
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const sortContainer = doc.querySelector('[data-sort-field][data-sort-order]');
     const sortField = sortContainer.getAttribute('data-sort-field');
     const sortOrder = sortContainer.getAttribute('data-sort-order');
-    const mfuAttrs = {
-        adminUiConfig: {
-            ...eZ.adminUiConfig,
-            token,
-            siteaccess,
-        },
-        parentInfo: {
-            contentTypeIdentifier: mfuContainer.dataset.parentContentTypeIdentifier,
-            contentTypeId: parseInt(mfuContainer.dataset.parentContentTypeId, 10),
-            locationPath: mfuContainer.dataset.parentLocationPath,
-            language: mfuContainer.dataset.parentContentLanguage,
-        },
-        currentLanguage: mfuContainer.dataset.currentLanguage,
-    };
     const handleEditItem = (content, location) => {
         const contentId = content._id;
         const locationId = location._id;
         const languageCode = content.mainLanguageCode;
-        const checkVersionDraftLink = Routing.generate('ezplatform.version_draft.has_no_conflict', { contentId, languageCode, locationId });
+        const checkVersionDraftLink = Routing.generate('ibexa.version_draft.has_no_conflict', { contentId, languageCode, locationId });
         const submitVersionEditForm = () => {
             doc.querySelector('#form_subitems_content_edit_content_info').value = contentId;
             doc.querySelector(`#form_subitems_content_edit_language_${languageCode}`).checked = true;
@@ -33,37 +19,39 @@
         };
         const addDraft = () => {
             submitVersionEditForm();
-            $('#version-draft-conflict-modal').modal('hide');
+            bootstrap.Modal.getOrCreateInstance(doc.querySelector('#version-draft-conflict-modal')).hide();
         };
         const attachModalListeners = (wrapper) => {
-            const addDraftButton = wrapper.querySelector('.ez-btn--add-draft');
+            const addDraftButton = wrapper.querySelector('.ibexa-btn--add-draft');
+            const conflictModal = doc.querySelector('#version-draft-conflict-modal');
 
             if (addDraftButton) {
                 addDraftButton.addEventListener('click', addDraft, false);
             }
 
             wrapper
-                .querySelectorAll('.ez-btn--prevented')
+                .querySelectorAll('.ibexa-btn--prevented')
                 .forEach((btn) => btn.addEventListener('click', (event) => event.preventDefault(), false));
 
-            $('#version-draft-conflict-modal')
-                .modal('show')
-                .on('shown.bs.modal', () => eZ.helpers.tooltips.parse());
+            if (conflictModal) {
+                bootstrap.Modal.getOrCreateInstance(conflictModal).show();
+                conflictModal.addEventListener('shown.bs.modal', () => ibexa.helpers.tooltips.parse());
+            }
         };
         const showModal = (modalHtml) => {
-            const wrapper = doc.querySelector('.ez-modal-wrapper');
+            const wrapper = doc.querySelector('.ibexa-modal-wrapper');
 
             wrapper.innerHTML = modalHtml;
             attachModalListeners(wrapper);
         };
-        const checkEditPermissionLink = Routing.generate('ezplatform.content.check_edit_permission', {
+        const checkEditPermissionLink = Routing.generate('ibexa.content.check_edit_permission', {
             contentId,
             languageCode: content.mainLanguageCode,
         });
         const errorMessage = Translator.trans(
             /*@Desc("You don't have permission to edit this Content item")*/ 'content.edit.permission.error',
             {},
-            'content'
+            'content',
         );
         const handleCanEditCheck = (response) => {
             if (response.canEdit) {
@@ -74,7 +62,7 @@
         };
 
         fetch(checkEditPermissionLink, { mode: 'same-origin', credentials: 'same-origin' })
-            .then(eZ.helpers.request.getJsonFromResponse)
+            .then(ibexa.helpers.request.getJsonFromResponse)
             .then(handleCanEditCheck)
             .then((response) => {
                 // Status 409 means that a draft conflict has occurred and the modal must be displayed.
@@ -85,26 +73,26 @@
                     submitVersionEditForm();
                 }
             })
-            .catch(eZ.helpers.notification.showErrorNotification);
+            .catch(ibexa.helpers.notification.showErrorNotification);
     };
-    const generateLink = (locationId, contentId) => Routing.generate('_ez_content_view', { contentId, locationId });
+    const generateLink = (locationId, contentId) => Routing.generate('ibexa.content.view', { contentId, locationId });
     const setModalTableTitle = (title) => {
-        const modalTableTitleNode = doc.querySelector(`${SELECTOR_MODAL_BULK_ACTION_FAIL} .ez-table-header__headline`);
+        const modalTableTitleNode = doc.querySelector(`${SELECTOR_MODAL_BULK_ACTION_FAIL} .ibexa-table-header__headline`);
 
         modalTableTitleNode.innerHTML = title;
+        modalTableTitleNode.setAttribute('title', title);
+        modalTableTitleNode.dataset.originalTitle = title;
     };
     const setModalTableBody = (failedItemsData) => {
         const modal = doc.querySelector(SELECTOR_MODAL_BULK_ACTION_FAIL);
-        const table = modal.querySelector('.ez-bulk-action-failed-modal__table');
-        const tableBody = table.querySelector('.ez-bulk-action-failed-modal__table-body');
-        const tableRowTemplate = table.dataset.tableRowTemplate;
+        const table = modal.querySelector('.ibexa-bulk-action-failed-modal__table');
+        const tableBody = table.querySelector('.ibexa-bulk-action-failed-modal__table-body');
+        const { rowTemplate } = table.dataset;
         const fragment = doc.createDocumentFragment();
 
         failedItemsData.forEach(({ contentName, contentTypeName }) => {
             const container = doc.createElement('tbody');
-            const renderedItem = tableRowTemplate
-                .replace('{{ content_name }}', contentName)
-                .replace('{{ content_type_name }}', contentTypeName);
+            const renderedItem = rowTemplate.replace('{{ content_name }}', contentName).replace('{{ content_type_name }}', contentTypeName);
 
             container.insertAdjacentHTML('beforeend', renderedItem);
 
@@ -125,17 +113,18 @@
         setModalTableBody(failedItemsData);
         setModalTableTitle(tableTitle);
 
-        $(SELECTOR_MODAL_BULK_ACTION_FAIL).modal('show');
+        bootstrap.Modal.getOrCreateInstance(doc.querySelector(SELECTOR_MODAL_BULK_ACTION_FAIL)).show();
     };
     const getLocationActiveView = (parentLocationId) => {
-        const mediaLocationId = eZ.adminUiConfig.locations.media;
+        const mediaLocationId = ibexa.adminUiConfig.locations.media;
         const defaultActiveView = parentLocationId === mediaLocationId ? 'grid' : 'table';
-        const activeView = localStorage.getItem(`ez-subitems-active-view-location-${parentLocationId}`);
+        const activeView = localStorage.getItem(`ibexa-subitems-active-view-location-${parentLocationId}`);
 
         return activeView || defaultActiveView;
     };
 
     listContainers.forEach((container) => {
+        const subitemsRoot = ReactDOM.createRoot(container);
         const parentLocationId = parseInt(container.dataset.location, 10);
         const activeView = getLocationActiveView(parentLocationId);
         const subItemsList = JSON.parse(container.dataset.items).SubitemsList;
@@ -151,16 +140,30 @@
         }, {});
         const udwConfigBulkMoveItems = JSON.parse(container.dataset.udwConfigBulkMoveItems);
         const udwConfigBulkAddLocation = JSON.parse(container.dataset.udwConfigBulkAddLocation);
-        const mfuContentTypesMap = Object.values(eZ.adminUiConfig.contentTypes).reduce((contentTypeDataMap, contentTypeGroup) => {
+        const mfuContentTypesMap = Object.values(ibexa.adminUiConfig.contentTypes).reduce((contentTypeDataMap, contentTypeGroup) => {
             for (const contentTypeData of contentTypeGroup) {
                 contentTypeDataMap[contentTypeData.href] = contentTypeData;
             }
 
             return contentTypeDataMap;
         }, {});
+        const mfuAttrs = {
+            adminUiConfig: {
+                ...ibexa.adminUiConfig,
+                token,
+                siteaccess,
+            },
+            parentInfo: {
+                contentTypeIdentifier: mfuContainer.dataset.parentContentTypeIdentifier,
+                contentTypeId: parseInt(mfuContainer.dataset.parentContentTypeId, 10),
+                locationPath: mfuContainer.dataset.parentLocationPath,
+                language: mfuContainer.dataset.parentContentLanguage,
+            },
+            currentLanguage: mfuContainer.dataset.currentLanguage,
+        };
 
-        ReactDOM.render(
-            React.createElement(eZ.modules.SubItems, {
+        subitemsRoot.render(
+            React.createElement(ibexa.modules.SubItems, {
                 handleEditItem,
                 generateLink,
                 activeView,
@@ -169,7 +172,7 @@
                 restInfo: { token, siteaccess },
                 extraActions: [
                     {
-                        component: eZ.modules.MultiFileUpload,
+                        component: ibexa.modules.MultiFileUpload,
                         attrs: {
                             ...mfuAttrs,
                             onPopupClose: (itemsUploaded) => itemsUploaded.length && global.location.reload(true),
@@ -185,17 +188,16 @@
                 udwConfigBulkAddLocation,
                 showBulkActionFailedModal,
             }),
-            container
         );
     });
 })(
     window,
     window.document,
     window.localStorage,
-    window.jQuery,
+    window.bootstrap,
     window.React,
     window.ReactDOM,
-    window.eZ,
+    window.ibexa,
     window.Routing,
-    window.Translator
+    window.Translator,
 );

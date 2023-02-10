@@ -6,34 +6,34 @@ services:
         bind:
             string $logLevel: 'error'
 
-    EzSystems\EzPlatformAdminUi\EventListener\:
+    Ibexa\AdminUi\EventListener\:
         resource: "../../../lib/EventListener/*"
         public: true
         tags:
             - { name: kernel.event_subscriber }
 
-    EzSystems\EzPlatformAdminUi\EventListener\RequestListener:
+    Ibexa\AdminUi\EventListener\RequestListener:
         arguments:
-            - '%ezpublish.siteaccess.groups_by_siteaccess%'
+            - '%ibexa.site_access.groups_by_site_access%'
         tags:
             - { name: kernel.event_subscriber }
 
-    EzSystems\EzPlatformAdminUi\EventListener\RequestLocaleListener:
+    Ibexa\AdminUi\EventListener\RequestLocaleListener:
         arguments:
-            $siteAccessGroups: '%ezpublish.siteaccess.groups%'
+            $siteAccessGroups: '%ibexa.site_access.groups%'
             $availableTranslations: '%available_translations%'
         tags:
             - { name: kernel.event_subscriber }
 
-    EzSystems\EzPlatformAdminUi\EventListener\RequestAttributesListener:
+    Ibexa\AdminUi\EventListener\RequestAttributesListener:
         arguments:
-            - '%ezpublish.siteaccess.groups%'
+            - '%ibexa.site_access.groups%'
         tags:
-            - {name: kernel.event_subscriber}
+            - { name: kernel.event_subscriber }
 
-    EzSystems\EzPlatformAdminUi\EventListener\AdminExceptionListener:
+    Ibexa\AdminUi\EventListener\AdminExceptionListener:
         arguments:
-            $siteAccessGroups: '%ezpublish.siteaccess.groups%'
+            $siteAccessGroups: '%ibexa.site_access.groups%'
             $kernelProjectDir: '%kernel.project_dir%'
             $kernelEnvironment: '%kernel.environment%'
             $encoreTagRenderer: '@webpack_encore.tag_renderer'
@@ -42,16 +42,22 @@ services:
             - { name: kernel.event_listener, event: kernel.exception }
             - { name: monolog.logger, channel: ibexa.admin }
 
-    EzSystems\EzPlatformAdminUi\EventListener\MenuPermissionsListener:
+    Ibexa\AdminUi\EventListener\MenuPermissionsListener:
         tags:
-            - {name: kernel.event_subscriber, priority: -250}
+            - { name: kernel.event_subscriber, priority: -250 }
 
-    EzSystems\EzPlatformAdminUi\EventListener\ViewTemplatesListener:
+    Ibexa\AdminUi\EventListener\ViewTemplatesListener:
         tags:
             - { name: kernel.event_subscriber }
 
-    EzSystems\EzPlatformAdminUi\EventListener\ContentDownloadRouteReferenceListener:
+    Ibexa\AdminUi\EventListener\ContentDownloadRouteReferenceListener:
         arguments:
-            $siteAccessGroups: '%ezpublish.siteaccess.groups%'
+            $siteAccessGroups: '%ibexa.site_access.groups%'
         tags:
-            - {name: kernel.event_subscriber}
+            - { name: kernel.event_subscriber }
+
+    Ibexa\AdminUi\EventListener\SetViewParametersListener:
+        arguments:
+            $groupedContentFormFieldsProvider: '@Ibexa\AdminUi\Form\Provider\GroupedNonMetaFormFieldsProvider'
+        tags:
+            - { name: kernel.event_subscriber }

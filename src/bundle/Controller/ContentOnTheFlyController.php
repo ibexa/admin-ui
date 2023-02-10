@@ -4,36 +4,37 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Exceptions as ApiException;
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\Base\Exceptions\BadStateException;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
-use EzSystems\EzPlatformAdminUi\Event\ContentProxyCreateEvent;
-use EzSystems\EzPlatformAdminUi\Event\Options;
-use EzSystems\EzPlatformAdminUi\Form\ActionDispatcher\CreateContentOnTheFlyDispatcher;
-use EzSystems\EzPlatformAdminUi\Specification\ContentType\ContentTypeIsUser;
-use EzSystems\EzPlatformAdminUi\View\CreateContentOnTheFlyView;
-use EzSystems\EzPlatformAdminUi\View\EditContentOnTheFlySuccessView;
-use EzSystems\EzPlatformAdminUi\View\EditContentOnTheFlyView;
-use EzSystems\EzPlatformContentForms\Data\Mapper\ContentCreateMapper;
-use EzSystems\EzPlatformContentForms\Data\Mapper\ContentUpdateMapper;
-use EzSystems\EzPlatformContentForms\Form\ActionDispatcher\ActionDispatcherInterface;
-use EzSystems\EzPlatformContentForms\Form\Type\Content\ContentEditType;
+use Ibexa\AdminUi\Event\Options;
+use Ibexa\AdminUi\Form\ActionDispatcher\CreateContentOnTheFlyDispatcher;
+use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
+use Ibexa\AdminUi\View\CreateContentOnTheFlyView;
+use Ibexa\AdminUi\View\EditContentOnTheFlySuccessView;
+use Ibexa\AdminUi\View\EditContentOnTheFlyView;
+use Ibexa\ContentForms\Data\Mapper\ContentCreateMapper;
+use Ibexa\ContentForms\Data\Mapper\ContentUpdateMapper;
+use Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface;
+use Ibexa\ContentForms\Form\Type\Content\ContentEditType;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent;
 use Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsProviderInterface;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions as ApiException;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\Base\Exceptions\BadStateException;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Base\Exceptions\UnauthorizedException;
+use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,37 +44,37 @@ class ContentOnTheFlyController extends Controller
 {
     private const AUTOSAVE_ACTION_NAME = 'autosave';
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
     /** @var \Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsProviderInterface */
     private $groupedContentFormFieldsProvider;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
     private $userLanguagePreferenceProvider;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\ActionDispatcher\CreateContentOnTheFlyDispatcher */
+    /** @var \Ibexa\AdminUi\Form\ActionDispatcher\CreateContentOnTheFlyDispatcher */
     private $createContentActionDispatcher;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface */
     private $eventDispatcher;
 
-    /** @var \EzSystems\EzPlatformContentForms\Form\ActionDispatcher\ActionDispatcherInterface */
+    /** @var \Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface */
     private $contentActionDispatcher;
 
     public function __construct(
@@ -103,8 +104,8 @@ class ContentOnTheFlyController extends Controller
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function hasCreateAccessAction(
         string $languageCode,
@@ -155,10 +156,10 @@ class ContentOnTheFlyController extends Controller
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\View\BaseView|\Symfony\Component\HttpFoundation\Response
+     * @return \Ibexa\Core\MVC\Symfony\View\BaseView|\Symfony\Component\HttpFoundation\Response
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function createContentAction(
         Request $request,
@@ -167,14 +168,14 @@ class ContentOnTheFlyController extends Controller
         Location $parentLocation
     ) {
         if ((new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier')))->isSatisfiedBy($contentType)) {
-            return $this->forward('EzSystems\EzPlatformAdminUiBundle\Controller\UserOnTheFlyController::createUserAction', [
+            return $this->forward('Ibexa\Bundle\AdminUi\Controller\UserOnTheFlyController::createUserAction', [
                 'languageCode' => $languageCode,
                 'contentType' => $contentType,
                 'parentLocation' => $parentLocation,
             ]);
         }
 
-        /** @var \EzSystems\EzPlatformAdminUi\Event\ContentProxyCreateEvent $event */
+        /** @var \Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent $event */
         $event = $this->eventDispatcher->dispatch(
             new ContentProxyCreateEvent(
                 $contentType,
@@ -214,7 +215,7 @@ class ContentOnTheFlyController extends Controller
             }
         }
 
-        return new CreateContentOnTheFlyView('@ezdesign/ui/on_the_fly/content_create_on_the_fly.html.twig', [
+        return new CreateContentOnTheFlyView('@ibexadesign/ui/on_the_fly/content_create_on_the_fly.html.twig', [
             'form' => $form->createView(),
             'language' => $language,
             'content_type' => $contentType,
@@ -226,13 +227,13 @@ class ContentOnTheFlyController extends Controller
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\View\BaseView|\Symfony\Component\HttpFoundation\Response
+     * @return \Ibexa\Core\MVC\Symfony\View\BaseView|\Symfony\Component\HttpFoundation\Response
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\Core\Base\Exceptions\BadStateException
-     * @throws \eZ\Publish\Core\Base\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Core\Base\Exceptions\BadStateException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      */
     public function editContentAction(
         Request $request,
@@ -255,7 +256,7 @@ class ContentOnTheFlyController extends Controller
         );
 
         if ((new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier')))->isSatisfiedBy($contentType)) {
-            return $this->forward('EzSystems\EzPlatformAdminUiBundle\Controller\UserOnTheFlyController::editUserAction', [
+            return $this->forward('Ibexa\Bundle\AdminUi\Controller\UserOnTheFlyController::editUserAction', [
                 'languageCode' => $languageCode,
                 'contentId' => $contentId,
                 'versionNo' => $versionNo,
@@ -274,6 +275,7 @@ class ContentOnTheFlyController extends Controller
             ContentEditType::class,
             $contentUpdate,
             [
+                'location' => $location,
                 'languageCode' => $languageCode,
                 'mainLanguageCode' => $content->contentInfo->mainLanguageCode,
                 'content' => $content,
@@ -320,7 +322,7 @@ class ContentOnTheFlyController extends Controller
             }
 
             if ($actionDispatcher->getResponse()) {
-                $view = new EditContentOnTheFlySuccessView('@ezdesign/ui/on_the_fly/content_edit_response.html.twig');
+                $view = new EditContentOnTheFlySuccessView('@ibexadesign/ui/on_the_fly/content_edit_response.html.twig');
                 $view->addParameters([
                     'locationId' => $location instanceof Location ? $location->id : null,
                 ]);
@@ -350,7 +352,7 @@ class ContentOnTheFlyController extends Controller
         FormInterface $form,
         ContentType $contentType
     ): EditContentOnTheFlyView {
-        $view = new EditContentOnTheFlyView('@ezdesign/ui/on_the_fly/content_edit_on_the_fly.html.twig');
+        $view = new EditContentOnTheFlyView('@ibexadesign/ui/on_the_fly/content_edit_on_the_fly.html.twig');
 
         $view->setContent($content);
         $view->setLanguage($language);
@@ -371,3 +373,5 @@ class ContentOnTheFlyController extends Controller
         return $view;
     }
 }
+
+class_alias(ContentOnTheFlyController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentOnTheFlyController');

@@ -1,0 +1,22 @@
+.ibexa-content-locations {
+    &__visibility-toggler-label {
+        color: $ibexa-color-dark-400;
+        font-size: $ibexa-text-font-size-small;
+
+        .ibexa-icon {
+            fill: $ibexa-color-dark-400;
+        }
+
+        &--hidden {
+            display: none;
+        }
+    }
+
+    .ibexa-table {
+        &__header-cell {
+            &--visibility-toggler {
+                width: calculateRem(300px);
+            }
+        }
+    }
+}

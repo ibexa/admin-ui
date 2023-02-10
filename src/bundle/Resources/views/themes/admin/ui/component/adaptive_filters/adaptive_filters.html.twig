@@ -1,0 +1,88 @@
+{% trans_default_domain 'adaptive_filters' %}
+
+{% set attr = attr|default({})|merge({
+    class: ('ibexa-adaptive-filters '
+        ~ (no_labels|default(false) ? 'ibexa-adaptive-filters--no-labels ')
+        ~ (no_collapsible_items|default(false) ? 'ibexa-adaptive-filters--no-collapsible-items ')
+        ~ (is_inside_container|default(false) ? 'ibexa-adaptive-filters--inside-container ')
+        ~ (is_inside_tabs|default(false) ? 'ibexa-adaptive-filters--inside-tabs ')
+        ~ attr.class|default(''))|trim,
+}) %}
+{% set attr_form = attr_form|default({}) %}
+{% set collapse_id = collapse_id|default('ibexa-adaptive-filters-collapse-' ~ random()) %}
+
+{{ form_start(form, { attr: attr|merge(attr_form)}) }}
+    <div class="ibexa-adaptive-filters__visible">
+        <div class="ibexa-adaptive-filters__static-left">
+            {% block static_left %}
+                <div class="form-group">
+                    <label class="ibexa-label"></label>
+                    {% block static_left_input %}{% endblock %}
+                </div>
+            {% endblock %}
+        </div>
+        <div class="ibexa-adaptive-filters__items ibexa-adaptive-filters__items--empty ibexa-adaptive-items">
+            {% if not no_collapsible_items|default(false) %}
+                {% block collapsible_items %}
+                    {% for item in collapsible_items %}
+                        {% include '@ibexadesign/ui/component/adaptive_filters/adaptive_filters_item.html.twig' with {
+                            content: item,
+                        } %}
+                    {% endfor %}
+                {% endblock %}
+            {% endif %}
+            <div class="ibexa-adaptive-filters__actions ibexa-adaptive-items__item ibexa-adaptive-items__item--force-show">
+                {% block actions %}
+                    <button
+                        type="submit"
+                        class="btn ibexa-btn ibexa-btn--secondary ibexa-adaptive-filters__submit-btn"
+                    >
+                        {{ 'actions.apply_btn'|trans|desc('Apply') }}
+                    </button>
+                    <button
+                        type="button"
+                        class="btn ibexa-btn ibexa-btn--ghost ibexa-adaptive-filters__clear-btn"
+                    >
+                        <svg class="ibexa-icon ibexa-icon--small">
+                            <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
+                        </svg>
+                        <span class="ibexa-btn__label">
+                            {{ 'actions.clear_btn'|trans|desc('Clear filters') }}
+                        </span>
+                    </button>
+                {% endblock %}
+            </div>
+            <div
+                class="
+                    ibexa-adaptive-filters__toggler-wrapper
+                    ibexa-adaptive-filters__item--hidden
+                    ibexa-adaptive-items__item
+                    ibexa-adaptive-items__item--selector"
+                >
+                <button
+                    type="button"
+                    class="
+                        btn ibexa-btn ibexa-btn--ghost ibexa-btn--small
+                        ibexa-adaptive-filters__toggler ibexa-adaptive-filters__toggler--collapsed"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#{{ collapse_id }}"
+                    aria-expanded="false"
+                    aria-controls="{{ collapse_id }}"
+                >
+                    <svg class="ibexa-icon ibexa-icon--small">
+                        <use xlink:href="{{ ibexa_icon_path('caret-next') }}"></use>
+                    </svg>
+                    <span class="ibexa-btn__label ibexa-btn__label--more">
+                        {{ 'toggler.open'|trans|desc('More filters') }}
+                    </span>
+                    <span class="ibexa-btn__label ibexa-btn__label--less">
+                        {{ 'toggler.close'|trans|desc('Less filters') }}
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="ibexa-adaptive-filters__collapsible collapse" id="{{ collapse_id }}">
+        <div class="ibexa-adaptive-filters__collapsible-content"></div>
+    </div>
+{{ form_end(form) }}

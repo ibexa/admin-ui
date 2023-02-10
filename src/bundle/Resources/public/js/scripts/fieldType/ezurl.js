@@ -1,11 +1,11 @@
-(function(global, doc, eZ) {
-    const SELECTOR_FIELD = '.ez-field-edit--ezurl';
-    const SELECTOR_FIELD_LINK = '.ez-data-source__field--link';
-    const SELECTOR_LINK_INPUT = `${SELECTOR_FIELD_LINK} .ez-data-source__input`;
-    const SELECTOR_LABEL = '.ez-data-source__label';
-    const SELECTOR_ERROR_NODE = '.ez-data-source'
+(function (global, doc, ibexa) {
+    const SELECTOR_FIELD = '.ibexa-field-edit--ezurl';
+    const SELECTOR_FIELD_LINK = '.ibexa-data-source__field--link';
+    const SELECTOR_LINK_INPUT = `${SELECTOR_FIELD_LINK} .ibexa-data-source__input`;
+    const SELECTOR_LABEL = '.ibexa-data-source__label';
+    const SELECTOR_ERROR_NODE = '.ibexa-data-source__field--link .ibexa-form-error';
 
-    class EzUrlValidator extends eZ.BaseFieldValidator {
+    class EzUrlValidator extends ibexa.BaseFieldValidator {
         validateUrl(event) {
             const input = event.currentTarget;
             const isRequired = input.required;
@@ -15,7 +15,7 @@
             const result = { isError };
 
             if (isRequired && isEmpty) {
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             }
 
             return result;
@@ -38,5 +38,5 @@
 
     validator.init();
 
-    eZ.addConfig('fieldTypeValidators', [validator], true);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('fieldTypeValidators', [validator], true);
+})(window, window.document, window.ibexa);

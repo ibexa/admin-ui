@@ -4,14 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Type\ContentType;
+namespace Ibexa\AdminUi\Form\Type\ContentType;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData;
-use EzSystems\EzPlatformAdminUi\Form\DataTransformer\TranslatablePropertyTransformer;
-use EzSystems\EzPlatformAdminUi\Form\Type\FieldDefinition\FieldDefinitionType;
+use Ibexa\AdminUi\Form\Data\ContentTypeData;
+use Ibexa\AdminUi\Form\DataTransformer\TranslatablePropertyTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -102,30 +100,22 @@ class ContentTypeUpdateType extends AbstractType
                 'label' => /** @Desc("Make content available even with missing translations") */ 'content_type.default_always_available',
                 'disabled' => $isTranslation,
             ])
-            ->add('fieldDefinitionsData', CollectionType::class, [
-                'entry_type' => FieldDefinitionType::class,
-                'entry_options' => ['languageCode' => $options['languageCode'], 'mainLanguageCode' => $options['mainLanguageCode']],
-                'label' => /** @Desc("Content Field definitions") */ 'content_type.field_definitions_data',
+            ->add('fieldDefinitionsData', FieldDefinitionsCollectionType::class, [
+                'languageCode' => $options['languageCode'],
+                'mainLanguageCode' => $options['mainLanguageCode'],
             ])
-            ->add('fieldTypeSelection', FieldTypeChoiceType::class, [
-                'mapped' => false,
-                'label' => /** @Desc("Field Type selection") */ 'content_type.field_type_selection',
-                'disabled' => $isTranslation,
-            ])
-            ->add('addFieldDefinition', SubmitType::class, [
-                'label' => /** @Desc("Add field definition") */ 'content_type.add_field_definition',
-                'disabled' => $isTranslation,
-            ])
-            ->add('removeFieldDefinition', SubmitType::class, [
-                'label' => /** @Desc("Remove selected Field definitions") */ 'content_type.remove_field_definitions',
-                'disabled' => !$hasFieldDefinition || $isTranslation,
+            ->add('metaFieldDefinitionsData', FieldDefinitionsCollectionType::class, [
+                'languageCode' => $options['languageCode'],
+                'mainLanguageCode' => $options['mainLanguageCode'],
+                'block_prefix' => 'content_type_meta_field_definitions_data',
             ])
             ->add('saveContentType', SubmitType::class, ['label' => /** @Desc("Apply") */ 'content_type.save'])
             ->add('removeDraft', SubmitType::class, ['label' => /** @Desc("Cancel") */ 'content_type.remove_draft', 'validation_groups' => false])
             ->add('publishContentType', SubmitType::class, [
                 'label' => /** @Desc("OK") */ 'content_type.publish',
-                'disabled' => !$hasFieldDefinition,
             ])
         ;
     }
 }
+
+class_alias(ContentTypeUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\ContentTypeUpdateType');

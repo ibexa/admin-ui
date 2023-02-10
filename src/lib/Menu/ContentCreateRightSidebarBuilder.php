@@ -4,17 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu;
+namespace Ibexa\AdminUi\Menu;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\Content\ContentCreateStruct;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -29,24 +30,24 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ContentCreateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__PUBLISH = 'content_create__sidebar_right__publish';
-    const ITEM__SAVE_DRAFT = 'content_create__sidebar_right__save_draft';
-    const ITEM__PREVIEW = 'content_create__sidebar_right__preview';
-    const ITEM__CANCEL = 'content_create__sidebar_right__cancel';
+    public const ITEM__PUBLISH = 'content_create__sidebar_right__publish';
+    public const ITEM__SAVE_DRAFT = 'content_create__sidebar_right__save_draft';
+    public const ITEM__PREVIEW = 'content_create__sidebar_right__preview';
+    public const ITEM__CANCEL = 'content_create__sidebar_right__cancel';
 
-    const BTN_TRIGGER_CLASS = 'btn--trigger';
-    const BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
+    public const BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
+    public const BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
     public function __construct(
@@ -80,18 +81,18 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
      *
      * @return \Knp\Menu\ItemInterface
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $parentLocation */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation */
         $parentLocation = $options['parent_location'];
-        /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
         $contentType = $options['content_type'];
         $parentContentType = $parentLocation->getContent()->getContentType();
-        /** @var \eZ\Publish\API\Repository\Values\Content\Language $language */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language $language */
         $language = $options['language'];
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
@@ -124,7 +125,6 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
                         ? $publishAttributes
                         : array_merge($publishAttributes, self::BTN_DISABLED_ATTR),
                     'extras' => [
-                        'icon' => 'publish',
                         'orderNumber' => 10,
                     ],
                 ]
@@ -136,7 +136,6 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
                         ? $createAttributes
                         : array_merge($createAttributes, self::BTN_DISABLED_ATTR),
                     'extras' => [
-                        'icon' => 'save',
                         'orderNumber' => 50,
                     ],
                 ]
@@ -148,7 +147,6 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
                         ? $previewAttributes
                         : array_merge($previewAttributes, self::BTN_DISABLED_ATTR),
                     'extras' => [
-                        'icon' => 'view-desktop',
                         'orderNumber' => 60,
                     ],
                 ]
@@ -161,7 +159,6 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
                         'data-click' => '#ezplatform_content_forms_content_edit_cancel',
                     ],
                     'extras' => [
-                        'icon' => 'circle-close',
                         'orderNumber' => 70,
                     ],
                 ]
@@ -185,11 +182,11 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentCreateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct
      */
     private function createContentCreateStruct(Location $location, ContentType $contentType, Language $language): ContentCreateStruct
     {
@@ -199,3 +196,5 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
         return $contentCreateStruct;
     }
 }
+
+class_alias(ContentCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\ContentCreateRightSidebarBuilder');
