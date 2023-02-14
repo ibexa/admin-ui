@@ -72,6 +72,11 @@
         "ibexa/http-cache": "~4.4.0@dev",
         "ibexa/code-style": "^1.0"
     },
+    "config": {
+        "allow-plugins": {
+            "*": false
+        }
+    },
     "scripts": {
         "fix-cs": "php-cs-fixer fix --config=.php-cs-fixer.php -v --show-progress=dots",
         "check-cs": "@fix-cs --dry-run",

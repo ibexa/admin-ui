@@ -36,8 +36,10 @@ services:
             $kernelEnvironment: '%kernel.environment%'
             $encoreTagRenderer: '@webpack_encore.tag_renderer'
             $entrypointLookupCollection: '@webpack_encore.entrypoint_lookup_collection'
+            $logLevel: 'error'
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
+            - { name: monolog.logger, channel: ibexa.admin }
 
     Ibexa\AdminUi\EventListener\MenuPermissionsListener:
         tags:
