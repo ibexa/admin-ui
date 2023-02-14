@@ -11,8 +11,11 @@ namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimit;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimitValidator;
 use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
@@ -62,6 +65,8 @@ class LocationIsWithinCopySubtreeLimitValidatorTest extends TestCase
             ->expects($this->never())
             ->method('addViolation');
 
+        $this->mockLocationContentContentTypeIsContainer($this->location);
+
         $this->validator->validate($this->location, new LocationIsWithinCopySubtreeLimit());
     }
 
@@ -86,6 +91,16 @@ class LocationIsWithinCopySubtreeLimitValidatorTest extends TestCase
             ->method('buildViolation');
 
         $this->validator->validate($this->location, new LocationIsWithinCopySubtreeLimit());
+    }
+
+    private function mockLocationContentContentTypeIsContainer(MockObject $location): void
+    {
+        $contentType = $this->createMock(ContentType::class);
+        $contentType->method('isContainer')->willReturn(true);
+        $contentInfo = $this->createMock(ContentInfo::class);
+        $contentInfo->method('getContentType')->willReturn($contentType);
+
+        $location->method('getContentInfo')->willReturn($contentInfo);
     }
 }
 

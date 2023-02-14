@@ -10,8 +10,7 @@ namespace Ibexa\AdminUi\Specification\Location;
 
 use Ibexa\AdminUi\Specification\AbstractSpecification;
 use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
-use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 /**
  * @internal
@@ -34,10 +33,6 @@ class IsWithinCopySubtreeLimit extends AbstractSpecification
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
-     *
-     * @return bool
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
     public function isSatisfiedBy($item): bool
     {
@@ -45,13 +40,16 @@ class IsWithinCopySubtreeLimit extends AbstractSpecification
             return true;
         }
 
-        if ($this->copyLimit === 0) {
+        if ($this->copyLimit === 0 || !$this->isContainer($item)) {
             return false;
         }
 
-        $filter = new Filter(new Criterion\Subtree($item->pathString));
+        return $this->copyLimit >= $this->locationService->getSubtreeSize($item);
+    }
 
-        return $this->copyLimit >= $this->locationService->count($filter);
+    private function isContainer(Location $location): bool
+    {
+        return $location->getContentInfo()->getContentType()->isContainer();
     }
 }
 
