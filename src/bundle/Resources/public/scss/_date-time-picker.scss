@@ -19,8 +19,10 @@
         width: 100%;
     }
 
-    .ibexa-input-text-wrapper__actions {
-        top: calculateRem(24px);
+    .ibexa-input-text-wrapper {
+        &__actions {
+            top: calculateRem(24px);
+        }
     }
 
     &--small {
@@ -33,6 +35,24 @@
         .ibexa-date-time-picker {
             &__input {
                 margin-bottom: calculateRem(4px);
+            }
+        }
+
+        .ibexa-input-text-wrapper__action-btn--calendar {
+            &:hover {
+                .ibexa-icon {
+                    fill: $ibexa-color-dark;
+                }
+            }
+
+            &:focus {
+                color: transparent;
+                border-color: transparent;
+                box-shadow: none;
+
+                .ibexa-icon {
+                    fill: $ibexa-color-dark;
+                }
             }
         }
     }
