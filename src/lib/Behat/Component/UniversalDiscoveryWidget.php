@@ -144,11 +144,11 @@ class UniversalDiscoveryWidget extends Component
 
     public function changeTab($tabName): void
     {
-        $this->getHTMLPage()->findAll($this->getLocator('categoryTabSelector'))
-             ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName))->click();
-        $this->getHTMLPage()->setTimeout(5)->find(
-            new VisibleCSSLocator('selectedTab', sprintf('.c-tab-selector__item--selected[data-original-title=%s]', $tabName))
-        )->assert()->isVisible();
+        $tab = $this->getHTMLPage()
+            ->findAll($this->getLocator('categoryTabSelector'))
+            ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName));
+        $tab->click();
+        $tab->setTimeout(self::SHORT_TIMEOUT)->waitUntilCondition(new ElementExistsCondition($tab, $this->getLocator('selectedTab')));
     }
 
     public function selectBookmark(string $bookmarkName): void
