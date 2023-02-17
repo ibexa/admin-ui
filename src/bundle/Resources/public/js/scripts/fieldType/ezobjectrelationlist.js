@@ -207,6 +207,7 @@
             updateInputValue(selectedItems);
             updateFieldState();
             updateAddBtnState();
+            relationsTable.dispatchEvent(new CustomEvent('ibexa-refresh-main-table-checkbox'));
         };
         const removeItem = (event) => {
             const row = event.target.closest('.ibexa-relations__item');
@@ -219,6 +220,7 @@
             updateInputValue(selectedItems);
             updateFieldState();
             updateAddBtnState();
+            relationsTable.dispatchEvent(new CustomEvent('ibexa-refresh-main-table-checkbox'));
         };
         const findOrderInputs = () => {
             return [...relationsContainer.querySelectorAll('.ibexa-relations__order-input')];
