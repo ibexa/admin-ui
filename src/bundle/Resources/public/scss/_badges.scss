@@ -9,57 +9,107 @@
     background-color: $ibexa-color-light-500;
     white-space: nowrap;
 
+    &--status {
+        position: relative;
+        padding-left: 16px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        border-width: 1px;
+        border-style: solid;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
     &--primary {
         color: $ibexa-color-primary;
         background-color: $ibexa-color-primary-200;
+        border-color: $ibexa-color-primary;
 
         .ibexa-icon {
             fill: $ibexa-color-primary;
+        }
+
+        &::before {
+            background-color: $ibexa-color-primary;
         }
     }
 
     &--secondary {
         color: $ibexa-color-dark;
         background-color: $ibexa-color-light-500;
+        border-color: $ibexa-color-dark;
 
         .ibexa-icon {
             fill: $ibexa-color-dark;
+        }
+
+        &::before {
+            background-color: $ibexa-color-dark;
         }
     }
 
     &--info {
         color: $ibexa-color-info;
         background-color: $ibexa-color-info-200;
+        border-color: $ibexa-color-info;
 
         .ibexa-icon {
             fill: $ibexa-color-info;
+        }
+
+        &::before {
+            background-color: $ibexa-color-info;
         }
     }
 
     &--danger {
         color: $ibexa-color-danger;
         background-color: $ibexa-color-danger-200;
+        border-color: $ibexa-color-danger;
 
         .ibexa-icon {
             fill: $ibexa-color-danger;
+        }
+
+        &::before {
+            background-color: $ibexa-color-danger;
         }
     }
 
     &--success {
         color: $ibexa-color-success;
         background-color: $ibexa-color-success-200;
+        border-color: $ibexa-color-success;
 
         .ibexa-icon {
             fill: $ibexa-color-success;
+        }
+
+        &::before {
+            background-color: $ibexa-color-success;
         }
     }
 
     &--complementary {
         color: $ibexa-color-complementary;
         background-color: $ibexa-color-complementary-200;
+        border-color: $ibexa-color-complementary;
 
         .ibexa-icon {
             fill: $ibexa-color-complementary;
+        }
+
+        &::before {
+            background-color: $ibexa-color-complementary;
         }
     }
 }
