@@ -143,9 +143,11 @@
             const { formatShortDateTime } = ibexa.helpers.timezone;
             const contentTypeName = ibexa.helpers.contentType.getContentTypeName(item.ContentInfo.Content.ContentTypeInfo.identifier);
             const contentName = escapeHTML(item.ContentInfo.Content.TranslatedName);
+            const contentId = item.ContentInfo.Content._id;
             const { rowTemplate } = relationsWrapper.dataset;
 
             return rowTemplate
+                .replace('{{ content_id }}', contentId)
                 .replace('{{ content_name }}', contentName)
                 .replace('{{ content_type_name }}', contentTypeName)
                 .replace('{{ published_date }}', formatShortDateTime(item.ContentInfo.Content.publishedDate))
