@@ -206,11 +206,6 @@
         <target state="new">Do you want to delete the Content Type?</target>
         <note>key: content_type.modal.message</note>
       </trans-unit>
-      <trans-unit id="a7184ac693722bff0fedf65c45c914509af2b17f" resname="content_type.view.edit.add">
-        <source>Add</source>
-        <target state="new">Add</target>
-        <note>key: content_type.view.edit.add</note>
-      </trans-unit>
       <trans-unit id="94367a951b897bc2964d0c45286b560c59ebb996" resname="content_type.view.edit.content_field_definitions">
         <source>Field definitions</source>
         <target state="new">Field definitions</target>
