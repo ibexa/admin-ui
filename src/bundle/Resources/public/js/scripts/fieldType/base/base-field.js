@@ -111,12 +111,7 @@
          * @memberof BaseFieldValidator
          */
         createErrorNode(message) {
-            const errorNode = doc.createElement('em');
-
-            errorNode.classList.add('ibexa-field-edit__error');
-            errorNode.innerHTML = message;
-
-            return errorNode;
+            return ibexa.helpers.formError.formatLine(message);
         }
 
         /**
@@ -159,7 +154,7 @@
         toggleErrorMessage(validationResult, config, input) {
             const container = this.getFieldTypeContainer(input.closest(this.fieldSelector));
             const nodes = this.findErrorContainers(container, input, config.errorNodeSelectors);
-            const existingErrorSelectors = config.errorNodeSelectors.map((selector) => `${selector} .ibexa-field-edit__error`);
+            const existingErrorSelectors = config.errorNodeSelectors.map((selector) => `${selector} .ibexa-form-error__row`);
             const existingErrorNodes = this.findExistingErrorNodes(container, input, existingErrorSelectors);
 
             existingErrorNodes.forEach((el) => el.remove());

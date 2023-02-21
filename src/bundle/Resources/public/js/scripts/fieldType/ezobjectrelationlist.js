@@ -100,6 +100,7 @@
             closeUDW();
             updateFieldState();
             updateAddBtnState();
+            relationsTable.dispatchEvent(new CustomEvent('ibexa-refresh-main-table-checkbox'));
         };
         const openUDW = (event) => {
             event.preventDefault();
@@ -142,9 +143,11 @@
             const { formatShortDateTime } = ibexa.helpers.timezone;
             const contentTypeName = ibexa.helpers.contentType.getContentTypeName(item.ContentInfo.Content.ContentTypeInfo.identifier);
             const contentName = escapeHTML(item.ContentInfo.Content.TranslatedName);
+            const contentId = item.ContentInfo.Content._id;
             const { rowTemplate } = relationsWrapper.dataset;
 
             return rowTemplate
+                .replace('{{ content_id }}', contentId)
                 .replace('{{ content_name }}', contentName)
                 .replace('{{ content_type_name }}', contentTypeName)
                 .replace('{{ published_date }}', formatShortDateTime(item.ContentInfo.Content.publishedDate))
@@ -206,6 +209,7 @@
             updateInputValue(selectedItems);
             updateFieldState();
             updateAddBtnState();
+            relationsTable.dispatchEvent(new CustomEvent('ibexa-refresh-main-table-checkbox'));
         };
         const removeItem = (event) => {
             const row = event.target.closest('.ibexa-relations__item');
@@ -218,6 +222,7 @@
             updateInputValue(selectedItems);
             updateFieldState();
             updateAddBtnState();
+            relationsTable.dispatchEvent(new CustomEvent('ibexa-refresh-main-table-checkbox'));
         };
         const findOrderInputs = () => {
             return [...relationsContainer.querySelectorAll('.ibexa-relations__order-input')];

@@ -339,10 +339,15 @@
         input.classList.toggle('is-invalid', isInputEmpty);
 
         if (errorNode) {
-            const fieldName = labelNode.innerHTML;
-            const errorMessage = ibexa.errors.emptyField.replace('{fieldName}', fieldName);
+            errorNode.innerHTML = '';
 
-            errorNode.innerHTML = isInputEmpty ? errorMessage : '';
+            if (isInputEmpty) {
+                const fieldName = labelNode.innerHTML;
+                const errorMessage = ibexa.errors.emptyField.replace('{fieldName}', fieldName);
+                const formattedError = ibexa.helpers.formError.formatLine(errorMessage);
+
+                errorNode.append(formattedError);
+            }
         }
 
         isEditFormValid = isEditFormValid && !isInputEmpty;

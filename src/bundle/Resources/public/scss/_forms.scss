@@ -81,6 +81,12 @@ form:not(.form-inline) {
         flex-direction: column;
     }
 
+    &__row {
+        display: flex;
+        align-items: center;
+        font-style: normal;
+    }
+
     &__icon {
         fill: $ibexa-color-danger;
         margin-right: calculateRem(4px);

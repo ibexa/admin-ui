@@ -40,7 +40,7 @@
         subCheckboxes.forEach((subCheckbox) => {
             if (!subCheckbox.disabled) {
                 subCheckbox.checked = mainCheckbox.checked;
-                subCheckbox.dispatchEvent(new CustomEvent('change', { detail: { isFromJS: true } }));
+                subCheckbox.dispatchEvent(new CustomEvent('change', { bubbles: true, detail: { isFromJS: true } }));
             }
         });
     };

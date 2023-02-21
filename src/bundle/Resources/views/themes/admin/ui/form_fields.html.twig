@@ -415,7 +415,9 @@
         {{- form_label(form) -}}
         {{- form_widget(form, widget_attr) -}}
         {{- form_help(form) -}}
-        {{- form_errors(form) -}}
+        <div class="ibexa-form-error">
+            {{- form_errors(form) -}}
+        </div>
     </{{ element|default('div') }}>
 {%- endblock form_row %}
 
@@ -469,5 +471,7 @@
     <h2 class="ibexa-content-type-edit__section-column-header">{{- label -}}</h2>
     {{- form_widget(form) -}}
     {{- form_help(form) -}}
-    {{- form_errors(form) -}}
+    <div class="ibexa-form-error">
+        {{- form_errors(form) -}}
+    </div>
 {%- endblock %}

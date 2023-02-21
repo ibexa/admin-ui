@@ -6,7 +6,12 @@
 {%- block form_errors -%}
     {%- if errors|length > 0 -%}
         {%- for error in errors -%}
-            <em class="ibexa-field__error">{{ error.message }}</em>
+            <em class="ibexa-field__error ibexa-form-error__row">
+                <svg class="ibexa-icon ibexa-icon--small ibexa-form-error__icon">
+                    <use xlink:href="{{ ibexa_icon_path('warning-triangle') }}"></use>
+                </svg>
+                {{ error.message }}
+            </em>
         {%- endfor -%}
     {%- endif -%}
 {%- endblock -%}
