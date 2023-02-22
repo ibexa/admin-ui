@@ -97,17 +97,12 @@
 
         tablesCheckboxesChangeListeners.delete(table);
     };
-    let prevShouldShowRightColumnShadow = false;
     const toggleLastColumnShadow = (table, scroller) => {
         const offsetRoudingCompensator = 0.5;
         const shouldShowRightColumnShadow =
             scroller.scrollLeft < scroller.scrollWidth - scroller.offsetWidth - 2 * offsetRoudingCompensator;
 
-        if (shouldShowRightColumnShadow !== prevShouldShowRightColumnShadow) {
-            table.classList.toggle('ibexa-table--last-column-shadow', shouldShowRightColumnShadow);
-        }
-
-        prevShouldShowRightColumnShadow = shouldShowRightColumnShadow;
+        table.classList.toggle('ibexa-table--last-column-shadow', shouldShowRightColumnShadow);
     };
     const initStickyTables = () => {
         const stickyTables = doc.querySelectorAll('.ibexa-table.ibexa-table--last-column-sticky');
