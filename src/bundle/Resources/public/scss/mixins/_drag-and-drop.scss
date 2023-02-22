@@ -217,6 +217,25 @@
             border-color: $ibexa-color-info-300;
             background-color: $ibexa-color-info-100;
             animation: item-highlight-pulse 1s 1;
+
+            * {
+                color: $ibexa-color-info-500;
+            }
+
+            .ibexa-dropdown {
+                &__selection-info::before,
+                &__selection-info::after {
+                    background: $ibexa-color-info-500;
+                }
+
+                .ibexa-dropdown__selected-item {
+                    color: $ibexa-color-info-500;
+                }
+            }
+
+            .ibexa-icon {
+                fill: $ibexa-color-info-500;
+            }
         }
     }
 
