@@ -9,7 +9,7 @@ on:
 
 jobs:
   cs-fix:
-    name: Run code style check
+    name: Run code style check - TEST ZMIANA NAZWY
     runs-on: "ubuntu-20.04"
     strategy:
       matrix:
