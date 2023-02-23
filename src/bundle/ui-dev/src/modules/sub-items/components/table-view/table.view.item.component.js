@@ -191,7 +191,6 @@ export default class TableViewItemComponent extends PureComponent {
         const innerWrapperAttrs = {};
 
         if (!this.state.priorityInputEnabled) {
-            inputAttrs.readOnly = true;
             delete inputAttrs.defaultValue;
             inputAttrs.value = this.state.priorityValue;
             priorityWrapperAttrs.onClick = this.enablePriorityInput;
