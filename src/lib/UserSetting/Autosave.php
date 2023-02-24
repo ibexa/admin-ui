@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UserSetting;
 
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Contracts\User\UserSetting\FormMapperInterface;
 use Ibexa\Contracts\User\UserSetting\ValueDefinitionInterface;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
@@ -24,10 +25,15 @@ class Autosave implements ValueDefinitionInterface, FormMapperInterface
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
 
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    private $configResolver;
+
     public function __construct(
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        ConfigResolverInterface $configResolver
     ) {
         $this->translator = $translator;
+        $this->configResolver = $configResolver;
     }
 
     public function getName(): string
@@ -57,7 +63,7 @@ class Autosave implements ValueDefinitionInterface, FormMapperInterface
 
     public function getDefaultValue(): string
     {
-        return self::ENABLED_OPTION;
+        return $this->configResolver->getParameter('autosave.enabled') == false ? self::DISABLED_OPTION : self::ENABLED_OPTION;
     }
 
     public function mapFieldForm(
