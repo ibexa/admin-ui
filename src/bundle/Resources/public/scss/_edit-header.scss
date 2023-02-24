@@ -19,6 +19,16 @@
         display: flex;
     }
 
+    &__name {
+        &--ellipsized {
+            display: none;
+        }
+
+        &--full {
+            display: inline-block;
+        }
+    }
+
     &__row {
         display: flex;
         flex-wrap: nowrap;
@@ -165,6 +175,16 @@
 
             &__title {
                 min-height: calculateRem(34px);
+            }
+
+            &__name {
+                &--ellipsized {
+                    display: inline-block;
+                }
+
+                &--full {
+                    display: none;
+                }
             }
         }
 
