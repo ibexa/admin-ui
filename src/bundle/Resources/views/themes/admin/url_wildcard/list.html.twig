@@ -1,5 +1,10 @@
 {% trans_default_domain "ezplatform_url_wildcard" %}
 
+{% from '@ibexadesign/ui/component/macros.html.twig' import results_headline %}
+
+{% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
+{% form_theme form_list '@ibexadesign/ui/form_fields.html.twig' %}
+
 {%
     set wildcard_types = {
         0: 'url_wildcard.type.forward'|trans|desc('Forward'),
@@ -8,17 +13,16 @@
 %}
 
 <section class="container">
-    {{ form_start(form_list, {'attr': {'class': 'form-inline justify-content-between'}}) }}
-    <div class="input-group">
-        {{ form_widget(form_list.searchQuery, { attr: {
-            'placeholder': 'url_wildcard.search.placeholder'|trans|desc('Search for URL wildcards'),
-        }}) }}
-
-        <button class="btn btn-primary ml-2">
-            {{ 'url_wildcard.search'|trans|desc("Search") }}
-        </button>
+    {{ form_start(form_list, {'attr': {'class': 'ibexa-search-links-form'}}) }}
+    <div class="ibexa-search-links-form__input-wrapper">
+        {{ form_widget(form_list.searchQuery, {
+            attr: {
+                'placeholder': 'url_wildcard.search.placeholder'|trans|desc('Search for URL wildcards'),
+            },
+            has_search: true,
+        }) }}
     </div>
-    <div class="d-inline-flex">
+    <div class="ibexa-search-links-form__status-wrapper">
         {{ form_label(form_list.type) }}
         {{ form_widget(form_list.type) }}
     </div>
@@ -26,127 +30,152 @@
     {{ form_end(form_list) }}
 </section>
 
-<section class="container mt-4">
+<section class="mt-4">
     {% if not url_wildcards_enabled %}
-        <div class="ez-alert ez-alert--info mb-4">
-            <svg class="ez-icon ez-icon--small">
-                <use xlink:href="{{ ez_icon_path('warning') }}"></use>
-            </svg>
-            {{ 'url_wildcard.disabled'|trans|desc('URL wildcards are disabled. Contact your Administrator.') }}
-        </div>
+        {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
+            type: 'warning',
+            title: 'url_wildcard.disabled'|trans|desc('URL wildcards are disabled. Contact your Administrator.'),
+            class: 'mb-4',
+        } only %}
     {% endif %}
-    <div class="ez-table-header">
-        <div class="ez-table-header__headline">
-            {{ 'url_wildcard.list.title'|trans|desc('URL wildcards') }}
-        </div>
-        <div class="ez-table-header__tools">
-            {% set modal_create_data_target = 'create-wildcards-modal' %}
-            <button
-                id="create-wildcards"
-                type="button"
-                class="btn btn-icon"
-                {% if not can_manage %}disabled{% endif %}
-                data-toggle="modal"
-                data-target="#{{ modal_create_data_target }}"
-                title="{{ 'url_wildcard.list.action.create'|trans|desc('Create a URL wildcard') }}">
-                <svg class="ez-icon ez-icon-create">
-                    <use xlink:href="{{ ez_icon_path('create') }}"></use>
-                </svg>
-            </button>
-            {% set modal_delete_data_target = 'delete-wildcards-modal' %}
-            <button
-                id="delete-wildcards"
-                type="button"
-                class="btn btn-icon"
-                disabled
-                data-toggle="modal"
-                data-target="#{{ modal_delete_data_target }}"
-                title="{{ 'url_wildcard.list.action.delete'|trans|desc('Delete URL wildcards') }}">
-                <svg class="ez-icon ez-icon-trash">
-                    <use xlink:href="{{ ez_icon_path('trash') }}"></use>
-                </svg>
-            </button>
-        </div>
-    </div>
-    {% include '@ezdesign/url_wildcard/modal_create.html.twig' with {
-        'id': modal_create_data_target,
-        'form': form_add,
-    }%}
-    {% include '@ezdesign/ui/modal/bulk_delete_confirmation.html.twig' with {
-        'id': modal_delete_data_target,
-        'message': 'url_wildcard.modal.message'|trans|desc('Are you sure you want to delete selected URL wildcard(s)?'),
-        'data_click': '#url_wildcard_delete_delete',
-    }%}
-    {{ form_start(form, {
-        'action': path('ezplatform.url_wildcard.bulk_delete'),
-        'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-wildcards' }
-    }) }}
-        <table class="ez-table table table-hover">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>{{ 'url_wildcard.label.alias'|trans|desc('URL alias wildcard') }}</th>
-                    <th>{{ 'url_wildcard.label.destination'|trans|desc('Destination') }}</th>
-                    <th>{{ 'url_wildcard.label.type'|trans|desc('Type') }}</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if url_wildcards.count is same as(0) %}
-                    <tr>
-                        <td class="ez-table__cell ez-table__cell--no-content" colspan="5">
-                            <p class="ez-table-no-content mb-0 py-0">
-                                {{ 'url_wildcard.empty'|trans|desc('No URL wildcards.') }}
-                            </p>
-                        </td>
-                    </tr>
-                {% else %}
-                    {% for url_wildcard in url_wildcards %}
-                        {% set edit_url = path('ezplatform.url_wildcard.update', {urlWildcardId: url_wildcard.id}) %}
-                        <tr>
-                            <td class="ez-table__cell ez-table__cell--has-checkbox">
-                                {{ form_widget(form.URLWildcardsChoices.children[url_wildcard.id], {
-                                    disabled: not can_manage
-                                }) }}
-                            </td>
-                            <td class="ez-table__cell">
-                                {{ url_wildcard.sourceUrl }}
-                            </td>
-                            <td class="ez-table__cell">
-                                {{ url_wildcard.destinationUrl }}
-                            </td>
-                            <td class="ez-table__cell">
-                                {{ wildcard_types[url_wildcard.forward] }}
-                            </td>
-                            <td class="ez-table__cell ez-table__cell--has-action-btns">
-                                {% if can_manage %}
-                                    <a href="{{ edit_url }}" class="btn btn-icon mx-2" title="{{ 'url_wildcard.action.edit'|trans|desc('Edit URL wildcard') }}">
-                                        <svg class="ez-icon ez-icon--secondary ez-icon-edit">
-                                            <use xlink:href="{{ ez_icon_path('edit') }}"></use>
-                                        </svg>
-                                    </a>
-                                {% else %}
-                                    <span class="btn btn-icon mx-2" disabled>
-                                        <svg class="ez-icon ez-icon--secondary ez-icon-edit">
-                                            <use xlink:href="{{ ez_icon_path('edit') }}"></use>
-                                        </svg>
-                                    </span>
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                {% endif %}
-            </tbody>
-        </table>
+
+    {% set body_rows = [] %}
+    {% for url_wildcard in url_wildcards %}
+        {% set body_row_cols = [] %}
+        {% set edit_url = path('ibexa.url_wildcard.update', { urlWildcardId: url_wildcard.id }) %}
+
+        {% set col_raw %}
+            {{ form_widget(form.URLWildcardsChoices.children[url_wildcard.id], {
+                disabled: not can_manage
+            }) }}
+        {% endset %}
+        {% set body_row_cols = body_row_cols|merge([{
+            has_checkbox: true,
+            content: col_raw,
+            raw: true,
+        }]) %}
+
+        {% set body_row_cols = body_row_cols|merge([
+            { content: url_wildcard.sourceUrl },
+            { content: url_wildcard.destinationUrl },
+            { content: wildcard_types[url_wildcard.forward] },
+        ]) %}
+
+        {% set col_raw %}
+            {% if can_manage %}
+                <a
+                    href="{{ edit_url }}"
+                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                    title="{{ 'url_wildcard.action.edit'|trans|desc('Edit URL wildcard') }}"
+                >
+                    <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
+                        <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
+                    </svg>
+                </a>
+            {% else %}
+                <span
+                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                    disabled
+                >
+                    <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
+                        <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
+                    </svg>
+                </span>
+            {% endif %}
+        {% endset %}
+        {% set body_row_cols = body_row_cols|merge([{
+            has_action_btns: true,
+            content: col_raw,
+            raw: true,
+        }]) %}
+
+        {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
+    {% endfor %}
+
+    {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
+        headline: custom_results_headline ?? results_headline(url_wildcards.getNbResults()),
+        head_cols: [
+            { has_checkbox: true },
+            { content: 'url_wildcard.label.alias'|trans|desc('URL alias wildcard') },
+            { content: 'url_wildcard.label.destination'|trans|desc('Destination') },
+            { content: 'url_wildcard.label.type'|trans|desc('Type') },
+            { },
+        ],
+        body_rows,
+        empty_table_info_text: 'url_wildcard.empty'|trans|desc('No URL wildcards.'),
+    } %}
+        {% set modal_create_data_target = 'create-wildcards-modal' %}
+        {% set modal_delete_data_target = 'delete-wildcards-modal' %}
+
+        {% block header %}
+            {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
+                {% block actions %}
+                    <button
+                        id="create-wildcards"
+                        type="button"
+                        class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small"
+                        {% if not can_manage %}disabled{% endif %}
+                        data-bs-toggle="modal"
+                        data-bs-target="#{{ modal_create_data_target }}"
+                    >
+                        <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
+                            <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
+                        </svg>
+                        <span class="ibexa-btn__label">
+                            {{ 'url_wildcard.list.action.create'|trans|desc('Add new') }}
+                        </span>
+                    </button>
+                    <button
+                        id="delete-wildcards"
+                        type="button"
+                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                        disabled
+                        data-bs-toggle="modal"
+                        data-bs-target="#{{ modal_delete_data_target }}"
+                        title="{{ 'url_wildcard.list.action.delete_url_wildcards'|trans|desc('Delete URL wildcards') }}"
+                    >
+                        <svg class="ibexa-icon ibexa-icon--small ibexa-icon--trash">
+                            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
+                        </svg>
+                        <span class="ibexa-btn__label">
+                            {{ 'url_wildcard.list.action.delete'|trans|desc('Delete') }}
+                        </span>
+                    </button>
+                {% endblock %}
+            {% endembed %}
+        {% endblock %}
+
+        {% block between_header_and_table %}
+            {% include '@ibexadesign/url_wildcard/modal_create.html.twig' with {
+                'id': modal_create_data_target,
+                'form': form_add,
+            }%}
+            {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
+                'id': modal_delete_data_target,
+                'message': 'url_wildcard.modal.message'|trans|desc('Are you sure you want to delete selected URL wildcard(s)?'),
+                'data_click': '#url_wildcard_delete_delete',
+            }%}
+            {{ form_start(form, {
+                'action': path('ibexa.url_wildcard.bulk_delete'),
+                'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-wildcards' }
+            }) }}
+        {% endblock %}
+    {% endembed %}
+
+    {{ form_end(form) }}
+
     {% if url_wildcards.haveToPaginate %}
-        {% include '@ezdesign/ui/pagination.html.twig' with {
+        {% include '@ibexadesign/ui/pagination.html.twig' with {
             'pager': url_wildcards,
             'paginaton_params' : pager_options|merge({
                 'routeParams': {
-                    '_fragment': 'ez-tab-link-manager-url-wildcards'
+                    '_fragment': 'ibexa-tab-link-manager-url-wildcards'
                 }
             })
         } %}
     {% endif %}
-    {{ form_end(form) }}
 </section>
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('ibexa-admin-ui-url-wildcards-list-js', null, 'ibexa') }}
+{% endblock %}

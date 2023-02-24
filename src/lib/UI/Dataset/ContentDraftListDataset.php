@@ -6,32 +6,32 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Dataset;
+namespace Ibexa\AdminUi\UI\Dataset;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Values\Content\DraftList\ContentDraftListItemInterface;
-use eZ\Publish\API\Repository\Values\User\User;
-use EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory;
+use Ibexa\AdminUi\UI\Value\ValueFactory;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\ContentDraftListItemInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 
 class ContentDraftListDataset
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory */
+    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
     private $valueFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\Content\ContentDraftInterface[] */
+    /** @var \Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface[] */
     private $data = [];
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
-     * @param \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory $valueFactory
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
+     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
      */
     public function __construct(
         ContentService $contentService,
@@ -44,11 +44,11 @@ class ContentDraftListDataset
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\User|null $user
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User|null $user
      * @param int $offset
      * @param int $limit
      *
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\ContentDraftListDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\ContentDraftListDataset
      */
     public function load(User $user = null, int $offset = 0, int $limit = 10): self
     {
@@ -83,10 +83,12 @@ class ContentDraftListDataset
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Value\Content\ContentDraftInterface[]
+     * @return \Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface[]
      */
     public function getContentDrafts(): array
     {
         return $this->data;
     }
 }
+
+class_alias(ContentDraftListDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\ContentDraftListDataset');

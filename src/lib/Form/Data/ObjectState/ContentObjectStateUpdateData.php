@@ -6,33 +6,33 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\ObjectState;
+namespace Ibexa\AdminUi\Form\Data\ObjectState;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
 class ContentObjectStateUpdateData
 {
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\ContentInfo
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
      */
     private $contentInfo;
 
     /**
-     * @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup
+     * @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup
      */
     private $objectStateGroup;
 
     /**
-     * @var \eZ\Publish\API\Repository\Values\ObjectState\ObjectState
+     * @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState
      */
     private $objectState;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo|null $contentInfo
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup|null $objectStateGroup
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectState|null $objectState
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup|null $objectStateGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState|null $objectState
      */
     public function __construct(
         ContentInfo $contentInfo = null,
@@ -45,7 +45,7 @@ class ContentObjectStateUpdateData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
      */
     public function getContentInfo(): ContentInfo
     {
@@ -53,7 +53,7 @@ class ContentObjectStateUpdateData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      */
     public function setContentInfo(ContentInfo $contentInfo)
     {
@@ -61,7 +61,7 @@ class ContentObjectStateUpdateData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup
+     * @return \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup
      */
     public function getObjectStateGroup(): ObjectStateGroup
     {
@@ -69,7 +69,7 @@ class ContentObjectStateUpdateData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
      */
     public function setObjectStateGroup(ObjectStateGroup $objectStateGroup)
     {
@@ -77,7 +77,7 @@ class ContentObjectStateUpdateData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ObjectState\ObjectState|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState|null
      */
     public function getObjectState(): ?ObjectState
     {
@@ -85,10 +85,12 @@ class ContentObjectStateUpdateData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ObjectState\ObjectState $objectState
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState $objectState
      */
     public function setObjectState(ObjectState $objectState)
     {
         $this->objectState = $objectState;
     }
 }
+
+class_alias(ContentObjectStateUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData');

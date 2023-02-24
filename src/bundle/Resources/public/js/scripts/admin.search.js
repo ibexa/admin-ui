@@ -1,12 +1,21 @@
-(function(global, doc) {
-    const languageSelector = doc.querySelector('.ez-search-form__language-selector');
-    const submitForm = (event) => {
-        event.target.closest('form').submit();
+(function (global, doc) {
+    const headerSearchInput = doc.querySelector('.ibexa-main-header__search');
+    const headerSearchSubmitBtn = doc.querySelector('.ibexa-main-header .ibexa-input-text-wrapper__action-btn--search');
+    const searchForm = doc.querySelector('.ibexa-search-form');
+    const searchInput = doc.querySelector('.ibexa-search-form__search-input');
+    const languageSelector = doc.querySelector('.ibexa-filters__item--language-selector .ibexa-filters__select');
+    const submitForm = () => {
+        searchInput.value = headerSearchInput.value;
+        searchForm.submit();
+    };
+    const handleHeaderSearchBtnClick = (event) => {
+        event.preventDefault();
+
+        submitForm();
     };
 
-    if (!languageSelector) {
-        return;
-    }
+    headerSearchInput.value = searchInput.value;
 
-    languageSelector.addEventListener('change', submitForm, false);
+    headerSearchSubmitBtn.addEventListener('click', handleHeaderSearchBtnClick, false);
+    languageSelector?.addEventListener('change', submitForm, false);
 })(window, document);

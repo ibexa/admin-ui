@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type;
+namespace Ibexa\AdminUi\Form\Type;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -19,13 +19,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserChoiceType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
     /**
      * UserGroupChoiceType constructor.
      *
-     * @param \eZ\Publish\API\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
      */
     public function __construct(Repository $repository)
     {
@@ -33,7 +33,7 @@ class UserChoiceType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -47,7 +47,7 @@ class UserChoiceType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getParent(): ?string
     {
@@ -57,7 +57,7 @@ class UserChoiceType extends AbstractType
     /**
      * Get users list.
      *
-     * @return \eZ\Publish\API\Repository\Values\User\User[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User[]
      */
     protected function getUsers(): array
     {
@@ -85,3 +85,5 @@ class UserChoiceType extends AbstractType
         });
     }
 }
+
+class_alias(UserChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\UserChoiceType');

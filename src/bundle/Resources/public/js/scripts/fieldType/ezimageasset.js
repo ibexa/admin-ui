@@ -1,20 +1,18 @@
-(function(global, doc, eZ, React, ReactDOM, Translator, Routing) {
-    const SELECTOR_FIELD = '.ez-field-edit--ezimageasset';
+(function (global, doc, ibexa, React, ReactDOM, Translator, Routing) {
+    const SELECTOR_FIELD = '.ibexa-field-edit--ezimageasset';
     const SELECTOR_INPUT_FILE = 'input[type="file"]';
-    const SELECTOR_INPUT_DESTINATION_CONTENT_ID = '.ez-data-source__destination-content-id';
-    const SELECTOR_LABEL_WRAPPER = '.ez-field-edit__label-wrapper';
-    const SELECTOR_FILESIZE_NOTICE = '.ez-data-source__message--filesize';
+    const SELECTOR_INPUT_DESTINATION_CONTENT_ID = '.ibexa-data-source__destination-content-id';
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
-    const showErrorNotification = eZ.helpers.notification.showErrorNotification;
-    const showSuccessNotification = eZ.helpers.notification.showSuccessNotification;
-    const getJsonFromResponse = eZ.helpers.request.getJsonFromResponse;
-    const imageAssetMapping = eZ.adminUiConfig.imageAssetMapping;
+    const { showErrorNotification } = ibexa.helpers.notification;
+    const { showSuccessNotification } = ibexa.helpers.notification;
+    const { getJsonFromResponse } = ibexa.helpers.request;
+    const { imageAssetMapping } = ibexa.adminUiConfig;
 
-    class EzImageAssetPreviewField extends eZ.BasePreviewField {
+    class EzImageAssetPreviewField extends ibexa.BasePreviewField {
         constructor(props) {
             super(props);
 
-            this.showPreviewEventName = 'ez-image-asset:show-preview';
+            this.showPreviewEventName = 'ibexa-image-asset:show-preview';
         }
         /**
          * Creates a new Image Asset
@@ -24,7 +22,7 @@
          * @param {String} languageCode
          */
         createAsset(file, languageCode) {
-            const assetCreateUri = Routing.generate('ezplatform.asset.upload_image');
+            const assetCreateUri = Routing.generate('ibexa.asset.upload_image');
             const form = new FormData();
 
             form.append('languageCode', languageCode);
@@ -45,7 +43,7 @@
 
             fetch(assetCreateUri, options)
                 .then(getJsonFromResponse)
-                .then(eZ.helpers.request.handleRequest)
+                .then(ibexa.helpers.request.handleRequest)
                 .then(this.onAssetCreateSuccess.bind(this))
                 .catch(this.onAssetCreateFailure.bind(this));
         }
@@ -57,7 +55,7 @@
          * @param {Object} response
          */
         onAssetCreateSuccess(response) {
-            const destinationContent = response.destinationContent;
+            const { destinationContent } = response;
 
             this.updateData(destinationContent.id, destinationContent.name, destinationContent.locationId, response.value);
             this.toggleLoading(false);
@@ -66,8 +64,8 @@
                 Translator.trans(
                     /* @Desc("The image has been published and can now be reused") */ 'ezimageasset.create.message.success',
                     {},
-                    'fieldtypes_edit'
-                )
+                    'fieldtypes_edit',
+                ),
             );
         }
 
@@ -80,7 +78,7 @@
             const message = Translator.trans(
                 /* @Desc("Error while creating Image Asset: %error%") */ 'ezimageasset.create.message.error',
                 { error: error.message },
-                'fieldtypes_edit'
+                'fieldtypes_edit',
             );
 
             this.toggleLoading(false);
@@ -102,7 +100,7 @@
                 response.ContentInfo.Content._id,
                 response.ContentInfo.Content.TranslatedName,
                 response.id,
-                imageField.fieldValue
+                imageField.fieldValue,
             );
         }
 
@@ -113,7 +111,7 @@
          * @param {boolean} show
          */
         toggleLoading(show) {
-            this.fieldContainer.classList.toggle('ez-field-edit--is-preview-loading', show);
+            this.fieldContainer.classList.toggle('ibexa-field-edit--is-preview-loading', show);
         }
 
         /**
@@ -126,13 +124,13 @@
          * @param {Object} image
          */
         updateData(destinationContentId, destinationContentName, destinationLocationId, image) {
-            const preview = this.fieldContainer.querySelector('.ez-field-edit__preview');
-            const previewVisual = preview.querySelector('.ez-field-edit-preview__visual');
-            const previewImg = preview.querySelector('.ez-field-edit-preview__media');
-            const previewAlt = preview.querySelector('.ez-field-edit-preview__image-alt input');
-            const previewActionPreview = preview.querySelector('.ez-field-edit-preview__action--preview');
-            const assetNameContainer = preview.querySelector('.ez-field-edit-preview__asset-name a');
-            const destinationLocationUrl = Routing.generate('_ez_content_view', {
+            const preview = this.fieldContainer.querySelector('.ibexa-field-edit__preview');
+            const previewVisual = preview.querySelector('.ibexa-field-edit-preview__visual');
+            const previewImg = preview.querySelector('.ibexa-field-edit-preview__media');
+            const previewAlt = preview.querySelector('.ibexa-field-edit-preview__image-alt input');
+            const previewActionPreview = preview.querySelector('.ibexa-field-edit-preview__action--preview');
+            const assetNameContainer = preview.querySelector('.ibexa-field-edit-preview__file-name');
+            const destinationLocationUrl = Routing.generate('ibexa.content.view', {
                 contentId: destinationContentId,
                 locationId: destinationLocationId,
             });
@@ -161,23 +159,23 @@
             event.preventDefault();
 
             const udwContainer = doc.getElementById('react-udw');
+            const udwRoot = ReactDOM.createRoot(udwContainer);
             const config = JSON.parse(event.currentTarget.dataset.udwConfig);
             const title = Translator.trans(/*@Desc("Select Image Asset")*/ 'ezimageasset.title', {}, 'universal_discovery_widget');
-            const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
+            const closeUDW = () => udwRoot.unmount();
             const onCancel = closeUDW;
             const onConfirm = (items) => {
                 closeUDW();
                 this.loadAsset(items[0]);
             };
 
-            ReactDOM.render(
-                React.createElement(eZ.modules.UniversalDiscovery, {
+            udwRoot.render(
+                React.createElement(ibexa.modules.UniversalDiscovery, {
                     onConfirm,
                     onCancel,
                     title,
                     ...config,
                 }),
-                udwContainer
             );
         }
 
@@ -188,8 +186,8 @@
          * @param {Event} event
          */
         handleInputChange(event) {
-            const file = event.currentTarget.files[0];
-            const languageCode = event.currentTarget.dataset.languageCode;
+            const [file] = event.currentTarget.files;
+            const { languageCode } = event.currentTarget.dataset;
             const isFileSizeLimited = this.maxFileSize > 0;
             const maxFileSizeExceeded = isFileSizeLimited && file.size > this.maxFileSize;
 
@@ -198,7 +196,7 @@
                 return;
             }
 
-            this.fieldContainer.querySelector('.ez-field-edit__option--remove-media').checked = false;
+            this.fieldContainer.querySelector('.ibexa-field-edit__option--remove-media').checked = false;
 
             this.createAsset(file, languageCode);
         }
@@ -222,24 +220,14 @@
         init() {
             super.init();
 
-            this.btnSelect = this.fieldContainer.querySelector('.ez-data-source__btn-select');
+            this.btnSelect = this.fieldContainer.querySelector('.ibexa-data-source__btn-select');
             this.btnSelect.addEventListener('click', this.openUDW.bind(this), false);
             this.inputDestinationContentId = this.fieldContainer.querySelector(SELECTOR_INPUT_DESTINATION_CONTENT_ID);
         }
     }
 
-    class EzImageAssetFieldValidator extends eZ.BaseFileFieldValidator {
-        validateFileSize(event) {
-            event.currentTarget.dispatchEvent(new CustomEvent('ez-invalid-file-size'));
-
-            return {
-                isError: false,
-            };
-        }
-    }
-
     doc.querySelectorAll(SELECTOR_FIELD).forEach((fieldContainer) => {
-        const validator = new EzImageAssetFieldValidator({
+        const validator = new ibexa.BaseFileFieldValidator({
             classInvalid: 'is-invalid',
             fieldContainer,
             eventsMap: [
@@ -247,14 +235,14 @@
                     selector: `${SELECTOR_INPUT_FILE}`,
                     eventName: 'change',
                     callback: 'validateInput',
-                    errorNodeSelectors: [SELECTOR_LABEL_WRAPPER],
+                    errorNodeSelectors: ['.ibexa-form-error'],
                 },
                 {
                     isValueValidator: false,
                     selector: `${SELECTOR_INPUT_FILE}`,
-                    eventName: 'ez-invalid-file-size',
+                    eventName: 'ibexa-invalid-file-size',
                     callback: 'showFileSizeError',
-                    errorNodeSelectors: [SELECTOR_FILESIZE_NOTICE],
+                    errorNodeSelectors: ['.ibexa-form-error'],
                 },
             ],
         });
@@ -267,6 +255,6 @@
 
         previewField.init();
 
-        eZ.addConfig('fieldTypeValidators', [validator], true);
+        ibexa.addConfig('fieldTypeValidators', [validator], true);
     });
-})(window, window.document, window.eZ, window.React, window.ReactDOM, window.Translator, window.Routing);
+})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator, window.Routing);

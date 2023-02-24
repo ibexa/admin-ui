@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Specification\Content;
+namespace Ibexa\AdminUi\Specification\Content;
 
-use eZ\Publish\API\Repository\ContentService;
-use EzSystems\EzPlatformAdminUi\Specification\AbstractSpecification;
+use Ibexa\AdminUi\Specification\AbstractSpecification;
+use Ibexa\Contracts\Core\Repository\ContentService;
 
 class ContentDraftHasConflict extends AbstractSpecification
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
     /** @var string */
     private $languageCode;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
      * @param string $languageCode
      */
     public function __construct(ContentService $contentService, string $languageCode)
@@ -32,11 +32,11 @@ class ContentDraftHasConflict extends AbstractSpecification
     /**
      * Checks if Content has draft conflict.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      *
      * @return bool
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function isSatisfiedBy($contentInfo): bool
     {
@@ -54,3 +54,5 @@ class ContentDraftHasConflict extends AbstractSpecification
         return false;
     }
 }
+
+class_alias(ContentDraftHasConflict::class, 'EzSystems\EzPlatformAdminUi\Specification\Content\ContentDraftHasConflict');

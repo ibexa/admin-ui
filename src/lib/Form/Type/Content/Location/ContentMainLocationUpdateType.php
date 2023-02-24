@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\Content\Location;
+namespace Ibexa\AdminUi\Form\Type\Content\Location;
 
-use eZ\Publish\API\Repository\LocationService;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\ContentInfoType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\LocationType;
+use Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData;
+use Ibexa\AdminUi\Form\Type\Content\ContentInfoType;
+use Ibexa\AdminUi\Form\Type\Content\LocationType;
+use Ibexa\Contracts\Core\Repository\LocationService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,11 +19,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentMainLocationUpdateType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     protected $locationService;
 
     /**
-     * @param \eZ\Publish\API\Repository\LocationService $locationService
+     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
      */
     public function __construct(LocationService $locationService)
     {
@@ -64,3 +64,5 @@ class ContentMainLocationUpdateType extends AbstractType
         ]);
     }
 }
+
+class_alias(ContentMainLocationUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\Location\ContentMainLocationUpdateType');

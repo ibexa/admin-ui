@@ -1,4 +1,8 @@
-.ez-section-view {
+.ibexa-section-view {
+    .ibexa-details {
+        margin-bottom: calculateRem(42px);
+    }
+
     [name='section_content_assign'] {
         .form-group {
             margin-bottom: 0;

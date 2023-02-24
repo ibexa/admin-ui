@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Policy;
+namespace Ibexa\AdminUi\Form\Data\Policy;
 
-use eZ\Publish\API\Repository\Values\User\Policy;
+use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 
 class PolicyDeleteData
 {
@@ -123,3 +123,5 @@ class PolicyDeleteData
         $this->id = $id;
     }
 }
+
+class_alias(PolicyDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyDeleteData');
