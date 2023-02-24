@@ -6,4 +6,8 @@
     right: 0;
     bottom: 0;
     background-color: rgba($ibexa-color-dark, 0.4);
+
+    &--transparent {
+        background-color: transparent;
+    }
 }
