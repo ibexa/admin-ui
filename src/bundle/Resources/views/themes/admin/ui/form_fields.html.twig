@@ -89,9 +89,10 @@
     <div class="ibexa-content-type-selector accordion">
         {%- set groups = choices -%}
         {%- for group_label, group_choices in groups -%}
+            {% set group_id = group_label|slug %}
             <div class="ibexa-content-type-selector__group accordion-item">
                 <span class="ibexa-content-type-selector__group-title accordion-header">
-                    <button type="button" class="accordion-button {% if not loop.first %} collapsed{% endif %}" data-bs-toggle="collapse" data-bs-target="#{{ group_label }}">
+                    <button type="button" class="accordion-button {% if not loop.first %} collapsed{% endif %}" data-bs-toggle="collapse" data-bs-target="#{{ group_id }}">
                         {{ choice_translation_domain is same as(false) ? group_label : group_label|trans({}, choice_translation_domain) }}
 
                         <svg class="ibexa-icon ibexa-icon--tiny-small ibexa-icon--toggle">
@@ -99,7 +100,7 @@
                         </svg>
                     </button>
                 </span>
-                <div class="ibexa-content-type-selector__list-wrapper accordion-collapse collapse{% if loop.first %} show{% endif %}" id="{{ group_label }}">
+                <div class="ibexa-content-type-selector__list-wrapper accordion-collapse collapse{% if loop.first %} show{% endif %}" id="{{ group_id }}">
                     <div class="ibexa-content-type-selector__list-padding-wrapper">
                         <ul class="ibexa-content-type-selector__list">
                             {%- for choice in group_choices|slice(0, 3) -%}
