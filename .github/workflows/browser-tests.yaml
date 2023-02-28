@@ -10,7 +10,7 @@ on:
 jobs:
     admin-ui:
         name: "AdminUI"
-        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
+        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@BX-5077-github-actions-deprecations-and-variabes-name-change
         with:
             project-edition: 'oss'
             test-suite:  '--profile=browser --suite=admin-ui-full'
