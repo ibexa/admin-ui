@@ -331,6 +331,11 @@
         <target state="new">Some of the Fields are disabled when translating a Content Type. To modify them, edit the Content Type in the main language.</target>
         <note>key: content_type.view.edit.notranslatable_fields_disabled</note>
       </trans-unit>
+      <trans-unit id="803a61fc8cf4e7bdfcf27432bb35e379a4971134" resname="content_type.view.list.action.add">
+        <source>Create</source>
+        <target state="new">Create</target>
+        <note>key: content_type.view.list.action.add</note>
+      </trans-unit>
       <trans-unit id="da5f710198c48c803b3d0e2272e488903f92e569" resname="content_type.view.list.cannot_delete_notice">
         <source>You cannot delete the disabled Content Types, because Content items of those types exist.</source>
         <target state="new">You cannot delete the disabled Content Types, because Content items of those types exist.</target>

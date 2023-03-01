@@ -273,6 +273,7 @@ class ContentTypeGroupController extends Controller
             'content_type_group' => $group,
             'page' => $page,
             'route_name' => $request->get('_route'),
+            'can_create' => $this->isGranted(new Attribute('class', 'create')),
         ]);
     }
 
