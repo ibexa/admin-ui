@@ -116,6 +116,14 @@ class SiteaccessResolver implements SiteaccessResolverInterface
         return array_unique($siteAccesses);
     }
 
+    public function getSiteaccesses(): array
+    {
+        return array_column(
+            $this->getSiteAccessesList(),
+            'name'
+        );
+    }
+
     public function getSiteAccessesList(): array
     {
         return iterator_to_array($this->siteAccessService->getAll());

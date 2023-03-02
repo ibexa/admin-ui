@@ -75,6 +75,14 @@ class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
         );
     }
 
+    public function getSiteaccesses(): array
+    {
+        return array_column(
+            $this->getSiteAccessesList(),
+            'name'
+        );
+    }
+
     private function isAdminSiteAccess(SiteAccess $siteAccess): bool
     {
         return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($siteAccess);

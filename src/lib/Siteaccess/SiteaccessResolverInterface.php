@@ -48,6 +48,14 @@ interface SiteaccessResolverInterface
      * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
      */
     public function getSiteAccessesList(): array;
+
+    /**
+     * @deprecated use \Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface::getSiteAccessesList instead.
+     * Returns a complete list of Site Access names.
+     *
+     * @return array
+     */
+    public function getSiteaccesses(): array;
 }
 
 class_alias(SiteaccessResolverInterface::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessResolverInterface');
