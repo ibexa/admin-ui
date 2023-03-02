@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Siteaccess;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 interface SiteaccessResolverInterface
@@ -20,6 +21,8 @@ interface SiteaccessResolverInterface
      * @param string|null $languageCode
      *
      * @return array
+     *
+     * @deprecated use \Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface::getSiteAccessesListForLocation instead
      */
     public function getSiteaccessesForLocation(
         Location $location,
@@ -28,8 +31,6 @@ interface SiteaccessResolverInterface
     ): array;
 
     /**
-     * Returns a complete list of Site Access objects.
-     *
      * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
      */
     public function getSiteAccessesListForLocation(
@@ -39,11 +40,14 @@ interface SiteaccessResolverInterface
     ): array;
 
     /**
-     * Returns a complete list of Site Access names.
-     *
-     * @return array
+     * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
      */
-    public function getSiteaccesses(): array;
+    public function getSiteAccessesListForContent(Content $content): array;
+
+    /**
+     * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
+     */
+    public function getSiteAccessesList(): array;
 }
 
 class_alias(SiteaccessResolverInterface::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessResolverInterface');

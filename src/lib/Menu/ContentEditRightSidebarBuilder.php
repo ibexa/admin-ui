@@ -7,7 +7,7 @@
 namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
-use Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver;
+use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
@@ -53,7 +53,7 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
     public function __construct(
         MenuItemFactory $factory,
         EventDispatcherInterface $eventDispatcher,
-        NonAdminSiteaccessResolver $siteaccessResolver,
+        SiteaccessResolverInterface $siteaccessResolver,
         PermissionResolver $permissionResolver,
         LocationService $locationService,
         TranslatorInterface $translator
@@ -202,7 +202,7 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
             $versionNo = null;
         }
 
-        $siteaccesses = $this->siteaccessResolver->getSiteaccessesForLocation(
+        $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
             $location,
             $versionNo,
             $language->languageCode
@@ -223,7 +223,7 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
         return $this->createMenuItem(
             self::ITEM__PREVIEW,
             [
-                'attributes' => $canPreview && !empty($siteaccesses)
+                'attributes' => $canPreview && !empty($siteAccesses)
                     ? $previewAttributes
                     : array_merge($previewAttributes, self::BTN_DISABLED_ATTR),
                 'extras' => [

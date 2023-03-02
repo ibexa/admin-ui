@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Siteaccess;
 
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 
@@ -38,8 +39,9 @@ class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
         int $versionNo = null,
         string $languageCode = null
     ): array {
-        return $this->filter(
-            $this->siteaccessResolver->getSiteaccessesForLocation($location, $versionNo, $languageCode)
+        return array_column(
+            $this->getSiteAccessesListForLocation($location, $versionNo, $languageCode),
+            'name'
         );
     }
 
@@ -53,20 +55,24 @@ class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
     ): array {
         return array_filter(
             $this->siteaccessResolver->getSiteAccessesListForLocation($location, $versionNo, $languageCode),
-            function ($siteAccess) {
-                return !$this->isAdminSiteAccess($siteAccess);
-            }
+            fn (SiteAccess $siteAccess) => !$this->isAdminSiteAccess($siteAccess)
         );
     }
 
-    public function getSiteaccesses(): array
+    public function getSiteAccessesListForContent(Content $content): array
     {
-        return $this->filter($this->siteaccessResolver->getSiteaccesses());
+        return array_filter(
+            $this->siteaccessResolver->getSiteAccessesListForContent($content),
+            fn (SiteAccess $siteAccess) => !$this->isAdminSiteAccess($siteAccess)
+        );
     }
 
-    private function filter(array $siteaccesses): array
+    public function getSiteAccessesList(): array
     {
-        return array_diff($siteaccesses, $this->siteAccessGroups['admin_group']);
+        return array_filter(
+            $this->siteaccessResolver->getSiteAccessesList(),
+            fn (SiteAccess $siteAccess) => !$this->isAdminSiteAccess($siteAccess)
+        );
     }
 
     private function isAdminSiteAccess(SiteAccess $siteAccess): bool

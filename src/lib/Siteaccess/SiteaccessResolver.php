@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Siteaccess;
 
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService;
 
@@ -23,6 +25,8 @@ class SiteaccessResolver implements SiteaccessResolverInterface
     /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService */
     private $siteAccessService;
 
+    private LocationService $locationService;
+
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
      * @param iterable $siteaccessPreviewVoters
@@ -31,11 +35,13 @@ class SiteaccessResolver implements SiteaccessResolverInterface
     public function __construct(
         ContentService $contentService,
         iterable $siteaccessPreviewVoters,
-        SiteAccessService $siteAccessService
+        SiteAccessService $siteAccessService,
+        LocationService $locationService
     ) {
         $this->contentService = $contentService;
         $this->siteAccessPreviewVoters = $siteaccessPreviewVoters;
         $this->siteAccessService = $siteAccessService;
+        $this->locationService = $locationService;
     }
 
     /**
@@ -53,9 +59,7 @@ class SiteaccessResolver implements SiteaccessResolverInterface
         int $versionNo = null,
         string $languageCode = null
     ): array {
-        return $this->getSiteAccessList(
-            $this->getSiteAccessesListForLocation($location, $versionNo, $languageCode)
-        );
+        return array_column($this->getSiteAccessesListForLocation($location, $versionNo, $languageCode), 'name');
     }
 
     /**
@@ -85,22 +89,36 @@ class SiteaccessResolver implements SiteaccessResolverInterface
         return $eligibleSiteAccesses;
     }
 
-    public function getSiteaccesses(): array
+    public function getSiteAccessesListForContent(Content $content): array
     {
-        $siteAccessList = iterator_to_array($this->siteAccessService->getAll());
+        $versionInfo = $content->getVersionInfo();
+        $contentInfo = $versionInfo->getContentInfo();
 
-        return $this->getSiteAccessList($siteAccessList);
+        if ($versionInfo->isDraft()) {
+            // nonpublished content should use parent location instead because location doesn't exist yet
+            $eligibleLocations = $this->locationService->loadParentLocationsForDraftContent($versionInfo);
+        } else {
+            $eligibleLocations = $this->locationService->loadLocations($contentInfo);
+        }
+
+        $eligibleLanguages = $versionInfo->getLanguages();
+
+        $siteAccesses = [];
+        foreach ($eligibleLocations as $location) {
+            foreach ($eligibleLanguages as $language) {
+                $siteAccesses = array_merge(
+                    $this->getSiteAccessesListForLocation($location, null, $language->languageCode),
+                    $siteAccesses
+                );
+            }
+        }
+
+        return array_unique($siteAccesses);
     }
 
-    /**
-     * @return string[]
-     */
-    private function getSiteAccessList(array $siteAccessList): array
+    public function getSiteAccessesList(): array
     {
-        return array_column(
-            $siteAccessList,
-            'name'
-        );
+        return iterator_to_array($this->siteAccessService->getAll());
     }
 }
 
