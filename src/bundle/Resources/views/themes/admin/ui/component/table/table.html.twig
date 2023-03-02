@@ -31,7 +31,7 @@
     {% set table_content %}
         <table
             class="ibexa-table table
-            {{ is_last_column_sticky|default(false) ? 'ibexa-table--last-column-sticky' }}
+            {{ is_last_column_sticky ? 'ibexa-table--last-column-sticky' }}
             {{ class|default('') -}}"
             {{ html.attributes(attr|default({})) }}
         >
