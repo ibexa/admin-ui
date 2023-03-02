@@ -190,6 +190,29 @@
             }
         }
     }
+
+    &--last-column-sticky {
+        border-collapse: separate;
+
+        .ibexa-table__row,
+        .ibexa-table__head-row {
+            .ibexa-table__cell:last-of-type,
+            .ibexa-table__header-cell:last-of-type {
+                position: sticky;
+                right: calculateRem(-1px);
+            }
+        }
+    }
+
+    &--last-column-shadow {
+        .ibexa-table__row,
+        .ibexa-table__head-row {
+            .ibexa-table__cell:last-of-type,
+            .ibexa-table__header-cell:last-of-type {
+                box-shadow: calculateRem(-13px) calculateRem(5px) calculateRem(20px) 0 rgba($ibexa-color-info, 0.1);
+            }
+        }
+    }
 }
 
 .ibexa-table-header {
