@@ -36,12 +36,14 @@
                 'ibexa-collapse--field-definitions-group ibexa-field-definitions-group-%s'|format(id),
                 field_defintions is empty and not loop.first or loop.first and not should_show_first and field_defintions is empty ? 'ibexa-collapse--hidden'
             ] %}
+            {% set is_field_definition_draggable = is_draggable ?? true %}
 
             {%- embed "@ibexadesign/ui/component/collapse.html.twig" with {
                 'class': field_definitions_group_class|join(' '),
                 'body_id': '%s_collapse'|format(id),
                 'header_label': id | ibexa_field_group_name,
                 'is_expanded': true,
+                'is_draggable': false,
                 'extra_actions': [
                     {
                         'icon_name': 'discard',
@@ -62,7 +64,7 @@
                             {%- include "@ibexadesign/content_type/field_definitions_empty_group.html.twig" -%}
 
                             {% for field_definition in field_defintions %}
-                                {{ include('@ibexadesign/content_type/field_definition.html.twig', { is_draggable: is_draggable ?? true}) }}
+                                {{ include('@ibexadesign/content_type/field_definition.html.twig', { is_draggable: is_field_definition_draggable }) }}
                             {% endfor %}
                         {% endblock %}
                     </div>
