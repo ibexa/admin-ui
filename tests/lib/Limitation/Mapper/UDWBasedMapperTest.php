@@ -8,6 +8,8 @@ namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
 use Ibexa\AdminUi\Limitation\Mapper\UDWBasedMapper;
 use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
@@ -21,7 +23,7 @@ use PHPUnit\Framework\TestCase;
 
 class UDWBasedMapperTest extends TestCase
 {
-    public function testMapLimitationValue()
+    public function testMapLimitationValue(): void
     {
         $values = [5, 7, 11];
         $expected = [
@@ -44,6 +46,8 @@ class UDWBasedMapperTest extends TestCase
 
         $locationServiceMock = $this->createMock(LocationService::class);
         $searchServiceMock = $this->createMock(SearchService::class);
+        $permissionResolverMock = $this->createMock(PermissionResolver::class);
+        $repositoryMock = $this->createMock(Repository::class);
 
         foreach ($values as $i => $id) {
             $location = new Location([
@@ -62,27 +66,32 @@ class UDWBasedMapperTest extends TestCase
             ]);
 
             $searchServiceMock
-                ->expects($this->at($i))
+                ->expects(self::at($i))
                 ->method('findLocations')
                 ->with($query)
                 ->willReturn($this->createSearchResultsMock($expected[$i]));
         }
 
-        $mapper = new UDWBasedMapper($locationServiceMock, $searchServiceMock);
+        $mapper = new UDWBasedMapper(
+            $locationServiceMock,
+            $searchServiceMock,
+            $permissionResolverMock,
+            $repositoryMock
+        );
         $result = $mapper->mapLimitationValue(new SubtreeLimitation([
             'limitationValues' => $values,
         ]));
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
-    private function createSearchResultsMock($expected)
+    private function createSearchResultsMock(array $expected): SearchResult
     {
         $hits = [];
         foreach ($expected as $contentInfo) {
             $locationMock = $this->createMock(Location::class);
             $locationMock
-                ->expects($this->atLeastOnce())
+                ->expects(self::atLeastOnce())
                 ->method('getContentInfo')
                 ->willReturn($contentInfo);
 
