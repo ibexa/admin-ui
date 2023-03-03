@@ -185,8 +185,10 @@ services:
     ibexa.content_forms.limitation.form_mapper.udw_based:
         class: Ibexa\AdminUi\Limitation\Mapper\UDWBasedMapper
         arguments:
-            - '@ibexa.api.service.location'
-            - '@ibexa.api.service.search'
+            $locationService: "@ibexa.api.service.location"
+            $searchService: "@ibexa.api.service.search"
+            $permissionResolver: '@Ibexa\Contracts\Core\Repository\PermissionResolver'
+            $repository: '@ibexa.api.repository'
         calls:
             - [setFormTemplate, ['%ibexa.content_forms.limitation.udw.template%']]
 

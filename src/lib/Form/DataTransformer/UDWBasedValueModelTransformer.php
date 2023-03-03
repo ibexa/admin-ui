@@ -9,8 +9,10 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\DataTransformer;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
-use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -24,12 +26,20 @@ class UDWBasedValueModelTransformer implements DataTransformerInterface
     /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     */
-    public function __construct(LocationService $locationService)
-    {
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    private $permissionResolver;
+
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
+    private $repository;
+
+    public function __construct(
+        LocationService $locationService,
+        PermissionResolver $permissionResolver,
+        Repository $repository
+    ) {
         $this->locationService = $locationService;
+        $this->permissionResolver = $permissionResolver;
+        $this->repository = $repository;
     }
 
     /**
@@ -43,16 +53,24 @@ class UDWBasedValueModelTransformer implements DataTransformerInterface
             return null;
         }
 
+        return array_map([$this, 'mapPathToLocation'], $value);
+    }
+
+    private function mapPathToLocation(string $path): ?Location
+    {
+        $locationId = $this->extractLocationIdFromPath($path);
+
         try {
-            return array_map(function (string $path) {
-                return $this->locationService->loadLocation(
-                    $this->extractLocationIdFromPath($path)
-                );
-            }, $value);
+            // Sudo is necessary as skipping non-accessible Locations
+            // will prevent an administrator from editing policies
+            return $this->permissionResolver->sudo(
+                function () use ($locationId): Location {
+                    return $this->locationService->loadLocation($locationId);
+                },
+                $this->repository
+            );
         } catch (NotFoundException $e) {
             return null;
-        } catch (UnauthorizedException $e) {
-            throw new TransformationFailedException($e->getMessage(), $e->getCode(), $e);
         }
     }
 

@@ -11,6 +11,8 @@ use Ibexa\AdminUi\Form\DataTransformer\UDWBasedValueViewTransformer;
 use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Ancestor;
@@ -42,15 +44,22 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
      */
     private $template;
 
-    /**
-     * UDWBasedMapper constructor.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\SearchService $searchService
-     */
-    public function __construct(LocationService $locationService, SearchService $searchService)
-    {
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    private $permissionResolver;
+
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
+    private $repository;
+
+    public function __construct(
+        LocationService $locationService,
+        SearchService $searchService,
+        PermissionResolver $permissionResolver,
+        Repository $repository
+    ) {
         $this->locationService = $locationService;
         $this->searchService = $searchService;
+        $this->permissionResolver = $permissionResolver;
+        $this->repository = $repository;
     }
 
     public function setFormTemplate($template)
@@ -74,7 +83,13 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
                     'label' => LimitationIdentifierToLabelConverter::convert($data->getIdentifier()),
                 ])
                 ->addViewTransformer(new UDWBasedValueViewTransformer($this->locationService))
-                ->addModelTransformer(new UDWBasedValueModelTransformer($this->locationService))
+                ->addModelTransformer(
+                    new UDWBasedValueModelTransformer(
+                        $this->locationService,
+                        $this->permissionResolver,
+                        $this->repository
+                    )
+                )
                 // Deactivate auto-initialize as we're not on the root form.
                 ->setAutoInitialize(false)->getForm()
         );
