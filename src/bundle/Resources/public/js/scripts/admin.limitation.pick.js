@@ -148,7 +148,9 @@
     const attachTagEventHandlers = (limitationBtn, tag) => {
         const removeTagBtn = tag.querySelector('.ibexa-tag__remove-btn');
 
-        removeTagBtn.addEventListener('click', () => handleTagRemove(limitationBtn, tag), false);
+        if (removeTagBtn !== null) {
+            removeTagBtn.addEventListener('click', () => handleTagRemove(limitationBtn, tag), false);
+        }
     };
     const closeUDW = () => udwRoot.unmount();
     const handleUdwConfirm = (limitationBtn, selectedItems) => {
