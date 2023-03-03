@@ -89,32 +89,6 @@
     &__priority-value {
         max-width: 100%;
         padding: 0 calculateRem(10px);
-
-        &[readonly] {
-            cursor: pointer;
-        }
-
-        &[readonly]::-webkit-outer-spin-button,
-        &[readonly]::-webkit-inner-spin-button {
-            opacity: 0;
-        }
-
-        &[readonly]:hover::-webkit-outer-spin-button,
-        &[readonly]:hover::-webkit-inner-spin-button {
-            opacity: 1;
-        }
-
-        &::-webkit-outer-spin-button,
-        &::-webkit-inner-spin-button {
-            opacity: 1;
-        }
-
-        &[readonly] {
-            -webkit-appearance: textfield;
-        }
-        &[readonly]:hover {
-            -webkit-appearance: number-input;
-        }
     }
 
     &__btn {
