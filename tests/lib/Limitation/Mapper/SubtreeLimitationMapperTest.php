@@ -8,6 +8,8 @@ namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
 use Ibexa\AdminUi\Limitation\Mapper\SubtreeLimitationMapper;
 use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
@@ -44,6 +46,8 @@ class SubtreeLimitationMapperTest extends TestCase
 
         $locationServiceMock = $this->createMock(LocationService::class);
         $searchServiceMock = $this->createMock(SearchService::class);
+        $permissionResolverMock = $this->createMock(PermissionResolver::class);
+        $repositoryMock = $this->createMock(Repository::class);
 
         foreach ($values as $i => $pathString) {
             $query = new LocationQuery([
@@ -58,7 +62,12 @@ class SubtreeLimitationMapperTest extends TestCase
                 ->willReturn($this->createSearchResultsMock($expected[$i]));
         }
 
-        $mapper = new SubtreeLimitationMapper($locationServiceMock, $searchServiceMock);
+        $mapper = new SubtreeLimitationMapper(
+            $locationServiceMock,
+            $searchServiceMock,
+            $permissionResolverMock,
+            $repositoryMock
+        );
         $result = $mapper->mapLimitationValue(new SubtreeLimitation([
             'limitationValues' => $values,
         ]));

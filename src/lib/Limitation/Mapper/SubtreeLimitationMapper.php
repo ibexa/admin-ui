@@ -6,6 +6,7 @@
  */
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Ancestor;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\Path;
@@ -27,11 +28,25 @@ class SubtreeLimitationMapper extends UDWBasedMapper
         }
     }
 
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     */
     public function mapLimitationValue(Limitation $limitation)
     {
         $values = [];
 
         foreach ($limitation->limitationValues as $pathString) {
+            $pathParts = explode('/', trim($pathString, '/'));
+            $locationId = (int) array_pop($pathParts);
+
+            try {
+                $this->locationService->loadLocation($locationId);
+            } catch (NotFoundException $e) {
+                // Skip generating limitation value as Location doesn't exist at this point
+                continue;
+            }
+
             $query = new LocationQuery([
                 'filter' => new Ancestor($pathString),
                 'sortClauses' => [new Path()],
