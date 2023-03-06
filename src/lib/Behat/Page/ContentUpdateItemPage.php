@@ -12,6 +12,7 @@ use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent;
 use Ibexa\AdminUi\Behat\Component\Notification;
+use Ibexa\Behat\API\Facade\ContentFacade;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementHasTextCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
@@ -34,17 +35,27 @@ class ContentUpdateItemPage extends Page
     /** @var \Ibexa\AdminUi\Behat\Component\Notification */
     private $notification;
 
+    private string $languageCode;
+
+    private string $contentTypeIdentifier;
+
+    private string $locationPath;
+
+    private ContentFacade $contentFacade;
+
     public function __construct(
         Session $session,
         Router $router,
         ContentActionsMenu $contentActionsMenu,
         iterable $fieldTypeComponents,
-        Notification $notification
+        Notification $notification,
+        ContentFacade $contentFacade
     ) {
         parent::__construct($session, $router);
         $this->contentActionsMenu = $contentActionsMenu;
         $this->fieldTypeComponents = $fieldTypeComponents;
         $this->notification = $notification;
+        $this->contentFacade = $contentFacade;
     }
 
     public function verifyIsLoaded(): void
@@ -111,7 +122,19 @@ class ContentUpdateItemPage extends Page
 
     protected function getRoute(): string
     {
-        throw new \Exception('This page cannot be opened on its own!');
+        return sprintf(
+            '/content/create/proxy/%s/%s/%d',
+            $this->contentTypeIdentifier,
+            $this->languageCode,
+            $this->contentFacade->getContentByLocationURL($this->locationPath)->contentInfo->getMainLocation()->id
+        );
+    }
+
+    public function setExpectedContentDraftData(string $contentTypeIdentifier, string $languageCode, string $locationPath): void
+    {
+        $this->contentTypeIdentifier = $contentTypeIdentifier;
+        $this->languageCode = $languageCode;
+        $this->locationPath = $locationPath;
     }
 
     public function getField(string $fieldName): FieldTypeComponent
