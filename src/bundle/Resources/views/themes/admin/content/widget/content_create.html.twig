@@ -16,7 +16,7 @@
             {% endif %}
         </div>
     </div>
-    <div class="ibexa-extra-actions__content">
+    <div class="ibexa-extra-actions__content ibexa-extra-actions__content--create">
         {% set action = action is defined ? action : path('ibexa.content.create') %}
         {{ form_start(form, {
             'action': action,
