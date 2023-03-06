@@ -148,6 +148,7 @@
         .ibexa-edit-header {
             &__row {
                 &--bottom {
+                    z-index: 1;
                     margin-top: calculateRem(-45px);
                 }
             }
