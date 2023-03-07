@@ -30,8 +30,8 @@
     const toggleError = (isError, message, target) => {
         const methodName = isError ? 'add' : 'remove';
         const field = target.closest(SELECTOR_FIELD);
-        const labelWrapper = field.querySelector('.ibexa-form-error');
-        const errorNodes = labelWrapper.querySelectorAll('.ibexa-field__error');
+        const errorsWrapper = field.querySelector('.ibexa-form-error');
+        const errorNodes = errorsWrapper.querySelectorAll('.ibexa-form-error__row');
 
         field.classList[methodName](CLASS_INVALID);
         target.classList[methodName](CLASS_INVALID);
@@ -39,7 +39,7 @@
         errorNodes.forEach((el) => el.remove());
 
         if (isError) {
-            labelWrapper.append(createErrorNode(message));
+            errorsWrapper.append(createErrorNode(message));
         }
     };
 
