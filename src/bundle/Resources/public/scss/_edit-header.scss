@@ -149,6 +149,7 @@
             &__row {
                 &--bottom {
                     z-index: 1;
+                    min-width: initial;
                     margin-top: calculateRem(-45px);
                 }
             }

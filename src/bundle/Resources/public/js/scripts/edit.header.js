@@ -12,11 +12,15 @@
     const { height: expandedHeaderHeight } = headerNode.getBoundingClientRect();
     const scrolledContent = doc.querySelector('.ibexa-edit-content > :first-child');
     const fitEllipsizedTitle = () => {
-        const titleNode = headerNode.querySelector('.ibexa-edit-header__name--ellipsized');
+        const headerBottomRowNode = headerNode.querySelector('.ibexa-edit-header__row--bottom');
+        const titleNode = headerBottomRowNode.querySelector('.ibexa-edit-header__name--ellipsized');
         const firstMenuEntryNode = headerNode.querySelector('.ibexa-context-menu .ibexa-context-menu__item');
         const { left: titleNodeLeft, width: titleNodeWidth } = titleNode.getBoundingClientRect();
         const { left: firstMenuEntryNodeLeft } = firstMenuEntryNode.getBoundingClientRect();
-        const titleNodeWidthNew = firstMenuEntryNodeLeft - titleNodeLeft - HEADER_RIGHT_MARGIN;
+        const bottomRowNodeWidthNew = firstMenuEntryNodeLeft - titleNodeLeft;
+        const titleNodeWidthNew = bottomRowNodeWidthNew - HEADER_RIGHT_MARGIN;
+
+        headerBottomRowNode.style.width = `${bottomRowNodeWidthNew}px`;
 
         if (titleNodeWidth > titleNodeWidthNew) {
             titleNode.style.width = `${titleNodeWidthNew}px`;
