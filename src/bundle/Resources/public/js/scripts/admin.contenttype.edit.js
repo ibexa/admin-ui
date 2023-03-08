@@ -112,6 +112,12 @@
         const dropdowns = fieldNode.querySelectorAll('.ibexa-dropdown');
 
         dropdowns.forEach((dropdownContainer) => {
+            const dropdownAlreadyInitialized = !!ibexa.helpers.objectInstances.getInstance(dropdownContainer);
+
+            if (dropdownAlreadyInitialized) {
+                return;
+            }
+
             const dropdown = new ibexa.core.Dropdown({
                 container: dropdownContainer,
             });
