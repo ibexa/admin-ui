@@ -18,6 +18,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/helpers/pagination.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/object.instances.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/middle.ellipsis.js'),
+    path.resolve(__dirname, '../public/js/scripts/helpers/form.validation.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/form.error.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.format.date.js'),
     path.resolve(__dirname, '../public/js/scripts/core/draggable.js'),
