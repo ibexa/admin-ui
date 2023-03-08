@@ -19,6 +19,19 @@
         display: flex;
     }
 
+    &__name {
+        &--ellipsized {
+            display: none;
+        }
+
+        &--full {
+            display: inline-block;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
     &__row {
         display: flex;
         flex-wrap: nowrap;
@@ -135,6 +148,8 @@
         .ibexa-edit-header {
             &__row {
                 &--bottom {
+                    z-index: 1;
+                    min-width: initial;
                     margin-top: calculateRem(-45px);
                 }
             }
@@ -165,6 +180,16 @@
 
             &__title {
                 min-height: calculateRem(34px);
+            }
+
+            &__name {
+                &--ellipsized {
+                    display: inline-block;
+                }
+
+                &--full {
+                    display: none;
+                }
             }
         }
 

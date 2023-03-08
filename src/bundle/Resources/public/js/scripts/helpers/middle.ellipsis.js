@@ -21,8 +21,17 @@
 
         middleEllipsisContainers.forEach((middleEllipsisContainer) => {
             const partStart = middleEllipsisContainer.querySelector('.ibexa-middle-ellipsis__name--start');
+            const isEllipsized = partStart.scrollWidth > partStart.offsetWidth;
 
-            middleEllipsisContainer.classList.toggle('ibexa-middle-ellipsis--ellipsized', partStart.scrollWidth > partStart.offsetWidth);
+            if (!isEllipsized) {
+                middleEllipsisContainer.dataset.bsOriginalTitle = '';
+            } else {
+                const partStartContentNode = partStart.querySelector('.ibexa-middle-ellipsis__name-ellipsized');
+
+                baseElement.dataset.bsOriginalTitle = partStartContentNode.innerHTML;
+            }
+
+            middleEllipsisContainer.classList.toggle('ibexa-middle-ellipsis--ellipsized', isEllipsized);
             ibexa.helpers.tooltips.parse(middleEllipsisContainer);
 
             resizeEllipsisObserver.observe(middleEllipsisContainer);
