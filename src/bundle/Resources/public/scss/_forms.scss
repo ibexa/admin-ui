@@ -75,7 +75,6 @@ form:not(.form-inline) {
     color: $ibexa-color-danger;
     line-height: calculateRem(18px);
     box-sizing: border-box;
-    margin-top: calculateRem(4px);
 
     &:not(& > &) {
         flex-direction: column;
@@ -85,6 +84,7 @@ form:not(.form-inline) {
         display: flex;
         align-items: center;
         font-style: normal;
+        margin-top: calculateRem(4px);
     }
 
     &__icon {
