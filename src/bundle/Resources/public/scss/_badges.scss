@@ -9,57 +9,61 @@
     background-color: $ibexa-color-light-500;
     white-space: nowrap;
 
-    &--primary {
-        color: $ibexa-color-primary;
-        background-color: $ibexa-color-primary-200;
+    &--status {
+        position: relative;
+        padding-left: calculateRem(16px);
+        padding-top: calculateRem(3px);
+        padding-bottom: calculateRem(3px);
+        border-width: calculateRem(1px);
+        border-style: solid;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: calculateRem(8px);
+            width: calculateRem(4px);
+            height: calculateRem(4px);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    @mixin version-properties($color, $background-color) {
+        color: $color;
+        background-color: $background-color;
+        border-color: $color;
 
         .ibexa-icon {
-            fill: $ibexa-color-primary;
+            fill: $color;
         }
+
+        &::before {
+            background-color: $color;
+        }
+    }
+
+    &--primary {
+        @include version-properties($ibexa-color-primary, $ibexa-color-primary-200);
     }
 
     &--secondary {
-        color: $ibexa-color-dark;
-        background-color: $ibexa-color-light-500;
-
-        .ibexa-icon {
-            fill: $ibexa-color-dark;
-        }
+        @include version-properties($ibexa-color-dark, $ibexa-color-light-500);
     }
 
     &--info {
-        color: $ibexa-color-info;
-        background-color: $ibexa-color-info-200;
-
-        .ibexa-icon {
-            fill: $ibexa-color-info;
-        }
+        @include version-properties($ibexa-color-info, $ibexa-color-info-200);
     }
 
     &--danger {
-        color: $ibexa-color-danger;
-        background-color: $ibexa-color-danger-200;
-
-        .ibexa-icon {
-            fill: $ibexa-color-danger;
-        }
+        @include version-properties($ibexa-color-danger, $ibexa-color-danger-200);
     }
 
     &--success {
-        color: $ibexa-color-success;
-        background-color: $ibexa-color-success-200;
-
-        .ibexa-icon {
-            fill: $ibexa-color-success;
-        }
+        @include version-properties($ibexa-color-success, $ibexa-color-success-200);
     }
 
     &--complementary {
-        color: $ibexa-color-complementary;
-        background-color: $ibexa-color-complementary-200;
-
-        .ibexa-icon {
-            fill: $ibexa-color-complementary;
-        }
+        @include version-properties($ibexa-color-complementary, $ibexa-color-complementary-200);
     }
 }
