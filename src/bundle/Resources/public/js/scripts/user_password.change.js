@@ -16,7 +16,7 @@
      * @returns {HTMLElement}
      */
     const createErrorNode = (message) => {
-        return ibexa.helpers.formError.formatLine(message);
+        return ibexa.helpers.formValidation.formatErrorLine(message);
     };
 
     /**

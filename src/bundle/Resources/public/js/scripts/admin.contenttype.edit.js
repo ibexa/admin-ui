@@ -350,7 +350,7 @@
             if (isInputEmpty) {
                 const fieldName = labelNode.innerHTML;
                 const errorMessage = ibexa.errors.emptyField.replace('{fieldName}', fieldName);
-                const formattedError = ibexa.helpers.formError.formatLine(errorMessage);
+                const formattedError = ibexa.helpers.formValidation.formatErrorLine(errorMessage);
 
                 errorNode.append(formattedError);
             }

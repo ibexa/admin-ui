@@ -111,7 +111,7 @@
          * @memberof BaseFieldValidator
          */
         createErrorNode(message) {
-            return ibexa.helpers.formError.formatLine(message);
+            return ibexa.helpers.formValidation.formatErrorLine(message);
         }
 
         /**
