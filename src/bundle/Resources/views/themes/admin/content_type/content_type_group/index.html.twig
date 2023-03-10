@@ -18,6 +18,30 @@
     } %}
 {% endblock %}
 
+{% block context_menu %}
+    {% set menu_items %}
+        {% if can_create %}
+            <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
+                <a
+                    href="{{ path('ibexa.content_type.add', {contentTypeGroupId: content_type_group.id}) }}"
+                    class="btn ibexa-btn ibexa-btn--primary"
+                >
+                    <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
+                        <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
+                    </svg>
+                    <span class="ibexa-btn__label">
+                        {{ 'content_type.view.list.action.add'|trans|desc('Create') }}
+                    </span>
+                </a>
+            </li>
+        {% endif %}
+    {% endset %}
+
+    {{ include('@ibexadesign/ui/component/context_menu/context_menu.html.twig', {
+        menu_items: menu_items,
+    }) }}
+{% endblock %}
+
 {% block content %}
     {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeController::listAction', {
         contentTypeGroupId: content_type_group.id,
