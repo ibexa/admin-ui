@@ -1,7 +1,7 @@
 (function (global, doc, ibexa, Translator) {
     const formatErrorLine = (errorMessage) => {
         const errorIcon = `<svg class="ibexa-icon ibexa-icon--small ibexa-form-error__icon">
-            <use xlink:href="${window.ibexa.helpers.icon.getIconPath('warning-triangle')}"></use>
+            <use xlink:href="${ibexa.helpers.icon.getIconPath('warning-triangle')}"></use>
         </svg>`;
         const container = document.createElement('em');
         const errorMessageNode = document.createTextNode(errorMessage);
