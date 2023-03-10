@@ -94,19 +94,6 @@
         {% block header %}
             {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
                 {% block actions %}
-                    {% if can_create %}
-                        <a
-                            href="{{ path('ibexa.content_type.add', {contentTypeGroupId: content_type_group.id}) }}"
-                            class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small"
-                        >
-                            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
-                                <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-                            </svg>
-                            <span class="ibexa-btn__label">
-                                {{ 'content_type.view.list.action.add'|trans|desc('Add new') }}
-                            </span>
-                        </a>
-                    {% endif %}
                     {% if can_delete %}
                         {% set modal_data_target = 'delete-content-types-modal' %}
                         <button
