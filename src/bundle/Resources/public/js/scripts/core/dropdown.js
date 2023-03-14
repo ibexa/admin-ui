@@ -49,6 +49,11 @@
                     this.recreateOptions();
                 }
             });
+            this.sourceInvalidObserver = new MutationObserver((mutationsList) => {
+                const isInvalid = mutationsList[0].target.classList.contains('is-invalid');
+
+                this.container.classList.toggle('is-invalid', isInvalid);
+            });
             this.currentSelectedValue = this.sourceInput.value;
 
             this.createSelectedItem = this.createSelectedItem.bind(this);
@@ -243,6 +248,7 @@
             }
 
             option.remove();
+            this.currentSelectedValue = null;
 
             this.fitItems();
             this.fireValueChangedEvent();
@@ -515,6 +521,10 @@
 
             this.sourceOptionsObserver.observe(this.sourceInput, {
                 childList: true,
+            });
+            this.sourceInvalidObserver.observe(this.sourceInput, {
+                attributes: true,
+                attributeFilter: ['class'],
             });
 
             const selectedItems = this.container.querySelectorAll(
