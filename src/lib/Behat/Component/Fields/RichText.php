@@ -188,7 +188,9 @@ class RichText extends FieldTypeComponent
 
     private function getCustomStylesOffset(): int
     {
-        return count($this->customStyleProvider->getConfiguration());
+        return count(array_filter($this->customStyleProvider->getConfiguration(), static function (array $config): bool {
+            return $config['inline'] === true;
+        }));
     }
 
     private function clickElementsToolbarButton(int $buttonPosition): void
