@@ -33,23 +33,27 @@
             {% endif %}
             <div class="ibexa-adaptive-filters__actions ibexa-adaptive-items__item ibexa-adaptive-items__item--force-show">
                 {% block actions %}
-                    <button
-                        type="submit"
-                        class="btn ibexa-btn ibexa-btn--secondary ibexa-adaptive-filters__submit-btn"
-                    >
-                        {{ 'actions.apply_btn'|trans|desc('Apply') }}
-                    </button>
-                    <button
-                        type="button"
-                        class="btn ibexa-btn ibexa-btn--ghost ibexa-adaptive-filters__clear-btn"
-                    >
-                        <svg class="ibexa-icon ibexa-icon--small">
-                            <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
-                        </svg>
-                        <span class="ibexa-btn__label">
-                            {{ 'actions.clear_btn'|trans|desc('Clear filters') }}
-                        </span>
-                    </button>
+                    {% block action_submit %}
+                        <button
+                            type="submit"
+                            class="btn ibexa-btn ibexa-btn--secondary ibexa-adaptive-filters__submit-btn"
+                        >
+                            {{ 'actions.apply_btn'|trans|desc('Apply') }}
+                        </button>
+                    {% endblock %}
+                    {% block action_clear %}
+                        <button
+                            type="button"
+                            class="btn ibexa-btn ibexa-btn--ghost ibexa-adaptive-filters__clear-btn"
+                        >
+                            <svg class="ibexa-icon ibexa-icon--small">
+                                <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
+                            </svg>
+                            <span class="ibexa-btn__label">
+                                {{ 'actions.clear_btn'|trans|desc('Clear filters') }}
+                            </span>
+                        </button>
+                    {% endblock %}
                 {% endblock %}
             </div>
             <div
