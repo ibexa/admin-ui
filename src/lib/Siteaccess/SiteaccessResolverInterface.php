@@ -22,7 +22,8 @@ interface SiteaccessResolverInterface
      *
      * @return array
      *
-     * @deprecated use \Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface::getSiteAccessesListForLocation instead
+     * @deprecated Deprecated since Ibexa DXP 4.5.0.
+     * Use { @see \Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface::getSiteAccessesList } instead.
      */
     public function getSiteaccessesForLocation(
         Location $location,

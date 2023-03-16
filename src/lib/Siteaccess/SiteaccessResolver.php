@@ -59,6 +59,15 @@ class SiteaccessResolver implements SiteaccessResolverInterface
         int $versionNo = null,
         string $languageCode = null
     ): array {
+        @trigger_error(
+            sprintf(
+                'The "%s" method is deprecated since Ibexa DXP 4.5.0. Use "%s" instead.',
+                '\Ibexa\AdminUi\Siteaccess\SiteaccessResolver::getSiteaccessesForLocation',
+                '\Ibexa\AdminUi\Siteaccess\SiteaccessResolver::getSiteAccessesList'
+            ),
+            E_USER_DEPRECATED
+        );
+
         return array_column($this->getSiteAccessesListForLocation($location, $versionNo, $languageCode), 'name');
     }
 
