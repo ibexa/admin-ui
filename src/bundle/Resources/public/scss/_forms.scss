@@ -77,6 +77,10 @@ form:not(.form-inline) {
     box-sizing: border-box;
     margin-top: calculateRem(4px);
 
+    &:empty {
+        margin-top: 0;
+    }
+
     &:not(& > &) {
         flex-direction: column;
     }
