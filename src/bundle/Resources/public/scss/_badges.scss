@@ -70,4 +70,9 @@
     &--custom-colors {
         @include version-properties(var(--primary-color), var(--secondary-color));
     }
+
+    &--ghost {
+        background-color: transparent;
+        border-color: transparent;
+    }
 }
