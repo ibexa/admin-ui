@@ -159,6 +159,10 @@
 
         &--content-center {
             text-align: center;
+
+            .ibexa-input--checkbox {
+                margin-bottom: 0;
+            }
         }
     }
 
