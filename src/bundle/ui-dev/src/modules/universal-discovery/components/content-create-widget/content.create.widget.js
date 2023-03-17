@@ -129,7 +129,7 @@ const ContentCreateWidget = () => {
                     </button>
                     <div className="ibexa-extra-actions__header-subtitle">{createUnderLabel}</div>
                 </div>
-                <div className="ibexa-extra-actions__content">
+                <div className="ibexa-extra-actions__content ibexa-extra-actions__content--create">
                     <label className="ibexa-label ibexa-extra-actions__section-header">{selectLanguageLabel}</label>
                     <div className="ibexa-extra-actions__section-content">
                         <Dropdown

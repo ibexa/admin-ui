@@ -59,22 +59,31 @@
     }
 
     &__content {
-        padding: 0 calculateRem(32px);
+        padding: calculateRem(32px);
+        width: 75%;
         max-height: calc(100% - #{calculateRem(90px)});
         overflow: auto;
 
         .form-group {
             margin-bottom: 0;
         }
+
+        &--create {
+            padding: 0 calculateRem(32px);
+        }
+    }
+
+    &__btns {
+        margin-top: calculateRem(42px);
+        display: flex;
+
+        .ibexa-btn + .ibexa-btn {
+            margin-left: calculateRem(16px);
+        }
     }
 
     &--edit-user,
     &--edit {
-        .ibexa-extra-actions__content {
-            padding: calculateRem(32px);
-            width: 75%;
-        }
-
         .form-check {
             padding-left: 0;
         }
@@ -124,7 +133,6 @@
             &__section-content--content-type {
                 padding: 0;
                 border: none;
-                width: 75%;
             }
         }
 
