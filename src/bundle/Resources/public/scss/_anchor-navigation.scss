@@ -1,4 +1,6 @@
 .ibexa-anchor-navigation {
+    $self: &;
+
     &__section-group {
         display: none;
 
@@ -7,9 +9,27 @@
         }
     }
 
+    &__section-header {
+        padding-top: calculateRem(64px);
+        margin-top: calculateRem(64px);
+        border-top: calculateRem(1px) solid $ibexa-color-light;
+    }
+
+    &__section-help {
+        color: $ibexa-color-dark-400;
+    }
+
     &__sections {
         .card {
             position: unset;
+        }
+    }
+
+    &__section:first-of-type {
+        #{$self}__section-header {
+            padding-top: calculateRem(16px);
+            margin-top: 0;
+            border-top: 0;
         }
     }
 }
