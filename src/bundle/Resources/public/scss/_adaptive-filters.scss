@@ -92,6 +92,7 @@
 
     &__collapsible-content {
         display: flex;
+        flex-wrap: wrap;
         padding: calculateRem(8px) 0 calculateRem(16px);
         opacity: 1;
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
@@ -108,6 +109,12 @@
 
         .ibexa-label {
             margin-top: 0;
+        }
+    }
+
+    &__submit-btn {
+        &:last-child {
+            margin-right: calculateRem(16px);
         }
     }
 
