@@ -59,6 +59,22 @@ class TableRow extends Component
         $this->element->find($this->getLocator('copy'))->click();
     }
 
+    public function deactivate(): void
+    {
+        // TODO: Revisit during redesign
+        $this->element->find($this->getLocator('de-active'))->mouseOver();
+        usleep(100 * 5000); // 500ms
+        $this->element->find($this->getLocator('de-active'))->click();
+    }
+
+    public function activate(): void
+    {
+        // TODO: Revisit during redesign
+        $this->element->find($this->getLocator('active'))->mouseOver();
+        usleep(100 * 5000); // 500ms
+        $this->element->find($this->getLocator('active'))->click();
+    }
+
     public function assign(): void
     {
         // TODO: Revisit during redesign
@@ -97,6 +113,8 @@ class TableRow extends Component
             new VisibleCSSLocator('checkbox', 'input[type=checkbox]'),
             new VisibleCSSLocator('assign', '[data-original-title="Assign content"],[data-original-title="Assign to Users/Groups"]'),
             new VisibleCSSLocator('edit', '.ibexa-icon--edit,[data-original-title="Edit"]'),
+            new VisibleCSSLocator('de-active', '[data-original-title="De-activate"]'),
+            new VisibleCSSLocator('active', '[data-original-title="Activate"]'),
             new VisibleCSSLocator('copy', '[data-original-title="Copy"]'),
         ];
     }

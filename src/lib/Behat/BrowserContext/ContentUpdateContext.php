@@ -37,7 +37,8 @@ class ContentUpdateContext implements Context
         $this->contentUpdateItemPage->verifyIsLoaded();
         foreach ($table->getHash() as $row) {
             $values = $this->filterOutNonEmptyValues($row);
-            $this->contentUpdateItemPage->fillFieldWithValue($row['label'], $values);
+            $fieldPosition = array_key_exists('fieldPosition', $values) ? (int)$values['fieldPosition'] : null;
+            $this->contentUpdateItemPage->fillFieldWithValue($row['label'], $values, $fieldPosition);
         }
     }
 
