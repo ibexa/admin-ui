@@ -88,9 +88,9 @@ class ContentUpdateItemPage extends Page
         return 'Content Update';
     }
 
-    public function fillFieldWithValue(string $label, array $value): void
+    public function fillFieldWithValue(string $label, array $value, ?int $fieldPosition = null): void
     {
-        $this->getField($label)->setValue($value);
+        $this->getField($label, $fieldPosition)->setValue($value);
     }
 
     public function close(): void
@@ -107,6 +107,7 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator('formElement', 'form.ibexa-form, .ibexa-edit-content'),
             new VisibleCSSLocator('closeButton', '.ibexa-anchor-navigation-menu__close'),
             new VisibleCSSLocator('nthField', 'div.ibexa-field-edit:nth-of-type(%s)'),
+            new VisibleCSSLocator('nthFieldWithSection', '[data-id="%s"] div.ibexa-field-edit:nth-of-type(%s)'),
             new VisibleCSSLocator('fieldGroupNthField', '[data-id="%s"] div.ibexa-field-edit:nth-of-type(%s)'),
             new VisibleCSSLocator('noneditableFieldClass', 'ibexa-field-edit--eznoneditable'),
             new VisibleCSSLocator('fieldOfType', '.ibexa-field-edit--%s'),
@@ -137,9 +138,26 @@ class ContentUpdateItemPage extends Page
         $this->locationPath = $locationPath;
     }
 
-    public function getField(string $fieldName): FieldTypeComponent
+    public function getField(string $fieldName, ?int $fieldPosition = null): FieldTypeComponent
     {
-        $fieldLocator = new VisibleCSSLocator('', sprintf($this->getLocator('nthField')->getSelector(), $this->getFieldPosition($fieldName)));
+        if ($fieldPosition === null) {
+            $fieldPosition = $this->getFieldPosition($fieldName);
+        }
+
+        $activeSections = $this->getHTMLPage()
+            ->setTimeout(0)
+            ->findAll(new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__sections-item-btn--active'));
+        $fieldLocator = $activeSections->any() ?
+            new VisibleCSSLocator(
+                'nthFieldWithSection',
+                sprintf(
+                    $this->getLocator('nthFieldWithSection')->getSelector(),
+                    $activeSections->single()->getAttribute('data-target-id'),
+                    $fieldPosition
+                )
+            ) :
+            new VisibleCSSLocator('', sprintf($this->getLocator('nthField')->getSelector(), $fieldPosition));
+
         $fieldTypeIdentifier = $this->getFieldtypeIdentifier($fieldLocator, $fieldName);
 
         foreach ($this->fieldTypeComponents as $fieldTypeComponent) {
