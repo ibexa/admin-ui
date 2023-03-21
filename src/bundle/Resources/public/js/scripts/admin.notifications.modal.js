@@ -58,7 +58,7 @@
             },
         });
 
-        fetch(request)
+        return fetch(request)
             .then(getJsonFromResponse)
             .then((notificationsInfo) => {
                 setPendingNotificationCount(notificationsInfo);
@@ -172,8 +172,7 @@
     getNotificationsStatus();
     (function loop() {
         global.setTimeout(() => {
-            getNotificationsStatus();
-            loop();
+            getNotificationsStatus().then(() => loop());
         }, INTERVAL)
     })()
 })(window, window.document, window.ibexa, window.Translator);
