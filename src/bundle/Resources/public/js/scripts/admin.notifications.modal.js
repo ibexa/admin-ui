@@ -169,10 +169,10 @@
 
     modal.querySelectorAll(SELECTOR_MODAL_RESULTS).forEach((link) => link.addEventListener('click', handleModalResultsClick, false));
 
-    getNotificationsStatus();
-    (function loop() {
+    const loop = function loop() {
         global.setTimeout(() => {
             getNotificationsStatus().then(() => loop());
         }, INTERVAL)
-    })()
+    }
+    getNotificationsStatus().then(() => loop());
 })(window, window.document, window.ibexa, window.Translator);
