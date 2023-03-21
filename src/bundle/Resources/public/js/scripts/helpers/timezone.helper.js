@@ -3,6 +3,9 @@
     const userPreferredFullDateTimeFormat = ibexa.adminUiConfig.dateFormat.fullDateTime;
     const userPreferredShortDateTimeFormat = ibexa.adminUiConfig.dateFormat.shortDateTime;
 
+    const getDate = (date) => {
+        return moment(date);
+    };
     const convertDateToTimezone = (date, timezone = userPreferredTimezone, forceSameTime = false) => {
         return moment(date).tz(timezone, forceSameTime);
     };
@@ -24,5 +27,6 @@
         convertDateToTimezone,
         formatFullDateTime,
         formatShortDateTime,
+        getDate,
     });
 })(window, window.document, window.ibexa, window.moment);
