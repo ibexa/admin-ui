@@ -66,4 +66,8 @@
     &--complementary {
         @include version-properties($ibexa-color-complementary, $ibexa-color-complementary-200);
     }
+
+    &--custom-colors {
+        @include version-properties(var(--primary-color), var(--secondary-color));
+    }
 }
