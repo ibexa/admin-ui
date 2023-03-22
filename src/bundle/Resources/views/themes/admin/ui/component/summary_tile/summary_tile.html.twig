@@ -1,9 +1,13 @@
 {% import "@ibexadesign/ui/component/macros.html.twig" as html %}
 
 {% set attr = attr|default({})|merge({
-    class: ('ibexa-summary-tile '
-        ~ (color ? 'ibexa-summary-tile--' ~ color ~ ' ')
-        ~ attr.class|default(''))|trim,
+    class: ('ibexa-summary-tile ' ~ attr.class|default(''))|trim,
+}) %}
+
+{% set icon_wrapper_attr = icon_wrapper_attr|default({})|merge({
+    class: ('ibexa-summary-tile__icon-wrapper '
+        ~ (icon_color ? 'ibexa-summary-tile__icon-wrapper--color-' ~ icon_color ~ ' ')
+        ~ icon_wrapper_attr.class|default(''))|trim,
 }) %}
 
 <div {{ html.attributes(attr) }}>
@@ -11,7 +15,7 @@
         <div class="ibexa-summary-tile__label">
             {{ label }}
         </div>
-        <div class="ibexa-summary-tile__icon-wrapper">
+        <div {{ html.attributes(icon_wrapper_attr) }}>
             <svg class="ibexa-icon ibexa-icon--medium">
                 <use xlink:href="{{ icon_path|default(ibexa_icon_path(icon)) }}"></use>
             </svg>

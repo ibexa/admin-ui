@@ -42,38 +42,34 @@
     }
 
     @mixin icon-colors($fill, $background) {
-        .ibexa-summary-tile {
-            &__icon-wrapper {
-                background: $background;
-            }
-        }
+        background: $background;
 
         .ibexa-icon {
             fill: $fill;
         }
     }
 
-    &--primary {
+    &__icon-wrapper--color-primary {
         @include icon-colors($ibexa-color-primary, $ibexa-color-primary-100);
     }
 
-    &--secondary {
+    &__icon-wrapper--color-secondary {
         @include icon-colors($ibexa-color-dark, $ibexa-color-light-400);
     }
 
-    &--info {
+    &__icon-wrapper--color-info {
         @include icon-colors($ibexa-color-info, $ibexa-color-info-100);
     }
 
-    &--danger {
+    &__icon-wrapper--color-danger {
         @include icon-colors($ibexa-color-danger, $ibexa-color-danger-100);
     }
 
-    &--success {
+    &__icon-wrapper--color-success {
         @include icon-colors($ibexa-color-success, $ibexa-color-success-100);
     }
 
-    &--complementary {
+    &__icon-wrapper--color-complementary {
         @include icon-colors($ibexa-color-complementary, $ibexa-color-complementary-100);
     }
 }
