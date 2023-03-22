@@ -31,12 +31,12 @@
 
     &__label {
         font-family: $ibexa-font-family-headings;
-        font-weight: 600;
+        font-weight: $ibexa-font-weight-bold;
         font-size: $ibexa-text-font-size-large;
     }
 
     &__value {
-        font-weight: 600;
+        font-weight: $ibexa-font-weight-bold;
         font-size: $h1-font-size;
         line-height: calculateRem(36px);
     }
