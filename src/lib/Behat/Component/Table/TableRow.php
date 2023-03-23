@@ -103,7 +103,9 @@ class TableRow extends Component
 
     public function canBeSelected(): bool
     {
-        return $this->element->find($this->getLocator('checkbox'))->getAttribute('disabled') !== 'disabled';
+        $disabled = $this->element->find($this->getLocator('checkbox'))->getAttribute('disabled');
+
+        return $disabled !== 'true' && $disabled !== 'disabled';
     }
 
     protected function specifyLocators(): array
