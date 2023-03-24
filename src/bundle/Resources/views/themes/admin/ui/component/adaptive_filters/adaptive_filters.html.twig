@@ -1,4 +1,11 @@
+{% import '@ibexadesign/ui/component/macros.html.twig' as html %}
+
 {% trans_default_domain 'adaptive_filters' %}
+
+{% set is_expanded = is_expanded|default(false) %}
+
+{% set toggler_btn_expand_label = 'toggler.open'|trans|desc('More filters') %}
+{% set toggler_btn_toggle_label = 'toggler.close'|trans|desc('Less filters') %}
 
 {% set attr = attr|default({})|merge({
     class: ('ibexa-adaptive-filters '
@@ -10,6 +17,62 @@
 }) %}
 {% set attr_form = attr_form|default({}) %}
 {% set collapse_id = collapse_id|default('ibexa-adaptive-filters-collapse-' ~ random()) %}
+
+{% set attr_collapsible = attr_collapsible|default({})|merge({
+    class: ('ibexa-adaptive-filters__collapsible collapse '
+        ~ (is_expanded ? 'show ')
+        ~ (not is_expanded ? 'ibexa-adaptive-filters__collapsible--collapsed ')
+        ~ attr_collapsible.class|default(''))|trim,
+    id: attr_collapsible.id|default(collapse_id),
+}) %}
+
+{% set attr_collapsible_content = attr_collapsible_content|default({})|merge({
+    class: ('ibexa-adaptive-filters__collapsible-content '
+        ~ (not is_expanded ? 'ibexa-adaptive-filters__collapsible-content--collapsed ')
+        ~ attr_collapsible_content.class|default(''))|trim,
+}) %}
+
+{% set basic_attr_toggler_btn = basic_attr_toggler_btn|default({})|merge({
+    class: ('btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-adaptive-filters__toggler '
+        ~ basic_attr_toggler_btn.class|default(''))|trim,
+    type: basic_attr_toggler_btn.type|default('button'),
+}) %}
+
+{% set attr_toggler_btn = attr_toggler_btn|default({})|merge(basic_attr_toggler_btn) %}
+{% set attr_toggler_btn = attr_toggler_btn|merge({
+    class: ((not is_expanded ? 'ibexa-adaptive-filters__toggler--collapsed ')
+        ~ attr_toggler_btn.class|default(''))|trim,
+    'data-bs-toggle': attr_toggler_btn['data-bs-toggle']|default('collapse'),
+    'data-bs-target': attr_toggler_btn['data-bs-target']|default('#' ~ collapse_id),
+    'aria-expanded': attr_toggler_btn['aria-expanded']|default(is_expanded ? 'true' : 'false'),
+    'aria-controls': attr_toggler_btn['aria-controls']|default(collapse_id),
+}) %}
+
+{% set attr_fake_expanded_toggler_btn = basic_attr_toggler_btn %}
+{% set attr_fake_expanded_toggler_btn = attr_fake_expanded_toggler_btn|merge({
+    class: ('ibexa-adaptive-filters__toggler--fake '
+        ~ attr_fake_expanded_toggler_btn.class|default(''))|trim,
+}) %}
+
+{% set attr_fake_collapsed_toggler_btn = basic_attr_toggler_btn %}
+{% set attr_fake_collapsed_toggler_btn = attr_fake_collapsed_toggler_btn|merge({
+    class: ('ibexa-adaptive-filters__toggler--fake ibexa-adaptive-filters__toggler--collapsed '
+        ~ attr_fake_collapsed_toggler_btn.class|default(''))|trim,
+}) %}
+
+{% macro toggle_btn(attr, expand_label, toggle_label) %}
+    <button {{ html.attributes(attr) }}>
+        <svg class="ibexa-icon ibexa-icon--small">
+            <use xlink:href="{{ ibexa_icon_path('caret-next') }}"></use>
+        </svg>
+        <span class="ibexa-btn__label ibexa-btn__label--more">
+            {{ expand_label }}
+        </span>
+        <span class="ibexa-btn__label ibexa-btn__label--less">
+            {{ toggle_label }}
+        </span>
+    </button>
+{% endmacro %}
 
 {{ form_start(form, { attr: attr|merge(attr_form)}) }}
     <div class="ibexa-adaptive-filters__visible">
@@ -63,30 +126,13 @@
                     ibexa-adaptive-items__item
                     ibexa-adaptive-items__item--selector"
                 >
-                <button
-                    type="button"
-                    class="
-                        btn ibexa-btn ibexa-btn--ghost ibexa-btn--small
-                        ibexa-adaptive-filters__toggler ibexa-adaptive-filters__toggler--collapsed"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#{{ collapse_id }}"
-                    aria-expanded="false"
-                    aria-controls="{{ collapse_id }}"
-                >
-                    <svg class="ibexa-icon ibexa-icon--small">
-                        <use xlink:href="{{ ibexa_icon_path('caret-next') }}"></use>
-                    </svg>
-                    <span class="ibexa-btn__label ibexa-btn__label--more">
-                        {{ 'toggler.open'|trans|desc('More filters') }}
-                    </span>
-                    <span class="ibexa-btn__label ibexa-btn__label--less">
-                        {{ 'toggler.close'|trans|desc('Less filters') }}
-                    </span>
-                </button>
+                {{ _self.toggle_btn(attr_toggler_btn, toggler_btn_expand_label, toggler_btn_toggle_label) }}
+                {{ _self.toggle_btn(attr_fake_expanded_toggler_btn, toggler_btn_expand_label, toggler_btn_toggle_label) }}
+                {{ _self.toggle_btn(attr_fake_collapsed_toggler_btn, toggler_btn_expand_label, toggler_btn_toggle_label) }}
             </div>
         </div>
     </div>
-    <div class="ibexa-adaptive-filters__collapsible collapse" id="{{ collapse_id }}">
-        <div class="ibexa-adaptive-filters__collapsible-content"></div>
+    <div {{ html.attributes(attr_collapsible) }}>
+        <div {{ html.attributes(attr_collapsible_content) }}></div>
     </div>
 {{ form_end(form) }}

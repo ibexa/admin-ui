@@ -64,6 +64,7 @@
 
     &__toggler-wrapper {
         display: flex;
+        flex-direction: column;
         align-items: flex-end;
         margin-left: auto;
         padding: calculateRem(8px) calculateRem(2px) calculateRem(8px);
@@ -155,6 +156,14 @@
                     }
                 }
             }
+        }
+
+        &--fake.ibexa-btn.ibexa-btn {
+            height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            overflow: hidden;
+            pointer-events: none;
         }
     }
 }
