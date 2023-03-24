@@ -58,7 +58,7 @@
             },
         });
 
-        fetch(request)
+        return fetch(request)
             .then(getJsonFromResponse)
             .then((notificationsInfo) => {
                 setPendingNotificationCount(notificationsInfo);
@@ -169,6 +169,11 @@
 
     modal.querySelectorAll(SELECTOR_MODAL_RESULTS).forEach((link) => link.addEventListener('click', handleModalResultsClick, false));
 
-    getNotificationsStatus();
-    global.setInterval(getNotificationsStatus, INTERVAL);
+    const getNotificationsStatusLoop = () => {
+        getNotificationsStatus().finally(() => {
+            global.setTimeout(getNotificationsStatusLoop, INTERVAL);
+        });
+    };
+
+    getNotificationsStatusLoop();
 })(window, window.document, window.ibexa, window.Translator);
