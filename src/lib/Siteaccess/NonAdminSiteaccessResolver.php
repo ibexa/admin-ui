@@ -55,7 +55,7 @@ class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
     ): array {
         return array_filter(
             $this->siteaccessResolver->getSiteAccessesListForLocation($location, $versionNo, $languageCode),
-            fn (SiteAccess $siteAccess) => !$this->isAdminSiteAccess($siteAccess)
+            fn (SiteAccess $siteAccess): bool => !$this->isAdminSiteAccess($siteAccess)
         );
     }
 
@@ -63,7 +63,7 @@ class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
     {
         return array_filter(
             $this->siteaccessResolver->getSiteAccessesListForContent($content),
-            fn (SiteAccess $siteAccess) => !$this->isAdminSiteAccess($siteAccess)
+            fn (SiteAccess $siteAccess): bool => !$this->isAdminSiteAccess($siteAccess)
         );
     }
 
@@ -71,7 +71,7 @@ class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
     {
         return array_filter(
             $this->siteaccessResolver->getSiteAccessesList(),
-            fn (SiteAccess $siteAccess) => !$this->isAdminSiteAccess($siteAccess)
+            fn (SiteAccess $siteAccess): bool => !$this->isAdminSiteAccess($siteAccess)
         );
     }
 

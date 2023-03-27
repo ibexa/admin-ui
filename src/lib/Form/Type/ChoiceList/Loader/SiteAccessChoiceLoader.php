@@ -45,7 +45,8 @@ class SiteAccessChoiceLoader implements ChoiceLoaderInterface
 
         $data = [];
         foreach ($siteAccesses as $siteAccess) {
-            $data[$this->siteAccessNameGenerator->generate($siteAccess)] = $siteAccess->name;
+            $siteAccessKey = $this->siteAccessNameGenerator->generate($siteAccess);
+            $data[$siteAccessKey] = $siteAccess->name;
         }
 
         return $data;
