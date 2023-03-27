@@ -323,7 +323,7 @@ final class NodeFactory
         int $depth = 0,
         ?string $sortClause = null,
         string $sortOrder = Query::SORT_ASC,
-        array $bookmarkLocations
+        array $bookmarkLocations = []
     ): Node {
         $contentInfo = $location->getContentInfo();
         $contentId = $location->contentId;
