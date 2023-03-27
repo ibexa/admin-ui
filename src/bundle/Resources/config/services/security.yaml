@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    Ibexa\AdminUi\Security\Authentication\RedirectToDashboardListener:
+        arguments:
+            $siteAccessGroups: '%ibexa.site_access.groups%'
+        tags:
+            - { name: kernel.event.subscriber }

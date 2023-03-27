@@ -10,7 +10,6 @@ use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\ComponentPass;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\FieldTypeFormMapperDispatcherPass;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\LimitationFormMapperPass;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\LimitationValueMapperPass;
-use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\SecurityLoginPass;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\TabPass;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\UiConfigProviderPass;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
@@ -47,7 +46,6 @@ class IbexaAdminUiBundle extends Bundle
         $container->addCompilerPass(new TabPass());
         $container->addCompilerPass(new UiConfigProviderPass());
         $container->addCompilerPass(new ComponentPass());
-        $container->addCompilerPass(new SecurityLoginPass());
         $container->addCompilerPass(new LimitationFormMapperPass());
         $container->addCompilerPass(new LimitationValueMapperPass());
         $container->addCompilerPass(new FieldTypeFormMapperDispatcherPass());
