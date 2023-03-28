@@ -20,7 +20,7 @@ interface SiteaccessResolverInterface
      * @param int|null $versionNo
      * @param string|null $languageCode
      *
-     * @return array
+     * @return string[]
      *
      * @deprecated Deprecated since Ibexa DXP 4.5.0.
      * Use { @see \Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface::getSiteAccessesList } instead.
@@ -54,7 +54,7 @@ interface SiteaccessResolverInterface
      * @deprecated use \Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface::getSiteAccessesList instead.
      * Returns a complete list of Site Access names.
      *
-     * @return array
+     * @return string[]
      */
     public function getSiteaccesses(): array;
 }
