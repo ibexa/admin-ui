@@ -120,7 +120,7 @@
             const selectedItems = [...this.listContainer.querySelectorAll('[data-id]')];
 
             selectedItems.forEach((selectedItem) => {
-                const id = parseInt(selectedItem.dataset.id, 10);
+                const { id } = selectedItem.dataset;
                 const deleteButton = selectedItem.querySelector('.ibexa-tag-view-select__selected-item-tag-remove-btn');
 
                 deleteButton.addEventListener('click', () => this.removeItem(id), false);
