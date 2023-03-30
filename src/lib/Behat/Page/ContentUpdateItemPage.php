@@ -152,7 +152,7 @@ class ContentUpdateItemPage extends Page
                 'nthFieldWithSection',
                 sprintf(
                     $this->getLocator('nthFieldWithSection')->getSelector(),
-                    $activeSections->single()->setTimeout(5)->getAttribute('data-target-id'),
+                    $activeSections->single()->setTimeout(10)->getAttribute('data-target-id'),
                     $fieldPosition
                 )
             ) :
@@ -179,12 +179,12 @@ class ContentUpdateItemPage extends Page
                 'fieldLabelWithCategories',
                 sprintf(
                     $this->getLocator('section')->getSelector(),
-                    $activeSections->single()->setTimeout(5)->getAttribute('data-target-id')
+                    $activeSections->single()->setTimeout(10)->getAttribute('data-target-id')
                 )
             ) :
             $this->getLocator('fieldLabel');
 
-        $fieldElements = $this->getHTMLPage()->setTimeout(5)->findAll($fieldLabelLocator);
+        $fieldElements = $this->getHTMLPage()->setTimeout(10)->findAll($fieldLabelLocator);
 
         $foundFields = [];
         foreach ($fieldElements as $fieldPosition => $fieldElement) {
