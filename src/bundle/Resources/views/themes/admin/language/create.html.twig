@@ -8,8 +8,9 @@
     {% set language_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.language_create.sidebar_right') %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
-        action_name: 'language.creating'|trans|desc('Creating'),
-        title: 'language.new.title'|trans|desc('Creating a new language'),
+        action_name: 'language.creating'|trans|desc('Adding'),
+        title: 'language.new.title'|trans|desc('New Language'),
+        subtitle: 'language.subtitle'|trans|desc('Languages'),
         context_actions: knp_menu_render(language_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
 {% endblock %}

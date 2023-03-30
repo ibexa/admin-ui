@@ -241,11 +241,6 @@
         <target state="new">Search...</target>
         <note>key: content_type.view.edit.search</note>
       </trans-unit>
-      <trans-unit id="803a61fc8cf4e7bdfcf27432bb35e379a4971134" resname="content_type.view.list.action.add">
-        <source>Add new</source>
-        <target state="new">Add new</target>
-        <note>key: content_type.view.list.action.add</note>
-      </trans-unit>
       <trans-unit id="c3287b9fccc0b54216e50ba02e3d72e17cc1c92e" resname="content_type.view.list.action.delete">
         <source>Delete</source>
         <target state="new">Delete</target>
