@@ -152,7 +152,7 @@ class ContentUpdateItemPage extends Page
                 'nthFieldWithSection',
                 sprintf(
                     $this->getLocator('nthFieldWithSection')->getSelector(),
-                    $activeSections->single()->getAttribute('data-target-id'),
+                    $activeSections->single()->setTimeout(5)->getAttribute('data-target-id'),
                     $fieldPosition
                 )
             ) :
@@ -179,7 +179,7 @@ class ContentUpdateItemPage extends Page
                 'fieldLabelWithCategories',
                 sprintf(
                     $this->getLocator('section')->getSelector(),
-                    $activeSections->single()->getAttribute('data-target-id')
+                    $activeSections->single()->setTimeout(5)->getAttribute('data-target-id')
                 )
             ) :
             $this->getLocator('fieldLabel');
