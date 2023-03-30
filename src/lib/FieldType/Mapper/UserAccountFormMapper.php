@@ -50,7 +50,11 @@ final class UserAccountFormMapper implements FieldDefinitionFormMapperInterface
 
         $fieldDefinitionForm->add('requireNotCompromisedPassword', PasswordConstraintCheckboxType::class, [
             'property_path' => $validatorPropertyPathPrefix . '[requireNotCompromisedPassword]',
-            'label' => /** @Desc("Password must not be contained in a public breach. This uses the API at https://haveibeenpwned.com/ to securely check breach data. The password is not transmitted to the API.") */ 'field_definition.ezuser.require_not_compromised_password',
+            'label' => /** @Desc("Password must not be contained in a public breach. This uses the API at %link% to securely check breach data. The password is not transmitted to the API.") */ 'field_definition.ezuser.require_not_compromised_password',
+            'label_translation_parameters' => [
+                '%link%' => '<a href="https://haveibeenpwned.com/" target="_blank">https://haveibeenpwned.com/</a>',
+            ],
+            'label_html' => true,
         ]);
 
         $fieldDefinitionForm->add('requireNewPassword', PasswordConstraintCheckboxType::class, [
