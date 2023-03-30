@@ -80,6 +80,7 @@
         display: flex;
         align-items: flex-end;
         height: calculateRem(79px);
+        overflow: hidden;
     }
 
     &__collapsible {
