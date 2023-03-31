@@ -2,7 +2,12 @@
 
 {% trans_default_domain 'adaptive_filters' %}
 
-{% set is_expanded = is_expanded|default(false) %}
+{% if filters_id is defined %}
+    {% set expanded_info_cookie_name = 'ibexa_adaptive_filters.is_expanded.' ~ filters_id %}
+{% endif %}
+
+{% set is_expanded_cookie = expanded_info_cookie_name is defined and app.request.cookies.get(expanded_info_cookie_name) == 'true' %}
+{% set is_expanded = is_expanded|default(is_expanded_cookie) %}
 
 {% set toggler_btn_expand_label = 'toggler.open'|trans|desc('More filters') %}
 {% set toggler_btn_toggle_label = 'toggler.close'|trans|desc('Less filters') %}
@@ -15,6 +20,13 @@
         ~ (is_inside_tabs|default(false) ? 'ibexa-adaptive-filters--inside-tabs ')
         ~ attr.class|default(''))|trim,
 }) %}
+
+{% if expanded_info_cookie_name is defined %}
+    {% set attr = attr|merge({
+        'data-expanded-info-cookie-name': attr['data-expanded-info-cookie-name']|default(expanded_info_cookie_name),
+    }) %}
+{% endif %}
+
 {% set attr_form = attr_form|default({}) %}
 {% set collapse_id = collapse_id|default('ibexa-adaptive-filters-collapse-' ~ random()) %}
 

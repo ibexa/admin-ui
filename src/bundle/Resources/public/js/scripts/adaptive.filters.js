@@ -6,6 +6,14 @@
         const adaptiveItemsCollapsibleContentContainer = adaptiveFilter.querySelector('.ibexa-adaptive-filters__collapsible-content');
         const actionsContainer = adaptiveFilter.querySelector('.ibexa-adaptive-filters__actions');
         const toggleBtn = adaptiveFilter.querySelector('.ibexa-adaptive-filters__toggler');
+        const { expandedInfoCookieName } = adaptiveFilter.dataset;
+        const setExpandedInfoCookie = (isExpanded) => {
+            const cookieValue = isExpanded ? 'true' : 'false';
+
+            if (expandedInfoCookieName) {
+                ibexa.helpers.cookies.setCookie(expandedInfoCookieName, cookieValue);
+            }
+        };
         const collapse = bootstrap.Collapse.getOrCreateInstance(adaptiveItemsCollapsibleContainer, {
             toggle: false,
         });
@@ -30,11 +38,15 @@
             toggleBtn.classList.add('ibexa-adaptive-filters__toggler--collapsed');
             adaptiveItemsCollapsibleContainer.classList.add('ibexa-adaptive-filters__collapsible--collapsed');
             adaptiveItemsCollapsibleContentContainer.classList.add('ibexa-adaptive-filters__collapsible-content--collapsed');
+
+            setExpandedInfoCookie(false);
         });
         adaptiveItemsCollapsibleContainer.addEventListener('show.bs.collapse', () => {
             toggleBtn.classList.remove('ibexa-adaptive-filters__toggler--collapsed');
             adaptiveItemsCollapsibleContainer.classList.remove('ibexa-adaptive-filters__collapsible--collapsed');
             adaptiveItemsCollapsibleContentContainer.classList.remove('ibexa-adaptive-filters__collapsible-content--collapsed');
+
+            setExpandedInfoCookie(true);
         });
         adaptiveItems.init();
     };
