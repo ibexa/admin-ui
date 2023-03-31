@@ -21,20 +21,32 @@ class CompileAssetsCommand extends Command implements BackwardCompatibleCommand
 {
     public const COMMAND_NAME = 'ibexa:encore:compile';
 
+    public const COMMAND_DEFAULT_TIMEOUT = 300;
+
+    protected static $defaultName = self::COMMAND_NAME;
+
+    protected static $defaultDescription = 'Compiles all assets using WebPack Encore';
+
+    private int $timeout;
+
+    public function __construct(int $timeout = self::COMMAND_DEFAULT_TIMEOUT)
+    {
+        $this->timeout = $timeout;
+        parent::__construct();
+    }
+
     protected function configure(): void
     {
         $this
-            ->setName(self::COMMAND_NAME)
             ->setAliases([
                 'ezplatform:encore:compile',
             ])
-            ->setDescription('Compiles all assets using WebPack Encore')
             ->addOption(
                 'timeout',
                 't',
-                InputOption::VALUE_OPTIONAL,
+                InputOption::VALUE_REQUIRED,
                 'Timeout in seconds',
-                300
+                $this->timeout
             )
             ->addOption(
                 'config-name',

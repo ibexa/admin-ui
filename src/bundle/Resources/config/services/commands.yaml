@@ -1,3 +1,7 @@
+parameters:
+    ibexa.admin_ui.command.compile_assets_timeout.default: !php/const Ibexa\Bundle\AdminUi\Command\CompileAssetsCommand::COMMAND_DEFAULT_TIMEOUT
+    ibexa.admin_ui.command.compile_assets_timeout: '%env(default:ibexa.admin_ui.command.compile_assets_timeout.default:COMPOSER_PROCESS_TIMEOUT)%'
+
 services:
     _defaults:
         autowire: true
@@ -5,5 +9,7 @@ services:
         public: false
 
     Ibexa\Bundle\AdminUi\Command\CompileAssetsCommand:
+        arguments:
+            $timeout: '%ibexa.admin_ui.command.compile_assets_timeout%'
         tags:
             - { name: console.command }
