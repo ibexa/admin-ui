@@ -101,9 +101,6 @@ class TrashController extends Controller
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @internal param int $page Current page
-     * @internal param int $limit Number of items per page
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \LogicException
