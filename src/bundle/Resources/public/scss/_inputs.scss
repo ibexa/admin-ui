@@ -214,7 +214,7 @@
 .ibexa-toggle {
     display: flex;
     align-items: center;
-    width: calculateRem(77px);
+    min-width: calculateRem(77px);
     cursor: pointer;
 
     &__switcher {
