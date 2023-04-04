@@ -90,6 +90,10 @@
         &--collapsed {
             border-top-color: transparent;
         }
+
+        &--no-animation {
+            transition: none;
+        }
     }
 
     &__collapsible-content {
