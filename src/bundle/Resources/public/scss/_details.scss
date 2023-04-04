@@ -27,4 +27,10 @@
             margin-left: 0;
         }
     }
+
+    &__header {
+        .ibexa-table-header {
+            justify-content: flex-start;
+        }
+    }
 }
