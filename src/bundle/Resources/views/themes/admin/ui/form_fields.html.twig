@@ -252,6 +252,16 @@
     </div>
 {%- endblock -%}
 
+{%- block date_widget -%}
+    <div class="ibexa-picker">
+        {% include '@ibexadesign/ui/component/inputs/input_date_time_picker.html.twig' with {
+            input_attr: { class: 'ibexa-picker__input', 'data-flatpickr-config': '{ "enableTime": false }' }
+        } %}
+        {% set attr = attr|merge({ class: 'ibexa-picker__form-input ibexa-input--text ibexa-input--hidden' }) %}
+        {{ block('form_widget') }}
+    </div>
+{%- endblock -%}
+
 {% block textarea_widget -%}
     {% set attr = attr|merge({class: (attr.class|default('') ~ ' ibexa-input ibexa-input--textarea')|trim}) %}
     {{- parent() -}}
