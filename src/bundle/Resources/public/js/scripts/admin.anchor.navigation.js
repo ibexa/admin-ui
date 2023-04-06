@@ -9,6 +9,9 @@
     const headerContainer = header?.querySelector('.ibexa-edit-header__container');
     const SECTION_ADJUST_MARGIN_TOP = 20;
     const formContainerNode = doc.querySelector('.ibexa-edit-content');
+    const lastSectionObserver = new ResizeObserver(() => {
+        fitSections();
+    });
     const getSectionGroupActiveItems = () => {
         const sectionGroupNode = formContainerNode.querySelector('.ibexa-anchor-navigation__section-group') ?? formContainerNode;
         const sections = sectionGroupNode.querySelectorAll('.ibexa-anchor-navigation__section');
@@ -68,7 +71,7 @@
 
         currentlyVisibleSections = getSectionGroupActiveItems();
 
-        fitSections();
+        initFitSection();
     };
     const attachSectionsMenuEvents = () => {
         const items = doc.querySelectorAll('.ibexa-anchor-navigation-menu .ibexa-anchor-navigation-menu__sections-item-btn');
@@ -96,7 +99,7 @@
 
         return sections[sections.length - 1];
     };
-    const fitSections = () => {
+    const initFitSection = () => {
         const sectionGroup =
             formContainerNode.querySelector('.ibexa-anchor-navigation__section-group--active') ??
             formContainerNode.querySelector('.ibexa-anchor-navigation-sections');
@@ -105,14 +108,26 @@
             return;
         }
 
-        const contentColumn = doc.querySelector('.ibexa-main-container__content-column');
-        const firstSection = getFirstSection(sectionGroup);
         const lastSection = getLastSection(sectionGroup);
 
-        if (!firstSection) {
+        if (!lastSection) {
             return;
         }
 
+        const contentContainer = lastSection.closest('.ibexa-edit-content__container');
+
+        fitSections();
+
+        lastSectionObserver.unobserve(contentContainer);
+        lastSectionObserver.observe(contentContainer);
+    };
+    const fitSections = () => {
+        const sectionGroup =
+            formContainerNode.querySelector('.ibexa-anchor-navigation__section-group--active') ??
+            formContainerNode.querySelector('.ibexa-anchor-navigation-sections');
+        const contentColumn = doc.querySelector('.ibexa-main-container__content-column');
+        const firstSection = getFirstSection(sectionGroup);
+        const lastSection = getLastSection(sectionGroup);
         const contentContainer = lastSection.closest('.ibexa-edit-content__container');
 
         if (!firstSection.isSameNode(lastSection) && lastSection.offsetHeight) {
@@ -224,6 +239,6 @@
     attachSectionsMenuEvents();
     attachScrollContainerEvents();
     attachListenForIsInvalidClass();
-    fitSections();
+    initFitSection();
     ibexa.helpers.tooltips.parse(navigationMenu);
 })(window, window.document, window.ibexa);
