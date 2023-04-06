@@ -40,6 +40,7 @@
                     <span class="ibexa-edit-header__name ibexa-edit-header__name--full">
                         {{ title }}
                     </span>
+                    {% block after_title %}{% endblock %}
                     {% if (description is defined and description|length) or content is defined and content is not null %}
                         <div
                             class="ibexa-edit-header__tooltip"
