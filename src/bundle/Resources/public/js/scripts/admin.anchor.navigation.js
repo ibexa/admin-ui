@@ -119,8 +119,8 @@
             const lastSectionHeight = lastSection.offsetHeight;
             const headerHeight = headerContainer?.offsetHeight;
             const contentColumnHeight = contentColumn.offsetHeight;
-            const additionalContentHeight = contentContainer.offsetHeight - sectionGroup.offsetHeight;
-            const valueToCorrectHeightDiff = headerHeight + SECTION_ADJUST_MARGIN_TOP + additionalContentHeight;
+            const additionalContentHeight = Math.max(contentContainer.offsetHeight - sectionGroup.offsetHeight, 0);
+            const valueToCorrectHeightDiff = headerHeight + additionalContentHeight;
             const lastSectionHeightDiff = contentColumnHeight - lastSectionHeight - valueToCorrectHeightDiff;
 
             if (lastSectionHeightDiff > 0) {
