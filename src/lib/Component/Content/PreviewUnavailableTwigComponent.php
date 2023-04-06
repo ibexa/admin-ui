@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Component\Content;
 
-use Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver;
+use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\AdminUi\Component\Renderable;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
@@ -33,7 +33,7 @@ class PreviewUnavailableTwigComponent implements Renderable
      */
     public function __construct(
         Environment $twig,
-        NonAdminSiteaccessResolver $siteaccessResolver,
+        SiteaccessResolverInterface $siteaccessResolver,
         LocationService $locationService
     ) {
         $this->twig = $twig;
@@ -63,7 +63,7 @@ class PreviewUnavailableTwigComponent implements Renderable
             $versionNo = null;
         }
 
-        $siteaccesses = $this->siteaccessResolver->getSiteaccessesForLocation(
+        $siteaccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
             $location,
             $versionNo,
             $language->languageCode

@@ -72,7 +72,9 @@ services:
 
     Ibexa\AdminUi\Form\Type\Content\ContentVisibilityUpdateType: ~
 
-    Ibexa\AdminUi\Form\Type\Content\CustomUrl\CustomUrlAddType: ~
+    Ibexa\AdminUi\Form\Type\Content\CustomUrl\CustomUrlAddType:
+        arguments:
+            $siteAccessNameGenerator: '@Ibexa\AdminUi\Siteaccess\SiteAccessNameGenerator'
 
     Ibexa\AdminUi\Form\Type\Content\CustomUrl\CustomUrlRemoveType: ~
 

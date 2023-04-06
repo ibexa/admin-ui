@@ -13,7 +13,8 @@ use Ibexa\AdminUi\Form\EventListener\BuildPathFromRootListener;
 use Ibexa\AdminUi\Form\EventListener\DisableSiteRootCheckboxIfRootLocationListener;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\SiteAccessChoiceLoader;
 use Ibexa\AdminUi\Form\Type\Content\LocationType;
-use Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver;
+use Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface;
+use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
@@ -41,18 +42,22 @@ class CustomUrlAddType extends AbstractType
     /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
     private $nonAdminSiteaccessResolver;
 
+    private SiteAccessNameGeneratorInterface $siteAccessNameGenerator;
+
     public function __construct(
         LanguageService $languageService,
         AddLanguageFieldBasedOnContentListener $addLanguageFieldBasedOnContentListener,
         BuildPathFromRootListener $buildPathFromRootListener,
         DisableSiteRootCheckboxIfRootLocationListener $checkboxIfRootLocationListener,
-        NonAdminSiteaccessResolver $nonAdminSiteaccessResolver
+        SiteaccessResolverInterface $nonAdminSiteaccessResolver,
+        SiteAccessNameGeneratorInterface $siteAccessNameGenerator
     ) {
         $this->languageService = $languageService;
         $this->addLanguageFieldBasedOnContentListener = $addLanguageFieldBasedOnContentListener;
         $this->buildPathFromRootListener = $buildPathFromRootListener;
         $this->checkboxIfRootLocationListener = $checkboxIfRootLocationListener;
         $this->nonAdminSiteaccessResolver = $nonAdminSiteaccessResolver;
+        $this->siteAccessNameGenerator = $siteAccessNameGenerator;
     }
 
     /**
@@ -107,6 +112,7 @@ class CustomUrlAddType extends AbstractType
                     'required' => false,
                     'choice_loader' => new SiteAccessChoiceLoader(
                         $this->nonAdminSiteaccessResolver,
+                        $this->siteAccessNameGenerator,
                         $location
                     ),
                 ]

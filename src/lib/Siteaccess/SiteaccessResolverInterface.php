@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Siteaccess;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 interface SiteaccessResolverInterface
@@ -19,7 +20,10 @@ interface SiteaccessResolverInterface
      * @param int|null $versionNo
      * @param string|null $languageCode
      *
-     * @return array
+     * @return string[]
+     *
+     * @deprecated Deprecated since Ibexa DXP 4.5.0.
+     * Use { @see \Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface::getSiteAccessesList } instead.
      */
     public function getSiteaccessesForLocation(
         Location $location,
@@ -28,8 +32,6 @@ interface SiteaccessResolverInterface
     ): array;
 
     /**
-     * Returns a complete list of Site Access objects.
-     *
      * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
      */
     public function getSiteAccessesListForLocation(
@@ -39,9 +41,20 @@ interface SiteaccessResolverInterface
     ): array;
 
     /**
+     * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
+     */
+    public function getSiteAccessesListForContent(Content $content): array;
+
+    /**
+     * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
+     */
+    public function getSiteAccessesList(): array;
+
+    /**
+     * @deprecated use \Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface::getSiteAccessesList instead.
      * Returns a complete list of Site Access names.
      *
-     * @return array
+     * @return string[]
      */
     public function getSiteaccesses(): array;
 }

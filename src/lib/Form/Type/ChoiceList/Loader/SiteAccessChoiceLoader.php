@@ -8,7 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
-use Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver;
+use Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface;
+use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
@@ -16,37 +17,36 @@ use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 class SiteAccessChoiceLoader implements ChoiceLoaderInterface
 {
     /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
-    private $nonAdminSiteaccessResolver;
+    private SiteaccessResolverInterface $nonAdminSiteaccessResolver;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
     private $location;
 
+    private SiteAccessNameGeneratorInterface $siteAccessNameGenerator;
+
     public function __construct(
-        NonAdminSiteaccessResolver $nonAdminSiteaccessResolver,
+        SiteaccessResolverInterface $nonAdminSiteaccessResolver,
+        SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
         ?Location $location = null
     ) {
         $this->nonAdminSiteaccessResolver = $nonAdminSiteaccessResolver;
         $this->location = $location;
+        $this->siteAccessNameGenerator = $siteAccessNameGenerator;
     }
 
     /**
-     * Provides data in format:
-     * [
-     *     site_access => location_id,
-     *     ...
-     * ].
-     *
-     * @return int[]
+     * @return array<string, string>
      */
     public function getChoiceList(): array
     {
         $siteAccesses = $this->location === null
-            ? $this->nonAdminSiteaccessResolver->getSiteaccesses()
-            : $this->nonAdminSiteaccessResolver->getSiteaccessesForLocation($this->location);
+            ? $this->nonAdminSiteaccessResolver->getSiteAccessesList()
+            : $this->nonAdminSiteaccessResolver->getSiteAccessesListForLocation(($this->location));
 
         $data = [];
         foreach ($siteAccesses as $siteAccess) {
-            $data[$siteAccess] = $siteAccess;
+            $siteAccessKey = $this->siteAccessNameGenerator->generate($siteAccess);
+            $data[$siteAccessKey] = $siteAccess->name;
         }
 
         return $data;
