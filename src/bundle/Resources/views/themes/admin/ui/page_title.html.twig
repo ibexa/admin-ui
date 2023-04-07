@@ -1,10 +1,18 @@
+{% import '@ibexadesign/ui/component/macros.html.twig' as html %}
+
 {% if title is defined %}
     <div class="ibexa-page-title">
         <div class="ibexa-page-title__top">
             <h1 class="ibexa-page-title__title">
                 {{ title }}
                 {% if tag is defined %}
-                    <div class="ibexa-badge {{ tag_extra_classes|default('') }}">
+                    {% set attr = tag_attr|default({})|merge({
+                        class: (tag_attr.class|default('')
+                            ~ ' ibexa-badge ' ~ tag_extra_classes|default('')
+                        )|trim,
+                    }) %}
+
+                    <div {{ html.attributes(attr) }}>
                         {{ tag }}
                     </div>
                 {% endif %}
