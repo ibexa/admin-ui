@@ -89,7 +89,7 @@
 
         removeItems(items) {
             const prevSelectedIds = this.inputField.value.split(this.inputSeparator);
-            const nextSelectedIds = prevSelectedIds.filter((savedId) => !items.includes(parseInt(savedId, 10)));
+            const nextSelectedIds = prevSelectedIds.filter((savedId) => !items.includes(savedId));
             this.inputField.value = nextSelectedIds.join(this.inputSeparator);
 
             items.forEach((itemId) => {
