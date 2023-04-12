@@ -18,7 +18,6 @@
     &__item {
         display: flex;
         align-items: center;
-        height: calculateRem(40px);
         min-width: calculateRem(150px);
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
