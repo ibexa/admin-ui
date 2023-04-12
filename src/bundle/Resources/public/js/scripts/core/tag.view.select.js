@@ -89,7 +89,7 @@
 
         removeItems(items) {
             const prevSelectedIds = this.inputField.value.split(this.inputSeparator);
-            const nextSelectedIds = prevSelectedIds.filter((savedId) => !items.includes(parseInt(savedId, 10)));
+            const nextSelectedIds = prevSelectedIds.filter((savedId) => !items.includes(savedId));
             this.inputField.value = nextSelectedIds.join(this.inputSeparator);
 
             items.forEach((itemId) => {
@@ -120,7 +120,7 @@
             const selectedItems = [...this.listContainer.querySelectorAll('[data-id]')];
 
             selectedItems.forEach((selectedItem) => {
-                const id = parseInt(selectedItem.dataset.id, 10);
+                const { id } = selectedItem.dataset;
                 const deleteButton = selectedItem.querySelector('.ibexa-tag-view-select__selected-item-tag-remove-btn');
 
                 deleteButton.addEventListener('click', () => this.removeItem(id), false);

@@ -73,7 +73,7 @@
 
             {% if content_breadcrumbs is not empty %}
                 {% set items = [{
-                    id: 'selected-subtree',
+                    id: form.subtree.vars.value,
                     name: content_breadcrumbs
                 }] %}
             {% endif %}
