@@ -162,13 +162,13 @@
         <note>key: content_type_group_edit__sidebar_right__save</note>
       </trans-unit>
       <trans-unit id="65804c068820b5fa679357bc65c5862d0fc90701" resname="language_create__sidebar_right__cancel">
-        <source>Discard changes</source>
-        <target state="new">Discard changes</target>
+        <source>Cancel</source>
+        <target state="new">Cancel</target>
         <note>key: language_create__sidebar_right__cancel</note>
       </trans-unit>
       <trans-unit id="43db6515a6b373d14e37f88c19c7663a9fa3ae8f" resname="language_create__sidebar_right__create">
-        <source>Create</source>
-        <target state="new">Create</target>
+        <source>Add</source>
+        <target state="new">Add</target>
         <note>key: language_create__sidebar_right__create</note>
       </trans-unit>
       <trans-unit id="09a41e6afdef6eda2c027b7e742777f3a9bd1749" resname="language_edit__sidebar_right__cancel">
