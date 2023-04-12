@@ -89,8 +89,8 @@ class LanguageCreateRightSidebarBuilder extends AbstractBuilder implements Trans
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Create'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Add'),
+            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Cancel'),
         ];
     }
 }
