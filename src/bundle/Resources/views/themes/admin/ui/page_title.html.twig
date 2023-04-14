@@ -5,17 +5,19 @@
         <div class="ibexa-page-title__top">
             <h1 class="ibexa-page-title__title">
                 {{ title }}
-                {% if tag is defined %}
-                    {% set attr = tag_attr|default({})|merge({
-                        class: (tag_attr.class|default('')
-                            ~ ' ibexa-badge ' ~ tag_extra_classes|default('')
-                        )|trim,
-                    }) %}
+                {% block tag %}
+                    {% if tag is defined %}
+                        {% set attr = tag_attr|default({})|merge({
+                            class: (tag_attr.class|default('')
+                                ~ ' ibexa-badge ' ~ tag_extra_classes|default('')
+                            )|trim,
+                        }) %}
 
-                    <div {{ html.attributes(attr) }}>
-                        {{ tag }}
-                    </div>
-                {% endif %}
+                        <div {{ html.attributes(attr) }}>
+                            {{ tag }}
+                        </div>
+                    {% endif %}
+                {% endblock %}
             </h1>
             {% block top_side %}{% endblock %}
         </div>
