@@ -822,8 +822,8 @@
         <note>key: field_definition.ezuser.require_not_compromised_password</note>
       </trans-unit>
       <trans-unit id="99aa2f672dfd9206b58ddf5d78e6a695ceb9ebf1" resname="field_definition.ezuser.require_not_compromised_password_help">
-        <source>%begin%This uses the API at %link% to securely check breach data. The password is not transmitted to the API.%end%</source>
-        <target state="new">%begin%This uses the API at %link% to securely check breach data. The password is not transmitted to the API.%end%</target>
+        <source>This uses the API at %link% to securely check breach data. The password is not transmitted to the API.</source>
+        <target state="new">This uses the API at %link% to securely check breach data. The password is not transmitted to the API.</target>
         <note>key: field_definition.ezuser.require_not_compromised_password_help</note>
       </trans-unit>
       <trans-unit id="26cb6ab7ae7e190a9d8d8b0411512b531c8c42ff" resname="field_definition.ezuser.require_at_least_one_numeric_character">

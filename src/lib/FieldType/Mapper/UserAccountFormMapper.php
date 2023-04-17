@@ -52,13 +52,11 @@ final class UserAccountFormMapper implements FieldDefinitionFormMapperInterface
             'property_path' => $validatorPropertyPathPrefix . '[requireNotCompromisedPassword]',
             'label' => /** @Desc("Password must not be contained in a public breach.") */
                 'field_definition.ezuser.require_not_compromised_password',
-            'help' => /** @Desc("%begin%This uses the API at %link% to securely check breach data.
-                * The password is not transmitted to the API.%end%") */
+            'help' => /** @Desc("This uses the API at %link% to securely check breach data.
+                * The password is not transmitted to the API.") */
                 'field_definition.ezuser.require_not_compromised_password_help',
             'help_translation_parameters' => [
-                '%begin%' => '<div>',
                 '%link%' => '<a href="https://haveibeenpwned.com/" target="_blank">https://haveibeenpwned.com/</a>',
-                '%end%' => '</div>',
             ],
             'help_html' => true,
         ]);

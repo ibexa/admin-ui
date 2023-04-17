@@ -387,19 +387,21 @@
             <svg class="ibexa-icon ibexa-icon--small ibexa-form-help__icon">
                 <use xlink:href="{{ ibexa_icon_path('system-information') }}"></use>
             </svg>
-            {%- if translation_domain is same as(false) -%}
-                {%- if help_html is same as(false) -%}
-                    {{- help -}}
+            <div class="ibexa-form-help__content">
+                {%- if translation_domain is same as(false) -%}
+                    {%- if help_html is same as(false) -%}
+                        {{- help -}}
+                    {%- else -%}
+                        {{- help|raw -}}
+                    {%- endif -%}
                 {%- else -%}
-                    {{- help|raw -}}
+                    {%- if help_html is same as(false) -%}
+                        {{- help|trans(help_translation_parameters, translation_domain) -}}
+                    {%- else -%}
+                        {{- help|trans(help_translation_parameters, translation_domain)|raw -}}
+                    {%- endif -%}
                 {%- endif -%}
-            {%- else -%}
-                {%- if help_html is same as(false) -%}
-                    {{- help|trans(help_translation_parameters, translation_domain) -}}
-                {%- else -%}
-                    {{- help|trans(help_translation_parameters, translation_domain)|raw -}}
-                {%- endif -%}
-            {%- endif -%}
+            </div>
         </small>
     {%- endif -%}
 {%- endblock form_help %}
