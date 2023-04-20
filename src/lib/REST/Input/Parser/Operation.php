@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\REST\Input\Parser;
+namespace Ibexa\AdminUi\REST\Input\Parser;
 
-use EzSystems\EzPlatformAdminUi\REST\Value\Operation as OperationValue;
-use EzSystems\EzPlatformRest\Exceptions;
-use EzSystems\EzPlatformRest\Input\BaseParser;
-use EzSystems\EzPlatformRest\Input\ParsingDispatcher;
+use Ibexa\AdminUi\REST\Value\Operation as OperationValue;
+use Ibexa\Contracts\Rest\Exceptions;
+use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
+use Ibexa\Rest\Input\BaseParser;
 
 class Operation extends BaseParser
 {
@@ -19,9 +19,9 @@ class Operation extends BaseParser
      * Parse input structure.
      *
      * @param array $data
-     * @param \EzSystems\EzPlatformRest\Input\ParsingDispatcher $parsingDispatcher
+     * @param \Ibexa\Contracts\Rest\Input\ParsingDispatcher $parsingDispatcher
      *
-     * @return \EzSystems\EzPlatformAdminUi\REST\Value\Operation
+     * @return \Ibexa\AdminUi\REST\Value\Operation
      */
     public function parse(array $data, ParsingDispatcher $parsingDispatcher)
     {
@@ -56,3 +56,5 @@ class Operation extends BaseParser
         return $operation;
     }
 }
+
+class_alias(Operation::class, 'EzSystems\EzPlatformAdminUi\REST\Input\Parser\Operation');

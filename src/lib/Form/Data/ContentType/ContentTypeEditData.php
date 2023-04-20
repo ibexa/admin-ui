@@ -6,27 +6,27 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\ContentType;
+namespace Ibexa\AdminUi\Form\Data\ContentType;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
 class ContentTypeEditData
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null */
     private $contentType;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null */
     private $contentTypeGroup;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
     private $language;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType|null $contentType
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup|null $contentTypeGroup
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null $contentTypeGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
      */
     public function __construct(
         ?ContentType $contentType = null,
@@ -39,7 +39,7 @@ class ContentTypeEditData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
      */
     public function getContentType(): ?ContentType
     {
@@ -47,7 +47,7 @@ class ContentTypeEditData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType|null $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
      */
     public function setContentType(?ContentType $contentType): void
     {
@@ -55,7 +55,7 @@ class ContentTypeEditData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null
      */
     public function getContentTypeGroup(): ?ContentTypeGroup
     {
@@ -63,7 +63,7 @@ class ContentTypeEditData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup|null $contentTypeGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null $contentTypeGroup
      */
     public function setContentTypeGroup(?ContentTypeGroup $contentTypeGroup): void
     {
@@ -71,7 +71,7 @@ class ContentTypeEditData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      */
     public function getLanguage(): ?Language
     {
@@ -79,10 +79,12 @@ class ContentTypeEditData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
      */
     public function setLanguage(?Language $language): void
     {
         $this->language = $language;
     }
 }
+
+class_alias(ContentTypeEditData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentType\ContentTypeEditData');

@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Menu\Admin;
+namespace Ibexa\AdminUi\Menu\Admin;
 
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
-use EzSystems\EzPlatformAdminUi\Menu\MainMenuBuilder;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\MainMenuBuilder;
 use Knp\Menu\Util\MenuManipulator;
 
 class ReorderMenuListener
 {
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent $event
+     * @param \Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent $event
      */
     public function moveAdminToLast(ConfigureMenuEvent $event): void
     {
@@ -28,3 +28,5 @@ class ReorderMenuListener
         $manipulator->moveToLastPosition($menu[MainMenuBuilder::ITEM_ADMIN]);
     }
 }
+
+class_alias(ReorderMenuListener::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\ReorderMenuListener');

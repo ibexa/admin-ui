@@ -1,5 +1,10 @@
-(function(global, doc, eZ, Translator) {
-    const enterKeyCode = 13;
+(function (global, doc, ibexa, Translator, moment) {
+    const ENTER_KEY_CODE = 13;
+    const STATUS_ERROR = 'error';
+    const STATUS_OFF = 'off';
+    const STATUS_ON = 'on';
+    const STATUS_SAVED = 'saved';
+    const STATUS_SAVING = 'saving';
     const inputTypeToPreventSubmit = [
         'checkbox',
         'color',
@@ -21,9 +26,10 @@
         'time',
         'url',
     ];
-    const form = doc.querySelector('.ez-form-validate');
+    const form = doc.querySelector('.ibexa-form-validate');
     const submitBtns = form.querySelectorAll('[type="submit"]:not([formnovalidate])');
     const menuButtonsToValidate = doc.querySelectorAll('button[data-validate]');
+    const fields = doc.querySelectorAll('.ibexa-field-edit');
     const getValidationResults = (validator) => {
         const isValid = validator.isValid();
         const validatorName = validator.constructor.name;
@@ -31,35 +37,37 @@
 
         return result;
     };
-    const getInvalidTabs = (validator) => {
-        return validator.fieldsToValidate.reduce((invalidTabs, field) => {
-            const tabPane = field.item.closest('.tab-pane');
+    const getInvalidSections = (validator) => {
+        return validator.fieldsToValidate.reduce((invalidSections, field) => {
+            const section = field.item.closest('.ibexa-anchor-navigation-sections__section');
 
-            if (tabPane && field.item.classList.contains('is-invalid')) {
-                invalidTabs.add(tabPane.id);
+            if (section && field.item.classList.contains('is-invalid')) {
+                invalidSections.add(section.dataset.anchorSectionId);
             }
 
-            return invalidTabs;
+            return invalidSections;
         }, new Set());
     };
-    const fields = doc.querySelectorAll('.ez-field-edit');
     const focusOnFirstError = () => {
-        const invalidFields = doc.querySelectorAll('.ez-field-edit.is-invalid');
+        const invalidFields = doc.querySelectorAll('.ibexa-field-edit.is-invalid');
+
+        if (!invalidFields.length) {
+            return;
+        }
+
+        const invalidSection = invalidFields[0].closest('.ibexa-anchor-navigation-sections__section');
 
         fields.forEach((field) => field.removeAttribute('tabindex'));
         invalidFields.forEach((field) => field.setAttribute('tabindex', '-1'));
 
-        invalidTab = invalidFields[0].closest('.tab-pane');
+        if (invalidSection) {
+            const { anchorSectionId } = invalidSection.dataset;
+            const invalidButton = doc.querySelector(`[data-anchor-target-section-id="${anchorSectionId}"`);
 
-        if (invalidTab) {
-            const invalidTabLink = doc.querySelector(`a[href="#${invalidTab.id}"]`);
-
-            invalidTabLink.click();
+            invalidButton.click();
         }
 
         invalidFields[0].focus();
-
-        doc.querySelector('.ez-content-item__errors-wrapper').removeAttribute('hidden');
     };
     const clickHandler = (event) => {
         const btn = event.currentTarget;
@@ -86,36 +94,31 @@
         isFormValid(btn);
     };
     const isFormValid = (btn) => {
-        const validators = eZ.fieldTypeValidators;
+        const validators = ibexa.fieldTypeValidators;
         const validationResults = validators.map(getValidationResults);
-        const isFormValid = validationResults.every((result) => result.isValid);
-        const invalidTabs = validators.map(getInvalidTabs);
+        const isValid = validationResults.every((result) => result.isValid);
+        const invalidSections = validators.map(getInvalidSections);
 
-        if (isFormValid) {
+        if (isValid) {
             btn.dataset.isFormValid = 1;
 
             return true;
         }
 
-        btn.dataset.validatorsWithErrors = Array.from(
-            validationResults
-                .filter((result) => !result.isValid)
-                .reduce((total, result) => {
-                    total.add(result.validatorName);
+        const allValidatorsWithErrors = validationResults.filter((result) => !result.isValid).map((result) => result.validatorName);
 
-                    return total;
-                }, new Set())
-        ).join();
-
+        btn.dataset.validatorsWithErrors = [...new Set(allValidatorsWithErrors)].join();
         fields.forEach((field) => field.removeAttribute('id'));
 
-        doc.querySelectorAll('.ez-tabs__nav-item').forEach((navItem) => {
-            navItem.classList.remove('ez-tabs__nav-item--invalid');
+        doc.querySelectorAll('.ibexa-anchor-navigation-menu__btn').forEach((anchorBtn) => {
+            anchorBtn.classList.remove('ibexa-anchor-navigation-menu__btn--invalid');
         });
 
-        invalidTabs.forEach((invalidInputs) => {
-            invalidInputs.forEach((invalidInputKey) => {
-                doc.querySelector(`#item-${invalidInputKey}`).classList.add('ez-tabs__nav-item--invalid');
+        invalidSections.forEach((sections) => {
+            sections.forEach((invalidSectionId) => {
+                doc.querySelector(`[data-anchor-target-section-id='${invalidSectionId}']`).classList.add(
+                    'ibexa-anchor-navigation-menu__btn--invalid',
+                );
             });
         });
 
@@ -124,45 +127,63 @@
         return false;
     };
     const isAutosaveEnabled = () => {
-        return eZ.adminUiConfig.autosave.enabled && form.querySelector('[name="ezplatform_content_forms_content_edit[autosave]"]');
+        return ibexa.adminUiConfig.autosave.enabled && form.querySelector('[name="ezplatform_content_forms_content_edit[autosave]"]');
     };
 
     if (isAutosaveEnabled()) {
-        const autosaveWrapper = doc.querySelector('.ez-content-edit-page-title__autosave-wrapper');
         const AUTOSAVE_SUBMIT_BUTTON_NAME = 'ezplatform_content_forms_content_edit[autosave]';
-        let lastSuccessfulAutosave = null;
+        const autosave = doc.querySelector('.ibexa-autosave');
+        const autosaveStatusSavedNode = autosave.querySelector('.ibexa-autosave__status-saved');
+        let currentAutosaveStatus = autosave.classList.contains('ibexa-autosave--on') ? STATUS_ON : STATUS_OFF;
+        const generateCssStatusClass = (status) => `ibexa-autosave--${status}`;
+        const setAutosaveStatus = (newStatus) => {
+            if (!autosave) {
+                return;
+            }
+
+            const oldCssStatusClass = generateCssStatusClass(currentAutosaveStatus);
+            const newCssStatusClass = generateCssStatusClass(newStatus);
+
+            autosave.classList.remove(oldCssStatusClass);
+            autosave.classList.remove('ibexa-autosave--saved');
+            autosave.classList.add(newCssStatusClass);
+
+            currentAutosaveStatus = newStatus;
+        };
+        const setDraftSavedMessage = () => {
+            if (!autosave) {
+                return;
+            }
+
+            const userPreferredTimezone = ibexa.adminUiConfig.timezone;
+            const saveDate = ibexa.helpers.timezone.convertDateToTimezone(new Date(), userPreferredTimezone);
+            const saveTime = moment(saveDate).formatICU('HH:mm');
+            const saveMessage = Translator.trans(
+                /*@Desc("Draft saved %time%")*/ 'content_edit.autosave.status_saved.message.full',
+                { time: saveTime },
+                'content',
+            );
+
+            autosaveStatusSavedNode.innerHTML = saveMessage;
+            autosave.classList.add('ibexa-autosave--saved');
+        };
 
         setInterval(() => {
             const formData = new FormData(form);
 
             formData.set(AUTOSAVE_SUBMIT_BUTTON_NAME, true);
+            setAutosaveStatus(STATUS_SAVING);
 
             fetch(form.target || window.location.href, { method: 'POST', body: formData })
-                .then(eZ.helpers.request.getStatusFromResponse)
+                .then(ibexa.helpers.request.getStatusFromResponse)
                 .then(() => {
-                    lastSuccessfulAutosave = eZ.helpers.timezone.formatFullDateTime(new Date());
-
-                    autosaveWrapper.classList.remove('ez-content-edit-page-title__autosave-wrapper--failed');
-                    autosaveWrapper.classList.add('ez-content-edit-page-title__autosave-wrapper--saved');
+                    setAutosaveStatus(STATUS_SAVED);
+                    setDraftSavedMessage();
                 })
                 .catch(() => {
-                    autosaveWrapper.classList.remove('ez-content-edit-page-title__autosave-wrapper--saved');
-                    autosaveWrapper.classList.add('ez-content-edit-page-title__autosave-wrapper--failed');
-                })
-                .finally(() => {
-                    autosaveWrapper.classList.remove('ez-content-edit-page-title__autosave-wrapper--not-saved');
-
-                    if (lastSuccessfulAutosave) {
-                        const lastSavedText = Translator.trans(
-                            /*@Desc("Last saved draft was on %date%")*/ 'content_edit.last_saved',
-                            { date: lastSuccessfulAutosave },
-                            'content'
-                        );
-
-                        autosaveWrapper.querySelector('.ez-content-edit-page-title__autosave-last-saved').innerHTML = lastSavedText;
-                    }
+                    setAutosaveStatus(STATUS_ERROR);
                 });
-        }, eZ.adminUiConfig.autosave.interval);
+        }, ibexa.adminUiConfig.autosave.interval);
     }
 
     form.setAttribute('novalidate', true);
@@ -170,7 +191,7 @@
         const keyCode = event.charCode || event.keyCode || 0;
         const activeElementType = typeof doc.activeElement.type !== 'undefined' ? doc.activeElement.type.toLowerCase() : '';
 
-        if (keyCode === enterKeyCode && inputTypeToPreventSubmit.includes(activeElementType)) {
+        if (keyCode === ENTER_KEY_CODE && inputTypeToPreventSubmit.includes(activeElementType)) {
             event.preventDefault();
         }
     };
@@ -183,5 +204,4 @@
     menuButtonsToValidate.forEach((btn) => {
         btn.addEventListener('click', validateHandler, false);
     });
-
-})(window, window.document, window.eZ, window.Translator);
+})(window, window.document, window.ibexa, window.Translator, window.moment);

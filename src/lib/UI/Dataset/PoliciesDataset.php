@@ -6,33 +6,33 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Dataset;
+namespace Ibexa\AdminUi\UI\Dataset;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\RoleService;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\User\Policy;
-use EzSystems\EzPlatformAdminUi\Specification\ContentType\ContentTypeIsUser;
-use EzSystems\EzPlatformAdminUi\Specification\ContentType\ContentTypeIsUserGroup;
-use EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory;
+use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
+use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
+use Ibexa\AdminUi\UI\Value\ValueFactory;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 
 class PoliciesDataset
 {
-    /** @var \eZ\Publish\API\Repository\RoleService */
+    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
     private $roleService;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory */
+    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
     protected $valueFactory;
 
     /** @var array */
@@ -41,15 +41,15 @@ class PoliciesDataset
     /** @var array */
     private $userGroupContentTypeIdentifier;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\Content\UrlAlias[] */
+    /** @var \Ibexa\AdminUi\UI\Value\Content\UrlAlias[] */
     private $data;
 
     /**
-     * @param \eZ\Publish\API\Repository\RoleService $roleService
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
-     * @param \eZ\Publish\API\Repository\UserService $userService
-     * @param \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory $valueFactory
+     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
+     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
+     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
      * @param array $userContentTypeIdentifier
      * @param array $userGroupContentTypeIdentifier
      */
@@ -72,14 +72,14 @@ class PoliciesDataset
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      *
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\PoliciesDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\PoliciesDataset
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function load(Location $location): self
     {
@@ -115,10 +115,12 @@ class PoliciesDataset
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Value\User\Policy[]
+     * @return \Ibexa\AdminUi\UI\Value\User\Policy[]
      */
     public function getPolicies(): array
     {
         return $this->data;
     }
 }
+
+class_alias(PoliciesDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\PoliciesDataset');

@@ -6,42 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Specification;
+namespace Ibexa\AdminUi\Specification;
 
-abstract class AbstractSpecification implements SpecificationInterface
+use Ibexa\Contracts\Core\Specification\AbstractSpecification as BaseAbstractSpecification;
+
+/**
+ * @deprecated 4.4.0 Use \Ibexa\Contracts\Core\Specification\AbstractSpecification
+ */
+abstract class AbstractSpecification extends BaseAbstractSpecification
 {
-    /**
-     * @param $item
-     *
-     * @return bool
-     */
-    abstract public function isSatisfiedBy($item): bool;
-
-    /**
-     * @param SpecificationInterface $other
-     *
-     * @return SpecificationInterface
-     */
-    public function and(SpecificationInterface $other): SpecificationInterface
-    {
-        return new AndSpecification($this, $other);
-    }
-
-    /**
-     * @param SpecificationInterface $other
-     *
-     * @return SpecificationInterface
-     */
-    public function or(SpecificationInterface $other): SpecificationInterface
-    {
-        return new OrSpecification($this, $other);
-    }
-
-    /**
-     * @return SpecificationInterface
-     */
-    public function not(): SpecificationInterface
-    {
-        return new NotSpecification($this);
-    }
 }
+
+class_alias(AbstractSpecification::class, 'EzSystems\EzPlatformAdminUi\Specification\AbstractSpecification');
