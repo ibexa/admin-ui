@@ -114,7 +114,7 @@
         }
 
         clearCurrentSelection(shouldFireChangeEvent = true) {
-            const overflowNumber = this.selectedItemsContainer.querySelector('.ibexa-dropdown__selected-overflow-number').cloneNode();
+            const overflowNumber = this.selectedItemsContainer.querySelector('.ibexa-dropdown__selected-overflow-number').cloneNode(true);
 
             this.sourceInput.querySelectorAll('option').forEach((option) => (option.selected = false));
             this.itemsListContainer.querySelectorAll('.ibexa-dropdown__item--selected').forEach((option) => {
@@ -127,7 +127,9 @@
                 }
             });
             this.selectedItemsContainer.innerHTML = '';
+            this.selectedItemsContainer.insertAdjacentHTML('beforeend', this.selectedItemsContainer.dataset.placeholderTemplate);
             this.selectedItemsContainer.append(overflowNumber);
+            this.fitItems();
 
             if (shouldFireChangeEvent) {
                 this.fireValueChangedEvent();
@@ -263,6 +265,7 @@
             let numberOfOverflowItems = 0;
             const selectedItems = this.selectedItemsContainer.querySelectorAll('.ibexa-dropdown__selected-item');
             const selectedItemsOverflow = this.selectedItemsContainer.querySelector('.ibexa-dropdown__selected-overflow-number');
+            const dropdownItemsContainerWidth = this.selectedItemsContainer.offsetWidth - RESTRICTED_AREA_ITEMS_CONTAINER;
 
             if (selectedItemsOverflow) {
                 selectedItems.forEach((item) => {
@@ -273,11 +276,7 @@
 
                     itemsWidth += item.offsetWidth;
 
-                    if (
-                        !isOverflowNumber &&
-                        index !== 0 &&
-                        itemsWidth > this.selectedItemsContainer.offsetWidth - RESTRICTED_AREA_ITEMS_CONTAINER
-                    ) {
+                    if (!isOverflowNumber && index !== 0 && itemsWidth > dropdownItemsContainerWidth) {
                         const isPlaceholder = item.classList.contains('ibexa-dropdown__selected-placeholder');
 
                         item.hidden = true;

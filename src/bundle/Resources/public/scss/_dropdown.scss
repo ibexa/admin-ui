@@ -426,7 +426,7 @@
     &--overflow {
         .ibexa-dropdown {
             &__selected-item {
-                max-width: calc(100% - #{calculateRem(96px)});
+                max-width: calc(100% - #{calculateRem(40px)});
             }
         }
     }
