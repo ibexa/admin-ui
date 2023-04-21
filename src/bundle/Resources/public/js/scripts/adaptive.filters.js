@@ -33,7 +33,7 @@
 
                 hiddenItems.forEach((hiddenItem) => adaptiveItemsCollapsibleContentContainer.append(hiddenItem));
 
-                adaptiveItemsCollapsibleContainer.classList.remove('ibexa-adaptive-filters__collapsible--no-animation');
+                adaptiveFilter.classList.add('ibexa-adaptive-filters--initialized');
             },
         });
         adaptiveItemsCollapsibleContainer.addEventListener('hide.bs.collapse', () => {
