@@ -102,10 +102,14 @@ export default class SubItemsModule extends Component {
         });
 
         containerResizeObserver.observe(this._refMainContainerWrapper.current);
+
+        if (!this.state.activePageItems) {
+            this.loadPage(0);
+        }
     }
 
     componentDidUpdate() {
-        const { activePageIndex, activePageItems, totalCount } = this.state;
+        const { activePageIndex, totalCount } = this.state;
         const { limit: itemsPerPage } = this.props;
         const pagesCount = Math.ceil(totalCount / itemsPerPage);
         const pageDoesNotExist = activePageIndex > pagesCount - 1 && activePageIndex !== 0;
@@ -116,12 +120,6 @@ export default class SubItemsModule extends Component {
             });
 
             return;
-        }
-
-        const shouldLoadPage = !activePageItems;
-
-        if (shouldLoadPage) {
-            this.loadPage(activePageIndex);
         }
 
         ibexa.helpers.tooltips.parse();
