@@ -123,6 +123,7 @@ export default class SubItemsModule extends Component {
         }
 
         const shouldLoadPage = !activePageItems;
+
         if (shouldLoadPage) {
             this.loadPage(activePageIndex);
         }
