@@ -116,6 +116,10 @@
 
         const contentContainer = lastSection.closest('.ibexa-edit-content__container');
 
+        if (!contentContainer) {
+            return;
+        }
+
         fitSections();
 
         lastSectionObserver.unobserve(contentContainer);
