@@ -96,10 +96,7 @@ final class NodeFactory
         $uninitializedContentInfoList = [];
         $containerLocations = [];
 
-        $userBookmarks = $this->bookmarkService->loadBookmarks(
-            0,
-            $this->getSetting('children_load_max_limit')
-        );
+        $userBookmarks = $this->bookmarkService->loadBookmarks(0, -1);
         $bookmarkLocations = array_flip(array_column($userBookmarks->items, 'id'));
 
         $node = $this->buildNode(
