@@ -1,0 +1,40 @@
+{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+
+{% set attr = attr|default({})|merge({
+    class: ('ibexa-double-input-range '
+        ~ (is_one_label|default(false) ? 'ibexa-double-input-range--one-label ')
+        ~ icon_wrapper_attr.class|default(''))|trim,
+}) %}
+
+{% set one_label_attr = one_label_attr|default({})|merge({
+    class: ('ibexa-label ' ~ one_label_attr.class|default(''))|trim,
+}) %}
+
+{% set inputs_wrapper_attr = inputs_wrapper_attr|default({})|merge({
+    class: ('ibexa-double-input-range__inputs-wrapper ' ~ inputs_wrapper_attr.class|default(''))|trim,
+}) %}
+
+{% set separator_attr = separator_attr|default({})|merge({
+    class: ('ibexa-double-input-range__separator ' ~ separator_attr.class|default(''))|trim,
+}) %}
+
+<div {{ html.attributes(attr) }}>
+    <div class="form-group">
+        {% if is_one_label|default(false) %}
+            <label {{ html.attributes(one_label_attr) }}>
+                {{ one_label }}
+            </label>
+        {% endif %}
+        <div {{ html.attributes(inputs_wrapper_attr) }}>
+            {% block min_input %}
+                {{ min_input|raw }}
+            {% endblock %}
+
+            <div {{ html.attributes(separator_attr) }}></div>
+
+            {% block max_input %}
+                {{ max_input|raw }}
+            {% endblock %}
+        </div>
+    </div>
+</div>
