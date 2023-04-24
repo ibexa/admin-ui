@@ -36,7 +36,7 @@
         ~ (no_items and not is_dynamic or is_disabled ? 'ibexa-dropdown--disabled ')
         ~ class|default('') ~ ' '
         ~ attr_dropdown.class|default('') ~ ' ')|trim,
-    hidden: (is_hidden|default(false) ? 'hidden' : false)
+    hidden: attr.hidden|default(is_hidden|default(false) ? 'hidden' : false)
 }) %}
 
 <div {{ html.attributes(attr_dropdown) }}>
