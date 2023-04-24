@@ -81,18 +81,18 @@
         align-items: flex-end;
         height: calculateRem(79px);
         overflow: hidden;
+
+        &--after-initialization {
+            overflow: visible;
+        }
     }
 
     &__collapsible {
         border-top: calculateRem(1px) solid $ibexa-color-light;
-        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+        transition: none;
 
         &--collapsed {
             border-top-color: transparent;
-        }
-
-        &--no-animation {
-            transition: none;
         }
     }
 
@@ -169,6 +169,18 @@
             padding-bottom: 0;
             overflow: hidden;
             pointer-events: none;
+        }
+    }
+
+    &--initialized {
+        .ibexa-adaptive-filters {
+            &__items {
+                overflow: visible;
+            }
+
+            &__collapsible {
+                transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+            }
         }
     }
 }

@@ -32,7 +32,7 @@
 
 {% set attr_collapsible = attr_collapsible|default({})|merge({
     class: ('ibexa-adaptive-filters__collapsible collapse '
-        ~ (is_expanded ? 'ibexa-adaptive-filters__collapsible--no-animation show ')
+        ~ (is_expanded ? 'show ')
         ~ (not is_expanded ? 'ibexa-adaptive-filters__collapsible--collapsed ')
         ~ attr_collapsible.class|default(''))|trim,
     id: attr_collapsible.id|default(collapse_id),
