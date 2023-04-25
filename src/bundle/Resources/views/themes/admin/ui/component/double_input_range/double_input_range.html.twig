@@ -6,8 +6,8 @@
         ~ icon_wrapper_attr.class|default(''))|trim,
 }) %}
 
-{% set one_label_attr = one_label_attr|default({})|merge({
-    class: ('ibexa-label ' ~ one_label_attr.class|default(''))|trim,
+{% set single_label_attr = single_label_attr|default({})|merge({
+    class: ('ibexa-label ' ~ single_label_attr.class|default(''))|trim,
 }) %}
 
 {% set inputs_wrapper_attr = inputs_wrapper_attr|default({})|merge({
@@ -21,8 +21,8 @@
 <div {{ html.attributes(attr) }}>
     <div class="form-group">
         {% if is_single_label|default(false) %}
-            <label {{ html.attributes(one_label_attr) }}>
-                {{ one_label }}
+            <label {{ html.attributes(single_label_attr) }}>
+                {{ single_label }}
             </label>
         {% endif %}
         <div {{ html.attributes(inputs_wrapper_attr) }}>
