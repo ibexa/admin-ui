@@ -9,6 +9,8 @@ namespace Ibexa\AdminUi\FieldType\Mapper;
 use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\ContentForms\Form\Type\FieldDefinition\User\PasswordConstraintCheckboxType;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,7 +21,7 @@ use Symfony\Component\Validator\Constraints\Range;
 /**
  * Maps a user FieldType.
  */
-final class UserAccountFormMapper implements FieldDefinitionFormMapperInterface
+final class UserAccountFormMapper implements FieldDefinitionFormMapperInterface, TranslationContainerInterface
 {
     /**
      * {@inheritdoc}
@@ -52,9 +54,7 @@ final class UserAccountFormMapper implements FieldDefinitionFormMapperInterface
             'property_path' => $validatorPropertyPathPrefix . '[requireNotCompromisedPassword]',
             'label' => /** @Desc("Password must not be contained in a public breach.") */
                 'field_definition.ezuser.require_not_compromised_password',
-            'help' => /** @Desc("This uses the API at %link% to securely check breach data.
-                * The password is not transmitted to the API.") */
-                'field_definition.ezuser.require_not_compromised_password_help',
+            'help' => 'field_definition.ezuser.require_not_compromised_password_help',
             'help_translation_parameters' => [
                 '%link%' => '<a href="https://haveibeenpwned.com/" target="_blank">https://haveibeenpwned.com/</a>',
             ],
@@ -118,6 +118,14 @@ final class UserAccountFormMapper implements FieldDefinitionFormMapperInterface
             ->setDefaults([
                 'translation_domain' => 'content_type',
             ]);
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create('field_definition.ezuser.require_not_compromised_password_help', 'content_type')
+                ->setDesc('This uses the API at %link% to securely check breach data. The password is not transmitted to the API.'),
+        ];
     }
 }
 

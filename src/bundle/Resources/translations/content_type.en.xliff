@@ -816,16 +816,6 @@
         <target state="new">Password must contain at least one non-alphanumeric character</target>
         <note>key: field_definition.ezuser.require_at_least_one_non_alphanumeric_character</note>
       </trans-unit>
-      <trans-unit id="283d87c7f3e760a02fde52274ed0a4a8523d2a0d" resname="field_definition.ezuser.require_not_compromised_password">
-        <source>Password must not be contained in a public breach.</source>
-        <target state="new">Password must not be contained in a public breach.</target>
-        <note>key: field_definition.ezuser.require_not_compromised_password</note>
-      </trans-unit>
-      <trans-unit id="99aa2f672dfd9206b58ddf5d78e6a695ceb9ebf1" resname="field_definition.ezuser.require_not_compromised_password_help">
-        <source>This uses the API at %link% to securely check breach data. The password is not transmitted to the API.</source>
-        <target state="new">This uses the API at %link% to securely check breach data. The password is not transmitted to the API.</target>
-        <note>key: field_definition.ezuser.require_not_compromised_password_help</note>
-      </trans-unit>
       <trans-unit id="26cb6ab7ae7e190a9d8d8b0411512b531c8c42ff" resname="field_definition.ezuser.require_at_least_one_numeric_character">
         <source>Password must contain at least one number</source>
         <target state="new">Password must contain at least one number</target>
@@ -840,6 +830,16 @@
         <source>Prevent reusing old password</source>
         <target state="new">Prevent reusing old password</target>
         <note>key: field_definition.ezuser.require_new_password</note>
+      </trans-unit>
+      <trans-unit id="fdcfd21005fcd975636d979b1be61e28bb88d875" resname="field_definition.ezuser.require_not_compromised_password">
+        <source>Password must not be contained in a public breach.</source>
+        <target state="new">Password must not be contained in a public breach.</target>
+        <note>key: field_definition.ezuser.require_not_compromised_password</note>
+      </trans-unit>
+      <trans-unit id="73a71072b428bec8a32c4ca1cf4813314b2a783d" resname="field_definition.ezuser.require_not_compromised_password_help">
+        <source>This uses the API at %link% to securely check breach data. The password is not transmitted to the API.</source>
+        <target state="new">This uses the API at %link% to securely check breach data. The password is not transmitted to the API.</target>
+        <note>key: field_definition.ezuser.require_not_compromised_password_help</note>
       </trans-unit>
       <trans-unit id="100096c9b93ce532e7bf2f184d8e3f43374ae921" resname="field_definition.ezuser.require_unique_email">
         <source>Email must be unique</source>
