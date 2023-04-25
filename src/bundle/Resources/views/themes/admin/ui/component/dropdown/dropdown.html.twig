@@ -25,7 +25,7 @@
     {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
 {% endmacro %}
 
-{% set attr_dropdown = attr_dropdown|default({})|merge({
+{% set attr = attr|default({})|merge({
     class: ('ibexa-dropdown '
         ~ (multiple ? 'ibexa-dropdown--multi ' : 'ibexa-dropdown--single ')
         ~ (custom_init|default(false) ? 'ibexa-dropdown--custom-init ')
@@ -35,11 +35,11 @@
         ~ (is_selector ? 'ibexa-dropdown--selector ')
         ~ (no_items and not is_dynamic or is_disabled ? 'ibexa-dropdown--disabled ')
         ~ class|default('') ~ ' '
-        ~ attr_dropdown.class|default('') ~ ' ')|trim,
+        ~ attr.class|default('') ~ ' ')|trim,
     hidden: attr.hidden|default(is_hidden|default(false) ? 'hidden' : false)
 }) %}
 
-<div {{ html.attributes(attr_dropdown) }}>
+<div {{ html.attributes(attr) }}>
     <div class="ibexa-dropdown__source">
         {{ source|default(null)|raw }}
     </div>
@@ -117,7 +117,7 @@
             <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-overflow-number" hidden></li>
         </ul>
         <div class="ibexa-dropdown__items {{ items_class|default('') }} {{ choices_flat|length < min_search_items ? 'ibexa-dropdown__items--search-hidden' }}">
-            {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true } -%}
+            {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true } only -%}
                 {% block content %}
                     <input
                         type="text"
