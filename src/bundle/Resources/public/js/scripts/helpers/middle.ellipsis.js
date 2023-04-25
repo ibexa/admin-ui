@@ -28,7 +28,7 @@
             } else {
                 const partStartContentNode = partStart.querySelector('.ibexa-middle-ellipsis__name-ellipsized');
 
-                baseElement.dataset.bsOriginalTitle = partStartContentNode.innerHTML;
+                middleEllipsisContainer.dataset.bsOriginalTitle = partStartContentNode.innerHTML;
             }
 
             middleEllipsisContainer.classList.toggle('ibexa-middle-ellipsis--ellipsized', isEllipsized);
