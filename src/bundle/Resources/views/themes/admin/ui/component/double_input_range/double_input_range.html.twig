@@ -2,7 +2,7 @@
 
 {% set attr = attr|default({})|merge({
     class: ('ibexa-double-input-range '
-        ~ (is_one_label|default(false) ? 'ibexa-double-input-range--one-label ')
+        ~ (is_single_label|default(false) ? 'ibexa-double-input-range--single-label ')
         ~ icon_wrapper_attr.class|default(''))|trim,
 }) %}
 
@@ -20,7 +20,7 @@
 
 <div {{ html.attributes(attr) }}>
     <div class="form-group">
-        {% if is_one_label|default(false) %}
+        {% if is_single_label|default(false) %}
             <label {{ html.attributes(one_label_attr) }}>
                 {{ one_label }}
             </label>
