@@ -70,15 +70,7 @@
                 {% endif %}
             {% else %}
                 {% if value is empty %}
-                    {% if multiple %}
-                        <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder">
-                            {% if placeholder is defined and placeholder is not none %}
-                                {{ _self.get_translated_label(placeholder, translation_domain )}}
-                            {% else %}
-                                {{ 'dropdown.placeholder'|trans|desc("Choose an option") }}
-                            {% endif %}
-                        </li>
-                    {% else %}
+                    {% if not multiple %}
                         {% if placeholder is defined and placeholder is not none %}
                             {% set default_label = 'dropdown.placeholder'|trans()|desc('Choose an option') %}
 
@@ -111,6 +103,18 @@
                             } %}
                         {% endif %}
                     {% endfor %}
+                {% endif %}
+                {% if multiple %}
+                    <li
+                        class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder"
+                        {% if value is empty %}hidden{% endif %}
+                    >
+                        {% if placeholder is defined and placeholder is not none %}
+                            {{ _self.get_translated_label(placeholder, translation_domain )}}
+                        {% else %}
+                            {{ 'dropdown.placeholder'|trans|desc("Choose an option") }}
+                        {% endif %}
+                    </li>
                 {% endif %}
             {% endif %}
 
