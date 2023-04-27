@@ -30,7 +30,7 @@
         cursor: pointer;
         display: flex;
         align-items: center;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         margin-bottom: 0;
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
@@ -426,7 +426,7 @@
     &--overflow {
         .ibexa-dropdown {
             &__selected-item {
-                max-width: calc(100% - #{calculateRem(96px)});
+                max-width: calc(100% - #{calculateRem(40px)});
             }
         }
     }
