@@ -1,4 +1,5 @@
 {% trans_default_domain 'dropdown' %}
+{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
 
 {% set choices_flat = choices
     | map(choice => choice.choices is defined ? choice.choices : [choice])
@@ -24,19 +25,21 @@
     {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
 {% endmacro %}
 
-<div
-    class="ibexa-dropdown
-        {{ multiple ? "ibexa-dropdown--multi" : "ibexa-dropdown--single" }}
-        {{ custom_init|default(false) ? "ibexa-dropdown--custom-init" }}
-        {{ is_dynamic ? "ibexa-dropdown--dynamic" }}
-        {{ is_small|default(false) ? "ibexa-dropdown--small" }}
-        {{ is_ghost|default(false) ? "ibexa-dropdown--ghost" }}
-        {{ is_selector ? "ibexa-dropdown--selector" }}
-        {{ no_items and not is_dynamic or is_disabled ? "ibexa-dropdown--disabled" }}
-        {{ class|default('') }}
-    "
-    {% if is_hidden|default(false) %}hidden="hidden"{% endif %}
->
+{% set attr = attr|default({})|merge({
+    class: ('ibexa-dropdown '
+        ~ (multiple ? 'ibexa-dropdown--multi ' : 'ibexa-dropdown--single ')
+        ~ (custom_init|default(false) ? 'ibexa-dropdown--custom-init ')
+        ~ (is_dynamic ? 'ibexa-dropdown--dynamic ')
+        ~ (is_small|default(false) ? 'ibexa-dropdown--small ')
+        ~ (is_ghost|default(false) ? 'ibexa-dropdown--ghost ')
+        ~ (is_selector ? 'ibexa-dropdown--selector ')
+        ~ (no_items and not is_dynamic or is_disabled ? 'ibexa-dropdown--disabled ')
+        ~ class|default('') ~ ' '
+        ~ attr.class|default('') ~ ' ')|trim,
+    hidden: attr.hidden|default(is_hidden|default(false) ? 'hidden' : false)
+}) %}
+
+<div {{ html.attributes(attr) }}>
     <div class="ibexa-dropdown__source">
         {{ source|default(null)|raw }}
     </div>
@@ -114,7 +117,7 @@
             <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-overflow-number" hidden></li>
         </ul>
         <div class="ibexa-dropdown__items {{ items_class|default('') }} {{ choices_flat|length < min_search_items ? 'ibexa-dropdown__items--search-hidden' }}">
-            {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true } -%}
+            {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true } only -%}
                 {% block content %}
                     <input
                         type="text"
