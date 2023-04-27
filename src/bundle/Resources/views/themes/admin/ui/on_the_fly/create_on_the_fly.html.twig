@@ -70,9 +70,7 @@
 
 {% block anchor_menu %}
     {% set content_edit_anchor_menu = knp_menu_get('ibexa.admin_ui.menu.content_edit.anchor_menu', [], {
-        content,
         'content_type': content_type,
-        'location': location,
         'parent_location': parent_location,
         'language': language,
         'grouped_fields': grouped_fields,
@@ -88,9 +86,7 @@
 {% block content_sections %}
     {{ ibexa_render_component_group('content-edit-sections', {
         'form': form,
-        'content': content,
         'content_type': content_type,
-        'location': location,
         'parent_location': parent_location,
         'language': language
     }) }}
