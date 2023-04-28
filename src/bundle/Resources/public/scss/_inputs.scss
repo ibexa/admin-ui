@@ -113,6 +113,12 @@
         position: relative;
         display: inline-block;
         cursor: pointer;
+
+        &:disabled {
+            &.form-check-input {
+                opacity: 1;
+            }
+        }
     }
 
     &--checkbox {

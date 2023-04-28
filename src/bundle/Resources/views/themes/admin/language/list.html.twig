@@ -79,13 +79,15 @@
             ]) %}
 
             {% set col_raw %}
-                <input
-                    type="checkbox"
-                    title="{{ language.enabled ? 'language.enabled'|trans|desc('Enabled')  : 'language.disabled'|trans|desc('Disabled')  }}"
-                    class="ibexa-input ibexa-input--checkbox"
-                    disabled
-                    {% if language.enabled %}checked{% endif %}
-                >
+                <div class="form-check">
+                    <input
+                        type="checkbox"
+                        title="{{ language.enabled ? 'language.enabled'|trans|desc('Enabled')  : 'language.disabled'|trans|desc('Disabled')  }}"
+                        class="ibexa-input ibexa-input--checkbox form-check-input"
+                        disabled
+                        {% if language.enabled %}checked{% endif %}
+                    >
+                </div>
             {% endset %}
             {% set body_row_cols = body_row_cols|merge([{
                 content: col_raw,
