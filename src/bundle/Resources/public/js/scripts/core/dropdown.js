@@ -183,7 +183,7 @@
 
             this.fitItems();
 
-            if (this.currentSelectedValue !== value) {
+            if (this.currentSelectedValue !== value || !this.canSelectOnlyOne) {
                 this.fireValueChangedEvent();
 
                 this.currentSelectedValue = value;
