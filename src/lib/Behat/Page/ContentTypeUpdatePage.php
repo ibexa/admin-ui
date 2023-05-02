@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
+use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementsCountCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementTransitionHasEndedCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
@@ -34,13 +35,22 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
             'lastFieldDefinition',
             'div.ibexa-collapse__body-content div.ibexa-collapse--field-definition'
         );
-        $lastFieldDefinition = $this->getHTMLPage()->findAll($fieldDefinitionLocator)->last();
-        $lastFieldDefinition->mouseOver();
-        $lastFieldDefinition->assert()->isVisible();
-        $lastFieldDefinition->click();
 
-        $this->getHTMLPage()->setTimeout(10)
-            ->waitUntilCondition(new ElementTransitionHasEndedCondition($lastFieldDefinition, new VisibleCSSLocator('transition', 'div')));
+        $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($fieldDefinitionLocator): bool {
+            $fieldDefinition = $this->getHTMLPage()->findAll($fieldDefinitionLocator)->last();
+            $fieldDefinition->click();
+            $this->getHTMLPage()->setTimeout(3)->waitUntilCondition(
+                new ElementNotExistsCondition(
+                    $fieldDefinition,
+                    new VisibleCSSLocator('isCollapsed', 'button.collapsed')
+                )
+            );
+
+            return true;
+        }, 'Error expanding the last Field definition');
+
+        $lastFieldDefinition = $this->getHTMLPage()->findAll($fieldDefinitionLocator)->last();
+        $this->getHTMLPage()->setTimeout(10)->waitUntilCondition(new ElementTransitionHasEndedCondition($lastFieldDefinition, new VisibleCSSLocator('transition', 'div')));
     }
 
     public function specifyLocators(): array
