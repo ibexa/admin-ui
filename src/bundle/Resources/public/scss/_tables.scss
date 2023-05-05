@@ -72,6 +72,13 @@
         margin-bottom: calculateRem(16px);
     }
 
+    &__empty-table-extra-actions {
+        .ibexa-icon {
+            transform: rotate(180deg);
+            margin-right: calculateRem(8px);
+        }
+    }
+
     &__header-cell {
         .table & {
             font-size: $ibexa-text-font-size-small;
