@@ -1,7 +1,7 @@
 <div class="ibexa-details">
     {% block details_header %}
         {% if headline is defined %}
-            <div class="ibexa-details__header">
+            <div class="ibexa-details__header {{ is_inline_headline|default(false) ? 'ibexa-details__header--inline-headline' }}">
                 {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
                     headline,
                     actions: headline_items|default([])
