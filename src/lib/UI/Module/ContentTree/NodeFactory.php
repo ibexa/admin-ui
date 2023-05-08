@@ -95,7 +95,22 @@ final class NodeFactory
     ): Node {
         $uninitializedContentInfoList = [];
         $containerLocations = [];
-        $node = $this->buildNode($location, $uninitializedContentInfoList, $containerLocations, $loadSubtreeRequestNode, $loadChildren, $depth, $sortClause, $sortOrder);
+
+        $userBookmarks = $this->bookmarkService->loadBookmarks(0, -1);
+        $bookmarkLocations = array_flip(array_column($userBookmarks->items, 'id'));
+
+        $node = $this->buildNode(
+            $location,
+            $uninitializedContentInfoList,
+            $containerLocations,
+            $loadSubtreeRequestNode,
+            $loadChildren,
+            $depth,
+            $sortClause,
+            $sortOrder,
+            $bookmarkLocations
+        );
+
         $contentById = $this->contentService->loadContentListByContentInfo($uninitializedContentInfoList);
 
         $aggregatedChildrenCount = null;
@@ -290,6 +305,7 @@ final class NodeFactory
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[] $uninitializedContentInfoList
+     * @param array<int, int> $bookmarkLocations
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -303,7 +319,8 @@ final class NodeFactory
         bool $loadChildren = false,
         int $depth = 0,
         ?string $sortClause = null,
-        string $sortOrder = Query::SORT_ASC
+        string $sortOrder = Query::SORT_ASC,
+        array $bookmarkLocations = []
     ): Node {
         $contentInfo = $location->getContentInfo();
         $contentId = $location->contentId;
@@ -345,7 +362,8 @@ final class NodeFactory
                     null !== $childLoadSubtreeRequestNode,
                     $depth + 1,
                     null,
-                    Query::SORT_ASC
+                    Query::SORT_ASC,
+                    $bookmarkLocations
                 );
             }
         }
@@ -361,7 +379,7 @@ final class NodeFactory
             $limit,
             $totalChildrenCount,
             $this->getReverseRelationsCount($contentInfo),
-            $this->bookmarkService->isBookmarked($location),
+            isset($bookmarkLocations[$location->id]),
             $children
         );
     }
