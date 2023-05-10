@@ -54,7 +54,7 @@ class UniversalDiscoveryWidget extends Component
     {
         $this->getHTMLPage()->find($this->getLocator('confirmButton'))->click();
         $this->getHTMLPage()
-            ->setTimeout(3)
+            ->setTimeout(5)
             ->waitUntilCondition(new ElementNotExistsCondition($this->getHTMLPage(), $this->getLocator('udw')));
     }
 
