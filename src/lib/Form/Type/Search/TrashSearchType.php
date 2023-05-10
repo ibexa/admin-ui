@@ -62,7 +62,7 @@ class TrashSearchType extends AbstractType
                 'choice_name' => 'identifier',
                 'choice_value' => 'identifier',
                 'required' => false,
-                'placeholder' => /** @Desc("Any Content Types") */ 'trash.search.any_content_types',
+                'placeholder' => /** @Desc("All") */ 'trash.search.any_content_types',
             ])
             ->add('creator', UserType::class)
             ->add('trashed_interval', DateIntervalType::class)
@@ -82,7 +82,7 @@ class TrashSearchType extends AbstractType
             $builder->add('section', SectionChoiceType::class, [
                 'required' => false,
                 'multiple' => false,
-                'placeholder' => /** @Desc("Any Section") */ 'trash.search.section.any',
+                'placeholder' => /** @Desc("All") */ 'trash.search.section.any',
             ]);
         }
     }
