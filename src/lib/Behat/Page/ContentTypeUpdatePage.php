@@ -8,107 +8,146 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\Page;
 
-use Behat\Mink\Session;
-use EzSystems\Behat\API\ContentData\FieldTypeNameConverter;
-use Ibexa\AdminUi\Behat\Component\Notification;
-use Ibexa\AdminUi\Behat\Component\RightMenu;
+use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
+use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
+use Ibexa\Behat\Browser\Element\Condition\ElementsCountCondition;
+use Ibexa\Behat\Browser\Element\Condition\ElementTransitionHasEndedCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
-use Ibexa\Behat\Browser\Element\ElementInterface;
+use Ibexa\Behat\Browser\Element\Mapper\ElementTextMapper;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use Ibexa\Behat\Browser\Locator\XPathLocator;
-use Ibexa\Behat\Browser\Routing\Router;
 
 class ContentTypeUpdatePage extends AdminUpdateItemPage
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Notification */
-    private $notification;
-
-    public function __construct(
-        Session $session,
-        Router $router,
-        RightMenu $rightMenu,
-        Notification $notification
-    ) {
-        parent::__construct($session, $router, $rightMenu);
-        $this->notification = $notification;
-    }
-
     public function fillFieldDefinitionFieldWithValue(string $fieldName, string $label, string $value)
     {
-        $this->expandFieldDefinition($fieldName);
-
-        $this->getFieldDefinition($fieldName)
+        $this->expandLastFieldDefinition();
+        $this->getHTMLPage()
+            ->find($this->getLocator('fieldDefinitionOpenContainer'))
             ->findAll($this->getLocator('field'))->getByCriterion(new ElementTextCriterion($label))
-            ->find($this->getLocator('fieldInput'))->setValue($value);
+            ->find($this->getLocator('fieldInput'))
+            ->setValue($value);
     }
 
-    public function expandFieldDefinition(string $fieldName): void
+    public function expandLastFieldDefinition(): void
     {
-        $fieldDefinition = $this->getFieldDefinition($fieldName);
+        $fieldDefinitionLocator = new VisibleCSSLocator(
+            'lastFieldDefinition',
+            'div.ibexa-collapse__body-content div.ibexa-collapse--field-definition'
+        );
 
-        if ($fieldDefinition->hasClass($this->getLocator('fieldCollapsed')->getSelector())) {
-            $fieldDefinition->find($this->getLocator('fieldDefinitionToggler'))->click();
-        }
+        $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($fieldDefinitionLocator): bool {
+            $fieldDefinition = $this->getHTMLPage()->findAll($fieldDefinitionLocator)->last();
+            $fieldDefinition->click();
+            $this->getHTMLPage()->setTimeout(3)->waitUntilCondition(
+                new ElementNotExistsCondition(
+                    $fieldDefinition,
+                    new VisibleCSSLocator('isCollapsed', 'button.collapsed')
+                )
+            );
+
+            return true;
+        }, 'Error expanding the last Field definition');
+
+        $lastFieldDefinition = $this->getHTMLPage()->findAll($fieldDefinitionLocator)->last();
+        $this->getHTMLPage()->setTimeout(10)->waitUntilCondition(new ElementTransitionHasEndedCondition($lastFieldDefinition, new VisibleCSSLocator('transition', 'div')));
     }
 
     public function specifyLocators(): array
     {
         return array_merge(parent::specifyLocators(), [
-            new VisibleCSSLocator('fieldTypesList', '#ezplatform_content_forms_contenttype_update_fieldTypeSelection'),
-            new VisibleCSSLocator('addFieldDefinition', '#ezplatform_content_forms_contenttype_update_addFieldDefinition'),
-            new VisibleCSSLocator('fieldDefinitionContainer', '.ez-card--toggle-group'),
-            new VisibleCSSLocator('fieldDefinitionName', '.ez-card--toggle-group .ez-card__header .form-check-label'),
-            new VisibleCSSLocator('fieldBody', 'ez-card__body'),
-            new VisibleCSSLocator('fieldCollapsed', 'ez-card--collapsed'),
-            new VisibleCSSLocator('fieldDefinitionToggler', '.ez-card__body-display-toggler'),
-            new VisibleCSSLocator('selectLaunchEditorMode', '.form-check-label .ez-input--radio'),
-            new XPathLocator('ezlandingpageFieldDisplayButton', '//*[@id="field-definition-page"]/button'),
-            new XPathLocator('selectBlocksDropdown', '//div[contains(@class,"ez-page-select-items")]/a[contains(text(),"Select blocks")]'),
-            new XPathLocator('selectBlocksDropdownDefault', '//div[contains(@class,"ez-page-select-items__group")]/a[contains(text(),"default")]'),
+            new VisibleCSSLocator('fieldDefinition', '.ibexa-collapse--field-definition'),
+            new VisibleCSSLocator('field', '.form-group'),
+            new VisibleCSSLocator('contentTypeAddButton', '.ibexa-content-type-edit__add-field-definitions-group-btn'),
+            new VisibleCSSLocator('contentTypeCategoryList', ' div.ibexa-content-type-edit__add-field-definitions-group > ul > li:nth-child(n):not(.ibexa-popup-menu__item-action--disabled)'),
+            new VisibleCSSLocator('availableFieldLabelList', '.ibexa-available-field-types__list > li:not(.ibexa-available-field-type--hidden)'),
+            new VisibleCSSLocator('workspace', '.ibexa-collapse__body-content'),
+            new VisibleCSSLocator('fieldDefinitionToggle', '.ibexa-collapse:nth-last-child(2) > div.ibexa-collapse__header > button:last-child:not([data-bs-target="#content_collapse"])'),
+            new VisibleCSSLocator('selectLaunchEditorMode', '.form-check .ibexa-input--radio'),
+            new VisibleCSSLocator('fieldDefinitionOpenContainer', '[data-collapsed="false"] .ibexa-content-type-edit__field-definition-content'),
+            new VisibleCSSLocator('selectBlocksDropdown', '.ibexa-page-select-items__toggler'),
+            new VisibleCSSLocator('fieldDefinitionSearch', '.ibexa-available-field-types__sidebar-filter'),
         ]);
     }
 
     public function addFieldDefinition(string $fieldName)
     {
-        $this->getHTMLPage()->find($this->getLocator('fieldTypesList'))->selectOption($fieldName);
-        $this->getHTMLPage()->find($this->getLocator('addFieldDefinition'))->click();
-        $this->getFieldDefinition($fieldName)->assert()->isVisible();
+        $currentFieldDefinitionCount = $this->getHTMLPage()->findAll($this->getLocator('fieldDefinition'))->count();
+        $this->getHTMLPage()->find($this->getLocator('fieldDefinitionSearch'))->setValue($fieldName);
+        $fieldPosition = array_search($fieldName, $this->getHTMLPage()->findAll($this->getLocator('availableFieldLabelList'))->mapBy(new ElementTextMapper()), true) + 1;
+        $fieldSelector = new VisibleCSSLocator(
+            'field',
+            sprintf(
+                '.ibexa-available-field-types__list > li:not(.ibexa-available-field-type--hidden) .ibexa-available-field-type__content:nth-of-type(%d)',
+                $fieldPosition
+            )
+        );
+        $this->getHTMLPage()->find($fieldSelector)->mouseOver();
+        $this->getHTMLPage()->setTimeout(3)->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(), $fieldSelector));
 
-        $this->notification->verifyIsLoaded();
-        $this->notification->verifyAlertSuccess();
-        $this->notification->closeAlert();
+        $fieldScript = sprintf("document.querySelector('%s')", $fieldSelector->getSelector());
+        $workspaceScript = sprintf("document.querySelector('%s')", $this->getLocator('workspace')->getSelector());
+        $this->getHTMLPage()->dragAndDrop($fieldScript, $workspaceScript, $workspaceScript);
+
+        $this->getHTMLPage()->setTimeout(3)->waitUntilCondition(new ElementsCountCondition($this->getHTMLPage(), $this->getLocator('fieldDefinition'), $currentFieldDefinitionCount + 1));
+
+        usleep(1500000); //TODO: add proper wait condition
     }
 
-    private function getFieldDefinition($fieldName): ElementInterface
+    public function clickAddButton(): void
     {
-        $fieldTypeIdentifier = FieldTypeNameConverter::getFieldTypeIdentifierByName($fieldName);
+        $this->getHTMLPage()->find($this->getLocator('contentTypeAddButton'))->mouseOver();
+        usleep(100 * 5000); // 500ms
+        $this->getHTMLPage()->find($this->getLocator('contentTypeAddButton'))->click();
+        $this->getHTMLPage()
+            ->setTimeout(3)
+            ->waitUntilCondition(
+                new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('contentTypeCategoryList'))
+            );
+        $this->getHTMLPage()->find($this->getLocator('contentTypeCategoryList'))->mouseOver();
+    }
 
-        return $this->getHTMLPage()
-            ->findAll($this->getLocator('fieldDefinitionContainer'))
-            ->filter(function (ElementInterface $element) use ($fieldTypeIdentifier) {
-                return false !== strpos($element->find($this->getLocator('fieldDefinitionName'))->getText(), $fieldTypeIdentifier);
-            })
-            ->first()
-        ;
+    public function selectContentTypeCategory(string $categoryName): void
+    {
+        $categoryLocator = $this->getLocator('contentTypeCategoryList');
+        $listElement = $this->getHTMLPage()
+            ->findAll($categoryLocator)
+            ->getByCriterion(new ElementTextCriterion($categoryName));
+        $listElement->mouseOver();
+        $listElement->click();
     }
 
     public function expandDefaultBlocksOption(): void
     {
-        $this->getHTMLPage()->find($this->getLocator('selectBlocksDropdown'))->click();
-        $this->getHTMLPage()->find($this->getLocator('selectBlocksDropdownDefault'))->click();
+        $dropdownLocator = $this->getLocator('selectBlocksDropdown');
+        $this->getHTMLPage()
+            ->setTimeout(3)
+            ->waitUntilCondition(
+                new ElementExistsCondition($this->getHTMLPage(), $dropdownLocator)
+            );
+        $this->getHTMLPage()
+            ->findAll($dropdownLocator)->getByCriterion(new ElementTextCriterion('Select blocks'))->click();
+        $this->getHTMLPage()
+            ->findAll($dropdownLocator)->getByCriterion(new ElementTextCriterion('default'))->click();
     }
 
     public function selectBlock(string $blockName): void
     {
-        $blockFindingScript = "document.querySelector('.ez-page-select-items__item .form-check .form-check-input[value=\'%s\']').click()";
+        $blockFindingScript = "document.querySelector('.ibexa-page-select-items__item .form-check .form-check-input[value=\'%s\']').click()";
         $scriptToExecute = sprintf($blockFindingScript, $blockName);
         $this->getSession()->executeScript($scriptToExecute);
     }
 
+    public function verifyIsLoaded(): void
+    {
+        parent::verifyIsLoaded();
+        $this->getHTMLPage()->find($this->getLocator('contentTypeAddButton'))->assert()->isVisible();
+    }
+
     public function selectEditorLaunchMode(string $viewMode): void
     {
-        $this->getHTMLPage()->findAll($this->getLocator('selectLaunchEditorMode'))
-            ->getByCriterion(new ElementAttributeCriterion('value', $viewMode))->click();
+        $this->getHTMLPage()
+             ->findAll($this->getLocator('selectLaunchEditorMode'))
+             ->getByCriterion(new ElementAttributeCriterion('value', $viewMode))->click();
     }
 }

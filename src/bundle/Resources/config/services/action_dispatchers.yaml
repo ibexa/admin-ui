@@ -4,8 +4,8 @@ services:
         autoconfigure: true
         public: false
 
-    EzSystems\EzPlatformAdminUi\Form\ActionDispatcher\ContentTypeDispatcher:
-        parent: ezplatform.content_forms.action_dispatcher.base
+    Ibexa\AdminUi\Form\ActionDispatcher\ContentTypeDispatcher:
+        parent: Ibexa\ContentForms\Form\ActionDispatcher\AbstractActionDispatcher
         autowire: true
         autoconfigure: false
         public: false

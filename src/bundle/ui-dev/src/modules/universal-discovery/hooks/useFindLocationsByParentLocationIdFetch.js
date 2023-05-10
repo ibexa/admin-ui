@@ -59,7 +59,7 @@ export const useFindLocationsByParentLocationIdFetch = (locationData, { sortClau
                 }
 
                 dispatch({ type: 'FETCH_END', data: response });
-            }
+            },
         );
 
         return () => {

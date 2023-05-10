@@ -1,6 +1,8 @@
-(function(global, doc) {
-    const editButton = doc.querySelector('.ez-btn--edit');
-    const languageRadioOption = doc.querySelector('.ez-extra-actions--edit.ez-extra-actions--prevent-show [type="radio"]');
+(function (global, doc) {
+    const editButton = doc.querySelector('.ibexa-btn--edit');
+    const languageRadioOption = doc.querySelector(
+        '.ibexa-content-menu-wrapper .ibexa-extra-actions--edit.ibexa-extra-actions--prevent-show .ibexa-input--radio',
+    );
 
     if (!languageRadioOption) {
         return;
@@ -12,6 +14,6 @@
             languageRadioOption.checked = true;
             languageRadioOption.dispatchEvent(new CustomEvent('change'));
         },
-        false
+        false,
     );
 })(window, window.document);

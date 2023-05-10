@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Content\Location;
+namespace Ibexa\AdminUi\Form\Data\Content\Location;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ContentLocationRemoveData
@@ -16,7 +16,7 @@ class ContentLocationRemoveData
     /**
      * @Assert\NotBlank()
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\ContentInfo|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
      */
     public $contentInfo;
 
@@ -30,7 +30,7 @@ class ContentLocationRemoveData
     public $locations;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
      * @param array $selectedLocations
      */
     public function __construct(
@@ -42,7 +42,7 @@ class ContentLocationRemoveData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\ContentInfo|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
      */
     public function getContentInfo(): ?ContentInfo
     {
@@ -50,7 +50,7 @@ class ContentLocationRemoveData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
      */
     public function setContentInfo(?ContentInfo $contentInfo)
     {
@@ -73,3 +73,5 @@ class ContentLocationRemoveData
         $this->locations = $locations;
     }
 }
+
+class_alias(ContentLocationRemoveData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentLocationRemoveData');

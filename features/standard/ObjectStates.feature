@@ -161,7 +161,7 @@ Feature: Object States management
       And I click on the edit action bar button "Save"
     Then notification that "Object state" "Test Object State edited2" is updated appears
       And I should be on "Test Object State edited2" Object State page
-      And Object state has proper attributes
+      And Object State has proper attributes
         | label             | value                     |
         | Object state name | Test Object State edited2 |
         | Identifier        | TestObjectStateIdentifier |
@@ -176,7 +176,7 @@ Feature: Object States management
         | Identifier | TestObjectStateIdentifier2 |
       And I click on the edit action bar button "Create"
     Then I should be on "Test Object State 2" Object State page
-      And Object state has proper attributes
+      And Object State has proper attributes
         | label             | value                      |
         | Object state name | Test Object State 2        |
         | Identifier        | TestObjectStateIdentifier2 |

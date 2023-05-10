@@ -6,8 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Component;
+namespace Ibexa\AdminUi\Component;
 
+use Ibexa\Contracts\AdminUi\Component\Renderable;
 use Twig\Environment;
 
 class ScriptComponent implements Renderable
@@ -67,7 +68,7 @@ class ScriptComponent implements Renderable
      */
     public function render(array $parameters = []): string
     {
-        return $this->twig->render('@ezdesign/ui/component/script.html.twig', [
+        return $this->twig->render('@ibexadesign/ui/component/script.html.twig', [
             'src' => $this->src,
             'type' => $this->type,
             'async' => $this->async,
@@ -77,3 +78,5 @@ class ScriptComponent implements Renderable
         ] + $parameters);
     }
 }
+
+class_alias(ScriptComponent::class, 'EzSystems\EzPlatformAdminUi\Component\ScriptComponent');

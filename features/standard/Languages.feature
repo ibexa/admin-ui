@@ -10,23 +10,23 @@ Feature: Languages management
 
   @javascript
   Scenario: Changes can be discarded while creating new Language
-    When I create a new Language
+    When I click on the edit action bar button "Add language"
       And I set fields
         | label         | value   |
         | Name          | Deutsch |
         | Language code | de-DE   |
-      And I click on the edit action bar button "Discard changes"
+      And I click on the edit action bar button "Cancel"
     Then I should be on "Languages" page
       And there's no "Deutsch" Language on Languages list
 
   @javascript
   Scenario: New Language can be added
-    When I create a new Language
+    When I click on the edit action bar button "Add language"
       And I set fields
         | label         | value   |
         | Name          | Deutsch |
         | Language code | de-DE   |
-      And I click on the edit action bar button "Create"
+      And I click on the edit action bar button "Add"
     Then I should be on "Deutsch" Language page
       And Language has proper attributes
         | Name         | Language code   | Enabled |
@@ -34,12 +34,12 @@ Feature: Languages management
 
   @javascript
   Scenario: New Language with existing language code cannot be added
-    When I create a new Language
+    When I click on the edit action bar button "Add language"
       And I set fields
         | label         | value          |
         | Name          | Deutsch Second |
         | Language code | de-DE          |
-      And I click on the edit action bar button "Create"
+      And I click on the edit action bar button "Add"
     Then error notification that "language with the specified language code already exists" appears
 
   @javascript

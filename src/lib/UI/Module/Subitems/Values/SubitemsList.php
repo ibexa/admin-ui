@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Module\Subitems\Values;
+namespace Ibexa\AdminUi\UI\Module\Subitems\Values;
 
-use EzSystems\EzPlatformRest\Value as RestValue;
+use Ibexa\Rest\Value as RestValue;
 
 class SubitemsList extends RestValue
 {
@@ -28,3 +28,5 @@ class SubitemsList extends RestValue
         $this->childrenCount = $childrenCount;
     }
 }
+
+class_alias(SubitemsList::class, 'EzSystems\EzPlatformAdminUi\UI\Module\Subitems\Values\SubitemsList');
