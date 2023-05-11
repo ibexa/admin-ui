@@ -34,8 +34,10 @@
     }
 
     &__header {
-        .ibexa-table-header {
-            justify-content: flex-start;
+        &--inline-headline {
+            .ibexa-table-header {
+                justify-content: flex-start;
+            }
         }
     }
 }
