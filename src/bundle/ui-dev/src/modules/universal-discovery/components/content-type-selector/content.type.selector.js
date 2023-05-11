@@ -43,11 +43,11 @@ const ContentTypeSelector = () => {
 
                                 return (
                                     <li key={contentType.identifier} className="c-filters__collapsible-list-item">
-                                        <div className="form-check">
+                                        <div className="form-check form-check-inline">
                                             <input
                                                 type="checkbox"
                                                 id={`ibexa-search-content-type-${contentType.identifier}`}
-                                                className="ibexa-input ibexa-input--checkbox"
+                                                className="ibexa-input ibexa-input--checkbox form-check-input"
                                                 value={contentType.identifier}
                                                 data-content-type-identifier={contentType.identifier}
                                                 onChange={handleContentTypeSelect}
