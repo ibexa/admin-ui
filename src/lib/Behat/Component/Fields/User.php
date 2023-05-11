@@ -93,8 +93,7 @@ class User extends FieldTypeComponent
     {
         $isCurrentlyEnabled = $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator('buttonEnabled'))->getText() === 'On';
         if ($isCurrentlyEnabled !== $enabled) {
-            $script = sprintf("document.querySelector('%s %s').click()", $this->parentLocator->getSelector(), $this->getLocator('buttonEnabled')->getSelector());
-            $this->getHTMLPage()->executeJavaScript($script);
+            $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator('buttonEnabled'))->click();
             $this->getHTMLPage()
                 ->setTimeout(10)
                 ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('buttonEnabledToggleConfirmation')));
