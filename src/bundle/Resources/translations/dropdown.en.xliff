@@ -16,6 +16,11 @@
         <target state="new">All</target>
         <note>key: dropdown.placeholder</note>
       </trans-unit>
+      <trans-unit id="bcf45496a8dbad6959111ca6eae0ab456d4ad1c7" resname="dropdown.placeholder.all">
+        <source>All</source>
+        <target state="new">All</target>
+        <note>key: dropdown.placeholder.all</note>
+      </trans-unit>
       <trans-unit id="49f6d75aca8da375a2a79c0778934bc45a8ffe8c" resname="dropdown.placeholder.empty">
         <source>No options available</source>
         <target state="new">No options available</target>
