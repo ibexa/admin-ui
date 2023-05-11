@@ -1,4 +1,6 @@
 (function (global, doc, eZ) {
+    const SPACE_KEY = ' ';
+
     class ToggleButton {
         constructor(config) {
             this.toggleNode = config.toggleNode;
@@ -7,7 +9,7 @@
             this.toggleState = this.toggleState.bind(this);
             this.addFocus = this.addFocus.bind(this);
             this.removeFocus = this.removeFocus.bind(this);
-            this.disableSpaceButton = this.disableSpaceButton.bind(this);
+            this.toggleStateOnSpacePressed = this.toggleStateOnSpacePressed.bind(this);
             this.init = this.init.bind(this);
         }
 
@@ -58,8 +60,8 @@
             toggler.classList.remove('ibexa-toggle--is-focused');
         }
 
-        disableSpaceButton(event) {
-            if (event.key === ' ') {
+        toggleStateOnSpacePressed(event) {
+            if (event.key === SPACE_KEY) {
                 event.preventDefault();
 
                 this.toggleState(event);
@@ -70,7 +72,7 @@
             const toggleInput = this.toggleNode.querySelector(this.inputsSelector);
 
             this.toggleNode.addEventListener('click', this.toggleState, false);
-            this.toggleNode.addEventListener("keyup", this.disableSpaceButton, true);
+            this.toggleNode.addEventListener('keyup', this.toggleStateOnSpacePressed, true);
             toggleInput.addEventListener('focus', this.addFocus, false);
             toggleInput.addEventListener('blur', this.removeFocus, false);
         }
