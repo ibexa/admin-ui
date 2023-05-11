@@ -7,6 +7,7 @@
             this.toggleState = this.toggleState.bind(this);
             this.addFocus = this.addFocus.bind(this);
             this.removeFocus = this.removeFocus.bind(this);
+            this.disableSpaceButton = this.disableSpaceButton.bind(this);
             this.init = this.init.bind(this);
         }
 
@@ -57,10 +58,19 @@
             toggler.classList.remove('ibexa-toggle--is-focused');
         }
 
+        disableSpaceButton(event) {
+            if (event.key === ' ') {
+                event.preventDefault();
+
+                this.toggleState(event);
+            }
+        }
+
         init() {
             const toggleInput = this.toggleNode.querySelector(this.inputsSelector);
 
             this.toggleNode.addEventListener('click', this.toggleState, false);
+            this.toggleNode.addEventListener("keyup", this.disableSpaceButton, true);
             toggleInput.addEventListener('focus', this.addFocus, false);
             toggleInput.addEventListener('blur', this.removeFocus, false);
         }
