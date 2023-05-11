@@ -59,8 +59,7 @@
     }
 
     &__content {
-        padding: calculateRem(32px);
-        width: 75%;
+        padding: calculateRem(32px) 25% calculateRem(32px) calculateRem(32px);
         max-height: calc(100% - #{calculateRem(90px)});
         overflow: auto;
 
@@ -69,7 +68,8 @@
         }
 
         &--create {
-            padding: 0 calculateRem(32px);
+            padding-top: 0;
+            padding-bottom: 0;
         }
     }
 
