@@ -49,6 +49,12 @@
             max-width: calc(100% - #{calculateRem(120px)});
         }
 
+        &--status {
+            &.collapsed {
+                transform: rotate(180deg);
+            }
+        }
+
         .ibexa-collapse__header-label {
             white-space: nowrap;
             overflow: hidden;
