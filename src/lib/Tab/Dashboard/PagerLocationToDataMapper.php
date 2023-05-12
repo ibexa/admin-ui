@@ -10,7 +10,9 @@ namespace Ibexa\AdminUi\Tab\Dashboard;
 
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Repository\LocationResolver\LocationResolver;
@@ -27,14 +29,18 @@ final class PagerLocationToDataMapper
     /** @var \Ibexa\Core\Repository\LocationResolver\LocationResolver */
     private $locationResolver;
 
+    private LanguageService $languageService;
+
     public function __construct(
         ContentService $contentService,
         UserService $userService,
-        LocationResolver $locationResolver
+        LocationResolver $locationResolver,
+        LanguageService $languageService
     ) {
         $this->contentService = $contentService;
         $this->userService = $userService;
         $this->locationResolver = $locationResolver;
+        $this->languageService = $languageService;
     }
 
     /**
@@ -59,7 +65,7 @@ final class PagerLocationToDataMapper
                 'name' => $contentInfo->name,
                 'type' => $contentType->getName(),
                 'language' => $contentInfo->mainLanguageCode,
-                'available_enabled_translations' => [],
+                'available_enabled_translations' => $versionInfo !== null ? $this->getAvailableTranslations($versionInfo) : [],
                 'contributor' => $versionInfo !== null ? $this->getVersionContributor($versionInfo) : null,
                 'content_type' => $contentType,
                 'modified' => $contentInfo->modificationDate,
@@ -77,5 +83,23 @@ final class PagerLocationToDataMapper
         } catch (NotFoundException $e) {
             return null;
         }
+    }
+
+    /**
+     * @return \eZ\Publish\API\Repository\Values\Content\Language[]
+     */
+    private function getAvailableTranslations(
+        VersionInfo $versionInfo
+    ): array {
+        $availableTranslationsLanguages = $this->languageService->loadLanguageListByCode(
+            $versionInfo->languageCodes
+        );
+
+        return array_filter(
+            $availableTranslationsLanguages,
+            static function (Language $language): bool {
+                return $language->enabled;
+            }
+        );
     }
 }
