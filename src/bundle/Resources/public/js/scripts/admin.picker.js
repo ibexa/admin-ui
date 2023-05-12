@@ -1,9 +1,9 @@
-(function (global, doc, ibexa) {
+(function (global, doc, ibexa, moment) {
     const SELECTOR_PICKER = '.ibexa-picker';
     const SELECTOR_PICKER_INPUT = '.ibexa-date-time-picker__input';
     const SELECTOR_FORM_INPUT = '.ibexa-picker__form-input';
     const pickers = doc.querySelectorAll(SELECTOR_PICKER);
-    const { formatShortDateTime } = ibexa.helpers.timezone;
+    const { formatShortDateTime, convertDateToTimezone } = ibexa.helpers.timezone;
     const pickerConfig = {
         enableTime: true,
         time_24hr: true,
@@ -23,7 +23,12 @@
         let defaultDate;
 
         if (formInput.value) {
-            defaultDate = new Date(formInput.value * 1000);
+            const date = new Date(formInput.value * 1000);
+            const convertedDateToUTC = convertDateToTimezone(date, 'UTC');
+            const localTimezone = moment.tz.guess();
+            const convertedDate = convertDateToTimezone(convertedDateToUTC, localTimezone, true).format();
+
+            defaultDate = convertedDate;
         }
 
         const dateTimePickerWidget = new ibexa.core.DateTimePicker({
@@ -40,4 +45,4 @@
     };
 
     pickers.forEach(initFlatPickr);
-})(window, window.document, window.ibexa, window.flatpickr);
+})(window, window.document, window.ibexa, window.moment);
