@@ -23,10 +23,9 @@
         let defaultDate;
 
         if (formInput.value) {
-            const date = new Date(formInput.value * 1000);
-            const convertedDateToUTC = convertDateToTimezone(date, 'UTC');
+            const date = moment.utc(formInput.value * 1000);
             const localTimezone = moment.tz.guess();
-            const convertedDate = convertDateToTimezone(convertedDateToUTC, localTimezone, true).format();
+            const convertedDate = convertDateToTimezone(date, localTimezone, true).format();
 
             defaultDate = convertedDate;
         }
