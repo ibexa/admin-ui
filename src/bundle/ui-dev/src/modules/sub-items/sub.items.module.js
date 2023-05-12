@@ -136,7 +136,12 @@ export default class SubItemsModule extends Component {
     }
 
     resizeSubItems() {
-        this.setState({ subItemsWidth: this.calculateSubItemsWidth() });
+        const calculatedWidth = this.calculateSubItemsWidth();
+        const { subItemsWidth } = this.state;
+
+        if (calculatedWidth !== subItemsWidth) {
+            this.setState({ subItemsWidth: calculatedWidth });
+        }
     }
 
     calculateSubItemsWidth() {
