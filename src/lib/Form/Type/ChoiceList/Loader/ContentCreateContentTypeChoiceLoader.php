@@ -20,6 +20,8 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
     /** @var int[] */
     private $restrictedContentTypesIds;
 
+    private $contentTypesGroups;
+
     /**
      * @param \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader $contentTypeChoiceLoader
      * @param array $restrictedContentTypesIds
@@ -30,6 +32,7 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
     ) {
         $this->contentTypeChoiceLoader = $contentTypeChoiceLoader;
         $this->restrictedContentTypesIds = $restrictedContentTypesIds;
+        $this->contentTypesGroups = null;
     }
 
     /**
@@ -37,10 +40,15 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
      */
     public function loadChoiceList($value = null)
     {
-        $contentTypesGroups = $this->contentTypeChoiceLoader->getChoiceList();
+        if ($this->contentTypesGroups === null) {
+            $this->contentTypesGroups = $this->contentTypeChoiceLoader->getChoiceList();
+        }        
+
         if (empty($this->restrictedContentTypesIds)) {
-            return new ArrayChoiceList($contentTypesGroups, $value);
+            return new ArrayChoiceList($this->contentTypesGroups, $value);
         }
+
+        $contentTypesGroups = $this->contentTypesGroups;
 
         foreach ($contentTypesGroups as $group => $contentTypes) {
             $contentTypesGroups[$group] = array_filter($contentTypes, function (ContentType $contentType) {
