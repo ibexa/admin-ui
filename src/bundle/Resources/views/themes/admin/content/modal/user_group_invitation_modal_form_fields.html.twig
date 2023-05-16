@@ -1,0 +1,17 @@
+{% extends '@ibexadesign/ui/form_fields.html.twig' %}
+
+{% block _user_invitation_emails_entry_widget %}
+    {% embed '@ibexadesign/user/invitation/modal_entry.html.twig' %}
+        {% block entry_form_fields %}
+            {{ form_widget(form, {
+                wrapper_attr: {
+                    class: 'ibexa-user-group-invitation__entry-email-wrapper ibexa-user-invitation-modal__email-wrapper',
+                },
+                attr: {
+                    type: 'email',
+                    class: 'ibexa-user-group-invitation__entry-email',
+                },
+            }) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

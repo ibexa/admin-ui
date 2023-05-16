@@ -1,0 +1,85 @@
+.ibexa-header-user-menu {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    &__popup-menu {
+        z-index: 1060;
+        top: calculateRem(65px);
+        right: calculateRem(24px);
+        min-width: calculateRem(200px);
+        padding: 0;
+
+        ul {
+            margin-bottom: 0;
+            padding: calculateRem(8px);
+        }
+    }
+
+    &__popup-menu-title {
+        padding: calculateRem(16px) calculateRem(24px);
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
+        color: $ibexa-color-dark-400;
+        font-size: $ibexa-text-font-size-small;
+    }
+
+    &__toggler {
+        display: flex;
+        align-items: center;
+        margin-left: calculateRem(8px);
+        border: none;
+
+        &::after {
+            content: '';
+            width: 0;
+            height: 0;
+            margin-left: calculateRem(8px);
+            border-left: calculateRem(4px) solid transparent;
+            border-right: calculateRem(4px) solid transparent;
+            border-top: calculateRem(4px) solid $ibexa-color-white;
+        }
+
+        &:hover {
+            &::after {
+                border-top: calculateRem(4px) solid $ibexa-color-info;
+            }
+        }
+    }
+
+    &__thumbnail-wrapper {
+        display: flex;
+        border: calculateRem(3px) solid $ibexa-color-black;
+        border-radius: 50%;
+    }
+
+    &__notifications-toggler {
+        display: flex;
+        align-items: flex-end;
+        position: relative;
+        height: calculateRem(24px);
+        padding-bottom: calculateRem(4px);
+        cursor: pointer;
+
+        &:hover {
+            .ibexa-icon {
+                fill: $ibexa-color-info;
+            }
+        }
+    }
+
+    &__notice-dot {
+        width: calculateRem(6px);
+        height: calculateRem(6px);
+        border-radius: 50%;
+        background: $ibexa-color-danger;
+        opacity: 1;
+        cursor: pointer;
+        position: absolute;
+        left: calculateRem(10px);
+        top: 0;
+
+        &--no-notice {
+            opacity: 0;
+        }
+    }
+}

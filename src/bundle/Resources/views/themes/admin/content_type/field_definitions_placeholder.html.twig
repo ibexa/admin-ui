@@ -1,0 +1,8 @@
+{% set placeholder_class = full_placeholder|default(false) ? 'ibexa-field-definitions-placeholder-full' : 'ibexa-field-definitions-placeholder' %}
+
+<div class="{{ placeholder_class }} {{ field_definitions_placeholder_class|default('') }}">
+    <div class="{{ placeholder_class }}__item"></div>
+    <div class="{{ placeholder_class }}__item"></div>
+    <div class="{{ placeholder_class }}__item"></div>
+    <div class="{{ placeholder_class }}__item"></div>
+</div>

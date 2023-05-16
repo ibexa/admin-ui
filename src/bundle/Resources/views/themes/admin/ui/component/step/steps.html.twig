@@ -1,0 +1,23 @@
+{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+
+{% set active_index = null %}
+{% for step in steps %}
+    {% if step.name == step_name %}
+        {% set active_index = loop.index %}
+    {% endif %}
+{% endfor %}
+
+{% set attr = attr|default({})|merge({
+    class: ('ibexa-step ' ~ attr.class|default(''))|trim,
+}) %}
+
+<div {{ html.attributes(attr) }}>
+    <ul class="ibexa-step__wrapper">
+        {% for step in steps %}
+            {% include '@ibexadesign/ui/component/step/step.html.twig' with {
+                step,
+                is_previous_step: active_index > loop.index
+            } %}
+        {% endfor %}
+    </ul>
+</div>

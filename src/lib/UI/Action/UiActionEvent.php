@@ -6,8 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Action;
+namespace Ibexa\AdminUi\UI\Action;
 
+use Ibexa\Contracts\AdminUi\UI\Action\UiActionEventInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\Event;
@@ -41,7 +42,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName(): string
     {
@@ -49,7 +50,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setName(string $name): void
     {
@@ -57,7 +58,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getType(): string
     {
@@ -65,7 +66,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setType(string $type): void
     {
@@ -73,7 +74,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getForm(): FormInterface
     {
@@ -81,7 +82,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setForm(FormInterface $form): void
     {
@@ -89,7 +90,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getResponse(): ?Response
     {
@@ -97,10 +98,12 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setResponse(?Response $response): void
     {
         $this->response = $response;
     }
 }
+
+class_alias(UiActionEvent::class, 'EzSystems\EzPlatformAdminUi\UI\Action\UiActionEvent');

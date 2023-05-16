@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
-use EzSystems\EzPlatformAdminUi\UI\Config\ProviderInterface;
-use EzSystems\EzPlatformUser\UserSetting\UserSettingService;
+use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\User\UserSetting\UserSettingService;
 
 final class BackOfficeLanguage implements ProviderInterface
 {
-    /** @var \EzSystems\EzPlatformUser\UserSetting\UserSettingService */
+    /** @var \Ibexa\User\UserSetting\UserSettingService */
     private $userSettingService;
 
     public function __construct(UserSettingService $userSettingService)
@@ -22,10 +22,10 @@ final class BackOfficeLanguage implements ProviderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function getConfig(): string
     {

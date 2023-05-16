@@ -8,17 +8,17 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Event;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class CancelEditVersionDraftEvent extends Event
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Content */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */
     private $content;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
     private $referrerLocation;
 
     /** @var \Symfony\Component\HttpFoundation\Response|null */

@@ -1,0 +1,12 @@
+.ibexa-icon-tag {
+    display: flex;
+    align-items: center;
+    color: $ibexa-color-dark-400;
+    font-size: $ibexa-text-font-size-medium;
+    margin-bottom: calculateRem(24px);
+
+    .ibexa-icon {
+        margin-right: calculateRem(8px);
+        fill: $ibexa-color-dark-400;
+    }
+}

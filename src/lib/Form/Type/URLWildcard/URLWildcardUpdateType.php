@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\URLWildcard;
+namespace Ibexa\AdminUi\Form\Type\URLWildcard;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\URLWildcard\URLWildcardUpdateData;
+use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardUpdateData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class URLWildcardUpdateType extends AbstractType
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -36,7 +36,7 @@ final class URLWildcardUpdateType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -46,3 +46,5 @@ final class URLWildcardUpdateType extends AbstractType
         ]);
     }
 }
+
+class_alias(URLWildcardUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\URLWildcard\URLWildcardUpdateType');

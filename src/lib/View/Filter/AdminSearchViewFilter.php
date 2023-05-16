@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\View\Filter;
+namespace Ibexa\AdminUi\View\Filter;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\SectionService;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
-use eZ\Publish\Core\MVC\Symfony\View\ViewEvents;
-use EzSystems\EzPlatformAdminUi\Form\Type\Search\SearchType;
-use EzSystems\EzPlatformAdminUi\Specification\SiteAccess\IsAdmin;
-use Ibexa\Platform\Bundle\Search\Form\Data\SearchData;
-use Ibexa\Platform\Search\View\SearchViewFilter;
+use Ibexa\AdminUi\Form\Type\Search\SearchType;
+use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
+use Ibexa\Bundle\Search\Form\Data\SearchData;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
+use Ibexa\Core\MVC\Symfony\View\ViewEvents;
+use Ibexa\Search\View\SearchViewFilter;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,22 +25,22 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class AdminSearchViewFilter implements EventSubscriberInterface
 {
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Symfony\Component\Form\FormFactoryInterface */
     private $formFactory;
 
-    /** @var \eZ\Publish\API\Repository\SectionService */
+    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
     private $sectionService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
     /** @var array */
     private $siteAccessGroups;
 
-    /** @var \Ibexa\Platform\Search\View\SearchViewFilter */
+    /** @var \Ibexa\Search\View\SearchViewFilter */
     private $innerFilter;
 
     /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
@@ -76,15 +76,15 @@ class AdminSearchViewFilter implements EventSubscriberInterface
      * @throws \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function handleSearchForm(FilterViewBuilderParametersEvent $event): void
     {
         $controllerAction = $event->getParameters()->get('_controller');
 
         if (
-            'Ibexa\Platform\Bundle\Search\Controller\SearchController::searchAction' !== $controllerAction
+            'Ibexa\Bundle\Search\Controller\SearchController::searchAction' !== $controllerAction
         ) {
             return;
         }
@@ -140,7 +140,7 @@ class AdminSearchViewFilter implements EventSubscriberInterface
             [
                 'method' => Request::METHOD_GET,
                 'csrf_protection' => false,
-                'action' => $this->urlGenerator->generate('ezplatform.search'),
+                'action' => $this->urlGenerator->generate('ibexa.search'),
             ]
         );
 
@@ -154,3 +154,5 @@ class AdminSearchViewFilter implements EventSubscriberInterface
         return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
     }
 }
+
+class_alias(AdminSearchViewFilter::class, 'EzSystems\EzPlatformAdminUi\View\Filter\AdminSearchViewFilter');

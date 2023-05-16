@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Templating\Twig;
+namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
-use eZ\Publish\Core\MVC\Symfony\Templating\Exception\MissingFieldBlockException;
-use eZ\Publish\Core\MVC\Symfony\Templating\FieldBlockRendererInterface;
-use EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\Core\MVC\Symfony\Templating\Exception\MissingFieldBlockException;
+use Ibexa\Core\MVC\Symfony\Templating\FieldBlockRendererInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class FieldEditRenderingExtension extends AbstractExtension
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\Templating\FieldBlockRendererInterface|\eZ\Publish\Core\MVC\Symfony\Templating\Twig\FieldBlockRenderer */
+    /** @var \Ibexa\Core\MVC\Symfony\Templating\FieldBlockRendererInterface|\Ibexa\Core\MVC\Symfony\Templating\Twig\FieldBlockRenderer */
     private $fieldBlockRenderer;
 
     public function __construct(FieldBlockRendererInterface $fieldBlockRenderer)
@@ -25,25 +25,35 @@ class FieldEditRenderingExtension extends AbstractExtension
         $this->fieldBlockRenderer = $fieldBlockRenderer;
     }
 
-    public function getName(): string
-    {
-        return 'ezplatform.content_forms.field_edit_rendering';
-    }
-
     /**
      * @return \Twig\TwigFunction[]
      */
     public function getFunctions(): array
     {
+        $fieldDefinitionEditCallable = function (Environment $twig, FieldDefinitionData $fieldDefinitionData, array $params = []) {
+            $this->fieldBlockRenderer->setTwig($twig);
+
+            return $this->renderFieldDefinitionEdit($fieldDefinitionData, $params);
+        };
+
         return [
             new TwigFunction(
                 'ez_render_field_definition_edit',
-                function (Environment $twig, FieldDefinitionData $fieldDefinitionData, array $params = []) {
-                    $this->fieldBlockRenderer->setTwig($twig);
-
-                    return $this->renderFieldDefinitionEdit($fieldDefinitionData, $params);
-                },
-                ['is_safe' => ['html'], 'needs_environment' => true]
+                $fieldDefinitionEditCallable,
+                [
+                    'is_safe' => ['html'],
+                    'needs_environment' => true,
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_render_field_definition_edit',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_render_field_definition_edit',
+                $fieldDefinitionEditCallable,
+                [
+                    'is_safe' => ['html'],
+                    'needs_environment' => true,
+                ]
             ),
         ];
     }
@@ -60,3 +70,5 @@ class FieldEditRenderingExtension extends AbstractExtension
         }
     }
 }
+
+class_alias(FieldEditRenderingExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\FieldEditRenderingExtension');

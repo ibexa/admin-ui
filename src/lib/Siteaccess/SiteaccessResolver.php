@@ -6,25 +6,25 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Siteaccess;
+namespace Ibexa\AdminUi\Siteaccess;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessService;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService;
 
 class SiteaccessResolver implements SiteaccessResolverInterface
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessPreviewVoterInterface[] */
+    /** @var \Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterInterface[] */
     private $siteAccessPreviewVoters;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessService */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService */
     private $siteAccessService;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
      * @param iterable $siteaccessPreviewVoters
      * @param array $siteAccesses
      */
@@ -39,14 +39,14 @@ class SiteaccessResolver implements SiteaccessResolverInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param int|null $versionNo
      * @param string|null $languageCode
      *
      * @return array
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function getSiteaccessesForLocation(
         Location $location,
@@ -59,7 +59,7 @@ class SiteaccessResolver implements SiteaccessResolverInterface
     }
 
     /**
-     * @return \eZ\Publish\Core\MVC\Symfony\SiteAccess[]
+     * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
      */
     public function getSiteAccessesListForLocation(
         Location $location,
@@ -71,7 +71,7 @@ class SiteaccessResolver implements SiteaccessResolverInterface
         $languageCode = $languageCode ?? $contentInfo->mainLanguageCode;
 
         $eligibleSiteAccesses = [];
-        /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess $siteAccess */
+        /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteAccess */
         foreach ($this->siteAccessService->getAll() as $siteAccess) {
             $context = new SiteaccessPreviewVoterContext($location, $versionInfo, $siteAccess->name, $languageCode);
             foreach ($this->siteAccessPreviewVoters as $siteAccessPreviewVoter) {
@@ -103,3 +103,5 @@ class SiteaccessResolver implements SiteaccessResolverInterface
         );
     }
 }
+
+class_alias(SiteaccessResolver::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessResolver');

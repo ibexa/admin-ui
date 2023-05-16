@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\DataTransformer;
+namespace Ibexa\AdminUi\Form\DataTransformer;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -23,13 +23,13 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class UDWBasedValueModelTransformer implements DataTransformerInterface
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
     public function __construct(
@@ -43,9 +43,9 @@ class UDWBasedValueModelTransformer implements DataTransformerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location[]|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]|null
      */
     public function transform($value): ?array
     {
@@ -75,7 +75,7 @@ class UDWBasedValueModelTransformer implements DataTransformerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @return int[]|null
      */
@@ -103,3 +103,5 @@ class UDWBasedValueModelTransformer implements DataTransformerInterface
         return (int)$locationId;
     }
 }
+
+class_alias(UDWBasedValueModelTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\UDWBasedValueModelTransformer');
