@@ -56,6 +56,11 @@
         <target state="new">Custom range</target>
         <note>key: search.custom_range</note>
       </trans-unit>
+      <trans-unit id="f32993c555744e5c203137f3ee0e380d27e9cfef" resname="search.date.range">
+        <source>From date - to date</source>
+        <target state="new">From date - to date</target>
+        <note>key: search.date.range</note>
+      </trans-unit>
       <trans-unit id="72ba560fb6de0836dac4bd05c9692323f88012c1" resname="search.empty.subtitle">
         <source>Enter the phrase to find</source>
         <target state="new">Enter the phrase to find</target>
