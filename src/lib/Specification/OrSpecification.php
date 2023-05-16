@@ -6,32 +6,27 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Specification;
+namespace Ibexa\AdminUi\Specification;
 
+use Ibexa\Contracts\Core\Specification\OrSpecification as BaseOrSpecification;
+use Ibexa\Contracts\Core\Specification\SpecificationInterface;
+
+/**
+ * @deprecated 4.4.0 Use \Ibexa\Contracts\Core\Specification\OrSpecification
+ */
 class OrSpecification extends AbstractSpecification
 {
-    /** @var SpecificationInterface */
-    private $one;
-    /** @var SpecificationInterface */
-    private $two;
+    private SpecificationInterface $baseSpecification;
 
-    /**
-     * @param SpecificationInterface $one
-     * @param SpecificationInterface $two
-     */
     public function __construct(SpecificationInterface $one, SpecificationInterface $two)
     {
-        $this->one = $one;
-        $this->two = $two;
+        $this->baseSpecification = new BaseOrSpecification($one, $two);
     }
 
-    /**
-     * @param $item
-     *
-     * @return bool
-     */
     public function isSatisfiedBy($item): bool
     {
-        return $this->one->isSatisfiedBy($item) || $this->two->isSatisfiedBy($item);
+        return $this->baseSpecification->isSatisfiedBy($item);
     }
 }
+
+class_alias(OrSpecification::class, 'EzSystems\EzPlatformAdminUi\Specification\OrSpecification');

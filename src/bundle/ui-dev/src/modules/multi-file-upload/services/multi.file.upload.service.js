@@ -1,3 +1,5 @@
+const { Translator } = window;
+
 /**
  * Handles ready state change of request
  *
@@ -48,7 +50,7 @@ const handleRequestResponse = (response) => {
  * @param {Function} resolve
  * @param {Function} reject
  */
-const readFile = function(file, resolve, reject) {
+const readFile = function (file, resolve, reject) {
     this.addEventListener('load', () => resolve({ fileReader: this, file }), false);
     this.addEventListener('error', () => reject(), false);
     this.readAsDataURL(file);
@@ -109,10 +111,10 @@ const detectContentTypeMapping = (file, parentInfo, config) => {
  * @returns {Promise}
  */
 const getContentTypeByIdentifier = ({ token, siteaccess }, identifier) => {
-    const request = new Request(`/api/ezp/v2/content/types?identifier=${identifier}`, {
+    const request = new Request(`/api/ibexa/v2/content/types?identifier=${identifier}`, {
         method: 'GET',
         headers: {
-            Accept: 'application/vnd.ez.api.ContentTypeInfoList+json',
+            Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
             'X-Siteaccess': siteaccess,
             'X-CSRF-Token': token,
         },
@@ -133,10 +135,10 @@ const getContentTypeByIdentifier = ({ token, siteaccess }, identifier) => {
  * @returns {Promise}
  */
 const getFieldDefinitionByIdentifier = ({ token, siteaccess }, contentTypeId, fieldIdentifier) => {
-    const request = new Request(`/api/ezp/v2/content/types/${contentTypeId}/fieldDefinition/${fieldIdentifier}`, {
+    const request = new Request(`/api/ibexa/v2/content/types/${contentTypeId}/fieldDefinition/${fieldIdentifier}`, {
         method: 'GET',
         headers: {
-            Accept: 'application/vnd.ez.api.FieldDefinition+json',
+            Accept: 'application/vnd.ibexa.api.FieldDefinition+json',
             'X-Siteaccess': siteaccess,
             'X-CSRF-Token': token,
         },
@@ -156,7 +158,7 @@ const getFieldDefinitionByIdentifier = ({ token, siteaccess }, contentTypeId, fi
  * @returns {Promise}
  */
 const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
-    let parentLocation = `/api/ezp/v2/content/locations${parentInfo.locationPath}`;
+    let parentLocation = `/api/ibexa/v2/content/locations${parentInfo.locationPath}`;
 
     parentLocation = parentLocation.endsWith('/') ? parentLocation.slice(0, -1) : parentLocation;
 
@@ -164,7 +166,15 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
 
     return getContentTypeByIdentifier(config, mapping.contentTypeIdentifier)
         .then((response) => response.json())
-        .catch(() => window.eZ.helpers.notification.showErrorNotification(Translator.trans(/*@Desc("Cannot get content type by identifier")*/ 'cannot_get_content_type_identifier.message', {}, 'multi_file_upload')))
+        .catch(() =>
+            window.ibexa.helpers.notification.showErrorNotification(
+                Translator.trans(
+                    /*@Desc("Cannot get content type by identifier")*/ 'cannot_get_content_type_identifier.message',
+                    {},
+                    'multi_file_upload',
+                ),
+            ),
+        )
         .then((response) => {
             const fileValue = {
                 fileName: data.file.name,
@@ -172,13 +182,21 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
             };
 
             const contentType = response.ContentTypeInfoList.ContentType[0];
-            const contentFieldIdentifier = mapping.contentFieldIdentifier;
+            const { contentFieldIdentifier } = mapping;
 
             return getFieldDefinitionByIdentifier(config, contentType.id, contentFieldIdentifier)
-                .then((response) => response.json())
-                .catch(() => window.eZ.helpers.notification.showErrorNotification(Translator.trans(/*@Desc("Cannot get content type by identifier")*/ 'cannot_get_content_type_identifier.message', {}, 'multi_file_upload')))
-                .then((response) => {
-                    const fieldDefinition = response.FieldDefinition;
+                .then((parsedResponse) => parsedResponse.json())
+                .catch(() =>
+                    window.ibexa.helpers.notification.showErrorNotification(
+                        Translator.trans(
+                            /*@Desc("Cannot get content type by identifier")*/ 'cannot_get_content_type_identifier.message',
+                            {},
+                            'multi_file_upload',
+                        ),
+                    ),
+                )
+                .then((parsedResponse) => {
+                    const fieldDefinition = parsedResponse.FieldDefinition;
 
                     if (fieldDefinition.fieldType === 'ezimage') {
                         fileValue.alternativeText = data.file.name;
@@ -204,9 +222,25 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
 
                     return struct;
                 })
-                .catch(() => window.eZ.helpers.notification.showErrorNotification(Translator.trans(/*@Desc("Cannot create content structure")*/ 'cannot_create_content_structure.message', {}, 'multi_file_upload')));
+                .catch(() =>
+                    window.ibexa.helpers.notification.showErrorNotification(
+                        Translator.trans(
+                            /*@Desc("Cannot create content structure")*/ 'cannot_create_content_structure.message',
+                            {},
+                            'multi_file_upload',
+                        ),
+                    ),
+                );
         })
-        .catch(() => window.eZ.helpers.notification.showErrorNotification(Translator.trans(/*@Desc("Cannot create content structure")*/ 'cannot_create_content_structure.message', {}, 'multi_file_upload')));
+        .catch(() =>
+            window.ibexa.helpers.notification.showErrorNotification(
+                Translator.trans(
+                    /*@Desc("Cannot create content structure")*/ 'cannot_create_content_structure.message',
+                    {},
+                    'multi_file_upload',
+                ),
+            ),
+        );
 };
 
 /**
@@ -221,14 +255,14 @@ const createDraft = ({ struct, token, siteaccess }, requestEventHandlers) => {
     const xhr = new XMLHttpRequest();
     const body = JSON.stringify(struct);
     const headers = {
-        Accept: 'application/vnd.ez.api.Content+json',
-        'Content-Type': 'application/vnd.ez.api.ContentCreate+json',
+        Accept: 'application/vnd.ibexa.api.Content+json',
+        'Content-Type': 'application/vnd.ibexa.api.ContentCreate+json',
         'X-CSRF-Token': token,
         'X-Siteaccess': siteaccess,
     };
 
     return new Promise((resolve, reject) => {
-        xhr.open('POST', '/api/ezp/v2/content/objects', true);
+        xhr.open('POST', '/api/ibexa/v2/content/objects', true);
 
         xhr.onreadystatechange = handleOnReadyStateChange.bind(null, xhr, resolve, reject);
 
@@ -247,8 +281,8 @@ const createDraft = ({ struct, token, siteaccess }, requestEventHandlers) => {
             xhr.onloadstart = requestEventHandlers.onloadstart;
         }
 
-        for (let headerType in headers) {
-            if (headers.hasOwnProperty(headerType)) {
+        for (const headerType in headers) {
+            if (Object.prototype.hasOwnProperty.call(headers, headerType)) {
                 xhr.setRequestHeader(headerType, headers[headerType]);
             }
         }
@@ -266,7 +300,7 @@ const createDraft = ({ struct, token, siteaccess }, requestEventHandlers) => {
  * @returns {Promise}
  */
 const publishDraft = ({ token, siteaccess }, response) => {
-    if (!response || !response.hasOwnProperty('Content')) {
+    if (!response || !Object.prototype.hasOwnProperty.call(response, 'Content')) {
         return Promise.reject('Cannot publish content based on an uploaded file');
     }
 
@@ -294,7 +328,7 @@ const publishDraft = ({ token, siteaccess }, response) => {
  * @returns {Boolean}
  */
 const canCreateContent = (file, parentInfo, config) => {
-    if (!config.hasOwnProperty('contentCreatePermissionsConfig') || !config.contentCreatePermissionsConfig) {
+    if (!Object.prototype.hasOwnProperty.call(config, 'contentCreatePermissionsConfig') || !config.contentCreatePermissionsConfig) {
         return true;
     }
 
@@ -359,7 +393,7 @@ export const publishFile = (data, requestEventHandlers, callback) => {
     createDraft(data, requestEventHandlers)
         .then(publishDraft.bind(null, data))
         .then(callback)
-        .catch(() => window.eZ.helpers.notification.showErrorNotification('An error occurred while publishing a file'));
+        .catch(() => window.ibexa.helpers.notification.showErrorNotification('An error occurred while publishing a file'));
 };
 
 /**
@@ -384,5 +418,5 @@ export const deleteFile = ({ token, siteaccess }, struct, callback) => {
     fetch(request)
         .then(handleRequestResponse)
         .then(callback)
-        .catch(() => window.eZ.helpers.notification.showErrorNotification('An error occurred while deleting a file'));
+        .catch(() => window.ibexa.helpers.notification.showErrorNotification('An error occurred while deleting a file'));
 };

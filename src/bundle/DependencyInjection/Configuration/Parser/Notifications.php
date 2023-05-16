@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser;
+namespace Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\AbstractParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\AbstractParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 /**
@@ -28,7 +28,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 class Notifications extends AbstractParser
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer)
     {
@@ -55,7 +55,7 @@ class Notifications extends AbstractParser
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addSemanticConfig(NodeBuilder $nodeBuilder)
     {
@@ -73,3 +73,5 @@ class Notifications extends AbstractParser
             ->end();
     }
 }
+
+class_alias(Notifications::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\Notifications');

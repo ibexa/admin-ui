@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Specification\Location;
+namespace Ibexa\AdminUi\Specification\Location;
 
-use EzSystems\EzPlatformAdminUi\Specification\AbstractSpecification;
+use Ibexa\AdminUi\Specification\AbstractSpecification;
 
 class IsContainer extends AbstractSpecification
 {
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $item
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
      *
      * @return bool
      */
@@ -22,3 +22,5 @@ class IsContainer extends AbstractSpecification
         return $item->getContent()->getContentType()->isContainer;
     }
 }
+
+class_alias(IsContainer::class, 'EzSystems\EzPlatformAdminUi\Specification\Location\IsContainer');

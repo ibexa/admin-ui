@@ -4,14 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\UI\Service;
+namespace Ibexa\AdminUi\UI\Service;
 
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Ancestor;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location\Path;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Ancestor;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\Path;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
 
 /**
  * Service for loading path information.
@@ -20,7 +20,7 @@ use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
  */
 class PathService
 {
-    /** @var \eZ\Publish\API\Repository\SearchService */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     private $searchService;
 
     public function __construct(SearchService $searchService)
@@ -31,9 +31,9 @@ class PathService
     /**
      * Load path locations.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      */
     public function loadPathLocations(Location $location)
     {
@@ -49,3 +49,5 @@ class PathService
         }, $searchResult->searchHits);
     }
 }
+
+class_alias(PathService::class, 'EzSystems\EzPlatformAdminUi\UI\Service\PathService');

@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber;
+namespace Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber;
 
-use EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
+use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ObjectRelationStartingLocationId implements EventSubscriberInterface
@@ -24,7 +24,7 @@ class ObjectRelationStartingLocationId implements EventSubscriberInterface
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event
+     * @param \Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event
      */
     public function onUdwConfigResolve(ConfigResolveEvent $event): void
     {
@@ -37,14 +37,22 @@ class ObjectRelationStartingLocationId implements EventSubscriberInterface
         if (
             !isset($context['type'])
             || 'object_relation' !== $context['type']
-            || !isset($context['starting_location_id'])
         ) {
             return;
         }
 
         $config = $event->getConfig();
-        $config['starting_location_id'] = $context['starting_location_id'];
+
+        $startingLocationId = $context['starting_location_id'] ?? $config['starting_location_id'];
+        $rootDefaultLocation = $context['root_default_location'] ?? false;
+
+        $config['starting_location_id'] = $startingLocationId;
+        if ($rootDefaultLocation) {
+            $config['root_location_id'] = $startingLocationId;
+        }
 
         $event->setConfig($config);
     }
 }
+
+class_alias(ObjectRelationStartingLocationId::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\ObjectRelationStartingLocationId');

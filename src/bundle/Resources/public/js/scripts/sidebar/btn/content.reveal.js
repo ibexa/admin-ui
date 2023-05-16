@@ -1,5 +1,5 @@
-(function(global, doc) {
-    const revealButton = doc.querySelector('.ez-btn--reveal');
+(function (global, doc) {
+    const revealButton = doc.querySelector('.ibexa-btn--reveal');
     const form = doc.querySelector('form[name="content_visibility_update"]');
     const visiblity = doc.querySelector('#content_visibility_update_visible');
 
@@ -13,6 +13,6 @@
             visiblity.value = 1;
             form.submit();
         },
-        false
+        false,
     );
 })(window, window.document);

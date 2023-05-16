@@ -1,9 +1,10 @@
-(function(global, doc, eZ, React, ReactDOM, Translator) {
-    const btns = doc.querySelectorAll('.btn--udw-copy');
+(function (global, doc, ibexa, React, ReactDOM, Translator) {
+    const btns = doc.querySelectorAll('.ibexa-btn--udw-copy');
     const form = doc.querySelector('form[name="location_copy"]');
     const input = form.querySelector('#location_copy_new_parent_location');
     const udwContainer = doc.getElementById('react-udw');
-    const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
+    let udwRoot = null;
+    const closeUDW = () => udwRoot.unmount();
     const onConfirm = (items) => {
         closeUDW();
 
@@ -17,8 +18,9 @@
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
         const title = Translator.trans(/*@Desc("Select Location")*/ 'copy.title', {}, 'universal_discovery_widget');
 
-        ReactDOM.render(
-            React.createElement(eZ.modules.UniversalDiscovery, {
+        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot.render(
+            React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm,
                 onCancel,
                 title,
@@ -26,9 +28,8 @@
                 containersOnly: true,
                 ...config,
             }),
-            udwContainer
         );
     };
 
     btns.forEach((btn) => btn.addEventListener('click', openUDW, false));
-})(window, window.document, window.eZ, window.React, window.ReactDOM, window.Translator);
+})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator);

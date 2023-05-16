@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\LocationView;
+namespace Ibexa\AdminUi\Tab\LocationView;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentEditData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Version\VersionRemoveData;
-use EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory;
-use EzSystems\EzPlatformAdminUi\Specification\ContentIsUser;
-use EzSystems\EzPlatformAdminUi\Tab\AbstractEventDispatchingTab;
-use EzSystems\EzPlatformAdminUi\Tab\ConditionalTabInterface;
-use EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface;
-use EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
+use Ibexa\AdminUi\Form\Data\Version\VersionRemoveData;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Specification\ContentIsUser;
+use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
+use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -31,31 +31,31 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
 {
     public const FORM_REMOVE_DRAFT = 'version_remove_draft';
     public const FORM_REMOVE_ARCHIVED = 'version_remove_archived';
-    const URI_FRAGMENT = 'ez-tab-location-view-versions';
+    public const URI_FRAGMENT = 'ibexa-tab-location-view-versions';
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory */
+    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     protected $datasetFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     protected $formFactory;
 
     /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
     protected $urlGenerator;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     protected $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
     /**
      * @param \Twig\Environment $twig
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory $formFactory
+     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
+     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
      * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
-     * @param \eZ\Publish\API\Repository\UserService $userService
+     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
+     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
@@ -109,8 +109,8 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
      *
      * @return bool
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function evaluate(array $parameters): bool
     {
@@ -118,21 +118,21 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplate(): string
     {
-        return '@ezdesign/content/tab/versions/tab.html.twig';
+        return '@ibexadesign/content/tab/versions/tab.html.twig';
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Content $content */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
         $content = $contextParameters['content'];
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
         $location = $contextParameters['location'];
 
         $draftPaginationParams = $contextParameters['draft_pagination_params'];
@@ -149,7 +149,7 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
         $draftPagerfanta->setMaxPerPage($draftPaginationParams['limit']);
         $draftPagerfanta->setCurrentPage(min($draftPaginationParams['page'], $draftPagerfanta->getNbPages()));
 
-        /** @var \EzSystems\EzPlatformAdminUi\UI\Value\Content\VersionInfo[] $policies */
+        /** @var \Ibexa\AdminUi\UI\Value\Content\VersionInfo[] $policies */
         $draftVersions = $draftPagerfanta->getCurrentPageResults();
 
         $archivedVersions = $versionsDataset->getArchivedVersions();
@@ -185,7 +185,7 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo[] $versions
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[] $versions
      *
      * @return array
      */
@@ -197,7 +197,7 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param array $versions
      * @param bool $isDraftForm
      *
@@ -208,7 +208,9 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
         $contentInfo = $location->getContentInfo();
         $data = new VersionRemoveData($contentInfo, $this->getVersionNumbers($versions));
 
-        $formName = sprintf('version-remove-%s', $isDraftForm
+        $formName = sprintf(
+            'version-remove-%s',
+            $isDraftForm
             ? self::FORM_REMOVE_DRAFT
             : self::FORM_REMOVE_ARCHIVED
         );
@@ -216,3 +218,5 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
         return $this->formFactory->removeVersion($data, $formName);
     }
 }
+
+class_alias(VersionsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\VersionsTab');

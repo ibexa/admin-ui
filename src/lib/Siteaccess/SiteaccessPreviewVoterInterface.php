@@ -6,16 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Siteaccess;
+namespace Ibexa\AdminUi\Siteaccess;
 
 interface SiteaccessPreviewVoterInterface
 {
     /**
      * Votes whether the Content item can be previewed in given siteaccess.
      *
-     * @param \EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessPreviewVoterContext $context
+     * @param \Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterContext $context
      *
      * @return bool
      */
     public function vote(SiteaccessPreviewVoterContext $context): bool;
 }
+
+class_alias(SiteaccessPreviewVoterInterface::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessPreviewVoterInterface');

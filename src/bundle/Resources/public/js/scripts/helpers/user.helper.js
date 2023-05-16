@@ -1,7 +1,7 @@
-(function(global, doc, eZ) {
+(function (global, doc, ibexa) {
     const getId = () => doc.querySelector('meta[name="UserId"]').content;
 
-    eZ.addConfig('helpers.user', {
+    ibexa.addConfig('helpers.user', {
         getId,
     });
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

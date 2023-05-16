@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Templating\Twig;
+namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
-use EzSystems\EzPlatformAdminUi\UI\Service\ContentTypeIconResolver;
+use Ibexa\AdminUi\UI\Service\ContentTypeIconResolver;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class ContentTypeIconExtension extends AbstractExtension
 {
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Service\ContentTypeIconResolver */
+    /** @var \Ibexa\AdminUi\UI\Service\ContentTypeIconResolver */
     private $contentTypeIconResolver;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\UI\Service\ContentTypeIconResolver $contentTypeIconResolver
+     * @param \Ibexa\AdminUi\UI\Service\ContentTypeIconResolver $contentTypeIconResolver
      */
     public function __construct(ContentTypeIconResolver $contentTypeIconResolver)
     {
@@ -26,7 +26,7 @@ class ContentTypeIconExtension extends AbstractExtension
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getFunctions(): array
     {
@@ -36,8 +36,19 @@ class ContentTypeIconExtension extends AbstractExtension
                 [$this->contentTypeIconResolver, 'getContentTypeIcon'],
                 [
                     'is_safe' => ['html'],
+                    'deprecated' => '4.0',
+                    'alternative' => 'ibexa_content_type_icon',
+                ]
+            ),
+            new TwigFunction(
+                'ibexa_content_type_icon',
+                [$this->contentTypeIconResolver, 'getContentTypeIcon'],
+                [
+                    'is_safe' => ['html'],
                 ]
             ),
         ];
     }
 }
+
+class_alias(ContentTypeIconExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\ContentTypeIconExtension');

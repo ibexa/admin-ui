@@ -4,7 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType;
+namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
 use Symfony\Component\Form\DataTransformerInterface;
 
@@ -16,7 +16,7 @@ use Symfony\Component\Form\DataTransformerInterface;
 class MediaValueTransformer extends AbstractBinaryBaseTransformer implements DataTransformerInterface
 {
     /**
-     * @param \eZ\Publish\Core\FieldType\Media\Value $value
+     * @param \Ibexa\Core\FieldType\Media\Value $value
      *
      * @return array
      */
@@ -41,13 +41,13 @@ class MediaValueTransformer extends AbstractBinaryBaseTransformer implements Dat
     /**
      * @param array $value
      *
-     * @return \eZ\Publish\Core\FieldType\Media\Value
+     * @return \Ibexa\Core\FieldType\Media\Value
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
     public function reverseTransform($value)
     {
-        /** @var \eZ\Publish\Core\FieldType\Media\Value $valueObject */
+        /** @var \Ibexa\Core\FieldType\Media\Value $valueObject */
         $valueObject = $this->getReverseTransformedValue($value);
 
         if ($this->fieldType->isEmptyValue($valueObject)) {
@@ -63,3 +63,5 @@ class MediaValueTransformer extends AbstractBinaryBaseTransformer implements Dat
         return $valueObject;
     }
 }
+
+class_alias(MediaValueTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType\MediaValueTransformer');

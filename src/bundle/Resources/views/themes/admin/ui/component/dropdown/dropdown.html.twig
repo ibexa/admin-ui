@@ -1,0 +1,175 @@
+{% trans_default_domain 'dropdown' %}
+
+{% set choices_flat = choices
+    | map(choice => choice.choices is defined ? choice.choices : [choice])
+    | reduce((carry, choices) => carry|merge(choices), [])
+%}
+{% set preferred_choices = preferred_choices|default([]) %}
+{% set min_search_items = min_search_items|default(5) %}
+{% set min_select_all_toggler_items = min_select_all_toggler_items|default(5) %}
+{% set min_item_width = min_item_width|default(100) %}
+{% set custom_form = custom_form is defined ? custom_form : true %}
+{% set translation_domain = translation_domain|default(false) %}
+{% set value = value is defined ? value : null %}
+{% set multiple = multiple|default(false) %}
+{% set no_items = choices_flat|length == 0 %}
+{% set is_dynamic = is_dynamic|default(false) %}
+{% set is_disabled = is_disabled|default(false) or attr.readonly|default(false) %}
+{% set is_selector = is_selector|default(false) %}
+{% set has_select_all_toggler = has_select_all_toggler|default(false) %}
+{% set item_icon = item_icon|default() %}
+{% set item_icon_class = item_icon_class|default('') %}
+
+{% macro get_translated_label(label, translation_domain) %}
+    {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
+{% endmacro %}
+
+<div
+    class="ibexa-dropdown
+        {{ multiple ? "ibexa-dropdown--multi" : "ibexa-dropdown--single" }}
+        {{ custom_init|default(false) ? "ibexa-dropdown--custom-init" }}
+        {{ is_dynamic ? "ibexa-dropdown--dynamic" }}
+        {{ is_small|default(false) ? "ibexa-dropdown--small" }}
+        {{ is_ghost|default(false) ? "ibexa-dropdown--ghost" }}
+        {{ is_selector ? "ibexa-dropdown--selector" }}
+        {{ no_items and not is_dynamic or is_disabled ? "ibexa-dropdown--disabled" }}
+        {{ class|default('') }}
+    "
+    {% if is_hidden|default(false) %}hidden="hidden"{% endif %}
+>
+    <div class="ibexa-dropdown__source">
+        {{ source|default(null)|raw }}
+    </div>
+    <div class="ibexa-dropdown__wrapper">
+        {% set placeholder_list_item %}
+            <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder">
+                {{ 'dropdown.placeholder.empty'|trans|desc("No options available") }}
+            </li>
+        {% endset %}
+        <ul
+            class="ibexa-dropdown__selection-info"
+            data-min-item-width="{{ min_item_width }}"
+            {% if selected_item_label is defined %}
+                data-selected-item-label="{{ selected_item_label|e('html_attr') }}"
+            {% endif %}
+            data-icon-template="{{ include('@ibexadesign/ui/component/dropdown/dropdown_selected_item_icon.html.twig', {
+                icon: '{{ icon }}',
+            })|e('html_attr') }}"
+            data-template="{{ include('@ibexadesign/ui/component/dropdown/dropdown_selected_item.html.twig', {
+                value: '{{ value }}',
+                label: '{{ label }}',
+            })|e('html_attr') }}"
+            data-placeholder-template="{{ placeholder_list_item|e('html_attr') }}"
+        >
+            {% if no_items %}
+                {% if not is_dynamic %}
+                    {{ placeholder_list_item }}
+                {% endif %}
+            {% else %}
+                {% if value is empty %}
+                    {% if not multiple %}
+                        {% if placeholder is defined and placeholder is not none %}
+                            {% set default_label = 'dropdown.placeholder'|trans()|desc('Choose an option') %}
+
+                            {% include '@ibexadesign/ui/component/dropdown/dropdown_selected_item.html.twig' with {
+                                value: '',
+                                label: _self.get_translated_label(placeholder, translation_domain)|trim|default(default_label),
+                            } %}
+                        {% else %}
+                            {% set first_choice = choices_flat|first %}
+
+                            {% include '@ibexadesign/ui/component/dropdown/dropdown_selected_item.html.twig' with {
+                                value: first_choice.value,
+                                label: _self.get_translated_label(first_choice.label, translation_domain),
+                                icon: first_choice.icon is defined ? first_choice.icon,
+                            } %}
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    {% for choice in choices_flat %}
+                        {% if custom_form ? choice.value == value : choice is selectedchoice(value) %}
+                            {% set label = selected_item_label is defined
+                                ? selected_item_label
+                                : _self.get_translated_label(choice.label, translation_domain)
+                            %}
+
+                            {% include '@ibexadesign/ui/component/dropdown/dropdown_selected_item.html.twig' with {
+                                label,
+                                value: choice.value,
+                                icon: choice.icon is defined ? choice.icon,
+                            } %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {% if multiple %}
+                    <li
+                        class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder"
+                        {% if value is empty %}hidden{% endif %}
+                    >
+                        {% if placeholder is defined and placeholder is not none %}
+                            {{ _self.get_translated_label(placeholder, translation_domain )}}
+                        {% else %}
+                            {{ 'dropdown.placeholder'|trans|desc("Choose an option") }}
+                        {% endif %}
+                    </li>
+                {% endif %}
+            {% endif %}
+
+            <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-overflow-number" hidden></li>
+        </ul>
+        <div class="ibexa-dropdown__items {{ items_class|default('') }} {{ choices_flat|length < min_search_items ? 'ibexa-dropdown__items--search-hidden' }}">
+            {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true } -%}
+                {% block content %}
+                    <input
+                        type="text"
+                        placeholder="{{ 'dropdown.search'|trans|desc('Search...') }}"
+                        class="ibexa-dropdown__items-filter ibexa-input ibexa-input--text ibexa-input--small form-control"
+                    />
+                {% endblock %}
+            {%- endembed -%}
+
+            {% if has_select_all_toggler and choices_flat|length >= min_select_all_toggler_items %}
+                {% set selection_toggler_label = value|length
+                    ? 'dropdown.clear'|trans({ '%selected_items_count%': value|length })|desc("Clear (%selected_items_count%)")
+                    : 'dropdown.select_all'|trans({ '%values_count%': value|length })|desc("Select All")
+                %}
+
+                <button type="button" class="ibexa-dropdown__selection-toggler-btn">
+                    {{ selection_toggler_label }}
+                </button>
+            {% endif %}
+
+            <ul
+                class="ibexa-dropdown__items-list"
+                data-template="{{ include('@ibexadesign/ui/component/dropdown/dropdown_item.html.twig', {
+                    custom_form: true,
+                    icon: item_icon,
+                    icon_class: item_icon_class,
+                    choice: {
+                        value: '{{ value }}',
+                        label: '{{ label }}',
+                    },
+                })|e('html_attr') }}"
+            >
+                {% if not multiple and placeholder is defined and placeholder is not none %}
+                    {% set default_label = 'dropdown.placeholder.empty.label'|trans|desc('None') %}
+                    {% set placeholder_choice = {
+                        value: '',
+                        label: _self.get_translated_label(placeholder, translation_domain)|trim|default(default_label),
+                    } %}
+
+                    {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice: placeholder_choice, custom_form: true } %}
+                {% endif %}
+                {% for choice in preferred_choices %}
+                    {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice, preferred_choice: true, custom_form, icon: item_icon, icon_class: item_icon_class } %}
+                {% endfor %}
+                {% if preferred_choices|length > 0 %}
+                    <hr class="ibexa-dropdown__separator" />
+                {% endif %}
+                {% for choice in choices %}
+                    {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice, custom_form, icon: item_icon, icon_class: item_icon_class } %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

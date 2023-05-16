@@ -1,39 +1,29 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from '../../../common/icon/icon';
-import MenuButton from '../menu-button/menu.button';
-
-import { createCssClassNames } from '../../../common/helpers/css.class.names';
+import SimpleDropdown from '../../../common/simple-dropdown/simple.dropdown';
 import { CurrentViewContext, VIEWS } from '../../universal.discovery.module';
 
+const { ibexa, Translator } = window;
+
 const ViewSwitcher = ({ isDisabled }) => {
+    const viewLabel = Translator.trans(/*@Desc("View")*/ 'view_switcher.view', {}, 'universal_discovery_widget');
     const [currentView, setCurrentView] = useContext(CurrentViewContext);
-    const className = createCssClassNames({
-        'c-udw-view-switcher': true,
-        'c-udw-view-switcher--disabled': isDisabled,
-    });
+    const selectedOption = VIEWS.find((option) => option.value === currentView);
+    const onOptionClick = ({ value }) => {
+        setCurrentView(value);
+    };
 
     return (
-        <div className={className}>
-            {VIEWS.map((view) => {
-                const extraClasses = view.id === currentView ? 'c-menu-button--selected' : '';
-                const onClick = () => {
-                    setCurrentView(view.id);
-                    window.eZ.helpers.tooltips.hideAll();
-                };
-
-                return (
-                    <MenuButton
-                        key={view.id}
-                        extraClasses={extraClasses}
-                        onClick={onClick}
-                        isDisabled={isDisabled}
-                        title={view.tooltipLabel}>
-                        <Icon name={view.icon} extraClasses="ez-icon--small-medium" />
-                    </MenuButton>
-                );
-            })}
+        <div className="c-udw-view-switcher">
+            <SimpleDropdown
+                options={VIEWS}
+                selectedOption={selectedOption}
+                onOptionClick={onOptionClick}
+                isDisabled={isDisabled}
+                selectedItemLabel={viewLabel}
+                isSwitcher={true}
+            />
         </div>
     );
 };
@@ -46,7 +36,7 @@ ViewSwitcher.defaultProps = {
     isDisabled: false,
 };
 
-eZ.addConfig(
+ibexa.addConfig(
     'adminUiConfig.universalDiscoveryWidget.topMenuActions',
     [
         {
@@ -55,7 +45,7 @@ eZ.addConfig(
             component: ViewSwitcher,
         },
     ],
-    true
+    true,
 );
 
 export default ViewSwitcher;

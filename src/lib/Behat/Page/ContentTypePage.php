@@ -9,19 +9,19 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use eZ\Publish\API\Repository\ContentTypeService;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
 
 class ContentTypePage extends Page
 {
     /** @var string */
     private $expectedContentTypeName;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
     /** @var mixed */
@@ -29,9 +29,6 @@ class ContentTypePage extends Page
 
     /** @var mixed */
     private $expectedContenTypeId;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $contentTypeDataTable;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private $fieldTable;
@@ -44,18 +41,13 @@ class ContentTypePage extends Page
     ) {
         parent::__construct($session, $router);
         $this->contentTypeService = $contentTypeService;
-        $this->contentTypeDataTable = $tableBuilder->newTable()->withParentLocator($this->getLocator('contentTypeDataTable'))->build();
         $this->fieldTable = $tableBuilder->newTable()->withParentLocator($this->getLocator('contentFieldsTable'))->build();
     }
 
     public function hasProperty($label, $value): bool
     {
-        if (in_array($label, ['Name', 'Identifier', 'Description'])) {
-            return $this->contentTypeDataTable->hasElement([$label => $value]);
-        }
-
         return $this->getHTMLPage()
-            ->findAll($this->getLocator('globalPropertiesRow'))
+            ->findAll($this->getLocator('globalPropertiesItem'))
             ->getByCriterion(new ChildElementTextCriterion($this->getLocator('globalPropertiesLabel'), $label))
             ->find($this->getLocator('globalPropertiesValue'))
             ->getText() === $value;
@@ -106,13 +98,13 @@ class ContentTypePage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('createButton', '.btn-icon .ez-icon-create'),
-            new VisibleCSSLocator('pageTitle', '.ez-header h1'),
-            new VisibleCSSLocator('contentTypeDataTable', '.ez-fieldgroup .ez-fieldgroup__content .ez-table'),
-            new VisibleCSSLocator('contentFieldsTable', '.ez-fieldgroup:nth-of-type(2)'),
-            new VisibleCSSLocator('globalPropertiesRow', '.ez-fieldgroup__content .ez-table__row'),
-            new VisibleCSSLocator('globalPropertiesLabel', '.ez-table__cell:nth-of-type(1)'),
-            new VisibleCSSLocator('globalPropertiesValue', '.ez-table__cell:nth-of-type(2)'),
+            new VisibleCSSLocator('createButton', '.btn-icon .ibexa-icon--create'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
+            new VisibleCSSLocator('contentTypeDataTable', '.ibexa-details .ibexa-table'),
+            new VisibleCSSLocator('contentFieldsTable', '.ibexa-fieldgroup:nth-of-type(2)'),
+            new VisibleCSSLocator('globalPropertiesItem', '.ibexa-details__item'),
+            new VisibleCSSLocator('globalPropertiesLabel', '.ibexa-details__item-label'),
+            new VisibleCSSLocator('globalPropertiesValue', '.ibexa-details__item-content'),
         ];
     }
 }
