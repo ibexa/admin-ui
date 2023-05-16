@@ -10,10 +10,6 @@
         font-weight: 700;
     }
 
-    .form-control {
-        margin-bottom: calculateRem(10px);
-    }
-
     &__header {
         display: flex;
         color: $ibexa-color-black;
