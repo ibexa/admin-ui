@@ -4,6 +4,7 @@
     const SELECTOR_FORM_INPUT = '.ibexa-picker__form-input';
     const pickers = doc.querySelectorAll(SELECTOR_PICKER);
     const { formatShortDateTime, convertDateToTimezone } = ibexa.helpers.timezone;
+    const userTimezone = ibexa.adminUiConfig.timezone;
     const pickerConfig = {
         enableTime: true,
         time_24hr: true,
@@ -23,9 +24,10 @@
         let defaultDate;
 
         if (formInput.value) {
-            const date = moment.utc(formInput.value * 1000);
+            const date = new Date(formInput.value * 1000);
+            const dateWithUserTimezone = convertDateToTimezone(date, userTimezone);
             const localTimezone = moment.tz.guess();
-            const convertedDate = convertDateToTimezone(date, localTimezone, true).format();
+            const convertedDate = convertDateToTimezone(dateWithUserTimezone, localTimezone, true).format();
 
             defaultDate = convertedDate;
         }
