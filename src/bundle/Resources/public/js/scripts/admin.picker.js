@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, moment) {
+(function (global, doc, ibexa) {
     const SELECTOR_PICKER = '.ibexa-picker';
     const SELECTOR_PICKER_INPUT = '.ibexa-date-time-picker__input';
     const SELECTOR_FORM_INPUT = '.ibexa-picker__form-input';
@@ -46,4 +46,4 @@
     };
 
     pickers.forEach(initFlatPickr);
-})(window, window.document, window.ibexa, window.moment);
+})(window, window.document, window.ibexa);
