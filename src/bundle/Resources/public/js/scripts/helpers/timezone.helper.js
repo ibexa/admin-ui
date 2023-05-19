@@ -19,7 +19,7 @@
     const formatShortDateTime = (date, timezone = userPreferredTimezone, format = userPreferredShortDateTimeFormat) => {
         return formatDate(date, timezone, format);
     };
-    const guessUserTimezone = () => {
+    const browserTimezone = () => {
         return Intl.DateTimeFormat().resolvedOptions().timeZone;
     };
 
@@ -27,6 +27,6 @@
         convertDateToTimezone,
         formatFullDateTime,
         formatShortDateTime,
-        guessUserTimezone,
+        browserTimezone,
     });
 })(window, window.document, window.ibexa, window.moment);
