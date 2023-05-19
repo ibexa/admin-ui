@@ -47,13 +47,13 @@
         "symfony/asset": "^5.0",
         "symfony/yaml": "^5.0",
         "jms/translation-bundle": "^1.5",
-        "ibexa/core": "~4.5.0@dev",
-        "ibexa/content-forms": "~4.5.0@dev",
-        "ibexa/design-engine": "~4.5.0@dev",
-        "ibexa/user": "~4.5.0@dev",
-        "ibexa/fieldtype-richtext": "~4.5.0@dev",
-        "ibexa/rest": "~4.5.0@dev",
-        "ibexa/search": "~4.5.0@dev",
+        "ibexa/core": "~4.6.0@dev",
+        "ibexa/content-forms": "~4.6.0@dev",
+        "ibexa/design-engine": "~4.6.0@dev",
+        "ibexa/user": "~4.6.0@dev",
+        "ibexa/fieldtype-richtext": "~4.6.0@dev",
+        "ibexa/rest": "~4.6.0@dev",
+        "ibexa/search": "~4.6.0@dev",
         "babdev/pagerfanta-bundle": "^2.1",
         "knplabs/knp-menu-bundle": "^3.0",
         "mck89/peast": "^1.9",
@@ -64,12 +64,12 @@
     },
     "require-dev": {
         "ibexa/ci-scripts": "^0.2@dev",
-        "ibexa/behat": "~4.5.0@dev",
+        "ibexa/behat": "~4.6.0@dev",
         "friendsofphp/php-cs-fixer": "^3.0",
         "phpunit/phpunit": "^8.1",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
-        "ibexa/doctrine-schema": "~4.5.0@dev",
-        "ibexa/http-cache": "~4.5.0@dev",
+        "ibexa/doctrine-schema": "~4.6.0@dev",
+        "ibexa/http-cache": "~4.6.0@dev",
         "ibexa/code-style": "^1.0"
     },
     "config": {
@@ -84,7 +84,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "4.5.x-dev"
+            "dev-main": "4.6.x-dev"
         }
     }
 }
