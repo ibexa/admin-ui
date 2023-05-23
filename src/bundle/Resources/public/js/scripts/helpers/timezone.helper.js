@@ -19,10 +19,14 @@
     const formatShortDateTime = (date, timezone = userPreferredTimezone, format = userPreferredShortDateTimeFormat) => {
         return formatDate(date, timezone, format);
     };
+    const getBrowserTimezone = () => {
+        return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    };
 
     ibexa.addConfig('helpers.timezone', {
         convertDateToTimezone,
         formatFullDateTime,
         formatShortDateTime,
+        getBrowserTimezone,
     });
 })(window, window.document, window.ibexa, window.moment);
