@@ -37,6 +37,8 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
 {
     /* Menu items */
     public const ITEM__CREATE = 'content__sidebar_right__create';
+    public const ITEM__CREATE_USER = 'content__sidebar_right__create_user';
+    public const ITEM__CREATE_CORPORATE = 'content__sidebar_right__create_corporate';
     public const ITEM__EDIT = 'content__sidebar_right__edit';
     public const ITEM__SEND_TO_TRASH = 'content__sidebar_right__send_to_trash';
     public const ITEM__COPY = 'content__sidebar_right__copy';
@@ -91,6 +93,28 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     protected function getConfigureEventName(): string
     {
         return ConfigureMenuEvent::CONTENT_SIDEBAR_RIGHT;
+    }
+
+    /**
+     * @param string $locationTitle
+     *
+     * @return string
+     */
+    private function getItemCreateLabel(string $locationTitle): string
+    {
+        $createItemLabel = '';
+        switch ($locationTitle) {
+            case 'Users':
+                $createItemLabel = self::ITEM__CREATE_USER;
+                break;
+            case 'Corporate Account':
+                $createItemLabel = self::ITEM__CREATE_CORPORATE;
+                break;
+            default:
+                $createItemLabel = self::ITEM__CREATE;
+        }
+
+        return $createItemLabel;
     }
 
     /**
@@ -181,9 +205,11 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         $contentIsUserGroup = (new ContentTypeIsUserGroup($this->configResolver->getParameter('user_group_content_type_identifier')))
             ->isSatisfiedBy($contentType);
 
+        $createItemLabel = $this->getItemCreateLabel($location->contentInfo->name);
+
         $menu->setChildren([
-            self::ITEM__CREATE => $this->createMenuItem(
-                self::ITEM__CREATE,
+            $createItemLabel => $this->createMenuItem(
+                $createItemLabel,
                 [
                     'extras' => ['icon' => 'create', 'orderNumber' => 10],
                     'attributes' => $canCreate
@@ -300,6 +326,8 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     {
         return [
             (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Create content'),
+            (new Message(self::ITEM__CREATE_USER, 'menu'))->setDesc('Create user'),
+            (new Message(self::ITEM__CREATE_CORPORATE, 'menu'))->setDesc('Create corporate'),
             (new Message(self::ITEM__EDIT, 'menu'))->setDesc('Edit'),
             (new Message(self::ITEM__SEND_TO_TRASH, 'menu'))->setDesc('Send to Trash'),
             (new Message(self::ITEM__COPY, 'menu'))->setDesc('Copy'),

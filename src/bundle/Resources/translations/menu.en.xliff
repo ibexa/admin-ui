@@ -21,6 +21,16 @@
         <target state="new">Create content</target>
         <note>key: content__sidebar_right__create</note>
       </trans-unit>
+      <trans-unit id="31e2b211ea96d7d215cc36ad190f125a2b6a0d3d" resname="content__sidebar_right__create_corporate">
+        <source>Create corporate</source>
+        <target state="new">Create corporate</target>
+        <note>key: content__sidebar_right__create_corporate</note>
+      </trans-unit>
+      <trans-unit id="1db992e899605b7c8c310cc9e419e7e6cc2e885d" resname="content__sidebar_right__create_user">
+        <source>Create user</source>
+        <target state="new">Create user</target>
+        <note>key: content__sidebar_right__create_user</note>
+      </trans-unit>
       <trans-unit id="b3937ec2d3ae4980f8ae00ed20818d92bfab3407" resname="content__sidebar_right__delete">
         <source>Delete</source>
         <target state="new">Delete</target>
