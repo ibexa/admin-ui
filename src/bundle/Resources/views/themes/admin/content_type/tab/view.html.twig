@@ -44,21 +44,47 @@
 {% set global_properties_headline_items %}
     {% if languages|length > 1 %}
         <form class="form-inline justify-content-end mb-4">
-            <select class="form-control ibexa-location-language-change">
-                {% for language in languages %}
-                    <option
-                        value="{{ path('ibexa.content_type.view', {
-                            'contentTypeId': content_type.id,
-                            'contentTypeGroupId': content_type_group.id,
-                            'languageCode': language.languageCode,
-                            '_fragment': constant('Ibexa\\AdminUi\\Tab\\ContentType\\ViewTab::URI_FRAGMENT'),
-                        }) }}"
-                        {% if current_language == language.languageCode %} selected="selected" {% endif %}
-                    >
-                        {{ language.name }}
-                    </option>
-                {% endfor %}
-            </select>
+            {% set choices = languages|map((language) => {
+                value: path('ibexa.content_type.view', {
+                    'contentTypeId': content_type.id,
+                    'contentTypeGroupId': content_type_group.id,
+                    'languageCode': language.languageCode,
+                    '_fragment': constant('Ibexa\\AdminUi\\Tab\\ContentType\\ViewTab::URI_FRAGMENT'),
+                }),
+                label: language.name
+            }) %}
+            {% set value = '' %}
+
+            {% for language in languages %}
+                {% if current_language == language.languageCode %}
+                    {% set value = path('ibexa.content_type.view', {
+                        'contentTypeId': content_type.id,
+                        'contentTypeGroupId': content_type_group.id,
+                        'languageCode': language.languageCode,
+                        '_fragment': constant('Ibexa\\AdminUi\\Tab\\ContentType\\ViewTab::URI_FRAGMENT'),
+                    }) %}
+                {% endif %}
+            {% endfor %}
+
+            {% set source %}
+                <select class="form-control ibexa-input ibexa-location-language-change">
+                    {% for choice in choices %}
+                        <option
+                            value="{{ choice.value }}"
+                            {% if value == choice.value %}selected="selected"{% endif %}
+                        >
+                            {{ choice.label }}
+                        </option>
+                    {% endfor %}
+                </select>
+            {% endset %}
+
+            {% include '@ibexadesign/ui/component/dropdown/dropdown.html.twig' with {
+                source: source,
+                choices: choices,
+                value: value,
+                is_small: true,
+            } %}
         </form>
     {% endif %}
 {% endset %}
