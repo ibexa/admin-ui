@@ -5,7 +5,11 @@ export const createCssClassNames = (classes) => {
 
     return Object.entries(classes)
         .reduce((total, [name, condition]) => {
-            return `${total} ${condition ? name : ''}`;
+            if (condition) {
+                return `${total} ${name}`;
+            }
+
+            return total;
         }, '')
         .trim();
 };
