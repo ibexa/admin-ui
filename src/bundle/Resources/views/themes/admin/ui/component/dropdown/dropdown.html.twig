@@ -145,6 +145,9 @@
             <ul
                 class="ibexa-dropdown__items-list"
                 data-template="{{ include('@ibexadesign/ui/component/dropdown/dropdown_item.html.twig', {
+                    value,
+                    multiple,
+                    translation_domain,
                     custom_form: true,
                     icon: item_icon,
                     icon_class: item_icon_class,
@@ -161,16 +164,39 @@
                         label: _self.get_translated_label(placeholder, translation_domain)|trim|default(default_label),
                     } %}
 
-                    {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice: placeholder_choice, custom_form: true } %}
+                    {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with {
+                        choice: placeholder_choice,
+                        value,
+                        multiple,
+                        translation_domain,
+                        custom_form: true
+                    } only %}
                 {% endif %}
                 {% for choice in preferred_choices %}
-                    {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice, preferred_choice: true, custom_form, icon: item_icon, icon_class: item_icon_class } %}
+                    {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with {
+                        choice,
+                        value,
+                        multiple,
+                        translation_domain,
+                        preferred_choice: true,
+                        custom_form,
+                        icon: item_icon,
+                        icon_class: item_icon_class
+                    } only %}
                 {% endfor %}
                 {% if preferred_choices|length > 0 %}
                     <hr class="ibexa-dropdown__separator" />
                 {% endif %}
                 {% for choice in choices %}
-                    {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice, custom_form, icon: item_icon, icon_class: item_icon_class } %}
+                    {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with {
+                        choice,
+                        value,
+                        multiple,
+                        translation_domain,
+                        custom_form,
+                        icon: item_icon,
+                        icon_class: item_icon_class
+                    } only %}
                 {% endfor %}
             </ul>
         </div>

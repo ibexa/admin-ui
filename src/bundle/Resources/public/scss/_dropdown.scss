@@ -176,7 +176,7 @@
 
         .ibexa-input-text-wrapper {
             width: 100%;
-            padding: calculateRem(8px) calculateRem(12px);
+            padding: calculateRem(8px) calculateRem(8px) 0;
 
             &__actions {
                 right: calculateRem(16px);
@@ -196,7 +196,7 @@
 
     &__items-list {
         list-style: none;
-        padding: calculateRem(8.5px);
+        padding: calculateRem(8px);
         margin: 0;
         overflow-y: auto;
     }
@@ -214,17 +214,26 @@
     }
 
     &__item {
-        padding: calculateRem(9px) calculateRem(15px);
+        margin-top: calculateRem(8px);
+        padding: calculateRem(9.5px) calculateRem(16px);
         line-height: calculateRem(21px);
         min-height: calculateRem(40px);
         transition: background $ibexa-admin-transition-duration $ibexa-admin-transition;
-        border-radius: $ibexa-border-radius;
+        border-radius: calculateRem(4px);
         cursor: pointer;
         display: flex;
         align-items: center;
 
         &--hidden {
             display: none;
+        }
+
+        &:first-child {
+            margin-top: 0;
+
+            &[hidden] + li {
+                margin-top: 0;
+            }
         }
 
         &--selected {
@@ -236,6 +245,10 @@
             }
         }
 
+        &--placeholder {
+            pointer-events: none;
+        }
+
         .ibexa-input {
             margin: 0 calculateRem(16px) 0 0;
         }
@@ -245,7 +258,12 @@
         }
 
         &:hover {
-            background-color: $ibexa-color-light-300;
+            background-color: $ibexa-color-light-400;
+            color: $ibexa-color-primary;
+        }
+
+        &:active {
+            color: initial;
         }
 
         &[disabled] {
@@ -272,13 +290,23 @@
     }
 
     &__item-group {
+        padding-bottom: calculateRem(8px);
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
+
         &--hidden {
             display: none;
+        }
+
+        &:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
         }
     }
 
     &__item-group-label {
-        font-weight: bold;
+        color: $ibexa-color-dark-400;
+        font-size: calculateRem(10px);
+        padding: calculateRem(8px) calculateRem(16px);
     }
 
     &__item-group-list {

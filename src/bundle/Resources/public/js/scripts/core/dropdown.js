@@ -125,6 +125,10 @@
                 if (checkbox) {
                     checkbox.checked = false;
                 }
+
+                if (option.classList.contains('ibexa-dropdown__item--placeholder')) {
+                    option.setAttribute('hidden', 'hidden');
+                }
             });
             this.selectedItemsContainer.innerHTML = '';
             this.selectedItemsContainer.insertAdjacentHTML('beforeend', this.selectedItemsContainer.dataset.placeholderTemplate);
