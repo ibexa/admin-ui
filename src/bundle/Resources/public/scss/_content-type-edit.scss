@@ -52,6 +52,7 @@
     }
 
     &__section-column-header {
+        margin-top: calculateRem(32px);
         margin-bottom: 0;
     }
 
