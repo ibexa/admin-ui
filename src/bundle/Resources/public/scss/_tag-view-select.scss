@@ -39,7 +39,9 @@
         }
 
         .ibexa-middle-ellipsis {
-            max-width: calc(100% - #{calculateRem(20px)});
+            &:not(.not-deletable) {
+                max-width: calc(100% - #{calculateRem(20px)});
+            }
         }
 
         &--not-deletable {

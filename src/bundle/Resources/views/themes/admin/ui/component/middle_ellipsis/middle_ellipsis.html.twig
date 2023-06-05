@@ -1,4 +1,6 @@
-<span class="ibexa-middle-ellipsis" title="{{ name }}">
+{% set is_deletable = is_deletable is defined ? is_deletable : true %}
+
+<span class="ibexa-middle-ellipsis" title="{{ name }} {% if not is_deletable %} not-deletable{% endif %}">
     <span class="ibexa-middle-ellipsis__name ibexa-middle-ellipsis__name--start">
         <span class="ibexa-middle-ellipsis__name-ellipsized">
             {{ name }}
