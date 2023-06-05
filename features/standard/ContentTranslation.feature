@@ -1,4 +1,4 @@
-@javascript @translation @IbexaOSS @IbexaContent @IbexaExperience @IbexaCommerce
+@javascript @translation @IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
 Feature: Content item transation
 
   @APIUser:admin

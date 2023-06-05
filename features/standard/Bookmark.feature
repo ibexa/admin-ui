@@ -1,4 +1,4 @@
-@IbexaOSS @IbexaContent @IbexaExperience @IbexaCommerce @javascript
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce @javascript
 Feature: Bookmarks management
 
   Background:

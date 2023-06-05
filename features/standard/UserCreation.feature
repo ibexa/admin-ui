@@ -1,4 +1,4 @@
-@IbexaOSS @IbexaContent @IbexaExperience
+@IbexaOSS @IbexaHeadless @IbexaExperience
 Feature: User management
   As an administrator
   In order to manage users on my site
@@ -48,4 +48,3 @@ Feature: User management
     And content attributes equal
       | label         | Username  | Email          | Enabled  |
       | User account  | testuser  | test@test.org  | Yes      |
-    

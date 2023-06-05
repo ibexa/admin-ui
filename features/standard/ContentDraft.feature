@@ -1,4 +1,4 @@
-@IbexaOSS @IbexaContent @IbexaExperience @IbexaCommerce @richtext
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce @richtext
 Feature: Content items creation
   As an administrator
   In order to manage content to my site
