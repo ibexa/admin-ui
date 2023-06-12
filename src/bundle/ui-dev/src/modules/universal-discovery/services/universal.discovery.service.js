@@ -109,7 +109,7 @@ export const loadAccordionData = (
                 return mappedItem;
             });
 
-            const rootLocationData = response.columns[rootLocationId];
+            const rootLocationData = response.columns[1];
             const lastLocationData = response.columns[parentLocationId];
 
             if (rootLocationData) {
