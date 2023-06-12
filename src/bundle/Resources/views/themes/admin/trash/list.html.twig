@@ -232,7 +232,7 @@
                 },
             ]) %}
 
-            {% set has_search_params = trash_search_params ? trash_search_params.creator or trash_search_params.content_type or trash_search_params.trashed or trash_search_params.section : false %}
+            {% set has_search_params = trash_search_params|length > 0 %}
 
             {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
                 headline: custom_results_headline ?? results_headline(pager.getNbResults(), has_search_params),
