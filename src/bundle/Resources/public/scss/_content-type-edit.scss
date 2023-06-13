@@ -82,6 +82,11 @@
             padding: calculateRem(16px) calculateRem(34px);
             background: $ibexa-color-light-300;
             border-radius: $ibexa-border-radius;
+
+            .ibexa-content-type-edit__section-column-header {
+                margin-top: 0;
+                margin-bottom: calculateRem(17px);
+            }
         }
 
         .ibexa-collapse {
