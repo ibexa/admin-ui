@@ -1,7 +1,7 @@
 @mixin edit-right-side-container {
     flex-grow: 1;
     position: relative;
-    padding: calculateRem(42px) calculateRem(32px) 0 calculateRem(32px);
+    padding: calculateRem(42px) calculateRem(32px) calculateRem(32px) calculateRem(32px);
     overflow-y: auto;
     border-bottom-left-radius: $ibexa-border-radius;
     border-width: 0 calculateRem(1px) calculateRem(1px);

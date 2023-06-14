@@ -264,6 +264,12 @@
         &--no-padding {
             padding: 0;
         }
+
+        .form-group:first-child {
+            .ibexa-label {
+                margin-top: 0;
+            }
+        }
     }
 
     &--rolled-up {
