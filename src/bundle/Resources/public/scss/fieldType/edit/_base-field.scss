@@ -20,8 +20,6 @@
     }
 
     .ibexa-form-error {
-        min-height: calculateRem(18px);
-        margin: calculateRem(4px) 0;
         flex-direction: column;
     }
 
@@ -44,6 +42,20 @@
         &__data {
             &--compound {
                 border-color: $ibexa-color-light-400;
+            }
+        }
+    }
+
+    &--ibexa_seo {
+        margin-top: calculateRem(32px);
+
+        .ibexa-data-source__label {
+            float: none;
+        }
+
+        .ibexa-data-source__input-wrapper {
+            .ibexa-content-type-edit__section-column-header:first-of-type {
+                margin-top: 0;
             }
         }
     }
