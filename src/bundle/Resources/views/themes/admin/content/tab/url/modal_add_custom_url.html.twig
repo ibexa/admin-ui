@@ -15,21 +15,21 @@
     {% block body_content %}
         <div class="ibexa-custom-url-from">
             <div class="ibexa-custom-url-from__item">
-                <span class="ibexa-label required">{{ 'tab.urls.add.path'|trans|desc('URL') }}</span>
+                <label class="ibexa-label required">{{ 'tab.urls.add.path'|trans|desc('URL') }}</label>
                 {{ form_widget(form.path) }}
             </div>
             <div class="ibexa-custom-url-from__item">
-                <span class="ibexa-label">{{ 'tab.urls.add.language'|trans|desc('Language') }}</span>
+                <label class="ibexa-label">{{ 'tab.urls.add.language'|trans|desc('Language') }}</label>
                 {{ form_widget(form.language) }}
             </div>
             <div class="ibexa-custom-url-from__item">
-                <span class="ibexa-label">{{ 'tab.urls.add.redirect'|trans|desc('Redirect to alias destination') }}</span>
+                <label class="ibexa-label">{{ 'tab.urls.add.redirect'|trans|desc('Redirect to alias destination') }}</label>
                 {{ form_widget(form.redirect) }}
                 <div class="ibexa-custom-url-from__info-text ibexa-custom-url-from__info-text--checked">{{ 'tab.urls.add.redirect.helper.checked'|trans|desc('The alias will redirect to the destination using an HTTP 301 response.') }}</div>
                 <div class="ibexa-custom-url-from__info-text ibexa-custom-url-from__info-text--unchecked">{{ 'tab.urls.add.redirect.helper.unchecked'|trans|desc('The alias will not redirect to the destination and the URL will stay the same.') }}</div>
             </div>
             <div class="ibexa-custom-url-from__item">
-                <span class="ibexa-label">{{ 'tab.urls.add.site_root'|trans|desc('Place at the site root') }}</span>
+                <label class="ibexa-label">{{ 'tab.urls.add.site_root'|trans|desc('Place at the site root') }}</label>
                 {{ form_widget(form.site_root) }}
                 <div class="ibexa-custom-url-from__info-text ibexa-custom-url-from__info-text--checked">{{ 'tab.urls.add.site_root.helper.checked'|trans|desc('The alias will be placed at the site root.') }}</div>
                 <div class="ibexa-custom-url-from__info-text ibexa-custom-url-from__info-text--unchecked">
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="ibexa-custom-url-from__item ibexa-custom-url-from__item--siteacces">
-                <span class="ibexa-label">{{ 'tab.urls.add.site_access'|trans|desc('SiteAccess') }}</span>
+                <label class="ibexa-label">{{ 'tab.urls.add.site_access'|trans|desc('SiteAccess') }}</label>
                 {{ form_widget(form.site_access) }}
                 <div class="ibexa-custom-url-from__info-text">
                     {{ 'tab.urls.add.root_location_id.helper_secondary'|trans|desc("If you leave this empty, the alias will be placed at main root Location.") }}

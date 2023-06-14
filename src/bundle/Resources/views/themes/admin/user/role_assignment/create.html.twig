@@ -23,8 +23,8 @@
                     <h2 class="ibexa-card__header">
                         {{ 'role_assignment.view.add.panel.users_and_groups.title'|trans|desc('Users and Groups') }}
                     </h2>
-                    <div class="card-body ibexa-card__body">
-                        <div class="ibexa-assign__users">
+                    <div class="card-body ibexa-card__body ibexa-form-block">
+                        <div class="ibexa-assign__users form-group">
                             {{ form_label(form.users) }}
                             {{ form_errors(form.users) }}
 
@@ -56,7 +56,7 @@
                                 type: 'role_assignment.view.type.users'|trans|desc('Users'),
                             }) }}
                         </div>
-                        <div class="ibexa-assign__groups">
+                        <div class="ibexa-assign__groups form-group">
                             {{ form_label(form.groups) }}
                             {{ form_errors(form.groups) }}
 

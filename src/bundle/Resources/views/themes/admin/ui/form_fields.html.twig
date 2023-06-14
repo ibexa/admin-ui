@@ -344,7 +344,7 @@
 
 {% block form_errors -%}
     {%- if errors|length > 0 -%}
-        {%- set form_errors_attr = form_errors_attr|default({})|merge({class: (form_errors_attr.class|default('') ~ ' ibexa-form-error')|trim}) -%}
+        {%- set form_errors_attr = form_errors_attr|default({})|merge({class: (form_errors_attr.class|default('') ~ ' ibexa-form-error__row')|trim}) -%}
         {%- for error in errors -%}
             <em {% with { attr: form_errors_attr } %}{{ block('attributes') }}{% endwith %}>
                 <svg class="ibexa-icon ibexa-icon--small ibexa-form-error__icon">
