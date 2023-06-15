@@ -96,7 +96,7 @@ class ContentTypeEditRightSidebarBuilder extends AbstractBuilder implements Tran
     {
         return [
             (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Save'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Cancel'),
         ];
     }
 }
