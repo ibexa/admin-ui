@@ -43,7 +43,6 @@ final class FieldDefinitionsCollectionType extends AbstractType
                     'block_prefix' => 'content_type_field_definition',
                 ],
                 'label' => /** @Desc("Content Field definitions") */ 'content_type.field_definitions_data',
-                'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => false,
             ]);
