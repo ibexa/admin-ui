@@ -29,7 +29,7 @@ class ContentRelationSingle extends FieldTypeComponent
     public function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('selectContent', '.ibexa-relations__cta-btn-label'),
+            new VisibleCSSLocator('selectContent', '.ibexa-relations__cta-btn'),
             new VisibleCSSLocator('buttonRemove', '.ibexa-relations__table-action--remove-item'),
             new VisibleCSSLocator('relationRow', '.ibexa-relations__list tr'),
             new VisibleCSSLocator('columnHeader', 'tr:not(.ibexa-relations__table-header) th'),
