@@ -1,15 +1,11 @@
 (function (global, doc, ibexa) {
     const backdrop = doc.createElement('div');
-    const firstBodyElement = document.body.firstChild;
+    const bodyFirstNode = document.body.firstChild;
 
     backdrop.classList.add('ibexa-backdrop');
-    doc.body.insertBefore(backdrop, firstBodyElement);
+    doc.body.insertBefore(backdrop, bodyFirstNode);
 
     const toggleBackdrop = (shouldBackdropDisplay, extraClass = []) => {
-        if (!backdrop) {
-            return;
-        }
-
         if (extraClass) {
             backdrop.classList.add(...extraClass);
         } else {
@@ -36,8 +32,8 @@
     };
 
     ibexa.addConfig('helpers.backdrop', {
-        showBackdrop,
-        hideBackdrop,
-        getBackdrop,
+        show,
+        hide,
+        get,
     });
 })(window, window.document, window.ibexa);
