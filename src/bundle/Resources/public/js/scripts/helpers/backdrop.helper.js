@@ -19,15 +19,15 @@
         }
     };
 
-    const showBackdrop = (extraClass = []) => {
+    const show = (extraClass = []) => {
         toggleBackdrop(true, extraClass);
     };
 
-    const hideBackdrop = () => {
+    const hide = () => {
         toggleBackdrop(false, null);
     };
 
-    const getBackdrop = () => {
+    const get = () => {
         return backdrop;
     };
 
