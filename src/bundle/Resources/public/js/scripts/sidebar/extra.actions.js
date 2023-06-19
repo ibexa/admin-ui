@@ -6,12 +6,8 @@
     const menu = doc.querySelector('.ibexa-context-menu');
     const haveHiddenPart = (element) => element.classList.contains(CLASS_HIDDEN) && !element.classList.contains(CLASS_PREVENT_SHOW);
     const removeBackdrop = () => {
-        const backdrop = doc.querySelector('.ibexa-backdrop');
-
-        if (backdrop) {
-            backdrop.remove();
-            doc.body.classList.remove('ibexa-scroll-disabled');
-        }
+        ibexa.helpers.backdrop.hideBackdrop();
+        doc.body.classList.remove('ibexa-scroll-disabled');
     };
     const closeExtraActions = (actions) => {
         actions.classList.add(CLASS_HIDDEN);
@@ -47,12 +43,8 @@
         }
 
         if (!actions.classList.contains(CLASS_HIDDEN)) {
-            const backdrop = doc.createElement('div');
-
-            backdrop.classList.add('ibexa-backdrop');
-
+            ibexa.helpers.backdrop.showBackdrop();
             doc.body.addEventListener('click', detectClickOutside, false);
-            doc.body.appendChild(backdrop);
             doc.body.classList.add('ibexa-scroll-disabled');
         } else {
             doc.body.removeEventListener('click', detectClickOutside);
@@ -84,4 +76,4 @@
             false,
         ),
     );
-})(window, window.document);
+})(window, window.document, window.ibexa);

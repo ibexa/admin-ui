@@ -10,6 +10,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/helpers/notification.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/timezone.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/content.type.helper.js'),
+    path.resolve(__dirname, '../public/js/scripts/helpers/backdrop.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/user.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/tooltips.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/table.helper.js'),
