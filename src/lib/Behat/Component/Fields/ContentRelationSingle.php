@@ -46,6 +46,8 @@ class ContentRelationSingle extends FieldTypeComponent
     public function setValue(array $parameters): void
     {
         if (!$this->isRelationEmpty()) {
+            $this->getHTMLPage()->find($this->getLocator('buttonRemove'))->mouseOver();
+            usleep(100 * 5000); // 500ms
             $this->getHTMLPage()->find($this->getLocator('buttonRemove'))->click();
         }
 
