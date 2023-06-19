@@ -5,9 +5,16 @@
     backdrop.classList.add('ibexa-backdrop');
     doc.body.insertBefore(backdrop, bodyFirstNode);
 
-    const toggleBackdrop = (shouldBackdropDisplay, extraClass = []) => {
-        if (extraClass) {
-            backdrop.classList.add(...extraClass);
+    const toggleBackdrop = (shouldBackdropDisplay, config = {}) => {
+        if (shouldBackdropDisplay) {
+            const { isTransparent, extraClasses } = config;
+            const classes = {
+                'ibexa-backdrop--transparent': isTransparent,
+            };
+            const backdropClasses = Object.keys(classes).filter((property) => classes[property]);
+            const backdropExtraClasses = Array.isArray(extraClasses) ? extraClasses : [extraClasses];
+
+            backdrop.classList.add(...backdropClasses, ...backdropExtraClasses);
         } else {
             backdrop.className = 'ibexa-backdrop';
         }
@@ -19,12 +26,12 @@
         }
     };
 
-    const showBackdrop = ({ extraClass }) => {
-        toggleBackdrop(true, extraClass);
+    const showBackdrop = (config) => {
+        toggleBackdrop(true, config);
     };
 
     const hideBackdrop = () => {
-        toggleBackdrop(false, null);
+        toggleBackdrop(false);
     };
 
     const getBackdrop = () => {
