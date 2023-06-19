@@ -119,7 +119,7 @@
         <div id="react-udw" data-filter-subtree-udw-config="{{ ibexa_udw_config('single_container', {}) }}"></div>
 
         {% block header_row %}
-            <div class="ibexa-main-header">
+            <header class="ibexa-main-header">
                 <div class="ibexa-main-header__brand-column">
                     <a class="ibexa-main-header__brand" href="{{ url('ibexa.dashboard') }}">
                         <img class="ibexa-main-header__brand-image" src="{{ asset('bundles/ibexaadminui/img/ibexa-logo.svg') }}" alt="Ibexa" />
@@ -136,11 +136,11 @@
                         }) }}
                     {% endblock %}
                 </div>
-            </div>
+            </header>
         {% endblock %}
 
         {% block main_container %}
-            <div class="ibexa-main-container {% block main_container_class %}{% endblock %}">
+            <main class="ibexa-main-container {% block main_container_class %}{% endblock %}">
                 {% block side_column %}
                     <div class="ibexa-main-container__side-column {% block side_column_class %}{% endblock %}">
                         {% block left_sidebar %}
@@ -194,7 +194,7 @@
                         </div>
                     </div>
                 {% endblock %}
-            </div>
+            </main>
         {% endblock %}
 
         <div
