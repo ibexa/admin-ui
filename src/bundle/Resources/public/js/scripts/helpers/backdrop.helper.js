@@ -19,21 +19,21 @@
         }
     };
 
-    const show = (extraClass = []) => {
+    const showBackdrop = ({ extraClass }) => {
         toggleBackdrop(true, extraClass);
     };
 
-    const hide = () => {
+    const hideBackdrop = () => {
         toggleBackdrop(false, null);
     };
 
-    const get = () => {
+    const getBackdrop = () => {
         return backdrop;
     };
 
     ibexa.addConfig('helpers.backdrop', {
-        show,
-        hide,
-        get,
+        show: showBackdrop,
+        hide: hideBackdrop,
+        get: getBackdrop,
     });
 })(window, window.document, window.ibexa);
