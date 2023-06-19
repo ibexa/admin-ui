@@ -1,4 +1,4 @@
-(function (global, doc) {
+(function (global, doc, ibexa) {
     const CLASS_HIDDEN = 'ibexa-extra-actions--hidden';
     const CLASS_EXPANDED = 'ibexa-context-menu--expanded';
     const CLASS_PREVENT_SHOW = 'ibexa-extra-actions--prevent-show';
