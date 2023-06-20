@@ -21,7 +21,6 @@ use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Form\Type\Role\RoleCopyType;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
-use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
@@ -78,13 +77,6 @@ class RoleController extends Controller
         $this->configResolver = $configResolver;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     */
     public function listAction(Request $request): Response
     {
         $page = $request->query->get('page') ?? 1;
@@ -117,30 +109,14 @@ class RoleController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
-     * @param int $policyPage
-     * @param int $assignmentPage
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function viewAction(Request $request, Role $role, int $policyPage = 1, int $assignmentPage = 1): Response
     {
         $deleteForm = $this->formFactory->deleteRole(
             new RoleDeleteData($role)
         );
 
-        // If user has no permission to content/read than he should see empty table.
-        try {
-            $assignments = $this->roleService->getRoleAssignments($role);
-        } catch (UnauthorizedException $e) {
-            $assignments = [];
-        }
-
         return $this->render('@ibexadesign/user/role/index.html.twig', [
             'role' => $role,
-            'assignments' => $assignments,
             'delete_form' => $deleteForm->createView(),
             'route_name' => $request->get('_route'),
             'policy_page' => $policyPage,
