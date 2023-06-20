@@ -4,9 +4,10 @@
     const CLASS_PREVENT_SHOW = 'ibexa-extra-actions--prevent-show';
     const btns = [...doc.querySelectorAll('.ibexa-btn--extra-actions')];
     const menu = doc.querySelector('.ibexa-context-menu');
+    const backdrop = new ibexa.core.Backdrop();
     const haveHiddenPart = (element) => element.classList.contains(CLASS_HIDDEN) && !element.classList.contains(CLASS_PREVENT_SHOW);
     const removeBackdrop = () => {
-        ibexa.helpers.backdrop.hide();
+        backdrop.remove();
         doc.body.classList.remove('ibexa-scroll-disabled');
     };
     const closeExtraActions = (actions) => {
@@ -43,7 +44,7 @@
         }
 
         if (!actions.classList.contains(CLASS_HIDDEN)) {
-            ibexa.helpers.backdrop.show();
+            backdrop.init();
             doc.body.addEventListener('click', detectClickOutside, false);
             doc.body.classList.add('ibexa-scroll-disabled');
         } else {

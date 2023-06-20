@@ -1,5 +1,4 @@
 .ibexa-backdrop {
-    display: none;
     position: fixed;
     z-index: 100;
     top: 0;
@@ -10,10 +9,6 @@
 
     &--transparent {
         background-color: transparent;
-    }
-
-    &--active {
-        display: block;
     }
 
     & ~ main .ibexa-edit-header {

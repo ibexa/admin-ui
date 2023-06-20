@@ -1,46 +1,34 @@
 (function (global, doc, ibexa) {
-    const backdrop = doc.createElement('div');
-    const bodyFirstNode = document.body.firstChild;
+    class Backdrop {
+        constructor(config = {}) {
+            this.isTransparent = config.isTransparent ?? false;
+            this.extraClasses = config.extraClasses ?? [];
+            this.backdrop = null;
 
-    backdrop.classList.add('ibexa-backdrop');
-    doc.body.insertBefore(backdrop, bodyFirstNode);
+            this.remove = this.remove.bind(this);
+            this.init = this.init.bind(this);
+        }
 
-    const toggleBackdrop = (shouldBackdropDisplay, config = {}) => {
-        if (shouldBackdropDisplay) {
-            const { isTransparent, extraClasses } = config;
+        remove() {
+            if (this.backdrop) {
+                this.backdrop.remove();
+            }
+        }
+
+        init() {
             const classes = {
-                'ibexa-backdrop--transparent': isTransparent,
+                'ibexa-backdrop--transparent': this.isTransparent,
             };
             const backdropClasses = Object.keys(classes).filter((property) => classes[property]);
-            const backdropExtraClasses = Array.isArray(extraClasses) ? extraClasses : [extraClasses];
+            const backdropExtraClasses = Array.isArray(this.extraClasses) ? this.extraClasses : [this.extraClasses];
+            const bodyFirstNode = document.body.firstChild;
 
-            backdrop.classList.add(...backdropClasses, ...backdropExtraClasses);
-        } else {
-            backdrop.className = 'ibexa-backdrop';
+            this.backdrop = doc.createElement('div');
+            this.backdrop.classList.add('ibexa-backdrop', ...backdropClasses, ...backdropExtraClasses);
+            doc.body.insertBefore(this.backdrop, bodyFirstNode);
+            doc.dispatchEvent(new CustomEvent('ibexa-backdrop:after-show'));
         }
+    }
 
-        backdrop.classList.toggle('ibexa-backdrop--active', shouldBackdropDisplay);
-
-        if (shouldBackdropDisplay) {
-            document.dispatchEvent(new CustomEvent('ibexa-backdrop:after-show'));
-        }
-    };
-
-    const showBackdrop = (config) => {
-        toggleBackdrop(true, config);
-    };
-
-    const hideBackdrop = () => {
-        toggleBackdrop(false);
-    };
-
-    const getBackdrop = () => {
-        return backdrop;
-    };
-
-    ibexa.addConfig('helpers.backdrop', {
-        show: showBackdrop,
-        hide: hideBackdrop,
-        get: getBackdrop,
-    });
+    ibexa.addConfig('core.Backdrop', Backdrop);
 })(window, window.document, window.ibexa);
