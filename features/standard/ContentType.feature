@@ -15,7 +15,7 @@ Feature: Content types management
       | label      | value                     |
       | Name       | Test Content Type         |
       | Identifier | TestContentTypeIdentifier |
-      And I click on the edit action bar button "Discard changes"
+      And I click on the edit action bar button "Cancel"
     Then I should be on Content Type group page for "Content" group
       And there's no "Test Content Type" on Content Types list
 
@@ -54,7 +54,7 @@ Feature: Content types management
       And I set fields
         | label | value                    |
         | Name  | Test Content Type edited |
-      And I click on the edit action bar button "Discard changes"
+      And I click on the edit action bar button "Cancel"
     Then I should be on Content Type group page for "Content" group
       And there's a "TestDiscard CT" on Content Types list
       And there's no "Test Content Type edited" on Content Types list
