@@ -42,6 +42,17 @@ class NotificationContext implements Context
     }
 
     /**
+     * @Then warning notification that :message appears
+     */
+    public function warningNotificationAppears(string $message): void
+    {
+        $this->notification->verifyIsLoaded();
+        $this->notification->verifyAlertWarning();
+        $this->notification->verifyMessage($message);
+        $this->notification->closeAlert();
+    }
+
+    /**
      * @Then success notification that :message appears
      */
     public function specificNotificationAppears(string $message): void
