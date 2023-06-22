@@ -98,7 +98,7 @@ class ContentTypeCreateRightSidebarBuilder extends AbstractBuilder implements Tr
     {
         return [
             (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Create'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Cancel'),
         ];
     }
 }
