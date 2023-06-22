@@ -7,7 +7,7 @@
     const backdrop = new ibexa.core.Backdrop();
     const haveHiddenPart = (element) => element.classList.contains(CLASS_HIDDEN) && !element.classList.contains(CLASS_PREVENT_SHOW);
     const removeBackdrop = () => {
-        backdrop.remove();
+        backdrop.hide();
         doc.body.classList.remove('ibexa-scroll-disabled');
     };
     const closeExtraActions = (actions) => {
@@ -44,7 +44,7 @@
         }
 
         if (!actions.classList.contains(CLASS_HIDDEN)) {
-            backdrop.init();
+            backdrop.show();
             doc.body.addEventListener('click', detectClickOutside, false);
             doc.body.classList.add('ibexa-scroll-disabled');
         } else {
