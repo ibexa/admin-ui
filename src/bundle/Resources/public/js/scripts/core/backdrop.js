@@ -8,11 +8,16 @@
             this.backdrop = null;
             this.id = id++;
 
-            this.remove = this.remove.bind(this);
-            this.init = this.init.bind(this);
+            this.get = this.get.bind(this);
             this.toggle = this.toggle.bind(this);
+            this.remove = this.remove.bind(this);
             this.hide = this.hide.bind(this);
             this.show = this.show.bind(this);
+            this.init = this.init.bind(this);
+        }
+
+        get() {
+            return this.backdrop;
         }
 
         toggle(shouldBackdropDisplay) {
@@ -50,6 +55,7 @@
             this.backdrop.id = `ibexa-backdrop-no-${this.id}`;
             this.backdrop.classList.add('ibexa-backdrop', ...backdropClasses, ...this.extraClasses);
             doc.body.insertBefore(this.backdrop, bodyFirstNode);
+            ibexa.helpers.objectInstances.setInstance(this.backdrop, this);
         }
     }
 
