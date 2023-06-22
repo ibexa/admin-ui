@@ -52,6 +52,7 @@ class ContentRelationSingle extends FieldTypeComponent
         }
 
         $this->getHTMLPage()
+            ->setTimeout(5)
             ->find(
                 CSSLocatorBuilder::base($this->parentLocator)
                     ->withDescendant($this->getLocator('selectContent'))
