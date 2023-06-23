@@ -27,9 +27,9 @@
         display: none;
         position: absolute;
         right: calculateRem(8px);
+        padding: calculateRem(4px);
         cursor: pointer;
         border: 0;
-        padding: 0;
         outline: none;
         line-height: 0;
 
@@ -37,10 +37,20 @@
         &[disabled] {
             cursor: not-allowed;
         }
+
+        &:hover {
+            .ibexa-icon {
+                fill: $ibexa-color-dark;
+            }
+        }
+
+        .ibexa-icon {
+            fill: $ibexa-color-dark-400;
+        }
     }
 
     &--deletable {
-        padding-right: calculateRem(24px);
+        padding-right: calculateRem(28px);
 
         .ibexa-tag__remove-btn {
             display: inline-block;
