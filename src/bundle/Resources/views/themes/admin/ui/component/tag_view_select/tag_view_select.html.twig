@@ -32,6 +32,7 @@
         data-template="{{ include('@ibexadesign/ui/component/tag_view_select/tag_view_select_selected_item_tag.html.twig', {
             id: '{{ id }}',
             name: '{{ name }}',
+            is_deletable: is_delete_visible,
         })|e('html_attr') }}"
     >
         {% for item in items %}
