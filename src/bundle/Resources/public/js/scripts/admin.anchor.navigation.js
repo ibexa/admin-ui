@@ -192,7 +192,7 @@
         const classChangedCallback = (mutationList) => {
             mutationList.forEach((mutation) => {
                 const { oldValue, target } = mutation;
-                const hadIsInvalidClass = oldValue.includes('.is-invalid');
+                const hadIsInvalidClass = oldValue?.includes('.is-invalid');
                 const hasIsInvalidClass = target.classList.contains('is-invalid');
 
                 if (hadIsInvalidClass !== hasIsInvalidClass) {
