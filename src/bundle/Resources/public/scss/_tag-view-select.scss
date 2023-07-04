@@ -1,4 +1,6 @@
 .ibexa-tag-view-select {
+    $self: &;
+
     border: calculateRem(1px) solid $ibexa-color-dark-200;
     border-radius: $ibexa-border-radius;
     padding: calculateRem(24px);
@@ -38,6 +40,16 @@
 
         .ibexa-middle-ellipsis {
             max-width: calc(100% - #{calculateRem(20px)});
+        }
+
+        &--not-deletable {
+            #{$self}__selected-item-tag-remove-btn {
+                display: none;
+            }
+
+            .ibexa-middle-ellipsis {
+                max-width: 100%;
+            }
         }
     }
 
