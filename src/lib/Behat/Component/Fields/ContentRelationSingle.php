@@ -51,14 +51,13 @@ class ContentRelationSingle extends FieldTypeComponent
             $this->getHTMLPage()->find($this->getLocator('buttonRemove'))->click();
         }
 
-        $this->getHTMLPage()
-            ->setTimeout(5)
-            ->find(
-                CSSLocatorBuilder::base($this->parentLocator)
+        $buttonLocator = CSSLocatorBuilder::base($this->parentLocator)
                     ->withDescendant($this->getLocator('selectContent'))
-                    ->build()
-            )
-            ->click();
+                    ->build();
+
+        $this->getHTMLPage()->setTimeout(5)->find($buttonLocator)->mouseOver();
+        usleep(100);
+        $this->getHTMLPage()->find($buttonLocator)->click();
 
         $this->universalDiscoveryWidget->verifyIsLoaded();
         $this->universalDiscoveryWidget->selectContent($parameters['value']);
