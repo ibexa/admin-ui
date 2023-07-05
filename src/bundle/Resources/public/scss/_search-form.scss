@@ -4,7 +4,7 @@
         'search search'
         'filters results'
         '. results';
-    grid-template-columns: calculateRem(270px) auto;
+    grid-template-columns: calculateRem(270px) calc(100% - #{calculateRem(294px)});
     grid-column-gap: calculateRem(24px);
     padding: calculateRem(16px);
 
