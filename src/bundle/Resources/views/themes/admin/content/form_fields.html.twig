@@ -117,7 +117,7 @@
             {{ widget_container_block|raw }}
         {% else %}
             <div{% with { attr: widget_wrapper_attr } %}{{ block('attributes') }}{% endwith %}>
-                <div class="ibexa-data-source ibexa-data-source">
+                <div class="ibexa-data-source">
                     {{- form_widget(form, {'attr': attr}) -}}
                 </div>
             </div>
