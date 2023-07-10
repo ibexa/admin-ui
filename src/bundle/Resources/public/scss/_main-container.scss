@@ -1,4 +1,6 @@
 .ibexa-main-container {
+    $edit-container-padding: calculateRem(16px);
+
     display: flex;
     flex-wrap: nowrap;
     overflow: hidden;
@@ -15,8 +17,26 @@
 
     &--edit-container {
         height: 100vh;
-        padding: calculateRem(16px);
+        padding: $edit-container-padding;
         background-color: $ibexa-color-dark;
+
+        &::before,
+        &::after {
+            content: '';
+            height: $edit-container-padding;
+            position: absolute;
+            width: 100%;
+            background-color: $ibexa-color-dark;
+            z-index: 2;
+        }
+
+        &::before {
+            top: 0;
+        }
+
+        &::after {
+            bottom: 0;
+        }
 
         .ibexa-main-container {
             &__side-column {
