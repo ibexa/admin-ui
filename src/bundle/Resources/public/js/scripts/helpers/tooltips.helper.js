@@ -75,6 +75,42 @@
 
         return defaultBsPopperConfig;
     };
+    const getTextHeight = (text, styles) => {
+        const tag = doc.createElement('div');
+
+        tag.innerHTML = text;
+
+        for (const key in styles) {
+            tag.style[key] = styles[key];
+        }
+
+        doc.body.appendChild(tag);
+
+        const { height: texHeight } = tag.getBoundingClientRect();
+
+        doc.body.removeChild(tag);
+
+        return texHeight;
+    };
+    const isTitleEllipsized = (node) => {
+        const title = node.title || node.dataset.originalTitle;
+        const { width: nodeWidth, height: nodeHeight } = node.getBoundingClientRect();
+        const computedNodeStyles = getComputedStyle(node);
+        const styles = {
+            width: `${nodeWidth}px`,
+            padding: computedNodeStyles.getPropertyValue('padding'),
+            'font-size': computedNodeStyles.getPropertyValue('font-size'),
+            'font-family': computedNodeStyles.getPropertyValue('font-family'),
+            'font-weight': computedNodeStyles.getPropertyValue('font-weight'),
+            'font-style': computedNodeStyles.getPropertyValue('font-style'),
+            'font-variant': computedNodeStyles.getPropertyValue('font-variant'),
+            'line-height': computedNodeStyles.getPropertyValue('line-height'),
+        };
+
+        const textHeight = getTextHeight(title, styles);
+
+        return textHeight > nodeHeight;
+    };
     const parse = (baseElement = doc) => {
         if (!baseElement) {
             return;
@@ -93,7 +129,7 @@
                 if (hasEllipsisStyle) {
                     resizeEllipsisObserver.observe(tooltipNode);
 
-                    const isEllipsized = tooltipNode.scrollWidth > tooltipNode.offsetWidth;
+                    const isEllipsized = isTitleEllipsized(tooltipNode);
                     const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipNode);
 
                     if (tooltipInstance) {
@@ -109,6 +145,11 @@
                             tooltipNode.title = tooltipNode.dataset.title;
                         }
                     } else {
+                        if (tooltipNode.title) {
+                            tooltipNode.dataset.title = tooltipNode.title;
+                            tooltipNode.title = '';
+                        }
+
                         continue;
                     }
                 }
