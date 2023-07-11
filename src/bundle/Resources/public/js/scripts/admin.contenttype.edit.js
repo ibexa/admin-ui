@@ -98,15 +98,23 @@
     };
     const attachFieldDefinitionNodeEvents = (fieldNode, { targetContainer }) => {
         const fieldGroupInput = fieldNode.querySelector('.ibexa-input--field-group');
-        const removeFieldsBtn = fieldNode.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions');
+        const collapseFieldBtns = fieldNode.querySelectorAll('.ibexa-collapse__toggle-btn--status');
+        const removeFieldBtns = fieldNode.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions');
         const fieldInputsToValidate = fieldNode.querySelectorAll(SELECTOR_INPUTS_TO_VALIDATE);
         const groupCollapseNode = targetContainer.closest('.ibexa-collapse--field-definitions-group');
         const { fieldsGroupId } = groupCollapseNode.dataset;
 
         fieldInputsToValidate.forEach(attachValidateEvents);
         fieldGroupInput.value = fieldsGroupId;
-        removeFieldsBtn.forEach((removeFieldBtn) => {
+        removeFieldBtns.forEach((removeFieldBtn) => {
             removeFieldBtn.addEventListener('click', removeField, false);
+        });
+        collapseFieldBtns.forEach((collapseFieldBtn) => {
+            if (!navigator.userAgent.includes('Firefox')) {
+                return;
+            }
+
+            collapseFieldBtn.addEventListener('click', handleDisableDraggingForFirefox, false);
         });
 
         const dropdowns = fieldNode.querySelectorAll('.ibexa-dropdown');
@@ -336,6 +344,19 @@
             })
             .catch(ibexa.helpers.notification.showErrorNotification);
     };
+    const handleDisableDraggingForFirefox = ({ currentTarget }) => {
+        const fieldDefinitionNode = currentTarget.closest('.ibexa-collapse--field-definition');
+        const collapseBodyNode = fieldDefinitionNode.querySelector('.ibexa-collapse__body');
+
+        if (currentTarget.classList.contains('collapsed')) {
+            fieldDefinitionNode.setAttribute('draggable', true);
+            collapseBodyNode.setAttribute('draggable', true);
+            return;
+        }
+
+        fieldDefinitionNode.setAttribute('draggable', false);
+        collapseBodyNode.setAttribute('draggable', false);
+    };
     const validateInput = (input) => {
         const isInputEmpty = !input.value;
         const field = input.closest('.form-group');
@@ -519,17 +540,24 @@
         firstFieldDefinitionsGroupContent.classList.add('ibexa-collapse--active-field-definitions-group');
     }
 
-    doc.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions').forEach((removeFieldDefinitionsButton) => {
-        removeFieldDefinitionsButton.addEventListener('click', removeField, false);
+    doc.querySelectorAll('.ibexa-collapse--field-definition .ibexa-collapse__toggle-btn').forEach((collapseFieldDefinitionBtn) => {
+        if (!navigator.userAgent.includes('Firefox')) {
+            return;
+        }
+
+        collapseFieldDefinitionBtn.addEventListener('click', handleDisableDraggingForFirefox, false);
+    });
+    doc.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions').forEach((removeFieldDefinitionsBtn) => {
+        removeFieldDefinitionsBtn.addEventListener('click', removeField, false);
     });
     doc.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions-group').forEach(
-        (removeFieldDefinitionsGroupButton) => {
-            const groupFieldsDefinitionCount = removeFieldDefinitionsGroupButton
+        (removeFieldDefinitionsGroupBtn) => {
+            const groupFieldsDefinitionCount = removeFieldDefinitionsGroupBtn
                 .closest('.ibexa-collapse--field-definitions-group')
                 .querySelectorAll('.ibexa-collapse--field-definition').length;
 
-            removeFieldDefinitionsGroupButton.toggleAttribute('disabled', groupFieldsDefinitionCount > 0);
-            removeFieldDefinitionsGroupButton.addEventListener('click', removeFieldsGroup, false);
+            removeFieldDefinitionsGroupBtn.toggleAttribute('disabled', groupFieldsDefinitionCount > 0);
+            removeFieldDefinitionsGroupBtn.addEventListener('click', removeFieldsGroup, false);
         },
     );
 
@@ -578,9 +606,9 @@
             false,
         );
     });
-    doc.querySelectorAll('.ibexa-content-type-edit__field-definition-drop-zone').forEach((collapseCotentNode) => {
+    doc.querySelectorAll('.ibexa-content-type-edit__field-definition-drop-zone').forEach((collapseContentNode) => {
         const draggable = new FieldDefinitionDraggable({
-            itemsContainer: collapseCotentNode,
+            itemsContainer: collapseContentNode,
             selectorItem: '.ibexa-collapse--field-definition',
             selectorPlaceholder: '.ibexa-field-definitions-placeholder',
             selectorPreventDrag: '.ibexa-collapse__body',

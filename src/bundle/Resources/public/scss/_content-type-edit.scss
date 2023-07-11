@@ -127,6 +127,10 @@
 
                 &:hover {
                     border-color: $ibexa-color-dark;
+
+                    .ibexa-collapse__draggable-btn .ibexa-icon {
+                        fill: $ibexa-color-dark;
+                    }
                 }
 
                 .ibexa-collapse {
