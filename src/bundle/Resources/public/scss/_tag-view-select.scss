@@ -38,9 +38,9 @@
             margin-right: calculateRem(8px);
         }
 
-        .ibexa-middle-ellipsis {
-            &:not(.not-deletable) {
-                max-width: calc(100% - #{calculateRem(20px)});
+        &--not-deletable {
+            .ibexa-middle-ellipsis {
+                max-width: 100%;
             }
         }
 
