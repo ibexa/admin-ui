@@ -82,8 +82,20 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
                 $fieldPosition
             )
         );
-        $this->getHTMLPage()->find($fieldSelector)->mouseOver();
-        $this->getHTMLPage()->setTimeout(3)->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(), $fieldSelector));
+
+        $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($fieldSelector): bool {
+            $this->getHTMLPage()->setTimeout(0)->find($fieldSelector)->mouseOver();
+            $this->getHTMLPage()
+                ->setTimeout(0)
+                ->waitUntilCondition(
+                    new ElementTransitionHasEndedCondition(
+                        $this->getHTMLPage(),
+                        $fieldSelector
+                    )
+                );
+
+            return true;
+        }, 'Error hovering over the Field Definition to add');
 
         $fieldScript = sprintf("document.querySelector('%s')", $fieldSelector->getSelector());
         $workspaceScript = sprintf("document.querySelector('%s')", $this->getLocator('workspace')->getSelector());
