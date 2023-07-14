@@ -23,6 +23,15 @@ class Notification extends Component
             ->isVisible();
     }
 
+    public function verifyAlertWarning(): void
+    {
+        $this->getHTMLPage()
+            ->setTimeout(20)
+            ->find($this->getLocator('warningAlert'))
+            ->assert()
+            ->isVisible();
+    }
+
     public function verifyAlertFailure(): void
     {
         Assert::assertTrue(
@@ -72,6 +81,7 @@ class Notification extends Component
             new VisibleCSSLocator('alert', '.ibexa-notifications-container .alert'),
             new VisibleCSSLocator('alertMessage', '.ibexa-notifications-container .ibexa-alert__title'),
             new VisibleCSSLocator('successAlert', '.ibexa-alert--success'),
+            new VisibleCSSLocator('warningAlert', '.ibexa-alert--warning'),
             new VisibleCSSLocator('failureAlert', '.ibexa-alert--error'),
             new VisibleCSSLocator('closeAlert', '.ibexa-alert__close-btn'),
         ];
