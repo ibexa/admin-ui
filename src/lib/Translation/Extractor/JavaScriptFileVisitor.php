@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Translation\Extractor;
+namespace Ibexa\AdminUi\Translation\Extractor;
 
 use Doctrine\Common\Annotations\DocParser;
 use JMS\TranslationBundle\Annotation\Desc;
@@ -27,11 +27,11 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
 {
     use LoggerAwareTrait;
 
-    const TRANSLATOR_OBJECT = 'Translator';
-    const TRANSLATOR_METHOD = 'trans';
+    public const TRANSLATOR_OBJECT = 'Translator';
+    public const TRANSLATOR_METHOD = 'trans';
 
-    const ID_ARG = 0;
-    const DOMAIN_ARG = 2;
+    public const ID_ARG = 0;
+    public const DOMAIN_ARG = 2;
 
     /** @var \Doctrine\Common\Annotations\DocParser */
     private $docParser;
@@ -230,3 +230,5 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
         return '.js' === substr($file->getRealPath(), -3) && '.min.js' !== substr($file->getRealPath(), -7);
     }
 }
+
+class_alias(JavaScriptFileVisitor::class, 'EzSystems\EzPlatformAdminUi\Translation\Extractor\JavaScriptFileVisitor');

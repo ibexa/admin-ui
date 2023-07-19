@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Limitation\Mapper;
+namespace Ibexa\AdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Ancestor;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location\Path;
-use eZ\Publish\API\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Ancestor;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\Path;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
 class SubtreeLimitationMapper extends UDWBasedMapper
 {
@@ -28,6 +28,10 @@ class SubtreeLimitationMapper extends UDWBasedMapper
         }
     }
 
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     */
     public function mapLimitationValue(Limitation $limitation)
     {
         $values = [];
@@ -59,3 +63,5 @@ class SubtreeLimitationMapper extends UDWBasedMapper
         return $values;
     }
 }
+
+class_alias(SubtreeLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\SubtreeLimitationMapper');

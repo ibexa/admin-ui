@@ -6,29 +6,29 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Processor\Content;
+namespace Ibexa\AdminUi\Form\Processor\Content;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use EzSystems\EzPlatformAdminUi\Specification\SiteAccess\IsAdmin;
-use EzSystems\EzPlatformContentForms\Event\ContentFormEvents;
-use EzSystems\EzPlatformContentForms\Event\FormActionEvent;
-use EzSystems\EzPlatformContentForms\Form\Processor\SystemUrlRedirectProcessor;
+use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
+use Ibexa\ContentForms\Event\ContentFormEvents;
+use Ibexa\ContentForms\Event\FormActionEvent;
+use Ibexa\ContentForms\Form\Processor\SystemUrlRedirectProcessor;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class UrlRedirectProcessor implements EventSubscriberInterface
 {
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess */
+    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess */
     private $siteaccess;
 
-    /** @var \EzSystems\EzPlatformContentForms\Form\Processor\SystemUrlRedirectProcessor */
+    /** @var \Ibexa\ContentForms\Form\Processor\SystemUrlRedirectProcessor */
     private $systemUrlRedirectProcessor;
 
     /** @var array */
     private $siteaccessGroups;
 
     /**
-     * @param \eZ\Publish\Core\MVC\Symfony\SiteAccess $siteaccess
-     * @param \EzSystems\EzPlatformContentForms\Form\Processor\SystemUrlRedirectProcessor $systemUrlRedirectProcessor
+     * @param \Ibexa\Core\MVC\Symfony\SiteAccess $siteaccess
+     * @param \Ibexa\ContentForms\Form\Processor\SystemUrlRedirectProcessor $systemUrlRedirectProcessor
      * @param array $siteaccessGroups
      */
     public function __construct(
@@ -53,11 +53,11 @@ class UrlRedirectProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \EzSystems\EzPlatformContentForms\Event\FormActionEvent $event
+     * @param \Ibexa\ContentForms\Event\FormActionEvent $event
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function processRedirectAfterPublish(FormActionEvent $event): void
     {
@@ -73,11 +73,11 @@ class UrlRedirectProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \EzSystems\EzPlatformContentForms\Event\FormActionEvent $event
+     * @param \Ibexa\ContentForms\Event\FormActionEvent $event
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function processRedirectAfterCancel(FormActionEvent $event): void
     {
@@ -91,10 +91,12 @@ class UrlRedirectProcessor implements EventSubscriberInterface
     /**
      * @return bool
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     protected function isAdminSiteaccess(): bool
     {
         return (new IsAdmin($this->siteaccessGroups))->isSatisfiedBy($this->siteaccess);
     }
 }
+
+class_alias(UrlRedirectProcessor::class, 'EzSystems\EzPlatformAdminUi\Form\Processor\Content\UrlRedirectProcessor');

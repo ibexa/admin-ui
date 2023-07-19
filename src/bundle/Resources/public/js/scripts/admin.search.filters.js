@@ -1,36 +1,33 @@
-(function (global, doc, eZ, $, flatpickr) {
+(function (global, doc, ibexa, flatpickr, React, ReactDOM) {
     let getUsersTimeout;
-    const CLASS_DATE_RANGE = 'ez-filters__range-wrapper';
-    const CLASS_VISIBLE_DATE_RANGE = 'ez-filters__range-wrapper--visible';
-    const SELECTOR_TAG = '.ez-tag';
+    const CLASS_DATE_RANGE = 'ibexa-filters__range-wrapper';
+    const CLASS_VISIBLE_DATE_RANGE = 'ibexa-filters__range-wrapper--visible';
+    const SELECTOR_TAG = '.ibexa-tag';
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
-    const filterBtn = doc.querySelector('.ez-btn--filter');
-    const filters = doc.querySelector('.ez-filters');
-    const searchCriteriaTags = doc.querySelector('.ez-search-criteria-tags');
-    const clearBtn = filters.querySelector('.ez-btn-clear');
-    const applyBtn = filters.querySelector('.ez-btn-apply');
-    const dateFields = doc.querySelectorAll('.ez-filters__range-select');
-    const contentTypeSelector = doc.querySelector('.ez-content-type-selector');
-    const contentTypeSelect = doc.querySelector('.ez-filters__item--content-type .ez-filters__select');
-    const sectionSelect = doc.querySelector('.ez-filters__item--section .ez-filters__select');
-    const lastModifiedSelect = doc.querySelector('.ez-filters__item--modified .ez-filters__select');
-    const lastModifiedDateRange = doc.querySelector('.ez-filters__item--modified .ez-filters__range-select');
-    const lastCreatedSelect = doc.querySelector('.ez-filters__item--created .ez-filters__select');
-    const lastCreatedDateRange = doc.querySelector('.ez-filters__item--created .ez-filters__range-select');
-    const creatorInput = doc.querySelector('.ez-filters__item--creator .ez-filters__input');
+    const filters = doc.querySelector('.ibexa-filters');
+    const clearBtn = filters.querySelector('.ibexa-btn--clear');
+    const applyBtn = filters.querySelector('.ibexa-btn--apply');
+    const dateFields = doc.querySelectorAll('.ibexa-filters__range-wrapper');
+    const contentTypeSelect = doc.querySelector('.ibexa-filters__item--content-type .ibexa-filters__select');
+    const sectionSelect = doc.querySelector('.ibexa-filters__item--section .ibexa-filters__select');
+    const lastModifiedSelect = doc.querySelector('.ibexa-filters__item--modified .ibexa-filters__select');
+    const lastModifiedDateRange = doc.querySelector('.ibexa-filters__item--modified .ibexa-filters__range-select');
+    const lastCreatedSelect = doc.querySelector('.ibexa-filters__item--created .ibexa-filters__select');
+    const lastCreatedDateRange = doc.querySelector('.ibexa-filters__item--created .ibexa-filters__range-select');
+    const creatorInput = doc.querySelector('.ibexa-filters__item--creator .ibexa-input');
     const searchCreatorInput = doc.querySelector('#search_creator');
-    const usersList = doc.querySelector('.ez-filters__item--creator .ez-filters__user-list');
-    const resetCreatorBtn = doc.querySelector('.ez-filters__item--creator .ez-icon--reset');
-    const listGroupsTitle = doc.querySelectorAll('.ez-content-type-selector__group-title');
-    const contentTypeCheckboxes = doc.querySelectorAll('.ez-content-type-selector__item [type="checkbox"]');
+    const usersList = doc.querySelector('.ibexa-filters__item--creator .ibexa-filters__user-list');
+    const contentTypeCheckboxes = doc.querySelectorAll('.ibexa-content-type-selector__item [type="checkbox"]');
+    const selectSubtreeBtn = doc.querySelector('.ibexa-filters__item--subtree .ibexa-tag-view-select__btn-select-path');
     const subtreeInput = doc.querySelector('#search_subtree');
+    const showMoreBtns = doc.querySelectorAll('.ibexa-content-type-selector__show-more');
     const dateConfig = {
         mode: 'range',
         locale: {
             rangeSeparator: ' - ',
         },
-        formatDate: (date) => eZ.helpers.timezone.formatShortDateTime(date, null, eZ.adminUiConfig.dateFormat.shortDate),
+        formatDate: (date) => ibexa.helpers.timezone.formatShortDateTime(date, null, ibexa.adminUiConfig.dateFormat.shortDate),
     };
     const clearFilters = (event) => {
         event.preventDefault();
@@ -104,29 +101,6 @@
 
         applyBtn[methodName]('disabled', !isEnabled);
     };
-    const toggleFiltersVisibility = (event) => {
-        event.preventDefault();
-
-        filters.classList.toggle('ez-filters--collapsed');
-        searchCriteriaTags.classList.toggle('ez-search-criteria-tags--collapsed');
-    };
-    const handleClickOutside = (event) => {
-        if (event.target.closest('.ez-content-type-selector') || event.target.closest('.ez-filters__select--content-type')) {
-            return;
-        }
-
-        toggleContentTypeSelectorVisibility();
-    };
-    const toggleContentTypeSelectorVisibility = (event) => {
-        event.preventDefault();
-
-        const methodName = contentTypeSelector.classList.contains('ez-content-type-selector--collapsed')
-            ? 'addEventListener'
-            : 'removeEventListener';
-
-        contentTypeSelector.classList.toggle('ez-content-type-selector--collapsed');
-        doc.querySelector('body')[methodName]('click', handleClickOutside, false);
-    };
     const toggleDatesSelectVisibility = (event) => {
         const datesRangeNode = doc.querySelector(event.target.dataset.targetSelector);
 
@@ -142,32 +116,30 @@
 
         datesRangeNode.classList.add(CLASS_VISIBLE_DATE_RANGE);
     };
-    const toggleGroupState = (event) => {
-        event.preventDefault();
-
-        event.currentTarget.closest('.ez-content-type-selector__group').classList.toggle('ez-content-type-selector__group--collapsed');
-    };
     const filterByContentType = () => {
         const selectedCheckboxes = [...contentTypeCheckboxes].filter((checkbox) => checkbox.checked);
         const contentTypesText = selectedCheckboxes.map((checkbox) => checkbox.dataset.name).join(', ');
-        const option = contentTypeSelect[0];
+        const [option] = contentTypeSelect;
         const defaultText = option.dataset.default;
 
         option.innerHTML = contentTypesText || defaultText;
 
         toggleDisabledStateOnApplyBtn();
     };
-    const setSelectedDateRange = (selectedDates, dateString, instance) => {
-        const dateRange = instance.input.closest('.ez-filters__range-wrapper');
+    const setSelectedDateRange = (timestamps, { dates, inputField }) => {
+        const dateRange = inputField.closest('.ibexa-filters__range-wrapper');
 
-        if (selectedDates.length === 2) {
-            const startDate = getUnixTimestampUTC(selectedDates[0]);
-            const endDate = getUnixTimestampUTC(selectedDates[1]);
+        if (dates.length === 2) {
+            const startDate = getUnixTimestampUTC(dates[0]);
+            const endDate = getUnixTimestampUTC(dates[1]);
             const secondsInDay = 86400;
             const days = (endDate - startDate) / secondsInDay;
 
             doc.querySelector(dateRange.dataset.periodSelector).value = `P0Y0M${days}D`;
             doc.querySelector(dateRange.dataset.endSelector).value = endDate;
+        } else if (dates.length === 0) {
+            doc.querySelector(dateRange.dataset.periodSelector).value = '';
+            doc.querySelector(dateRange.dataset.endSelector).value = '';
         }
 
         toggleDisabledStateOnApplyBtn();
@@ -196,11 +168,11 @@
                 },
             },
         });
-        const request = new Request('/api/ezp/v2/views', {
+        const request = new Request('/api/ibexa/v2/views', {
             method: 'POST',
             headers: {
-                Accept: 'application/vnd.ez.api.View+json; version=1.1',
-                'Content-Type': 'application/vnd.ez.api.ViewInput+json; version=1.1',
+                Accept: 'application/vnd.ibexa.api.View+json; version=1.1',
+                'Content-Type': 'application/vnd.ibexa.api.ViewInput+json; version=1.1',
                 'X-Siteaccess': siteaccess,
                 'X-CSRF-Token': token,
             },
@@ -214,7 +186,7 @@
             .then(showUsersList);
     };
     const createUsersListItem = (user) => {
-        return `<li data-id="${user._id}" data-name="${user.TranslatedName}" class="ez-filters__user-item">${user.TranslatedName}</li>`;
+        return `<li data-id="${user._id}" data-name="${user.TranslatedName}" class="ibexa-filters__user-item">${user.TranslatedName}</li>`;
     };
     const showUsersList = (data) => {
         const hits = data.View.Result.searchHits.searchHit;
@@ -222,7 +194,7 @@
         const methodName = users ? 'addEventListener' : 'removeEventListener';
 
         usersList.innerHTML = users;
-        usersList.classList.remove('ez-filters__user-list--hidden');
+        usersList.classList.remove('ibexa-filters__user-list--hidden');
 
         doc.querySelector('body')[methodName]('click', handleClickOutsideUserList, false);
     };
@@ -234,14 +206,14 @@
         if (value.length > 2) {
             getUsersTimeout = window.setTimeout(getUsersList.bind(null, value), 200);
         } else {
-            usersList.classList.add('ez-filters__user-list--hidden');
+            usersList.classList.add('ibexa-filters__user-list--hidden');
             doc.querySelector('body').removeEventListener('click', handleClickOutsideUserList, false);
         }
     };
     const handleSelectUser = (event) => {
         searchCreatorInput.value = event.target.dataset.id;
 
-        usersList.classList.add('ez-filters__user-list--hidden');
+        usersList.classList.add('ibexa-filters__user-list--hidden');
 
         creatorInput.value = event.target.dataset.name;
         creatorInput.setAttribute('disabled', true);
@@ -259,29 +231,34 @@
         toggleDisabledStateOnApplyBtn();
     };
     const handleClickOutsideUserList = (event) => {
-        if (event.target.closest('.ez-filters__item--creator')) {
+        if (event.target.closest('.ibexa-filters__item--creator')) {
             return;
         }
 
         creatorInput.value = '';
-        usersList.classList.add('ez-filters__user-list--hidden');
+        usersList.classList.add('ibexa-filters__user-list--hidden');
         doc.querySelector('body').removeEventListener('click', handleClickOutsideUserList, false);
     };
-    const initFlatPickr = (dateRangePickerNode) => {
-        const { start, end } = dateRangePickerNode.dataset;
+    const initFlatPickr = (dateRangeField) => {
+        const { start, end } = dateRangeField.querySelector('.ibexa-filters__range-select').dataset;
         const defaultDate = start && end ? [start, end] : [];
 
-        flatpickr(dateRangePickerNode, {
-            ...dateConfig,
+        const dateTimePickerWidget = new ibexa.core.DateTimePicker({
+            container: dateRangeField,
             onChange: setSelectedDateRange,
-            defaultDate,
+            flatpickrConfig: {
+                ...dateConfig,
+                defaultDate,
+            },
         });
+
+        dateTimePickerWidget.init();
     };
     const removeSearchTag = (event) => {
         const tag = event.currentTarget.closest(SELECTOR_TAG);
         const form = event.currentTarget.closest('form');
 
-        eZ.helpers.tooltips.hideAll();
+        ibexa.helpers.tooltips.hideAll();
         tag.remove();
         form.submit();
     };
@@ -296,14 +273,12 @@
         removeSearchTag(event);
     };
     const clearSubtree = (event) => {
-        doc.querySelector('#search_subtree-content-breadcrumbs').hidden = true;
-        doc.querySelector('.ez-btn--udw-select-location').hidden = false;
         subtreeInput.value = '';
         removeSearchTag(event);
     };
     const clearDataRange = (event, selector) => {
         const dataRange = doc.querySelector(selector);
-        const rangeSelect = dataRange.parentNode.querySelector('.ez-filters__select');
+        const rangeSelect = dataRange.parentNode.querySelector('.ibexa-filters__select');
         const periodInput = doc.querySelector(dataRange.dataset.periodSelector);
         const endDateInput = doc.querySelector(dataRange.dataset.endSelector);
 
@@ -325,20 +300,59 @@
         'last-modified': (event) => clearDataRange(event, lastModifiedSelect.dataset.targetSelector),
         'last-created': (event) => clearDataRange(event, lastCreatedSelect.dataset.targetSelector),
     };
+    const showMoreContentTypes = (event) => {
+        const btn = event.currentTarget;
+        const contentTypesList = btn
+            .closest('.ibexa-content-type-selector__list-wrapper')
+            .querySelector('.ibexa-content-type-selector__list[hidden]');
+
+        btn.setAttribute('hidden', true);
+        contentTypesList.removeAttribute('hidden');
+    };
+    const selectSubtreeWidget = new ibexa.core.TagViewSelect({
+        fieldContainer: doc.querySelector('.ibexa-filters__item--subtree'),
+    });
+    const udwContainer = doc.getElementById('react-udw');
+    let udwRoot = null;
+    const closeUDW = () => udwRoot.unmount();
+    const confirmSubtreeUDW = (data) => {
+        ibexa.helpers.tagViewSelect.buildItemsFromUDWResponse(
+            data,
+            (item) => item.pathString,
+            (items) => {
+                selectSubtreeWidget.addItems(items, true);
+
+                closeUDW();
+            },
+        );
+    };
+    const openSubtreeUDW = (event) => {
+        event.preventDefault();
+
+        const config = JSON.parse(event.currentTarget.dataset.udwConfig);
+
+        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot.render(
+            React.createElement(ibexa.modules.UniversalDiscovery, {
+                onConfirm: confirmSubtreeUDW.bind(this),
+                onCancel: closeUDW,
+                multiple: true,
+                ...config,
+            }),
+        );
+    };
 
     dateFields.forEach(initFlatPickr);
     filterByContentType();
 
     clearBtn.addEventListener('click', clearFilters, false);
-    filterBtn.addEventListener('click', toggleFiltersVisibility, false);
-    contentTypeSelect.addEventListener('mousedown', toggleContentTypeSelectorVisibility, false);
 
     if (sectionSelect) {
         sectionSelect.addEventListener('change', toggleDisabledStateOnApplyBtn, false);
     }
 
     for (const tagType in clearSearchTagBtnMethods) {
-        const tagBtns = doc.querySelectorAll(`.ez-tag__remove-btn--${tagType}`);
+        const tagBtns = doc.querySelectorAll(`.ibexa-tag__remove-btn--${tagType}`);
 
         tagBtns.forEach((btn) => btn.addEventListener('click', clearSearchTagBtnMethods[tagType], false));
     }
@@ -348,7 +362,7 @@
     lastCreatedSelect.addEventListener('change', toggleDatesSelectVisibility, false);
     creatorInput.addEventListener('keyup', handleTyping, false);
     usersList.addEventListener('click', handleSelectUser, false);
-    resetCreatorBtn.addEventListener('click', handleResetUser, false);
-    listGroupsTitle.forEach((group) => group.addEventListener('click', toggleGroupState, false));
     contentTypeCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', filterByContentType, false));
-})(window, window.document, window.eZ, window.jQuery, window.flatpickr);
+    showMoreBtns.forEach((showMoreBtn) => showMoreBtn.addEventListener('click', showMoreContentTypes, false));
+    selectSubtreeBtn.addEventListener('click', openSubtreeUDW, false);
+})(window, window.document, window.ibexa, window.flatpickr, window.React, window.ReactDOM);

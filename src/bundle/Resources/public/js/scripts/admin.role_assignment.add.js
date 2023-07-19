@@ -1,133 +1,101 @@
-(function(global, doc, eZ, React, ReactDOM) {
+(function (global, doc, ibexa, React, ReactDOM) {
     const udwContainer = doc.getElementById('react-udw');
-    const limitationsRadio = doc.querySelectorAll('.ez-limitations__radio');
-    const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
-    const selectSubtreeConfirm = (data) => {
-        const selectedItems = data.reduce((total, item) => `${total}<li>${item.ContentInfo.Content.TranslatedName}</li>`, '');
+    const limitationsRadio = doc.querySelectorAll('.ibexa-assign__limitations-item-radio');
+    const selectSubtreeWidget = new ibexa.core.TagViewSelect({
+        fieldContainer: doc.querySelector('.ibexa-assign__limitations-item-subtree'),
+    });
+    const selectUsersWidget = new ibexa.core.TagViewSelect({
+        fieldContainer: doc.querySelector('.ibexa-assign__users'),
+    });
+    const selectGroupsWidget = new ibexa.core.TagViewSelect({
+        fieldContainer: doc.querySelector('.ibexa-assign__groups'),
+    });
+    const selectSubtreeBtn = doc.querySelector('.ibexa-assign__limitations-item-select-subtree');
+    const selectUsersBtn = doc.querySelector('#role_assignment_create_users__btn');
+    const selectGroupsBtn = doc.querySelector('#role_assignment_create_groups__btn');
+    let udwRoot = null;
+    const closeUDW = () => udwRoot.unmount();
+    const confirmSubtreeUDW = (data) => {
+        ibexa.helpers.tagViewSelect.buildItemsFromUDWResponse(
+            data,
+            (item) => item.id,
+            (items) => {
+                selectSubtreeWidget.addItems(items, true);
 
-        doc.querySelector('#role_assignment_create_locations').value = data.map((item) => item.id).join();
-        doc.querySelector('.ez-limitations__selected-subtree').innerHTML = selectedItems;
-
-        closeUDW();
+                closeUDW();
+            },
+        );
     };
-    const selectSubtree = (event) => {
+    const openSubtreeUDW = (event) => {
         event.preventDefault();
 
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
-        const { inputSelector } = event.currentTarget.dataset;
-        const selectedLocations = doc.querySelector(inputSelector).value;
+        const selectedLocations = selectSubtreeWidget.inputField.value;
         const selectedLocationsIds = selectedLocations ? selectedLocations.split(',') : [];
 
-        ReactDOM.render(
-            React.createElement(eZ.modules.UniversalDiscovery, {
-                onConfirm: selectSubtreeConfirm.bind(this),
+        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot.render(
+            React.createElement(ibexa.modules.UniversalDiscovery, {
+                onConfirm: confirmSubtreeUDW.bind(this),
                 onCancel: closeUDW,
                 multiple: true,
                 selectedLocations: selectedLocationsIds,
                 ...config,
             }),
-            udwContainer
         );
     };
-    const toggleDisabledState = () => {
-        limitationsRadio.forEach((radio) => {
-            const disableNode = doc.querySelector(radio.dataset.disableSelector);
-            const methodName = radio.checked ? 'removeAttribute' : 'setAttribute';
+    const confirmUsersAndGroupsUDW = (widget, selectedItems) => {
+        ibexa.helpers.tagViewSelect.buildItemsFromUDWResponse(
+            selectedItems,
+            (item) => item.ContentInfo.Content._id,
+            (items) => {
+                const itemsMap = selectedItems.reduce((output, item) => ({ ...output, [item.ContentInfo.Content._id]: item.id }), {});
 
-            if (disableNode) {
-                disableNode[methodName]('disabled', 'disabled');
-            }
-        });
+                widget.addItems(items, true);
+                widget.selectBtn.setAttribute('data-items-map', JSON.stringify(itemsMap));
+
+                closeUDW();
+            },
+        );
     };
-
-    doc.querySelector('.ez-btn--select-subtree').addEventListener('click', selectSubtree, false);
-    limitationsRadio.forEach((radio) => radio.addEventListener('change', toggleDisabledState, false));
-
-    const addContentToInput = (selectBtn, selectedItems) => {
-        const input = doc.querySelector(selectBtn.dataset.inputSelector);
-        const selectedContentIds = selectedItems.map((item) => item.ContentInfo.Content._id).join(',');
-
-        input.value = selectedContentIds;
-    };
-    const removeContentFromInput = (selectBtn, removedContentId) => {
-        const input = doc.querySelector(selectBtn.dataset.inputSelector);
-        const contentIdsWithoutRemoved = input.value.split(',').filter((contentId) => contentId !== removedContentId);
-
-        input.value = contentIdsWithoutRemoved.join(',');
-    };
-    const addContentTags = (selectBtn, selectedItems) => {
-        const tagsList = doc.querySelector(selectBtn.dataset.selectedContentListSelector);
-        const tagTemplate = selectBtn.dataset.tagTemplate;
-        const fragment = doc.createDocumentFragment();
-
-        selectedItems.forEach((location) => {
-            const { _id: contentId, Name: contentName } = location.ContentInfo.Content;
-            const container = doc.createElement('ul');
-            const renderedItem = tagTemplate.replace('{{ content_id }}', contentId).replace('{{ content_name }}', contentName);
-
-            container.insertAdjacentHTML('beforeend', renderedItem);
-
-            const listItemNode = container.querySelector('li');
-            const tagNode = listItemNode.querySelector('.ez-tag');
-
-            attachTagEventHandlers(selectBtn, tagNode);
-            fragment.append(listItemNode);
-        });
-
-        tagsList.innerHTML = '';
-        tagsList.append(fragment);
-    };
-    const handleTagRemove = (selectBtn, tag) => {
-        const removedContentId = tag.dataset.contentId;
-
-        removeContentFromInput(selectBtn, removedContentId);
-        tag.remove();
-    };
-    const attachTagEventHandlers = (selectBtn, tag) => {
-        const removeTagBtn = tag.querySelector('.ez-tag__remove-btn');
-
-        removeTagBtn.addEventListener('click', () => handleTagRemove(selectBtn, tag), false);
-    };
-    const handleUdwConfirm = (selectBtn, selectedItems) => {
-        if (selectedItems.length) {
-            addContentToInput(selectBtn, selectedItems);
-            addContentTags(selectBtn, selectedItems);
-            selectBtn.setAttribute('data-selected-locations', selectedItems.map((item) => item.id).join());
-        }
-
-        closeUDW();
-    };
-    const openUDW = (event) => {
+    const openUsersAndGroupsUDW = (widget, event) => {
         event.preventDefault();
 
         const selectBtn = event.currentTarget;
-        const { selectedLocations } = selectBtn.dataset;
-        const selectedLocationsIds = selectedLocations ? selectedLocations.split(',') : [];
         const config = JSON.parse(selectBtn.dataset.udwConfig);
+        const itemsMap = JSON.parse(selectBtn.dataset.itemsMap);
+        const selectedContent = widget.inputField.value;
+        const selectedContentIds = selectedContent ? selectedContent.split(',') : [];
+        const selectedLocationsIds = selectedContentIds.map((contentId) => itemsMap[contentId]);
 
-        ReactDOM.render(
-            React.createElement(eZ.modules.UniversalDiscovery, {
-                onConfirm: handleUdwConfirm.bind(this, selectBtn),
-                onCancel: () => ReactDOM.unmountComponentAtNode(udwContainer),
+        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot.render(
+            React.createElement(ibexa.modules.UniversalDiscovery, {
+                onConfirm: confirmUsersAndGroupsUDW.bind(this, widget),
+                onCancel: () => udwRoot.unmount(),
                 title: selectBtn.dataset.universaldiscoveryTitle,
                 multiple: true,
                 selectedLocations: selectedLocationsIds,
                 ...config,
             }),
-            udwContainer
         );
     };
-    const selectUsersBtn = doc.querySelector('#role_assignment_create_users__btn');
-    const selectGroupsBtn = doc.querySelector('#role_assignment_create_groups__btn');
+    const toggleDisabledState = () => {
+        limitationsRadio.forEach((radio) => {
+            const disableNode = radio.closest('.ibexa-assign__limitations-item').querySelector(radio.dataset.disableSelector);
 
-    [selectUsersBtn, selectGroupsBtn].forEach((selectBtn) => {
-        selectBtn.addEventListener('click', openUDW, false);
-
-        const tagsList = doc.querySelector(selectBtn.dataset.selectedContentListSelector);
-        const tags = tagsList.querySelectorAll('.ez-tag');
-
-        tags.forEach((tag) => {
-            attachTagEventHandlers(selectBtn, tag);
+            if (disableNode) {
+                if (radio.dataset.disableClass) {
+                    disableNode.classList.toggle(radio.dataset.disableClass, !radio.checked);
+                } else {
+                    disableNode.toggleAttribute('disabled', !radio.checked);
+                }
+            }
         });
-    });
-})(window, window.document, window.eZ, window.React, window.ReactDOM);
+    };
+
+    selectSubtreeBtn.addEventListener('click', openSubtreeUDW, false);
+    selectUsersBtn.addEventListener('click', openUsersAndGroupsUDW.bind(null, selectUsersWidget), false);
+    selectGroupsBtn.addEventListener('click', openUsersAndGroupsUDW.bind(null, selectGroupsWidget), false);
+    limitationsRadio.forEach((radio) => radio.addEventListener('change', toggleDisabledState, false));
+})(window, window.document, window.ibexa, window.React, window.ReactDOM);

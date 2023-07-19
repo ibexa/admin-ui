@@ -6,80 +6,57 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type;
+namespace Ibexa\AdminUi\Form\Type;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\User\Form\ChoiceList\Loader\UserGroupsChoiceLoader;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserGroupChoiceType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
-    /**
-     * UserGroupChoiceType constructor.
-     *
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     */
-    public function __construct(Repository $repository)
-    {
+    private SearchService $searchService;
+
+    private UserService $userService;
+
+    public function __construct(
+        Repository $repository,
+        SearchService $searchService,
+        UserService $userService
+    ) {
         $this->repository = $repository;
+        $this->searchService = $searchService;
+        $this->userService = $userService;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'choice_loader' => new CallbackChoiceLoader(function () {
-                return $this->getUserGroups();
-            }),
+            'choice_loader' => new UserGroupsChoiceLoader(
+                $this->repository,
+                $this->searchService,
+                $this->userService
+            ),
             'choice_label' => 'name',
             'choice_value' => 'id',
         ]);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getParent(): ?string
     {
         return ChoiceType::class;
     }
-
-    /**
-     * Get list of available user groups.
-     *
-     * @return \eZ\Publish\API\Repository\Values\User\UserGroup[]
-     */
-    protected function getUserGroups(): array
-    {
-        return $this->repository->sudo(static function (Repository $repository) {
-            $query = new LocationQuery();
-            $query->filter = new ContentTypeIdentifier('user_group');
-            $query->offset = 0;
-            $query->limit = 100;
-            $query->performCount = true;
-            $query->sortClauses[] = new SortClause\ContentName();
-
-            $groups = [];
-            do {
-                $results = $repository->getSearchService()->findContent($query);
-                foreach ($results->searchHits as $hit) {
-                    $groups[] = $repository->getUserService()->loadUserGroup($hit->valueObject->id);
-                }
-
-                $query->offset += $query->limit;
-            } while ($query->offset < $results->totalCount);
-
-            return $groups;
-        });
-    }
 }
+
+class_alias(UserGroupChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\UserGroupChoiceType');

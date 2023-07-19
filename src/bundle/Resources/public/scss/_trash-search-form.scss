@@ -1,9 +1,8 @@
-.ez-trash-search-form {
-    margin: calculateRem(16px) 0;
-
+.ibexa-trash-search-form {
     &__inputs-group {
         display: flex;
         justify-content: space-between;
+        flex-flow: wrap;
     }
 
     &__item {
@@ -16,25 +15,26 @@
 
         &--creator {
             position: relative;
+            width: 100%;
 
-            .ez-trash-search-form {
+            .ibexa-trash-search-form {
                 &__input-wrapper {
                     position: relative;
                 }
 
                 &__input {
-                    + .ez-icon {
+                    + .ibexa-icon {
                         display: none;
                     }
 
                     &:disabled {
                         cursor: auto;
-                        background-color: $ibexa-white;
-                        color: $ibexa-black;
+                        background-color: $ibexa-color-white;
+                        color: $ibexa-color-black;
                         padding-right: calculateRem(32px);
                         text-overflow: ellipsis;
 
-                        & + .ez-icon {
+                        & + .ibexa-icon {
                             display: block;
                             position: absolute;
                             bottom: calculateRem(7px);
@@ -55,7 +55,7 @@
         min-width: 100%;
         border-radius: calculateRem(5px);
         margin-bottom: 0;
-        background-color: $ibexa-color-base-light;
+        background-color: $ibexa-color-light-200;
         max-height: calculateRem(300px);
         overflow: auto;
         transform: scaleY(1);
@@ -73,30 +73,39 @@
     }
 
     &__input {
-        &:disabled + .ez-btn--reset-creator {
-            display: block;
+        &.ibexa-input.form-control:disabled {
+            background-color: $ibexa-color-white;
+
+            & + .ibexa-btn--reset-creator {
+                display: block;
+            }
         }
     }
 
-    .ez-btn--reset-creator {
+    .ibexa-btn--reset-creator {
         display: none;
         position: absolute;
-        right: calculateRem(5px);
-        bottom: calculateRem(9px);
+        right: 0;
+        bottom: 0;
+
+        &:hover {
+            border-color: transparent;
+        }
     }
 
     &__range-wrapper {
-        height: 0;
+        width: 0;
         opacity: 0;
-        margin-top: calculateRem(8px);
-        background: $ibexa-white;
-        border: calculateRem(1px) solid $ibexa-white;
+        background: $ibexa-color-white;
+        border: calculateRem(1px) solid $ibexa-color-white;
         border-radius: calculateRem(4px);
-        transition: all 0.2s ease-in;
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
         pointer-events: none;
+        overflow: hidden;
 
         &--visible {
-            height: calculateRem(40px);
+            width: auto;
+            margin-left: calculateRem(16px);
             opacity: 1;
             pointer-events: auto;
         }

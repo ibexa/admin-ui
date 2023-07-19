@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+const { Translator } = window;
+
 const FILTER_TIMEOUT = 200;
 
 const InstantFilter = (props) => {
@@ -10,13 +12,13 @@ const InstantFilter = (props) => {
     let filterTimeout = null;
 
     useEffect(() => {
-        const items = [..._refInstantFilter.current.querySelectorAll('.ez-instant-filter__item')];
-        const itemsMap = items.map((item) => ({
+        const items = [..._refInstantFilter.current.querySelectorAll('.ibexa-instant-filter__item')];
+        const itemsMapNext = items.map((item) => ({
             label: item.textContent.toLowerCase(),
             element: item,
         }));
 
-        setItemsMap(itemsMap);
+        setItemsMap(itemsMapNext);
     }, [props.items]);
 
     useEffect(() => {
@@ -36,22 +38,22 @@ const InstantFilter = (props) => {
     }, [filterQuery]);
 
     return (
-        <div className="ez-instant-filter" ref={_refInstantFilter}>
-            <div className="ez-instant-filter__input-wrapper">
+        <div className="ibexa-instant-filter" ref={_refInstantFilter}>
+            <div className="ibexa-instant-filter__input-wrapper">
                 <input
                     type="text"
-                    className="ez-instant-filter__input form-control"
+                    className="ibexa-instant-filter__input form-control"
                     placeholder={Translator.trans(/*@Desc("Type to refine")*/ 'instant.filter.placeholder', {}, 'sub_items')}
                     value={filterQuery}
                     onChange={(event) => setFilterQuery(event.target.value)}
                 />
             </div>
-            <div className="ez-instant-filter__items">
+            <div className="ibexa-instant-filter__items">
                 {props.items.map((item) => {
                     const radioId = `item_${item.value}`;
 
                     return (
-                        <div className="ez-instant-filter__item">
+                        <div key={radioId} className="ibexa-instant-filter__item">
                             <div className="form-check">
                                 <input
                                     type="radio"
@@ -61,7 +63,7 @@ const InstantFilter = (props) => {
                                     value={item.value}
                                     onChange={() => props.handleItemChange(item.value)}
                                 />
-                                <label className="form-check-label" for={radioId}>
+                                <label className="form-check-label" htmlFor={radioId}>
                                     {item.label}
                                 </label>
                             </div>

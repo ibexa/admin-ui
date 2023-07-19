@@ -6,26 +6,26 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\EventListener;
+namespace Ibexa\AdminUi\Form\EventListener;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormEvent;
 
 class AddLanguageFieldBasedOnContentListener
 {
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \eZ\Publish\API\Repository\LanguageService $languageService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
      */
     public function __construct(ContentService $contentService, LanguageService $languageService)
     {
@@ -36,12 +36,12 @@ class AddLanguageFieldBasedOnContentListener
     /**
      * @param \Symfony\Component\Form\FormEvent $event
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function onPreSetData(FormEvent $event)
     {
-        /** @var \EzSystems\EzPlatformAdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData $data */
+        /** @var \Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData $data */
         $data = $event->getData();
         $location = $data->getLocation();
         if (null === $location) {
@@ -92,3 +92,5 @@ class AddLanguageFieldBasedOnContentListener
         );
     }
 }
+
+class_alias(AddLanguageFieldBasedOnContentListener::class, 'EzSystems\EzPlatformAdminUi\Form\EventListener\AddLanguageFieldBasedOnContentListener');

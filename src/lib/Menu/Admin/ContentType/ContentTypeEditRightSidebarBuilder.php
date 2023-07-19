@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu\Admin\ContentType;
+namespace Ibexa\AdminUi\Menu\Admin\ContentType;
 
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
-use EzSystems\EzPlatformAdminUi\Menu\AbstractBuilder;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
-use EzSystems\EzPlatformAdminUi\Menu\MenuItemFactory;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\MenuItemFactory;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -24,8 +24,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ContentTypeEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__SAVE = 'content_type_edit__sidebar_right__save';
-    const ITEM__CANCEL = 'content_type_edit__sidebar_right__cancel';
+    public const ITEM__SAVE = 'content_type_edit__sidebar_right__save';
+    public const ITEM__CANCEL = 'content_type_edit__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
@@ -70,20 +70,18 @@ class ContentTypeEditRightSidebarBuilder extends AbstractBuilder implements Tran
                 self::ITEM__SAVE,
                 [
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger ibexa-btn--save-content-type',
                         'data-click' => sprintf('#%s', $contentTypeEditFormView['publishContentType']->vars['id']),
                     ],
-                    'extras' => ['icon' => 'save'],
                 ]
             ),
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => sprintf('#%s', $contentTypeEditFormView['removeDraft']->vars['id']),
                     ],
-                    'extras' => ['icon' => 'circle-close'],
                 ]
             ),
         ]);
@@ -98,7 +96,9 @@ class ContentTypeEditRightSidebarBuilder extends AbstractBuilder implements Tran
     {
         return [
             (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Save'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Cancel'),
         ];
     }
 }
+
+class_alias(ContentTypeEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\ContentType\ContentTypeEditRightSidebarBuilder');

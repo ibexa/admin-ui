@@ -8,23 +8,22 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\QueryType;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\QueryType\OptionsResolverBasedQueryType;
-use eZ\Publish\Core\QueryType\QueryType;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\QueryType\OptionsResolverBasedQueryType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-abstract class LocationSubtreeQueryType extends OptionsResolverBasedQueryType implements QueryType
+abstract class LocationSubtreeQueryType extends OptionsResolverBasedQueryType
 {
     protected const OWNED_OPTION_NAME = 'owned';
     protected const SUBTREE_OPTION_NAME = 'subtree';
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     protected $configResolver;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
     public function __construct(

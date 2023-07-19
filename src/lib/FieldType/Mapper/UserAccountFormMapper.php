@@ -4,11 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\FieldType\Mapper;
+namespace Ibexa\AdminUi\FieldType\Mapper;
 
-use EzSystems\EzPlatformAdminUi\FieldType\FieldDefinitionFormMapperInterface;
-use EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData;
-use EzSystems\EzPlatformContentForms\Form\Type\FieldDefinition\User\PasswordConstraintCheckboxType;
+use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\Form\Type\FieldDefinition\User\PasswordConstraintCheckboxType;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,10 +21,10 @@ use Symfony\Component\Validator\Constraints\Range;
 /**
  * Maps a user FieldType.
  */
-final class UserAccountFormMapper implements FieldDefinitionFormMapperInterface
+final class UserAccountFormMapper implements FieldDefinitionFormMapperInterface, TranslationContainerInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
     {
@@ -46,6 +48,17 @@ final class UserAccountFormMapper implements FieldDefinitionFormMapperInterface
         $fieldDefinitionForm->add('requireAtLeastOneNonAlphanumericCharacter', PasswordConstraintCheckboxType::class, [
             'property_path' => $validatorPropertyPathPrefix . '[requireAtLeastOneNonAlphanumericCharacter]',
             'label' => /** @Desc("Password must contain at least one non-alphanumeric character") */ 'field_definition.ezuser.require_at_least_one_non_alphanumeric_character',
+        ]);
+
+        $fieldDefinitionForm->add('requireNotCompromisedPassword', PasswordConstraintCheckboxType::class, [
+            'property_path' => $validatorPropertyPathPrefix . '[requireNotCompromisedPassword]',
+            'label' => /** @Desc("Password must not be contained in a public breach.") */
+                'field_definition.ezuser.require_not_compromised_password',
+            'help' => 'field_definition.ezuser.require_not_compromised_password_help',
+            'help_translation_parameters' => [
+                '%link%' => '<a href="https://haveibeenpwned.com/" target="_blank">https://haveibeenpwned.com/</a>',
+            ],
+            'help_html' => true,
         ]);
 
         $fieldDefinitionForm->add('requireNewPassword', PasswordConstraintCheckboxType::class, [
@@ -106,4 +119,14 @@ final class UserAccountFormMapper implements FieldDefinitionFormMapperInterface
                 'translation_domain' => 'content_type',
             ]);
     }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create('field_definition.ezuser.require_not_compromised_password_help', 'content_type')
+                ->setDesc('This uses the API at %link% to securely check breach data. The password is not transmitted to the API.'),
+        ];
+    }
 }
+
+class_alias(UserAccountFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\UserAccountFormMapper');

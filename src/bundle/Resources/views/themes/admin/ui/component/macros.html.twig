@@ -1,0 +1,25 @@
+{% macro attributes(attr) -%}
+    {%- for attrname, attrvalue in attr -%}
+        {{- " " -}}
+        {%- if attrvalue is same as(true) -%}
+            {{- attrname }}="{{ attrname|e('html_attr') }}"
+        {%- elseif attrvalue is not same as(false) -%}
+            {{- attrname }}="{{ attrvalue|e('html_attr') }}"
+        {%- endif -%}
+    {%- endfor -%}
+{%- endmacro -%}
+
+{% macro results_headline(count, has_filters = false, phrase = null) %}
+    {% trans_default_domain 'ibexa_headline' %}
+    {% set headline_content = 'headline.list'|trans({ '%count%': count })|desc('List (%count%)') %}
+
+    {% if has_filters %}
+        {% set headline_content = 'headline.results'|trans({ '%count%': count })|desc('Results (%count%)') %}
+    {% endif %}
+
+    {% if phrase %}
+        {% set headline_content = 'headline.results.search'|trans({ '%count%': count, '%phrase%': phrase })|desc('Results for "%phrase%" (%count%)') %}
+    {% endif %}
+
+    {{ headline_content }}
+{% endmacro %}

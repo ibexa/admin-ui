@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Service;
+namespace Ibexa\AdminUi\Service;
 
-use eZ\Publish\API\Repository;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Core\Repository;
 use Symfony\Component\Form\FormFactoryInterface;
 
 class ContentTypeService
@@ -36,8 +36,8 @@ class ContentTypeService
     public function __construct(
         Repository\ContentTypeService $contentTypeService,
         FormFactoryInterface $formFactory,
-        array $prioritizedLanguages)
-    {
+        array $prioritizedLanguages
+    ) {
         $this->contentTypeService = $contentTypeService;
         $this->formFactory = $formFactory;
         $this->prioritizedLanguages = $prioritizedLanguages;
@@ -91,7 +91,7 @@ class ContentTypeService
      * Return the highest prioritized language that $contentType is translated to.
      * If there is no translation for a prioritized language, return $contentType's main language.
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType Content type (or content type draft)
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType Content type (or content type draft)
      *
      * @return string Language code
      */
@@ -106,3 +106,5 @@ class ContentTypeService
         return $contentType->mainLanguageCode;
     }
 }
+
+class_alias(ContentTypeService::class, 'EzSystems\EzPlatformAdminUi\Service\ContentTypeService');
