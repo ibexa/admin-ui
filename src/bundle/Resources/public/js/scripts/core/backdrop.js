@@ -32,6 +32,10 @@
         }
 
         hide() {
+            if (this.backdrop === null) {
+                this.init();
+            }
+
             this.toggle(false);
         }
 
