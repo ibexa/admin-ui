@@ -4,7 +4,7 @@
 
     .ibexa-raw-content-title {
         margin-top: calculateRem(30px);
-        padding: 0 0 calculateRem(16px) 0;
+        padding: 0 0 calculateRem(15px) 0;
         color: $ibexa-color-black;
         align-items: center;
         border-bottom: calculateRem(1px) solid $ibexa-color-light;
@@ -14,6 +14,14 @@
 
         h3 {
             margin: 0;
+        }
+
+        &__text {
+            margin: 0;
+            font-size: $ibexa-text-font-size-large;
+            line-height: calculateRem(33px);
+            color: $ibexa-color-black;
+            font-weight: 600;
         }
 
         &__language-form {
