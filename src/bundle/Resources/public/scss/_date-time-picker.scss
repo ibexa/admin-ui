@@ -1,5 +1,5 @@
 .ibexa-date-time-picker {
-    width: calculateRem(308px);
+    min-width: 26ch;
     position: relative;
 
     &__input {
