@@ -88,6 +88,8 @@
         }
 
         removeItems(items) {
+            items = items.map(String);
+
             const prevSelectedIds = this.inputField.value.split(this.inputSeparator);
             const nextSelectedIds = prevSelectedIds.filter((savedId) => !items.includes(savedId));
             this.inputField.value = nextSelectedIds.join(this.inputSeparator);
