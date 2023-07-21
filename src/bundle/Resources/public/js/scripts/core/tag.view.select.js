@@ -88,13 +88,12 @@
         }
 
         removeItems(items) {
-            items = items.map(String);
-
+            const stringifiedItems = items.map(String);
             const prevSelectedIds = this.inputField.value.split(this.inputSeparator);
-            const nextSelectedIds = prevSelectedIds.filter((savedId) => !items.includes(savedId));
+            const nextSelectedIds = prevSelectedIds.filter((savedId) => !stringifiedItems.includes(savedId));
             this.inputField.value = nextSelectedIds.join(this.inputSeparator);
 
-            items.forEach((itemId) => {
+            stringifiedItems.forEach((itemId) => {
                 this.listContainer.querySelector(`[data-id="${itemId}"]`).remove();
             });
 
