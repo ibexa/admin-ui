@@ -36,6 +36,28 @@
             contentType: 'application/vnd.ibexa.api.ContentTypeFieldDefinitionReorder+json',
         },
     };
+    const ENTER_KEY_CODE = 13;
+    const inputTypeToPreventSubmit = [
+        'checkbox',
+        'color',
+        'date',
+        'datetime-local',
+        'email',
+        'file',
+        'image',
+        'month',
+        'number',
+        'radio',
+        'range',
+        'reset',
+        'search',
+        'select-one',
+        'select-multiple',
+        'tel',
+        'text',
+        'time',
+        'url',
+    ];
     new ibexa.core.PopupMenu({
         popupMenuElement,
         triggerElement: addGroupTriggerBtn,
@@ -612,6 +634,19 @@
                     event.preventDefault();
                     scrollToInvalidInput();
                 }
+            }
+        },
+        false,
+    );
+
+    editForm.addEventListener(
+        'keypress',
+        (event) => {
+            const keyCode = event.charCode || event.keyCode || 0;
+            const activeElementType = typeof doc.activeElement.type !== 'undefined' ? doc.activeElement.type.toLowerCase() : '';
+
+            if (keyCode === ENTER_KEY_CODE && inputTypeToPreventSubmit.includes(activeElementType)) {
+                event.preventDefault();
             }
         },
         false,
