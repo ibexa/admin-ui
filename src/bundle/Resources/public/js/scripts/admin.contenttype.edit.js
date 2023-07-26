@@ -36,27 +36,6 @@
             contentType: 'application/vnd.ibexa.api.ContentTypeFieldDefinitionReorder+json',
         },
     };
-    const inputTypeToPreventSubmit = [
-        'checkbox',
-        'color',
-        'date',
-        'datetime-local',
-        'email',
-        'file',
-        'image',
-        'month',
-        'number',
-        'radio',
-        'range',
-        'reset',
-        'search',
-        'select-one',
-        'select-multiple',
-        'tel',
-        'text',
-        'time',
-        'url',
-    ];
     new ibexa.core.PopupMenu({
         popupMenuElement,
         triggerElement: addGroupTriggerBtn,
@@ -638,17 +617,7 @@
         false,
     );
 
-    editForm.addEventListener(
-        'keydown',
-        (event) => {
-            const activeElementType = typeof doc.activeElement.type !== 'undefined' ? doc.activeElement.type.toLowerCase() : '';
-
-            if (event.key === 'Enter' && inputTypeToPreventSubmit.includes(activeElementType)) {
-                event.preventDefault();
-            }
-        },
-        false,
-    );
+    ibexa.helpers.form.preventSubmitOnEnter(editForm);
 
     toggleAddGroupTriggerBtnState();
 })(window, window.document, window.ibexa, window.Routing, window.Translator, window.bootstrap);

@@ -1,31 +1,9 @@
 (function (global, doc, ibexa, Translator, moment) {
-    const ENTER_KEY_CODE = 13;
     const STATUS_ERROR = 'error';
     const STATUS_OFF = 'off';
     const STATUS_ON = 'on';
     const STATUS_SAVED = 'saved';
     const STATUS_SAVING = 'saving';
-    const inputTypeToPreventSubmit = [
-        'checkbox',
-        'color',
-        'date',
-        'datetime-local',
-        'email',
-        'file',
-        'image',
-        'month',
-        'number',
-        'radio',
-        'range',
-        'reset',
-        'search',
-        'select-one',
-        'select-multiple',
-        'tel',
-        'text',
-        'time',
-        'url',
-    ];
     const form = doc.querySelector('.ibexa-form-validate');
     const submitBtns = form.querySelectorAll('[type="submit"]:not([formnovalidate])');
     const menuButtonsToValidate = doc.querySelectorAll('button[data-validate]');
@@ -187,14 +165,8 @@
     }
 
     form.setAttribute('novalidate', true);
-    form.onkeypress = (event) => {
-        const keyCode = event.charCode || event.keyCode || 0;
-        const activeElementType = typeof doc.activeElement.type !== 'undefined' ? doc.activeElement.type.toLowerCase() : '';
 
-        if (keyCode === ENTER_KEY_CODE && inputTypeToPreventSubmit.includes(activeElementType)) {
-            event.preventDefault();
-        }
-    };
+    ibexa.helpers.form.preventSubmitOnEnter(form);
 
     submitBtns.forEach((btn) => {
         btn.dataset.isFormValid = 0;
