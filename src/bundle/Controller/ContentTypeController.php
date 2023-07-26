@@ -493,7 +493,7 @@ class ContentTypeController extends Controller
         $form = $this->createUpdateForm($group, $contentTypeDraft, $language, $baseLanguage);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && null !== $form->getClickedButton()) {
             $result = $this->submitHandler->handle($form, function () use (
                 $form,
                 $group,
@@ -504,7 +504,7 @@ class ContentTypeController extends Controller
                 $this->contentTypeActionDispatcher->dispatchFormAction(
                     $form,
                     $form->getData(),
-                    $form->getClickedButton() ? $form->getClickedButton()->getName() : null,
+                    $form->getClickedButton()->getName(),
                     ['languageCode' => $language->languageCode]
                 );
 
