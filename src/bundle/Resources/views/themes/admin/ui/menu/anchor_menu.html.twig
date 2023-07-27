@@ -31,9 +31,9 @@
 
 {% block children_1st_level %}
     {% for item in currentItem.children %}
-        {%- set itemClass = 'ibexa-anchor-navigation-menu__section-groups-item' %}
+        {%- set itemClass = 'ibexa-switcher__item' %}
         {%- if loop.first %}
-            {%- set itemClass = itemClass ~ ' ibexa-anchor-navigation-menu__section-groups-item--active' %}
+            {%- set itemClass = itemClass ~ ' ibexa-switcher__item--active' %}
         {%- endif %}
         {%- do item.setAttribute('class', (item.getAttribute('class') ~ ' ' ~ itemClass)|trim) -%}
         {%- do item.setAttribute('data-target-id', "#" ~ item.getAttribute('data-target-id')) -%}
@@ -140,9 +140,9 @@
     {%- set itemTagElement = itemTagElement|default('button') %}
 
     <{{ itemTagElement }}{{ knp_menu.attributes(attributes) }}>
-        <div class="ibexa-anchor-navigation-menu__item-label" title="{{ block('label')|raw }}">
+        <div class="ibexa-anchor-navigation-menu__item-label ibexa-switcher__item-label" title="{{ block('label')|raw }}">
             {{ block('label') }}
-            <svg class="ibexa-icon ibexa-icon--small ibexa-anchor-navigation-menu__item-error ibexa-anchor-navigation-menu__item-error--hidden">
+            <svg class="ibexa-icon ibexa-icon--small ibexa-switcher__item-error ibexa-switcher__item-error--hidden">
                 <use xlink:href="{{ ibexa_icon_path('warning-triangle') }}"></use>
             </svg>
         </div>
@@ -164,7 +164,7 @@
 {% block root %}
     <div class="ibexa-anchor-navigation">
         {% if item.count() < 4 %}
-            {% set listAttributes = item.childrenAttributes|merge({'class': (listAttributes.class|default('') ~ ' ibexa-anchor-navigation-menu__section-groups ibexa-anchor-navigation-menu__section-groups--list')|trim}) %}
+            {% set listAttributes = item.childrenAttributes|merge({'class': (listAttributes.class|default('') ~ ' ibexa-anchor-navigation-menu__section-groups ibexa-anchor-navigation-menu__section-groups--list ibexa-switcher')|trim}) %}
             {% set innerChildrenBlock = 'children_1st_level' %}
             {% set innerItemBlock = 'item_1st_level' %}
             {% set tagElement = 'div' %}

@@ -21,7 +21,7 @@
     let currentlyVisibleSections = getSectionGroupActiveItems();
     const attachSectionGroupsMenuListEvents = () => {
         const items = doc.querySelectorAll(
-            '.ibexa-anchor-navigation-menu__section-groups--list .ibexa-anchor-navigation-menu__section-groups-item',
+            '.ibexa-anchor-navigation-menu__section-groups--list .ibexa-switcher__item',
         );
 
         items.forEach((item) => item.addEventListener('click', onSelectSectionGroupsMenuList, false));
@@ -41,11 +41,11 @@
         const { targetId } = event.currentTarget.dataset;
         const sectionsMenuNode = doc.querySelector(`.ibexa-anchor-navigation-menu__sections[data-id="${targetId}"]`);
         const sectionGroupsMenuItems = doc.querySelectorAll(
-            '.ibexa-anchor-navigation-menu__section-groups--list .ibexa-anchor-navigation-menu__section-groups-item',
+            '.ibexa-anchor-navigation-menu__section-groups--list .ibexa-switcher__item',
         );
 
         sectionGroupsMenuItems.forEach((item) => {
-            item.classList.toggle('ibexa-anchor-navigation-menu__section-groups-item--active', item.isSameNode(event.currentTarget));
+            item.classList.toggle('ibexa-switcher__item--active', item.isSameNode(event.currentTarget));
         });
         showSectionGroup(targetId);
         showSectionsMenu(sectionsMenuNode);
@@ -205,17 +205,17 @@
                     const { id } = sectionGroup.dataset;
                     const hasGroupError = !!sectionGroup.querySelector('.is-invalid');
                     const correspondingMenuItem =
-                        doc.querySelector(`.ibexa-anchor-navigation-menu__section-groups-item[data-target-id="${id}"]`) ??
+                        doc.querySelector(`.ibexa-switcher__item[data-target-id="${id}"]`) ??
                         doc.querySelector(`.ibexa-anchor-navigation-menu .ibexa-dropdown__item[data-value="${id}"]`);
 
                     if (!correspondingMenuItem) {
                         return;
                     }
 
-                    const errorIconNode = correspondingMenuItem.querySelector('.ibexa-anchor-navigation-menu__item-error');
+                    const errorIconNode = correspondingMenuItem.querySelector('.ibexa-switcher__item-error');
                     const dropdownWidget = doc.querySelector('.ibexa-anchor-navigation-menu .ibexa-dropdown');
 
-                    errorIconNode.classList.toggle('ibexa-anchor-navigation-menu__item-error--hidden', !hasGroupError);
+                    errorIconNode.classList.toggle('ibexa-switcher__item-error--hidden', !hasGroupError);
 
                     if (dropdownWidget) {
                         const hasError = !!dropdownWidget.querySelector(
