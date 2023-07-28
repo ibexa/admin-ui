@@ -73,7 +73,7 @@
                 const deleteButton = itemHtmlWidget.querySelector('.ibexa-tag-view-select__selected-item-tag-remove-btn');
 
                 deleteButton.toggleAttribute('disabled', false);
-                deleteButton.addEventListener('click', () => this.removeItem(id), false);
+                deleteButton.addEventListener('click', () => this.removeItem(String(id)), false);
                 this.listContainer.append(itemHtmlWidget);
             });
 
@@ -87,12 +87,12 @@
             this.addItems([{ id, name }], forceRecreate);
         }
 
-        removeItems(items) {
+        removeItems(itemsIds) {
             const prevSelectedIds = this.inputField.value.split(this.inputSeparator);
-            const nextSelectedIds = prevSelectedIds.filter((savedId) => !items.includes(savedId));
+            const nextSelectedIds = prevSelectedIds.filter((savedId) => !itemsIds.includes(savedId));
             this.inputField.value = nextSelectedIds.join(this.inputSeparator);
 
-            items.forEach((itemId) => {
+            itemsIds.forEach((itemId) => {
                 this.listContainer.querySelector(`[data-id="${itemId}"]`).remove();
             });
 
@@ -123,7 +123,7 @@
                 const { id } = selectedItem.dataset;
                 const deleteButton = selectedItem.querySelector('.ibexa-tag-view-select__selected-item-tag-remove-btn');
 
-                deleteButton.addEventListener('click', () => this.removeItem(id), false);
+                deleteButton.addEventListener('click', () => this.removeItem(String(id)), false);
             });
         }
 
