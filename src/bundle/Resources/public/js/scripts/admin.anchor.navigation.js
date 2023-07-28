@@ -20,9 +20,7 @@
     };
     let currentlyVisibleSections = getSectionGroupActiveItems();
     const attachSectionGroupsMenuListEvents = () => {
-        const items = doc.querySelectorAll(
-            '.ibexa-anchor-navigation-menu__section-groups--list .ibexa-switcher__item',
-        );
+        const items = doc.querySelectorAll('.ibexa-anchor-navigation-menu__section-groups--list .ibexa-switcher__item');
 
         items.forEach((item) => item.addEventListener('click', onSelectSectionGroupsMenuList, false));
     };
@@ -40,9 +38,7 @@
     const onSelectSectionGroupsMenuList = (event) => {
         const { targetId } = event.currentTarget.dataset;
         const sectionsMenuNode = doc.querySelector(`.ibexa-anchor-navigation-menu__sections[data-id="${targetId}"]`);
-        const sectionGroupsMenuItems = doc.querySelectorAll(
-            '.ibexa-anchor-navigation-menu__section-groups--list .ibexa-switcher__item',
-        );
+        const sectionGroupsMenuItems = doc.querySelectorAll('.ibexa-anchor-navigation-menu__section-groups--list .ibexa-switcher__item');
 
         sectionGroupsMenuItems.forEach((item) => {
             item.classList.toggle('ibexa-switcher__item--active', item.isSameNode(event.currentTarget));
