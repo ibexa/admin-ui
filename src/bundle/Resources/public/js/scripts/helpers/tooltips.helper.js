@@ -105,6 +105,7 @@
             'font-style': computedNodeStyles.getPropertyValue('font-style'),
             'font-variant': computedNodeStyles.getPropertyValue('font-variant'),
             'line-height': computedNodeStyles.getPropertyValue('line-height'),
+            'word-break': 'break-all',
         };
 
         const textHeight = getTextHeight(title, styles);

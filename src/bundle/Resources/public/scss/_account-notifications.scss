@@ -1,0 +1,71 @@
+.ibexa-account-notifications {
+    font-size: $ibexa-text-font-size-medium;
+
+    &__list {
+        max-height: calculateRem(300px);
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+
+    &__list-item {
+        display: flex;
+        margin: 0 calculateRem(12px);
+        padding: calculateRem(12px) 0;
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
+
+        &--read {
+            .ibexa-account-notifications {
+                &__list-item-dot-status {
+                    background: $ibexa-color-dark-400;
+                }
+
+                &__list-item-notification-type,
+                &__list-item-message {
+                    font-weight: normal;
+                }
+            }
+        }
+    }
+
+    &__list-item-col {
+        flex: 0 0 calc(100% - #{calculateRem(64px)});
+
+        &--status {
+            display: flex;
+            flex: 0 0 calculateRem(32px);
+            padding-top: calculateRem(7px);
+            justify-content: center;
+        }
+
+        &--actions {
+            display: flex;
+            flex: 0 0 calculateRem(32px);
+            justify-content: flex-end;
+        }
+    }
+
+    &__list-item-dot-status {
+        width: calculateRem(8px);
+        height: calculateRem(8px);
+        border-radius: 50%;
+        background: $ibexa-color-danger;
+    }
+
+    &__list-item-sender {
+        text-decoration: underline;
+    }
+
+    &__list-item-notification-type,
+    &__list-item-message {
+        font-weight: bold;
+    }
+
+    &__list-item-date {
+        margin-top: calculateRem(6px);
+        color: $ibexa-color-light-700;
+    }
+
+    &__pagination {
+        padding: calculateRem(12px);
+    }
+}

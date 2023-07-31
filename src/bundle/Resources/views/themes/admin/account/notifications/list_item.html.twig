@@ -1,6 +1,59 @@
 {% trans_default_domain 'notifications' %}
 
 {% if wrapper_class_list is not defined %}
+    {% set wrapper_class_list = 'ibexa-account-notifications__list-item' ~ (notification.isPending == 0 ? ' ibexa-account-notifications__list-item--read') %}
+{% endif %}
+
+<div class="{{ wrapper_class_list ~ (wrapper_additional_classes is defined ? ' ' ~ wrapper_additional_classes) }}">
+    {% block status_col %}
+        <div class="ibexa-account-notifications__list-item-col ibexa-account-notifications__list-item-col--status">
+            <div class="ibexa-account-notifications__list-item-dot-status"></div>
+        </div>
+    {% endblock %}
+
+    {% block data_col %}
+        <div class="ibexa-account-notifications__list-item-col ibexa-account-notifications__list-item-col--data">
+            {% block sender %}
+                <span class="ibexa-account-notifications__list-item-sender">
+                    {% block sender_value %}
+                        {{- sender|default('') -}}
+                    {% endblock %}
+                </span>
+            {% endblock %}
+            {% block notification_type %}
+                <span class="ibexa-account-notifications__list-item-notification-type">
+                    {% block notification_type_value %}{% endblock %}
+                </span>
+            {% endblock %}
+            {% block message %}
+                <div class="ibexa-account-notifications__list-item-message">
+                    {% block message_value %}
+                        {{- message -}}
+                    {% endblock %}
+                </div>
+            {% endblock %}
+            {% block date %}
+                <div class="ibexa-account-notifications__list-item-date">
+                    {% block date_value %}
+                        {{- notification.created|ibexa_full_datetime -}}
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        </div>
+    {% endblock %}
+
+    {% block action_col %}
+        <div class="ibexa-account-notifications__list-item-col ibexa-account-notifications__list-item-col--actions">
+            <button class="btn ibexa-btn ibexa-btn--small ibexa-btn--no-text ibexa-notifications-popup__header-account-notifications-actions-toggler">
+                <svg class="ibexa-icon ibexa-icon--small">
+                    <use xlink:href="/bundles/ibexaicons/img/all-icons.svg#options"></use>
+                </svg>
+            </button>
+        </div>
+    {% endblock %}
+</div>
+
+{# {% if wrapper_class_list is not defined %}
     {% set wrapper_class_list = 'ibexa-notifications-modal__item' ~ (notification.isPending == 0 ? ' ibexa-notifications-modal__item--read') %}
 {% endif %}
 
@@ -60,4 +113,4 @@
         {{ message }}
         {{ date }}
     {% endblock %}
-{% endembed %}
+{% endembed %} #}

@@ -2,19 +2,13 @@
 
 {% trans_default_domain 'notifications' %}
 
-{% set wrapper_additional_classes = 'ibexa-notifications-modal__item--permanently-deleted' %}
+{% set wrapper_additional_classes = 'ibexa-account-notifications__list-item--permanently-deleted' %}
 
-{% block notification_type %}
-    <span class="type__text type__text--permanently-deleted">
-        {{ 'notification.permanently_deleted'|trans|desc('Deleted')}}
-    </span>
+{% block notification_type_value %}
+    {{ 'notification.permanently_deleted'|trans|desc('Deleted')}}
 {% endblock %}
 
-{% block message %}
-    {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ibexa-notifications-modal__description' } %}
-        {% block content %}
-            <p class="description__title">{{ 'notification.title'|trans|desc('Title:') }} <span class="description__title__item">{{ title }}</span></p>
-            <p class="description__text description__text--permanently-deleted">{{ 'notification.no_longer_available'|trans|desc('The Content item is no longer available')}}</p>
-        {% endblock %}
-    {% endembed %}
+{% block message_value %}
+    <div>{{ title }}</div>
+    <div>{{ 'notification.no_longer_available'|trans|desc('The Content item is no longer available')}}</div>
 {% endblock %}

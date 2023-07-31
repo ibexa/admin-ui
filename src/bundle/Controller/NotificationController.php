@@ -118,7 +118,7 @@ class NotificationController extends Controller
     public function countNotificationsAction(): JsonResponse
     {
         $response = new JsonResponse();
-
+        
         try {
             $response->setData([
                 'pending' => $this->notificationService->getPendingNotificationCount(),

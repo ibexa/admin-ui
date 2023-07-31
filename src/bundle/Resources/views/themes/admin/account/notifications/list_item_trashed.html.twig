@@ -2,16 +2,10 @@
 
 {% trans_default_domain 'notifications' %}
 
-{% block icon %}
-    <span class="type__icon">
-        <svg class="ibexa-icon">
-            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-        </svg>
-    </span>
+{% block notification_type_value %}
+    {{ 'notification.trashed'|trans|desc('Sent to Trash')}}
 {% endblock %}
 
-{% block notification_type %}
-    <span class="type__text">
-        {{ 'notification.trashed'|trans|desc('Sent to Trash')}}
-    </span>
+{% block message_value %}
+    {{- title -}}
 {% endblock %}
