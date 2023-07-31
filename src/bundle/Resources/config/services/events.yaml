@@ -60,3 +60,9 @@ services:
             $groupedContentFormFieldsProvider: '@Ibexa\AdminUi\Form\Provider\GroupedNonMetaFormFieldsProvider'
         tags:
             - { name: kernel.event_subscriber }
+
+    Ibexa\AdminUi\EventListener\InContextTranslationListener:
+        arguments:
+            $siteAccessGroups: '%ibexa.site_access.groups%'
+        tags:
+            - { name: kernel.event_subscriber }

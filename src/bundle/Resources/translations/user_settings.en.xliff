@@ -56,6 +56,26 @@
         <target state="new">Date and Time will be displayed in this format:</target>
         <note>key: settings.datetime_format.preview_label</note>
       </trans-unit>
+      <trans-unit id="3e6a40d77072c330caa54630a0ee78371e3b5bcc" resname="settings.in_context_translation.value.description">
+        <source>Toggle In-Context translation feature</source>
+        <target state="new">Toggle In-Context translation feature</target>
+        <note>key: settings.in_context_translation.value.description</note>
+      </trans-unit>
+      <trans-unit id="3f33c08a95b774bfdcb67ade54bce7f62bd2ac54" resname="settings.in_context_translation.value.disabled">
+        <source>disabled</source>
+        <target state="new">disabled</target>
+        <note>key: settings.in_context_translation.value.disabled</note>
+      </trans-unit>
+      <trans-unit id="08e33cb64156307a5a8197a0cdb4e254e6c4c5c5" resname="settings.in_context_translation.value.enabled">
+        <source>enabled</source>
+        <target state="new">enabled</target>
+        <note>key: settings.in_context_translation.value.enabled</note>
+      </trans-unit>
+      <trans-unit id="655baeb177f1234a01684cf79c22ccdcaf5bee51" resname="settings.in_context_translation.value.title">
+        <source>In-Context translation</source>
+        <target state="new">In-Context translation</target>
+        <note>key: settings.in_context_translation.value.title</note>
+      </trans-unit>
     </body>
   </file>
 </xliff>
