@@ -1,0 +1,51 @@
+{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+
+{% set item_attr = item_attr|default({})|merge({
+    class: ('ibexa-multilevel-popup-menu__item '
+        ~ (subitems|length > 0 ? 'ibexa-multilevel-popup-menu__item--has-subitems ')
+        ~ item_attr.class|default(''))|trim,
+}) %}
+
+{% set action_attr = action_attr|default({})|merge({
+    class: ('ibexa-multilevel-popup-menu__item-content '
+        ~ action_attr.class|default(''))|trim,
+}) %}
+
+{% set is_button = action_attr.href is not defined %}
+
+{% if is_button %}
+    {% set action_attr = action_attr|merge({
+        type: action_attr.type|default('button'),
+    }) %}
+{% endif %}
+
+{% set item_element = is_button ? 'button' : 'a' %}
+
+{% block item %}
+    <li {{ html.attributes(item_attr) }}>
+        {% block item_content %}
+            {% block item_element %}
+                <{{ item_element }} {{ html.attributes(action_attr|default({})) }}>
+                    {% block item_element_content %}
+                        {% block item_element_label %}
+                            {{ label }}
+                        {% endblock %}
+
+                        <svg class="ibexa-icon ibexa-icon--small ibexa-multilevel-popup-menu__subitems-arrow">
+                            <use xlink:href="{{ ibexa_icon_path('arrow-right') }}"></use>
+                        </svg>
+                    {% endblock %}
+                </{{ item_element }}>
+            {% endblock %}
+
+            {% block item_subitems %}
+                {% if subitems is defined and subitems is not empty %}
+                    {{ include('@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_branch.html.twig', {
+                        items: subitems,
+                        item_attr,
+                    }) }}
+                {% endif %}
+            {% endblock %}
+        {% endblock %}
+    </li>
+{% endblock %}

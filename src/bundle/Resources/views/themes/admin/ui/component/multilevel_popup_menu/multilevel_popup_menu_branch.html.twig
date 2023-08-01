@@ -1,0 +1,21 @@
+{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+
+{% set branch_attr = branch_attr|default({})|merge({
+    class: ('ibexa-multilevel-popup-menu__branch ibexa-multilevel-popup-menu__branch--hidden '
+        ~ branch_attr.class|default(''))|trim,
+}) %}
+
+{% block branch %}
+    <ul {{ html.attributes(branch_attr) }}>
+        {% block branch_items %}
+            {% for item in items %}
+                {% set item_with_subitems = item|merge({
+                    subitems: item.subitems|default([]),
+                    item_attr: item.item_attr|default({}),
+                }) %}
+
+                {% include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_item.html.twig' with item_with_subitems %}
+            {% endfor %}
+        {% endblock %}
+    </ul>
+{% endblock %}
