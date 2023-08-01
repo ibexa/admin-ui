@@ -1,0 +1,24 @@
+.ibexa-split-btn {
+    display: flex;
+
+    &__main-btn {
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    &__toggle-btn {
+        margin-left: calculateRem(-1px);
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+
+        .ibexa-icon {
+            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+        }
+
+        &--subitems-opened {
+            .ibexa-icon {
+                transform: rotate(180deg);
+            }
+        }
+    }
+}
