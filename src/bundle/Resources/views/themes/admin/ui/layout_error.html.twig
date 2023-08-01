@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="UTF-8" />
+        {% block meta %}
+        {% endblock %}
+        {% if app.request.locale == 'ach_UG' %}
+            <script type="text/javascript">
+                var _jipt = [];
+                _jipt.push(['project', 'ibexa']);
+            </script>
+            <script type="text/javascript" src="//cdn.crowdin.com/jipt/jipt.js"></script>
+        {% endif %}
+        <title>{% block title %}Ibexa DXP{% endblock %}</title>
+	    {{ encore_entry_link_tags('ibexa-admin-ui-layout-css', null, 'ibexa') }}
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+	    
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('bundles/ibexaadminui/img/favicon.ico') }}" />
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('bundles/ibexaadminui/img/favicon-16x16.png') }}" />
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('bundles/ibexaadminui/img/favicon-32x32.png') }}" />
+	    
+    </head>
+    <body class="{% block body_class %}{% endblock %}">
+        <main class="ibexa-main-container {% block main_container_class %}{% endblock %}">
+	            {% block content %}
+	            {% endblock content %}
+        </main>
+        <div
+            class="ibexa-notifications-container"
+	        data-notifications="{{ app.flashes|json_encode() }}"
+	        data-template="{{ include('@ibexadesign/ui/notification.html.twig', {
+                label: '{{ label }}',
+                message: '{{ message }}',
+            })|e('html_attr')  }}"></div>
+
+        {{ encore_entry_script_tags('ibexa-admin-ui-error-page-js', null, 'ibexa') }}
+        {{ ez_render_component_group('stylesheet-body') }}
+    </body>
+</html>
