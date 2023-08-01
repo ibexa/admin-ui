@@ -17,6 +17,8 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class InContextTranslationListener implements EventSubscriberInterface
 {
+    private const ACHOLI_LANG = 'ach_UG';
+
     private UserSettingService $userSettingService;
 
     /** @var string[] */
@@ -56,7 +58,7 @@ final class InContextTranslationListener implements EventSubscriberInterface
             return;
         }
 
-        $request->setLocale('ach_UG');
+        $request->setLocale(self::ACHOLI_LANG);
     }
 
     private function isAdminSiteAccess(Request $request): bool
