@@ -1,0 +1,23 @@
+{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+
+{% set attr = attr|default({})|merge({
+    class: ('ibexa-multilevel-popup-menu ibexa-multilevel-popup-menu--hidden '
+        ~ (is_custom_init|default(false) ? 'ibexa-multilevel-popup-menu--custom-init ')
+        ~ attr.class|default(''))|trim,
+}) %}
+
+{# {{ dump() }} #}
+
+{% block component %}
+    <div {{ html.attributes(attr) }}
+        {# data-item-template="{{ include('@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_item.html.twig', {
+            label: '{{ label }}'
+        })|e('html_attr') }}" #}
+    >
+        {% block branch %}
+            {% include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_branch.html.twig' with {
+                items,
+            } %}
+        {% endblock %}
+    </div>
+{% endblock %}
