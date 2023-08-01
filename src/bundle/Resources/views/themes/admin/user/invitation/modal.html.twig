@@ -1,7 +1,7 @@
 {% trans_default_domain 'user_invitation' %}
 
-{% set content %}
-    {% block content %}
+{% set top_input_content %}
+    {% block top_input_content %}
         <input
             type="text"
             class="form-control ibexa-input ibexa-input--text ibexa-user-invitation-modal__search-input"
@@ -83,7 +83,7 @@
                 {% embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true, search_button_type: 'button' } %}
                     {% trans_default_domain 'user_invitation' %}
                     {% block content %}
-                        {{ content }}
+                        {{ top_input_content }}
                     {% endblock %}
                 {% endembed %}
                 <div class="ibexa-user-invitation-modal__labels">
