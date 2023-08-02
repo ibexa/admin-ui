@@ -52,7 +52,10 @@ class RichText extends FieldTypeComponent
     {
         $this->executeCommand('selectAll');
         $this->executeCommand('delete');
-        $this->getFieldInput()->setValue($parameters['value']);
+        foreach (mb_str_split($parameters['value']) as $letter) {
+            $this->getFieldInput()->setValue($letter);
+            usleep(10);
+        }
     }
 
     public function getValue(): array
