@@ -16,16 +16,9 @@
             </svg>
         </button>
 
-        {{ include('@ibexadesign/ui/component/popup_menu/popup_menu.html.twig', {
-            'items': [],
+        {{ include('@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu.html.twig', {
+            is_custom_init: true,
+            items: null,
         }) }}
-        {# {{ include('@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu.html.twig', {
-            items: [
-                {
-                    label: 'Label 1',
-                    action_attr: { href: path('logout') },
-                }
-            ],
-        }) }} #}
     </li>
 </ul>
