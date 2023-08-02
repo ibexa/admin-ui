@@ -14,6 +14,7 @@
     const popupMenuElement = sectionsNode.querySelector('.ibexa-popup-menu');
     const addGroupTriggerBtn = sectionsNode.querySelector('.ibexa-content-type-edit__add-field-definitions-group-btn');
     const fieldDefinitionsGroups = doc.querySelectorAll('.ibexa-collapse--field-definitions-group');
+    const ENTER_KEY = 'Enter';
     const noFieldsAddedError = Translator.trans(
         /*@Desc("You have to add at least one field definition")*/ 'content_type.edit.error.no_added_fields_definition',
         {},
@@ -612,6 +613,22 @@
                     event.preventDefault();
                     scrollToInvalidInput();
                 }
+            }
+        },
+        false,
+    );
+
+    editForm.addEventListener(
+        'keydown',
+        (event) => {
+            const activeElementType = typeof doc.activeElement.type !== 'undefined' ? doc.activeElement.type.toLowerCase() : '';
+
+            if (event.key === ENTER_KEY && activeElementType !== 'textarea') {
+                event.preventDefault();
+
+                const button = doc.querySelector('.ibexa-edit-header__context-actions .ibexa-btn--primary');
+
+                button.click();
             }
         },
         false,
