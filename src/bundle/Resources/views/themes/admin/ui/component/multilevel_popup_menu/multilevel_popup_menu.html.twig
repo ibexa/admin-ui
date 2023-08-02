@@ -1,23 +1,44 @@
 {% import "@ibexadesign/ui/component/macros.html.twig" as html %}
 
+{% set branch_template_params = branch_template_params|default({})|merge({
+    items: branch_template_params.items|default([]),
+    is_template: true,
+}) %}
+
+{% set item_template_params = item_template_params|default({})|merge({
+    item_attr: item_template_params.item_attr|default({}),
+    label: '{{ label }}',
+    is_template: true,
+}) %}
+
 {% set attr = attr|default({})|merge({
     class: ('ibexa-multilevel-popup-menu ibexa-multilevel-popup-menu--hidden '
         ~ (is_custom_init|default(false) ? 'ibexa-multilevel-popup-menu--custom-init ')
         ~ attr.class|default(''))|trim,
+    'data-branch-template': items_container_attr['data-branch-template']|default(
+        include(
+            '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_branch.html.twig',
+            branch_template_params,
+            with_context = false
+        )
+    ),
+    'data-item-template': items_container_attr['data-item-template']|default(
+        include(
+            '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_item.html.twig',
+            item_template_params,
+            with_context = false
+        )
+    ),
 }) %}
 
-{# {{ dump() }} #}
-
 {% block component %}
-    <div {{ html.attributes(attr) }}
-        {# data-item-template="{{ include('@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_item.html.twig', {
-            label: '{{ label }}'
-        })|e('html_attr') }}" #}
-    >
+    <div {{ html.attributes(attr) }}>
         {% block branch %}
-            {% include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_branch.html.twig' with {
-                items,
-            } %}
+            {% if items is not null %}
+                {% include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_branch.html.twig' with {
+                    items,
+                } %}
+            {% endif %}
         {% endblock %}
     </div>
 {% endblock %}

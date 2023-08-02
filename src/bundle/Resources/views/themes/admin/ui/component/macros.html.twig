@@ -1,10 +1,18 @@
-{% macro attributes(attr) -%}
+{% macro attributes(attr, do_not_escape = false) -%}
     {%- for attrname, attrvalue in attr -%}
         {{- " " -}}
         {%- if attrvalue is same as(true) -%}
-            {{- attrname }}="{{ attrname|e('html_attr') }}"
+            {%- if do_not_escape -%}
+                {{- attrname }}="{{ attrname }}"
+            {%- else -%}
+                {{- attrname }}="{{ attrname|e('html_attr') }}"
+            {%- endif -%}
         {%- elseif attrvalue is not same as(false) -%}
-            {{- attrname }}="{{ attrvalue|e('html_attr') }}"
+            {%- if do_not_escape -%}
+                {{- attrname }}="{{ attrvalue }}"
+            {%- else -%}
+                {{- attrname }}="{{ attrvalue|e('html_attr') }}"
+            {%- endif -%}
         {%- endif -%}
     {%- endfor -%}
 {%- endmacro -%}

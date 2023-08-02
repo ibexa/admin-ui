@@ -18,6 +18,11 @@
         init() {
             console.log('a');
             const topBranch = this.container.querySelector('.ibexa-multilevel-popup-menu__branch');
+
+            if (!topBranch) {
+                return;
+            }
+
             const itemsWithSubitems = this.container.querySelectorAll('.ibexa-multilevel-popup-menu__item--has-subitems');
 
             this.initBranch(
@@ -70,8 +75,6 @@
             const isExpanded = !branchElement.classList.contains('ibexa-multilevel-popup-menu__branch--hidden');
             const shouldBeExpanded = !isExpanded;
 
-            console.log(branchElement, !isExpanded);
-
             if (shouldBeExpanded) {
                 // await branchElement.popperInstance.update();
 
@@ -114,69 +117,62 @@
             this.closeBranch(branchElement);
         }
 
-        // generateItems(itemsToGenerate, processAfterCreated) {
-        //     const { itemTemplate } = this.popupMenuElement.dataset;
-        //     const fragment = doc.createDocumentFragment();
+        generateBranch(data, processAfterCreated = () => {}) {
+            const { triggerElement, placement, fallbackPlacements } = data;
+            const { branchTemplate } = this.container.dataset;
 
-        //     itemsToGenerate.forEach((item) => {
-        //         const container = doc.createElement('ul');
-        //         const renderedItem = itemTemplate.replace('{{ label }}', item.label);
+            const container = doc.createElement('div');
+            const renderedItem = branchTemplate;
 
-        //         container.insertAdjacentHTML('beforeend', renderedItem);
+            container.insertAdjacentHTML('beforeend', renderedItem);
 
-        //         const popupMenuItem = container.querySelector('.ibexa-popup-menu__item');
+            const newBranchElement = container.querySelector('.ibexa-multilevel-popup-menu__branch');
 
-        //         processAfterCreated(popupMenuItem, item);
+            processAfterCreated(newBranchElement, data);
 
-        //         popupMenuItem.addEventListener(
-        //             'click',
-        //             (event) => {
-        //                 this.popupMenuElement.classList.add(CLASS_POPUP_MENU_HIDDEN);
-        //                 this.onItemClick(event);
-        //             },
-        //             false,
-        //         );
+            this.initBranch(triggerElement, newBranchElement, null, placement, fallbackPlacements);
+            triggerElement.branchElement = newBranchElement;
 
-        //         fragment.append(popupMenuItem);
-        //     });
+            const isTriggerMultilevelMenuItemElement = triggerElement.classList.contains('ibexa-multilevel-popup-menu__item');
 
-        //     this.popupMenuElement.innerHTML = '';
-        //     this.popupMenuElement.append(fragment);
-        // }
+            if (isTriggerMultilevelMenuItemElement) {
+                triggerElement.classList.add('ibexa-multilevel-popup-menu__item--has-subitems');
+            }
 
-        // attachOnClickToExistingItems() {
-        //     const items = this.getItems();
+            return newBranchElement;
+        }
 
-        //     items.forEach(this.attachOnClickToItem);
-        // }
+        generateItem(data, processAfterCreated = () => {}) {
+            const { label, branchElement } = data;
+            const { itemTemplate } = this.container.dataset;
 
-        // attachOnClickToItem(item) {
-        //     item.querySelector('.ibexa-popup-menu__item-content').addEventListener(
-        //         'click',
-        //         (event) => {
-        //             this.popupMenuElement.classList.add(CLASS_POPUP_MENU_HIDDEN);
-        //             this.onItemClick(event);
-        //         },
-        //         false,
-        //     );
-        // }
+            const container = doc.createElement('ul');
+            const renderedItem = itemTemplate.replaceAll('{{ label }}', label);
 
-        // getItems() {
-        //     return this.popupMenuElement.querySelectorAll('.ibexa-popup-menu__item');
-        // }
+            container.insertAdjacentHTML('beforeend', renderedItem);
 
-        // toggleItems(shouldHide) {
-        //     const popupMenuItems = [...this.popupMenuElement.querySelectorAll('.ibexa-popup-menu__item')];
+            const newItemElement = container.querySelector('.ibexa-multilevel-popup-menu__item');
 
-        //     popupMenuItems.forEach((popupMenuItem) => {
-        //         popupMenuItem.classList.toggle('ibexa-popup-menu__item--hidden', shouldHide(popupMenuItem));
-        //     });
-        // }
+            processAfterCreated(newItemElement, data);
 
-        // handleToggle() {
-        //     this.popupMenuElement.classList.toggle(CLASS_POPUP_MENU_HIDDEN);
-        //     this.updatePosition();
-        // }
+            branchElement.appendChild(newItemElement);
+
+            return newItemElement;
+        }
+
+        getBranchItems(branchElement) {
+            return [...branchElement.querySelectorAll(':scope > .ibexa-multilevel-popup-menu__item')];
+        }
+
+        toggleItemVisibility(menuItem, shouldBeVisible) {
+            const { branchElement } = menuItem;
+
+            menuItem.classList.toggle('ibexa-multilevel-popup-menu__item--hidden', !shouldBeVisible);
+
+            if (branchElement && !shouldBeVisible) {
+                this.closeWithSubbranches(branchElement);
+            }
+        }
 
         handleClickOutside(event) {
             const topBranch = this.triggerElement.branchElement;
@@ -190,16 +186,6 @@
 
             this.closeWithSubbranches(topBranch);
         }
-
-        // updatePosition() {
-        //     const isHidden = this.popupMenuElement.classList.contains(CLASS_POPUP_MENU_HIDDEN);
-
-        //     if (isHidden) {
-        //         return;
-        //     }
-
-        //     this.position(this.popupMenuElement);
-        // }
     }
 
     ibexa.addConfig('core.MultilevelPopupMenu', MultilevelPopupMenu);
