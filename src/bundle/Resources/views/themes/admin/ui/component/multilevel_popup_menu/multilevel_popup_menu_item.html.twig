@@ -1,8 +1,10 @@
 {% import "@ibexadesign/ui/component/macros.html.twig" as html %}
 
+{% set is_template = is_template|default(false) %}
+
 {% set item_attr = item_attr|default({})|merge({
     class: ('ibexa-multilevel-popup-menu__item '
-        ~ (subitems|length > 0 ? 'ibexa-multilevel-popup-menu__item--has-subitems ')
+        ~ (subitems|default([])|length > 0 ? 'ibexa-multilevel-popup-menu__item--has-subitems ')
         ~ item_attr.class|default(''))|trim,
 }) %}
 
@@ -22,13 +24,17 @@
 {% set item_element = is_button ? 'button' : 'a' %}
 
 {% block item %}
-    <li {{ html.attributes(item_attr) }}>
+    <li {{ html.attributes(item_attr, is_template) }}>
         {% block item_content %}
             {% block item_element %}
-                <{{ item_element }} {{ html.attributes(action_attr|default({})) }}>
+                <{{ item_element }} {{ html.attributes(action_attr|default({}), is_template) }}>
                     {% block item_element_content %}
                         {% block item_element_label %}
-                            {{ label }}
+                            <span class="ibexa-btn__label">
+                                {% block item_element_label_content %}
+                                    {{ label }}
+                                {% endblock %}
+                            </span>
                         {% endblock %}
 
                         <svg class="ibexa-icon ibexa-icon--small ibexa-multilevel-popup-menu__subitems-arrow">
