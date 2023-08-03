@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+<head>
+	<meta charset="UTF-8" />
+	<script>
+        window.ibexa = {};
+        window.ibexa.iconPaths = {{ ibexa_admin_ui_config.iconPaths|json_encode|raw }};
+	</script>
+	{% if app.request.locale == 'ach_UG' %}
+		<script type="text/javascript">
+            var _jipt = [];
+            _jipt.push(['project', 'ibexa']);
+		</script>
+		<script type="text/javascript" src="//cdn.crowdin.com/jipt/jipt.js"></script>
+	{% endif %}
+	<title>{% block title %}Ibexa DXP{% endblock %}</title>
+	{{ encore_entry_link_tags('ibexa-admin-ui-layout-css', null, 'ibexa') }}
+	{% block stylesheets %}{% endblock %}
+	<link rel="icon" type="image/x-icon" href="{{ asset('bundles/ibexaadminui/img/favicon.ico') }}" />
+	<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('bundles/ibexaadminui/img/favicon-16x16.png') }}" />
+	<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('bundles/ibexaadminui/img/favicon-32x32.png') }}" />
+	
+	<script src="{{ asset('bundles/ibexaadminuiassets/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+</head>
+<body class="{% block body_class %}{% endblock %}">
+	{% block header_row %}
+		<header class="ibexa-main-header">
+			<div class="ibexa-main-header__brand-column">
+				<a class="ibexa-main-header__brand" href="{{ url('ibexa.dashboard') }}">
+					<img class="ibexa-main-header__brand-image" src="{{ asset('bundles/ibexaadminui/img/ibexa-logo.svg') }}" alt="Ibexa" />
+				</a>
+			</div>
+			<div class="ibexa-main-header__user-menu-column">
+				{% block user_menu %}
+					{{ knp_menu_render('ezplatform_admin_ui.menu.user', {
+						'depth': 1,
+						'template': '@ibexadesign/ui/menu/user.html.twig'
+					}) }}
+				{% endblock %}
+			</div>
+		</header>
+	{% endblock %}
+
+	{% block main_container %}
+		<main class="ibexa-main-container {% block main_container_class %}{% endblock %}">
+			{% block content_column %}
+				<div
+						class="ibexa-main-container__content-column
+		                            {%- if not is_back_to_top_disabled|default(false) %} ibexa-back-to-top-scroll-container{% endif %}"
+				>
+					<div class="container ibexa-back-to-top-anchor">
+						{% block content %}{% endblock %}
+					</div>
+				</div>
+			{% endblock %}
+		
+		</main>
+	{% endblock %}
+	<div
+			class="ibexa-notifications-container"
+			data-notifications="{{ app.flashes|json_encode() }}"
+			data-template="{{ include('@ibexadesign/ui/notification.html.twig', {
+				label: '{{ label }}',
+				message: '{{ message }}',
+			})|e('html_attr')  }}"></div>
+	
+	{% if not is_back_to_top_disabled|default(false) %}
+		{% block back_to_top %}
+			<div class="ibexa-back-to-top">
+				<button type="button" class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--no-text ibexa-back-to-top__btn">
+		                        <span class="ibexa-back-to-top__title">
+		                            {{ 'back.to.top'|trans|desc('Go to top') }}
+		                        </span>
+					<svg class="ibexa-icon ibexa-icon--medium ibexa-back-to-top__icon">
+						<use xlink:href="{{ ibexa_icon_path('back') }}"></use>
+					</svg>
+				</button>
+			</div>
+		{% endblock %}
+	{% endif %}
+	
+	{{ encore_entry_script_tags('ibexa-admin-ui-error-page-js', null, 'ibexa') }}
+	{{ ibexa_render_component_group('stylesheet-body') }}
+</body>
+</html>
