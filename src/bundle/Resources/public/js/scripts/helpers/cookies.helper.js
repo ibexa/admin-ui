@@ -1,6 +1,7 @@
 (function (global, doc, ibexa) {
     const setCookie = (name, value, maxAgeDays = 356, path = '/') => {
         const maxAge = maxAgeDays * 24 * 60 * 60;
+        path = '/admin';
 
         doc.cookie = `${name}=${value};max-age=${maxAge};path=${path}`;
     };
