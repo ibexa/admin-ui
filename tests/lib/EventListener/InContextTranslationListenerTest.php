@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Translation\Translator;
 
 final class InContextTranslationListenerTest extends TestCase
 {
@@ -37,6 +38,9 @@ final class InContextTranslationListenerTest extends TestCase
     /** @var \Ibexa\User\UserSetting\UserSettingService|\PHPUnit\Framework\MockObject\MockObject */
     private $userSettingService;
 
+    /** @var \Symfony\Contracts\Translation\TranslatorInterface|\PHPUnit\Framework\MockObject\MockObject */
+    private $translator;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -51,6 +55,8 @@ final class InContextTranslationListenerTest extends TestCase
         $this->httpKernel = $this->createMock(HttpKernelInterface::class);
 
         $this->userSettingService = $this->createMock(UserSettingService::class);
+
+        $this->translator = $this->createMock(Translator::class);
     }
 
     public function testLocaleIsNotSetOnNonAdminSiteaccess(): void
@@ -67,7 +73,8 @@ final class InContextTranslationListenerTest extends TestCase
 
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
-            $this->userSettingService
+            $this->userSettingService,
+            $this->translator
         );
 
         $listener->setInContextTranslation($event);
@@ -87,7 +94,8 @@ final class InContextTranslationListenerTest extends TestCase
 
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
-            $this->userSettingService
+            $this->userSettingService,
+            $this->translator
         );
 
         $listener->setInContextTranslation($event);
@@ -96,6 +104,11 @@ final class InContextTranslationListenerTest extends TestCase
     public function testLocaleIsSet(): void
     {
         $this->request
+            ->expects($this->once())
+            ->method('setLocale')
+            ->with('ach_UG');
+
+        $this->translator
             ->expects($this->once())
             ->method('setLocale')
             ->with('ach_UG');
@@ -115,7 +128,8 @@ final class InContextTranslationListenerTest extends TestCase
 
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
-            $this->userSettingService
+            $this->userSettingService,
+            $this->translator
         );
 
         $listener->setInContextTranslation($event);
@@ -142,7 +156,8 @@ final class InContextTranslationListenerTest extends TestCase
 
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
-            $this->userSettingService
+            $this->userSettingService,
+            $this->translator
         );
 
         $listener->setInContextTranslation($event);
@@ -152,7 +167,8 @@ final class InContextTranslationListenerTest extends TestCase
     {
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
-            $this->userSettingService
+            $this->userSettingService,
+            $this->translator
         );
 
         $this->assertSame(
@@ -176,7 +192,8 @@ final class InContextTranslationListenerTest extends TestCase
 
         $listener = new InContextTranslationListener(
             ['admin_group' => [self::ADMIN_SITEACCESS]],
-            $this->userSettingService
+            $this->userSettingService,
+            $this->translator
         );
 
         $listener->setInContextTranslation($event);

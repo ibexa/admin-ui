@@ -4,6 +4,8 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
+
 namespace Ibexa\AdminUi\EventListener;
 
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
@@ -14,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class InContextTranslationListener implements EventSubscriberInterface
 {
@@ -24,12 +27,16 @@ final class InContextTranslationListener implements EventSubscriberInterface
     /** @var string[] */
     private array $siteAccessGroups;
 
+    private TranslatorInterface $translator;
+
     public function __construct(
         array $siteAccessGroups,
-        UserSettingService $userSettingService
+        UserSettingService $userSettingService,
+        TranslatorInterface $translator
     ) {
         $this->siteAccessGroups = $siteAccessGroups;
         $this->userSettingService = $userSettingService;
+        $this->translator = $translator;
     }
 
     /**
@@ -59,6 +66,8 @@ final class InContextTranslationListener implements EventSubscriberInterface
         }
 
         $request->setLocale(self::ACHOLI_LANG);
+        $request->attributes->set('_locale', self::ACHOLI_LANG);
+        $this->translator->setLocale(self::ACHOLI_LANG);
     }
 
     private function isAdminSiteAccess(Request $request): bool
