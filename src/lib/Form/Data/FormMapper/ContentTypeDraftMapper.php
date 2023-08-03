@@ -6,37 +6,55 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\FormMapper;
+namespace Ibexa\AdminUi\Form\Data\FormMapper;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use EzSystems\EzPlatformAdminUi\Event\FieldDefinitionMappingEvent;
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData;
-use EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
+use Ibexa\AdminUi\Form\Data\ContentTypeData;
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\Contracts\AdminUi\Event\FieldDefinitionMappingEvent;
+use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentTypeDraftMapper implements FormDataMapperInterface
 {
+    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
+
+    private ContentTypeService $contentTypeService;
+
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
     private $eventDispatcher;
+
+    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
+    private $fieldsGroupsList;
 
     /**
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
-        EventDispatcherInterface $eventDispatcher
+        ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
+        ContentTypeService $contentTypeService,
+        EventDispatcherInterface $eventDispatcher,
+        FieldsGroupsList $fieldsGroupsList
     ) {
+        $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
+        $this->contentTypeService = $contentTypeService;
         $this->eventDispatcher = $eventDispatcher;
+        $this->fieldsGroupsList = $fieldsGroupsList;
     }
 
     /**
-     * Maps a ValueObject from eZ content repository to a data usable as underlying form data (e.g. create/update struct).
+     * Maps a ValueObject from Ibexa content repository to a data usable as underlying form data (e.g. create/update struct).
      *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeDraft|\eZ\Publish\API\Repository\Values\ValueObject $contentTypeDraft
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft|\Ibexa\Contracts\Core\Repository\Values\ValueObject $contentTypeDraft
      * @param array $params
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData
+     * @return \Ibexa\AdminUi\Form\Data\ContentTypeData
      */
     public function mapToFormData(ValueObject $contentTypeDraft, array $params = [])
     {
@@ -44,10 +62,10 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
         $this->configureOptions($optionsResolver);
         $params = $optionsResolver->resolve($params);
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Language $language */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language $language */
         $language = $params['language'] ?? null;
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Language|null $baseLanguage */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $baseLanguage */
         $baseLanguage = $params['baseLanguage'] ?? null;
 
         $contentTypeData = new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]);
@@ -73,10 +91,25 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
             $contentTypeData->descriptions[$language->languageCode] = $contentTypeDraft->getDescription($baseLanguage->languageCode);
         }
 
+        $metaFieldTypeIdentifiers = $this->contentTypeFieldTypesResolver->getMetaFieldTypeIdentifiers();
+
+        try {
+            $contentType = $this->contentTypeService->loadContentType($contentTypeDraft->id);
+        } catch (NotFoundException $exception) {
+            $contentType = null;
+        }
+
         foreach ($contentTypeDraft->fieldDefinitions as $fieldDef) {
+            $isMetaFieldType = in_array($fieldDef->fieldTypeIdentifier, $metaFieldTypeIdentifiers, true);
+
+            $enabled = $isMetaFieldType
+                && null !== $contentType
+                && $contentType->hasFieldDefinition($fieldDef->identifier);
+
             $fieldDefinitionData = new FieldDefinitionData([
                 'fieldDefinition' => $fieldDef,
                 'contentTypeData' => $contentTypeData,
+                'enabled' => $enabled,
             ]);
 
             $event = new FieldDefinitionMappingEvent(
@@ -87,7 +120,15 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
 
             $this->eventDispatcher->dispatch($event, FieldDefinitionMappingEvent::NAME);
 
-            $contentTypeData->addFieldDefinitionData($event->getFieldDefinitionData());
+            if (empty($fieldDefinitionData->fieldGroup)) {
+                $fieldDefinitionData->fieldGroup = $this->fieldsGroupsList->getDefaultGroup();
+            }
+
+            if ($isMetaFieldType) {
+                $contentTypeData->addMetaFieldDefinitionData($event->getFieldDefinitionData());
+            } else {
+                $contentTypeData->addFieldDefinitionData($event->getFieldDefinitionData());
+            }
         }
         $contentTypeData->sortFieldDefinitions();
 
@@ -109,3 +150,5 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
             ->setAllowedTypes('language', Language::class);
     }
 }
+
+class_alias(ContentTypeDraftMapper::class, 'EzSystems\EzPlatformAdminUi\Form\Data\FormMapper\ContentTypeDraftMapper');

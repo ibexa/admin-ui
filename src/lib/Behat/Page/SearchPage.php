@@ -10,29 +10,31 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
+use Ibexa\AdminUi\Behat\Component\UpperMenu;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
-use PHPUnit\Framework\Assert;
 
 class SearchPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\TableInterface */
-    private $table;
+    private TableInterface $table;
 
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder)
+    private UpperMenu $upperMenu;
+
+    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, UpperMenu $upperMenu)
     {
         parent::__construct($session, $router);
         $this->table = $tableBuilder
             ->newTable()
-            ->withParentLocator($this->getLocator('table'))
-            ->withEmptyLocator($this->getLocator('emptyTable'))
-            ->build()
-        ;
+            ->build();
+        $this->upperMenu = $upperMenu;
     }
 
     public function search(string $contentItemName): void
     {
+        $this->upperMenu->search($contentItemName);
+
         $this->getHTMLPage()->find($this->getLocator('inputField'))->setValue($contentItemName);
         $this->getHTMLPage()->find($this->getLocator('buttonSearch'))->click();
         $this->verifyIsLoaded();
@@ -46,10 +48,7 @@ class SearchPage extends Page
 
     public function verifyIsLoaded(): void
     {
-        Assert::assertEquals(
-            'Search',
-            $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText()
-        );
+        $this->getHTMLPage()->find($this->getLocator('filtersHeader'))->assert()->textEquals('Filters');
     }
 
     public function getName(): string
@@ -65,11 +64,8 @@ class SearchPage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('inputField', '.ez-search-form #search_query'),
-            new VisibleCSSLocator('buttonSearch', '.ez-btn--search'),
-            new VisibleCSSLocator('pageTitle', '.ez-page-title .ez-page-title__content-name'),
-            new VisibleCSSLocator('table', '.ez-content-container table.table'),
-            new VisibleCSSLocator('emptyTable', '.ez-table-header__headline'),
+            new VisibleCSSLocator('table', '.ibexa-search'),
+            new VisibleCSSLocator('filtersHeader', '.ibexa-search-form__filters .ibexa-filters__title'),
         ];
     }
 }

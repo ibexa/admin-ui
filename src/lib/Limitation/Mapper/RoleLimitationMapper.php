@@ -8,15 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\RoleService;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use EzSystems\EzPlatformAdminUi\Limitation\LimitationValueMapperInterface;
-use EzSystems\EzPlatformAdminUi\Limitation\Mapper\MultipleSelectionBasedMapper;
+use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
 final class RoleLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
 {
-    /** @var \eZ\Publish\API\Repository\RoleService */
-    private $roleService;
+    private RoleService $roleService;
 
     public function __construct(
         RoleService $roleService

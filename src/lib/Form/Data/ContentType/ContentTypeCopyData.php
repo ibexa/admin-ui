@@ -6,22 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\ContentType;
+namespace Ibexa\AdminUi\Form\Data\ContentType;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
 class ContentTypeCopyData
 {
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
     private $contentType;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup */
     private $contentTypeGroup;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
      */
     public function __construct(
         ?ContentType $contentType,
@@ -32,7 +32,7 @@ class ContentTypeCopyData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
      */
     public function getContentType(): ?ContentType
     {
@@ -40,7 +40,7 @@ class ContentTypeCopyData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType|null $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
      */
     public function setContentType(?ContentType $contentType): void
     {
@@ -48,7 +48,7 @@ class ContentTypeCopyData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null
      */
     public function getContentTypeGroup(): ?ContentTypeGroup
     {
@@ -56,10 +56,12 @@ class ContentTypeCopyData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup|null $contentTypeGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null $contentTypeGroup
      */
     public function setContentTypeGroup(?ContentTypeGroup $contentTypeGroup): void
     {
         $this->contentTypeGroup = $contentTypeGroup;
     }
 }
+
+class_alias(ContentTypeCopyData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentType\ContentTypeCopyData');

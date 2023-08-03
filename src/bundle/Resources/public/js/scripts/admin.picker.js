@@ -1,52 +1,49 @@
-(function(global, doc, eZ, flatpickr) {
-    const SELECTOR_PICKER = '.ez-picker';
-    const SELECTOR_PICKER_INPUT = '.ez-picker__input';
-    const SELECTOR_FORM_INPUT = '.ez-picker__form-input';
-    const SELECTOR_CLEAR_BTN = '.ez-picker__btn--clear-input';
+(function (global, doc, ibexa) {
+    const SELECTOR_PICKER = '.ibexa-picker';
+    const SELECTOR_PICKER_INPUT = '.ibexa-date-time-picker__input';
+    const SELECTOR_FORM_INPUT = '.ibexa-picker__form-input';
     const pickers = doc.querySelectorAll(SELECTOR_PICKER);
-    const { formatShortDateTime } = eZ.helpers.timezone;
+    const { formatShortDateTime, convertDateToTimezone, getBrowserTimezone } = ibexa.helpers.timezone;
+    const userTimezone = ibexa.adminUiConfig.timezone;
     const pickerConfig = {
         enableTime: true,
         time_24hr: true,
         formatDate: (date) => formatShortDateTime(date, null),
     };
-    const updateInputValue = (formInput, date) => {
-        if (!date.length) {
-            formInput.value = '';
+    const updateInputValue = (formInput, timestamp) => {
+        if (timestamp !== formInput.value) {
+            formInput.value = timestamp ?? '';
 
-            return;
+            formInput.dispatchEvent(new Event('input'));
         }
-
-        date = new Date(date[0]);
-        formInput.value = Math.floor(date.getTime() / 1000);
-    };
-    const onClearBtnClick = (flatpickrInstance, event) => {
-        event.preventDefault();
-
-        flatpickrInstance.setDate(null, true);
     };
     const initFlatPickr = (field) => {
         const formInput = field.querySelector(SELECTOR_FORM_INPUT);
         const pickerInput = field.querySelector(SELECTOR_PICKER_INPUT);
-        const btnClear = field.querySelector(SELECTOR_CLEAR_BTN);
         const customConfig = JSON.parse(pickerInput.dataset.flatpickrConfig || '{}');
         let defaultDate;
 
         if (formInput.value) {
-            defaultDate = new Date(formInput.value * 1000);
+            const date = new Date(formInput.value * 1000);
+            const dateWithUserTimezone = convertDateToTimezone(date, userTimezone);
+            const localTimezone = getBrowserTimezone();
+            const convertedDate = convertDateToTimezone(dateWithUserTimezone, localTimezone, true).format();
+
+            defaultDate = convertedDate;
         }
 
-        const flatpickrInstance = flatpickr(pickerInput, {
-            ...pickerConfig,
+        const dateTimePickerWidget = new ibexa.core.DateTimePicker({
+            container: field,
             onChange: updateInputValue.bind(null, formInput),
-            defaultDate,
-            ...customConfig,
+            flatpickrConfig: {
+                ...pickerConfig,
+                defaultDate,
+                ...customConfig,
+            },
         });
 
-        if (btnClear) {
-            btnClear.addEventListener('click', onClearBtnClick.bind(null, flatpickrInstance), false);
-        }
+        dateTimePickerWidget.init();
     };
 
     pickers.forEach(initFlatPickr);
-})(window, window.document, window.eZ, window.flatpickr);
+})(window, window.document, window.ibexa);

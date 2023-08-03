@@ -1,68 +1,78 @@
-.ez-badge {
-    padding: calculateRem(4px);
+.ibexa-badge {
+    height: calculateRem(24px);
+    padding: calculateRem(4px) calculateRem(10px);
     font-size: calculateRem(16px);
-    text-decoration: none;
+    font-size: $ibexa-text-font-size-small;
+    line-height: calculateRem(16px);
+    font-weight: normal;
+    border-radius: calculateRem(12px);
+    background-color: $ibexa-color-light-500;
+    white-space: nowrap;
 
-    &--small {
-        font-size: calculateRem(14px);
-        font-weight: 400;
-    }
+    &--status {
+        position: relative;
+        padding-left: calculateRem(16px);
+        padding-top: calculateRem(3px);
+        padding-bottom: calculateRem(3px);
+        border-width: calculateRem(1px);
+        border-style: solid;
 
-    &--round {
-        padding: calculateRem(8px) calculateRem(16px);
-        border-radius: calculateRem(40px);
-    }
-
-    &--icon {
-        font-weight: normal;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        background-color: $ibexa-white;
-        border: calculateRem(1px) solid $ibexa-color-base;
-        color: $ibexa-color-font;
-
-        &:hover {
-            background-color: $ibexa-color-base-medium;
-        }
-
-        .ez-icon {
+        &::before {
+            content: '';
+            position: absolute;
+            left: calculateRem(8px);
+            width: calculateRem(4px);
+            height: calculateRem(4px);
             border-radius: 50%;
-            padding: calculateRem(3px);
-            margin-left: calculateRem(8px);
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    @mixin version-properties($color, $background-color) {
+        color: $color;
+        background-color: $background-color;
+        border-color: $color;
+
+        .ibexa-icon {
+            fill: $color;
         }
 
-        &.badge {
-            &:hover,
-            &:focus {
-                background-color: $ibexa-color-base-medium;
-                box-shadow: none;
-                color: $ibexa-color-font;
-            }
+        &::before {
+            background-color: $color;
         }
+    }
 
-        &.badge-info {
-            .ez-icon {
-                background-color: $ibexa-color-info;
-            }
-        }
+    &--primary {
+        @include version-properties($ibexa-color-primary, $ibexa-color-primary-200);
+    }
 
-        &.badge-success {
-            .ez-icon {
-                background-color: $ibexa-color-positive;
-            }
-        }
+    &--secondary {
+        @include version-properties($ibexa-color-dark, $ibexa-color-light-500);
+    }
 
-        &.badge-warning {
-            .ez-icon {
-                background-color: $ibexa-color-warning;
-            }
-        }
+    &--info {
+        @include version-properties($ibexa-color-info, $ibexa-color-info-200);
+    }
 
-        &.badge-danger {
-            .ez-icon {
-                background-color: $ibexa-color-danger;
-            }
-        }
+    &--danger {
+        @include version-properties($ibexa-color-danger, $ibexa-color-danger-200);
+    }
+
+    &--success {
+        @include version-properties($ibexa-color-success, $ibexa-color-success-200);
+    }
+
+    &--complementary {
+        @include version-properties($ibexa-color-complementary, $ibexa-color-complementary-200);
+    }
+
+    &--custom-colors {
+        @include version-properties(var(--primary-color), var(--secondary-color));
+    }
+
+    &--ghost {
+        background-color: transparent;
+        border-color: transparent;
     }
 }

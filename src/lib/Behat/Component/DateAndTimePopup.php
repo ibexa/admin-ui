@@ -49,7 +49,8 @@ class DateAndTimePopup extends Component
             sprintf(
                 self::ADD_CALLBACK_TO_DATEPICKER_SCRIPT_FORMAT,
                 $this->parentLocator->getSelector()
-            ));
+            )
+        );
 
         $dateScript = sprintf(
             self::SETTING_SCRIPT_FORMAT,
@@ -79,7 +80,8 @@ class DateAndTimePopup extends Component
 
         if (!$isTimeOnly) {
             // get current date as it's not possible to set time without setting date
-            $currentDateScript = sprintf('document.querySelector("%s %s")._flatpickr.selectedDates[0].toLocaleString()',
+            $currentDateScript = sprintf(
+                'document.querySelector("%s %s")._flatpickr.selectedDates[0].toLocaleString()',
                 $this->parentLocator->getSelector(),
                 $this->getLocator('flatpickrSelector')->getSelector()
             );

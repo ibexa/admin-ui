@@ -6,24 +6,24 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Location;
+namespace Ibexa\AdminUi\Form\Data\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 /**
  * @todo add validation
  */
 class LocationSwapData
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
     protected $currentLocation;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location|null */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
     protected $newLocation;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $currentLocation
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $newLocation
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $currentLocation
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $newLocation
      */
     public function __construct(?Location $currentLocation = null, Location $newLocation = null)
     {
@@ -32,7 +32,7 @@ class LocationSwapData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     public function getCurrentLocation(): ?Location
     {
@@ -40,7 +40,7 @@ class LocationSwapData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $currentLocation
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $currentLocation
      */
     public function setCurrentLocation(?Location $currentLocation)
     {
@@ -48,7 +48,7 @@ class LocationSwapData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     public function getNewLocation(): ?Location
     {
@@ -56,10 +56,12 @@ class LocationSwapData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $newLocation
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $newLocation
      */
     public function setNewLocation(?Location $newLocation)
     {
         $this->newLocation = $newLocation;
     }
 }
+
+class_alias(LocationSwapData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationSwapData');

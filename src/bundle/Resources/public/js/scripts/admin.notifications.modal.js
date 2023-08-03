@@ -1,22 +1,22 @@
-(function (global, doc, eZ, Translator) {
+(function (global, doc, ibexa, Translator) {
     let currentPageLink = null;
     let getNotificationsStatusErrorShowed = false;
     let lastFailedCountFetchNotificationNode = null;
-    const SELECTOR_MODAL_ITEM = '.ez-notifications-modal__item';
-    const SELECTOR_MODAL_RESULTS = '.ez-notifications-modal__results';
+    const SELECTOR_MODAL_ITEM = '.ibexa-notifications-modal__item';
+    const SELECTOR_MODAL_RESULTS = '.ibexa-notifications-modal__results';
     const SELECTOR_MODAL_TITLE = '.modal-title';
     const SELECTOR_DESC_TEXT = '.description__text';
-    const SELECTOR_TABLE = '.n-table--notifications';
+    const SELECTOR_TABLE = '.ibexa-table--notifications';
     const CLASS_ELLIPSIS = 'description__text--ellipsis';
     const CLASS_PAGINATION_LINK = 'page-link';
-    const CLASS_MODAL_LOADING = 'ez-notifications-modal--loading';
+    const CLASS_MODAL_LOADING = 'ibexa-notifications-modal--loading';
     const INTERVAL = 30000;
-    const modal = doc.querySelector('.ez-notifications-modal');
-    const { showErrorNotification, showWarningNotification } = eZ.helpers.notification;
-    const { getJsonFromResponse, getTextFromResponse } = eZ.helpers.request;
+    const modal = doc.querySelector('.ibexa-notifications-modal');
+    const { showErrorNotification, showWarningNotification } = ibexa.helpers.notification;
+    const { getJsonFromResponse, getTextFromResponse } = ibexa.helpers.request;
     const markAsRead = (notification, response) => {
         if (response.status === 'success') {
-            notification.classList.add('ez-notifications-modal__item--read');
+            notification.classList.add('ibexa-notifications-modal__item--read');
         }
 
         if (response.redirect) {
@@ -58,7 +58,7 @@
             },
         });
 
-        fetch(request)
+        return fetch(request)
             .then(getJsonFromResponse)
             .then((notificationsInfo) => {
                 setPendingNotificationCount(notificationsInfo);
@@ -82,7 +82,7 @@
             const message = Translator.trans(
                 /* @Desc("Cannot update notifications") */ 'notifications.modal.message.error',
                 { error: error.message },
-                'notifications'
+                'notifications',
             );
 
             showWarningNotification(message, (notificationNode) => {
@@ -98,13 +98,9 @@
         modalTitle.dataset.notificationsTotal = `(${notificationsCount})`;
     };
     const updatePendingNotificationsView = (notificationsInfo) => {
-        const pendingNotificationsExist = notificationsInfo.pending;
-        const userName = doc.querySelector('.ez-user-menu__name');
+        const noticeDot = doc.querySelector('.ibexa-header-user-menu__notice-dot');
 
-        userName.dataset.count = notificationsInfo.pending;
-        userName.classList.toggle('n-pending-notifications', pendingNotificationsExist);
-
-        doc.querySelector('.ez-user-menu__item--notifications').dataset.count = notificationsInfo.pending;
+        noticeDot.classList.toggle('ibexa-header-user-menu__notice-dot--no-notice', notificationsInfo.pending === 0);
     };
     const setPendingNotificationCount = (notificationsInfo) => {
         updatePendingNotificationsView(notificationsInfo);
@@ -173,6 +169,11 @@
 
     modal.querySelectorAll(SELECTOR_MODAL_RESULTS).forEach((link) => link.addEventListener('click', handleModalResultsClick, false));
 
-    getNotificationsStatus();
-    global.setInterval(getNotificationsStatus, INTERVAL);
-})(window, window.document, window.eZ, window.Translator);
+    const getNotificationsStatusLoop = () => {
+        getNotificationsStatus().finally(() => {
+            global.setTimeout(getNotificationsStatusLoop, INTERVAL);
+        });
+    };
+
+    getNotificationsStatusLoop();
+})(window, window.document, window.ibexa, window.Translator);
