@@ -11,7 +11,7 @@
             const cookieValue = isExpanded ? 'true' : 'false';
 
             if (expandedInfoCookieName) {
-                ibexa.helpers.cookies.setCookie(expandedInfoCookieName, cookieValue);
+                ibexa.helpers.cookies.setBackOfficeCookie(expandedInfoCookieName, cookieValue);
             }
         };
         const collapse = bootstrap.Collapse.getOrCreateInstance(adaptiveItemsCollapsibleContainer, {
