@@ -20,7 +20,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class InContextTranslationListener implements EventSubscriberInterface
 {
-    private const ACHOLI_LANG = 'ach_UG';
+    private const ACHOLI_LANG = 'ach-UG';
 
     private UserSettingService $userSettingService;
 

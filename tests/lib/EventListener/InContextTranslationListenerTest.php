@@ -106,12 +106,12 @@ final class InContextTranslationListenerTest extends TestCase
         $this->request
             ->expects($this->once())
             ->method('setLocale')
-            ->with('ach_UG');
+            ->with('ach-UG');
 
         $this->translator
             ->expects($this->once())
             ->method('setLocale')
-            ->with('ach_UG');
+            ->with('ach-UG');
 
         $event = new RequestEvent(
             $this->httpKernel,
