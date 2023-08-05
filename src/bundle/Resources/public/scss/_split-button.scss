@@ -1,9 +1,21 @@
 .ibexa-split-btn {
     display: flex;
 
+    &__main-btn,
+    &__toggle-btn {
+        &:hover {
+            z-index: 1;
+        }
+    }
+
     &__main-btn {
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
+    }
+
+    &__split {
+        display: none;
+        width: calculateRem(0.5px);
     }
 
     &__toggle-btn {
@@ -18,6 +30,22 @@
         &--subitems-opened {
             .ibexa-icon {
                 transform: rotate(180deg);
+            }
+        }
+    }
+
+    &--primary {
+        background-image: $ibexa-gradient-danger-primary;
+        border-radius: $ibexa-border-radius;
+
+        .ibexa-btn.ibexa-btn--primary {
+            background-image: none;
+        }
+
+        .ibexa-split-btn {
+            &__split {
+                display: block;
+                background: $ibexa-color-white;
             }
         }
     }
