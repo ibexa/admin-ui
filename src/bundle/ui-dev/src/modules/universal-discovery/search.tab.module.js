@@ -3,11 +3,7 @@ import React, { useContext, useEffect, useRef } from 'react';
 import Tab from './components/tab/tab';
 import Search from './components/search/search';
 
-import {
-    LoadedLocationsMapContext,
-    MarkedLocationIdContext,
-    TabsConfigContext
-} from './universal.discovery.module';
+import { LoadedLocationsMapContext, MarkedLocationIdContext, TabsConfigContext } from './universal.discovery.module';
 
 const { ibexa, Translator } = window;
 
