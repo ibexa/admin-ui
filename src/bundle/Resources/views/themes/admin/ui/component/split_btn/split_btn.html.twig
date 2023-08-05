@@ -2,6 +2,7 @@
 
 {% set attr = attr|default({})|merge({
     class: ('ibexa-split-btn '
+        ~ ('ibexa-split-btn--' ~ type ~ ' ')
         ~ attr.class|default(''))|trim,
 }) %}
 
@@ -9,12 +10,14 @@
 
 {% set main_btn_attr = main_btn_attr|default({})|merge({
     class: ('btn ibexa-btn ibexa-split-btn__main-btn '
+        ~ (type is defined and type is not null ? 'ibexa-btn--' ~ type ~ ' ')
         ~ main_btn_attr.class|default(''))|trim,
     type: add_to_cart_btn_attr.type|default('button'),
 }) %}
 
 {% set split_btn_attr = split_btn_attr|default({})|merge({
     class: ('btn ibexa-btn ibexa-btn--no-text ibexa-split-btn__toggle-btn '
+        ~ (type is defined and type is not null ? 'ibexa-btn--' ~ type ~ ' ')
         ~ split_btn_attr.class|default(''))|trim,
     type: split_btn_attr.type|default('button'),
 }) %}
@@ -29,6 +32,10 @@
                     {{ label }}
                 {% endblock %}
             </{{ main_btn_element }}>
+        {% endblock %}
+
+        {% block split %}
+            <div class="ibexa-split-btn__split"></div>
         {% endblock %}
 
         {% block toggle_btn %}

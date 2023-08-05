@@ -52,6 +52,9 @@
         ) {
             this.container.appendChild(branchElement);
 
+            const isTopBranch = !triggerElement.classList.contains('ibexa-multilevel-popup-menu__item');
+            const offset = isTopBranch ? [0, 3] : [-8, 8];
+
             const popperInstance = Popper.createPopper(referenceElement ?? triggerElement, branchElement, {
                 placement,
                 modifiers: [
@@ -60,6 +63,12 @@
                         enabled: true,
                         options: {
                             fallbackPlacements,
+                        },
+                    },
+                    {
+                        name: 'offset',
+                        options: {
+                            offset,
                         },
                     },
                 ],
