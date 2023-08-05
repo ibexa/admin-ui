@@ -4,6 +4,12 @@
 
 {% block body_class %}ibexa-dashboard{% endblock %}
 
+{% block breadcrumbs %}
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
+        { value: 'dashboard.breadcrumbs.dashboard'|trans|desc('Dashboard') }
+    ]} %}
+{% endblock %}
+
 {% block context_menu %}
     <div class="ibexa-dashboard__create">
         <button
