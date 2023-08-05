@@ -45,6 +45,22 @@
         fallbackPlacements: ['bottom-start', 'top-end', 'top-start'],
     });
 
+    const processMenuNewItemElement = (newItemElement, data) => {
+        const { relatedBtnId } = data.custom;
+
+        newItemElement.dataset.relatedButtonId = relatedBtnId;
+
+        newItemElement.addEventListener(
+            'click',
+            () => {
+                const button = doc.getElementById(relatedBtnId);
+
+                button.click();
+            },
+            false,
+        );
+    };
+
     menuButtons.forEach((menuButton) => {
         const isSplitBtn = menuButton.classList.contains('ibexa-split-btn');
 
@@ -57,10 +73,11 @@
                 {
                     label: itemLabel,
                     branchElement: topBranch,
+                    custom: {
+                        relatedBtnId: relatedMainBtnId,
+                    },
                 },
-                (newBranchElement) => {
-                    newBranchElement.dataset.relatedButtonId = relatedMainBtnId;
-                },
+                processMenuNewItemElement,
             );
             const subbranch = multilevelPopupMenu.generateBranch({
                 triggerElement: item,
@@ -74,57 +91,35 @@
 
             subitemsBtns.forEach((subitemBtn) => {
                 const subitemLabel = subitemBtn.querySelector('.ibexa-btn__label').textContent;
+                const relatedSubitemBtnId = subitemBtn.id;
 
-                multilevelPopupMenu.generateItem({
-                    label: subitemLabel,
-                    branchElement: subbranch,
-                });
+                multilevelPopupMenu.generateItem(
+                    {
+                        label: subitemLabel,
+                        branchElement: subbranch,
+                        custom: {
+                            relatedBtnId: relatedSubitemBtnId,
+                        },
+                    },
+                    processMenuNewItemElement,
+                );
             });
         } else {
-            const relatedButtonId = menuButton.id;
+            const relatedBtnId = menuButton.id;
             const label = menuButton.querySelector('.ibexa-btn__label').textContent;
 
             multilevelPopupMenu.generateItem(
                 {
                     label,
                     branchElement: topBranch,
+                    custom: {
+                        relatedBtnId,
+                    },
                 },
-                (newItemElement) => {
-                    newItemElement.dataset.relatedButtonId = relatedButtonId;
-                },
+                processMenuNewItemElement,
             );
         }
     });
-    // const popupMenu = new ibexa.core.PopupMenu({
-    //     popupMenuElement,
-    //     triggerElement: showPopupButton,
-    //     onItemClick: (event) => {
-    //         const { relatedButtonId } = event.currentTarget.dataset;
-    //         const button = doc.getElementById(relatedButtonId);
-
-    //         button.click();
-    //     },
-    // });
-    // const popupItemsToGenerate = [...menuButtons].map((button) => {
-    //     const relatedButtonId = button.id;
-    //     const label = button.querySelector('.ibexa-btn__label').textContent;
-
-    //     return {
-    //         label,
-    //         relatedButtonId,
-    //         disabled: button.disabled,
-    //     };
-    // });
-
-    // popupMenu.generateItems(popupItemsToGenerate, (itemElement, item) => {
-    //     const itemContentElement = itemElement.querySelector('.ibexa-popup-menu__item-content');
-
-    //     itemElement.dataset.relatedButtonId = item.relatedButtonId;
-
-    //     if (item.disabled) {
-    //         itemContentElement.classList.add('ibexa-popup-menu__item-content--disabled');
-    //     }
-    // });
 
     adaptiveItems.init();
     adapatItemsContainer.classList.remove('ibexa-context-menu--before-adaptive-items-init');

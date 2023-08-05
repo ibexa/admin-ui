@@ -1,5 +1,8 @@
 .ibexa-multilevel-popup-menu {
     &__branch {
+        display: flex;
+        flex-direction: column;
+        gap: calculateRem(1px);
         padding: calculateRem(8px);
         background: $ibexa-color-white;
         border: calculateRem(1px) solid $ibexa-color-light;
