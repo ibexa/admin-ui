@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import Tab from './components/tab/tab';
 import Search from './components/search/search';
