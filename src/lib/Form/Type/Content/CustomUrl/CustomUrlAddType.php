@@ -115,6 +115,7 @@ class CustomUrlAddType extends AbstractType
                         $this->siteAccessNameGenerator,
                         $location
                     ),
+                    'placeholder' =>  /** @Desc("None") */ 'custom_url_alias_add_form.site_access.placeholder',
                 ]
             )
             ->add(

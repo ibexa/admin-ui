@@ -56,7 +56,7 @@ class LocationTrashType extends AbstractType
             ->add(
                 'trash',
                 SubmitType::class,
-                ['label' => /** @Desc("Send to Trash") */ 'location_trash_form.trash']
+                ['label' => /** @Desc("Delete") */ 'location_trash_form.trash']
             );
 
         $builder->get('trash_options')->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
