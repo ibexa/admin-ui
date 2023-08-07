@@ -84,7 +84,7 @@ Feature: Roles management
     When I start assigning to "Test Role edited" from Roles page
     And I assign users to role
       | path                                         |
-      | Users/Anonymous Users/Anonymous User         |
+      | Users/Anonymous users/Anonymous User         |
       | Users/Administrator users/Administrator User |
     And I assign groups to role
       | path          |
@@ -185,7 +185,7 @@ Feature: Roles management
       | option  |
       | Article |
       | Folder  |
-    And I select subtree limitation "Users/Anonymous Users" for policy through UDW
+    And I select subtree limitation "Users/Anonymous users" for policy through UDW
     And I select limitation for "State"
       | option      |
       | Lock:Locked |
@@ -194,7 +194,7 @@ Feature: Roles management
     And there are policies on the "Test Role edited" policies list
       | policy       | limitation                                  |
       | Content/Read | Content Type: Article, Folder               |
-      | Content/Read | Subtree: /Users/Anonymous Users |
+      | Content/Read | Subtree: /Users/Anonymous users |
       | Content/Read | State: Lock:Locked                          |
     And there are assignments on the "Test Role edited" assignments list
       | User/Group          | Limitation             |
