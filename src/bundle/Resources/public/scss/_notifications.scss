@@ -1,69 +1,7 @@
-.ez-notifications-container {
+.ibexa-notifications-container {
     position: fixed;
     bottom: 0;
-    left: 1%;
-    width: 98%;
+    right: calculateRem(32px);
+    width: calculateRem(400px);
     z-index: 50000;
-
-    &__message {
-        align-self: center;
-        white-space: pre-wrap;
-    }
-
-    .alert {
-        padding: calculateRem(16px);
-        margin-bottom: calculateRem(2px);
-        border-radius: 0;
-        transition: opacity 0.3s $ibexa-admin-transition;
-        padding-right: calculateRem(160px);
-        background-color: $ibexa-black;
-        color: $ibexa-white;
-        display: flex;
-        align-items: start;
-        border: none;
-
-        a {
-            color: $ibexa-white;
-        }
-
-        .ez-badge {
-            margin-right: calculateRem(16px);
-            margin-top: calculateRem(4px);
-            text-transform: capitalize;
-        }
-
-        .close {
-            opacity: 1;
-            cursor: pointer;
-        }
-
-        &-info {
-            .ez-badge {
-                background-color: $ibexa-color-info;
-            }
-        }
-
-        &-success {
-            .ez-badge {
-                background-color: $ibexa-color-positive;
-            }
-        }
-
-        &-warning {
-            .ez-badge {
-                background-color: $ibexa-color-warning;
-            }
-        }
-
-        &-danger {
-            .ez-badge {
-                background-color: $ibexa-color-danger;
-            }
-        }
-    }
-
-    a.ez-notification-btn {
-        cursor: pointer;
-        color: $ibexa-color-primary;
-    }
 }

@@ -6,24 +6,24 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\Event\Subscriber;
+namespace Ibexa\AdminUi\Tab\Event\Subscriber;
 
-use EzSystems\EzPlatformAdminUi\Tab\ConditionalTabInterface;
-use EzSystems\EzPlatformAdminUi\Tab\Event\TabEvents;
-use EzSystems\EzPlatformAdminUi\Tab\Event\TabGroupEvent;
-use EzSystems\EzPlatformAdminUi\UI\Service\TabService;
+use Ibexa\AdminUi\Tab\Event\TabEvents;
+use Ibexa\AdminUi\Tab\Event\TabGroupEvent;
+use Ibexa\AdminUi\UI\Service\TabService;
+use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use InvalidArgumentException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Evaluates if tabs should be visible (Tabs implementing ConditionalTabInterface).
  *
- * @see ConditionalTabInterface
+ * @see \Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface
  */
 class ConditionalTabSubscriber implements EventSubscriberInterface
 {
     /**
-     * @var \EzSystems\EzPlatformAdminUi\UI\Service\TabService
+     * @var \Ibexa\AdminUi\UI\Service\TabService
      */
     private $tabService;
 
@@ -43,7 +43,7 @@ class ConditionalTabSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Tab\Event\TabGroupEvent $tabGroupEvent
+     * @param \Ibexa\AdminUi\Tab\Event\TabGroupEvent $tabGroupEvent
      */
     public function onTabGroupInitialize(TabGroupEvent $tabGroupEvent)
     {
@@ -65,3 +65,5 @@ class ConditionalTabSubscriber implements EventSubscriberInterface
         $tabGroupEvent->setData($tabGroup);
     }
 }
+
+class_alias(ConditionalTabSubscriber::class, 'EzSystems\EzPlatformAdminUi\Tab\Event\Subscriber\ConditionalTabSubscriber');

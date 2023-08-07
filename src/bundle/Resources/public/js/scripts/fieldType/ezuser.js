@@ -1,29 +1,15 @@
-(function(global, doc, eZ) {
-    const SELECTOR_FIELD = '.ez-field-edit--ezuser';
-    const SELECTOR_INNER_FIELD = '.ez-data-source__field';
-    const SELECTOR_LABEL = '.ez-data-source__label';
-    const SELECTOR_LABEL_WRAPPER = '.ez-data-source__label-wrapper';
-    const SELECTOR_FIELD_USERNAME = '.ez-data-source__field--username';
-    const SELECTOR_FIELD_FIRST = '.ez-data-source__field--first';
-    const SELECTOR_FIELD_SECOND = '.ez-data-source__field--second';
-    const SELECTOR_FIELD_EMAIL = '.ez-data-source__field--email';
-    const SELECTOR_INPUT = '.ez-data-source__input';
+(function (global, doc, ibexa) {
+    const SELECTOR_FIELD = '.ibexa-field-edit--ezuser';
+    const SELECTOR_INNER_FIELD = '.ibexa-data-source__field';
+    const SELECTOR_LABEL = '.ibexa-data-source__label';
+    const SELECTOR_FIELD_USERNAME = '.ibexa-data-source__field--username';
+    const SELECTOR_FIELD_FIRST = '.ibexa-data-source__field--first';
+    const SELECTOR_FIELD_SECOND = '.ibexa-data-source__field--second';
+    const SELECTOR_FIELD_EMAIL = '.ibexa-data-source__field--email';
+    const SELECTOR_INPUT = '.ibexa-data-source__input';
+    const SELECTOR_ERROR_WRAPPER = '.ibexa-form-error';
 
-    class EzUserValidator extends eZ.BaseFieldValidator {
-        /**
-         * Updates the state of checkbox indicator.
-         *
-         * @method updateState
-         * @param {Event} event
-         * @memberof EzUserValidator
-         */
-        updateState(event) {
-            const methodName = event.currentTarget.checked ? 'add' : 'remove';
-            const label = event.currentTarget.closest(SELECTOR_LABEL);
-
-            label.classList[methodName]('is-checked');
-        }
-
+    class EzUserValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input field value
          *
@@ -36,7 +22,7 @@
             const fieldContainer = target.closest(SELECTOR_INNER_FIELD);
             const label = fieldContainer.querySelector(SELECTOR_LABEL).innerHTML;
             const isError = target.required && !target.value.trim().length;
-            const errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+            const errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
 
             return {
                 isError,
@@ -55,15 +41,18 @@
         validateEmailInput({ target }) {
             const isRequired = target.required;
             const isEmpty = !target.value.trim();
-            const isValid = eZ.errors.emailRegexp.test(target.value);
+            const isValid = ibexa.errors.emailRegexp.test(target.value);
             const isError = (isRequired && isEmpty) || !isValid;
             const fieldContainer = target.closest(SELECTOR_INNER_FIELD);
             const result = { isError };
 
             if (isEmpty) {
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', fieldContainer.querySelector(SELECTOR_LABEL).innerHTML);
+                result.errorMessage = ibexa.errors.emptyField.replace(
+                    '{fieldName}',
+                    fieldContainer.querySelector(SELECTOR_LABEL).innerHTML,
+                );
             } else if (!isValid) {
-                result.errorMessage = eZ.errors.invalidEmail;
+                result.errorMessage = ibexa.errors.invalidEmail;
             }
 
             return result;
@@ -97,7 +86,7 @@
 
             if (requiredNotMatch || notRequiredNotMatch) {
                 isError = true;
-                errorMessage = eZ.errors.notSamePasswords;
+                errorMessage = ibexa.errors.notSamePasswords;
             }
 
             return {
@@ -116,39 +105,33 @@
                 eventName: 'blur',
                 callback: 'validateInput',
                 invalidStateSelectors: [`${SELECTOR_FIELD_USERNAME} ${SELECTOR_LABEL}`],
-                errorNodeSelectors: [SELECTOR_FIELD_USERNAME],
+                errorNodeSelectors: [`${SELECTOR_FIELD_USERNAME} ${SELECTOR_ERROR_WRAPPER}`],
             },
             {
                 selector: `${SELECTOR_FIELD} ${SELECTOR_FIELD_FIRST} ${SELECTOR_INPUT}`,
                 eventName: 'blur',
                 callback: 'validateInput',
                 invalidStateSelectors: [`${SELECTOR_FIELD_FIRST} ${SELECTOR_LABEL}`],
-                errorNodeSelectors: [SELECTOR_FIELD_FIRST],
+                errorNodeSelectors: [`${SELECTOR_FIELD_FIRST} ${SELECTOR_ERROR_WRAPPER}`],
             },
             {
                 selector: `${SELECTOR_FIELD} ${SELECTOR_FIELD_SECOND} ${SELECTOR_INPUT}`,
                 eventName: 'blur',
                 callback: 'comparePasswords',
                 invalidStateSelectors: [`${SELECTOR_FIELD_SECOND} ${SELECTOR_LABEL}`],
-                errorNodeSelectors: [SELECTOR_FIELD_SECOND],
+                errorNodeSelectors: [`${SELECTOR_FIELD_SECOND} ${SELECTOR_ERROR_WRAPPER}`],
             },
             {
                 selector: `${SELECTOR_FIELD} ${SELECTOR_FIELD_EMAIL} ${SELECTOR_INPUT}`,
                 eventName: 'blur',
                 callback: 'validateEmailInput',
                 invalidStateSelectors: [`${SELECTOR_FIELD_EMAIL} ${SELECTOR_LABEL}`],
-                errorNodeSelectors: [SELECTOR_FIELD_EMAIL],
-            },
-            {
-                isValueValidator: false,
-                selector: `.ez-data-source__input[type="checkbox"]`,
-                eventName: 'change',
-                callback: 'updateState',
+                errorNodeSelectors: [`${SELECTOR_FIELD_EMAIL} ${SELECTOR_ERROR_WRAPPER}`],
             },
         ],
     });
 
     validator.init();
 
-    eZ.addConfig('fieldTypeValidators', [validator], true);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('fieldTypeValidators', [validator], true);
+})(window, window.document, window.ibexa);

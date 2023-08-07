@@ -8,20 +8,19 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
-use EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\SubtreeOperations;
+use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\SubtreeOperations;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\SubtreeOperations
+ * @covers \Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\SubtreeOperations
  */
 final class SubtreeOperationsTest extends TestCase
 {
-    /** @var \EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\SubtreeOperations */
-    private $parser;
+    private SubtreeOperations $parser;
 
-    /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface&\PHPUnit\Framework\MockObject\MockObject */
-    private $contextualizer;
+    /** @var \PHPUnit\Framework\MockObject\MockObject&\Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface */
+    private ContextualizerInterface $contextualizer;
 
     /**
      * @return array<string, array{int}>

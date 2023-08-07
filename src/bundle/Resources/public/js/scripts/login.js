@@ -1,15 +1,31 @@
 (function (global, doc) {
-    const passwordInputNode = doc.querySelector('.ez-login__input--password');
-    const viewIconNode = doc.querySelector('.ez-login__password-visibility-toggler .ez-icon--view');
-    const viewHideIconNode = doc.querySelector('.ez-login__password-visibility-toggler .ez-icon--view-hide');
+    const AUTOFILL_TIMEOUT = 500;
+    const loginBtn = doc.querySelector('.ibexa-login__btn--sign-in');
+    const nameInput = doc.querySelector('.ibexa-login__input--name');
+    const passwordInput = doc.querySelector('.ibexa-login__input--password');
+    const toggleLoginBtnState = () => {
+        const shouldBeDisabled = !nameInput.value || !passwordInput.value;
 
-    doc.querySelector('.ez-login__password-visibility-toggler').addEventListener('click', (event) => {
-        if (passwordInputNode) {
-            const inputTypeToSet = passwordInputNode.type === 'password' ? 'text' : 'password';
+        loginBtn.toggleAttribute('disabled', shouldBeDisabled);
+    };
+    const handleAutofill = () => {
+        const isNameInputAutofilled = nameInput.matches(':-webkit-autofill');
+        const isPasswordInputAutofilled = nameInput.matches(':-webkit-autofill');
+        const isAutofilled = isNameInputAutofilled && isPasswordInputAutofilled;
 
-            passwordInputNode.type = inputTypeToSet;
-            viewIconNode.classList.toggle('d-none');
-            viewHideIconNode.classList.toggle('d-none');
+        if (isAutofilled) {
+            loginBtn.removeAttribute('disabled');
         }
-    });
+    };
+
+    if (loginBtn) {
+        nameInput.addEventListener('keyup', toggleLoginBtnState, false);
+        nameInput.addEventListener('change', toggleLoginBtnState, false);
+        passwordInput.addEventListener('keyup', toggleLoginBtnState, false);
+        passwordInput.addEventListener('change', toggleLoginBtnState, false);
+
+        toggleLoginBtnState();
+
+        global.setTimeout(handleAutofill, AUTOFILL_TIMEOUT);
+    }
 })(window, window.document);

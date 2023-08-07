@@ -1,0 +1,33 @@
+.ibexa-custom-url-from {
+    &__item {
+        &:first-child {
+            .ibexa-label {
+                margin-top: 0;
+            }
+        }
+
+        .ibexa-dropdown,
+        .ibexa-input-text-wrapper {
+            width: calculateRem(352px);
+        }
+    }
+
+    &__info-text {
+        font-size: $ibexa-text-font-size-small;
+        color: $ibexa-color-dark-400;
+
+        &--checked {
+            display: none;
+
+            .ibexa-toggle--is-checked + & {
+                display: block;
+            }
+        }
+
+        &--unchecked {
+            .ibexa-toggle--is-checked + .ibexa-custom-url-from__info-text--checked + & {
+                display: none;
+            }
+        }
+    }
+}

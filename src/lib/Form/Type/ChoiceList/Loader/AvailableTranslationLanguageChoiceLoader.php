@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader;
+namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 
 class AvailableTranslationLanguageChoiceLoader extends BaseChoiceLoader
 {
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     protected $languageService;
 
     /** @var string[] */
     protected $languageCodes;
 
     /**
-     * @param \eZ\Publish\API\Repository\LanguageService $languageService
+     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
      * @param string[] $languageCodes
      */
     public function __construct(LanguageService $languageService, $languageCodes)
@@ -30,7 +30,7 @@ class AvailableTranslationLanguageChoiceLoader extends BaseChoiceLoader
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getChoiceList(): array
     {
@@ -42,3 +42,5 @@ class AvailableTranslationLanguageChoiceLoader extends BaseChoiceLoader
         );
     }
 }
+
+class_alias(AvailableTranslationLanguageChoiceLoader::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\AvailableTranslationLanguageChoiceLoader');

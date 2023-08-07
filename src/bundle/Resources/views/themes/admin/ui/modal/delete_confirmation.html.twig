@@ -1,0 +1,35 @@
+{% set confirm_button_rendered %}
+    {%- block confirm_button -%}
+        <button
+            class="btn ibexa-btn ibexa-btn--primary ibexa-btn--trigger"
+            data-click="{{ data_click }}"
+        >
+            {{ 'modal.delete'|trans|desc('Delete') }}
+        </button>
+    {% endblock %}
+{% endset %}
+
+{% set cancel_button_rendered %}
+    {%- block cancel_button -%}
+        <button
+            type="button"
+            class="btn ibexa-btn ibexa-btn--secondary"
+            data-bs-dismiss="modal"
+        >
+            {{ 'modal.cancel'|trans|desc('Cancel') }}
+        </button>
+    {% endblock %}
+{% endset %}
+
+{% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
+    no_header: true,
+    id,
+} %}
+    {% block body_content %}
+        {{ message }}
+    {% endblock %}
+    {% block footer_content %}
+        {{ confirm_button_rendered }}
+        {{ cancel_button_rendered }}
+    {% endblock %}
+{% endembed %}

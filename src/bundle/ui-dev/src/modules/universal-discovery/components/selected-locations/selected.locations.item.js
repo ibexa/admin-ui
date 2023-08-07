@@ -6,21 +6,23 @@ import Thumbnail from '../../../common/thumbnail/thumbnail';
 
 import { SelectedLocationsContext, ContentTypesMapContext } from '../../universal.discovery.module';
 
+const { Translator, ibexa } = window;
+
 const SelectedLocationsItem = ({ location, permissions }) => {
     const refSelectedLocationsItem = useRef(null);
-    const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
+    const [, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const clearLabel = Translator.trans(
         /*@Desc("Clear selection")*/ 'selected_locations.clear_selection',
         {},
-        'universal_discovery_widget'
+        'universal_discovery_widget',
     );
     const removeFromSelection = () => {
-        window.eZ.helpers.tooltips.hideAll(refSelectedLocationsItem.current);
+        ibexa.helpers.tooltips.hideAll(refSelectedLocationsItem.current);
         dispatchSelectedLocationsAction({ type: 'REMOVE_SELECTED_LOCATION', id: location.id });
     };
     const sortedActions = useMemo(() => {
-        const { selectedItemActions } = window.eZ.adminUiConfig.universalDiscoveryWidget;
+        const { selectedItemActions } = ibexa.adminUiConfig.universalDiscoveryWidget;
         const actions = selectedItemActions ? [...selectedItemActions] : [];
 
         return actions.sort((actionA, actionB) => {
@@ -31,13 +33,13 @@ const SelectedLocationsItem = ({ location, permissions }) => {
     const thumbnailData = version ? version.Thumbnail : {};
 
     useEffect(() => {
-        window.eZ.helpers.tooltips.parse(refSelectedLocationsItem.current);
+        ibexa.helpers.tooltips.parse(refSelectedLocationsItem.current);
     }, []);
 
     return (
         <div className="c-selected-locations-item" ref={refSelectedLocationsItem}>
             <div className="c-selected-locations-item__image-wrapper">
-                <Thumbnail thumbnailData={thumbnailData} />
+                <Thumbnail thumbnailData={thumbnailData} iconExtraClasses="ibexa-icon--small" />
             </div>
             <div className="c-selected-locations-item__info">
                 <span className="c-selected-locations-item__info-name">{location.ContentInfo.Content.TranslatedName}</span>
@@ -53,11 +55,12 @@ const SelectedLocationsItem = ({ location, permissions }) => {
                 })}
                 <button
                     type="button"
-                    className="c-selected-locations-item__remove-button btn btn-icon"
+                    className="c-selected-locations-item__remove-button btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
                     onClick={removeFromSelection}
                     title={clearLabel}
-                    data-tooltip-container-selector=".c-udw-tab">
-                    <Icon name="trash" extraClasses="ez-icon--small-medium" />
+                    data-tooltip-container-selector=".c-udw-tab"
+                >
+                    <Icon name="discard" extraClasses="ibexa-icon--tiny-small" />
                 </button>
             </div>
         </div>

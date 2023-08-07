@@ -1,0 +1,101 @@
+.ibexa-tag-view-select {
+    $self: &;
+
+    border: calculateRem(1px) solid $ibexa-color-dark-200;
+    border-radius: $ibexa-border-radius;
+    padding: calculateRem(24px);
+
+    &__info {
+        font-size: $ibexa-text-font-size-medium;
+        color: $ibexa-color-black;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__selected-list {
+        display: flex;
+        flex-wrap: wrap;
+        margin: calculateRem(10px) 0;
+        min-height: calculateRem(24px);
+    }
+
+    &__selected-item-tag {
+        display: inline-flex;
+        align-items: center;
+        max-width: 100%;
+        height: calculateRem(24px);
+        padding: calculateRem(4px) calculateRem(10px);
+        font-size: $ibexa-text-font-size-small;
+        line-height: calculateRem(16px);
+        font-weight: normal;
+        border-radius: calculateRem(12px);
+        background-color: $ibexa-color-light-500;
+        margin-top: calculateRem(5px);
+        margin-bottom: calculateRem(5px);
+
+        &:not(:last-of-type) {
+            margin-right: calculateRem(8px);
+        }
+
+        .ibexa-middle-ellipsis {
+            max-width: calc(100% - #{calculateRem(20px)});
+        }
+
+        &--not-deletable {
+            #{$self}__selected-item-tag-remove-btn {
+                display: none;
+            }
+
+            .ibexa-middle-ellipsis {
+                max-width: 100%;
+            }
+        }
+    }
+
+    $color-versions: 'primary' $ibexa-color-primary $ibexa-color-primary-200, 'secondary' $ibexa-color-dark $ibexa-color-light-500,
+        'info' $ibexa-color-info $ibexa-color-info-200, 'danger' $ibexa-color-danger $ibexa-color-danger-200,
+        'success' $ibexa-color-success $ibexa-color-success-200, 'complementary' $ibexa-color-complementary $ibexa-color-complementary-200;
+
+    @mixin colorful-tags($color-text, $color-background) {
+        .ibexa-tag-view-select {
+            &__selected-item-tag {
+                background-color: $color-background;
+
+                .ibexa-icon {
+                    fill: $color-text;
+                }
+            }
+
+            &__selected-item-tag-ellipsize {
+                color: $color-text;
+            }
+
+            &__selected-item-tag-content {
+                &--start,
+                &--end {
+                    .ibexa-tag-view-select__selected-item-tag-content-ellipsized {
+                        color: $color-text;
+                    }
+                }
+            }
+        }
+    }
+
+    @each $name, $color-text, $color-background in $color-versions {
+        &--#{$name} {
+            @include colorful-tags($color-text, $color-background);
+        }
+    }
+
+    &__selected-item-tag-remove-btn {
+        padding: 0;
+        margin-left: calculateRem(12px);
+        display: flex;
+    }
+
+    &:disabled,
+    &[disabled] {
+        @include colorful-tags($ibexa-color-dark-400, $ibexa-color-light-300);
+    }
+}

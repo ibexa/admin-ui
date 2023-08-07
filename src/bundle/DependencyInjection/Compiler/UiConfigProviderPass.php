@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Compiler;
+namespace Ibexa\Bundle\AdminUi\DependencyInjection\Compiler;
 
-use EzSystems\EzPlatformAdminUi\UI\Config\Aggregator;
+use Ibexa\AdminUi\UI\Config\Aggregator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class UiConfigProviderPass implements CompilerPassInterface
 {
-    const TAG_CONFIG_PROVIDER = 'ezplatform.admin_ui.config_provider';
+    public const TAG_CONFIG_PROVIDER = 'ibexa.admin_ui.config.provider';
 
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
@@ -43,3 +43,5 @@ class UiConfigProviderPass implements CompilerPassInterface
         }
     }
 }
+
+class_alias(UiConfigProviderPass::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Compiler\UiConfigProviderPass');

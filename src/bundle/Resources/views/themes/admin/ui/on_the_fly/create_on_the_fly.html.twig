@@ -1,26 +1,48 @@
-{% extends '@ezdesign/content/edit/base.html.twig' %}
+{% extends '@ibexadesign/content/edit_base.html.twig' %}
 
 {% trans_default_domain 'content_create' %}
+
+{% block main_container_class %}{{ parent() }} ibexa-main-container--no-border{% endblock %}
 
 {% block meta %}
     <meta name="LanguageCode" content="{{ language.languageCode }}" />
 {% endblock %}
 
-{% block page_title %}
-    {% include '@ezdesign/content/page_title_edit.html.twig' with { 
-        class: 'ez-content-edit-page-title--increased-left-margin',
+{% set context_actions %}
+    {% set menu_items %}
+        <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
+            <button class="btn ibexa-btn ibexa-btn--primary ibexa-btn--confirm">
+                <span class="ibexa-btn__label">{{ 'on_the_fly.confirm'|trans()|desc('Confirm') }}</span>
+            </button>
+        </li>
+        <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
+            <button class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--cancel">
+                <span class="ibexa-btn__label">{{'on_the_fly.cancel'|trans()|desc('Cancel') }}</span>
+            </button>
+        </li>
+    {% endset %}
+
+    {{ include('@ibexadesign/ui/component/context_menu/context_menu.html.twig', {
+        menu_items: menu_items,
+    }) }}
+{% endset %}
+
+{% block header %}
+    {% include '@ibexadesign/ui/edit_header.html.twig' with {
         action_name: 'creating'|trans|desc('Creating'),
         title: 'new_content_item'|trans({'%contentType%': content_type.name})|desc('New %contentType%'),
+        icon_name: 'content-type',
+        show_autosave_status: true,
         description: content_type.description,
-        without_close_button: true
+        context_actions: context_actions,
     } %}
 {% endblock %}
 
 {% block details %}{% endblock %}
 
 {% block form_fields %}
-    <section class="container ez-container">
-        <div class="card ez-card ez-card--light">
+    <section class="container">
+        <div class="card ibexa-card ibexa-card--light">
             <div class="card-body">
                 {{ parent() }}
             </div>
@@ -31,7 +53,7 @@
 {% block right_sidebar_wrapper %}{% endblock %}
 
 {% block form_before %}
-    {{ ez_render_component_group('content-create-form-before', {
+    {{ ibexa_render_component_group('content-create-form-before', {
         'parent_location': parent_location,
         'content_type': content_type,
         'language': language
@@ -39,9 +61,33 @@
 {% endblock %}
 
 {% block form_after %}
-    {{ ez_render_component_group('content-create-form-after', {
+    {{ ibexa_render_component_group('content-create-form-after', {
         'parent_location': parent_location,
         'content_type': content_type,
+        'language': language
+    }) }}
+{% endblock %}
+
+{% block anchor_menu %}
+    {% set content_edit_anchor_menu = knp_menu_get('ibexa.admin_ui.menu.content_edit.anchor_menu', [], {
+        'content_type': content_type,
+        'parent_location': parent_location,
+        'language': language,
+        'grouped_fields': grouped_fields,
+    }) %}
+
+    {% embed '@ibexadesign/ui/anchor_navigation_menu.html.twig' with anchor_params %}
+        {% block navigation_menu_body %}
+            {{ knp_menu_render(content_edit_anchor_menu, { 'template': '@ibexadesign/ui/menu/anchor_menu.html.twig' }) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block content_sections %}
+    {{ ibexa_render_component_group('content-edit-sections', {
+        'form': form,
+        'content_type': content_type,
+        'parent_location': parent_location,
         'language': language
     }) }}
 {% endblock %}

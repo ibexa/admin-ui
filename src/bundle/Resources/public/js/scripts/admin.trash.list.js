@@ -1,34 +1,35 @@
-(function (global, doc, eZ, React, ReactDOM, Translator) {
+(function (global, doc, ibexa, React, ReactDOM, Translator) {
     let getUsersTimeout;
-    const CLASS_SORTED_ASC = 'ez-table__sort-column--asc';
-    const CLASS_SORTED_DESC = 'ez-table__sort-column--desc';
-    const CLASS_VISIBLE_DATE_RANGE = 'ez-trash-search-form__range-wrapper--visible';
+    const CLASS_SORTED_ASC = 'ibexa-table__sort-column--asc';
+    const CLASS_SORTED_DESC = 'ibexa-table__sort-column--desc';
+    const CLASS_VISIBLE_DATE_RANGE = 'ibexa-trash-search-form__range-wrapper--visible';
     const sortedActiveField = doc.querySelector('#trash_search_sort_field').value;
     const sortedActiveDirection = doc.querySelector('#trash_search_sort_direction').value;
-    const dateFields = doc.querySelectorAll('.ez-trash-search-form__range-select');
+    const dateFields = doc.querySelectorAll('.ibexa-trash-search-form__range-wrapper');
     const trashedTypeInput = doc.querySelector('#trash_search_trashed');
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const formSearch = doc.querySelector('form[name="trash_search"]');
     const sortField = doc.querySelector('#trash_search_sort_field');
     const sortDirection = doc.querySelector('#trash_search_sort_direction');
-    const creatorInput = doc.querySelector('.ez-trash-search-form__item--creator .ez-trash-search-form__input');
-    const usersList = doc.querySelector('.ez-trash-search-form__item--creator .ez-trash-search-form__user-list');
-    const resetCreatorBtn = doc.querySelector('.ez-btn--reset-creator');
+    const creatorInput = doc.querySelector('.ibexa-trash-search-form__item--creator .ibexa-trash-search-form__input');
+    const usersList = doc.querySelector('.ibexa-trash-search-form__item--creator .ibexa-trash-search-form__user-list');
+    const resetCreatorBtn = doc.querySelector('.ibexa-btn--reset-creator');
     const searchCreatorInput = doc.querySelector('#trash_search_creator');
-    const sortableColumns = doc.querySelectorAll('.ez-table__sort-column');
-    const btns = doc.querySelectorAll('.btn--open-udw');
+    const sortableColumns = doc.querySelectorAll('.ibexa-table__sort-column');
+    const btns = doc.querySelectorAll('.ibexa-btn--open-udw');
     const udwContainer = doc.getElementById('react-udw');
-    const autoSendNodes = doc.querySelectorAll('.ez-trash-search-form__item--auto-send');
+    const autoSendNodes = doc.querySelectorAll('.ibexa-trash-search-form__item--auto-send');
     const errorMessage = Translator.trans(/*@Desc("Cannot fetch user list")*/ 'trash.user_list.error', {}, 'trash_ui');
     const dateConfig = {
         mode: 'range',
         locale: {
             rangeSeparator: ' - ',
         },
-        formatDate: (date) => eZ.helpers.timezone.formatShortDateTime(date, null, eZ.adminUiConfig.dateFormat.shortDate),
+        formatDate: (date) => ibexa.helpers.timezone.formatShortDateTime(date, null, ibexa.adminUiConfig.dateFormat.shortDate),
     };
-    const closeUDW = () => ReactDOM.unmountComponentAtNode(udwContainer);
+    let udwRoot = null;
+    const closeUDW = () => udwRoot.unmount();
     const onConfirm = (form, content) => {
         const field = form.querySelector('#trash_item_restore_location_location');
 
@@ -46,11 +47,12 @@
         const title = Translator.trans(
             /*@Desc("Select a Location to restore the Content item(s)")*/ 'restore_under_new_location.title',
             {},
-            'universal_discovery_widget'
+            'universal_discovery_widget',
         );
 
-        ReactDOM.render(
-            React.createElement(eZ.modules.UniversalDiscovery, {
+        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot.render(
+            React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(this, form),
                 onCancel,
                 title,
@@ -58,20 +60,19 @@
                 multiple: false,
                 ...config,
             }),
-            udwContainer
         );
     };
 
     btns.forEach((btn) => btn.addEventListener('click', openUDW, false));
 
-    const checkboxes = [...doc.querySelectorAll('form[name="trash_item_restore"] input[type="checkbox"]')];
+    const trashRestoreCheckboxes = [...doc.querySelectorAll('form[name="trash_item_restore"] input[type="checkbox"]')];
     const buttonRestore = doc.querySelector('#trash_item_restore_restore');
     const buttonRestoreUnderNewParent = doc.querySelector('#trash_item_restore_location_select_content');
     const buttonDelete = doc.querySelector('#delete-trash-items');
 
     const enableButtons = () => {
-        const isEmptySelection = checkboxes.every((el) => !el.checked);
-        const isMissingParent = checkboxes.some((el) => el.checked && parseInt(el.dataset.isParentInTrash, 10) === 1);
+        const isEmptySelection = trashRestoreCheckboxes.every((el) => !el.checked);
+        const isMissingParent = trashRestoreCheckboxes.some((el) => el.checked && parseInt(el.dataset.isParentInTrash, 10) === 1);
 
         if (buttonRestore) {
             buttonRestore.disabled = isEmptySelection || isMissingParent;
@@ -105,12 +106,12 @@
         creatorInput.removeAttribute('disabled');
     };
     const handleClickOutsideUserList = (event) => {
-        if (event.target.closest('.ez-trash-search-form__item--creator')) {
+        if (event.target.closest('.ibexa-trash-search-form__item--creator')) {
             return;
         }
 
         creatorInput.value = '';
-        usersList.classList.add('ez-trash-search-form__item__user-list--hidden');
+        usersList.classList.add('ibexa-trash-search-form__item__user-list--hidden');
         doc.querySelector('body').removeEventListener('click', handleClickOutsideUserList, false);
     };
     const getUsersList = (value) => {
@@ -130,11 +131,11 @@
                 },
             },
         });
-        const request = new Request('/api/ezp/v2/views', {
+        const request = new Request('/api/ibexa/v2/views', {
             method: 'POST',
             headers: {
-                Accept: 'application/vnd.ez.api.View+json; version=1.1',
-                'Content-Type': 'application/vnd.ez.api.ViewInput+json; version=1.1',
+                Accept: 'application/vnd.ibexa.api.View+json; version=1.1',
+                'Content-Type': 'application/vnd.ibexa.api.ViewInput+json; version=1.1',
                 'X-Siteaccess': siteaccess,
                 'X-CSRF-Token': token,
             },
@@ -144,12 +145,12 @@
         });
 
         fetch(request)
-            .then(eZ.helpers.request.getJsonFromResponse)
+            .then(ibexa.helpers.request.getJsonFromResponse)
             .then(showUsersList)
-            .catch(() => eZ.helpers.notification.showErrorNotification(errorMessage));
+            .catch(() => ibexa.helpers.notification.showErrorNotification(errorMessage));
     };
     const createUsersListItem = (user) => {
-        return `<li data-id="${user._id}" data-name="${user.TranslatedName}" class="ez-trash-search-form__user-item">${user.TranslatedName}</li>`;
+        return `<li data-id="${user._id}" data-name="${user.TranslatedName}" class="ibexa-trash-search-form__user-item">${user.TranslatedName}</li>`;
     };
     const showUsersList = (data) => {
         const hits = data.View.Result.searchHits.searchHit;
@@ -157,7 +158,7 @@
         const methodName = users ? 'addEventListener' : 'removeEventListener';
 
         usersList.innerHTML = users;
-        usersList.classList.remove('ez-trash-search-form__user-list--hidden');
+        usersList.classList.remove('ibexa-trash-search-form__user-list--hidden');
 
         doc.querySelector('body')[methodName]('click', handleClickOutsideUserList, false);
     };
@@ -169,14 +170,14 @@
         if (value.length > 2) {
             getUsersTimeout = global.setTimeout(getUsersList.bind(null, value), 200);
         } else {
-            usersList.classList.add('ez-trash-search-form__user-list--hidden');
+            usersList.classList.add('ibexa-trash-search-form__user-list--hidden');
             doc.querySelector('body').removeEventListener('click', handleClickOutsideUserList, false);
         }
     };
     const handleSelectUser = (event) => {
         searchCreatorInput.value = event.target.dataset.id;
 
-        usersList.classList.add('ez-trash-search-form__user-list--hidden');
+        usersList.classList.add('ibexa-trash-search-form__user-list--hidden');
 
         creatorInput.value = event.target.dataset.name;
         creatorInput.setAttribute('disabled', true);
@@ -207,17 +208,22 @@
 
         datesRangeNode.classList.add(CLASS_VISIBLE_DATE_RANGE);
     };
-    const setSelectedDateRange = (selectedDates, dateString, instance) => {
-        const dateRange = instance.input.closest('.ez-trash-search-form__range-wrapper');
+    const setSelectedDateRange = (timestamps, { dates, inputField }) => {
+        const dateRange = inputField.closest('.ibexa-trash-search-form__range-wrapper');
 
-        if (selectedDates.length === 2) {
-            const startDate = getUnixTimestampUTC(selectedDates[0]);
-            const endDate = getUnixTimestampUTC(selectedDates[1]);
+        if (dates.length === 2) {
+            const startDate = getUnixTimestampUTC(dates[0]);
+            const endDate = getUnixTimestampUTC(dates[1]);
             const secondsInDay = 86400;
             const days = (endDate - startDate) / secondsInDay;
 
             doc.querySelector(dateRange.dataset.periodSelector).value = `P0Y0M${days}D`;
             doc.querySelector(dateRange.dataset.endSelector).value = endDate;
+
+            formSearch.submit();
+        } else if (dates.length === 0) {
+            doc.querySelector(dateRange.dataset.periodSelector).value = '';
+            doc.querySelector(dateRange.dataset.endSelector).value = '';
 
             formSearch.submit();
         }
@@ -228,15 +234,20 @@
 
         return date;
     };
-    const initFlatPickr = (dateRangePickerNode) => {
-        const { start, end } = dateRangePickerNode.dataset;
+    const initFlatPickr = (dateRangeField) => {
+        const { start, end } = dateRangeField.querySelector('.ibexa-trash-search-form__range-select').dataset;
         const defaultDate = start && end ? [start, end] : [];
 
-        flatpickr(dateRangePickerNode, {
-            ...dateConfig,
+        const dateTimePickerWidget = new ibexa.core.DateTimePicker({
+            container: dateRangeField,
             onChange: setSelectedDateRange,
-            defaultDate,
+            flatpickrConfig: {
+                ...dateConfig,
+                defaultDate,
+            },
         });
+
+        dateTimePickerWidget.init();
     };
     const handleAutoSubmitNodes = (event) => {
         event.preventDefault();
@@ -246,14 +257,18 @@
         }
     };
     const setSortedClass = () => {
-        doc.querySelectorAll('.ez-table__sort-column').forEach((node) => {
+        doc.querySelectorAll('.ibexa-table__sort-column').forEach((node) => {
             node.classList.remove(CLASS_SORTED_ASC, CLASS_SORTED_DESC);
         });
 
         if (sortedActiveField) {
-            const sortedFieldNode = doc.querySelector(`.ez-table__sort-column--${sortedActiveField}`);
+            const sortedFieldNode = doc.querySelector(`.ibexa-table__sort-column--${sortedActiveField}`);
 
-            if (parseInt(sortedActiveDirection) === 1) {
+            if (!sortedFieldNode) {
+                return;
+            }
+
+            if (parseInt(sortedActiveDirection, 10) === 1) {
                 sortedFieldNode.classList.add(CLASS_SORTED_ASC);
             } else {
                 sortedFieldNode.classList.add(CLASS_SORTED_DESC);
@@ -269,7 +284,7 @@
     creatorInput.addEventListener('keyup', handleTyping, false);
     usersList.addEventListener('click', handleSelectUser, false);
     resetCreatorBtn.addEventListener('click', handleResetUser, false);
-    updateTrashForm(checkboxes);
+    updateTrashForm(trashRestoreCheckboxes);
     enableButtons();
-    checkboxes.forEach((checkbox) => checkbox.addEventListener('change', handleCheckboxChange, false));
-})(window, window.document, window.eZ, window.React, window.ReactDOM, window.Translator);
+    trashRestoreCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', handleCheckboxChange, false));
+})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator, window.flatpickr);

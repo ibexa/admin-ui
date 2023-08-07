@@ -1,0 +1,31 @@
+{% extends view_base_layout is defined ? view_base_layout : '@ibexadesign/ui/layout.html.twig' %}
+
+{% block main_container_class %}
+    ibexa-main-container--edit-container
+
+    {%- set has_anchor_menu_items = anchor_params.items|default([])|length > 1 -%}
+    {{ has_anchor_menu_items ? ' ibexa-main-container--with-anchor-menu-items' : ' ibexa-main-container--without-anchor-menu-items' }}
+{% endblock %}
+
+{% block header_row %}{% endblock %}
+
+{% block left_sidebar %}
+    {% include '@ibexadesign/ui/anchor_navigation_menu.html.twig' with anchor_params|default({}) %}
+{% endblock %}
+
+{% block back_to_top %}{% endblock %}
+
+{% block content_column %}
+    <div class="ibexa-main-container__content-column">
+        {% block header %}{% endblock %}
+
+        <div class="ibexa-edit-content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-edit-base-js', null, 'ibexa') }}
+{% endblock %}

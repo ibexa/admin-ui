@@ -6,20 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Role;
+namespace Ibexa\AdminUi\Form\Data\Role;
 
-use eZ\Publish\API\Repository\Values\User\Role;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
 
 class RoleUpdateData
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\Role */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role */
     private $role;
 
     /** @var string */
     private $identifier;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\Role|null $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role|null $role
      */
     public function __construct(?Role $role = null)
     {
@@ -32,7 +32,7 @@ class RoleUpdateData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\User\Role
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role
      */
     public function getRole(): ?Role
     {
@@ -40,7 +40,7 @@ class RoleUpdateData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      *
      * @return RoleUpdateData
      */
@@ -71,3 +71,5 @@ class RoleUpdateData
         return $this;
     }
 }
+
+class_alias(RoleUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleUpdateData');

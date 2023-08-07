@@ -29,10 +29,10 @@ class ContentRelationSingle extends FieldTypeComponent
     public function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('selectContent', '.ez-relations__cta-btn-label'),
-            new VisibleCSSLocator('buttonRemove', '.ez-relations__table-action--remove'),
-            new VisibleCSSLocator('relationRow', '.ez-relations__list tr'),
-            new VisibleCSSLocator('columnHeader', 'tr:not(.ez-relations__table-header) th'),
+            new VisibleCSSLocator('selectContent', '.ibexa-relations__cta-btn'),
+            new VisibleCSSLocator('buttonRemove', '.ibexa-relations__table-action--remove-item'),
+            new VisibleCSSLocator('relationRow', '.ibexa-relations__list tr'),
+            new VisibleCSSLocator('columnHeader', 'tr:not(.ibexa-relations__table-header) th'),
         ];
     }
 
@@ -46,29 +46,20 @@ class ContentRelationSingle extends FieldTypeComponent
     public function setValue(array $parameters): void
     {
         if (!$this->isRelationEmpty()) {
-            $itemName = explode('/', $parameters['value'])[substr_count($parameters['value'], '/')];
-            if (!$this->table->hasElement(['Name' => $itemName])) {
-                $this->table->getTableRowByIndex(0)->select();
-                $this->getHTMLPage()
-                    ->find(
-                        CSSLocatorBuilder::base($this->parentLocator)
-                            ->withDescendant($this->getLocator('buttonRemove'))
-                            ->build()
-                    )
-                    ->click();
-            } else {
-                return;
-            }
+            $this->getHTMLPage()->find($this->getLocator('buttonRemove'))->mouseOver();
+            usleep(100 * 5000); // 500ms
+            $this->getHTMLPage()->find($this->getLocator('buttonRemove'))->click();
         }
 
-        $this->getHTMLPage()
-            ->find(
-                CSSLocatorBuilder::base($this->parentLocator)
+        $buttonLocator = CSSLocatorBuilder::base($this->parentLocator)
                     ->withDescendant($this->getLocator('selectContent'))
-                    ->build()
-            )
-            ->click();
+                    ->build();
 
+        $this->getHTMLPage()->setTimeout(5)->find($buttonLocator)->mouseOver();
+        usleep(100);
+        $this->getHTMLPage()->find($buttonLocator)->click();
+
+        $this->universalDiscoveryWidget->verifyIsLoaded();
         $this->universalDiscoveryWidget->selectContent($parameters['value']);
         $this->universalDiscoveryWidget->confirm();
     }
@@ -96,7 +87,7 @@ class ContentRelationSingle extends FieldTypeComponent
         $explodedValue = explode('/', $values['value']);
         $value = $explodedValue[count($explodedValue) - 1];
 
-        $viewPatternRegex = '/Single relation:[\w\/,: ]* %s [\w \/,:]*/';
+        $viewPatternRegex = '/Single relation[\w\/,: ]* %s [\w \/,:]*/';
 
         Assert::assertMatchesRegularExpression(
             sprintf($viewPatternRegex, $value),
