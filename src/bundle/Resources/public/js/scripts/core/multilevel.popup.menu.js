@@ -23,7 +23,7 @@
                 return;
             }
 
-            const itemsWithSubitems = this.container.querySelectorAll('.ibexa-multilevel-popup-menu__item--has-subitems');
+            const itemsWithSubitems = this.container.querySelectorAll('ibexa-popup-menu__item--has-subitems');
 
             this.initBranch(
                 this.triggerElement,
@@ -50,9 +50,10 @@
             placement = 'right-start',
             fallbackPlacements = ['right-end', 'left-start', 'left-end'],
         ) {
-            this.container.appendChild(branchElement);
+            // this.container.appendChild(branchElement);
+            doc.body.appendChild(branchElement)
 
-            const isTopBranch = !triggerElement.classList.contains('ibexa-multilevel-popup-menu__item');
+            const isTopBranch = !triggerElement.classList.contains('ibexa-popup-menu__item');
             const offset = isTopBranch ? [0, 3] : [-8, 8];
 
             const popperInstance = Popper.createPopper(referenceElement ?? triggerElement, branchElement, {
@@ -81,7 +82,7 @@
         async handleItemWithSubitemsClick(event) {
             const itemWithSubitems = event.currentTarget;
             const { branchElement } = itemWithSubitems;
-            const isExpanded = !branchElement.classList.contains('ibexa-multilevel-popup-menu__branch--hidden');
+            const isExpanded = !branchElement.classList.contains('ibexa-popup-menu--hidden');
             const shouldBeExpanded = !isExpanded;
 
             if (shouldBeExpanded) {
@@ -105,7 +106,7 @@
         toggleBranch(branchElement, shouldBeExpanded = true) {
             const topBranch = this.triggerElement.branchElement;
 
-            branchElement.classList.toggle('ibexa-multilevel-popup-menu__branch--hidden', !shouldBeExpanded);
+            branchElement.classList.toggle('ibexa-popup-menu--hidden', !shouldBeExpanded);
 
             if (branchElement === topBranch) {
                 if (shouldBeExpanded) {
@@ -117,7 +118,7 @@
         }
 
         closeWithSubbranches(branchElement) {
-            const subitemsWithSubitems = branchElement.querySelectorAll(':scope > .ibexa-multilevel-popup-menu__item--has-subitems');
+            const subitemsWithSubitems = branchElement.querySelectorAll(':scope > .ibexa-popup-menu__item--has-subitems');
 
             subitemsWithSubitems.forEach((subitem) => {
                 this.closeWithSubbranches(subitem.branchElement);
@@ -142,10 +143,10 @@
             this.initBranch(triggerElement, newBranchElement, null, placement, fallbackPlacements);
             triggerElement.branchElement = newBranchElement;
 
-            const isTriggerMultilevelMenuItemElement = triggerElement.classList.contains('ibexa-multilevel-popup-menu__item');
+            const isTriggerMultilevelMenuItemElement = triggerElement.classList.contains('ibexa-popup-menu__item');
 
             if (isTriggerMultilevelMenuItemElement) {
-                triggerElement.classList.add('ibexa-multilevel-popup-menu__item--has-subitems');
+                triggerElement.classList.add('ibexa-popup-menu__item--has-subitems');
             }
 
             return newBranchElement;
@@ -155,12 +156,12 @@
             const { label, branchElement } = data;
             const { itemTemplate } = this.container.dataset;
 
-            const container = doc.createElement('ul');
+            const container = doc.createElement('div');
             const renderedItem = itemTemplate.replaceAll('{{ label }}', label);
 
             container.insertAdjacentHTML('beforeend', renderedItem);
 
-            const newItemElement = container.querySelector('.ibexa-multilevel-popup-menu__item');
+            const newItemElement = container.querySelector('.ibexa-popup-menu__item');
 
             processAfterCreated(newItemElement, data);
 
@@ -170,13 +171,13 @@
         }
 
         getBranchItems(branchElement) {
-            return [...branchElement.querySelectorAll(':scope > .ibexa-multilevel-popup-menu__item')];
+            return [...branchElement.querySelectorAll(':scope > .ibexa-popup-menu__item')];
         }
 
         toggleItemVisibility(menuItem, shouldBeVisible) {
             const { branchElement } = menuItem;
 
-            menuItem.classList.toggle('ibexa-multilevel-popup-menu__item--hidden', !shouldBeVisible);
+            menuItem.classList.toggle('ibexa-popup-menu__item--hidden', !shouldBeVisible);
 
             if (branchElement && !shouldBeVisible) {
                 this.closeWithSubbranches(branchElement);
@@ -185,9 +186,10 @@
 
         handleClickOutside(event) {
             const topBranch = this.triggerElement.branchElement;
-            const isPopupMenuExpanded = !topBranch.classList.contains('ibexa-multilevel-popup-menu__branch--hidden');
+            const isPopupMenuExpanded = !topBranch.classList.contains('ibexa-popup-menu--hidden');
             const isClickInsideTrigger = this.triggerElement.contains(event.target);
-            const isClickInsideBranch = this.container.contains(event.target);
+            // TODO: check if this branch belongs to our component
+            const isClickInsideBranch = event.target.closest('.ibexa-popup-menu');
 
             if (!isPopupMenuExpanded || isClickInsideTrigger || isClickInsideBranch) {
                 return;

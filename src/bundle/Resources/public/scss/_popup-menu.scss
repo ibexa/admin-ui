@@ -1,18 +1,21 @@
 .ibexa-popup-menu {
+    display: flex;
+    flex-direction: column;
+    gap: calculateRem(1px);
     padding: calculateRem(8px);
     background: $ibexa-color-white;
     border: calculateRem(1px) solid $ibexa-color-light;
     border-radius: $ibexa-border-radius;
     box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(67px) 0 rgba($ibexa-color-info, 0.2);
     position: absolute;
-    z-index: 10;
-
-    &--hidden {
-        display: none;
-    }
+    z-index: 1000;
 
     &__items-list {
         padding-left: 0;
+    }
+
+    &__subitems-arrow {
+        display: none;
     }
 
     &__item {
@@ -41,13 +44,23 @@
             margin-top: calculateRem(8px);
             padding-top: calculateRem(8px);
         }
+
+        &--has-subitems {
+            .ibexa-multilevel-popup-menu {
+                &__subitems-arrow {
+                    display: block;
+                }
+            }
+        }
     }
 
-    .ibexa-popup-menu__item-content {
-        display: block;
+    &__item-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         width: 100%;
         cursor: pointer;
-        padding: calculateRem(9px) calculateRem(15px);
+        padding: calculateRem(9px);
         color: $ibexa-color-black;
         font-size: calculateRem(14px);
         text-align: left;
@@ -105,5 +118,9 @@
                 }
             }
         }
+    }
+
+    &--hidden {
+        display: none;
     }
 }

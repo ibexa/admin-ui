@@ -3,12 +3,12 @@
 {% set is_template = is_template|default(false) %}
 
 {% set branch_attr = branch_attr|default({})|merge({
-    class: ('ibexa-multilevel-popup-menu__branch ibexa-multilevel-popup-menu__branch--hidden '
+    class: ('ibexa-popup-menu ibexa-popup-menu--hidden ibexa-multilevel-popup-menu__branch '
         ~ branch_attr.class|default(''))|trim,
 }) %}
 
 {% block branch %}
-    <ul {{ html.attributes(branch_attr, is_template) }}>
+    <div {{ html.attributes(branch_attr, is_template) }}>
         {% block branch_items %}
             {% for item in items %}
                 {% set item_with_subitems = item|merge({
@@ -19,5 +19,5 @@
                 {% include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_item.html.twig' with item_with_subitems %}
             {% endfor %}
         {% endblock %}
-    </ul>
+    </div>
 {% endblock %}
