@@ -115,6 +115,9 @@ class CustomUrlAddType extends AbstractType
                         $this->siteAccessNameGenerator,
                         $location
                     ),
+                    'attr' => [
+                        'placeholder' => /** @Desc("None") **/ 'tab.urls.add.empty.label',
+                    ],
                 ]
             )
             ->add(
