@@ -50,15 +50,16 @@
 
         newItemElement.dataset.relatedButtonId = relatedBtnId;
 
-        newItemElement.addEventListener(
-            'click',
-            () => {
-                const button = doc.getElementById(relatedBtnId);
+        // TODO: uncomment and implement opening subitems branch by hovering mouse over
+        // newItemElement.addEventListener(
+        //     'click',
+        //     () => {
+        //         const button = doc.getElementById(relatedBtnId);
 
-                button.click();
-            },
-            false,
-        );
+        //         button.click();
+        //     },
+        //     false,
+        // );
     };
 
     menuButtons.forEach((menuButton) => {
@@ -66,6 +67,7 @@
 
         if (isSplitBtn) {
             const mainBtn = menuButton.querySelector('.ibexa-split-btn__main-btn');
+            const splitBtn = menuButton.querySelector('.ibexa-split-btn__toggle-btn');
             const relatedMainBtnId = mainBtn.id;
             const itemLabel = mainBtn.querySelector('.ibexa-btn__label').textContent;
 
@@ -85,9 +87,7 @@
                 fallbackPlacements: ['left-end', 'right-start', 'right-end'],
             });
 
-            const subitemsBtns = menuButton.querySelectorAll(
-                '.ibexa-multilevel-popup-menu__branch .ibexa-multilevel-popup-menu__item-content',
-            );
+            const subitemsBtns = splitBtn.branchElement.querySelectorAll('.ibexa-popup-menu__item-content');
 
             subitemsBtns.forEach((subitemBtn) => {
                 const subitemLabel = subitemBtn.querySelector('.ibexa-btn__label').textContent;

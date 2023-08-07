@@ -1,5 +1,7 @@
 {% import "@ibexadesign/ui/component/macros.html.twig" as html %}
 
+{% set is_template = is_template|default(false) %}
+
 {% set branch_template_params = branch_template_params|default({})|merge({
     items: branch_template_params.items|default([]),
     is_template: true,
@@ -12,7 +14,7 @@
 }) %}
 
 {% set attr = attr|default({})|merge({
-    class: ('ibexa-multilevel-popup-menu ibexa-multilevel-popup-menu--hidden '
+    class: ('ibexa-multilevel-popup-menu '
         ~ (is_custom_init|default(false) ? 'ibexa-multilevel-popup-menu--custom-init ')
         ~ attr.class|default(''))|trim,
     'data-branch-template': items_container_attr['data-branch-template']|default(
@@ -32,7 +34,7 @@
 }) %}
 
 {% block component %}
-    <div {{ html.attributes(attr) }}>
+    <div {{ html.attributes(attr, is_template) }}>
         {% block branch %}
             {% if items is not null %}
                 {% include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_branch.html.twig' with {

@@ -3,13 +3,13 @@
 {% set is_template = is_template|default(false) %}
 
 {% set item_attr = item_attr|default({})|merge({
-    class: ('ibexa-multilevel-popup-menu__item '
-        ~ (subitems|default([])|length > 0 ? 'ibexa-multilevel-popup-menu__item--has-subitems ')
+    class: ('ibexa-popup-menu__item ibexa-multilevel-popup-menu__item '
+        ~ (subitems|default([])|length > 0 ? 'ibexa-popup-menu--has-subitems ')
         ~ item_attr.class|default(''))|trim,
 }) %}
 
 {% set action_attr = action_attr|default({})|merge({
-    class: ('ibexa-multilevel-popup-menu__item-content '
+    class: ('ibexa-popup-menu__item-content ibexa-multilevel-popup-menu__item-content '
         ~ action_attr.class|default(''))|trim,
 }) %}
 
@@ -24,7 +24,7 @@
 {% set item_element = is_button ? 'button' : 'a' %}
 
 {% block item %}
-    <li {{ html.attributes(item_attr, is_template) }}>
+    <div {{ html.attributes(item_attr, is_template) }}>
         {% block item_content %}
             {% block item_element %}
                 <{{ item_element }} {{ html.attributes(action_attr|default({}), is_template) }}>
@@ -37,7 +37,7 @@
                             </span>
                         {% endblock %}
 
-                        <svg class="ibexa-icon ibexa-icon--small ibexa-multilevel-popup-menu__subitems-arrow">
+                        <svg class="ibexa-icon ibexa-icon--small ibexa-popup-menu__subitems-arrow ibexa-multilevel-popup-menu__subitems-arrow">
                             <use xlink:href="{{ ibexa_icon_path('arrow-right') }}"></use>
                         </svg>
                     {% endblock %}
@@ -53,5 +53,5 @@
                 {% endif %}
             {% endblock %}
         {% endblock %}
-    </li>
+    </div>
 {% endblock %}
