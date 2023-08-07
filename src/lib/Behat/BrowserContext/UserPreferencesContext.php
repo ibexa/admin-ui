@@ -23,7 +23,7 @@ class UserPreferencesContext implements Context
     }
 
     /**
-     * @Given I switch to :tabName tab in User Settings
+     * @Given I switch to :tabName tab in User settings
      */
     public function iSwitchToTabInUserSettings($tabName): void
     {

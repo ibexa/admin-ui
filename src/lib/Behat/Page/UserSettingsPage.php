@@ -35,7 +35,7 @@ class UserSettingsPage extends Page
     public function verifyIsLoaded(): void
     {
         $this->contentActionsMenu->verifyIsLoaded();
-        $this->getHTMLPage()->find($this->getLocator('title'))->assert()->textEquals('User Settings');
+        $this->getHTMLPage()->find($this->getLocator('title'))->assert()->textEquals('User settings');
     }
 
     public function switchTab(string $tabName): void
@@ -89,6 +89,6 @@ class UserSettingsPage extends Page
 
     public function getName(): string
     {
-        return 'User Settings';
+        return 'User settings';
     }
 }
