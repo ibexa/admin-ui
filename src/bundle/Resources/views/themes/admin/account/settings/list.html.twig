@@ -19,8 +19,8 @@
 {% block content %}
     {% embed '@ibexadesign/ui/component/tab/tabs.html.twig' with {
         tabs: [
-          { id: 'my-preferences', label: 'section.my_preferences'|trans|desc('My Preferences'), active: true },
-          { id: 'my-account-settings', label: 'section.my_account_settings'|trans|desc('My Account Settings') },
+          { id: 'my-preferences', label: 'section.my_preferences'|trans|desc('My preferences'), active: true },
+          { id: 'my-account-settings', label: 'section.my_account_settings'|trans|desc('My account settings') },
         ]
     } %}
         {% block tab_content %}
