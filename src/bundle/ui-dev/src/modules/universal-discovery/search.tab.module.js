@@ -9,7 +9,6 @@ const { ibexa, Translator } = window;
 
 const SearchTabModule = () => {
     const tabsConfig = useContext(TabsConfigContext);
-    const shouldRestorePreviousStateRef = useRef(true);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
 
@@ -21,10 +20,8 @@ const SearchTabModule = () => {
 
     useEffect(() => {
         return () => {
-            if (shouldRestorePreviousStateRef.current) {
-                setMarkedLocationId(markedLocationId);
-                dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: loadedLocationsMap });
-            }
+            setMarkedLocationId(markedLocationId);
+            dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: loadedLocationsMap });
         };
     }, []);
 
