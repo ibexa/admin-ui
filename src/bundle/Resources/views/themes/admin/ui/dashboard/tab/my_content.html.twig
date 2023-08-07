@@ -30,7 +30,7 @@
     {% set body_row_cols = body_row_cols|merge([
         { content: row.type },
         { content: row.modified|ibexa_full_datetime },
-        { has_action_btns: true, content: macros.edit_content_button(row, 'dashboard.table.content.edit'|trans|desc('Edit Content')), raw: true },
+        { has_action_btns: true, content: macros.edit_content_button(row, 'dashboard.table.content.edit'|trans|desc('Edit')), raw: true },
     ]) %}
 
     {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
