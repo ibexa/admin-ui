@@ -39,7 +39,7 @@
                         <a href="{{ url.url }}" target="_blank">{{ url.url }}</a>
                         <a href="{{ path('ibexa.link_manager.edit', { urlId: url.id }) }}"
                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2 float-right"
-                           title="{{ 'url.action.edit'|trans|desc('Edit URL') }}">
+                           title="{{ 'url.action.edit'|trans|desc('Edit') }}">
                             <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
                                 <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
                             </svg>
@@ -98,7 +98,7 @@
                 {% if can_edit %}
                     <button
                         class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--content-edit"
-                        title="{{ 'url.action.item.edit'|trans|desc('Edit content') }}"
+                        title="{{ 'url.action.item.edit'|trans|desc('Edit') }}"
                         data-content-id="{{ content.id }}"
                         data-language-code="{{ content.mainLanguageCode }}"
                     >
