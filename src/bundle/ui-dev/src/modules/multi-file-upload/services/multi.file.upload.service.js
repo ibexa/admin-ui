@@ -169,7 +169,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
         .catch(() =>
             window.ibexa.helpers.notification.showErrorNotification(
                 Translator.trans(
-                    /*@Desc("Cannot get content type by identifier")*/ 'cannot_get_content_type_identifier.message',
+                    /*@Desc("Cannot get Content Type by identifier")*/ 'cannot_get_content_type_identifier.message',
                     {},
                     'multi_file_upload',
                 ),
@@ -189,7 +189,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
                 .catch(() =>
                     window.ibexa.helpers.notification.showErrorNotification(
                         Translator.trans(
-                            /*@Desc("Cannot get content type by identifier")*/ 'cannot_get_content_type_identifier.message',
+                            /*@Desc("Cannot get Content Type by identifier")*/ 'cannot_get_content_type_identifier.message',
                             {},
                             'multi_file_upload',
                         ),

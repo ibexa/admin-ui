@@ -20,9 +20,9 @@
 
         if (numberOfSubitems) {
             const message = Translator.trans(
-                /*@Desc("Sending '%content_name%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.")*/ 'trash_container.modal.message_main',
+                /*@Desc("Sending '%content%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.")*/ 'trash_container.modal.message_main',
                 {
-                    content_name: contentName,
+                    content: contentName,
                     children_count: numberOfSubitems,
                 },
                 'content',

@@ -87,8 +87,8 @@ const ContentCreateWidget = () => {
         'universal_discovery_widget',
     );
     const createUnderLabel = Translator.trans(
-        /*@Desc("under %content_name%")*/ 'content.create.editing_details',
-        { content_name: selectedLocation?.location?.ContentInfo.Content.TranslatedName },
+        /*@Desc("Location: %location%")*/ 'content.create.editing_details',
+        { location: selectedLocation?.location?.ContentInfo.Content.TranslatedName },
         'universal_discovery_widget',
     );
     const widgetClassName = createCssClassNames({

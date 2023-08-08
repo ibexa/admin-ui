@@ -40,7 +40,7 @@ final class HasChildren implements TrashLocationOptionProvider
 
         $translatorParameters = [
             '%children_count%' => $childCount,
-            '%content_name%' => $location->getContent()->getName(),
+            '%content%' => $location->getContent()->getName(),
         ];
 
         $form
@@ -49,7 +49,7 @@ final class HasChildren implements TrashLocationOptionProvider
                     /** @Desc("Sub-items") */
                     $this->translator->trans('form.has_children.label', [], 'forms'),
                 'help_multiline' => [
-                    /** @Desc("Sending '%content_name%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.") */
+                    /** @Desc("Sending '%content%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.") */
                     $this->translator->trans('trash_container.modal.message_main', $translatorParameters, 'messages'),
                 ],
             ]);

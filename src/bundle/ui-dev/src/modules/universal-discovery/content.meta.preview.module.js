@@ -30,7 +30,7 @@ const ContentMetaPreview = () => {
     const allowRedirects = useContext(AllowRedirectsContext);
     const { formatShortDateTime } = ibexa.helpers.timezone;
     const locationData = useMemo(() => getLocationData(loadedLocationsMap, markedLocationId), [markedLocationId, loadedLocationsMap]);
-    const lastModifiedLabel = Translator.trans(/*@Desc("Last modified")*/ 'meta_preview.last_modified', {}, 'universal_discovery_widget');
+    const lastModifiedLabel = Translator.trans(/*@Desc("Modified")*/ 'meta_preview.last_modified', {}, 'universal_discovery_widget');
     const creationDateLabel = Translator.trans(/*@Desc("Created")*/ 'meta_preview.creation_date', {}, 'universal_discovery_widget');
     const translationsLabel = Translator.trans(/*@Desc("Translations")*/ 'meta_preview.translations', {}, 'universal_discovery_widget');
 
