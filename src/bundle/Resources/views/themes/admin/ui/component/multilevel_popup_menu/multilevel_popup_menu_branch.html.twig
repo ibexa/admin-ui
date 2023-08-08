@@ -11,12 +11,13 @@
     <div {{ html.attributes(branch_attr, is_template) }}>
         {% block branch_items %}
             {% for item in items %}
-                {% set item_with_subitems = item|merge({
+                {% set item_params = item|merge({
                     subitems: item.subitems|default([]),
                     item_attr: item.item_attr|default({}),
                 }) %}
 
-                {% include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_item.html.twig' with item_with_subitems %}
+                {% include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_item.html.twig'
+                    with item_params %}
             {% endfor %}
         {% endblock %}
     </div>
