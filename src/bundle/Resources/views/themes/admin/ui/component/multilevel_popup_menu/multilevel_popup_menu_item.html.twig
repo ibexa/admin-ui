@@ -4,7 +4,7 @@
 
 {% set item_attr = item_attr|default({})|merge({
     class: ('ibexa-popup-menu__item ibexa-multilevel-popup-menu__item '
-        ~ (subitems|default([])|length > 0 ? 'ibexa-popup-menu--has-subitems ')
+        ~ (subitems|default([])|length > 0 ? 'ibexa-popup-menu__item--has-subitems ')
         ~ item_attr.class|default(''))|trim,
 }) %}
 
@@ -46,10 +46,13 @@
 
             {% block item_subitems %}
                 {% if subitems is defined and subitems is not empty %}
-                    {{ include('@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_branch.html.twig', {
+                    {% set branch_params = item|merge({
                         items: subitems,
-                        item_attr,
-                    }) }}
+                        branch_attr: subitems.branch_attr|default({}),
+                    }) %}
+
+                    {% include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_branch.html.twig' 
+                        with branch_params %}
                 {% endif %}
             {% endblock %}
         {% endblock %}
