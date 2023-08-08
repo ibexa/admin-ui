@@ -32,38 +32,25 @@ abstract class AbstractSiteaccessPreviewVoter implements SiteaccessPreviewVoterI
      */
     public function vote(SiteaccessPreviewVoterContext $context): bool
     {
-        $siteaccess = $context->getSiteaccess();
+        $siteAccess = $context->getSiteaccess();
         $location = $context->getLocation();
         $languageCode = $context->getLanguageCode();
-        $contentLanguages = $context->getVersionInfo()->languageCodes;
 
-        if (empty(array_intersect($this->getRootLocationIds($siteaccess), $location->path))) {
+        if (empty(array_intersect($this->getRootLocationIds($siteAccess), $location->path))) {
             return false;
         }
 
-        if (!$this->validateRepositoryMatch($siteaccess)) {
+        if (!$this->validateRepositoryMatch($siteAccess)) {
             return false;
         }
 
-        $siteaccessLanguages = $this->configResolver->getParameter(
+        $siteAccessLanguages = $this->configResolver->getParameter(
             'languages',
             null,
-            $siteaccess
+            $siteAccess
         );
 
-        if (!in_array($languageCode, $siteaccessLanguages, true)) {
-            return false;
-        }
-
-        $primarySiteaccessLanguage = reset($siteaccessLanguages);
-        if (
-            $languageCode !== $primarySiteaccessLanguage
-            && in_array($primarySiteaccessLanguage, $contentLanguages)
-        ) {
-            return false;
-        }
-
-        return true;
+        return in_array($languageCode, $siteAccessLanguages, true);
     }
 
     protected function validateRepositoryMatch(string $siteaccess): bool
