@@ -8,9 +8,12 @@ namespace Ibexa\AdminUi\Limitation\Mapper;
 
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class GroupLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
+class GroupLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     /**
      * @var \Symfony\Contracts\Translation\TranslatorInterface
@@ -41,6 +44,16 @@ class GroupLimitationMapper extends MultipleSelectionBasedMapper implements Limi
                 [],
                 'ezplatform_content_forms_role'
             ),
+        ];
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(new Message(
+                LimitationIdentifierToLabelConverter::convert('group'),
+                'ezplatform_content_forms_policies'
+            ))->setDesc('Content Type Group'),
         ];
     }
 }

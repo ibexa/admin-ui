@@ -10,10 +10,13 @@ use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
-class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
+class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     use LoggerAwareTrait;
 
@@ -52,6 +55,24 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
         }
 
         return $values;
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(new Message(
+                LimitationIdentifierToLabelConverter::convert('class'),
+                'ezplatform_content_forms_policies'
+            ))->setDesc('Content Type'),
+            Message::create(new Message(
+                LimitationIdentifierToLabelConverter::convert('parentclass'),
+                'ezplatform_content_forms_policies'
+            ))->setDesc('Content Type of Parent'),
+            Message::create(new Message(
+                LimitationIdentifierToLabelConverter::convert('parentgroup'),
+                'ezplatform_content_forms_policies'
+            ))->setDesc('Content Type Group of Parent'),
+        ];
     }
 }
 

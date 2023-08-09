@@ -197,8 +197,8 @@
         <note>key: meta_preview.bookrmarks_remove</note>
       </trans-unit>
       <trans-unit id="5e42fe3d48d64c1c9a735ac6286d3b0c06a008a0" resname="meta_preview.creation_date">
-        <source>Creation Date</source>
-        <target state="new">Creation Date</target>
+        <source>Created</source>
+        <target state="new">Created</target>
         <note>key: meta_preview.creation_date</note>
       </trans-unit>
       <trans-unit id="2e0757eac91bd5a5cd89bd2811a0126bf8bd8194" resname="meta_preview.edit">
@@ -212,8 +212,8 @@
         <note>key: meta_preview.edit_translation</note>
       </trans-unit>
       <trans-unit id="954055c80d86d18a4b101c2060e4dd63dd10971f" resname="meta_preview.last_modified">
-        <source>Last Modified</source>
-        <target state="new">Last Modified</target>
+        <source>Modified</source>
+        <target state="new">Modified</target>
         <note>key: meta_preview.last_modified</note>
       </trans-unit>
       <trans-unit id="7035b652193ea7af439a17d02ff8eda8013318ea" resname="meta_preview.preview">
@@ -237,8 +237,8 @@
         <note>key: popup.close.label</note>
       </trans-unit>
       <trans-unit id="0a2b01d9e287d0669cdd89b8067e119bbf749550" resname="restore_under_new_location.title">
-        <source>Select a Location to restore the Content item(s)</source>
-        <target state="new">Select a Location to restore the Content item(s)</target>
+        <source>Select a new location to restore the content items</source>
+        <target state="new">Select a new location to restore the content items</target>
         <note>key: restore_under_new_location.title</note>
       </trans-unit>
       <trans-unit id="5ab8b9fc463113f18cb6826034b6ef21342bb73d" resname="search.label">

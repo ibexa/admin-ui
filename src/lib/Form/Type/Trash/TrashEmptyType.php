@@ -33,7 +33,7 @@ class TrashEmptyType extends AbstractType
                 'empty',
                 SubmitType::class,
                 [
-                    'label' => /** @Desc("Delete permanently") */
+                    'label' => /** @Desc("Delete") */
                         'trash_empty_form.empty',
                 ]
             );

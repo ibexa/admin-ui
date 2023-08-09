@@ -504,8 +504,8 @@
         <note>key: language.delete</note>
       </trans-unit>
       <trans-unit id="2a52961302ce7dfa4a21c5e0bcc239f5a9a36cfe" resname="language.modal.message">
-        <source>Do you want to delete the language(s)?</source>
-        <target state="new">Do you want to delete the language(s)?</target>
+        <source>Delete the languages?</source>
+        <target state="new">Delete the languages?</target>
         <note>key: language.modal.message</note>
       </trans-unit>
       <trans-unit id="fb1d64fdeabb5f2fe1671d4f3fb72ccca7722ed3" resname="list.action.edit">
@@ -564,7 +564,7 @@
         <note>key: object_state.new</note>
       </trans-unit>
       <trans-unit id="0f857d4dff9c8232ede300a39010d289d31c2937" resname="object_state_group.delete.bulk_delete.submit">
-        <source>Delete Object</source>
+        <source>Delete</source>
         <target state="new">Delete</target>
         <note>key: object_state_group.delete.bulk_delete.submit</note>
       </trans-unit>
@@ -572,6 +572,101 @@
         <source>Do you want to delete the Object state group(s)?</source>
         <target state="new">Do you want to delete the Object state group(s)?</target>
         <note>key: object_state_group.modal.message</note>
+      </trans-unit>
+      <trans-unit id="0ba4dd0a3e03edbb23ad81c27bb921449e811cdc" resname="policy.limitation.identifier.changeowner">
+        <source>Change Owner</source>
+        <target state="new">Change Owner</target>
+        <note>key: policy.limitation.identifier.changeowner</note>
+      </trans-unit>
+      <trans-unit id="3742f2cc514848bd4a5eb03430e412d44f5d9ec2" resname="policy.limitation.identifier.class">
+        <source>Content Type</source>
+        <target state="new">Content Type</target>
+        <note>key: policy.limitation.identifier.class</note>
+      </trans-unit>
+      <trans-unit id="76adf2a27f1ae0ab14b623729cd3f281a6e2c285" resname="policy.limitation.identifier.group">
+        <source>Content Type Group</source>
+        <target state="new">Content Type Group</target>
+        <note>key: policy.limitation.identifier.group</note>
+      </trans-unit>
+      <trans-unit id="cee78b25ec2de77cf09109e6a2ac175a515a8350" resname="policy.limitation.identifier.language">
+        <source>Language</source>
+        <target state="new">Language</target>
+        <note>key: policy.limitation.identifier.language</note>
+      </trans-unit>
+      <trans-unit id="ab9163a435d32610a7a1af8df07ab38eebc4c7c6" resname="policy.limitation.identifier.newsection">
+        <source>New Section</source>
+        <target state="new">New Section</target>
+        <note>key: policy.limitation.identifier.newsection</note>
+      </trans-unit>
+      <trans-unit id="a9958f1d76f4685bf5fc32eee7514046db942160" resname="policy.limitation.identifier.newstate">
+        <source>New State</source>
+        <target state="new">New State</target>
+        <note>key: policy.limitation.identifier.newstate</note>
+      </trans-unit>
+      <trans-unit id="be2b0449251f53db814dc4fbbb27e534419add2b" resname="policy.limitation.identifier.node">
+        <source>Location</source>
+        <target state="new">Location</target>
+        <note>key: policy.limitation.identifier.node</note>
+      </trans-unit>
+      <trans-unit id="9daf8e1a94a6409f9b9b102e042c2858e4307ea8" resname="policy.limitation.identifier.owner">
+        <source>Owner</source>
+        <target state="new">Owner</target>
+        <note>key: policy.limitation.identifier.owner</note>
+      </trans-unit>
+      <trans-unit id="e3773b71c8e7fda97f221ab25a6c25164d179d84" resname="policy.limitation.identifier.parentclass">
+        <source>Content Type of Parent</source>
+        <target state="new">Content Type of Parent</target>
+        <note>key: policy.limitation.identifier.parentclass</note>
+      </trans-unit>
+      <trans-unit id="39bf0d9c1e0e8b64193bf09d83fbd89c2dac3421" resname="policy.limitation.identifier.parentdepth">
+        <source>Parent Depth</source>
+        <target state="new">Parent Depth</target>
+        <note>key: policy.limitation.identifier.parentdepth</note>
+      </trans-unit>
+      <trans-unit id="cb52ff8582459d1bc981e9f98cf1c79876f83a1e" resname="policy.limitation.identifier.parentgroup">
+        <source>Content Type Group of Parent</source>
+        <target state="new">Content Type Group of Parent</target>
+        <note>key: policy.limitation.identifier.parentgroup</note>
+      </trans-unit>
+      <trans-unit id="6208b97847450b255559e4a56c51ff06b76a08dd" resname="policy.limitation.identifier.parentowner">
+        <source>Owner of Parent</source>
+        <target state="new">Owner of Parent</target>
+        <note>key: policy.limitation.identifier.parentowner</note>
+      </trans-unit>
+      <trans-unit id="9f2e53e094725bbc243ad777547724ab923a31d1" resname="policy.limitation.identifier.role">
+        <source>Role</source>
+        <target state="new">Role</target>
+        <note>key: policy.limitation.identifier.role</note>
+      </trans-unit>
+      <trans-unit id="bb77b27363dad566197a200290f0f0b18baa4705" resname="policy.limitation.identifier.section">
+        <source>Section</source>
+        <target state="new">Section</target>
+        <note>key: policy.limitation.identifier.section</note>
+      </trans-unit>
+      <trans-unit id="548bc922c693c8259cbfd3354451a3035e2fa6f6" resname="policy.limitation.identifier.siteaccess">
+        <source>SiteAccess</source>
+        <target state="new">SiteAccess</target>
+        <note>key: policy.limitation.identifier.siteaccess</note>
+      </trans-unit>
+      <trans-unit id="30cc18895dfb23b14d3f9b8249e90baf678c8180" resname="policy.limitation.identifier.state">
+        <source>State</source>
+        <target state="new">State</target>
+        <note>key: policy.limitation.identifier.state</note>
+      </trans-unit>
+      <trans-unit id="53975d67feacf6fed717a52ad538ba77dc533dc2" resname="policy.limitation.identifier.status">
+        <source>Status</source>
+        <target state="new">Status</target>
+        <note>key: policy.limitation.identifier.status</note>
+      </trans-unit>
+      <trans-unit id="2291e238752ad3c4d20ef08253f5d5736f6382d2" resname="policy.limitation.identifier.subtree">
+        <source>Subtree</source>
+        <target state="new">Subtree</target>
+        <note>key: policy.limitation.identifier.subtree</note>
+      </trans-unit>
+      <trans-unit id="097f571a3c731c66c83230e465f4b3c9af811add" resname="policy.limitation.identifier.userpermissions">
+        <source>User Permissions</source>
+        <target state="new">User Permissions</target>
+        <note>key: policy.limitation.identifier.userpermissions</note>
       </trans-unit>
       <trans-unit id="77e814db3b3f1bd68101d274277bee08d164f0a2" resname="policy.limitation.none">
         <source>None</source>
@@ -648,6 +743,11 @@
         <target state="new">Swap the Content item at this Location with another</target>
         <note>key: tab.locations.swap_with_another</note>
       </trans-unit>
+      <trans-unit id="6743551a4c574620f3e473ee18d9217d32f88eb4" resname="tab.urls.add.empty.label">
+        <source>None</source>
+        <target state="new">None</target>
+        <note>key: tab.urls.add.empty.label</note>
+      </trans-unit>
       <trans-unit id="d2e707023baa6830915c5d12b915974d627522e4" resname="tab.versions.table.action.archived.edit">
         <source>Restore archived version</source>
         <target state="new">Restore archived version</target>
@@ -709,14 +809,9 @@
         <note>key: trash.delete</note>
       </trans-unit>
       <trans-unit id="4e7901a215220faba4d546cd3fb63f3e2a64e849" resname="trash.delete.all.confirm">
-        <source>Are you sure you want to permanently delete %trashItemsCount% item(s)?</source>
-        <target state="new">Are you sure you want to permanently delete %trashItemsCount% item(s)?</target>
+        <source>Permanently delete items: %trashItemsCount%?</source>
+        <target state="new">Permanently delete items: %trashItemsCount%?</target>
         <note>key: trash.delete.all.confirm</note>
-      </trans-unit>
-      <trans-unit id="48e20c2b09b340ca2e2020edaa30a57c8bc3f26b" resname="trash.delete.all.info">
-        <source>This action cannot be reversed</source>
-        <target state="new">This action cannot be reversed</target>
-        <note>key: trash.delete.all.info</note>
       </trans-unit>
       <trans-unit id="e500e3f1d454e2775bbe89b6267cd77c766df3f1" resname="trash.delete.button.cancel">
         <source>Cancel</source>
@@ -729,8 +824,8 @@
         <note>key: trash.form.cancel</note>
       </trans-unit>
       <trans-unit id="2720e3018fc8b1158cb728b1d5dc377ef7293b57" resname="trash.modal.message">
-        <source>Do you want to delete the selected item(s) from Trash?</source>
-        <target state="new">Do you want to delete the selected item(s) from Trash?</target>
+        <source>Delete the selected items permanently?</source>
+        <target state="new">Delete the selected items permanently?</target>
         <note>key: trash.modal.message</note>
       </trans-unit>
       <trans-unit id="bf721bb2cc736984908badd0489116d289171d33" resname="trash.modal.send_to_trash.message">

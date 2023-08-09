@@ -6,7 +6,7 @@
     {% trans_default_domain 'language' %}
 
     {% block body_content %}
-        <p>{{ 'language.modal.message'|trans|desc('Do you want to delete the language(s)?') }}</p>
+        <p>{{ 'language.modal.message'|trans|desc('Delete the languages?') }}</p>
     {% endblock %}
     {% block footer_content %}
         {{ form_widget(deleteForm.delete, { 'attr': {'class': 'btn ibexa-btn ibexa-btn--primary'} }) }}

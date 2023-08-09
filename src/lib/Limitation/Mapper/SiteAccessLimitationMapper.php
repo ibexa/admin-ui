@@ -9,9 +9,12 @@ namespace Ibexa\AdminUi\Limitation\Mapper;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\AdminUi\Siteaccess\SiteAccessKeyGeneratorInterface;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
 use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
-class SiteAccessLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
+class SiteAccessLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface */
     private $siteAccessService;
@@ -47,6 +50,16 @@ class SiteAccessLimitationMapper extends MultipleSelectionBasedMapper implements
         }
 
         return $values;
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(new Message(
+                LimitationIdentifierToLabelConverter::convert('siteaccess'),
+                'ezplatform_content_forms_policies'
+            ))->setDesc('SiteAccess'),
+        ];
     }
 }
 

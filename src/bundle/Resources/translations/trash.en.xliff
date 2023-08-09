@@ -7,8 +7,8 @@
     </header>
     <body>
       <trans-unit id="3d9f547776de4846ff54fcd1cd173ac5937e5a46" resname="search.creator_input.placeholder">
-        <source>Type creator's name</source>
-        <target state="new">Type creator's name</target>
+        <source>Search by creator</source>
+        <target state="new">Search by creator</target>
         <note>key: search.creator_input.placeholder</note>
       </trans-unit>
       <trans-unit id="6aa460340bed42d0d1baf9d1ea542c83a3f00821" resname="trash">
@@ -22,8 +22,8 @@
         <note>key: trash.button.restore</note>
       </trans-unit>
       <trans-unit id="5424e0925328bb62806b43b2a65cc86fef6ad7d9" resname="trash.button.restore_new_location">
-        <source>Restore in a new Location</source>
-        <target state="new">Restore in a new Location</target>
+        <source>Restore in a new location</source>
+        <target state="new">Restore in a new location</target>
         <note>key: trash.button.restore_new_location</note>
       </trans-unit>
       <trans-unit id="a644965219fc4d129dd4a5ef1cdb6eb073003702" resname="trash.content_type">
@@ -37,8 +37,8 @@
         <note>key: trash.creator</note>
       </trans-unit>
       <trans-unit id="a05764fe660902e89eefa65d4834f03cf3954160" resname="trash.date">
-        <source>Sent to trash date</source>
-        <target state="new">Sent to trash date</target>
+        <source>Trashed</source>
+        <target state="new">Trashed</target>
         <note>key: trash.date</note>
       </trans-unit>
       <trans-unit id="45548aed8adb5019c3b806992e903965699c7e08" resname="trash.deleted.success">
@@ -62,8 +62,8 @@
         <note>key: trash.headline</note>
       </trans-unit>
       <trans-unit id="5d4b7350cb3bfc77e9edd02190eb530d866c7565" resname="trash.item.ancesor_in_trash">
-        <source>Ancestor is in the Trash</source>
-        <target state="new">Ancestor is in the Trash</target>
+        <source>Ancestor is unknown</source>
+        <target state="new">Ancestor is unknown</target>
         <note>key: trash.item.ancesor_in_trash</note>
       </trans-unit>
       <trans-unit id="02b7fe2ffdf670f9d5e2dadd3cd1be5109a22b49" resname="trash.item.deleted_user">
@@ -77,8 +77,8 @@
         <note>key: trash.name</note>
       </trans-unit>
       <trans-unit id="c28510c675be753842996980b0e5d175cec4a8d8" resname="trash.original_location">
-        <source>Original Location</source>
-        <target state="new">Original Location</target>
+        <source>Location</source>
+        <target state="new">Location</target>
         <note>key: trash.original_location</note>
       </trans-unit>
       <trans-unit id="a8c2da925faa48def8e407037a6115f1340070c7" resname="trash.restore_new_location.success">

@@ -92,8 +92,8 @@
         <note>key: language.list</note>
       </trans-unit>
       <trans-unit id="2a52961302ce7dfa4a21c5e0bcc239f5a9a36cfe" resname="language.modal.message">
-        <source>Do you want to delete the language(s)?</source>
-        <target state="new">Do you want to delete the language(s)?</target>
+        <source>Delete the languages?</source>
+        <target state="new">Delete the languages?</target>
         <note>key: language.modal.message</note>
       </trans-unit>
       <trans-unit id="c0ccfb7e7bc6d434ca93e998637fe775ba4a2de0" resname="language.name">

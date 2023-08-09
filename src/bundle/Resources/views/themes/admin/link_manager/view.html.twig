@@ -34,7 +34,7 @@
             </thead>
             <tbody>
                 <tr class="ibexa-table__row">
-                    <td class="ibexa-table__cell">{{ 'url.label.address'|trans }}</td>
+                    <td class="ibexa-table__cell">{{ 'url.label.address'|trans|desc('Address') }}</td>
                     <td class="ibexa-table__cell ibexa-table__cell--has-action-btns">
                         <a href="{{ url.url }}" target="_blank">{{ url.url }}</a>
                         <a href="{{ path('ibexa.link_manager.edit', { urlId: url.id }) }}"
@@ -47,11 +47,15 @@
                     </td>
                 </tr>
                 <tr class="ibexa-table__row">
-                    <td class="ibexa-table__cell">{{ 'url.label.status'|trans }}</td>
-                    <td class="ibexa-table__cell">{{ url.isValid ? 'url.status.valid'|trans : 'url.status.invalid'|trans }}</td>
+                    <td class="ibexa-table__cell">{{ 'url.label.status'|trans|desc('Status') }}</td>
+                    <td class="ibexa-table__cell">{{
+                    url.isValid
+                        ? 'url.status.valid'|trans|desc('Valid')
+                        : 'url.status.invalid'|trans|desc('Invalid')
+                }}</td>
                 </tr>
                 <tr class="ibexa-table__row">
-                    <td class="ibexa-table__cell">{{ 'url.label.last_checked'|trans }}</td>
+                    <td class="ibexa-table__cell">{{ 'url.label.last_checked'|trans|desc('Last checked') }}</td>
                     <td class="ibexa-table__cell">
                         {% if url.lastChecked %}
                             {{ url.lastChecked|ibexa_full_datetime }}
@@ -61,11 +65,11 @@
                     </td>
                 </tr>
                 <tr class="ibexa-table__row">
-                    <td class="ibexa-table__cell">{{ 'url.label.created'|trans }}</td>
+                    <td class="ibexa-table__cell">{{ 'url.label.created'|trans|desc('Created') }}</td>
                     <td class="ibexa-table__cell">{{ url.created|ibexa_full_datetime }}</td>
                 </tr>
                 <tr class="ibexa-table__row">
-                    <td class="ibexa-table__cell">{{ 'url.label.modified'|trans }}</td>
+                    <td class="ibexa-table__cell">{{ 'url.label.modified'|trans|desc('Modified') }}</td>
                     <td class="ibexa-table__cell">{{ url.modified|ibexa_full_datetime }}</td>
                 </tr>
             </tbody>

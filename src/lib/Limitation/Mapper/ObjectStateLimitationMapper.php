@@ -11,10 +11,13 @@ use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\ObjectStateService;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
-class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
+class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     use LoggerAwareTrait;
 
@@ -67,6 +70,20 @@ class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implement
         $stateName = $state->getName($state->defaultLanguageCode);
 
         return $groupName . ':' . $stateName;
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(new Message(
+                LimitationIdentifierToLabelConverter::convert('newstate'),
+                'ezplatform_content_forms_policies'
+            ))->setDesc('New State'),
+            Message::create(new Message(
+                LimitationIdentifierToLabelConverter::convert('state'),
+                'ezplatform_content_forms_policies'
+            ))->setDesc('State'),
+        ];
     }
 }
 

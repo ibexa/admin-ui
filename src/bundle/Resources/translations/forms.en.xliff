@@ -47,8 +47,8 @@
         <note>key: content_types_delete_form.delete</note>
       </trans-unit>
       <trans-unit id="268c741bdf4f818f950cd022b562c079744cfdca" resname="error.required.field">
-        <source>%fieldName% Field is required</source>
-        <target state="new">%fieldName% Field is required</target>
+        <source>%fieldName% cannot be empty</source>
+        <target state="new">%fieldName% cannot be empty</target>
         <note>key: error.required.field</note>
       </trans-unit>
       <trans-unit id="6090b5d2c17e00053a576ede5c82afba67f0cc49" resname="error.required.field_not_blank">
@@ -163,7 +163,7 @@
       </trans-unit>
       <trans-unit id="d29c07272fff793138cbb6f7dbb41b08a16ff815" resname="role.policy.all_modules">
         <source>All modules</source>
-        <target>All modules</target>
+        <target state="new">All modules</target>
         <note>key: role.policy.all_modules</note>
       </trans-unit>
       <trans-unit id="d3c70d265ab037db5ade02a8b738b5981353c7ac" resname="role.policy.type">
@@ -317,8 +317,8 @@
         <note>key: translation.language.label</note>
       </trans-unit>
       <trans-unit id="30b0c3c3e5e096a078005be2cc34bca6227ae381" resname="trash_empty_form.empty">
-        <source>Delete permanently</source>
-        <target state="new">Delete permanently</target>
+        <source>Delete</source>
+        <target state="new">Delete</target>
         <note>key: trash_empty_form.empty</note>
       </trans-unit>
       <trans-unit id="4d530164d6f917754a1625bae48c2a323197ac7a" resname="user.invitation.submit">

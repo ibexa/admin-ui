@@ -65,7 +65,7 @@
                             class="form-control ibexa-input ibexa-input--text ibexa-trash-search-form__input"
                             data-content-type-identifiers="{{ user_content_type_identifier|join(',') }}"
                             value="{{ creator_exists ? ibexa_content_name(creator) }}"
-                            placeholder="{{ 'search.creator_input.placeholder'|trans|desc('Type creator\'s name') }}"
+                            placeholder="{{ 'search.creator_input.placeholder'|trans|desc('Search by creator') }}"
                             {{ creator_exists ? 'disabled'  }}
                         >
                         <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--reset-creator">
@@ -163,7 +163,7 @@
                     {% if not is_parent_in_trash %}
                         {% include '@ibexadesign/ui/location_path.html.twig' with {'locations': trash_item.ancestors, 'link_last_element': true} %}
                     {% else %}
-                        <em>{{ 'trash.item.ancesor_in_trash'|trans|desc('Ancestor is in the Trash') }}</em>
+                        <em>{{ 'trash.item.ancesor_in_trash'|trans|desc('Ancestor is unknown') }}</em>
                     {% endif %}
                 {% endset %}
                 {% set body_row_cols = body_row_cols|merge([{
@@ -221,9 +221,9 @@
             {% endif %}
 
             {% set head_cols = head_cols|merge([
-                { content: 'trash.original_location'|trans|desc('Original Location') },
+                { content: 'trash.original_location'|trans|desc('Location') },
                 {
-                    content: 'trash.date'|trans|desc('Sent to trash date'),
+                    content: 'trash.date'|trans|desc('Trashed'),
                     sort_column: 'trashed',
                     wrapper_attr: {
                         'data-field': 'trashed',
@@ -258,7 +258,7 @@
                                         'data-udw-config': ibexa_udw_config('single_container', {}),
                                         'class': (form_trash_item_restore.location.select_content.vars.attr.class|default('') ~ ' btn ibexa-btn ibexa-btn--ghost ibexa-btn--small')|trim,
                                         'disabled': true
-                                    }, 'label': 'trash.button.restore_new_location'|trans({},'trash')|desc("Restore in a new Location")
+                                    }, 'label': 'trash.button.restore_new_location'|trans({},'trash')|desc("Restore in a new location")
                                 }) %}
                                 {{ form_widget(form_trash_item_restore.location.select_content, restore_under_new_parent_button_attr) }}
                                 {{ form_widget(form_trash_item_restore.location.location) }}
@@ -290,7 +290,7 @@
                                 </button>
                                 {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                                     'id': modal_data_target,
-                                    'message': 'trash.modal.message'|trans|desc('Do you want to delete the selected item(s) from Trash?'),
+                                    'message': 'trash.modal.message'|trans|desc('Delete the selected items permanently?'),
                                     'data_click': '#trash_item_delete_delete',
                                 }%}
                             {% endif %}

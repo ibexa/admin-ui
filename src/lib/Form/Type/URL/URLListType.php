@@ -42,12 +42,14 @@ class URLListType extends AbstractType
     {
         $builder->add('status', ChoiceType::class, [
             'choices' => [
-                $this->translator->trans(/** @Desc("Invalid") */
+                $this->translator->trans(
+                    /** @Desc("Invalid") */
                     'url.status.invalid',
                     [],
                     'ezplatform_content_forms_url'
                 ) => false,
-                $this->translator->trans(/** @Desc("Valid") */
+                $this->translator->trans(
+                    /** @Desc("Valid") */
                     'url.status.valid',
                     [],
                     'ezplatform_content_forms_url'

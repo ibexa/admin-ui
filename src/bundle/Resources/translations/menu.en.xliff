@@ -212,8 +212,8 @@
         <note>key: main__admin__sections</note>
       </trans-unit>
       <trans-unit id="82375ef2c63989a07c692f526407d75316414dff" resname="main__admin__url_management">
-        <source>URL Management</source>
-        <target state="new">URL Management</target>
+        <source>URL management</source>
+        <target state="new">URL management</target>
         <note>key: main__admin__url_management</note>
       </trans-unit>
       <trans-unit id="975e43875a74d509e3e0cedd926de1223d09cdf4" resname="main__admin__users">
@@ -332,8 +332,8 @@
         <note>key: role_copy__sidebar_right__cancel</note>
       </trans-unit>
       <trans-unit id="36e448abb1ab7844befaf5a70ac65edf976bae85" resname="role_copy__sidebar_right__save">
-        <source>Save</source>
-        <target state="new">Save</target>
+        <source>Copy</source>
+        <target state="new">Copy</target>
         <note>key: role_copy__sidebar_right__save</note>
       </trans-unit>
       <trans-unit id="ec3a03215b15b79b7db72bac312b5e59734ac99c" resname="role_create__sidebar_right__cancel">

@@ -12,8 +12,8 @@
         <note>key: dropdown.clear</note>
       </trans-unit>
       <trans-unit id="a3390555f717ffd9b3560f17198e5a437899967f" resname="dropdown.placeholder">
-        <source>All</source>
-        <target state="new">All</target>
+        <source>Choose an option</source>
+        <target state="new">Choose an option</target>
         <note>key: dropdown.placeholder</note>
       </trans-unit>
       <trans-unit id="bcf45496a8dbad6959111ca6eae0ab456d4ad1c7" resname="dropdown.placeholder.all">

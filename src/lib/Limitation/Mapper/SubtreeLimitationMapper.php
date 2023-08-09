@@ -11,8 +11,11 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Ancestor;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\Path;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
-class SubtreeLimitationMapper extends UDWBasedMapper
+class SubtreeLimitationMapper extends UDWBasedMapper implements TranslationContainerInterface
 {
     public function filterLimitationValues(Limitation $limitation)
     {
@@ -61,6 +64,16 @@ class SubtreeLimitationMapper extends UDWBasedMapper
         }
 
         return $values;
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(new Message(
+                LimitationIdentifierToLabelConverter::convert('subtree'),
+                'ezplatform_content_forms_policies'
+            ))->setDesc('Subtree'),
+        ];
     }
 }
 

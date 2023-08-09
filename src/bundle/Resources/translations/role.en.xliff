@@ -22,8 +22,8 @@
         <note>key: limitation_type.subtree</note>
       </trans-unit>
       <trans-unit id="0dbfb3fd5136aa1d54a82ba5e5f399c2908d26f2" resname="locations.select_subtree">
-        <source>Select Subtree</source>
-        <target state="new">Select Subtree</target>
+        <source>Select subtree</source>
+        <target state="new">Select subtree</target>
         <note>key: locations.select_subtree</note>
       </trans-unit>
       <trans-unit id="8e8d15bb05038bded496a7dfcdf6374b9449bc51" resname="policy.add.policy.title">

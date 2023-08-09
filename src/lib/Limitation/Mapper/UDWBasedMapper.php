@@ -19,13 +19,15 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Ancestor;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\Path;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormInterface;
 
 /**
  * Base class for mappers based on Universal Discovery Widget.
  */
-class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMapperInterface
+class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMapperInterface, TranslationContainerInterface
 {
     /**
      * @var \Ibexa\Contracts\Core\Repository\LocationService
@@ -120,6 +122,16 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
         }
 
         return $values;
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(new Message(
+                LimitationIdentifierToLabelConverter::convert('node'),
+                'ezplatform_content_forms_policies'
+            ))->setDesc('Location'),
+        ];
     }
 }
 

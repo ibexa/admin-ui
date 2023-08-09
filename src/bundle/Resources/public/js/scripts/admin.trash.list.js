@@ -45,7 +45,7 @@
         const form = event.target.closest('form[name="trash_item_restore"]');
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
         const title = Translator.trans(
-            /*@Desc("Select a Location to restore the Content item(s)")*/ 'restore_under_new_location.title',
+            /*@Desc("Select a new location to restore the content items")*/ 'restore_under_new_location.title',
             {},
             'universal_discovery_widget',
         );

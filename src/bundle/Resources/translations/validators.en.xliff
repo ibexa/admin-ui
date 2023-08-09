@@ -82,8 +82,8 @@
         <note>key: js.error.address_not_found</note>
       </trans-unit>
       <trans-unit id="74dc0c29a623eb80ca8f6460f0176503c7785904" resname="js.error.empty.field">
-        <source>{fieldName} Field is required</source>
-        <target state="new">{fieldName} Field is required</target>
+        <source>{fieldName} cannot be empty.</source>
+        <target state="new">{fieldName} cannot be empty.</target>
         <note>key: js.error.empty.field</note>
       </trans-unit>
       <trans-unit id="3ff026ea6e244dbbf70509ebf0a71c5f46cef0e0" resname="js.error.invalid_email">

@@ -7,7 +7,7 @@
         {{ form_start(form, {'attr': {'class': 'ibexa-search-links-form'}}) }}
             <div class="ibexa-search-links-form__input-wrapper">
                 {{ form_widget(form.searchQuery, { attr: {
-                    'placeholder': 'url.search.placeholder'|trans,
+                    'placeholder': 'url.search.placeholder'|trans|desc('Search for URLs'),
                 }}) }}
             </div>
             <div class="ibexa-search-links-form__status-wrapper">
@@ -69,14 +69,14 @@
         {% include '@ibexadesign/ui/component/table/table.html.twig' with {
             headline: 'url.list.title'|trans({ '%count%': urls.count })|desc('Links (%count%)'),
             head_cols: [
-                { content: 'url.label.address'|trans },
-                { content: 'url.label.status'|trans },
-                { content: 'url.label.last_checked'|trans },
-                { content: 'url.label.modified'|trans },
+                { content: 'url.label.address'|trans|desc('Address') },
+                { content: 'url.label.status'|trans|desc('Status') },
+                { content: 'url.label.last_checked'|trans|desc('Last checked') },
+                { content: 'url.label.modified'|trans|desc('Modified') },
                 { },
             ],
             body_rows,
-            empty_table_info_text: 'url.list.no_urls'|trans,
+            empty_table_info_text: 'url.list.no_urls'|trans|desc('No URLs'),
         } %}
 
         {% if urls.haveToPaginate %}

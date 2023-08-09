@@ -8,8 +8,11 @@ namespace Ibexa\AdminUi\Limitation\Mapper;
 
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
-class ParentDepthLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
+class ParentDepthLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     /**
      * @var int The maximum possible depth to use in a limitation
@@ -34,6 +37,16 @@ class ParentDepthLimitationMapper extends MultipleSelectionBasedMapper implement
     public function mapLimitationValue(Limitation $limitation)
     {
         return $limitation->limitationValues;
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(new Message(
+                LimitationIdentifierToLabelConverter::convert('parentdepth'),
+                'ezplatform_content_forms_policies'
+            ))->setDesc('Parent Depth'),
+        ];
     }
 }
 

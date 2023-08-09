@@ -9,9 +9,12 @@ namespace Ibexa\AdminUi\Limitation\Mapper;
 use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Form\FormInterface;
 
-class NullLimitationMapper implements LimitationFormMapperInterface, LimitationValueMapperInterface
+class NullLimitationMapper implements LimitationFormMapperInterface, LimitationValueMapperInterface, TranslationContainerInterface
 {
     /**
      * @var string
@@ -39,6 +42,16 @@ class NullLimitationMapper implements LimitationFormMapperInterface, LimitationV
     public function mapLimitationValue(Limitation $limitation)
     {
         return $limitation->limitationValues;
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(new Message(
+                LimitationIdentifierToLabelConverter::convert('status'),
+                'ezplatform_content_forms_policies'
+            ))->setDesc('Status'),
+        ];
     }
 }
 

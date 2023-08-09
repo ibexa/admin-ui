@@ -16,7 +16,9 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeId
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\ContentName;
 use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
 use Ibexa\Core\Limitation\MemberOfLimitationType;
+use JMS\TranslationBundle\Model\Message;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class MemberOfLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
@@ -96,5 +98,15 @@ final class MemberOfLimitationMapper extends MultipleSelectionBasedMapper implem
             [],
             'ezplatform_content_forms_role'
         );
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(new Message(
+                LimitationIdentifierToLabelConverter::convert('memberof'),
+                'ezplatform_content_forms_policies'
+            ))->setDesc('MemberOf'),
+        ];
     }
 }
