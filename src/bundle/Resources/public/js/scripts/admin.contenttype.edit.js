@@ -1,5 +1,7 @@
 (function (global, doc, ibexa, Routing, Translator, bootstrap) {
     const SELECTOR_INPUTS_TO_VALIDATE = '.ibexa-input[required]:not([disabled]):not([hidden])';
+    const SELETOR_FIELD_INPUTS =
+        '.ibexa-input-text-wrapper:not(.ibexa-input-text-wrapper--search) > input.ibexa-input--text:not([hidden]):not(ibexa-input-text-wrapper--search)';
     const TIMEOUT_REMOVE_HIGHLIGHT = 3000;
     let sourceContainer = null;
     let currentDraggedItem = null;
@@ -98,16 +100,24 @@
     };
     const attachFieldDefinitionNodeEvents = (fieldNode, { targetContainer }) => {
         const fieldGroupInput = fieldNode.querySelector('.ibexa-input--field-group');
-        const removeFieldsBtn = fieldNode.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions');
+        const fieldDefinitionsInputs = fieldNode.querySelectorAll(SELETOR_FIELD_INPUTS);
+        const removeFieldBtns = fieldNode.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions');
         const fieldInputsToValidate = fieldNode.querySelectorAll(SELECTOR_INPUTS_TO_VALIDATE);
         const groupCollapseNode = targetContainer.closest('.ibexa-collapse--field-definitions-group');
         const { fieldsGroupId } = groupCollapseNode.dataset;
 
         fieldInputsToValidate.forEach(attachValidateEvents);
         fieldGroupInput.value = fieldsGroupId;
-        removeFieldsBtn.forEach((removeFieldBtn) => {
+        removeFieldBtns.forEach((removeFieldBtn) => {
             removeFieldBtn.addEventListener('click', removeField, false);
         });
+
+        if (navigator.userAgent.includes('Firefox')) {
+            fieldDefinitionsInputs.forEach((fieldDefinitionsInput) => {
+                fieldDefinitionsInput.addEventListener('mouseenter', mouseEnterInputHandlerForFirefox, false);
+                fieldDefinitionsInput.addEventListener('mouseleave', mouseLeaveInputHandlerForFirefox, false);
+            });
+        }
 
         const dropdowns = fieldNode.querySelectorAll('.ibexa-dropdown');
 
@@ -336,6 +346,19 @@
             })
             .catch(ibexa.helpers.notification.showErrorNotification);
     };
+    const toggleDraggableForFirefox = (input, isMouseEnterEvent) => {
+        const fieldDefinitionNode = input.closest('.ibexa-collapse--field-definition');
+        const collapseBodyNode = fieldDefinitionNode.querySelector('.ibexa-collapse__body');
+
+        fieldDefinitionNode.setAttribute('draggable', !isMouseEnterEvent);
+        collapseBodyNode.setAttribute('draggable', !isMouseEnterEvent);
+    };
+    const mouseEnterInputHandlerForFirefox = ({ currentTarget, type }) => {
+        toggleDraggableForFirefox(currentTarget, type === 'mouseenter');
+    };
+    const mouseLeaveInputHandlerForFirefox = ({ currentTarget, type }) => {
+        toggleDraggableForFirefox(currentTarget, type === 'mouseenter');
+    };
     const validateInput = (input) => {
         const isInputEmpty = !input.value;
         const field = input.closest('.form-group');
@@ -519,17 +542,24 @@
         firstFieldDefinitionsGroupContent.classList.add('ibexa-collapse--active-field-definitions-group');
     }
 
-    doc.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions').forEach((removeFieldDefinitionsButton) => {
-        removeFieldDefinitionsButton.addEventListener('click', removeField, false);
+    if (navigator.userAgent.includes('Firefox')) {
+        doc.querySelectorAll(`.ibexa-collapse--field-definition ${SELETOR_FIELD_INPUTS}`).forEach((inputField) => {
+            inputField.addEventListener('mouseenter', mouseEnterInputHandlerForFirefox, false);
+            inputField.addEventListener('mouseleave', mouseLeaveInputHandlerForFirefox, false);
+        });
+    }
+
+    doc.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions').forEach((removeFieldDefinitionsBtn) => {
+        removeFieldDefinitionsBtn.addEventListener('click', removeField, false);
     });
     doc.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions-group').forEach(
-        (removeFieldDefinitionsGroupButton) => {
-            const groupFieldsDefinitionCount = removeFieldDefinitionsGroupButton
+        (removeFieldDefinitionsGroupBtn) => {
+            const groupFieldsDefinitionCount = removeFieldDefinitionsGroupBtn
                 .closest('.ibexa-collapse--field-definitions-group')
                 .querySelectorAll('.ibexa-collapse--field-definition').length;
 
-            removeFieldDefinitionsGroupButton.toggleAttribute('disabled', groupFieldsDefinitionCount > 0);
-            removeFieldDefinitionsGroupButton.addEventListener('click', removeFieldsGroup, false);
+            removeFieldDefinitionsGroupBtn.toggleAttribute('disabled', groupFieldsDefinitionCount > 0);
+            removeFieldDefinitionsGroupBtn.addEventListener('click', removeFieldsGroup, false);
         },
     );
 
@@ -578,9 +608,9 @@
             false,
         );
     });
-    doc.querySelectorAll('.ibexa-content-type-edit__field-definition-drop-zone').forEach((collapseCotentNode) => {
+    doc.querySelectorAll('.ibexa-content-type-edit__field-definition-drop-zone').forEach((collapseContentNode) => {
         const draggable = new FieldDefinitionDraggable({
-            itemsContainer: collapseCotentNode,
+            itemsContainer: collapseContentNode,
             selectorItem: '.ibexa-collapse--field-definition',
             selectorPlaceholder: '.ibexa-field-definitions-placeholder',
             selectorPreventDrag: '.ibexa-collapse__body',
