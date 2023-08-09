@@ -42,7 +42,7 @@
                     data-bs-target="#{{ body_id }}"
                 >
                     <svg class="ibexa-icon ibexa-icon--tiny-small ibexa-icon--toggle-status-icon {{ status_icon_class|default('') }}">
-                        <use xlink:href="{{ ibexa_icon_path(status_icon|default('caret-down')) }}"></use>
+                        <use xlink:href="{{ ibexa_icon_path(status_icon|default('caret-up')) }}"></use>
                     </svg>
                 </button>
             {% endblock %}

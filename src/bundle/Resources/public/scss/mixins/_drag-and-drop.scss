@@ -114,7 +114,7 @@
         margin-bottom: calculateRem(24px);
     }
 
-    &:hover {
+    &:hover:not(&--unavailable) {
         #{$self}__content {
             border-color: $ibexa-color-dark;
             transform: scale(1.02) translateX(-10px);
@@ -171,15 +171,18 @@
     }
 
     &--unavailable {
-        opacity: 0.5;
+        cursor: not-allowed;
 
-        &:hover {
-            #{$self}__content {
-                border-color: $ibexa-color-light;
-                background: $ibexa-color-light-400;
-                transform: none;
-                box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 rgba($ibexa-color-info, 0.05);
-            }
+        #{$self}__content {
+            color: $ibexa-color-dark-300;
+            fill: $ibexa-color-dark-300;
+            border-color: $ibexa-color-light-300;
+            background: $ibexa-color-light-300;
+            box-shadow: none;
+        }
+
+        #{$self}__drag-icon {
+            fill: $ibexa-color-dark-300;
         }
     }
 
