@@ -8,13 +8,14 @@ namespace Ibexa\AdminUi\Menu\Admin\ContentType;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * KnpMenuBundle Menu Builder service implementation for AdminUI Section Edit contextual sidebar menu.
  *
  * @see https://symfony.com/doc/current/bundles/KnpMenuBundle/menu_builder_service.html
  */
-class ContentTypeEditRightSidebarBuilder extends AbstractContentTypeRightSidebarBuilder
+class ContentTypeEditRightSidebarBuilder extends AbstractContentTypeRightSidebarBuilder implements TranslationContainerInterface
 {
     /* Menu items */
     public const ITEM__SAVE = 'content_type_edit__sidebar_right__save';
