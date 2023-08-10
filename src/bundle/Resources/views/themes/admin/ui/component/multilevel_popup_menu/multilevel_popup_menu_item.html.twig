@@ -13,7 +13,7 @@
         ~ action_attr.class|default(''))|trim,
 }) %}
 
-{% set is_button = action_attr.href is not defined %}
+{% set is_button = is_button is defined ? is_button : action_attr.href is not defined %}
 
 {% if is_button %}
     {% set action_attr = action_attr|merge({
