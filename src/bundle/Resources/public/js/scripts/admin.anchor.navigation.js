@@ -38,7 +38,9 @@
     const onSelectSectionGroupsMenuList = (event) => {
         const { targetId } = event.currentTarget.dataset;
         const sectionsMenuNode = doc.querySelector(`.ibexa-anchor-navigation-menu__sections[data-id="${targetId}"]`);
-        const sectionGroupsMenuItems = doc.querySelectorAll('.ibexa-anchor-navigation-menu__section-groups--list .ibexa-tab-switcher__item');
+        const sectionGroupsMenuItems = doc.querySelectorAll(
+            '.ibexa-anchor-navigation-menu__section-groups--list .ibexa-tab-switcher__item',
+        );
 
         sectionGroupsMenuItems.forEach((item) => {
             item.classList.toggle('ibexa-tab-switcher__item--active', item.isSameNode(event.currentTarget));
