@@ -47,10 +47,10 @@ class NullLimitationMapper implements LimitationFormMapperInterface, LimitationV
     public static function getTranslationMessages(): array
     {
         return [
-            Message::create(new Message(
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('status'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('Status'),
+            )->setDesc('Status'),
         ];
     }
 }

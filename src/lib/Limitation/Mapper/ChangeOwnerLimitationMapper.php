@@ -87,10 +87,10 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
     public static function getTranslationMessages(): array
     {
         return [
-            Message::create(new Message(
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('changeowner'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('Change Owner'),
+            )->setDesc('Change Owner'),
         ];
     }
 }

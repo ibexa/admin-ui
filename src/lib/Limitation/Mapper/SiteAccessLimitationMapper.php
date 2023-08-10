@@ -55,10 +55,10 @@ class SiteAccessLimitationMapper extends MultipleSelectionBasedMapper implements
     public static function getTranslationMessages(): array
     {
         return [
-            Message::create(new Message(
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('siteaccess'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('SiteAccess'),
+            )->setDesc('SiteAccess'),
         ];
     }
 }

@@ -59,10 +59,10 @@ class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements L
     public static function getTranslationMessages(): array
     {
         return [
-            Message::create(new Message(
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('language'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('Language'),
+            )->setDesc('Language'),
         ];
     }
 }

@@ -137,10 +137,10 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
     public static function getTranslationMessages(): array
     {
         return [
-            Message::create(new Message(
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('userpermissions'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('User Permissions'),
+            )->setDesc('User Permissions'),
         ];
     }
 }

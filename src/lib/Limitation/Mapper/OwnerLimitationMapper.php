@@ -51,14 +51,14 @@ class OwnerLimitationMapper extends MultipleSelectionBasedMapper implements Limi
     public static function getTranslationMessages(): array
     {
         return [
-            Message::create(new Message(
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('owner'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('Owner'),
-            Message::create(new Message(
+            )->setDesc('Owner'),
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('parentowner'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('Owner of Parent'),
+            )->setDesc('Owner of Parent'),
         ];
     }
 }

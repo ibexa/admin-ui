@@ -60,18 +60,18 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
     public static function getTranslationMessages(): array
     {
         return [
-            Message::create(new Message(
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('class'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('Content Type'),
-            Message::create(new Message(
+            )->setDesc('Content Type'),
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('parentclass'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('Content Type of Parent'),
-            Message::create(new Message(
+            )->setDesc('Content Type of Parent'),
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('parentgroup'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('Content Type Group of Parent'),
+            )->setDesc('Content Type Group of Parent'),
         ];
     }
 }

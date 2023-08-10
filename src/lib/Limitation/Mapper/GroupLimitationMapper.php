@@ -50,10 +50,10 @@ class GroupLimitationMapper extends MultipleSelectionBasedMapper implements Limi
     public static function getTranslationMessages(): array
     {
         return [
-            Message::create(new Message(
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('group'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('Content Type Group'),
+            )->setDesc('Content Type Group'),
         ];
     }
 }

@@ -42,10 +42,10 @@ class ParentDepthLimitationMapper extends MultipleSelectionBasedMapper implement
     public static function getTranslationMessages(): array
     {
         return [
-            Message::create(new Message(
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('parentdepth'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('Parent Depth'),
+            )->setDesc('Parent Depth'),
         ];
     }
 }

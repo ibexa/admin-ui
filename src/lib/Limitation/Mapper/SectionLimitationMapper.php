@@ -58,14 +58,14 @@ class SectionLimitationMapper extends MultipleSelectionBasedMapper implements Li
     public static function getTranslationMessages(): array
     {
         return [
-            Message::create(new Message(
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('newsection'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('New Section'),
-            Message::create(new Message(
+            )->setDesc('New Section'),
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('section'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('Section'),
+            )->setDesc('Section'),
         ];
     }
 }

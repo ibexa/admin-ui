@@ -101,6 +101,11 @@
         <target state="new">This item has no custom URL aliases.</target>
         <note>key: tab.urls.no_custom_urls</note>
       </trans-unit>
+      <trans-unit id="61f03f8e307131c37fed1b46302b43efcc519d07" resname="tab.urls.no_custom_urls.action">
+        <source>Add new custom URL aliases manually</source>
+        <target state="new">Add new custom URL aliases manually</target>
+        <note>key: tab.urls.no_custom_urls.action</note>
+      </trans-unit>
       <trans-unit id="c9fdd1434b44a4592626e8fe493c19141aab24d5" resname="tab.urls.no_system_urls">
         <source>This Content item has no system URLs.</source>
         <target state="new">This Content item has no system URLs.</target>
@@ -130,11 +135,6 @@
         <source>URL</source>
         <target state="new">URL</target>
         <note>key: tab.urls.url</note>
-      </trans-unit>
-      <trans-unit id="e69faa33548046dd30da3472456d913f2586a3c5" resname="tab.variants.empty.action">
-        <source>Add new custom URL aliases manually</source>
-        <target state="new">Add new custom URL aliases manually</target>
-        <note>key: tab.variants.empty.action</note>
       </trans-unit>
     </body>
   </file>

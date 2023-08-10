@@ -49,10 +49,10 @@ final class RoleLimitationMapper extends MultipleSelectionBasedMapper implements
     public static function getTranslationMessages(): array
     {
         return [
-            Message::create(new Message(
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('role'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('Role'),
+            )->setDesc('Role'),
         ];
     }
 }

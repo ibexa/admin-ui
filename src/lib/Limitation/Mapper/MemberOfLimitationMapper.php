@@ -103,10 +103,10 @@ final class MemberOfLimitationMapper extends MultipleSelectionBasedMapper implem
     public static function getTranslationMessages(): array
     {
         return [
-            Message::create(new Message(
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('memberof'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('MemberOf'),
+            )->setDesc('MemberOf'),
         ];
     }
 }

@@ -75,14 +75,14 @@ class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implement
     public static function getTranslationMessages(): array
     {
         return [
-            Message::create(new Message(
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('newstate'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('New State'),
-            Message::create(new Message(
+            )->setDesc('New State'),
+            Message::create(
                 LimitationIdentifierToLabelConverter::convert('state'),
                 'ezplatform_content_forms_policies'
-            ))->setDesc('State'),
+            )->setDesc('State'),
         ];
     }
 }
