@@ -58,7 +58,7 @@
             doc.body.appendChild(branchElement);
 
             const isTopBranch = !triggerElement.classList.contains('ibexa-popup-menu__item');
-            const offset = isTopBranch ? [0, 3] : [-8, 8];
+            const offset = isTopBranch ? [0, 3] : [-8, 2];
 
             const popperInstance = Popper.createPopper(referenceElement ?? triggerElement, branchElement, {
                 placement,
@@ -98,6 +98,7 @@
             triggerElement.addEventListener(
                 'mouseleave',
                 () =>
+                    // TODO: if we open other branch, we should close previos one immediately it is not a parent
                     setTimeout(() => {
                         this.hoveredItemsBranches.delete(branchElement);
                         this.updateBranchAndParentBranchesOpenState(branchElement);
@@ -228,8 +229,9 @@
         }
 
         generateItem(data, processAfterCreated = () => {}) {
-            const { label, branchElement } = data;
-            const { itemTemplate } = this.container.dataset;
+            const { label, branchElement, href } = data;
+            const { itemTemplateBtn, itemTemplateLink } = this.container.dataset;
+            const itemTemplate = !!href ? itemTemplateLink : itemTemplateBtn;
 
             const container = doc.createElement('div');
             const renderedItem = itemTemplate.replaceAll('{{ label }}', label);
@@ -237,6 +239,12 @@
             container.insertAdjacentHTML('beforeend', renderedItem);
 
             const newItemElement = container.querySelector('.ibexa-popup-menu__item');
+
+            if (href) {
+                const newItemLinkElement = newItemElement.querySelector('.ibexa-popup-menu__item-content');
+
+                newItemLinkElement.href = href;
+            }
 
             processAfterCreated(newItemElement, data);
 

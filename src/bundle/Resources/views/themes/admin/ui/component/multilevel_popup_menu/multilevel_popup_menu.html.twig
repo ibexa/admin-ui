@@ -24,10 +24,17 @@
             with_context = false
         )
     ),
-    'data-item-template': items_container_attr['data-item-template']|default(
+    'data-item-template-btn': items_container_attr['data-item-template-btn']|default(
         include(
             '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_item.html.twig',
             item_template_params,
+            with_context = false
+        )
+    ),
+    'data-item-template-link': items_container_attr['data-item-template-link']|default(
+        include(
+            '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_item.html.twig',
+            item_template_params|merge({ is_button: false }),
             with_context = false
         )
     ),
