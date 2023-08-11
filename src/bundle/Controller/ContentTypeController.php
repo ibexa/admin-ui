@@ -501,10 +501,11 @@ class ContentTypeController extends Controller
                 $language,
                 $baseLanguage
             ) {
+                $action = $form->getClickedButton() ? $form->getClickedButton()->getName() : 'publishContentType';
                 $this->contentTypeActionDispatcher->dispatchFormAction(
                     $form,
                     $form->getData(),
-                    $form->getClickedButton() ? $form->getClickedButton()->getName() : null,
+                    $action,
                     ['languageCode' => $language->languageCode]
                 );
 
@@ -519,7 +520,7 @@ class ContentTypeController extends Controller
                     'content_type'
                 );
 
-                if ('publishContentType' === $form->getClickedButton()->getName()) {
+                if ($action === 'publishContentType') {
                     return $this->redirectToRoute('ibexa.content_type.view', [
                         'contentTypeGroupId' => $group->id,
                         'contentTypeId' => $contentTypeDraft->id,
