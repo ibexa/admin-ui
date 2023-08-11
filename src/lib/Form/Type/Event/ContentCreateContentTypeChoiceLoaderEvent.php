@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
 namespace Ibexa\AdminUi\Form\Type\Event;
 
 use Symfony\Contracts\EventDispatcher\Event;
@@ -11,7 +15,8 @@ final class ContentCreateContentTypeChoiceLoaderEvent extends Event
     /** @var array<string, array> */
     private array $contentTypeGroups;
 
-    public function __construct(array $contentTypeGroups) {
+    public function __construct(array $contentTypeGroups)
+    {
         $this->contentTypeGroups = $contentTypeGroups;
     }
 
