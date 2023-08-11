@@ -31,7 +31,7 @@ class ContentCreateType extends AbstractType
     protected $languageService;
 
     /** @var \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface */
-    private $contentTypeChoiceLoader;
+    private $contentCreateContentTypeChoiceLoader;
 
     /** @var \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface */
     private $languageChoiceLoader;
@@ -51,13 +51,13 @@ class ContentCreateType extends AbstractType
      */
     public function __construct(
         LanguageService $languageService,
-        ChoiceLoaderInterface $contentTypeChoiceLoader,
+        ContentCreateContentTypeChoiceLoader $contentCreateContentTypeChoiceLoader,
         ChoiceLoaderInterface $languageChoiceLoader,
         PermissionCheckerInterface $permissionChecker,
         LookupLimitationsTransformer $lookupLimitationsTransformer
     ) {
         $this->languageService = $languageService;
-        $this->contentTypeChoiceLoader = $contentTypeChoiceLoader;
+        $this->contentCreateContentTypeChoiceLoader = $contentCreateContentTypeChoiceLoader;
         $this->languageChoiceLoader = $languageChoiceLoader;
         $this->permissionChecker = $permissionChecker;
         $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
@@ -93,7 +93,8 @@ class ContentCreateType extends AbstractType
                     'label' => false,
                     'multiple' => false,
                     'expanded' => true,
-                    'choice_loader' => new ContentCreateContentTypeChoiceLoader($this->contentTypeChoiceLoader, $restrictedContentTypesIds),
+                    'choice_loader' => $this->contentCreateContentTypeChoiceLoader
+                        ->setRestrictedContentTypeIds($restrictedContentTypesIds),
                 ]
             )
             ->add(
