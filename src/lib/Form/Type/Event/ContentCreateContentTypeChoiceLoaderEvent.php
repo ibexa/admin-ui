@@ -12,7 +12,7 @@ final class ContentCreateContentTypeChoiceLoaderEvent extends Event
 {
     public const RESOLVE_CONTENT_TYPES = 'admin_ui.content_create.content_type_resolve';
 
-    /** @var array<string, array<Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType>> */
+    /** @var array<string, array<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType>> */
     private array $contentTypeGroups;
 
     public function __construct(array $contentTypeGroups)
@@ -21,7 +21,7 @@ final class ContentCreateContentTypeChoiceLoaderEvent extends Event
     }
 
     /**
-     * @return array<string, array<Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType>>
+     * @return array<string, array<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType>>
      */
     public function getContentTypeGroups(): array
     {
@@ -29,7 +29,7 @@ final class ContentCreateContentTypeChoiceLoaderEvent extends Event
     }
 
     /**
-     * @param array<string, array<Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType>> $contentTypeGroups
+     * @param array<string, array<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType>> $contentTypeGroups
      */
     public function setContentTypeGroups(array $contentTypeGroups): void
     {
