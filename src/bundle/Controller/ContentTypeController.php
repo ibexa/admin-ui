@@ -48,6 +48,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ContentTypeController extends Controller
 {
+    private const PRIMARY_UPDATE_ACTION = 'publishContentType';
+
     /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
@@ -501,7 +503,7 @@ class ContentTypeController extends Controller
                 $language,
                 $baseLanguage
             ) {
-                $action = $form->getClickedButton() ? $form->getClickedButton()->getName() : 'publishContentType';
+                $action = $form->getClickedButton() ? $form->getClickedButton()->getName() : self::PRIMARY_UPDATE_ACTION;
                 $this->contentTypeActionDispatcher->dispatchFormAction(
                     $form,
                     $form->getData(),
@@ -520,7 +522,7 @@ class ContentTypeController extends Controller
                     'content_type'
                 );
 
-                if ($action === 'publishContentType') {
+                if ($action === self::PRIMARY_UPDATE_ACTION) {
                     return $this->redirectToRoute('ibexa.content_type.view', [
                         'contentTypeGroupId' => $group->id,
                         'contentTypeId' => $contentTypeDraft->id,
