@@ -29,10 +29,10 @@ final class ContentCreateContentTypeChoiceLoaderEvent extends Event
     }
 
     /**
-     * @param array<string, array<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType>> $contentTypeGroups
+     * @param array<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType> $contentTypes
      */
-    public function setContentTypeGroups(array $contentTypeGroups): void
+    public function addContentTypeGroup(string $name, array $contentTypes): void
     {
-        $this->contentTypeGroups = $contentTypeGroups;
+        $this->contentTypeGroups[$name] = $contentTypes;
     }
 }
