@@ -41,7 +41,9 @@
             <div class="card-body">
                 {{ parent() }}
                 {{ form_widget(form.publish, {'attr': {'hidden': 'hidden'}}) }}
+                {{ form_widget(form.publishAndEdit, { attr: { hidden: 'hidden' }}) }}
                 {{ form_widget(form.saveDraft, {'attr': {'hidden': 'hidden'}}) }}
+                {{ form_widget(form.saveDraftAndClose, { attr: { hidden: 'hidden' }}) }}
                 {{ form_widget(form.cancel, {'attr': {'hidden': 'hidden'}}) }}
             </div>
         </div>

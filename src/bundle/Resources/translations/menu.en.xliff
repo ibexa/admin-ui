@@ -46,6 +46,11 @@
         <target state="new">Move</target>
         <note>key: content__sidebar_right__move</note>
       </trans-unit>
+      <trans-unit id="e200a70bde86beb8c043e30b6fdb0a79e968c61c" resname="content__sidebar_right__preview">
+        <source>Preview</source>
+        <target state="new">Preview</target>
+        <note>key: content__sidebar_right__preview</note>
+      </trans-unit>
       <trans-unit id="bbf7b43821e5ac0ce57d977a3ce156baf9a9d7b7" resname="content__sidebar_right__reveal">
         <source>Reveal</source>
         <target state="new">Reveal</target>
@@ -161,6 +166,11 @@
         <target state="new">Save</target>
         <note>key: content_type_group_edit__sidebar_right__save</note>
       </trans-unit>
+      <trans-unit id="12d2129736b89cbcd8cef80c6099258833484ca0" resname="content_type_group_edit__sidebar_right__save_and_close">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: content_type_group_edit__sidebar_right__save_and_close</note>
+      </trans-unit>
       <trans-unit id="65804c068820b5fa679357bc65c5862d0fc90701" resname="language_create__sidebar_right__cancel">
         <source>Cancel</source>
         <target state="new">Cancel</target>
@@ -250,6 +260,11 @@
         <source>Dashboard</source>
         <target state="new">Dashboard</target>
         <note>key: main__dashboard</note>
+      </trans-unit>
+      <trans-unit id="cfbeced5482be25b000de224837882379173d9a4" resname="main__drafts">
+        <source>Drafts</source>
+        <target state="new">Drafts</target>
+        <note>key: main__drafts</note>
       </trans-unit>
       <trans-unit id="5376b08940439deec5b89c3df17b09ab8f4ed252" resname="main__trash">
         <source>Trash</source>
