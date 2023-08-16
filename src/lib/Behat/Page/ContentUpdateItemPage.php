@@ -20,6 +20,7 @@ use Ibexa\Behat\Browser\Element\Criterion\ElementTextFragmentCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
+use InvalidArgumentException;
 use PHPUnit\Framework\Assert;
 
 class ContentUpdateItemPage extends Page
@@ -100,6 +101,11 @@ class ContentUpdateItemPage extends Page
         $this->getHTMLPage()->find($this->getLocator('closeButton'))->click();
     }
 
+    public function verifyValidationMessage(string $fieldName, string $expectedMessage): void
+    {
+        $this->getField($fieldName)->verifyValidationMessage($expectedMessage);
+    }
+
     protected function specifyLocators(): array
     {
         return [
@@ -167,6 +173,10 @@ class ContentUpdateItemPage extends Page
                 return $fieldTypeComponent;
             }
         }
+
+        throw new InvalidArgumentException(
+            sprintf('Could not handle field %s with field type identifier %s', $fieldName, $fieldTypeIdentifier)
+        );
     }
 
     protected function getFieldPosition(string $fieldName): int

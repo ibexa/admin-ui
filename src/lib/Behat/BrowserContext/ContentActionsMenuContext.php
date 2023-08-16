@@ -48,4 +48,12 @@ class ContentActionsMenuContext implements Context
     {
         Assert::assertFalse($this->contentActionsMenu->isButtonVisible($buttonName));
     }
+
+    /**
+     * @Given the :buttonName button is visible
+     */
+    public function buttonIsVisible(string $buttonName): void
+    {
+        Assert::assertTrue($this->contentActionsMenu->isButtonVisible($buttonName));
+    }
 }
