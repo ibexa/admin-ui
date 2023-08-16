@@ -19,6 +19,7 @@ use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
+use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
@@ -27,6 +28,7 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * KnpMenuBundle Menu Builder service implementation for AdminUI Location View contextual sidebar menu.
@@ -37,6 +39,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
 {
     /* Menu items */
     public const ITEM__CREATE = 'content__sidebar_right__create';
+    public const ITEM__PREVIEW = 'content__sidebar_right__preview';
     public const ITEM__EDIT = 'content__sidebar_right__edit';
     public const ITEM__SEND_TO_TRASH = 'content__sidebar_right__send_to_trash';
     public const ITEM__COPY = 'content__sidebar_right__copy';
@@ -65,6 +68,10 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
     private $permissionChecker;
 
+    private LanguageService $languageService;
+
+    private UrlGeneratorInterface $urlGenerator;
+
     public function __construct(
         MenuItemFactory $factory,
         EventDispatcherInterface $eventDispatcher,
@@ -73,7 +80,9 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         ConfigResolverInterface $configResolver,
         LocationService $locationService,
         UniversalDiscoveryExtension $udwExtension,
-        PermissionCheckerInterface $permissionChecker
+        PermissionCheckerInterface $permissionChecker,
+        LanguageService $languageService,
+        UrlGeneratorInterface $urlGenerator
     ) {
         parent::__construct($factory, $eventDispatcher);
 
@@ -83,6 +92,8 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         $this->locationService = $locationService;
         $this->udwExtension = $udwExtension;
         $this->permissionChecker = $permissionChecker;
+        $this->languageService = $languageService;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -193,6 +204,46 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             ),
         ]);
 
+        $previewItem = $this->createMenuItem(
+            self::ITEM__PREVIEW,
+            [
+                'extras' => ['orderNumber' => 12],
+                'route' => 'ibexa.content.preview',
+                'routeParameters' => [
+                    'contentId' => $content->contentInfo->getId(),
+                    'versionNo' => $content->getVersionInfo()->versionNo,
+                    'languageCode' => $content->contentInfo->mainLanguageCode,
+                    'locationId' => $location->id,
+                ],
+            ]
+        );
+
+//        ibexa.content.preview:
+//    path: /content/{contentId}/preview/{versionNo}/{languageCode}/{locationId}
+        foreach ($translations as $languageCode) {
+            if ($languageCode === $content->contentInfo->mainLanguageCode) {
+                continue;
+            }
+
+            $language = $this->languageService->loadLanguage($languageCode);
+
+            $previewItem->addChild($this->createMenuItem(
+                self::ITEM__PREVIEW . '__' . $languageCode,
+                [
+                    'label' => $language->getName(),
+                    'route' => 'ibexa.content.preview',
+                    'routeParameters' => [
+                        'contentId' => $content->contentInfo->getId(),
+                        'versionNo' => $content->getVersionInfo()->versionNo,
+                        'languageCode' => $languageCode,
+                        'locationId' => $location->id,
+                    ],
+                ]
+            ));
+        }
+
+        $menu->addChild($previewItem);
+
         $canSendInvitation = $this->permissionResolver->canUser(
             'user',
             'invite',
@@ -300,6 +351,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     {
         return [
             (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Create content'),
+            (new Message(self::ITEM__PREVIEW, 'menu'))->setDesc('Preview'),
             (new Message(self::ITEM__EDIT, 'menu'))->setDesc('Edit'),
             (new Message(self::ITEM__SEND_TO_TRASH, 'menu'))->setDesc('Send to trash'),
             (new Message(self::ITEM__COPY, 'menu'))->setDesc('Copy'),

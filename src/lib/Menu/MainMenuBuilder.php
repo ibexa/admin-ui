@@ -202,15 +202,14 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         ]);
 
         $contentMenu->addChild(self::ITEM_DRAFTS, [
-            'route' => 'ibexa.dashboard',
-            'routeParameters' => ['_fragment' => 'ibexa-tab-dashboard-my-my-drafts'],
+            'route' => 'ibexa.content_draft.list',
             'attributes' => [
                 'data-tooltip-placement' => 'right',
                 'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
             ],
             'extras' => [
                 'icon' => 'dashboard-clean',
-                'orderNumber' => 35,
+                'orderNumber' => 45,
             ],
         ]);
 

@@ -331,6 +331,23 @@ final class NodeFactory
             $containerLocations[] = $location;
         }
 
+        $content = $location->getContent();
+        $versionInfo = $content->getVersionInfo();
+
+//        $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
+//            $location,
+//            $versionNo,
+//            $language->languageCode
+//        );
+//
+//        $canPreview = $this->permissionResolver->canUser(
+//            'content',
+//            'versionread',
+//            $content,
+//            [$location ?? $this->locationService->newLocationCreateStruct($parentLocation->id)]
+//        );
+//         $canPreview && !empty($siteAccesses)
+
         $limit = $this->resolveLoadLimit($loadSubtreeRequestNode);
         $offset = null !== $loadSubtreeRequestNode
             ? $loadSubtreeRequestNode->offset
@@ -366,6 +383,8 @@ final class NodeFactory
             $depth,
             $location->id,
             $location->contentId,
+            $versionInfo->versionNo,
+            $versionInfo->languageCodes,
             '', // node name will be provided later by `supplyTranslatedContentName` method
             $contentType ? $contentType->identifier : '',
             $contentType ? $contentType->isContainer : true,

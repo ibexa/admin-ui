@@ -25,6 +25,7 @@ class ContentTypeGroupEditRightSidebarBuilder extends AbstractBuilder implements
 {
     /* Menu items */
     public const ITEM__SAVE = 'content_type_group_edit__sidebar_right__save';
+    public const ITEM__SAVE_AND_CLOSE = 'content_type_group_edit__sidebar_right__save_and_close';
     public const ITEM__CANCEL = 'content_type_group_edit__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
@@ -64,16 +65,28 @@ class ContentTypeGroupEditRightSidebarBuilder extends AbstractBuilder implements
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
+        $saveItem = $this->createMenuItem(
+            self::ITEM__SAVE,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => sprintf('#%s', $saveId),
+                ],
+            ]
+        );
+
+        $saveItem->addChild(
+            self::ITEM__SAVE_AND_CLOSE,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => sprintf('#%s', $saveId),
+                ],
+            ]
+        );
+
         $menu->setChildren([
-            self::ITEM__SAVE => $this->createMenuItem(
-                self::ITEM__SAVE,
-                [
-                    'attributes' => [
-                        'class' => 'ibexa-btn--trigger',
-                        'data-click' => sprintf('#%s', $saveId),
-                    ],
-                ]
-            ),
+            self::ITEM__SAVE => $saveItem,
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
@@ -92,7 +105,8 @@ class ContentTypeGroupEditRightSidebarBuilder extends AbstractBuilder implements
     {
         return [
             (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Save'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__SAVE_AND_CLOSE, 'menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard'),
         ];
     }
 }
