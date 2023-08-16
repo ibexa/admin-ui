@@ -32,9 +32,7 @@
         }
 
         hide() {
-            if (this.backdrop) {
-                this.toggle(false);
-            }
+            this.toggle(false);
         }
 
         show() {

@@ -47,9 +47,6 @@
             backdrop.show();
             doc.body.addEventListener('click', detectClickOutside, false);
             doc.body.classList.add('ibexa-scroll-disabled');
-        } else {
-            doc.body.removeEventListener('click', detectClickOutside);
-            removeBackdrop();
         }
 
         if (focusElement) {
