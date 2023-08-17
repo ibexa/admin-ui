@@ -61,6 +61,13 @@
         &__table-action--remove-item {
             padding: calculateRem(4px);
         }
+
+        &__actions-cell {
+            display: flex;
+            gap: calculateRem(4px);
+            justify-content: center;
+            align-items: center;
+        }
     }
 
     .btn {
