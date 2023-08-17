@@ -63,6 +63,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/admin.back.to.top.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.middle.ellipsis.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.form.error.js'),
+    path.resolve(__dirname, '../public/js/scripts/embedded.item.actions'),
     path.resolve(__dirname, '../public/js/scripts/widgets/flatpickr.js'),
 ];
 const fieldTypes = [];

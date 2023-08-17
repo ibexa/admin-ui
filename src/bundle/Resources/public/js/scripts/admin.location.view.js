@@ -7,6 +7,10 @@
     const sortContainer = doc.querySelector('[data-sort-field][data-sort-order]');
     const sortField = sortContainer.getAttribute('data-sort-field');
     const sortOrder = sortContainer.getAttribute('data-sort-order');
+    const channel = new BroadcastChannel('ibexa-emded-item-live-update');
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const publishedContentId = urlParams.get('publishedContentId');
     const handleEditItem = (content, location) => {
         const contentId = content._id;
         const locationId = location._id;
@@ -190,6 +194,10 @@
             }),
         );
     });
+
+    if (publishedContentId) {
+        channel.postMessage({ contentId: publishedContentId });
+    }
 })(
     window,
     window.document,

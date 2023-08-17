@@ -61,6 +61,16 @@
         <target state="new">under %location_name%</target>
         <note>key: editing_details</note>
       </trans-unit>
+      <trans-unit id="78e6825b8a8cf623d751e1578fd24ee483d395e3" resname="embedded_items.action.edit">
+        <source>Edit</source>
+        <target state="new">Edit</target>
+        <note>key: embedded_items.action.edit</note>
+      </trans-unit>
+      <trans-unit id="1b6347e6acc3fe49bdbfc5b9849cb26465122cb7" resname="embedded_items.action.go_to_label">
+        <source>Go to content</source>
+        <target state="new">Go to content</target>
+        <note>key: embedded_items.action.go_to_label</note>
+      </trans-unit>
       <trans-unit id="f6ae7078e77f584ad00c8003405ca11dc57c4d56" resname="preview_header.back">
         <source>Back</source>
         <target state="new">Back</target>
