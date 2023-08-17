@@ -82,7 +82,7 @@ class SystemInfoPage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('packagesTable', '.tab-pane.active .ibexa-fieldgroup:nth-of-type(2)'),
+            new VisibleCSSLocator('packagesTable', '.tab-pane.active div.ibexa-fieldgroup:nth-of-type(2)'),
         ];
     }
 
