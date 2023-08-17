@@ -56,7 +56,7 @@ services:
 
   Ibexa\AdminUi\Behat\Page\ChangePasswordPage: ~
 
-  Ibexa\AdminUi\Behat\Page\UserSettingsPage: ~
+  Ibexa\AdminUi\Behat\Page\MyDraftsPage: ~
 
   Ibexa\AdminUi\Behat\Page\BookmarksPage: ~
 
