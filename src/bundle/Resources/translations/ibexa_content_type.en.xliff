@@ -171,6 +171,11 @@
         <target state="new">OK</target>
         <note>key: content_type.publish</note>
       </trans-unit>
+      <trans-unit id="7d932447afce16fb0c18072f7c953b933ed67425" resname="content_type.publish_and_edit">
+        <source>Save</source>
+        <target state="new">Save</target>
+        <note>key: content_type.publish_and_edit</note>
+      </trans-unit>
       <trans-unit id="701cbaa7ea48016d7b0eb5940e810cacd16c19b3" resname="content_type.remove_draft">
         <source>Cancel</source>
         <target state="new">Cancel</target>

@@ -115,6 +115,9 @@ class ContentTypeUpdateType extends AbstractType
             ->add('publishContentType', SubmitType::class, [
                 'label' => /** @Desc("OK") */ 'content_type.publish',
             ])
+            ->add('publishAndEditContentType', SubmitType::class, [
+                'label' => /** @Desc("Save") */ 'content_type.publish_and_edit',
+            ])
         ;
     }
 }

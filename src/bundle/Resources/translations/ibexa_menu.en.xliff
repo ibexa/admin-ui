@@ -117,13 +117,18 @@
         <note>key: content_type__sidebar_right__edit</note>
       </trans-unit>
       <trans-unit id="750939fc55f9a3143db99bed66680e8646e029a0" resname="content_type_create__sidebar_right__cancel">
-        <source>Cancel</source>
-        <target state="new">Cancel</target>
+        <source>Discard</source>
+        <target state="new">Discard</target>
         <note>key: content_type_create__sidebar_right__cancel</note>
       </trans-unit>
+      <trans-unit id="fef4c62808dd72a156a80d1502879b5f343d0d84" resname="content_type_create__sidebar_right__publish_and_edit">
+        <source>Save</source>
+        <target state="new">Save</target>
+        <note>key: content_type_create__sidebar_right__publish_and_edit</note>
+      </trans-unit>
       <trans-unit id="5a66806014c6a6ca1f79270a8dd381ae6c0e0d7b" resname="content_type_create__sidebar_right__save">
-        <source>Create</source>
-        <target state="new">Create</target>
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
         <note>key: content_type_create__sidebar_right__save</note>
       </trans-unit>
       <trans-unit id="ca09d2e9bfc8aa93d6b4c4f3c7d38f37976d7038" resname="content_type_edit__anchor_menu__field_definitions">
@@ -137,13 +142,18 @@
         <note>key: content_type_edit__anchor_menu__global_properties</note>
       </trans-unit>
       <trans-unit id="17d86a1011976758251b804acfbe8092d2860946" resname="content_type_edit__sidebar_right__cancel">
-        <source>Cancel</source>
-        <target state="new">Cancel</target>
+        <source>Delete draft</source>
+        <target state="new">Delete draft</target>
         <note>key: content_type_edit__sidebar_right__cancel</note>
       </trans-unit>
-      <trans-unit id="f1ac6aebd0e5474137a997b41677e5ae6c78670b" resname="content_type_edit__sidebar_right__save">
+      <trans-unit id="0668f686a0f7a6d86fa52c7799fb5a7141ff83aa" resname="content_type_edit__sidebar_right__publish_and_edit">
         <source>Save</source>
         <target state="new">Save</target>
+        <note>key: content_type_edit__sidebar_right__publish_and_edit</note>
+      </trans-unit>
+      <trans-unit id="f1ac6aebd0e5474137a997b41677e5ae6c78670b" resname="content_type_edit__sidebar_right__save">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
         <note>key: content_type_edit__sidebar_right__save</note>
       </trans-unit>
       <trans-unit id="ccdcdc5c7e006c865c33b29eee9c6b9e232a9308" resname="content_type_group_create__sidebar_right__cancel">
@@ -157,8 +167,8 @@
         <note>key: content_type_group_create__sidebar_right__create</note>
       </trans-unit>
       <trans-unit id="0fa3cd41a8153814006c36b35a949d64576eaeea" resname="content_type_group_edit__sidebar_right__cancel">
-        <source>Discard changes</source>
-        <target state="new">Discard changes</target>
+        <source>Discard</source>
+        <target state="new">Discard</target>
         <note>key: content_type_group_edit__sidebar_right__cancel</note>
       </trans-unit>
       <trans-unit id="3951c5df8bf1c00b0dd99dc06acc76d1908ec825" resname="content_type_group_edit__sidebar_right__save">
