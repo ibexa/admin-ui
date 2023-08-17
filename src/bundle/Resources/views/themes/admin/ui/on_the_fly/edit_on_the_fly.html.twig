@@ -32,6 +32,7 @@
         action_name: 'editing'|trans|desc('Editing'),
         title: content.name,
         icon_name: 'content-type',
+        content_type_name: content_type.name,
         show_autosave_status: true,
         description: content_type.description,
         subtitle: 'editing_details'|trans({ '%location_name%': parent_location.contentInfo.name, '%language%': language.name })|desc('under %location_name% in %language%'),
