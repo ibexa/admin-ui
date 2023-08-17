@@ -18,6 +18,7 @@ class ContentTypeEditRightSidebarBuilder extends AbstractContentTypeRightSidebar
 {
     /* Menu items */
     public const ITEM__SAVE = 'content_type_edit__sidebar_right__save';
+    public const ITEM__PUBLISH_AND_EDIT = 'content_type_edit__sidebar_right__publish_and_edit';
     public const ITEM__CANCEL = 'content_type_edit__sidebar_right__cancel';
 
     protected function getConfigureEventName(): string
@@ -31,14 +32,20 @@ class ContentTypeEditRightSidebarBuilder extends AbstractContentTypeRightSidebar
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Save'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Cancel'),
+            (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__PUBLISH_AND_EDIT, 'menu'))->setDesc('Save'),
+            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Delete draft'),
         ];
     }
 
     public function getItemSaveIdentifier(): string
     {
         return self::ITEM__SAVE;
+    }
+
+    public function getItemPublishAndEditIdentifier(): string
+    {
+        return self::ITEM__PUBLISH_AND_EDIT;
     }
 
     public function getItemCancelIdentifier(): string

@@ -96,10 +96,8 @@
                 </div>
             </div>
 
-            {{ form_widget(form.publishContentType, { attr: {
-                class: 'ibexa-content-type-edit__publish-content-type',
-                hidden: 'hidden'
-            }}) }}
+            {{ form_widget(form.publishContentType, { attr: { hidden: 'hidden' }}) }}
+            {{ form_widget(form.publishAndEditContentType, { attr: { hidden: 'hidden' }}) }}
             {{ form_widget(form.removeDraft, { attr: {
                 hidden: 'hidden',
                 formnovalidate: true,
