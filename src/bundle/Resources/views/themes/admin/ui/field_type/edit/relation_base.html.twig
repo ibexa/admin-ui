@@ -7,7 +7,18 @@
     {% set allowed_content_types = form.parent.vars.value.fieldDefinition.fieldSettings.selectionContentTypes %}
     {% set helper = helper|default('') %}
     {% set readonly = attr.readonly|default(false) %}
-
+    {% set remove_item_btn %}
+        <button
+            type="button"
+            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-relations__table-action--remove-item ibexa-btn"
+            title="{{ 'ezobjectrelationlist.delete_selected_relations'|trans|desc('Delete') }}"
+            {{ readonly ? 'disabled' }}
+        >
+            <svg class="ibexa-icon ibexa-icon--small">
+                <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
+            </svg>
+        </button>
+    {% endset %}
     {% set col_raw_checkbox_template %}
         <input
             type="checkbox"
@@ -26,17 +37,10 @@
         >
     {% endset %}
 
-    {% set col_raw_actions %}
-        <button
-            type="button"
-            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-relations__table-action--remove-item ibexa-btn"
-            title="{{ 'ezobjectrelationlist.delete_selected_relations'|trans|desc('Delete') }}"
-            {{ readonly ? 'disabled' }}
-        >
-            <svg class="ibexa-icon ibexa-icon--small">
-                <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-            </svg>
-        </button>
+    {% set col_raw_actions_template %}
+        {{ remove_item_btn }}
+
+        {% include '@ibexadesign/ui/component/embedded_item_actions/embedded_item_actions.html.twig' only %}
     {% endset %}
 
     {% set body_row_cols_template = [] %}
@@ -54,7 +58,7 @@
     {% set body_row_cols_template = body_row_cols_template|merge([
         {
             content: '{{ content_name }}',
-            attr: { class: 'ibexa-relations__item-name' },
+            class: 'ibexa-relations__item-name',
         },
         { content: '{{ content_type_name }}' },
         { content: '{{ published_date }}' },
@@ -72,9 +76,9 @@
 
     {% set body_row_cols_template = body_row_cols_template|merge([
         {
-            content: col_raw_actions,
+            content: col_raw_actions_template,
             raw: true,
-            has_icon: true,
+            class: 'ibexa-relations__actions-cell'
         },
     ]) %}
 
@@ -84,13 +88,25 @@
             class: 'ibexa-relations__item',
         }) }}
     {% endset %}
+
     <div
         class="ibexa-relations__wrapper"
         data-row-template="{{ row_template|e('html_attr') }}"
     >
         {% set body_rows = [] %}
+
         {% for relation in relations %}
             {% set body_row_cols = [] %}
+            {% set col_raw_actions %}
+                {{ remove_item_btn }}
+
+                {% include '@ibexadesign/ui/component/embedded_item_actions/embedded_item_actions.html.twig' with {
+                    content_id: relation.contentId,
+                    location_id: relation.contentInfo.mainLocationId,
+                    version_no: relation.contentInfo.currentVersionNo,
+                } only %}
+            {% endset %}
+
             {% if relation.contentInfo is not null and relation.contentType is not null %}
                 {% set col_raw_checkbox %}
                     <input
@@ -123,7 +139,11 @@
                 {% set body_row_cols = body_row_cols|merge([
                     {
                         content: ibexa_content_name(relation.contentInfo),
-                        attr: { class: 'ibexa-relations__item-name' },
+                        attr: {
+                            'data-ibexa-update-content-id': relation.contentId,
+                            'data-ibexa-update-source-data-path': 'Content.Name',
+                        },
+                        class: 'ibexa-relations__item-name',
                     },
                     { content: relation.contentType.name },
                     { content: relation.contentInfo.publishedDate|ibexa_short_datetime },
@@ -143,7 +163,7 @@
                     {
                         content: col_raw_actions,
                         raw: true,
-                        has_icon: true,
+                        class: 'ibexa-relations__actions-cell'
                     },
                 ]) %}
 
@@ -291,5 +311,4 @@
     </div>
     {% set attr = attr|merge({'hidden': 'hidden'}) %}
     {{ block('form_widget') }}
-
 {% endblock %}

@@ -1,7 +1,9 @@
-<div class="ibexa-embedded-item-edit-container">
+<div class="ibexa-embedded-item-edit-form-container">
     {% set form = ibexa_render_embedded_item_edit_form() %}
 
-    {{ form_start(form) }}
+    {{ form_start(form, {
+        attr: { target: '_blank' }
+    }) }}
     {{ form_widget(form.content_info, { 'attr': {
         'hidden': 'hidden',
         'class': 'ibexa-embedded-item-edit__form-field ibexa-embedded-item-edit__form-field--content-info'
