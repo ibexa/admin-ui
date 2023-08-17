@@ -6,7 +6,9 @@
 
 {% block header %}
     {% set content_type_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.content_type_create.sidebar_right', [], {
-        'form_view': form,
+        'save_id': form.publishContentType.vars.id,
+        form_view: form,
+        'group': content_type_group
     }) %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
@@ -84,7 +86,8 @@
             </div>
         </div>
         {{ form_widget(form.saveContentType, { attr: { hidden: 'hidden' }}) }}
-        {{ form_widget(form.publishContentType, { attr: { class: 'ibexa-content-type-edit__publish-content-type', hidden: 'hidden' }}) }}
+        {{ form_widget(form.publishContentType, { attr: { hidden: 'hidden' }}) }}
+        {{ form_widget(form.publishAndEditContentType, { attr: { hidden: 'hidden' }}) }}
         {{ form_widget(form.removeDraft, { attr: { hidden: 'hidden', formnovalidate: true }}) }}
 
         {{ form_widget(form._token) }}

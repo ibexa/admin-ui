@@ -20,7 +20,7 @@ class ContentTypeDraftParamConverter implements ParamConverterInterface
     private $contentTypeService;
 
     /**
-     * ContentTypeGroupParamConverter constructor.
+     * ContentTypeDraftParamConverter constructor.
      *
      * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeGroupService
      */

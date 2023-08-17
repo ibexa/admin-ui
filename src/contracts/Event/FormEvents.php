@@ -29,6 +29,11 @@ final class FormEvents
     public const CONTENT_TYPE_PUBLISH = 'contentType.update.publishContentType';
 
     /**
+     * Triggered when saving the draft + publishing the ContentType and starting edition on new draft.
+     */
+    public const CONTENT_TYPE_PUBLISH_AND_EDIT = 'contentType.update.publishAndEditContentType';
+
+    /**
      * Triggered when removing the draft (e.g. "cancel" action).
      */
     public const CONTENT_TYPE_REMOVE_DRAFT = 'contentType.update.removeDraft';

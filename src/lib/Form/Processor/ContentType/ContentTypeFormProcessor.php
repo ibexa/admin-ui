@@ -67,6 +67,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
             FormEvents::CONTENT_TYPE_ADD_FIELD_DEFINITION => 'processAddFieldDefinition',
             FormEvents::CONTENT_TYPE_REMOVE_FIELD_DEFINITION => 'processRemoveFieldDefinition',
             FormEvents::CONTENT_TYPE_PUBLISH => 'processPublishContentType',
+            FormEvents::CONTENT_TYPE_PUBLISH_AND_EDIT => 'processPublishAndEditContentType',
             FormEvents::CONTENT_TYPE_REMOVE_DRAFT => 'processRemoveContentTypeDraft',
         ];
     }
@@ -166,6 +167,19 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
                 new RedirectResponse($this->router->generate($this->options['redirectRouteAfterPublish']))
             );
         }
+    }
+
+    public function processPublishAndEditContentType(FormActionEvent $event)
+    {
+        $eventData = $event->getData();
+        /** @var ContentTypeDraft $contentTypeDraft */
+        $contentTypeDraft = $eventData->contentTypeDraft;
+        $languageCode = $eventData->languageCode;
+
+        $this->contentTypeService->publishContentTypeDraft($contentTypeDraft);
+
+        $contentType = $this->contentTypeService->loadContentType($contentTypeDraft->id, [$languageCode]);
+        $this->contentTypeService->createContentTypeDraft($contentType);
     }
 
     public function processRemoveContentTypeDraft(FormActionEvent $event)
