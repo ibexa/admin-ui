@@ -24,6 +24,7 @@ class SectionCreateRightSidebarBuilder extends AbstractBuilder implements Transl
 {
     /* Menu items */
     public const ITEM__CREATE = 'section_create__sidebar_right__create';
+    public const ITEM__CREATE_AND_EDIT = 'section_create__sidebar_right__create_and_edit';
     public const ITEM__CANCEL = 'section_create__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
@@ -61,16 +62,28 @@ class SectionCreateRightSidebarBuilder extends AbstractBuilder implements Transl
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
+        $createItem = $this->createMenuItem(
+            self::ITEM__CREATE,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => '#section_create_create',
+                ],
+            ]
+        );
+
+        $createItem->addChild(
+            self::ITEM__CREATE_AND_EDIT,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => '#section_create_create_and_edit',
+                ],
+            ]
+        );
+
         $menu->setChildren([
-            self::ITEM__CREATE => $this->createMenuItem(
-                self::ITEM__CREATE,
-                [
-                    'attributes' => [
-                        'class' => 'ibexa-btn--trigger',
-                        'data-click' => '#section_create_create',
-                    ],
-                ]
-            ),
+            self::ITEM__CREATE => $createItem,
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
@@ -88,8 +101,9 @@ class SectionCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Create'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__CREATE_AND_EDIT, 'menu'))->setDesc('Save'),
+            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard'),
         ];
     }
 }

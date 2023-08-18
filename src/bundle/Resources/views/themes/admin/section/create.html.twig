@@ -23,5 +23,6 @@
             </div>
         </div>
         {{ form_widget(form_section_create.create, {'attr': {'hidden': 'hidden'}}) }}
+        {{ form_widget(form_section_create.create_and_edit, { attr: { hidden: 'hidden' }}) }}
     {{ form_end(form_section_create) }}
 {% endblock %}

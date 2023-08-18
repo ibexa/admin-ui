@@ -266,6 +266,16 @@
         <target state="new">Create</target>
         <note>key: section_create_form.create</note>
       </trans-unit>
+      <trans-unit id="e835dcbf9f6e33bbce3ed1de437c59e1ab4b224c" resname="section_create_form.create_and_edit">
+        <source>Save and edit</source>
+        <target state="new">Save and edit</target>
+        <note>key: section_create_form.create_and_edit</note>
+      </trans-unit>
+      <trans-unit id="6dec25847a8a644fae3b714ea034886b987af430" resname="section_create_form.update_and_edit">
+        <source>Save and edit</source>
+        <target state="new">Save and edit</target>
+        <note>key: section_create_form.update_and_edit</note>
+      </trans-unit>
       <trans-unit id="157171a054bf3089d55c971b318b95a26a1cbb92" resname="section_delete_form.delete">
         <source>Delete</source>
         <target state="new">Delete</target>
