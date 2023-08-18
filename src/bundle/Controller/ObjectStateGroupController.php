@@ -14,12 +14,15 @@ use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupsDeleteData;
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupUpdateData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateGroupCreateType;
+use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateUpdateType;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\ObjectStateService;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use Symfony\Component\Form\Button;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -116,7 +119,7 @@ class ObjectStateGroupController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle(
                 $form,
-                function (ObjectStateGroupCreateData $data) use ($defaultLanguageCode) {
+                function (ObjectStateGroupCreateData $data) use ($defaultLanguageCode, $form) {
                     $createStruct = $this->objectStateService->newObjectStateGroupCreateStruct(
                         $data->getIdentifier()
                     );
@@ -130,6 +133,14 @@ class ObjectStateGroupController extends Controller
                         ['%name%' => $data->getName()],
                         'object_state'
                     );
+
+                    if ($form->getClickedButton() instanceof Button
+                        && $form->getClickedButton()->getName() === ObjectStateGroupCreateType::BTN_CREATE_AND_EDIT
+                    ) {
+                        return $this->redirectToRoute('ibexa.object_state.group.update', [
+                            'objectStateGroupId' => $group->id,
+                        ]);
+                    }
 
                     return $this->redirectToRoute('ibexa.object_state.group.view', [
                         'objectStateGroupId' => $group->id,
@@ -235,7 +246,7 @@ class ObjectStateGroupController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ObjectStateGroupUpdateData $data) {
+            $result = $this->submitHandler->handle($form, function (ObjectStateGroupUpdateData $data) use ($form) {
                 $group = $data->getObjectStateGroup();
                 $updateStruct = $this->objectStateService->newObjectStateGroupUpdateStruct();
                 $updateStruct->identifier = $data->getIdentifier();
@@ -249,6 +260,14 @@ class ObjectStateGroupController extends Controller
                     ['%name%' => $updatedGroup->getName()],
                     'object_state'
                 );
+
+                if ($form->getClickedButton() instanceof Button
+                    && $form->getClickedButton()->getName() === ObjectStateUpdateType::BTN_SAVE
+                ) {
+                    return $this->redirectToRoute('ibexa.object_state.group.update', [
+                        'objectStateGroupId' => $group->id,
+                    ]);
+                }
 
                 return $this->redirectToRoute('ibexa.object_state.group.view', [
                     'objectStateGroupId' => $group->id,

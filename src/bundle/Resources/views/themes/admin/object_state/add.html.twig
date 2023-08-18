@@ -5,7 +5,11 @@
 {% trans_default_domain 'object_state' %}
 
 {% block header_admin %}
-    {% set object_state_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.object_state_create.sidebar_right', [], {'group_id': object_state_group.id}) %}
+    {% set object_state_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.object_state_create.sidebar_right', [],
+        {
+            group_id: object_state_group.id,
+        })
+    %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
         action_name: 'object_state.creating'|trans|desc('Creating'),
@@ -25,5 +29,6 @@
             </div>
         </section>
         {{ form_widget(form.create, { 'attr': { 'hidden': 'hidden' } }) }}
+        {{ form_widget(form.create_and_edit, { attr: { hidden: 'hidden' }}) }}
     {{ form_end(form) }}
 {% endblock %}
