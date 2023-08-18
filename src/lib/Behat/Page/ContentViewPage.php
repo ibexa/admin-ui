@@ -57,7 +57,7 @@ class ContentViewPage extends Page
     private $expectedContentName;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    private $dialog;
+    protected $dialog;
 
     /** @var \Ibexa\AdminUi\Behat\Component\TranslationDialog */
     private $translationDialog;
