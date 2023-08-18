@@ -1,0 +1,22 @@
+<div class="ibexa-embedded-item-edit-container">
+    {% set form = ibexa_render_embedded_item_edit_form() %}
+
+    {{ form_start(form) }}
+    {{ form_widget(form.content_info, { 'attr': {
+        'hidden': 'hidden',
+        'class': 'ibexa-embedded-item-edit__form-field ibexa-embedded-item-edit__form-field--content-info'
+    } }) }}
+    {{ form_widget(form.version_info, { 'attr': {
+        'hidden': 'hidden',
+        'class': 'ibexa-embedded-item-edit__form-field ibexa-embedded-item-edit__form-field--version-info'
+    } }) }}
+    {{ form_widget(form.language, { 'attr': {
+        'hidden': 'hidden',
+        'class': 'ibexa-embedded-item-edit__form-field ibexa-embedded-item-edit__form-field--language'
+    } }) }}
+    {{ form_widget(form.location, { 'attr': {
+        'hidden': 'hidden',
+        'class': 'ibexa-embedded-item-edit__form-field ibexa-embedded-item-edit__form-field--location'
+    } }) }}
+    {{ form_end(form) }}
+</div>
