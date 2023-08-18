@@ -14,6 +14,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SectionUpdateType extends AbstractType
 {
+    public const BTN_UPDATE = 'update';
+
     /** @var SectionType */
     protected $sectionType;
 
@@ -30,9 +32,13 @@ class SectionUpdateType extends AbstractType
         $this->sectionType->buildForm($builder, $options);
 
         $builder
-            ->add('update', SubmitType::class, [
-                'label' => /** @Desc("Update") */
+            ->add(self::BTN_UPDATE, SubmitType::class, [
+                'label' => /** @Desc("Save") */
                     'section_update_form.update',
+            ])
+            ->add('update_and_edit', SubmitType::class, [
+                'label' => /** @Desc("Save and edit") */
+                    'section_create_form.update_and_edit',
             ]);
     }
 
