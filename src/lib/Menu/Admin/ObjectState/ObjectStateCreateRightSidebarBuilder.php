@@ -24,6 +24,7 @@ class ObjectStateCreateRightSidebarBuilder extends AbstractBuilder implements Tr
 {
     /* Menu items */
     public const ITEM__CREATE = 'object_state_create__sidebar_right__create';
+    public const ITEM__CREATE_AND_EDIT = 'object_state_create__sidebar_right__create_and_edit';
     public const ITEM__CANCEL = 'object_state_create__sidebar_right__cancel';
 
     /**
@@ -50,16 +51,28 @@ class ObjectStateCreateRightSidebarBuilder extends AbstractBuilder implements Tr
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
+        $createItem = $this->createMenuItem(
+            self::ITEM__CREATE,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => '#object_state_create_create',
+                ],
+            ]
+        );
+
+        $createItem->addChild(
+            self::ITEM__CREATE_AND_EDIT,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => '#object_state_create_create_and_edit',
+                ],
+            ]
+        );
+
         $menu->setChildren([
-            self::ITEM__CREATE => $this->createMenuItem(
-                self::ITEM__CREATE,
-                [
-                    'attributes' => [
-                        'class' => 'ibexa-btn--trigger',
-                        'data-click' => '#object_state_create_create',
-                    ],
-                ]
-            ),
+            self::ITEM__CREATE => $createItem,
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
@@ -80,7 +93,8 @@ class ObjectStateCreateRightSidebarBuilder extends AbstractBuilder implements Tr
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__CREATE, 'ibexa_menu'))->setDesc('Create'),
+            (new Message(self::ITEM__CREATE, 'ibexa_menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__CREATE_AND_EDIT, 'ibexa_menu'))->setDesc('Save'),
             (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard changes'),
         ];
     }
