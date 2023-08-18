@@ -28,4 +28,12 @@ final class MyDraftsContext implements Context
     {
         $this->myDraftsPage->deleteDraft($draftName);
     }
+
+    /**
+     * @Given I see the draft :draftName is deleted
+     */
+    public function iSeeTheDraftIsDeleted(string $draftName): void
+    {
+        assert($this->myDraftsPage->doSeeDraft($draftName));
+    }
 }

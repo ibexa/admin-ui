@@ -35,12 +35,20 @@ final class MyDraftsPage extends Page
     public function deleteDraft(string $draftName): void
     {
         $this->table->getTableRow(['Name' => $draftName])->select();
-        
-//        $this->setInteractiveBreakpoint(get_defined_vars());
 
         $this->getHTMLPage()->find($this->getLocator('deleteButton'))->click();
         $this->dialog->confirm();
     }
+
+    public function doSeeDraft(string $draftName): bool
+    {
+        if (!$this->table->getTableRow(['Name' => $draftName])->canBeSelected())
+        {
+            return true;
+        }
+        return false;
+    }
+
 
     protected function specifyLocators(): array
     {
