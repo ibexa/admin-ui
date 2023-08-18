@@ -172,7 +172,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
     public function processPublishAndEditContentType(FormActionEvent $event)
     {
         $eventData = $event->getData();
-        /** @var ContentTypeDraft $contentTypeDraft */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft */
         $contentTypeDraft = $eventData->contentTypeDraft;
         $languageCode = $eventData->languageCode;
 
