@@ -16,6 +16,19 @@
 
     &__subitems-arrow {
         display: none;
+        position: absolute;
+        right: calculateRem(8px);
+        top: calc(50% - calculateRem(16px) / 2);
+    }
+
+    &__group:not(:last-child) {
+        &::after {
+            content: '';
+            border-top: calculateRem(1px) solid $ibexa-color-light;
+            display: flex;
+            width: calc(100% - calculateRem(16px));
+            margin: 0 calculateRem(8px);
+        }
     }
 
     &__item {
@@ -29,17 +42,6 @@
             display: none;
         }
 
-        &--group-name {
-            flex-direction: column;
-            height: 100%;
-            align-items: initial;
-            border-top: calculateRem(1px) solid $ibexa-color-info-800;
-
-            .ibexa-popup-menu__items-list {
-                padding-left: calculateRem(6px);
-            }
-        }
-
         &--with-border {
             border-top: calculateRem(1px) solid $ibexa-color-light;
             margin-top: calculateRem(8px);
@@ -51,6 +53,10 @@
                 &__subitems-arrow {
                     display: block;
                 }
+
+                &__item-content {
+                    padding-right: calculateRem(36px);
+                }
             }
         }
     }
@@ -60,9 +66,10 @@
     }
 
     &__item-content {
+        position: relative;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        align-items: baseline;
         width: 100%;
         cursor: pointer;
         padding: calculateRem(9px);
@@ -84,17 +91,12 @@
             opacity: 0.2;
             cursor: default;
         }
+    }
 
-        &--group-name {
-            color: $ibexa-color-light-700;
-            font-size: $ibexa-text-font-size-small;
-            cursor: initial;
-
-            &:hover {
-                background-color: initial;
-                color: $ibexa-color-light-700;
-            }
-        }
+    &__item-content-sublabel {
+        color: $ibexa-color-dark-400;
+        font-size: $ibexa-text-font-size-small;
+        margin-left: calculateRem(6px);
     }
 
     &--info-neon {
@@ -112,15 +114,6 @@
             &--current {
                 color: $ibexa-color-info;
                 background-color: $ibexa-color-info-800;
-            }
-
-            &--group-name {
-                color: $ibexa-color-light-700;
-
-                &:hover {
-                    background-color: initial;
-                    color: $ibexa-color-light-700;
-                }
             }
         }
     }

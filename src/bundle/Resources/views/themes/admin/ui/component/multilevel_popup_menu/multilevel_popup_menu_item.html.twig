@@ -1,60 +1,70 @@
-{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+{%- import "@ibexadesign/ui/component/macros.html.twig" as html -%}
 
-{% set is_template = is_template|default(false) %}
+{%- set is_template = is_template|default(false) -%}
 
-{% set item_attr = item_attr|default({})|merge({
+{%- set item_attr = item_attr|default({})|merge({
     class: ('ibexa-popup-menu__item ibexa-multilevel-popup-menu__item '
-        ~ (subitems|default([])|length > 0 ? 'ibexa-popup-menu__item--has-subitems ')
+        ~ (branch|default(null) ? 'ibexa-popup-menu__item--has-subitems ')
         ~ item_attr.class|default(''))|trim,
-}) %}
+}) -%}
 
-{% set action_attr = action_attr|default({})|merge({
+{%- set action_attr = action_attr|default({})|merge({
     class: ('ibexa-popup-menu__item-content ibexa-multilevel-popup-menu__item-content '
         ~ action_attr.class|default(''))|trim,
-}) %}
+}) -%}
 
-{% set is_button = is_button is defined ? is_button : action_attr.href is not defined %}
+{%- set is_button = is_button is defined ? is_button : action_attr.href is not defined -%}
 
-{% if is_button %}
-    {% set action_attr = action_attr|merge({
+{%- if is_button -%}
+    {%- set action_attr = action_attr|merge({
         type: action_attr.type|default('button'),
-    }) %}
-{% endif %}
+    }) -%}
+{%- endif -%}
 
-{% set item_element = is_button ? 'button' : 'a' %}
+{%- set item_element = is_button ? 'button' : 'a' -%}
 
-{% block item %}
+{%- block item -%}
     <div {{ html.attributes(item_attr, is_template) }}>
-        {% block item_content %}
-            {% block item_element %}
+        {%- block item_content -%}
+            {%- block item_element -%}
                 <{{ item_element }} {{ html.attributes(action_attr|default({}), is_template) }}>
-                    {% block item_element_content %}
-                        {% block item_element_label %}
+                    {%- block item_element_content -%}
+                        {%- block item_element_label -%}
                             <span class="ibexa-btn__label">
-                                {% block item_element_label_content %}
+                                {%- block item_element_label_content -%}
                                     {{ label }}
-                                {% endblock %}
+                                {%- endblock -%}
                             </span>
-                        {% endblock %}
+                        {%- endblock -%}
 
                         <svg class="ibexa-icon ibexa-icon--small ibexa-popup-menu__subitems-arrow">
                             <use xlink:href="{{ ibexa_icon_path('arrow-right') }}"></use>
                         </svg>
-                    {% endblock %}
+
+                        {%- block item_element_sublabel -%}
+                            {% if sublabel is defined and sublabel is not null -%}
+                                <span class="ibexa-popup-menu__item-content-sublabel">
+                                    {%- block item_element_sublabel_content -%}
+                                        {{ sublabel }}
+                                    {%- endblock -%}
+                                </span>
+                            {%- endif -%}
+                        {%- endblock -%}
+                    {%- endblock -%}
                 </{{ item_element }}>
-            {% endblock %}
+            {%- endblock -%}
 
-            {% block item_subitems %}
-                {% if subitems is defined and subitems is not empty %}
-                    {% set branch_params = item|merge({
-                        items: subitems,
+            {%- block item_subbranches -%}
+                {%- if branch is defined and branch is not null -%}
+                    {%- set branch_params = branch|merge({
+                        groups: branch.groups|default([]),
                         branch_attr: subitems.branch_attr|default({}),
-                    }) %}
+                    }) -%}
 
-                    {% include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_branch.html.twig' 
-                        with branch_params %}
-                {% endif %}
-            {% endblock %}
-        {% endblock %}
+                    {%- include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_branch.html.twig'
+                        with branch_params -%}
+                {%- endif -%}
+            {%- endblock -%}
+        {%- endblock -%}
     </div>
-{% endblock %}
+{%- endblock -%}
