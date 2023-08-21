@@ -8,28 +8,34 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
+use Ibexa\AdminUi\Form\Type\Event\ContentCreateContentTypeChoiceLoaderEvent;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
 {
-    /** @var \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader */
-    private $contentTypeChoiceLoader;
+    private ContentTypeChoiceLoader $contentTypeChoiceLoader;
 
-    /** @var int[] */
-    private $restrictedContentTypesIds;
+    /** @var array<int> */
+    private array $restrictedContentTypesIds;
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader $contentTypeChoiceLoader
-     * @param array $restrictedContentTypesIds
-     */
+    private EventDispatcherInterface $eventDispatcher;
+
     public function __construct(
         ContentTypeChoiceLoader $contentTypeChoiceLoader,
-        array $restrictedContentTypesIds
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->contentTypeChoiceLoader = $contentTypeChoiceLoader;
-        $this->restrictedContentTypesIds = $restrictedContentTypesIds;
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
+    public function setRestrictedContentTypeIds(array $restrictedContentTypeIds): self
+    {
+        $this->restrictedContentTypesIds = $restrictedContentTypeIds;
+
+        return $this;
     }
 
     /**
@@ -38,6 +44,14 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
     public function loadChoiceList($value = null)
     {
         $contentTypesGroups = $this->contentTypeChoiceLoader->getChoiceList();
+
+        $event = $this->eventDispatcher->dispatch(
+            new ContentCreateContentTypeChoiceLoaderEvent($contentTypesGroups),
+            ContentCreateContentTypeChoiceLoaderEvent::RESOLVE_CONTENT_TYPES
+        );
+
+        $contentTypesGroups = $event->getContentTypeGroups();
+
         if (empty($this->restrictedContentTypesIds)) {
             return new ArrayChoiceList($contentTypesGroups, $value);
         }

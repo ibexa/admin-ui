@@ -46,7 +46,10 @@ services:
         arguments:
             $configResolver: '@ibexa.config.resolver'
 
-    Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentCreateContentTypeChoiceLoader: ~
+    Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentCreateContentTypeChoiceLoader:
+        arguments:
+            $contentTypeChoiceLoader: '@Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader'
+            $eventDispatcher: '@event_dispatcher'
 
     Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentCreateLanguageChoiceLoader: ~
 
@@ -80,7 +83,7 @@ services:
 
     Ibexa\AdminUi\Form\Type\Content\Draft\ContentCreateType:
         arguments:
-            $contentTypeChoiceLoader: '@Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader'
+            $contentCreateContentTypeChoiceLoader: '@Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentCreateContentTypeChoiceLoader'
             $languageChoiceLoader: '@Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader'
 
     Ibexa\AdminUi\Form\Type\Content\Draft\ContentEditType: ~
