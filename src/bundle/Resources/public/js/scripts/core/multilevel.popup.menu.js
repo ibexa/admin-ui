@@ -98,7 +98,6 @@
             triggerElement.addEventListener(
                 'mouseleave',
                 () =>
-                    // TODO: if we open other branch, we should close previos one immediately it is not a parent
                     setTimeout(() => {
                         this.hoveredItemsBranches.delete(branchElement);
                         this.updateBranchAndParentBranchesOpenState(branchElement);
@@ -198,6 +197,43 @@
             this.closeBranch(branchElement);
         }
 
+        generateMenu(menuTree) {
+            const { triggerElement, groups, placement, fallbackPlacements, processAfterCreated: processBranchAfterCreated } = menuTree;
+
+            const branchElement = this.generateBranch(
+                {
+                    triggerElement,
+                    placement,
+                    fallbackPlacements,
+                },
+                processBranchAfterCreated,
+            );
+
+            groups.forEach((group) => {
+                const { id: groupId, items, processAfterCreated: processGroupAfterCreated } = group;
+
+                this.generateGroup({ id: groupId, branchElement }, processGroupAfterCreated);
+
+                items.forEach((item) => {
+                    const { label, sublabel, href, onClick, processAfterCreated: processItemAfterCreated } = item;
+
+                    const itemElement = this.generateItem(
+                        { label, sublabel, branchElement, groupId, href, onClick },
+                        processItemAfterCreated,
+                    );
+
+                    if (item.branch) {
+                        this.generateMenu({
+                            ...item.branch,
+                            triggerElement: itemElement,
+                        });
+                    }
+                });
+            });
+
+            return branchElement;
+        }
+
         generateBranch(data, processAfterCreated = () => {}) {
             const { triggerElement, placement, fallbackPlacements } = data;
             const { branchTemplate } = this.container.dataset;
@@ -259,13 +295,13 @@
         }
 
         generateItem(data, processAfterCreated = () => {}) {
-            const { branchElement, groupId, label, href, onClick } = data;
+            const { label, sublabel = '', branchElement, groupId, href, onClick } = data;
             const { itemTemplateBtn, itemTemplateLink } = this.container.dataset;
             const groupElement = this.generateGroupIfNotExists({ branchElement, id: groupId });
             const itemTemplate = !!href ? itemTemplateLink : itemTemplateBtn;
 
             const container = doc.createElement('div');
-            const renderedItem = itemTemplate.replaceAll('{{ label }}', label);
+            const renderedItem = itemTemplate.replaceAll('{{ label }}', label).replaceAll('{{ sublabel }}', sublabel);
 
             container.insertAdjacentHTML('beforeend', renderedItem);
 
@@ -288,7 +324,7 @@
         }
 
         getBranchItems(branchElement) {
-            return [...branchElement.querySelectorAll(':scope > .ibexa-popup-menu__item')];
+            return [...branchElement.querySelectorAll(':scope > .ibexa-popup-menu__group > .ibexa-popup-menu__item')];
         }
 
         toggleItemVisibility(menuItem, shouldBeVisible) {
@@ -301,14 +337,20 @@
             }
         }
 
+        isOurBranch(branch) {
+            const topBranch = this.triggerElement.branchElement;
+
+            return !!branch && (topBranch === branch || this.isOurBranch(branch.parentBranchElement));
+        }
+
         handleClickOutside(event) {
             const topBranch = this.triggerElement.branchElement;
+            const closestPopup = event.target.closest('.ibexa-popup-menu');
             const isPopupMenuExpanded = !topBranch.classList.contains('ibexa-popup-menu--hidden');
             const isClickInsideTrigger = this.triggerElement.contains(event.target);
-            // TODO: check if this branch belongs to our component
-            const isClickInsideBranch = event.target.closest('.ibexa-popup-menu');
+            const isClickInsideOurBranch = this.isOurBranch(closestPopup);
 
-            if (!isPopupMenuExpanded || isClickInsideTrigger || isClickInsideBranch) {
+            if (!isPopupMenuExpanded || isClickInsideTrigger || isClickInsideOurBranch) {
                 return;
             }
 

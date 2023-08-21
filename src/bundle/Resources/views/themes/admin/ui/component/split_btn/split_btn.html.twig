@@ -15,11 +15,11 @@
     type: add_to_cart_btn_attr.type|default('button'),
 }) %}
 
-{% set split_btn_attr = split_btn_attr|default({})|merge({
+{% set toggler_btn_attr = toggler_btn_attr|default({})|merge({
     class: ('btn ibexa-btn ibexa-btn--no-text ibexa-split-btn__toggle-btn '
         ~ (type is defined and type is not null ? 'ibexa-btn--' ~ type ~ ' ')
-        ~ split_btn_attr.class|default(''))|trim,
-    type: split_btn_attr.type|default('button'),
+        ~ toggler_btn_attr.class|default(''))|trim,
+    type: toggler_btn_attr.type|default('button'),
 }) %}
 
 {% set main_btn_element = main_btn_element|default('button') %}
@@ -39,7 +39,7 @@
         {% endblock %}
 
         {% block toggle_btn %}
-            <button {{ html.attributes(split_btn_attr) }}>
+            <button {{ html.attributes(toggler_btn_attr) }}>
                 {% block toggle_btn_label %}
                     <svg class="ibexa-icon ibexa-icon--small ibexa-split-btn__toggler-icon">
                         <use xlink:href="{{ ibexa_icon_path('caret-down') }}"></use>

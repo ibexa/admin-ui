@@ -27,7 +27,7 @@
             border-top: calculateRem(1px) solid $ibexa-color-light;
             display: flex;
             width: calc(100% - calculateRem(16px));
-            margin: 0 calculateRem(8px);
+            margin: calculateRem(1px) calculateRem(8px) 0;
         }
     }
 
