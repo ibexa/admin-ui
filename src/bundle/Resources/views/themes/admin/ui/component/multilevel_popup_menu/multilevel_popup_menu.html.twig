@@ -1,4 +1,4 @@
-{%- import "@ibexadesign/ui/component/macros.html.twig" as html -%}
+{%- import '@ibexadesign/ui/component/macros.html.twig' as html -%}
 
 {%- set is_template = is_template|default(false) -%}
 
@@ -16,6 +16,7 @@
 {%- set item_template_params = item_template_params|default({})|merge({
     item_attr: item_template_params.item_attr|default({}),
     label: '{{ label }}',
+    sublabel: '{{ sublabel }}',
     is_template: true,
 }) -%}
 

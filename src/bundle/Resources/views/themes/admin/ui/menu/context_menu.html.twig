@@ -94,9 +94,14 @@
 
         {{ include('@ibexadesign/ui/component/split_btn/split_btn.html.twig', {
             type: split_btn_type,
+            attr: {
+                'data-alternative-main-btn-label': 'TODO: English (eng-Gb)',
+                'data-alternative-main-btn-sublabel': 'TODO: Default',
+                'data-alternative-toggle-label': 'TODO: Preview',
+            },
             main_btn_attr: attributes,
             main_btn_element: element,
-            split_btn_attr: {
+            toggler_btn_attr: {
                 class: attributes.class|replace({ 'ibexa-btn--trigger': '' }),
             },
             label,
