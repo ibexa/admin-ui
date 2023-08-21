@@ -52,7 +52,12 @@
             {% include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu.html.twig' with {
                 is_custom_init: true,
                 attr: popup_attr,
-                items: subitems,
+                groups: [
+                    {
+                        id: 'default',
+                        items: subitems,
+                    },
+                ],
             } %}
         {% endblock %}
     </div>

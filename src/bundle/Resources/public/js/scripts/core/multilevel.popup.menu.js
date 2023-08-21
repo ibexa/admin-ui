@@ -228,9 +228,40 @@
             return newBranchElement;
         }
 
+        // eslint-disable-next-line no-unused-vars
+        generateGroupIfNotExists(data, processAfterCreated = () => {}) {
+            const { branchElement, id } = data;
+            const groupElement = branchElement.querySelector(`[data-group-id="${id}"]`);
+
+            if (groupElement) {
+                return groupElement;
+            }
+
+            return this.generateGroup(...arguments);
+        }
+
+        generateGroup(data, processAfterCreated = () => {}) {
+            const { branchElement, id } = data;
+            const { groupTemplate } = this.container.dataset;
+
+            const container = doc.createElement('div');
+            const renderedGroup = groupTemplate.replaceAll('{{ group_id }}', id);
+
+            container.insertAdjacentHTML('beforeend', renderedGroup);
+
+            const newGroupElement = container.querySelector('.ibexa-popup-menu__group');
+
+            processAfterCreated(newGroupElement, data);
+
+            branchElement.appendChild(newGroupElement);
+
+            return newGroupElement;
+        }
+
         generateItem(data, processAfterCreated = () => {}) {
-            const { label, branchElement, href } = data;
+            const { branchElement, groupId, label, href, onClick } = data;
             const { itemTemplateBtn, itemTemplateLink } = this.container.dataset;
+            const groupElement = this.generateGroupIfNotExists({ branchElement, id: groupId });
             const itemTemplate = !!href ? itemTemplateLink : itemTemplateBtn;
 
             const container = doc.createElement('div');
@@ -239,16 +270,19 @@
             container.insertAdjacentHTML('beforeend', renderedItem);
 
             const newItemElement = container.querySelector('.ibexa-popup-menu__item');
+            const newItemContentElement = newItemElement.querySelector('.ibexa-popup-menu__item-content');
 
             if (href) {
-                const newItemLinkElement = newItemElement.querySelector('.ibexa-popup-menu__item-content');
+                newItemContentElement.href = href;
+            }
 
-                newItemLinkElement.href = href;
+            if (onClick) {
+                newItemContentElement.addEventListener('click', () => onClick(newItemElement, data), false);
             }
 
             processAfterCreated(newItemElement, data);
 
-            branchElement.appendChild(newItemElement);
+            groupElement.appendChild(newItemElement);
 
             return newItemElement;
         }
