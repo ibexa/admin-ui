@@ -1,19 +1,25 @@
-{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+{%- import "@ibexadesign/ui/component/macros.html.twig" as html -%}
 
-{% set is_template = is_template|default(false) %}
+{%- set is_template = is_template|default(false) -%}
 
-{% set branch_template_params = branch_template_params|default({})|merge({
-    items: branch_template_params.items|default([]),
+{%- set branch_template_params = branch_template_params|default({})|merge({
+    groups: branch_template_params.groups|default([]),
     is_template: true,
-}) %}
+}) -%}
 
-{% set item_template_params = item_template_params|default({})|merge({
+{%- set group_template_params = group_template_params|default({})|merge({
+    items: group_template_params.items|default([]),
+    id: '{{ group_id }}',
+    is_template: true,
+}) -%}
+
+{%- set item_template_params = item_template_params|default({})|merge({
     item_attr: item_template_params.item_attr|default({}),
     label: '{{ label }}',
     is_template: true,
-}) %}
+}) -%}
 
-{% set attr = attr|default({})|merge({
+{%- set attr = attr|default({})|merge({
     class: ('ibexa-multilevel-popup-menu '
         ~ (is_custom_init|default(false) ? 'ibexa-multilevel-popup-menu--custom-init ')
         ~ attr.class|default(''))|trim,
@@ -21,6 +27,13 @@
         include(
             '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_branch.html.twig',
             branch_template_params,
+            with_context = false
+        )
+    ),
+    'data-group-template': items_container_attr['data-group-template']|default(
+        include(
+            '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_group.html.twig',
+            group_template_params,
             with_context = false
         )
     ),
@@ -38,16 +51,16 @@
             with_context = false
         )
     ),
-}) %}
+}) -%}
 
-{% block component %}
+{%- block component -%}
     <div {{ html.attributes(attr, is_template) }}>
-        {% block branch %}
-            {% if items is not null %}
-                {% include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_branch.html.twig' with {
-                    items,
-                } %}
-            {% endif %}
-        {% endblock %}
+        {%- block branch -%}
+            {%- if groups is not null -%}
+                {%- include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_branch.html.twig' with {
+                    groups,
+                } -%}
+            {%- endif -%}
+        {%- endblock -%}
     </div>
-{% endblock %}
+{%- endblock -%}

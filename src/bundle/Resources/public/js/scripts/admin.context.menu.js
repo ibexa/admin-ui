@@ -45,20 +45,10 @@
         fallbackPlacements: ['bottom-start', 'top-end', 'top-start'],
     });
 
-    const processMenuNewItemElement = (newItemElement, data) => {
-        const { relatedBtnId } = data.custom;
+    const clickRelatedBtn = (relatedBtnId) => {
+        const button = doc.getElementById(relatedBtnId);
 
-        newItemElement.dataset.relatedButtonId = relatedBtnId;
-
-        newItemElement.addEventListener(
-            'click',
-            () => {
-                const button = doc.getElementById(relatedBtnId);
-
-                button.click();
-            },
-            false,
-        );
+        button.click();
     };
 
     menuButtons.forEach((menuButton) => {
@@ -70,17 +60,12 @@
             const relatedMainBtnId = mainBtn.id;
             const itemLabel = mainBtn.querySelector('.ibexa-btn__label').textContent;
 
-            const item = multilevelPopupMenu.generateItem(
-                {
-                    label: itemLabel,
-                    branchElement: topBranch,
-                    custom: {
-                        relatedBtnId: relatedMainBtnId,
-                    },
-                    // href: 'https://localhost:8047/_profiler/8a6821?panel=twig'
-                },
-                processMenuNewItemElement,
-            );
+            const item = multilevelPopupMenu.generateItem({
+                label: itemLabel,
+                branchElement: topBranch,
+                groupId: 'default',
+                onClick: () => clickRelatedBtn(relatedMainBtnId),
+            });
             const subbranch = multilevelPopupMenu.generateBranch({
                 triggerElement: item,
                 placement: 'left-start',
@@ -93,31 +78,23 @@
                 const subitemLabel = subitemBtn.querySelector('.ibexa-btn__label').textContent;
                 const relatedSubitemBtnId = subitemBtn.id;
 
-                multilevelPopupMenu.generateItem(
-                    {
-                        label: subitemLabel,
-                        branchElement: subbranch,
-                        custom: {
-                            relatedBtnId: relatedSubitemBtnId,
-                        },
-                    },
-                    processMenuNewItemElement,
-                );
+                multilevelPopupMenu.generateItem({
+                    label: subitemLabel,
+                    branchElement: subbranch,
+                    groupId: 'default',
+                    onClick: () => clickRelatedBtn(relatedSubitemBtnId),
+                });
             });
         } else {
             const relatedBtnId = menuButton.id;
             const label = menuButton.querySelector('.ibexa-btn__label').textContent;
 
-            multilevelPopupMenu.generateItem(
-                {
-                    label,
-                    branchElement: topBranch,
-                    custom: {
-                        relatedBtnId,
-                    },
-                },
-                processMenuNewItemElement,
-            );
+            multilevelPopupMenu.generateItem({
+                label,
+                branchElement: topBranch,
+                groupId: 'default',
+                onClick: () => clickRelatedBtn(relatedBtnId),
+            });
         }
     });
 

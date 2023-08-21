@@ -1,0 +1,25 @@
+.ibexa-main-menu-popup {
+    &__group-item {
+        flex-direction: column;
+        height: 100%;
+        align-items: initial;
+        border-top: calculateRem(1px) solid $ibexa-color-info-800;
+
+        .ibexa-popup-menu {
+            &__item {
+                padding: 0;
+            }
+        }
+    }
+
+    .ibexa-main-menu-popup &__group-name {
+        color: $ibexa-color-light-700;
+        font-size: $ibexa-text-font-size-small;
+        cursor: initial;
+
+        &:hover {
+            background-color: initial;
+            color: $ibexa-color-light-700;
+        }
+    }
+}
