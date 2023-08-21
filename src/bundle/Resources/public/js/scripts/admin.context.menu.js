@@ -28,75 +28,96 @@
             const topBranchItems = multilevelPopupMenu.getBranchItems(topBranch);
 
             topBranchItems.forEach((branchItem) => {
-                const shouldBeVisible = hiddenButtonsIds.includes(branchItem.dataset.relatedButtonId);
+                const shouldBeVisible = hiddenButtonsIds.includes(branchItem.dataset.relatedBtnId);
 
                 multilevelPopupMenu.toggleItemVisibility(branchItem, shouldBeVisible);
             });
         },
     });
-    const multilevelPopupMenu = new ibexa.core.MultilevelPopupMenu({
-        container: popupMenuElement,
-        triggerElement: showPopupButton,
-    });
-
-    const topBranch = multilevelPopupMenu.generateBranch({
-        triggerElement: showPopupButton,
-        placement: 'bottom-end',
-        fallbackPlacements: ['bottom-start', 'top-end', 'top-start'],
-    });
-
     const clickRelatedBtn = (relatedBtnId) => {
         const button = doc.getElementById(relatedBtnId);
 
         button.click();
     };
-
-    menuButtons.forEach((menuButton) => {
+    const addRelatedBtnIdToMenuItem = (itemElement, relatedBtnId) => (itemElement.dataset.relatedBtnId = relatedBtnId);
+    const multilevelPopupMenu = new ibexa.core.MultilevelPopupMenu({
+        container: popupMenuElement,
+        triggerElement: showPopupButton,
+    });
+    const topBranchItems = menuButtons.map((menuButton) => {
         const isSplitBtn = menuButton.classList.contains('ibexa-split-btn');
 
         if (isSplitBtn) {
             const mainBtn = menuButton.querySelector('.ibexa-split-btn__main-btn');
             const splitBtn = menuButton.querySelector('.ibexa-split-btn__toggle-btn');
             const relatedMainBtnId = mainBtn.id;
-            const itemLabel = mainBtn.querySelector('.ibexa-btn__label').textContent;
+            const mainBtnLabel = mainBtn.querySelector('.ibexa-btn__label').textContent;
+            const {
+                alternativeMainBtnLabel: mainBtnAlternativeLabel,
+                alternativeMainBtnSublabel: mainBtnAlternativeSublabel,
+                alternativeToggleLabel,
+            } = menuButton.dataset;
+            const subitemsBtns = [...splitBtn.branchElement.querySelectorAll('.ibexa-popup-menu__item-content')];
 
-            const item = multilevelPopupMenu.generateItem({
-                label: itemLabel,
-                branchElement: topBranch,
-                groupId: 'default',
-                onClick: () => clickRelatedBtn(relatedMainBtnId),
-            });
-            const subbranch = multilevelPopupMenu.generateBranch({
-                triggerElement: item,
-                placement: 'left-start',
-                fallbackPlacements: ['left-end', 'right-start', 'right-end'],
-            });
-
-            const subitemsBtns = splitBtn.branchElement.querySelectorAll('.ibexa-popup-menu__item-content');
-
-            subitemsBtns.forEach((subitemBtn) => {
+            const subitems = subitemsBtns.map((subitemBtn) => {
                 const subitemLabel = subitemBtn.querySelector('.ibexa-btn__label').textContent;
                 const relatedSubitemBtnId = subitemBtn.id;
 
-                multilevelPopupMenu.generateItem({
+                return {
                     label: subitemLabel,
-                    branchElement: subbranch,
-                    groupId: 'default',
                     onClick: () => clickRelatedBtn(relatedSubitemBtnId),
-                });
+                    processAfterCreated: (itemElement) => addRelatedBtnIdToMenuItem(itemElement, relatedSubitemBtnId),
+                };
             });
-        } else {
-            const relatedBtnId = menuButton.id;
-            const label = menuButton.querySelector('.ibexa-btn__label').textContent;
 
-            multilevelPopupMenu.generateItem({
-                label,
-                branchElement: topBranch,
-                groupId: 'default',
-                onClick: () => clickRelatedBtn(relatedBtnId),
-            });
+            return {
+                label: alternativeToggleLabel ?? mainBtnLabel,
+                onClick: () => clickRelatedBtn(relatedMainBtnId),
+                processAfterCreated: (itemElement) => addRelatedBtnIdToMenuItem(itemElement, relatedMainBtnId),
+                branch: {
+                    groups: [
+                        {
+                            id: 'main',
+                            items: [
+                                {
+                                    label: mainBtnAlternativeLabel ?? mainBtnLabel,
+                                    sublabel: mainBtnAlternativeSublabel,
+                                },
+                            ],
+                        },
+                        {
+                            id: 'subitems',
+                            items: subitems,
+                        },
+                    ],
+                },
+            };
         }
+
+        const relatedBtnId = menuButton.id;
+        const label = menuButton.querySelector('.ibexa-btn__label').textContent;
+
+        return {
+            label,
+            groupId: 'default',
+            onClick: () => clickRelatedBtn(relatedBtnId),
+            processAfterCreated: (itemElement) => addRelatedBtnIdToMenuItem(itemElement, relatedBtnId),
+        };
     });
+    const menuTree = {
+        triggerElement: showPopupButton,
+        placement: 'bottom-end',
+        fallbackPlacements: ['bottom-start', 'top-end', 'top-start'],
+        groups: [
+            {
+                id: 'default',
+                items: topBranchItems,
+            },
+        ],
+    };
+
+    multilevelPopupMenu.init();
+    const topBranch = multilevelPopupMenu.generateMenu(menuTree);
 
     adaptiveItems.init();
     adapatItemsContainer.classList.remove('ibexa-context-menu--before-adaptive-items-init');
