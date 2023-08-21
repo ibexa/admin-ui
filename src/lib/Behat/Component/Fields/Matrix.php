@@ -54,7 +54,6 @@ class Matrix extends FieldTypeComponent
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('matrixCellSelectorFormat', '[name="ezplatform_content_forms_content_edit[fieldsData][ezmatrix][value][entries][%d][%s]"]'),
             new VisibleCSSLocator('row', '.ibexa-table__row'),
             new VisibleCSSLocator('addRowButton', '.ibexa-btn--add-matrix-entry'),
             new VisibleCSSLocator('viewModeTableHeaders', 'thead th'),
@@ -94,11 +93,7 @@ class Matrix extends FieldTypeComponent
 
     private function internalSetValue(int $rowIndex, string $column, $value): void
     {
-        $matrixCellSelector = CSSLocatorBuilder::combine(
-            $this->getLocator('matrixCellSelectorFormat')->getSelector(),
-            new VisibleCSSLocator('rowIndex', (string) $rowIndex),
-            new VisibleCSSLocator('columnIndex', $column),
-        );
+        $matrixCellSelector = new VisibleCSSLocator('matrixCell', sprintf('[name="ezplatform_content_forms_content_edit[fieldsData][ezmatrix][value][entries][%d][%s]"]', $rowIndex, $column));
 
         $this->getHTMLPage()->find($matrixCellSelector)->setValue($value);
     }
