@@ -19,8 +19,6 @@ final class MyDraftsPage extends Page
     private TableInterface $table;
     private Dialog $dialog;
 
-    use \Ibexa\Behat\Core\Debug\InteractiveDebuggerTrait;
-
     public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog)
     {
         parent::__construct($session, $router);
@@ -49,11 +47,15 @@ final class MyDraftsPage extends Page
         return false;
     }
 
-
+    public function clickEditDraft(string $draftName): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('editButton'))->click();
+    }
     protected function specifyLocators(): array
     {
         return [
             new VisibleCSSLocator('deleteButton', '#confirm-content_remove_remove'),
+            new VisibleCSSLocator('editButton', '.ibexa-btn--content-draft-edit'),
         ];
     }
 

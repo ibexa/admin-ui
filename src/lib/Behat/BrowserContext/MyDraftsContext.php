@@ -36,4 +36,12 @@ final class MyDraftsContext implements Context
     {
         assert($this->myDraftsPage->doSeeDraft($draftName));
     }
+
+    /**
+     * @Given I click edit :draftName
+     */
+    public function iClickEdit(string $draftName): void
+    {
+        $this->myDraftsPage->clickEditDraft($draftName);
+    }
 }
