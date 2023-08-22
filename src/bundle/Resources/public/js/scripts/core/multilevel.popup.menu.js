@@ -363,6 +363,11 @@
 
         handleClickOutside(event) {
             const topBranch = this.triggerElement.branchElement;
+
+            if (!topBranch) {
+                return;
+            }
+
             const closestPopup = event.target.closest('.ibexa-popup-menu');
             const isPopupMenuExpanded = !topBranch.classList.contains('ibexa-popup-menu--hidden');
             const isClickInsideTrigger = this.triggerElement.contains(event.target);
