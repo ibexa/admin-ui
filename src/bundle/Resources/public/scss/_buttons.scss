@@ -307,6 +307,7 @@
         color: $ibexa-color-dark;
         fill: $ibexa-color-dark;
         padding: calculateRem(11px) calculateRem(12px);
+        pointer-events: auto;
 
         &.ibexa-btn--selected {
             background-color: $ibexa-color-info-200;
@@ -326,14 +327,23 @@
         }
 
         &:not(.ibexa-btn--selected) {
-            &:hover,
             &:focus {
                 border-color: $ibexa-color-info;
+                box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-info, 0.2);
             }
         }
 
         &:focus {
             box-shadow: $ibexa-btn-focus-box-shadow-info;
+        }
+
+        &.disabled,
+        &[disabled],
+        &:disabled {
+            color: $ibexa-color-dark-300;
+            fill: $ibexa-color-dark-300;
+            border-color: transparent;
+            box-shadow: none;
         }
     }
 
