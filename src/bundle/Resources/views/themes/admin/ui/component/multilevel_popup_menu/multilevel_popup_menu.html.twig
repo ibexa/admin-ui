@@ -57,7 +57,7 @@
 {%- block component -%}
     <div {{ html.attributes(attr, is_template) }}>
         {%- block branch -%}
-            {%- if groups is not null -%}
+            {%- if groups is defined and groups is not null -%}
                 {%- include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_branch.html.twig' with {
                     groups,
                 } -%}
