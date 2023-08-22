@@ -49,14 +49,12 @@ final class MyDraftsPage extends Page
 
     public function clickEditDraft(string $draftName): void
     {
-       // $this->getHTMLPage()->find($this->getLocator('editButton'))->click();
         $this->table->getTableRow(['Name' => $draftName])->edit();
     }
     protected function specifyLocators(): array
     {
         return [
             new VisibleCSSLocator('deleteButton', '#confirm-content_remove_remove'),
-            //new VisibleCSSLocator('editButton', '.ibexa-btn--content-draft-edit'),
         ];
     }
 
