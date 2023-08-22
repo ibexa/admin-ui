@@ -10,7 +10,6 @@ Feature: My Drafts
     When I delete the draft "TestMyDraft" from my draft lists
     Then I see the draft "TestMyDraft" is deleted
 
-  @test
   Scenario: It is possible to edit a draft
     Given I create "article" Content drafts
       | title     | short_title | parentPath | language |
