@@ -17,6 +17,7 @@ use Ibexa\Behat\Browser\Routing\Router;
 final class MyDraftsPage extends Page
 {
     private TableInterface $table;
+
     private Dialog $dialog;
 
     public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog)
@@ -40,10 +41,10 @@ final class MyDraftsPage extends Page
 
     public function doSeeDraft(string $draftName): bool
     {
-        if (!$this->table->getTableRow(['Name' => $draftName])->canBeSelected())
-        {
+        if (!$this->table->getTableRow(['Name' => $draftName])->canBeSelected()) {
             return true;
         }
+
         return false;
     }
 
@@ -51,6 +52,7 @@ final class MyDraftsPage extends Page
     {
         $this->table->getTableRow(['Name' => $draftName])->edit();
     }
+
     protected function specifyLocators(): array
     {
         return [

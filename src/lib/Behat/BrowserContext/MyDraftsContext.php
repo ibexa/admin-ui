@@ -7,9 +7,6 @@
 namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
-use Ibexa\AdminUi\Behat\Component\Dialog;
-use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
-use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\AdminUi\Behat\Page\MyDraftsPage;
 
 final class MyDraftsContext implements Context
