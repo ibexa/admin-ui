@@ -6,6 +6,8 @@
             this.referenceElement = config.referenceElement ?? this.triggerElement;
             this.onTopBranchClosed = config.onTopBranchClosed ?? (() => {});
             this.onTopBranchOpened = config.onTopBranchOpened ?? (() => {});
+            this.processBranchOnInitAfter = config.processBranchOnInitAfter ?? (() => {});
+            this.processItemOnInitAfter = config.processItemOnInitAfter ?? (() => {});
             this.initialBranchPlacement = config.initialBranchPlacement ?? 'right-start';
             this.initialBranchFallbackPlacements = config.initialBranchFallbackPlacements ?? ['right-end', 'left-start', 'left-end'];
 
@@ -33,6 +35,8 @@
                 this.referenceElement,
                 this.initialBranchPlacement,
                 this.initialBranchFallbackPlacements,
+                this.processBranchOnInitAfter,
+                this.processItemOnInitAfter,
             );
             this.triggerElement.branchElement = topBranch;
 
@@ -40,7 +44,15 @@
                 const branchElement = itemElement.querySelector(':scope > .ibexa-multilevel-popup-menu__branch');
                 const parentBranchElement = itemElement.closest('.ibexa-popup-menu');
 
-                this.initBranch(itemElement, branchElement);
+                this.initBranch(
+                    itemElement,
+                    branchElement,
+                    undefined,
+                    undefined,
+                    undefined,
+                    this.processBranchOnInitAfter,
+                    this.processItemOnInitAfter,
+                );
 
                 itemElement.branchElement = branchElement;
                 branchElement.itemElement = itemElement;
@@ -54,10 +66,13 @@
             referenceElement = null,
             placement = 'right-start',
             fallbackPlacements = ['right-end', 'left-start', 'left-end'],
+            processBranchAfter = () => {},
+            processBranchItemAfter = () => {},
         ) {
             doc.body.appendChild(branchElement);
 
             const isTopBranch = !triggerElement.classList.contains('ibexa-popup-menu__item');
+            const branchItems = this.getBranchItems(branchElement);
             const offset = isTopBranch ? [0, 3] : [-8, 2];
 
             const popperInstance = Popper.createPopper(referenceElement ?? triggerElement, branchElement, {
@@ -122,6 +137,9 @@
                 },
                 false,
             );
+
+            processBranchAfter(branchElement);
+            branchItems.forEach((itemElement) => processBranchItemAfter(itemElement));
         }
 
         updateBranchAndParentBranchesOpenState(branchElement) {
