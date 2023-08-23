@@ -7,7 +7,7 @@
 
 //Removed sidebar in 5.0 use Toolbox.
 @mixin sidebar-drag-items {
-    $ibexa-sidebar-width: calculateRem(356px);
+    $ibexa-sidebar-width: calculateRem(360px);
 
     display: flex;
     flex-direction: column;
@@ -195,11 +195,13 @@
 }
 
 @mixin toolbar-drag-items {
-    $ibexa-sidebar-width: calculateRem(360px);
+    $ibexa-sidebar-min-width: calculateRem(360px);
+    $ibexa-sidebar-max-width: calculateRem(520px);
 
     display: flex;
     flex-direction: column;
-    min-width: $ibexa-sidebar-width;
+    min-width: $ibexa-sidebar-min-width;
+    max-width: $ibexa-sidebar-max-width;
     border: calculateRem(1px) solid $ibexa-color-light;
     border-radius: calculateRem(5px);
     overflow: hidden;
@@ -237,6 +239,12 @@
         padding: calculateRem(23px) calculateRem(32px) calculateRem(15px);
     }
 
+    &__content {
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+    }
+
     &__list {
         padding: calculateRem(5px) calculateRem(32px);
         margin-bottom: 0;
@@ -247,7 +255,7 @@
         position: fixed;
         z-index: 500;
         top: calculateRem(130px);
-        left: calc(100% - #{$ibexa-sidebar-width} - #{calculateRem(5px)});
+        left: calc(100% - #{$ibexa-sidebar-min-width} - #{calculateRem(5px)});
     }
 }
 
