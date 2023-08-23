@@ -5,6 +5,7 @@
         {% import _self as knp_menu %}
         <{{ tagElement }}{{ knp_menu.attributes(listAttributes) }}>
         {{ block('anchor_menu_children') }}
+        {{ extraElements|default('') }}
         </{{ tagElement }}>
     {% endif %}
 {% endblock %}
@@ -31,59 +32,13 @@
 
 {% block children_1st_level %}
     {% for item in currentItem.children %}
-        {%- set itemClass = 'ibexa-tab-switcher__item' %}
+        {%- set itemClass = 'nav-item ibexa-tab-switcher__tab ibexa-adaptive-items__tab' %}
         {%- if loop.first %}
-            {%- set itemClass = itemClass ~ ' ibexa-tab-switcher__item--active' %}
+            {%- set itemClass = itemClass ~ ' ibexa-tab-switcher__tab--active' %}
         {%- endif %}
         {%- do item.setAttribute('class', (item.getAttribute('class') ~ ' ' ~ itemClass)|trim) -%}
-        {%- do item.setAttribute('data-target-id', "#" ~ item.getAttribute('data-target-id')) -%}
-        {%- do item.setAttribute('type', 'button') -%}
         {{ block('anchor_menu_item') }}
     {% endfor %}
-{% endblock %}
-
-{% block children_1st_level_dropdown %}
-    {% for item in currentItem.children %}
-        {%- set itemClass = 'ibexa-anchor-navigation-menu__section-groups-item' %}
-        {%- if loop.first %}
-            {%- set itemClass = itemClass ~ ' ibexa-anchor-navigation-menu__section-groups-item--active' %}
-        {%- endif %}
-        {%- do item.setAttribute('class', (item.getAttribute('class') ~ ' ' ~ itemClass)|trim) -%}
-        {%- do item.setAttribute('type', 'button') -%}
-    {% endfor %}
-
-    {% set value = '' %}
-    {% set choices = [] %}
-    {% for item in currentItem.children %}
-        {% if loop.first %}
-            {% set value = "#" ~ item.getAttribute('data-target-id') %}
-        {% endif %}
-        {% set choices = choices|merge([{
-            value: "#" ~ item.getAttribute('data-target-id'),
-            label: block('label'),
-        }]) %}
-    {% endfor %}
-
-    {% set source %}
-        <select class="form-control ibexa-input">
-            {% for item in currentItem.children %}
-                <option value="#{{ item.getAttribute('data-target-id') }}">
-                    {{ block('label') }}
-                </option>
-            {% endfor %}
-        </select>
-    {% endset %}
-
-    {% include '@ibexadesign/ui/component/dropdown/dropdown.html.twig' with {
-        source: source,
-        choices: choices,
-        value: value,
-        item_icon: 'warning-triangle',
-        item_icon_class: 'ibexa-anchor-navigation-menu__item-error ibexa-anchor-navigation-menu__item-error--hidden'
-    } %}
-    <div class="ibexa-form-error ibexa-anchor-navigation-menu__error ibexa-anchor-navigation-menu__error--hidden">
-        <em class="ibexa-field-edit__error">There is error in form</em> {# TODO: waiting for correct text #}
-    </div>
 {% endblock %}
 
 {% block children_2nd_level %}
@@ -92,10 +47,7 @@
         {%- if loop.first %}
             {%- set itemClass = itemClass ~ ' ibexa-anchor-navigation-menu__sections-item-btn--active' %}
         {%- endif %}
-        {%- do item.setAttribute('data-target-id', "#" ~ item.getAttribute('data-target-id')) -%}
         {%- do item.setAttribute('class', (item.getAttribute('class') ~ ' ' ~ itemClass)|trim) -%}
-        {%- do item.setAttribute('type', 'button') -%}
-        {%- do item.setLabelAttribute('class', 'ibexa-anchor-navigation-menu__sections-item-btn-label') -%}
         {{ block('anchor_menu_item') }}
     {% endfor %}
 {% endblock %}
@@ -137,15 +89,25 @@
 {% block item_1st_level %}
     {% import _self as knp_menu %}
 
-    {%- set itemTagElement = itemTagElement|default('button') %}
+    {%- set itemTagElement = itemTagElement|default('li') -%}
+    {%- set id = item.getAttribute('data-target-id') -%}
+    {%- set attributes = attributes|filter((value, key) => key != 'data-target-id') -%}
 
     <{{ itemTagElement }}{{ knp_menu.attributes(attributes) }}>
-        <div class="ibexa-anchor-navigation-menu__item-label ibexa-tab-switcher__item-label" title="{{ block('label')|raw }}">
+        <a
+            id="{{ id }}-label"
+            href="#{{ id }}"
+            data-bs-toggle="tab"
+            class="nav-link ibexa-tab-switcher__link {{ loop.first ? 'active' }}"
+        >
             {{ block('label') }}
-            <svg class="ibexa-icon ibexa-icon--small ibexa-tab-switcher__item-error ibexa-tab-switcher__item-error--hidden">
+        </a>
+        {# <div class="ibexa-anchor-navigation-menu__link ibexa-tab-switcher__link" title="{{ block('label')|raw }}">
+            {{ block('label') }}
+            <svg class="ibexa-icon ibexa-icon--small ibexa-tab-switcher__tab-error ibexa-tab-switcher__tab-error--hidden">
                 <use xlink:href="{{ ibexa_icon_path('warning-triangle') }}"></use>
             </svg>
-        </div>
+        </div> #}
     </{{ itemTagElement }}>
 {% endblock %}
 
@@ -163,7 +125,58 @@
 
 {% block root %}
     <div class="ibexa-anchor-navigation">
-        {% if item.count() < 4 %}
+        {% if item.count() > 1 %}
+            <div class="ibexa-tab-switcher">
+                {% set tagElement = 'ul' %}
+                {% set listAttributes = item.childrenAttributes|merge({
+                    'class': (listAttributes.class|default('') ~ ' nav nav-tabs ibexa-tab-switcher__list ibexa-adaptive-items')|trim,
+                    'role': 'tablist',
+                }) %}
+                {% set innerChildrenBlock = 'children_1st_level' %}
+                {% set innerItemBlock = 'item_1st_level' %}
+                {% set itemTagElement = 'li' %}
+                {% set extraElements %}
+                    <li class="nav-item ibexa-tab-switcher__tab ibexa-tab-switcher__tab--more ibexa-adaptive-items__tab ibexa-adaptive-items__tab--selector"
+                        data-item-template="{{ include('@ibexadesign/ui/component/popup_menu/popup_menu_item.html.twig', {
+                                'label': '{{ label }}',
+                            })|e('html_attr') }}"
+                        tabindex="0"
+                    >
+                        <a class="nav-link ibexa-tab-switcher__link" role="button">
+                            <svg class="ibexa-icon ibexa-icon--small">
+                                <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
+                            </svg>
+                        </a>
+                    </li>
+                {% endset %}
+
+                {{ block('anchor_menu_list') -}}
+                {{ include('@ibexadesign/ui/component/popup_menu/popup_menu.html.twig', {
+                    'class': 'ibexa-tab-switcher__popup-menu',
+                    'items': [],
+                }) }}
+            </div>
+        {% endif %}
+
+        <div class="tab-content">
+            {% for item in item.children %}
+                {% if item.children|length > 1 %}
+                    {% set listAttributes = {
+                        'class': 'tab-pane ibexa-anchor-navigation-menu__sections' ~ (loop.first ? ' ibexa-anchor-navigation-menu__sections--active active' : ''),
+                        'id': item.getAttribute('data-target-id'),
+                        'role': 'tabpanel'
+                    } %}
+                    {% set innerChildrenBlock = 'children_2nd_level' %}
+                    {% set innerItemBlock = 'item_2nd_level' %}
+                    {% set itemTagElement = 'button' %}
+                    {% set tagElement = 'div' %}
+                    {% set extraElements %}{% endset %}
+
+                    {{ block('anchor_menu_list') -}}
+                {% endif %}
+            {% endfor %}
+        </div>
+                {# {% if item.count() < 4 %}
             {% set listAttributes = item.childrenAttributes|merge({'class': (listAttributes.class|default('') ~ ' ibexa-anchor-navigation-menu__section-groups ibexa-anchor-navigation-menu__section-groups--list ibexa-tab-switcher')|trim}) %}
             {% set innerChildrenBlock = 'children_1st_level' %}
             {% set innerItemBlock = 'item_1st_level' %}
@@ -177,16 +190,6 @@
         {% if item.count() > 1 %}
             {{ block('anchor_menu_list') -}}
         {% endif %}
-
-        {% for item in item.children %}
-            {% if item.children|length > 1 %}
-                {% set listAttributes = {'class': 'ibexa-anchor-navigation-menu__sections' ~ (loop.first ? ' ibexa-anchor-navigation-menu__sections--active' : ''), 'data-id': item.getAttribute('data-target-id')} %}
-                {% set innerChildrenBlock = 'children_2nd_level' %}
-                {% set innerItemBlock = 'item_2nd_level' %}
-                {% set tagElement = 'ul' %}
-                {% set itemTagElement = 'button' %}
-                {{ block('anchor_menu_list') -}}
-            {% endif %}
-        {% endfor %}
+ #}
     </div>
 {% endblock %}
