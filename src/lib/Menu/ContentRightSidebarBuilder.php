@@ -564,8 +564,6 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation
      *
-     * @return \Knp\Menu\ItemInterface
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
