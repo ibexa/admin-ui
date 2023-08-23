@@ -27,7 +27,7 @@ final class CurrentBackOfficePath implements ProviderInterface
          * We need base path here, to properly set backoffice cookies only,
          * so they do not interfere with front end SiteAccesses.
          * Generating route for `/` allows us to make sure that we do not have any additional parameters
-         *  and we get raw path to back office.
+         * and we get raw path to back office.
          * We are not using reverse matchers here as they work in context of current request.
          */
         $routeInfo = $this->router->match('/');
