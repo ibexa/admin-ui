@@ -3,7 +3,6 @@
     const setBackOfficeCookie = (name, value, maxAgeDays = 356, path = backOfficePath) => {
         setCookie(name, value, maxAgeDays, path);
     };
-
     const setCookie = (name, value, maxAgeDays = 356, path = '/') => {
         const maxAge = maxAgeDays * 24 * 60 * 60;
 
