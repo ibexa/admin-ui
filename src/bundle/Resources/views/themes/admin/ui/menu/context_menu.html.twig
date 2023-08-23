@@ -95,9 +95,9 @@
         {{ include('@ibexadesign/ui/component/split_btn/split_btn.html.twig', {
             type: split_btn_type,
             attr: {
-                'data-alternative-main-btn-label': 'TODO: English (eng-Gb)',
-                'data-alternative-main-btn-sublabel': 'TODO: Default',
-                'data-alternative-toggle-label': 'TODO: Preview',
+                'data-alternative-main-btn-label': attributes['data-alternative-main-btn-label']|default(label),
+                'data-alternative-main-btn-sublabel': attributes['data-alternative-main-btn-sublabel']|default(''),
+                'data-alternative-toggle-label': attributes['data-alternative-toggle-label']|default(label),
             },
             main_btn_attr: attributes,
             main_btn_element: element,

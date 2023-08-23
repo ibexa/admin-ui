@@ -39,8 +39,7 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
     public const BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
     public const BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
 
-    /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
-    private $siteaccessResolver;
+    private SiteaccessResolverInterface $siteaccessResolver;
 
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;

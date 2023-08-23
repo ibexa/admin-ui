@@ -87,9 +87,15 @@
             text-decoration: none;
         }
 
+        &[disabled],
+        &:disabled,
         &--disabled {
             opacity: 0.2;
-            cursor: default;
+            cursor: not-allowed;
+
+            &:hover {
+                background-color: initial;
+            }
         }
     }
 
