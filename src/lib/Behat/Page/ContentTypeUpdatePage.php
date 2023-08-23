@@ -78,7 +78,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
         $fieldSelector = new VisibleCSSLocator(
             'field',
             sprintf(
-                '.ibexa-available-field-types__list > li:not(.ibexa-available-field-type--hidden) .ibexa-available-field-type__content:nth-of-type(%d)',
+                '.ibexa-available-field-types__list > li:not(.ibexa-available-field-type--hidden) div.ibexa-available-field-type__content:nth-of-type(%d)',
                 $fieldPosition
             )
         );

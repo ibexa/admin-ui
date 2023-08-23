@@ -211,10 +211,10 @@ class UniversalDiscoveryWidget extends Component
             new VisibleCSSLocator('previewImage', '.c-content-meta-preview__preview'),
             // selectors for path traversal
             new CSSLocator('treeLevelFormat', '.c-finder-branch:nth-child(%d)'),
-            new CSSLocator('treeLevelElementsFormat', '.c-finder-branch:nth-of-type(%d) .c-finder-leaf'),
+            new CSSLocator('treeLevelElementsFormat', 'div.c-finder-branch:nth-of-type(%d) .c-finder-leaf'),
             new CSSLocator('elementName', '.c-finder-leaf__name'),
             new CSSLocator('input', '.c-udw-toggle-selection'),
-            new CSSLocator('treeLevelSelectedFormat', '.c-finder-branch:nth-of-type(%d) .c-finder-leaf--marked'),
+            new CSSLocator('treeLevelSelectedFormat', 'div.c-finder-branch:nth-of-type(%d) .c-finder-leaf--marked'),
             // itemActions
             new VisibleCSSLocator('contentPreview', '.c-content-meta-preview'),
             new CSSLocator('editButton', '.c-content-edit-button__btn'),

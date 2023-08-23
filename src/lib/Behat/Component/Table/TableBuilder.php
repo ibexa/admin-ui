@@ -52,7 +52,7 @@ class TableBuilder
             new VisibleCSSLocator('empty', '.ibexa-table__empty-table-cell'),
             new VisibleCSSLocator('columnHeader', '.ibexa-table__header-cell,th'),
             new VisibleCSSLocator('row', 'tr'),
-            new VisibleCSSLocator('cell', '.ibexa-table__cell:nth-of-type(%d),td:nth-of-type(%d)'),
+            new VisibleCSSLocator('cell', 'div.ibexa-table__cell:nth-of-type(%d),td:nth-of-type(%d)'),
             new VisibleCSSLocator('parent', '.ibexa-table'),
         ]);
 
