@@ -1,6 +1,5 @@
 (function (global, doc, ibexa) {
     const { backOfficePath } = ibexa.adminUiConfig;
-
     const setBackOfficeCookie = (name, value, maxAgeDays = 356, path = backOfficePath) => {
         setCookie(name, value, maxAgeDays, path);
     };
