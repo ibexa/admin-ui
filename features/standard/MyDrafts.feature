@@ -3,7 +3,7 @@ Feature: My Drafts
 
   Scenario: It is possible to delete a draft
    Given I create "article" Content drafts
-      | title     | short_title | parentPath | language |
+      | title       | short_title   | parentPath | language |
       | TestMyDraft | TestMyDraft   | root       | eng-GB   |
     And I am logged as admin
     And I open "MyDrafts" page in admin SiteAccess
@@ -16,7 +16,7 @@ Feature: My Drafts
       | TestMyDraft | TestMyDraft   | root       | eng-GB   |
     And I am logged as admin
     And I open "MyDrafts" page in admin SiteAccess
-    When I click edit "TestMyDraft"
+    When I click edit "TestMyDraft" on MyDrafts page
     And I set content fields
       | label       | value                  |
       | Title       | TestMyDraftSavePublish |

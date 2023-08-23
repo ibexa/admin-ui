@@ -29,6 +29,9 @@ final class MyDraftsPage extends Page
 
     public function verifyIsLoaded(): void
     {
+        $this->getHTMLPage()
+            ->find($this->getLocator('pageTitle'))
+            ->assert()->textEquals('Drafts');
     }
 
     public function deleteDraft(string $draftName): void
@@ -39,16 +42,12 @@ final class MyDraftsPage extends Page
         $this->dialog->confirm();
     }
 
-    public function doSeeDraft(string $draftName): bool
+    public function isDraftOnTheList(string $draftName): bool
     {
-        if (!$this->table->getTableRow(['Name' => $draftName])->canBeSelected()) {
-            return true;
-        }
-
-        return false;
+        return $this->table->hasElement(['Name' => $draftName]);
     }
 
-    public function clickEditDraft(string $draftName): void
+    public function edit(string $draftName): void
     {
         $this->table->getTableRow(['Name' => $draftName])->edit();
     }
@@ -57,6 +56,7 @@ final class MyDraftsPage extends Page
     {
         return [
             new VisibleCSSLocator('deleteButton', '#confirm-content_remove_remove'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
         ];
     }
 

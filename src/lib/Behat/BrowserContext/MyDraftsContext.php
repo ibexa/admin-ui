@@ -8,6 +8,7 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Ibexa\AdminUi\Behat\Page\MyDraftsPage;
+use PHPUnit\Framework\Assert;
 
 final class MyDraftsContext implements Context
 {
@@ -31,14 +32,14 @@ final class MyDraftsContext implements Context
      */
     public function iSeeTheDraftIsDeleted(string $draftName): void
     {
-        assert($this->myDraftsPage->doSeeDraft($draftName));
+        Assert::assertFalse($this->myDraftsPage->isDraftOnTheList($draftName));
     }
 
     /**
-     * @Given I click edit :draftName
+     * @Given I click edit :draftName on MyDrafts page
      */
-    public function iClickEdit(string $draftName): void
+    public function iEditDraft(string $draftName): void
     {
-        $this->myDraftsPage->clickEditDraft($draftName);
+        $this->myDraftsPage->edit($draftName);
     }
 }
