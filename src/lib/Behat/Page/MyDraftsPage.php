@@ -37,8 +37,8 @@ final class MyDraftsPage extends Page
     public function deleteDraft(string $draftName): void
     {
         $this->table->getTableRow(['Name' => $draftName])->select();
-
         $this->getHTMLPage()->find($this->getLocator('deleteButton'))->click();
+        $this->dialog->verifyIsLoaded();
         $this->dialog->confirm();
     }
 

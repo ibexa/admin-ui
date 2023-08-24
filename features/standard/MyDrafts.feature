@@ -16,7 +16,7 @@ Feature: My Drafts
       | TestMyDraft | TestMyDraft   | root       | eng-GB   |
     And I am logged as admin
     And I open "MyDrafts" page in admin SiteAccess
-    When I click edit "TestMyDraft" on MyDrafts page
+    When I edit "TestMyDraft" on MyDrafts page
     And I set content fields
       | label       | value                  |
       | Title       | TestMyDraftSavePublish |

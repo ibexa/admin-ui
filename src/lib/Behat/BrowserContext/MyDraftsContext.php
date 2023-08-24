@@ -36,7 +36,7 @@ final class MyDraftsContext implements Context
     }
 
     /**
-     * @Given I click edit :draftName on MyDrafts page
+     * @Given I edit :draftName on MyDrafts page
      */
     public function iEditDraft(string $draftName): void
     {
