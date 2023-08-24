@@ -192,6 +192,7 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
         return [
             (new Message(self::ITEM__PUBLISH, 'ibexa_menu'))->setDesc('Publish'),
             (new Message(self::ITEM__SAVE_DRAFT, 'ibexa_menu'))->setDesc('Save'),
+            (new Message(self::ITEM__SAVE_DRAFT_AND_CLOSE, 'ibexa_menu'))->setDesc('Save and close'),
             (new Message(self::ITEM__PREVIEW, 'ibexa_menu'))->setDesc('Preview'),
             (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Delete draft'),
         ];
