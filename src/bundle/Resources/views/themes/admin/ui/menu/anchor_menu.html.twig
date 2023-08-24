@@ -32,9 +32,9 @@
 
 {% block children_1st_level %}
     {% for item in currentItem.children %}
-        {%- set itemClass = 'nav-item ibexa-tab-switcher__tab ibexa-adaptive-items__tab' %}
+        {%- set itemClass = 'nav-item ibexa-tabs__tab ibexa-adaptive-items__item' %}
         {%- if loop.first %}
-            {%- set itemClass = itemClass ~ ' ibexa-tab-switcher__tab--active' %}
+            {%- set itemClass = itemClass ~ ' ibexa-tabs__tab--active' %}
         {%- endif %}
         {%- do item.setAttribute('class', (item.getAttribute('class') ~ ' ' ~ itemClass)|trim) -%}
         {{ block('anchor_menu_item') }}
@@ -47,7 +47,10 @@
         {%- if loop.first %}
             {%- set itemClass = itemClass ~ ' ibexa-anchor-navigation-menu__sections-item-btn--active' %}
         {%- endif %}
+        {%- do item.setAttribute('data-target-id', "#" ~ item.getAttribute('data-target-id')) -%}
         {%- do item.setAttribute('class', (item.getAttribute('class') ~ ' ' ~ itemClass)|trim) -%}
+        {%- do item.setAttribute('type', 'button') -%}
+        {%- do item.setLabelAttribute('class', 'ibexa-anchor-navigation-menu__sections-item-btn-label') -%}
         {{ block('anchor_menu_item') }}
     {% endfor %}
 {% endblock %}
@@ -98,16 +101,13 @@
             id="{{ id }}-label"
             href="#{{ id }}"
             data-bs-toggle="tab"
-            class="nav-link ibexa-tab-switcher__link {{ loop.first ? 'active' }}"
+            class="nav-link ibexa-tabs__link {{ loop.first ? 'active' }}"
         >
             {{ block('label') }}
-        </a>
-        {# <div class="ibexa-anchor-navigation-menu__link ibexa-tab-switcher__link" title="{{ block('label')|raw }}">
-            {{ block('label') }}
-            <svg class="ibexa-icon ibexa-icon--small ibexa-tab-switcher__tab-error ibexa-tab-switcher__tab-error--hidden">
+            <svg class="ibexa-icon ibexa-icon--small ibexa-tabs__tab-error ibexa-tabs__tab-error--hidden">
                 <use xlink:href="{{ ibexa_icon_path('warning-triangle') }}"></use>
             </svg>
-        </div> #}
+        </a>
     </{{ itemTagElement }}>
 {% endblock %}
 
@@ -126,33 +126,31 @@
 {% block root %}
     <div class="ibexa-anchor-navigation">
         {% if item.count() > 1 %}
-            <div class="ibexa-tab-switcher">
+            <div class="ibexa-tabs ibexa-tabs--switcher">
                 {% set tagElement = 'ul' %}
                 {% set listAttributes = item.childrenAttributes|merge({
-                    'class': (listAttributes.class|default('') ~ ' nav nav-tabs ibexa-tab-switcher__list ibexa-adaptive-items')|trim,
+                    'class': (listAttributes.class|default('') ~ ' nav nav-tabs ibexa-tabs__list ibexa-adaptive-items')|trim,
                     'role': 'tablist',
                 }) %}
                 {% set innerChildrenBlock = 'children_1st_level' %}
                 {% set innerItemBlock = 'item_1st_level' %}
                 {% set itemTagElement = 'li' %}
                 {% set extraElements %}
-                    <li class="nav-item ibexa-tab-switcher__tab ibexa-tab-switcher__tab--more ibexa-adaptive-items__tab ibexa-adaptive-items__tab--selector"
+                    <li class="nav-item ibexa-tabs__tab ibexa-tabs__tab--more ibexa-adaptive-items__item ibexa-adaptive-items__item--selector"
                         data-item-template="{{ include('@ibexadesign/ui/component/popup_menu/popup_menu_item.html.twig', {
                                 'label': '{{ label }}',
                             })|e('html_attr') }}"
                         tabindex="0"
                     >
-                        <a class="nav-link ibexa-tab-switcher__link" role="button">
-                            <svg class="ibexa-icon ibexa-icon--small">
-                                <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
-                            </svg>
+                        <a class="nav-link ibexa-tabs__link" role="button">
+                            {{ 'anchor_menu.more'|trans|desc('More') }}
                         </a>
                     </li>
                 {% endset %}
 
                 {{ block('anchor_menu_list') -}}
                 {{ include('@ibexadesign/ui/component/popup_menu/popup_menu.html.twig', {
-                    'class': 'ibexa-tab-switcher__popup-menu',
+                    'class': 'ibexa-tabs__popup-menu',
                     'items': [],
                 }) }}
             </div>
@@ -177,7 +175,7 @@
             {% endfor %}
         </div>
                 {# {% if item.count() < 4 %}
-            {% set listAttributes = item.childrenAttributes|merge({'class': (listAttributes.class|default('') ~ ' ibexa-anchor-navigation-menu__section-groups ibexa-anchor-navigation-menu__section-groups--list ibexa-tab-switcher')|trim}) %}
+            {% set listAttributes = item.childrenAttributes|merge({'class': (listAttributes.class|default('') ~ ' ibexa-anchor-navigation-menu__section-groups ibexa-anchor-navigation-menu__section-groups--list ibexa-tabs')|trim}) %}
             {% set innerChildrenBlock = 'children_1st_level' %}
             {% set innerItemBlock = 'item_1st_level' %}
             {% set tagElement = 'div' %}
