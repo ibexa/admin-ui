@@ -191,6 +191,7 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
         return [
             (new Message(self::ITEM__PUBLISH, 'menu'))->setDesc('Publish'),
             (new Message(self::ITEM__SAVE_DRAFT, 'menu'))->setDesc('Save'),
+            (new Message(self::ITEM__SAVE_DRAFT_AND_CLOSE, 'menu'))->setDesc('Save and close'),
             (new Message(self::ITEM__PREVIEW, 'menu'))->setDesc('Preview'),
             (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Delete draft'),
         ];
