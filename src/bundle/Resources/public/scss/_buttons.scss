@@ -344,6 +344,12 @@
             fill: $ibexa-color-dark-300;
             border-color: transparent;
             box-shadow: none;
+
+            &:hover {
+                .ibexa-icon {
+                    fill: $ibexa-color-dark-300;
+                }
+            }
         }
     }
 
