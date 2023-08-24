@@ -131,6 +131,11 @@
         <target state="new">Save</target>
         <note>key: content_edit__sidebar_right__save_draft</note>
       </trans-unit>
+      <trans-unit id="4d964f4fc2000b52cf41d86260937f6ea0e6bd22" resname="content_edit__sidebar_right__save_draft_and_close">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: content_edit__sidebar_right__save_draft_and_close</note>
+      </trans-unit>
       <trans-unit id="3b59d1cdd9c85ff781a3a442345bb648cc49dd31" resname="content_type__sidebar_right__edit">
         <source>Edit</source>
         <target state="new">Edit</target>
