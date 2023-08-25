@@ -29,6 +29,7 @@ browser:
                 - Ibexa\AdminUi\Behat\BrowserContext\ContentViewContext
                 - Ibexa\AdminUi\Behat\BrowserContext\DashboardContext
                 - Ibexa\AdminUi\Behat\BrowserContext\LanguageContext
+                - Ibexa\AdminUi\Behat\BrowserContext\MyDraftsContext
                 - Ibexa\AdminUi\Behat\BrowserContext\NavigationContext
                 - Ibexa\AdminUi\Behat\BrowserContext\NotificationContext
                 - Ibexa\AdminUi\Behat\BrowserContext\ObjectStatesContext
@@ -78,6 +79,7 @@ browser:
                 - Ibexa\AdminUi\Behat\BrowserContext\ContentViewContext
                 - Ibexa\AdminUi\Behat\BrowserContext\DashboardContext
                 - Ibexa\AdminUi\Behat\BrowserContext\LanguageContext
+                - Ibexa\AdminUi\Behat\BrowserContext\MyDraftsContext
                 - Ibexa\AdminUi\Behat\BrowserContext\NavigationContext
                 - Ibexa\AdminUi\Behat\BrowserContext\NotificationContext
                 - Ibexa\AdminUi\Behat\BrowserContext\ObjectStatesContext
