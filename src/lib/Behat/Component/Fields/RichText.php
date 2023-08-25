@@ -50,9 +50,16 @@ class RichText extends FieldTypeComponent
 
     public function setValue(array $parameters): void
     {
-        $this->executeCommand('selectAll');
-        $this->executeCommand('delete');
-        $this->getFieldInput()->setValue($parameters['value']);
+        $text = $parameters['value'];
+        $maxIterations = 3;
+        $counter = 0;
+        while ($this->getValue()[0] !== $text && $counter < $maxIterations) {
+            $this->executeCommand('selectAll');
+            $this->executeCommand('delete');
+            $this->getFieldInput()->setValue($parameters['value']);
+            usleep(100 * 1000); // 100 ms
+            ++$counter;
+        }
     }
 
     public function getValue(): array
