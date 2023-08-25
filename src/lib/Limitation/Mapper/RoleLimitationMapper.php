@@ -51,7 +51,7 @@ final class RoleLimitationMapper extends MultipleSelectionBasedMapper implements
         return [
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('role'),
-                'ezplatform_content_forms_policies'
+                'ibexa_content_forms_policies'
             )->setDesc('Role'),
         ];
     }

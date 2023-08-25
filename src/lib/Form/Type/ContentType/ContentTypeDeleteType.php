@@ -6,6 +6,7 @@
  */
 namespace Ibexa\AdminUi\Form\Type\ContentType;
 
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -28,7 +29,7 @@ class ContentTypeDeleteType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'translation_domain' => 'content_type',
+                'translation_domain' => 'ibexa_content_type',
             ]);
     }
 

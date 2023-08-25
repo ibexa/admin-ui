@@ -8,7 +8,7 @@ import PopupActions from '../popup-actions/popup.actions';
 const { Translator } = window;
 
 const Header = ({ isCollapsed, toggleCollapseTree, actions, popupRef }) => {
-    const headerTitle = Translator.trans(/*@Desc("Content tree")*/ 'content_tree.header', {}, 'content_tree');
+    const headerTitle = Translator.trans(/*@Desc("Content tree")*/ 'content_tree.header', {}, 'ibexa_content_tree');
     const renderCollapseButton = () => {
         const iconName = isCollapsed ? 'caret-next' : 'caret-back';
         const caretIconClass = createCssClassNames({

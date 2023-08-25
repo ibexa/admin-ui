@@ -20,6 +20,7 @@ use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -124,7 +125,7 @@ class ContentTypeGroupController extends Controller
                     /** @Desc("Created Content Type group '%name%'.") */
                     'content_type_group.create.success',
                     ['%name%' => $data->getIdentifier()],
-                    'content_type'
+                    'ibexa_content_type'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content_type_group.view', [
@@ -168,7 +169,7 @@ class ContentTypeGroupController extends Controller
                     /** @Desc("Updated Content Type group '%name%'.") */
                     'content_type_group.update.success',
                     ['%name%' => $group->identifier],
-                    'content_type'
+                    'ibexa_content_type'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content_type_group.view', [
@@ -210,7 +211,7 @@ class ContentTypeGroupController extends Controller
                     /** @Desc("Deleted Content Type group '%name%'.") */
                     'content_type_group.delete.success',
                     ['%name%' => $group->identifier],
-                    'content_type'
+                    'ibexa_content_type'
                 );
             });
 
@@ -247,7 +248,7 @@ class ContentTypeGroupController extends Controller
                         /** @Desc("Deleted Content Type group '%name%'.") */
                         'content_type_group.delete.success',
                         ['%name%' => $group->identifier],
-                        'content_type'
+                        'ibexa_content_type'
                     );
                 }
             });

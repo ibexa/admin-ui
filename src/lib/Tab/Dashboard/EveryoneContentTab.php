@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Tab\Dashboard;
 
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
 
 class EveryoneContentTab extends AbstractContentTab implements OrderedTabInterface
@@ -22,7 +23,7 @@ class EveryoneContentTab extends AbstractContentTab implements OrderedTabInterfa
     public function getName(): string
     {
         return /** @Desc("Content") */
-            $this->translator->trans('tab.name.everyone_content', [], 'dashboard');
+            $this->translator->trans('tab.name.everyone_content', [], 'ibexa_dashboard');
     }
 
     public function getOrder(): int

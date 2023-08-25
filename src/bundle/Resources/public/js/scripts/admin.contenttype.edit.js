@@ -19,7 +19,7 @@
     const noFieldsAddedError = Translator.trans(
         /*@Desc("You have to add at least one field definition")*/ 'content_type.edit.error.no_added_fields_definition',
         {},
-        'content_type',
+        'ibexa_content_type',
     );
     const endpoints = {
         add: {

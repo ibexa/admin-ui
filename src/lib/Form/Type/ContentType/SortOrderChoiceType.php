@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\ContentType;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,7 +34,7 @@ class SortOrderChoiceType extends AbstractType
     {
         $resolver->setDefaults([
             'choices' => $this->getSortOrderChoices(),
-            'translation_domain' => 'content_type',
+            'translation_domain' => 'ibexa_content_type',
         ]);
     }
 
@@ -68,12 +69,12 @@ class SortOrderChoiceType extends AbstractType
             $this->translator->trans(/** @Desc("Ascending") */
                 'content_type.sort_field.ascending',
                 [],
-                'content_type'
+                'ibexa_content_type'
             ) => Location::SORT_ORDER_ASC,
             $this->translator->trans(/** @Desc("Descending") */
                 'content_type.sort_field.descending',
                 [],
-                'content_type'
+                'ibexa_content_type'
             ) => Location::SORT_ORDER_DESC,
         ];
     }

@@ -129,7 +129,7 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
         return [
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('node'),
-                'ezplatform_content_forms_policies'
+                'ibexa_content_forms_policies'
             )->setDesc('Location'),
         ];
     }

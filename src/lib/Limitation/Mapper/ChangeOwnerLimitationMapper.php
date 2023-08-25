@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ChangeOwnerLimitation;
 use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Annotation\Desc;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -89,7 +90,7 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
         return [
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('changeowner'),
-                'ezplatform_content_forms_policies'
+                'ibexa_content_forms_policies'
             )->setDesc('Change Owner'),
         ];
     }

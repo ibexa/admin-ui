@@ -31,7 +31,7 @@ class SortingTranslationExtractor implements ExtractorInterface
         9 => 'Content name',
     ];
 
-    private $domain = 'content_type';
+    private $domain = 'ibexa_content_type';
 
     public function extract()
     {

@@ -76,7 +76,7 @@ class LimitationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => '\\Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Limitation',
-            'translation_domain' => 'ezplatform_content_forms_policies',
+            'translation_domain' => 'ibexa_content_forms_policies',
         ]);
     }
 

@@ -6,7 +6,7 @@
     {% else %}
         {{ content.getName() }}
         {% if content.contentInfo.trashed %}
-            <em>({{ 'content.in_trash'|trans(domain='content')|desc('In Trash') }})</em>
+            <em>({{ 'content.in_trash'|trans(domain='ibexa_content')|desc('In Trash') }})</em>
         {% endif %}
     {% endif %}
 {% endset %}

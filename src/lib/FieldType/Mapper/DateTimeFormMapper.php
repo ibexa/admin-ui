@@ -10,6 +10,7 @@ use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\AdminUi\Form\Type\DateTimeIntervalType;
 use Ibexa\Core\FieldType\DateAndTime\Type;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
@@ -57,7 +58,7 @@ class DateTimeFormMapper implements FieldDefinitionFormMapperInterface
     {
         $resolver
             ->setDefaults([
-                'translation_domain' => 'content_type',
+                'translation_domain' => 'ibexa_content_type',
             ]);
     }
 }

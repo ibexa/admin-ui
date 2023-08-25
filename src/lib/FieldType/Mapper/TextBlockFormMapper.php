@@ -8,6 +8,7 @@ namespace Ibexa\AdminUi\FieldType\Mapper;
 
 use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -37,7 +38,7 @@ class TextBlockFormMapper implements FieldDefinitionFormMapperInterface
     {
         $resolver
             ->setDefaults([
-                'translation_domain' => 'content_type',
+                'translation_domain' => 'ibexa_content_type',
             ]);
     }
 }

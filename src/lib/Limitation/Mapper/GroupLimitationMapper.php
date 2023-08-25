@@ -9,6 +9,7 @@ namespace Ibexa\AdminUi\Limitation\Mapper;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Annotation\Desc;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -31,7 +32,7 @@ class GroupLimitationMapper extends MultipleSelectionBasedMapper implements Limi
             1 => $this->translator->trans(/** @Desc("Self") */
                 'policy.limitation.group.self',
                 [],
-                'ezplatform_content_forms_role'
+                'ibexa_content_forms_role'
             ),
         ];
     }
@@ -42,7 +43,7 @@ class GroupLimitationMapper extends MultipleSelectionBasedMapper implements Limi
             $this->translator->trans(/** @Desc("Self") */
                 'policy.limitation.group.self',
                 [],
-                'ezplatform_content_forms_role'
+                'ibexa_content_forms_role'
             ),
         ];
     }
@@ -52,7 +53,7 @@ class GroupLimitationMapper extends MultipleSelectionBasedMapper implements Limi
         return [
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('group'),
-                'ezplatform_content_forms_policies'
+                'ibexa_content_forms_policies'
             )->setDesc('Content Type Group'),
         ];
     }

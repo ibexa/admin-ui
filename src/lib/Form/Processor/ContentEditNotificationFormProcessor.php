@@ -12,6 +12,7 @@ use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Ibexa\ContentForms\Event\ContentFormEvents;
 use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -67,7 +68,7 @@ class ContentEditNotificationFormProcessor implements EventSubscriberInterface
             /** @Desc("Content published.") */
             'content.published.success',
             [],
-            'content_edit'
+            'ibexa_content_edit'
         );
     }
 
@@ -85,7 +86,7 @@ class ContentEditNotificationFormProcessor implements EventSubscriberInterface
             /** @Desc("Content draft saved.") */
             'content.draft_saved.success',
             [],
-            'content_edit'
+            'ibexa_content_edit'
         );
     }
 

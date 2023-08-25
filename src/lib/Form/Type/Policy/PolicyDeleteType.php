@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\Policy;
 
 use Ibexa\AdminUi\Form\Data\Policy\PolicyDeleteData;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -40,7 +41,7 @@ class PolicyDeleteType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'translation_domain' => 'ezplatform_content_forms_role',
+            'translation_domain' => 'ibexa_content_forms_role',
             'data_class' => PolicyDeleteData::class,
         ]);
     }

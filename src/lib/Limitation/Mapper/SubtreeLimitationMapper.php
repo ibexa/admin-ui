@@ -71,7 +71,7 @@ class SubtreeLimitationMapper extends UDWBasedMapper implements TranslationConta
         return [
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('subtree'),
-                'ezplatform_content_forms_policies'
+                'ibexa_content_forms_policies'
             )->setDesc('Subtree'),
         ];
     }

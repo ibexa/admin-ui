@@ -55,7 +55,7 @@ class ListItem extends Component {
             const notificationMessage = Translator.trans(
                 /*@Desc("Cannot load sub-items for this Location because you reached max tree depth.")*/ 'expand_item.limit.message',
                 {},
-                'content_tree',
+                'ibexa_content_tree',
             );
 
             ibexa.helpers.notification.showWarningNotification(notificationMessage);
@@ -148,8 +148,8 @@ class ListItem extends Component {
         }
 
         const { isLoading } = this.state;
-        const seeMoreLabel = Translator.trans(/*@Desc("See more")*/ 'see_more', {}, 'content_tree');
-        const loadingMoreLabel = Translator.trans(/*@Desc("Loading more...")*/ 'loading_more', {}, 'content_tree');
+        const seeMoreLabel = Translator.trans(/*@Desc("See more")*/ 'see_more', {}, 'ibexa_content_tree');
+        const loadingMoreLabel = Translator.trans(/*@Desc("Loading more...")*/ 'loading_more', {}, 'ibexa_content_tree');
         const btnLabel = isLoading ? loadingMoreLabel : seeMoreLabel;
         let loadingSpinner = null;
 
@@ -172,7 +172,7 @@ class ListItem extends Component {
             return null;
         }
 
-        const message = Translator.trans(/*@Desc("Loading limit reached")*/ 'show_more.limit_reached', {}, 'content_tree');
+        const message = Translator.trans(/*@Desc("Loading limit reached")*/ 'show_more.limit_reached', {}, 'ibexa_content_tree');
 
         return <div className="c-list-item__load-more-limit-info">{message}</div>;
     }

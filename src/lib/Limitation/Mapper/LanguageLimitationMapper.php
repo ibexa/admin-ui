@@ -61,7 +61,7 @@ class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements L
         return [
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('language'),
-                'ezplatform_content_forms_policies'
+                'ibexa_content_forms_policies'
             )->setDesc('Language'),
         ];
     }

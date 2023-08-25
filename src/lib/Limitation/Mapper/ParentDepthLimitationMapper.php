@@ -44,7 +44,7 @@ class ParentDepthLimitationMapper extends MultipleSelectionBasedMapper implement
         return [
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('parentdepth'),
-                'ezplatform_content_forms_policies'
+                'ibexa_content_forms_policies'
             )->setDesc('Parent Depth'),
         ];
     }

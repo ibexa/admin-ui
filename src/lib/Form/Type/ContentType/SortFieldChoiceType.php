@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\ContentType;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,7 +32,7 @@ class SortFieldChoiceType extends AbstractType
     {
         $resolver->setDefaults([
             'choices' => $this->getSortFieldChoices(),
-            'translation_domain' => 'content_type',
+            'translation_domain' => 'ibexa_content_type',
         ]);
     }
 
@@ -68,47 +69,47 @@ class SortFieldChoiceType extends AbstractType
             $this->translator->trans(/** @Desc("Content name") */
                 'content_type.sort_field.name',
                 [],
-                'content_type'
+                'ibexa_content_type'
             ) => Location::SORT_FIELD_NAME,
             $this->translator->trans(/** @Desc("Location priority") */
                 'content_type.sort_field.priority',
                 [],
-                'content_type'
+                'ibexa_content_type'
             ) => Location::SORT_FIELD_PRIORITY,
             $this->translator->trans(/** @Desc("Modification date") */
                 'content_type.sort_field.modified',
                 [],
-                'content_type'
+                'ibexa_content_type'
             ) => Location::SORT_FIELD_MODIFIED,
             $this->translator->trans(/** @Desc("Publication date") */
                 'content_type.sort_field.published',
                 [],
-                'content_type'
+                'ibexa_content_type'
             ) => Location::SORT_FIELD_PUBLISHED,
             $this->translator->trans(/** @Desc("Location path") */
                 'content_type.sort_field.location_path',
                 [],
-                'content_type'
+                'ibexa_content_type'
             ) => Location::SORT_FIELD_PATH,
             $this->translator->trans(/** @Desc("Section identifier") */
                 'content_type.sort_field.section_identifier',
                 [],
-                'content_type'
+                'ibexa_content_type'
             ) => Location::SORT_FIELD_SECTION,
             $this->translator->trans(/** @Desc("Location depth") */
                 'content_type.sort_field.depth',
                 [],
-                'content_type'
+                'ibexa_content_type'
             ) => Location::SORT_FIELD_DEPTH,
             $this->translator->trans(/** @Desc("Location ID") */
                 'content_type.sort_field.location_id',
                 [],
-                'content_type'
+                'ibexa_content_type'
             ) => Location::SORT_FIELD_NODE_ID,
             $this->translator->trans(/** @Desc("Content ID") */
                 'content_type.sort_field.content_id',
                 [],
-                'content_type'
+                'ibexa_content_type'
             ) => Location::SORT_FIELD_CONTENTOBJECT_ID,
         ];
     }

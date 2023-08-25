@@ -11,6 +11,16 @@
         <target state="new">Missing or invalid CSRF token</target>
         <note>key: asset.upload.invalid_csrf</note>
       </trans-unit>
+      <trans-unit id="d899cb1dbb25a42ea34f296bf7bef9821df66b72" resname="edit_translation.edit.title">
+        <source>Edit</source>
+        <target state="new">Edit</target>
+        <note>key: edit_translation.edit.title</note>
+      </trans-unit>
+      <trans-unit id="8ecff4fc7797b03440a0430a65abf71a62d0ffc9" resname="edit_translation.list.title">
+        <source>Select language</source>
+        <target state="new">Select language</target>
+        <note>key: edit_translation.list.title</note>
+      </trans-unit>
     </body>
   </file>
 </xliff>

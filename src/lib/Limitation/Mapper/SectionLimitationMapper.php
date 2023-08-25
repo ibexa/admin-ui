@@ -60,11 +60,11 @@ class SectionLimitationMapper extends MultipleSelectionBasedMapper implements Li
         return [
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('newsection'),
-                'ezplatform_content_forms_policies'
+                'ibexa_content_forms_policies'
             )->setDesc('New Section'),
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('section'),
-                'ezplatform_content_forms_policies'
+                'ibexa_content_forms_policies'
             )->setDesc('Section'),
         ];
     }

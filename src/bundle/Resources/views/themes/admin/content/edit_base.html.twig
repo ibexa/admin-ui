@@ -2,7 +2,7 @@
 
 {% import '@ibexadesign/content/edit_macros.html.twig' as edit_macros %}
 
-{% trans_default_domain 'content_edit' %}
+{% trans_default_domain 'ibexa_content_edit' %}
 
 {% set grouped_fields = grouped_fields|default([]) %}
 {% set anchor_params = { items: grouped_fields|keys } %}
@@ -45,7 +45,7 @@
                                     {% embed '@ibexadesign/ui/anchor_navigation_section.html.twig' with {
                                         anchor_section_key: 'ibexa-edit-content-sections-content-fields-' ~ key|lower,
                                     } %}
-                                        {% trans_default_domain 'content_edit' %}
+                                        {% trans_default_domain 'ibexa_content_edit' %}
                                         {% import '@ibexadesign/content/edit_macros.html.twig' as edit_macros %}
 
                                         {% block anchor_section_header %}

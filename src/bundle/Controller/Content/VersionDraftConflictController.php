@@ -16,6 +16,7 @@ use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\UserService;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -83,7 +84,7 @@ class VersionDraftConflictController extends Controller
                 /** @Desc("Cannot check if the draft has conflicts with other drafts. %error%.") */
                 'content.draft.conflict.error',
                 ['%error%' => $e->getMessage()],
-                'content'
+                'ibexa_content'
             );
 
             return new Response($error, Response::HTTP_FORBIDDEN);

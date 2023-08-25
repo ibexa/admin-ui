@@ -6,6 +6,7 @@
  */
 namespace Ibexa\AdminUi\Form\Type\ContentType;
 
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -35,7 +36,7 @@ class ContentTypeGroupType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => '\\Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentTypeGroupStruct',
-            'translation_domain' => 'content_type',
+            'translation_domain' => 'ibexa_content_type',
         ]);
     }
 }

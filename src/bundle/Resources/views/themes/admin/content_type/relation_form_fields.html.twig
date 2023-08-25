@@ -12,7 +12,7 @@
         >
             <button
                 data-universaldiscovery-title="{{ "field_definition.ezobjectrelation.selection_root_udw_title"
-                |trans({}, "content_type")
+                |trans({}, 'ibexa_content_type')
                 |desc("Select where to start browsing for a Relation") }}"
                 class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-btn--udw-relation-default-location"
                 data-relation-root-input-selector="#{{ form_default_location.location.vars.id }}"
@@ -20,10 +20,10 @@
                 data-udw-config="{{ ibexa_udw_config('single', {}) }}"
             >
                 <span class="ibexa-btn__label ibexa-btn__label--select">
-                    {{ "field_definition.ezobjectrelation.selection_root_udw_button"|trans({}, "content_type")|desc("Select path") }}
+                    {{ "field_definition.ezobjectrelation.selection_root_udw_button"|trans({}, 'ibexa_content_type')|desc("Select path") }}
                 </span>
                 <span class="ibexa-btn__label ibexa-btn__label--change">
-                    {{ "field_definition.ezobjectrelation.change_root_udw_button"|trans({}, "content_type")|desc("Change path") }}
+                    {{ "field_definition.ezobjectrelation.change_root_udw_button"|trans({}, 'ibexa_content_type')|desc("Change path") }}
                 </span>
             </button>
             <div 

@@ -12,6 +12,7 @@ use Ibexa\AdminUi\Form\Data\Location\LocationUpdateData;
 use Ibexa\AdminUi\Form\Type\Content\LocationType;
 use Ibexa\AdminUi\Form\Type\ContentType\SortFieldChoiceType;
 use Ibexa\AdminUi\Form\Type\ContentType\SortOrderChoiceType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -49,7 +50,7 @@ class LocationUpdateType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => LocationUpdateData::class,
-            'translation_domain' => 'content_type',
+            'translation_domain' => 'ibexa_content_type',
         ]);
     }
 }

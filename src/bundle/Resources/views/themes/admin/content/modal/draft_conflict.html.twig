@@ -1,4 +1,4 @@
-{% trans_default_domain 'draft_conflict' %}
+{% trans_default_domain 'ibexa_draft_conflict' %}
 
 {% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
     title: 'draft.conflict.header'|trans|desc('Draft conflict'),
@@ -7,7 +7,7 @@
     id: 'version-draft-conflict-modal',
     version_modal_draft_conflict: _self,
 } %}
-    {% trans_default_domain 'draft_conflict' %}
+    {% trans_default_domain 'ibexa_draft_conflict' %}
     {% import version_modal_draft_conflict as version_modal_draft_conflict_embed %}
 
     {% block body_content %}

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\Extension\Content;
 
 use Ibexa\ContentForms\Form\Type\Content\ContentEditType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Event\PostSubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -32,7 +33,7 @@ class ContentEditTypeExtension extends AbstractTypeExtension
                 'hidden' => true,
                 'formnovalidate' => 'formnovalidate',
             ],
-            'translation_domain' => 'content_preview',
+            'translation_domain' => 'ibexa_content_preview',
         ]);
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, static function (PostSubmitEvent $event): void {

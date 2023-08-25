@@ -1,6 +1,6 @@
 {% import "@ibexadesign/content_type/macros.html.twig" as macros %}
 
-{% trans_default_domain 'content_type' %}
+{% trans_default_domain 'ibexa_content_type' %}
 {% set current_language = app.request.get('languageCode') ?: language_code %}
 
 {% set global_properties_items = [
@@ -30,11 +30,11 @@
     },
     {
         label: 'content_type.default_children_sorting'|trans|desc('Sort children by default by:'),
-        content: ('content_type.sort_field.' ~ content_type.defaultSortField)|trans(domain='content_type') ~ ' / ' ~ ('content_type.sort_order.' ~ content_type.defaultSortOrder)|trans(domain='content_type'),
+        content: ('content_type.sort_field.' ~ content_type.defaultSortField)|trans(domain='ibexa_content_type') ~ ' / ' ~ ('content_type.sort_order.' ~ content_type.defaultSortOrder)|trans(domain='ibexa_content_type'),
     },
     {
         label: 'content_type.default_sort'|trans|desc('Sort children by default in order:'),
-        content: ("content_type.sort_order." ~ content_type.defaultSortOrder)|trans(domain="content_type"),
+        content: ("content_type.sort_order." ~ content_type.defaultSortOrder)|trans(domain='ibexa_content_type'),
     },
     {
         label: "content_type.default_availability"|trans|desc('Make content available even with missing translations'),

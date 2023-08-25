@@ -1,4 +1,4 @@
-{% trans_default_domain 'ezplatform_content_forms_content' %}
+{% trans_default_domain 'ibexa_content_forms_content' %}
 
 {% use '@ibexadesign/ui/field_type/edit/binary_base.html.twig' %}
 
@@ -67,7 +67,7 @@
                 </div>
                 <div class="ibexa-field-edit-preview__control">
                     <label class="ibexa-label form-label">
-                        {{ 'content.field_type.ezmedia.player_settings'|trans({}, 'ezplatform_content_forms_content')|desc('Player settings') }}
+                        {{ 'content.field_type.ezmedia.player_settings'|trans({}, 'ibexa_content_forms_content')|desc('Player settings') }}
                     </label>
                     <div class="ibexa-field-edit-preview__toggles">
                         {{ form_row(form.hasController, {'label_attr': {'class': 'checkbox-inline'}, attr: { disabled: readonly }}) }}

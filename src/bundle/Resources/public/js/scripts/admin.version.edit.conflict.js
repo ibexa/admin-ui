@@ -6,7 +6,7 @@
         const errorMessage = Translator.trans(
             /*@Desc("You don't have permission to edit this Content item")*/ 'content.edit.permission.error',
             {},
-            'content',
+            'ibexa_content',
         );
         const handleCanEditCheck = (response) => {
             if (response.canEdit) {

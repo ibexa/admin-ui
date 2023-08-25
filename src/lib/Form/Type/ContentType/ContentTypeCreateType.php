@@ -8,6 +8,7 @@ namespace Ibexa\AdminUi\Form\Type\ContentType;
 
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -42,7 +43,7 @@ class ContentTypeCreateType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'translation_domain' => 'content_type',
+                'translation_domain' => 'ibexa_content_type',
             ]);
     }
 

@@ -156,7 +156,7 @@ export default class ContentTree extends Component {
 
     getCollapseAllBtn() {
         const CollapseAction = () => {
-            const collapseAllLabel = Translator.trans(/*@Desc("Collapse all")*/ 'collapse_all', {}, 'content_tree');
+            const collapseAllLabel = Translator.trans(/*@Desc("Collapse all")*/ 'collapse_all', {}, 'ibexa_content_tree');
 
             return <div onClick={this.props.onCollapseAllItems}>{collapseAllLabel}</div>;
         };

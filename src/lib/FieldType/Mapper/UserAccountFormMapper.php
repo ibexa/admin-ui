@@ -9,6 +9,7 @@ namespace Ibexa\AdminUi\FieldType\Mapper;
 use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\ContentForms\Form\Type\FieldDefinition\User\PasswordConstraintCheckboxType;
+use JMS\TranslationBundle\Annotation\Desc;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -116,14 +117,14 @@ final class UserAccountFormMapper implements FieldDefinitionFormMapperInterface,
     {
         $resolver
             ->setDefaults([
-                'translation_domain' => 'content_type',
+                'translation_domain' => 'ibexa_content_type',
             ]);
     }
 
     public static function getTranslationMessages(): array
     {
         return [
-            Message::create('field_definition.ezuser.require_not_compromised_password_help', 'content_type')
+            Message::create('field_definition.ezuser.require_not_compromised_password_help', 'ibexa_content_type')
                 ->setDesc('This uses the API at %link% to securely check breach data. The password is not transmitted to the API.'),
         ];
     }

@@ -1,6 +1,6 @@
 {% extends '@ibexadesign/ui/layout.html.twig' %}
 
-{% trans_default_domain 'content_preview' %}
+{% trans_default_domain 'ibexa_content_preview' %}
 
 {% set is_published = content.contentInfo.published and content.contentInfo.mainLocationId is not null %}
 
@@ -18,7 +18,7 @@
                 <svg class="ibexa-icon ibexa-icon--small-medium">
                     <use xlink:href="{{ ibexa_icon_path('back') }}"></use>
                 </svg>
-                <span class="ibexa-btn__label">{{ 'preview_header.back'|trans({}, 'content')|desc('Back') }}</span>
+                <span class="ibexa-btn__label">{{ 'preview_header.back'|trans({}, 'ibexa_content')|desc('Back') }}</span>
             </a>
         </div>
         <div class="ibexa-preview-header__item ibexa-preview-header__item--siteaccess">

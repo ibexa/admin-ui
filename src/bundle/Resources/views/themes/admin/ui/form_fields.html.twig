@@ -231,13 +231,13 @@
 {%- endblock table_header_tool_btn -%}
 
 {%- block _bookmark_remove_remove_widget -%}
-    {%- set title = 'bookmark.button.remove'|trans({},'bookmark')|desc('Delete') -%}
+    {%- set title = 'bookmark.button.remove'|trans({},'ibexa_bookmark')|desc('Delete') -%}
     {%- set icon = 'trash' -%}
     {{ block('table_header_tool_btn') }}
 {%- endblock -%}
 
 {%- block _content_remove_remove_widget -%}
-    {%- set title = 'drafts.list.action.remove'|trans({},'drafts')|desc('Remove') -%}
+    {%- set title = 'drafts.list.action.remove'|trans({},'ibexa_drafts')|desc('Remove') -%}
     {%- set icon = 'trash' -%}
     {{ block('table_header_tool_btn') }}
 {%- endblock -%}
@@ -452,7 +452,7 @@
 {% block content_type_field_definition_widget -%}
     {{- form_row(form.enabled, { label: 'meta.enabled'|trans({
         '%type%': form.name.vars.value,
-    }, 'content_type')|desc('Enable %type% for this Content Type') }) -}}
+    }, 'ibexa_content_type')|desc('Enable %type% for this Content Type') }) -}}
 
     {% for form_field in form.children %}
         {% if form_field.isRendered() == false %}
