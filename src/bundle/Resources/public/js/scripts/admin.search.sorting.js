@@ -1,4 +1,4 @@
-(function (global, doc, ibexa) {
+(function (global, doc) {
     const searchForm = doc.querySelector('.ibexa-search-form');
     const searchSortOrderSelect = doc.querySelector('.ibexa-search-form__sort-order-select');
 
@@ -11,4 +11,4 @@
             false,
         );
     }
-})(window, window.document, window.ibexa);
+})(window, window.document);
