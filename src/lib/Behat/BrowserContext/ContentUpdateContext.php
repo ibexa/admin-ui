@@ -43,6 +43,14 @@ class ContentUpdateContext implements Context
     }
 
     /**
+     * @When field :fieldName contains validation error :errorMessage
+     */
+    public function fieldContainsValidationError(string $fieldName, string $errorMessage): void
+    {
+        $this->contentUpdateItemPage->verifyValidationMessage($fieldName, $errorMessage);
+    }
+
+    /**
      * @Given the :fieldName field is noneditable
      */
     public function verifyFieldIsNotEditable(string $fieldName): void

@@ -60,7 +60,7 @@ class CreateNewPopup extends Component
     {
         return [
             new VisibleCSSLocator('popupHeader', '.ibexa-extra-actions__header'),
-            new VisibleCSSLocator('addButton', '.ibexa-extra-actions__pre-form-btns .ibexa-btn--primary'),
+            new VisibleCSSLocator('addButton', '.ibexa-extra-actions__pre-form-btns .ibexa-btn--primary, .ibexa-extra-actions--create .ibexa-btn--primary'),
             new VisibleCSSLocator('cancelButton', '.ibexa-extra-actions__pre-form-btns .ibexa-btn--secondary'),
             new VisibleCSSLocator('popup', '.ibexa-extra-actions:not(.ibexa-extra-actions--hidden)'),
             new VisibleCSSLocator('formGroup', '.form-group'),
