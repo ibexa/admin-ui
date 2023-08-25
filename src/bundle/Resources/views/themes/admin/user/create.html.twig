@@ -2,6 +2,10 @@
 
 {% trans_default_domain 'user_create' %}
 
+{% block meta %}
+    <meta name="LanguageCode" content="{{ language.languageCode }}"/>
+{% endblock %}
+
 {% block header %}
     {% set user_content_edit_menu = knp_menu_get('ezplatform_admin_ui.menu.user_create.sidebar_right', [], {
         'parent_group': parent_group,
