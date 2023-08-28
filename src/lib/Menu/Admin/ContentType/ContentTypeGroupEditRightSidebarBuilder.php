@@ -61,11 +61,22 @@ class ContentTypeGroupEditRightSidebarBuilder extends AbstractBuilder implements
     public function createStructure(array $options): ItemInterface
     {
         $saveId = $options['save_id'];
+        $saveAncCloseId = $options['save_and_close_id'];
 
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
-        $saveItem = $this->createMenuItem(
+        $saveAndCloseItem = $this->createMenuItem(
+            self::ITEM__SAVE_AND_CLOSE,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => sprintf('#%s', $saveAncCloseId),
+                ],
+            ]
+        );
+
+        $saveAndCloseItem->addChild(
             self::ITEM__SAVE,
             [
                 'attributes' => [
@@ -75,18 +86,8 @@ class ContentTypeGroupEditRightSidebarBuilder extends AbstractBuilder implements
             ]
         );
 
-        $saveItem->addChild(
-            self::ITEM__SAVE_AND_CLOSE,
-            [
-                'attributes' => [
-                    'class' => 'ibexa-btn--trigger',
-                    'data-click' => sprintf('#%s', $saveId),
-                ],
-            ]
-        );
-
         $menu->setChildren([
-            self::ITEM__SAVE => $saveItem,
+            self::ITEM__SAVE_AND_CLOSE => $saveAndCloseItem,
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
@@ -106,7 +107,7 @@ class ContentTypeGroupEditRightSidebarBuilder extends AbstractBuilder implements
         return [
             (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Save'),
             (new Message(self::ITEM__SAVE_AND_CLOSE, 'menu'))->setDesc('Save and close'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard'),
+            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
         ];
     }
 }
