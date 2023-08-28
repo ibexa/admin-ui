@@ -79,8 +79,8 @@ class RoleAssignmentCreateRightSidebarBuilder extends AbstractBuilder implements
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Save'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Cancel'),
+            (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard'),
         ];
     }
 }

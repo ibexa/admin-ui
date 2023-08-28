@@ -5,7 +5,11 @@
 {% trans_default_domain 'role' %}
 
 {% block header_admin %}
-    {% set policy_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.policy_edit.sidebar_right', [], {'role': role, 'save_id': form.save.vars.id}) %}
+    {% set policy_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.policy_edit.sidebar_right', [], {
+        role,
+        save_id: form.save.vars.id,
+        save_and_close_id: form.save_and_close.vars.id,
+    }) %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
         action_name: 'policy.editing'|trans|desc('Editing'),
@@ -31,7 +35,8 @@
                 {% endfor %}
             </div>
         </section>
-        {{ form_widget(form.save, {"attr": {"hidden": "hidden"}}) }}
+        {{ form_widget(form.save, { attr: { hidden: 'hidden' }}) }}
+        {{ form_widget(form.save_and_close, { attr: { hidden: 'hidden' }}) }}
     {{ form_end(form) }}
 {% endblock %}
 

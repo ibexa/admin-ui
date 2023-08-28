@@ -19,6 +19,8 @@ use Ibexa\AdminUi\Form\DataMapper\RoleUpdateMapper;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Form\Type\Role\RoleCopyType;
+use Ibexa\AdminUi\Form\Type\Role\RoleCreateType;
+use Ibexa\AdminUi\Form\Type\Role\RoleUpdateType;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\RoleService;
@@ -27,6 +29,7 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\Form\Button;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -136,7 +139,7 @@ class RoleController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RoleCreateData $data) {
+            $result = $this->submitHandler->handle($form, function (RoleCreateData $data) use ($form) {
                 $roleCreateStruct = $this->roleCreateMapper->reverseMap($data);
                 $roleDraft = $this->roleService->createRole($roleCreateStruct);
                 $this->roleService->publishRoleDraft($roleDraft);
@@ -147,6 +150,14 @@ class RoleController extends Controller
                     ['%role%' => $roleDraft->identifier],
                     'role'
                 );
+
+                if ($form->getClickedButton() instanceof Button
+                    && $form->getClickedButton()->getName() === RoleCreateType::BTN_SAVE
+                ) {
+                    return $this->redirectToRoute('ibexa.role.update', [
+                        'roleId' => $roleDraft->id,
+                    ]);
+                }
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $roleDraft->id,
@@ -213,7 +224,7 @@ class RoleController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RoleUpdateData $data) {
+            $result = $this->submitHandler->handle($form, function (RoleUpdateData $data) use ($form) {
                 $role = $data->getRole();
 
                 $roleUpdateStruct = $this->roleUpdateMapper->reverseMap($data);
@@ -228,6 +239,14 @@ class RoleController extends Controller
                     ['%role%' => $role->identifier],
                     'role'
                 );
+
+                if ($form->getClickedButton() instanceof Button
+                    && $form->getClickedButton()->getName() === RoleUpdateType::BTN_SAVE
+                ) {
+                    return $this->redirectToRoute('ibexa.role.update', [
+                        'roleId' => $role->id,
+                    ]);
+                }
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,

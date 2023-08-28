@@ -30,7 +30,7 @@ class PolicyCreateType extends AbstractType
             ->add(
                 'save',
                 SubmitType::class,
-                ['label' => /** @Desc("Create") */ 'policy_create.save']
+                ['label' => /** @Desc("Save") */ 'policy_create.save']
             );
     }
 
