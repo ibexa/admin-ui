@@ -45,6 +45,7 @@ class PolicyCreateRightSidebarBuilder extends AbstractBuilder implements Transla
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role $section */
         $role = $options['role'];
+        $saveId = $options['save_id'];
 
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
@@ -55,7 +56,7 @@ class PolicyCreateRightSidebarBuilder extends AbstractBuilder implements Transla
                 [
                     'attributes' => [
                         'class' => 'ibexa-btn--trigger',
-                        'data-click' => '#policy_create_save',
+                        'data-click' => sprintf('#%s', $saveId),
                     ],
                 ]
             ),
@@ -79,8 +80,8 @@ class PolicyCreateRightSidebarBuilder extends AbstractBuilder implements Transla
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Create'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard'),
         ];
     }
 }

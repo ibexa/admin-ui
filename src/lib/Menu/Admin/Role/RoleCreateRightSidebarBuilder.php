@@ -25,6 +25,7 @@ class RoleCreateRightSidebarBuilder extends AbstractBuilder implements Translati
 {
     /* Menu items */
     public const ITEM__CREATE = 'role_create__sidebar_right__create';
+    public const ITEM__CREATE_AND_EDIT = 'role_create__sidebar_right__create_and_edit';
     public const ITEM__CANCEL = 'role_create__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
@@ -59,19 +60,34 @@ class RoleCreateRightSidebarBuilder extends AbstractBuilder implements Translati
      */
     public function createStructure(array $options): ItemInterface
     {
+        $saveId = $options['save_id'];
+        $saveAncCloseId = $options['save_and_close_id'];
+
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
+        $saveAndCloseItem = $this->createMenuItem(
+            self::ITEM__CREATE,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => sprintf('#%s', $saveAncCloseId),
+                ],
+            ]
+        );
+
+        $saveAndCloseItem->addChild(
+            self::ITEM__CREATE_AND_EDIT,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => sprintf('#%s', $saveId),
+                ],
+            ]
+        );
+
         $menu->setChildren([
-            self::ITEM__CREATE => $this->createMenuItem(
-                self::ITEM__CREATE,
-                [
-                    'attributes' => [
-                        'class' => 'ibexa-btn--trigger',
-                        'data-click' => '#role_create_save',
-                    ],
-                ]
-            ),
+            self::ITEM__CREATE => $saveAndCloseItem,
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
@@ -89,8 +105,9 @@ class RoleCreateRightSidebarBuilder extends AbstractBuilder implements Translati
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Create'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__CREATE_AND_EDIT, 'menu'))->setDesc('Save'),
+            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard'),
         ];
     }
 }

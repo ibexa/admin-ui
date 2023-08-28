@@ -25,6 +25,7 @@ class RoleEditRightSidebarBuilder extends AbstractBuilder implements Translation
 {
     /* Menu items */
     public const ITEM__SAVE = 'role_edit__sidebar_right__save';
+    public const ITEM__SAVE_AND_CLOSE = 'role_edit__sidebar_right__save_and_close';
     public const ITEM__CANCEL = 'role_edit__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
@@ -61,20 +62,34 @@ class RoleEditRightSidebarBuilder extends AbstractBuilder implements Translation
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role $role */
         $role = $options['role'];
+        $saveId = $options['save_id'];
+        $saveAncCloseId = $options['save_and_close_id'];
 
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
+        $saveAndCloseItem = $this->createMenuItem(
+            self::ITEM__SAVE_AND_CLOSE,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => sprintf('#%s', $saveAncCloseId),
+                ],
+            ]
+        );
+
+        $saveAndCloseItem->addChild(
+            self::ITEM__SAVE,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => sprintf('#%s', $saveId),
+                ],
+            ]
+        );
+
         $menu->setChildren([
-            self::ITEM__SAVE => $this->createMenuItem(
-                self::ITEM__SAVE,
-                [
-                    'attributes' => [
-                        'class' => 'ibexa-btn--trigger',
-                        'data-click' => sprintf('#update-role-%d_save', $role->id),
-                    ],
-                ]
-            ),
+            self::ITEM__SAVE_AND_CLOSE => $saveAndCloseItem,
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
@@ -93,6 +108,7 @@ class RoleEditRightSidebarBuilder extends AbstractBuilder implements Translation
     {
         return [
             (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Save'),
+            (new Message(self::ITEM__SAVE_AND_CLOSE, 'menu'))->setDesc('Save and close'),
             (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
         ];
     }
