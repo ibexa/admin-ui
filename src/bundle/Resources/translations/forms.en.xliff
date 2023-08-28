@@ -152,8 +152,8 @@
         <note>key: policies_delete_form.delete</note>
       </trans-unit>
       <trans-unit id="34ba9078fe178bd49df6ada9d8357455ee8ff7b3" resname="policy_create.save">
-        <source>Create</source>
-        <target state="new">Create</target>
+        <source>Save</source>
+        <target state="new">Save</target>
         <note>key: policy_create.save</note>
       </trans-unit>
       <trans-unit id="deab5c91a76488732d0405e72c36702ed2aea3d6" resname="role.policy.all_functions">
@@ -227,9 +227,14 @@
         <note>key: role_create.name</note>
       </trans-unit>
       <trans-unit id="776c77290a994aebb3c657ee11dd2c5cff117dca" resname="role_create.save">
-        <source>Create</source>
-        <target state="new">Create</target>
+        <source>Save</source>
+        <target state="new">Save</target>
         <note>key: role_create.save</note>
+      </trans-unit>
+      <trans-unit id="601d9f0ac729e1b65dfe9afa12aa2b5b691613f1" resname="role_create.save_and_close">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: role_create.save_and_close</note>
       </trans-unit>
       <trans-unit id="870a0a274b0ddf96ef4b6ce633dacad31e23e311" resname="role_delete.delete">
         <source>Delete</source>
@@ -242,9 +247,14 @@
         <note>key: role_update.name</note>
       </trans-unit>
       <trans-unit id="453d030fbc11c10c842807ff213039adfffbe051" resname="role_update.save">
-        <source>Update</source>
-        <target state="new">Update</target>
+        <source>Save</source>
+        <target state="new">Save</target>
         <note>key: role_update.save</note>
+      </trans-unit>
+      <trans-unit id="004e2e90e1b877d6a3c2def0a6f50ad62ef5f019" resname="role_update.save_and_close">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: role_update.save_and_close</note>
       </trans-unit>
       <trans-unit id="2b8a62034311f415eba9826996495c2ddd076745" resname="roles_delete_form.delete">
         <source>Delete Role</source>
@@ -297,8 +307,8 @@
         <note>key: section_subtree_assign_form.assign</note>
       </trans-unit>
       <trans-unit id="ecaa9ee7b46159c99796726b8e14693d821e5500" resname="section_update_form.update">
-        <source>Update</source>
-        <target state="new">Update</target>
+        <source>Save</source>
+        <target state="new">Save</target>
         <note>key: section_update_form.update</note>
       </trans-unit>
       <trans-unit id="1076fdadc49ac9198c278970f355457c26075975" resname="sections_delete_form.delete">

@@ -16,6 +16,7 @@ use Ibexa\AdminUi\Form\DataMapper\PolicyCreateMapper;
 use Ibexa\AdminUi\Form\DataMapper\PolicyUpdateMapper;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\AdminUi\Form\Type\Policy\PolicyUpdateType;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
@@ -27,6 +28,7 @@ use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\Form\Button;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -235,7 +237,7 @@ class PolicyController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (PolicyUpdateData $data) use ($role, $policy) {
+            $result = $this->submitHandler->handle($form, function (PolicyUpdateData $data) use ($role, $policy, $form) {
                 $policyUpdateStruct = $this->policyUpdateMapper->reverseMap($data);
 
                 $roleDraft = $this->roleService->createRoleDraft($role);
@@ -254,6 +256,15 @@ class PolicyController extends Controller
                     ['%role%' => $role->identifier],
                     'ibexa_role'
                 );
+
+                if ($form->getClickedButton() instanceof Button
+                    && $form->getClickedButton()->getName() === PolicyUpdateType::BTN_SAVE
+                ) {
+                    return $this->redirectToRoute('ibexa.policy.update', [
+                        'roleId' => $roleDraft->id,
+                        'policyId' => $policy->id,
+                    ]);
+                }
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
