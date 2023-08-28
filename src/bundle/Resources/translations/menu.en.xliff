@@ -207,14 +207,19 @@
         <note>key: content_type_group_edit__sidebar_right__save_and_close</note>
       </trans-unit>
       <trans-unit id="65804c068820b5fa679357bc65c5862d0fc90701" resname="language_create__sidebar_right__cancel">
-        <source>Cancel</source>
-        <target state="new">Cancel</target>
+        <source>Discard</source>
+        <target state="new">Discard</target>
         <note>key: language_create__sidebar_right__cancel</note>
       </trans-unit>
       <trans-unit id="43db6515a6b373d14e37f88c19c7663a9fa3ae8f" resname="language_create__sidebar_right__create">
-        <source>Add</source>
-        <target state="new">Add</target>
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
         <note>key: language_create__sidebar_right__create</note>
+      </trans-unit>
+      <trans-unit id="37040d2d39db8f935ce12658fbe674330277e04b" resname="language_create__sidebar_right__create_and_edit">
+        <source>Save</source>
+        <target state="new">Save</target>
+        <note>key: language_create__sidebar_right__create_and_edit</note>
       </trans-unit>
       <trans-unit id="09a41e6afdef6eda2c027b7e742777f3a9bd1749" resname="language_edit__sidebar_right__cancel">
         <source>Discard changes</source>
@@ -225,6 +230,11 @@
         <source>Save</source>
         <target state="new">Save</target>
         <note>key: language_edit__sidebar_right__save</note>
+      </trans-unit>
+      <trans-unit id="96311a8ff4e573ee49bdacbfc214d39611b78e72" resname="language_edit__sidebar_right__save_and_close">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: language_edit__sidebar_right__save_and_close</note>
       </trans-unit>
       <trans-unit id="d24d01151cf9ba69e38be735778da00850cea694" resname="main__admin">
         <source>Admin</source>
