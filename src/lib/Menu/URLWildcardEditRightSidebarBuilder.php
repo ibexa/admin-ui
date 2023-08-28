@@ -19,6 +19,7 @@ final class URLWildcardEditRightSidebarBuilder extends AbstractBuilder implement
 {
     /* Menu items */
     public const ITEM__SAVE = 'url_wildcard_edit__sidebar_right__save';
+    public const ITEM__SAVE_AND_CLOSE = 'url_wildcard_edit__sidebar_right__save_and_close';
     public const ITEM__CANCEL = 'url_wildcard_edit__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
@@ -43,6 +44,7 @@ final class URLWildcardEditRightSidebarBuilder extends AbstractBuilder implement
     {
         return [
             (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Save'),
+            (new Message(self::ITEM__SAVE_AND_CLOSE, 'menu'))->setDesc('Save and close'),
             (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
         ];
     }
@@ -57,16 +59,28 @@ final class URLWildcardEditRightSidebarBuilder extends AbstractBuilder implement
         /** @var \Knp\Menu\ItemInterface $menu */
         $menu = $this->factory->createItem('root');
 
+        $saveAndCloseItem = $this->createMenuItem(
+            self::ITEM__SAVE_AND_CLOSE,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => $options['submit_selector'],
+                ],
+            ]
+        );
+
+        $saveAndCloseItem->addChild(
+            self::ITEM__SAVE,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => $options['save_selector'],
+                ],
+            ]
+        );
+
         $menu->setChildren([
-            self::ITEM__SAVE => $this->createMenuItem(
-                self::ITEM__SAVE,
-                [
-                    'attributes' => [
-                        'class' => 'ibexa-btn--trigger',
-                        'data-click' => $options['submit_selector'],
-                    ],
-                ]
-            ),
+            self::ITEM__SAVE_AND_CLOSE => $saveAndCloseItem,
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [

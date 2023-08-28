@@ -36,6 +36,16 @@
         <target state="new">URL Wildcard(s) deleted.</target>
         <note>key: url_wildcard.delete.success</note>
       </trans-unit>
+      <trans-unit id="1e4604a68ee7bdf7b574b56fc4d8b05f9a8ed2de" resname="url_wildcard.save">
+        <source>Save</source>
+        <target state="new">Save</target>
+        <note>key: url_wildcard.save</note>
+      </trans-unit>
+      <trans-unit id="768a0bf5b90b1bc0cc42d535a43301ed8aef4a27" resname="url_wildcard.save_and_close">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: url_wildcard.save_and_close</note>
+      </trans-unit>
       <trans-unit id="744a5ddc1ab83b98c6b70a5d9650efa62147b324" resname="url_wildcard.update.success">
         <source>URL Wildcard updated.</source>
         <target state="new">URL Wildcard updated.</target>

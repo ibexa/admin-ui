@@ -6,6 +6,16 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
+      <trans-unit id="46eac77ae02f91344e4239e517a2c2806f628b57" resname="url.save">
+        <source>Save</source>
+        <target state="new">Save</target>
+        <note>key: url.save</note>
+      </trans-unit>
+      <trans-unit id="781fe2cec5471ca0afb64ee844770e054754d570" resname="url.save_and_close">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: url.save_and_close</note>
+      </trans-unit>
       <trans-unit id="bce60197735a1f604ba70517b0f1b4b0d838d56a" resname="url.status.all">
         <source>All</source>
         <target state="new">All</target>
