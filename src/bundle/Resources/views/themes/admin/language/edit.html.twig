@@ -5,7 +5,10 @@
 {% trans_default_domain 'language' %}
 
 {% block header_admin %}
-    {% set language_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.language_edit.sidebar_right', [], {'save_id': form.save.vars.id}) %}
+    {% set language_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.language_edit.sidebar_right', [], {
+        save_id: form.save.vars.id,
+        save_and_close_id: form.save_and_close.vars.id,
+    }) %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
         action_name: 'language.editing'|trans|desc('Editing'),
@@ -24,6 +27,7 @@
                 </div>
             </div>
         </section>
-        {{ form_widget(form.save, {"attr": {"hidden": "hidden"}}) }}
+        {{ form_widget(form.save, { attr: { hidden: 'hidden' }}) }}
+        {{ form_widget(form.save_and_close, { attr: { hidden: 'hidden' }}) }}
     {{ form_end(form) }}
 {% endblock %}
