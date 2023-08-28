@@ -9,7 +9,10 @@
 } %}
 
 {% block header %}
-    {% set url_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.url_edit.sidebar_right', [], {'url': url}) %}
+    {% set url_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.url_edit.sidebar_right', [], {
+        save_and_close_selector: '#' ~ form.saveAndClose.vars.id,
+        save_selector: '#' ~ form.save.vars.id,
+    }) %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
         action_name: 'url.editing'|trans|desc('Editing'),
@@ -29,7 +32,8 @@
                     </div>
                 </div>
             </section>
-            <button id="url-update" type="submit" hidden></button>
+            {{ form_widget(form.save, { attr: { hidden: 'hidden' }}) }}
+            {{ form_widget(form.save_and_close, { attr: { hidden: 'hidden' }}) }}
         {{ form_end(form) }}
     </div>
 {%- endblock -%}
