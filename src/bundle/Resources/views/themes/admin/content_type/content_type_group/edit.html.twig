@@ -5,7 +5,10 @@
 {% trans_default_domain 'ibexa_content_type' %}
 
 {% block header_admin %}
-    {% set content_type_group_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.content_type_group_edit.sidebar_right', [], {'save_id': form.update.vars.id}) %}
+    {% set content_type_group_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.content_type_group_edit.sidebar_right', [], {
+        save_id: form.save.vars.id,
+        save_and_close_id: form.update.vars.id,
+    }) %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
         action_name: 'content_type_group.edit.action_name'|trans|desc('Editing Content Type group'),
@@ -25,6 +28,7 @@
                 </div>
             </div>
         </section>
-        {{ form_widget(form.update, {'attr': {'hidden': 'hidden'}}) }}
+        {{ form_widget(form.save, { attr: { hidden: 'hidden' }}) }}
+        {{ form_widget(form.update, { attr: { hidden: 'hidden' }}) }}
     {{ form_end(form) }}
 {% endblock %}
