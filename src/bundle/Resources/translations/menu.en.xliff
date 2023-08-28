@@ -496,6 +496,11 @@
         <target state="new">Save</target>
         <note>key: url_edit__sidebar_right__save</note>
       </trans-unit>
+      <trans-unit id="f53710a91806f0d62f2caaa0a82c84d3826d909d" resname="url_edit__sidebar_right__save_and_close">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: url_edit__sidebar_right__save_and_close</note>
+      </trans-unit>
       <trans-unit id="279fb028abf07d3fadda07ff6e00b91f0fd53932" resname="url_wildcard_edit__sidebar_right__cancel">
         <source>Discard changes</source>
         <target state="new">Discard changes</target>
@@ -505,6 +510,11 @@
         <source>Save</source>
         <target state="new">Save</target>
         <note>key: url_wildcard_edit__sidebar_right__save</note>
+      </trans-unit>
+      <trans-unit id="87de464e84e5c8e6af6ab2105e37b0b8595cf611" resname="url_wildcard_edit__sidebar_right__save_and_close">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: url_wildcard_edit__sidebar_right__save_and_close</note>
       </trans-unit>
       <trans-unit id="06accb26fbb1b72012942af2b3e03f7c138e28c3" resname="user__content">
         <source>Logout</source>

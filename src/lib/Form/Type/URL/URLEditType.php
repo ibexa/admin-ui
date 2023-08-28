@@ -8,6 +8,7 @@ namespace Ibexa\AdminUi\Form\Type\URL;
 
 use Ibexa\AdminUi\Form\Data\URL\URLUpdateData;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,12 +18,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class URLEditType extends AbstractType
 {
+    public const BTN_SAVE = 'save';
+
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('url', TextType::class);
+        $builder->add('url', TextType::class)
+            ->add(self::BTN_SAVE, SubmitType::class, [
+                'label' => /** @Desc("Save") */ 'url.save',
+            ])
+            ->add('save_and_close', SubmitType::class, [
+                'label' => /** @Desc("Save and close") */ 'url.save_and_close',
+            ]);
     }
 
     /**
