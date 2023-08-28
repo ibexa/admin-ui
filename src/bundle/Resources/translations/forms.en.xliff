@@ -72,9 +72,14 @@
         <note>key: ezplatform.language.create.name</note>
       </trans-unit>
       <trans-unit id="ffd97ca1026795d6942cdff21e76596229baa2dd" resname="ezplatform.language.create.save">
-        <source>Create</source>
-        <target state="new">Create</target>
+        <source>Save</source>
+        <target state="new">Save</target>
         <note>key: ezplatform.language.create.save</note>
+      </trans-unit>
+      <trans-unit id="1512c398222825ac050de4e77ac1ec3f131fd3e4" resname="ezplatform.language.create.save_and_close">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: ezplatform.language.create.save_and_close</note>
       </trans-unit>
       <trans-unit id="aaacfc049425d3dc086d5548dac0a2bb2eabe404" resname="ezplatform.language.delete.delete">
         <source>Delete</source>
@@ -95,6 +100,11 @@
         <source>Save</source>
         <target state="new">Save</target>
         <note>key: ezplatform.language.update.save</note>
+      </trans-unit>
+      <trans-unit id="c4dea6525b93d8d580ce1f801f418f9a7579d8a8" resname="ezplatform.language.update.save_and_close">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: ezplatform.language.update.save_and_close</note>
       </trans-unit>
       <trans-unit id="1a2cc7b7518a1267208aafa8aa96d1dba950eeb1" resname="form.has_children.label">
         <source>Sub-items</source>
@@ -230,11 +240,6 @@
         <source>Save</source>
         <target state="new">Save</target>
         <note>key: role_create.save</note>
-      </trans-unit>
-      <trans-unit id="601d9f0ac729e1b65dfe9afa12aa2b5b691613f1" resname="role_create.save_and_close">
-        <source>Save and close</source>
-        <target state="new">Save and close</target>
-        <note>key: role_create.save_and_close</note>
       </trans-unit>
       <trans-unit id="870a0a274b0ddf96ef4b6ce633dacad31e23e311" resname="role_delete.delete">
         <source>Delete</source>
