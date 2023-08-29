@@ -10,3 +10,8 @@ services:
         alias: Ibexa\AdminUi\Permission\PermissionChecker
 
     Ibexa\AdminUi\Permission\LookupLimitationsTransformer: ~
+
+    Ibexa\AdminUi\Permission\LimitationResolver: ~
+
+    Ibexa\AdminUi\Permission\LimitationResolverInterface:
+        alias: Ibexa\AdminUi\Permission\LimitationResolver

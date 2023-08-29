@@ -211,11 +211,6 @@ parameters:
 			path: src/lib/Pagination/Mapper/AbstractPagerContentToDataMapper.php
 
 		-
-			message: "#^Parameter \\#1 \\$input of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\> given\\.$#"
-			count: 1
-			path: src/lib/Permission/PermissionChecker.php
-
-		-
 			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\User\\\\UserGroup\\> given\\.$#"
 			count: 1
 			path: src/lib/Permission/PermissionChecker.php
