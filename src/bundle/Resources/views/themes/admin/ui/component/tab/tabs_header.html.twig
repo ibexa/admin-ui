@@ -1,5 +1,5 @@
 <div class="ibexa-header">
-    <div class="ibexa-tabs">
+    <div class="ibexa-tabs {{ tabs_wrapper_classes|default('') }}">
         <ul class="nav nav-tabs ibexa-tabs__list ibexa-adaptive-items" role="tablist">
             {% block tabs_list %}
                 {% for tab in tabs %}

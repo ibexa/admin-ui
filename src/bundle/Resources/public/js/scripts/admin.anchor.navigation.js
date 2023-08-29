@@ -136,15 +136,19 @@
 
                     const { id } = sectionGroup.dataset;
                     const hasGroupError = !!sectionGroup.querySelector('.is-invalid');
-                    const correspondingMenuItem = doc.querySelector(`.ibexa-tabs__tab [href="${id}"]`).parentNode;
+                    const correspondingMenuItemLink = doc.querySelector(`.ibexa-tabs__tab [href="${id}"]`);
+                    const correspondingMenuItem = correspondingMenuItemLink.parentNode;
 
-                    if (!correspondingMenuItem) {
-                        return;
+                    correspondingMenuItem?.classList.toggle('ibexa-tabs__tab--error', hasGroupError);
+
+                    if (correspondingMenuItemLink) {
+                        const tabLinkId = correspondingMenuItemLink.id;
+                        const popupMenu = correspondingMenuItemLink.closest('.ibexa-tabs').querySelector('.ibexa-tabs__popup-menu');
+                        const popupMenuItem = popupMenu.querySelector(`[data-tab-link-id="${tabLinkId}"]`);
+
+                        popupMenuItem?.classList.toggle('ibexa-popup-menu__item--error', hasGroupError);
                     }
 
-                    const errorIconNode = correspondingMenuItem.querySelector('.ibexa-tabs__tab-error');
-
-                    errorIconNode.classList.toggle('ibexa-tabs__tab-error--hidden', !hasGroupError);
                 }
             });
         };
