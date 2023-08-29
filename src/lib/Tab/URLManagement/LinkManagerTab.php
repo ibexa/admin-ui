@@ -21,6 +21,7 @@ use Ibexa\Contracts\Core\Repository\URLService;
 use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\URL\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -81,7 +82,7 @@ class LinkManagerTab extends AbstractTab implements OrderedTabInterface, Conditi
     public function getName(): string
     {
         return /** @Desc("Link manager") */
-            $this->translator->trans('tab.name.link_manager', [], 'linkmanager');
+            $this->translator->trans('tab.name.link_manager', [], 'ibexa_linkmanager');
     }
 
     public function getOrder(): int

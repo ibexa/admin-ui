@@ -47,12 +47,12 @@
                     widthNode.innerHTML = Translator.trans(
                         /* @Desc("W:%width% px") */ 'ezimage.dimensions.width',
                         { width },
-                        'fieldtypes_edit',
+                        'ibexa_fieldtypes_edit',
                     );
                     heightNode.innerHTML = Translator.trans(
                         /* @Desc("H:%height% px") */ 'ezimage.dimensions.height',
                         { height },
-                        'fieldtypes_edit',
+                        'ibexa_fieldtypes_edit',
                     );
                 };
 

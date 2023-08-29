@@ -15,6 +15,7 @@ use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -53,7 +54,7 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     public function getName(): string
     {
         /** @Desc("View") */
-        return $this->translator->trans('tab.name.view', [], 'locationview');
+        return $this->translator->trans('tab.name.view', [], 'ibexa_locationview');
     }
 
     public function getOrder(): int

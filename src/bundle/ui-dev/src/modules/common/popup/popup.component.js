@@ -121,7 +121,7 @@ class Popup extends Component {
             return;
         }
 
-        const closeBtnLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'universal_discovery_widget');
+        const closeBtnLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'ibexa_universal_discovery_widget');
 
         return (
             <button

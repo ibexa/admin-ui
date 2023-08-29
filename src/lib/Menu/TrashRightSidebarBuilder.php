@@ -99,7 +99,7 @@ class TrashRightSidebarBuilder extends AbstractBuilder implements TranslationCon
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__EMPTY, 'menu'))->setDesc('Empty Trash'),
+            (new Message(self::ITEM__EMPTY, 'ibexa_menu'))->setDesc('Empty Trash'),
         ];
     }
 }

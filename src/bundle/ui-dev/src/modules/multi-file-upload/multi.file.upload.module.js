@@ -211,7 +211,7 @@ export default class MultiFileUploadModule extends Component {
         }
 
         const { uploadDisabled } = this.state;
-        const label = Translator.trans(/*@Desc("Upload")*/ 'multi_file_upload_open_btn.label', {}, 'multi_file_upload');
+        const label = Translator.trans(/*@Desc("Upload")*/ 'multi_file_upload_open_btn.label', {}, 'ibexa_multi_file_upload');
 
         return (
             <button type="button" className="btn ibexa-btn ibexa-btn--ghost" onClick={this.showUploadPopup} disabled={uploadDisabled}>

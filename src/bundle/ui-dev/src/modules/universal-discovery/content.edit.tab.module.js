@@ -105,7 +105,7 @@ ibexa.addConfig(
         {
             id: 'content-edit',
             component: ContentEditTabModule,
-            label: Translator.trans(/*@Desc("Content edit")*/ 'content_edit.label', {}, 'universal_discovery_widget'),
+            label: Translator.trans(/*@Desc("Content edit")*/ 'content_edit.label', {}, 'ibexa_universal_discovery_widget'),
             isHiddenOnList: true,
         },
     ],

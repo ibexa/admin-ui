@@ -104,7 +104,7 @@ ibexa.addConfig(
         {
             id: 'content-create',
             component: ContentCreateTabModule,
-            label: Translator.trans(/*@Desc("Content create")*/ 'content_create.label', {}, 'universal_discovery_widget'),
+            label: Translator.trans(/*@Desc("Content create")*/ 'content_create.label', {}, 'ibexa_universal_discovery_widget'),
             icon: ibexa.helpers.icon.getIconPath('search'),
             isHiddenOnList: true,
         },

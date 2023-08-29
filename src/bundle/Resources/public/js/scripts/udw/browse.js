@@ -16,7 +16,7 @@
         event.preventDefault();
 
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
-        const title = Translator.trans(/*@Desc("Browse content")*/ 'browse.title', {}, 'universal_discovery_widget');
+        const title = Translator.trans(/*@Desc("Browse content")*/ 'browse.title', {}, 'ibexa_universal_discovery_widget');
 
         udwRoot = ReactDOM.createRoot(udwContainer);
         udwRoot.render(

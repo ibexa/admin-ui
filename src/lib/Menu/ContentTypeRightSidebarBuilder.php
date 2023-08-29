@@ -104,7 +104,7 @@ class ContentTypeRightSidebarBuilder extends AbstractBuilder implements Translat
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__EDIT, 'menu'))->setDesc('Edit'),
+            (new Message(self::ITEM__EDIT, 'ibexa_menu'))->setDesc('Edit'),
         ];
     }
 }

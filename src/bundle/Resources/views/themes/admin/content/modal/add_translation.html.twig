@@ -1,11 +1,11 @@
-{% trans_default_domain 'locationview' %}
+{% trans_default_domain 'ibexa_locationview' %}
 
 {% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
     title: 'tab.translations.add.title'|trans|desc('Create a new translation'),
     class: 'ibexa-translation',
     id: modal_id|default('add-translation-modal'),
 } %}
-    {% trans_default_domain 'locationview' %}
+    {% trans_default_domain 'ibexa_locationview' %}
     {% form_theme form '@ibexadesign/content/translation_add_form_fields.html.twig' %}
 
     {% block content_before %}

@@ -1,11 +1,11 @@
-{% trans_default_domain 'version_conflict' %}
+{% trans_default_domain 'ibexa_version_conflict' %}
 
 {% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
     title: 'version.conflict.header'|trans|desc('Version conflict'),
     class: 'ibexa-modal--version-conflict',
     id: 'version-conflict-modal',
 } %}
-    {% trans_default_domain 'version_conflict' %}
+    {% trans_default_domain 'ibexa_version_conflict' %}
 
     {% block body_content %}
         <p class="ibexa-modal-body__explanation">

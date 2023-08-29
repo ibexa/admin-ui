@@ -16,6 +16,7 @@ use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -77,7 +78,7 @@ class RelationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     public function getName(): string
     {
         /** @Desc("Relations") */
-        return $this->translator->trans('tab.name.relations', [], 'locationview');
+        return $this->translator->trans('tab.name.relations', [], 'ibexa_locationview');
     }
 
     /**

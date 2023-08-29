@@ -15,6 +15,7 @@ use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\URLService;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -80,7 +81,7 @@ final class LinkManagerController extends Controller
                     /** @Desc("URL updated") */
                     'url.update.success',
                     [],
-                    'linkmanager'
+                    'ibexa_linkmanager'
                 );
 
                 return $this->redirectToRoute('ibexa.url_management');

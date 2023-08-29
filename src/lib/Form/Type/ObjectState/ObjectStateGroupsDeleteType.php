@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\ObjectState;
 
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupsDeleteData;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -38,7 +39,7 @@ class ObjectStateGroupsDeleteType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ObjectStateGroupsDeleteData::class,
-            'translation_domain' => 'object_state',
+            'translation_domain' => 'ibexa_object_state',
         ]);
     }
 }

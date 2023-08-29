@@ -50,13 +50,13 @@ class UserPasswordChangeRightSidebarListener implements EventSubscriberInterface
                     'class' => 'ibexa-btn--trigger',
                     'data-click' => '#user_password_change_change',
                 ],
-                'extras' => ['translation_domain' => 'menu'],
+                'extras' => ['translation_domain' => 'ibexa_menu'],
             ]
         );
         $menu->addChild(
             self::ITEM__CANCEL,
             [
-                'extras' => ['translation_domain' => 'menu'],
+                'extras' => ['translation_domain' => 'ibexa_menu'],
                 'route' => 'ibexa.dashboard',
             ]
         );
@@ -68,8 +68,8 @@ class UserPasswordChangeRightSidebarListener implements EventSubscriberInterface
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__UPDATE, 'menu'))->setDesc('Update'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__UPDATE, 'ibexa_menu'))->setDesc('Update'),
+            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard changes'),
         ];
     }
 }

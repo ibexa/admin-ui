@@ -7,7 +7,7 @@ import { CurrentViewContext, VIEWS } from '../../universal.discovery.module';
 const { ibexa, Translator } = window;
 
 const ViewSwitcher = ({ isDisabled }) => {
-    const viewLabel = Translator.trans(/*@Desc("View")*/ 'view_switcher.view', {}, 'universal_discovery_widget');
+    const viewLabel = Translator.trans(/*@Desc("View")*/ 'view_switcher.view', {}, 'ibexa_universal_discovery_widget');
     const [currentView, setCurrentView] = useContext(CurrentViewContext);
     const selectedOption = VIEWS.find((option) => option.value === currentView);
     const onOptionClick = ({ value }) => {

@@ -1,4 +1,4 @@
-{% trans_default_domain 'search' %}
+{% trans_default_domain 'ibexa_search' %}
 
 {% if results is defined %}
     {% if results is empty %}
@@ -173,7 +173,7 @@
                 head_cols: head_cols,
                 body_rows: body_rows,
             } %}
-                {% trans_default_domain 'search' %}
+                {% trans_default_domain 'ibexa_search' %}
                 {% block between_header_and_table %}
                     <span class="ibexa-search-form__results-language">
                         {% if form.children.search_language.vars.value != '' %}

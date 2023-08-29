@@ -71,12 +71,12 @@ const Search = ({ itemsPerPage }) => {
                 search_phrase: searchText,
                 total: data.count,
             },
-            'universal_discovery_widget',
+            'ibexa_universal_discovery_widget',
         );
         const searchResultsSubtitle = Translator.trans(
             /*@Desc("in %search_language%")*/ 'search.search_results.in_language',
             { search_language: selectedLanguageName },
-            'universal_discovery_widget',
+            'ibexa_universal_discovery_widget',
         );
 
         return (
@@ -107,28 +107,28 @@ const Search = ({ itemsPerPage }) => {
             const noResultsLabel = Translator.trans(
                 /*@Desc("No results found for %query%")*/ 'search.no_results',
                 { query: searchText },
-                'universal_discovery_widget',
+                'ibexa_universal_discovery_widget',
             );
             const noResultsHints = [
                 Translator.trans(
                     /*@Desc("Check the spelling of keywords.")*/ 'search.no_results.hint.check_spelling',
                     {},
-                    'universal_discovery_widget',
+                    'ibexa_universal_discovery_widget',
                 ),
                 Translator.trans(
                     /*@Desc("Try more general keywords.")*/ 'search.no_results.hint.more_general',
                     {},
-                    'universal_discovery_widget',
+                    'ibexa_universal_discovery_widget',
                 ),
                 Translator.trans(
                     /*@Desc("Try different keywords.")*/ 'search.no_results.hint.different_kewords',
                     {},
-                    'universal_discovery_widget',
+                    'ibexa_universal_discovery_widget',
                 ),
                 Translator.trans(
                     /*@Desc("Try fewer keywords. Reducing keywords results in more matches.")*/ 'search.no_results.hint.fewer_keywords',
                     {},
-                    'universal_discovery_widget',
+                    'ibexa_universal_discovery_widget',
                 ),
             ];
 

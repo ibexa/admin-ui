@@ -2,7 +2,7 @@
 
 {% form_theme form '@ibexadesign/ui/form_fields.html.twig'  %}
 
-{% trans_default_domain 'object_state' %}
+{% trans_default_domain 'ibexa_object_state' %}
 
 {% block header_admin %}
     {% set object_state_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.object_state_edit.sidebar_right', [], {'group_id': object_state_group.id, 'save_id': form.save.vars.id}) %}

@@ -32,8 +32,8 @@ class ContentTypeEditRightSidebarBuilder extends AbstractContentTypeRightSidebar
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Save'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Cancel'),
+            (new Message(self::ITEM__SAVE, 'ibexa_menu'))->setDesc('Save'),
+            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Cancel'),
         ];
     }
 

@@ -21,6 +21,16 @@
         <target state="new">Select language</target>
         <note>key: edit_translation.list.title</note>
       </trans-unit>
+      <trans-unit id="e4b8188e898e654dae14fc6b18133958f8e56084" resname="translation.remove.success">
+        <source>Removed '%languageCode%' translation from '%name%'.</source>
+        <target state="new">Removed '%languageCode%' translation from '%name%'.</target>
+        <note>key: translation.remove.success</note>
+      </trans-unit>
+      <trans-unit id="885ec7aab950e05f729031321cddbb6d7f9c3246" resname="version.delete.success">
+        <source>Removed version(s) from '%name%'.</source>
+        <target state="new">Removed version(s) from '%name%'.</target>
+        <note>key: version.delete.success</note>
+      </trans-unit>
     </body>
   </file>
 </xliff>

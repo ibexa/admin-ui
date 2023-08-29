@@ -21,6 +21,7 @@ use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\URLAliasService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Core\Helper\TranslationHelper;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -96,7 +97,7 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
     public function getName(): string
     {
         /** @Desc("URL") */
-        return $this->translator->trans('tab.name.urls', [], 'locationview');
+        return $this->translator->trans('tab.name.urls', [], 'ibexa_locationview');
     }
 
     /**

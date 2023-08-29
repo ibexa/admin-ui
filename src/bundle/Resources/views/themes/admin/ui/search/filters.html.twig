@@ -1,4 +1,4 @@
-{% trans_default_domain 'search' %}
+{% trans_default_domain 'ibexa_search' %}
 
 <div class="ibexa-filters ibexa-search-form__filters">
     <div class="ibexa-filters__header">
@@ -47,7 +47,7 @@
             <label class="ibexa-label">{{ 'search.creator'|trans|desc('Creator') }}</label>
             {% set creator = form.vars.data.creator %}
             {% embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: false } %}
-                {% trans_default_domain 'search' %}
+                {% trans_default_domain 'ibexa_search' %}
                 {% block content %}
                     <input
                         type="text"

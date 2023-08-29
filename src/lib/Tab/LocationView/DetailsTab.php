@@ -25,6 +25,7 @@ use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -95,7 +96,7 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     public function getName(): string
     {
         /** @Desc("Details") */
-        return $this->translator->trans('tab.name.details', [], 'locationview');
+        return $this->translator->trans('tab.name.details', [], 'ibexa_locationview');
     }
 
     /**

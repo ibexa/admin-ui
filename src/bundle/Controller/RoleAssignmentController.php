@@ -24,6 +24,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -122,7 +123,7 @@ class RoleAssignmentController extends Controller
                     /** @Desc("Assigned Users/Groups to Role '%role%'.") */
                     'role.assignment_create.success',
                     ['%role%' => $role->identifier],
-                    'role'
+                    'ibexa_role'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [
@@ -165,7 +166,7 @@ class RoleAssignmentController extends Controller
                     /** @Desc("Unassigned Users/Groups from Role '%role%'.") */
                     'role.assignment_delete.success',
                     ['%role%' => $role->identifier],
-                    'role'
+                    'ibexa_role'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [
@@ -210,7 +211,7 @@ class RoleAssignmentController extends Controller
                     /** @Desc("Unassigned Users/Groups from Role '%role%'.") */
                     'role.assignment_delete.success',
                     ['%role%' => $role->identifier],
-                    'role'
+                    'ibexa_role'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [

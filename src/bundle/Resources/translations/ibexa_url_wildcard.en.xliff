@@ -6,6 +6,11 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
+      <trans-unit id="1c443dd3f8d2dd7bdfce645c7a8d59b110316d7b" resname="tab.name.url_wildcards">
+        <source>URL wildcards</source>
+        <target state="new">URL wildcards</target>
+        <note>key: tab.name.url_wildcards</note>
+      </trans-unit>
       <trans-unit id="716de64f24448f5be29249e0b5156158a6a0bbdd" resname="url_wildcard.action.edit">
         <source>Edit</source>
         <target state="new">Edit</target>
@@ -20,6 +25,31 @@
         <source>URL management</source>
         <target state="new">URL management</target>
         <note>key: url_wildcard.breadcrumb.list</note>
+      </trans-unit>
+      <trans-unit id="0d4e2915af539759633ce2317d17e4df6131d739" resname="url_wildcard.create.identifier">
+        <source>Destination URL</source>
+        <target state="new">Destination URL</target>
+        <note>key: url_wildcard.create.identifier</note>
+      </trans-unit>
+      <trans-unit id="51df229352cfd712057d2838eea22362c6c627f0" resname="url_wildcard.create.source_url">
+        <source>Source URL</source>
+        <target state="new">Source URL</target>
+        <note>key: url_wildcard.create.source_url</note>
+      </trans-unit>
+      <trans-unit id="63ccc5088f619a05bd33117e5545d24bda4f4b7a" resname="url_wildcard.create.submit">
+        <source>Create</source>
+        <target state="new">Create</target>
+        <note>key: url_wildcard.create.submit</note>
+      </trans-unit>
+      <trans-unit id="ed6eb46311d0d99a1221cf8676a5df8cf4fdd533" resname="url_wildcard.create.success">
+        <source>URL Wildcard created.</source>
+        <target state="new">URL Wildcard created.</target>
+        <note>key: url_wildcard.create.success</note>
+      </trans-unit>
+      <trans-unit id="ecf02677fe877b84d5dfffc2cba4021b0bb2e1a3" resname="url_wildcard.delete.success">
+        <source>URL Wildcard(s) deleted.</source>
+        <target state="new">URL Wildcard(s) deleted.</target>
+        <note>key: url_wildcard.delete.success</note>
       </trans-unit>
       <trans-unit id="8fe44f043fa71a16c618cde88dd0e1098e5479bb" resname="url_wildcard.disabled">
         <source>URL wildcards are disabled. Contact your Administrator.</source>
@@ -100,6 +130,11 @@
         <source>Forward</source>
         <target state="new">Forward</target>
         <note>key: url_wildcard.type.forward</note>
+      </trans-unit>
+      <trans-unit id="744a5ddc1ab83b98c6b70a5d9650efa62147b324" resname="url_wildcard.update.success">
+        <source>URL Wildcard updated.</source>
+        <target state="new">URL Wildcard updated.</target>
+        <note>key: url_wildcard.update.success</note>
       </trans-unit>
     </body>
   </file>

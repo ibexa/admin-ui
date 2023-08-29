@@ -15,6 +15,7 @@ use Ibexa\AdminUi\Form\Type\Section\SectionChoiceType;
 use Ibexa\AdminUi\Form\Type\Trash\ChoiceList\Loader\SearchContentTypeChoiceLoader;
 use Ibexa\AdminUi\Form\Type\User\UserType;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -98,7 +99,7 @@ class TrashSearchType extends AbstractType
             'data_class' => TrashSearchData::class,
             'method' => Request::METHOD_GET,
             'csrf_protection' => false,
-            'translation_domain' => 'trash',
+            'translation_domain' => 'ibexa_trash',
         ]);
     }
 }

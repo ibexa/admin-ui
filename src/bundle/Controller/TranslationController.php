@@ -15,6 +15,7 @@ use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Core\Helper\TranslationHelper;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -128,7 +129,7 @@ class TranslationController extends Controller
                             '%languageCode%' => $languageCode,
                             '%name%' => $this->translationHelper->getTranslatedContentNameByContentInfo($contentInfo),
                         ],
-                        'translation'
+                        'ibexa_admin_ui'
                     );
                 }
 

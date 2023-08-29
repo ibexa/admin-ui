@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\ObjectState;
 
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateDeleteData;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,7 +37,7 @@ class ObjectStateDeleteType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ObjectStateDeleteData::class,
-            'translation_domain' => 'object_state',
+            'translation_domain' => 'ibexa_object_state',
         ]);
     }
 }

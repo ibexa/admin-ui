@@ -192,7 +192,7 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
             $context->buildViolation(
                 'validator.assign_users_or_groups'
             )
-                ->setTranslationDomain('role')
+                ->setTranslationDomain('ibexa_role')
                 ->addViolation();
         }
     }
@@ -200,7 +200,7 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
     public static function getTranslationMessages()
     {
         return [
-            Message::create('validator.assign_users_or_groups', 'role')
+            Message::create('validator.assign_users_or_groups', 'ibexa_role')
                 ->setDesc('Assign User(s) and/or Group(s) to the Role'),
             Message::create('validator.define_subtree_or_section_limitation', 'validators')
                 ->setDesc('Define a Subtree or Section limitation'),

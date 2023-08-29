@@ -35,6 +35,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\NewSectionLimitation;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Ibexa\Core\Pagination\Pagerfanta\ContentSearchAdapter;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -282,7 +283,7 @@ class SectionController extends Controller
                     /** @Desc("Section '%name%' removed.") */
                     'section.delete.success',
                     ['%name%' => $section->name],
-                    'section'
+                    'ibexa_section'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.section.list'));
@@ -321,7 +322,7 @@ class SectionController extends Controller
                         /** @Desc("Section '%name%' removed.") */
                         'section.delete.success',
                         ['%name%' => $section->name],
-                        'section'
+                        'ibexa_section'
                     );
                 }
             });
@@ -369,7 +370,7 @@ class SectionController extends Controller
                     /** @Desc("%contentItemsCount% Content items assigned to '%name%'") */
                     'section.assign_content.success',
                     ['%name%' => $section->name, '%contentItemsCount%' => \count($contentInfos)],
-                    'section'
+                    'ibexa_section'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.section.view', [
@@ -410,7 +411,7 @@ class SectionController extends Controller
                     /** @Desc("Section '%name%' created.") */
                     'section.create.success',
                     ['%name%' => $section->name],
-                    'section'
+                    'ibexa_section'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.section.view', [
@@ -452,7 +453,7 @@ class SectionController extends Controller
                     /** @Desc("Section '%name%' updated.") */
                     'section.update.success',
                     ['%name%' => $section->name],
-                    'section'
+                    'ibexa_section'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.section.view', [

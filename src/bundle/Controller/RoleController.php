@@ -25,6 +25,7 @@ use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -145,7 +146,7 @@ class RoleController extends Controller
                     /** @Desc("Role '%role%' created.") */
                     'role.create.success',
                     ['%role%' => $roleDraft->identifier],
-                    'role'
+                    'ibexa_role'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [
@@ -179,7 +180,7 @@ class RoleController extends Controller
                     /** @Desc("Role '%role%' copied.") */
                     'role.copy.success',
                     ['%role%' => $role->identifier],
-                    'role'
+                    'ibexa_role'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [
@@ -226,7 +227,7 @@ class RoleController extends Controller
                     /** @Desc("Role '%role%' updated.") */
                     'role.update.success',
                     ['%role%' => $role->identifier],
-                    'role'
+                    'ibexa_role'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [
@@ -268,7 +269,7 @@ class RoleController extends Controller
                     /** @Desc("Role '%role%' removed.") */
                     'role.delete.success',
                     ['%role%' => $role->identifier],
-                    'role'
+                    'ibexa_role'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.list'));
@@ -313,7 +314,7 @@ class RoleController extends Controller
                         /** @Desc("Role '%role%' removed.") */
                         'role.delete.success',
                         ['%role%' => $role->identifier],
-                        'role'
+                        'ibexa_role'
                     );
                 }
 

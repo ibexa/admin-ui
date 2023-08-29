@@ -30,6 +30,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\Util\StringUtil;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -202,7 +203,7 @@ class TrashController extends Controller
                     /** @Desc("Trash emptied.") */
                     'trash.empty.success',
                     [],
-                    'trash'
+                    'ibexa_trash'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.trash.list'));
@@ -249,14 +250,14 @@ class TrashController extends Controller
                             /** @Desc("Restored content to its original Location.") */
                             'trash.restore_original_location.success',
                             [],
-                            'trash'
+                            'ibexa_trash'
                         );
                     } else {
                         $this->notificationHandler->success(
                             /** @Desc("Restored content under Location '%location%'.") */
                             'trash.restore_new_location.success',
                             ['%location%' => $newParentLocation->getContentInfo()->name],
-                            'trash'
+                            'ibexa_trash'
                         );
                     }
 
@@ -303,7 +304,7 @@ class TrashController extends Controller
                         /** @Desc("Deleted selected item(s) from Trash.") */
                         'trash.deleted.success',
                         [],
-                        'trash'
+                        'ibexa_trash'
                     );
 
                     return $this->redirectToTrashList($request);

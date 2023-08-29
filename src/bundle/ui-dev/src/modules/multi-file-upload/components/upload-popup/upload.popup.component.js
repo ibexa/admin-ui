@@ -32,7 +32,7 @@ export default class UploadPopupModule extends Component {
             itemsToUpload: this.props.itemsToUpload,
             removeItemsToUpload: this.props.removeItemsToUpload,
         };
-        const title = Translator.trans(/*@Desc("Multi-file upload")*/ 'upload_popup.close', {}, 'multi_file_upload');
+        const title = Translator.trans(/*@Desc("Multi-file upload")*/ 'upload_popup.close', {}, 'ibexa_multi_file_upload');
 
         return (
             <div className="c-upload-popup" ref={this.refTooltip}>

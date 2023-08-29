@@ -1,11 +1,11 @@
-{% trans_default_domain 'ezplatform_url_wildcard' %}
+{% trans_default_domain 'ibexa_url_wildcard' %}
 
 {% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
     title: 'url_wildcard.modal.create.title'|trans|desc('Create a new URL wildcard'),
     class: 'ibexa-modal--url-wildcards',
     id,
 } %}
-    {% trans_default_domain 'ezplatform_url_wildcard' %}
+    {% trans_default_domain 'ibexa_url_wildcard' %}
     {% form_theme form '@ibexadesign/content/form_fields.html.twig' '@ibexadesign/content/tab/url/checkbox.html.twig' %}
 
     {% block content_before %}

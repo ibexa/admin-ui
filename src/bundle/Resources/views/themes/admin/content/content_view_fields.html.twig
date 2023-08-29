@@ -27,7 +27,7 @@
                                         <div class="ibexa-content-field__name">{{ field_definition.name }}</div>
                                         <div class="ibexa-content-field__value">
                                             {% if ibexa_field_is_empty(content, field_definition.identifier) %}
-                                                <em>{{ 'fieldview.field.empty'|trans({}, 'fieldview')|desc('This field is empty') }}</em>
+                                                <em>{{ 'fieldview.field.empty'|trans({}, 'ibexa_fieldview')|desc('This field is empty') }}</em>
                                             {% else %}
                                                 {{ ibexa_render_field(content, field_definition.identifier, {location: location}) }}
                                             {% endif %}

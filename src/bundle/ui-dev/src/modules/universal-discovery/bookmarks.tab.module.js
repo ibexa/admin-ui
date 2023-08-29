@@ -101,7 +101,7 @@ ibexa.addConfig(
         {
             id: 'bookmarks',
             component: BookmarksTabModule,
-            label: Translator.trans(/*@Desc("Bookmarks")*/ 'bookmarks.label', {}, 'universal_discovery_widget'),
+            label: Translator.trans(/*@Desc("Bookmarks")*/ 'bookmarks.label', {}, 'ibexa_universal_discovery_widget'),
             icon: ibexa.helpers.icon.getIconPath('bookmark'),
         },
     ],

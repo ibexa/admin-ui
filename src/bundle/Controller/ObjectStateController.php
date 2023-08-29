@@ -28,6 +28,7 @@ use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -151,7 +152,7 @@ class ObjectStateController extends Controller
                         /** @Desc("Object state '%name%' created.") */
                         'object_state.create.success',
                         ['%name%' => $data->getName()],
-                        'object_state'
+                        'ibexa_object_state'
                     );
 
                     return $this->redirectToRoute('ibexa.object_state.state.view', [
@@ -194,7 +195,7 @@ class ObjectStateController extends Controller
                     /** @Desc("Object state '%name%' deleted.") */
                     'object_state.delete.success',
                     ['%name%' => $objectState->getName()],
-                    'object_state'
+                    'ibexa_object_state'
                 );
             });
 
@@ -235,7 +236,7 @@ class ObjectStateController extends Controller
                         /** @Desc("Object state '%name%' deleted.") */
                         'object_state.delete.success',
                         ['%name%' => $objectState->getName()],
-                        'object_state'
+                        'ibexa_object_state'
                     );
                 }
             });
@@ -278,7 +279,7 @@ class ObjectStateController extends Controller
                     /** @Desc("Object state '%name%' updated.") */
                     'object_state.update.success',
                     ['%name%' => $updatedObjectState->getName()],
-                    'object_state'
+                    'ibexa_object_state'
                 );
 
                 return $this->redirectToRoute('ibexa.object_state.state.view', [
@@ -337,7 +338,7 @@ class ObjectStateController extends Controller
                     /** @Desc("Content item's Object state changed to '%name%'.") */
                     'content_object_state.update.success',
                     ['%name%' => $objectState->getName()],
-                    'object_state'
+                    'ibexa_object_state'
                 );
             });
 

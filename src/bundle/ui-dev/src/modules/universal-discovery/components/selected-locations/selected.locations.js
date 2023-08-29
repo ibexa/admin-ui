@@ -18,11 +18,11 @@ const SelectedLocations = () => {
         'c-selected-locations': true,
         'c-selected-locations--expanded': isExpanded,
     });
-    const expandLabel = Translator.trans(/*@Desc("Expand sidebar")*/ 'selected_locations.expand.sidebar', {}, 'universal_discovery_widget');
+    const expandLabel = Translator.trans(/*@Desc("Expand sidebar")*/ 'selected_locations.expand.sidebar', {}, 'ibexa_universal_discovery_widget');
     const collapseLabel = Translator.trans(
         /*@Desc("Collapse sidebar")*/ 'selected_locations.collapse.sidebar',
         {},
-        'universal_discovery_widget',
+        'ibexa_universal_discovery_widget',
     );
     const togglerLabel = isExpanded ? collapseLabel : expandLabel;
     const clearSelection = () => {
@@ -36,7 +36,7 @@ const SelectedLocations = () => {
         const selectedLabel = Translator.trans(
             /*@Desc("%count% selected item(s)")*/ 'selected_locations.selected_items',
             { count: selectedLocations.length },
-            'universal_discovery_widget',
+            'ibexa_universal_discovery_widget',
         );
 
         return <div className="c-selected-locations__selection-counter">{selectedLabel}</div>;
@@ -61,7 +61,7 @@ const SelectedLocations = () => {
         const removeAllLabel = Translator.trans(
             /*@Desc("Deselect all")*/ 'selected_locations.deselect_all',
             {},
-            'universal_discovery_widget',
+            'ibexa_universal_discovery_widget',
         );
 
         return (

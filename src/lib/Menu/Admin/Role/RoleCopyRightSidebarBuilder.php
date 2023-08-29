@@ -9,6 +9,7 @@ namespace Ibexa\AdminUi\Menu\Admin\Role;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Menu\MenuItemFactory;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use JMS\TranslationBundle\Annotation\Ignore;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -65,7 +66,7 @@ class RoleCopyRightSidebarBuilder extends AbstractBuilder implements Translation
                             /** @Ignore */
                             self::ITEM__SAVE,
                             [],
-                            'menu'
+                            'ibexa_menu'
                         ),
                     ],
                 ]
@@ -80,7 +81,7 @@ class RoleCopyRightSidebarBuilder extends AbstractBuilder implements Translation
                             /** @Ignore */
                             self::ITEM__CANCEL,
                             [],
-                            'menu'
+                            'ibexa_menu'
                         ),
                     ],
                     'route' => 'ibexa.role.list',
@@ -97,8 +98,8 @@ class RoleCopyRightSidebarBuilder extends AbstractBuilder implements Translation
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Copy'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__SAVE, 'ibexa_menu'))->setDesc('Copy'),
+            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard changes'),
         ];
     }
 }

@@ -70,8 +70,8 @@ class URLEditRightSidebarBuilder extends AbstractBuilder implements TranslationC
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Save'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__SAVE, 'ibexa_menu'))->setDesc('Save'),
+            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard changes'),
         ];
     }
 }

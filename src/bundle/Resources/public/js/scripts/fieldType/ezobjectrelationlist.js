@@ -112,12 +112,12 @@
                     ? Translator.trans(
                           /*@Desc("Select a Content item")*/ 'ezobjectrelationlist.title.single',
                           {},
-                          'universal_discovery_widget',
+                          'ibexa_universal_discovery_widget',
                       )
                     : Translator.trans(
                           /*@Desc("Select Content item(s)")*/ 'ezobjectrelationlist.title.multi',
                           {},
-                          'universal_discovery_widget',
+                          'ibexa_universal_discovery_widget',
                       );
 
             udwRoot = ReactDOM.createRoot(udwContainer);

@@ -174,10 +174,10 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__PUBLISH, 'menu'))->setDesc('Publish'),
-            (new Message(self::ITEM__SAVE_DRAFT, 'menu'))->setDesc('Save'),
-            (new Message(self::ITEM__PREVIEW, 'menu'))->setDesc('Preview'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Cancel'),
+            (new Message(self::ITEM__PUBLISH, 'ibexa_menu'))->setDesc('Publish'),
+            (new Message(self::ITEM__SAVE_DRAFT, 'ibexa_menu'))->setDesc('Save'),
+            (new Message(self::ITEM__PREVIEW, 'ibexa_menu'))->setDesc('Preview'),
+            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Cancel'),
         ];
     }
 

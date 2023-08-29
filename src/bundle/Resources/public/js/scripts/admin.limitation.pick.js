@@ -28,7 +28,7 @@
         const errorMessage = Translator.trans(
             /*@Desc("Could not fetch content names")*/ 'limitation.pick.error',
             {},
-            'universal_discovery_widget',
+            'ibexa_universal_discovery_widget',
         );
 
         fetch(request)
@@ -171,7 +171,7 @@
             .filter((idString) => !!idString)
             .map((idString) => parseInt(idString, 10));
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
-        const title = Translator.trans(/*@Desc("Choose Locations")*/ 'subtree_limitation.title', {}, 'universal_discovery_widget');
+        const title = Translator.trans(/*@Desc("Choose Locations")*/ 'subtree_limitation.title', {}, 'ibexa_universal_discovery_widget');
 
         udwRoot = ReactDOM.createRoot(udwContainer);
         udwRoot.render(

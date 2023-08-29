@@ -23,13 +23,13 @@ export const SORTING_OPTIONS = [
         value: 'date:asc',
         label: (
             <div className="c-simple-dropdown__option-label">
-                {Translator.trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'universal_discovery_widget')}
+                {Translator.trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
                 <Icon name="back" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
             </div>
         ),
         selectedLabel: (
             <div className="c-simple-dropdown__option-label">
-                {Translator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'universal_discovery_widget')}
+                {Translator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
                 <Icon name="back" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
             </div>
         ),
@@ -40,13 +40,13 @@ export const SORTING_OPTIONS = [
         value: 'date:desc',
         label: (
             <div className="c-simple-dropdown__option-label">
-                {Translator.trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'universal_discovery_widget')}
+                {Translator.trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
                 <Icon name="back" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
             </div>
         ),
         selectedLabel: (
             <div className="c-simple-dropdown__option-label">
-                {Translator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'universal_discovery_widget')}
+                {Translator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
                 <Icon name="back" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
             </div>
         ),
@@ -55,15 +55,15 @@ export const SORTING_OPTIONS = [
     },
     {
         value: 'name:asc',
-        label: Translator.trans(/*@Desc("Name A-Z")*/ 'sorting.name.asc.label', {}, 'universal_discovery_widget'),
-        selectedLabel: Translator.trans(/*@Desc("Sort by name A-Z")*/ 'sorting.name.asc.selected_label', {}, 'universal_discovery_widget'),
+        label: Translator.trans(/*@Desc("Name A-Z")*/ 'sorting.name.asc.label', {}, 'ibexa_universal_discovery_widget'),
+        selectedLabel: Translator.trans(/*@Desc("Sort by name A-Z")*/ 'sorting.name.asc.selected_label', {}, 'ibexa_universal_discovery_widget'),
         sortClause: 'ContentName',
         sortOrder: 'ascending',
     },
     {
         value: 'name:desc',
-        label: Translator.trans(/*@Desc("Name Z-A")*/ 'sorting.name.desc.label', {}, 'universal_discovery_widget'),
-        selectedLabel: Translator.trans(/*@Desc("Sort by name Z-A")*/ 'sorting.name.desc.selected_label', {}, 'universal_discovery_widget'),
+        label: Translator.trans(/*@Desc("Name Z-A")*/ 'sorting.name.desc.label', {}, 'ibexa_universal_discovery_widget'),
+        selectedLabel: Translator.trans(/*@Desc("Sort by name Z-A")*/ 'sorting.name.desc.selected_label', {}, 'ibexa_universal_discovery_widget'),
         sortClause: 'ContentName',
         sortOrder: 'descending',
     },
@@ -72,17 +72,17 @@ export const VIEWS = [
     {
         value: 'finder',
         iconName: 'panels',
-        label: Translator.trans(/*@Desc("Panels view")*/ 'sorting.panels.view', {}, 'universal_discovery_widget'),
+        label: Translator.trans(/*@Desc("Panels view")*/ 'sorting.panels.view', {}, 'ibexa_universal_discovery_widget'),
     },
     {
         value: 'grid',
         iconName: 'view-grid',
-        label: Translator.trans(/*@Desc("Grid view")*/ 'sorting.grid.view', {}, 'universal_discovery_widget'),
+        label: Translator.trans(/*@Desc("Grid view")*/ 'sorting.grid.view', {}, 'ibexa_universal_discovery_widget'),
     },
     {
         value: 'tree',
         iconName: 'content-tree',
-        label: Translator.trans(/*@Desc("Tree view")*/ 'sorting.tree.view', {}, 'universal_discovery_widget'),
+        label: Translator.trans(/*@Desc("Tree view")*/ 'sorting.tree.view', {}, 'ibexa_universal_discovery_widget'),
     },
 ];
 

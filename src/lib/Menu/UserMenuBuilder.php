@@ -109,10 +109,10 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM_LOGOUT, 'menu'))->setDesc('Logout'),
-            (new Message(self::ITEM_USER_SETTINGS, 'menu'))->setDesc('User settings'),
-            (new Message(self::ITEM_DRAFTS, 'menu'))->setDesc('Drafts'),
-            (new Message(self::ITEM_NOTIFICATION, 'notifications'))->setDesc('View Notifications'),
+            (new Message(self::ITEM_LOGOUT, 'ibexa_menu'))->setDesc('Logout'),
+            (new Message(self::ITEM_USER_SETTINGS, 'ibexa_menu'))->setDesc('User settings'),
+            (new Message(self::ITEM_DRAFTS, 'ibexa_menu'))->setDesc('Drafts'),
+            (new Message(self::ITEM_NOTIFICATION, 'ibexa_notifications'))->setDesc('View Notifications'),
         ];
     }
 }

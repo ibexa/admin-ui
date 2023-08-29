@@ -19,6 +19,7 @@ use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -91,7 +92,7 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
     public function getName(): string
     {
         /** @Desc("Versions") */
-        return $this->translator->trans('tab.name.versions', [], 'locationview');
+        return $this->translator->trans('tab.name.versions', [], 'ibexa_locationview');
     }
 
     /**

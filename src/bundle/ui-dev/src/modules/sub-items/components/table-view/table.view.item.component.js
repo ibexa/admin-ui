@@ -260,8 +260,8 @@ export default class TableViewItemComponent extends PureComponent {
 
     renderVisibilityCell() {
         const { invisible, hidden } = this.props.item;
-        const visibleLabel = Translator.trans(/*@Desc("Visible")*/ 'items_table.row.visible.label', {}, 'sub_items');
-        const notVisibleLabel = Translator.trans(/*@Desc("Not Visible")*/ 'items_table.row.not_visible.label', {}, 'sub_items');
+        const visibleLabel = Translator.trans(/*@Desc("Visible")*/ 'items_table.row.visible.label', {}, 'ibexa_sub_items');
+        const notVisibleLabel = Translator.trans(/*@Desc("Not Visible")*/ 'items_table.row.not_visible.label', {}, 'ibexa_sub_items');
         const label = !invisible && !hidden ? visibleLabel : notVisibleLabel;
 
         return <div className="c-table-view-item__text-wrapper">{label}</div>;
@@ -350,7 +350,7 @@ export default class TableViewItemComponent extends PureComponent {
     getLanguageSelectorData() {
         const languages = this.props.languages.mappings;
         const { languageCodes } = this.props.item.content._info.currentVersion;
-        const label = Translator.trans(/*@Desc("Select language")*/ 'languages.modal.label', {}, 'sub_items');
+        const label = Translator.trans(/*@Desc("Select language")*/ 'languages.modal.label', {}, 'ibexa_sub_items');
         const languageItems = languageCodes.map((item) => ({
             label: languages[item].name,
             value: item,
@@ -369,7 +369,7 @@ export default class TableViewItemComponent extends PureComponent {
 
     render() {
         const { isSelected, showScrollShadowRight } = this.props;
-        const editLabel = Translator.trans(/*@Desc("Edit")*/ 'edit_item_btn.label', {}, 'sub_items');
+        const editLabel = Translator.trans(/*@Desc("Edit")*/ 'edit_item_btn.label', {}, 'ibexa_sub_items');
         const actionCellClassName = createCssClassNames({
             'ibexa-table__cell': true,
             'c-table-view-item__cell': true,

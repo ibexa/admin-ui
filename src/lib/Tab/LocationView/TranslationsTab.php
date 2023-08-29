@@ -22,6 +22,7 @@ use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -84,7 +85,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     public function getName(): string
     {
         /** @Desc("Translations") */
-        return $this->translator->trans('tab.name.translations', [], 'locationview');
+        return $this->translator->trans('tab.name.translations', [], 'ibexa_locationview');
     }
 
     public function getOrder(): int

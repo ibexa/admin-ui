@@ -32,7 +32,7 @@ class URLEditType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => URLUpdateData::class,
-            'translation_domain' => 'ezplatform_content_forms_url',
+            'translation_domain' => 'ibexa_content_forms_url',
         ]);
     }
 

@@ -2,7 +2,7 @@
 
 {% extends "@ibexadesign/ui/layout.html.twig" %}
 
-{% trans_default_domain 'locationview' %}
+{% trans_default_domain 'ibexa_locationview' %}
 {% form_theme form_location_copy '@ibexadesign/ui/form/flat_widgets.html.twig' %}
 {% form_theme form_location_move '@ibexadesign/ui/form/flat_widgets.html.twig' %}
 {% if form_content_edit is defined %}
@@ -175,7 +175,7 @@
     {% if content_has_reverse_relations and not location.contentInfo.isHidden %}
         {% include '@ibexadesign/content/modal/hide_confirmation.html.twig' %}
     {% endif %}
-
+    </div>
 {% endblock %}
 
 {% block stylesheets %}

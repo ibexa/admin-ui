@@ -12,6 +12,7 @@ use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values\FieldTypeToolbar;
 use Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values\FieldTypeToolbarItem;
 use Ibexa\Core\FieldType\FieldTypeRegistry;
+use JMS\TranslationBundle\Annotation\Ignore;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -75,7 +76,7 @@ final class FieldTypeToolbarFactory
         return $this->translator->trans(/** @Ignore */
             $fieldTypeIdentifier . '.name',
             [],
-            'fieldtypes'
+            'ibexa_fieldtypes'
         );
     }
 }

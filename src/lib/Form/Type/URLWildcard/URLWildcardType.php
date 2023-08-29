@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\URLWildcard;
 
 use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardData;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -46,7 +47,7 @@ final class URLWildcardType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => URLWildcardData::class,
-            'translation_domain' => 'url_wildcard',
+            'translation_domain' => 'ibexa_url_wildcard',
         ]);
     }
 }
