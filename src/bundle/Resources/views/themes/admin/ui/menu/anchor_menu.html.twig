@@ -104,7 +104,7 @@
             class="nav-link ibexa-tabs__link {{ loop.first ? 'active' }}"
         >
             {{ block('label') }}
-            <svg class="ibexa-icon ibexa-icon--small ibexa-tabs__tab-error ibexa-tabs__tab-error--hidden">
+            <svg class="ibexa-icon ibexa-icon--small ibexa-tabs__tab-warning-icon">
                 <use xlink:href="{{ ibexa_icon_path('warning-triangle') }}"></use>
             </svg>
         </a>
@@ -136,20 +136,21 @@
                 {% set innerItemBlock = 'item_1st_level' %}
                 {% set itemTagElement = 'li' %}
                 {% set extraElements %}
-                    <li class="nav-item ibexa-tabs__tab ibexa-tabs__tab--more ibexa-adaptive-items__item ibexa-adaptive-items__item--selector"
-                        data-item-template="{{ include('@ibexadesign/ui/component/popup_menu/popup_menu_item.html.twig', {
-                                'label': '{{ label }}',
-                            })|e('html_attr') }}"
+                    <li
+                        class="nav-item ibexa-tabs__tab ibexa-tabs__tab--more ibexa-adaptive-items__item ibexa-adaptive-items__item--selector"
                         tabindex="0"
                     >
                         <a class="nav-link ibexa-tabs__link" role="button">
                             {{ 'anchor_menu.more'|trans|desc('More') }}
+                            <svg class="ibexa-icon ibexa-icon--tiny-small">
+                                <use xlink:href="{{ ibexa_icon_path('caret-double-next') }}"></use>
+                            </svg>
                         </a>
                     </li>
                 {% endset %}
 
                 {{ block('anchor_menu_list') -}}
-                {{ include('@ibexadesign/ui/component/popup_menu/popup_menu.html.twig', {
+                {{ include('@ibexadesign/ui/component/tab_switcher/popup_menu.html.twig', {
                     'class': 'ibexa-tabs__popup-menu',
                     'items': [],
                 }) }}
