@@ -9,16 +9,9 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Permission;
 
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
-use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
-use Ibexa\Contracts\Core\Repository\ContentService;
-use Ibexa\Contracts\Core\Repository\ContentTypeService;
-use Ibexa\Contracts\Core\Repository\LanguageService;
-use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
-use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LocationLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentContentTypeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentDepthLimitation;
@@ -39,40 +32,16 @@ class PermissionChecker implements PermissionCheckerInterface
     /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LimitationResolverInterface $limitationResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     */
     public function __construct(
         PermissionResolver $permissionResolver,
-        UserService $userService,
-        LocationService $locationService,
-        ContentService $contentService,
-        ContentTypeService $contentTypeService,
-        LanguageService $languageService
+        LimitationResolverInterface $limitationResolver,
+        UserService $userService
     ) {
         $this->permissionResolver = $permissionResolver;
+        $this->limitationResolver = $limitationResolver;
         $this->userService = $userService;
-        $this->locationService = $locationService;
-        $this->contentTypeService = $contentTypeService;
-        $this->contentService = $contentService;
-        $this->languageService = $languageService;
     }
 
     /**
@@ -190,39 +159,24 @@ class PermissionChecker implements PermissionCheckerInterface
 
     public function getContentCreateLimitations(Location $parentLocation): LookupLimitationResult
     {
-        $contentType = $this->contentTypeService->loadContentType($parentLocation->contentInfo->contentTypeId);
-        $contentCreateStruct = $this->contentService->newContentCreateStruct($contentType, $parentLocation->contentInfo->mainLanguageCode);
-        $contentCreateStruct->sectionId = $parentLocation->contentInfo->sectionId;
-        $locationCreateStruct = $this->locationService->newLocationCreateStruct($parentLocation->id);
-
-        $versionBuilder = new VersionBuilder();
-        $versionBuilder->translateToAnyLanguageOf($this->getActiveLanguageCodes());
-        $versionBuilder->createFromAnyContentTypeOf($this->getContentTypeIds());
-
-        return $this->permissionResolver->lookupLimitations(
-            'content',
-            'create',
-            $contentCreateStruct,
-            [$versionBuilder->build(), $locationCreateStruct],
-            [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
+        trigger_deprecation(
+            'ibexa/admin-ui',
+            '4.6',
+            sprintf('The %s() method is deprecated, will be removed in 5.0.', __METHOD__)
         );
+
+        return $this->limitationResolver->getContentCreateLimitations($parentLocation);
     }
 
     public function getContentUpdateLimitations(Location $location): LookupLimitationResult
     {
-        $contentInfo = $location->getContentInfo();
-
-        $versionBuilder = new VersionBuilder();
-        $versionBuilder->translateToAnyLanguageOf($this->getActiveLanguageCodes());
-        $versionBuilder->createFromAnyContentTypeOf($this->getContentTypeIds());
-
-        return $this->permissionResolver->lookupLimitations(
-            'content',
-            'edit',
-            $contentInfo,
-            [$versionBuilder->build(), $location],
-            [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
+        trigger_deprecation(
+            'ibexa/admin-ui',
+            '4.6',
+            sprintf('The %s() method is deprecated, will be removed in 5.0.', __METHOD__)
         );
+
+        return $this->limitationResolver->getContentUpdateLimitations($location);
     }
 
     /**
@@ -298,39 +252,6 @@ class PermissionChecker implements PermissionCheckerInterface
         } while (\count($userGroups) === self::USER_GROUPS_LIMIT);
 
         return $allUserGroups;
-    }
-
-    /**
-     * @return string[]
-     */
-    private function getActiveLanguageCodes(): array
-    {
-        $filter = array_filter(
-            $this->languageService->loadLanguages(),
-            static function (Language $language) {
-                return $language->enabled;
-            }
-        );
-
-        return array_column($filter, 'languageCode');
-    }
-
-    /**
-     * @return string[]
-     */
-    private function getContentTypeIds(): array
-    {
-        $contentTypeIds = [];
-
-        $contentTypeGroups = $this->contentTypeService->loadContentTypeGroups();
-        foreach ($contentTypeGroups as $contentTypeGroup) {
-            $contentTypes = $this->contentTypeService->loadContentTypes($contentTypeGroup);
-            foreach ($contentTypes as $contentType) {
-                $contentTypeIds[] = $contentType->id;
-            }
-        }
-
-        return $contentTypeIds;
     }
 }
 

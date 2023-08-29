@@ -96,6 +96,8 @@ services:
 
     Ibexa\Bundle\AdminUi\Templating\Twig\ContentTypeIconExtension: ~
 
+    Ibexa\Bundle\AdminUi\Templating\Twig\EmbeddedItemEditFormExtension: ~
+
     Ibexa\AdminUi\UI\Config\Provider\UserContentTypes:
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'userContentTypes' }

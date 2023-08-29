@@ -960,3 +960,17 @@ ibexa.asset.upload_image:
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\AssetController::uploadImageAction'
     methods: [POST]
+
+#
+# Permissions
+#
+
+ibexa.permission.limitation.language:
+    path: permission/limitation/language/{contentId}/{versionNo}/{locationId}
+    options:
+        expose: true
+    defaults:
+        versionNo: null
+        locationId: null
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\Permission\LanguageLimitationController::loadLanguageLimitationsForContentAction'
+    methods: [GET]

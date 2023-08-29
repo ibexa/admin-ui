@@ -221,6 +221,8 @@
             {% endblock %}
         {% endif %}
 
+        {{ ibexa_render_component_group('html-body') }}
+
         {{ encore_entry_script_tags('ibexa-admin-ui-layout-js', null, 'ibexa') }}
         {{ encore_entry_script_tags('ibexa-admin-ui-udw-tabs-js', null, 'ibexa') }}
         {{ encore_entry_script_tags('ibexa-admin-ui-udw-extras-js', null, 'ibexa') }}

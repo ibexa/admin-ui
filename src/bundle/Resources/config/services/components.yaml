@@ -39,3 +39,10 @@ services:
         public: false
 
     Ibexa\Contracts\AdminUi\Component\Renderer\RendererInterface: '@Ibexa\AdminUi\Component\Renderer\DefaultRenderer'
+
+    ibexa.adminui.html.body:
+        parent: Ibexa\AdminUi\Component\TwigComponent
+        arguments:
+            $template: '@@ibexadesign/ui/html_body.html.twig'
+        tags:
+            - { name: ibexa.admin_ui.component, group: 'html-body' }
