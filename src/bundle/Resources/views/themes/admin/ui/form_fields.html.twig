@@ -383,10 +383,14 @@
 {% block form_help -%}
     {%- if help is not empty -%}
         {%- set help_attr = help_attr|merge({class: (help_attr.class|default('') ~ ' ibexa-form-help')|trim}) -%}
+        {%- set with_icon = help_attr.with_icon is defined ? help_attr.with_icon : true -%}
+
         <small id="{{ id }}_help"{% with { attr: help_attr } %}{{ block('attributes') }}{% endwith %}>
-            <svg class="ibexa-icon ibexa-icon--small ibexa-form-help__icon">
-                <use xlink:href="{{ ibexa_icon_path('system-information') }}"></use>
-            </svg>
+            {% if with_icon %}
+                <svg class="ibexa-icon ibexa-icon--small ibexa-form-help__icon">
+                    <use xlink:href="{{ ibexa_icon_path('system-information') }}"></use>
+                </svg>
+            {% endif %}
             <div class="ibexa-form-help__content">
                 {%- if translation_domain is same as(false) -%}
                     {%- if help_html is same as(false) -%}
