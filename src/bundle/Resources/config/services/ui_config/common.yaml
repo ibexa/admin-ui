@@ -121,3 +121,7 @@ services:
     Ibexa\AdminUi\UI\Config\Provider\BackOfficeLanguage:
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'backOfficeLanguage' }
+
+    Ibexa\AdminUi\UI\Config\Provider\CurrentBackOfficePath:
+        tags:
+            - { name: ibexa.admin_ui.config.provider, key: 'backOfficePath' }

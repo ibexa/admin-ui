@@ -81,7 +81,7 @@
         const isSecondLevelMenuCollapsed = secondLevelMenuNode.classList.contains('ibexa-main-menu__navbar--collapsed');
         const newMenuWidth = isSecondLevelMenuCollapsed ? SECOND_LEVEL_EXPANDED_WIDTH : SECOND_LEVEL_COLLAPSED_WIDTH;
 
-        ibexa.helpers.cookies.setCookie('second_menu_width', newMenuWidth);
+        ibexa.helpers.cookies.setBackOfficeCookie('second_menu_width', newMenuWidth);
         setWidthOfSecondLevelMenu();
     };
     const parsePopup = (button) => {
@@ -131,7 +131,7 @@
         const resizeValue = secondMenuLevelCurrentWidth + (clientX - resizeStartPositionX);
         const newMenuWidth = resizeValue > SECOND_LEVEL_MANUAL_RESIZE_MIN_WIDTH ? resizeValue : SECOND_LEVEL_COLLAPSED_WIDTH;
 
-        ibexa.helpers.cookies.setCookie('second_menu_width', newMenuWidth);
+        ibexa.helpers.cookies.setBackOfficeCookie('second_menu_width', newMenuWidth);
         setWidthOfSecondLevelMenu();
     };
 
