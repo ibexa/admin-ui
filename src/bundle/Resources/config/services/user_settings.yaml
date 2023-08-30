@@ -20,3 +20,8 @@ services:
         tags:
             - { name: ibexa.user.setting.value, identifier: autosave_interval, group: content_edit, priority: 20 }
             - { name: ibexa.user.setting.mapper.form, identifier: autosave_interval }
+
+    Ibexa\AdminUi\UserSetting\InContextTranslation:
+        tags:
+            - { name: ibexa.user.setting.value, identifier: in_context_translation, group: location, priority: 60 }
+            - { name: ibexa.user.setting.mapper.form, identifier: in_context_translation }
