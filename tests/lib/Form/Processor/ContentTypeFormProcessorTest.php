@@ -71,6 +71,7 @@ final class ContentTypeFormProcessorTest extends TestCase
             FormEvents::CONTENT_TYPE_ADD_FIELD_DEFINITION => 'processAddFieldDefinition',
             FormEvents::CONTENT_TYPE_REMOVE_FIELD_DEFINITION => 'processRemoveFieldDefinition',
             FormEvents::CONTENT_TYPE_PUBLISH => 'processPublishContentType',
+            FormEvents::CONTENT_TYPE_PUBLISH_AND_EDIT => 'processPublishAndEditContentType',
             FormEvents::CONTENT_TYPE_REMOVE_DRAFT => 'processRemoveContentTypeDraft',
         ], ContentTypeFormProcessor::getSubscribedEvents());
     }
