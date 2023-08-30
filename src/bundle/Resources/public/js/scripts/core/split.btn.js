@@ -10,7 +10,6 @@
         }
 
         init() {
-            console.log('b');
             const multilevelPopupMenu = new ibexa.core.MultilevelPopupMenu({
                 container: this.multilevelPopupMenuContainer,
                 triggerElement: this.toggleBtn,
