@@ -143,7 +143,7 @@
         }
 
         updateBranchAndParentBranchesOpenState(branchElement) {
-            const isTopBranch = !branchElement?.parentBranchElement ?? null;
+            const isTopBranch = !(branchElement?.parentBranchElement ?? null);
 
             if (isTopBranch) {
                 return;
