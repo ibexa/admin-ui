@@ -80,7 +80,11 @@ const ContentCreateWidget = () => {
     const createLabel = Translator.trans(/*@Desc("Create")*/ 'create_content.create', {}, 'universal_discovery_widget');
     const closeLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'universal_discovery_widget');
     const cancelLabel = Translator.trans(/*@Desc("Cancel")*/ 'content_create.cancel.label', {}, 'universal_discovery_widget');
-    const placeholder = Translator.trans(/*@Desc("Search by Content Type")*/ 'content_create.placeholder', {}, 'universal_discovery_widget');
+    const placeholder = Translator.trans(
+        /*@Desc("Search by Content Type")*/ 'content_create.placeholder',
+        {},
+        'universal_discovery_widget',
+    );
     const filtersDescLabel = Translator.trans(
         /*@Desc("Or choose from list")*/ 'content.create.filters.desc',
         {},
