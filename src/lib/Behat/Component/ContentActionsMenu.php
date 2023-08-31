@@ -36,6 +36,21 @@ class ContentActionsMenu extends Component
             return;
         }
 
+        $contextMenuSplitBtnsTogglers = $this->getHTMLPage()
+            ->findAll($this->getLocator('menuSplitToggler'));
+
+        foreach($contextMenuSplitBtnsTogglers->getIterator() as $splitBtnToggler) {
+            $splitBtnToggler->click();
+
+            $matchingSubButtons = $this->getHTMLPage()
+                ->findAll($this->getLocator('menuSplitSubmenuButton'))
+                ->filterBy(new ElementTextCriterion($buttonName));
+
+            if ($matchingSubButtons->any()) {
+                $matchingSubButtons->first()->click();
+            }
+        }
+
         $this->getHTMLPage()->find($this->getLocator('moreButton'))->click();
 
         $this->getHTMLPage()
@@ -79,6 +94,8 @@ class ContentActionsMenu extends Component
     {
         return [
             new VisibleCSSLocator('menuButton', '.ibexa-context-menu .ibexa-btn, .ibexa-context-menu__item .ibexa-popup-menu__item, .ibexa-context-menu .btn'), // TO DO: set one selector after redesign
+            new VisibleCSSLocator('menuSplitToggler', '.ibexa-context-menu .ibexa-split-btn__toggle-btn'),
+            new VisibleCSSLocator('menuSplitSubmenuButton', '.ibexa-popup-menu:not(.ibexa-popup-menu--hidden) .ibexa-popup-menu__item-content'),
             new VisibleCSSLocator('label', '.ibexa-btn__label'),
             new VisibleCSSLocator('moreButton', '.ibexa-context-menu__item--more'),
             new VisibleCSSLocator('expandedMenuButton', '.ibexa-context-menu__item .ibexa-popup-menu__item-content'),
