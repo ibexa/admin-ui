@@ -269,7 +269,7 @@ class ContentViewPage extends Page
 
     public function sendToTrash()
     {
-        $this->contentActionsMenu->clickButton('Delete');
+        $this->contentActionsMenu->clickButton('Send to trash');
         $this->dialog->verifyIsLoaded();
         $this->dialog->confirm();
     }

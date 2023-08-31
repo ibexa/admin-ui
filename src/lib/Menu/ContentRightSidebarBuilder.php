@@ -301,7 +301,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         return [
             (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Create content'),
             (new Message(self::ITEM__EDIT, 'menu'))->setDesc('Edit'),
-            (new Message(self::ITEM__SEND_TO_TRASH, 'menu'))->setDesc('Delete'),
+            (new Message(self::ITEM__SEND_TO_TRASH, 'menu'))->setDesc('Send to trash'),
             (new Message(self::ITEM__COPY, 'menu'))->setDesc('Copy'),
             (new Message(self::ITEM__COPY_SUBTREE, 'menu'))->setDesc('Copy Subtree'),
             (new Message(self::ITEM__MOVE, 'menu'))->setDesc('Move'),
