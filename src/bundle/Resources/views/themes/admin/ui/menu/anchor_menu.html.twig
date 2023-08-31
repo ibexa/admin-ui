@@ -104,10 +104,10 @@
             class="nav-link ibexa-tabs__link {{ loop.first ? 'active' }}"
         >
             {{ block('label') }}
-            <svg class="ibexa-icon ibexa-icon--small ibexa-tabs__tab-warning-icon">
-                <use xlink:href="{{ ibexa_icon_path('warning-triangle') }}"></use>
-            </svg>
         </a>
+        <svg class="ibexa-icon ibexa-icon--small ibexa-tabs__tab-warning-icon">
+            <use xlink:href="{{ ibexa_icon_path('warning-triangle') }}"></use>
+        </svg>
     </{{ itemTagElement }}>
 {% endblock %}
 
@@ -126,7 +126,11 @@
 {% block root %}
     <div class="ibexa-anchor-navigation">
         {% if item.count() > 1 %}
-            <div class="ibexa-tabs ibexa-tabs--switcher">
+            <div
+                class="ibexa-tabs ibexa-tabs--switcher"
+                data-form-selector=".ibexa-edit-content .ibexa-form"
+                data-form-tab-group-selector=".ibexa-anchor-navigation__section-group"
+            >
                 {% set tagElement = 'ul' %}
                 {% set listAttributes = item.childrenAttributes|merge({
                     'class': (listAttributes.class|default('') ~ ' nav nav-tabs ibexa-tabs__list ibexa-adaptive-items')|trim,
