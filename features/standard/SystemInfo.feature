@@ -9,8 +9,8 @@ Feature: System info verification
     And I open "System Information" page in admin SiteAccess
 
   @javascript
-  Scenario: Check My Ibexa Information
-    When I go to "My Ibexa" tab in System Information
+  Scenario: Check Product Information
+    When I go to "Product" tab in System Information
     Then I see "Product" system information table
 
   @javascript
