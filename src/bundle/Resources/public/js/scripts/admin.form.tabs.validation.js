@@ -6,7 +6,7 @@
         }
 
         return `#${group.id}`;
-    }
+    };
 
     tabsHeaders.forEach((tabsHeader) => {
         const popupMenu = tabsHeader.querySelector('.ibexa-tabs__popup-menu');
@@ -39,7 +39,6 @@
 
                         popupMenuItem?.classList.toggle('ibexa-popup-menu__item--error', hasGroupError);
                     }
-
                 }
             });
         };
@@ -55,7 +54,9 @@
         if (popupMenu) {
             const classInvalidHiddenChangedCallback = (mutationList) => {
                 mutationList.forEach(() => {
-                    const popupMenuItems = popupMenu.querySelectorAll('.ibexa-popup-menu__item--error:not(.ibexa-popup-menu__item--hidden)');
+                    const popupMenuItems = popupMenu.querySelectorAll(
+                        '.ibexa-popup-menu__item--error:not(.ibexa-popup-menu__item--hidden)',
+                    );
 
                     moreBtn.classList.toggle('ibexa-tabs__tab--error', popupMenuItems.length);
                 });
