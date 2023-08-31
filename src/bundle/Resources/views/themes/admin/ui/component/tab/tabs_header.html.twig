@@ -1,5 +1,11 @@
+{% import '@ibexadesign/ui/component/macros.html.twig' as html %}
+
+{% set tabs_attr = tabs_attr|default({})|merge({
+    class: (tabs_attr.class|default('') ~ ' ibexa-tabs')|trim,
+}) %}
+
 <div class="ibexa-header">
-    <div class="ibexa-tabs {{ tabs_wrapper_classes|default('') }}">
+    <div {{ html.attributes(tabs_attr) }}>
         <ul class="nav nav-tabs ibexa-tabs__list ibexa-adaptive-items" role="tablist">
             {% block tabs_list %}
                 {% for tab in tabs %}
@@ -19,19 +25,23 @@
                     tabindex="0"
                 >
                     <a class="nav-link ibexa-tabs__link" role="button">
-                        <svg class="ibexa-icon ibexa-icon--small">
-                            <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
-                        </svg>
+                        {% block btn_more_content %}
+                            <svg class="ibexa-icon ibexa-icon--small">
+                                <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
+                            </svg>
+                        {% endblock %}
                     </a>
                     {% include '@ibexadesign/ui/component/tab/tab_corner.html.twig' %}
                 </li>
             {% endif %}
         </ul>
         {% if include_tab_more|default(false) %}
-            {{ include('@ibexadesign/ui/component/popup_menu/popup_menu.html.twig', {
-                'class': 'ibexa-tabs__popup-menu',
-                'items': [],
-            }) }}
+            {% block popup_menu_more %}
+                {{ include('@ibexadesign/ui/component/popup_menu/popup_menu.html.twig', {
+                    'class': 'ibexa-tabs__popup-menu',
+                    'items': [],
+                }) }}
+            {% endblock %}
         {% endif %}
         {% if not hide_toggler|default(false) %}
             <div class="ibexa-tabs__toggler">

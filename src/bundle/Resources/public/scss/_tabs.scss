@@ -35,6 +35,13 @@
 
                     .ibexa-icon {
                         margin-left: calculateRem(4px);
+                        margin-top: calculateRem(-2px);
+                    }
+
+                    .nav-link:hover {
+                        .ibexa-icon {
+                            fill: $ibexa-color-primary;
+                        }
                     }
                 }
 
@@ -48,6 +55,8 @@
             &__link {
                 text-overflow: ellipsis;
                 overflow: hidden;
+                display: inline-block;
+                line-height: calculateRem(20px);
 
                 &.nav-link,
                 &.nav-link.active {
@@ -58,8 +67,12 @@
             }
 
             &__tab-warning-icon {
-                margin-top: calculateRem(-3px);
+                margin-top: calculateRem(-12px);
                 fill: $ibexa-color-danger;
+                display: none;
+            }
+
+            &__tab-corner {
                 display: none;
             }
         }
@@ -68,6 +81,7 @@
             &--error {
                 .ibexa-tabs__tab-warning-icon {
                     display: inline-block;
+                    margin-top: calculateRem(-3px);
                 }
             }
         }

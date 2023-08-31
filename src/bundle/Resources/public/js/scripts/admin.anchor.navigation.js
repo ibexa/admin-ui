@@ -120,47 +120,6 @@
             item.classList.toggle('ibexa-anchor-navigation-menu__sections-item-btn--active', item.isSameNode(node));
         });
     };
-    const attachListenForIsInvalidClass = () => {
-        const classChangedCallback = (mutationList) => {
-            mutationList.forEach((mutation) => {
-                const { oldValue, target } = mutation;
-                const hadIsInvalidClass = oldValue?.includes('.is-invalid') ?? false;
-                const hasIsInvalidClass = target.classList.contains('is-invalid');
-
-                if (hadIsInvalidClass !== hasIsInvalidClass) {
-                    const sectionGroup = target.closest('.ibexa-anchor-navigation__section-group');
-
-                    if (!sectionGroup) {
-                        return;
-                    }
-
-                    const { id } = sectionGroup.dataset;
-                    const hasGroupError = !!sectionGroup.querySelector('.is-invalid');
-                    const correspondingMenuItemLink = doc.querySelector(`.ibexa-tabs__tab [href="${id}"]`);
-                    const correspondingMenuItem = correspondingMenuItemLink.parentNode;
-
-                    correspondingMenuItem?.classList.toggle('ibexa-tabs__tab--error', hasGroupError);
-
-                    if (correspondingMenuItemLink) {
-                        const tabLinkId = correspondingMenuItemLink.id;
-                        const popupMenu = correspondingMenuItemLink.closest('.ibexa-tabs').querySelector('.ibexa-tabs__popup-menu');
-                        const popupMenuItem = popupMenu.querySelector(`[data-tab-link-id="${tabLinkId}"]`);
-
-                        popupMenuItem?.classList.toggle('ibexa-popup-menu__item--error', hasGroupError);
-                    }
-
-                }
-            });
-        };
-        const observer = new MutationObserver(classChangedCallback);
-
-        observer.observe(formContainerNode, {
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['class'],
-            attributeOldValue: true,
-        });
-    };
     const getTabHash = (node) => {
         const nodeId = node.href.split('#')[1];
 
@@ -209,6 +168,5 @@
     attachMenuSectionsEvents();
     initFitSection();
     attachScrollContainerEvents();
-    attachListenForIsInvalidClass();
     ibexa.helpers.tooltips.parse(navigationMenu);
 })(window, window.document, window.ibexa);

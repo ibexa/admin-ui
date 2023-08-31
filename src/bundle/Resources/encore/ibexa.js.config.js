@@ -60,6 +60,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/admin.middle.ellipsis.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.form.error.js'),
     path.resolve(__dirname, '../public/js/scripts/widgets/flatpickr.js'),
+    path.resolve(__dirname, '../public/js/scripts/admin.form.tabs.validation.js'),
 ];
 const fieldTypes = [];
 
