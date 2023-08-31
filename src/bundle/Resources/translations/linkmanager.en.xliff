@@ -12,13 +12,13 @@
         <note>key: tab.name.link_manager</note>
       </trans-unit>
       <trans-unit id="44ab49e25d0037a06f7c26582462d2d876e9546c" resname="url.action.edit">
-        <source>Edit URL</source>
-        <target state="new">Edit URL</target>
+        <source>Edit</source>
+        <target state="new">Edit</target>
         <note>key: url.action.edit</note>
       </trans-unit>
       <trans-unit id="f561064964d324f7697c98336f2e4ef5a247e7db" resname="url.action.item.edit">
-        <source>Edit content</source>
-        <target state="new">Edit content</target>
+        <source>Edit</source>
+        <target state="new">Edit</target>
         <note>key: url.action.item.edit</note>
       </trans-unit>
       <trans-unit id="a53272ba95dfff73c2fbab9fd4517d466b1753c2" resname="url.breadcrumb.detail">

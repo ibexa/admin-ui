@@ -7,8 +7,8 @@
     </header>
     <body>
       <trans-unit id="fa302fb6391baf4d4e0f2cda3a5d2cca51aa49c9" resname="draft.conflict.add_new">
-        <source>Add new</source>
-        <target state="new">Add new</target>
+        <source>Add</source>
+        <target state="new">Add</target>
         <note>key: draft.conflict.add_new</note>
       </trans-unit>
       <trans-unit id="1020ca59a2c9fa207ebe162fd6727fd1a81027c0" resname="draft.conflict.choice">

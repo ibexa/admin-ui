@@ -57,8 +57,8 @@
         <note>key: content_edit.autosave.status_saved.message.full</note>
       </trans-unit>
       <trans-unit id="750bead6705b295c7b7d66c27b2768c1b9329ed5" resname="editing_details">
-        <source>under %location_name%</source>
-        <target state="new">under %location_name%</target>
+        <source>Location: %location%</source>
+        <target state="new">Location: %location%</target>
         <note>key: editing_details</note>
       </trans-unit>
       <trans-unit id="f6ae7078e77f584ad00c8003405ca11dc57c4d56" resname="preview_header.back">
@@ -77,8 +77,8 @@
         <note>key: trash.modal.message</note>
       </trans-unit>
       <trans-unit id="1e6a1d97cca01a288e47d2d14479274b90e6c6c1" resname="trash_container.modal.message_main">
-        <source>Sending '%content_name%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.</source>
-        <target state="new">Sending '%content_name%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.</target>
+        <source>Sending '%content%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.</source>
+        <target state="new">Sending '%content%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.</target>
         <note>key: trash_container.modal.message_main</note>
       </trans-unit>
       <trans-unit id="4492a79e25635e7612f98971e02b4d0e6a408394" resname="user.delete.success">

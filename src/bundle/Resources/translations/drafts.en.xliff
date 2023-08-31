@@ -17,8 +17,8 @@
         <note>key: drafts.list</note>
       </trans-unit>
       <trans-unit id="7a00fa1045089ab6b05a30314644f3f53477ecbf" resname="drafts.list.action.edit">
-        <source>Edit draft</source>
-        <target state="new">Edit draft</target>
+        <source>Edit</source>
+        <target state="new">Edit</target>
         <note>key: drafts.list.action.edit</note>
       </trans-unit>
       <trans-unit id="887b9056de68ebd1c33c43af14093c2cafb38c5d" resname="drafts.list.action.remove">
@@ -47,8 +47,8 @@
         <note>key: drafts.list.empty</note>
       </trans-unit>
       <trans-unit id="3cdd0ca8cb41c22f9120de646cc5734f7cad7ffb" resname="drafts.list.last_saved">
-        <source>Last Saved</source>
-        <target state="new">Last Saved</target>
+        <source>Modified</source>
+        <target state="new">Modified</target>
         <note>key: drafts.list.last_saved</note>
       </trans-unit>
       <trans-unit id="8c65a0cd673fa4c18f7e730f672579ed65debd3c" resname="drafts.list.modified_language">

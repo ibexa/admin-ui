@@ -7,8 +7,8 @@
     </header>
     <body>
       <trans-unit id="716de64f24448f5be29249e0b5156158a6a0bbdd" resname="url_wildcard.action.edit">
-        <source>Edit URL wildcard</source>
-        <target state="new">Edit URL wildcard</target>
+        <source>Edit</source>
+        <target state="new">Edit</target>
         <note>key: url_wildcard.action.edit</note>
       </trans-unit>
       <trans-unit id="562cbcb1ed087fd514f78a8b0de9a68ccc03f5e7" resname="url_wildcard.breadcrumb.edit">

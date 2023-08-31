@@ -7,8 +7,8 @@
     </header>
     <body>
       <trans-unit id="5c48ac36c2a46c2dc2a89fd4c91a2a3d684eb5d8" resname="tab.urls.action.add">
-        <source>Add new</source>
-        <target state="new">Add new</target>
+        <source>Add</source>
+        <target state="new">Add</target>
         <note>key: tab.urls.action.add</note>
       </trans-unit>
       <trans-unit id="9b4504fd2e75dffb2c22283be3e9816e8142538a" resname="tab.urls.action.delete">
@@ -107,8 +107,8 @@
         <note>key: tab.urls.no_custom_urls.action</note>
       </trans-unit>
       <trans-unit id="c9fdd1434b44a4592626e8fe493c19141aab24d5" resname="tab.urls.no_system_urls">
-        <source>This Content item has no system URLs.</source>
-        <target state="new">This Content item has no system URLs.</target>
+        <source>This item has no system URLs.</source>
+        <target state="new">This item has no system URLs.</target>
         <note>key: tab.urls.no_system_urls</note>
       </trans-unit>
       <trans-unit id="902beb4ac170382cb95bd554cb1e763d8fdd413c" resname="tab.urls.system.title">

@@ -137,8 +137,8 @@
         <note>key: location_trash_form.default_trash</note>
       </trans-unit>
       <trans-unit id="796f8196b2bc086fe788e6689a6189c79b8e047e" resname="location_trash_form.trash">
-        <source>Send to Trash</source>
-        <target state="new">Send to Trash</target>
+        <source>Delete</source>
+        <target state="new">Delete</target>
         <note>key: location_trash_form.trash</note>
       </trans-unit>
       <trans-unit id="2598fe0050f38f3c02014a404ed14aee248e27d1" resname="location_trash_form.trash_with_asset">
@@ -282,8 +282,8 @@
         <note>key: section_form.name</note>
       </trans-unit>
       <trans-unit id="c33da889af5b91c7a19b0b6e522757d65b81a40d" resname="section_subtree_assign_form.assign">
-        <source>Change Section</source>
-        <target state="new">Change Section</target>
+        <source>Change section</source>
+        <target state="new">Change section</target>
         <note>key: section_subtree_assign_form.assign</note>
       </trans-unit>
       <trans-unit id="ecaa9ee7b46159c99796726b8e14693d821e5500" resname="section_update_form.update">

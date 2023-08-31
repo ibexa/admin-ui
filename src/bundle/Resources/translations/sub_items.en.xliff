@@ -72,8 +72,8 @@
         <note>key: bulk_delete.error.modal.table_title.users_with_nonusers</note>
       </trans-unit>
       <trans-unit id="530f5b1097af7206fdabc3a51ac334c933ab4909" resname="bulk_delete.popup.confirm.nonusers">
-        <source>Send to Trash</source>
-        <target state="new">Send to Trash</target>
+        <source>Delete</source>
+        <target state="new">Delete</target>
         <note>key: bulk_delete.popup.confirm.nonusers</note>
       </trans-unit>
       <trans-unit id="4953b415cbb1e81833664d96e7051d0a7e3d90c8" resname="bulk_delete.popup.confirm.users_and_users_with_nonusers">
@@ -192,8 +192,8 @@
         <note>key: hide_locations_btn.label</note>
       </trans-unit>
       <trans-unit id="2f2de7291ed87063841f5d65e5d73c1c50eaa3be" resname="instant.filter.placeholder">
-        <source>Type to refine</source>
-        <target state="new">Type to refine</target>
+        <source>Search by Content Type</source>
+        <target state="new">Search by Content Type</target>
         <note>key: instant.filter.placeholder</note>
       </trans-unit>
       <trans-unit id="2a9e4002be191374ee14674d2e67eb9fe2d631d2" resname="items_list.title">

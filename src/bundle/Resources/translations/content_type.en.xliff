@@ -7,8 +7,8 @@
     </header>
     <body>
       <trans-unit id="7caaa79d36b0520845802cfa3f7ebcc94318115b" resname="content_type.action.copy">
-        <source>Copy</source>
-        <target state="new">Copy</target>
+        <source>Duplicate</source>
+        <target state="new">Duplicate</target>
         <note>key: content_type.action.copy</note>
       </trans-unit>
       <trans-unit id="779646634b8d89b40f5abaa2ccd6107b300bf429" resname="content_type.action.edit">
@@ -902,8 +902,8 @@
         <note>key: location_update_form.update</note>
       </trans-unit>
       <trans-unit id="8c2261eecf1e143eaf524c34f4f89608929c5c81" resname="meta.enabled">
-        <source>Enable %type% for this content type</source>
-        <target state="new">Enable %type% for this content type</target>
+        <source>Enable %type% for this Content Type</source>
+        <target state="new">Enable %type% for this Content Type</target>
         <note>key: meta.enabled</note>
       </trans-unit>
       <trans-unit id="fd1286353570c5703799ba76999323b7c7447b06" resname="no">

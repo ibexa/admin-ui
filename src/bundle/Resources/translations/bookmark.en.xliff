@@ -17,8 +17,8 @@
         <note>key: bookmark.headline</note>
       </trans-unit>
       <trans-unit id="5001931b6bf98acefb5138b1cdba97d97fed4844" resname="bookmark.list.content.edit">
-        <source>Edit content</source>
-        <target state="new">Edit content</target>
+        <source>Edit</source>
+        <target state="new">Edit</target>
         <note>key: bookmark.list.content.edit</note>
       </trans-unit>
       <trans-unit id="cf687b0218c513d53ad3f52b2547c23500242c48" resname="bookmark.list.content_type">

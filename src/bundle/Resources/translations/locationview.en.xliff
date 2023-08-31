@@ -22,8 +22,8 @@
         <note>key: content.create.create_content</note>
       </trans-unit>
       <trans-unit id="90210d6d68a4c36d75906bd4fea9194a88988205" resname="content.create.editing_details">
-        <source>under %content_name%</source>
-        <target state="new">under %content_name%</target>
+        <source>Location: %content%</source>
+        <target state="new">Location: %content%</target>
         <note>key: content.create.editing_details</note>
       </trans-unit>
       <trans-unit id="a443a2a76348e8431df4346c11079f9e56735473" resname="content.create.filters.desc">
@@ -32,8 +32,8 @@
         <note>key: content.create.filters.desc</note>
       </trans-unit>
       <trans-unit id="a68fa29f2de8a9e5a1a533e7240b0b667651c4d5" resname="content.create.input.placeholder">
-        <source>Type to refine</source>
-        <target state="new">Type to refine</target>
+        <source>Search by Content Type</source>
+        <target state="new">Search by Content Type</target>
         <note>key: content.create.input.placeholder</note>
       </trans-unit>
       <trans-unit id="f599001c1ab9442f20e23d535e1dad8f3b75c337" resname="content.create.select_content_type">
@@ -67,8 +67,8 @@
         <note>key: dashboard.table.relation.unauthorized</note>
       </trans-unit>
       <trans-unit id="eeb49235f0e3b40e651725430b85a2885174bd2b" resname="location.bookmark.add">
-        <source>Add to Bookmarks</source>
-        <target state="new">Add to Bookmarks</target>
+        <source>Add to bookmarks</source>
+        <target state="new">Add to bookmarks</target>
         <note>key: location.bookmark.add</note>
       </trans-unit>
       <trans-unit id="0b2f22acb619fcc5672a7dd0ccf2a39316a07274" resname="location.bookmark.remove">
@@ -77,8 +77,8 @@
         <note>key: location.bookmark.remove</note>
       </trans-unit>
       <trans-unit id="0ac5837ba570c72c15eae58ab98735697a790528" resname="modal.email_address">
-        <source>Email Address</source>
-        <target state="new">Email Address</target>
+        <source>Email address</source>
+        <target state="new">Email address</target>
         <note>key: modal.email_address</note>
       </trans-unit>
       <trans-unit id="b57923cd51800de1a02208a4765ab1b14d437c50" resname="modal.info">
@@ -87,8 +87,8 @@
         <note>key: modal.info</note>
       </trans-unit>
       <trans-unit id="4fd9a40170cf4bc5acff719c14eaf2d15fc9942d" resname="tab.details.change_section ">
-        <source>Change Section</source>
-        <target state="new">Change Section</target>
+        <source>Change section</source>
+        <target state="new">Change section</target>
         <note>key: tab.details.change_section </note>
       </trans-unit>
       <trans-unit id="5c08278a7b80c4aae97e5683688b5b55b5f5b37e" resname="tab.details.change_state">
@@ -197,8 +197,8 @@
         <note>key: tab.details.translations</note>
       </trans-unit>
       <trans-unit id="8eb3feb6461dacdbd425ef30fc4848a94ab3db0d" resname="tab.locations.action.add">
-        <source>Add new</source>
-        <target state="new">Add new</target>
+        <source>Add</source>
+        <target state="new">Add</target>
         <note>key: tab.locations.action.add</note>
       </trans-unit>
       <trans-unit id="80808d78f600e925ec3e2dd4b2a0e7570169fd83" resname="tab.locations.action.delete">
@@ -207,8 +207,8 @@
         <note>key: tab.locations.action.delete</note>
       </trans-unit>
       <trans-unit id="7ac57e88d1f970747986392b6689075ba64cf270" resname="tab.locations.content_locations">
-        <source>Content Locations</source>
-        <target state="new">Content Locations</target>
+        <source>Content locations</source>
+        <target state="new">Content locations</target>
         <note>key: tab.locations.content_locations</note>
       </trans-unit>
       <trans-unit id="c663ca1446263b6964290f8df3c409d33601d21b" resname="tab.locations.hidden_content_or_superior">
@@ -342,8 +342,8 @@
         <note>key: tab.relations.table.relation_type.link</note>
       </trans-unit>
       <trans-unit id="492cea0fd67c4af8e41d21710668239c9db66cfc" resname="tab.translations.action.add">
-        <source>Add new</source>
-        <target state="new">Add new</target>
+        <source>Add</source>
+        <target state="new">Add</target>
         <note>key: tab.translations.action.add</note>
       </trans-unit>
       <trans-unit id="8c29b038407b67badc381aca362d4770d299df8b" resname="tab.translations.action.delete">

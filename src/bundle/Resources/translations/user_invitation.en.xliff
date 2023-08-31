@@ -72,8 +72,8 @@
         <note>key: modal.issue.bad_file.alert.message</note>
       </trans-unit>
       <trans-unit id="5f0b55fcb399ab7a8e3441d7d618e1c59c81a01c" resname="modal.issue.email.empty.message">
-        <source>Email is required</source>
-        <target state="new">Email is required</target>
+        <source>Email cannot be empty</source>
+        <target state="new">Email cannot be empty</target>
         <note>key: modal.issue.email.empty.message</note>
       </trans-unit>
       <trans-unit id="ced65d98fa61646be5b3cff4a199f6191e9565e8" resname="modal.issue.email.invalid.message">
