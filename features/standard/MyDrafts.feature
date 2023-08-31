@@ -1,4 +1,4 @@
-@IbexaOSS @IbexaContent @IbexaExperience @IbexaCommerce @javascript @test
+@IbexaOSS @IbexaContent @IbexaExperience @IbexaCommerce @javascript
 Feature: My Drafts
 
   Scenario: It is possible to delete a draft
