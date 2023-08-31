@@ -179,20 +179,5 @@
                 {% endif %}
             {% endfor %}
         </div>
-                {# {% if item.count() < 4 %}
-            {% set listAttributes = item.childrenAttributes|merge({'class': (listAttributes.class|default('') ~ ' ibexa-anchor-navigation-menu__section-groups ibexa-anchor-navigation-menu__section-groups--list ibexa-tabs')|trim}) %}
-            {% set innerChildrenBlock = 'children_1st_level' %}
-            {% set innerItemBlock = 'item_1st_level' %}
-            {% set tagElement = 'div' %}
-            {% set itemTagElement = 'button' %}
-        {% else %}
-            {% set listAttributes = item.childrenAttributes|merge({'class': (listAttributes.class|default('') ~ ' ibexa-anchor-navigation-menu__section-groups ibexa-anchor-navigation-menu__section-groups--dropdown')|trim}) %}
-            {% set innerChildrenBlock = 'children_1st_level_dropdown' %}
-            {% set tagElement = 'div' %}
-        {% endif %}
-        {% if item.count() > 1 %}
-            {{ block('anchor_menu_list') -}}
-        {% endif %}
- #}
     </div>
 {% endblock %}
