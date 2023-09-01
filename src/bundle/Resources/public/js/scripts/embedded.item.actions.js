@@ -156,10 +156,10 @@
             ? {
                   href: Routing.generate('ibexa.product_catalog.product.edit', {
                       productCode,
-                      languageCode: languages.languageCode,
+                      languageCode: languages[0].languageCode,
                   }),
               }
-            : { onClick: () => editContent({ contentId, locationId, languageCode: languages.languageCode }) };
+            : { onClick: () => editContent({ contentId, locationId, languageCode: languages[0].languageCode }) };
 
         return {
             label: Translator.trans(/*@Desc("Edit")*/ 'embedded_items.action.edit', {}, 'content'),

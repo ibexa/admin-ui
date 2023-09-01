@@ -76,9 +76,9 @@
 
     {% set body_row_cols_template = body_row_cols_template|merge([
         {
-            content: col_raw_actions,
+            content: col_raw_actions_template,
             raw: true,
-            has_icon: true,
+            class: 'ibexa-relations__actions-cell'
         },
     ]) %}
 
@@ -88,6 +88,7 @@
             class: 'ibexa-relations__item',
         }) }}
     {% endset %}
+
     <div
         class="ibexa-relations__wrapper"
         data-row-template="{{ row_template|e('html_attr') }}"
@@ -102,7 +103,7 @@
                 {% include '@ibexadesign/ui/component/embedded_item_actions/embedded_item_actions.html.twig' with {
                     content_id: relation.contentId,
                     location_id: relation.contentInfo.mainLocationId,
-                    versionNo: relation.contentInfo.currentVersionNo,
+                    version_no: relation.contentInfo.currentVersionNo,
                 } only %}
             {% endset %}
 
@@ -162,7 +163,7 @@
                     {
                         content: col_raw_actions,
                         raw: true,
-                        has_icon: true,
+                        class: 'ibexa-relations__actions-cell'
                     },
                 ]) %}
 
@@ -310,5 +311,4 @@
     </div>
     {% set attr = attr|merge({'hidden': 'hidden'}) %}
     {{ block('form_widget') }}
-
 {% endblock %}
