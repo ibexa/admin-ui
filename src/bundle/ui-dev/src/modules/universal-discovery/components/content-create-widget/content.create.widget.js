@@ -66,7 +66,7 @@ const ContentCreateWidget = () => {
         });
         setActiveTab('content-create');
     };
-    const createContentLabel = Translator.trans(/*@Desc("Create new content")*/ 'create_content.label', {}, 'universal_discovery_widget');
+    const createContentLabel = Translator.trans(/*@Desc("Create content")*/ 'create_content.label', {}, 'universal_discovery_widget');
     const selectLanguageLabel = Translator.trans(
         /*@Desc("Select a language")*/ 'create_content.select_language',
         {},
@@ -77,18 +77,22 @@ const ContentCreateWidget = () => {
         {},
         'universal_discovery_widget',
     );
-    const createLabel = Translator.trans(/*@Desc("Create new")*/ 'create_content.create', {}, 'universal_discovery_widget');
+    const createLabel = Translator.trans(/*@Desc("Create")*/ 'create_content.create', {}, 'universal_discovery_widget');
     const closeLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'universal_discovery_widget');
     const cancelLabel = Translator.trans(/*@Desc("Cancel")*/ 'content_create.cancel.label', {}, 'universal_discovery_widget');
-    const placeholder = Translator.trans(/*@Desc("Type to refine")*/ 'content_create.placeholder', {}, 'universal_discovery_widget');
+    const placeholder = Translator.trans(
+        /*@Desc("Search by Content Type")*/ 'content_create.placeholder',
+        {},
+        'universal_discovery_widget',
+    );
     const filtersDescLabel = Translator.trans(
         /*@Desc("Or choose from list")*/ 'content.create.filters.desc',
         {},
         'universal_discovery_widget',
     );
     const createUnderLabel = Translator.trans(
-        /*@Desc("under %content_name%")*/ 'content.create.editing_details',
-        { content_name: selectedLocation?.location?.ContentInfo.Content.TranslatedName },
+        /*@Desc("Location: %location%")*/ 'content.create.editing_details',
+        { location: selectedLocation?.location?.ContentInfo.Content.TranslatedName },
         'universal_discovery_widget',
     );
     const widgetClassName = createCssClassNames({

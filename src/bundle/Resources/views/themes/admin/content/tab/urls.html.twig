@@ -58,7 +58,7 @@
                 <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
             </svg>
             <span class="ibexa-btn__label">
-                {{ 'tab.urls.action.add'|trans|desc('Add new') }}
+                {{ 'tab.urls.action.add'|trans|desc('Add') }}
             </span>
         </button>
 
@@ -80,7 +80,7 @@
         </button>
         {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
             'id': modal_data_target,
-            'message': 'tab.urls.modal.message'|trans|desc('Do you want to delete the selected custom URL alias(es)?'),
+            'message': 'tab.urls.modal.message'|trans|desc('Delete the selected custom URL aliases permanently?'),
             'data_click': '#' ~ form_custom_url_remove.remove.vars.id,
         }%}
     {% endif %}

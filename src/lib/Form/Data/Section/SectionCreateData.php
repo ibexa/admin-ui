@@ -8,12 +8,14 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Section;
 
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @todo add validation
  */
-class SectionCreateData
+class SectionCreateData implements TranslationContainerInterface
 {
     /**
      * @var string|null
@@ -81,6 +83,14 @@ class SectionCreateData
         $this->name = $name;
 
         return $this;
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create('ez.section.identifier.format', 'validators')
+                ->setDesc('Section identifier may only contain letters from "a" to "z", numbers and underscores.'),
+        ];
     }
 }
 

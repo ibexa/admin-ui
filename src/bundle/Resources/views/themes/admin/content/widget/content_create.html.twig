@@ -12,7 +12,7 @@
         </button>
         <div class="ibexa-extra-actions__header-subtitle">
             {% if content is defined %}
-                {{ 'content.create.editing_details'|trans({ '%content_name%': ibexa_content_name(content) })|desc('under %content_name%') }}
+                {{ 'content.create.editing_details'|trans({ '%content%': ibexa_content_name(content) })|desc('Location: %content%') }}
             {% endif %}
         </div>
     </div>
@@ -37,7 +37,7 @@
                         <input
                             type="text"
                             class="ibexa-instant-filter__input ibexa-input ibexa-input--text form-control"
-                            placeholder="{{ ('content.create.input.placeholder'|trans|desc('Type to refine')) }}"
+                            placeholder="{{ ('content.create.input.placeholder'|trans|desc('Search by Content Type')) }}"
                             value=""
                         />
                     </div>

@@ -8,9 +8,12 @@ namespace Ibexa\AdminUi\Limitation\Mapper;
 
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class OwnerLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
+class OwnerLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     /**
      * @var \Symfony\Contracts\Translation\TranslatorInterface
@@ -42,6 +45,20 @@ class OwnerLimitationMapper extends MultipleSelectionBasedMapper implements Limi
                 [],
                 'ezplatform_content_forms_role'
             ),
+        ];
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(
+                LimitationIdentifierToLabelConverter::convert('owner'),
+                'ezplatform_content_forms_policies'
+            )->setDesc('Owner'),
+            Message::create(
+                LimitationIdentifierToLabelConverter::convert('parentowner'),
+                'ezplatform_content_forms_policies'
+            )->setDesc('Owner of Parent'),
         ];
     }
 }

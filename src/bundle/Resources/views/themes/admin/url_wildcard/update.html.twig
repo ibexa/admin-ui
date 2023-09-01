@@ -6,7 +6,7 @@
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
-        { value: 'url_wildcard.breadcrumb.list'|trans|desc('URL Management'), url: path('ibexa.url_management', {
+        { value: 'url_wildcard.breadcrumb.list'|trans|desc('URL management'), url: path('ibexa.url_management', {
             '_fragment': 'ibexa-tab-link-manager-url-wildcards',
         }) },
         { value: 'url_wildcard.breadcrumb.edit'|trans|desc('Edit') }

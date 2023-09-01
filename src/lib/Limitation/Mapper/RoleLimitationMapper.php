@@ -11,8 +11,11 @@ namespace Ibexa\AdminUi\Limitation\Mapper;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
-final class RoleLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
+final class RoleLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     private RoleService $roleService;
 
@@ -41,5 +44,15 @@ final class RoleLimitationMapper extends MultipleSelectionBasedMapper implements
         }
 
         return $values;
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(
+                LimitationIdentifierToLabelConverter::convert('role'),
+                'ezplatform_content_forms_policies'
+            )->setDesc('Role'),
+        ];
     }
 }

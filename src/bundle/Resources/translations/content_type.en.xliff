@@ -7,8 +7,8 @@
     </header>
     <body>
       <trans-unit id="7caaa79d36b0520845802cfa3f7ebcc94318115b" resname="content_type.action.copy">
-        <source>Copy</source>
-        <target state="new">Copy</target>
+        <source>Duplicate</source>
+        <target state="new">Duplicate</target>
         <note>key: content_type.action.copy</note>
       </trans-unit>
       <trans-unit id="779646634b8d89b40f5abaa2ccd6107b300bf429" resname="content_type.action.edit">
@@ -37,13 +37,13 @@
         <note>key: content_type.content_field_definitions</note>
       </trans-unit>
       <trans-unit id="e7a6e28719e705ca85e715114370d15deee0cd59" resname="content_type.copy.error">
-        <source>Error occoured while copying the '%name%' Content Type.</source>
-        <target state="new">Error occoured while copying the '%name%' Content Type.</target>
+        <source>Content Type '%name%' cannot be copied.</source>
+        <target state="new">Content Type '%name%' cannot be copied.</target>
         <note>key: content_type.copy.error</note>
       </trans-unit>
       <trans-unit id="31674753c7d944af06b98387a96ce93f36f6adb4" resname="content_type.copy.success">
-        <source>Content Type '%name%' successfully copied.</source>
-        <target state="new">Content Type '%name%' successfully copied.</target>
+        <source>Content Type '%name%' copied.</source>
+        <target state="new">Content Type '%name%' copied.</target>
         <note>key: content_type.copy.success</note>
       </trans-unit>
       <trans-unit id="529a1012c7fe5ca6fafdb5d070ac8ececfe94af6" resname="content_type.create">
@@ -868,7 +868,7 @@
       </trans-unit>
       <trans-unit id="84eed8c69d2ed1727569c36cda88c9781d37dd92" resname="field_definition.is_thumbnail">
         <source>Can be a thumbnail</source>
-        <target>Can be a thumbnail</target>
+        <target state="new">Can be a thumbnail</target>
         <note>key: field_definition.is_thumbnail</note>
       </trans-unit>
       <trans-unit id="83aba8c0c4c654d481c4520feb76e789fbc64c22" resname="field_definition.is_translatable">
@@ -902,8 +902,8 @@
         <note>key: location_update_form.update</note>
       </trans-unit>
       <trans-unit id="8c2261eecf1e143eaf524c34f4f89608929c5c81" resname="meta.enabled">
-        <source>Enable %type% for this content type</source>
-        <target state="new">Enable %type% for this content type</target>
+        <source>Enable %type% for this Content Type</source>
+        <target state="new">Enable %type% for this Content Type</target>
         <note>key: meta.enabled</note>
       </trans-unit>
       <trans-unit id="fd1286353570c5703799ba76999323b7c7447b06" resname="no">

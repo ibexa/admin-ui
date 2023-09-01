@@ -12,8 +12,8 @@
         <note>key: editing</note>
       </trans-unit>
       <trans-unit id="750bead6705b295c7b7d66c27b2768c1b9329ed5" resname="editing_details">
-        <source>under %location_name%</source>
-        <target state="new">under %location_name%</target>
+        <source>Location: %location%</source>
+        <target state="new">Location: %location%</target>
         <note>key: editing_details</note>
       </trans-unit>
     </body>

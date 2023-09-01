@@ -9,13 +9,15 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Data;
 
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeUpdateStruct;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Base data class for ContentType update form, with FieldDefinitions data and ContentTypeDraft.
  *
  * @property \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
  */
-class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckable
+class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckable, TranslationContainerInterface
 {
     /**
      * Trait which provides isNew(), and mandates getIdentifier().
@@ -110,6 +112,18 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
 
             $this->fieldDefinitionsData[$key] = $fieldDefinitionByGroup;
         }
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create('ez.content_type.descriptions', 'validators')
+                ->setDesc('Content Type description cannot be longer than 255 characters.'),
+            Message::create('ez.content_type.identifier.pattern', 'validators')
+                ->setDesc('Content Type identifier may only contain letters from "a" to "z", numbers and underscores.'),
+            Message::create('ez.content_type.names', 'validators')
+                ->setDesc('Content Type name cannot be blank and cannot be longer than 255 characters.'),
+        ];
     }
 }
 

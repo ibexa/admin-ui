@@ -104,7 +104,7 @@
                                         <a
                                             href="{{ edit_url }}"
                                             class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text {% if edit_draft_disabled %}ibexa-btn--prevented{% endif %}"
-                                            title="{{ 'tab.versions.table.action.draft.edit'|trans|desc('Edit draft') }}"
+                                            title="{{ 'tab.versions.table.action.draft.edit'|trans|desc('Edit') }}"
                                             {% if edit_draft_disabled %}disabled{% endif %}
                                         >
                                             <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
@@ -123,7 +123,7 @@
                                             data-content-id="{{ version.contentInfo.id }}"
                                             data-language-code="{{ version.initialLanguageCode }}"
                                             class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2 ibexa-btn--content-draft-edit {% if edit_draft_disabled %}ibexa-btn--prevented{% endif %}"
-                                            title="{{ 'tab.versions.table.action.draft.edit'|trans|desc('Edit draft') }}"
+                                            title="{{ 'tab.versions.table.action.draft.edit'|trans|desc('Edit') }}"
                                             {% if edit_draft_disabled %}disabled{% endif %}
                                         >
                                             <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">

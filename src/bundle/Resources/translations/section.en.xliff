@@ -6,11 +6,6 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
-      <trans-unit id="cf10aced822b4dfb2cb519a82ed0adabaa4e480e" resname="dashboard.tab.my_drafts.empty">
-        <source>No content. Drafts you create will show up here</source>
-        <target state="new">No content. Drafts you create will show up here</target>
-        <note>key: dashboard.tab.my_drafts.empty</note>
-      </trans-unit>
       <trans-unit id="128df491a522e7af4916cd002d9e11a3d2bc4078" resname="section.action.delete">
         <source>Delete</source>
         <target state="new">Delete</target>

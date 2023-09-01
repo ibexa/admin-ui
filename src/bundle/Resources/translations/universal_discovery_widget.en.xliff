@@ -47,8 +47,8 @@
         <note>key: close.label</note>
       </trans-unit>
       <trans-unit id="90210d6d68a4c36d75906bd4fea9194a88988205" resname="content.create.editing_details">
-        <source>under %content_name%</source>
-        <target state="new">under %content_name%</target>
+        <source>Location: %location%</source>
+        <target state="new">Location: %location%</target>
         <note>key: content.create.editing_details</note>
       </trans-unit>
       <trans-unit id="a443a2a76348e8431df4346c11079f9e56735473" resname="content.create.filters.desc">
@@ -67,8 +67,8 @@
         <note>key: content_create.label</note>
       </trans-unit>
       <trans-unit id="64f19d8055dc93bc222ddb63342200d68bf47958" resname="content_create.placeholder">
-        <source>Type to refine</source>
-        <target state="new">Type to refine</target>
+        <source>Search by Content Type</source>
+        <target state="new">Search by Content Type</target>
         <note>key: content_create.placeholder</note>
       </trans-unit>
       <trans-unit id="cb13371418234a9257a76bcc2a55768d5e5e58d8" resname="content_edit.label">
@@ -97,13 +97,13 @@
         <note>key: copy.title</note>
       </trans-unit>
       <trans-unit id="a7d7c06aff739180272f50e51f2100e7b5d9cfbf" resname="create_content.create">
-        <source>Create new</source>
-        <target state="new">Create new</target>
+        <source>Create</source>
+        <target state="new">Create</target>
         <note>key: create_content.create</note>
       </trans-unit>
       <trans-unit id="23fa7d97ea65916659849b0ed9b1e148df62fd08" resname="create_content.label">
-        <source>Create new content</source>
-        <target state="new">Create new content</target>
+        <source>Create content</source>
+        <target state="new">Create content</target>
         <note>key: create_content.label</note>
       </trans-unit>
       <trans-unit id="61059b2a945e7873b9ff9a72bd164d8ae001ccd4" resname="create_content.select_content_type">
@@ -197,8 +197,8 @@
         <note>key: meta_preview.bookrmarks_remove</note>
       </trans-unit>
       <trans-unit id="5e42fe3d48d64c1c9a735ac6286d3b0c06a008a0" resname="meta_preview.creation_date">
-        <source>Creation Date</source>
-        <target state="new">Creation Date</target>
+        <source>Created</source>
+        <target state="new">Created</target>
         <note>key: meta_preview.creation_date</note>
       </trans-unit>
       <trans-unit id="2e0757eac91bd5a5cd89bd2811a0126bf8bd8194" resname="meta_preview.edit">
@@ -212,8 +212,8 @@
         <note>key: meta_preview.edit_translation</note>
       </trans-unit>
       <trans-unit id="954055c80d86d18a4b101c2060e4dd63dd10971f" resname="meta_preview.last_modified">
-        <source>Last Modified</source>
-        <target state="new">Last Modified</target>
+        <source>Modified</source>
+        <target state="new">Modified</target>
         <note>key: meta_preview.last_modified</note>
       </trans-unit>
       <trans-unit id="7035b652193ea7af439a17d02ff8eda8013318ea" resname="meta_preview.preview">
@@ -237,8 +237,8 @@
         <note>key: popup.close.label</note>
       </trans-unit>
       <trans-unit id="0a2b01d9e287d0669cdd89b8067e119bbf749550" resname="restore_under_new_location.title">
-        <source>Select a Location to restore the Content item(s)</source>
-        <target state="new">Select a Location to restore the Content item(s)</target>
+        <source>Select a new location to restore the content items</source>
+        <target state="new">Select a new location to restore the content items</target>
         <note>key: restore_under_new_location.title</note>
       </trans-unit>
       <trans-unit id="5ab8b9fc463113f18cb6826034b6ef21342bb73d" resname="search.label">

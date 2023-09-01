@@ -12,13 +12,13 @@
         <note>key: anchor_navigation.close</note>
       </trans-unit>
       <trans-unit id="8ace6daf300d4e12a28054d996c185db9ce7fe91" resname="authentication.credentials_expire_in.warning">
-        <source>Your current password will expire in %days% day(s). You can change it in User Settings/My Account Settings.</source>
-        <target state="new">Your current password will expire in %days% day(s). You can change it in User Settings/My Account Settings.</target>
+        <source>Your current password will expire in %days% day(s). You can change it in User settings/My account settings.</source>
+        <target state="new">Your current password will expire in %days% day(s). You can change it in User settings/My account settings.</target>
         <note>key: authentication.credentials_expire_in.warning</note>
       </trans-unit>
       <trans-unit id="e524fb7941a99d5c26d355dbf015226241e807a7" resname="authentication.credentials_expire_today.warning">
-        <source>Your current password will expire today. You can change it in User Settings/My Account Settings.</source>
-        <target state="new">Your current password will expire today. You can change it in User Settings/My Account Settings.</target>
+        <source>Your current password will expire today. You can change it in User settings/My account settings.</source>
+        <target state="new">Your current password will expire today. You can change it in User settings/My account settings.</target>
         <note>key: authentication.credentials_expire_today.warning</note>
       </trans-unit>
       <trans-unit id="c9a7a0dd7518550634ea6873dcc815d4ec30c1e2" resname="authentication.credentials_expired">
@@ -271,6 +271,11 @@
         <target state="new">Delete</target>
         <note>key: custom_url_alias_add_form.remove</note>
       </trans-unit>
+      <trans-unit id="71a3521d37991dc43b665d2cc94b7e1589360f48" resname="custom_url_alias_add_form.site_access.placeholder">
+        <source>None</source>
+        <target state="new">None</target>
+        <note>key: custom_url_alias_add_form.site_access.placeholder</note>
+      </trans-unit>
       <trans-unit id="3b2d2efac582e8c8d6eccb40d4499ecf9ee21f95" resname="dashboard.charts.no_data">
         <source><![CDATA[No data collected<br/> for the selected period]]></source>
         <target state="new"><![CDATA[No data collected<br/> for the selected period]]></target>
@@ -362,8 +367,8 @@
         <note>key: ezobjectrelationlist.cta.limit.multi</note>
       </trans-unit>
       <trans-unit id="6589b9cece0e96f6430a994e1b4e9db1ee5f8139" resname="ezobjectrelationlist.cta.limit.single">
-        <source>Set up a Relation with one Item</source>
-        <target state="new">Set up a Relation with one Item</target>
+        <source>Set up a relation with one Content item</source>
+        <target state="new">Set up a relation with one Content item</target>
         <note>key: ezobjectrelationlist.cta.limit.single</note>
       </trans-unit>
       <trans-unit id="e3d3887285c9d2ee774741a92bbfe53708143bc6" resname="ezobjectrelationlist.cta.limit.sub_text">
@@ -504,8 +509,8 @@
         <note>key: language.delete</note>
       </trans-unit>
       <trans-unit id="2a52961302ce7dfa4a21c5e0bcc239f5a9a36cfe" resname="language.modal.message">
-        <source>Do you want to delete the language(s)?</source>
-        <target state="new">Do you want to delete the language(s)?</target>
+        <source>Delete the languages?</source>
+        <target state="new">Delete the languages?</target>
         <note>key: language.modal.message</note>
       </trans-unit>
       <trans-unit id="fb1d64fdeabb5f2fe1671d4f3fb72ccca7722ed3" resname="list.action.edit">
@@ -559,12 +564,12 @@
         <note>key: object_state.modal.message</note>
       </trans-unit>
       <trans-unit id="85cbd870cb6255f3d3d481ece6c23e6e2117e91e" resname="object_state.new">
-        <source>Add new</source>
-        <target state="new">Add new</target>
+        <source>Add</source>
+        <target state="new">Add</target>
         <note>key: object_state.new</note>
       </trans-unit>
       <trans-unit id="0f857d4dff9c8232ede300a39010d289d31c2937" resname="object_state_group.delete.bulk_delete.submit">
-        <source>Delete Object</source>
+        <source>Delete</source>
         <target state="new">Delete</target>
         <note>key: object_state_group.delete.bulk_delete.submit</note>
       </trans-unit>
@@ -584,8 +589,8 @@
         <note>key: policy.modal.message</note>
       </trans-unit>
       <trans-unit id="84d0c2844a996fbfdc23872405533f92b6e6e2f6" resname="policy.view.list.action.add">
-        <source>Add new</source>
-        <target state="new">Add new</target>
+        <source>Add</source>
+        <target state="new">Add</target>
         <note>key: policy.view.list.action.add</note>
       </trans-unit>
       <trans-unit id="abf42b328e259dc5ec851e70dad234636d0134fe" resname="policy.view.list.action.delete">
@@ -654,8 +659,8 @@
         <note>key: tab.versions.table.action.archived.edit</note>
       </trans-unit>
       <trans-unit id="97721a4a6c33834bb6421c29ef72e8654f39a4ab" resname="tab.versions.table.action.draft.edit">
-        <source>Edit draft</source>
-        <target state="new">Edit draft</target>
+        <source>Edit</source>
+        <target state="new">Edit</target>
         <note>key: tab.versions.table.action.draft.edit</note>
       </trans-unit>
       <trans-unit id="a602612589c6e902caaf8acf1fd51fcd215955f1" resname="tab.versions.table.author.not_found">
@@ -709,14 +714,9 @@
         <note>key: trash.delete</note>
       </trans-unit>
       <trans-unit id="4e7901a215220faba4d546cd3fb63f3e2a64e849" resname="trash.delete.all.confirm">
-        <source>Are you sure you want to permanently delete %trashItemsCount% item(s)?</source>
-        <target state="new">Are you sure you want to permanently delete %trashItemsCount% item(s)?</target>
+        <source>Permanently delete items: %trashItemsCount%?</source>
+        <target state="new">Permanently delete items: %trashItemsCount%?</target>
         <note>key: trash.delete.all.confirm</note>
-      </trans-unit>
-      <trans-unit id="48e20c2b09b340ca2e2020edaa30a57c8bc3f26b" resname="trash.delete.all.info">
-        <source>This action cannot be reversed</source>
-        <target state="new">This action cannot be reversed</target>
-        <note>key: trash.delete.all.info</note>
       </trans-unit>
       <trans-unit id="e500e3f1d454e2775bbe89b6267cd77c766df3f1" resname="trash.delete.button.cancel">
         <source>Cancel</source>
@@ -729,8 +729,8 @@
         <note>key: trash.form.cancel</note>
       </trans-unit>
       <trans-unit id="2720e3018fc8b1158cb728b1d5dc377ef7293b57" resname="trash.modal.message">
-        <source>Do you want to delete the selected item(s) from Trash?</source>
-        <target state="new">Do you want to delete the selected item(s) from Trash?</target>
+        <source>Delete the selected items permanently?</source>
+        <target state="new">Delete the selected items permanently?</target>
         <note>key: trash.modal.message</note>
       </trans-unit>
       <trans-unit id="bf721bb2cc736984908badd0489116d289171d33" resname="trash.modal.send_to_trash.message">
@@ -749,18 +749,18 @@
         <note>key: trash_asset.modal.message_header</note>
       </trans-unit>
       <trans-unit id="ff537a1e092270edf7497dc13ce051cdb458958b" resname="trash_asset_single.modal.message_main">
-        <source>'%content_name%' has 1 or more asset Field(s). You have an option to send only the Content item to Trash, or to send the Content item and its assets to Trash. Please select your option:</source>
-        <target state="new">'%content_name%' has 1 or more asset Field(s). You have an option to send only the Content item to Trash, or to send the Content item and its assets to Trash. Please select your option:</target>
+        <source>'%content%' has 1 or more asset Field(s). You have an option to send only the Content item to Trash, or to send the Content item and its assets to Trash. Please select your option:</source>
+        <target state="new">'%content%' has 1 or more asset Field(s). You have an option to send only the Content item to Trash, or to send the Content item and its assets to Trash. Please select your option:</target>
         <note>key: trash_asset_single.modal.message_main</note>
       </trans-unit>
       <trans-unit id="1e6a1d97cca01a288e47d2d14479274b90e6c6c1" resname="trash_container.modal.message_main">
-        <source>Sending '%content_name%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.</source>
-        <target state="new">Sending '%content_name%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.</target>
+        <source>Sending '%content%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.</source>
+        <target state="new">Sending '%content%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.</target>
         <note>key: trash_container.modal.message_main</note>
       </trans-unit>
       <trans-unit id="ef4df0dede01e561e75568aa128a8092cbbee66a" resname="trash_container.modal.message_relations">
-        <source>'%content_name%' is in use by %reverse_relations% Content item(s). You should remove all reverse Relations before deleting the Content item.</source>
-        <target state="new">'%content_name%' is in use by %reverse_relations% Content item(s). You should remove all reverse Relations before deleting the Content item.</target>
+        <source>'%content%' is in use by %reverse_relations% Content item(s). You should remove all reverse Relations before deleting the Content item.</source>
+        <target state="new">'%content%' is in use by %reverse_relations% Content item(s). You should remove all reverse Relations before deleting the Content item.</target>
         <note>key: trash_container.modal.message_relations</note>
       </trans-unit>
       <trans-unit id="49fd0694e9c8815a1231505dc9bec3c6e1406616" resname="ui.component.tab.tabs_toggler.hide">
@@ -774,8 +774,8 @@
         <note>key: ui.component.tab.tabs_toggler.show</note>
       </trans-unit>
       <trans-unit id="316f9f0d65ecd76792e8b79bccb094ffd281e7a2" resname="url_wildcard.list.action.create">
-        <source>Add new</source>
-        <target state="new">Add new</target>
+        <source>Add</source>
+        <target state="new">Add</target>
         <note>key: url_wildcard.list.action.create</note>
       </trans-unit>
       <trans-unit id="3f12e58e0ba64a84239826e8fec1ebe129595cc3" resname="url_wildcard.list.action.delete">

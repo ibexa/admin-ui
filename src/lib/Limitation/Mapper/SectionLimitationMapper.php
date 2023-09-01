@@ -10,10 +10,13 @@ use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\SectionService;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
-class SectionLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
+class SectionLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     use LoggerAwareTrait;
 
@@ -50,6 +53,20 @@ class SectionLimitationMapper extends MultipleSelectionBasedMapper implements Li
         }
 
         return $values;
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(
+                LimitationIdentifierToLabelConverter::convert('newsection'),
+                'ezplatform_content_forms_policies'
+            )->setDesc('New Section'),
+            Message::create(
+                LimitationIdentifierToLabelConverter::convert('section'),
+                'ezplatform_content_forms_policies'
+            )->setDesc('Section'),
+        ];
     }
 }
 

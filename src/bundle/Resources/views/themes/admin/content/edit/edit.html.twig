@@ -23,9 +23,9 @@
         show_autosave_status: true,
         description: content_type.description,
         subtitle: 'editing_details'|trans({
-            '%location_name%': parent_location.contentInfo.name,
+            '%location%': parent_location.contentInfo.name,
             '%language%': language.name
-        })|desc('under %location_name% in %language%'),
+        })|desc('Location: %location% Translation: %language'),
         context_actions: knp_menu_render(content_edit_sidebar_right, { 'template': '@ibexadesign/ui/menu/context_menu.html.twig' })
     } %}
 {% endblock %}

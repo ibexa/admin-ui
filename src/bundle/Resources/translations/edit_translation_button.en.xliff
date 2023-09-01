@@ -7,8 +7,8 @@
     </header>
     <body>
       <trans-unit id="d899cb1dbb25a42ea34f296bf7bef9821df66b72" resname="edit_translation.edit.title">
-        <source>Edit Content</source>
-        <target state="new">Edit Content</target>
+        <source>Edit</source>
+        <target state="new">Edit</target>
         <note>key: edit_translation.edit.title</note>
       </trans-unit>
       <trans-unit id="8ecff4fc7797b03440a0430a65abf71a62d0ffc9" resname="edit_translation.list.title">

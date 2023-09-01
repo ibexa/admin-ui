@@ -381,7 +381,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             (new Message(self::ITEM_ADMIN__CONTENT_TYPES, 'menu'))->setDesc('Content Types'),
             (new Message(self::ITEM_ADMIN__USERS, 'menu'))->setDesc('Users'),
             (new Message(self::ITEM_ADMIN__OBJECT_STATES, 'menu'))->setDesc('Object States'),
-            (new Message(self::ITEM_ADMIN__URL_MANAGEMENT, 'menu'))->setDesc('URL Management'),
+            (new Message(self::ITEM_ADMIN__URL_MANAGEMENT, 'menu'))->setDesc('URL management'),
         ];
     }
 }

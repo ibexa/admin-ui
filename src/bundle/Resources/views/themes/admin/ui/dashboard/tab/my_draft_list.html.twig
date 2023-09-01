@@ -28,7 +28,7 @@
         {% set col_raw %}
             <button
                 class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2 ibexa-btn--content-draft-edit"
-                title="{{ 'dashboard.table.draft.edit'|trans|desc('Edit Draft') }}"
+                title="{{ 'dashboard.table.draft.edit'|trans|desc('Edit') }}"
                 data-content-draft-edit-url="{{ path(content_draft_edit_url, {
                     'contentId': row.versionInfo.contentInfo.id,
                     'versionNo': row.versionInfo.versionNo,
@@ -73,11 +73,11 @@
         { content: 'dashboard.table.content_type'|trans|desc('Content Type') },
         { content: 'dashboard.table.modified_language'|trans|desc('Modified Language') },
         { content: 'dashboard.table.version'|trans|desc('Version') },
-        { content: 'dashboard.table.last_saved'|trans|desc('Last Saved') },
+        { content: 'dashboard.table.last_saved'|trans|desc('Modified') },
         { },
     ],
     body_rows,
-    empty_table_info_text: 'dashboard.tab.my_drafts.empty'|trans|desc('No content. Drafts you create will show up here'),
+    empty_table_info_text: 'dashboard.tab.my_drafts.empty'|trans|desc('You have no drafts yet. Your drafts will show up here.'),
 } %}
 
 {% if pager.haveToPaginate %}

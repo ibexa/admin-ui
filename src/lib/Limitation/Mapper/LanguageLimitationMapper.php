@@ -10,10 +10,13 @@ use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
-class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
+class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     use LoggerAwareTrait;
 
@@ -51,6 +54,16 @@ class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements L
         }
 
         return $values;
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(
+                LimitationIdentifierToLabelConverter::convert('language'),
+                'ezplatform_content_forms_policies'
+            )->setDesc('Language'),
+        ];
     }
 }
 

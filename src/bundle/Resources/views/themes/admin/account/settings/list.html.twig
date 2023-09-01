@@ -4,13 +4,13 @@
 
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
-        { value: 'list.title'|trans|desc('User Settings') }
+        { value: 'list.title'|trans|desc('User settings') }
     ]} %}
 {% endblock %}
 
 {% block header %}
     {% include '@ibexadesign/ui/page_title.html.twig' with {
-        title: 'list.title'|trans|desc('User Settings'),
+        title: 'list.title'|trans|desc('User settings'),
     } %}
 {% endblock %}
 
@@ -19,8 +19,8 @@
 {% block content %}
     {% embed '@ibexadesign/ui/component/tab/tabs.html.twig' with {
         tabs: [
-          { id: 'my-preferences', label: 'section.my_preferences'|trans|desc('My Preferences'), active: true },
-          { id: 'my-account-settings', label: 'section.my_account_settings'|trans|desc('My Account Settings') },
+          { id: 'my-preferences', label: 'section.my_preferences'|trans|desc('My preferences'), active: true },
+          { id: 'my-account-settings', label: 'section.my_account_settings'|trans|desc('My account settings') },
         ]
     } %}
         {% block tab_content %}

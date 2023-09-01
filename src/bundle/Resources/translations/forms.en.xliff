@@ -47,8 +47,8 @@
         <note>key: content_types_delete_form.delete</note>
       </trans-unit>
       <trans-unit id="268c741bdf4f818f950cd022b562c079744cfdca" resname="error.required.field">
-        <source>%fieldName% Field is required</source>
-        <target state="new">%fieldName% Field is required</target>
+        <source>%fieldName% cannot be empty</source>
+        <target state="new">%fieldName% cannot be empty</target>
         <note>key: error.required.field</note>
       </trans-unit>
       <trans-unit id="6090b5d2c17e00053a576ede5c82afba67f0cc49" resname="error.required.field_not_blank">
@@ -132,18 +132,18 @@
         <note>key: location_move.move</note>
       </trans-unit>
       <trans-unit id="4b7b2b4de853db0d1fb1851e07f3ccc51e5713fc" resname="location_trash_form.default_trash">
-        <source>Send only this Content item to Trash</source>
-        <target state="new">Send only this Content item to Trash</target>
+        <source>Send only this Content item to trash</source>
+        <target state="new">Send only this Content item to trash</target>
         <note>key: location_trash_form.default_trash</note>
       </trans-unit>
       <trans-unit id="796f8196b2bc086fe788e6689a6189c79b8e047e" resname="location_trash_form.trash">
-        <source>Send to Trash</source>
-        <target state="new">Send to Trash</target>
+        <source>Send to trash</source>
+        <target state="new">Send to trash</target>
         <note>key: location_trash_form.trash</note>
       </trans-unit>
       <trans-unit id="2598fe0050f38f3c02014a404ed14aee248e27d1" resname="location_trash_form.trash_with_asset">
-        <source>Send the Content item and its related assets to Trash</source>
-        <target state="new">Send the Content item and its related assets to Trash</target>
+        <source>Send the Content item and its related assets to trash</source>
+        <target state="new">Send the Content item and its related assets to trash</target>
         <note>key: location_trash_form.trash_with_asset</note>
       </trans-unit>
       <trans-unit id="f86cd366867d370b0706e250355f605e2b783229" resname="policies_delete_form.delete">
@@ -163,7 +163,7 @@
       </trans-unit>
       <trans-unit id="d29c07272fff793138cbb6f7dbb41b08a16ff815" resname="role.policy.all_modules">
         <source>All modules</source>
-        <target>All modules</target>
+        <target state="new">All modules</target>
         <note>key: role.policy.all_modules</note>
       </trans-unit>
       <trans-unit id="d3c70d265ab037db5ade02a8b738b5981353c7ac" resname="role.policy.type">
@@ -282,8 +282,8 @@
         <note>key: section_form.name</note>
       </trans-unit>
       <trans-unit id="c33da889af5b91c7a19b0b6e522757d65b81a40d" resname="section_subtree_assign_form.assign">
-        <source>Change Section</source>
-        <target state="new">Change Section</target>
+        <source>Change section</source>
+        <target state="new">Change section</target>
         <note>key: section_subtree_assign_form.assign</note>
       </trans-unit>
       <trans-unit id="ecaa9ee7b46159c99796726b8e14693d821e5500" resname="section_update_form.update">
@@ -317,8 +317,8 @@
         <note>key: translation.language.label</note>
       </trans-unit>
       <trans-unit id="30b0c3c3e5e096a078005be2cc34bca6227ae381" resname="trash_empty_form.empty">
-        <source>Delete permanently</source>
-        <target state="new">Delete permanently</target>
+        <source>Delete</source>
+        <target state="new">Delete</target>
         <note>key: trash_empty_form.empty</note>
       </trans-unit>
       <trans-unit id="4d530164d6f917754a1625bae48c2a323197ac7a" resname="user.invitation.submit">

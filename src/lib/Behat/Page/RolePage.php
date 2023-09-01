@@ -241,7 +241,7 @@ class RolePage extends Page
     {
         $this->getHTMLPage()
             ->findAll($this->getLocator('button'))
-            ->getByCriterion(new ElementTextCriterion('Add new'))
+            ->getByCriterion(new ElementTextCriterion('Add'))
             ->click();
     }
 

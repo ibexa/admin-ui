@@ -20,7 +20,7 @@
         if (label) {
             const fieldName = label.innerText;
 
-            errorMessage = Translator.trans(/*@Desc("%fieldName% Field is required")*/ 'error.required.field', { fieldName }, 'forms');
+            errorMessage = Translator.trans(/*@Desc("%fieldName% cannot be empty")*/ 'error.required.field', { fieldName }, 'forms');
         } else {
             errorMessage = Translator.trans(/*@Desc("This value should not be blank")*/ 'error.required.field_not_blank', {}, 'forms');
         }

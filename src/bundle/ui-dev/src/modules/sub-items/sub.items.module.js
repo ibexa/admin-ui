@@ -872,7 +872,7 @@ export default class SubItemsModule extends Component {
         let confirmLabel = '';
 
         if (!isUserContentItemSelected && isNonUserContentItemSelected) {
-            confirmLabel = Translator.trans(/*@Desc("Send to Trash")*/ 'bulk_delete.popup.confirm.nonusers', {}, 'sub_items');
+            confirmLabel = Translator.trans(/*@Desc("Send to trash")*/ 'bulk_delete.popup.confirm.nonusers', {}, 'sub_items');
         } else {
             confirmLabel = Translator.trans(/*@Desc("Delete")*/ 'bulk_delete.popup.confirm.users_and_users_with_nonusers', {}, 'sub_items');
         }

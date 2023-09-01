@@ -42,7 +42,7 @@ final class HasReverseRelations implements TrashLocationOptionProvider
         $reverseRelationsCount = $this->contentService->countReverseRelations($location->contentInfo);
 
         $translatorParameters = [
-            '%content_name%' => $location->getContent()->getName(),
+            '%content%' => $location->getContent()->getName(),
             '%reverse_relations%' => $reverseRelationsCount,
         ];
 
@@ -52,7 +52,7 @@ final class HasReverseRelations implements TrashLocationOptionProvider
                     /** @Desc("Conflict with reverse Relations") */
                     $this->translator->trans('form.has_reverse_relation.label', [], 'forms'),
                 'help_multiline' => [
-                    /** @Desc("'%content_name%' is in use by %reverse_relations% Content item(s). You should remove all reverse Relations before deleting the Content item.") */
+                    /** @Desc("'%content%' is in use by %reverse_relations% Content item(s). You should remove all reverse Relations before deleting the Content item.") */
                     $this->translator->trans('trash_container.modal.message_relations', $translatorParameters),
                 ],
             ]);

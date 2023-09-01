@@ -165,7 +165,7 @@ class FieldDefinitionType extends AbstractType
 
             $form->add('isThumbnail', CheckboxType::class, [
                 'required' => false,
-                'label' => 'field_definition.is_thumbnail',
+                'label' => /** @Desc("Can be a thumbnail") */ 'field_definition.is_thumbnail',
                 'disabled' => $isTranslation || !$this->thumbnailStrategy->hasStrategy($fieldTypeIdentifier),
             ]);
 

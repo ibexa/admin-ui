@@ -110,7 +110,7 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     {
         return [
             (new Message(self::ITEM_LOGOUT, 'menu'))->setDesc('Logout'),
-            (new Message(self::ITEM_USER_SETTINGS, 'menu'))->setDesc('User Settings'),
+            (new Message(self::ITEM_USER_SETTINGS, 'menu'))->setDesc('User settings'),
             (new Message(self::ITEM_DRAFTS, 'menu'))->setDesc('Drafts'),
             (new Message(self::ITEM_NOTIFICATION, 'notifications'))->setDesc('View Notifications'),
         ];

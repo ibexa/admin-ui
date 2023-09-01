@@ -1,6 +1,6 @@
 {% trans_default_domain 'edit_translation_button' %}
 
-{% set title = title ?? 'edit_translation.edit.title'|trans|desc('Edit Content') %}
+{% set title = title ?? 'edit_translation.edit.title'|trans|desc('Edit') %}
 
 {% if translations|length == 1 %}
     {% set language = translations|first %}

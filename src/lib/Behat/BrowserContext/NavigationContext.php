@@ -82,7 +82,7 @@ class NavigationContext implements Context
      */
     public function iGoToUserSettings()
     {
-        $this->upperMenu->chooseFromUserDropdown('User Settings');
+        $this->upperMenu->chooseFromUserDropdown('User settings');
     }
 
     /**

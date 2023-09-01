@@ -7,13 +7,13 @@
     </header>
     <body>
       <trans-unit id="171ad35c73c746821f56d7e160c0f98461dc339a" resname="url_management.breadcrumb.list">
-        <source>URL Management</source>
-        <target state="new">URL Management</target>
+        <source>URL management</source>
+        <target state="new">URL management</target>
         <note>key: url_management.breadcrumb.list</note>
       </trans-unit>
       <trans-unit id="6ab1e93c76514fa2c2c2cbeefb382925870f7062" resname="url_management.view.list.title">
-        <source>URL Management</source>
-        <target state="new">URL Management</target>
+        <source>URL management</source>
+        <target state="new">URL management</target>
         <note>key: url_management.view.list.title</note>
       </trans-unit>
     </body>

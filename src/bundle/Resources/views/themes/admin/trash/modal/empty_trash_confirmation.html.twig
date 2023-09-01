@@ -7,10 +7,9 @@
 
     {% block body_content %}
         <p class="ibexa-modal-body__main">
-            {{ 'trash.delete.all.confirm'|trans({'%trashItemsCount%': trash_items_count})|desc('Are you sure you want to permanently delete %trashItemsCount% item(s)?') }}
-        </p>
-        <p class="ibexa-modal-body__explanation">
-            {{ 'trash.delete.all.info'|trans|desc('This action cannot be reversed') }}
+            {{ 'trash.delete.all.confirm'|trans({'%trashItemsCount%': trash_items_count})|desc(
+                'Permanently delete items: %trashItemsCount%?'
+            ) }}
         </p>
     {% endblock %}
     {% block footer_content %}

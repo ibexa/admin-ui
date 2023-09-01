@@ -17,12 +17,14 @@ use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
 use Ibexa\User\Form\ChoiceList\Loader\UserGroupsChoiceLoader;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormInterface;
 
-final class UserPermissionsLimitationMapper implements LimitationValueMapperInterface, LimitationFormMapperInterface
+final class UserPermissionsLimitationMapper implements LimitationValueMapperInterface, LimitationFormMapperInterface, TranslationContainerInterface
 {
     private RoleService $roleService;
 
@@ -130,5 +132,15 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
         }
 
         return $values;
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(
+                LimitationIdentifierToLabelConverter::convert('userpermissions'),
+                'ezplatform_content_forms_policies'
+            )->setDesc('User Permissions'),
+        ];
     }
 }

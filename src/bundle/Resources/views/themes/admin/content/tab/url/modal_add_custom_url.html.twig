@@ -44,7 +44,9 @@
                 <label class="ibexa-label">{{ 'tab.urls.add.site_access'|trans|desc('SiteAccess') }}</label>
                 {{ form_widget(form.site_access) }}
                 <div class="ibexa-custom-url-from__info-text">
-                    {{ 'tab.urls.add.root_location_id.helper_secondary'|trans|desc("If you leave this empty, the alias will be placed at main root Location.") }}
+                    {{ 'tab.urls.add.root_location_id.helper_secondary'|trans|desc(
+                        "If no SiteAccess selected, the alias will be placed at main root Location."
+                    ) }}
                 </div>
             </div>
         </div>
