@@ -117,7 +117,7 @@ class TableRow extends Component
             new VisibleCSSLocator('edit', '.ibexa-icon--edit,[data-original-title="Edit"]'),
             new VisibleCSSLocator('de-active', '[data-original-title="De-activate"]'),
             new VisibleCSSLocator('active', '[data-original-title="Activate"]'),
-            new VisibleCSSLocator('copy', '[data-original-title="Copy"]'),
+            new VisibleCSSLocator('copy', '[data-original-title="Duplicate"]'),
         ];
     }
 }
