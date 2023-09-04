@@ -1,0 +1,29 @@
+.ibexa-default-location {
+    &__path-selector {
+        border: calculateRem(1px) solid $ibexa-color-dark-200;
+        border-radius: $ibexa-border-radius;
+        padding: calculateRem(6px);
+        width: 80%;
+        display: flex;
+        align-items: center;
+
+        .ibexa-btn__label--change {
+            display: none;
+        }
+
+        &--filled {
+            .ibexa-btn__label--change {
+                display: inline;
+            }
+
+            .ibexa-btn__label--select {
+                display: none;
+            }
+        }
+    }
+
+    &__selected-path {
+        max-width: 70%;
+        margin-left: calculateRem(8px);
+    }
+}

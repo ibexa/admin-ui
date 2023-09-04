@@ -1,17 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import Tab from './components/tab/tab';
 import Search from './components/search/search';
 
-import { TabsConfigContext } from './universal.discovery.module';
+import { LoadedLocationsMapContext, MarkedLocationIdContext, TabsConfigContext } from './universal.discovery.module';
+
+const { ibexa, Translator } = window;
 
 const SearchTabModule = () => {
     const tabsConfig = useContext(TabsConfigContext);
+    const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
+    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+
     const actionsDisabledMap = {
-        'content-create-button': true,
+        'content-create-button': false,
         'sort-switcher': true,
         'view-switcher': true,
     };
+
+    useEffect(() => {
+        return () => {
+            setMarkedLocationId(markedLocationId);
+            dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: loadedLocationsMap });
+        };
+    }, []);
 
     return (
         <div className="m-search-tab">
@@ -22,17 +34,18 @@ const SearchTabModule = () => {
     );
 };
 
-eZ.addConfig(
+ibexa.addConfig(
     'adminUiConfig.universalDiscoveryWidget.tabs',
     [
         {
             id: 'search',
             component: SearchTabModule,
             label: Translator.trans(/*@Desc("Search")*/ 'search.label', {}, 'universal_discovery_widget'),
-            icon: window.eZ.helpers.icon.getIconPath('search'),
+            icon: ibexa.helpers.icon.getIconPath('search'),
+            isHiddenOnList: true,
         },
     ],
-    true
+    true,
 );
 
 export default SearchTabModule;

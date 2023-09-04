@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\Content\Draft;
+namespace Ibexa\AdminUi\Form\Type\Content\Draft;
 
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\ContentCreateContentTypeChoiceLoader;
-use EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\ContentCreateLanguageChoiceLoader;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\LocationType;
-use EzSystems\EzPlatformAdminUi\Form\Type\ContentType\ContentTypeChoiceType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Language\LanguageChoiceType;
-use EzSystems\EzPlatformAdminUi\Permission\LookupLimitationsTransformer;
-use EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\AdminUi\Form\Data\Content\Draft\ContentCreateData;
+use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentCreateContentTypeChoiceLoader;
+use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentCreateLanguageChoiceLoader;
+use Ibexa\AdminUi\Form\Type\Content\LocationType;
+use Ibexa\AdminUi\Form\Type\ContentType\ContentTypeChoiceType;
+use Ibexa\AdminUi\Form\Type\Language\LanguageChoiceType;
+use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
+use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -27,37 +27,37 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentCreateType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     protected $languageService;
 
     /** @var \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface */
-    private $contentTypeChoiceLoader;
+    private $contentCreateContentTypeChoiceLoader;
 
     /** @var \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface */
     private $languageChoiceLoader;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\LookupLimitationsTransformer */
+    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
     private $lookupLimitationsTransformer;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
     private $permissionChecker;
 
     /**
-     * @param \eZ\Publish\API\Repository\LanguageService $languageService
+     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
      * @param \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface $contentTypeChoiceLoader
      * @param \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface $languageChoiceLoader
-     * @param \EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface $permissionChecker
-     * @param \EzSystems\EzPlatformAdminUi\Permission\LookupLimitationsTransformer $lookupLimitationsTransformer
+     * @param \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface $permissionChecker
+     * @param \Ibexa\AdminUi\Permission\LookupLimitationsTransformer $lookupLimitationsTransformer
      */
     public function __construct(
         LanguageService $languageService,
-        ChoiceLoaderInterface $contentTypeChoiceLoader,
+        ContentCreateContentTypeChoiceLoader $contentCreateContentTypeChoiceLoader,
         ChoiceLoaderInterface $languageChoiceLoader,
         PermissionCheckerInterface $permissionChecker,
         LookupLimitationsTransformer $lookupLimitationsTransformer
     ) {
         $this->languageService = $languageService;
-        $this->contentTypeChoiceLoader = $contentTypeChoiceLoader;
+        $this->contentCreateContentTypeChoiceLoader = $contentCreateContentTypeChoiceLoader;
         $this->languageChoiceLoader = $languageChoiceLoader;
         $this->permissionChecker = $permissionChecker;
         $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
@@ -67,17 +67,17 @@ class ContentCreateType extends AbstractType
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
      * @param array $options
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $restrictedContentTypesIds = [];
         $restrictedLanguageCodes = [];
 
-        /** @var \EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentCreateData $contentCreateData */
+        /** @var \Ibexa\AdminUi\Form\Data\Content\Draft\ContentCreateData $contentCreateData */
         $contentCreateData = $options['data'];
         if ($location = $contentCreateData->getParentLocation()) {
             $limitationsValues = $this->getLimitationValuesForLocation($location);
@@ -93,7 +93,8 @@ class ContentCreateType extends AbstractType
                     'label' => false,
                     'multiple' => false,
                     'expanded' => true,
-                    'choice_loader' => new ContentCreateContentTypeChoiceLoader($this->contentTypeChoiceLoader, $restrictedContentTypesIds),
+                    'choice_loader' => $this->contentCreateContentTypeChoiceLoader
+                        ->setRestrictedContentTypeIds($restrictedContentTypesIds),
                 ]
             )
             ->add(
@@ -131,14 +132,14 @@ class ContentCreateType extends AbstractType
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      *
      * @return array
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function getLimitationValuesForLocation(Location $location): array
     {
@@ -150,3 +151,5 @@ class ContentCreateType extends AbstractType
         );
     }
 }
+
+class_alias(ContentCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\Draft\ContentCreateType');

@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autoconfigure: true
+        autowire: true
+        public: false
+
+    Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolver: ~
+
+    Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface:
+        '@Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolver'

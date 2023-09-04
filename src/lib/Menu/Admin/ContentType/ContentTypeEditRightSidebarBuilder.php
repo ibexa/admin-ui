@@ -4,10 +4,9 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu\Admin\ContentType;
+namespace Ibexa\AdminUi\Menu\Admin\ContentType;
 
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
-use Ibexa\AdminUi\Menu\Admin\ContentType\AbstractContentTypeRightSidebarBuilder;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use JMS\TranslationBundle\Model\Message;
 
 /**
@@ -18,8 +17,8 @@ use JMS\TranslationBundle\Model\Message;
 class ContentTypeEditRightSidebarBuilder extends AbstractContentTypeRightSidebarBuilder
 {
     /* Menu items */
-    const ITEM__SAVE = 'content_type_edit__sidebar_right__save';
-    const ITEM__CANCEL = 'content_type_edit__sidebar_right__cancel';
+    public const ITEM__SAVE = 'content_type_edit__sidebar_right__save';
+    public const ITEM__CANCEL = 'content_type_edit__sidebar_right__cancel';
 
     protected function getConfigureEventName(): string
     {
@@ -33,7 +32,7 @@ class ContentTypeEditRightSidebarBuilder extends AbstractContentTypeRightSidebar
     {
         return [
             (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Save'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Cancel'),
         ];
     }
 
@@ -47,3 +46,5 @@ class ContentTypeEditRightSidebarBuilder extends AbstractContentTypeRightSidebar
         return self::ITEM__CANCEL;
     }
 }
+
+class_alias(ContentTypeEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\ContentType\ContentTypeEditRightSidebarBuilder');

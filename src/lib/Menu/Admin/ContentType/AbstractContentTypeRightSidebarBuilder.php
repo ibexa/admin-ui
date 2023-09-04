@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu\Admin\ContentType;
 
-use EzSystems\EzPlatformAdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 
@@ -30,20 +30,18 @@ abstract class AbstractContentTypeRightSidebarBuilder extends AbstractBuilder im
                 $itemSaveIdentifier,
                 [
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger ibexa-btn--save-content-type',
                         'data-click' => sprintf('#%s', $contentTypeFormView['publishContentType']->vars['id']),
                     ],
-                    'extras' => ['icon' => 'save'],
                 ]
             ),
             $itemCancelIdentifier => $this->createMenuItem(
                 $itemCancelIdentifier,
                 [
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => sprintf('#%s', $contentTypeFormView['removeDraft']->vars['id']),
                     ],
-                    'extras' => ['icon' => 'circle-close'],
                 ]
             ),
         ]);

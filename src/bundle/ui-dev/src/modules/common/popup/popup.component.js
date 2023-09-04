@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
 import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 
-const CLASS_NON_SCROLLABLE = 'ezs-non-scrollable';
+const { Translator } = window;
+
+const CLASS_NON_SCROLLABLE = 'ibexa-non-scrollable';
 const CLASS_MODAL_OPEN = 'modal-open';
 const MODAL_CONFIG = {
     backdrop: 'static',
@@ -24,14 +25,43 @@ class Popup extends Component {
         this.setModalRef = this.setModalRef.bind(this);
         this.onKeyUp = this.onKeyUp.bind(this);
 
-        this.state = { isVisible: props.isVisible, isLoading: props.isLoading };
+        this.state = {
+            currentProps: {
+                isVisible: props.isVisible,
+                isLoading: props.isLoading,
+            },
+            isVisible: props.isVisible,
+            isLoading: props.isLoading,
+        };
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.isVisible !== prevState.currentProps.isVisible || nextProps.isLoading !== prevState.currentProps.isLoading) {
+            return {
+                currentProps: {
+                    isVisible: nextProps.isVisible,
+                    isLoading: nextProps.isLoading,
+                },
+                isVisible: nextProps.isVisible,
+                isLoading: nextProps.isLoading,
+            };
+        }
+
+        return null;
     }
 
     componentDidMount() {
+        const { noKeyboard, hasFocus } = this.props;
         const { isVisible: show } = this.state;
 
         if (show) {
-            $(this._refModal).modal({ ...MODAL_CONFIG, show, focus: this.props.hasFocus });
+            const bootstrapModal = window.bootstrap.Modal.getOrCreateInstance(this._refModal, {
+                ...MODAL_CONFIG,
+                keyboard: !noKeyboard,
+                focus: hasFocus,
+            });
+
+            bootstrapModal.show();
 
             this.attachModalEventHandlers();
         }
@@ -40,27 +70,27 @@ class Popup extends Component {
     componentDidUpdate() {
         const { isVisible: show } = this.state;
 
-        $(this._refModal).modal({ ...MODAL_CONFIG, show, focus: this.props.hasFocus });
+        const bootstrapModal = window.bootstrap.Modal.getOrCreateInstance(this._refModal, {
+            ...MODAL_CONFIG,
+            focus: this.props.hasFocus,
+        });
 
         if (show) {
+            bootstrapModal.show();
             this.attachModalEventHandlers();
+        } else {
+            bootstrapModal.hide();
         }
     }
 
     componentWillUnmount() {
-        $(this._refModal).modal('hide');
+        window.bootstrap.Modal.getOrCreateInstance(this._refModal).hide();
         document.body.classList.remove(CLASS_MODAL_OPEN, CLASS_NON_SCROLLABLE);
     }
 
-    UNSAFE_componentWillReceiveProps({ isVisible, onConfigIframeLoad, isLoading }) {
-        this.setState((state) => ({ ...state, isVisible, onConfigIframeLoad, isLoading }));
-    }
-
     attachModalEventHandlers() {
-        const modal = $(this._refModal);
-
-        modal.on('keyup', this.onKeyUp);
-        modal.one('hidden.bs.modal', this.props.onClose);
+        this._refModal.addEventListener('keyup', this.onKeyUp);
+        this._refModal.addEventListener('hidden.bs.modal', this.props.onClose);
     }
 
     onKeyUp(event) {
@@ -78,8 +108,6 @@ class Popup extends Component {
     }
 
     renderHeader() {
-        const closeBtnLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'universal_discovery_widget');
-
         return (
             <div className={'modal-header c-popup__header'}>
                 {this.renderHeadline()}
@@ -89,16 +117,21 @@ class Popup extends Component {
     }
 
     renderCloseButton() {
+        if (this.props.noCloseBtn) {
+            return;
+        }
+
         const closeBtnLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'universal_discovery_widget');
 
         return (
             <button
                 type="button"
                 className="close c-popup__btn--close"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
                 aria-label={closeBtnLabel}
-                onClick={this.props.onClose}>
-                <Icon name="discard" extraClasses="ez-icon--small" />
+                onClick={this.props.onClose}
+            >
+                <Icon name="discard" extraClasses="ibexa-icon--small" />
             </button>
         );
     }
@@ -140,9 +173,9 @@ class Popup extends Component {
 
     render() {
         const { isVisible } = this.state;
-        const { additionalClasses, size, noHeader } = this.props;
+        const { additionalClasses, size, noHeader, extraClasses } = this.props;
         const modalAttrs = {
-            className: 'c-popup modal fade',
+            className: `c-popup modal fade ${extraClasses}`,
             ref: this.setModalRef,
             tabIndex: this.props.hasFocus ? -1 : undefined,
         };
@@ -176,7 +209,6 @@ Popup.propTypes = {
     isVisible: PropTypes.bool,
     isLoading: PropTypes.bool,
     onClose: PropTypes.func.isRequired,
-    onConfigIframeLoad: PropTypes.func,
     children: PropTypes.element.isRequired,
     title: PropTypes.string,
     subtitle: PropTypes.string,
@@ -185,6 +217,9 @@ Popup.propTypes = {
     footerChildren: PropTypes.element,
     size: PropTypes.string,
     noHeader: PropTypes.bool,
+    noCloseBtn: PropTypes.bool,
+    noKeyboard: PropTypes.bool,
+    extraClasses: PropTypes.string,
 };
 
 Popup.defaultProps = {
@@ -193,7 +228,13 @@ Popup.defaultProps = {
     hasFocus: true,
     size: 'large',
     noHeader: false,
-    onConfigIframeLoad: () => { },
+    noCloseBtn: false,
+    noKeyboard: false,
+    extraClasses: '',
+    title: null,
+    subtitle: null,
+    additionalClasses: null,
+    footerChildren: null,
 };
 
 export default Popup;

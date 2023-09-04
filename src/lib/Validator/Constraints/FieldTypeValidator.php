@@ -4,15 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Validator\Constraints;
+namespace Ibexa\AdminUi\Validator\Constraints;
 
-use EzSystems\EzPlatformAdminUi\Validator\ValidationErrorsProcessor;
-use EzSystems\EzPlatformContentForms\Validator\Constraints\FieldTypeValidator as BaseFieldTypeValidator;
-use EzSystems\EzPlatformContentForms\Validator\ValidationErrorsProcessor as BaseValidationErrorsProcessor;
+use Ibexa\AdminUi\Validator\ValidationErrorsProcessor;
+use Ibexa\ContentForms\Validator\Constraints\FieldTypeValidator as BaseFieldTypeValidator;
+use Ibexa\ContentForms\Validator\ValidationErrorsProcessor as BaseValidationErrorsProcessor;
 
 /**
  * @deprecated Since eZ Platform 3.0.2 class moved to EzPlatformContentForms Bundle. Use it instead.
- * @see \EzSystems\EzPlatformContentForms\Validator\Constraints\FieldTypeValidator.
+ * @see \Ibexa\ContentForms\Validator\Constraints\FieldTypeValidator.
  */
 abstract class FieldTypeValidator extends BaseFieldTypeValidator
 {
@@ -34,3 +34,5 @@ abstract class FieldTypeValidator extends BaseFieldTypeValidator
         );
     }
 }
+
+class_alias(FieldTypeValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\FieldTypeValidator');

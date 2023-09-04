@@ -1,0 +1,17 @@
+.ibexa-double-input-range {
+    display: flex;
+
+    &__separator {
+        border-bottom: calculateRem(1px) solid $ibexa-color-dark-300;
+        width: calculateRem(10px);
+        margin: calculateRem(24px) calculateRem(8px);
+    }
+
+    &__inputs-wrapper {
+        display: flex;
+    }
+
+    &--single-label {
+        flex-direction: column;
+    }
+}

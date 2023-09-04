@@ -1,12 +1,6 @@
 services:
-  EzSystems\EzPlatformAdminUi\Search\AbstractPagerContentToDataMapper:
-    abstract: true
+  Ibexa\AdminUi\Component\Search\GlobalSearchTwigComponent:
     autowire: true
     public: false
-    arguments:
-      $translationHelper: '@ezpublish.translation_helper'
-
-  EzSystems\EzPlatformAdminUi\Search\PagerSearchContentToDataMapper:
-    parent: Ibexa\Platform\Search\Mapper\PagerSearchContentToDataMapper
-    autowire: true
-    public: false
+    tags:
+      - { name: ibexa.admin_ui.component, group: global-search }

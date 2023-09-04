@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\ContentType\Translation;
+namespace Ibexa\AdminUi\Form\Data\ContentType\Translation;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class TranslationRemoveData
@@ -17,27 +17,27 @@ class TranslationRemoveData
     /**
      * @Assert\NotBlank()
      *
-     * @var \eZ\Publish\API\Repository\Values\ContentType\ContentType|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
      */
     private $contentType;
 
     /**
      * @Assert\NotBlank()
      *
-     * @var \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null
      */
     private $contentTypeGroup;
 
     /**
      * @Assert\NotBlank()
      *
-     * @var \eZ\Publish\API\Repository\Values\Content\Language[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
      */
     private $languageCodes;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType|null $contentType
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup|null $contentTypeGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null $contentTypeGroup
      * @param array $languageCodes
      */
     public function __construct(
@@ -51,7 +51,7 @@ class TranslationRemoveData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
      */
     public function getContentType(): ?ContentType
     {
@@ -59,7 +59,7 @@ class TranslationRemoveData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType|null $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
      *
      * @return self
      */
@@ -71,7 +71,7 @@ class TranslationRemoveData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null
      */
     public function getContentTypeGroup(): ?ContentTypeGroup
     {
@@ -79,7 +79,7 @@ class TranslationRemoveData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
      *
      * @return self
      */
@@ -91,7 +91,7 @@ class TranslationRemoveData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
      */
     public function getLanguageCodes(): array
     {
@@ -99,10 +99,12 @@ class TranslationRemoveData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language[] $languageCodes
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language[] $languageCodes
      */
     public function setLanguageCodes(array $languageCodes): void
     {
         $this->languageCodes = $languageCodes;
     }
 }
+
+class_alias(TranslationRemoveData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentType\Translation\TranslationRemoveData');

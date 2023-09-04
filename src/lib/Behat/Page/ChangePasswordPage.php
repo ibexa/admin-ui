@@ -7,25 +7,24 @@
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use Ibexa\AdminUi\Behat\Component\RightMenu;
+use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 
 class ChangePasswordPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\RightMenu */
-    private $rightMenu;
+    private ContentActionsMenu $contentActionsMenu;
 
-    public function __construct(Session $session, Router $router, RightMenu $rightMenu)
+    public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu)
     {
         parent::__construct($session, $router);
-        $this->rightMenu = $rightMenu;
+        $this->contentActionsMenu = $contentActionsMenu;
     }
 
     public function verifyIsLoaded(): void
     {
-        $this->rightMenu->verifyIsLoaded();
+        $this->contentActionsMenu->verifyIsLoaded();
         $this->getHTMLPage()->find($this->getLocator('title'))->assert()->textEquals('Change my password');
     }
 
@@ -50,7 +49,7 @@ class ChangePasswordPage extends Page
             new VisibleCSSLocator('oldPassword', '#user_password_change_oldPassword'),
             new VisibleCSSLocator('newPassword', '#user_password_change_newPassword_first'),
             new VisibleCSSLocator('confirmPassword', '#user_password_change_newPassword_second'),
-            new VisibleCSSLocator('title', '.ez-page-title__content-name'),
+            new VisibleCSSLocator('title', '.ibexa-edit-header__title'),
         ];
     }
 
@@ -61,6 +60,6 @@ class ChangePasswordPage extends Page
 
     public function getName(): string
     {
-        return 'Change password page';
+        return 'Change password';
     }
 }
