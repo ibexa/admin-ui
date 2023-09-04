@@ -32,7 +32,11 @@ const ContentMetaPreview = () => {
     const locationData = useMemo(() => getLocationData(loadedLocationsMap, markedLocationId), [markedLocationId, loadedLocationsMap]);
     const lastModifiedLabel = Translator.trans(/*@Desc("Modified")*/ 'meta_preview.last_modified', {}, 'ibexa_universal_discovery_widget');
     const creationDateLabel = Translator.trans(/*@Desc("Created")*/ 'meta_preview.creation_date', {}, 'ibexa_universal_discovery_widget');
-    const translationsLabel = Translator.trans(/*@Desc("Translations")*/ 'meta_preview.translations', {}, 'ibexa_universal_discovery_widget');
+    const translationsLabel = Translator.trans(
+        /*@Desc("Translations")*/ 'meta_preview.translations',
+        {},
+        'ibexa_universal_discovery_widget',
+    );
 
     useEffect(() => {
         ibexa.helpers.tooltips.parse(refContentMetaPreview.current);

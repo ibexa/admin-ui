@@ -59,7 +59,11 @@ const Breadcrumbs = () => {
                         const locationId = item.parentLocationId;
                         const locationName =
                             locationId === 1
-                                ? Translator.trans(/*@Desc("Root Location")*/ 'breadcrumbs.root_location', {}, 'ibexa_universal_discovery_widget')
+                                ? Translator.trans(
+                                      /*@Desc("Root Location")*/ 'breadcrumbs.root_location',
+                                      {},
+                                      'ibexa_universal_discovery_widget',
+                                  )
                                 : item.location.ContentInfo.Content.TranslatedName;
                         const onClickHandler = goToLocation.bind(this, locationId);
 
@@ -100,7 +104,11 @@ const Breadcrumbs = () => {
                         const locationId = item.parentLocationId;
                         const locationName =
                             locationId === 1
-                                ? Translator.trans(/*@Desc("Root Location")*/ 'breadcrumbs.root_location', {}, 'ibexa_universal_discovery_widget')
+                                ? Translator.trans(
+                                      /*@Desc("Root Location")*/ 'breadcrumbs.root_location',
+                                      {},
+                                      'ibexa_universal_discovery_widget',
+                                  )
                                 : item.location.ContentInfo.Content.TranslatedName;
                         const isLast = index === visibleItems.length - 1;
                         const onClickHandler = goToLocation.bind(this, locationId);

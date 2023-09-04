@@ -20,9 +20,10 @@ use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
 use Ibexa\Core\Limitation\MemberOfLimitationType;
 use JMS\TranslationBundle\Annotation\Desc;
 use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class MemberOfLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
+final class MemberOfLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     private UserService $userService;
 

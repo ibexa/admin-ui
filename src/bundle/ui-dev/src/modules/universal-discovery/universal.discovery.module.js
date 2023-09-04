@@ -56,14 +56,22 @@ export const SORTING_OPTIONS = [
     {
         value: 'name:asc',
         label: Translator.trans(/*@Desc("Name A-Z")*/ 'sorting.name.asc.label', {}, 'ibexa_universal_discovery_widget'),
-        selectedLabel: Translator.trans(/*@Desc("Sort by name A-Z")*/ 'sorting.name.asc.selected_label', {}, 'ibexa_universal_discovery_widget'),
+        selectedLabel: Translator.trans(
+            /*@Desc("Sort by name A-Z")*/ 'sorting.name.asc.selected_label',
+            {},
+            'ibexa_universal_discovery_widget',
+        ),
         sortClause: 'ContentName',
         sortOrder: 'ascending',
     },
     {
         value: 'name:desc',
         label: Translator.trans(/*@Desc("Name Z-A")*/ 'sorting.name.desc.label', {}, 'ibexa_universal_discovery_widget'),
-        selectedLabel: Translator.trans(/*@Desc("Sort by name Z-A")*/ 'sorting.name.desc.selected_label', {}, 'ibexa_universal_discovery_widget'),
+        selectedLabel: Translator.trans(
+            /*@Desc("Sort by name Z-A")*/ 'sorting.name.desc.selected_label',
+            {},
+            'ibexa_universal_discovery_widget',
+        ),
         sortClause: 'ContentName',
         sortOrder: 'descending',
     },

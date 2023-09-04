@@ -408,7 +408,11 @@ export default class UploadItemComponent extends Component {
     renderErrorMessage() {
         const { uploaded, aborted, disallowedType, disallowedSize, failed, uploading, disallowedContentType } = this.state;
         const isError = !uploaded && !aborted && (disallowedSize || disallowedType || disallowedContentType) && failed && !uploading;
-        const cannotUploadMessage = Translator.trans(/*@Desc("Cannot upload file")*/ 'cannot_upload.message', {}, 'ibexa_multi_file_upload');
+        const cannotUploadMessage = Translator.trans(
+            /*@Desc("Cannot upload file")*/ 'cannot_upload.message',
+            {},
+            'ibexa_multi_file_upload',
+        );
         const disallowedTypeMessage = Translator.trans(
             /*@Desc("File type is not allowed")*/ 'disallowed_type.message',
             {},

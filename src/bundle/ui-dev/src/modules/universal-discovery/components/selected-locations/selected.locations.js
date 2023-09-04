@@ -18,7 +18,11 @@ const SelectedLocations = () => {
         'c-selected-locations': true,
         'c-selected-locations--expanded': isExpanded,
     });
-    const expandLabel = Translator.trans(/*@Desc("Expand sidebar")*/ 'selected_locations.expand.sidebar', {}, 'ibexa_universal_discovery_widget');
+    const expandLabel = Translator.trans(
+        /*@Desc("Expand sidebar")*/ 'selected_locations.expand.sidebar',
+        {},
+        'ibexa_universal_discovery_widget',
+    );
     const collapseLabel = Translator.trans(
         /*@Desc("Collapse sidebar")*/ 'selected_locations.collapse.sidebar',
         {},

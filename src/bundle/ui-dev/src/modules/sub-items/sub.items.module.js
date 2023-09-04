@@ -874,7 +874,11 @@ export default class SubItemsModule extends Component {
         if (!isUserContentItemSelected && isNonUserContentItemSelected) {
             confirmLabel = Translator.trans(/*@Desc("Send to trash")*/ 'bulk_delete.popup.confirm.nonusers', {}, 'ibexa_sub_items');
         } else {
-            confirmLabel = Translator.trans(/*@Desc("Delete")*/ 'bulk_delete.popup.confirm.users_and_users_with_nonusers', {}, 'ibexa_sub_items');
+            confirmLabel = Translator.trans(
+                /*@Desc("Delete")*/ 'bulk_delete.popup.confirm.users_and_users_with_nonusers',
+                {},
+                'ibexa_sub_items',
+            );
         }
 
         return (
