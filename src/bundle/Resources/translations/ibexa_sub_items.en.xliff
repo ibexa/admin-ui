@@ -72,8 +72,8 @@
         <note>key: bulk_delete.error.modal.table_title.users_with_nonusers</note>
       </trans-unit>
       <trans-unit id="530f5b1097af7206fdabc3a51ac334c933ab4909" resname="bulk_delete.popup.confirm.nonusers">
-        <source>Send to Trash</source>
-        <target state="new">Send to Trash</target>
+        <source>Send to trash</source>
+        <target state="new">Send to trash</target>
         <note>key: bulk_delete.popup.confirm.nonusers</note>
       </trans-unit>
       <trans-unit id="4953b415cbb1e81833664d96e7051d0a7e3d90c8" resname="bulk_delete.popup.confirm.users_and_users_with_nonusers">

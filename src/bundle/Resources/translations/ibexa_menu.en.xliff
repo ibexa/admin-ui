@@ -52,8 +52,8 @@
         <note>key: content__sidebar_right__reveal</note>
       </trans-unit>
       <trans-unit id="9445b360492505d3a8d7be4c316e2cc62f381e03" resname="content__sidebar_right__send_to_trash">
-        <source>Send to Trash</source>
-        <target state="new">Send to Trash</target>
+        <source>Send to trash</source>
+        <target state="new">Send to trash</target>
         <note>key: content__sidebar_right__send_to_trash</note>
       </trans-unit>
       <trans-unit id="0a801de04935a4bf73c70d29b6c594e1d10811cc" resname="content_create__sidebar_right__cancel">
