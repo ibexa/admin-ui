@@ -193,6 +193,11 @@ class UniversalDiscoveryProvider implements Provider
             [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
         );
 
+        $updateLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
+            $lookupCreateLimitationsResult,
+            [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
+        );
+
         return [
             'create' => [
                 'hasAccess' => $lookupCreateLimitationsResult->hasAccess,
@@ -201,6 +206,8 @@ class UniversalDiscoveryProvider implements Provider
             ],
             'edit' => [
                 'hasAccess' => $lookupUpdateLimitationsResult->hasAccess,
+                'restrictedContentTypeIds' => $updateLimitationsValues[Limitation::CONTENTTYPE],
+                'restrictedLanguageCodes' => $updateLimitationsValues[Limitation::LANGUAGE],
             ],
         ];
     }
