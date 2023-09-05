@@ -1,4 +1,4 @@
-{% trans_default_domain 'ibexa_user_invitationt' %}
+{% trans_default_domain 'ibexa_user_invitation' %}
 
 {% set top_input_content %}
     {% block top_input_content %}
@@ -29,7 +29,7 @@
     id: 'ibexa-user-invitation-modal',
 } %}
     {% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
-    {% trans_default_domain 'ibexa_user_invitationt' %}
+    {% trans_default_domain 'ibexa_user_invitation' %}
 
     {% block content_before %}
         {{ form_start(form, {
@@ -48,7 +48,7 @@
                     class: 'ibexa-user-invitation-modal__bad-file-alert ibexa-user-invitation-modal__bad-file-alert--hidden',
                     show_close_btn: true,
                 } only %}
-                    {% trans_default_domain 'ibexa_user_invitationt' %}
+                    {% trans_default_domain 'ibexa_user_invitation' %}
 
                     {% block title %}
                         <div class="ibexa-alert__title">
@@ -64,7 +64,7 @@
                     class: 'ibexa-user-invitation-modal__issues-alert ibexa-user-invitation-modal__issues-alert--hidden',
                     show_close_btn: true,
                 } only %}
-                    {% trans_default_domain 'ibexa_user_invitationt' %}
+                    {% trans_default_domain 'ibexa_user_invitation' %}
 
                     {% block extra_content %}
                         <div class="ibexa-user-invitation-modal__issues-alert-issues"></div>
@@ -81,7 +81,7 @@
                     {% endblock %}
                 {% endembed %}
                 {% embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true, search_button_type: 'button' } %}
-                    {% trans_default_domain 'ibexa_user_invitationt' %}
+                    {% trans_default_domain 'ibexa_user_invitation' %}
                     {% block content %}
                         {{ top_input_content }}
                     {% endblock %}

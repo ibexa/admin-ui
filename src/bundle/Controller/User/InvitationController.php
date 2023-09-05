@@ -95,7 +95,7 @@ final class InvitationController
                         [
                             '%email%' => $struct->getEmail(),
                         ],
-                        'ibexa_user_invitationt'
+                        'ibexa_user_invitation'
                     );
                 } catch (UserAlreadyExistsException $exception) {
                     $this->notificationHandler->info(
@@ -104,7 +104,7 @@ final class InvitationController
                         [
                             '%email%' => $struct->getEmail(),
                         ],
-                        'ibexa_user_invitationt'
+                        'ibexa_user_invitation'
                     );
                 }
             }
@@ -114,7 +114,7 @@ final class InvitationController
                     /** @Desc("Invitations sent") */
                     'ibexa.user.invitations.success',
                     [],
-                    'ibexa_user_invitationt'
+                    'ibexa_user_invitation'
                 );
             }
         }

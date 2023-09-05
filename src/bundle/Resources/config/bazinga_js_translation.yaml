@@ -9,6 +9,6 @@ active_domains:
     - 'ibexa_sub_items'
     - 'ibexa_content_tree'
     - 'ibexa_trash_ui'
-    - 'ibexa_user_invitationt'
+    - 'ibexa_user_invitation'
     - 'ibexa_content_type'
     - 'messages'
