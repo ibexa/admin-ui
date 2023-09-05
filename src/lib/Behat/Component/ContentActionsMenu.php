@@ -39,7 +39,7 @@ class ContentActionsMenu extends Component
         $contextMenuSplitBtnsTogglers = $this->getHTMLPage()
             ->findAll($this->getLocator('menuSplitToggler'));
 
-        foreach($contextMenuSplitBtnsTogglers->getIterator() as $splitBtnToggler) {
+        foreach ($contextMenuSplitBtnsTogglers->getIterator() as $splitBtnToggler) {
             $splitBtnToggler->click();
 
             $matchingSubButtons = $this->getHTMLPage()

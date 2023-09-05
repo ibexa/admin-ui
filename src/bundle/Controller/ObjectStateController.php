@@ -132,6 +132,7 @@ class ObjectStateController extends Controller
         $languages = $this->configResolver->getParameter('languages');
         $defaultLanguageCode = reset($languages);
 
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->create(
             ObjectStateCreateType::class,
             new ObjectStateCreateData()
@@ -269,6 +270,7 @@ class ObjectStateController extends Controller
     public function updateAction(Request $request, ObjectState $objectState): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->create(
             ObjectStateUpdateType::class,
             new ObjectStateUpdateData($objectState)
