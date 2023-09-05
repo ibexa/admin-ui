@@ -24,6 +24,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -153,7 +154,7 @@ class PolicyController extends Controller
                         /** @Desc("Now you can set Limitations for the Policy.") */
                         'policy.add.set_limitation',
                         ['%role%' => $role->identifier],
-                        'role'
+                        'ibexa_role'
                     );
 
                     return new RedirectResponse($this->generateUrl('ibexa.policy.create_with_limitation', [
@@ -176,7 +177,7 @@ class PolicyController extends Controller
                     /** @Desc("Created new Policies in Role '%role%'.") */
                     'policy.add.success',
                     ['%role%' => $role->identifier],
-                    'role'
+                    'ibexa_role'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [
@@ -220,7 +221,7 @@ class PolicyController extends Controller
                 /** @Desc("Policy type '%policy%' does not contain Limitations.") */
                 'policy.edit.no_limitations',
                 ['%policy%' => $policy->module . '/' . $policy->function],
-                'role'
+                'ibexa_role'
             );
 
             return new RedirectResponse($this->generateUrl('ibexa.role.view', [
@@ -251,7 +252,7 @@ class PolicyController extends Controller
                     /** @Desc("Updated Policies in Role '%role%'.") */
                     'policy.update.success',
                     ['%role%' => $role->identifier],
-                    'role'
+                    'ibexa_role'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [
@@ -301,7 +302,7 @@ class PolicyController extends Controller
                     /** @Desc("Created new Policies in Role '%role%'.") */
                     'policy.add.success',
                     ['%role%' => $role->identifier],
-                    'role'
+                    'ibexa_role'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [
@@ -353,7 +354,7 @@ class PolicyController extends Controller
                     /** @Desc("Removed Policies from Role '%role%'.") */
                     'policy.delete.success',
                     ['%role%' => $role->identifier],
-                    'role'
+                    'ibexa_role'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [
@@ -409,7 +410,7 @@ class PolicyController extends Controller
                     /** @Desc("Removed Policies from Role '%role%'.") */
                     'policy.delete.success',
                     ['%role%' => $role->identifier],
-                    'role'
+                    'ibexa_role'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [

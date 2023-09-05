@@ -15,7 +15,7 @@ const SelectedLocationsItem = ({ location, permissions }) => {
     const clearLabel = Translator.trans(
         /*@Desc("Clear selection")*/ 'selected_locations.clear_selection',
         {},
-        'universal_discovery_widget',
+        'ibexa_universal_discovery_widget',
     );
     const removeFromSelection = () => {
         ibexa.helpers.tooltips.hideAll(refSelectedLocationsItem.current);

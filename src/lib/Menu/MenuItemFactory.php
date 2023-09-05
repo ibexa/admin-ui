@@ -70,7 +70,7 @@ class MenuItemFactory implements FactoryInterface
     public function createItem($name, array $options = []): ItemInterface
     {
         if (empty($options['extras']['translation_domain'])) {
-            $options['extras']['translation_domain'] = 'menu';
+            $options['extras']['translation_domain'] = 'ibexa_menu';
         }
 
         $item = $this->factory->createItem($name, $options);

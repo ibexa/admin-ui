@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Form\Type\Content\ContentInfoType;
 use Ibexa\Contracts\Core\Repository\ObjectStateService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -85,7 +86,7 @@ class ContentObjectStateUpdateType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ContentObjectStateUpdateData::class,
-            'translation_domain' => 'object_state',
+            'translation_domain' => 'ibexa_object_state',
         ]);
     }
 }

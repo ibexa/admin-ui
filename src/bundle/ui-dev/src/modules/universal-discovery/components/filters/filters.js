@@ -89,12 +89,12 @@ const Filters = ({ search }) => {
         const selectLabel = Translator.trans(
             /*@Desc("Select content")*/ 'filters.tag_view_select.select',
             {},
-            'universal_discovery_widget',
+            'ibexa_universal_discovery_widget',
         );
         const changeLabel = Translator.trans(
             /*@Desc("Change content")*/ 'filters.tag_view_change.select',
             {},
-            'universal_discovery_widget',
+            'ibexa_universal_discovery_widget',
         );
 
         return (
@@ -107,12 +107,12 @@ const Filters = ({ search }) => {
             </button>
         );
     };
-    const filtersLabel = Translator.trans(/*@Desc("Filters")*/ 'filters.title', {}, 'universal_discovery_widget');
-    const languageLabel = Translator.trans(/*@Desc("Language")*/ 'filters.language', {}, 'universal_discovery_widget');
-    const sectionLabel = Translator.trans(/*@Desc("Section")*/ 'filters.section', {}, 'universal_discovery_widget');
-    const subtreeLabel = Translator.trans(/*@Desc("Subtree")*/ 'filters.subtree', {}, 'universal_discovery_widget');
-    const clearLabel = Translator.trans(/*@Desc("Clear")*/ 'filters.clear', {}, 'universal_discovery_widget');
-    const applyLabel = Translator.trans(/*@Desc("Apply")*/ 'filters.apply', {}, 'universal_discovery_widget');
+    const filtersLabel = Translator.trans(/*@Desc("Filters")*/ 'filters.title', {}, 'ibexa_universal_discovery_widget');
+    const languageLabel = Translator.trans(/*@Desc("Language")*/ 'filters.language', {}, 'ibexa_universal_discovery_widget');
+    const sectionLabel = Translator.trans(/*@Desc("Section")*/ 'filters.section', {}, 'ibexa_universal_discovery_widget');
+    const subtreeLabel = Translator.trans(/*@Desc("Subtree")*/ 'filters.subtree', {}, 'ibexa_universal_discovery_widget');
+    const clearLabel = Translator.trans(/*@Desc("Clear")*/ 'filters.clear', {}, 'ibexa_universal_discovery_widget');
+    const applyLabel = Translator.trans(/*@Desc("Apply")*/ 'filters.apply', {}, 'ibexa_universal_discovery_widget');
     const languageOptions = languages
         .filter((language) => language.enabled)
         .map((language) => ({

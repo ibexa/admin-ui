@@ -1,6 +1,6 @@
 {% form_theme form_role_assignments_delete '@ibexadesign/ui/form_fields.html.twig'  %}
 
-{% trans_default_domain 'role' %}
+{% trans_default_domain 'ibexa_role' %}
 
 <section>
     {% set body_rows = [] %}
@@ -30,7 +30,7 @@
                 <ul class="list-unstyled">
                     <li>
                         <span class="font-weight-bold" title="{{ 'policy.limitation.identifier_tooltip' | trans({'%identifier%': limitation.identifier})|desc('"%identifier%" Limitation') }}">
-                            {{ ('policy.limitation.identifier.' ~ limitation.identifier|lower)|trans({'%identifier%': limitation.identifier}, 'ezplatform_content_forms_policies')|desc('%identifier%') }}:
+                            {{ ('policy.limitation.identifier.' ~ limitation.identifier|lower)|trans({'%identifier%': limitation.identifier}, 'ibexa_content_forms_policies')|desc('%identifier%') }}:
                         </span>
                         {{ ibexa_render_limitation_value(limitation) }}
                     </li>

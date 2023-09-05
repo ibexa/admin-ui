@@ -50,8 +50,8 @@
     class: ('modal-title ' ~ attr_title.class|default(''))|trim,
 }) %}
 
-{% set close_btn_title = 'close_btn.title'|trans({}, 'modal')|desc('Close') %}
-{% set close_btn_aria_label = 'close_btn.aria_label'|trans({}, 'modal')|desc('Close') %}
+{% set close_btn_title = 'close_btn.title'|trans({}, 'ibexa_modal')|desc('Close') %}
+{% set close_btn_aria_label = 'close_btn.aria_label'|trans({}, 'ibexa_modal')|desc('Close') %}
 {% set attr_close_btn = attr_close_btn|default({})|merge({
     class: ('close ' ~ attr_close_btn.class|default(''))|trim,
     type: attr_close_btn.type|default('button'),

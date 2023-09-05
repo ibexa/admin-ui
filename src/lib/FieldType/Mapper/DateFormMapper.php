@@ -9,6 +9,7 @@ namespace Ibexa\AdminUi\FieldType\Mapper;
 use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\Core\FieldType\Date\Type;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -36,7 +37,7 @@ class DateFormMapper implements FieldDefinitionFormMapperInterface
                     'required' => true,
                     'property_path' => 'fieldSettings[defaultType]',
                     'label' => /** @Desc("Default value") */ 'field_definition.ezdate.default_type',
-                    'translation_domain' => 'content_type',
+                    'translation_domain' => 'ibexa_content_type',
                     'disabled' => $isTranslation,
                 ]
             );
@@ -46,7 +47,7 @@ class DateFormMapper implements FieldDefinitionFormMapperInterface
     {
         $resolver
             ->setDefaults([
-                'translation_domain' => 'content_type',
+                'translation_domain' => 'ibexa_content_type',
             ]);
     }
 }

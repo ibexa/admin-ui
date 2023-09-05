@@ -17,6 +17,7 @@ use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -67,7 +68,7 @@ class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterfac
     public function getName(): string
     {
         /** @Desc("Roles") */
-        return $this->translator->trans('tab.name.roles', [], 'locationview');
+        return $this->translator->trans('tab.name.roles', [], 'ibexa_locationview');
     }
 
     /**

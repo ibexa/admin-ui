@@ -189,8 +189,8 @@ class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Translatio
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__CONTENT, 'menu'))->setDesc('Content'),
-            (new Message(self::ITEM__META, 'menu'))->setDesc('Meta'),
+            (new Message(self::ITEM__CONTENT, 'ibexa_menu'))->setDesc('Content'),
+            (new Message(self::ITEM__META, 'ibexa_menu'))->setDesc('Meta'),
         ];
     }
 }

@@ -4,7 +4,7 @@
     {{ form_widget(form.limitationValues) }}
 
     <button type="button" data-universaldiscovery-title="{{ "role.policy.limitation.location.udw_title"
-        |trans({}, "ezplatform_content_forms_role")
+        |trans({}, 'ibexa_content_forms_role')
         |desc("Select Location(s) to use as Limitation") }}"
         class="btn ibexa-btn ibexa-btn--secondary d-block ibexa-pick-location-limitation-button"
         data-location-input-selector="#{{ form.limitationValues.vars.id }}"
@@ -15,7 +15,7 @@
             'location_id': '{{ location_id }}',
             'is_loading_state': true
         })|e('html_attr') }}">
-        {{ "role.policy.limitation.location.udw_button"|trans({}, "ezplatform_content_forms_role")|desc("Select Locations") }}
+        {{ "role.policy.limitation.location.udw_button"|trans({}, 'ibexa_content_forms_role')|desc("Select Locations") }}
     </button>
 
     <ul class="list-unstyled" id="{{ form.limitationValues.vars.id }}-selected-location">
@@ -39,7 +39,7 @@
                 <li class="mt-2">
                     <div class="ibexa-tag">
                         <div class="ibexa-tag__content">
-                            {{ "role.policy.limitation.location_deleted"|trans({}, "ezplatform_content_forms_role")|desc("Location deleted") }}
+                            {{ "role.policy.limitation.location_deleted"|trans({}, 'ibexa_content_forms_role')|desc("Location deleted") }}
                         </div>
                     </div>
                 </li>

@@ -139,7 +139,7 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
         return [
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('userpermissions'),
-                'ezplatform_content_forms_policies'
+                'ibexa_content_forms_policies'
             )->setDesc('User Permissions'),
         ];
     }

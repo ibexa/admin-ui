@@ -93,7 +93,7 @@ class Autosave implements ValueDefinitionInterface, FormMapperInterface
             /** @Desc("Autosave draft") */
             'settings.autosave.value.title',
             [],
-            'user_settings'
+            'ibexa_user_settings'
         );
     }
 
@@ -103,7 +103,7 @@ class Autosave implements ValueDefinitionInterface, FormMapperInterface
             /** @Desc("Autosave draft every given period") */
             'settings.autosave.value.description',
             [],
-            'user_settings'
+            'ibexa_user_settings'
         );
     }
 
@@ -113,7 +113,7 @@ class Autosave implements ValueDefinitionInterface, FormMapperInterface
             /** @Desc("enabled") */
             'settings.autosave.value.enabled',
             [],
-            'user_settings'
+            'ibexa_user_settings'
         );
     }
 
@@ -123,7 +123,7 @@ class Autosave implements ValueDefinitionInterface, FormMapperInterface
             /** @Desc("disabled") */
             'settings.autosave.value.disabled',
             [],
-            'user_settings'
+            'ibexa_user_settings'
         );
     }
 }

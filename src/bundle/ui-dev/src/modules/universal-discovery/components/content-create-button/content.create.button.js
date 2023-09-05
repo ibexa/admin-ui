@@ -23,7 +23,7 @@ const ContentCreateButton = ({ isDisabled }) => {
     const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
     const { hidden, allowedLocations } = useContext(ContentOnTheFlyConfigContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
-    const createLabel = Translator.trans(/*@Desc("Create")*/ 'create_content.create', {}, 'universal_discovery_widget');
+    const createLabel = Translator.trans(/*@Desc("Create")*/ 'create_content.create', {}, 'ibexa_universal_discovery_widget');
     const toggleContentCreateVisibility = () => {
         ibexa.helpers.tooltips.hideAll();
         setCreateContentVisible((prevState) => !prevState);

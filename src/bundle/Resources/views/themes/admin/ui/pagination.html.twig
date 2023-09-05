@@ -5,7 +5,7 @@
         <div class="ibexa-pagination__info">
             {{ 'pagination.viewing'|trans({
                 '%viewing%': pager.currentPageResults|length,
-                '%total%': pager.nbResults}, 'pagination')|desc('Viewing %viewing% out of %total% items')|raw
+                '%total%': pager.nbResults}, 'ibexa_pagination')|desc('Viewing %viewing% out of %total% items')|raw
             }}
         </div>
     {% endif %}

@@ -10,6 +10,7 @@ use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\ContentForms\ConfigResolver\MaxUploadSize;
 use Ibexa\Contracts\Core\Repository\FieldTypeService;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Constraints\Range;
@@ -32,7 +33,7 @@ class BinaryFileFormMapper implements FieldDefinitionFormMapperInterface
                 'required' => false,
                 'property_path' => 'validatorConfiguration[FileSizeValidator][maxFileSize]',
                 'label' => /** @Desc("Maximum file size (MB)") */ 'field_definition.ezbinaryfile.max_file_size',
-                'translation_domain' => 'content_type',
+                'translation_domain' => 'ibexa_content_type',
                 'constraints' => [
                     new Range([
                         'min' => 0,

@@ -408,21 +408,25 @@ export default class UploadItemComponent extends Component {
     renderErrorMessage() {
         const { uploaded, aborted, disallowedType, disallowedSize, failed, uploading, disallowedContentType } = this.state;
         const isError = !uploaded && !aborted && (disallowedSize || disallowedType || disallowedContentType) && failed && !uploading;
-        const cannotUploadMessage = Translator.trans(/*@Desc("Cannot upload file")*/ 'cannot_upload.message', {}, 'multi_file_upload');
+        const cannotUploadMessage = Translator.trans(
+            /*@Desc("Cannot upload file")*/ 'cannot_upload.message',
+            {},
+            'ibexa_multi_file_upload',
+        );
         const disallowedTypeMessage = Translator.trans(
             /*@Desc("File type is not allowed")*/ 'disallowed_type.message',
             {},
-            'multi_file_upload',
+            'ibexa_multi_file_upload',
         );
         const disallowedSizeMessage = Translator.trans(
             /*@Desc("File size is not allowed")*/ 'disallowed_size.message',
             {},
-            'multi_file_upload',
+            'ibexa_multi_file_upload',
         );
         const disallowedContentTypeMessage = Translator.trans(
             /*@Desc("You do not have permission to create this Content item")*/ 'disallowed_content_type.message',
             {},
-            'multi_file_upload',
+            'ibexa_multi_file_upload',
         );
         let msg = cannotUploadMessage;
 
@@ -456,7 +460,7 @@ export default class UploadItemComponent extends Component {
     renderSuccessMessage() {
         const { uploaded, aborted, disallowedSize, disallowedType, failed, uploading } = this.state;
         const isSuccess = uploaded && !aborted && !(disallowedSize || disallowedType) && !failed && !uploading;
-        const message = Translator.trans(/*@Desc("100% Uploaded")*/ 'upload.success.message', {}, 'multi_file_upload');
+        const message = Translator.trans(/*@Desc("100% Uploaded")*/ 'upload.success.message', {}, 'ibexa_multi_file_upload');
 
         return isSuccess ? (
             <div className="c-upload-list-item__message c-upload-list-item__message--success">
@@ -481,7 +485,7 @@ export default class UploadItemComponent extends Component {
             return null;
         }
 
-        const label = Translator.trans(/*@Desc("Abort")*/ 'abort.label', {}, 'multi_file_upload');
+        const label = Translator.trans(/*@Desc("Abort")*/ 'abort.label', {}, 'ibexa_multi_file_upload');
 
         return (
             <div
@@ -533,7 +537,7 @@ export default class UploadItemComponent extends Component {
             return null;
         }
 
-        const label = Translator.trans(/*@Desc("Edit")*/ 'edit.label', {}, 'multi_file_upload');
+        const label = Translator.trans(/*@Desc("Edit")*/ 'edit.label', {}, 'ibexa_multi_file_upload');
 
         return (
             <div
@@ -562,7 +566,7 @@ export default class UploadItemComponent extends Component {
             return null;
         }
 
-        const label = Translator.trans(/*@Desc("Delete")*/ 'delete.label', {}, 'multi_file_upload');
+        const label = Translator.trans(/*@Desc("Delete")*/ 'delete.label', {}, 'ibexa_multi_file_upload');
 
         return (
             <div

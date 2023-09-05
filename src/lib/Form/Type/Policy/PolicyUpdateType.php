@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Form\Type\Policy;
 use Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData;
 use Ibexa\AdminUi\Form\Type\Role\LimitationType;
 use Ibexa\Contracts\Core\Repository\RoleService;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -67,7 +68,7 @@ class PolicyUpdateType extends AbstractType
 
                 $form->add('limitations', CollectionType::class, [
                     'label' => false,
-                    'translation_domain' => 'ezplatform_content_forms_role',
+                    'translation_domain' => 'ibexa_content_forms_role',
                     'entry_type' => LimitationType::class,
                     'data' => $this->generateLimitationList(
                         $data->getLimitations(),
@@ -84,7 +85,7 @@ class PolicyUpdateType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'translation_domain' => 'ezplatform_content_forms_role',
+            'translation_domain' => 'ibexa_content_forms_role',
             'data_class' => PolicyUpdateData::class,
         ]);
     }

@@ -18,6 +18,7 @@ use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
 use Ibexa\Core\Limitation\MemberOfLimitationType;
+use JMS\TranslationBundle\Annotation\Desc;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -97,7 +98,7 @@ final class MemberOfLimitationMapper extends MultipleSelectionBasedMapper implem
             /** @Desc("Self") */
             'policy.limitation.member_of.self_user_group',
             [],
-            'ezplatform_content_forms_role'
+            'ibexa_content_forms_role'
         );
     }
 
@@ -106,7 +107,7 @@ final class MemberOfLimitationMapper extends MultipleSelectionBasedMapper implem
         return [
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('memberof'),
-                'ezplatform_content_forms_policies'
+                'ibexa_content_forms_policies'
             )->setDesc('MemberOf'),
         ];
     }

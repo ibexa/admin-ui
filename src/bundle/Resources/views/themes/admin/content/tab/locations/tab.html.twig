@@ -1,4 +1,4 @@
-{% trans_default_domain 'locationview' %}
+{% trans_default_domain 'ibexa_locationview' %}
 {% import _self as tab %}
 {% form_theme form_content_location_add '@ibexadesign/ui/form/flat_widgets.html.twig' %}
 {% form_theme form_content_location_remove with ['@ibexadesign/ui/form/flat_widgets.html.twig', '@ibexadesign/ui/form_fields.html.twig'] %}
@@ -120,7 +120,7 @@
                 <span class="ibexa-pagination__text">
                     {{ 'pagination.viewing'|trans({
                         '%viewing%': pager.currentPageResults|length,
-                        '%total%': pager.nbResults}, 'pagination')|desc('Viewing %viewing% out of %total% items')|raw }}
+                        '%total%': pager.nbResults}, 'ibexa_pagination')|desc('Viewing %viewing% out of %total% items')|raw }}
                 </span>
         </div>
         <div class="row justify-content-center align-items-center ibexa-pagination__btn mb-5">

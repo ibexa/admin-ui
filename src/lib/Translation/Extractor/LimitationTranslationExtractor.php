@@ -20,7 +20,7 @@ use JMS\TranslationBundle\Translation\ExtractorInterface;
  */
 class LimitationTranslationExtractor implements ExtractorInterface
 {
-    public const MESSAGE_DOMAIN = 'ezplatform_content_forms_policies';
+    public const MESSAGE_DOMAIN = 'ibexa_content_forms_policies';
     public const MESSAGE_ID_PREFIX = LimitationIdentifierToLabelConverter::MESSAGE_ID_PREFIX;
 
     /**

@@ -2,7 +2,7 @@
 
 {% form_theme form '@ibexadesign/ui/form_fields.html.twig'  %}
 
-{% trans_default_domain 'role' %}
+{% trans_default_domain 'ibexa_role' %}
 
 {% block header_admin %}
     {% set role_assignment_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.role_assignment_create.sidebar_right', [], {'role': role}) %}
@@ -36,7 +36,7 @@
                                 "{{user.content.versionInfo.contentInfo.id}}": user.id
                             }), {}) %}
                             {% set users_udw_title = "role_assignment.view.add.panel.users_and_groups.users.udw_title"
-                                |trans({}, "role")
+                                |trans({}, 'ibexa_role')
                                 |desc("Select Users to assign to the Role") %}
 
                             {{ include('@ibexadesign/ui/component/tag_view_select/tag_view_select.html.twig', {
@@ -68,7 +68,7 @@
                                 "{{group.content.versionInfo.contentInfo.i}}": group.id
                             }), {}) %}
                             {% set groups_udw_title = "role_assignment.view.add.panel.users_and_groups.groups.udw_title"
-                                |trans({}, "role")
+                                |trans({}, 'ibexa_role')
                                 |desc("Select User Groups to assign to the Role") %}
 
                             {{ include('@ibexadesign/ui/component/tag_view_select/tag_view_select.html.twig', {

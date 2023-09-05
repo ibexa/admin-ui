@@ -1,4 +1,4 @@
-{% trans_default_domain 'notifications' %}
+{% trans_default_domain 'ibexa_notifications' %}
 
 {% if wrapper_class_list is not defined %}
     {% set wrapper_class_list = 'ibexa-notifications-modal__item' ~ (notification.isPending == 0 ? ' ibexa-notifications-modal__item--read') %}

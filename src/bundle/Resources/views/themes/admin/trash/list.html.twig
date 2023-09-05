@@ -2,7 +2,7 @@
 
 {% from '@ibexadesign/ui/component/macros.html.twig' import results_headline %}
 
-{% trans_default_domain 'trash' %}
+{% trans_default_domain 'ibexa_trash' %}
 
 {% form_theme form_trash_item_restore '@ibexadesign/ui/form_fields.html.twig' %}
 {% form_theme form_trash_item_delete '@ibexadesign/ui/form_fields.html.twig' %}
@@ -52,7 +52,7 @@
                 class: 'ibexa-trash-search-form'
             }
         } %}
-            {% trans_default_domain 'trash' %}
+            {% trans_default_domain 'ibexa_trash' %}
 
             {% block static_left_input %}
                 <div class="ibexa-trash-search-form__item ibexa-trash-search-form__item--creator">
@@ -258,14 +258,14 @@
                                         'data-udw-config': ibexa_udw_config('single_container', {}),
                                         'class': (form_trash_item_restore.location.select_content.vars.attr.class|default('') ~ ' btn ibexa-btn ibexa-btn--ghost ibexa-btn--small')|trim,
                                         'disabled': true
-                                    }, 'label': 'trash.button.restore_new_location'|trans({},'trash')|desc("Restore in a new location")
+                                    }, 'label': 'trash.button.restore_new_location'|trans({},'ibexa_trash')|desc("Restore in a new location")
                                 }) %}
                                 {{ form_widget(form_trash_item_restore.location.select_content, restore_under_new_parent_button_attr) }}
                                 {{ form_widget(form_trash_item_restore.location.location) }}
                                 {% do form_trash_item_restore.location.setRendered %}
                                 {{ form_widget(form_trash_item_restore.restore, {
                                     'attr': {'class': 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--small', 'disabled': true},
-                                    'label': 'trash.button.restore'|trans({},'trash')|desc('Restore')
+                                    'label': 'trash.button.restore'|trans({},'ibexa_trash')|desc('Restore')
                                 }) }}
                             {% else %}
                                 {% do form_trash_item_restore.location.setRendered %}

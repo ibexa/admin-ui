@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Form\DataTransformer\TranslatablePropertyTransformer;
 use Ibexa\Contracts\Core\Repository\FieldTypeService;
 use Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -66,7 +67,7 @@ class FieldDefinitionType extends AbstractType
         $resolver
             ->setDefaults([
                 'data_class' => FieldDefinitionData::class,
-                'translation_domain' => 'content_type',
+                'translation_domain' => 'ibexa_content_type',
                 'mainLanguageCode' => null,
                 'disable_identifier_field' => false,
                 'disable_required_field' => false,

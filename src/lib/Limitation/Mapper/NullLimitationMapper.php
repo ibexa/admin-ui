@@ -49,7 +49,7 @@ class NullLimitationMapper implements LimitationFormMapperInterface, LimitationV
         return [
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('status'),
-                'ezplatform_content_forms_policies'
+                'ibexa_content_forms_policies'
             )->setDesc('Status'),
         ];
     }

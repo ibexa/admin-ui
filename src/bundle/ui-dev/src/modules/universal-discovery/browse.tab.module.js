@@ -31,7 +31,7 @@ ibexa.addConfig(
         {
             id: 'browse',
             component: BrowseTabModule,
-            label: Translator.trans(/*@Desc("Browse")*/ 'browse.label', {}, 'universal_discovery_widget'),
+            label: Translator.trans(/*@Desc("Browse")*/ 'browse.label', {}, 'ibexa_universal_discovery_widget'),
             icon: window.ibexa.helpers.icon.getIconPath('browse'),
         },
     ],

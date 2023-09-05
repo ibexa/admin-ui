@@ -43,7 +43,7 @@ final class URLWildcardDeleteType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => URLWildcardDeleteData::class,
-            'translation_domain' => 'url_wildcard',
+            'translation_domain' => 'ibexa_url_wildcard',
         ]);
     }
 }

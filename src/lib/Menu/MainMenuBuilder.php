@@ -367,21 +367,21 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM_DASHBOARD, 'menu'))->setDesc('Dashboard'),
-            (new Message(self::ITEM_BOOKMARKS, 'menu'))->setDesc('Bookmarks'),
-            (new Message(self::ITEM_TRASH, 'menu'))->setDesc('Trash'),
-            (new Message(self::ITEM_CONTENT, 'menu'))->setDesc('Content'),
-            (new Message(self::ITEM_CONTENT_GROUP_SETTINGS, 'menu'))->setDesc('Settings'),
-            (new Message(self::ITEM_CONTENT__CONTENT_STRUCTURE, 'menu'))->setDesc('Content structure'),
-            (new Message(self::ITEM_CONTENT__MEDIA, 'menu'))->setDesc('Media'),
-            (new Message(self::ITEM_ADMIN, 'menu'))->setDesc('Admin'),
-            (new Message(self::ITEM_ADMIN__SECTIONS, 'menu'))->setDesc('Sections'),
-            (new Message(self::ITEM_ADMIN__ROLES, 'menu'))->setDesc('Roles'),
-            (new Message(self::ITEM_ADMIN__LANGUAGES, 'menu'))->setDesc('Languages'),
-            (new Message(self::ITEM_ADMIN__CONTENT_TYPES, 'menu'))->setDesc('Content Types'),
-            (new Message(self::ITEM_ADMIN__USERS, 'menu'))->setDesc('Users'),
-            (new Message(self::ITEM_ADMIN__OBJECT_STATES, 'menu'))->setDesc('Object States'),
-            (new Message(self::ITEM_ADMIN__URL_MANAGEMENT, 'menu'))->setDesc('URL management'),
+            (new Message(self::ITEM_DASHBOARD, 'ibexa_menu'))->setDesc('Dashboard'),
+            (new Message(self::ITEM_BOOKMARKS, 'ibexa_menu'))->setDesc('Bookmarks'),
+            (new Message(self::ITEM_TRASH, 'ibexa_menu'))->setDesc('Trash'),
+            (new Message(self::ITEM_CONTENT, 'ibexa_menu'))->setDesc('Content'),
+            (new Message(self::ITEM_CONTENT_GROUP_SETTINGS, 'ibexa_menu'))->setDesc('Settings'),
+            (new Message(self::ITEM_CONTENT__CONTENT_STRUCTURE, 'ibexa_menu'))->setDesc('Content structure'),
+            (new Message(self::ITEM_CONTENT__MEDIA, 'ibexa_menu'))->setDesc('Media'),
+            (new Message(self::ITEM_ADMIN, 'ibexa_menu'))->setDesc('Admin'),
+            (new Message(self::ITEM_ADMIN__SECTIONS, 'ibexa_menu'))->setDesc('Sections'),
+            (new Message(self::ITEM_ADMIN__ROLES, 'ibexa_menu'))->setDesc('Roles'),
+            (new Message(self::ITEM_ADMIN__LANGUAGES, 'ibexa_menu'))->setDesc('Languages'),
+            (new Message(self::ITEM_ADMIN__CONTENT_TYPES, 'ibexa_menu'))->setDesc('Content Types'),
+            (new Message(self::ITEM_ADMIN__USERS, 'ibexa_menu'))->setDesc('Users'),
+            (new Message(self::ITEM_ADMIN__OBJECT_STATES, 'ibexa_menu'))->setDesc('Object States'),
+            (new Message(self::ITEM_ADMIN__URL_MANAGEMENT, 'ibexa_menu'))->setDesc('URL management'),
         ];
     }
 }

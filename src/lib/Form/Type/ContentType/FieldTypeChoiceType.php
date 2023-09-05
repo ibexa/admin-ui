@@ -7,6 +7,7 @@
 namespace Ibexa\AdminUi\Form\Type\ContentType;
 
 use Ibexa\Core\FieldType\FieldTypeRegistry;
+use JMS\TranslationBundle\Annotation\Ignore;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -84,7 +85,7 @@ class FieldTypeChoiceType extends AbstractType
         return $this->translator->trans(/** @Ignore */
             $fieldTypeIdentifier . '.name',
             [],
-            'fieldtypes'
+            'ibexa_fieldtypes'
         );
     }
 }

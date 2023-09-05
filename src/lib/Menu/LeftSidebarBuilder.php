@@ -142,11 +142,11 @@ class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainer
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__SEARCH, 'menu'))->setDesc('Search'),
-            (new Message(self::ITEM__BROWSE, 'menu'))->setDesc('Browse'),
-            (new Message(self::ITEM__TREE, 'menu'))->setDesc('Content Tree'),
-            (new Message(self::ITEM__TRASH, 'menu'))->setDesc('Trash'),
-            (new Message(self::ITEM__BOOKMARK, 'menu'))->setDesc('Bookmarks'),
+            (new Message(self::ITEM__SEARCH, 'ibexa_menu'))->setDesc('Search'),
+            (new Message(self::ITEM__BROWSE, 'ibexa_menu'))->setDesc('Browse'),
+            (new Message(self::ITEM__TREE, 'ibexa_menu'))->setDesc('Content Tree'),
+            (new Message(self::ITEM__TRASH, 'ibexa_menu'))->setDesc('Trash'),
+            (new Message(self::ITEM__BOOKMARK, 'ibexa_menu'))->setDesc('Bookmarks'),
         ];
     }
 }

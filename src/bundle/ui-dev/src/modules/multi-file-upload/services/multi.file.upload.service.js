@@ -171,7 +171,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
                 Translator.trans(
                     /*@Desc("Cannot get Content Type by identifier")*/ 'cannot_get_content_type_identifier.message',
                     {},
-                    'multi_file_upload',
+                    'ibexa_multi_file_upload',
                 ),
             ),
         )
@@ -191,7 +191,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
                         Translator.trans(
                             /*@Desc("Cannot get Content Type by identifier")*/ 'cannot_get_content_type_identifier.message',
                             {},
-                            'multi_file_upload',
+                            'ibexa_multi_file_upload',
                         ),
                     ),
                 )
@@ -227,7 +227,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
                         Translator.trans(
                             /*@Desc("Cannot create content structure")*/ 'cannot_create_content_structure.message',
                             {},
-                            'multi_file_upload',
+                            'ibexa_multi_file_upload',
                         ),
                     ),
                 );
@@ -237,7 +237,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
                 Translator.trans(
                     /*@Desc("Cannot create content structure")*/ 'cannot_create_content_structure.message',
                     {},
-                    'multi_file_upload',
+                    'ibexa_multi_file_upload',
                 ),
             ),
         );

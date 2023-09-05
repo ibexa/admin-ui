@@ -14,6 +14,7 @@ use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Core\Helper\TranslationHelper;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -101,7 +102,7 @@ class VersionController extends Controller
                     [
                         '%name%' => $this->translationHelper->getTranslatedContentNameByContentInfo($contentInfo),
                     ],
-                    'version'
+                    'ibexa_admin_ui'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [

@@ -160,7 +160,7 @@ const makeBulkRequest = ({ token, siteaccess }, requestBodyOperations, callback)
                 /*@Desc("An unexpected error occurred while processing the Content item(s). Please try again later.")*/
                 'bulk_request.error.message',
                 {},
-                'sub_items',
+                'ibexa_sub_items',
             );
 
             window.ibexa.helpers.notification.showErrorNotification(message);

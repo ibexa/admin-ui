@@ -20,6 +20,7 @@ use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Ibexa\Core\MVC\Symfony\Locale\LocaleConverterInterface;
+use JMS\TranslationBundle\Annotation\Ignore;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -106,7 +107,7 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
         $label = $this->translator->trans(/** @Ignore */
             $identifier . '.name',
             [],
-            'fieldtypes',
+            'ibexa_fieldtypes',
             $this->localeConverter->convertToPOSIX($language->languageCode)
         );
 

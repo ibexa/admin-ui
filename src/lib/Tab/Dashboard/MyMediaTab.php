@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Tab\Dashboard;
 
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
 
 class MyMediaTab extends AbstractMediaTab implements OrderedTabInterface
@@ -22,7 +23,7 @@ class MyMediaTab extends AbstractMediaTab implements OrderedTabInterface
     public function getName(): string
     {
         return /** @Desc("Media") */
-            $this->translator->trans('tab.name.my_media', [], 'dashboard');
+            $this->translator->trans('tab.name.my_media', [], 'ibexa_dashboard');
     }
 
     public function getOrder(): int

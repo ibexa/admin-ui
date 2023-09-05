@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Form\Type\ContentType;
 
 use Ibexa\AdminUi\Form\Type\FieldDefinition\FieldDefinitionType;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -53,7 +54,7 @@ final class FieldDefinitionsCollectionType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'translation_domain' => 'content_type',
+                'translation_domain' => 'ibexa_content_type',
                 'mainLanguageCode' => null,
             ])
             ->setDefined(['mainLanguageCode'])

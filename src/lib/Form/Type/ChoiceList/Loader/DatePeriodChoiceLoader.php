@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DatePeriodChoiceLoader extends BaseChoiceLoader
@@ -39,22 +40,22 @@ class DatePeriodChoiceLoader extends BaseChoiceLoader
             $this->translator->trans(/** @Desc("Last week") */
                 'date_period_choice.last_week',
                 [],
-                'date_period'
+                'ibexa_date_period'
             ) => 'P0Y0M7D',
             $this->translator->trans(/** @Desc("Last month") */
                 'date_period_choice.last_month',
                 [],
-                'date_period'
+                'ibexa_date_period'
             ) => 'P0Y1M0D',
             $this->translator->trans(/** @Desc("Last year") */
                 'date_period_choice.last_year',
                 [],
-                'date_period'
+                'ibexa_date_period'
             ) => 'P1Y0M0D',
             $this->translator->trans(/** @Desc("Custom range") */
                 'date_period_choice.custom_range',
                 [],
-                'date_period'
+                'ibexa_date_period'
             ) => 'custom_range',
         ];
     }

@@ -19,6 +19,7 @@ use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterfac
 use Ibexa\Contracts\Core\Repository\URLWildcardService;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -71,7 +72,7 @@ final class URLWildcardController extends Controller
                     /** @Desc("URL Wildcard created.") */
                     'url_wildcard.create.success',
                     [],
-                    'url_wildcard'
+                    'ibexa_url_wildcard'
                 );
             });
         }
@@ -113,7 +114,7 @@ final class URLWildcardController extends Controller
                         /** @Desc("URL Wildcard updated.") */
                         'url_wildcard.update.success',
                         [],
-                        'url_wildcard'
+                        'ibexa_url_wildcard'
                     );
 
                     return $this->redirect($this->generateUrl('ibexa.url_management', [
@@ -161,7 +162,7 @@ final class URLWildcardController extends Controller
                 /** @Desc("URL Wildcard(s) deleted.") */
                 'url_wildcard.delete.success',
                 [],
-                'url_wildcard'
+                'ibexa_url_wildcard'
             );
         }
 

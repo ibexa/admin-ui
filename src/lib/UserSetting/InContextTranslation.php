@@ -86,7 +86,7 @@ final class InContextTranslation implements ValueDefinitionInterface, FormMapper
             /** @Desc("In-Context translation") */
             'settings.in_context_translation.value.title',
             [],
-            'user_settings'
+            'ibexa_user_settings'
         );
     }
 
@@ -96,7 +96,7 @@ final class InContextTranslation implements ValueDefinitionInterface, FormMapper
             /** @Desc("Toggle In-Context translation feature") */
             'settings.in_context_translation.value.description',
             [],
-            'user_settings'
+            'ibexa_user_settings'
         );
     }
 
@@ -106,7 +106,7 @@ final class InContextTranslation implements ValueDefinitionInterface, FormMapper
             /** @Desc("enabled") */
             'settings.in_context_translation.value.enabled',
             [],
-            'user_settings'
+            'ibexa_user_settings'
         );
     }
 
@@ -116,7 +116,7 @@ final class InContextTranslation implements ValueDefinitionInterface, FormMapper
             /** @Desc("disabled") */
             'settings.in_context_translation.value.disabled',
             [],
-            'user_settings'
+            'ibexa_user_settings'
         );
     }
 }

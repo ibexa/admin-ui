@@ -18,6 +18,7 @@ use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -94,7 +95,7 @@ class PreviewFormProcessor implements EventSubscriberInterface
                 /** @Desc("Cannot save content draft.") */
                 'error.preview',
                 [],
-                'content_preview'
+                'ibexa_content_preview'
             );
             $url = $this->getContentEditUrl($data, $languageCode);
         }

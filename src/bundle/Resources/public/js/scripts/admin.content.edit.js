@@ -161,7 +161,7 @@
             const saveMessage = Translator.trans(
                 /*@Desc("Draft saved %time%")*/ 'content_edit.autosave.status_saved.message.full',
                 { time: saveTime },
-                'content',
+                'ibexa_content',
             );
 
             autosaveStatusSavedNode.innerHTML = saveMessage;

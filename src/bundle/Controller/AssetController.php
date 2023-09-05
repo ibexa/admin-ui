@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Form\Data\Asset\ImageAssetUploadData;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Core\FieldType\Image\Value as ImageValue;
 use Ibexa\Core\FieldType\ImageAsset\AssetMapper as ImageAssetMapper;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -118,7 +119,7 @@ class AssetController extends Controller
             /** @Desc("Missing or invalid CSRF token") */
             'asset.upload.invalid_csrf',
             [],
-            'assets'
+            'ibexa_admin_ui'
         );
 
         return $this->createGenericErrorResponse($errorMessage);

@@ -20,6 +20,7 @@ use Ibexa\Contracts\Core\Repository\ObjectStateService;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -128,7 +129,7 @@ class ObjectStateGroupController extends Controller
                         /** @Desc("Object state group '%name%' created.") */
                         'object_state_group.create.success',
                         ['%name%' => $data->getName()],
-                        'object_state'
+                        'ibexa_object_state'
                     );
 
                     return $this->redirectToRoute('ibexa.object_state.group.view', [
@@ -170,7 +171,7 @@ class ObjectStateGroupController extends Controller
                     /** @Desc("Object state group '%name%' deleted.") */
                     'object_state_group.delete.success',
                     ['%name%' => $group->getName()],
-                    'object_state'
+                    'ibexa_object_state'
                 );
             });
 
@@ -207,7 +208,7 @@ class ObjectStateGroupController extends Controller
                         /** @Desc("Object state group '%name%' deleted.") */
                         'object_state_group.delete.success',
                         ['%name%' => $objectStateGroup->getName()],
-                        'object_state'
+                        'ibexa_object_state'
                     );
                 }
             });
@@ -247,7 +248,7 @@ class ObjectStateGroupController extends Controller
                     /** @Desc("Object state group '%name%' updated.") */
                     'object_state_group.update.success',
                     ['%name%' => $updatedGroup->getName()],
-                    'object_state'
+                    'ibexa_object_state'
                 );
 
                 return $this->redirectToRoute('ibexa.object_state.group.view', [

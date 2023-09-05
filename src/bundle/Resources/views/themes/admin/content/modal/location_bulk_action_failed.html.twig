@@ -1,4 +1,4 @@
-{% trans_default_domain 'locationview' %}
+{% trans_default_domain 'ibexa_locationview' %}
 
 {% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
     title: 'content.view.subitems.bulk_action.limited_permissions'|trans|desc('Limited user permissions'),
@@ -6,7 +6,7 @@
     no_header_border: true,
     id: 'bulk-action-failed-modal',
 } %}
-    {% trans_default_domain 'locationview' %}
+    {% trans_default_domain 'ibexa_locationview' %}
 
     {% block body_content %}
         {% set table_row_template %}

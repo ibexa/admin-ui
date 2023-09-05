@@ -14,6 +14,7 @@ use Ibexa\AdminUi\Form\Factory\ContentTypeFormFactory;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -62,7 +63,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     public function getName(): string
     {
         /** @Desc("Translations") */
-        return $this->translator->trans('tab.name.translations', [], 'content_type');
+        return $this->translator->trans('tab.name.translations', [], 'ibexa_content_type');
     }
 
     /**

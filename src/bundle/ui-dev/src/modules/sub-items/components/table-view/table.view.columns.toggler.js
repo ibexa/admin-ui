@@ -110,7 +110,7 @@ export default class TableViewColumnsTogglerComponent extends Component {
     }
 
     render() {
-        const filterLabel = Translator.trans(/*@Desc("Filters")*/ 'items_table.header.filters', {}, 'sub_items');
+        const filterLabel = Translator.trans(/*@Desc("Filters")*/ 'items_table.header.filters', {}, 'ibexa_sub_items');
 
         return (
             <div className="c-table-view-columns-toggler">

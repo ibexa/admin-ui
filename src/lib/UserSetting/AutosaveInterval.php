@@ -73,7 +73,7 @@ class AutosaveInterval implements ValueDefinitionInterface, FormMapperInterface
             /** @Desc("Autosave interval") */
             'settings.autosave_interval.value.title',
             [],
-            'user_settings'
+            'ibexa_user_settings'
         );
     }
 
@@ -83,7 +83,7 @@ class AutosaveInterval implements ValueDefinitionInterface, FormMapperInterface
             /** @Desc("Seconds till next draft autosave") */
             'settings.autosave_interval.value.description',
             [],
-            'user_settings'
+            'ibexa_user_settings'
         );
     }
 }

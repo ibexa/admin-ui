@@ -13,6 +13,7 @@ use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\UserService;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -86,7 +87,7 @@ class UserDeleteController extends Controller
                     /** @Desc("User with login '%login%' deleted.") */
                     'user.delete.success',
                     ['%login%' => $user->login],
-                    'content'
+                    'ibexa_content'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [

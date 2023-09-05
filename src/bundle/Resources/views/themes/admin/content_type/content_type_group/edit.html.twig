@@ -2,7 +2,7 @@
 
 {% form_theme form '@ibexadesign/ui/form_fields.html.twig'  %}
 
-{% trans_default_domain 'content_type' %}
+{% trans_default_domain 'ibexa_content_type' %}
 
 {% block header_admin %}
     {% set content_type_group_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.content_type_group_edit.sidebar_right', [], {'save_id': form.update.vars.id}) %}

@@ -160,7 +160,7 @@ export class UserInvitationModal {
             const emptyEmailsMessage = Translator.trans(
                 /*@Desc("Empty emails (%count%)")*/ 'modal.entry_issues.alert.empty_emails',
                 { count: emptyEmailsCount },
-                'user_invitation',
+                'ibexa_user_invitation',
             );
 
             messages.push(emptyEmailsMessage);
@@ -170,7 +170,7 @@ export class UserInvitationModal {
             const invalidEmailsMessage = Translator.trans(
                 /*@Desc("Invalid emails (%count%)")*/ 'modal.entry_issues.alert.invalid_emails',
                 { count: invalidEmailsCount },
-                'user_invitation',
+                'ibexa_user_invitation',
             );
 
             messages.push(invalidEmailsMessage);
@@ -180,7 +180,7 @@ export class UserInvitationModal {
             const duplicatedEmailsMessage = Translator.trans(
                 /*@Desc("Duplicated emails (%count%)")*/ 'modal.entry_issues.alert.duplicate_emails',
                 { count: duplicateEntryCount },
-                'user_invitation',
+                'ibexa_user_invitation',
             );
 
             messages.push(duplicatedEmailsMessage);
@@ -352,7 +352,7 @@ export class UserInvitationModal {
         const message = Translator.trans(
             /*@Desc("File %fileName% was uploaded")*/ 'modal.file_uploaded.message',
             { fileName },
-            'user_invitation',
+            'ibexa_user_invitation',
         );
 
         ibexa.helpers.notification.showInfoNotification(message);
@@ -438,7 +438,7 @@ export class UserInvitationModal {
         titleNode.innerText = Translator.trans(
             /*@Desc("Invite members (%invitations_count%)")*/ 'modal.title',
             { invitations_count: invitationsCount },
-            'user_invitation',
+            'ibexa_user_invitation',
         );
     }
 

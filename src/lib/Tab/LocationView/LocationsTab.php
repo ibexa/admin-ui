@@ -24,6 +24,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
@@ -107,7 +108,7 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     public function getName(): string
     {
         /** @Desc("Locations") */
-        return $this->translator->trans('tab.name.locations', [], 'locationview');
+        return $this->translator->trans('tab.name.locations', [], 'ibexa_locationview');
     }
 
     /**

@@ -299,16 +299,16 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Create content'),
-            (new Message(self::ITEM__EDIT, 'menu'))->setDesc('Edit'),
-            (new Message(self::ITEM__SEND_TO_TRASH, 'menu'))->setDesc('Send to trash'),
-            (new Message(self::ITEM__COPY, 'menu'))->setDesc('Copy'),
-            (new Message(self::ITEM__COPY_SUBTREE, 'menu'))->setDesc('Copy Subtree'),
-            (new Message(self::ITEM__MOVE, 'menu'))->setDesc('Move'),
-            (new Message(self::ITEM__DELETE, 'menu'))->setDesc('Delete'),
-            (new Message(self::ITEM__HIDE, 'menu'))->setDesc('Hide'),
-            (new Message(self::ITEM__REVEAL, 'menu'))->setDesc('Reveal'),
-            (new Message(self::ITEM__INVITE, 'menu'))->setDesc('Invite members'),
+            (new Message(self::ITEM__CREATE, 'ibexa_menu'))->setDesc('Create content'),
+            (new Message(self::ITEM__EDIT, 'ibexa_menu'))->setDesc('Edit'),
+            (new Message(self::ITEM__SEND_TO_TRASH, 'ibexa_menu'))->setDesc('Send to trash'),
+            (new Message(self::ITEM__COPY, 'ibexa_menu'))->setDesc('Copy'),
+            (new Message(self::ITEM__COPY_SUBTREE, 'ibexa_menu'))->setDesc('Copy Subtree'),
+            (new Message(self::ITEM__MOVE, 'ibexa_menu'))->setDesc('Move'),
+            (new Message(self::ITEM__DELETE, 'ibexa_menu'))->setDesc('Delete'),
+            (new Message(self::ITEM__HIDE, 'ibexa_menu'))->setDesc('Hide'),
+            (new Message(self::ITEM__REVEAL, 'ibexa_menu'))->setDesc('Reveal'),
+            (new Message(self::ITEM__INVITE, 'ibexa_menu'))->setDesc('Invite members'),
         ];
     }
 

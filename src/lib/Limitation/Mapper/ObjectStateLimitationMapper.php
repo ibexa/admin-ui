@@ -77,11 +77,11 @@ class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implement
         return [
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('newstate'),
-                'ezplatform_content_forms_policies'
+                'ibexa_content_forms_policies'
             )->setDesc('New State'),
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('state'),
-                'ezplatform_content_forms_policies'
+                'ibexa_content_forms_policies'
             )->setDesc('State'),
         ];
     }

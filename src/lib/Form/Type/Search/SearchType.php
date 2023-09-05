@@ -8,6 +8,7 @@ namespace Ibexa\AdminUi\Form\Type\Search;
 
 use Ibexa\AdminUi\Form\Type\Date\DateIntervalType;
 use Ibexa\AdminUi\Form\Type\User\UserType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -74,7 +75,7 @@ final class SearchType extends AbstractType
                 'created' => 'created_select',
                 'last_modified' => 'last_modified_select',
             ],
-            'translation_domain' => 'search',
+            'translation_domain' => 'ibexa_search',
         ]);
     }
 
@@ -104,22 +105,22 @@ final class SearchType extends AbstractType
             $this->translator->trans(/** @Desc("Last week") */
                 'search.last_week',
                 [],
-                'search'
+                'ibexa_search'
             ) => 'P0Y0M7D',
             $this->translator->trans(/** @Desc("Last month") */
                 'search.last_month',
                 [],
-                'search'
+                'ibexa_search'
             ) => 'P0Y1M0D',
             $this->translator->trans(/** @Desc("Last year") */
                 'search.last_year',
                 [],
-                'search'
+                'ibexa_search'
             ) => 'P1Y0M0D',
             $this->translator->trans(/** @Desc("Custom range") */
                 'search.custom_range',
                 [],
-                'search'
+                'ibexa_search'
             ) => 'custom_range',
         ];
     }

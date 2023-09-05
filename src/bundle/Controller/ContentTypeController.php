@@ -38,6 +38,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\FormInterface;
@@ -208,7 +209,7 @@ class ContentTypeController extends Controller
                 /** @Desc("Cannot create Content Type. Could not find language with identifier '%languageCode%'") */
                 'content_type.add.missing_language',
                 ['%languageCode%' => $mainLanguageCode],
-                'content_type'
+                'ibexa_content_type'
             );
 
             return $this->redirectToRoute('ibexa.content_type_group.view', [
@@ -258,7 +259,7 @@ class ContentTypeController extends Controller
                         /** @Desc("Draft of Content Type '%name%' already exists and is locked by '%userContentName%'") */
                         'content_type.edit.error.already_exists',
                         ['%name%' => $contentType->getName(), '%userContentName%' => $this->getUserNameById($userId)],
-                        'content_type'
+                        'ibexa_content_type'
                     );
 
                     return $this->redirectToRoute('ibexa.content_type.view', [
@@ -316,7 +317,7 @@ class ContentTypeController extends Controller
                         /** @Desc("Draft of Content Type '%name%' already exists and is locked by '%userContentName%'") */
                         'content_type.edit.error.already_exists',
                         ['%name%' => $contentType->getName(), '%userContentName%' => $this->getUserNameById($userId)],
-                        'content_type'
+                        'ibexa_content_type'
                     );
 
                     return $this->redirectToRoute('ibexa.content_type.view', [
@@ -371,7 +372,7 @@ class ContentTypeController extends Controller
                     /** @Desc("Draft of Content Type '%name%' already exists and is locked by '%userContentName%'") */
                     'content_type.edit.error.already_exists',
                     ['%name%' => $contentType->getName(), '%userContentName%' => $this->getUserNameById($contentTypeDraft->modifierId)],
-                    'content_type'
+                    'ibexa_content_type'
                 )
             );
 
@@ -444,14 +445,14 @@ class ContentTypeController extends Controller
                         /** @Desc("Content Type '%name%' copied.") */
                         'content_type.copy.success',
                         ['%name%' => $contentType->getName()],
-                        'content_type'
+                        'ibexa_content_type'
                     );
                 } catch (UnauthorizedException $exception) {
                     $notificationHandler->error(
                         /** @Desc("Content Type '%name%' cannot be copied.") */
                         'content_type.copy.error',
                         ['%name%' => $contentType->getName()],
-                        'content_type'
+                        'ibexa_content_type'
                     );
                 }
 
@@ -519,7 +520,7 @@ class ContentTypeController extends Controller
                     /** @Desc("Content Type '%name%' updated.") */
                     'content_type.update.success',
                     ['%name%' => $contentTypeDraft->getName()],
-                    'content_type'
+                    'ibexa_content_type'
                 );
 
                 if ($action === self::PRIMARY_UPDATE_ACTION) {
@@ -620,7 +621,7 @@ class ContentTypeController extends Controller
                     /** @Desc("Content Type '%name%' deleted.") */
                     'content_type.delete.success',
                     ['%name%' => $contentType->getName()],
-                    'content_type'
+                    'ibexa_content_type'
                 );
             });
 
@@ -665,7 +666,7 @@ class ContentTypeController extends Controller
                         /** @Desc("Content Type '%name%' deleted.") */
                         'content_type.delete.success',
                         ['%name%' => $contentType->getName()],
-                        'content_type'
+                        'ibexa_content_type'
                     );
                 }
             });
@@ -804,7 +805,7 @@ class ContentTypeController extends Controller
                 /** @Desc("another user") */
                 'content_type.user_name.can_not_be_fetched',
                 [],
-                'content_type'
+                'ibexa_content_type'
             );
         }
     }

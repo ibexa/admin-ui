@@ -25,7 +25,7 @@
                     content: contentName,
                     children_count: numberOfSubitems,
                 },
-                'content',
+                'ibexa_content',
             );
 
             modalBody.querySelector('.ibexa-modal__option-description').innerHTML = message;
@@ -33,7 +33,7 @@
             const message = Translator.trans(
                 /*@Desc("Are you sure you want to send this Content item to Trash?")*/ 'trash.modal.message',
                 {},
-                'content',
+                'ibexa_content',
             );
 
             modalBody.innerHTML = message;

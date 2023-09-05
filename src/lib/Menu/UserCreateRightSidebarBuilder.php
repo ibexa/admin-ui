@@ -76,8 +76,8 @@ class UserCreateRightSidebarBuilder extends AbstractBuilder implements Translati
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Create'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Cancel'),
+            (new Message(self::ITEM__CREATE, 'ibexa_menu'))->setDesc('Create'),
+            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Cancel'),
         ];
     }
 }

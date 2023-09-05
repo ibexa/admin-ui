@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Tab\ContentType;
 
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use JMS\TranslationBundle\Annotation\Desc;
 
 class ViewTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
@@ -29,7 +30,7 @@ class ViewTab extends AbstractEventDispatchingTab implements OrderedTabInterface
     public function getName(): string
     {
         /** @Desc("View") */
-        return $this->translator->trans('tab.name.view', [], 'content_type');
+        return $this->translator->trans('tab.name.view', [], 'ibexa_content_type');
     }
 
     /**

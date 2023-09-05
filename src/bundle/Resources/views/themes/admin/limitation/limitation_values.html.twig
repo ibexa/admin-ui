@@ -127,7 +127,7 @@
     {% apply spaceless %}
         <br>
         {{ "role.policy.limitation.userpermissions.role_title"
-        |trans({}, "ezplatform_content_forms_role")
+        |trans({}, 'ibexa_content_forms_role')
         |desc("Roles:") }}
         {% if values['roles'] is empty %}
             {{- 'policy.limitation.none'|trans|desc('None') -}}
@@ -137,7 +137,7 @@
         {% endfor %}
         <br>
         {{ "role.policy.limitation.userpermissions.user_groups_title"
-        |trans({}, "ezplatform_content_forms_role")
+        |trans({}, 'ibexa_content_forms_role')
         |desc("User Groups:") }}
         {% if values['user_groups'] is empty %}
             {{- 'policy.limitation.none'|trans|desc('None') -}}

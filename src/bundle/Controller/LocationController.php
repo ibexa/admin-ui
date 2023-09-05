@@ -37,6 +37,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Helper\TranslationHelper;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -156,7 +157,7 @@ class LocationController extends Controller
                     /** @Desc("'%name%' moved to '%location%'") */
                     'location.move.success',
                     ['%name%' => $location->getContentInfo()->name, '%location%' => $newParentLocation->getContentInfo()->name],
-                    'location'
+                    'ibexa_location'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
@@ -215,7 +216,7 @@ class LocationController extends Controller
                     /** @Desc("'%name%' copied to '%location%'") */
                     'location.copy.success',
                     ['%name%' => $location->getContentInfo()->name, '%location%' => $newParentLocation->getContentInfo()->name],
-                    'location'
+                    'ibexa_location'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
@@ -268,7 +269,7 @@ class LocationController extends Controller
                         '%name%' => $location->getContentInfo()->name,
                         '%location%' => $newParentLocation->getContentInfo()->name,
                     ],
-                    'location'
+                    'ibexa_location'
                 );
 
                 return $this->redirectToLocation($newLocation);
@@ -315,7 +316,7 @@ class LocationController extends Controller
                     /** @Desc("Location '%name%' swapped with Location '%location%'") */
                     'location.swap.success',
                     ['%name%' => $currentLocation->getContentInfo()->name, '%location%' => $newLocation->getContentInfo()->name],
-                    'location'
+                    'ibexa_location'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
@@ -412,7 +413,7 @@ class LocationController extends Controller
                 /** @Desc("Location '%name%' moved to Trash.") */
                 'location.trash.success',
                 ['%name%' => $location->getContentInfo()->name],
-                'location'
+                'ibexa_location'
             )
         );
 
@@ -438,7 +439,7 @@ class LocationController extends Controller
                 /** @Desc("Location '%name%' moved to Trash.") */
                 'location.trash.success',
                 ['%name%' => $location->getContentInfo()->name],
-                'location'
+                'ibexa_location'
             )
         );
 
@@ -477,7 +478,7 @@ class LocationController extends Controller
                         /** @Desc("Location '%name%' removed.") */
                         'location.delete.success',
                         ['%name%' => $location->getContentInfo()->name],
-                        'location'
+                        'ibexa_location'
                     );
                 }
 
@@ -528,7 +529,7 @@ class LocationController extends Controller
                         /** @Desc("Location '%name%' created.") */
                         'location.create.success',
                         ['%name%' => $newLocation->getContentInfo()->name],
-                        'location'
+                        'ibexa_location'
                     );
                 }
 
@@ -579,7 +580,7 @@ class LocationController extends Controller
                         /** @Desc("Location '%name%' hidden.") */
                         'location.update_success.success.hidden',
                         ['%name%' => $contentName],
-                        'location'
+                        'ibexa_location'
                     );
                 } else {
                     $this->locationService->unhideLocation($location);
@@ -587,7 +588,7 @@ class LocationController extends Controller
                         /** @Desc("Location '%name%' revealed.") */
                         'location.update_success.success.unhidden',
                         ['%name%' => $contentName],
-                        'location'
+                        'ibexa_location'
                     );
                 }
             } catch (APIRepositoryUnauthorizedException $e) {
@@ -630,7 +631,7 @@ class LocationController extends Controller
                     /** @Desc("Location '%name%' updated.") */
                     'location.update.success',
                     ['%name%' => $location->getContentInfo()->name],
-                    'location'
+                    'ibexa_location'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
@@ -677,7 +678,7 @@ class LocationController extends Controller
                     /** @Desc("Subtree assigned to Section '%name%'") */
                     'location.assign_section.success',
                     ['%name%' => $section->name],
-                    'location'
+                    'ibexa_location'
                 );
 
                 return $this->redirectToLocation($location, DetailsTab::URI_FRAGMENT);

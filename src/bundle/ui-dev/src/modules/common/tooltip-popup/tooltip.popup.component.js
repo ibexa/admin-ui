@@ -33,7 +33,7 @@ const TooltipPopupComponent = (props) => {
                   maxHeight,
                   overflowY: 'scroll',
               };
-    const closeLabel = Translator.trans(/*@Desc("Close")*/ 'tooltip.close_label', {}, 'content');
+    const closeLabel = Translator.trans(/*@Desc("Close")*/ 'tooltip.close_label', {}, 'ibexa_content');
 
     return (
         <div {...attrs}>

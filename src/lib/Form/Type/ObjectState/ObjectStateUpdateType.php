@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\ObjectState;
 
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateUpdateData;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -41,7 +42,7 @@ class ObjectStateUpdateType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ObjectStateUpdateData::class,
-            'translation_domain' => 'object_state',
+            'translation_domain' => 'ibexa_object_state',
         ]);
     }
 }

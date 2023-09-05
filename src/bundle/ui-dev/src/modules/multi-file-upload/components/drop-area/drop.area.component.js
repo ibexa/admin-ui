@@ -53,10 +53,10 @@ export default class DropAreaComponent extends Component {
     }
 
     render() {
-        const maxFileSizeMessage = Translator.trans(/*@Desc("Max file size:")*/ 'max_file_size.message', {}, 'multi_file_upload');
-        const dropActionMessage = Translator.trans(/*@Desc("Drag and drop file")*/ 'drop_action.message', {}, 'multi_file_upload');
-        const separatorMessage = Translator.trans(/*@Desc("or")*/ 'drop_action.separator', {}, 'multi_file_upload');
-        const uploadBtnLabel = Translator.trans(/*@Desc("Upload file")*/ 'upload_btn.label', {}, 'multi_file_upload');
+        const maxFileSizeMessage = Translator.trans(/*@Desc("Max file size:")*/ 'max_file_size.message', {}, 'ibexa_multi_file_upload');
+        const dropActionMessage = Translator.trans(/*@Desc("Drag and drop file")*/ 'drop_action.message', {}, 'ibexa_multi_file_upload');
+        const separatorMessage = Translator.trans(/*@Desc("or")*/ 'drop_action.separator', {}, 'ibexa_multi_file_upload');
+        const uploadBtnLabel = Translator.trans(/*@Desc("Upload file")*/ 'upload_btn.label', {}, 'ibexa_multi_file_upload');
 
         return (
             <form className="c-drop-area" multiple={true} onDrop={this.handleUpload}>

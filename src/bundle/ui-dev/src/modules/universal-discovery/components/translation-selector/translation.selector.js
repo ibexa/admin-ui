@@ -11,7 +11,7 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
     const editTranslationLabel = Translator.trans(
         /*@Desc("Select translation")*/ 'meta_preview.edit_translation',
         {},
-        'universal_discovery_widget',
+        'ibexa_universal_discovery_widget',
     );
     const className = createCssClassNames({
         'c-translation-selector': true,

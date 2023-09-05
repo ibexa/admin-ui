@@ -129,8 +129,8 @@ final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements 
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__GLOBAL_PROPERTIES, 'menu'))->setDesc('Global properties'),
-            (new Message(self::ITEM__FIELD_DEFINITIONS, 'menu'))->setDesc('Field definitions'),
+            (new Message(self::ITEM__GLOBAL_PROPERTIES, 'ibexa_menu'))->setDesc('Global properties'),
+            (new Message(self::ITEM__FIELD_DEFINITIONS, 'ibexa_menu'))->setDesc('Field definitions'),
         ];
     }
 }

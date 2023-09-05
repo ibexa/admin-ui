@@ -17,6 +17,7 @@ use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -78,7 +79,7 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
     public function getName(): string
     {
         return /** @Desc("Drafts") */
-            $this->translator->trans('tab.name.my_drafts', [], 'dashboard');
+            $this->translator->trans('tab.name.my_drafts', [], 'ibexa_dashboard');
     }
 
     /**

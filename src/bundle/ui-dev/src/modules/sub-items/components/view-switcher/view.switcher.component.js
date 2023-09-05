@@ -13,19 +13,19 @@ const ViewSwitcherComponent = ({ onViewChange, activeView, isDisabled }) => {
         componentClassName = `${componentClassName} ${componentClassName}--disabled`;
     }
 
-    const viewLabel = Translator.trans(/*@Desc("View")*/ 'view_switcher.view', {}, 'sub_items');
+    const viewLabel = Translator.trans(/*@Desc("View")*/ 'view_switcher.view', {}, 'ibexa_sub_items');
     const switchView = ({ value }) => {
         onViewChange(value);
     };
     const viewOptions = [
         {
             iconName: 'view-list',
-            label: Translator.trans(/*@Desc("List view")*/ 'view_switcher.list_view', {}, 'sub_items'),
+            label: Translator.trans(/*@Desc("List view")*/ 'view_switcher.list_view', {}, 'ibexa_sub_items'),
             value: VIEW_MODE_TABLE,
         },
         {
             iconName: 'view-grid',
-            label: Translator.trans(/*@Desc("Grid view")*/ 'view_switcher.grid_view', {}, 'sub_items'),
+            label: Translator.trans(/*@Desc("Grid view")*/ 'view_switcher.grid_view', {}, 'ibexa_sub_items'),
             value: VIEW_MODE_GRID,
         },
     ];

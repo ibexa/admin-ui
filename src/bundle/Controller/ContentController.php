@@ -39,6 +39,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Base\Exceptions\BadStateException;
 use Ibexa\Core\Helper\TranslationHelper;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -242,7 +243,7 @@ class ContentController extends Controller
                         /** @Desc("Created a new draft for '%name%'.") */
                         'content.create_draft.success',
                         ['%name%' => $this->translationHelper->getTranslatedContentName($content)],
-                        'content'
+                        'ibexa_content'
                     );
                 }
 
@@ -304,7 +305,7 @@ class ContentController extends Controller
                     /** @Desc("Main Location for '%name%' updated.") */
                     'content.main_location_update.success',
                     ['%name%' => $contentInfo->name],
-                    'content'
+                    'ibexa_content'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
@@ -408,7 +409,7 @@ class ContentController extends Controller
                     /** @Desc("Main language for '%name%' updated.") */
                     'content.main_language_update.success',
                     ['%name%' => $this->translationHelper->getTranslatedContentName($content)],
-                    'content'
+                    'ibexa_content'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
@@ -459,7 +460,7 @@ class ContentController extends Controller
                         /** @Desc("Content item '%name%' is already hidden.") */
                         'content.hide.already_hidden',
                         ['%name%' => $contentName],
-                        'content'
+                        'ibexa_content'
                     );
                 }
 
@@ -468,7 +469,7 @@ class ContentController extends Controller
                         /** @Desc("Content item '%name%' is already visible.") */
                         'content.reveal.already_visible',
                         ['%name%' => $contentName],
-                        'content'
+                        'ibexa_content'
                     );
                 }
 
@@ -479,7 +480,7 @@ class ContentController extends Controller
                         /** @Desc("Content item '%name%' hidden.") */
                         'content.hide.success',
                         ['%name%' => $contentName],
-                        'content'
+                        'ibexa_content'
                     );
                 }
 
@@ -490,7 +491,7 @@ class ContentController extends Controller
                         /** @Desc("Content item '%name%' revealed.") */
                         'content.reveal.success',
                         ['%name%' => $contentName],
-                        'content'
+                        'ibexa_content'
                     );
                 }
 

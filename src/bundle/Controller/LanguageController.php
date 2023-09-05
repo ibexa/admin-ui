@@ -19,6 +19,7 @@ use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -137,7 +138,7 @@ class LanguageController extends Controller
                     /** @Desc("Language '%name%' removed.") */
                     'language.delete.success',
                     ['%name%' => $language->name],
-                    'language'
+                    'ibexa_language'
                 );
             });
 
@@ -180,7 +181,7 @@ class LanguageController extends Controller
                         /** @Desc("Language '%name%' removed.") */
                         'language.delete.success',
                         ['%name%' => $language->name],
-                        'language'
+                        'ibexa_language'
                     );
                 }
             });
@@ -207,7 +208,7 @@ class LanguageController extends Controller
                     /** @Desc("Language '%name%' created.") */
                     'language.create.success',
                     ['%name%' => $language->name],
-                    'language'
+                    'ibexa_language'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.language.view', [
@@ -245,7 +246,7 @@ class LanguageController extends Controller
                     /** @Desc("Language '%name%' updated.") */
                     'language.update.success',
                     ['%name%' => $language->name],
-                    'language'
+                    'ibexa_language'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.language.view', [

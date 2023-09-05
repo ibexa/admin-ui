@@ -22,6 +22,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\URLWildcardQuery;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -83,7 +84,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
     public function getName(): string
     {
         return /** @Desc("URL wildcards") */
-            $this->translator->trans('tab.name.url_wildcards', [], 'url_wildcard');
+            $this->translator->trans('tab.name.url_wildcards', [], 'ibexa_url_wildcard');
     }
 
     /**

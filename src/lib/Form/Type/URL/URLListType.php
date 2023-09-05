@@ -7,6 +7,7 @@
 namespace Ibexa\AdminUi\Form\Type\URL;
 
 use Ibexa\AdminUi\Form\Data\URL\URLListData;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -46,19 +47,19 @@ class URLListType extends AbstractType
                     /** @Desc("Invalid") */
                     'url.status.invalid',
                     [],
-                    'ezplatform_content_forms_url'
+                    'ibexa_content_forms_url'
                 ) => false,
                 $this->translator->trans(
                     /** @Desc("Valid") */
                     'url.status.valid',
                     [],
-                    'ezplatform_content_forms_url'
+                    'ibexa_content_forms_url'
                 ) => true,
             ],
             'placeholder' => $this->translator->trans(/** @Desc("All") */
                 'url.status.all',
                 [],
-                'ezplatform_content_forms_url'
+                'ibexa_content_forms_url'
             ),
             'required' => false,
         ]);
@@ -78,7 +79,7 @@ class URLListType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => URLListData::class,
-            'translation_domain' => 'ezplatform_content_forms_url',
+            'translation_domain' => 'ibexa_content_forms_url',
         ]);
     }
 

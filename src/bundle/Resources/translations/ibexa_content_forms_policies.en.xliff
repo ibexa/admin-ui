@@ -26,6 +26,11 @@
         <target state="new">Language</target>
         <note>key: policy.limitation.identifier.language</note>
       </trans-unit>
+      <trans-unit id="b40e3e09e55ef852a5d9e1592e9c895715b1313c" resname="policy.limitation.identifier.memberof">
+        <source>MemberOf</source>
+        <target state="new">MemberOf</target>
+        <note>key: policy.limitation.identifier.memberof</note>
+      </trans-unit>
       <trans-unit id="ab9163a435d32610a7a1af8df07ab38eebc4c7c6" resname="policy.limitation.identifier.newsection">
         <source>New Section</source>
         <target state="new">New Section</target>

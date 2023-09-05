@@ -33,20 +33,20 @@ const SORTKEY_MAP = {
 };
 const TABLE_HEAD_CLASS = 'ibexa-table__header-cell c-table-view__cell c-table-view__cell--head';
 export const headerLabels = {
-    name: Translator.trans(/*@Desc("Name")*/ 'items_table.header.name', {}, 'sub_items'),
-    modified: Translator.trans(/*@Desc("Modified")*/ 'items_table.header.modified', {}, 'sub_items'),
-    'content-type': Translator.trans(/*@Desc("Content type")*/ 'items_table.header.content_type', {}, 'sub_items'),
-    priority: Translator.trans(/*@Desc("Priority")*/ 'items_table.header.priority', {}, 'sub_items'),
-    translations: Translator.trans(/*@Desc("Translations")*/ 'items_table.header.translations', {}, 'sub_items'),
-    visibility: Translator.trans(/*@Desc("Visibility")*/ 'items_table.header.visibility', {}, 'sub_items'),
-    creator: Translator.trans(/*@Desc("Creator")*/ 'items_table.header.creator', {}, 'sub_items'),
-    contributor: Translator.trans(/*@Desc("Contributor")*/ 'items_table.header.contributor', {}, 'sub_items'),
-    published: Translator.trans(/*@Desc("Published")*/ 'items_table.header.pubished', {}, 'sub_items'),
-    section: Translator.trans(/*@Desc("Section")*/ 'items_table.header.section', {}, 'sub_items'),
-    'location-id': Translator.trans(/*@Desc("Location ID")*/ 'items_table.header.location_id', {}, 'sub_items'),
-    'location-remote-id': Translator.trans(/*@Desc("Location remote ID")*/ 'items_table.header.location_remote_id', {}, 'sub_items'),
-    'object-id': Translator.trans(/*@Desc("Object ID")*/ 'items_table.header.object_id', {}, 'sub_items'),
-    'object-remote-id': Translator.trans(/*@Desc("Object remote ID")*/ 'items_table.header.object_remote_id', {}, 'sub_items'),
+    name: Translator.trans(/*@Desc("Name")*/ 'items_table.header.name', {}, 'ibexa_sub_items'),
+    modified: Translator.trans(/*@Desc("Modified")*/ 'items_table.header.modified', {}, 'ibexa_sub_items'),
+    'content-type': Translator.trans(/*@Desc("Content type")*/ 'items_table.header.content_type', {}, 'ibexa_sub_items'),
+    priority: Translator.trans(/*@Desc("Priority")*/ 'items_table.header.priority', {}, 'ibexa_sub_items'),
+    translations: Translator.trans(/*@Desc("Translations")*/ 'items_table.header.translations', {}, 'ibexa_sub_items'),
+    visibility: Translator.trans(/*@Desc("Visibility")*/ 'items_table.header.visibility', {}, 'ibexa_sub_items'),
+    creator: Translator.trans(/*@Desc("Creator")*/ 'items_table.header.creator', {}, 'ibexa_sub_items'),
+    contributor: Translator.trans(/*@Desc("Contributor")*/ 'items_table.header.contributor', {}, 'ibexa_sub_items'),
+    published: Translator.trans(/*@Desc("Published")*/ 'items_table.header.pubished', {}, 'ibexa_sub_items'),
+    section: Translator.trans(/*@Desc("Section")*/ 'items_table.header.section', {}, 'ibexa_sub_items'),
+    'location-id': Translator.trans(/*@Desc("Location ID")*/ 'items_table.header.location_id', {}, 'ibexa_sub_items'),
+    'location-remote-id': Translator.trans(/*@Desc("Location remote ID")*/ 'items_table.header.location_remote_id', {}, 'ibexa_sub_items'),
+    'object-id': Translator.trans(/*@Desc("Object ID")*/ 'items_table.header.object_id', {}, 'ibexa_sub_items'),
+    'object-remote-id': Translator.trans(/*@Desc("Object remote ID")*/ 'items_table.header.object_remote_id', {}, 'ibexa_sub_items'),
 };
 
 export default class TableViewComponent extends Component {

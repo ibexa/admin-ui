@@ -1,4 +1,4 @@
-{% trans_default_domain 'notifications' %}
+{% trans_default_domain 'ibexa_notifications' %}
 
 {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
     head_cols: [
@@ -32,7 +32,7 @@
         <div class="ibexa-pagination__text">
             {{ 'pagination.viewing'|trans({
             '%viewing%': pager.currentPageResults|length,
-            '%total%': pager.nbResults}, 'pagination')|desc('Viewing %viewing% out of %total% items')|raw }}
+            '%total%': pager.nbResults}, 'ibexa_pagination')|desc('Viewing %viewing% out of %total% items')|raw }}
         </div>
         <div class="ibexa-pagination__navigation">
             {{ pagination|raw }}

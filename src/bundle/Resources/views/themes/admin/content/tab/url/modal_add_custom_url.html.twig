@@ -1,4 +1,4 @@
-{% trans_default_domain 'content_url' %}
+{% trans_default_domain 'ibexa_content_url' %}
 
 {% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
     title: 'tab.urls.add.title'|trans|desc('Create a new URL alias'),
@@ -6,7 +6,7 @@
     size: 'large',
     id: 'ibexa-modal--custom-url-alias',
 } %}
-    {% trans_default_domain 'content_url' %}
+    {% trans_default_domain 'ibexa_content_url' %}
     {% form_theme form '@ibexadesign/content/form_fields.html.twig' '@ibexadesign/content/tab/url/checkbox.html.twig' %}
 
     {% block content_before %}

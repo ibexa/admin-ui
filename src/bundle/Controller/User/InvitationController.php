@@ -17,6 +17,7 @@ use Ibexa\Contracts\User\Invitation\InvitationCreateStruct;
 use Ibexa\Contracts\User\Invitation\InvitationSender;
 use Ibexa\Contracts\User\Invitation\InvitationService;
 use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -94,7 +95,7 @@ final class InvitationController
                         [
                             '%email%' => $struct->getEmail(),
                         ],
-                        'user_invitation'
+                        'ibexa_user_invitation'
                     );
                 } catch (UserAlreadyExistsException $exception) {
                     $this->notificationHandler->info(
@@ -103,7 +104,7 @@ final class InvitationController
                         [
                             '%email%' => $struct->getEmail(),
                         ],
-                        'user_invitation'
+                        'ibexa_user_invitation'
                     );
                 }
             }
@@ -113,7 +114,7 @@ final class InvitationController
                     /** @Desc("Invitations sent") */
                     'ibexa.user.invitations.success',
                     [],
-                    'user_invitation'
+                    'ibexa_user_invitation'
                 );
             }
         }

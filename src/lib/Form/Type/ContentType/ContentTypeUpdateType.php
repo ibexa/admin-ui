@@ -8,6 +8,7 @@ namespace Ibexa\AdminUi\Form\Type\ContentType;
 
 use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\AdminUi\Form\DataTransformer\TranslatablePropertyTransformer;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -35,7 +36,7 @@ class ContentTypeUpdateType extends AbstractType
         $resolver
             ->setDefaults([
                 'data_class' => ContentTypeData::class,
-                'translation_domain' => 'content_type',
+                'translation_domain' => 'ibexa_content_type',
                 'mainLanguageCode' => null,
             ])
             ->setDefined(['mainLanguageCode'])

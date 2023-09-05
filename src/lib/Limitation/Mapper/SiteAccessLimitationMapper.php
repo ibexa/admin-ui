@@ -57,7 +57,7 @@ class SiteAccessLimitationMapper extends MultipleSelectionBasedMapper implements
         return [
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('siteaccess'),
-                'ezplatform_content_forms_policies'
+                'ibexa_content_forms_policies'
             )->setDesc('SiteAccess'),
         ];
     }
