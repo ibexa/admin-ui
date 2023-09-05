@@ -110,6 +110,7 @@ class ContentTypeGroupController extends Controller
     public function createAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'create'));
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->createContentTypeGroup(
             new ContentTypeGroupCreateData()
         );
@@ -161,6 +162,7 @@ class ContentTypeGroupController extends Controller
     public function updateAction(Request $request, ContentTypeGroup $group): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'update'));
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->updateContentTypeGroup(
             new ContentTypeGroupUpdateData($group)
         );

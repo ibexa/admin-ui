@@ -111,6 +111,7 @@ class ObjectStateGroupController extends Controller
         $languages = $this->configResolver->getParameter('languages');
         $defaultLanguageCode = reset($languages);
 
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->createObjectStateGroup(
             new ObjectStateGroupCreateData()
         );
@@ -240,6 +241,7 @@ class ObjectStateGroupController extends Controller
     public function updateAction(Request $request, ObjectStateGroup $group): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->updateObjectStateGroup(
             new ObjectStateGroupUpdateData($group)
         );

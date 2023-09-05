@@ -198,6 +198,7 @@ class LanguageController extends Controller
 
     public function createAction(Request $request): Response
     {
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->createLanguage();
         $form->handleRequest($request);
 
@@ -239,6 +240,7 @@ class LanguageController extends Controller
 
     public function editAction(Request $request, Language $language): Response
     {
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->updateLanguage(
             new LanguageUpdateData($language)
         );

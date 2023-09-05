@@ -230,6 +230,7 @@ class PolicyController extends Controller
             ]));
         }
 
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->updatePolicy(
             new PolicyUpdateData($policy)
         );

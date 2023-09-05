@@ -57,6 +57,7 @@ final class URLWildcardController extends Controller
      */
     public function addAction(Request $request): Response
     {
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->createURLWildcard();
 
         $form->handleRequest($request);
@@ -99,6 +100,7 @@ final class URLWildcardController extends Controller
      */
     public function updateAction(URLWildcard $urlWildcard, Request $request): Response
     {
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->createURLWildcardUpdate(
             new URLWildcardUpdateData($urlWildcard)
         );

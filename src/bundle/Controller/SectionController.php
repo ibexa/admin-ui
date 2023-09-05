@@ -398,6 +398,7 @@ class SectionController extends Controller
     public function createAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('section', 'edit'));
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->createSection(
             new SectionCreateData()
         );
@@ -448,6 +449,7 @@ class SectionController extends Controller
     public function updateAction(Request $request, Section $section): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('section', 'edit'));
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->updateSection(
             new SectionUpdateData($section)
         );

@@ -135,6 +135,7 @@ class RoleController extends Controller
     public function createAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('role', 'create'));
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->createRole();
         $form->handleRequest($request);
 
@@ -218,6 +219,7 @@ class RoleController extends Controller
     public function updateAction(Request $request, Role $role): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('role', 'update'));
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->updateRole(
             new RoleUpdateData($role)
         );

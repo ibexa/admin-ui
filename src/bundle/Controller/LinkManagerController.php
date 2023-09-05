@@ -68,6 +68,7 @@ final class LinkManagerController extends Controller
     {
         $url = $this->urlService->loadById($urlId);
 
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->createUrlEditForm(new URLUpdateData([
             'id' => $url->id,
             'url' => $url->url,
