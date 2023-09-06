@@ -14,47 +14,64 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class ContentActionsMenu extends Component
 {
-    public function clickButton(string $buttonName): void
+    use \Ibexa\Behat\Core\Debug\InteractiveDebuggerTrait;
+
+    public function clickButton(string $buttonName, ?string $groupName = null): void
+    {
+//        $this->setInteractiveBreakpoint(get_defined_vars());
+
+        if ($groupName === null) {
+            $this->clickStandaloneButton($buttonName);
+
+            return;
+        }
+
+        $this->clickButtonInGroup($groupName, $buttonName);
+    }
+
+    private function clickStandaloneButton(string $buttonName): void
     {
         $buttons = $this->getHTMLPage()
             ->findAll($this->getLocator('menuButton'))
             ->filterBy(new ElementTextCriterion($buttonName));
 
-        // TODO: Remove parts of this logic once redeisgn is fully done
         if ($buttons->any()) {
-            $button = $buttons->first();
-            $button->mouseOver();
-
-            if ($button->findAll($this->getLocator('label'))->any()) {
-                $button->find($this->getLocator('label'))->click();
-
-                return;
-            }
-
-            $button->click();
+            $buttons->single()->click();
 
             return;
         }
 
-        $contextMenuSplitBtnsTogglers = $this->getHTMLPage()
-            ->findAll($this->getLocator('menuSplitToggler'));
+        $this->getHTMLPage()->find($this->getLocator('moreButton'))->click();
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('expandedMenuButton'))
+            ->getByCriterion(new ElementTextCriterion($buttonName))->click();
+    }
 
-        foreach ($contextMenuSplitBtnsTogglers->getIterator() as $splitBtnToggler) {
-            $splitBtnToggler->click();
+    private function clickButtonInGroup(string $groupName, string $buttonName): void
+    {
+        $group = $this->getHTMLPage()
+            ->findAll($this->getLocator('splitButton'))
+            ->filterBy(new ElementTextCriterion($groupName));
 
-            $matchingSubButtons = $this->getHTMLPage()
-                ->findAll($this->getLocator('menuSplitSubmenuButton'))
-                ->filterBy(new ElementTextCriterion($buttonName));
+        if ($group->any()) {
+            $group->single()->find($this->getLocator('toggle'))->click();
 
-            if ($matchingSubButtons->any()) {
-                $matchingSubButtons->first()->click();
-            }
+//            $this->setInteractiveBreakpoint(get_defined_vars());
+            $this->getHTMLPage()->findAll($this->getLocator('button'))
+                ->getByCriterion(new ElementTextCriterion($buttonName))
+                ->click();
+
+            return;
         }
 
         $this->getHTMLPage()->find($this->getLocator('moreButton'))->click();
-
         $this->getHTMLPage()
             ->findAll($this->getLocator('expandedMenuButton'))
+            ->getByCriterion(new ElementTextCriterion($groupName))
+            ->mouseOver();
+
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('menuButton'))
             ->getByCriterion(new ElementTextCriterion($buttonName))
             ->click();
     }
@@ -71,15 +88,20 @@ class ContentActionsMenu extends Component
 
     public function isButtonVisible(string $buttonName): bool
     {
-        $moreButton = $this->getHTMLPage()->findAll($this->getLocator('moreButton'));
-        if ($moreButton->any()) {
-            $moreButton->single()->click();
-        }
+        $this->showMoreButtonsIfNeeded();
 
         return $this->getHTMLPage()
             ->findAll($this->getLocator('menuButton'))
             ->filterBy(new ElementTextCriterion($buttonName))
             ->any();
+    }
+
+    private function showMoreButtonsIfNeeded(): void
+    {
+        $moreButton = $this->getHTMLPage()->findAll($this->getLocator('moreButton'));
+        if ($moreButton->any()) {
+            $moreButton->single()->click();
+        }
     }
 
     public function verifyIsLoaded(): void
@@ -93,12 +115,13 @@ class ContentActionsMenu extends Component
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('menuButton', '.ibexa-context-menu .ibexa-btn, .ibexa-context-menu__item .ibexa-popup-menu__item, .ibexa-context-menu .btn'), // TO DO: set one selector after redesign
-            new VisibleCSSLocator('menuSplitToggler', '.ibexa-context-menu .ibexa-split-btn__toggle-btn'),
-            new VisibleCSSLocator('menuSplitSubmenuButton', '.ibexa-popup-menu:not(.ibexa-popup-menu--hidden) .ibexa-popup-menu__item-content'),
             new VisibleCSSLocator('label', '.ibexa-btn__label'),
+            new VisibleCSSLocator('menuButton', '.ibexa-context-menu .ibexa-btn'),
+            new VisibleCSSLocator('button', '.ibexa-popup-menu__item-content'),
+            new VisibleCSSLocator('toggle', '.ibexa-split-btn__toggle-btn '),
+            new VisibleCSSLocator('splitButton', '.ibexa-split-btn'),
             new VisibleCSSLocator('moreButton', '.ibexa-context-menu__item--more'),
-            new VisibleCSSLocator('expandedMenuButton', '.ibexa-context-menu__item .ibexa-popup-menu__item-content'),
+            new VisibleCSSLocator('expandedMenuButton', '.ibexa-popup-menu .ibexa-multilevel-popup-menu__item-content'),
         ];
     }
 }

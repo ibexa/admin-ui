@@ -14,7 +14,7 @@ Feature: Verify that an Editor with Subtree limitations can perform all his task
       | label      | value         |
       | Name       | <contentName> |
       | Short name | <contentName> |
-    When I click on the edit action bar button "Publish"
+    When I perform the "Publish" action
     Then success notification that "Content published." appears
     And I should be on Content view Page for "<newContentPath>/<contentName>"
 
@@ -25,12 +25,12 @@ Feature: Verify that an Editor with Subtree limitations can perform all his task
 
   Scenario Outline: I can edit Content in locations I'm allowed
     Given I navigate to content "<contentName>" of type "DedicatedFolder" in "<contentPath>"
-    When I click on the edit action bar button "Edit"
+    When I perform the "Edit" action
     And I set content fields
       | label      | value         |
       | Name       | <newFieldValue> |
       | Short name | <newFieldValue> |
-    And I click on the edit action bar button "Publish"
+    And I perform the "Publish" action
     Then success notification that "Content published." appears
     And I should be on Content view Page for "<parentContentPath>/<newFieldValue>"
     And content attributes equal
@@ -50,7 +50,7 @@ Feature: Verify that an Editor with Subtree limitations can perform all his task
 
   Scenario: I can move Content in locations I'm allowed
     Given I navigate to content "ContentToMove" of type "DedicatedFolder" in "root/FolderGrandParent/FolderParent/FolderChild1"
-    When I click on the edit action bar button "Move"
+    When I perform the "Move" action
     And I select content "root/FolderGrandParent/FolderParent" through UDW
     And I confirm the selection in UDW
     Then success notification that "'ContentToMove' moved to 'FolderParent'" appears

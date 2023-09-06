@@ -12,7 +12,7 @@ Feature: Roles management
     And I set fields
       | label | value     |
       | Name  | Test Role |
-    And I click on the edit action bar button "Discard changes"
+    And I perform the "Discard changes" action
     Then I should be on "Roles" page
     And there's no "Test Role" Role on Roles list
 
@@ -24,7 +24,7 @@ Feature: Roles management
     And I set fields
       | label | value     |
       | Name  | Test Role |
-    And I click on the edit action bar button "Create"
+    And I perform the "Create" action
     Then I should be on "Test Role" Role page
     And Policies list is empty
     And Assignments list is empty
@@ -38,7 +38,7 @@ Feature: Roles management
     And I set fields
       | label | value            |
       | Name  | Test Role edited |
-    And I click on the edit action bar button "Discard changes"
+    And I perform the "Discard changes" action
     Then I should be on "Roles" page
     And there's a "Test Role" Role on Roles list
     And there's no "Test Role edited" Role on Roles list
@@ -52,7 +52,7 @@ Feature: Roles management
     And I set fields
       | label | value            |
       | Name  | Test Role edited |
-    And I click on the edit action bar button "Save"
+    And I perform the "Save" action from the "Save and close" group
     Then I should be on "Test Role edited" Role page
     And Policies list is empty
     And Assignments list is empty
@@ -71,7 +71,7 @@ Feature: Roles management
       | Users/Editors |
       | Users         |
     And I select "Media" from Sections as role assignment limitation
-    And I click on the edit action bar button "Cancel"
+    And I perform the "Cancel" action
     Then I should be on "Test Role edited" Role page
     And Policies list is empty
     And Assignments list is empty
@@ -90,7 +90,7 @@ Feature: Roles management
       | path          |
       | Users/Editors |
     And I select limitation "Media/Images" for assignment through UDW
-    And I click on the edit action bar button "Save"
+    And I perform the "Save" action from the "Save and close" group
     Then I should be on "Test Role edited" Role page
     And Policies list is empty
     And there are assignments on the "Test Role edited" assignments list
@@ -107,7 +107,7 @@ Feature: Roles management
     And I assign groups to role
       | path  |
       | Users |
-    And I click on the edit action bar button "Save"
+    And I perform the "Save" action from the "Save and close" group
     Then I should be on "Test Role edited" Role page
     And Policies list is empty
     And there are assignments on the "Test Role edited" assignments list
@@ -138,7 +138,7 @@ Feature: Roles management
     And I open "Test Role edited" Role page in admin SiteAccess
     When I start creating a new Policy
     And I select policy "Content Type / All functions"
-    And I click on the edit action bar button "Discard changes"
+    And I perform the "Discard changes" action
     Then I should be on "Test Role edited" Role page
     And Policies list is empty
     And there are assignments on the "Test Role edited" assignments list
@@ -151,12 +151,12 @@ Feature: Roles management
     And I open "Test Role edited" Role page in admin SiteAccess
     When I start creating a new Policy
     And I select policy "Content / Read"
-    And I click on the edit action bar button "Create"
+    And I perform the "Create" action
     And success notification that "Now you can set Limitations for the Policy." appears
     And I select limitation for "Content Type"
       | option  |
       | File    |
-    And I click on the edit action bar button "Update"
+    And I perform the "Update" action
     Then I should be on "Test Role edited" Role page
     And there is a policy "Content/Read" with "Content Type: File" limitation on the "Test Role edited" policies list
     And there are assignments on the "Test Role edited" assignments list
@@ -169,7 +169,7 @@ Feature: Roles management
     And I open "Test Role edited" Role page in admin SiteAccess
     When I start creating a new Policy
     And I select policy "User / Password"
-    And I click on the edit action bar button "Create"
+    And I perform the "Create" action
     Then I should be on "Test Role edited" Role page
     And there is a policy "User/Password" with "None" limitation on the "Test Role edited" policies list
     And there are assignments on the "Test Role edited" assignments list
@@ -189,7 +189,7 @@ Feature: Roles management
     And I select limitation for "State"
       | option      |
       | Lock:Locked |
-    And I click on the edit action bar button "Update"
+    And I perform the "Update" action
     Then I should be on "Test Role edited" Role page
     And there are policies on the "Test Role edited" policies list
       | policy       | limitation                                  |
