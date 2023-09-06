@@ -50,16 +50,15 @@
 
         newItemElement.dataset.relatedButtonId = relatedBtnId;
 
-        // TODO: uncomment and implement opening subitems branch by hovering mouse over
-        // newItemElement.addEventListener(
-        //     'click',
-        //     () => {
-        //         const button = doc.getElementById(relatedBtnId);
+        newItemElement.addEventListener(
+            'click',
+            () => {
+                const button = doc.getElementById(relatedBtnId);
 
-        //         button.click();
-        //     },
-        //     false,
-        // );
+                button.click();
+            },
+            false,
+        );
     };
 
     menuButtons.forEach((menuButton) => {
@@ -78,6 +77,7 @@
                     custom: {
                         relatedBtnId: relatedMainBtnId,
                     },
+                    // href: 'https://localhost:8047/_profiler/8a6821?panel=twig'
                 },
                 processMenuNewItemElement,
             );
