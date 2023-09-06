@@ -14,7 +14,7 @@ Feature: Content item transation
       | label      | value           |
       | Name       | FrenchPublished |
       | Short name | FrenchPublished |
-    And I click on the edit action bar button "Publish"
+    And I perform the "Publish" action
     Then success notification that "Content published." appears
     And content attributes equal
       | label             | value            |
@@ -39,7 +39,7 @@ Feature: Content item transation
     And I'm on Content view Page for "NoBasePublished"
     When I switch to "Translations" tab in Content structure
     And I add new translation "French" without base translation
-    And I click on the edit action bar button "Publish"
+    And I perform the "Publish" action
     Then success notification that "Content published." appears
     And content attributes equal
       | label             | value           |

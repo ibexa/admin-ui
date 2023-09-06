@@ -18,7 +18,7 @@ Feature: User management
     And I set content fields for user
       | label         | Username  | Password    | Confirm password  | Email          | Enabled  |
       | User account  | testuser  | Test1234pw  | Test1234pw        | test@test.com  | Yes      |
-    And I click on the edit action bar button "Create"
+    And I perform the "Create" action
     Then I should be on Content view Page for "Users/testuser lastname"
     And content attributes equal
       | label       | value     |
@@ -31,7 +31,7 @@ Feature: User management
   @javascript
   Scenario: Editing an existing user
     Given I'm on Content view Page for "Users/testuser lastname"
-    When I click on the edit action bar button "Edit"
+    When I perform the "Edit" action
     And I set content fields for user
       | label       | value          |
       | First name  | testuseredited |
@@ -39,7 +39,7 @@ Feature: User management
     And I set content fields for user
       | label         | Username  | Password    | Confirm password  | Email          |
       | User account  | testuser  | Test123456  | Test123456        | test@test.org  |
-    And I click on the edit action bar button "Update"
+    And I perform the "Update" action
     Then I should be on Content view Page for "Users/testuseredited lastnameedited"
     And content attributes equal
       | label       | value           |

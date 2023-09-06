@@ -24,11 +24,13 @@ class ContentActionsMenuContext implements Context
     }
 
     /**
-     * @Given I click (on) the edit action bar button :button
+     * @Given I click (on) the edit action bar button :buttonName
+     * @Given I perform the :buttonName action
+     * @Given I perform the :buttonName action from the :groupName group
      */
-    public function clickEditActionBar(string $button): void
+    public function clickEditActionBar(string $buttonName, string $groupName = null): void
     {
-        $this->contentActionsMenu->clickButton($button);
+        $this->contentActionsMenu->clickButton($buttonName, $groupName);
     }
 
     /**

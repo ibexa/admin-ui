@@ -14,7 +14,7 @@ Feature: Content type groups management
       And I set fields
         | label | value    |
         | Name  | Test Content Type Group |
-      And I click on the edit action bar button "Discard changes"
+      And I perform the "Discard changes" action
     Then I should be on "Content Type groups" page
       And there's no "Test Content Type Group" Content Type group on Content Type groups list
 
@@ -25,7 +25,7 @@ Feature: Content type groups management
       And I set fields
         | label | value    |
         | Name  | Test Content Type Group |
-      And I click on the edit action bar button "Create"
+      And I perform the "Create" action
     Then I should be on Content Type group page for "Test Content Type Group" group
     And there're no Content Types for that group
 
@@ -37,7 +37,7 @@ Feature: Content type groups management
       And I set fields
         | label | value           |
         | Name  | Test Content Type Group edited |
-      And I click on the edit action bar button "Discard changes"
+      And I perform the "Discard changes" action
     Then I should be on "Content Type groups" page
       And there's a "Test Content Type Group" Content Type group on Content Type groups list
       And there's no "Test Content Type Group edited" Content Type group on Content Type groups list
@@ -50,7 +50,7 @@ Feature: Content type groups management
       And I set fields
         | label | value                          |
         | Name  | Test Content Type Group edited |
-      And I click on the edit action bar button "Save"
+      And I perform the "Save" action from the "Save and close" group
     Then I should be on Content Type group page for "Test Content Type Group edited" group
       And success notification that "Updated Content Type group 'Test Content Type Group'." appears
 
