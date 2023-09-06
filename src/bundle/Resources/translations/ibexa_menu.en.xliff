@@ -46,6 +46,11 @@
         <target state="new">Move</target>
         <note>key: content__sidebar_right__move</note>
       </trans-unit>
+      <trans-unit id="e200a70bde86beb8c043e30b6fdb0a79e968c61c" resname="content__sidebar_right__preview">
+        <source>Preview</source>
+        <target state="new">Preview</target>
+        <note>key: content__sidebar_right__preview</note>
+      </trans-unit>
       <trans-unit id="bbf7b43821e5ac0ce57d977a3ce156baf9a9d7b7" resname="content__sidebar_right__reveal">
         <source>Reveal</source>
         <target state="new">Reveal</target>
