@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
 use Ibexa\AdminUi\Specification\Location\IsRoot;
@@ -22,13 +23,17 @@ use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\Repository\UserService;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * KnpMenuBundle Menu Builder service implementation for AdminUI Location View contextual sidebar menu.
@@ -72,6 +77,12 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
 
     private UrlGeneratorInterface $urlGenerator;
 
+    private SiteaccessResolverInterface  $siteaccessResolver;
+
+    private UserService $userService;
+
+    private TranslatorInterface $translator;
+
     public function __construct(
         MenuItemFactory $factory,
         EventDispatcherInterface $eventDispatcher,
@@ -82,7 +93,10 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         UniversalDiscoveryExtension $udwExtension,
         PermissionCheckerInterface $permissionChecker,
         LanguageService $languageService,
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        SiteaccessResolverInterface $siteaccessResolver,
+        UserService $userService,
+        TranslatorInterface $translator
     ) {
         parent::__construct($factory, $eventDispatcher);
 
@@ -94,6 +108,9 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         $this->permissionChecker = $permissionChecker;
         $this->languageService = $languageService;
         $this->urlGenerator = $urlGenerator;
+        $this->siteaccessResolver = $siteaccessResolver;
+        $this->userService = $userService;
+        $this->translator = $translator;
     }
 
     /**
@@ -204,42 +221,88 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             ),
         ]);
 
-        $previewItem = $this->createMenuItem(
-            self::ITEM__PREVIEW,
+        $currentUser = $this->userService->loadUser(
+            $this->permissionResolver->getCurrentUserReference()->getUserId()
+        );
+        $currentUserAccount = $currentUser->getField('user_account');
+        $currentUserLanguageCode = $currentUserAccount->getLanguageCode();
+        $mainPreviewItemLanguageCode = in_array($currentUserLanguageCode, $translations)
+            ? $currentUserLanguageCode
+            : $content->contentInfo->mainLanguageCode;
+
+        $mainPreviewItemLanguage = $this->languageService->loadLanguage($mainPreviewItemLanguageCode);
+        $mainPreviewItemLabel = $this->translator->trans(
+            /** @Desc("Preview (%languageCode%)") */
+            'content__sidebar_right__preview',
             [
-                'extras' => ['orderNumber' => 12],
-                'route' => 'ibexa.content.preview',
-                'routeParameters' => [
-                    'contentId' => $content->contentInfo->getId(),
-                    'versionNo' => $content->getVersionInfo()->versionNo,
-                    'languageCode' => $content->contentInfo->mainLanguageCode,
-                    'locationId' => $location->id,
-                ],
-            ]
+                '%languageCode%' => $mainPreviewItemLanguageCode,
+            ],
+            'menu'
+        );
+        $mainPreviewItemAlternativeBtnLabel = $this->translator->trans(
+            /** @Desc("%languageName% (%languageCode%)") */
+            'content__sidebar_right__preview.alternative.main_button.label',
+            [
+                '%languageName%' => $mainPreviewItemLanguage->getName(),
+                '%languageCode%' => $mainPreviewItemLanguageCode,
+            ],
+            'menu'
+        );
+        $mainPreviewItemAlternativeBtnSublabel = $this->translator->trans(
+            /** @Desc("Default") */
+            'content__sidebar_right__preview.alternative.main_btn.sublabel',
+            [],
+            'menu'
+        );
+        $mainPreviewItemToggleBtnLabel = $this->translator->trans(
+            /** @Desc("Preview") */
+            'content__sidebar_right__preview.toggle_btn.sublabel',
+            [],
+            'menu'
         );
 
-//        ibexa.content.preview:
-//    path: /content/{contentId}/preview/{versionNo}/{languageCode}/{locationId}
+        $previewItem = $this->getContentPreviewItem(
+            $location,
+            $content,
+            $mainPreviewItemLanguage,
+            [
+                'label' => $mainPreviewItemLabel,
+                'extras' => ['orderNumber' => 12],
+                'attributes' => [
+                    'data-alternative-main-btn-label' => $mainPreviewItemAlternativeBtnLabel,
+                    'data-alternative-main-btn-sublabel' => $mainPreviewItemAlternativeBtnSublabel,
+                    'data-alternative-toggle-label' => $mainPreviewItemToggleBtnLabel,
+                ],
+            ],
+        );
+
         foreach ($translations as $languageCode) {
-            if ($languageCode === $content->contentInfo->mainLanguageCode) {
+            if ($languageCode === $mainPreviewItemLanguageCode) {
                 continue;
             }
 
             $language = $this->languageService->loadLanguage($languageCode);
-
-            $previewItem->addChild($this->createMenuItem(
-                self::ITEM__PREVIEW . '__' . $languageCode,
+            $subPreviewItemLabel = $this->translator->trans(
+                /** @Desc("%languageName% (%languageCode%)") */
+                'content__sidebar_right__preview.subpreview',
                 [
-                    'label' => $language->getName(),
-                    'route' => 'ibexa.content.preview',
-                    'routeParameters' => [
-                        'contentId' => $content->contentInfo->getId(),
-                        'versionNo' => $content->getVersionInfo()->versionNo,
-                        'languageCode' => $languageCode,
-                        'locationId' => $location->id,
+                    '%languageName%' => $language->getName(),
+                    '%languageCode%' => $languageCode,
+                ],
+                'menu'
+            );
+
+            $previewItem->addChild(
+                $this->getContentPreviewItem(
+                    $location,
+                    $content,
+                    $language,
+                    [
+                        'label' => $subPreviewItemLabel,
                     ],
-                ]
-            ));
+                    '__' . $languageCode
+                )
+            );
         }
 
         $menu->addChild($previewItem);
@@ -351,7 +414,6 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     {
         return [
             (new Message(self::ITEM__CREATE, 'ibexa_menu'))->setDesc('Create content'),
-            (new Message(self::ITEM__PREVIEW, 'ibexa_menu'))->setDesc('Preview'),
             (new Message(self::ITEM__EDIT, 'ibexa_menu'))->setDesc('Edit'),
             (new Message(self::ITEM__SEND_TO_TRASH, 'ibexa_menu'))->setDesc('Send to trash'),
             (new Message(self::ITEM__COPY, 'ibexa_menu'))->setDesc('Copy'),
@@ -493,6 +555,61 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     {
         return $this->configResolver->getParameter(
             'subtree_operations.copy_subtree.limit'
+        );
+    }
+
+    /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation
+     *
+     * @return \Knp\Menu\ItemInterface
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
+    private function getContentPreviewItem(
+        ?Location $location,
+        Content $content,
+        Language $language,
+        array $options,
+        string $idPostfix = ''
+    ): ItemInterface {
+        $versionNo = $content->getVersionInfo()->versionNo;
+
+        $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
+            $location,
+            $versionNo,
+            $language->languageCode
+        );
+
+        $canPreview = $this->permissionResolver->canUser(
+            'content',
+            'versionread',
+            $content,
+            [$location]
+        );
+
+        if ($canPreview && !empty($siteAccesses)) {
+            $actionOptions = [
+                'route' => 'ibexa.content.preview',
+                'routeParameters' => [
+                    'contentId' => $content->contentInfo->getId(),
+                    'versionNo' => $content->getVersionInfo()->versionNo,
+                    'languageCode' => $language->languageCode,
+                    'locationId' => $location->id,
+                ],
+            ];
+        } else {
+            $actionOptions = [
+                'attributes' => ['disabled' => 'disabled'],
+            ];
+        }
+
+        return $this->createMenuItem(
+            self::ITEM__PREVIEW . $idPostfix,
+            array_merge($options, $actionOptions)
         );
     }
 }
