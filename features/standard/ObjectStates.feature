@@ -57,7 +57,7 @@ Feature: Object States management
       And I set fields
         | label | value                          |
         | Name  | Test Object State Group edited |
-      And I perform the "Save" action from the "Save and close" group
+      And I perform the "Save and close" action
     Then notification that "Object state group" "Test Object State Group edited" is updated appears
       And I should be on "Test Object State Group edited" Object State group page
 
@@ -80,7 +80,7 @@ Feature: Object States management
       And I set fields
         | label | value                           |
         | Name  | Test Object State Group edited2 |
-      And I perform the "Save" action from the "Save and close" group
+      And I perform the "Save and close" action
     Then notification that "Object state group" "Test Object State Group edited2" is updated appears
       And I should be on "Test Object State Group edited2" Object State group page
 
@@ -131,7 +131,7 @@ Feature: Object States management
       And I set fields
         | label | value                    |
         | Name  | Test Object State edited |
-      And I perform the "Save" action from the "Save and close" group
+      And I perform the "Save and close" action
     Then notification that "Object state" "Test Object State edited" is updated appears
       And I should be on "Test Object State edited" Object State page
       And Object State has proper attributes
@@ -158,7 +158,7 @@ Feature: Object States management
       And I set fields
         | label | value                     |
         | Name  | Test Object State edited2 |
-      And I perform the "Save" action from the "Save and close" group
+      And I perform the "Save and close" action
     Then notification that "Object state" "Test Object State edited2" is updated appears
       And I should be on "Test Object State edited2" Object State page
       And Object State has proper attributes
