@@ -206,11 +206,6 @@
         <target state="new">Save</target>
         <note>key: content_type_group_edit__sidebar_right__save</note>
       </trans-unit>
-      <trans-unit id="12d2129736b89cbcd8cef80c6099258833484ca0" resname="content_type_group_edit__sidebar_right__save_and_close">
-        <source>Save and close</source>
-        <target state="new">Save and close</target>
-        <note>key: content_type_group_edit__sidebar_right__save_and_close</note>
-      </trans-unit>
       <trans-unit id="65804c068820b5fa679357bc65c5862d0fc90701" resname="language_create__sidebar_right__cancel">
         <source>Discard</source>
         <target state="new">Discard</target>
@@ -310,11 +305,6 @@
         <source>Dashboard</source>
         <target state="new">Dashboard</target>
         <note>key: main__dashboard</note>
-      </trans-unit>
-      <trans-unit id="cfbeced5482be25b000de224837882379173d9a4" resname="main__drafts">
-        <source>Drafts</source>
-        <target state="new">Drafts</target>
-        <note>key: main__drafts</note>
       </trans-unit>
       <trans-unit id="5376b08940439deec5b89c3df17b09ab8f4ed252" resname="main__trash">
         <source>Trash</source>
