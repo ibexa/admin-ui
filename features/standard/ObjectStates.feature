@@ -1,4 +1,4 @@
-@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce @test
 Feature: Object States management
   As an administrator
   In order to customize my project
@@ -15,7 +15,7 @@ Feature: Object States management
         | label                | value                          |
         | Name                 | Test Object State Group        |
         | Identifier           | TestObjectStateGroupIdentifier |
-      And I perform the "Discard changes" action
+      And I perform the "Discard" action
     Then I should be on "Object state groups" page
       And there's no "Test Object State Group" Object State group on Object State groups list
 
@@ -27,7 +27,7 @@ Feature: Object States management
         | label                | value                          |
         | Name                 | Test Object State Group        |
         | Identifier           | TestObjectStateGroupIdentifier |
-      And I perform the "Create" action
+      And I perform the "Save and close" action
     Then I should be on "Test Object State Group" Object State group page
       And "Test Object State Group" Object State group has no Object States
       And Object State group has proper attributes
@@ -104,7 +104,7 @@ Feature: Object States management
         | label      | value                     |
         | Name       | Test Object State         |
         | Identifier | TestObjectStateIdentifier |
-      And I perform the "Create" action
+      And I perform the "Save and close" action
     Then I should be on "Test Object State" Object State page
       And Object State has proper attributes
         | label             | value                     |
@@ -174,7 +174,7 @@ Feature: Object States management
         | label      | value                      |
         | Name       | Test Object State 2        |
         | Identifier | TestObjectStateIdentifier2 |
-      And I perform the "Create" action
+      And I perform the "Save and close" action
     Then I should be on "Test Object State 2" Object State page
       And Object State has proper attributes
         | label             | value                      |
