@@ -7,7 +7,7 @@ Feature: Content items creation
   Background:
     Given I am logged as admin
 
-  @javascript @test
+  @javascript
   Scenario: Content draft can be saved
     Given I'm on Content view Page for root
     When I start creating a new content "Article"

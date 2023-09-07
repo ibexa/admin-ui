@@ -15,7 +15,7 @@ Feature: Sections management
         | label      | value                  |
         | Name       | Test Section           |
         | Identifier | TestSectionIdentifier  |
-      And I perform the "Discard changes" action
+      And I perform the "Discard" action
     Then I should be on "Sections" page
       And there's no "Test Section" on Sections list
 
@@ -27,7 +27,7 @@ Feature: Sections management
         | label      | value                  |
         | Name       | Test Section           |
         | Identifier | TestSectionIdentifier  |
-      And I perform the "Create" action
+      And I perform the "Save and close" action
     Then I should be on "Test Section" Section page
       And Content items list in is empty for Section
       And Section has proper attributes

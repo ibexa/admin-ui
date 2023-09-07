@@ -15,7 +15,7 @@ Feature: Languages management
         | label         | value   |
         | Name          | Deutsch |
         | Language code | de-DE   |
-      And I perform the "Cancel" action
+      And I perform the "Discard" action
     Then I should be on "Languages" page
       And there's no "Deutsch" Language on Languages list
 
@@ -26,7 +26,7 @@ Feature: Languages management
         | label         | value   |
         | Name          | Deutsch |
         | Language code | de-DE   |
-      And I perform the "Add" action
+      And I perform the "Save and close" action
     Then I should be on "Deutsch" Language page
       And Language has proper attributes
         | Name         | Language code   | Enabled |
@@ -39,7 +39,7 @@ Feature: Languages management
         | label         | value          |
         | Name          | Deutsch Second |
         | Language code | de-DE          |
-      And I perform the "Add" action
+      And I perform the "Save and close" action
     Then error notification that "language with the specified language code already exists" appears
 
   @javascript
@@ -49,7 +49,7 @@ Feature: Languages management
       And I set fields
         | label | value          |
         | Name  | Edited Deutsch |
-      And I perform the "Discard changes" action
+      And I perform the "Discard" action
     Then I should be on "Languages" page
       And there's a "Deutsch" Language on Languages list
       And there's no "Edited Deutsch" Language on Languages list
@@ -62,7 +62,7 @@ Feature: Languages management
         | label         | value          |
         | Name          | Edited Deutsch |
         | Enabled       | false          |
-      And I perform the "Save" action from the "Save and close" group
+      And I perform the "Save and close" action
     Then I should be on "Edited Deutsch" Language page
       And notification that "Language" "Deutsch" is updated appears
       And Language has proper attributes
@@ -79,7 +79,7 @@ Feature: Languages management
       And I set fields
         | label   | value |
         | Enabled | true  |
-      And I perform the "Save" action from the "Save and close" group
+      And I perform the "Save and close" action
     Then I should be on "Edited Deutsch" Language page
       And notification that "Language" "Edited Deutsch" is updated appears
       And Language has proper attributes
