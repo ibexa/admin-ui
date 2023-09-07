@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
+use Ibexa\Behat\Browser\Exception\TimeoutException;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class ContentActionsMenu extends Component
@@ -41,7 +42,13 @@ class ContentActionsMenu extends Component
             return;
         }
 
-        $this->getHTMLPage()->find($this->getLocator('moreButton'))->click();
+        try {
+            $this->getHTMLPage()->find($this->getLocator('moreButton'))->click();
+        } catch (TimeoutException $e) {
+            $this->getHTMLPage()
+                ->findAll($this->getLocator('menuButton'))
+                ->getByCriterion(new ElementTextCriterion($buttonName));
+        }
         $this->getHTMLPage()
             ->findAll($this->getLocator('expandedMenuButton'))
             ->getByCriterion(new ElementTextCriterion($buttonName))->click();
@@ -64,7 +71,13 @@ class ContentActionsMenu extends Component
             return;
         }
 
-        $this->getHTMLPage()->find($this->getLocator('moreButton'))->click();
+        try {
+            $this->getHTMLPage()->find($this->getLocator('moreButton'))->click();
+        } catch (TimeoutException $e) {
+            $this->getHTMLPage()
+                ->findAll($this->getLocator('menuButton'))
+                ->getByCriterion(new ElementTextCriterion($buttonName));
+        }
         $this->getHTMLPage()
             ->findAll($this->getLocator('expandedMenuButton'))
             ->getByCriterion(new ElementTextCriterion($groupName))
