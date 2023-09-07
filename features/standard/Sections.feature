@@ -84,7 +84,7 @@ Feature: Sections management
       And I set fields
         | label | value               |
         | Name  | Test Section edited |
-      And I perform the "Save" action from the "Save and close" group
+      And I perform the "Save and close" action
     Then I should be on "Test Section edited" Section page
       And notification that "Section" "Test Section edited" is updated appears
 
@@ -107,7 +107,7 @@ Feature: Sections management
       And I set fields
         | label | value                |
         | Name  | Test Section edited2 |
-      And I perform the "Save" action from the "Save and close" group
+      And I perform the "Save and close" action
     Then I should be on "Test Section edited2" Section page
       And notification that "Section" "Test Section edited2" is updated appears
 
@@ -147,7 +147,7 @@ Feature: Sections management
         | label      | value                  |
         | Name       | Test Section           |
         | Identifier | TestSectionIdentifier2 |
-      And I perform the "Create" action
+      And I perform the "Save and close" action
     And notification that "Section" "Test Section" is created appears
     When I delete the section
     Then notification that "Section" "Test Section" is removed appears
