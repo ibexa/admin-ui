@@ -49,7 +49,7 @@ Feature: Languages management
       And I set fields
         | label | value          |
         | Name  | Edited Deutsch |
-      And I perform the "Discard" action
+      And I perform the "Discard changes" action
     Then I should be on "Languages" page
       And there's a "Deutsch" Language on Languages list
       And there's no "Edited Deutsch" Language on Languages list

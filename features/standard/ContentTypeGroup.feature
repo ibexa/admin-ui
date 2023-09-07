@@ -37,7 +37,7 @@ Feature: Content type groups management
       And I set fields
         | label | value           |
         | Name  | Test Content Type Group edited |
-      And I perform the "Discard" action
+      And I perform the "Discard changes" action
     Then I should be on "Content Type groups" page
       And there's a "Test Content Type Group" Content Type group on Content Type groups list
       And there's no "Test Content Type Group edited" Content Type group on Content Type groups list
