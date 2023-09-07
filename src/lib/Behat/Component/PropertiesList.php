@@ -31,7 +31,7 @@ class PropertiesList extends Component
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('tabContent', 'ibexa-tab-content'),
+            new VisibleCSSLocator('tabContent', '.ibexa-tab-content'),
             new VisibleCSSLocator('globalPropertiesItem', '.ibexa-details__item'),
             new VisibleCSSLocator('globalPropertiesLabel', '.ibexa-details__item-label'),
             new VisibleCSSLocator('globalPropertiesValue', '.ibexa-details__item-content'),
