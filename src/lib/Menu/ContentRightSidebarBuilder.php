@@ -237,7 +237,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             [
                 '%languageCode%' => $mainPreviewItemLanguageCode,
             ],
-            'menu'
+            'ibexa_menu'
         );
         $mainPreviewItemAlternativeBtnLabel = $this->translator->trans(
             /** @Desc("%languageName% (%languageCode%)") */
@@ -246,19 +246,19 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
                 '%languageName%' => $mainPreviewItemLanguage->getName(),
                 '%languageCode%' => $mainPreviewItemLanguageCode,
             ],
-            'menu'
+            'ibexa_menu'
         );
         $mainPreviewItemAlternativeBtnSublabel = $this->translator->trans(
             /** @Desc("Default") */
             'content__sidebar_right__preview.alternative.main_btn.sublabel',
             [],
-            'menu'
+            'ibexa_menu'
         );
         $mainPreviewItemToggleBtnLabel = $this->translator->trans(
             /** @Desc("Preview") */
             'content__sidebar_right__preview.toggle_btn.sublabel',
             [],
-            'menu'
+            'ibexa_menu'
         );
 
         $previewItem = $this->getContentPreviewItem(
@@ -289,7 +289,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
                     '%languageName%' => $language->getName(),
                     '%languageCode%' => $languageCode,
                 ],
-                'menu'
+                'ibexa_menu'
             );
 
             $previewItem->addChild(
