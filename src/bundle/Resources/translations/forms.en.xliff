@@ -241,6 +241,11 @@
         <target state="new">Save</target>
         <note>key: role_create.save</note>
       </trans-unit>
+      <trans-unit id="601d9f0ac729e1b65dfe9afa12aa2b5b691613f1" resname="role_create.save_and_close">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: role_create.save_and_close</note>
+      </trans-unit>
       <trans-unit id="870a0a274b0ddf96ef4b6ce633dacad31e23e311" resname="role_delete.delete">
         <source>Delete</source>
         <target state="new">Delete</target>

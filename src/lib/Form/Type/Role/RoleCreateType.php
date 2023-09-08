@@ -31,6 +31,11 @@ class RoleCreateType extends AbstractType
                 self::BTN_SAVE,
                 SubmitType::class,
                 ['label' => /** @Desc("Save") */ 'role_create.save']
+            )
+            ->add(
+                'save_and_close',
+                SubmitType::class,
+                ['label' => /** @Desc("Save and close") */ 'role_create.save_and_close']
             );
     }
 
