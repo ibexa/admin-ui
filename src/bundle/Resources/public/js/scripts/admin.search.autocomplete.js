@@ -188,7 +188,7 @@
     const hideAutocomplete = () => {
         autocompleteNode.classList.add('ibexa-global-search__autocomplete--hidden');
         removeClickOutsideEventListener();
-        removeKeyboardEventListener;
+        removeKeyboardEventListener();
     };
 
     globalSearchInput.addEventListener('keyup', handleTyping, false);
