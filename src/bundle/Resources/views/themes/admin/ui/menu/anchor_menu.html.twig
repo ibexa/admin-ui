@@ -165,11 +165,11 @@
         {% endif %}
 
         <div class="tab-content">
-            {% for item in item.children %}
-                {% if item.children|length > 1 %}
+            {% for secondMenuItem in item.children %}
+                {% if secondMenuItem.children|length > 1 %}
                     {% set listAttributes = {
                         'class': 'tab-pane ibexa-anchor-navigation-menu__sections' ~ (loop.first ? ' ibexa-anchor-navigation-menu__sections--active active' : ''),
-                        'id': item.getAttribute('data-target-id'),
+                        'id': secondMenuItem.getAttribute('data-target-id'),
                         'role': 'tabpanel'
                     } %}
                     {% set innerChildrenBlock = 'children_2nd_level' %}
