@@ -11,7 +11,7 @@
 @import 'mixins/font';
 @import 'mixins/containers';
 @import 'mixins/drag-and-drop';
-@import "mixins/spinner";
+@import 'mixins/spinner';
 
 @mixin datetime-field() {
     .ibexa-data-source__input-wrapper {
