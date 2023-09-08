@@ -426,9 +426,14 @@
         <target state="new">Name</target>
         <note>key: content_type_group.update.name</note>
       </trans-unit>
+      <trans-unit id="87d2becd0dc155bbfe9382c8b48a4bb9f6456959" resname="content_type_group.update.save">
+        <source>Save</source>
+        <target state="new">Save</target>
+        <note>key: content_type_group.update.save</note>
+      </trans-unit>
       <trans-unit id="d44e2ddf0ee9d2e6fcb0b4f2c49a2b579d629588" resname="content_type_group.update.submit">
-        <source>Update</source>
-        <target state="new">Update</target>
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
         <note>key: content_type_group.update.submit</note>
       </trans-unit>
       <trans-unit id="ff50d4b8d26d81f538b0ebabc392cbb05b6da162" resname="content_type_group.update.success">
