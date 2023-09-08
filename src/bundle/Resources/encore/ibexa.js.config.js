@@ -69,6 +69,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/embedded.item.actions'),
     path.resolve(__dirname, '../public/js/scripts/widgets/flatpickr.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.form.tabs.validation.js'),
+    path.resolve(__dirname, '../public/js/scripts/admin.search.autocomplete.js'),
 ];
 const fieldTypes = [];
 

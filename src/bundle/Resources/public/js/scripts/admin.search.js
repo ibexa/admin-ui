@@ -1,5 +1,5 @@
 (function (global, doc) {
-    const headerSearchInput = doc.querySelector('.ibexa-main-header__search');
+    const headerSearchInput = doc.querySelector('.ibexa-global-search__input');
     const headerSearchSubmitBtn = doc.querySelector('.ibexa-main-header .ibexa-input-text-wrapper__action-btn--search');
     const searchForm = doc.querySelector('.ibexa-search-form');
     const searchInput = doc.querySelector('.ibexa-search-form__search-input');

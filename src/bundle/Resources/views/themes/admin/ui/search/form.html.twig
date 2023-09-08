@@ -21,6 +21,6 @@
     {{ form_widget(form.created, {'attr': {'hidden': 'hidden'}}) }}
     {{ form_widget(form.creator, {'attr': {'hidden': 'hidden'}}) }}
 
-    {% include '@ibexadesign/ui/search/filters.html.twig' %}
     {% include '@ibexadesign/ui/search/results.html.twig' %}
+    {% include '@ibexadesign/ui/search/filters.html.twig' %}
 {{ form_end(form) }}

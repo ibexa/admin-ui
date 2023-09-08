@@ -1,10 +1,40 @@
 {% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
 
-{{ form_start(form, { attr: { class: 'form-inline' }}) }}
-    {{ form_widget(form.query, {
-        attr: {
-            class: 'ibexa-main-header__search',
-            placeholder: 'header.search'|trans|desc('Search...')
-        }
-    }) }}
-{{ form_end(form) }}
+<div class="ibexa-global-search">
+    {{ form_start(form, { attr: { class: 'form-inline', id: 'ibexa-global-search-form' }}) }}
+        {{ form_widget(form.query, {
+            attr: {
+                class: 'ibexa-global-search__input',
+                placeholder: 'header.search'|trans|desc('Search...'),
+                autocomplete: "off"
+            }
+        }) }}
+    {{ form_end(form) }}
+    <div class="ibexa-global-search__autocomplete ibexa-global-search__autocomplete--hidden">
+        <ul 
+            class="ibexa-global-search__autocomplete-list" 
+            data-template-item="{{ include('@ibexadesign/ui/global_search_autocomplete_item.html.twig', {
+                content_name: "{{ contentName }}",
+                icon_href: "{{ iconHref }}",
+                content_type_name: "{{ contentTypeName }}",
+                content_breadcrumbs: "{{ contentBreadcrumbs }}",
+                content_href: "{{ contentHref }}"
+            })|e('html_attr')  }}"
+            data-template-highlight="{{ include('@ibexadesign/ui/global_search_autocomplete_highlight.html.twig', {
+                highlight_text: "{{ highlightText }}",
+            })|e('html_attr')  }}">
+        </ul>
+        <div class="ibexa-global-search__autocomplete-view-all">
+            <button 
+                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                type="submit"
+                form="ibexa-global-search-form"
+            >
+                {{ 'autocomplete.view_all_results'|trans|desc('View all results') }}
+            </button>
+        </div>
+        <div class="ibexa-global-search__autocomplete-no-results">
+            {{ 'autocomplete.no_results'|trans|desc('No suggestions available.') }}
+        </div>
+    </div>
+</div>

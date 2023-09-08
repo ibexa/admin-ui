@@ -1,5 +1,6 @@
 (function (global, doc, ibexa) {
     let contentTypesDataMap = null;
+    let contentTypesDataMapByHref = null;
 
     /**
      * Creates map with content types identifiers as keys for faster lookup
@@ -14,6 +15,15 @@
             }
 
             return contentTypeDataMap;
+        }, {});
+
+    const createContentTypeDataMapByHref = () =>
+        Object.values(ibexa.adminUiConfig.contentTypes).reduce((contentTypeDataMapByHref, contentTypeGroup) => {
+            for (const contentTypeData of contentTypeGroup) {
+                contentTypeDataMapByHref[contentTypeData.href] = contentTypeData;
+            }
+
+            return contentTypeDataMapByHref;
         }, {});
 
     /**
@@ -56,8 +66,36 @@
         return contentTypesDataMap[contentTypeIdentifier].name;
     };
 
+    const getContentTypeIconUrlByHref = (contentTypeHref) => {
+        if (!contentTypesDataMapByHref) {
+            contentTypesDataMapByHref = createContentTypeDataMapByHref();
+        }
+
+        if (!contentTypeHref || !contentTypesDataMapByHref[contentTypeHref]) {
+            return null;
+        }
+
+        const iconUrl = contentTypesDataMapByHref[contentTypeHref].thumbnail;
+
+        return iconUrl;
+    };
+
+    const getContentTypeNameByHref = (contentTypeHref) => {
+        if (!contentTypesDataMapByHref) {
+            contentTypesDataMapByHref = createContentTypeDataMapByHref();
+        }
+
+        if (!contentTypeHref || !contentTypesDataMapByHref[contentTypeHref]) {
+            return null;
+        }
+
+        return contentTypesDataMapByHref[contentTypeHref].name;
+    };
+
     ibexa.addConfig('helpers.contentType', {
         getContentTypeIconUrl,
         getContentTypeName,
+        getContentTypeIconUrlByHref,
+        getContentTypeNameByHref,
     });
 })(window, window.document, window.ibexa);
