@@ -27,7 +27,7 @@ class ContentEditFormProcessor implements EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             ContentFormEvents::CONTENT_SAVE_DRAFT_AND_CLOSE => ['redirectToDraftsView', 5],
@@ -37,7 +37,7 @@ class ContentEditFormProcessor implements EventSubscriberInterface
     /**
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
-    public function redirectToDraftsView(FormActionEvent $event)
+    public function redirectToDraftsView(FormActionEvent $event): void
     {
         $form = $event->getForm();
         $formConfig = $form->getConfig();

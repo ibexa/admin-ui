@@ -228,6 +228,7 @@ class RoleController extends Controller
 
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (RoleUpdateData $data) use ($form) {
+                /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role $role */
                 $role = $data->getRole();
 
                 $roleUpdateStruct = $this->roleUpdateMapper->reverseMap($data);
