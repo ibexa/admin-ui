@@ -4,10 +4,6 @@
 
 {% trans_default_domain 'ibexa_linkmanager' %}
 
-{% set anchor_params = {
-    close_href: path('ibexa.url_management'),
-} %}
-
 {% block header %}
     {% set url_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.url_edit.sidebar_right', [], {
         save_and_close_selector: '#' ~ form.saveAndClose.vars.id,
