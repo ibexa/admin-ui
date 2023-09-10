@@ -6,7 +6,7 @@
     multilevelPopupMenusContainers.forEach((container) => {
         const multilevelPopupMenu = new ibexa.core.MultilevelPopupMenu({
             container,
-            triggerElement: doc.querySelector('#asdf'),
+            triggerElement: doc.querySelector(container.dataset.triggerElementSelector),
         });
 
         multilevelPopupMenu.init();

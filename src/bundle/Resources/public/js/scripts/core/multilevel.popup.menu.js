@@ -29,30 +29,27 @@
 
             const itemsWithSubitems = this.container.querySelectorAll('.ibexa-popup-menu__item--has-subitems');
 
-            this.initBranch(
-                this.triggerElement,
-                topBranch,
-                this.referenceElement,
-                this.initialBranchPlacement,
-                this.initialBranchFallbackPlacements,
-                this.processBranchOnInitAfter,
-                this.processItemOnInitAfter,
-            );
+            this.initBranch({
+                triggerElement: this.triggerElement,
+                branchElement: topBranch,
+                referenceElement: this.referenceElement,
+                placement: this.initialBranchPlacement,
+                fallbackPlacements: this.initialBranchFallbackPlacements,
+                processBranchAfter: this.processBranchOnInitAfter,
+                processBranchItemAfter: this.processItemOnInitAfter,
+            });
             this.triggerElement.branchElement = topBranch;
 
             itemsWithSubitems.forEach((itemElement) => {
                 const branchElement = itemElement.querySelector(':scope > .ibexa-multilevel-popup-menu__branch');
                 const parentBranchElement = itemElement.closest('.ibexa-popup-menu');
 
-                this.initBranch(
-                    itemElement,
-                    branchElement,
-                    undefined,
-                    undefined,
-                    undefined,
-                    this.processBranchOnInitAfter,
-                    this.processItemOnInitAfter,
-                );
+                this.initBranch({
+                    triggerElement: itemElement,
+                    branchElement: branchElement,
+                    processBranchAfter: this.processBranchOnInitAfter,
+                    processBranchItemAfter: this.processItemOnInitAfter,
+                });
 
                 itemElement.branchElement = branchElement;
                 branchElement.itemElement = itemElement;
@@ -60,7 +57,7 @@
             });
         }
 
-        initBranch(
+        initBranch({
             triggerElement,
             branchElement,
             referenceElement = null,
@@ -68,7 +65,7 @@
             fallbackPlacements = ['right-end', 'left-start', 'left-end'],
             processBranchAfter = () => {},
             processBranchItemAfter = () => {},
-        ) {
+        }) {
             doc.body.appendChild(branchElement);
 
             const isTopBranch = !triggerElement.classList.contains('ibexa-popup-menu__item');
@@ -143,7 +140,7 @@
         }
 
         updateBranchAndParentBranchesOpenState(branchElement) {
-            const isTopBranch = !(branchElement?.parentBranchElement ?? null);
+            const isTopBranch = !branchElement?.parentBranchElement;
 
             if (isTopBranch) {
                 return;
@@ -265,7 +262,7 @@
 
             processAfterCreated(newBranchElement, data);
 
-            this.initBranch(triggerElement, newBranchElement, null, placement, fallbackPlacements);
+            this.initBranch({ triggerElement, branchElement: newBranchElement, placement, fallbackPlacements });
 
             const parentBranchElement = triggerElement.closest('.ibexa-popup-menu');
 
@@ -355,10 +352,10 @@
             }
         }
 
-        isOurBranch(branch) {
+        isBranchBelongingToThisMenu(branch) {
             const topBranch = this.triggerElement.branchElement;
 
-            return !!branch && (topBranch === branch || this.isOurBranch(branch.parentBranchElement));
+            return !!branch && (topBranch === branch || this.isBranchBelongingToThisMenu(branch.parentBranchElement));
         }
 
         handleClickOutside(event) {
@@ -371,7 +368,7 @@
             const closestPopup = event.target.closest('.ibexa-popup-menu');
             const isPopupMenuExpanded = !topBranch.classList.contains('ibexa-popup-menu--hidden');
             const isClickInsideTrigger = this.triggerElement.contains(event.target);
-            const isClickInsideOurBranch = this.isOurBranch(closestPopup);
+            const isClickInsideOurBranch = this.isBranchBelongingToThisMenu(closestPopup);
 
             if (!isPopupMenuExpanded || isClickInsideTrigger || isClickInsideOurBranch) {
                 return;
