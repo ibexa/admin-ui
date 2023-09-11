@@ -22,7 +22,6 @@ Feature: Content Items creation
       | Title       | Test Article Autosave draft |
       | Short title | Test Article Autosave draft |
     And I wait for Content Item to be autosaved
-    And I click on the close button
     And I open the "Dashboard" page in admin SiteAccess
     Then there's draft "Test Article Autosave draft" on Dashboard list
 
@@ -47,6 +46,5 @@ Feature: Content Items creation
       | Title       | Test Article Autosave Off draft |
       | Short title | Test Article Autosave Off draft |
     And I check if "Autosave is off" notification is displayed
-    And I click on the close button
     And I open the "Dashboard" page in admin SiteAccess
     Then there's no draft "Test Article Autosave Off draft" on Dashboard list

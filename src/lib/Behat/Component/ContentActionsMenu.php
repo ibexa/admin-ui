@@ -15,12 +15,8 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class ContentActionsMenu extends Component
 {
-    use \Ibexa\Behat\Core\Debug\InteractiveDebuggerTrait;
-
     public function clickButton(string $buttonName, ?string $groupName = null): void
     {
-//        $this->setInteractiveBreakpoint(get_defined_vars());
-
         if ($groupName === null) {
             $this->clickStandaloneButton($buttonName);
 
@@ -63,7 +59,6 @@ class ContentActionsMenu extends Component
         if ($group->any()) {
             $group->single()->find($this->getLocator('toggle'))->click();
 
-//            $this->setInteractiveBreakpoint(get_defined_vars());
             $this->getHTMLPage()->findAll($this->getLocator('button'))
                 ->getByCriterion(new ElementTextCriterion($buttonName))
                 ->click();
