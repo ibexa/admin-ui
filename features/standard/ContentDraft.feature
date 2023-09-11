@@ -58,8 +58,8 @@ Feature: Content items creation
     And there's draft "TestDraftDashboardEdit" on Dashboard list
     And I start editing content draft "TestDraftDashboardEdit"
     And I should be on Content update page for "TestDraftDashboardEdit"
-    When I click on the close button
-    And I should be on Content view Page for root
+    When I perform the "Delete draft" action
+    Then I should be on Content view Page for root
 
   @javascript @APIUser:admin
   Scenario: Content draft can be created and published through draft list modal

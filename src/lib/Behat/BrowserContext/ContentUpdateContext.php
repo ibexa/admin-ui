@@ -106,14 +106,6 @@ class ContentUpdateContext implements Context
     }
 
     /**
-     * @When I click on the close button
-     */
-    public function iClickCloseButton(): void
-    {
-        $this->contentUpdateItemPage->close();
-    }
-
-    /**
      * @When I switch to :tabName field group
      */
     public function iSwitchToContentTab(string $tabName)
