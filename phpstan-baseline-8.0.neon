@@ -196,11 +196,6 @@ parameters:
 			path: src/lib/UI/Dataset/ContentDraftsDataset.php
 
 		-
-			message: "#^Access to an undefined property Ibexa\\\\AdminUi\\\\UI\\\\Module\\\\ContentTree\\\\NodeFactory\\:\\:\\$allowedContentTypes\\.$#"
-			count: 1
-			path: src/lib/UI/Module/ContentTree/NodeFactory.php
-
-		-
 			message: "#^Parameter \\#2 \\$length of function array_chunk expects int\\<1, max\\>, int given\\.$#"
 			count: 1
 			path: src/lib/UI/Module/ContentTree/NodeFactory.php
