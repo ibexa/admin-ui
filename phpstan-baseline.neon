@@ -8151,12 +8151,7 @@ parameters:
 			path: src/lib/Menu/ContentEditRightSidebarBuilder.php
 
 		-
-			message: "#^Parameter \\#1 \\$location of method Ibexa\\\\AdminUi\\\\Siteaccess\\\\NonAdminSiteaccessResolver\\:\\:getSiteAccessesListForLocation\\(\\) expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\|null given\\.$#"
-			count: 1
-			path: src/lib/Menu/ContentEditRightSidebarBuilder.php
-
-		-
-			message: "#^Property Ibexa\\\\AdminUi\\\\Menu\\\\ContentEditRightSidebarBuilder\\:\\:\\$siteaccessResolver \\(Ibexa\\\\AdminUi\\\\Siteaccess\\\\NonAdminSiteaccessResolver\\) does not accept Ibexa\\\\AdminUi\\\\Siteaccess\\\\SiteaccessResolverInterface\\.$#"
+			message: "#^Parameter \\#1 \\$location of method Ibexa\\\\AdminUi\\\\Siteaccess\\\\SiteaccessResolverInterface\\:\\:getSiteAccessesListForLocation\\(\\) expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\|null given\\.$#"
 			count: 1
 			path: src/lib/Menu/ContentEditRightSidebarBuilder.php
 
@@ -8177,6 +8172,11 @@ parameters:
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Menu\\\\ContentRightSidebarBuilder\\:\\:createStructure\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Menu/ContentRightSidebarBuilder.php
+
+		-
+			message: "#^Method Ibexa\\\\AdminUi\\\\Menu\\\\ContentRightSidebarBuilder\\:\\:getContentPreviewItem\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Menu/ContentRightSidebarBuilder.php
 
@@ -9887,11 +9887,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$aggregationResult of method Ibexa\\\\AdminUi\\\\UI\\\\Module\\\\ContentTree\\\\NodeFactory\\:\\:aggregationResultToArray\\(\\) expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Search\\\\AggregationResult\\\\TermAggregationResult, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Search\\\\AggregationResult given\\.$#"
-			count: 1
-			path: src/lib/UI/Module/ContentTree/NodeFactory.php
-
-		-
-			message: "#^Parameter \\#9 \\$totalChildrenCount of class Ibexa\\\\AdminUi\\\\REST\\\\Value\\\\ContentTree\\\\Node constructor expects int, int\\|null given\\.$#"
 			count: 1
 			path: src/lib/UI/Module/ContentTree/NodeFactory.php
 

@@ -32,7 +32,6 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -75,8 +74,6 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
 
     private LanguageService $languageService;
 
-    private UrlGeneratorInterface $urlGenerator;
-
     private SiteaccessResolverInterface  $siteaccessResolver;
 
     private UserService $userService;
@@ -93,7 +90,6 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         UniversalDiscoveryExtension $udwExtension,
         PermissionCheckerInterface $permissionChecker,
         LanguageService $languageService,
-        UrlGeneratorInterface $urlGenerator,
         SiteaccessResolverInterface $siteaccessResolver,
         UserService $userService,
         TranslatorInterface $translator
@@ -107,7 +103,6 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         $this->udwExtension = $udwExtension;
         $this->permissionChecker = $permissionChecker;
         $this->languageService = $languageService;
-        $this->urlGenerator = $urlGenerator;
         $this->siteaccessResolver = $siteaccessResolver;
         $this->userService = $userService;
         $this->translator = $translator;
@@ -224,7 +219,9 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         $currentUser = $this->userService->loadUser(
             $this->permissionResolver->getCurrentUserReference()->getUserId()
         );
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Field $currentUserAccount */
         $currentUserAccount = $currentUser->getField('user_account');
+        /** @var string $currentUserLanguageCode */
         $currentUserLanguageCode = $currentUserAccount->getLanguageCode();
         $mainPreviewItemLanguageCode = in_array($currentUserLanguageCode, $translations)
             ? $currentUserLanguageCode
@@ -562,7 +559,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation
+     * @param array $options
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
@@ -574,6 +571,10 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         array $options,
         string $idPostfix = ''
     ): ItemInterface {
+        if ($location === null) {
+            throw new \InvalidArgumentException('location cannot be null');
+        }
+
         $versionNo = $content->getVersionInfo()->versionNo;
 
         $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
