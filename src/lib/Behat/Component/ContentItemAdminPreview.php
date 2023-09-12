@@ -69,6 +69,8 @@ class ContentItemAdminPreview extends Component
 
             ++$fieldPosition;
         }
+
+        return $fieldPosition;
     }
 
     protected function detectFieldTypeIdentifier(CSSLocator $fieldValueLocator)
