@@ -354,6 +354,7 @@ final class NodeFactory
         $children = [];
         if ($loadChildren && $depth < $this->getSetting('tree_max_depth')) {
             $searchResult = $this->findSubitems($location, $limit, $offset, $sortClause, $sortOrder);
+            /** @var int $totalChildrenCount */
             $totalChildrenCount = $searchResult->totalCount;
 
             /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $childLocation */
@@ -379,7 +380,9 @@ final class NodeFactory
         $currentUser = $this->userService->loadUser(
             $this->permissionResolver->getCurrentUserReference()->getUserId()
         );
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Field $currentUserAccount */
         $currentUserAccount = $currentUser->getField('user_account');
+        /** @var string $currentUserLanguageCode */
         $currentUserLanguageCode = $currentUserAccount->getLanguageCode();
         $translations = in_array($currentUserLanguageCode, $versionInfo->languageCodes)
             ? array_unique(array_merge([$currentUserLanguageCode], $versionInfo->languageCodes))
@@ -453,15 +456,11 @@ final class NodeFactory
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function checkIsPreviewable(
-        ?Location $location,
+        Location $location,
         Content $content,
         string $languageCode
     ): bool {
