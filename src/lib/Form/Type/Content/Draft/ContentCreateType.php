@@ -94,6 +94,7 @@ class ContentCreateType extends AbstractType
                     'multiple' => false,
                     'expanded' => true,
                     'choice_loader' => $this->contentCreateContentTypeChoiceLoader
+                        ->setTargetLocation($location)
                         ->setRestrictedContentTypeIds($restrictedContentTypesIds),
                 ]
             )
