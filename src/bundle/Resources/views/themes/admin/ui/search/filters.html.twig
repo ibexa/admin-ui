@@ -1,5 +1,15 @@
 {% trans_default_domain 'ibexa_search' %}
 
+{% set content_type_terms = null %}
+{% if aggregations is defined and aggregations.has('content_types') %}
+    {% set content_type_terms = aggregations.get('content_types') %}
+{% endif %}
+
+{% set sections_terms = null %}
+{% if aggregations is defined and aggregations.has('sections') %}
+    {% set sections_terms = aggregations.get('sections') %}
+{% endif %}
+
 <div class="ibexa-filters ibexa-search-form__filters">
     <div class="ibexa-filters__header">
         <h3 class="ibexa-filters__title">{{ 'search.filters.title'|trans|desc('Filters') }}</h3>
@@ -23,7 +33,7 @@
             </select>
             {{ form_widget(form.content_types, {
                 'attr': {'class': 'ibexa-filters__select'},
-                'terms':  aggregations.has('content_types') ? aggregations.get('content_types') : null
+                'terms': content_type_terms
             }) }}
         </div>
         <div class="ibexa-filters__item ibexa-filters__item--modified">
@@ -69,7 +79,7 @@
                 <label class="ibexa-label">{{ 'search.section'|trans|desc('Section') }}</label>
                 {{ form_widget(form.section, {
                     'attr': {'class': 'ibexa-filters__select'},
-                    'terms':  aggregations.has('sections') ? aggregations.get('sections') : null
+                    'terms': sections_terms
                 }) }}
             </div>
         {% endif %}
