@@ -6341,7 +6341,7 @@ parameters:
 			path: src/lib/Form/Type/Content/CustomUrl/CustomUrlRemoveType.php
 
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Form\\\\ChoiceList\\\\Loader\\\\ChoiceLoaderInterface\\:\\:setRestrictedContentTypeIds\\(\\)\\.$#"
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Form\\\\ChoiceList\\\\Loader\\\\ChoiceLoaderInterface\\:\\:setTargetLocation\\(\\)\\.$#"
 			count: 1
 			path: src/lib/Form/Type/Content/Draft/ContentCreateType.php
 
@@ -6784,11 +6784,6 @@ parameters:
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Embedded\\\\SectionType\\:\\:configureOptions\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Form/Type/Embedded/SectionType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Event\\\\ContentCreateContentTypeChoiceLoaderEvent\\:\\:__construct\\(\\) has parameter \\$contentTypeGroups with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Event/ContentCreateContentTypeChoiceLoaderEvent.php
 
 		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\Form\\\\FormInterface\\:\\:isClicked\\(\\)\\.$#"
