@@ -166,7 +166,7 @@ class UniversalDiscoveryWidget extends Component
     public function editSelectedContent(): void
     {
         $this->getHTMLPage()->setTimeout(self::SHORT_TIMEOUT)->find($this->getLocator('editButton'))->click();
-        $this->switchIntoUDWIframe('editIframe');
+        $this->switchIntoContentOnTheFlyIframe();
     }
 
     public function searchForContent(string $name): void
@@ -195,13 +195,13 @@ class UniversalDiscoveryWidget extends Component
 
     public function verifyCreateOnTheFlyFormIsLoaded(): void
     {
-        $this->switchIntoUDWIframe('createIframe');
+        $this->switchIntoContentOnTheFlyIframe();
         $this->getHTMLPage()->setTimeout(self::LONG_TIMEOUT)->find($this->getLocator('createOnTheFlyForm'))->assert()->isVisible();
     }
 
-    public function switchIntoUDWIframe(string $iframeSelectorIdentifier): void
+    private function switchIntoContentOnTheFlyIframe(): void
     {
-        $iframeLocator = $this->getLocator($iframeSelectorIdentifier);
+        $iframeLocator = $this->getLocator('contentIframe');
         $script = sprintf("document.querySelector('%s').setAttribute('name','iframe')", $iframeLocator->getSelector());
         $this->getHTMLPage()->setTimeout(self::SHORT_TIMEOUT)->waitUntilCondition(
             new ElementExistsCondition($this->getHTMLPage(), $iframeLocator)
@@ -221,8 +221,7 @@ class UniversalDiscoveryWidget extends Component
             new CSSLocator('selectedLocationsTab', '.c-selected-locations'),
             new CSSLocator('categoryTabSelector', '.c-tab-selector__item'),
             new CSSLocator('selectedTab', '.c-tab-selector__item--selected'),
-            new VisibleCSSLocator('editIframe', '.c-content-edit__iframe'),
-            new VisibleCSSLocator('createIframe', '.m-content-create__iframe'),
+            new VisibleCSSLocator('contentIframe', '.c-content-edit__iframe, .m-content-create__iframe'),
             new VisibleCSSLocator('multiselect', '.m-ud .c-finder-leaf .ibexa-input--checkbox'),
             new VisibleCSSLocator('selectedItemName', '.c-content-meta-preview__content-name'),
             new VisibleCSSLocator('previewImage', '.c-content-meta-preview__preview'),
