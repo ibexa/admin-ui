@@ -1,0 +1,13 @@
+<div class="ibexa-user-name">
+    <span class="ibexa-user-name__thumbnail">
+        {% include '@ibexadesign/ui/component/user_thumbnail/user_thumbnail.html.twig' with {
+            user_content: user.content,
+            user: user,
+            attr_svg: {
+                width: 20,
+                height: 20,
+            }
+        } only %}
+    </span>
+    <span class="ibexa-user-name__text">{{ ibexa_content_name(user) }}</span>
+</div>

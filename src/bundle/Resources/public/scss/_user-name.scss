@@ -1,0 +1,11 @@
+.ibexa-user-name {
+    display: inline-flex;
+
+    &__thumbnail {
+        margin-right: calculateRem(8px);
+    }
+
+    &__text {
+        white-space: nowrap;
+    }
+}

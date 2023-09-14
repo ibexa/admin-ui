@@ -81,10 +81,17 @@
                             content: ibexa_admin_ui_config.languages.mappings[version.initialLanguageCode].name,
                         } %}
                         {{ custom_columns }}
+
+                        {% set author_name %}
+                            {% if version.author is not empty %}
+                                {% include '@ibexadesign/ui/component/user/user.html.twig' with { user: version.author } only %}
+                            {% else %}
+                                {{ 'tab.versions.table.author.not_found'|trans|desc('Can\'t fetch contributor') }}
+                            {% endif %}
+                        {% endset %}
+
                         {% include '@ibexadesign/ui/component/table/table_body_cell.html.twig' with {
-                            content: version.author is not empty
-                                ? ibexa_content_name(version.author)
-                                : 'tab.versions.table.author.not_found'|trans|desc('Can\'t fetch contributor'),
+                            content: author_name,
                         } %}
                         {% if not is_draft_conflict %}
                             {% include '@ibexadesign/ui/component/table/table_body_cell.html.twig' with {
