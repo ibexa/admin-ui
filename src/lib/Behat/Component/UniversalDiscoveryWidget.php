@@ -166,13 +166,7 @@ class UniversalDiscoveryWidget extends Component
     public function editSelectedContent(): void
     {
         $this->getHTMLPage()->setTimeout(self::SHORT_TIMEOUT)->find($this->getLocator('editButton'))->click();
-        $iframeLocator = $this->getLocator('iframe');
-        $script = sprintf("document.querySelector('%s').setAttribute('name','editIframe')", $iframeLocator->getSelector());
-        $this->getHTMLPage()->setTimeout(self::SHORT_TIMEOUT)->waitUntilCondition(
-            new ElementExistsCondition($this->getHTMLPage(), $iframeLocator)
-        );
-        $this->getHTMLPage()->executeJavaScript($script);
-        $this->getSession()->switchToIFrame('editIframe');
+        $this->switchIntoUDWIframe('editIframe');
     }
 
     public function searchForContent(string $name): void
@@ -194,6 +188,28 @@ class UniversalDiscoveryWidget extends Component
             ->click();
     }
 
+    public function clickCreateNewButton(): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('createNewButton'))->click();
+    }
+
+    public function verifyCreateOnTheFlyFormIsLoaded(): void
+    {
+        $this->switchIntoUDWIframe('createIframe');
+        $this->getHTMLPage()->setTimeout(self::LONG_TIMEOUT)->find($this->getLocator('createOnTheFlyForm'))->assert()->isVisible();
+    }
+
+    public function switchIntoUDWIframe(string $iframeSelectorIdentifier): void
+    {
+        $iframeLocator = $this->getLocator($iframeSelectorIdentifier);
+        $script = sprintf("document.querySelector('%s').setAttribute('name','iframe')", $iframeLocator->getSelector());
+        $this->getHTMLPage()->setTimeout(self::SHORT_TIMEOUT)->waitUntilCondition(
+            new ElementExistsCondition($this->getHTMLPage(), $iframeLocator)
+        );
+        $this->getHTMLPage()->executeJavaScript($script);
+        $this->getSession()->switchToIFrame('iframe');
+    }
+
     protected function specifyLocators(): array
     {
         return [
@@ -205,10 +221,13 @@ class UniversalDiscoveryWidget extends Component
             new CSSLocator('selectedLocationsTab', '.c-selected-locations'),
             new CSSLocator('categoryTabSelector', '.c-tab-selector__item'),
             new CSSLocator('selectedTab', '.c-tab-selector__item--selected'),
-            new VisibleCSSLocator('iframe', '.c-content-edit__iframe'),
+            new VisibleCSSLocator('editIframe', '.c-content-edit__iframe'),
+            new VisibleCSSLocator('createIframe', '.m-content-create__iframe'),
             new VisibleCSSLocator('multiselect', '.m-ud .c-finder-leaf .ibexa-input--checkbox'),
             new VisibleCSSLocator('selectedItemName', '.c-content-meta-preview__content-name'),
             new VisibleCSSLocator('previewImage', '.c-content-meta-preview__preview'),
+            new VisibleCSSLocator('createNewButton', '.c-content-create-button__btn'),
+            new VisibleCSSLocator('createOnTheFlyForm', '.ibexa-edit-content'),
             // selectors for path traversal
             new CSSLocator('treeLevelFormat', '.c-finder-branch:nth-child(%d)'),
             new CSSLocator('treeLevelElementsFormat', '.c-finder-branch:nth-of-type(%d) .c-finder-leaf'),
