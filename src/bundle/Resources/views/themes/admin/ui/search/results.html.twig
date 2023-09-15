@@ -30,6 +30,8 @@
                 {% endfor %}
             </div>
         </div>
+
+        {{ form_widget(form.sort, { attr: { dropdown_hidden: true  }}) }}
     {% else %}
         <div class="ibexa-search-form__results">
             {% set body_rows = [] %}
@@ -165,6 +167,10 @@
                 { },
             ] %}
 
+            {% set actions %}
+                {{ form_widget(form.sort, { attr: { class: 'ibexa-search-form__sort-order-select' }}) }}
+            {% endset %}
+
             {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
                 headline: 'search.results_for'|trans({
                     '%total%': pager.nbResults,
@@ -172,6 +178,7 @@
                 })|desc('Results for “%search_phrase%” (%total%)'),
                 head_cols: head_cols,
                 body_rows: body_rows,
+                actions,
             } %}
                 {% trans_default_domain 'ibexa_search' %}
                 {% block between_header_and_table %}
@@ -205,4 +212,6 @@
         <h2 class="ibexa-search-form__empty-title">{{ 'search.empty.title'|trans|desc('No search items') }}</h2>
         <div class="ibexa-search-form__empty-subtitle">{{ 'search.empty.subtitle'|trans|desc('Enter the phrase to find') }}</div>
     </div>
+
+    {{ form_widget(form.sort, { attr: { dropdown_hidden: true  }}) }}
 {% endif %}
