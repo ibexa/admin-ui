@@ -9,7 +9,7 @@
     const isLinux = () => {
         return userAgent.includes('Linux');
     };
-    const getDefaultShortcutForLetter = (event, letter) => {
+    const isShortcutWithLetter = (event, letter) => {
         if (isMac()) {
             return event.metaKey && event.key === letter;
         }
@@ -44,22 +44,22 @@
         return false;
     };
     const isSavePressed = (event) => {
-        return getDefaultShortcutForLetter(event, 's');
+        return isShortcutWithLetter(event, 's');
     };
     const isCopyPressed = (event) => {
-        return getDefaultShortcutForLetter(event, 'c');
+        return isShortcutWithLetter(event, 'c');
     };
     const isCutPressed = (event) => {
-        return getDefaultShortcutForLetter(event, 'x');
+        return isShortcutWithLetter(event, 'x');
     };
     const isPastePressed = (event) => {
-        return getDefaultShortcutForLetter(event, 'v');
+        return isShortcutWithLetter(event, 'v');
     };
     const isPrintPressed = (event) => {
-        return getDefaultShortcutForLetter(event, 'p');
+        return isShortcutWithLetter(event, 'p');
     };
     const isSelectAllPressed = (event) => {
-        return getDefaultShortcutForLetter(event, 'a');
+        return isShortcutWithLetter(event, 'a');
     };
 
     ibexa.addConfig('helpers.system', {
