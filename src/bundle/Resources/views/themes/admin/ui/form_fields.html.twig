@@ -88,6 +88,13 @@
 {%- block _search_content_types_widget -%}
     <div class="ibexa-content-type-selector accordion">
         {%- set groups = choices -%}
+        {%- if terms is defined %}
+            {%- set groups = choices|ibexa_choices_as_facets(
+                terms,
+                (choice, term) => choice.data.identifier == term.getKey().identifier
+            ) -%}
+        {%- endif -%}
+
         {%- for group_label, group_choices in groups -%}
             {% set group_id = group_label|slug %}
             <div class="ibexa-content-type-selector__group accordion-item">
@@ -129,7 +136,11 @@
 
 {%- block search_type_choice_widget_options -%}
     <li class="ibexa-content-type-selector__item">
-        {{ form_widget(form[choice.value], {'attr': {'data-name': choice.label}, 'label_attr': {'class': 'checkbox-inline'}}) }}
+        {{ form_widget(form[choice.value], {
+            'attr': {'data-name': choice.label},
+            'label': choice.label,
+            'label_attr': {'class': 'checkbox-inline'}
+        }) }}
     </li>
 {%- endblock -%}
 
@@ -278,7 +289,14 @@
 {%- endblock -%}
 
 {%- block _search_section_widget -%}
-    {{ form_widget(form) }}
+    {%- if terms is defined %}
+        {% set choices = choices|ibexa_choices_as_facets(
+            terms,
+            (choice, term) => choice.data.id == term.getKey().id
+        ) %}
+    {%- endif -%}
+
+    {{ form_widget(form, { choices: choices }) }}
 {%- endblock -%}
 
 {%- block _search_search_language_widget -%}
