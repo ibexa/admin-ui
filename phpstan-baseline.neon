@@ -12937,46 +12937,6 @@ parameters:
 			path: tests/lib/Permission/PermissionCheckerTest.php
 
 		-
-			message: "#^Call to method getQuery\\(\\) on an unknown class Ibexa\\\\AdminUi\\\\QueryType\\\\SearchQueryType\\.$#"
-			count: 1
-			path: tests/lib/QueryType/SearchQueryTypeTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\QueryType\\\\SearchQueryTypeTest\\:\\:createContentTypesList\\(\\) has parameter \\$ids with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/lib/QueryType/SearchQueryTypeTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\QueryType\\\\SearchQueryTypeTest\\:\\:createContentTypesList\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/lib/QueryType/SearchQueryTypeTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\QueryType\\\\SearchQueryTypeTest\\:\\:createExpectedQueryForAllCriteria\\(\\) has parameter \\$expectedSortClauses with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/lib/QueryType/SearchQueryTypeTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\QueryType\\\\SearchQueryTypeTest\\:\\:dataProviderForGetQuery\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/lib/QueryType/SearchQueryTypeTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\QueryType\\\\SearchQueryTypeTest\\:\\:testGetQuery\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/lib/QueryType/SearchQueryTypeTest.php
-
-		-
-			message: "#^Property Ibexa\\\\Tests\\\\AdminUi\\\\QueryType\\\\SearchQueryTypeTest\\:\\:\\$queryType \\(Ibexa\\\\AdminUi\\\\QueryType\\\\SearchQueryType\\) does not accept Ibexa\\\\Search\\\\QueryType\\\\SearchQueryType\\.$#"
-			count: 1
-			path: tests/lib/QueryType/SearchQueryTypeTest.php
-
-		-
-			message: "#^Property Ibexa\\\\Tests\\\\AdminUi\\\\QueryType\\\\SearchQueryTypeTest\\:\\:\\$queryType has unknown class Ibexa\\\\AdminUi\\\\QueryType\\\\SearchQueryType as its type\\.$#"
-			count: 1
-			path: tests/lib/QueryType/SearchQueryTypeTest.php
-
-		-
 			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Resolver\\\\IconPathResolverTest\\:\\:getConfigResolverMock\\(\\) has parameter \\$config with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: tests/lib/Resolver/IconPathResolverTest.php
