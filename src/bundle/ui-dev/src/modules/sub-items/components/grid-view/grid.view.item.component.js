@@ -9,8 +9,8 @@ const GridViewItemComponent = ({ item, generateLink }) => {
     const imageClassName = 'ibexa-grid-view-item__image';
     const contentTypeIdentifier = content._info.contentType.identifier;
     const contentTypeIconUrl = ibexa.helpers.contentType.getContentTypeIconUrl(contentTypeIdentifier);
+    const contentTypeName = ibexa.helpers.contentType.getContentTypeName(contentTypeIdentifier);
     let image = null;
-    let contentTypeIcon = null;
 
     if (content._thumbnail === null || content._thumbnail.mimeType === 'image/svg+xml') {
         image = (
@@ -22,7 +22,6 @@ const GridViewItemComponent = ({ item, generateLink }) => {
         const { uri, alternativeText } = content._thumbnail;
 
         image = <img className={imageClassName} src={uri} alt={alternativeText} />;
-        contentTypeIcon = <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small" />;
     }
 
     return (
@@ -32,7 +31,10 @@ const GridViewItemComponent = ({ item, generateLink }) => {
                 <div className="ibexa-grid-view-item__title" title={content._name}>
                     {content._name}
                 </div>
-                <div className="ibexa-grid-view-item__detail-a">{contentTypeIcon}</div>
+                <div className="ibexa-grid-view-item__detail-a">
+                    <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small" />
+                    {contentTypeName}
+                </div>
             </div>
         </a>
     );
