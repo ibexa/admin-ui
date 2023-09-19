@@ -13,6 +13,23 @@
 @import 'mixins/drag-and-drop';
 
 @mixin datetime-field() {
+    &.is-invalid {
+        .ibexa-label {
+            color: $ibexa-color-danger;
+        }
+
+        .ibexa-input-text-wrapper__action-btn {
+            .ibexa-icon {
+                fill: $ibexa-color-danger;
+            }
+        }
+
+        .ibexa-data-source__input {
+            border: calculateRem(1px) solid $ibexa-color-danger;
+            background: $ibexa-color-danger-100;
+        }
+    }
+
     .ibexa-data-source__input-wrapper {
         max-width: 30ch;
         position: relative;
@@ -98,7 +115,7 @@
 
         .ibexa-data-source__input {
             border: calculateRem(1px) solid $ibexa-color-danger;
-            background: $ibexa-color-warning-pale;
+            background: $ibexa-color-danger-100;
         }
     }
 }
