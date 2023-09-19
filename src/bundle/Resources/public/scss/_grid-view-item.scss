@@ -2,15 +2,13 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    padding: calculateRem(16px);
-    min-height: calculateRem(238px);
     border: calculateRem(1px) solid $ibexa-color-light;
-    border-radius: calculateRem(5px);
+    border-radius: calculateRem(12px);
     background: $ibexa-color-white;
     box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 rgba($ibexa-color-black, 0.05);
     transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
-    min-width: calculateRem(216px);
-    max-width: calculateRem(216px);
+    min-width: calculateRem(290px);
+    max-width: calculateRem(290px);
     margin: 0 calculateRem(14px) calculateRem(32px);
 
     &:link {
@@ -25,35 +23,19 @@
         text-decoration: none;
     }
 
-    &__content-type {
-        position: absolute;
-        z-index: 2;
-        top: 0;
-        left: 0;
-        width: calculateRem(30px);
-        height: calculateRem(30px);
-        background: $ibexa-color-white;
-    }
-
-    &__content-type .ibexa-icon {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
     &__image {
-        display: block;
-        width: auto;
-        height: auto;
-        max-width: calculateRem(184px);
-        max-height: calculateRem(248px);
+        &:not(.ibexa-grid-view-item__image--none) {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
 
     &__image-wrapper {
-        flex-grow: 1;
-        border-radius: calculateRem(5px);
-        margin-bottom: calculateRem(16px);
+        height: calculateRem(160px);
+        border-top-left-radius: calculateRem(12px);
+        border-top-right-radius: calculateRem(12px);
+        overflow: hidden;
         background: $ibexa-color-light-200;
 
         display: flex;
@@ -61,54 +43,64 @@
         justify-content: center;
     }
 
+    &__footer {
+        display: grid;
+        row-gap: calculateRem(16px);
+        padding: calculateRem(16px);
+    }
+
     &__title {
+        grid-area: 1/-1;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         text-decoration: none;
-        font-weight: 600;
+        font-size: $ibexa-text-font-size-medium;
         line-height: calculateRem(21px);
     }
 
-    &__sub-title {
-        margin-top: calculateRem(4px);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        text-decoration: none;
-        font-size: $ibexa-text-font-size-small;
-        line-height: calculateRem(24px);
+    &__details-wrapper {
+        display: grid;
+    }
+
+    &__detail-a {
+        grid-area: 2/1;
+    }
+
+    &__detail-b {
+        grid-area: 2/2;
+    }
+
+    &__detail-a,
+    &__detail-b {
+        display: flex;
+        align-items: center;
+        gap: calculateRem(8px);
+        line-height: calculateRem(16px);
+        color: $ibexa-color-dark-400;
+
+        .ibexa-icon {
+            fill: $ibexa-color-dark-400;
+        }
     }
 
     &__checkbox {
         position: absolute;
         top: calculateRem(8px);
-        right: calculateRem(8px);
+        left: calculateRem(8px);
         line-height: 1;
     }
 
-    &__info {
-        display: flex;
-        height: calculateRem(64px);
+    &--marked {
+        border: calculateRem(1px) solid $ibexa-color-dark;
     }
 
-    &__status-container {
-        width: calculateRem(20px);
-        display: flex;
+    &--not-selectable {
+        background-color: $ibexa-color-light-200;
+        cursor: not-allowed;
     }
 
-    &__title-container {
-        width: calc(100% - #{calculateRem(40px)});
-    }
-
-    &__actions-container {
-        position: relative;
-        display: flex;
-        justify-content: flex-end;
-        width: calculateRem(20px);
-
-        .ibexa-popup-menu {
-            left: calculateRem(22px);
-        }
+    &--selected {
+        border: calculateRem(1px) solid $ibexa-color-primary;
     }
 }
