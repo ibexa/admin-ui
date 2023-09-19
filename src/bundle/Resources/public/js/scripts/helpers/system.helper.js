@@ -26,7 +26,7 @@
         }
 
         if (isWindows() || isLinux()) {
-            return event.ctrlKey && event.key === 'y';
+            return event.ctrlKey && event.key === 'z';
         }
 
         return false;
