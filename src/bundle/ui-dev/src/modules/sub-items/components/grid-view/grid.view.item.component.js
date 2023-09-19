@@ -22,21 +22,17 @@ const GridViewItemComponent = ({ item, generateLink }) => {
         const { uri, alternativeText } = content._thumbnail;
 
         image = <img className={imageClassName} src={uri} alt={alternativeText} />;
-        contentTypeIcon = (
-            <div className="ibexa-grid-view-item__content-type">
-                <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small" />
-            </div>
-        );
+        contentTypeIcon = <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small" />;
     }
 
     return (
         <a className="ibexa-grid-view-item" href={generateLink(locationId, content._info.id)}>
-            {contentTypeIcon}
             <div className="ibexa-grid-view-item__image-wrapper">{image}</div>
-            <div className="ibexa-grid-view-item__title-wrapper">
+            <div className="ibexa-grid-view-item__footer">
                 <div className="ibexa-grid-view-item__title" title={content._name}>
                     {content._name}
                 </div>
+                <div className="ibexa-grid-view-item__detail-a">{contentTypeIcon}</div>
             </div>
         </a>
     );
