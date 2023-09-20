@@ -153,7 +153,7 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
                     ? $saveDraftAttributes
                     : array_merge($saveDraftAttributes, self::BTN_DISABLED_ATTR),
                 'extras' => [
-                    'orderNumber' => 80,
+                    'orderNumber' => 10,
                 ],
             ]
         );

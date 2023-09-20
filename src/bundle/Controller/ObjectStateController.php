@@ -142,7 +142,7 @@ class ObjectStateController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle(
                 $form,
-                function (ObjectStateCreateData $data) use ($defaultLanguageCode, $objectStateGroup, $form) {
+                function (ObjectStateCreateData $data) use ($defaultLanguageCode, $objectStateGroup, $form): Response {
                     $createStruct = $this->objectStateService->newObjectStateCreateStruct(
                         $data->getIdentifier()
                     );
@@ -278,7 +278,7 @@ class ObjectStateController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ObjectStateUpdateData $data) use ($form) {
+            $result = $this->submitHandler->handle($form, function (ObjectStateUpdateData $data) use ($form): Response {
                 $objectState = $data->getObjectState();
                 $updateStruct = $this->objectStateService->newObjectStateUpdateStruct();
                 $updateStruct->identifier = $data->getIdentifier();

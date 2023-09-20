@@ -19,11 +19,6 @@ class ContentTypeDraftParamConverter implements ParamConverterInterface
     /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /**
-     * ContentTypeDraftParamConverter constructor.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeGroupService
-     */
     public function __construct(ContentTypeService $contentTypeGroupService)
     {
         $this->contentTypeService = $contentTypeGroupService;
