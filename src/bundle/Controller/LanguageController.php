@@ -204,7 +204,7 @@ class LanguageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LanguageCreateData $data) use ($form) {
+            $result = $this->submitHandler->handle($form, function (LanguageCreateData $data) use ($form): Response {
                 $languageCreateStruct = $this->languageCreateMapper->reverseMap($data);
                 $language = $this->languageService->createLanguage($languageCreateStruct);
 
@@ -248,7 +248,7 @@ class LanguageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LanguageUpdateData $data) use ($language, $form) {
+            $result = $this->submitHandler->handle($form, function (LanguageUpdateData $data) use ($language, $form): Response {
                 $this->languageService->updateLanguageName($language, $data->getName());
 
                 $data->isEnabled()
