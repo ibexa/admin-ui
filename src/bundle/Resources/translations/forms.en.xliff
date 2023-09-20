@@ -71,16 +71,6 @@
         <target state="new">Name</target>
         <note>key: ezplatform.language.create.name</note>
       </trans-unit>
-      <trans-unit id="ffd97ca1026795d6942cdff21e76596229baa2dd" resname="ezplatform.language.create.save">
-        <source>Save</source>
-        <target state="new">Save</target>
-        <note>key: ezplatform.language.create.save</note>
-      </trans-unit>
-      <trans-unit id="1512c398222825ac050de4e77ac1ec3f131fd3e4" resname="ezplatform.language.create.save_and_close">
-        <source>Save and close</source>
-        <target state="new">Save and close</target>
-        <note>key: ezplatform.language.create.save_and_close</note>
-      </trans-unit>
       <trans-unit id="aaacfc049425d3dc086d5548dac0a2bb2eabe404" resname="ezplatform.language.delete.delete">
         <source>Delete</source>
         <target state="new">Delete</target>
@@ -101,11 +91,6 @@
         <target state="new">Save</target>
         <note>key: ezplatform.language.update.save</note>
       </trans-unit>
-      <trans-unit id="c4dea6525b93d8d580ce1f801f418f9a7579d8a8" resname="ezplatform.language.update.save_and_close">
-        <source>Save and close</source>
-        <target state="new">Save and close</target>
-        <note>key: ezplatform.language.update.save_and_close</note>
-      </trans-unit>
       <trans-unit id="1a2cc7b7518a1267208aafa8aa96d1dba950eeb1" resname="form.has_children.label">
         <source>Sub-items</source>
         <target state="new">Sub-items</target>
@@ -125,6 +110,21 @@
         <source>Asset Fields(s)</source>
         <target state="new">Asset Fields(s)</target>
         <note>key: form.trash_assets_non_unique.label</note>
+      </trans-unit>
+      <trans-unit id="32094a2bed643086c29c124312938f6eee9240c8" resname="language.create.save">
+        <source>Save</source>
+        <target state="new">Save</target>
+        <note>key: language.create.save</note>
+      </trans-unit>
+      <trans-unit id="727cf4d3d72a4f4fcbd056fcb66a6c25bc5690e7" resname="language.create.save_and_close">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: language.create.save_and_close</note>
+      </trans-unit>
+      <trans-unit id="6ed672fae40f4117e4402e39a650c5880f52bc98" resname="language.update.save_and_close">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: language.update.save_and_close</note>
       </trans-unit>
       <trans-unit id="a1e42d4c649f7fbb614729978fea692be51d1485" resname="languages_delete_form.delete">
         <source>Delete languages</source>

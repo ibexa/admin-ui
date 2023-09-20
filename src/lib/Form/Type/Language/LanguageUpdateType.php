@@ -47,7 +47,7 @@ class LanguageUpdateType extends AbstractType
             ->add(
                 'save_and_close',
                 SubmitType::class,
-                ['label' => /** @Desc("Save and close") */ 'ezplatform.language.update.save_and_close']
+                ['label' => /** @Desc("Save and close") */ 'language.update.save_and_close']
             );
     }
 

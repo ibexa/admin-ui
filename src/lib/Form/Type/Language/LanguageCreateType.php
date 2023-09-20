@@ -42,12 +42,12 @@ class LanguageCreateType extends AbstractType
             ->add(
                 self::BTN_SAVE,
                 SubmitType::class,
-                ['label' => /** @Desc("Save") */ 'ezplatform.language.create.save']
+                ['label' => /** @Desc("Save") */ 'language.create.save']
             )
             ->add(
                 'save_and_close',
                 SubmitType::class,
-                ['label' => /** @Desc("Save and close") */ 'ezplatform.language.create.save_and_close']
+                ['label' => /** @Desc("Save and close") */ 'language.create.save_and_close']
             );
     }
 
