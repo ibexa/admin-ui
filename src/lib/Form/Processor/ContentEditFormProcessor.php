@@ -24,9 +24,6 @@ final class ContentEditFormProcessor implements EventSubscriberInterface
         $this->router = $router;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents(): array
     {
         return [
