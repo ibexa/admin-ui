@@ -150,7 +150,14 @@
                       languageCode: languages[0].languageCode,
                   }),
               }
-            : { onClick: () => editContent({ contentId, locationId, languageCode: languages[0].languageCode }) };
+            : {
+                  onClick: () =>
+                      editContent({
+                          contentId,
+                          locationId,
+                          languageCode: languages[0].languageCode,
+                      }),
+              };
 
         return {
             label: Translator.trans(/*@Desc("Edit")*/ 'embedded_items.action.edit', {}, 'ibexa_content'),
@@ -226,6 +233,7 @@
             container,
             triggerElement,
         });
+
         menuInstance.init();
         menuInstance.generateMenu({
             triggerElement,
