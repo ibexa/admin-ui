@@ -53,13 +53,19 @@ class ContentTypePicker extends Component
         $this->getHTMLPage()->find($this->getLocator('filterInput'))->clear();
     }
 
+    public function confirm(): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('createNewButtonInUDW'))->click();
+    }
+
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('filterInput', '.ibexa-content-menu-wrapper .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__input'),
-            new VisibleCSSLocator('filteredItem', '.ibexa-content-menu-wrapper .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__group-item:not([hidden]) .form-check-label'),
+            new VisibleCSSLocator('filterInput', '.ibexa-content-menu-wrapper .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__input, .c-udw-tab .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__input'),
+            new VisibleCSSLocator('filteredItem', '.ibexa-content-menu-wrapper .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__group-item:not([hidden]) .form-check-label, .c-udw-tab .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__group-item:not([hidden]) .form-check-label'),
             new VisibleCSSLocator('header', '.ibexa-content-menu-wrapper .ibexa-extra-actions--create .ibexa-extra-actions__header h2'),
             new VisibleCSSLocator('languageDropdown', '.ibexa-content-menu-wrapper .ibexa-dropdown__selection-info'),
+            new VisibleCSSLocator('createNewButtonInUDW', '.c-content-create__confirm-button'),
         ];
     }
 }
