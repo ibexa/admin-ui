@@ -22,7 +22,6 @@ use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Button;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
