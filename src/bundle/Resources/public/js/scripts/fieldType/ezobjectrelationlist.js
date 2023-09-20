@@ -79,10 +79,9 @@
                 const itemNode = itemNodes[itemNodes.length - 1];
                 const contentId = escapeHTML(item.ContentInfo.Content._id);
                 const locationId = item.id;
-                const currentVersionNo = item.ContentInfo.Content.CurrentVersion.Version.VersionInfo.versionNo;
-                const languageCodes = item.ContentInfo.Content.CurrentVersion.Version.VersionInfo.VersionTranslationInfo.Language.map(
-                    (language) => language.languageCode,
-                );
+                const { VersionInfo } = item.ContentInfo.Content.CurrentVersion.Version;
+                const currentVersionNo = VersionInfo.versionNo;
+                const languageCodes = VersionInfo.VersionTranslationInfo.Language.map((language) => language.languageCode);
                 const itemActionsMenuContainer = relationsContainer.querySelector('.ibexa-embedded-item-actions__menu');
                 const itemActionsTriggerElement = relationsContainer.querySelector('.ibexa-embedded-item-actions__menu-trigger-btn');
                 const itemNodeNameCell = itemNode.querySelector('.ibexa-relations__item-name');
