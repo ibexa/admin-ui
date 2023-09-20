@@ -27,6 +27,8 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
 {
     /* Main Menu / Dashboard */
     public const ITEM_DASHBOARD = 'main__dashboard';
+
+    /* Main Menu / Drafts */
     public const ITEM_DRAFTS = 'main__drafts';
 
     /* Main Menu / Content */
