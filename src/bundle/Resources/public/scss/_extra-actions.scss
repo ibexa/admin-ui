@@ -82,6 +82,13 @@
         }
     }
 
+    &__confirm-wrapper {
+        margin-top: calculateRem(4px);
+        padding: calculateRem(16px) calculateRem(32px);
+        display: flex;
+        gap: calculateRem(16px);
+    }
+
     &--edit-user,
     &--edit {
         .form-check {
@@ -126,7 +133,7 @@
     &--create {
         .ibexa-extra-actions {
             &__content {
-                max-height: calc(100% - #{calculateRem(89px)});
+                max-height: calc(100% - #{calculateRem(157px)});
                 overflow: auto;
             }
 

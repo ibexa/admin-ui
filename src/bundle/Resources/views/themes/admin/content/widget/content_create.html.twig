@@ -1,27 +1,30 @@
 {% trans_default_domain 'locationview' %}
 
 {% set data_actions = data_actions|default('create') %}
+{% set action = action is defined ? action : path('ibexa.content.create') %}
 
-<div class="ibexa-extra-actions ibexa-extra-actions--create ibexa-extra-actions--hidden" data-actions="{{ data_actions }}">
-    <div class="ibexa-extra-actions__header">
-        <h2>{{ 'content.create.create_content'|trans|desc('Create content') }}</h2>
-        <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text ibexa-btn--close">
-            <svg class="ibexa-icon ibexa-icon--small">
-                <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
-            </svg>
-        </button>
-        <div class="ibexa-extra-actions__header-subtitle">
-            {% if content is defined %}
-                {{ 'content.create.editing_details'|trans({ '%content_name%': ibexa_content_name(content) })|desc('under %content_name%') }}
-            {% endif %}
+{{ form_start(form, {
+    action,
+    attr: { autocomplete: 'off' }
+}) }}
+    <div class="ibexa-extra-actions ibexa-extra-actions--create ibexa-extra-actions--hidden" data-actions="{{ data_actions }}">
+        <div class="ibexa-extra-actions__header">
+            <h2>{{ 'content.create.create_content'|trans|desc('Create content') }}</h2>
+            <button
+                type="button"
+                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text ibexa-btn--close"
+            >
+                <svg class="ibexa-icon ibexa-icon--small">
+                    <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
+                </svg>
+            </button>
+            <div class="ibexa-extra-actions__header-subtitle">
+                {% if content is defined %}
+                    {{ 'content.create.editing_details'|trans({ '%content_name%': ibexa_content_name(content) })|desc('under %content_name%') }}
+                {% endif %}
+            </div>
         </div>
-    </div>
-    <div class="ibexa-extra-actions__content ibexa-extra-actions__content--create">
-        {% set action = action is defined ? action : path('ibexa.content.create') %}
-        {{ form_start(form, {
-            'action': action,
-            'attr': { 'autocomplete': 'off' }
-        }) }}
+        <div class="ibexa-extra-actions__content ibexa-extra-actions__content--create">
             <label class="ibexa-label ibexa-extra-actions__section-header">{{ 'content.create.select_language'|trans|desc('Select a language:') }}</label>
             <div class="ibexa-extra-actions__section-content">
                 {% if form.language.vars.choices|length == 1 %}
@@ -49,7 +52,17 @@
                     </div>
                 </div>
             </div>
-            {{ form_widget(form.create, {'attr': {'hidden': 'hidden'}}) }}
-        {{ form_end(form) }}
+        </div>
+        <div class="ibexa-extra-actions__confirm-wrapper">
+            {{ form_widget(form.create, {
+                attr: {
+                    disabled: true,
+                    class: 'ibexa-btn ibexa-btn--primary ibexa-extra-actions__btn ibexa-extra-actions__btn--confirm'
+                }
+            }) }}
+            <button class="btn ibexa-btn ibexa-btn--secondary ibexa-extra-actions__btn ibexa-extra-actions__btn--cancel" type="button">
+                {{ 'content.create.cancel_btn.label'|trans|desc('Cancel') }}
+            </button>
+        </div>
     </div>
-</div>
+{{ form_end(form) }}

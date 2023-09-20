@@ -97,9 +97,14 @@
         <note>key: copy.title</note>
       </trans-unit>
       <trans-unit id="a7d7c06aff739180272f50e51f2100e7b5d9cfbf" resname="create_content.create">
+        <source>Create</source>
+        <target state="new">Create</target>
+        <note>key: create_content.create</note>
+      </trans-unit>
+      <trans-unit id="5d20065105a998b69655e3e67b028b61590d42af" resname="create_content.create_new">
         <source>Create new</source>
         <target state="new">Create new</target>
-        <note>key: create_content.create</note>
+        <note>key: create_content.create_new</note>
       </trans-unit>
       <trans-unit id="23fa7d97ea65916659849b0ed9b1e148df62fd08" resname="create_content.label">
         <source>Create new content</source>

@@ -16,6 +16,11 @@
         <target state="new">Content Type</target>
         <note>key: bulk_action.failed.modal.content_type_name</note>
       </trans-unit>
+      <trans-unit id="fdc7d270cec1081be5a6888bf565ff03eebc6ce9" resname="content.create.cancel_btn.label">
+        <source>Cancel</source>
+        <target state="new">Cancel</target>
+        <note>key: content.create.cancel_btn.label</note>
+      </trans-unit>
       <trans-unit id="61c309bd68782746767f9165eb574f111b50a727" resname="content.create.create_content">
         <source>Create content</source>
         <target state="new">Create content</target>
