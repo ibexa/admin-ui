@@ -251,6 +251,11 @@
         <target state="new">Dashboard</target>
         <note>key: main__dashboard</note>
       </trans-unit>
+      <trans-unit id="cfbeced5482be25b000de224837882379173d9a4" resname="main__drafts">
+        <source>Drafts</source>
+        <target state="new">Drafts</target>
+        <note>key: main__drafts</note>
+      </trans-unit>
       <trans-unit id="5376b08940439deec5b89c3df17b09ab8f4ed252" resname="main__trash">
         <source>Trash</source>
         <target state="new">Trash</target>

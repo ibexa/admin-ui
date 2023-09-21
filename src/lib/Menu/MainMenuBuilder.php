@@ -28,6 +28,9 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     /* Main Menu / Dashboard */
     public const ITEM_DASHBOARD = 'main__dashboard';
 
+    /* Main Menu / Drafts */
+    public const ITEM_DRAFTS = 'main__drafts';
+
     /* Main Menu / Content */
     public const ITEM_CONTENT = 'main__content';
     public const ITEM_CONTENT_GROUP_SETTINGS = 'main__content__group_settings';
@@ -200,6 +203,18 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             ],
         ]);
 
+        $contentMenu->addChild(self::ITEM_DRAFTS, [
+            'route' => 'ibexa.content_draft.list',
+            'attributes' => [
+                'data-tooltip-placement' => 'right',
+                'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
+            ],
+            'extras' => [
+                'icon' => 'dashboard-clean',
+                'orderNumber' => 45,
+            ],
+        ]);
+
         $adminMenu = $menu->addChild(self::ITEM_ADMIN, [
             'attributes' => [
                 'data-tooltip-placement' => 'right',
@@ -368,6 +383,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     {
         return [
             (new Message(self::ITEM_DASHBOARD, 'ibexa_menu'))->setDesc('Dashboard'),
+            (new Message(self::ITEM_DRAFTS, 'ibexa_menu'))->setDesc('Drafts'),
             (new Message(self::ITEM_BOOKMARKS, 'ibexa_menu'))->setDesc('Bookmarks'),
             (new Message(self::ITEM_TRASH, 'ibexa_menu'))->setDesc('Trash'),
             (new Message(self::ITEM_CONTENT, 'ibexa_menu'))->setDesc('Content'),
