@@ -29,7 +29,7 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Helper\TranslationHelper;
 use Ibexa\Core\Repository\Repository;
-use Ibexa\Core\Repository\UserService;
+use Ibexa\User\UserSetting\UserSettingService;
 
 /**
  * @internal
@@ -62,7 +62,7 @@ final class NodeFactory
 
     private SiteaccessResolverInterface  $siteaccessResolver;
 
-    private UserService $userService;
+    private UserSettingService $userSettingService;
 
     /** @var int */
     private $maxLocationIdsInSingleAggregation;
@@ -76,7 +76,7 @@ final class NodeFactory
         PermissionResolver $permissionResolver,
         Repository $repository,
         SiteaccessResolverInterface $siteaccessResolver,
-        UserService $userService,
+        UserSettingService $userSettingService,
         int $maxLocationIdsInSingleAggregation
     ) {
         $this->bookmarkService = $bookmarkService;
@@ -87,7 +87,7 @@ final class NodeFactory
         $this->permissionResolver = $permissionResolver;
         $this->repository = $repository;
         $this->siteaccessResolver = $siteaccessResolver;
-        $this->userService = $userService;
+        $this->userSettingService = $userSettingService;
         $this->maxLocationIdsInSingleAggregation = $maxLocationIdsInSingleAggregation;
     }
 
@@ -377,13 +377,8 @@ final class NodeFactory
             }
         }
 
-        $currentUser = $this->userService->loadUser(
-            $this->permissionResolver->getCurrentUserReference()->getUserId()
-        );
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Field $currentUserAccount */
-        $currentUserAccount = $currentUser->getField('user_account');
         /** @var string $currentUserLanguageCode */
-        $currentUserLanguageCode = $currentUserAccount->getLanguageCode();
+        $currentUserLanguageCode = $this->userSettingService->getUserSetting('language');
         $translations = in_array($currentUserLanguageCode, $versionInfo->languageCodes)
             ? array_unique(array_merge([$currentUserLanguageCode], $versionInfo->languageCodes))
             : $versionInfo->languageCodes;

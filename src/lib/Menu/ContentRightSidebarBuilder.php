@@ -27,7 +27,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
-use Ibexa\Core\Repository\UserService;
+use Ibexa\User\UserSetting\UserSettingService;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -76,7 +76,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
 
     private SiteaccessResolverInterface  $siteaccessResolver;
 
-    private UserService $userService;
+    private UserSettingService $userSettingService;
 
     private TranslatorInterface $translator;
 
@@ -91,7 +91,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         PermissionCheckerInterface $permissionChecker,
         LanguageService $languageService,
         SiteaccessResolverInterface $siteaccessResolver,
-        UserService $userService,
+        UserSettingService $userSettingService,
         TranslatorInterface $translator
     ) {
         parent::__construct($factory, $eventDispatcher);
@@ -104,7 +104,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         $this->permissionChecker = $permissionChecker;
         $this->languageService = $languageService;
         $this->siteaccessResolver = $siteaccessResolver;
-        $this->userService = $userService;
+        $this->userSettingService = $userSettingService;
         $this->translator = $translator;
     }
 
@@ -216,13 +216,8 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             ),
         ]);
 
-        $currentUser = $this->userService->loadUser(
-            $this->permissionResolver->getCurrentUserReference()->getUserId()
-        );
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Field $currentUserAccount */
-        $currentUserAccount = $currentUser->getField('user_account');
         /** @var string $currentUserLanguageCode */
-        $currentUserLanguageCode = $currentUserAccount->getLanguageCode();
+        $currentUserLanguageCode = $this->userSettingService->getUserSetting('language');
         $mainPreviewItemLanguageCode = in_array($currentUserLanguageCode, $translations)
             ? $currentUserLanguageCode
             : $content->contentInfo->mainLanguageCode;
@@ -556,25 +551,18 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
-     * @param array $options
+     * @param array<string, mixed> $options
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function getContentPreviewItem(
-        ?Location $location,
+        Location $location,
         Content $content,
         Language $language,
         array $options,
         string $idPostfix = ''
     ): ItemInterface {
-        if ($location === null) {
-            throw new \InvalidArgumentException('location cannot be null');
-        }
-
         $versionNo = $content->getVersionInfo()->versionNo;
 
         $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(

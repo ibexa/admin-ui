@@ -31,7 +31,7 @@ services:
 
     Ibexa\AdminUi\Menu\ContentRightSidebarBuilder:
         arguments:
-                $siteaccessResolver: '@Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver'
+            $siteaccessResolver: '@Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver'
         public: true
         lazy: true
         tags:
