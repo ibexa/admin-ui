@@ -38,7 +38,7 @@ Feature: Roles management
     And I set fields
       | label | value            |
       | Name  | Test Role edited |
-    And I perform the "Discard" action
+    And I perform the "Discard changes" action
     Then I should be on "Roles" page
     And there's a "Test Role" Role on Roles list
     And there's no "Test Role edited" Role on Roles list
@@ -151,7 +151,7 @@ Feature: Roles management
     And I open "Test Role edited" Role page in admin SiteAccess
     When I start creating a new Policy
     And I select policy "Content / Read"
-    And I perform the "Create" action
+    And I perform the "Save and close" action
     And success notification that "Now you can set Limitations for the Policy." appears
     And I select limitation for "Content Type"
       | option  |
