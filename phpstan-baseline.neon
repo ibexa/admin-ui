@@ -8176,11 +8176,6 @@ parameters:
 			path: src/lib/Menu/ContentRightSidebarBuilder.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Menu\\\\ContentRightSidebarBuilder\\:\\:getContentPreviewItem\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Menu/ContentRightSidebarBuilder.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Menu\\\\ContentTypeRightSidebarBuilder\\:\\:createStructure\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Menu/ContentTypeRightSidebarBuilder.php
