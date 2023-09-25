@@ -12,7 +12,6 @@
 
             &__tab {
                 height: calculateRem(40px);
-                padding: calculateRem(10px) calculateRem(24px);
                 border-radius: $ibexa-border-radius;
                 border: 0;
                 flex-basis: 100%;
@@ -55,13 +54,18 @@
             &__link {
                 text-overflow: ellipsis;
                 overflow: hidden;
-                display: inline-block;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
                 line-height: calculateRem(20px);
+                border-radius: $ibexa-border-radius;
+                width: 100%;
+                height: 100%;
 
                 &.nav-link,
                 &.nav-link.active {
                     margin: 0;
-                    padding: 0;
+                    padding: 0 calculateRem(24px);
                     border: 0;
                 }
             }
