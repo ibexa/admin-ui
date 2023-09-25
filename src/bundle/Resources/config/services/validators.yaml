@@ -7,10 +7,6 @@ services:
     Ibexa\AdminUi\Validator\Constraints\:
         resource: "../../../lib/Validator/Constraints"
 
-    Ibexa\AdminUi\Validator\Constraints\UserPasswordValidator:
-        tags:
-            - { name: validator.constraint_validator }
-
     Ibexa\AdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimitValidator:
         arguments:
             $configResolver: '@ibexa.config.resolver'
