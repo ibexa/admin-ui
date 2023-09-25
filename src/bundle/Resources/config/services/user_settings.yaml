@@ -25,3 +25,8 @@ services:
         tags:
             - { name: ibexa.user.setting.value, identifier: in_context_translation, group: location, priority: 60 }
             - { name: ibexa.user.setting.mapper.form, identifier: in_context_translation }
+
+    Ibexa\AdminUi\UserSetting\ContentLanguage:
+        tags:
+            - { name: ibexa.user.setting.value, identifier: content_language, group: content_edit, priority: 10 }
+            - { name: ibexa.user.setting.mapper.form, identifier: content_language }
