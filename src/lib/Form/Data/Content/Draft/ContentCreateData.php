@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Content\Draft;
 
+use Ibexa\AdminUi\Validator\Constraints as AdminUiAssert;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
@@ -20,7 +21,11 @@ class ContentCreateData
     /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null */
     protected $contentType;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
+    /**
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     *
+     * @AdminUiAssert\LocationIsContainer()
+     */
     protected $parentLocation;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
