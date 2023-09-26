@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../../../common/icon/icon';
+import UserName from '../../../common/user-name/user.name';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
 const { ibexa, Translator } = window;
@@ -268,11 +269,25 @@ export default class TableViewItemComponent extends PureComponent {
     }
 
     renderCreatorCell() {
-        return <div className="c-table-view-item__text-wrapper">{this.getName(this.props.item.content._info.owner)}</div>;
+        return (
+            <div className="c-table-view-item__text-wrapper">
+                <UserName
+                    name={this.getName(this.props.item.content._info.owner)}
+                    thumbnail={this.props.item.content._info.owner?.thumbnail}
+                />
+            </div>
+        );
     }
 
     renderContributorCell() {
-        return <div className="c-table-view-item__text-wrapper">{this.getName(this.props.item.content._info.currentVersion.creator)}</div>;
+        return (
+            <div className="c-table-view-item__text-wrapper">
+                <UserName
+                    name={this.getName(this.props.item.content._info.currentVersion.creator)}
+                    thumbnail={this.props.item.content._info.currentVersion.creator?.thumbnail}
+                />
+            </div>
+        );
     }
 
     renderSectionCell() {

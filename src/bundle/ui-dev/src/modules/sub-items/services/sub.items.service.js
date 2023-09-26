@@ -68,11 +68,21 @@ export const loadLocation = ({ token, siteaccess }, { locationId = 2, limit = 10
                                     mainLanguageCode
                                     owner {
                                         name
+                                        thumbnail {
+                                            uri
+                                            alternativeText
+                                            mimeType
+                                        }
                                     }
                                     currentVersion {
                                         versionNumber
                                         creator {
                                             name
+                                            thumbnail {
+                                                uri
+                                                alternativeText
+                                                mimeType
+                                            }
                                         }
                                         languageCodes
                                     }
