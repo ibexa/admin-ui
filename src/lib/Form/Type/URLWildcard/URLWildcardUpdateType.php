@@ -12,12 +12,15 @@ use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardUpdateData;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class URLWildcardUpdateType extends AbstractType
 {
+    public const BTN_SAVE = 'save';
+
     /**
      * {@inheritdoc}
      */
@@ -33,6 +36,12 @@ final class URLWildcardUpdateType extends AbstractType
             ->add('forward', CheckboxType::class, [
                 'label' => false,
                 'required' => false,
+            ])
+            ->add(self::BTN_SAVE, SubmitType::class, [
+                'label' => /** @Desc("Save") */ 'url_wildcard.save',
+            ])
+            ->add('save_and_close', SubmitType::class, [
+                'label' => /** @Desc("Save and close") */ 'url_wildcard.save_and_close',
             ]);
     }
 

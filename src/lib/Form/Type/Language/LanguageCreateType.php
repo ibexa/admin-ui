@@ -16,6 +16,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LanguageCreateType extends AbstractType
 {
+    public const BTN_SAVE = 'save';
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -38,9 +40,14 @@ class LanguageCreateType extends AbstractType
                 ]
             )
             ->add(
-                'save',
+                self::BTN_SAVE,
                 SubmitType::class,
-                ['label' => /** @Desc("Create") */ 'ezplatform.language.create.save']
+                ['label' => /** @Desc("Save") */ 'language.create.save']
+            )
+            ->add(
+                'save_and_close',
+                SubmitType::class,
+                ['label' => /** @Desc("Save and close") */ 'language.create.save_and_close']
             );
     }
 

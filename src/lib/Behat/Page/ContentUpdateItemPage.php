@@ -13,7 +13,6 @@ use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent;
 use Ibexa\AdminUi\Behat\Component\Notification;
 use Ibexa\Behat\API\Facade\ContentFacade;
-use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementHasTextCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextFragmentCriterion;
@@ -94,13 +93,6 @@ class ContentUpdateItemPage extends Page
         $this->getField($label, $fieldPosition)->setValue($value);
     }
 
-    public function close(): void
-    {
-        $this->getHTMLPage()->setTimeout(3)
-            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('closeButton')));
-        $this->getHTMLPage()->find($this->getLocator('closeButton'))->click();
-    }
-
     public function verifyValidationMessage(string $fieldName, string $expectedMessage): void
     {
         $this->getField($fieldName)->verifyValidationMessage($expectedMessage);
@@ -111,7 +103,6 @@ class ContentUpdateItemPage extends Page
         return [
             new VisibleCSSLocator('pageTitle', '.ibexa-edit-header__title'),
             new VisibleCSSLocator('formElement', 'form.ibexa-form, .ibexa-edit-content'),
-            new VisibleCSSLocator('closeButton', '.ibexa-anchor-navigation-menu__close'),
             new VisibleCSSLocator('nthField', 'div.ibexa-field-edit:nth-of-type(%s)'),
             new VisibleCSSLocator('nthFieldWithSection', '[data-id="%s"] div.ibexa-field-edit:nth-of-type(%s)'),
             new VisibleCSSLocator('fieldGroupNthField', '[data-id="%s"] div.ibexa-field-edit:nth-of-type(%s)'),

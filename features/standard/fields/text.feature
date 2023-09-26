@@ -20,7 +20,7 @@ Feature: Content fields setting and editing
         | label    | <label1>    | <label2> | <label3> |
         | Field    | <value1>    | <value2> | <value3> |
         | Name     | <fieldName> |          |          |
-      And I click on the edit action bar button "Publish"
+      And I perform the "Publish" action
     Then success notification that "Content published." appears
       And I should be on Content view Page for "TextFieldsContainer/<contentItemName>"
       And content attributes equal
@@ -39,11 +39,11 @@ Feature: Content fields setting and editing
   Scenario Outline: Edit content item with given field
     Given I am logged as admin
       And I'm on Content view Page for "TextFieldsContainer/<oldContentItemName>"
-    When I click on the edit action bar button "Edit"
+    When I perform the "Edit" action
       And I set content fields
         | label    | <label1> | <label2> | <label3> |
         | Field    | <value1> | <value2> | <value3> |
-      And I click on the edit action bar button "Publish"
+      And I perform the "Publish" action
     Then success notification that "Content published." appears
       And I should be on Content view Page for "TextFieldsContainer/<newContentItemName>"
       And content attributes equal

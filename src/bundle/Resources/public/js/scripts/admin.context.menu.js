@@ -79,11 +79,7 @@
 
             return {
                 label: alternativeToggleLabel ?? mainBtnLabel,
-                onClick: () => clickRelatedBtn(relatedMainBtnId),
                 processAfterCreated: (itemElement) => {
-                    const itemBtn = itemElement.querySelector('.ibexa-multilevel-popup-menu__item-content');
-
-                    itemBtn.disabled = mainBtn.disabled;
                     addRelatedBtnIdToMenuItem(itemElement, relatedMainBtnId);
                 },
                 branch: {
@@ -94,6 +90,13 @@
                                 {
                                     label: mainBtnAlternativeLabel ?? mainBtnLabel,
                                     sublabel: mainBtnAlternativeSublabel,
+                                    onClick: () => clickRelatedBtn(relatedMainBtnId),
+                                    processAfterCreated: (itemElement) => {
+                                        const itemBtn = itemElement.querySelector('.ibexa-multilevel-popup-menu__item-content');
+
+                                        itemBtn.disabled = mainBtn.disabled;
+                                        addRelatedBtnIdToMenuItem(itemElement, relatedMainBtnId);
+                                    },
                                 },
                             ],
                         },

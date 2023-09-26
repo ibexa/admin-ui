@@ -10,23 +10,23 @@ Feature: Languages management
 
   @javascript
   Scenario: Changes can be discarded while creating new Language
-    When I click on the edit action bar button "Add language"
+    When I perform the "Add language" action
       And I set fields
         | label         | value   |
         | Name          | Deutsch |
         | Language code | de-DE   |
-      And I click on the edit action bar button "Cancel"
+      And I perform the "Discard" action
     Then I should be on "Languages" page
       And there's no "Deutsch" Language on Languages list
 
   @javascript
   Scenario: New Language can be added
-    When I click on the edit action bar button "Add language"
+    When I perform the "Add language" action
       And I set fields
         | label         | value   |
         | Name          | Deutsch |
         | Language code | de-DE   |
-      And I click on the edit action bar button "Add"
+      And I perform the "Save and close" action
     Then I should be on "Deutsch" Language page
       And Language has proper attributes
         | Name         | Language code   | Enabled |
@@ -34,12 +34,12 @@ Feature: Languages management
 
   @javascript
   Scenario: New Language with existing language code cannot be added
-    When I click on the edit action bar button "Add language"
+    When I perform the "Add language" action
       And I set fields
         | label         | value          |
         | Name          | Deutsch Second |
         | Language code | de-DE          |
-      And I click on the edit action bar button "Add"
+      And I perform the "Save and close" action
     Then error notification that "language with the specified language code already exists" appears
 
   @javascript
@@ -49,7 +49,7 @@ Feature: Languages management
       And I set fields
         | label | value          |
         | Name  | Edited Deutsch |
-      And I click on the edit action bar button "Discard changes"
+      And I perform the "Discard changes" action
     Then I should be on "Languages" page
       And there's a "Deutsch" Language on Languages list
       And there's no "Edited Deutsch" Language on Languages list
@@ -62,7 +62,7 @@ Feature: Languages management
         | label         | value          |
         | Name          | Edited Deutsch |
         | Enabled       | false          |
-      And I click on the edit action bar button "Save"
+      And I perform the "Save and close" action
     Then I should be on "Edited Deutsch" Language page
       And notification that "Language" "Deutsch" is updated appears
       And Language has proper attributes
@@ -79,7 +79,7 @@ Feature: Languages management
       And I set fields
         | label   | value |
         | Enabled | true  |
-      And I click on the edit action bar button "Save"
+      And I perform the "Save and close" action
     Then I should be on "Edited Deutsch" Language page
       And notification that "Language" "Edited Deutsch" is updated appears
       And Language has proper attributes

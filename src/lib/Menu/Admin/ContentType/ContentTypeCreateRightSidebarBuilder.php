@@ -19,6 +19,7 @@ class ContentTypeCreateRightSidebarBuilder extends AbstractContentTypeRightSideb
 {
     /* Menu items */
     public const ITEM__SAVE = 'content_type_create__sidebar_right__save';
+    public const ITEM__PUBLISH_AND_EDIT = 'content_type_create__sidebar_right__publish_and_edit';
     public const ITEM__CANCEL = 'content_type_create__sidebar_right__cancel';
 
     protected function getConfigureEventName(): string
@@ -32,14 +33,20 @@ class ContentTypeCreateRightSidebarBuilder extends AbstractContentTypeRightSideb
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__SAVE, 'ibexa_menu'))->setDesc('Create'),
-            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Cancel'),
+            (new Message(self::ITEM__SAVE, 'ibexa_menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__PUBLISH_AND_EDIT, 'ibexa_menu'))->setDesc('Save'),
+            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard'),
         ];
     }
 
     public function getItemSaveIdentifier(): string
     {
         return self::ITEM__SAVE;
+    }
+
+    public function getItemPublishAndEditIdentifier(): string
+    {
+        return self::ITEM__PUBLISH_AND_EDIT;
     }
 
     public function getItemCancelIdentifier(): string

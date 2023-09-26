@@ -8,7 +8,7 @@ Feature: Verify that an User allowed to change password can change his password
     And I switch to "My account settings" tab in User settings
     And I click on the change password button
     And I change password from "Passw0rd-42" to "Passw0rd-43"
-    And I click on the edit action bar button "Update"
+    And I perform the "Update" action
     Then success notification that "Your password has been successfully changed." appears
     And I should be on Dashboard page
 

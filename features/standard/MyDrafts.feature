@@ -22,5 +22,5 @@ Feature: My Drafts
       | Title       | TestMyDraftSavePublish |
       | Short title | TestMyDraftSavePublish |
       | Intro       | TestMyDraftIntro       |
-    And I click on the edit action bar button "Save"
+    And I perform the "Save" action from the "Save and close" group
     Then I should be on Content update page for "TestMyDraftSavePublish"

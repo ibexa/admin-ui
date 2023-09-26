@@ -16,6 +16,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LanguageUpdateType extends AbstractType
 {
+    public const BTN_SAVE = 'save';
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -38,9 +40,14 @@ class LanguageUpdateType extends AbstractType
                 ]
             )
             ->add(
-                'save',
+                self::BTN_SAVE,
                 SubmitType::class,
                 ['label' => /** @Desc("Save") */ 'ezplatform.language.update.save']
+            )
+            ->add(
+                'save_and_close',
+                SubmitType::class,
+                ['label' => /** @Desc("Save and close") */ 'language.update.save_and_close']
             );
     }
 

@@ -5,7 +5,11 @@
 {% trans_default_domain 'ibexa_role' %}
 
 {% block header_admin %}
-    {% set role_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.role_edit.sidebar_right', [], {'role': role}) %}
+    {% set role_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.role_edit.sidebar_right', [], {
+        role,
+        save_id: form.save.vars.id,
+        save_and_close_id: form.save_and_close.vars.id,
+    }) %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
         action_name: 'role.editing'|trans|desc('Editing'),
@@ -15,7 +19,7 @@
 {% endblock %}
 
 {% block form %}
-    {{ form_start(form, {'attr': {'class': 'update-section'}}) }}
+    {{ form_start(form, {'attr': {'class': 'update-role'}}) }}
         <section>
             <div class="card ibexa-card ibexa-card--light">
                 <div class="card-body ibexa-card__body ibexa-form-block">
@@ -23,6 +27,7 @@
                 </div>
             </div>
         </section>
-        {{ form_widget(form.save, { 'attr': { 'hidden': 'hidden' }}) }}
+        {{ form_widget(form.save, { attr: { hidden: 'hidden' }}) }}
+        {{ form_widget(form.save_and_close, { attr: { hidden: 'hidden' }}) }}
     {{ form_end(form) }}
 {% endblock %}

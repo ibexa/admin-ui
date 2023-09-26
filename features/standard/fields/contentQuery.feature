@@ -20,7 +20,7 @@ Feature: Content fields setting and editing
     And I set content fields
       | label    | <label1>    |
       | Name     | <fieldName> |
-    And I click on the edit action bar button "Publish"
+    And I perform the "Publish" action
     Then success notification that "Content published." appears
     And I should be on Content view Page for "ContentQueryFieldContainer/<fieldName>"
     And content attributes equal
@@ -34,11 +34,11 @@ Feature: Content fields setting and editing
   Scenario: Edit content item with Content Query
     Given I am logged as admin
     And I'm on Content view Page for "ContentQueryFieldContainer/Content query"
-    When I click on the edit action bar button "Edit"
+    When I perform the "Edit" action
     And I set content fields
       | label    | <label1>          |
       | Name     | New Content query |
-    And I click on the edit action bar button "Publish"
+    And I perform the "Publish" action
     Then success notification that "Content published." appears
     And I should be on Content view Page for "ContentQueryFieldContainer/New Content query"
     And content attributes equal

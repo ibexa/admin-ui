@@ -107,6 +107,12 @@
             label,
             subitems,
         }) }}
+
+        {% for item in item.children %}
+            {%- if item.extras.template is defined -%}
+                {% include item.extras.template with item.extras.template_parameters|default({}) %}
+            {%- endif -%}
+        {% endfor %}
     {% else %}
         {%- set default_classes = 'btn ibexa-btn' -%}
 

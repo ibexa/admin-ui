@@ -3,6 +3,8 @@
 {% block form_fields %}
     {{ parent() }}
     {{ form_widget(form.publish, {'attr': {'hidden': 'hidden', 'data-action': 'publish'}}) }}
+    {% if form.publishAndEdit is defined %}{{ form_widget(form.publishAndEdit, { attr: { hidden: 'hidden' }}) }}{% endif %}
     {% if form.saveDraft is defined %}{{ form_widget(form.saveDraft, {'attr': {'hidden': 'hidden'}}) }}{% endif %}
+    {% if form.saveDraftAndClose is defined %}{{ form_widget(form.saveDraftAndClose, { attr: { hidden: 'hidden' }}) }}{% endif %}
     {% if form.cancel is defined %}{{ form_widget(form.cancel, {'attr': {'hidden': 'hidden'}}) }}{% endif %}
 {% endblock %}

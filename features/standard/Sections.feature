@@ -15,7 +15,7 @@ Feature: Sections management
         | label      | value                  |
         | Name       | Test Section           |
         | Identifier | TestSectionIdentifier  |
-      And I click on the edit action bar button "Discard changes"
+      And I perform the "Discard" action
     Then I should be on "Sections" page
       And there's no "Test Section" on Sections list
 
@@ -27,7 +27,7 @@ Feature: Sections management
         | label      | value                  |
         | Name       | Test Section           |
         | Identifier | TestSectionIdentifier  |
-      And I click on the edit action bar button "Create"
+      And I perform the "Save and close" action
     Then I should be on "Test Section" Section page
       And Content items list in is empty for Section
       And Section has proper attributes
@@ -71,7 +71,7 @@ Feature: Sections management
       And I set fields
         | label | value               |
         | Name  | Test Section edited |
-      And I click on the edit action bar button "Discard changes"
+      And I perform the "Discard changes" action
     Then I should be on "Sections" page
       And there's a "Test Section" on Sections list
       And there's no "Test Section edited" on Sections list
@@ -84,7 +84,7 @@ Feature: Sections management
       And I set fields
         | label | value               |
         | Name  | Test Section edited |
-      And I click on the edit action bar button "Save"
+      And I perform the "Save and close" action
     Then I should be on "Test Section edited" Section page
       And notification that "Section" "Test Section edited" is updated appears
 
@@ -95,7 +95,7 @@ Feature: Sections management
       And I set fields
         | label | value                |
         | Name  | Test Section edited2 |
-      And I click on the edit action bar button "Discard changes"
+      And I perform the "Discard changes" action
     Then I should be on "Sections" page
       And there's a "Test Section edited" on Sections list
       And there's no "Test Section edited2" on Sections list
@@ -107,7 +107,7 @@ Feature: Sections management
       And I set fields
         | label | value                |
         | Name  | Test Section edited2 |
-      And I click on the edit action bar button "Save"
+      And I perform the "Save and close" action
     Then I should be on "Test Section edited2" Section page
       And notification that "Section" "Test Section edited2" is updated appears
 
@@ -147,7 +147,7 @@ Feature: Sections management
         | label      | value                  |
         | Name       | Test Section           |
         | Identifier | TestSectionIdentifier2 |
-      And I click on the edit action bar button "Create"
+      And I perform the "Save and close" action
     And notification that "Section" "Test Section" is created appears
     When I delete the section
     Then notification that "Section" "Test Section" is removed appears

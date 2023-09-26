@@ -4,9 +4,6 @@
 {% form_theme form _self '@ibexadesign/ui/form_fields.html.twig'  %}
 
 {% set anchor_params = {
-    close_href: path('ibexa.content_type_group.view', {
-        contentTypeGroupId: content_type_group.id
-    }),
     items: [
         'content_type.view.edit.global_properties'|trans|desc('Global properties'),
         'content_type.view.edit.content_field_definitions'|trans|desc('Field definitions')
