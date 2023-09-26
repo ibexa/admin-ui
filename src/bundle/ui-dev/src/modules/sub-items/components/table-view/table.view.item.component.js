@@ -269,23 +269,29 @@ export default class TableViewItemComponent extends PureComponent {
     }
 
     renderCreatorCell() {
+        const { owner } = this.props.item.content._info;
+
+        if (!owner) {
+            return null;
+        }
+
         return (
             <div className="c-table-view-item__text-wrapper">
-                <UserName
-                    name={this.getName(this.props.item.content._info.owner)}
-                    thumbnail={this.props.item.content._info.owner?.thumbnail}
-                />
+                <UserName name={this.getName(this.props.item.content._info.owner)} thumbnail={owner.thumbnail} />
             </div>
         );
     }
 
     renderContributorCell() {
+        const { creator } = this.props.item.content._info.currentVersion;
+
+        if (!creator) {
+            return null;
+        }
+
         return (
             <div className="c-table-view-item__text-wrapper">
-                <UserName
-                    name={this.getName(this.props.item.content._info.currentVersion.creator)}
-                    thumbnail={this.props.item.content._info.currentVersion.creator?.thumbnail}
-                />
+                <UserName name={this.getName(creator)} thumbnail={creator.thumbnail} />
             </div>
         );
     }

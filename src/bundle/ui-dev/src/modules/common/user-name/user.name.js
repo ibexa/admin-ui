@@ -18,16 +18,11 @@ const UserName = ({ name, thumbnail }) => {
 };
 
 UserName.propTypes = {
-    name: PropTypes.string,
+    name: PropTypes.string.isRequired,
     thumbnail: PropTypes.shape({
         mimeType: PropTypes.string.isRequired,
         uri: PropTypes.string.isRequired,
-    }),
-};
-
-UserName.defaultProps = {
-    name: '',
-    thumbnail: {},
+    }).isRequired,
 };
 
 export default UserName;
