@@ -32,7 +32,7 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     /* Menu items */
     public const ITEM__PUBLISH = 'content_create__sidebar_right__publish';
     public const ITEM__SAVE_DRAFT = 'content_create__sidebar_right__save_draft';
-    public const ITEM__SAVE_DRAFT_AND_CLOSE = 'content_edit__sidebar_right__save_draft_and_close';
+    public const ITEM__SAVE_DRAFT_AND_CLOSE = 'content_create__sidebar_right__save_draft_and_close';
     public const ITEM__PREVIEW = 'content_create__sidebar_right__preview';
     public const ITEM__CANCEL = 'content_create__sidebar_right__cancel';
 

@@ -76,6 +76,11 @@
         <target state="new">Save</target>
         <note>key: content_create__sidebar_right__save_draft</note>
       </trans-unit>
+      <trans-unit id="e11bb2abc4cb3e70d639cc9ea8d934c240e4e13a" resname="content_create__sidebar_right__save_draft_and_close">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: content_create__sidebar_right__save_draft_and_close</note>
+      </trans-unit>
       <trans-unit id="89b456c2ec176d6a0878d0992424a2a41d89b3ba" resname="content_edit__anchor_menu__content">
         <source>Content</source>
         <target state="new">Content</target>
