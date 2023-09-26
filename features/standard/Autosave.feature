@@ -22,7 +22,6 @@ Feature: Content Items creation
       | Title       | Test Article Autosave draft |
       | Short title | Test Article Autosave draft |
     And I wait for Content Item to be autosaved
-    And I click on the close button
     And I open the "Dashboard" page in admin SiteAccess
     Then there's draft "Test Article Autosave draft" on Dashboard list
 
@@ -39,7 +38,7 @@ Feature: Content Items creation
     And I'm on Content view Page for root
     And I go to user settings
     And I disable autosave
-    And I click on the edit action bar button "Save"
+    And I perform the "Save" action
     And I'm on Content view Page for root
     When I start creating a new content "Article"
     And I set content fields
@@ -47,6 +46,20 @@ Feature: Content Items creation
       | Title       | Test Article Autosave Off draft |
       | Short title | Test Article Autosave Off draft |
     And I check if "Autosave is off" notification is displayed
-    And I click on the close button
     And I open the "Dashboard" page in admin SiteAccess
     Then there's no draft "Test Article Autosave Off draft" on Dashboard list
+
+  @javascript
+  Scenario: Content item can be created when autosave is off
+    Given I open Login page in admin SiteAccess
+    And I log in as "AutosaveDisabledTestUser" with password "Passw0rd-42"
+    And I'm on Content view Page for root
+    When I start creating a new content "Article"
+    And I set content fields
+      | label       | value              |
+      | Title       | TestAutosaveCreate |
+      | Short title | TestAutosaveCreate |
+      | Intro       | TestAutosaveCreate |
+    And I perform the "Publish" action
+    Then success notification that "Content published." appears
+    And I should be on Content view Page for "TestAutosaveCreate"

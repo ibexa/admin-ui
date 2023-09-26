@@ -5,7 +5,7 @@
     {% if item.displayed %}
         {% set classes = [
             'ibexa-popup-menu__item',
-            (renderItemAsGroup|default() ? 'ibexa-popup-menu__item--group-name')
+            (renderItemAsGroup|default(false) ? 'ibexa-main-menu-popup__group-item')
         ] %}
 
         {% set node_attributes = {
@@ -46,7 +46,7 @@
 {% endblock %}
 
 {% block popupSpanElement %}
-    <div class="ibexa-popup-menu__item-content ibexa-popup-menu__item-content--group-name">{{ block('label') }}</div>
+    <div class="ibexa-popup-menu__item-content ibexa-main-menu-popup__group-name">{{ block('label') }}</div>
 {% endblock %}
 
 {% block item %}
@@ -54,7 +54,7 @@
         {%- set classes = item.attribute('class') is not empty ? [item.attribute('class')] : [] %}
         {%- set classes = classes|merge(['ibexa-main-menu__item', 'ibexa-adaptive-items__item']) %}
 
-        {% if renderItemAsGroup|default() %}
+        {% if renderItemAsGroup|default(false) %}
             {%- set classes = classes|merge(['ibexa-main-menu__item--group-name']) -%}
         {% endif %}
 

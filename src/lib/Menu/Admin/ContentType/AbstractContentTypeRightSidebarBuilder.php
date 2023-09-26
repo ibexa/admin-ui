@@ -22,18 +22,33 @@ abstract class AbstractContentTypeRightSidebarBuilder extends AbstractBuilder
         $menu = $this->factory->createItem('root');
 
         $itemSaveIdentifier = $this->getItemSaveIdentifier();
+        $itemPublishAndEditIdentifier = $this->getItemPublishAndEditIdentifier();
         $itemCancelIdentifier = $this->getItemCancelIdentifier();
 
+        $publishItem = $this->createMenuItem(
+            $itemSaveIdentifier,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => sprintf('#%s', $contentTypeFormView['publishContentType']->vars['id']),
+                ],
+            ]
+        );
+
+        $publishAndEditItem = $this->createMenuItem(
+            $itemPublishAndEditIdentifier,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => sprintf('#%s', $contentTypeFormView['publishAndEditContentType']->vars['id']),
+                ],
+            ]
+        );
+
+        $publishItem->addChild($publishAndEditItem);
+
         $menu->setChildren([
-            $itemSaveIdentifier => $this->createMenuItem(
-                $itemSaveIdentifier,
-                [
-                    'attributes' => [
-                        'class' => 'ibexa-btn--trigger ibexa-btn--save-content-type',
-                        'data-click' => sprintf('#%s', $contentTypeFormView['publishContentType']->vars['id']),
-                    ],
-                ]
-            ),
+            $itemSaveIdentifier => $publishItem,
             $itemCancelIdentifier => $this->createMenuItem(
                 $itemCancelIdentifier,
                 [
@@ -49,6 +64,8 @@ abstract class AbstractContentTypeRightSidebarBuilder extends AbstractBuilder
     }
 
     abstract public function getItemSaveIdentifier(): string;
+
+    abstract public function getItemPublishAndEditIdentifier(): string;
 
     abstract public function getItemCancelIdentifier(): string;
 }

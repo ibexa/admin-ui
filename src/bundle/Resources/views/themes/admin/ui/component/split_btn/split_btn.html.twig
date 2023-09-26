@@ -1,0 +1,64 @@
+{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+
+{% set attr = attr|default({})|merge({
+    class: ('ibexa-split-btn '
+        ~ ('ibexa-split-btn--' ~ type ~ ' ')
+        ~ attr.class|default(''))|trim,
+}) %}
+
+{% set popup_attr = popup_attr|default({}) %}
+
+{% set main_btn_attr = main_btn_attr|default({})|merge({
+    class: ('btn ibexa-btn ibexa-split-btn__main-btn '
+        ~ (type is defined and type is not null ? 'ibexa-btn--' ~ type ~ ' ')
+        ~ main_btn_attr.class|default(''))|trim,
+    type: add_to_cart_btn_attr.type|default('button'),
+}) %}
+
+{% set toggler_btn_attr = toggler_btn_attr|default({})|merge({
+    class: ('btn ibexa-btn ibexa-btn--no-text ibexa-split-btn__toggle-btn '
+        ~ (type is defined and type is not null ? 'ibexa-btn--' ~ type ~ ' ')
+        ~ toggler_btn_attr.class|default(''))|trim,
+    type: toggler_btn_attr.type|default('button'),
+}) %}
+
+{% set main_btn_element = main_btn_element|default('button') %}
+
+{% block component %}
+    <div {{ html.attributes(attr) }}>
+        {% block main_btn %}
+            <{{ main_btn_element }} {{ html.attributes(main_btn_attr) }}>
+                {% block main_btn_label %}
+                    {{ label }}
+                {% endblock %}
+            </{{ main_btn_element }}>
+        {% endblock %}
+
+        {% block split %}
+            <div class="ibexa-split-btn__split"></div>
+        {% endblock %}
+
+        {% block toggle_btn %}
+            <button {{ html.attributes(toggler_btn_attr) }}>
+                {% block toggle_btn_label %}
+                    <svg class="ibexa-icon ibexa-icon--small ibexa-split-btn__toggler-icon">
+                        <use xlink:href="{{ ibexa_icon_path('caret-down') }}"></use>
+                    </svg>
+                {% endblock %}
+            </button>
+        {% endblock %}
+
+        {% block popup %}
+            {% include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu.html.twig' with {
+                is_custom_init: true,
+                attr: popup_attr,
+                groups: [
+                    {
+                        id: 'default',
+                        items: subitems,
+                    },
+                ],
+            } %}
+        {% endblock %}
+    </div>
+{% endblock %}

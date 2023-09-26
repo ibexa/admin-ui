@@ -14,7 +14,7 @@ Scenario: Content moving can be cancelled
     | ContentManagement  | ContentManagement   | root              | eng-GB   |
     | FolderToCancelMove | FolderToCancelMove  | ContentManagement | eng-GB   |
   And I'm on Content view Page for "ContentManagement/FolderToCancelMove"
-  When I click on the edit action bar button "Move"
+  When I perform the "Move" action
     And I select content "Media" through UDW
     And I close the UDW window
   Then I should be on Content view Page for "ContentManagement/FolderToCancelMove"
@@ -26,7 +26,7 @@ Scenario: Content can be moved
     | ContentManagement  | ContentManagement | root              | eng-GB   |
     | FolderToMove       | FolderToMove      | ContentManagement | eng-GB   |
   And I'm on Content view Page for "ContentManagement/FolderToMove"
-  When I click on the edit action bar button "Move"
+  When I perform the "Move" action
     And I select content "Media/Files" through UDW
     And I confirm the selection in UDW
   Then success notification that "'FolderToMove' moved to 'Files'" appears
@@ -41,7 +41,7 @@ Scenario: Content copying can be cancelled
     | ContentManagement  | ContentManagement  | root              | eng-GB   |
     | FolderToCopyCancel | FolderToCopyCancel | ContentManagement | eng-GB   |
   And I'm on Content view Page for "ContentManagement/FolderToCopyCancel"
-  When I click on the edit action bar button "Copy"
+  When I perform the "Copy" action
     And I select content "Media" through UDW
     And I close the UDW window
   Then I should be on Content view Page for "ContentManagement/FolderToCopyCancel"
@@ -53,7 +53,7 @@ Scenario: Content can be copied
     | ContentManagement  | ContentManagement  | root              | eng-GB   |
     | FolderToCopy       | FolderToCopy       | ContentManagement | eng-GB   |
   And I'm on Content view Page for "ContentManagement/FolderToCopy"
-  When I click on the edit action bar button "Copy"
+  When I perform the "Copy" action
   And I select content "Media/Files" through UDW
     And I confirm the selection in UDW
   Then success notification that "'FolderToCopy' copied to 'Files'" appears
@@ -68,7 +68,7 @@ Scenario: Content can be copied
       | ContentManagement         | ContentManagement         | root              | eng-GB   |
       | FolderToSubtreeCopyCancel | FolderToSubtreeCopyCancel | ContentManagement | eng-GB   |
     And I'm on Content view Page for "ContentManagement/FolderToSubtreeCopyCancel"
-    When I click on the edit action bar button "Copy Subtree"
+    When I perform the "Copy Subtree" action
     And I select content "Media" through UDW
     And I close the UDW window
     Then I should be on Content view Page for "ContentManagement/FolderToSubtreeCopyCancel"
@@ -80,7 +80,7 @@ Scenario: Content can be copied
       | ContentManagement         | ContentManagement         | root              | eng-GB   |
       | FolderToSubtreeCopy | FolderToSubtreeCopy | ContentManagement | eng-GB   |
     And I'm on Content view Page for "ContentManagement/FolderToSubtreeCopy"
-    When I click on the edit action bar button "Copy Subtree"
+    When I perform the "Copy Subtree" action
     And I select content "Media" through UDW
     And I confirm the selection in UDW
     Then success notification that "Subtree 'FolderToSubtreeCopy' copied to Location 'Media'" appears

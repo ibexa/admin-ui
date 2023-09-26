@@ -1,0 +1,52 @@
+.ibexa-split-btn {
+    display: flex;
+
+    &__main-btn,
+    &__toggle-btn {
+        &:hover {
+            z-index: 1;
+        }
+    }
+
+    &__main-btn {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    &__split {
+        display: none;
+        width: calculateRem(0.5px);
+    }
+
+    &__toggle-btn {
+        margin-left: calculateRem(-1px);
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+
+        .ibexa-icon {
+            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+        }
+
+        &--subitems-opened {
+            .ibexa-icon {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    &--primary {
+        background-image: $ibexa-gradient-danger-primary;
+        border-radius: $ibexa-border-radius;
+
+        .ibexa-btn.ibexa-btn--primary {
+            background-image: none;
+        }
+
+        .ibexa-split-btn {
+            &__split {
+                display: block;
+                background: $ibexa-color-white;
+            }
+        }
+    }
+}

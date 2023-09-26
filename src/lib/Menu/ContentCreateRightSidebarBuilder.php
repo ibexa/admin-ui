@@ -32,6 +32,7 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     /* Menu items */
     public const ITEM__PUBLISH = 'content_create__sidebar_right__publish';
     public const ITEM__SAVE_DRAFT = 'content_create__sidebar_right__save_draft';
+    public const ITEM__SAVE_DRAFT_AND_CLOSE = 'content_create__sidebar_right__save_draft_and_close';
     public const ITEM__PREVIEW = 'content_create__sidebar_right__preview';
     public const ITEM__CANCEL = 'content_create__sidebar_right__cancel';
 
@@ -108,9 +109,13 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
             'class' => self::BTN_TRIGGER_CLASS,
             'data-click' => '#ezplatform_content_forms_content_edit_publish',
         ];
-        $createAttributes = [
+        $saveDraftAttributes = [
             'class' => self::BTN_TRIGGER_CLASS,
             'data-click' => '#ezplatform_content_forms_content_edit_saveDraft',
+        ];
+        $saveDraftAndCloseAttributes = [
+            'class' => self::BTN_TRIGGER_CLASS,
+            'data-click' => '#ezplatform_content_forms_content_edit_saveDraftAndClose',
         ];
         $previewAttributes = [
             'class' => self::BTN_TRIGGER_CLASS,
@@ -126,17 +131,6 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
                         : array_merge($publishAttributes, self::BTN_DISABLED_ATTR),
                     'extras' => [
                         'orderNumber' => 10,
-                    ],
-                ]
-            ),
-            self::ITEM__SAVE_DRAFT => $this->createMenuItem(
-                self::ITEM__SAVE_DRAFT,
-                [
-                    'attributes' => $canCreate
-                        ? $createAttributes
-                        : array_merge($createAttributes, self::BTN_DISABLED_ATTR),
-                    'extras' => [
-                        'orderNumber' => 50,
                     ],
                 ]
             ),
@@ -165,6 +159,32 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
             ),
         ]);
 
+        $saveDraftAndCloseItem = $this->createMenuItem(
+            self::ITEM__SAVE_DRAFT_AND_CLOSE,
+            [
+                'attributes' => $canCreate
+                    ? $saveDraftAndCloseAttributes
+                    : array_merge($saveDraftAndCloseAttributes, self::BTN_DISABLED_ATTR),
+                'extras' => [
+                    'orderNumber' => 80,
+                ],
+            ]
+        );
+
+        $saveDraftAndCloseItem->addChild(
+            self::ITEM__SAVE_DRAFT,
+            [
+                'attributes' => $canCreate
+                    ? $saveDraftAttributes
+                    : array_merge($saveDraftAttributes, self::BTN_DISABLED_ATTR),
+                'extras' => [
+                    'orderNumber' => 10,
+                ],
+            ]
+        );
+
+        $menu->addChild($saveDraftAndCloseItem);
+
         return $menu;
     }
 
@@ -176,6 +196,7 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
         return [
             (new Message(self::ITEM__PUBLISH, 'ibexa_menu'))->setDesc('Publish'),
             (new Message(self::ITEM__SAVE_DRAFT, 'ibexa_menu'))->setDesc('Save'),
+            (new Message(self::ITEM__SAVE_DRAFT_AND_CLOSE, 'ibexa_menu'))->setDesc('Save and close'),
             (new Message(self::ITEM__PREVIEW, 'ibexa_menu'))->setDesc('Preview'),
             (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Cancel'),
         ];

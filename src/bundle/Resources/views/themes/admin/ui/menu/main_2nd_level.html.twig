@@ -40,7 +40,7 @@
                                 </svg>
                             </button>
 
-                            <ul id="{{ child.name }}-popup" class="ibexa-popup-menu ibexa-popup-menu--info-neon ibexa-popup-menu--hidden">
+                            <ul id="{{ child.name }}-popup" class="ibexa-popup-menu ibexa-popup-menu--info-neon ibexa-popup-menu--hidden ibexa-main-menu-popup">
                                 {% for item in child.children %}
                                     {% set renderItemAsGroup = item.children|length > 0 %}
                                     {{ block('popupItem') }}

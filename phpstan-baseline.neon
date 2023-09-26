@@ -452,7 +452,7 @@ parameters:
 
 		-
 			message: "#^Access to protected property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\URL\\\\URL\\:\\:\\$id\\.$#"
-			count: 1
+			count: 2
 			path: src/bundle/Controller/LinkManagerController.php
 
 		-
@@ -776,13 +776,8 @@ parameters:
 			path: src/bundle/Controller/RoleAssignmentController.php
 
 		-
-			message: "#^Cannot access property \\$id on Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\User\\\\Role\\|null\\.$#"
-			count: 1
-			path: src/bundle/Controller/RoleController.php
-
-		-
 			message: "#^Cannot access property \\$identifier on Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\User\\\\Role\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/bundle/Controller/RoleController.php
 
 		-
@@ -802,11 +797,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$role of method Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\RoleService\\:\\:copyRole\\(\\) expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\User\\\\Role, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\User\\\\Role\\|null given\\.$#"
-			count: 1
-			path: src/bundle/Controller/RoleController.php
-
-		-
-			message: "#^Parameter \\#1 \\$role of method Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\RoleService\\:\\:createRoleDraft\\(\\) expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\User\\\\Role, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\User\\\\Role\\|null given\\.$#"
 			count: 1
 			path: src/bundle/Controller/RoleController.php
 
@@ -937,11 +927,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$destinationUrl of method Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\URLWildcardService\\:\\:create\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/bundle/Controller/URLWildcardController.php
-
-		-
-			message: "#^Parameter \\#2 \\$handler of method Ibexa\\\\AdminUi\\\\Form\\\\SubmitHandler\\:\\:handle\\(\\) expects callable\\(mixed\\)\\: \\(Symfony\\\\Component\\\\HttpFoundation\\\\Response\\|null\\), Closure\\(Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\URLWildcard\\\\URLWildcardData\\)\\: void given\\.$#"
 			count: 1
 			path: src/bundle/Controller/URLWildcardController.php
 
@@ -8012,7 +7997,7 @@ parameters:
 
 		-
 			message: "#^Cannot access property \\$vars on Symfony\\\\Component\\\\Form\\\\FormView\\|null\\.$#"
-			count: 2
+			count: 3
 			path: src/lib/Menu/Admin/ContentType/AbstractContentTypeRightSidebarBuilder.php
 
 		-
@@ -8057,11 +8042,6 @@ parameters:
 
 		-
 			message: "#^Property Ibexa\\\\AdminUi\\\\Menu\\\\Admin\\\\Language\\\\LanguageEditRightSidebarBuilder\\:\\:\\$translator is never read, only written\\.$#"
-			count: 1
-			path: src/lib/Menu/Admin/Language/LanguageEditRightSidebarBuilder.php
-
-		-
-			message: "#^Variable \\$language in PHPDoc tag @var does not match assigned variable \\$saveId\\.$#"
 			count: 1
 			path: src/lib/Menu/Admin/Language/LanguageEditRightSidebarBuilder.php
 
@@ -8117,11 +8097,6 @@ parameters:
 
 		-
 			message: "#^Variable \\$section in PHPDoc tag @var does not match assigned variable \\$role\\.$#"
-			count: 1
-			path: src/lib/Menu/Admin/Role/PolicyEditRightSidebarBuilder.php
-
-		-
-			message: "#^Variable \\$section in PHPDoc tag @var does not match assigned variable \\$saveId\\.$#"
 			count: 1
 			path: src/lib/Menu/Admin/Role/PolicyEditRightSidebarBuilder.php
 
@@ -8299,16 +8274,6 @@ parameters:
 			message: "#^Variable \\$location in PHPDoc tag @var does not match assigned variable \\$canDelete\\.$#"
 			count: 1
 			path: src/lib/Menu/TrashRightSidebarBuilder.php
-
-		-
-			message: "#^Access to protected property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\URL\\\\URL\\:\\:\\$id\\.$#"
-			count: 1
-			path: src/lib/Menu/URLEditRightSidebarBuilder.php
-
-		-
-			message: "#^Call to sprintf contains 0 placeholders, 1 value given\\.$#"
-			count: 1
-			path: src/lib/Menu/URLEditRightSidebarBuilder.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Menu\\\\URLEditRightSidebarBuilder\\:\\:createStructure\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"

@@ -31,15 +31,20 @@
         <target state="new">Create</target>
         <note>key: policy_create.save</note>
       </trans-unit>
-      <trans-unit id="c418f83922f6a4ea7412120a3b731a3e8665eead" resname="policy_create.update">
-        <source>Update</source>
-        <target state="new">Update</target>
-        <note>key: policy_create.update</note>
-      </trans-unit>
       <trans-unit id="05cc1fd4658faa760de6e98cb71e1054157e63a0" resname="policy_delete.delete">
         <source>Delete</source>
         <target state="new">Delete</target>
         <note>key: policy_delete.delete</note>
+      </trans-unit>
+      <trans-unit id="b2b5a96c3a932c7997eaa7a4c5957fa957f54ee0" resname="policy_update.save">
+        <source>Save</source>
+        <target state="new">Save</target>
+        <note>key: policy_update.save</note>
+      </trans-unit>
+      <trans-unit id="be9418d1359e59b1515cc0cfac3ea470aeebe67c" resname="policy_update.save_and_close">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: policy_update.save_and_close</note>
       </trans-unit>
       <trans-unit id="0eda0d605bd42eb8989a82e546d09ace8bc1b4d9" resname="role.policy.limitation.location.udw_button">
         <source>Select Locations</source>

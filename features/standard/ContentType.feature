@@ -15,7 +15,7 @@ Feature: Content types management
       | label      | value                     |
       | Name       | Test Content Type         |
       | Identifier | TestContentTypeIdentifier |
-      And I click on the edit action bar button "Cancel"
+      And I perform the "Discard" action
     Then I should be on Content Type group page for "Content" group
       And there's no "Test Content Type" on Content Types list
 
@@ -31,7 +31,7 @@ Feature: Content types management
       And I select "Content" category to Content Type definition
       And I add field "Country" to Content Type definition
       And I set "Name" to "Country field" for "Country" field
-      And I click on the edit action bar button "Create"
+      And I perform the "Save and close" action
     Then notification that "Content Type" "New Content Type" is updated appears
     Then I should be on Content Type page for "Test Content Type"
       And Content Type has proper Global properties
@@ -54,7 +54,7 @@ Feature: Content types management
       And I set fields
         | label | value                    |
         | Name  | Test Content Type edited |
-      And I click on the edit action bar button "Cancel"
+      And I perform the "Delete draft" action
     Then I should be on Content Type group page for "Content" group
       And there's a "TestDiscard CT" on Content Types list
       And there's no "Test Content Type edited" on Content Types list
@@ -71,7 +71,7 @@ Feature: Content types management
         | Name  | Test Content Type edited |
       And I add field "Date" to Content Type definition
     And I set "Name" to "DateField" for "Date" field
-      And I click on the edit action bar button "Save"
+      And I perform the "Save and close" action
     Then success notification that "Content Type 'TestEdit CT' updated." appears
     Then I should be on Content Type page for "Test Content Type edited"
       And Content Type has proper Global properties

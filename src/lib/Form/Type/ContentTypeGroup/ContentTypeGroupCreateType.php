@@ -18,6 +18,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentTypeGroupCreateType extends AbstractType
 {
+    public const BTN_SAVE = 'save';
+
     /**
      * {@inheritdoc}
      */
@@ -28,7 +30,10 @@ class ContentTypeGroupCreateType extends AbstractType
                 'label' => /** @Desc("Name") */ 'content_type_group.create.name',
             ])
             ->add('create', SubmitType::class, [
-                'label' => /** @Desc("Create") */ 'content_type_group.create.submit',
+                'label' => /** @Desc("Save and close") */ 'content_type_group.create.submit',
+            ])
+            ->add(self::BTN_SAVE, SubmitType::class, [
+                'label' => /** @Desc("Save") */ 'content_type_group.create.save',
             ]);
     }
 

@@ -44,13 +44,11 @@
             {%- if item.uri is not empty %}
                 {% set attributes = attributes|merge({'href': item.uri}) %}
                 {% set element = 'a' %}
-
-                {{ block('element') }}
             {%- else %}
                 {% set element = 'button' %}
-
-                {{ block('element') }}
             {%- endif %}
+
+            {{ block('element') }}
 
             {%- if item.extras.template is defined -%}
                 {% include item.extras.template with item.extras.template_parameters|default({}) %}
@@ -64,17 +62,88 @@
 
     {% set element = element|default('a') %}
 
-    <{{element}}{{macros.attributes(attributes)}}>
-        {% if item.extras.icon is defined %}
-            <svg class="ibexa-icon ibexa-icon--small">
-                <use xlink:href="{{ ibexa_icon_path(item.extras.icon) }}"></use>
-            </svg>
+    {% if item.children|length > 0 %}
+        {% set subitems = [] %}
+        {% for item in item.children %}
+            {% set is_subitem = true %}
+            {% set label %}
+                {{ block('label') }}
+            {% endset %}
+
+            {% set action_attr = item.attributes %}
+            {%- if item.uri is not empty %}
+                {% set action_attr = action_attr|merge({ href: item.uri }) %}
+            {% endif %}
+
+            {% set subitems = subitems|merge([{
+                label,
+                action_attr,
+            }]) %}
+        {% endfor %}
+        {% set is_subitem = false %}
+
+        {% set label %}
+            {{ block('label') }}
+        {% endset %}
+
+        {%- set split_btn_type = null -%}
+
+        {% if not item.extras.noDefaultBtnStyling|default(false) %}
+            {%- set split_btn_type = item.extras.primary|default(false) ? 'primary' : 'secondary' -%}
         {% endif %}
 
-        {{ block('label') }}
-    </{{element}}>
+        {{ include('@ibexadesign/ui/component/split_btn/split_btn.html.twig', {
+            type: split_btn_type,
+            attr: {
+                'data-alternative-main-btn-label': attributes['data-alternative-main-btn-label']|default(label),
+                'data-alternative-main-btn-sublabel': attributes['data-alternative-main-btn-sublabel']|default(''),
+                'data-alternative-toggle-label': attributes['data-alternative-toggle-label']|default(label),
+            },
+            main_btn_attr: attributes,
+            main_btn_element: element,
+            toggler_btn_attr: {
+                class: attributes.class|replace({ 'ibexa-btn--trigger': '' }),
+            },
+            label,
+            subitems,
+        }) }}
+
+        {% for item in item.children %}
+            {%- if item.extras.template is defined -%}
+                {% include item.extras.template with item.extras.template_parameters|default({}) %}
+            {%- endif -%}
+        {% endfor %}
+    {% else %}
+        {%- set default_classes = 'btn ibexa-btn' -%}
+
+        {% if not item.extras.noDefaultBtnStyling|default(false) %}
+            {% if item.extras.primary|default(false) %}
+                {%- set default_classes = default_classes ~ ' ' ~ options.primary_item_class|default('ibexa-btn--primary') -%}
+            {% else %}
+                {%- set default_classes = default_classes ~ ' ibexa-btn--secondary' -%}
+            {% endif %}
+        {% endif %}
+
+        {%- set attributes = attributes|merge({
+            class: (attributes.class|default('') ~ ' ' ~ default_classes|default('btn btn-secondary btn-block'))|trim
+        }) -%}
+
+        <{{element}}{{macros.attributes(attributes)}}>
+            {% if item.extras.icon is defined %}
+                <svg class="ibexa-icon ibexa-icon--small">
+                    <use xlink:href="{{ ibexa_icon_path(item.extras.icon) }}"></use>
+                </svg>
+            {% endif %}
+
+            {{ block('label') }}
+        </{{element}}>
+    {% endif %}
 {% endblock %}
 
 {% block label %}
-    <span class="ibexa-btn__label">{{ parent() }}</span>
+    {% if is_subitem|default(false) %}
+        {{ parent() }}
+    {% else %}
+        <span class="ibexa-btn__label">{{ parent() }}</span>
+    {% endif %}
 {% endblock %}

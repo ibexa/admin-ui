@@ -5,7 +5,9 @@
 {% trans_default_domain 'ibexa_role' %}
 
 {% block header_admin %}
-    {% set role_assignment_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.role_assignment_create.sidebar_right', [], {'role': role}) %}
+    {% set role_assignment_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.role_assignment_create.sidebar_right', [], {
+        role,
+    }) %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
         action_name: 'role_assignment.assigning'|trans|desc('Assigning'),

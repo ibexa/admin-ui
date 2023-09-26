@@ -32,6 +32,7 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
     /* Menu items */
     public const ITEM__PUBLISH = 'content_edit__sidebar_right__publish';
     public const ITEM__SAVE_DRAFT = 'content_edit__sidebar_right__save_draft';
+    public const ITEM__SAVE_DRAFT_AND_CLOSE = 'content_edit__sidebar_right__save_draft_and_close';
     public const ITEM__PREVIEW = 'content_edit__sidebar_right__preview';
     public const ITEM__CANCEL = 'content_edit__sidebar_right__cancel';
 
@@ -106,9 +107,13 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
             'class' => self::BTN_TRIGGER_CLASS,
             'data-click' => '#ezplatform_content_forms_content_edit_publish',
         ];
-        $editAttributes = [
+        $saveDraftAttributes = [
             'class' => self::BTN_TRIGGER_CLASS,
             'data-click' => '#ezplatform_content_forms_content_edit_saveDraft',
+        ];
+        $saveDraftAndCloseAttributes = [
+            'class' => self::BTN_TRIGGER_CLASS,
+            'data-click' => '#ezplatform_content_forms_content_edit_saveDraftAndClose',
         ];
         $deleteAttributes = [
             'class' => self::BTN_TRIGGER_CLASS,
@@ -127,18 +132,33 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
                     ],
                 ]
             ),
-            self::ITEM__SAVE_DRAFT => $this->createMenuItem(
-                self::ITEM__SAVE_DRAFT,
-                [
-                    'attributes' => $canEdit
-                        ? $editAttributes
-                        : array_merge($editAttributes, self::BTN_DISABLED_ATTR),
-                    'extras' => [
-                        'orderNumber' => 50,
-                    ],
-                ]
-            ),
         ];
+
+        $saveDraftAndCloseItem = $this->createMenuItem(
+            self::ITEM__SAVE_DRAFT_AND_CLOSE,
+            [
+                'attributes' => $canEdit
+                    ? $saveDraftAndCloseAttributes
+                    : array_merge($saveDraftAndCloseAttributes, self::BTN_DISABLED_ATTR),
+                'extras' => [
+                    'orderNumber' => 80,
+                ],
+            ]
+        );
+
+        $saveDraftAndCloseItem->addChild(
+            self::ITEM__SAVE_DRAFT,
+            [
+                'attributes' => $canEdit
+                    ? $saveDraftAttributes
+                    : array_merge($saveDraftAttributes, self::BTN_DISABLED_ATTR),
+                'extras' => [
+                    'orderNumber' => 10,
+                ],
+            ]
+        );
+
+        $items[self::ITEM__SAVE_DRAFT_AND_CLOSE] = $saveDraftAndCloseItem;
 
         $items[self::ITEM__PREVIEW] = $this->getContentPreviewItem(
             $location,
@@ -172,6 +192,7 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
         return [
             (new Message(self::ITEM__PUBLISH, 'ibexa_menu'))->setDesc('Publish'),
             (new Message(self::ITEM__SAVE_DRAFT, 'ibexa_menu'))->setDesc('Save'),
+            (new Message(self::ITEM__SAVE_DRAFT_AND_CLOSE, 'ibexa_menu'))->setDesc('Save and close'),
             (new Message(self::ITEM__PREVIEW, 'ibexa_menu'))->setDesc('Preview'),
             (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Delete draft'),
         ];
