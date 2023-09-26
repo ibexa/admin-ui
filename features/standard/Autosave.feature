@@ -59,6 +59,7 @@ Feature: Content Items creation
       | label       | value              |
       | Title       | TestAutosaveCreate |
       | Short title | TestAutosaveCreate |
+      | Intro       | TestAutosaveCreate |
     And I perform the "Publish" action
     Then success notification that "Content published." appears
     And I should be on Content view Page for "TestAutosaveCreate"
