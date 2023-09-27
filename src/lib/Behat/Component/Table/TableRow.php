@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component\Table;
 
 use Behat\Mink\Session;
 use Ibexa\Behat\Browser\Component\Component;
+use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Locator\LocatorCollection;
 use Ibexa\Behat\Browser\Locator\LocatorInterface;
@@ -32,10 +33,7 @@ class TableRow extends Component
 
     public function goToItem(): void
     {
-        // TODO: Revisit during redesign
-        $this->element->find($this->getLocator('link'))->mouseOver();
-        usleep(100 * 5000); // 500ms
-        $this->element->find($this->getLocator('link'))->click();
+        $this->element->find($this->getLocator('link'))->execute(new MouseOverAndClick());
     }
 
     public function select(): void
@@ -45,34 +43,24 @@ class TableRow extends Component
 
     public function edit(): void
     {
-        // TODO: Revisit during redesign
-        $this->element->find($this->getLocator('edit'))->mouseOver();
-        usleep(100 * 5000); // 500ms
-        $this->element->find($this->getLocator('edit'))->click();
+        $this->element->find($this->getLocator('edit'))->execute(new MouseOverAndClick());
     }
 
     public function copy(): void
     {
-        // TODO: Revisit during redesign
-        $this->element->find($this->getLocator('copy'))->mouseOver();
-        usleep(100 * 5000); // 500ms
-        $this->element->find($this->getLocator('copy'))->click();
+        $this->element->find($this->getLocator('copy'))->execute(new MouseOverAndClick());
     }
 
     public function deactivate(): void
     {
-        // TODO: Revisit during redesign
-        $this->element->find($this->getLocator('de-active'))->mouseOver();
-        usleep(100 * 5000); // 500ms
-        $this->element->find($this->getLocator('de-active'))->click();
+        $this->element->find($this->getLocator('de-active'))->execute(new MouseOverAndClick());
     }
 
     public function activate(): void
     {
-        // TODO: Revisit during redesign
-        $this->element->find($this->getLocator('active'))->mouseOver();
-        usleep(100 * 5000); // 500ms
-        $this->element->find($this->getLocator('active'))->click();
+        $this->element
+            ->find($this->getLocator('active'))
+            ->execute(new MouseOverAndClick());
     }
 
     public function assign(): void
