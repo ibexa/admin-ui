@@ -1,0 +1,21 @@
+@mixin spinner($size, $line-size, $color: $ibexa-color-info) {
+    --mask: conic-gradient(#{rgba($ibexa-color-black, 0)} 10%, #{$ibexa-color-black}),
+        linear-gradient(#{$ibexa-color-black} 0 0) content-box;
+
+    width: $size;
+    padding: $line-size;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: $color;
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
+    -webkit-mask-composite: source-out;
+    mask-composite: subtract;
+    animation: spinner-animation 1s infinite linear;
+}
+
+@keyframes spinner-animation {
+    to {
+        transform: rotate(1turn);
+    }
+}
