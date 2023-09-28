@@ -57,7 +57,7 @@
         }
     };
     const setWidthOfSecondLevelMenu = () => {
-        const secondLevelMenuWidth = ibexa.helpers.cookies.getCookie('second_menu_width');
+        const secondLevelMenuWidth = ibexa.helpers.cookies.getCookie('ibexa-aui_menu-secondary-width');
         const isSecondLevelMenuHidden = secondLevelMenuNode.classList.contains('ibexa-main-menu__navbar--hidden');
 
         if (!secondLevelMenuWidth || isSecondLevelMenuHidden) {
@@ -81,7 +81,7 @@
         const isSecondLevelMenuCollapsed = secondLevelMenuNode.classList.contains('ibexa-main-menu__navbar--collapsed');
         const newMenuWidth = isSecondLevelMenuCollapsed ? SECOND_LEVEL_EXPANDED_WIDTH : SECOND_LEVEL_COLLAPSED_WIDTH;
 
-        ibexa.helpers.cookies.setBackOfficeCookie('second_menu_width', newMenuWidth);
+        ibexa.helpers.cookies.setBackOfficeCookie('ibexa-aui_menu-secondary-width', newMenuWidth);
         setWidthOfSecondLevelMenu();
     };
     const parsePopup = (button) => {
@@ -131,7 +131,7 @@
         const resizeValue = secondMenuLevelCurrentWidth + (clientX - resizeStartPositionX);
         const newMenuWidth = resizeValue > SECOND_LEVEL_MANUAL_RESIZE_MIN_WIDTH ? resizeValue : SECOND_LEVEL_COLLAPSED_WIDTH;
 
-        ibexa.helpers.cookies.setBackOfficeCookie('second_menu_width', newMenuWidth);
+        ibexa.helpers.cookies.setBackOfficeCookie('ibexa-aui_menu-secondary-width', newMenuWidth);
         setWidthOfSecondLevelMenu();
     };
 

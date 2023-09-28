@@ -16,7 +16,7 @@
 {% block body_class %}ibexa-content-view{% endblock %}
 
 {% block content_tree %}
-    {% set container_width_cookie = 'ibexa-tb-ibexa-content-tree-%d-container-width'|format(ibexa_admin_ui_config.user.user.id) %}
+    {% set container_width_cookie = 'ibexa-tb_ibexa-content-tree_%d_container-width'|format(ibexa_admin_ui_config.user.user.id) %}
     {% set content_tree_width = app.request.cookies.get(container_width_cookie) %}
     {% set content_tree_width_style = 'width: %dpx;'|format(content_tree_width) %}
 
