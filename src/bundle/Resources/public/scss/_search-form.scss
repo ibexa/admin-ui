@@ -109,6 +109,15 @@
         display: flex;
     }
 
+    &__spellcheck-suggestion {
+        font-style: italic;
+        font-size: $ibexa-text-font-size-small;
+
+        a {
+            font-weight: bold;
+        }
+    }
+
     .ibexa-btn--secondary.ibexa-btn {
         max-width: 100%;
         overflow: hidden;

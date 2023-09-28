@@ -17,10 +17,21 @@
             <h2 class="ibexa-search-form__no-results-title">
                 {{ 'search.no_results.title'|trans({'%query%': form.query.vars.value})|desc('No results found for "%query%"') }}
             </h2>
+            {% if spellcheck is not null and spellcheck.incorrect %}
+                <div class="ibexa-search-form__spellcheck-suggestion">
+                    {% set suggestion_link %}
+                        <a href="{{ path('ibexa.search', app.request.query|merge({'search[query]': spellcheck.query})) }}">
+                            {{ spellcheck.query }}
+                        </a>
+                    {% endset %}
+
+                    {{ 'search.spellcheck.suggestion'|trans|desc('Did you mean "%s"?')|e('html')|format(suggestion_link)|raw }}
+                </div>
+            {% endif %}
             <div class="ibexa-search-form__no-results-subtitle">
                 {% for hint in no_results_hints %}
                     <div class="ibexa-search-form__no-results-hint">
-                        <div class="ibexa-search-form__no-results-hint-icon-wrapper">
+                        <div  class="ibexa-search-form__no-results-hint-icon-wrapper">
                             <svg class="ibexa-icon ibexa-icon--small-medium">
                                 <use xlink:href="{{ ibexa_icon_path('approved') }}"></use>
                             </svg>
@@ -182,7 +193,19 @@
             } %}
                 {% trans_default_domain 'ibexa_search' %}
                 {% block between_header_and_table %}
-                    <span class="ibexa-search-form__results-language">
+                    {% if spellcheck is not null and spellcheck.incorrect %}
+                        <div class="ibexa-search-form__spellcheck-suggestion">
+                            {% set suggestion_link %}
+                                <a href="{{ path('ibexa.search', app.request.query|merge({'search[query]': spellcheck.query})) }}">
+                                    {{ spellcheck.query }}
+                                </a>
+                            {% endset %}
+
+                            {{ 'search.spellcheck.suggestion'|trans|desc('Did you mean "%s"?')|e('html')|format(suggestion_link)|raw }}
+                        </div>
+                    {% endif %}
+
+                     <span class="ibexa-search-form__results-language">
                         {% if form.children.search_language.vars.value != '' %}
                             {{ 'search.in_language'|trans({
                                 '%search_language%': form.children.search_language.vars.data.name,
