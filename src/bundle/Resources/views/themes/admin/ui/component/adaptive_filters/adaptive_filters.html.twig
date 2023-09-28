@@ -3,7 +3,7 @@
 {% trans_default_domain 'ibexa_adaptive_filters' %}
 
 {% if filters_id is defined %}
-    {% set expanded_info_cookie_name = 'ibexa_adaptive_filters-is_expanded-' ~ filters_id %}
+    {% set expanded_info_cookie_name = 'ibexa-af_is-expanded_' ~ filters_id|replace({'_': '-'}) %}
 {% endif %}
 
 {% set is_expanded_cookie = expanded_info_cookie_name is defined and app.request.cookies.get(expanded_info_cookie_name) == 'true' %}
