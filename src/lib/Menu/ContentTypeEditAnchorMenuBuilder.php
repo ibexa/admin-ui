@@ -10,7 +10,7 @@ use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
-use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
