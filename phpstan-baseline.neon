@@ -4501,7 +4501,7 @@ parameters:
 			path: src/lib/Form/Data/FormMapper/UserCreateMapper.php
 
 		-
-			message: "#^Cannot access offset mixed on iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Field\\>\\.$#"
+			message: "#^Cannot access offset string on iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Field\\>\\.$#"
 			count: 1
 			path: src/lib/Form/Data/FormMapper/UserUpdateMapper.php
 

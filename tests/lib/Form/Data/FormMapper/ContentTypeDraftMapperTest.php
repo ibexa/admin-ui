@@ -14,6 +14,7 @@ use Ibexa\Contracts\AdminUi\Event\FieldDefinitionMappingEvent;
 use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition as ApiFieldDefinition;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection as FieldDefinitionCollectionInterface;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\FieldType\Value;
@@ -221,7 +222,7 @@ final class ContentTypeDraftMapperTest extends TestCase
     }
 
     private function createFieldDefinitionData(
-        FieldDefinition $fieldDefinition,
+        ApiFieldDefinition $fieldDefinition,
         ContentTypeData $contentTypeData,
         bool $enabled
     ): FieldDefinitionData {
@@ -230,8 +231,8 @@ final class ContentTypeDraftMapperTest extends TestCase
             'fieldDefinition' => $fieldDefinition,
             'contentTypeData' => $contentTypeData,
             'identifier' => $fieldDefinition->identifier,
-            'names' => $fieldDefinition->names,
-            'descriptions' => $fieldDefinition->descriptions,
+            'names' => $fieldDefinition->getNames(),
+            'descriptions' => $fieldDefinition->getDescriptions(),
             'fieldGroup' => $fieldDefinition->fieldGroup,
             'position' => $fieldDefinition->position,
             'isTranslatable' => $fieldDefinition->isTranslatable,
