@@ -69,7 +69,8 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
         $baseLanguage = $params['baseLanguage'] ?? null;
 
         $contentTypeData = new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]);
-        if (!$contentTypeData->isNew()) {
+        $isNew = $contentTypeData->isNew();
+        if (!$isNew) {
             $contentTypeData->identifier = $contentTypeDraft->identifier;
         }
 
@@ -115,7 +116,8 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
             $event = new FieldDefinitionMappingEvent(
                 $fieldDefinitionData,
                 $baseLanguage,
-                $language
+                $language,
+                $isNew
             );
 
             $this->eventDispatcher->dispatch($event, FieldDefinitionMappingEvent::NAME);
