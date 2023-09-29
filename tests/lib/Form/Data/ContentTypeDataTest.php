@@ -8,16 +8,18 @@ namespace Ibexa\Tests\AdminUi\Form\Data;
 
 use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use PHPUnit\Framework\TestCase;
 
 class ContentTypeDataTest extends TestCase
 {
     public function testContentTypeDraft(): void
     {
-        $contentTypeDraft = $this->getMockForAbstractClass(ContentTypeDraft::class);
+        $contentTypeDraft = $this->getContentTypeDraft();
         $data = new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]);
+
         self::assertSame($contentTypeDraft, $data->contentTypeDraft);
     }
 
@@ -45,6 +47,7 @@ class ContentTypeDataTest extends TestCase
             'field_group__bravo' => ['identifier__bravo' => $fieldDef2],
         ];
         $data = new ContentTypeData([
+            'contentTypeDraft' => $this->getContentTypeDraft(),
             'fieldDefinitionsData' => $initialFieldDefs,
         ]);
         self::assertSame($initialFieldDefs, $data->fieldDefinitionsData);
@@ -105,7 +108,12 @@ class ContentTypeDataTest extends TestCase
                 'lump' => $fieldDef4,
             ],
         ];
-        $data = new ContentTypeData(['fieldDefinitionsData' => $fieldDefs]);
+
+        $data = new ContentTypeData([
+            'fieldDefinitionsData' => $fieldDefs,
+            'contentTypeDraft' => $this->getContentTypeDraft(),
+        ]);
+
         self::assertSame($fieldDefs, $data->fieldDefinitionsData);
 
         $data->sortFieldDefinitions();
@@ -117,6 +125,15 @@ class ContentTypeDataTest extends TestCase
                 'snarf' => $fieldDef1,
             ],
         ], $data->fieldDefinitionsData);
+    }
+
+    private function getContentTypeDraft(): ContentTypeDraft
+    {
+        return new ContentTypeDraft([
+            'innerContentType' => new ContentType([
+                'identifier' => 'foo',
+            ]),
+        ]);
     }
 }
 

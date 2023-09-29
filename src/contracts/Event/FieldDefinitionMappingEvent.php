@@ -29,18 +29,14 @@ class FieldDefinitionMappingEvent extends Event
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
     private $targetLanguage;
 
-    private bool $isNew;
-
     public function __construct(
         FieldDefinitionData $fieldDefinitionData,
         ?Language $baseLanguage,
-        ?Language $targetLanguage,
-        bool $isNew
+        ?Language $targetLanguage
     ) {
         $this->baseLanguage = $baseLanguage;
         $this->targetLanguage = $targetLanguage;
         $this->fieldDefinitionData = $fieldDefinitionData;
-        $this->isNew = $isNew;
     }
 
     public function getFieldDefinition(): FieldDefinition
@@ -66,11 +62,6 @@ class FieldDefinitionMappingEvent extends Event
     public function getTargetLanguage(): ?Language
     {
         return $this->targetLanguage;
-    }
-
-    public function isNew(): bool
-    {
-        return $this->isNew;
     }
 }
 

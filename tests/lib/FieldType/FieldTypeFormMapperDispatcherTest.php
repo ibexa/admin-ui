@@ -10,6 +10,8 @@ use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcher;
 use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormInterface;
@@ -34,11 +36,17 @@ class FieldTypeFormMapperDispatcherTest extends TestCase
         $this->dispatcher->addMapper($this->fieldDefinitionMapperMock, 'first_type');
     }
 
-    public function testMapFieldDefinition()
+    public function testMapFieldDefinition(): void
     {
         $data = new FieldDefinitionData([
             'fieldDefinition' => new FieldDefinition(['fieldTypeIdentifier' => 'first_type']),
-            'contentTypeData' => new ContentTypeData(),
+            'contentTypeData' => new ContentTypeData([
+                'contentTypeDraft' => new ContentTypeDraft([
+                    'innerContentType' => new ContentType([
+                        'identifier' => 'foo',
+                    ]),
+                ]),
+            ]),
         ]);
 
         $formMock = $this->createMock(FormInterface::class);

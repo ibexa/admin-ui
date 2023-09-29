@@ -64,7 +64,7 @@ final class ContentTypeFormProcessorTest extends TestCase
         $this->formProcessor->setGroupsList($this->groupsList);
     }
 
-    public function testSubscribedEvents()
+    public function testSubscribedEvents(): void
     {
         self::assertSame([
             FormEvents::CONTENT_TYPE_UPDATE => 'processDefaultAction',
@@ -76,9 +76,9 @@ final class ContentTypeFormProcessorTest extends TestCase
         ], ContentTypeFormProcessor::getSubscribedEvents());
     }
 
-    public function testProcessDefaultAction()
+    public function testProcessDefaultAction(): void
     {
-        $contentTypeDraft = new ContentTypeDraft();
+        $contentTypeDraft = $this->getContentTypeDraft();
         $fieldDef1 = new FieldDefinition();
         $fieldDefData1 = new FieldDefinitionData([
             'fieldDefinition' => $fieldDef1,
@@ -111,7 +111,7 @@ final class ContentTypeFormProcessorTest extends TestCase
         $this->formProcessor->processDefaultAction($event);
     }
 
-    public function testAddFieldDefinition()
+    public function testAddFieldDefinition(): void
     {
         $fieldTypeIdentifier = 'ezstring';
         $languageCode = 'fre-FR';
@@ -128,6 +128,7 @@ final class ContentTypeFormProcessorTest extends TestCase
         $contentTypeDraft = new ContentTypeDraft([
             'innerContentType' => new ContentType([
                 'id' => self::EXAMPLE_CONTENT_TYPE_ID,
+                'identifier' => 'foo',
                 'fieldDefinitions' => $existingFieldDefinitions,
                 'mainLanguageCode' => $languageCode,
             ]),
@@ -192,9 +193,9 @@ final class ContentTypeFormProcessorTest extends TestCase
         $this->formProcessor->processAddFieldDefinition($event);
     }
 
-    public function testPublishContentType()
+    public function testPublishContentType(): void
     {
-        $contentTypeDraft = new ContentTypeDraft();
+        $contentTypeDraft = $this->getContentTypeDraft();
         $event = new FormActionEvent(
             $this->createMock(FormInterface::class),
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
@@ -209,11 +210,11 @@ final class ContentTypeFormProcessorTest extends TestCase
         $this->formProcessor->processPublishContentType($event);
     }
 
-    public function testPublishContentTypeWithRedirection()
+    public function testPublishContentTypeWithRedirection(): void
     {
         $redirectRoute = 'foo';
         $redirectUrl = 'http://foo.com/bar';
-        $contentTypeDraft = new ContentTypeDraft();
+        $contentTypeDraft = $this->getContentTypeDraft();
         $event = new FormActionEvent(
             $this->createMock(FormInterface::class),
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
@@ -241,7 +242,7 @@ final class ContentTypeFormProcessorTest extends TestCase
         self::assertEquals($expectedRedirectResponse, $event->getResponse());
     }
 
-    public function testRemoveFieldDefinition()
+    public function testRemoveFieldDefinition(): void
     {
         $fieldDefinition1 = new FieldDefinition();
         $fieldDefinition2 = new FieldDefinition();
@@ -250,6 +251,7 @@ final class ContentTypeFormProcessorTest extends TestCase
         $contentTypeDraft = new ContentTypeDraft([
             'innerContentType' => new ContentType([
                 'fieldDefinitions' => $existingFieldDefinitions,
+                'identifier' => 'foo',
             ]),
         ]);
 
@@ -316,9 +318,9 @@ final class ContentTypeFormProcessorTest extends TestCase
         $this->formProcessor->processRemoveFieldDefinition($event);
     }
 
-    public function testRemoveContentTypeDraft()
+    public function testRemoveContentTypeDraft(): void
     {
-        $contentTypeDraft = new ContentTypeDraft();
+        $contentTypeDraft = $this->getContentTypeDraft();
         $event = new FormActionEvent(
             $this->createMock(FormInterface::class),
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
@@ -333,11 +335,11 @@ final class ContentTypeFormProcessorTest extends TestCase
         $this->formProcessor->processRemoveContentTypeDraft($event);
     }
 
-    public function testRemoveContentTypeDraftWithRedirection()
+    public function testRemoveContentTypeDraftWithRedirection(): void
     {
         $redirectRoute = 'foo';
         $redirectUrl = 'http://foo.com/bar';
-        $contentTypeDraft = new ContentTypeDraft();
+        $contentTypeDraft = $this->getContentTypeDraft();
         $event = new FormActionEvent(
             $this->createMock(FormInterface::class),
             new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]),
@@ -363,6 +365,15 @@ final class ContentTypeFormProcessorTest extends TestCase
         $formProcessor->processRemoveContentTypeDraft($event);
         self::assertTrue($event->hasResponse());
         self::assertEquals($expectedRedirectResponse, $event->getResponse());
+    }
+
+    private function getContentTypeDraft(): ContentTypeDraft
+    {
+        return new ContentTypeDraft([
+            'innerContentType' => new ContentType([
+                'identifier' => 'foo',
+            ]),
+        ]);
     }
 }
 

@@ -10,6 +10,8 @@ use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\AdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifier;
 use Ibexa\AdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifierValidator;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
@@ -34,7 +36,7 @@ class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
         $this->validator->initialize($this->executionContext);
     }
 
-    public function testNotFieldDefinitionData()
+    public function testNotFieldDefinitionData(): void
     {
         $this->executionContext
             ->expects($this->never())
@@ -43,13 +45,20 @@ class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
         $this->validator->validate('foo', new UniqueFieldDefinitionIdentifier());
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $this->executionContext
             ->expects($this->never())
             ->method('buildViolation');
 
-        $contentTypeData = new ContentTypeData();
+        $contentTypeData = new ContentTypeData([
+            'contentTypeDraft' => new ContentTypeDraft([
+                'innerContentType' => new ContentType([
+                    'identifier' => 'test',
+                ]),
+            ]),
+        ]);
+
         $fieldDefData1 = new FieldDefinitionData(['identifier' => 'foo', 'contentTypeData' => $contentTypeData]);
         $contentTypeData->addFieldDefinitionData($fieldDefData1);
         $fieldDefData2 = new FieldDefinitionData(['identifier' => 'bar', 'contentTypeData' => $contentTypeData]);
@@ -60,7 +69,7 @@ class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
         $this->validator->validate($fieldDefData1, new UniqueFieldDefinitionIdentifier());
     }
 
-    public function testInvalid()
+    public function testInvalid(): void
     {
         $identifier = 'foo';
         $constraint = new UniqueFieldDefinitionIdentifier();
@@ -84,7 +93,14 @@ class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
             ->expects($this->once())
             ->method('addViolation');
 
-        $contentTypeData = new ContentTypeData();
+        $contentTypeData = new ContentTypeData([
+            'contentTypeDraft' => new ContentTypeDraft([
+                'innerContentType' => new ContentType([
+                    'identifier' => 'test',
+                ]),
+            ]),
+        ]);
+
         $fieldDefData1 = new FieldDefinitionData(['identifier' => $identifier, 'contentTypeData' => $contentTypeData]);
         $contentTypeData->addFieldDefinitionData($fieldDefData1);
         $fieldDefData2 = new FieldDefinitionData(['identifier' => 'bar', 'contentTypeData' => $contentTypeData]);

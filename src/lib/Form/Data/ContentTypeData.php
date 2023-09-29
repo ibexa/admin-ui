@@ -22,7 +22,9 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
     /**
      * Trait which provides isNew(), and mandates getIdentifier().
      */
-    use NewnessChecker;
+    use NewnessChecker {
+        NewnessChecker::isNew as private isIdentifierNew;
+    }
 
     /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData[][] */
     public $fieldDefinitionsData = [];
@@ -39,6 +41,27 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft */
     protected $contentTypeDraft;
+
+    private bool $isNew;
+
+    /**
+     * @param array<mixed> $properties
+     */
+    public function __construct(array $properties = [])
+    {
+        parent::__construct($properties);
+
+        $this->isNew = $this->isNew();
+    }
+
+    public function isNew(): bool
+    {
+        if (isset($this->isNew)) {
+            return $this->isNew;
+        }
+
+        return $this->isIdentifierNew();
+    }
 
     protected function getIdentifierValue(): string
     {

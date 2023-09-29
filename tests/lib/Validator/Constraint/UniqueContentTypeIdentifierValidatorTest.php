@@ -13,12 +13,14 @@ use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
+use Ibexa\Core\Repository\Values\ContentType\ContentType as APIContentType;
+use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft as APIContentTypeDraft;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
-class UniqueContentTypeIdentifierValidatorTest extends TestCase
+final class UniqueContentTypeIdentifierValidatorTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
@@ -44,7 +46,7 @@ class UniqueContentTypeIdentifierValidatorTest extends TestCase
         $this->validator->initialize($this->executionContext);
     }
 
-    public function testNotContentTypeData()
+    public function testNotContentTypeData(): void
     {
         $value = new stdClass();
         $this->contentTypeService
@@ -57,9 +59,13 @@ class UniqueContentTypeIdentifierValidatorTest extends TestCase
         $this->validator->validate($value, new UniqueContentTypeIdentifier());
     }
 
-    public function testNullContentTypeIdentifier()
+    public function testNullContentTypeIdentifier(): void
     {
-        $value = new ContentTypeData(['identifier' => null]);
+        $value = new ContentTypeData([
+            'identifier' => null,
+            'contentTypeDraft' => $this->getContentTypeDraft(),
+        ]);
+
         $this->contentTypeService
             ->expects($this->never())
             ->method('loadContentTypeByIdentifier');
@@ -70,10 +76,14 @@ class UniqueContentTypeIdentifierValidatorTest extends TestCase
         $this->validator->validate($value, new UniqueContentTypeIdentifier());
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $identifier = 'foo_identifier';
-        $value = new ContentTypeData(['identifier' => $identifier]);
+        $value = new ContentTypeData([
+            'identifier' => $identifier,
+            'contentTypeDraft' => $this->getContentTypeDraft(),
+        ]);
+
         $this->contentTypeService
             ->expects($this->once())
             ->method('loadContentTypeByIdentifier')
@@ -86,13 +96,17 @@ class UniqueContentTypeIdentifierValidatorTest extends TestCase
         $this->validator->validate($value, new UniqueContentTypeIdentifier());
     }
 
-    public function testEditingContentTypeDraftFromExistingContentTypeIsValid()
+    public function testEditingContentTypeDraftFromExistingContentTypeIsValid(): void
     {
         $identifier = 'foo_identifier';
         $contentTypeId = 123;
         $contentTypeDraft = $this->getMockBuilder(ContentTypeDraft::class)
-            ->setConstructorArgs([['id' => $contentTypeId]])
+            ->setConstructorArgs([[
+                'id' => $contentTypeId,
+                'identifier' => $identifier,
+            ]])
             ->getMockForAbstractClass();
+
         $value = new ContentTypeData(['identifier' => $identifier, 'contentTypeDraft' => $contentTypeDraft]);
         $returnedContentType = $this->getMockBuilder(ContentType::class)
             ->setConstructorArgs([['id' => $contentTypeId]])
@@ -109,12 +123,16 @@ class UniqueContentTypeIdentifierValidatorTest extends TestCase
         $this->validator->validate($value, new UniqueContentTypeIdentifier());
     }
 
-    public function testInvalid()
+    public function testInvalid(): void
     {
         $identifier = 'foo_identifier';
         $contentTypeDraft = $this->getMockBuilder(ContentTypeDraft::class)
-            ->setConstructorArgs([['id' => 456]])
+            ->setConstructorArgs([[
+                'id' => 456,
+                'identifier' => $identifier,
+            ]])
             ->getMockForAbstractClass();
+
         $value = new ContentTypeData(['identifier' => $identifier, 'contentTypeDraft' => $contentTypeDraft]);
         $constraint = new UniqueContentTypeIdentifier();
         $constraintViolationBuilder = $this->createMock(ConstraintViolationBuilderInterface::class);
@@ -146,6 +164,15 @@ class UniqueContentTypeIdentifierValidatorTest extends TestCase
             ->method('addViolation');
 
         $this->validator->validate($value, $constraint);
+    }
+
+    private function getContentTypeDraft(): ContentTypeDraft
+    {
+        return new APIContentTypeDraft([
+            'innerContentType' => new APIContentType([
+                'identifier' => 'foo',
+            ]),
+        ]);
     }
 }
 
