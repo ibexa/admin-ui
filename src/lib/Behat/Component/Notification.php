@@ -50,11 +50,7 @@ class Notification extends Component
 
     public function closeAlert(): void
     {
-        $closeButtons = $this->getHTMLPage()->findAll($this->getLocator('closeAlert'));
-
-        foreach ($closeButtons as $closeButton) {
-            $closeButton->click();
-        }
+        $this->getHTMLPage()->findAll($this->getLocator('closeAlert'))->first()->click();
     }
 
     public function isVisible(): bool
