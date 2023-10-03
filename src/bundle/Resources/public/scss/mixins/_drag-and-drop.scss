@@ -5,7 +5,7 @@
     background-size: calculateRem(5px) calculateRem(5px);
 }
 
-//Removed sidebar in 5.0 use Toolbox.
+//Sidebar depracated. Will be removed in 5.0. Use Toolbox.
 @mixin sidebar-drag-items {
     $ibexa-sidebar-width: calculateRem(360px);
 
