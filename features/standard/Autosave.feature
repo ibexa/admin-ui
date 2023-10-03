@@ -52,6 +52,28 @@ Feature: Content Items creation
       | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
       | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
       | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
     And I create a role "autosaveDisabledTestRole" with policies
       | module | function |
       | *      | *        |
