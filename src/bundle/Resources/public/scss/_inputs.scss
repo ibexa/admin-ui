@@ -23,21 +23,7 @@
     transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
     border: calculateRem(1px) solid $ibexa-color-dark-300;
 
-    &:hover {
-        border-color: $ibexa-color-primary;
-    }
-
-    &:focus,
-    &.ibexa-input--text.form-control:focus,
-    &.ibexa-input--date.form-control:focus {
-        border-color: $ibexa-color-primary;
-        box-shadow: 0 0 calculateRem(3px) 0 rgba($ibexa-color-primary, 0.75);
-    }
-
-    &:disabled {
-        cursor: not-allowed;
-        border-color: $ibexa-color-dark-200;
-    }
+    @include ibexa-input-hover-and-focus($ibexa-color-primary);
 
     &--text,
     &--textarea,
@@ -48,15 +34,6 @@
         border: calculateRem(1px) solid $ibexa-color-dark-200;
         border-radius: $ibexa-border-radius;
         position: relative;
-
-        &:focus,
-        &.form-control:focus {
-            color: $ibexa-color-dark;
-        }
-
-        &:hover:not(:disabled) {
-            border-color: $ibexa-color-primary;
-        }
 
         &:active:not(:disabled) {
             border-color: $ibexa-color-dark;
@@ -211,6 +188,40 @@
                     border-radius: calculateRem(8px);
                     background: transparent;
                     box-shadow: 0 0 calculateRem(3px) 0 rgba($ibexa-color-primary, 0.75);
+                }
+            }
+        }
+    }
+
+    &--info {
+        &:hover {
+            border-color: $ibexa-color-info;
+        }
+
+        &:focus,
+        &.ibexa-input--text.form-control:focus,
+        &.ibexa-input--date.form-control:focus {
+            border-color: $ibexa-color-info;
+            box-shadow: 0 0 calculateRem(3px) 0 rgba($ibexa-color-info, 0.75);
+        }
+
+        &.ibexa-input {
+            &--radio {
+                &:checked {
+                    border-color: $ibexa-color-info;
+                    box-shadow: inset 0 0 0 calculateRem(4px) $ibexa-color-info;
+                    background-color: $ibexa-color-info;
+
+                    &:disabled {
+                        border-color: $ibexa-color-info-300;
+                        box-shadow: inset 0 0 0 calculateRem(4px) $ibexa-color-info-300;
+                    }
+
+                    &:focus {
+                        &::after {
+                            box-shadow: 0 0 calculateRem(3px) 0 rgba($ibexa-color-info, 0.75);
+                        }
+                    }
                 }
             }
         }

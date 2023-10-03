@@ -40,6 +40,7 @@
 
         .ibexa-main-container {
             &__side-column {
+                max-width: 25%;
                 min-width: calculateRem(240px);
                 border-top-left-radius: $ibexa-border-radius;
                 border-bottom-left-radius: $ibexa-border-radius;
