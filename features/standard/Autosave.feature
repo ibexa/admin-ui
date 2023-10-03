@@ -49,7 +49,7 @@ Feature: Content Items creation
     And I open the "Dashboard" page in admin SiteAccess
     Then there's no draft "Test Article Autosave Off draft" on Dashboard list
 
-  @javascript
+  @javascript @test
   Scenario: Content item can be created when autosave is off
     Given I open Login page in admin SiteAccess
     And I log in as "AutosaveDisabledTestUser" with password "Passw0rd-42"
