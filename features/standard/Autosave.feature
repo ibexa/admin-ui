@@ -28,6 +28,30 @@ Feature: Content Items creation
   @javascript @APIUser:admin @test
   Scenario: Content item is not autosaved and draft is not visible in dashboard when autosave is disabled
     Given I create a user group "AutosaveDisabledTestGroup"
+    Given I create "folder" Content items
+      | name            | short_name       | parentPath        | language |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolder  | BookmarkFolder   | root              | eng-GB   |
     And I create a role "autosaveDisabledTestRole" with policies
       | module | function |
       | *      | *        |
