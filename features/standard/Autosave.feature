@@ -74,6 +74,17 @@ Feature: Content Items creation
       | BookmarkFolderBookmarkFolderBookmarkFolder  | BookmarkFolderBookmarkFolderBookmarkFolder   | root              | eng-GB   |
       | BookmarkFolderBookmarkFolderBookmarkFolder  | BookmarkFolderBookmarkFolderBookmarkFolder   | root              | eng-GB   |
       | BookmarkFolderBookmarkFolderBookmarkFolder  | BookmarkFolderBookmarkFolderBookmarkFolder   | root              | eng-GB   |
+      | BookmarkFolderBookmarkFolderBookmarkFolder  | BookmarkFolderBookmarkFolderBookmarkFolder   | BookmarkFolderBookmarkFolderBookmarkFolder              | eng-GB   |
+      | BookmarkFolderBookmarkFolderBookmarkFolder  | BookmarkFolderBookmarkFolderBookmarkFolder   | BookmarkFolderBookmarkFolderBookmarkFolder              | eng-GB   |
+      | BookmarkFolderBookmarkFolderBookmarkFolder  | BookmarkFolderBookmarkFolderBookmarkFolder   | BookmarkFolderBookmarkFolderBookmarkFolder              | eng-GB   |
+      | BookmarkFolderBookmarkFolderBookmarkFolder  | BookmarkFolderBookmarkFolderBookmarkFolder   | BookmarkFolderBookmarkFolderBookmarkFolder              | eng-GB   |
+      | BookmarkFolderBookmarkFolderBookmarkFolder  | BookmarkFolderBookmarkFolderBookmarkFolder   | BookmarkFolderBookmarkFolderBookmarkFolder              | eng-GB   |
+      | BookmarkFolderBookmarkFolderBookmarkFolder  | BookmarkFolderBookmarkFolderBookmarkFolder   | BookmarkFolderBookmarkFolderBookmarkFolder              | eng-GB   |
+      | BookmarkFolderBookmarkFolderBookmarkFolder  | BookmarkFolderBookmarkFolderBookmarkFolder   | BookmarkFolderBookmarkFolderBookmarkFolder              | eng-GB   |
+      | BookmarkFolderBookmarkFolderBookmarkFolder  | BookmarkFolderBookmarkFolderBookmarkFolder   | BookmarkFolderBookmarkFolderBookmarkFolder              | eng-GB   |
+      | BookmarkFolderBookmarkFolderBookmarkFolder  | BookmarkFolderBookmarkFolderBookmarkFolder   | BookmarkFolderBookmarkFolderBookmarkFolder              | eng-GB   |
+      | BookmarkFolderBookmarkFolderBookmarkFolder  | BookmarkFolderBookmarkFolderBookmarkFolder   | BookmarkFolderBookmarkFolderBookmarkFolder              | eng-GB   |
+      | BookmarkFolderBookmarkFolderBookmarkFolder  | BookmarkFolderBookmarkFolderBookmarkFolder   | BookmarkFolderBookmarkFolderBookmarkFolder              | eng-GB   |
     And I create a role "autosaveDisabledTestRole" with policies
       | module | function |
       | *      | *        |
