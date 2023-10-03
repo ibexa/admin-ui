@@ -4,6 +4,8 @@
 
 {% set language_code = language_code|default(content_type.mainLanguageCode) %}
 
+{% block title %}{{ parent() }} - {{ 'content_type.edit.title'|trans({'%name%': content_type.name })|desc('Editing "%name%" Content Type') }}{% endblock %}
+
 {% block header %}
     {% set content_type_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.content_type_edit.sidebar_right', [], {
         'form_view': form,

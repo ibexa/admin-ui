@@ -2,6 +2,8 @@
 
 {% form_theme form_forgot_user_password '@ibexadesign/account/form_fields.html.twig'  %}
 
+{%- block title -%}{{ parent() }} - {{ 'reset_your_password.title'|trans|desc('Reset your password') }}{%- endblock -%}
+
 {%- block content -%}
     <a href="{{ path('login') }}" class="btn ibexa-btn ibexa-btn--ghost ibexa-login__btn--back">
         <svg class="ibexa-icon ibexa-icon--small-medium">

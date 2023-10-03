@@ -6,6 +6,8 @@
 
 {% form_theme form_remove '@ibexadesign/ui/form_fields.html.twig' %}
 
+{% block title %}{{ parent() }} - {{ 'bookmarks.title'|trans|desc('Bookmarks') }}{% endblock %}
+
 {% block body_class %}ibexa-bookmark-list-view{% endblock %}
 
 {% block header %}

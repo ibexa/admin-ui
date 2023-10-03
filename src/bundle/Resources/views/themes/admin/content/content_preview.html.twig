@@ -8,6 +8,8 @@
 
 {% block left_sidebar %}{% endblock %}
 
+{% block title %}{{ parent() }} - {{ 'content_preview.title'|trans({ '%name%':content.name })|desc('Previewing "%name%" ') }}{% endblock %}
+
 {% block header_row %}
     <div class="ibexa-preview-header">
         <div class="ibexa-preview-header__item ibexa-preview-header__item--back">

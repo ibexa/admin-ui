@@ -6,6 +6,8 @@
     <meta name="LanguageCode" content="{{ language.languageCode }}"/>
 {% endblock %}
 
+{% block title %}{{ parent() }} - {{ 'content_edit.title'|trans({ '%name%':content.name })|desc('Editing "%name%"') }}{% endblock %}
+
 {% block header %}
     {% set content_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.content_edit.sidebar_right', [], {
         'content': content,

@@ -2,6 +2,8 @@
 
 {% trans_default_domain 'ibexa_user_settings' %}
 
+{% block title%}{{ parent() }} - {{ 'user_settings.title'|trans|desc('User settings') }}{% endblock %}
+
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'list.title'|trans|desc('User settings') }

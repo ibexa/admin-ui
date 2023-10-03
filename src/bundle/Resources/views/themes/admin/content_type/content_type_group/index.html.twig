@@ -4,6 +4,8 @@
 
 {% block body_class %}ibexa-content-type-group-list-view{% endblock %}
 
+{% block title %}{{ parent() }} - {{ 'content_type_group.list.title'|trans({ '%name%': content_type_group.identifier })|desc('Content Types in "%name%" group') }}{% endblock %}
+
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
