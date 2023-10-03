@@ -25,7 +25,7 @@ Feature: Content Items creation
     And I open the "Dashboard" page in admin SiteAccess
     Then there's draft "Test Article Autosave draft" on Dashboard list
 
-  @javascript @APIUser:admin
+  @javascript @APIUser:admin @test
   Scenario: Content item is not autosaved and draft is not visible in dashboard when autosave is disabled
     Given I create a user group "AutosaveDisabledTestGroup"
     And I create a role "autosaveDisabledTestRole" with policies
