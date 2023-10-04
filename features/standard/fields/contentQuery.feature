@@ -1,4 +1,4 @@
-@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce @contentTypeFields
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce @contentTypeFields @test
 Feature: Content fields setting and editing
   As an administrator
   In order to manage content on my site
