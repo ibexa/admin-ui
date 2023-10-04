@@ -960,3 +960,33 @@ ibexa.asset.upload_image:
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\AssetController::uploadImageAction'
     methods: [POST]
+
+#
+# Permissions
+#
+ibexa.permission.limitation.language.content_create:
+    path: /permission/limitation/language/content-create/{locationId}
+    options:
+        expose: true
+    controller: 'Ibexa\Bundle\AdminUi\Controller\Permission\LanguageLimitationController::loadLanguageLimitationsForContentCreateAction'
+    methods: [GET]
+    requirements:
+        locationId: \d+
+
+ibexa.permission.limitation.language.content_edit:
+    path: /permission/limitation/language/content-edit/{contentInfoId}
+    options:
+        expose: true
+    controller: 'Ibexa\Bundle\AdminUi\Controller\Permission\LanguageLimitationController::loadLanguageLimitationsForContentEditAction'
+    methods: [GET]
+    requirements:
+        contentInfoId: \d+
+
+ibexa.permission.limitation.language.content_read:
+    path: /permission/limitation/language/content-read/{contentInfoId}
+    options:
+        expose: true
+    controller: 'Ibexa\Bundle\AdminUi\Controller\Permission\LanguageLimitationController::loadLanguageLimitationsForContentReadAction'
+    methods: [GET]
+    requirements:
+        contentInfoId: \d+
