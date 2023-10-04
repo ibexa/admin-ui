@@ -365,10 +365,12 @@
                 return;
             }
 
+            const closestPopup = event.target.closest('.ibexa-popup-menu');
             const isPopupMenuExpanded = !topBranch.classList.contains('ibexa-popup-menu--hidden');
             const isClickInsideTrigger = this.triggerElement.contains(event.target);
+            const isClickInsideOurBranch = this.isBranchBelongingToThisMenu(closestPopup);
 
-            if (!isPopupMenuExpanded || isClickInsideTrigger) {
+            if (!isPopupMenuExpanded || isClickInsideTrigger || isClickInsideOurBranch) {
                 return;
             }
 

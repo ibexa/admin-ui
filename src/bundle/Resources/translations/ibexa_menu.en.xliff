@@ -46,6 +46,31 @@
         <target state="new">Move</target>
         <note>key: content__sidebar_right__move</note>
       </trans-unit>
+      <trans-unit id="e200a70bde86beb8c043e30b6fdb0a79e968c61c" resname="content__sidebar_right__preview">
+        <source>Preview (%languageCode%)</source>
+        <target state="new">Preview (%languageCode%)</target>
+        <note>key: content__sidebar_right__preview</note>
+      </trans-unit>
+      <trans-unit id="20614158d7a75a2c61fd79ad3de578a8d887976d" resname="content__sidebar_right__preview.alternative.main_btn.sublabel">
+        <source>Default</source>
+        <target state="new">Default</target>
+        <note>key: content__sidebar_right__preview.alternative.main_btn.sublabel</note>
+      </trans-unit>
+      <trans-unit id="b18fc55c9bda88be0f4cc5cb896a7cea18b54d16" resname="content__sidebar_right__preview.alternative.main_button.label">
+        <source>%languageName% (%languageCode%)</source>
+        <target state="new">%languageName% (%languageCode%)</target>
+        <note>key: content__sidebar_right__preview.alternative.main_button.label</note>
+      </trans-unit>
+      <trans-unit id="dce270a3afd1b132a94c14fe542dee513db247bb" resname="content__sidebar_right__preview.subpreview">
+        <source>%languageName% (%languageCode%)</source>
+        <target state="new">%languageName% (%languageCode%)</target>
+        <note>key: content__sidebar_right__preview.subpreview</note>
+      </trans-unit>
+      <trans-unit id="529db6db4d65bb41a0465df81ce67bcd73f3002e" resname="content__sidebar_right__preview.toggle_btn.sublabel">
+        <source>Preview</source>
+        <target state="new">Preview</target>
+        <note>key: content__sidebar_right__preview.toggle_btn.sublabel</note>
+      </trans-unit>
       <trans-unit id="bbf7b43821e5ac0ce57d977a3ce156baf9a9d7b7" resname="content__sidebar_right__reveal">
         <source>Reveal</source>
         <target state="new">Reveal</target>

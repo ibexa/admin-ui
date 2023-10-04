@@ -30,6 +30,8 @@ services:
             - { name: knp_menu.menu_builder, method: build, alias: ezplatform_admin_ui.menu.content.sidebar_left }
 
     Ibexa\AdminUi\Menu\ContentRightSidebarBuilder:
+        arguments:
+            $siteaccessResolver: '@Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver'
         public: true
         lazy: true
         tags:
