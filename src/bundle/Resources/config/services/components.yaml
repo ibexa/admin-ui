@@ -39,3 +39,10 @@ services:
         public: false
 
     Ibexa\Contracts\AdminUi\Component\Renderer\RendererInterface: '@Ibexa\AdminUi\Component\Renderer\DefaultRenderer'
+
+    ibexa.adminui.layout.content.after:
+        parent: Ibexa\AdminUi\Component\TwigComponent
+        arguments:
+            $template: '@@ibexadesign/ui/layout_content_after.html.twig'
+        tags:
+            - { name: ibexa.admin_ui.component, group: 'layout-content-after' }

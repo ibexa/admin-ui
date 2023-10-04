@@ -285,6 +285,9 @@
                 </div>
             {% endif %}
         </div>
+        {% embed '@ibexadesign/ui/component/embedded_item_actions/embedded_item_actions.html.twig' only %}
+            {% block embedded_item_menu_trigger %}{% endblock %}
+        {% endembed %}
     </div>
 {%- endblock -%}
 
