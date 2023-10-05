@@ -9,5 +9,9 @@
             }
         } only %}
     </span>
-    <span class="ibexa-user-name__text">{{ ibexa_content_name(user) }}</span>
+    {% if user_path is defined %}
+        <a href={{ user_path }} class="ibexa-user-name__text">{{ ibexa_content_name(user) }}</a>
+    {% else %}
+        <span class="ibexa-user-name__text">{{ ibexa_content_name(user) }}</span>
+    {% endif %}
 </div>
