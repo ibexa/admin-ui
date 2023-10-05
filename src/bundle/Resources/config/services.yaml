@@ -66,6 +66,8 @@ services:
         lazy: true
         arguments:
             $configResolver: '@ibexa.config.resolver'
+        tags:
+            - { name: 'monolog.logger', channel: 'ibexa.admin_ui' }
 
     Ibexa\AdminUi\UI\Service\:
         resource: '../../../lib/UI/Service'

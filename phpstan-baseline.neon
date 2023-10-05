@@ -9721,6 +9721,11 @@ parameters:
 			path: src/lib/UI/Dataset/CustomUrlsDataset.php
 
 		-
+			message: "#^Parameter \\#3 \\$logger of class Ibexa\\\\AdminUi\\\\UI\\\\Dataset\\\\CustomUrlsDataset constructor expects Psr\\\\Log\\\\LoggerInterface, Psr\\\\Log\\\\LoggerInterface\\|null given\\.$#"
+			count: 1
+			path: src/lib/UI/Dataset/DatasetFactory.php
+
+		-
 			message: "#^Access to an undefined property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\:\\:\\$main\\.$#"
 			count: 1
 			path: src/lib/UI/Dataset/LocationsDataset.php
