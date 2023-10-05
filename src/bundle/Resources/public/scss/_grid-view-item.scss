@@ -10,6 +10,7 @@
     min-width: calculateRem(290px);
     max-width: calculateRem(290px);
     margin: 0 calculateRem(14px) calculateRem(32px);
+    cursor: pointer;
 
     &:link {
         text-decoration: none;
@@ -21,6 +22,24 @@
         color: $ibexa-color-dark;
         border-color: $ibexa-color-dark;
         text-decoration: none;
+
+        .ibexa-input--checkbox,
+        .ibexa-input--radio {
+            border-color: $ibexa-color-primary;
+        }
+    }
+
+    &:active {
+        border-color: $ibexa-color-dark;
+    }
+
+    &:hover {
+        border-color: $ibexa-color-primary;
+    }
+
+    &:focus {
+        border-color: $ibexa-color-dark;
+        box-shadow: $ibexa-btn-focus-box-shadow;
     }
 
     &__image {
@@ -101,6 +120,12 @@
     }
 
     &--selected {
-        border: calculateRem(1px) solid $ibexa-color-primary;
+        background: $ibexa-color-light-300;
+
+        .ibexa-grid-view-item {
+            &__title {
+                font-weight: 600;
+            }
+        }
     }
 }
