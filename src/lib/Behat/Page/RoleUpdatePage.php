@@ -13,6 +13,7 @@ use Exception;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\IbexaDropdown;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
+use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -135,10 +136,7 @@ class RoleUpdatePage extends AdminUpdateItemPage
             ->findAll($this->getLocator('button'))
             ->filterBy(new ElementTextCriterion('Select Locations'))
             ->toArray();
-
-        $buttons[1]->mouseOver();
-        usleep(100 * 2500); // 250 ms TODO: Remove after redesign is done
-        $buttons[1]->click();
+        $buttons[1]->execute(new MouseOverAndClick());
 
         $this->universalDiscoveryWidget->verifyIsLoaded();
         $this->universalDiscoveryWidget->selectContent($itemPath);
