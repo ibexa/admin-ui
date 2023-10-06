@@ -18,7 +18,7 @@
             {%- block item_image -%}
                 <div class="ibexa-grid-view-item__image-wrapper">
                     {% if image_url is defined and image_url is not null %}
-                        <img class="ibexa-grid-view-item__image" src="{{ image_url }}" />
+                        <img class="ibexa-grid-view-item__image" src="{{ image_url }}" alt="" />
                     {% else %}
                         <svg class="ibexa-icon ibexa-icon--dark ibexa-icon--extra-large">
                             <use xlink:href="{{ icon_path }}"></use>
