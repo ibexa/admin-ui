@@ -9,8 +9,6 @@
 
     .ibexa-grid-view-item {
         &--marked {
-            border: calculateRem(1px) solid $ibexa-color-dark;
-
             .c-thumbnail {
                 .ibexa-icon {
                     fill: $ibexa-color-dark;
@@ -18,14 +16,7 @@
             }
         }
 
-        &--not-selectable {
-            background-color: $ibexa-color-light-200;
-            cursor: not-allowed;
-        }
-
         &--selected {
-            border: calculateRem(1px) solid $ibexa-color-primary;
-
             .ibexa-grid-view-item {
                 &__title {
                     color: $ibexa-color-primary;

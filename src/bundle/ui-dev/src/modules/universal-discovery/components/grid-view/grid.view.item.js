@@ -77,8 +77,10 @@ const GridViewItem = ({ location, version }) => {
                     contentTypeIconPath={contentTypesMap[location.ContentInfo.Content.ContentType._href].thumbnail}
                 />
             </div>
-            <div className="ibexa-grid-view-item__title-wrapper">
-                <div className="ibexa-grid-view-item__title">{location.ContentInfo.Content.TranslatedName}</div>
+            <div className="ibexa-grid-view-item__footer">
+                <div className="ibexa-grid-view-item__title" title={location.ContentInfo.Content.TranslatedName}>
+                    {location.ContentInfo.Content.TranslatedName}
+                </div>
             </div>
             {renderToggleSelection()}
         </div>
