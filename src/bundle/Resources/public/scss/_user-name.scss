@@ -1,5 +1,6 @@
 .ibexa-user-name {
     display: inline-flex;
+    align-items: center;
 
     &__thumbnail {
         width: calculateRem(20px);
@@ -9,5 +10,9 @@
 
     &__text {
         white-space: nowrap;
+    }
+
+    .ibexa-user-thumbnail {
+        vertical-align: initial;
     }
 }
