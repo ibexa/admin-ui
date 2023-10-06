@@ -316,6 +316,19 @@
     &__field-settings-field + &__field-settings-field {
         margin-left: calculateRem(35px);
     }
+
+    &__notice {
+        color: $ibexa-color-dark-400;
+        font-weight: normal;
+        font-family: $ibexa-font-family;
+        font-size: $ibexa-text-font-size-small;
+        line-height: calculateRem(32px);
+    }
+
+    &__notice-icon {
+        fill: $ibexa-color-dark-400;
+        margin-right: calculateRem(8px);
+    }
 }
 
 .ibexa-field-definitions-placeholder {
