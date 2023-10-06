@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
+use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
@@ -46,18 +47,19 @@ class ContentRelationSingle extends FieldTypeComponent
     public function setValue(array $parameters): void
     {
         if (!$this->isRelationEmpty()) {
-            $this->getHTMLPage()->find($this->getLocator('buttonRemove'))->mouseOver();
-            usleep(100 * 5000); // 500ms
-            $this->getHTMLPage()->find($this->getLocator('buttonRemove'))->click();
+            $this->getHTMLPage()
+                ->find($this->getLocator('buttonRemove'))
+                ->execute(new MouseOverAndClick());
         }
 
         $buttonLocator = CSSLocatorBuilder::base($this->parentLocator)
                     ->withDescendant($this->getLocator('selectContent'))
                     ->build();
 
-        $this->getHTMLPage()->setTimeout(5)->find($buttonLocator)->mouseOver();
-        usleep(100);
-        $this->getHTMLPage()->find($buttonLocator)->click();
+        $this->getHTMLPage()
+            ->setTimeout(5)
+            ->find($buttonLocator)
+            ->execute(new MouseOverAndClick());
 
         $this->universalDiscoveryWidget->verifyIsLoaded();
         $this->universalDiscoveryWidget->selectContent($parameters['value']);

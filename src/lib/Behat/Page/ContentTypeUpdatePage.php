@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\Page;
 
+use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementsCountCondition;
@@ -108,9 +109,9 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
 
     public function clickAddButton(): void
     {
-        $this->getHTMLPage()->find($this->getLocator('contentTypeAddButton'))->mouseOver();
-        usleep(100 * 5000); // 500ms
-        $this->getHTMLPage()->find($this->getLocator('contentTypeAddButton'))->click();
+        $this->getHTMLPage()
+            ->find($this->getLocator('contentTypeAddButton'))
+            ->execute(new MouseOverAndClick());
         $this->getHTMLPage()
             ->setTimeout(3)
             ->waitUntilCondition(
