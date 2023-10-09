@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Component\Component;
+use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
@@ -65,9 +66,10 @@ class Notification extends Component
     public function verifyIsLoaded(): void
     {
         $this->getHTMLPage()
-            ->setTimeout(20)
-            ->find($this->getLocator('alert'))
-            ->assert()->isVisible();
+            ->setTimeout(30)
+            ->waitUntilCondition(
+                new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('alert'))
+            );
     }
 
     public function verifyMessage(string $expectedMessage)
