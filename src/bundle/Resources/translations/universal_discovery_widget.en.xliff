@@ -56,10 +56,10 @@
         <target state="new">Or choose from list</target>
         <note>key: content.create.filters.desc</note>
       </trans-unit>
-      <trans-unit id="1713d0deb6344882cf915babb2df574556a3f82c" resname="content_create.cancel.label">
-        <source>Cancel</source>
-        <target state="new">Cancel</target>
-        <note>key: content_create.cancel.label</note>
+      <trans-unit id="698796eecd8fcb7c7ffb1fcc8499b6e47f23ffb2" resname="content_create.discard.label">
+        <source>Discard</source>
+        <target state="new">Discard</target>
+        <note>key: content_create.discard.label</note>
       </trans-unit>
       <trans-unit id="6597ed9c77295271a62deaf86cddcab2a332af8d" resname="content_create.label">
         <source>Content create</source>
