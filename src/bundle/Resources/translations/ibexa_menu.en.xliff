@@ -531,11 +531,6 @@
         <target state="new">Logout</target>
         <note>key: user__content</note>
       </trans-unit>
-      <trans-unit id="22a2aa3863b8f6a0ab24403998badeb4bb196254" resname="user__drafts">
-        <source>Drafts</source>
-        <target state="new">Drafts</target>
-        <note>key: user__drafts</note>
-      </trans-unit>
       <trans-unit id="d4a0cfb90774164e94f11e2a4f019a2538faebcf" resname="user__settings">
         <source>User settings</source>
         <target state="new">User settings</target>
