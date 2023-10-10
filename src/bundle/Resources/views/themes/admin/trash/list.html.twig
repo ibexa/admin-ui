@@ -146,11 +146,17 @@
                     raw: true,
                 }]) %}
 
+                {% set creator_name %}
+                    {% if trash_item.creator is not empty %}
+                        {% include '@ibexadesign/ui/component/user/user.html.twig' with { user: trash_item.creator } only %}
+                    {% else %}
+                        {{ 'trash.item.deleted_user'|trans|desc('Deleted user') }}
+                    {% endif %}
+                {% endset %}
+
                 {% set body_row_cols = body_row_cols|merge([
                     { content: trash_item.contentType.name },
-                    { content: trash_item.creator is not empty
-                        ? ibexa_content_name(trash_item.creator.content) :
-                        'trash.item.deleted_user'|trans|desc('Deleted user') },
+                    { content: creator_name },
                 ]) %}
 
                 {% if can_view_section %}

@@ -7,14 +7,31 @@
         {{ translation.name }}<br>
     {% endfor %}
 {% endset %}
+
+{% set creator_name %}
+    {% if creator is not empty %}
+        {% include '@ibexadesign/ui/component/user/user.html.twig' with { user: creator } only %}
+    {% else %}
+        {{ 'tab.details.creator.not_found'|trans|desc('Can\'t fetch creator') }}
+    {% endif %}
+{% endset %}
+
+{% set last_contributor_name %}
+    {% if last_contributor is not empty %}
+        {% include '@ibexadesign/ui/component/user/user.html.twig' with { user: last_contributor } only %}
+    {% else %}
+        {{ 'tab.details.last_contributor.not_found'|trans|desc('Can\'t fetch last contributor') }}
+    {% endif %}
+{% endset %}
+
 {% set content_details_items = [
     {
         label: 'tab.details.creator'|trans()|desc('Creator'),
-        content: creator is not empty ? ibexa_content_name(creator) : 'tab.details.creator.not_found'|trans|desc('Can\'t fetch creator'),
+        content: creator_name,
     },
     {
         label: 'tab.details.last_contributor'|trans()|desc('Last contributor'),
-        content: last_contributor is not empty ? ibexa_content_name(last_contributor) : 'tab.details.last_contributor.not_found'|trans|desc('Can\'t fetch last contributor'),
+        content: last_contributor_name,
     },
     {
         label: 'tab.details.published_version'|trans()|desc('Published version'),

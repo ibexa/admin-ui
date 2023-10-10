@@ -27,7 +27,7 @@ const Thumbnail = ({ thumbnailData, iconExtraClasses, contentTypeIconPath }) => 
     return (
         <div className="c-thumbnail">
             {renderContentTypeIcon()}
-            <img src={thumbnailData.resource} />
+            <img className="c-thumbnail__image" src={thumbnailData.resource} />
         </div>
     );
 };
