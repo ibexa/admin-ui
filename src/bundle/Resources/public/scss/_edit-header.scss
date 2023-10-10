@@ -62,6 +62,8 @@
             flex-direction: column;
             justify-content: center;
             padding-left: 0;
+            margin-top: calculateRem(20px);
+            height: calculateRem(48px);
 
             .ibexa-icon {
                 margin-right: calculateRem(8px);
@@ -75,14 +77,6 @@
             .ibexa-label {
                 margin-bottom: 0;
                 color: $ibexa-color-dark-400;
-            }
-        }
-
-        &--right {
-            .ibexa-autosave {
-                position: absolute;
-                top: calculateRem(96px);
-                right: calculateRem(64px);
             }
         }
     }
@@ -110,6 +104,7 @@
         color: $ibexa-color-dark-400;
         opacity: 1;
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+        margin: 0;
     }
 
     &__subtitle {
@@ -137,8 +132,10 @@
     }
 
     .ibexa-autosave {
-        opacity: 1;
-        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+        display: inline-block;
+        border-left: calculateRem(1px) solid $ibexa-color-light;
+        padding-left: calculateRem(12px);
+        margin-left: calculateRem(12px);
     }
 
     &--slim {
@@ -192,11 +189,6 @@
                     display: none;
                 }
             }
-        }
-
-        .ibexa-autosave {
-            opacity: 0;
-            height: 0;
         }
     }
 }

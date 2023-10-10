@@ -16,6 +16,9 @@
                         {{ action_object|default('') }}
                         {{ content_type_name|default('') }}
                     </label>
+                    {% if show_autosave_status|default(false) %}
+                        {% include '@ibexadesign/ui/autosave.html.twig' %}
+                    {% endif %}
                 </div>
             </div>
             <div class="col-3 ibexa-edit-header__column ibexa-context-menu-wrapper">
@@ -56,11 +59,6 @@
 
                 {% if subtitle is defined %}
                     <div class="ibexa-edit-header__subtitle">{{ subtitle }}</div>
-                {% endif %}
-            </div>
-            <div class="ibexa-edit-header__column ibexa-edit-header__column--right">
-                {% if show_autosave_status|default(false) %}
-                    {% include '@ibexadesign/ui/autosave.html.twig' %}
                 {% endif %}
             </div>
             {% if show_extra_bottom_content %}
