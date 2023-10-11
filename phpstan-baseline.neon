@@ -11272,11 +11272,6 @@ parameters:
 			path: tests/lib/EventListener/SetViewParametersListenerTest.php
 
 		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\FieldType\\\\FieldTypeFormMapperDispatcherTest\\:\\:testMapFieldDefinition\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/FieldType/FieldTypeFormMapperDispatcherTest.php
-
-		-
 			message: "#^Access to protected property Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\ContentTranslationData\\:\\:\\$fieldsData\\.$#"
 			count: 4
 			path: tests/lib/Form/Data/ContentTranslationDataTest.php
@@ -12577,46 +12572,6 @@ parameters:
 			path: tests/lib/Form/DataTransformer/VersionInfoTransformerTest.php
 
 		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Form\\\\Processor\\\\ContentTypeFormProcessorTest\\:\\:testAddFieldDefinition\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Form/Processor/ContentTypeFormProcessorTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Form\\\\Processor\\\\ContentTypeFormProcessorTest\\:\\:testProcessDefaultAction\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Form/Processor/ContentTypeFormProcessorTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Form\\\\Processor\\\\ContentTypeFormProcessorTest\\:\\:testPublishContentType\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Form/Processor/ContentTypeFormProcessorTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Form\\\\Processor\\\\ContentTypeFormProcessorTest\\:\\:testPublishContentTypeWithRedirection\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Form/Processor/ContentTypeFormProcessorTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Form\\\\Processor\\\\ContentTypeFormProcessorTest\\:\\:testRemoveContentTypeDraft\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Form/Processor/ContentTypeFormProcessorTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Form\\\\Processor\\\\ContentTypeFormProcessorTest\\:\\:testRemoveContentTypeDraftWithRedirection\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Form/Processor/ContentTypeFormProcessorTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Form\\\\Processor\\\\ContentTypeFormProcessorTest\\:\\:testRemoveFieldDefinition\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Form/Processor/ContentTypeFormProcessorTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Form\\\\Processor\\\\ContentTypeFormProcessorTest\\:\\:testSubscribedEvents\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Form/Processor/ContentTypeFormProcessorTest.php
-
-		-
 			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Form\\\\Processor\\\\PreviewFormProcessorTest\\:\\:generateConfigMock\\(\\) has parameter \\$languageCode with no type specified\\.$#"
 			count: 1
 			path: tests/lib/Form/Processor/PreviewFormProcessorTest.php
@@ -13312,31 +13267,6 @@ parameters:
 			path: tests/lib/Validator/Constraint/UniqueContentTypeIdentifierTest.php
 
 		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Validator\\\\Constraint\\\\UniqueContentTypeIdentifierValidatorTest\\:\\:testEditingContentTypeDraftFromExistingContentTypeIsValid\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Validator/Constraint/UniqueContentTypeIdentifierValidatorTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Validator\\\\Constraint\\\\UniqueContentTypeIdentifierValidatorTest\\:\\:testInvalid\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Validator/Constraint/UniqueContentTypeIdentifierValidatorTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Validator\\\\Constraint\\\\UniqueContentTypeIdentifierValidatorTest\\:\\:testNotContentTypeData\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Validator/Constraint/UniqueContentTypeIdentifierValidatorTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Validator\\\\Constraint\\\\UniqueContentTypeIdentifierValidatorTest\\:\\:testNullContentTypeIdentifier\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Validator/Constraint/UniqueContentTypeIdentifierValidatorTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Validator\\\\Constraint\\\\UniqueContentTypeIdentifierValidatorTest\\:\\:testValid\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Validator/Constraint/UniqueContentTypeIdentifierValidatorTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$value of method Ibexa\\\\AdminUi\\\\Validator\\\\Constraints\\\\UniqueContentTypeIdentifierValidator\\:\\:validate\\(\\) expects Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\ContentTypeData, stdClass given\\.$#"
 			count: 1
 			path: tests/lib/Validator/Constraint/UniqueContentTypeIdentifierValidatorTest.php
@@ -13350,21 +13280,6 @@ parameters:
 			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Validator\\\\Constraint\\\\UniqueFieldDefinitionIdentifierTest\\:\\:testGetTartes\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Validator/Constraint/UniqueFieldDefinitionIdentifierTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Validator\\\\Constraint\\\\UniqueFieldDefinitionIdentifierValidatorTest\\:\\:testInvalid\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Validator/Constraint/UniqueFieldDefinitionIdentifierValidatorTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Validator\\\\Constraint\\\\UniqueFieldDefinitionIdentifierValidatorTest\\:\\:testNotFieldDefinitionData\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Validator/Constraint/UniqueFieldDefinitionIdentifierValidatorTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Validator\\\\Constraint\\\\UniqueFieldDefinitionIdentifierValidatorTest\\:\\:testValid\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Validator/Constraint/UniqueFieldDefinitionIdentifierValidatorTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$value of method Ibexa\\\\AdminUi\\\\Validator\\\\Constraints\\\\UniqueFieldDefinitionIdentifierValidator\\:\\:validate\\(\\) expects Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\FieldDefinitionData, string given\\.$#"
