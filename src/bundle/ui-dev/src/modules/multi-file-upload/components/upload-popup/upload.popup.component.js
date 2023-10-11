@@ -51,7 +51,6 @@ export default class UploadPopupModule extends Component {
 }
 
 UploadPopupModule.propTypes = {
-    popupTitle: PropTypes.string.isRequired,
     visible: PropTypes.bool,
     itemsToUpload: PropTypes.array,
     onAfterUpload: PropTypes.func.isRequired,

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
@@ -867,7 +867,6 @@ export default class SubItemsModule extends Component {
     }
 
     renderDeleteConfirmationPopupFooter(selectionInfo) {
-        const cancelLabel = Translator.trans(/*@Desc("Cancel")*/ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items');
         const { isUserContentItemSelected, isNonUserContentItemSelected } = selectionInfo;
         let confirmLabel = '';
 
@@ -880,72 +879,48 @@ export default class SubItemsModule extends Component {
                 'ibexa_sub_items',
             );
         }
+        const confirmBtn = {
+            label: confirmLabel,
+            onClick: this.onBulkDeletePopupConfirm,
+            className: 'ibexa-btn--primary ibexa-btn--trigger',
+        };
+        const cancelBtn = {
+            label: Translator.trans(/*@Desc("Cancel")*/ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
+            className: 'ibexa-btn--secondary',
+            'data-bs-dismiss': 'modal',
+        };
 
-        return (
-            <Fragment>
-                <button
-                    onClick={this.onBulkDeletePopupConfirm}
-                    type="button"
-                    className="btn ibexa-btn ibexa-btn--primary ibexa-btn--trigger"
-                >
-                    {confirmLabel}
-                </button>
-                <button
-                    onClick={this.closeBulkDeletePopup}
-                    type="button"
-                    className="btn ibexa-btn ibexa-btn--secondary"
-                    data-bs-dismiss="modal"
-                >
-                    {cancelLabel}
-                </button>
-            </Fragment>
-        );
+        return [confirmBtn, cancelBtn];
     }
 
     renderHideConfirmationPopupFooter() {
-        const cancelLabel = Translator.trans(/*@Desc("Cancel")*/ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items');
-        const confirmLabel = Translator.trans(/*@Desc("Hide")*/ 'bulk_hide.popup.confirm', {}, 'ibexa_sub_items');
+        const confirmBtn = {
+            label: Translator.trans(/*@Desc("Hide")*/ 'bulk_hide.popup.confirm', {}, 'ibexa_sub_items'),
+            onClick: this.onBulkHidePopupConfirm,
+            className: 'ibexa-btn--primary ibexa-btn--trigger',
+        };
+        const cancelBtn = {
+            label: Translator.trans(/*@Desc("Cancel")*/ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
+            className: 'ibexa-btn--secondary',
+            'data-bs-dismiss': 'modal',
+        };
 
-        return (
-            <Fragment>
-                <button onClick={this.onBulkHidePopupConfirm} type="button" className="btn ibexa-btn ibexa-btn--primary ibexa-btn--trigger">
-                    {confirmLabel}
-                </button>
-                <button
-                    onClick={this.closeBulkHidePopup}
-                    type="button"
-                    className="btn ibexa-btn ibexa-btn--secondary"
-                    data-bs-dismiss="modal"
-                >
-                    {cancelLabel}
-                </button>
-            </Fragment>
-        );
+        return [confirmBtn, cancelBtn];
     }
 
     renderUnhideConfirmationPopupFooter() {
-        const cancelLabel = Translator.trans(/*@Desc("Cancel")*/ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items');
-        const confirmLabel = Translator.trans(/*@Desc("Reveal")*/ 'bulk_unhide.popup.confirm', {}, 'ibexa_sub_items');
+        const confirmBtn = {
+            label: Translator.trans(/*@Desc("Reveal")*/ 'bulk_unhide.popup.confirm', {}, 'ibexa_sub_items'),
+            onClick: this.onBulkUnhidePopupConfirm,
+            className: 'ibexa-btn--primary ibexa-btn--trigger',
+        };
+        const cancelBtn = {
+            label: Translator.trans(/*@Desc("Cancel")*/ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
+            className: 'ibexa-btn--secondary',
+            'data-bs-dismiss': 'modal',
+        };
 
-        return (
-            <Fragment>
-                <button
-                    onClick={this.onBulkUnhidePopupConfirm}
-                    type="button"
-                    className="btn ibexa-btn ibexa-btn--primary ibexa-btn--trigger"
-                >
-                    {confirmLabel}
-                </button>
-                <button
-                    onClick={this.closeBulkUnhidePopup}
-                    type="button"
-                    className="btn ibexa-btn ibexa-btn--secondary"
-                    data-bs-dismiss="modal"
-                >
-                    {cancelLabel}
-                </button>
-            </Fragment>
-        );
+        return [confirmBtn, cancelBtn];
     }
 
     getSelectionInfo() {
@@ -1011,9 +986,8 @@ export default class SubItemsModule extends Component {
             <Popup
                 onClose={this.closeBulkDeletePopup}
                 isVisible={isBulkDeletePopupVisible}
-                isLoading={false}
                 size="medium"
-                footerChildren={this.renderDeleteConfirmationPopupFooter(selectionInfo)}
+                actionBtns={this.renderDeleteConfirmationPopupFooter(selectionInfo)}
                 noHeader={true}
             >
                 <div className="m-sub-items__confirmation-modal-body">{confirmationMessage}</div>
@@ -1040,9 +1014,8 @@ export default class SubItemsModule extends Component {
             <Popup
                 onClose={this.closeBulkHidePopup}
                 isVisible={isBulkHidePopupVisible}
-                isLoading={false}
                 size="medium"
-                footerChildren={this.renderHideConfirmationPopupFooter()}
+                actionBtns={this.renderHideConfirmationPopupFooter()}
                 noHeader={true}
             >
                 <div className="m-sub-items__confirmation-modal-body">{confirmationMessage}</div>
@@ -1069,9 +1042,8 @@ export default class SubItemsModule extends Component {
             <Popup
                 onClose={this.closeBulkUnhidePopup}
                 isVisible={isBulkUnhidePopupVisible}
-                isLoading={false}
                 size="medium"
-                footerChildren={this.renderUnhideConfirmationPopupFooter()}
+                actionBtns={this.renderUnhideConfirmationPopupFooter()}
                 noHeader={true}
             >
                 <div className="m-sub-items__confirmation-modal-body">{confirmationMessage}</div>
