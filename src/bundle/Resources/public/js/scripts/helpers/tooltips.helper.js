@@ -155,9 +155,10 @@
                     }
                 }
 
+                const { delayShow, delayHide } = tooltipNode.dataset;
                 const delay = {
-                    show: parseInt(tooltipNode.dataset.delayShow, 10) ?? 150,
-                    hide: parseInt(tooltipNode.dataset.delayHide, 10) ?? 75,
+                    show: delayShow ? parseInt(delayShow, 10) : 150,
+                    hide: delayHide ? parseInt(delayHide, 10) : 75,
                 };
                 const extraClass = tooltipNode.dataset.tooltipExtraClass ?? '';
                 const placement = tooltipNode.dataset.tooltipPlacement ?? 'bottom';
