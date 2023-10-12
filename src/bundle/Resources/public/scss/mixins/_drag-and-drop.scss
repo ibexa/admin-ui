@@ -517,7 +517,7 @@
 
 @mixin drag-item-placeholder {
     display: flex;
-    border: calculateRem(2px) solid $ibexa-color-info;
+    border: calculateRem(1px) solid $ibexa-color-info;
     border-radius: calculateRem(8px);
     margin-top: calculateRem(8px);
 
