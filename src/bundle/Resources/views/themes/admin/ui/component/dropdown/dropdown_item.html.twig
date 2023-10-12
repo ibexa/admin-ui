@@ -1,27 +1,45 @@
+{% trans_default_domain 'dropdown' %}
+{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+
 {% set item_label = translation_domain is same as(false) ? choice.label : choice.label|trans({}, translation_domain) %}
 {% set preferred_choice = preferred_choice|default(false) %}
+{% set placeholder_choice = choice.placeholder|default(false) %}
 
 {% if choice.choices is defined %}
     <li class="ibexa-dropdown__item-group">
         <label class="ibexa-dropdown__item-group-label">{{ item_label }}</label>
         <ul class="ibexa-dropdown__item-group-list">
             {% for child in choice.choices %}
-                {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with { choice: child, preferred_choice, custom_form } %}
+                {% include '@ibexadesign/ui/component/dropdown/dropdown_item.html.twig' with {
+                    value,
+                    multiple,
+                    translation_domain,
+                    choice: child,
+                    preferred_choice,
+                    custom_form
+                } only %}
             {% endfor %}
         </ul>
     </li>
 {% else %}
     {% set is_selected = custom_form ? choice.value == value : choice is selectedchoice(value) %}
-    <li
-        data-value="{{ choice.value }}"
-        data-filter-value="{{ item_label }}"
-        {% if choice.icon is defined %}
-            data-choice-icon="{{ choice.icon }}"
-        {% endif %}
-        class="ibexa-dropdown__item
-            {% if preferred_choice %}ibexa-dropdown__item--preferred-choice{% endif %}
-            {% if is_selected %}ibexa-dropdown__item--selected{% endif %}"
-    >
+    {% set dropdown_item_attr = dropdown_item_attr|default({})|merge({
+        'data-value': choice.value,
+        'data-filter-value': item_label,
+        'data-choice-icon': choice.icon is defined ? choice.icon : null,
+        class: ('ibexa-dropdown__item '
+            ~ (preferred_choice ? 'ibexa-dropdown__item--preferred-choice ')
+            ~ (is_selected ? 'ibexa-dropdown__item--selected ')
+            ~ (placeholder_choice ? 'ibexa-dropdown__item--placeholder '))|trim,
+    }) %}
+
+    {% if placeholder_choice %}
+        {% set dropdown_item_attr = dropdown_item_attr|merge({
+            hidden: 'hidden'
+        }) %}
+    {% endif %}
+
+    <li {{ html.attributes(dropdown_item_attr)}}>
         {% if multiple is defined and multiple %}
             <input type="checkbox" name="dropdown-checkbox" class="ibexa-input ibexa-input--checkbox" {% if is_selected %}checked{% endif %} />
         {% endif %}
