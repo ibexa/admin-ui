@@ -40,7 +40,7 @@ Feature: Languages management
         | Name          | Deutsch Second |
         | Language code | de-DE          |
       And I perform the "Save and close" action
-    Then error notification that "language with the specified language code already exists" appears
+    Then error notification that 'language with the "de-DE" language code already exists' appears
 
   @javascript
   Scenario: Changes can be discarded while editing Language
