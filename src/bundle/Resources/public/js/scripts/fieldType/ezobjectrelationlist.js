@@ -82,8 +82,8 @@
                 const { VersionInfo } = item.ContentInfo.Content.CurrentVersion.Version;
                 const currentVersionNo = VersionInfo.versionNo;
                 const languageCodes = VersionInfo.VersionTranslationInfo.Language.map((language) => language.languageCode);
-                const itemActionsMenuContainer = relationsContainer.querySelector('.ibexa-embedded-item-actions__menu');
-                const itemActionsTriggerElement = relationsContainer.querySelector('.ibexa-embedded-item-actions__menu-trigger-btn');
+                const itemActionsMenuContainer = itemNode.querySelector('.ibexa-embedded-item-actions__menu');
+                const itemActionsTriggerElement = itemNode.querySelector('.ibexa-embedded-item-actions__menu-trigger-btn');
                 const itemNodeNameCell = itemNode.querySelector('.ibexa-relations__item-name');
 
                 itemNode.dataset.contentId = contentId;
