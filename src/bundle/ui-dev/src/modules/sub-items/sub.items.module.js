@@ -866,7 +866,7 @@ export default class SubItemsModule extends Component {
         document.body.dispatchEvent(new CustomEvent('ibexa-content-tree-refresh'));
     }
 
-    renderDeleteConfirmationPopupFooter(selectionInfo) {
+    getDeleteConfirmationPopupFooter(selectionInfo) {
         const { isUserContentItemSelected, isNonUserContentItemSelected } = selectionInfo;
         let confirmLabel = '';
 
@@ -879,48 +879,48 @@ export default class SubItemsModule extends Component {
                 'ibexa_sub_items',
             );
         }
-        const confirmBtn = {
+        const confirmBtnAttrs = {
             label: confirmLabel,
             onClick: this.onBulkDeletePopupConfirm,
             className: 'ibexa-btn--primary ibexa-btn--trigger',
         };
-        const cancelBtn = {
+        const cancelBtnAttrs = {
             label: Translator.trans(/*@Desc("Cancel")*/ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
             className: 'ibexa-btn--secondary',
             'data-bs-dismiss': 'modal',
         };
 
-        return [confirmBtn, cancelBtn];
+        return [confirmBtnAttrs, cancelBtnAttrs];
     }
 
-    renderHideConfirmationPopupFooter() {
-        const confirmBtn = {
+    getHideConfirmationPopupFooter() {
+        const confirmBtnAttrs = {
             label: Translator.trans(/*@Desc("Hide")*/ 'bulk_hide.popup.confirm', {}, 'ibexa_sub_items'),
             onClick: this.onBulkHidePopupConfirm,
             className: 'ibexa-btn--primary ibexa-btn--trigger',
         };
-        const cancelBtn = {
+        const cancelBtnAttrs = {
             label: Translator.trans(/*@Desc("Cancel")*/ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
             className: 'ibexa-btn--secondary',
             'data-bs-dismiss': 'modal',
         };
 
-        return [confirmBtn, cancelBtn];
+        return [confirmBtnAttrs, cancelBtnAttrs];
     }
 
-    renderUnhideConfirmationPopupFooter() {
-        const confirmBtn = {
+    getUnhideConfirmationPopupFooter() {
+        const confirmBtnAttrs = {
             label: Translator.trans(/*@Desc("Reveal")*/ 'bulk_unhide.popup.confirm', {}, 'ibexa_sub_items'),
             onClick: this.onBulkUnhidePopupConfirm,
             className: 'ibexa-btn--primary ibexa-btn--trigger',
         };
-        const cancelBtn = {
+        const cancelBtnAttrs = {
             label: Translator.trans(/*@Desc("Cancel")*/ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
             className: 'ibexa-btn--secondary',
             'data-bs-dismiss': 'modal',
         };
 
-        return [confirmBtn, cancelBtn];
+        return [confirmBtnAttrs, cancelBtnAttrs];
     }
 
     getSelectionInfo() {
@@ -987,7 +987,7 @@ export default class SubItemsModule extends Component {
                 onClose={this.closeBulkDeletePopup}
                 isVisible={isBulkDeletePopupVisible}
                 size="medium"
-                actionBtns={this.renderDeleteConfirmationPopupFooter(selectionInfo)}
+                actionBtns={this.getDeleteConfirmationPopupFooter(selectionInfo)}
                 noHeader={true}
             >
                 <div className="m-sub-items__confirmation-modal-body">{confirmationMessage}</div>
@@ -1015,7 +1015,7 @@ export default class SubItemsModule extends Component {
                 onClose={this.closeBulkHidePopup}
                 isVisible={isBulkHidePopupVisible}
                 size="medium"
-                actionBtns={this.renderHideConfirmationPopupFooter()}
+                actionBtns={this.getHideConfirmationPopupFooter()}
                 noHeader={true}
             >
                 <div className="m-sub-items__confirmation-modal-body">{confirmationMessage}</div>
@@ -1043,7 +1043,7 @@ export default class SubItemsModule extends Component {
                 onClose={this.closeBulkUnhidePopup}
                 isVisible={isBulkUnhidePopupVisible}
                 size="medium"
-                actionBtns={this.renderUnhideConfirmationPopupFooter()}
+                actionBtns={this.getUnhideConfirmationPopupFooter()}
                 noHeader={true}
             >
                 <div className="m-sub-items__confirmation-modal-body">{confirmationMessage}</div>

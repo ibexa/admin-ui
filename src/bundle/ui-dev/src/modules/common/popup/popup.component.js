@@ -105,7 +105,7 @@ const Popup = ({
                               </div>
                           )}
                     <div className="modal-body c-popup__body">{children}</div>
-                    <div className={'modal-footer c-popup__footer'}>
+                    <div className="modal-footer c-popup__footer">
                         {actionBtns.map(({ className, onClick, disabled = false, label, ...extraProps }) => (
                             <button
                                 key={label}
@@ -134,7 +134,7 @@ Popup.propTypes = {
             className: PropTypes.string,
         }),
     ).isRequired,
-    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+    children: PropTypes.node.isRequired,
     isVisible: PropTypes.bool.isRequired,
     onClose: PropTypes.func,
     title: PropTypes.string,
