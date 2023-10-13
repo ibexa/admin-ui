@@ -987,7 +987,7 @@ export default class SubItemsModule extends Component {
                 onClose={this.closeBulkDeletePopup}
                 isVisible={isBulkDeletePopupVisible}
                 size="medium"
-                actionBtns={this.getDeleteConfirmationPopupFooter(selectionInfo)}
+                actionBtnsConfig={this.getDeleteConfirmationPopupFooter(selectionInfo)}
                 noHeader={true}
             >
                 <div className="m-sub-items__confirmation-modal-body">{confirmationMessage}</div>
@@ -1015,7 +1015,7 @@ export default class SubItemsModule extends Component {
                 onClose={this.closeBulkHidePopup}
                 isVisible={isBulkHidePopupVisible}
                 size="medium"
-                actionBtns={this.getHideConfirmationPopupFooter()}
+                actionBtnsConfig={this.getHideConfirmationPopupFooter()}
                 noHeader={true}
             >
                 <div className="m-sub-items__confirmation-modal-body">{confirmationMessage}</div>
@@ -1043,7 +1043,7 @@ export default class SubItemsModule extends Component {
                 onClose={this.closeBulkUnhidePopup}
                 isVisible={isBulkUnhidePopupVisible}
                 size="medium"
-                actionBtns={this.getUnhideConfirmationPopupFooter()}
+                actionBtnsConfig={this.getUnhideConfirmationPopupFooter()}
                 noHeader={true}
             >
                 <div className="m-sub-items__confirmation-modal-body">{confirmationMessage}</div>

@@ -26,7 +26,7 @@ const Popup = ({
     subtitle,
     hasFocus,
     noKeyboard,
-    actionBtns,
+    actionBtnsConfig,
     size,
     noHeader,
     noCloseBtn,
@@ -106,7 +106,7 @@ const Popup = ({
                           )}
                     <div className="modal-body c-popup__body">{children}</div>
                     <div className="modal-footer c-popup__footer">
-                        {actionBtns.map(({ className, onClick, disabled = false, label, ...extraProps }) => (
+                        {actionBtnsConfig.map(({ className, onClick, disabled = false, label, ...extraProps }) => (
                             <button
                                 key={label}
                                 type="button"
@@ -126,7 +126,7 @@ const Popup = ({
 };
 
 Popup.propTypes = {
-    actionBtns: PropTypes.arrayOf(
+    actionBtnsConfig: PropTypes.arrayOf(
         PropTypes.shape({
             label: PropTypes.string.isRequired,
             onClick: PropTypes.func,
