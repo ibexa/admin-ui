@@ -96,7 +96,7 @@ const Popup = ({
                     {noHeader
                         ? closeButton
                         : title && (
-                              <div className={'modal-header c-popup__header'}>
+                              <div className="modal-header c-popup__header">
                                   <h3 className="modal-title c-popup__headline" title={title}>
                                       <span className="c-popup__title">{title}</span>
                                       {subtitle && <span className="c-popup__subtitle">{subtitle}</span>}
