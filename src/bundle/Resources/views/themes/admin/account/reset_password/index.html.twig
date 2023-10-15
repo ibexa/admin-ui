@@ -2,6 +2,8 @@
 
 {% form_theme form_reset_user_password '@ibexadesign/account/form_fields.html.twig'  %}
 
+{%- block title -%}{{ parent() }} - {{ 'change_password.title'|trans|desc('Change password') }}{%- endblock -%}
+
 {%- block content -%}
     <h2 class="ibexa-login__actions-headline">{{ 'ezplatform.reset_user_password.change_password'|trans|desc('Change password') }}</h2>
     {% if form_reset_user_password is defined %}

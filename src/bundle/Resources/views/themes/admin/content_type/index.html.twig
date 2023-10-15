@@ -7,6 +7,8 @@
 {% set language_code = content_type.mainLanguageCode %}
 {% form_theme form_content_type_edit '@ibexadesign/ui/form_fields.html.twig' %}
 
+{% block title %}{{ parent() }} - {{ 'content_type.view.title'|trans({'%name%': content_type.name })|desc('"%name%" Content Type') }}{% endblock %}
+
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') , },

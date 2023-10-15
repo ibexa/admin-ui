@@ -4,6 +4,8 @@
 
 {% trans_default_domain 'ibexa_content_type' %}
 
+{% block title %}{{ parent() }} - {{ 'content_type_group.Create.title'|trans()|desc('New Content Type group') }}{% endblock %}
+
 {% block header_admin %}
     {% set content_type_group_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.content_type_group_create.sidebar_right', [], {
         save_id: form.save.vars.id,

@@ -6,6 +6,8 @@
     <meta name="LanguageCode" content="{{ language.languageCode }}"/>
 {% endblock %}
 
+{% block title %}{{ parent() }} - {{ 'content_create.title'|trans({'%contentType%': content_type.name})|desc('New %contentType%') }}{% endblock %}
+
 {% block header %}
     {% set content_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.content_create.sidebar_right', [], {
         'parent_location': parent_location,

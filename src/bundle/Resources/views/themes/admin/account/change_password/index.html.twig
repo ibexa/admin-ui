@@ -7,6 +7,8 @@
 
 {% trans_default_domain 'ibexa_user_change_password' %}
 
+{% block title %}{{ parent() }} - {{ 'user_change_password.title'|trans|desc('Change my password') }}{% endblock %}
+
 {% set anchor_params = {
     close_href: path('ibexa.user_settings.list'),
 } %}

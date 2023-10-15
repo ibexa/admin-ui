@@ -1,5 +1,7 @@
 {% extends '@ibexadesign/account/base.html.twig' %}
 
+{%- block title -%}{{ parent() }} - {{ 'login.title'|trans|desc('Login') }}{%- endblock -%}
+
 {%- block content -%}
     <h2 class="ibexa-login__actions-headline">{{ 'base.get_started'|trans|desc('Get started') }}</h2>
 

@@ -2,6 +2,8 @@
 
 {% trans_default_domain 'ibexa_dashboard' %}
 
+{% block title %}{{ parent() }} - {{ 'dashboard.title'|trans|desc('My dashboard') }}{% endblock %}
+
 {% block body_class %}ibexa-dashboard{% endblock %}
 
 {% block breadcrumbs %}

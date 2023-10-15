@@ -13,6 +13,8 @@
 {% endif %}
 {% form_theme form_content_create '@ibexadesign/ui/form_fields.html.twig' %}
 
+{% block title%}{{ parent() }} - {{ ibexa_content_name(content) }}{% endblock %}
+
 {% block body_class %}ibexa-content-view{% endblock %}
 
 {% block content_tree %}

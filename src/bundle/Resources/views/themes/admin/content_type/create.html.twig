@@ -4,6 +4,8 @@
 
 {% set language_code = content_type.mainLanguageCode %}
 
+{% block title %}{{ parent() }} - {{ 'content_type.create.title'|trans|desc('New Content type') }}{% endblock %}
+
 {% block header %}
     {% set content_type_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.content_type_create.sidebar_right', [], {
         'save_id': form.publishContentType.vars.id,

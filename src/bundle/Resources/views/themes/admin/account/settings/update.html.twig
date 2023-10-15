@@ -9,6 +9,8 @@
     close_href: path('ibexa.user_settings.list'),
 } %}
 
+{% block title%}{{ parent() }} - {{ 'user_settings_update.title'|trans({ '%name%': user_setting_group.name })|desc('Edit "%name%" settings') }}{% endblock %}
+
 {% block header %}
     {% set user_setting_update_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_setting_update.sidebar_right', [], {'user_setting': user_setting}) %}
 
