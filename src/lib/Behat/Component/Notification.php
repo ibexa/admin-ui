@@ -15,10 +15,12 @@ use PHPUnit\Framework\Assert;
 
 class Notification extends Component
 {
+    private const TIMEOUT = 30;
+
     public function verifyAlertSuccess(): void
     {
         $this->getHTMLPage()
-            ->setTimeout(20)
+            ->setTimeout(self::TIMEOUT)
             ->find($this->getLocator('successAlert'))
             ->assert()
             ->isVisible();
@@ -27,7 +29,7 @@ class Notification extends Component
     public function verifyAlertWarning(): void
     {
         $this->getHTMLPage()
-            ->setTimeout(20)
+            ->setTimeout(self::TIMEOUT)
             ->find($this->getLocator('warningAlert'))
             ->assert()
             ->isVisible();
@@ -37,7 +39,7 @@ class Notification extends Component
     {
         Assert::assertTrue(
             $this->getHTMLPage()
-                ->setTimeout(20)
+                ->setTimeout(self::TIMEOUT)
                 ->find($this->getLocator('failureAlert'))
                 ->isVisible(),
             'Failure alert not found.'
@@ -46,7 +48,7 @@ class Notification extends Component
 
     public function getMessage(): string
     {
-        return $this->getHTMLPage()->setTimeout(20)->find($this->getLocator('alertMessage'))->getText();
+        return $this->getHTMLPage()->setTimeout(self::TIMEOUT)->find($this->getLocator('alertMessage'))->getText();
     }
 
     public function closeAlert(): void
@@ -66,7 +68,7 @@ class Notification extends Component
     public function verifyIsLoaded(): void
     {
         $this->getHTMLPage()
-            ->setTimeout(30)
+            ->setTimeout(self::TIMEOUT)
             ->waitUntilCondition(
                 new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('alert'))
             );
@@ -74,7 +76,7 @@ class Notification extends Component
 
     public function verifyMessage(string $expectedMessage)
     {
-        $this->getHTMLPage()->find($this->getLocator('alertMessage'))->assert()->textEquals($expectedMessage);
+        $this->getHTMLPage()->setTimeout(self::TIMEOUT)->find($this->getLocator('alertMessage'))->assert()->textEquals($expectedMessage);
     }
 
     protected function specifyLocators(): array
