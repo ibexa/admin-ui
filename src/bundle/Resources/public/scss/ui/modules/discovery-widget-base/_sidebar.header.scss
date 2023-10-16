@@ -1,0 +1,11 @@
+.c-dwb-sidebar-header {
+    display: flex;
+    padding: 16px;
+    height: 64px;
+    align-items: center;
+    border-bottom: 1px solid var(--ibexa-color-light-main, #e0e0e8);
+    
+    .ibexa-icon {
+        margin-right: 8px;
+    }
+}

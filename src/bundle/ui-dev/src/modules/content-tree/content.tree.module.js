@@ -354,7 +354,7 @@ export default class ContentTreeModule extends Component {
     }
 
     render() {
-        const { onClickItem, subitemsLimit, subitemsLoadLimit, treeMaxDepth, userId, resizable } = this.props;
+        const { onClickItem, subitemsLimit, subitemsLoadLimit, treeMaxDepth, userId, resizable, headerVisible } = this.props;
         const attrs = {
             items: this.items,
             currentLocationId: this.getCurrentLocationId(),
@@ -367,6 +367,7 @@ export default class ContentTreeModule extends Component {
             onClickItem,
             userId,
             resizable,
+            headerVisible,
         };
 
         return <ContentTree {...attrs} />;
@@ -395,6 +396,7 @@ ContentTreeModule.propTypes = {
         sortOrder: PropTypes.string,
     }),
     resizable: PropTypes.bool,
+    headerVisible: PropTypes.bool,
 };
 
 ContentTreeModule.defaultProps = {
@@ -408,4 +410,5 @@ ContentTreeModule.defaultProps = {
     resizable: true,
     onClickItem: () => {},
     readSubtree: null,
+    headerVisible: true,
 };

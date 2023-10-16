@@ -20,12 +20,16 @@
 
         udwRoot = ReactDOM.createRoot(udwContainer);
         udwRoot.render(
+            // React.createElement(ibexa.modules.DAM, {
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm,
                 onCancel,
                 title,
                 multiple: false,
                 ...config,
+                activeTab: 'image_picker',
+                rootLocationId: 43,
+                // multiple: true,
             }),
         );
     };

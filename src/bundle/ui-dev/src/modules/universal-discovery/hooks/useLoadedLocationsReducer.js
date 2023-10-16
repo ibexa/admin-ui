@@ -14,9 +14,11 @@ const updateLocationsMap = (state, action) => {
     const parentLocationIndex = state.findIndex((location) => location.parentLocationId === action.data.parentLocationId);
     let updatedState = [...state];
 
+    console.log('uLM1', parentLocationIndex, updatedState)
     if (parentLocationIndex !== -1) {
         updatedState[parentLocationIndex] = action.data;
 
+        console.log('uLM2', parentLocationIndex, updatedState)
         return updatedState;
     }
 
@@ -24,11 +26,13 @@ const updateLocationsMap = (state, action) => {
         return data.subitems.find((item) => item.location.id === action.data.parentLocationId);
     });
 
+    console.log('uLM3', parentLocationIndex, updatedState)
     if (childrenIndex !== -1) {
         updatedState = updatedState.slice(0, childrenIndex + 1);
     }
 
     updatedState.push(action.data);
+    console.log('uLM4', parentLocationIndex, updatedState)
 
     return updatedState;
 };

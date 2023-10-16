@@ -16,6 +16,12 @@
             </svg>
             <span>{{ 'dashboard.create'|trans|desc('Create content') }}</span>
         </button>
+        <button
+            class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--udw-browse"
+            data-udw-config="{{ ibexa_udw_config('create', {'type': 'content_create'}) }}"
+        >
+            Browse
+        </button>
     </div>
 {% endblock %}
 

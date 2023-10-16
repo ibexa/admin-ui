@@ -158,6 +158,7 @@ const UniversalDiscoveryModule = (props) => {
         { parentLocationId: props.rootLocationId, subitems: [] },
     ]);
     const [selectedLocations, dispatchSelectedLocationsAction] = useSelectedLocationsReducer();
+    // console.log(activeTab)
     const activeTabConfig = tabs.find((tab) => tab.id === activeTab);
     const Tab = activeTabConfig.component;
     const className = createCssClassNames({

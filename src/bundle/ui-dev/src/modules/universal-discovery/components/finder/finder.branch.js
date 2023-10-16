@@ -36,6 +36,7 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
         itemsPerPage,
         offset,
     );
+    // console.log(loadedLocations)
     const { subitems, collapsed } = locationData;
     let resizeStartPositionX = 0;
     let branchCurrentWidth = 0;

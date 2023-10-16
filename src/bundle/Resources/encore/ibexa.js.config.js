@@ -207,6 +207,7 @@ module.exports = (Encore) => {
         ])
         .addEntry('ibexa-admin-ui-udw-js', [
             path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/universal.discovery.module.js'),
+            path.resolve(__dirname, '../../ui-dev/src/modules/dam/image.picker.tab.module.js'),
         ])
         .addEntry('ibexa-admin-ui-udw-tabs-js', [
             path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/browse.tab.module.js'),

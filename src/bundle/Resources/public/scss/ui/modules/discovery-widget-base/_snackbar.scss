@@ -1,0 +1,44 @@
+.c-dwb-snackbar {
+    position: absolute;
+    z-index: 10;
+    color: white;
+    bottom: 32px;
+    left: calc((100% - 702px) / 2);
+    display: flex;
+    width: 702px;
+    padding: 10px 8px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px;
+    border: 2px solid var(--ibexa-color-info-400, #8dbdff);
+    background: var(--ibexa-color-dark-main, #131c26);
+    box-shadow: 4px 22px 47px 0px rgba(52, 116, 204, 0.15);
+
+    &__selection-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 8px 16px;
+    }
+
+    &__selection-info-label {
+        &:after {
+            content: ':';
+        }
+    }
+
+    &__selection-info-item {
+        display: flex;
+        height: 20px;
+        padding: 0px 8px;
+        margin-left: 4px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 4px;
+        background: var(--ibexa-color-dark-500, #3b424a);
+    }
+
+    &__insert-btn {
+    }
+}

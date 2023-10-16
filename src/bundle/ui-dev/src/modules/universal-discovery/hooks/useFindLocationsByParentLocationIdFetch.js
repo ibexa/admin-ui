@@ -19,29 +19,31 @@ const fetchReducer = (state, action) => {
     }
 };
 
-export const useFindLocationsByParentLocationIdFetch = (locationData, { sortClause, sortOrder }, limit, offset, gridView = false) => {
+export const useFindLocationsByParentLocationIdFetch = (locationData, { sortClause, sortOrder }, limit, offset, gridView = false, isPaginated = false) => {
     const restInfo = useContext(RestInfoContext);
     const [isFetchLocationHookBlocked] = useContext(BlockFetchLocationHookContext);
     const [state, dispatch] = useReducer(fetchReducer, fetchInitialState);
 
     useEffect(() => {
+        console.log('started')
         if (isFetchLocationHookBlocked) {
             return;
         }
 
         let effectCleaned = false;
 
+        console.log('started 1')
         if (
             !locationData.parentLocationId ||
             locationData.collapsed ||
             locationData.subitems.length >= locationData.totalCount ||
-            locationData.subitems.length >= limit + offset
+            (locationData.subitems.length >= limit + offset && !isPaginated)
         ) {
             dispatch({ type: 'FETCH_END', data: {} });
 
             return;
         }
-
+        console.log('started 2')
         dispatch({ type: 'FETCH_START' });
         findLocationsByParentLocationId(
             {
@@ -54,6 +56,7 @@ export const useFindLocationsByParentLocationIdFetch = (locationData, { sortClau
                 gridView,
             },
             (response) => {
+                // console.log(response, effectCleaned)
                 if (effectCleaned) {
                     return;
                 }
