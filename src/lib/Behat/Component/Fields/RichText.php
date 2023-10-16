@@ -45,6 +45,7 @@ class RichText extends FieldTypeComponent
 
     private function focusFieldInput(): void
     {
+        $this->getDevToolsDriver()->execute('Emulation.setFocusEmulationEnabled', ['enabled' => true]);
         $this->getFieldInput()->click();
     }
 
