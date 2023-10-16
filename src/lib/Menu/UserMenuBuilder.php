@@ -34,7 +34,7 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     public function __construct(
         MenuItemFactory $factory,
         EventDispatcherInterface $eventDispatcher,
-        TokenStorageInterface $tokenStorage,
+        TokenStorageInterface $tokenStorage
     ) {
         parent::__construct($factory, $eventDispatcher);
 
