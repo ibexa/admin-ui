@@ -1,6 +1,7 @@
 (function (global, doc, ibexa, Routing, Translator, Popper) {
+    const MIN_ITEMS_NUMBER_TO_SHOW_SEARCH = 10;
     const MENU_PROPS = {
-        placement: 'bottom-end',
+        placement: 'bottom-start',
         fallbackPlacements: ['bottom-start', 'top-end', 'top-start'],
     };
     const token = document.querySelector('meta[name="CSRF-Token"]').content;
@@ -117,6 +118,7 @@
             return {
                 label: Translator.trans(/*@Desc("Edit")*/ 'embedded_items.action.edit', {}, 'ibexa_content'),
                 branch: {
+                    hasSearch: languages.length >= MIN_ITEMS_NUMBER_TO_SHOW_SEARCH,
                     groups: [
                         {
                             id: 'edit-group',
