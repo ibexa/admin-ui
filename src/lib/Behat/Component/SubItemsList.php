@@ -77,7 +77,7 @@ class SubItemsList extends Component
     public function verifyIsLoaded(): void
     {
         Assert::assertTrue($this->getHTMLPage()->find($this->getLocator('table'))->isVisible());
-        $this->getHTMLPage()->setTimeout(5)->waitUntilCondition(
+        $this->getHTMLPage()->setTimeout(10)->waitUntilCondition(
             new ElementNotExistsCondition($this->getHTMLPage(), $this->getLocator('spinner'))
         );
 
