@@ -5,14 +5,18 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../../common/helpers/css.class.names';
 import Icon from '../../common/icon/icon';
 
-const { Translator } = window;
+const { Translator, document } = window;
 const MIN_SEARCH_ITEMS_DEFAULT = 5;
+const MIN_ITEMS_LIST_HEIGHT = 150;
+const ITEMS_LIST_WIDGET_MARGIN = 8;
+const ITEMS_LIST_SITE_MARGIN = ITEMS_LIST_WIDGET_MARGIN + 4;
 
 const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, extraClasses, renderSelectedItem, minSearchItems }) => {
     const containerRef = useRef();
     const containerItemsRef = useRef();
     const [isExpanded, setIsExpanded] = useState(false);
     const [filterText, setFilterText] = useState('');
+    const [itemsListStyles, setItemsListStyles] = useState({});
     const selectedItem = options.find((option) => option.value === value);
     const dropdownClassName = createCssClassNames({
         'ibexa-dropdown': true,
@@ -22,6 +26,7 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
         [extraClasses]: true,
     });
     const toggleExpanded = () => {
+        calculateAndSetItemsListStyles();
         setIsExpanded((prevState) => !prevState);
     };
     const updateFilterValue = (event) => setFilterText(event.target.value);
@@ -59,24 +64,36 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
             </li>
         );
     };
-    const renderItemsList = () => {
+    const calculateAndSetItemsListStyles = () => {
         const itemsStyles = {};
+        const { width, left, top, height, bottom } = containerRef.current.getBoundingClientRect();
+
+        itemsStyles.width = width;
+        itemsStyles.left = left;
+
+        if (window.innerHeight - bottom > MIN_ITEMS_LIST_HEIGHT) {
+            itemsStyles.top = top + height + ITEMS_LIST_WIDGET_MARGIN;
+            itemsStyles.maxHeight = window.innerHeight - bottom - ITEMS_LIST_SITE_MARGIN;
+        } else {
+            const headerContainer = document.querySelector('.ibexa-main-header');
+            const headerHeight = headerContainer.offsetHeight;
+
+            itemsStyles.top = top - ITEMS_LIST_WIDGET_MARGIN;
+            itemsStyles.maxHeight = top - headerHeight - ITEMS_LIST_SITE_MARGIN;
+            itemsStyles.transform = 'translateY(-100%)';
+        }
+
+        setItemsListStyles(itemsStyles);
+    };
+    const renderItemsList = () => {
         const placeholder = Translator.trans(/*@Desc("Search...")*/ 'dropdown.placeholder', {}, 'universal_discovery_widget');
         const itemsContainerClass = createCssClassNames({
             'ibexa-dropdown__items': true,
             'ibexa-dropdown__items--search-hidden': options.length < minSearchItems,
         });
 
-        if (containerRef.current) {
-            const { width, left, top, height } = containerRef.current.getBoundingClientRect();
-
-            itemsStyles.width = width;
-            itemsStyles.left = left;
-            itemsStyles.top = top + height + 8;
-        }
-
         return (
-            <div className={itemsContainerClass} style={itemsStyles} ref={containerItemsRef}>
+            <div className={itemsContainerClass} style={itemsListStyles} ref={containerItemsRef}>
                 <div className="ibexa-input-text-wrapper">
                     <input
                         type="text"
@@ -113,6 +130,7 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
             return;
         }
 
+        const scrollContainer = document.querySelector('.ibexa-main-container__content-column');
         const onInteractionOutside = (event) => {
             if (containerRef.current.contains(event.target) || containerItemsRef.current?.contains(event.target)) {
                 return;
@@ -122,9 +140,13 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
         };
 
         document.body.addEventListener('click', onInteractionOutside, false);
+        scrollContainer.addEventListener('scroll', calculateAndSetItemsListStyles, false);
 
         return () => {
-            document.body.removeEventListener('click', onInteractionOutside, false);
+            document.body.removeEventListener('click', onInteractionOutside);
+            document.body.removeEventListener('click', calculateAndSetItemsListStyles);
+
+            setItemsListStyles({});
         };
     }, [isExpanded]);
 
