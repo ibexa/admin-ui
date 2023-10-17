@@ -137,6 +137,14 @@
                 },
                 false,
             );
+            branchElement.addEventListener(
+                'ibexa-multilevel-popup-menu:close-branch',
+                () => {
+                    this.hoveredBranches.delete(branchElement);
+                    this.updateBranchAndParentBranchesOpenState(branchElement);
+                },
+                false,
+            );
 
             processBranchAfter(branchElement);
             branchItems.forEach((itemElement) => processBranchItemAfter(itemElement));
@@ -394,14 +402,14 @@
                 return;
             }
 
-            const branchsSearchInput = doc.querySelectorAll('.ibexa-multilevel-popup-menu__search-input');
+            const branchesSearchInput = doc.querySelectorAll('.ibexa-multilevel-popup-menu__search-input');
 
-            branchsSearchInput.forEach((searchInput) => {
+            branchesSearchInput.forEach((searchInput) => {
                 if (searchInput.value !== '') {
                     const searchInputBranch = searchInput.closest('.ibexa-multilevel-popup-menu__branch');
 
                     searchInput.value = '';
-                    searchInputBranch.dispatchEvent(new Event('mouseleave'));
+                    searchInputBranch.dispatchEvent(new CustomEvent('ibexa-multilevel-popup-menu:close-branch'));
                     searchInput.dispatchEvent(new Event('input'));
                 }
             });
@@ -416,9 +424,9 @@
             const phraseLowerCase = searchInput.value.toLowerCase();
 
             branchItems.forEach((item) => {
-                const { label } = item.dataset;
-                const labelLowerCase = label.toLowerCase();
-                const hideItem = !labelLowerCase.includes(phraseLowerCase);
+                const { searchLabel } = item.dataset;
+                const searchLabelLowerCase = searchLabel.toLowerCase();
+                const hideItem = !searchLabelLowerCase.includes(phraseLowerCase);
 
                 item.classList.toggle('ibexa-popup-menu__item--hidden', hideItem);
             });

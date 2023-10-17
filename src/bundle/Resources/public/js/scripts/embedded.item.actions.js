@@ -2,7 +2,7 @@
     const MIN_ITEMS_NUMBER_TO_SHOW_SEARCH = 10;
     const MENU_PROPS = {
         placement: 'bottom-start',
-        fallbackPlacements: ['bottom-start', 'top-end', 'top-start'],
+        fallbackPlacements: ['top-end', 'top-start'],
     };
     const token = document.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = document.querySelector('meta[name="SiteAccess"]').content;
@@ -201,14 +201,12 @@
         }
     };
     const getMenuData = ({ container, event }) => {
-        const { contentId, locationId, productCode, languageCodes } = container ? container.dataset : event.detail;
+        const { contentId, locationId, productCode, languageCodes = [] } = container ? container.dataset : event.detail;
         const parsedLanguageCodes = typeof languageCodes === 'string' ? JSON.parse(languageCodes) : languageCodes;
-        const languages = parsedLanguageCodes
-            ? parsedLanguageCodes.map((languageCode) => ({
-                  languageCode,
-                  name: adminUiLanguages[languageCode].name,
-              }))
-            : [];
+        const languages = parsedLanguageCodes.map((languageCode) => ({
+            languageCode,
+            name: adminUiLanguages[languageCode].name,
+        }));
 
         return {
             contentId: parseInt(contentId, 10),

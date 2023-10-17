@@ -8,13 +8,13 @@
 }) -%}
 
 {%- block branch -%}
-    {% trans_default_domain 'ibexa_dropdown' %}
+    {% trans_default_domain 'ibexa_multilevel_popup_menu' %}
 
     <div {{ html.attributes(branch_attr, is_template) }}>
         <div class="ibexa-multilevel-popup-menu__search {{ not hasSearch|default(false) ? 'ibexa-multilevel-popup-menu__search--hidden' }}">
             <input
                 type="text"
-                placeholder="{{ 'dropdown.search'|trans|desc('Search...') }}"
+                placeholder="{{ 'search.placeholder'|trans|desc('Search...') }}"
                 class="ibexa-input ibexa-input--small ibexa-input--text form-control ibexa-multilevel-popup-menu__search-input" 
             />
         </div>

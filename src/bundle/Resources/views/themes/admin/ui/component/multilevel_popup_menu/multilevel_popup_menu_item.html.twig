@@ -6,7 +6,7 @@
     class: ('ibexa-popup-menu__item ibexa-multilevel-popup-menu__item '
         ~ (branch|default(null) ? 'ibexa-popup-menu__item--has-subitems ')
         ~ item_attr.class|default(''))|trim,
-    'data-label': label,
+    'data-search-label': label,
 }) -%}
 
 {%- set action_attr = action_attr|default({})|merge({
