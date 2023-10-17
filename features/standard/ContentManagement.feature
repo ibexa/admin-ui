@@ -1,4 +1,4 @@
-@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce @javascript
 Feature: Content items creation
   As an administrator
   In order to manage content to my site
@@ -7,11 +7,12 @@ Feature: Content items creation
 Background:
       Given I am logged as admin
 
-@javascript @APIUser:admin
 Scenario: Content moving can be cancelled
-  Given I create "folder" Content items
+  Given a "folder" Content item named "ContentManagement" exists in root
+      | name              | short_name        |
+      | ContentManagement | ContentManagement |
+  And I create "folder" Content items
     | name               | short_name          | parentPath        | language |
-    | ContentManagement  | ContentManagement   | root              | eng-GB   |
     | FolderToCancelMove | FolderToCancelMove  | ContentManagement | eng-GB   |
   And I'm on Content view Page for "ContentManagement/FolderToCancelMove"
   When I perform the "Move" action
@@ -19,11 +20,12 @@ Scenario: Content moving can be cancelled
     And I close the UDW window
   Then I should be on Content view Page for "ContentManagement/FolderToCancelMove"
 
-@javascript @APIUser:admin
 Scenario: Content can be moved
-  Given I create "folder" Content items
+  Given a "folder" Content item named "ContentManagement" exists in root
+      | name              | short_name        |
+      | ContentManagement | ContentManagement |
+  And I create "folder" Content items
     | name               | short_name        | parentPath        | language |
-    | ContentManagement  | ContentManagement | root              | eng-GB   |
     | FolderToMove       | FolderToMove      | ContentManagement | eng-GB   |
   And I'm on Content view Page for "ContentManagement/FolderToMove"
   When I perform the "Move" action
@@ -34,11 +36,12 @@ Scenario: Content can be moved
     And I'm on Content view Page for "ContentManagement"
     And there's no "FolderToMove" "Folder" on Subitems list
 
-@javascript @APIUser:admin
 Scenario: Content copying can be cancelled
-  Given I create "folder" Content items
+  Given a "folder" Content item named "ContentManagement" exists in root
+      | name              | short_name        |
+      | ContentManagement | ContentManagement |
+  And I create "folder" Content items
     | name               | short_name         | parentPath        | language |
-    | ContentManagement  | ContentManagement  | root              | eng-GB   |
     | FolderToCopyCancel | FolderToCopyCancel | ContentManagement | eng-GB   |
   And I'm on Content view Page for "ContentManagement/FolderToCopyCancel"
   When I perform the "Copy" action
@@ -46,11 +49,12 @@ Scenario: Content copying can be cancelled
     And I close the UDW window
   Then I should be on Content view Page for "ContentManagement/FolderToCopyCancel"
 
-@javascript @APIUser:admin
 Scenario: Content can be copied
-  Given I create "folder" Content items
+  Given a "folder" Content item named "ContentManagement" exists in root
+      | name              | short_name        |
+      | ContentManagement | ContentManagement |
+  And I create "folder" Content items
     | name               | short_name         | parentPath        | language |
-    | ContentManagement  | ContentManagement  | root              | eng-GB   |
     | FolderToCopy       | FolderToCopy       | ContentManagement | eng-GB   |
   And I'm on Content view Page for "ContentManagement/FolderToCopy"
   When I perform the "Copy" action
@@ -61,11 +65,12 @@ Scenario: Content can be copied
     And I'm on Content view Page for "ContentManagement"
     And there's a "FolderToCopy" "Folder" on Subitems list
 
-  @javascript @APIUser:admin
   Scenario: Subtree copying can be cancelled
-    Given I create "folder" Content items
+  Given a "folder" Content item named "ContentManagement" exists in root
+      | name              | short_name        |
+      | ContentManagement | ContentManagement |
+  And I create "folder" Content items
       | name                      | short_name                | parentPath        | language |
-      | ContentManagement         | ContentManagement         | root              | eng-GB   |
       | FolderToSubtreeCopyCancel | FolderToSubtreeCopyCancel | ContentManagement | eng-GB   |
     And I'm on Content view Page for "ContentManagement/FolderToSubtreeCopyCancel"
     When I perform the "Copy Subtree" action
@@ -73,11 +78,12 @@ Scenario: Content can be copied
     And I close the UDW window
     Then I should be on Content view Page for "ContentManagement/FolderToSubtreeCopyCancel"
 
-  @javascript @APIUser:admin
   Scenario: Subtree can be copied
-    Given I create "folder" Content items
+    Given a "folder" Content item named "ContentManagement" exists in root
+      | name              | short_name        |
+      | ContentManagement | ContentManagement |
+    And I create "folder" Content items
       | name                      | short_name                | parentPath        | language |
-      | ContentManagement         | ContentManagement         | root              | eng-GB   |
       | FolderToSubtreeCopy | FolderToSubtreeCopy | ContentManagement | eng-GB   |
     And I'm on Content view Page for "ContentManagement/FolderToSubtreeCopy"
     When I perform the "Copy Subtree" action
