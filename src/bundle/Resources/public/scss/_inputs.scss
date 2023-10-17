@@ -19,11 +19,27 @@
 }
 
 .ibexa-input {
+    --ibexa-input-primary-color: var(--ibexa-primary-color, #{$ibexa-color-primary});
+
     outline: none;
     transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
     border: calculateRem(1px) solid $ibexa-color-dark-300;
 
-    @include ibexa-input-hover-and-focus($ibexa-color-primary);
+    &:hover {
+        border-color: var(--ibexa-input-primary-color);
+    }
+
+    &:focus,
+    &.ibexa-input--text.form-control:focus,
+    &.ibexa-input--date.form-control:focus {
+        border-color: var(--ibexa-input-primary-color);
+        box-shadow: 0 0 calculateRem(3px) 0 var(--ibexa-input-shadow-box-primary-color);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        border-color: $ibexa-color-dark-200;
+    }
 
     &--text,
     &--textarea,
@@ -34,6 +50,15 @@
         border: calculateRem(1px) solid $ibexa-color-dark-200;
         border-radius: $ibexa-border-radius;
         position: relative;
+
+        &:focus,
+        &.form-control:focus {
+            color: $ibexa-color-dark;
+        }
+
+        &:hover:not(:disabled) {
+            border-color: var(--ibexa-input-primary-color);
+        }
 
         &:active:not(:disabled) {
             border-color: $ibexa-color-dark;
@@ -129,12 +154,12 @@
         }
 
         &:checked {
-            border-color: $ibexa-color-primary;
-            background-color: $ibexa-color-primary;
+            border-color: var(--ibexa-input-primary-color);
+            background-color: var(--ibexa-input-primary-color);
 
             &:disabled {
-                border-color: $ibexa-color-primary-300;
-                background-color: $ibexa-color-primary-300;
+                border-color: var(--ibexa-input-checkbox-disabled-primary-color, #{$ibexa-color-primary-300});
+                background-color: var(--ibexa-input-checkbox-disabled-primary-color, #{$ibexa-color-primary-300});
             }
 
             &::after {
@@ -143,12 +168,12 @@
         }
 
         &:indeterminate {
-            border-color: $ibexa-color-primary;
-            background-color: $ibexa-color-primary;
+            border-color: var(--ibexa-input-primary-color);
+            background-color: var(--ibexa-input-primary-color);
 
             &:disabled {
-                border-color: $ibexa-color-primary-300;
-                background-color: $ibexa-color-primary-300;
+                border-color: var(--ibexa-input-checkbox-disabled-primary-color, #{$ibexa-color-primary-300});
+                background-color: var(--ibexa-input-checkbox-disabled-primary-color, #{$ibexa-color-primary-300});
             }
 
             &::after {
@@ -168,12 +193,12 @@
         margin-bottom: calculateRem(2px);
 
         &:checked {
-            border-color: $ibexa-color-primary;
-            box-shadow: inset 0 0 0 calculateRem(4px) $ibexa-color-primary;
+            border-color: var(--ibexa-input-primary-color);
+            box-shadow: inset 0 0 0 calculateRem(4px) var(--ibexa-input-primary-color);
 
             &:disabled {
-                border-color: $ibexa-color-primary-300;
-                box-shadow: inset 0 0 0 calculateRem(4px) $ibexa-color-primary-300;
+                border-color: var(--ibexa-primary-disabled-color);
+                box-shadow: inset 0 0 0 calculateRem(4px) var(--ibexa-primary-disabled-color);
             }
 
             &:focus {
@@ -187,7 +212,7 @@
                     height: calculateRem(16px);
                     border-radius: calculateRem(8px);
                     background: transparent;
-                    box-shadow: 0 0 calculateRem(3px) 0 rgba($ibexa-color-primary, 0.75);
+                    box-shadow: 0 0 calculateRem(3px) 0 var(--ibexa-input-shadow-box-primary-color);
                 }
             }
         }
@@ -418,7 +443,7 @@
 
     &:hover {
         .ibexa-input {
-            border-color: $ibexa-color-primary;
+            border-color: var(--ibexa-input-primary-color);
         }
     }
 }

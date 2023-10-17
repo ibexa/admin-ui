@@ -124,23 +124,26 @@
     }
 
     &--ghost.ibexa-btn {
+        --ibexa-btn-primary-color: var(--ibexa-primary-color, #{$ibexa-color-primary});
+
         color: $ibexa-color-dark;
         fill: $ibexa-color-dark;
 
         &:hover {
-            color: $ibexa-color-primary;
+            color: var(--ibexa-btn-primary-color);
 
             .ibexa-icon {
-                fill: $ibexa-color-primary;
+                fill: var(--ibexa-btn-primary-color);
             }
         }
 
         &:focus {
-            color: $ibexa-color-primary;
-            border-color: $ibexa-color-primary;
+            color: var(--ibexa-btn-primary-color);
+            border-color: var(--ibexa-btn-primary-color);
+            box-shadow: 0 0 0 calculateRem(3px) var(--ibexa-btn-shadow-box-primary-color);
 
             .ibexa-icon {
-                fill: $ibexa-color-primary;
+                fill: var(--ibexa-btn-primary-color);
             }
         }
 

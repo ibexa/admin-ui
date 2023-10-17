@@ -1,4 +1,6 @@
 .ibexa-dropdown {
+    --ibexa-dropdown-primary-color: var(--ibexa-primary-color, #{$ibexa-color-primary});
+
     position: relative;
     font-size: $ibexa-text-font-size-medium;
     min-width: calculateRem(200px);
@@ -298,8 +300,8 @@
     &--focused {
         .ibexa-dropdown {
             &__selection-info {
-                border-color: $ibexa-color-primary;
-                box-shadow: 0 0 0 calculateRem(2px) rgba($ibexa-color-primary, 0.2);
+                border-color: var(--ibexa-dropdown-primary-color);
+                box-shadow: 0 0 0 calculateRem(2px) var(--ibexa-dropdown-shadow-box-primary-color, rgba($ibexa-color-primary, 0.2));
             }
         }
     }
@@ -382,11 +384,11 @@
         .ibexa-dropdown {
             &__selection-info {
                 &:hover {
-                    border-color: $ibexa-color-primary;
+                    border-color: var(--ibexa-dropdown-primary-color);
 
                     &::before,
                     &::after {
-                        background-color: $ibexa-color-primary;
+                        background-color: var(--ibexa-dropdown-primary-color);
                     }
                 }
             }
@@ -475,7 +477,7 @@
 
                 &:hover {
                     .ibexa-dropdown__selected-item {
-                        color: $ibexa-color-primary;
+                        color: var(--ibexa-primary-color);
                     }
                 }
             }

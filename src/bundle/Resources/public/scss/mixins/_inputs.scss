@@ -41,29 +41,3 @@
     flex-basis: 100%;
     margin: 0 0 calculateRem(10px) calculateRem(2px);
 }
-
-@mixin ibexa-input-hover-and-focus($color) {
-    &:hover {
-        border-color: $color;
-    }
-
-    &:focus,
-    &.ibexa-input--text.form-control:focus,
-    &.ibexa-input--date.form-control:focus {
-        border-color: $color;
-        box-shadow: 0 0 calculateRem(3px) 0 rgba($color, 0.75);
-    }
-
-    &--text,
-    &--textarea,
-    &--date {
-        &:focus,
-        &.form-control:focus {
-            color: $ibexa-color-dark;
-        }
-
-        &:hover:not(:disabled) {
-            border-color: $color;
-        }
-    }
-}
