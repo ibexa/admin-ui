@@ -32,11 +32,22 @@ const Popup = ({
     noCloseBtn,
     extraClasses,
 }) => {
+    const modalRef = useRef(null);
+
+    useEffect(() => {
+        document.body.classList.toggle(CLASS_MODAL_OPEN, isVisible);
+        document.body.classList.toggle(CLASS_NON_SCROLLABLE, isVisible);
+
+        if (isVisible) {
+            showPopup();
+            modalRef.current.addEventListener('hidden.bs.modal', onClose);
+        }
+    }, [isVisible]);
+
     if (!isVisible) {
         return null;
     }
 
-    const modalRef = useRef(null);
     const modalClasses = createCssClassNames({
         'c-popup modal fade': true,
         'c-popup--no-header': noHeader,
@@ -78,16 +89,6 @@ const Popup = ({
             </button>
         );
     }, [hidePopup, closeBtnLabel, noCloseBtn]);
-
-    useEffect(() => {
-        document.body.classList.toggle(CLASS_MODAL_OPEN, isVisible);
-        document.body.classList.toggle(CLASS_NON_SCROLLABLE, isVisible);
-
-        if (isVisible) {
-            showPopup();
-            modalRef.current.addEventListener('hidden.bs.modal', onClose);
-        }
-    }, [isVisible]);
 
     return (
         <div ref={modalRef} className={modalClasses} tabIndex={hasFocus ? -1 : undefined}>
