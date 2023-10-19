@@ -1,0 +1,10 @@
+.ibexa-location-preview {
+    &__siteaccess {
+        display: inline-block;
+    }
+    &__iframe {
+        width: 1920px;
+        aspect-ratio: 16/9;
+        transform-origin: left top;
+    }
+}

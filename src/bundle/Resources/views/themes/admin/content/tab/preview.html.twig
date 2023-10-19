@@ -1,0 +1,66 @@
+{% set version_no = content.versionInfo.versionNo %}
+{% set current_language = app.request.get('languageCode') ?: content.prioritizedFieldLanguageCode %}
+{% set siteaccess = 'site' %}
+
+<div class="ibexa-location-preview">
+    <div class="ibexa-location-preview__siteaccess">
+        {% set value = '' %}
+        {% set choices = [
+            {
+                value: path(
+                    'ibexa.version.preview',
+                    {
+                        'contentId': content.id,
+                        'versionNo': version_no,
+                        'language': current_language,
+                        'siteAccessName': 'site',
+                    },
+                ),
+                label: 'Site',
+            },
+            {
+                value: path(
+                    'ibexa.version.preview',
+                    {
+                        'contentId': content.id,
+                        'versionNo': version_no,
+                        'language': current_language,
+                        'siteAccessName': 'corporate',
+                    },
+                ),
+                label: 'Corporate',
+            },
+        ] %}
+        {% set source %}
+            <select class="form-control ibexa-input">
+                {% for choice in choices %}
+                    {% if loop.first %}
+                        {% set value = choice.value %}
+                    {% endif %}
+                    <option value="{{ choice.value }}">
+                        {{ choice.label }}
+                    </option>
+                {% endfor %}
+            </select>
+        {% endset %}
+
+        {% include '@ibexadesign/ui/component/dropdown/dropdown.html.twig' with {
+            source: source,
+            choices: choices,
+            value: value,
+        } %}
+    </div>
+    <div class="ibexa-location-preview__iframe-wrapper">
+        <iframe
+            class="ibexa-location-preview__iframe"
+            src="{{ url('ibexa.version.preview', {
+                    'contentId': content.id,
+                    'versionNo': version_no,
+                    'language': current_language,
+                    'siteAccessName': siteaccess,
+                })}}"
+            frameborder="0"
+        >
+        </iframe>
+    </div>
+</div>

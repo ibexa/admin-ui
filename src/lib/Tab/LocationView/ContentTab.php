@@ -67,7 +67,7 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
      */
     public function getTemplate(): string
     {
-        return '@ibexadesign/content/tab/content.html.twig';
+        return '@ibexadesign/content/tab/preview.html.twig';
     }
 
     /**
