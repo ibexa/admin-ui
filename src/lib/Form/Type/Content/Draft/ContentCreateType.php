@@ -93,8 +93,10 @@ class ContentCreateType extends AbstractType
                     'label' => false,
                     'multiple' => false,
                     'expanded' => true,
-                    'choice_loader' => $this->contentCreateContentTypeChoiceLoader
-                        ->setRestrictedContentTypeIds($restrictedContentTypesIds),
+                    'choices' => $this->contentCreateContentTypeChoiceLoader
+                                    ->setRestrictedContentTypeIds($restrictedContentTypesIds)
+                                    ->loadChoiceList()
+                                    ->getChoices(),
                 ]
             )
             ->add(
