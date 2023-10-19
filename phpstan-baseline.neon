@@ -76,11 +76,6 @@ parameters:
 			path: src/bundle/Controller/BulkOperation/BulkOperationController.php
 
 		-
-			message: "#^Cannot access offset int on iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\>\\.$#"
-			count: 1
-			path: src/bundle/Controller/Content/ContentTreeController.php
-
-		-
 			message: "#^Parameter \\#1 \\$locationId of method Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\LocationService\\:\\:loadLocation\\(\\) expects int, int\\|null given\\.$#"
 			count: 1
 			path: src/bundle/Controller/Content/VersionDraftConflictController.php
