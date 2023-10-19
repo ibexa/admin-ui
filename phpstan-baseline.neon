@@ -8446,6 +8446,11 @@ parameters:
 			path: src/lib/Pagination/Pagerfanta/URLWildcardAdapter.php
 
 		-
+			message: "#^Access to protected property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\User\\\\LookupLimitationResult\\:\\:\\$hasAccess\\.$#"
+			count: 1
+			path: src/lib/Permission/LimitationResolver.php
+
+		-
 			message: "#^Access to protected property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\User\\\\LookupLimitationResult\\:\\:\\$lookupPolicyLimitations\\.$#"
 			count: 2
 			path: src/lib/Permission/LookupLimitationsTransformer.php
@@ -8498,11 +8503,6 @@ parameters:
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Permission\\\\PermissionChecker\\:\\:getRestrictions\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/lib/Permission/PermissionChecker.php
-
-		-
-			message: "#^Parameter \\#1 \\$contentTypeIds of method Ibexa\\\\Contracts\\\\Core\\\\Limitation\\\\Target\\\\Builder\\\\VersionBuilder\\:\\:createFromAnyContentTypeOf\\(\\) expects array\\<int\\>, array\\<string\\> given\\.$#"
-			count: 2
 			path: src/lib/Permission/PermissionChecker.php
 
 		-

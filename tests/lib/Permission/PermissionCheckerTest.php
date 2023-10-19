@@ -8,11 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Permission;
 
+use Ibexa\AdminUi\Permission\LimitationResolverInterface;
 use Ibexa\AdminUi\Permission\PermissionChecker;
-use Ibexa\Contracts\Core\Repository\ContentService;
-use Ibexa\Contracts\Core\Repository\ContentTypeService;
-use Ibexa\Contracts\Core\Repository\LanguageService;
-use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content;
@@ -27,23 +24,14 @@ class PermissionCheckerTest extends TestCase
 {
     private const USER_ID = 14;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver&\PHPUnit\Framework\MockObject\MockObject */
     private $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService&\PHPUnit\Framework\MockObject\MockObject */
     private $userService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
+    /** @var \Ibexa\AdminUi\Permission\LimitationResolverInterface&\PHPUnit\Framework\MockObject\MockObject */
+    private LimitationResolverInterface $permissionLimitationResolver;
 
     /** @var \Ibexa\AdminUi\Permission\PermissionChecker */
     private $permissionChecker;
@@ -55,19 +43,13 @@ class PermissionCheckerTest extends TestCase
             ->method('getCurrentUserReference')
             ->willReturn($this->generateUser(self::USER_ID));
 
+        $this->permissionLimitationResolver = $this->createMock(LimitationResolverInterface::class);
         $this->userService = $this->createMock(UserService::class);
-        $this->locationService = $this->createMock(LocationService::class);
-        $this->contentService = $this->createMock(ContentService::class);
-        $this->contentTypeService = $this->createMock(ContentTypeService::class);
-        $this->languageService = $this->createMock(LanguageService::class);
 
         $this->permissionChecker = new PermissionChecker(
             $this->permissionResolver,
+            $this->permissionLimitationResolver,
             $this->userService,
-            $this->locationService,
-            $this->contentService,
-            $this->contentTypeService,
-            $this->languageService
         );
     }
 

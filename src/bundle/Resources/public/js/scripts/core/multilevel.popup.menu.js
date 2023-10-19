@@ -71,6 +71,7 @@
             const isTopBranch = !triggerElement.classList.contains('ibexa-popup-menu__item');
             const branchItems = this.getBranchItems(branchElement);
             const offset = isTopBranch ? [0, 3] : [-8, 2];
+            const branchSearchInput = branchElement.querySelector('.ibexa-multilevel-popup-menu__search-input');
 
             const popperInstance = Popper.createPopper(referenceElement ?? triggerElement, branchElement, {
                 placement,
@@ -91,6 +92,8 @@
                 ],
             });
 
+            branchSearchInput.addEventListener('keyup', this.filterBranchItems, false);
+            branchSearchInput.addEventListener('input', this.filterBranchItems, false);
             branchElement.popperInstance = popperInstance;
 
             if (isTopBranch) {
@@ -134,6 +137,14 @@
                 },
                 false,
             );
+            branchElement.addEventListener(
+                'ibexa-multilevel-popup-menu:close-branch',
+                () => {
+                    this.hoveredBranches.delete(branchElement);
+                    this.updateBranchAndParentBranchesOpenState(branchElement);
+                },
+                false,
+            );
 
             processBranchAfter(branchElement);
             branchItems.forEach((itemElement) => processBranchItemAfter(itemElement));
@@ -151,6 +162,8 @@
         }
 
         updateBranchOpenState(branchElement) {
+            const searchInput = branchElement.querySelector('.ibexa-multilevel-popup-menu__search-input');
+            const isSearchInputFilled = !!searchInput?.value;
             const isSubbranchOpened = (otherBranchElement) => {
                 return (
                     otherBranchElement &&
@@ -159,7 +172,7 @@
             };
             const isBranchOrAnySubbranchHovered = [...this.hoveredItemsBranches, ...this.hoveredBranches].some(isSubbranchOpened);
 
-            if (isBranchOrAnySubbranchHovered) {
+            if (isBranchOrAnySubbranchHovered || isSearchInputFilled) {
                 this.openBranch(branchElement);
             } else {
                 this.closeWithSubbranches(branchElement);
@@ -213,13 +226,21 @@
         }
 
         generateMenu(menuTree) {
-            const { triggerElement, groups, placement, fallbackPlacements, processAfterCreated: processBranchAfterCreated } = menuTree;
+            const {
+                triggerElement,
+                groups,
+                placement,
+                fallbackPlacements,
+                processAfterCreated: processBranchAfterCreated,
+                hasSearch,
+            } = menuTree;
 
             const branchElement = this.generateBranch(
                 {
                     triggerElement,
                     placement,
                     fallbackPlacements,
+                    hasSearch,
                 },
                 processBranchAfterCreated,
             );
@@ -250,7 +271,7 @@
         }
 
         generateBranch(data, processAfterCreated = () => {}) {
-            const { triggerElement, placement, fallbackPlacements } = data;
+            const { triggerElement, placement, fallbackPlacements, hasSearch = false } = data;
             const { branchTemplate } = this.container.dataset;
 
             const container = doc.createElement('div');
@@ -259,6 +280,9 @@
             container.insertAdjacentHTML('beforeend', renderedItem);
 
             const newBranchElement = container.querySelector('.ibexa-multilevel-popup-menu__branch');
+            const searchInputWrapper = newBranchElement.querySelector('.ibexa-multilevel-popup-menu__search');
+
+            searchInputWrapper.classList.toggle('ibexa-multilevel-popup-menu__search--hidden', !hasSearch);
 
             processAfterCreated(newBranchElement, data);
 
@@ -304,7 +328,9 @@
 
             processAfterCreated(newGroupElement, data);
 
-            branchElement.appendChild(newGroupElement);
+            const newGroupContainer = branchElement.querySelector('.ibexa-multilevel-popup-menu__groups');
+
+            newGroupContainer.appendChild(newGroupElement);
 
             return newGroupElement;
         }
@@ -365,14 +391,45 @@
                 return;
             }
 
+            const { target } = event;
             const isPopupMenuExpanded = !topBranch.classList.contains('ibexa-popup-menu--hidden');
-            const isClickInsideTrigger = this.triggerElement.contains(event.target);
+            const isClickInsideTrigger = this.triggerElement.contains(target);
+            const isTargetBranch = target.classList.contains('ibexa-multilevel-popup-menu__branch');
+            const targetBranch = target.closest('.ibexa-multilevel-popup-menu__branch');
+            const isClickInsideMenu = isTargetBranch || !!targetBranch;
 
-            if (!isPopupMenuExpanded || isClickInsideTrigger) {
+            if (!isPopupMenuExpanded || isClickInsideTrigger || isClickInsideMenu) {
                 return;
             }
 
+            const branchesSearchInput = doc.querySelectorAll('.ibexa-multilevel-popup-menu__search-input');
+
+            branchesSearchInput.forEach((searchInput) => {
+                if (searchInput.value !== '') {
+                    const searchInputBranch = searchInput.closest('.ibexa-multilevel-popup-menu__branch');
+
+                    searchInput.value = '';
+                    searchInputBranch.dispatchEvent(new CustomEvent('ibexa-multilevel-popup-menu:close-branch'));
+                    searchInput.dispatchEvent(new Event('input'));
+                }
+            });
+
             this.closeWithSubbranches(topBranch);
+        }
+
+        filterBranchItems(event) {
+            const searchInput = event.currentTarget;
+            const branch = searchInput.closest('.ibexa-multilevel-popup-menu__branch');
+            const branchItems = branch.querySelectorAll('.ibexa-popup-menu__group > .ibexa-popup-menu__item');
+            const phraseLowerCase = searchInput.value.toLowerCase();
+
+            branchItems.forEach((item) => {
+                const { searchLabel } = item.dataset;
+                const searchLabelLowerCase = searchLabel.toLowerCase();
+                const hideItem = !searchLabelLowerCase.includes(phraseLowerCase);
+
+                item.classList.toggle('ibexa-popup-menu__item--hidden', hideItem);
+            });
         }
     }
 

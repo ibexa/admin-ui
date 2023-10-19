@@ -1,0 +1,19 @@
+.ibexa-multilevel-popup-menu {
+    &__search {
+        margin-bottom: calculateRem(4px);
+        padding: 0 calculateRem(8px);
+
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__search-input {
+        border-radius: $ibexa-border-radius;
+    }
+
+    &__groups {
+        max-height: calculateRem(390px);
+        overflow-y: auto;
+    }
+}

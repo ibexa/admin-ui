@@ -212,3 +212,9 @@ services:
         autowire: true
 
     Ibexa\Bundle\AdminUi\Controller\User\InvitationController: ~
+
+    Ibexa\Bundle\AdminUi\Controller\Permission\LanguageLimitationController:
+        parent: Ibexa\Contracts\AdminUi\Controller\Controller
+        autowire: true
+        tags:
+            - controller.service_arguments

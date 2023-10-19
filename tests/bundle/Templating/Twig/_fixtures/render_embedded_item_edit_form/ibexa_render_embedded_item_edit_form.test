@@ -1,0 +1,9 @@
+--TEST--
+"ibexa_render_embedded_item_edit_form" function
+--TEMPLATE--
+{% set form = ibexa_render_embedded_item_edit_form() %}
+{% if form is defined %} YES {% else %} NO {% endif %}
+--DATA--
+return [];
+--EXPECT--
+YES

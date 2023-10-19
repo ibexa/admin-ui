@@ -77,9 +77,33 @@
                 const { escapeHTML } = ibexa.helpers.text;
                 const itemNodes = relationsContainer.querySelectorAll('.ibexa-relations__item');
                 const itemNode = itemNodes[itemNodes.length - 1];
+                const contentId = escapeHTML(item.ContentInfo.Content._id);
+                const locationId = item.id;
+                const { VersionInfo } = item.ContentInfo.Content.CurrentVersion.Version;
+                const currentVersionNo = VersionInfo.versionNo;
+                const languageCodes = VersionInfo.VersionTranslationInfo.Language.map((language) => language.languageCode);
+                const itemActionsMenuContainer = itemNode.querySelector('.ibexa-embedded-item-actions__menu');
+                const itemActionsTriggerElement = itemNode.querySelector('.ibexa-embedded-item-actions__menu-trigger-btn');
+                const itemNodeNameCell = itemNode.querySelector('.ibexa-relations__item-name');
 
-                itemNode.setAttribute('data-content-id', escapeHTML(item.ContentInfo.Content._id));
+                itemNode.dataset.contentId = contentId;
                 itemNode.querySelector('.ibexa-relations__table-action--remove-item').addEventListener('click', removeItem, false);
+
+                itemNodeNameCell.dataset.ibexaUpdateContentId = contentId;
+                itemNodeNameCell.dataset.ibexaUpdateSourceDataPath = 'Content.Name';
+
+                doc.body.dispatchEvent(
+                    new CustomEvent('ibexa-embedded-item:create-dynamic-menu', {
+                        detail: {
+                            contentId,
+                            locationId,
+                            languageCodes,
+                            versionNo: currentVersionNo,
+                            menuTriggerElement: itemActionsTriggerElement,
+                            menuContainer: itemActionsMenuContainer,
+                        },
+                    }),
+                );
             });
 
             ibexa.helpers.tooltips.parse();
@@ -143,7 +167,7 @@
             const { formatShortDateTime } = ibexa.helpers.timezone;
             const contentTypeName = ibexa.helpers.contentType.getContentTypeName(item.ContentInfo.Content.ContentTypeInfo.identifier);
             const contentName = escapeHTML(item.ContentInfo.Content.TranslatedName);
-            const contentId = item.ContentInfo.Content._id;
+            const contentId = escapeHTML(item.ContentInfo.Content._id);
             const { rowTemplate } = relationsWrapper.dataset;
 
             return rowTemplate

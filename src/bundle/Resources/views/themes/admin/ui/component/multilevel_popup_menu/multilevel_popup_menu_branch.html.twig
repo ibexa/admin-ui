@@ -8,17 +8,29 @@
 }) -%}
 
 {%- block branch -%}
-    <div {{ html.attributes(branch_attr, is_template) }}>
-        {%- block branch_groups -%}
-            {%- for group in groups -%}
-                {%- set group_params = group|merge({
-                    items: group.items|default([]),
-                    group_attr: group.group_attr|default({}),
-                }) -%}
+    {% trans_default_domain 'ibexa_multilevel_popup_menu' %}
 
-                {%- include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_group.html.twig'
-                    with group_params -%}
-            {%- endfor -%}
+    <div {{ html.attributes(branch_attr, is_template) }}>
+        <div class="ibexa-multilevel-popup-menu__search {{ not hasSearch|default(false) ? 'ibexa-multilevel-popup-menu__search--hidden' }}">
+            <input
+                type="text"
+                placeholder="{{ 'search.placeholder'|trans|desc('Search...') }}"
+                class="ibexa-input ibexa-input--small ibexa-input--text form-control ibexa-multilevel-popup-menu__search-input" 
+            />
+        </div>
+
+        {%- block branch_groups -%}
+            <div class="ibexa-multilevel-popup-menu__groups">
+                {%- for group in groups -%}
+                    {%- set group_params = group|merge({
+                        items: group.items|default([]),
+                        group_attr: group.group_attr|default({}),
+                    }) -%}
+
+                    {%- include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_group.html.twig'
+                        with group_params -%}
+                {%- endfor -%}
+            </div>
         {%- endblock -%}
     </div>
 {%- endblock -%}
