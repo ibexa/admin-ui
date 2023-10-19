@@ -129,7 +129,8 @@
         &__value {
             width: 100%;
 
-            .ezstring-field {
+            .ezstring-field,
+            .eztext-field {
                 display: inline-block;
                 max-width: 100%;
                 overflow: hidden;
