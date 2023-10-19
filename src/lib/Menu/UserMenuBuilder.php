@@ -10,7 +10,6 @@ namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -27,25 +26,19 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     public const ITEM_LOGOUT = 'user__content';
     public const ITEM_USER_SETTINGS = 'user__settings';
     public const ITEM_BOOKMARK = 'user__bookmark';
-    public const ITEM_DRAFTS = 'user__drafts';
     public const ITEM_NOTIFICATION = 'menu.notification';
 
     /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
     private $tokenStorage;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
-
     public function __construct(
         MenuItemFactory $factory,
         EventDispatcherInterface $eventDispatcher,
-        TokenStorageInterface $tokenStorage,
-        PermissionResolver $permissionResolver
+        TokenStorageInterface $tokenStorage
     ) {
         parent::__construct($factory, $eventDispatcher);
 
         $this->tokenStorage = $tokenStorage;
-        $this->permissionResolver = $permissionResolver;
     }
 
     /**
@@ -69,17 +62,6 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
 
         $token = $this->tokenStorage->getToken();
         if (null !== $token && is_object($token->getUser())) {
-            if ($this->permissionResolver->hasAccess('content', 'versionread') !== false) {
-                $menu->addChild(
-                    $this->createMenuItem(self::ITEM_DRAFTS, [
-                        'route' => 'ibexa.content_draft.list',
-                        'extras' => [
-                            'orderNumber' => 30,
-                        ],
-                    ])
-                );
-            }
-
             $menu->addChild(
                 $this->createMenuItem(self::ITEM_USER_SETTINGS, [
                     'route' => 'ibexa.user_settings.list',
@@ -111,7 +93,6 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         return [
             (new Message(self::ITEM_LOGOUT, 'ibexa_menu'))->setDesc('Logout'),
             (new Message(self::ITEM_USER_SETTINGS, 'ibexa_menu'))->setDesc('User settings'),
-            (new Message(self::ITEM_DRAFTS, 'ibexa_menu'))->setDesc('Drafts'),
             (new Message(self::ITEM_NOTIFICATION, 'ibexa_notifications'))->setDesc('View Notifications'),
         ];
     }
