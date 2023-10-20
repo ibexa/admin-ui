@@ -134,7 +134,7 @@ class ContentUpdateContext implements Context
     }
 
     /**
-     * @When I check if "Autosave is off" notification is displayed
+     * @When I check if "Autosave is off, draft not created" notification is displayed
      */
     public function iCheckAutosaveNotification(): void
     {

@@ -24,10 +24,12 @@
         {{ 'content_edit.autosave.status_error.message'|trans()|desc('Saving error') }}
     </div>
     <div class="ibexa-autosave__status-off">
-        {{ 'content_edit.autosave.status_off.message'|trans()|desc('Autosave is off') }}
+        {{ 'content_edit.autosave.status_off.message'|trans()|desc('Autosave is off, draft not created') }}
     </div>
     <div class="ibexa-autosave__status-on">
-        {{ 'content_edit.autosave.status_on.message'|trans()|desc('Autosave is on') }}
+        {% set current_time = 'now'|date('H:i', ibexa_user_settings.timezone) %}
+
+        {{ 'content_edit.autosave.status_on.message'|trans({ '%time%': current_time })|desc('Autosave is on, draft created %time%') }}
     </div>
     <div class="ibexa-autosave__status-saved"></div>
     <div class="ibexa-autosave__status-saving">

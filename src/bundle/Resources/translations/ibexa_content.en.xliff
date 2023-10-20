@@ -52,8 +52,8 @@
         <note>key: content.reveal.success</note>
       </trans-unit>
       <trans-unit id="123a6cff0d98d08927f6666246d451da50941a7b" resname="content_edit.autosave.status_saved.message.full">
-        <source>Draft saved %time%</source>
-        <target state="new">Draft saved %time%</target>
+        <source>Autosave is on, draft created %time%</source>
+        <target state="new">Autosave is on, draft created %time%</target>
         <note>key: content_edit.autosave.status_saved.message.full</note>
       </trans-unit>
       <trans-unit id="750bead6705b295c7b7d66c27b2768c1b9329ed5" resname="editing_details">

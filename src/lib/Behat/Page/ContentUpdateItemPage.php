@@ -255,7 +255,7 @@ class ContentUpdateItemPage extends Page
     {
         $this->getHTMLPage()
             ->find($this->getLocator('autosaveIsOnInfo'))
-            ->assert()->textContains('Autosave is on');
+            ->assert()->textContains('Autosave is on, draft created');
     }
 
     public function verifyAutosaveDraftIsSavedNotificationIsDisplayed(): void
@@ -284,6 +284,6 @@ class ContentUpdateItemPage extends Page
     {
         $this->getHTMLPage()
             ->find($this->getLocator('autosaveIsOffInfo'))
-            ->assert()->textContains('Autosave is off');
+            ->assert()->textContains('Autosave is off, draft not created');
     }
 }

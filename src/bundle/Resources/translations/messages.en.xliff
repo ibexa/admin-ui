@@ -187,13 +187,13 @@
         <note>key: content_edit.autosave.status_error.message</note>
       </trans-unit>
       <trans-unit id="d364f97b275523fe571da0da612fdbc4a1064550" resname="content_edit.autosave.status_off.message">
-        <source>Autosave is off</source>
-        <target state="new">Autosave is off</target>
+        <source>Autosave is off, draft not created</source>
+        <target state="new">Autosave is off, draft not created</target>
         <note>key: content_edit.autosave.status_off.message</note>
       </trans-unit>
       <trans-unit id="93f0a5980aa14af989f4106ffda244ba02db1c32" resname="content_edit.autosave.status_on.message">
-        <source>Autosave is on</source>
-        <target state="new">Autosave is on</target>
+        <source>Autosave is on, draft created %time%</source>
+        <target state="new">Autosave is on, draft created %time%</target>
         <note>key: content_edit.autosave.status_on.message</note>
       </trans-unit>
       <trans-unit id="da43c85269df161b340e92296642e18ec6af033e" resname="content_edit.autosave.status_saving.message">
