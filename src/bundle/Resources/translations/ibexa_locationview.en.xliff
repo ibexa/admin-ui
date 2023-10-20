@@ -256,6 +256,11 @@
         <target state="new">Policies</target>
         <note>key: tab.name.policies</note>
       </trans-unit>
+      <trans-unit id="9856859f4906ff5fa0ce8ba587fa032913a8344f" resname="tab.name.preview">
+        <source>Quick preview</source>
+        <target state="new">Quick preview</target>
+        <note>key: tab.name.preview</note>
+      </trans-unit>
       <trans-unit id="8954433abc5d011c00f81f317c7eebec41fbb1c0" resname="tab.name.relations">
         <source>Relations</source>
         <target state="new">Relations</target>

@@ -42,3 +42,9 @@ services:
             $translationHelper: '@Ibexa\Core\Helper\TranslationHelper'
         tags:
             - { name: ibexa.admin_ui.tab, group: location-view }
+
+    Ibexa\AdminUi\Tab\LocationView\PreviewTab:
+        public: true
+        autowire: true
+        tags:
+            - { name: ibexa.admin_ui.tab, group: location-view }

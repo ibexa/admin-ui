@@ -1,9 +1,8 @@
 .ibexa-location-preview {
-    &__siteaccess {
-        display: inline-block;
-    }
+    padding-top: calculateRem(12px);
+
     &__iframe {
-        width: 1920px;
+        width: calculateRem(1920px);
         aspect-ratio: 16/9;
         transform-origin: left top;
     }
