@@ -55,7 +55,7 @@ class ContentTypePicker extends Component
 
     public function confirm(): void
     {
-        $this->getHTMLPage()->find($this->getLocator('createNewButtonInUDW'))->click();
+        $this->getHTMLPage()->find($this->getLocator('createButton'))->click();
     }
 
     protected function specifyLocators(): array
@@ -65,7 +65,7 @@ class ContentTypePicker extends Component
             new VisibleCSSLocator('filteredItem', '.ibexa-content-menu-wrapper .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__group-item:not([hidden]) .form-check-label, .c-udw-tab .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__group-item:not([hidden]) .form-check-label'),
             new VisibleCSSLocator('header', '.ibexa-content-menu-wrapper .ibexa-extra-actions--create .ibexa-extra-actions__header h2'),
             new VisibleCSSLocator('languageDropdown', '.ibexa-content-menu-wrapper .ibexa-dropdown__selection-info'),
-            new VisibleCSSLocator('createNewButtonInUDW', '.c-content-create__confirm-button'),
+            new VisibleCSSLocator('createButton', '.c-content-create__confirm-button, [id="content_create_create"]'),
         ];
     }
 }
