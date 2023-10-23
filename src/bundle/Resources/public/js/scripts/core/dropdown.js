@@ -163,14 +163,16 @@
             }
 
             if (value) {
-                this.sourceInput.querySelector(`[value="${value}"]`).selected = selected;
+                this.sourceInput.querySelector(`[value="${CSS.escape(value)}"]`).selected = selected;
 
                 if (!this.canSelectOnlyOne) {
                     element.querySelector('.ibexa-input').checked = selected;
                 }
             }
 
-            this.itemsListContainer.querySelector(`[data-value="${value}"]`).classList.toggle('ibexa-dropdown__item--selected', selected);
+            this.itemsListContainer
+                .querySelector(`[data-value="${CSS.escape(value)}"]`)
+                .classList.toggle('ibexa-dropdown__item--selected', selected);
 
             const selectedItemsList = this.container.querySelector('.ibexa-dropdown__selection-info');
 
