@@ -12,19 +12,19 @@ const { Translator } = window;
 
 const COLUMNS_VISIBILITY_LOCAL_STORAGE_DATA_KEY = 'sub-items_columns-visibility';
 const DEFAULT_COLUMNS_VISIBILITY = {
-    modified: true,
     'content-type': true,
     priority: true,
     translations: true,
     visibility: true,
-    creator: true,
     contributor: true,
+    modified: true,
+    creator: true,
     published: true,
-    section: true,
-    'location-id': true,
-    'location-remote-id': true,
-    'object-id': true,
-    'object-remote-id': true,
+    section: false,
+    'location-id': false,
+    'location-remote-id': false,
+    'object-id': false,
+    'object-remote-id': false,
 };
 const SORTKEY_MAP = {
     name: 'ContentName',
