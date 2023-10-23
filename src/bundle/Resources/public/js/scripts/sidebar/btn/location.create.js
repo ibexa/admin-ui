@@ -7,8 +7,31 @@
 
     createActions.forEach((container) => {
         const radioInputs = container.querySelectorAll('.form-check [type="radio"]');
-        const form = container.querySelector('form');
+        const submitBtn = container.querySelector('.ibexa-extra-actions__btn--confirm');
+        const cancelBtn = container.querySelector('.ibexa-extra-actions__btn--cancel');
+        const closeBtn = container.querySelector('.ibexa-extra-actions__header .ibexa-btn--close');
 
-        radioInputs.forEach((radioInput) => radioInput.addEventListener('change', () => form.submit(), false));
+        cancelBtn.addEventListener(
+            'click',
+            () => {
+                closeBtn.click();
+            },
+            false,
+        );
+        radioInputs.forEach((radioInput) =>
+            radioInput.addEventListener(
+                'change',
+                (event) => {
+                    const selectedItems = container.querySelectorAll('.ibexa-instant-filter__group-item--selected');
+                    const itemToSelect = event.currentTarget.closest('.ibexa-instant-filter__group-item');
+
+                    selectedItems.forEach((selectedItem) => selectedItem.classList.remove('ibexa-instant-filter__group-item--selected'));
+                    itemToSelect.classList.add('ibexa-instant-filter__group-item--selected');
+
+                    submitBtn.removeAttribute('disabled');
+                },
+                false,
+            ),
+        );
     });
 })(window, window.document);

@@ -132,6 +132,7 @@ class ContentViewPage extends Page
             $this->contentTypePicker->selectLanguage($language);
         }
         $this->contentTypePicker->select($contentTypeName);
+        $this->contentTypePicker->confirm();
     }
 
     public function startCreatingUser(string $contentTypeName)
@@ -139,6 +140,7 @@ class ContentViewPage extends Page
         $this->contentActionsMenu->clickButton('Create content');
         $this->contentTypePicker->verifyIsLoaded();
         $this->contentTypePicker->select($contentTypeName);
+        $this->contentTypePicker->confirm();
     }
 
     public function switchToTab(string $tabName): void

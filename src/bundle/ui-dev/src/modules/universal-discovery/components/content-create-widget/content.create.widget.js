@@ -79,7 +79,7 @@ const ContentCreateWidget = () => {
     );
     const createLabel = Translator.trans(/*@Desc("Create")*/ 'create_content.create', {}, 'ibexa_universal_discovery_widget');
     const closeLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'ibexa_universal_discovery_widget');
-    const cancelLabel = Translator.trans(/*@Desc("Cancel")*/ 'content_create.cancel.label', {}, 'ibexa_universal_discovery_widget');
+    const cancelLabel = Translator.trans(/*@Desc("Discard")*/ 'content_create.cancel.label', {}, 'ibexa_universal_discovery_widget');
     const placeholder = Translator.trans(
         /*@Desc("Search by Content Type")*/ 'content_create.placeholder',
         {},
