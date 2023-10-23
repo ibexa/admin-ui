@@ -35,9 +35,9 @@
             {{ class|default('') -}}"
             {{ html.attributes(attr|default({})) }}
         >
-            <thead>
+            <thead {{ body_rows is defined and body_rows is not empty or head_cols is defined and show_head_cols_if_empty ? '' : 'hidden' }}>
                 {% block thead %}
-                    {% if head_cols is defined and body_rows is defined and body_rows is not empty or head_cols is defined and show_head_cols_if_empty %}
+                    {% if head_cols is defined %}
                         {% include '@ibexadesign/ui/component/table/table_head_row.html.twig' with {
                             head_cols,
                         } %}
@@ -50,14 +50,22 @@
                 {{ html.attributes(table_body_attr|default({})) }}
             >
                 {% block tbody %}
+                    {% set empty_row %}
+                        {% block tbody_empty %}
+                            {% include '@ibexadesign/ui/component/table/empty_table_body_row.html.twig' with {
+                                colspan: head_cols|length,
+                                empty_image: empty_image|default(asset('/bundles/ibexaadminui/img/ibexa-empty-table.svg'))
+                            } %}
+                        {% endblock %}
+                    {% endset %}
+
+                    <template class="ibexa-table__template--empty-row">
+                        {{ empty_row }}
+                    </template>
+
                     {% if body_rows is defined %}
                         {% if body_rows is empty %}
-                            {% block tbody_empty %}
-                                {% include '@ibexadesign/ui/component/table/empty_table_body_row.html.twig' with {
-                                    colspan: head_cols|length,
-                                    empty_image: empty_image|default(asset('/bundles/ibexaadminui/img/ibexa-empty-table.svg'))
-                                } %}
-                            {% endblock %}
+                            {{ empty_row }}
                         {% else %}
                             {% block tbody_not_empty %}
                                 {% for row in body_rows %}
