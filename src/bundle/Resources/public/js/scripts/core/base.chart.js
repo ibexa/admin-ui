@@ -5,8 +5,10 @@
     const defaultOptions = {
         responsive: true,
         maintainAspectRatio: false,
-        legend: {
-            display: false,
+        plugins: {
+            legend: {
+                display: false,
+            },
         },
         tooltips: {
             enabled: true,
@@ -74,7 +76,9 @@
         }
 
         render() {
-            this.chart = new Chart(this.canvas.getContext('2d'), {
+            // console.log(window);
+            // console.log(this.labels, this.datasets);
+            this.chart = new Chart(this.canvas, {
                 type: this.getType(),
                 data: {
                     labels: this.labels,
