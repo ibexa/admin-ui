@@ -270,7 +270,6 @@
 
 {%- block richtext_widget -%}
     {% set attr = attr|merge({ 'hidden': true }) %}
-
     <div class="ibexa-data-source ibexa-data-source--richtext">
         <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
         <div class="hidden" data-udw-config-name="richtext_embed" data-udw-config="{{ ibexa_udw_config('richtext_embed', udw_context) }}"></div>
@@ -503,3 +502,49 @@
         {{- form_errors(form) -}}
     </div>
 {%- endblock %}
+
+{%- block focus_mode -%}
+    {%- set title_icon -%}
+        <svg class="ibexa-icon ibexa-icon--small">
+            <use xlink:href="{{ ibexa_icon_path('un-focus') }}"></use>
+        </svg>
+    {%- endset -%}
+    {%- set title -%}
+        {{ 'focus_mode.disbale_hint'|trans({ '%icon%': title_icon|raw })|desc('To exit focus mode, click the %icon% or press Esc')|raw }}
+    {%- endset -%}
+
+    <div class="ibexa-field-edit__focus-mode">
+        <div class="ibexa-field-edit__focus-mode-notice-container">
+            {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
+                type: 'complementary',
+                title,
+                icon_path: ibexa_icon_path('system-information'),
+                show_close_btn: true
+            } only %}
+        </div>
+        <div class="ibexa-field-edit__focus-mode-control-container">
+            <button type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-field-edit__focus-mode-control-btn ibexa-field-edit__focus-mode-control-btn--enable">
+                <svg class="ibexa-icon ibexa-icon--small">
+                    <use xlink:href="{{ ibexa_icon_path('focus') }}"></use>
+                </svg>
+                <span
+                    class="ibexa-btn__label"
+                    title="{{ 'focus_mode.enable.tooltip'|trans|desc('Enter focus mode. It shows only rich text editor toolbar and focuses your attention on the editing content.') }}"
+                >
+                    {{ 'focus_mode.enable.label'|trans|desc('Focus mode') }}
+                </span>
+            </button>
+            <button type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-field-edit__focus-mode-control-btn ibexa-field-edit__focus-mode-control-btn--disable">
+                <svg class="ibexa-icon ibexa-icon--small">
+                    <use xlink:href="{{ ibexa_icon_path('un-focus') }}"></use>
+                </svg>
+                <span
+                    class="ibexa-btn__label"
+                    title="{{ 'focus_mode.disable.tooltip'|trans|desc('Exit focus mode.') }}"
+                >
+                    {{ 'focus_mode.disable.label'|trans|desc('Default mode') }}
+                </span>
+            </button>
+        </div>
+    </div>
+{%- endblock -%}

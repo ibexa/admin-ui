@@ -15,6 +15,35 @@
         color: $ibexa-color-danger;
     }
 
+    &__focus-mode {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        background: $ibexa-color-white;
+        border-radius: $ibexa-border-radius $ibexa-border-radius 0 0;
+    }
+
+    &__focus-mode-notice-container {
+        display: none;
+    }
+
+    &__focus-mode-control-container {
+        display: flex;
+        align-self: flex-end;
+    }
+
+    &__focus-mode-control-btn {
+        align-self: flex-end;
+
+        &--enable {
+            display: inline-flex;
+        }
+
+        &--disable {
+            display: none;
+        }
+    }
+
     .ibexa-input-text-wrapper {
         width: auto;
     }
@@ -57,6 +86,108 @@
             .ibexa-content-type-edit__section-column-header:first-of-type {
                 margin-top: 0;
             }
+        }
+    }
+
+    &--has-focus-mode {
+        display: flex;
+        flex-wrap: wrap;
+
+        .ibexa-field-edit {
+            &__focus-mode {
+                margin: auto 0 0 0;
+                align-self: baseline;
+            }
+
+            &__label-wrapper {
+                width: 80%;
+            }
+
+            &__focus-mode {
+                width: 20%;
+            }
+
+            &__data {
+                width: 100%;
+            }
+        }
+    }
+
+    &--focus-mode-active {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1080;
+        flex-direction: column;
+        width: 100vw;
+        height: 100vh;
+        padding: calculateRem(16px);
+        background: $ibexa-color-black;
+
+        .ibexa-field-edit {
+            &__label-wrapper {
+                display: none;
+            }
+
+            &__focus-mode {
+                width: 100%;
+                height: fit-content;
+                padding: calculateRem(32px) calculateRem(32px) 0 calculateRem(32px);
+            }
+
+            &__focus-mode-notice-container {
+                display: block;
+                width: 100%;
+            }
+
+            &__focus-mode-control-container {
+                height: calculateRem(40px);
+            }
+
+            &__focus-mode-control-btn {
+                margin: 0;
+
+                &--enable {
+                    display: none;
+                }
+
+                &--disable {
+                    display: inline-flex;
+                }
+            }
+
+            &__data {
+                width: 100%;
+                overflow-y: auto;
+                align-self: stretch;
+                flex-grow: 1;
+                padding: calculateRem(8px) calculateRem(32px) calculateRem(32px) calculateRem(32px);
+                background: $ibexa-color-white;
+                border-radius: 0 0 $ibexa-border-radius $ibexa-border-radius;
+
+                .ibexa-data-source {
+                    height: 100%;
+                }
+            }
+        }
+
+        .ibexa-alert {
+            margin-bottom: calculateRem(4px);
+        }
+    }
+
+    &--focus-mode-active.is-invalid {
+        .ibexa-field-edit {
+            &__data {
+                border-radius: 0;
+                padding-bottom: 0;
+            }
+        }
+
+        .ibexa-form-error {
+            padding: calculateRem(16px) calculateRem(32px);
+            background: $ibexa-color-white;
+            border-radius: 0 0 $ibexa-border-radius $ibexa-border-radius;
         }
     }
 }
