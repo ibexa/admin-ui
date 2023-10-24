@@ -2,6 +2,7 @@
     font-size: $ibexa-text-font-size;
     line-height: calculateRem(24px);
     border-spacing: 0;
+    border-collapse: separate;
     background-color: $ibexa-color-white;
     margin-bottom: 0;
 
@@ -9,32 +10,62 @@
         box-shadow: none;
     }
 
-    &__row:nth-child(odd) {
-        .ibexa-table__cell {
-            background-color: $ibexa-color-light-300;
+    &__row {
+        &:nth-child(odd) {
+            .ibexa-table__cell {
+                background-color: $ibexa-color-light-300;
+            }
         }
-    }
 
-    &__row:nth-child(even) {
-        .ibexa-table__cell {
-            background-color: $ibexa-color-white;
+        :nth-child(even) {
+            .ibexa-table__cell {
+                background-color: $ibexa-color-white;
+            }
+        }
+
+        &--selected {
+            .ibexa-table__cell {
+                font-weight: 600;
+            }
+        }
+
+        &--selectable {
+            cursor: pointer;
+
+            &:hover {
+                .ibexa-table__cell {
+                    border-color: $ibexa-color-primary;
+                }
+
+                .ibexa-input--checkbox,
+                .ibexa-input--radio {
+                    border-color: $ibexa-color-primary;
+                }
+            }
         }
     }
 
     &__cell:first-child {
         border-top-left-radius: $ibexa-border-radius;
         border-bottom-left-radius: $ibexa-border-radius;
+        border-left-width: calculateRem(1px);
     }
 
     &__cell:last-child {
         border-top-right-radius: $ibexa-border-radius;
         border-bottom-right-radius: $ibexa-border-radius;
+        border-right-width: calculateRem(1px);
     }
 
     &__cell.ibexa-table__cell {
         vertical-align: middle;
         padding: calculateRem(12px) calculateRem(16px);
         height: calculateRem(68px);
+        border-style: solid;
+        border-color: transparent;
+        border-top-width: calculateRem(1px);
+        border-bottom-width: calculateRem(1px);
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
         .form-check {
             margin-bottom: 0;
@@ -128,7 +159,7 @@
             display: none;
         }
 
-        &--asc:after {
+        &--asc::after {
             display: block;
         }
 
@@ -197,6 +228,16 @@
         text-decoration: none;
     }
 
+    &__thumbnail {
+        min-width: calculateRem(90px);
+        max-width: calculateRem(90px);
+        min-height: calculateRem(64px);
+        max-height: calculateRem(64px);
+        border-radius: calculateRem(8px);
+        overflow: hidden;
+        object-fit: cover;
+    }
+
     &--not-striped {
         .ibexa-table__row {
             .ibexa-table__cell {
@@ -206,8 +247,6 @@
     }
 
     &--last-column-sticky {
-        border-collapse: separate;
-
         .ibexa-table__row,
         .ibexa-table__head-row {
             .ibexa-table__cell:last-of-type,
