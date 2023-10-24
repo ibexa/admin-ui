@@ -38,4 +38,18 @@ ibexa.addConfig(
     true,
 );
 
+ibexa.addConfig(
+    'adminUiConfig.universalDiscoveryWidget.tabs',
+    [
+        {
+            id: 'image_picker',
+            priority: 10,
+            component: BrowseTabModule,
+            label: Translator.trans(/*@Desc("Browse")*/ 'browse.label', {}, 'ibexa_universal_discovery_widget'),
+            icon: window.ibexa.helpers.icon.getIconPath('browse'),
+        },
+    ],
+    true,
+);
+
 export default BrowseTabModule;

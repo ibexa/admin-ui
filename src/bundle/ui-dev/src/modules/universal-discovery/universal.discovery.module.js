@@ -137,7 +137,23 @@ export const SearchTextContext = createContext();
 export const DropdownPortalRefContext = createContext();
 
 const UniversalDiscoveryModule = (props) => {
-    const { tabs } = ibexa.adminUiConfig.universalDiscoveryWidget;
+    const { tabs: tabsWithPriority } = ibexa.adminUiConfig.universalDiscoveryWidget;
+    const tabs = tabsWithPriority.reduce((tabsPrioritized, tabToAdd) => {
+        const tabWithSameIdIndex = tabsPrioritized.findIndex((tab) => tab.id === tabToAdd.id);
+
+        if (tabWithSameIdIndex === -1) {
+            tabsPrioritized.push(tabToAdd);
+        } else {
+            const currentTabPriority = tabsPrioritized[tabWithSameIdIndex].priority ?? -1;
+            const tabToAddPriority = tabToAdd.priority ?? -1;
+
+            if (currentTabPriority < tabToAddPriority) {
+                tabsPrioritized[tabWithSameIdIndex] = tabToAdd;
+            }
+        }
+
+        return tabsPrioritized;
+    }, []);
     const defaultMarkedLocationId = props.startingLocationId || props.rootLocationId;
     const abortControllerRef = useRef();
     const dropdownPortalRef = useRef();
