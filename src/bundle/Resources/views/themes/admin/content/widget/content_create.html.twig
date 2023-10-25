@@ -20,7 +20,7 @@
             </button>
             <div class="ibexa-extra-actions__header-subtitle">
                 {% if content is defined %}
-                    {{ 'content.create.editing_details'|trans({ '%content_name%': ibexa_content_name(content) })|desc('under %content_name%') }}
+                    {{ 'content.create.editing_details'|trans({ '%content%': ibexa_content_name(content) })|desc('under %content%') }}
                 {% endif %}
             </div>
         </div>
