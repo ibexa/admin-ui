@@ -127,3 +127,11 @@ services:
     Ibexa\AdminUi\UI\Config\Provider\CurrentBackOfficePath:
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'backOfficePath' }
+
+    Ibexa\AdminUi\UI\Config\Provider\OpenedBlockSettings:
+        tags:
+            - { name: ibexa.admin_ui.config.provider, key: 'openedBlockSettings' }
+
+    Ibexa\AdminUi\UI\Config\Provider\IsPageBuilderVisited:
+        tags:
+            - { name: ibexa.admin_ui.config.provider, key: 'isPageBuilderVisited' }
