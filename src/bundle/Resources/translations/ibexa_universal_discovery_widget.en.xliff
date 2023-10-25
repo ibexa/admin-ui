@@ -231,6 +231,11 @@
         <target state="new">Select destination</target>
         <note>key: move.title</note>
       </trans-unit>
+      <trans-unit id="d31e50b1f33f2682ff35901dc7d7c4ea646ca922" resname="pagination.info.viewing_message">
+        <source>Viewing %viewingCount% out of %totalCount% items</source>
+        <target state="new">Viewing %viewingCount% out of %totalCount% items</target>
+        <note>key: pagination.info.viewing_message</note>
+      </trans-unit>
       <trans-unit id="fde645e6790429ce2f904099b7aa2712224be9aa" resname="popup.close.label">
         <source>Close</source>
         <target state="new">Close</target>
