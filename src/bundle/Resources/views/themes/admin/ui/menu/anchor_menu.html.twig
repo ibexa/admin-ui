@@ -168,7 +168,9 @@
             {% for secondMenuItem in item.children %}
                 {% if secondMenuItem.children|length > 1 %}
                     {% set listAttributes = {
-                        'class': 'tab-pane ibexa-anchor-navigation-menu__sections' ~ (loop.first ? ' ibexa-anchor-navigation-menu__sections--active active' : ''),
+                        'class': 'tab-pane ibexa-anchor-navigation-menu__sections'
+                            ~ (loop.first ? ' ibexa-anchor-navigation-menu__sections--active active' : '')
+                            ~ (item.count() == 1 ? ' ibexa-anchor-navigation-menu__sections--no-border' : ''),
                         'id': secondMenuItem.getAttribute('data-target-id'),
                         'role': 'tabpanel'
                     } %}
@@ -178,7 +180,9 @@
                     {% set tagElement = 'div' %}
                     {% set extraElements %}{% endset %}
 
-                    {{ block('anchor_menu_list') -}}
+                    {% with { item: secondMenuItem } %}
+                        {{ block('anchor_menu_list') -}}
+                    {% endwith %}
                 {% endif %}
             {% endfor %}
         </div>

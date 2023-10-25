@@ -134,8 +134,8 @@
                 const prevMainContentTab = doc.querySelector(`[data-id="${prevHashId}"]`);
                 const currMainContentTab = doc.querySelector(`[data-id="${currHashId}"]`);
 
-                prevMainContentTab.classList.toggle('ibexa-anchor-navigation__section-group--active', false);
-                currMainContentTab.classList.toggle('ibexa-anchor-navigation__section-group--active', true);
+                prevMainContentTab?.classList.toggle('ibexa-anchor-navigation__section-group--active', false);
+                currMainContentTab?.classList.toggle('ibexa-anchor-navigation__section-group--active', true);
 
                 initFitSection();
             });

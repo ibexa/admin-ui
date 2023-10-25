@@ -18,7 +18,7 @@
     <div class="ibexa-anchor-navigation-menu__body">
         {% block navigation_menu_body %}
             {% if items|default([])|length > 1 %}
-                <ul class="ibexa-anchor-navigation-menu__sections ibexa-anchor-navigation-menu__sections--active">
+                <ul class="ibexa-anchor-navigation-menu__sections ibexa-anchor-navigation-menu__sections--active ibexa-anchor-navigation-menu__sections--no-border">
                     {% for item in items %}
                         {% set item_label = item is iterable ? item.label : item %}
                         {% set sanitized_item = item is iterable and item.target_id is defined ? item.target_id : item_label|slug %}
