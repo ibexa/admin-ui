@@ -127,3 +127,10 @@ services:
     Ibexa\AdminUi\UI\Config\Provider\CurrentBackOfficePath:
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'backOfficePath' }
+
+    Ibexa\AdminUi\UI\Config\Provider\Suggestions:
+        arguments:
+            $minQueryLength: '%ibexa.site_access.config.default.search.suggestion.min_query_length%'
+            $resultLimit: '%ibexa.site_access.config.default.search.suggestion.result_limit%'
+        tags:
+            - { name: ibexa.admin_ui.config.provider, key: 'suggestions' }
