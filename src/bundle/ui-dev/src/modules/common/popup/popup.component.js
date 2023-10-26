@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 
@@ -72,7 +72,7 @@ const Popup = ({
         hidePopup();
         onClick(event);
     };
-    const closeButton = useMemo(() => {
+    const renderCloseBtn = () => {
         if (noCloseBtn) {
             return null;
         }
@@ -88,21 +88,21 @@ const Popup = ({
                 <Icon name="discard" extraClasses="ibexa-icon--small" />
             </button>
         );
-    }, [hidePopup, closeBtnLabel, noCloseBtn]);
+    };
 
     return (
         <div ref={modalRef} className={modalClasses} tabIndex={hasFocus ? -1 : undefined}>
             <div className={`modal-dialog c-popup__dialog ${MODAL_SIZE_CLASS[size]}`} role="dialog">
                 <div className="modal-content c-popup__content">
                     {noHeader
-                        ? closeButton
+                        ? renderCloseBtn
                         : title && (
                               <div className="modal-header c-popup__header">
                                   <h3 className="modal-title c-popup__headline" title={title}>
                                       <span className="c-popup__title">{title}</span>
                                       {subtitle && <span className="c-popup__subtitle">{subtitle}</span>}
                                   </h3>
-                                  {closeButton}
+                                  {renderCloseBtn}
                               </div>
                           )}
                     <div className="modal-body c-popup__body">{children}</div>
