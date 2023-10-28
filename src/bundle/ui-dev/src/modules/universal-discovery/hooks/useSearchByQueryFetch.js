@@ -26,13 +26,22 @@ export const useSearchByQueryFetch = () => {
     const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [{ isLoading, data }, dispatch] = useReducer(searchByQueryReducer, { isLoading: false, data: {} });
     const searchByQuery = useCallback(
-        (searchText, contentTypesIdentifiers, sectionIdentifier, subtreePathString, limit, offset, languageCode) => {
+        (
+            searchText,
+            contentTypesIdentifiers,
+            sectionIdentifier,
+            subtreePathString,
+            limit,
+            offset,
+            languageCode,
+            imageCriterionData = null,
+        ) => {
             const handleFetch = (response) => {
                 setMarkedLocationId(null);
                 dispatchLoadedLocationsAction({ type: 'CLEAR_LOCATIONS' });
                 dispatch({ type: SEARCH_END, response });
             };
-            const query = { FullTextCriterion: `${searchText}*` };
+            let query = { FullTextCriterion: `${searchText}*` };
 
             if (contentTypesIdentifiers && contentTypesIdentifiers.length) {
                 query.ContentTypeIdentifierCriterion = contentTypesIdentifiers;
@@ -44,6 +53,22 @@ export const useSearchByQueryFetch = () => {
 
             if (subtreePathString) {
                 query.SubtreeCriterion = subtreePathString;
+            }
+
+            if (imageCriterionData) {
+                const imageCriterion = {
+                    fieldDefIdentifier: 'image',
+                    ...imageCriterionData,
+                };
+
+                query.ImageCriterion = imageCriterion;
+                query.Aggregations = [
+                    {
+                        ContentTypeTermAggregation: {
+                            name: 'image',
+                        },
+                    },
+                ];
             }
 
             dispatch({ type: SEARCH_START });
