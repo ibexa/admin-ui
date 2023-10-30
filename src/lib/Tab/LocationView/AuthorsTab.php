@@ -57,7 +57,7 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
      */
     public function getName(): string
     {
-        /** @Desc("authors") */
+        /** @Desc("Authors") */
         return $this->translator->trans('tab.name.authors', [], 'ibexa_locationview');
     }
 
