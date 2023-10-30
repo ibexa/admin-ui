@@ -15,7 +15,6 @@ use Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData;
 use Ibexa\AdminUi\Form\Type\Location\LocationAssignSectionType;
 use Ibexa\AdminUi\Form\Type\Location\LocationUpdateType;
 use Ibexa\AdminUi\Form\Type\ObjectState\ContentObjectStateUpdateType;
-use Ibexa\AdminUi\Specification\UserExists;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
@@ -35,23 +34,15 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
 {
     public const URI_FRAGMENT = 'ibexa-tab-location-view-details';
 
-    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
-    protected $fieldsGroupsListHelper;
+    protected UserService $userService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    protected $userService;
+    protected SectionService $sectionService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
-    protected $sectionService;
+    protected DatasetFactory $datasetFactory;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    protected $datasetFactory;
+    private FormFactoryInterface $formFactory;
 
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
     /**
      * @param \Twig\Environment $twig
@@ -137,8 +128,6 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         $this->supplyObjectStateParameters($viewParameters, $contentInfo);
         $this->supplyTranslations($viewParameters, $versionInfo);
         $this->supplyFormLocationUpdate($viewParameters, $location);
-        $this->supplyCreator($viewParameters, $contentInfo);
-        $this->supplyLastContributor($viewParameters, $versionInfo);
         $this->supplySortFieldClauseMap($viewParameters);
 
         return array_replace($contextParameters, $viewParameters->getArrayCopy());
@@ -160,30 +149,6 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
             Location::SORT_FIELD_NODE_ID => 'LocationId',
             Location::SORT_FIELD_CONTENTOBJECT_ID => 'ContentId',
         ];
-    }
-
-    /**
-     * @param \ArrayObject $parameters
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
-     */
-    private function supplyCreator(ArrayObject $parameters, ContentInfo $contentInfo): void
-    {
-        $parameters['creator'] = null;
-        if ((new UserExists($this->userService))->isSatisfiedBy($contentInfo->ownerId)) {
-            $parameters['creator'] = $this->userService->loadUser($contentInfo->ownerId);
-        }
-    }
-
-    /**
-     * @param \ArrayObject $parameters
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
-     */
-    private function supplyLastContributor(ArrayObject $parameters, VersionInfo $versionInfo): void
-    {
-        $parameters['last_contributor'] = null;
-        if ((new UserExists($this->userService))->isSatisfiedBy($versionInfo->creatorId)) {
-            $parameters['last_contributor'] = $this->userService->loadUser($versionInfo->creatorId);
-        }
     }
 
     /**

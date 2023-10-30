@@ -246,9 +246,14 @@
         <target state="new">Visibility</target>
         <note>key: tab.locations.visibility</note>
       </trans-unit>
+      <trans-unit id="d1b8c4b5f1920ea90e6b4e1376a3e8167f2ef21a" resname="tab.name.authors">
+        <source>Authors</source>
+        <target state="new">Authors</target>
+        <note>key: tab.name.authors</note>
+      </trans-unit>
       <trans-unit id="5d92b84a6c78bd443010f172c47d01ce0dacacd7" resname="tab.name.details">
-        <source>Details</source>
-        <target state="new">Details</target>
+        <source>Technical Details</source>
+        <target state="new">Technical Details</target>
         <note>key: tab.name.details</note>
       </trans-unit>
       <trans-unit id="bc992b410ec56cce18c994806d7518fd47da2caa" resname="tab.name.locations">
