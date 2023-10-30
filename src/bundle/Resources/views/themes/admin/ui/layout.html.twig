@@ -121,12 +121,16 @@
         {% block header_row %}
             <header class="ibexa-main-header">
                 <div class="ibexa-main-header__brand-column">
-                    <a class="ibexa-main-header__brand" href="{{ url('ibexa.dashboard') }}">
-                        <img class="ibexa-main-header__brand-image" src="{{ asset('bundles/ibexaadminui/img/ibexa-logo.svg') }}" alt="Ibexa" />
-                    </a>
+                    {% block brand %}
+                        <a class="ibexa-main-header__brand" href="{{ url('ibexa.dashboard') }}">
+                            <img class="ibexa-main-header__brand-image" src="{{ asset('bundles/ibexaadminui/img/ibexa-logo.svg') }}" alt="Ibexa" />
+                        </a>
+                    {% endblock %}
                 </div>
                 <div class="ibexa-main-header__search-column">
-                    {{ ibexa_render_component_group('global-search') }}
+                    {% block global_search %}
+                        {{ ibexa_render_component_group('global-search') }}
+                    {% endblock %}
                 </div>
                 <div class="ibexa-main-header__user-menu-column">
                     {% block user_menu %}
