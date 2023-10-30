@@ -247,7 +247,7 @@ class ContentUpdateItemPage extends Page
     {
         $activeSections = $this->getHTMLPage()->findAll(new VisibleCSSLocator('activeSection', '.ibexa-tabs__tab--active'));
         $fieldLocator = new VisibleCSSLocator('', sprintf($this
-            ->getLocator('fieldGroupNthField')->getSelector(), $activeSections->single()->getAttribute('data-target-id'), $this->getFieldPosition($fieldName)));
+            ->getLocator('fieldGroupNthField')->getSelector(), $activeSections->single()->find(new VisibleCSSLocator('innerLink', 'a'))->getAttribute('href'), $this->getFieldPosition($fieldName)));
         $this->getHTMLPage()->find($fieldLocator)->assert()->hasClass('ibexa-field-edit--disabled');
     }
 
