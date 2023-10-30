@@ -32,14 +32,6 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
 
     protected DatasetFactory $datasetFactory;
 
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Ibexa\Contracts\Core\Repository\SectionService $sectionService
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     */
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
