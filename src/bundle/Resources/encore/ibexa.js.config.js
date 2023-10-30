@@ -21,6 +21,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/helpers/form.validation.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/form.error.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/system.helper.js'),
+    path.resolve(__dirname, '../public/js/scripts/helpers/highlight.helper.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.format.date.js'),
     path.resolve(__dirname, '../public/js/scripts/core/draggable.js'),
     path.resolve(__dirname, '../public/js/scripts/core/dropdown.js'),
@@ -70,6 +71,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/widgets/flatpickr.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.form.tabs.validation.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.search.autocomplete.js'),
+    path.resolve(__dirname, '../public/js/scripts/admin.search.autocomplete.content.js'),
 ];
 const fieldTypes = [];
 

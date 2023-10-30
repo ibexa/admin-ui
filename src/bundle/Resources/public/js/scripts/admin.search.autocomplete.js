@@ -1,9 +1,7 @@
 (function (global, doc, ibexa, Routing) {
-    const MIN_SEARCH_TEXT_LENGTH = 3;
-    const RESULTS_LIMIT = 5;
     const globalSearch = doc.querySelector('.ibexa-global-search');
-    const { getJsonFromResponse } = window.ibexa.helpers.request;
-    const { escapeHTML } = window.ibexa.helpers.text;
+    const { getJsonFromResponse } = ibexa.helpers.request;
+    const { minQueryLength, resultLimit } = ibexa.adminUiConfig.suggestions;
 
     if (!globalSearch) {
         return;
@@ -13,49 +11,20 @@
     const clearBtn = globalSearch.querySelector(' .ibexa-input-text-wrapper__action-btn--clear');
     const autocompleteNode = globalSearch.querySelector('.ibexa-global-search__autocomplete');
     const autocompleteListNode = globalSearch.querySelector('.ibexa-global-search__autocomplete-list');
-    const token = doc.querySelector('meta[name="CSRF-Token"]').content;
-    const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
-    const contentTypeHelper = ibexa.helpers.contentType;
     let controller;
-    const highlightSearchText = (searchText, string) => {
-        const stringLowerCase = string.toLowerCase();
-        const searchTextLowerCase = searchText.toLowerCase();
-        const matches = stringLowerCase.matchAll(searchTextLowerCase);
-        const stringArray = [];
-        let previousIndex = 0;
-
-        for (const match of matches) {
-            const endOfSearchTextIndex = match.index + searchText.length;
-            const autocompleteHighlightTemplate = autocompleteListNode.dataset.templateHighlight;
-            const renderedTemplate = autocompleteHighlightTemplate.replace(
-                '{{ highlightText }}',
-                escapeHTML(string.slice(match.index, endOfSearchTextIndex)),
-            );
-
-            stringArray.push(escapeHTML(string.slice(previousIndex, match.index)));
-            stringArray.push(renderedTemplate);
-
-            previousIndex = match.index + searchText.length;
-        }
-
-        stringArray.push(escapeHTML(string.slice(previousIndex)));
-
-        return stringArray.join('');
-    };
     const showResults = (searchText, results) => {
+        const { renderers } = ibexa.autocomplete;
         const fragment = doc.createDocumentFragment();
 
         results.forEach((result) => {
             const container = doc.createElement('ul');
-            const location = result.value.Location;
-            const content = location.ContentInfo.Content;
-            const autocompleteItemTemplate = autocompleteListNode.dataset.templateItem;
-            const renderedTemplate = autocompleteItemTemplate
-                .replace('{{ contentName }}', highlightSearchText(searchText, content.TranslatedName))
-                .replace('{{ iconHref }}', contentTypeHelper.getContentTypeIconUrlByHref(content.ContentType._href))
-                .replace('{{ contentTypeName }}', escapeHTML(contentTypeHelper.getContentTypeNameByHref(content.ContentType._href)))
-                .replaceAll('{{ contentBreadcrumbs }}', 'tu / będzie / ładny / breadcrumb')
-                .replace('{{ contentHref }}', Routing.generate('ibexa.content.view', { contentId: content._id, locationId: location.id }));
+            const renderer = renderers[result.type];
+
+            if (!renderer) {
+                return;
+            }
+
+            const renderedTemplate = renderer(result, searchText);
 
             container.insertAdjacentHTML('beforeend', renderedTemplate);
 
@@ -76,31 +45,8 @@
         autocompleteNode.classList.toggle('ibexa-global-search__autocomplete--results-empty', results.length === 0);
     };
     const getAutocompleteList = (searchText) => {
-        const query = { FullTextCriterion: `${searchText}*` };
-        const body = JSON.stringify({
-            ViewInput: {
-                identifier: `global-search-query-${query.FullTextCriterion}`,
-                public: false,
-                languageCode: null,
-                useAlwaysAvailable: true,
-                LocationQuery: {
-                    FacetBuilders: {},
-                    SortClauses: {},
-                    Query: query,
-                    limit: RESULTS_LIMIT,
-                    offset: 0,
-                },
-            },
-        });
-        const request = new Request('/api/ibexa/v2/views', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/vnd.ibexa.api.View+json; version=1.1',
-                'Content-Type': 'application/vnd.ibexa.api.ViewInput+json; version=1.1',
-                'X-Siteaccess': siteaccess,
-                'X-CSRF-Token': token,
-            },
-            body,
+        const url = Routing.generate('ibexa.search.suggestion', { query: searchText, limit: resultLimit });
+        const request = new Request(url, {
             mode: 'same-origin',
             credentials: 'same-origin',
         });
@@ -109,7 +55,6 @@
 
         fetch(request, { signal })
             .then(getJsonFromResponse)
-            .then((response) => response.View.Result.searchHits.searchHit)
             .then(showResults.bind(this, searchText))
             .catch(() => {});
     };
@@ -120,7 +65,7 @@
             controller.abort();
         }
 
-        if (searchText.length <= MIN_SEARCH_TEXT_LENGTH) {
+        if (searchText.length <= minQueryLength) {
             hideAutocomplete();
 
             return;

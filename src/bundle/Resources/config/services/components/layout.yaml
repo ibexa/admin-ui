@@ -16,3 +16,11 @@ services:
             $template: '@@ibexadesign/ui/user_menu.html.twig'
         tags:
             - { name: ibexa.admin_ui.component, group: user-menu }
+
+    ibexa.search.autocomplete.content_template:
+        parent: Ibexa\AdminUi\Component\TabsComponent
+        arguments:
+            $template: '@@ibexadesign/ui/global_search_autocomplete_content_template.html.twig'
+            $groupIdentifier: 'global-search-autocomplete-content'
+        tags:
+            - { name: ibexa.admin_ui.component, group: global-search-autocomplete-templates }
