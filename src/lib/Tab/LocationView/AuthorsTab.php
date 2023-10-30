@@ -52,9 +52,6 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         return 'authors';
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         /** @Desc("Authors") */
