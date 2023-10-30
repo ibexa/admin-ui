@@ -252,7 +252,7 @@
         <note>key: tab.name.authors</note>
       </trans-unit>
       <trans-unit id="5d92b84a6c78bd443010f172c47d01ce0dacacd7" resname="tab.name.details">
-        <source>Technical Details</source>
+        <source>Technical details</source>
         <target state="new">Technical Details</target>
         <note>key: tab.name.details</note>
       </trans-unit>
