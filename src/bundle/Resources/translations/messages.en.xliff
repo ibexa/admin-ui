@@ -71,16 +71,6 @@
         <target state="new">Username</target>
         <note>key: authentication.username</note>
       </trans-unit>
-      <trans-unit id="61592766b16351f37d5ed4d286a6a789d4ee01ab" resname="autocomplete.no_results">
-        <source>No suggestions available.</source>
-        <target state="new">No suggestions available.</target>
-        <note>key: autocomplete.no_results</note>
-      </trans-unit>
-      <trans-unit id="9909b3aba5a51f5fd34ba6c9fdba12115ced5564" resname="autocomplete.view_all_results">
-        <source>View all results</source>
-        <target state="new">View all results</target>
-        <note>key: autocomplete.view_all_results</note>
-      </trans-unit>
       <trans-unit id="b84cc93e7b7f2a9eb0be3e95db4ffde11a97a520" resname="back.to.top">
         <source>Go to top</source>
         <target state="new">Go to top</target>
