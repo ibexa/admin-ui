@@ -47,9 +47,6 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         $this->datasetFactory = $datasetFactory;
     }
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return 'authors';
