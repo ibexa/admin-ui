@@ -5,4 +5,4 @@ services:
         public: false
 
     Ibexa\AdminUi\Util\:
-        resource: "../../../lib/Util"
+        resource: "../../../../lib/Util"

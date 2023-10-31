@@ -6,6 +6,11 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
+      <trans-unit id="4b260ae7c4bff42c0b4813dbb4e92de939f52717" resname="anchor_menu.more">
+        <source>More</source>
+        <target state="new">More</target>
+        <note>key: anchor_menu.more</note>
+      </trans-unit>
       <trans-unit id="9177237415bf4199961eb8de9353011a5b22a039" resname="anchor_navigation.close">
         <source>Close</source>
         <target state="new">Close</target>

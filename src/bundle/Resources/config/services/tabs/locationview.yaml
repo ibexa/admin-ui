@@ -1,6 +1,6 @@
 services:
     Ibexa\AdminUi\Tab\LocationView\:
-        resource: "../../../lib/Tab/LocationView/*"
+        resource: "../../../../../lib/Tab/LocationView/*"
         parent: Ibexa\Contracts\AdminUi\Tab\AbstractTab
         public: true
         tags:

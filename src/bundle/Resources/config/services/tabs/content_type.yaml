@@ -1,6 +1,6 @@
 services:
     Ibexa\AdminUi\Tab\ContentType\:
-        resource: "../../../lib/Tab/ContentType/*"
+        resource: "../../../../../lib/Tab/ContentType/*"
         parent: Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab
         public: true
         tags:

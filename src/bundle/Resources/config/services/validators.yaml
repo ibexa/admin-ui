@@ -5,7 +5,7 @@ services:
         public: false
 
     Ibexa\AdminUi\Validator\Constraints\:
-        resource: "../../../lib/Validator/Constraints"
+        resource: "../../../../lib/Validator/Constraints"
 
     Ibexa\AdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimitValidator:
         arguments:

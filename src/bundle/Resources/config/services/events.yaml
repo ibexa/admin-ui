@@ -5,7 +5,7 @@ services:
         public: false
 
     Ibexa\AdminUi\EventListener\:
-        resource: "../../../lib/EventListener/*"
+        resource: "../../../../lib/EventListener/*"
         public: true
         tags:
             - { name: kernel.event_subscriber }

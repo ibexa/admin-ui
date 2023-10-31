@@ -10,7 +10,7 @@ services:
         public: false
 
     Ibexa\AdminUi\Form\Processor\:
-        resource: "../../../lib/Form/Processor/*"
+        resource: "../../../../lib/Form/Processor/*"
         public: true
         tags:
             - { name: kernel.event_subscriber }
