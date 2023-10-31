@@ -7,8 +7,6 @@
 declare(strict_types=1);
 
 use Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter;
-use Ibexa\Contracts\Migration\MigrationService;
-use Ibexa\Migration\Repository\Migration;
 use Ibexa\Tests\Core\Repository\LegacySchemaImporter;
 use Ibexa\Tests\Integration\AdminUi\AdminUiIbexaTestKernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
