@@ -15,11 +15,7 @@ use Ibexa\Bundle\ContentForms\IbexaContentFormsBundle;
 use Ibexa\Bundle\Rest\IbexaRestBundle;
 use Ibexa\Bundle\Search\IbexaSearchBundle;
 use Ibexa\Bundle\User\IbexaUserBundle;
-use Ibexa\Contracts\Migration\Metadata\Storage\MetadataStorage;
-use Ibexa\Contracts\Migration\MigrationStorage;
 use Ibexa\Contracts\Test\Core\IbexaTestKernel;
-use Ibexa\Migration\Metadata\Storage\InMemoryMetadataStorage;
-use Ibexa\Migration\Storage\InMemoryMigrationStorage;
 use Ibexa\Tests\Integration\AdminUi\DependencyInjection\Configuration\IgnoredConfigParser;
 use Knp\Menu\FactoryInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
@@ -27,7 +23,6 @@ use Swift_Mailer;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\Fragment\EsiFragmentRenderer;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollection;
 use Symfony\WebpackEncoreBundle\Asset\TagRenderer;
@@ -82,8 +77,6 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
 
     private static function configureIbexaDXPBundles(ContainerBuilder $container): void
     {
-        self::configureMigrationsBundle($container);
-
         $container->setParameter('form.type_extension.csrf.enabled', false);
         $container->setParameter('ibexa.http_cache.purge_type', 'local');
         $container->setParameter('ibexa.http_cache.translation_aware.enabled', false);
@@ -111,12 +104,6 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
     protected static function getExposedServicesByClass(): iterable
     {
         yield from parent::getExposedServicesByClass();
-    }
-
-    private static function configureMigrationsBundle(ContainerBuilder $container): void
-    {
-        $container->setDefinition(MetadataStorage::class, new Definition(InMemoryMetadataStorage::class));
-        $container->setDefinition(MigrationStorage::class, new Definition(InMemoryMigrationStorage::class));
     }
 
     private static function configureThirdPartyBundles(ContainerBuilder $container): void
