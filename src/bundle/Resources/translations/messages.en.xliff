@@ -483,11 +483,6 @@
         <target state="new">Cancel</target>
         <note>key: form.cancel</note>
       </trans-unit>
-      <trans-unit id="7100bfb6741e032fcfcc681f3eceef78650e4672" resname="header.search">
-        <source>Search...</source>
-        <target state="new">Search...</target>
-        <note>key: header.search</note>
-      </trans-unit>
       <trans-unit id="1c83b9fb831b59adffc151e074e3940afb422d59" resname="ibexa.forgot_user_password.reset_your_password">
         <source>Reset your password</source>
         <target state="new">Reset your password</target>

@@ -1,6 +1,7 @@
-(function (global, doc, ibexa, Routing) {
+(function (global, doc, ibexa, Routing, Translator) {
     const globalSearch = doc.querySelector('.ibexa-global-search');
     const { getJsonFromResponse } = ibexa.helpers.request;
+    const { showErrorNotification } = ibexa.helpers.notification;
     const { minQueryLength, resultLimit } = ibexa.adminUiConfig.suggestions;
 
     if (!globalSearch) {
@@ -11,7 +12,7 @@
     const clearBtn = globalSearch.querySelector(' .ibexa-input-text-wrapper__action-btn--clear');
     const autocompleteNode = globalSearch.querySelector('.ibexa-global-search__autocomplete');
     const autocompleteListNode = globalSearch.querySelector('.ibexa-global-search__autocomplete-list');
-    let controller;
+    let searchAbortController;
     const showResults = (searchText, results) => {
         const { renderers } = ibexa.autocomplete;
         const fragment = doc.createDocumentFragment();
@@ -50,20 +51,22 @@
             mode: 'same-origin',
             credentials: 'same-origin',
         });
-        controller = new AbortController();
-        const { signal } = controller;
+        searchAbortController = new AbortController();
+        const { signal } = searchAbortController;
 
         fetch(request, { signal })
             .then(getJsonFromResponse)
             .then(showResults.bind(this, searchText))
-            .catch(() => {});
+            .catch(() =>
+                showErrorNotification(
+                    Translator.trans(/*@Desc("Cannot load suggestions")*/ 'autocomplete.request.error', {}, 'ibexa_search'),
+                ),
+            );
     };
     const handleTyping = (event) => {
         const searchText = event.currentTarget.value.trim();
 
-        if (controller) {
-            controller.abort();
-        }
+        searchAbortController?.abort();
 
         if (searchText.length <= minQueryLength) {
             hideAutocomplete();
@@ -120,9 +123,7 @@
             return;
         }
 
-        if (focusedItemElement?.parentElement?.previousElementSibling) {
-            focusedItemElement.parentElement.previousElementSibling.firstElementChild.focus();
-        }
+        focusedItemElement?.parentElement?.previousElementSibling.firstElementChild.focus();
     };
     const addKeyboardEventListener = () => {
         doc.body.addEventListener('keydown', handleKeyboard, false);
@@ -138,4 +139,4 @@
 
     globalSearchInput.addEventListener('keyup', handleTyping, false);
     clearBtn.addEventListener('click', hideAutocomplete, false);
-})(window, document, window.ibexa, window.Routing);
+})(window, document, window.ibexa, window.Routing, window.Translator);

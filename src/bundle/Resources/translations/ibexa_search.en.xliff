@@ -6,6 +6,26 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
+      <trans-unit id="61592766b16351f37d5ed4d286a6a789d4ee01ab" resname="autocomplete.no_results">
+        <source>No suggestions available.</source>
+        <target state="new">No suggestions available.</target>
+        <note>key: autocomplete.no_results</note>
+      </trans-unit>
+      <trans-unit id="d68ca850f0a4efdfd3457cd2c36ce6b57f13f1a3" resname="autocomplete.request.error">
+        <source>Cannot load suggestions</source>
+        <target state="new">Cannot load suggestions</target>
+        <note>key: autocomplete.request.error</note>
+      </trans-unit>
+      <trans-unit id="9909b3aba5a51f5fd34ba6c9fdba12115ced5564" resname="autocomplete.view_all_results">
+        <source>View all results</source>
+        <target state="new">View all results</target>
+        <note>key: autocomplete.view_all_results</note>
+      </trans-unit>
+      <trans-unit id="7100bfb6741e032fcfcc681f3eceef78650e4672" resname="header.search">
+        <source>Search...</source>
+        <target state="new">Search...</target>
+        <note>key: header.search</note>
+      </trans-unit>
       <trans-unit id="3559d7accf00360971961ca18989adc0614089c0" resname="search">
         <source>Search</source>
         <target state="new">Search</target>
