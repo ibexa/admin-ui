@@ -12,82 +12,15 @@
     const lastSectionObserver = new ResizeObserver(() => {
         fitSections();
     });
-    const getSectionGroupActiveItems = () => {
-        const sectionGroupNode = formContainerNode.querySelector('.ibexa-anchor-navigation__section-group') ?? formContainerNode;
+    const getVisibleSections = () => {
+        let sectionGroupNode = formContainerNode;
+
+        sectionGroupNode = formContainerNode.querySelector('.ibexa-anchor-navigation__section-group--active') ?? sectionGroupNode;
+        sectionGroupNode = formContainerNode.querySelector('.ibexa-anchor-navigation__section-group') ?? sectionGroupNode;
+
         const sections = sectionGroupNode.querySelectorAll('.ibexa-anchor-navigation__section');
 
         return [...sections];
-    };
-    let currentlyVisibleSections = getSectionGroupActiveItems();
-    const attachSectionGroupsMenuListEvents = () => {
-        const items = doc.querySelectorAll('.ibexa-anchor-navigation-menu__section-groups--list .ibexa-tab-switcher__item');
-
-        items.forEach((item) => item.addEventListener('click', onSelectSectionGroupsMenuList, false));
-    };
-    const attachSectionGroupsMenuDropdownEvents = () => {
-        const sourceSelect = doc.querySelector(
-            '.ibexa-anchor-navigation-menu__section-groups--dropdown .ibexa-dropdown__source .ibexa-input',
-        );
-
-        if (!sourceSelect) {
-            return;
-        }
-
-        sourceSelect.addEventListener('change', onSelectSectionGroupsMenuDropdown, false);
-    };
-    const onSelectSectionGroupsMenuList = (event) => {
-        const { targetId } = event.currentTarget.dataset;
-        const sectionsMenuNode = doc.querySelector(`.ibexa-anchor-navigation-menu__sections[data-id="${targetId}"]`);
-        const sectionGroupsMenuItems = doc.querySelectorAll(
-            '.ibexa-anchor-navigation-menu__section-groups--list .ibexa-tab-switcher__item',
-        );
-
-        sectionGroupsMenuItems.forEach((item) => {
-            item.classList.toggle('ibexa-tab-switcher__item--active', item.isSameNode(event.currentTarget));
-        });
-        showSectionGroup(targetId);
-        showSectionsMenu(sectionsMenuNode);
-    };
-    const onSelectSectionGroupsMenuDropdown = (event) => {
-        const targetId = event.currentTarget.value;
-        const sectionsMenuNode = doc.querySelector(`.ibexa-anchor-navigation-menu__sections[data-id="${targetId}"]`);
-
-        showSectionGroup(targetId);
-        showSectionsMenu(sectionsMenuNode);
-    };
-    const showSectionsMenu = (node) => {
-        const items = doc.querySelectorAll('.ibexa-anchor-navigation-menu__sections');
-
-        items.forEach((item) => item.classList.toggle('ibexa-anchor-navigation-menu__sections--active', item.isSameNode(node)));
-    };
-    const showSectionGroup = (id) => {
-        const sectionGroupItems = formContainerNode.querySelectorAll('.ibexa-anchor-navigation__section-group');
-
-        sectionGroupItems.forEach((item) => {
-            item.classList.toggle('ibexa-anchor-navigation__section-group--active', item.dataset.id === id);
-        });
-
-        currentlyVisibleSections = getSectionGroupActiveItems();
-
-        initFitSection();
-    };
-    const attachSectionsMenuEvents = () => {
-        const items = doc.querySelectorAll('.ibexa-anchor-navigation-menu .ibexa-anchor-navigation-menu__sections-item-btn');
-
-        items.forEach((item) => item.addEventListener('click', onSelectSectionsMenu, false));
-    };
-    const onSelectSectionsMenu = (event) => {
-        const { targetId } = event.currentTarget.dataset;
-
-        navigateTo(targetId);
-    };
-    const navigateTo = (targetId) => {
-        const sectionNode = formContainerNode.querySelector(`.ibexa-anchor-navigation__section[data-id="${targetId}"]`);
-
-        formContainerNode.scrollTo({
-            top: sectionNode.offsetTop,
-            behavior: 'smooth',
-        });
     };
     const getFirstSection = (sectionGroup) => {
         return sectionGroup.querySelector('.ibexa-anchor-navigation__section');
@@ -151,7 +84,8 @@
 
         if (formContainerNode && allSections.length) {
             formContainerNode.addEventListener('scroll', () => {
-                let firstVisibleSection = currentlyVisibleSections.find((section) => {
+                const visibleSections = getVisibleSections();
+                let firstVisibleSection = visibleSections.find((section) => {
                     const { top, height } = section.getBoundingClientRect();
                     const headerBottomContainerHeight = header.offsetHeight - headerContainer?.offsetHeight;
 
@@ -159,7 +93,7 @@
                 });
 
                 if (!firstVisibleSection) {
-                    firstVisibleSection = currentlyVisibleSections.at(-1);
+                    firstVisibleSection = visibleSections.at(-1);
                 }
 
                 if (previousFirstVisibleSection === firstVisibleSection) {
@@ -186,61 +120,53 @@
             item.classList.toggle('ibexa-anchor-navigation-menu__sections-item-btn--active', item.isSameNode(node));
         });
     };
-    const attachListenForIsInvalidClass = () => {
-        const classChangedCallback = (mutationList) => {
-            mutationList.forEach((mutation) => {
-                const { oldValue, target } = mutation;
-                const hadIsInvalidClass = oldValue?.includes('.is-invalid') ?? false;
-                const hasIsInvalidClass = target.classList.contains('is-invalid');
+    const getTabHash = (node) => {
+        const nodeId = node.href.split('#')[1];
 
-                if (hadIsInvalidClass !== hasIsInvalidClass) {
-                    const sectionGroup = target.closest('.ibexa-anchor-navigation__section-group');
+        return `#${nodeId}`;
+    };
+    const attachMenuTabShowEvents = () => {
+        doc.querySelectorAll('.ibexa-anchor-navigation .ibexa-tabs__tab:not(.ibexa-tabs__tab--more)').forEach((tabLink) => {
+            tabLink.addEventListener('shown.bs.tab', (event) => {
+                const { target, relatedTarget } = event;
+                const prevHashId = getTabHash(relatedTarget);
+                const currHashId = getTabHash(target);
+                const prevMainContentTab = doc.querySelector(`[data-id="${prevHashId}"]`);
+                const currMainContentTab = doc.querySelector(`[data-id="${currHashId}"]`);
 
-                    if (!sectionGroup) {
-                        return;
-                    }
+                prevMainContentTab?.classList.toggle('ibexa-anchor-navigation__section-group--active', false);
+                currMainContentTab?.classList.toggle('ibexa-anchor-navigation__section-group--active', true);
 
-                    const { id } = sectionGroup.dataset;
-                    const hasGroupError = !!sectionGroup.querySelector('.is-invalid');
-                    const correspondingMenuItem =
-                        doc.querySelector(`.ibexa-tab-switcher__item[data-target-id="${id}"]`) ??
-                        doc.querySelector(`.ibexa-anchor-navigation-menu .ibexa-dropdown__item[data-value="${id}"]`);
-
-                    if (!correspondingMenuItem) {
-                        return;
-                    }
-
-                    const errorIconNode = correspondingMenuItem.querySelector('.ibexa-tab-switcher__item-error');
-                    const dropdownWidget = doc.querySelector('.ibexa-anchor-navigation-menu .ibexa-dropdown');
-
-                    errorIconNode.classList.toggle('ibexa-tab-switcher__item-error--hidden', !hasGroupError);
-
-                    if (dropdownWidget) {
-                        const hasError = !!dropdownWidget.querySelector(
-                            '.ibexa-anchor-navigation-menu__item-error:not(ibexa-anchor-navigation-menu__item-error--hidden)',
-                        );
-                        const errorDropdownContainer = doc.querySelector('.ibexa-anchor-navigation-menu__error');
-
-                        errorDropdownContainer.classList.toggle('ibexa-anchor-navigation-menu__error--hidden', !hasError);
-                    }
-                }
+                initFitSection();
             });
-        };
-        const observer = new MutationObserver(classChangedCallback);
+        });
+    };
+    const attachMenuSectionsEvents = () => {
+        const items = doc.querySelectorAll('.ibexa-anchor-navigation-menu .ibexa-anchor-navigation-menu__sections-item-btn');
 
-        observer.observe(formContainerNode, {
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['class'],
-            attributeOldValue: true,
+        items.forEach((item) => item.addEventListener('click', onSelectSectionsMenu, false));
+    };
+    const onSelectSectionsMenu = (event) => {
+        const { targetId } = event.currentTarget.dataset;
+
+        navigateTo(targetId);
+    };
+    const navigateTo = (targetId) => {
+        const sectionNode = formContainerNode.querySelector(`.ibexa-anchor-navigation__section[data-id="${targetId}"]`);
+
+        if (!sectionNode) {
+            return;
+        }
+
+        formContainerNode.scrollTo({
+            top: sectionNode.offsetTop,
+            behavior: 'smooth',
         });
     };
 
-    attachSectionGroupsMenuListEvents();
-    attachSectionGroupsMenuDropdownEvents();
-    attachSectionsMenuEvents();
-    attachScrollContainerEvents();
-    attachListenForIsInvalidClass();
+    attachMenuTabShowEvents();
+    attachMenuSectionsEvents();
     initFitSection();
+    attachScrollContainerEvents();
     ibexa.helpers.tooltips.parse(navigationMenu);
 })(window, window.document, window.ibexa);

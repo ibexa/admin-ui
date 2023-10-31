@@ -1,246 +1,342 @@
-.ibexa-tabs {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    user-select: none;
-
-    .nav-item {
-        position: relative;
-        margin-bottom: calculateRem(-1px);
-    }
-
-    .nav-link {
-        margin-left: calculateRem(16px);
-        padding: calculateRem(14px) calculateRem(8px);
-        color: $ibexa-color-black;
-        border-radius: 0;
-        text-decoration: none;
-    }
-
-    &--hidden {
-        display: none;
-    }
-
-    &__list {
-        overflow: hidden;
-        width: calc(100% - #{calculateRem(50px)});
-        height: calculateRem(47px);
-        border: 0;
-    }
-
-    &__toggler-show,
-    &__toggler-hide {
-        pointer-events: none;
-    }
-
-    &__toggler {
-        padding-top: calculateRem(20px);
-        padding-right: calculateRem(15px);
-        color: $ibexa-color-dark;
-        font-size: calculateRem(14px);
-        cursor: pointer;
-
-        .ibexa-tabs__toggler-show {
-            display: none;
-        }
-
-        &::after {
-            position: absolute;
-            bottom: calculateRem(13px);
-            right: 0;
-            content: '';
-            border-left: calculateRem(5px) solid transparent;
-            border-right: calculateRem(5px) solid transparent;
-            border-top: calculateRem(5px) solid $ibexa-color-black;
-            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
-        }
-
-        &--rolled-up {
-            &::after {
-                transform: rotate(180deg);
+.ibexa-tabs.ibexa-tabs {
+    &--switcher {
+        .ibexa-tabs {
+            &__list {
+                padding: calculateRem(4px);
+                border-radius: $ibexa-border-radius;
+                background-color: $ibexa-color-light-300;
+                display: flex;
+                flex-wrap: nowrap;
+                overflow: hidden;
             }
 
-            .ibexa-tabs__toggler-hide {
+            &__tab {
+                height: calculateRem(40px);
+                border-radius: $ibexa-border-radius;
+                border: 0;
+                flex-basis: 100%;
+                text-align: center;
+                display: block;
+                white-space: nowrap;
+                line-height: calculateRem(18px);
+
+                &--active {
+                    background-color: $ibexa-color-white;
+                    font-weight: 600;
+                }
+
+                &--hidden {
+                    display: none;
+                }
+
+                &--more {
+                    cursor: pointer;
+
+                    .ibexa-icon {
+                        margin-left: calculateRem(4px);
+                        margin-top: calculateRem(-2px);
+                    }
+
+                    .nav-link:hover {
+                        .ibexa-icon {
+                            fill: $ibexa-color-primary;
+                        }
+                    }
+                }
+
+                &--error {
+                    .ibexa-tabs__tab-warning-icon {
+                        display: inline-block;
+                    }
+                }
+            }
+
+            &__link {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                line-height: calculateRem(20px);
+                border-radius: $ibexa-border-radius;
+                width: 100%;
+                height: 100%;
+
+                &.nav-link,
+                &.nav-link.active {
+                    margin: 0;
+                    padding: 0 calculateRem(24px);
+                    border: 0;
+                }
+            }
+
+            &__tab-warning-icon {
+                margin-top: calculateRem(-12px);
+                fill: $ibexa-color-danger;
                 display: none;
             }
 
-            .ibexa-tabs__toggler-show {
-                display: unset;
+            &__tab-corner {
+                display: none;
+            }
+        }
+
+        .ibexa-popup-menu__item {
+            &--error {
+                .ibexa-tabs__tab-warning-icon {
+                    display: inline-block;
+                    margin-top: calculateRem(-3px);
+                }
             }
         }
     }
 
-    &__tab-corner {
-        width: calculateRem(43px);
-        height: calculateRem(50px);
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        margin-top: calculateRem(-1px);
-        z-index: 2;
-
-        .ibexa-svg-tab-corner-border {
-            stroke: $ibexa-color-light-300;
-            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
-        }
-
-        .ibexa-svg-tab-corner-inside {
-            fill: $ibexa-color-light-300;
-            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
-        }
-    }
-
-    &__tab-warning-icon {
-        display: none;
-        position: absolute;
-        right: calculateRem(20px);
-        top: 50%;
-        transform: translateY(-50%);
-        width: calculateRem(16px);
-        height: calculateRem(16px);
-        border-radius: 50%;
-        align-items: center;
-        justify-content: center;
-        background: $ibexa-color-danger;
-        color: $ibexa-color-white;
-        z-index: 10;
-    }
-
-    &__tab {
-        height: calculateRem(48px);
+    &:not(.ibexa-tabs--switcher) {
         display: flex;
-        align-items: center;
-        color: $ibexa-color-black;
-        background-color: transparent;
-        border-bottom: calculateRem(1px) solid $ibexa-color-light;
-        outline: none;
-        font-size: calculateRem(14px);
-        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
-        margin-left: calculateRem(-3px);
+        justify-content: space-between;
+        position: relative;
+        user-select: none;
 
-        &--error {
-            .ibexa-tabs__tab-warning-icon {
-                display: flex;
-            }
+        .nav-item {
+            position: relative;
+            margin-bottom: calculateRem(-1px);
         }
 
-        &:first-of-type {
-            margin-left: 0;
+        .nav-link {
+            margin-left: calculateRem(16px);
+            padding: calculateRem(14px) calculateRem(8px);
+            color: $ibexa-color-black;
+            border-radius: 0;
+            text-decoration: none;
         }
 
-        &::before {
-            content: '';
-            position: absolute;
-            right: calculateRem(43px);
-            left: 0;
-            top: 0;
-            bottom: 0;
-            margin-bottom: calculateRem(1px);
-            border: calculateRem(1px) solid $ibexa-color-light;
-            border-radius: $ibexa-border-radius 0 0 0;
-            border-bottom-width: 0;
-            border-right-width: 0;
-            background-color: $ibexa-color-light-300;
-            border-color: $ibexa-color-light-300;
-            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition, margin-bottom 1ms, border-color 1ms;
-        }
-
-        &::after {
-            content: '';
-            width: calculateRem(44px);
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            border-bottom: calculateRem(1px) solid $ibexa-color-light;
-            z-index: 3;
-            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
-        }
-
-        &[disabled] {
-            color: $ibexa-color-dark-300;
-            cursor: not-allowed;
-
-            .ibexa-tabs__link {
-                pointer-events: none;
-            }
-
-            .ibexa-icon {
-                fill: $ibexa-color-dark-300;
-            }
-        }
-
-        &:hover:not([disabled]),
-        &--active {
-            z-index: 4;
-
-            &::before {
-                background-color: $ibexa-color-white;
-                border: calculateRem(1px) solid $ibexa-color-light;
-                border-bottom-width: 0;
-                border-right-width: 0;
-                z-index: 2;
-                margin-bottom: -0.1px;
-                transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
-            }
-
-            &::after {
-                border-color: $ibexa-color-white;
-                right: calculateRem(2px);
-            }
-
-            .ibexa-tabs__tab-corner {
-                .ibexa-svg-tab-corner-border {
-                    stroke: $ibexa-color-light;
-                }
-
-                .ibexa-svg-tab-corner-inside {
-                    fill: $ibexa-color-white;
-                }
-            }
-        }
-
-        &:hover:not([disabled]):not(&--active) {
-            &::before {
-                border: calculateRem(1px) solid $ibexa-color-light;
-                border-right-width: 0;
-                z-index: 2;
-                transition: all $ibexa-admin-transition-duration $ibexa-admin-transition, margin-bottom 1ms, border-color 1ms;
-            }
-
-            &::after {
-                border-color: $ibexa-color-light;
-                right: 0;
-            }
-        }
-
-        &--hidden {
+        &.ibexa-tabs--hidden {
             display: none;
         }
 
-        &--more {
-            cursor: pointer;
-        }
-    }
+        .ibexa-tabs {
+            &__list {
+                overflow: hidden;
+                width: calc(100% - #{calculateRem(50px)});
+                height: calculateRem(47px);
+                border: 0;
+            }
 
-    &__link {
-        &.nav-link,
-        &.nav-link.active {
-            display: flex;
-            align-items: center;
-            height: calculateRem(47px);
-            padding: 0 calculateRem(40px) 0 calculateRem(24px);
-            margin-right: calculateRem(3px);
-            margin-left: 0;
-            color: inherit;
-            background: transparent;
-            border-width: 0;
-            z-index: 5;
-        }
-    }
+            &__toggler-show,
+            &__toggler-hide {
+                pointer-events: none;
+            }
 
-    &__popup-menu {
-        top: calculateRem(35px);
+            &__toggler {
+                padding-top: calculateRem(20px);
+                padding-right: calculateRem(15px);
+                color: $ibexa-color-dark;
+                font-size: calculateRem(14px);
+                cursor: pointer;
+
+                .ibexa-tabs__toggler-show {
+                    display: none;
+                }
+
+                &::after {
+                    position: absolute;
+                    bottom: calculateRem(13px);
+                    right: 0;
+                    content: '';
+                    border-left: calculateRem(5px) solid transparent;
+                    border-right: calculateRem(5px) solid transparent;
+                    border-top: calculateRem(5px) solid $ibexa-color-black;
+                    transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+                }
+
+                &--rolled-up {
+                    &::after {
+                        transform: rotate(180deg);
+                    }
+
+                    .ibexa-tabs__toggler-hide {
+                        display: none;
+                    }
+
+                    .ibexa-tabs__toggler-show {
+                        display: unset;
+                    }
+                }
+            }
+
+            &__tab-corner {
+                width: calculateRem(43px);
+                height: calculateRem(50px);
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin-top: calculateRem(-1px);
+                z-index: 2;
+
+                .ibexa-svg-tab-corner-border {
+                    stroke: $ibexa-color-light-300;
+                    transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+                }
+
+                .ibexa-svg-tab-corner-inside {
+                    fill: $ibexa-color-light-300;
+                    transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+                }
+            }
+
+            &__tab-warning-icon {
+                display: none;
+                position: absolute;
+                right: calculateRem(20px);
+                top: 50%;
+                transform: translateY(-50%);
+                width: calculateRem(16px);
+                height: calculateRem(16px);
+                border-radius: 50%;
+                align-items: center;
+                justify-content: center;
+                background: $ibexa-color-danger;
+                color: $ibexa-color-white;
+                z-index: 10;
+            }
+
+            &__tab {
+                height: calculateRem(48px);
+                display: flex;
+                align-items: center;
+                color: $ibexa-color-black;
+                background-color: transparent;
+                border-bottom: calculateRem(1px) solid $ibexa-color-light;
+                outline: none;
+                font-size: calculateRem(14px);
+                transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+                margin-left: calculateRem(-3px);
+
+                &--error {
+                    .ibexa-tabs__tab-warning-icon {
+                        display: flex;
+                    }
+                }
+
+                &:first-of-type {
+                    margin-left: 0;
+                }
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    right: calculateRem(43px);
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                    margin-bottom: calculateRem(1px);
+                    border: calculateRem(1px) solid $ibexa-color-light;
+                    border-radius: $ibexa-border-radius 0 0 0;
+                    border-bottom-width: 0;
+                    border-right-width: 0;
+                    background-color: $ibexa-color-light-300;
+                    border-color: $ibexa-color-light-300;
+                    transition: all $ibexa-admin-transition-duration $ibexa-admin-transition, margin-bottom 1ms, border-color 1ms;
+                }
+
+                &::after {
+                    content: '';
+                    width: calculateRem(44px);
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                    border-bottom: calculateRem(1px) solid $ibexa-color-light;
+                    z-index: 3;
+                    transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+                }
+
+                &[disabled] {
+                    color: $ibexa-color-dark-300;
+                    cursor: not-allowed;
+
+                    .ibexa-tabs__link {
+                        pointer-events: none;
+                    }
+
+                    .ibexa-icon {
+                        fill: $ibexa-color-dark-300;
+                    }
+                }
+
+                &:hover:not([disabled]),
+                &--active {
+                    z-index: 4;
+
+                    &::before {
+                        background-color: $ibexa-color-white;
+                        border: calculateRem(1px) solid $ibexa-color-light;
+                        border-bottom-width: 0;
+                        border-right-width: 0;
+                        z-index: 2;
+                        margin-bottom: -0.1px;
+                        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+                    }
+
+                    &::after {
+                        border-color: $ibexa-color-white;
+                        right: calculateRem(2px);
+                    }
+
+                    .ibexa-tabs__tab-corner {
+                        .ibexa-svg-tab-corner-border {
+                            stroke: $ibexa-color-light;
+                        }
+
+                        .ibexa-svg-tab-corner-inside {
+                            fill: $ibexa-color-white;
+                        }
+                    }
+                }
+
+                &:hover:not([disabled]):not(&--active) {
+                    &::before {
+                        border: calculateRem(1px) solid $ibexa-color-light;
+                        border-right-width: 0;
+                        z-index: 2;
+                        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition, margin-bottom 1ms, border-color 1ms;
+                    }
+
+                    &::after {
+                        border-color: $ibexa-color-light;
+                        right: 0;
+                    }
+                }
+
+                &--hidden {
+                    display: none;
+                }
+
+                &--more {
+                    cursor: pointer;
+                }
+            }
+
+            &__link {
+                &.nav-link,
+                &.nav-link.active {
+                    display: flex;
+                    align-items: center;
+                    height: calculateRem(47px);
+                    padding: 0 calculateRem(40px) 0 calculateRem(24px);
+                    margin-right: calculateRem(3px);
+                    margin-left: 0;
+                    color: inherit;
+                    background: transparent;
+                    border-width: 0;
+                    z-index: 5;
+                }
+            }
+
+            &__popup-menu {
+                top: calculateRem(35px);
+            }
+        }
     }
 }
 

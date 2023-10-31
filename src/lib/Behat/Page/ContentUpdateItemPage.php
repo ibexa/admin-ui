@@ -109,7 +109,7 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator('noneditableFieldClass', 'ibexa-field-edit--eznoneditable'),
             new VisibleCSSLocator('fieldOfType', '.ibexa-field-edit--%s'),
             new VisibleCSSLocator('navigationTabs', '.ibexa-anchor-navigation-menu__sections-item-btn'),
-            new VisibleCSSLocator('navigationGroups', '.ibexa-tab-switcher__item'),
+            new VisibleCSSLocator('navigationGroups', 'li.nav-item'),
             new VisibleCSSLocator('autosaveIsOnInfo', '.ibexa-autosave__status-on'),
             new VisibleCSSLocator('autosaveSavedInfo', '.ibexa-autosave__status-saved'),
             new VisibleCSSLocator('autosaveIsOffInfo', '.ibexa-autosave__status-off'),
@@ -240,14 +240,14 @@ class ContentUpdateItemPage extends Page
             ->click();
         $this->getHTMLPage()
             ->setTimeout(10)
-            ->waitUntilCondition(new ElementHasTextCondition($this->getHTMLPage(), new VisibleCSSLocator('activeSection', '.ibexa-tab-switcher__item--active'), $tabName));
+            ->waitUntilCondition(new ElementHasTextCondition($this->getHTMLPage(), new VisibleCSSLocator('activeSection', '.ibexa-tabs__tab--active'), $tabName));
     }
 
     public function verifyFieldCannotBeEditedDueToLimitation(string $fieldName)
     {
-        $activeSections = $this->getHTMLPage()->findAll(new VisibleCSSLocator('activeSection', '.ibexa-tab-switcher__item--active'));
+        $activeSections = $this->getHTMLPage()->findAll(new VisibleCSSLocator('activeSection', '.ibexa-tabs__tab--active'));
         $fieldLocator = new VisibleCSSLocator('', sprintf($this
-            ->getLocator('fieldGroupNthField')->getSelector(), $activeSections->single()->getAttribute('data-target-id'), $this->getFieldPosition($fieldName)));
+            ->getLocator('fieldGroupNthField')->getSelector(), $activeSections->single()->find(new VisibleCSSLocator('innerLink', 'a'))->getAttribute('href'), $this->getFieldPosition($fieldName)));
         $this->getHTMLPage()->find($fieldLocator)->assert()->hasClass('ibexa-field-edit--disabled');
     }
 

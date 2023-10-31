@@ -642,7 +642,7 @@
         }
     };
 
-    doc.querySelectorAll('.ibexa-tabs .nav-link').forEach((tab) => tab.addEventListener('shown.bs.tab', invalidateSizeMap));
+    doc.querySelectorAll('.ibexa-tabs--content .nav-link').forEach((tab) => tab.addEventListener('shown.bs.tab', invalidateSizeMap));
 
     ibexa.addConfig('fieldTypeValidators', [validator], true);
 })(window, window.document, window.ibexa, window.L, window.Translator);
