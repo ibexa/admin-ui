@@ -1,5 +1,7 @@
 {% extends '@KnpMenu/menu.html.twig' %}
 
+{% trans_default_domain 'ibexa_anchor_menu' %}
+
 {% block anchor_menu_list %}
     {% if item.hasChildren and options.depth is not same as(0) and item.displayChildren %}
         {% import _self as knp_menu %}
