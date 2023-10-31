@@ -51,8 +51,9 @@
             mode: 'same-origin',
             credentials: 'same-origin',
         });
+
         searchAbortController = new AbortController();
-        
+
         const { signal } = searchAbortController;
 
         fetch(request, { signal })
