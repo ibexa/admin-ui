@@ -44,16 +44,6 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
 
     private PermissionResolver $permissionResolver;
 
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Ibexa\Contracts\Core\Repository\SectionService $sectionService
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     */
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
@@ -73,26 +63,17 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         $this->permissionResolver = $permissionResolver;
     }
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return 'details';
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
-        /** @Desc("Details") */
+        /** @Desc("Technical Details") */
         return $this->translator->trans('tab.name.details', [], 'ibexa_locationview');
     }
 
-    /**
-     * @return int
-     */
     public function getOrder(): int
     {
         return 200;

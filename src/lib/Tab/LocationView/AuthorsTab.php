@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\LocationView;
 
-use ArrayObject;
 use Ibexa\AdminUi\Specification\UserExists;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
@@ -58,9 +57,6 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         return $this->translator->trans('tab.name.authors', [], 'ibexa_locationview');
     }
 
-    /**
-     * @return int
-     */
     public function getOrder(): int
     {
         return 200;
@@ -85,22 +81,22 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         $versionInfo = $content->getVersionInfo();
         $contentInfo = $versionInfo->getContentInfo();
 
-        $viewParameters = new ArrayObject([
+        $viewParameters = [
             'content_info' => $contentInfo,
             'version_info' => $versionInfo,
-        ]);
+        ];
 
         $this->supplyCreator($viewParameters, $contentInfo);
         $this->supplyLastContributor($viewParameters, $versionInfo);
 
-        return array_replace($contextParameters, $viewParameters->getArrayCopy());
+        return array_replace($contextParameters, $viewParameters);
     }
 
     /**
-     * @param \ArrayObject $parameters
+     * @param array<string, mixed> $parameters
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      */
-    private function supplyLastContributor(ArrayObject $parameters, VersionInfo $versionInfo): void
+    private function supplyLastContributor(array $parameters, VersionInfo $versionInfo): void
     {
         $parameters['last_contributor'] = null;
         if ((new UserExists($this->userService))->isSatisfiedBy($versionInfo->creatorId)) {
@@ -109,10 +105,10 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     }
 
     /**
-     * @param \ArrayObject $parameters
+     * @param array<string,mixed|null> $parameters
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      */
-    private function supplyCreator(ArrayObject $parameters, ContentInfo $contentInfo): void
+    private function supplyCreator(array $parameters, ContentInfo $contentInfo): void
     {
         $parameters['creator'] = null;
         if ((new UserExists($this->userService))->isSatisfiedBy($contentInfo->ownerId)) {

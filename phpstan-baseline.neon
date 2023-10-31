@@ -8941,16 +8941,6 @@ parameters:
 			path: src/lib/Tab/Event/TabViewRenderEvent.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\LocationView\\\\AuthorsTab\\:\\:supplyCreator\\(\\) has parameter \\$parameters with generic class ArrayObject but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: src/lib/Tab/LocationView/AuthorsTab.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\LocationView\\\\AuthorsTab\\:\\:supplyLastContributor\\(\\) has parameter \\$parameters with generic class ArrayObject but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: src/lib/Tab/LocationView/AuthorsTab.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\LocationView\\\\ContentTab\\:\\:loadContentLanguages\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Tab/LocationView/ContentTab.php
