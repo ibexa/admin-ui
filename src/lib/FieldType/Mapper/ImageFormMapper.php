@@ -12,7 +12,7 @@ use Ibexa\ContentForms\ConfigResolver\MaxUploadSize;
 use Ibexa\Contracts\Core\Repository\FieldTypeService;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Range;
@@ -31,7 +31,7 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
     {
         $isTranslation = $data->contentTypeData->languageCode !== $data->contentTypeData->mainLanguageCode;
         $fieldDefinitionForm
-            ->add('maxSize', IntegerType::class, [
+            ->add('maxSize', NumberType::class, [
                 'required' => false,
                 'property_path' => 'validatorConfiguration[FileSizeValidator][maxFileSize]',
                 'label' => /** @Desc("Maximum file size (MB)") */ 'field_definition.ezimage.max_file_size',
@@ -46,6 +46,7 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
                     'max' => $this->maxUploadSize->get(MaxUploadSize::MEGABYTES),
                 ],
                 'disabled' => $isTranslation,
+                'scale' => 1,
             ])
             ->add('isAlternativeTextRequired', CheckboxType::class, [
                 'required' => false,
