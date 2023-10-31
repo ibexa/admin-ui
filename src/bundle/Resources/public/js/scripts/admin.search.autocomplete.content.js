@@ -7,7 +7,7 @@
 
     const { escapeHTML } = ibexa.helpers.text;
     const { highlightText } = ibexa.helpers.highlight;
-    const contentTypeHelper = ibexa.helpers.contentType;
+    const { getContentTypeIconUrl, getContentTypeName } = ibexa.helpers.contentType;
     const autocompleteListNode = globalSearch.querySelector('.ibexa-global-search__autocomplete-list');
     const autocompleteContentTemplateNode = globalSearch.querySelector('.ibexa-global-search__autocomplete-content-template');
     const renderItem = (result, searchText) => {
@@ -28,8 +28,8 @@
         const autocompleteHighlightTemplate = autocompleteListNode.dataset.templateHighlight;
         const renderedTemplate = autocompleteItemTemplate
             .replace('{{ contentName }}', highlightText(searchText, name, autocompleteHighlightTemplate))
-            .replace('{{ iconHref }}', contentTypeHelper.getContentTypeIconUrl(contentTypeIdentifier))
-            .replace('{{ contentTypeName }}', escapeHTML(contentTypeHelper.getContentTypeName(contentTypeIdentifier)))
+            .replace('{{ iconHref }}', getContentTypeIconUrl(contentTypeIdentifier))
+            .replace('{{ contentTypeName }}', escapeHTML(getContentTypeName(contentTypeIdentifier)))
             .replaceAll('{{ contentBreadcrumbs }}', breadcrumb)
             .replace('{{ contentHref }}', Routing.generate('ibexa.content.view', { contentId, locationId }));
 
