@@ -96,7 +96,7 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
      * @param array<string, mixed> $parameters
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
      */
-    private function supplyLastContributor(array $parameters, VersionInfo $versionInfo): void
+    private function supplyLastContributor(array &$parameters, VersionInfo $versionInfo): void
     {
         $parameters['last_contributor'] = null;
         if ((new UserExists($this->userService))->isSatisfiedBy($versionInfo->creatorId)) {
@@ -108,7 +108,7 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
      * @param array<string,mixed|null> $parameters
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      */
-    private function supplyCreator(array $parameters, ContentInfo $contentInfo): void
+    private function supplyCreator(array &$parameters, ContentInfo $contentInfo): void
     {
         $parameters['creator'] = null;
         if ((new UserExists($this->userService))->isSatisfiedBy($contentInfo->ownerId)) {

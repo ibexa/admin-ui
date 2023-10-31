@@ -91,6 +91,41 @@
         <target state="new">Enter your team members email addresses.</target>
         <note>key: modal.info</note>
       </trans-unit>
+      <trans-unit id="6c7b23f10048a1a732637fab418a66e6aa10b3dc" resname="tab.author.authors">
+        <source>Authors</source>
+        <target state="new">Authors</target>
+        <note>key: tab.author.authors</note>
+      </trans-unit>
+      <trans-unit id="f3531550ad402d3be828ec391f1a80a295d3382c" resname="tab.author.content_id">
+        <source>Content ID</source>
+        <target state="new">Content ID</target>
+        <note>key: tab.author.content_id</note>
+      </trans-unit>
+      <trans-unit id="762ccb5d0506d7818b3b00dcd1459dfa6b4776d9" resname="tab.author.creator">
+        <source>Creator</source>
+        <target state="new">Creator</target>
+        <note>key: tab.author.creator</note>
+      </trans-unit>
+      <trans-unit id="732e6a42956aa790c56e1c0a0af8af89189c5c96" resname="tab.author.creator.not_found">
+        <source>Can't fetch creator</source>
+        <target state="new">Can't fetch creator</target>
+        <note>key: tab.author.creator.not_found</note>
+      </trans-unit>
+      <trans-unit id="ccdfe4ede13f639239013d24eeedafd222f1f85e" resname="tab.author.last_contributor">
+        <source>Last contributor</source>
+        <target state="new">Last contributor</target>
+        <note>key: tab.author.last_contributor</note>
+      </trans-unit>
+      <trans-unit id="fbb9528d62d1dff7395ce7078bf7e066b6becb68" resname="tab.author.last_contributor.not_found">
+        <source>Can't fetch last contributor</source>
+        <target state="new">Can't fetch last contributor</target>
+        <note>key: tab.author.last_contributor.not_found</note>
+      </trans-unit>
+      <trans-unit id="6bb8a4c032509c485369da8d80e46b248911bbe7" resname="tab.author.location_id">
+        <source>Location ID</source>
+        <target state="new">Location ID</target>
+        <note>key: tab.author.location_id</note>
+      </trans-unit>
       <trans-unit id="4fd9a40170cf4bc5acff719c14eaf2d15fc9942d" resname="tab.details.change_section ">
         <source>Change section</source>
         <target state="new">Change section</target>
@@ -115,26 +150,6 @@
         <source>Content remote ID</source>
         <target state="new">Content remote ID</target>
         <note>key: tab.details.content_remote_id</note>
-      </trans-unit>
-      <trans-unit id="dc195b32e812b751daa7a3321844c9712e1460ba" resname="tab.details.creator">
-        <source>Creator</source>
-        <target state="new">Creator</target>
-        <note>key: tab.details.creator</note>
-      </trans-unit>
-      <trans-unit id="91b45af4dd219651dc8b1a7d050822b71f03fad3" resname="tab.details.creator.not_found">
-        <source>Can't fetch creator</source>
-        <target state="new">Can't fetch creator</target>
-        <note>key: tab.details.creator.not_found</note>
-      </trans-unit>
-      <trans-unit id="acc17a8db8d00036233faa9948ad9a496cd621b3" resname="tab.details.last_contributor">
-        <source>Last contributor</source>
-        <target state="new">Last contributor</target>
-        <note>key: tab.details.last_contributor</note>
-      </trans-unit>
-      <trans-unit id="ba5ca8a7f923f6ee3a0e6bf9aca428403d0158fd" resname="tab.details.last_contributor.not_found">
-        <source>Can't fetch last contributor</source>
-        <target state="new">Can't fetch last contributor</target>
-        <note>key: tab.details.last_contributor.not_found</note>
       </trans-unit>
       <trans-unit id="671c2d4e91244548b29e8f293cd8d4d97a3c23bd" resname="tab.details.location_id">
         <source>Location ID</source>
