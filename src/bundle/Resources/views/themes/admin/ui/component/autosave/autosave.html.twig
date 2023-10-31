@@ -1,3 +1,5 @@
+{% trans_default_domain 'ibexa_content' %}
+
 <div
     class="ibexa-autosave
         {{ is_enabled ? 'ibexa-autosave--on' : 'ibexa-autosave--off' }}
@@ -27,9 +29,7 @@
         {{ 'content_edit.autosave.status_off.message'|trans()|desc('Autosave is off, draft not created') }}
     </div>
     <div class="ibexa-autosave__status-on">
-        {% set current_time = 'now'|date('H:i', ibexa_user_settings.timezone) %}
-
-        {{ 'content_edit.autosave.status_on.message'|trans({ '%time%': current_time })|desc('Autosave is on, draft created %time%') }}
+        {{ 'content_edit.autosave.status_on.message'|trans|desc('Autosave is on, draft created') }}
     </div>
     <div class="ibexa-autosave__status-saved"></div>
     <div class="ibexa-autosave__status-saving">

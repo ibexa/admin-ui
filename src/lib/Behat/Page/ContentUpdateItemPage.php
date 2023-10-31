@@ -277,7 +277,7 @@ class ContentUpdateItemPage extends Page
         return $this->getHTMLPage()
             ->setTimeout(0)
             ->findAll($this->getLocator('autosaveSavedInfo'))
-            ->filterBy(new ElementTextFragmentCriterion('Autosave is on, draft created'))->any();
+            ->filterBy(new ElementTextFragmentCriterion('Autosave is on, draft saved'))->any();
     }
 
     public function verifyAutosaveIsOffNotificationIsDisplayed(): void

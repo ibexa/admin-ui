@@ -121,11 +121,6 @@
         <target state="new">words</target>
         <note>key: character_counter.words</note>
       </trans-unit>
-      <trans-unit id="0c103b4bcaaca67202176e8f5be544eb4c307e8e" resname="content.autosave.turn_off.message">
-        <source>You can turn autosave off in your user settings</source>
-        <target state="new">You can turn autosave off in your user settings</target>
-        <note>key: content.autosave.turn_off.message</note>
-      </trans-unit>
       <trans-unit id="21e7545fc420d95a59a713437d9dc28d85d82ceb" resname="content.details.content_id">
         <source>Content ID: %contentId%</source>
         <target state="new">Content ID: %contentId%</target>
@@ -180,26 +175,6 @@
         <source>In Trash</source>
         <target state="new">In Trash</target>
         <note>key: content.in_trash</note>
-      </trans-unit>
-      <trans-unit id="6048a32d88dbcdd5a62e232ed092a8efd11ed375" resname="content_edit.autosave.status_error.message">
-        <source>Saving error</source>
-        <target state="new">Saving error</target>
-        <note>key: content_edit.autosave.status_error.message</note>
-      </trans-unit>
-      <trans-unit id="d364f97b275523fe571da0da612fdbc4a1064550" resname="content_edit.autosave.status_off.message">
-        <source>Autosave is off, draft not created</source>
-        <target state="new">Autosave is off, draft not created</target>
-        <note>key: content_edit.autosave.status_off.message</note>
-      </trans-unit>
-      <trans-unit id="93f0a5980aa14af989f4106ffda244ba02db1c32" resname="content_edit.autosave.status_on.message">
-        <source>Autosave is on, draft created %time%</source>
-        <target state="new">Autosave is on, draft created %time%</target>
-        <note>key: content_edit.autosave.status_on.message</note>
-      </trans-unit>
-      <trans-unit id="da43c85269df161b340e92296642e18ec6af033e" resname="content_edit.autosave.status_saving.message">
-        <source>Saving</source>
-        <target state="new">Saving</target>
-        <note>key: content_edit.autosave.status_saving.message</note>
       </trans-unit>
       <trans-unit id="02f6ddfcdd8bbd05cdd1b954503a3801288b74eb" resname="content_type.modal.message">
         <source>Do you want to delete the Content Type?</source>
