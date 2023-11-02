@@ -21,7 +21,6 @@ use Knp\Menu\FactoryInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Swift_Mailer;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Fragment\EsiFragmentRenderer;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollection;
@@ -58,19 +57,7 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
         $loader->load(static function (ContainerBuilder $container): void {
             self::configureIbexaDXPBundles($container);
             self::configureThirdPartyBundles($container);
-
-            self::loadRouting($container, __DIR__ . '/Resources/routing.yaml');
         });
-    }
-
-    private static function loadRouting(ContainerBuilder $container, string $filePath): void
-    {
-        $container->loadFromExtension('framework', [
-            'router' => [
-                'resource' => $filePath,
-            ],
-        ]);
-        $container->addResource(new FileResource($filePath));
     }
 
     private static function configureIbexaDXPBundles(ContainerBuilder $container): void
