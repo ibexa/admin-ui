@@ -5,9 +5,6 @@
             point: {
                 radius: 2,
             },
-            line: {
-                tension: 0,
-            },
         },
         scales: {
             x: {

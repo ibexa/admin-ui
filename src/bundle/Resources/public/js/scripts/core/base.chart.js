@@ -28,11 +28,13 @@
             },
         },
     };
+    const defaultPlugins = {};
 
     class BaseChart {
-        constructor(data, options = {}) {
+        constructor(data, options = {}, plugins = []) {
             this.setData(data);
             this.setOptions(options);
+            this.setPlugins(plugins);
             this.lang = document.documentElement.lang.replace('_', '-'); // TODO: Get this config from settings
         }
 
@@ -46,6 +48,10 @@
                 ...defaultOptions,
                 ...options,
             };
+        }
+
+        setPlugins(plugins) {
+            this.plugins = [...defaultPlugins, ...plugins];
         }
 
         getType() {}
@@ -76,8 +82,6 @@
         }
 
         render() {
-            // console.log(window);
-            // console.log(this.labels, this.datasets);
             this.chart = new Chart(this.canvas, {
                 type: this.getType(),
                 data: {
@@ -85,6 +89,7 @@
                     datasets: this.datasets,
                 },
                 options: this.options,
+                plugins: this.plugins,
             });
 
             this.updateChartMessageDisplay();
