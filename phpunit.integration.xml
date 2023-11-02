@@ -16,7 +16,7 @@
     </testsuites>
     <php>
         <env name="DATABASE_URL" value="sqlite://i@i/var/test.db" />
-        <env name="KERNEL_CLASS" value="\Ibexa\Tests\Integration\AdminUi\AdminUiIbexaTestKernel" />
+        <env name="KERNEL_CLASS" value="Ibexa\Tests\Integration\AdminUi\AdminUiIbexaTestKernel" />
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0&amp;max[direct]=0&amp;verbose=0"/>
     </php>
     <extensions>
