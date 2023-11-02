@@ -425,3 +425,10 @@
         fill: $ibexa-color-danger;
     }
 }
+
+.ibexa-data-source.is-invalid {
+    color: $ibexa-color-danger;
+    background-image: none;
+    border-color: $ibexa-color-danger !important;
+    background-color: $ibexa-color-danger-100;
+}

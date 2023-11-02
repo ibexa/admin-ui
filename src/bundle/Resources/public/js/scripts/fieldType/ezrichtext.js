@@ -77,6 +77,7 @@
                     eventName: 'blur',
                     callback: 'validateInput',
                     errorNodeSelectors: [SELECTOR_ERROR_NODE],
+                    forcedInvalidElement: container.parentElement,
                 },
             ],
         });

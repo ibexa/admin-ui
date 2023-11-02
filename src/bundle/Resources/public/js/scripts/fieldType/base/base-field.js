@@ -86,7 +86,8 @@
          * @memberof BaseFieldValidator
          */
         toggleInvalidState(isError, config, input) {
-            const container = this.getFieldTypeContainer(input.closest(this.fieldSelector));
+            const container = config.forcedInvalidElement
+                ?? this.getFieldTypeContainer(input.closest(this.fieldSelector));
             const methodName = isError ? 'add' : 'remove';
             const nodes = this.findValidationStateNodes(container, input, config.invalidStateSelectors);
 
