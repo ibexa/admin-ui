@@ -3686,16 +3686,6 @@ parameters:
 			path: src/lib/Event/Options.php
 
 		-
-			message: "#^Call to method getEntrypointLookup\\(\\) on an unknown class Symfony\\\\WebpackEncoreBundle\\\\Asset\\\\EntrypointLookupCollectionInterface\\.$#"
-			count: 1
-			path: src/lib/EventListener/AdminExceptionListener.php
-
-		-
-			message: "#^Call to method reset\\(\\) on an unknown class Symfony\\\\WebpackEncoreBundle\\\\Asset\\\\TagRenderer\\.$#"
-			count: 1
-			path: src/lib/EventListener/AdminExceptionListener.php
-
-		-
 			message: "#^Cannot call method log\\(\\) on Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
 			count: 1
 			path: src/lib/EventListener/AdminExceptionListener.php
@@ -3712,26 +3702,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc tag @param references unknown parameter\\: \\$kernelRootDir$#"
-			count: 1
-			path: src/lib/EventListener/AdminExceptionListener.php
-
-		-
-			message: "#^Parameter \\$encoreTagRenderer of method Ibexa\\\\AdminUi\\\\EventListener\\\\AdminExceptionListener\\:\\:__construct\\(\\) has invalid type Symfony\\\\WebpackEncoreBundle\\\\Asset\\\\TagRenderer\\.$#"
-			count: 2
-			path: src/lib/EventListener/AdminExceptionListener.php
-
-		-
-			message: "#^Parameter \\$entrypointLookupCollection of method Ibexa\\\\AdminUi\\\\EventListener\\\\AdminExceptionListener\\:\\:__construct\\(\\) has invalid type Symfony\\\\WebpackEncoreBundle\\\\Asset\\\\EntrypointLookupCollectionInterface\\.$#"
-			count: 2
-			path: src/lib/EventListener/AdminExceptionListener.php
-
-		-
-			message: "#^Property Ibexa\\\\AdminUi\\\\EventListener\\\\AdminExceptionListener\\:\\:\\$encoreTagRenderer has unknown class Symfony\\\\WebpackEncoreBundle\\\\Asset\\\\TagRenderer as its type\\.$#"
-			count: 1
-			path: src/lib/EventListener/AdminExceptionListener.php
-
-		-
-			message: "#^Property Ibexa\\\\AdminUi\\\\EventListener\\\\AdminExceptionListener\\:\\:\\$entrypointLookupCollection has unknown class Symfony\\\\WebpackEncoreBundle\\\\Asset\\\\EntrypointLookupCollectionInterface as its type\\.$#"
 			count: 1
 			path: src/lib/EventListener/AdminExceptionListener.php
 

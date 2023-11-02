@@ -13,7 +13,7 @@ services:
         lazy: true
 
     Ibexa\AdminUi\Tab\Event\Subscriber\:
-        resource: "../../../lib/Tab/Event/Subscriber/*"
+        resource: "../../../../lib/Tab/Event/Subscriber/*"
         public: true
         tags: ['kernel.event_subscriber']
 

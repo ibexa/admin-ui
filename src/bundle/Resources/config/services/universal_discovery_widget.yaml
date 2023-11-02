@@ -9,7 +9,7 @@ services:
             - { name: twig.extension }
 
     Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber\:
-        resource: "../../../lib/UniversalDiscovery/Event/Subscriber/*"
+        resource: "../../../../lib/UniversalDiscovery/Event/Subscriber/*"
         public: true
         tags: ['kernel.event_subscriber']
 
