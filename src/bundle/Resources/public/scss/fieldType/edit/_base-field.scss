@@ -95,7 +95,7 @@
 
         .ibexa-field-edit {
             &__focus-mode {
-                margin: auto 0 0 0;
+                margin: auto 0 0;
                 align-self: baseline;
             }
 
@@ -161,7 +161,7 @@
                 overflow-y: auto;
                 align-self: stretch;
                 flex-grow: 1;
-                padding: calculateRem(8px) calculateRem(32px) calculateRem(32px) calculateRem(32px);
+                padding: calculateRem(8px) calculateRem(32px) calculateRem(32px);
                 background: $ibexa-color-white;
                 border-radius: 0 0 $ibexa-border-radius $ibexa-border-radius;
 

@@ -270,6 +270,7 @@
 
 {%- block richtext_widget -%}
     {% set attr = attr|merge({ 'hidden': true }) %}
+
     <div class="ibexa-data-source ibexa-data-source--richtext">
         <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
         <div class="hidden" data-udw-config-name="richtext_embed" data-udw-config="{{ ibexa_udw_config('richtext_embed', udw_context) }}"></div>
@@ -510,7 +511,7 @@
         </svg>
     {%- endset -%}
     {%- set title -%}
-        {{ 'focus_mode.disbale_hint'|trans({ '%icon%': title_icon|raw })|desc('To exit focus mode, click the %icon% or press Esc')|raw }}
+        {{ 'focus_mode.disable_hint'|trans({ '%icon%': title_icon|raw })|desc('To exit focus mode, click the %icon% or press Esc')|raw }}
     {%- endset -%}
 
     <div class="ibexa-field-edit__focus-mode">

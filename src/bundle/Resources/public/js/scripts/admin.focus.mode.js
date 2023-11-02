@@ -1,7 +1,7 @@
 (function (global, doc) {
     let activeFieldEdit = null;
-    const ENABLE_FOCUS_MODE_EVENT_NAME = 'ibexa-focus-mode:on';
-    const DISABLE_FOCUS_MODE_EVENT_NAME = 'ibexa-focus-mode:off';
+    const FOCUS_MODE_ENABLE_EVENT_NAME = 'ibexa-focus-mode:enable';
+    const FOCUS_MODE_DISABLE_EVENT_NAME = 'ibexa-focus-mode:disable';
     const focusModeEnableBtns = doc.querySelectorAll('.ibexa-field-edit__focus-mode-control-btn--enable');
     const focusModeDisbaleBtns = doc.querySelectorAll('.ibexa-field-edit__focus-mode-control-btn--disable');
     const changeFocusModeState = (active) => {
@@ -9,7 +9,7 @@
             return;
         }
 
-        const dispatchEventName = active ? ENABLE_FOCUS_MODE_EVENT_NAME : DISABLE_FOCUS_MODE_EVENT_NAME;
+        const dispatchEventName = active ? FOCUS_MODE_ENABLE_EVENT_NAME : FOCUS_MODE_DISABLE_EVENT_NAME;
         const editorSourceElement = activeFieldEdit.querySelector('.ibexa-data-source__richtext');
         const editorInstance = editorSourceElement.ckeditorInstance;
 
@@ -28,8 +28,8 @@
             activeFieldEdit = null;
         }
     };
-    const watchDisableFocusModeByKeyboard = (event) => {
-        if (event.key === 'Escape' || event.keyCode === 27) {
+    const handleKeyPress = (event) => {
+        if (event.key === 'Escape') {
             changeFocusModeState(false);
         }
     };
@@ -49,13 +49,17 @@
     });
 
     doc.body.addEventListener(
-        ENABLE_FOCUS_MODE_EVENT_NAME,
-        () => doc.body.addEventListener('keydown', watchDisableFocusModeByKeyboard),
+        FOCUS_MODE_ENABLE_EVENT_NAME,
+        () => {
+            doc.body.addEventListener('keydown', handleKeyPress, false);
+        },
         false,
     );
     doc.body.addEventListener(
-        DISABLE_FOCUS_MODE_EVENT_NAME,
-        () => doc.body.removeEventListener('keydown', watchDisableFocusModeByKeyboard),
+        FOCUS_MODE_DISABLE_EVENT_NAME,
+        () => {
+            doc.body.removeEventListener('keydown', handleKeyPress, false);
+        },
         false,
     );
 })(window, window.document);
