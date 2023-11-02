@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, moment) {
+(function (global, doc, ibexa) {
     const MAX_NUMBER_OF_LABELS = 16;
     const lineDefaultOptions = {
         elements: {
@@ -52,4 +52,4 @@
     }
 
     ibexa.addConfig('core.chart.LineChart', LineChart);
-})(window, window.document, window.ibexa, window.moment);
+})(window, window.document, window.ibexa);
