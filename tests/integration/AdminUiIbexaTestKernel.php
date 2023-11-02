@@ -53,8 +53,6 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
             $container->setParameter('locale_fallback', 'en');
         });
 
-        $loader->load(dirname(__DIR__, 2) . '/src/bundle/Resources/config/services.yaml');
-
         $loader->load(__DIR__ . '/Resources/ibexa.yaml');
 
         $loader->load(static function (ContainerBuilder $container): void {
