@@ -5,7 +5,10 @@
 {% trans_default_domain 'content_edit' %}
 
 {% set grouped_fields = grouped_fields|default([]) %}
-{% set anchor_params = { items: grouped_fields|keys } %}
+{% set anchor_params = { items: grouped_fields|keys|map((label) => {
+    label,
+    target_id: 'ibexa-edit-content-sections-content-fields-' ~ label|lower|slug }
+) } %}
 {% set is_autosave_enabled = ibexa_user_settings['autosave'] is same as('enabled') %}
 {% set form_has_autosave = form.autosave is defined %}
 {% set default_form_templates = ibexa_admin_ui_config.contentEditFormTemplates %}
