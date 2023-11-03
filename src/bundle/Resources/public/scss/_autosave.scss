@@ -39,14 +39,6 @@
         }
     }
 
-    &--saved {
-        color: $ibexa-color-success;
-
-        .ibexa-autosave__icon-saved {
-            fill: $ibexa-color-success;
-        }
-    }
-
     &--error {
         color: $ibexa-color-danger;
 

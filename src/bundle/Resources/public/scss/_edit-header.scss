@@ -61,7 +61,10 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            white-space: nowrap;
             padding-left: 0;
+            margin-top: calculateRem(20px);
+            height: calculateRem(48px);
 
             .ibexa-icon {
                 margin-right: calculateRem(8px);
@@ -77,22 +80,12 @@
                 color: $ibexa-color-dark-400;
             }
         }
-
-        &--right {
-            .ibexa-autosave {
-                position: absolute;
-                top: calculateRem(96px);
-                right: calculateRem(64px);
-            }
-        }
     }
 
     &__context-actions {
         display: flex;
-        position: absolute;
-        top: calculateRem(36px);
-        right: calculateRem(64px);
-        width: 55%;
+        margin-top: calculateRem(20px);
+        width: 100%;
     }
 
     &__tooltip {
@@ -110,6 +103,7 @@
         color: $ibexa-color-dark-400;
         opacity: 1;
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+        margin: 0;
     }
 
     &__subtitle {
@@ -137,8 +131,10 @@
     }
 
     .ibexa-autosave {
-        opacity: 1;
-        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+        display: inline-block;
+        border-left: calculateRem(1px) solid $ibexa-color-light;
+        padding-left: calculateRem(12px);
+        margin-left: calculateRem(12px);
     }
 
     &--slim {
@@ -192,11 +188,6 @@
                     display: none;
                 }
             }
-        }
-
-        .ibexa-autosave {
-            opacity: 0;
-            height: 0;
         }
     }
 }

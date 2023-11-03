@@ -45,7 +45,7 @@ Feature: Content Items creation
       | label       | value                       |
       | Title       | Test Article Autosave Off draft |
       | Short title | Test Article Autosave Off draft |
-    And I check if "Autosave is off" notification is displayed
+    And I check if "Autosave is off, draft not created" notification is displayed
     And I open the "Dashboard" page in admin SiteAccess
     Then there's no draft "Test Article Autosave Off draft" on Dashboard list
 
