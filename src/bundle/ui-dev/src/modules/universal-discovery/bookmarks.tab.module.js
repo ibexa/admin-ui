@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
+
 import Tab from './components/tab/tab';
 import BookmarksList from './components/bookmarks-list/bookmarks.list';
 import GridView from './components/grid-view/grid.view';
@@ -15,10 +17,11 @@ import {
     SortOrderContext,
     RootLocationIdContext,
     TabsConfigContext,
+    getTranslator
 } from './universal.discovery.module';
 import { loadAccordionData } from './services/universal.discovery.service';
 
-const { Translator, ibexa } = window;
+const { Translator } = window;
 
 const BookmarksTabModule = () => {
     const shouldRestorePreviousStateRef = useRef(true);
@@ -95,17 +98,11 @@ const BookmarksTabModule = () => {
     );
 };
 
-ibexa.addConfig(
-    'adminUiConfig.universalDiscoveryWidget.tabs',
-    [
-        {
-            id: 'bookmarks',
-            component: BookmarksTabModule,
-            label: Translator.trans(/*@Desc("Bookmarks")*/ 'bookmarks.label', {}, 'ibexa_universal_discovery_widget'),
-            icon: ibexa.helpers.icon.getIconPath('bookmark'),
-        },
-    ],
-    true,
-);
+export const BookmarksTab = {
+    id: 'bookmarks',
+    component: BookmarksTabModule,
+    getLabel: () => getTranslator().trans(/*@Desc("Bookmarks")*/ 'bookmarks.label', {}, 'ibexa_universal_discovery_widget'),
+    getIcon: () => getIconPath('bookmark'),
+};
 
 export default BookmarksTabModule;

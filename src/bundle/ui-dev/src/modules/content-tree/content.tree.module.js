@@ -355,6 +355,7 @@ export default class ContentTreeModule extends Component {
 
     render() {
         const { onClickItem, subitemsLimit, subitemsLoadLimit, treeMaxDepth, userId, resizable } = this.props;
+        console.log(onClickItem, subitemsLimit, subitemsLoadLimit, treeMaxDepth, userId, resizable);
         const attrs = {
             items: this.items,
             currentLocationId: this.getCurrentLocationId(),
@@ -372,8 +373,6 @@ export default class ContentTreeModule extends Component {
         return <ContentTree {...attrs} />;
     }
 }
-
-ibexa.addConfig('modules.ContentTree', ContentTreeModule);
 
 ContentTreeModule.propTypes = {
     rootLocationId: PropTypes.number,
@@ -399,10 +398,10 @@ ContentTreeModule.propTypes = {
 
 ContentTreeModule.defaultProps = {
     preloadedLocations: [],
-    rootLocationId: ibexa.adminUiConfig.contentTree.treeRootLocationId,
-    subitemsLimit: ibexa.adminUiConfig.contentTree.childrenLoadMaxLimit,
-    subitemsLoadLimit: ibexa.adminUiConfig.contentTree.loadMoreLimit,
-    treeMaxDepth: ibexa.adminUiConfig.contentTree.treeMaxDepth,
+    rootLocationId: ibexa?.adminUiConfig.contentTree.treeRootLocationId,
+    subitemsLimit: ibexa?.adminUiConfig.contentTree.childrenLoadMaxLimit,
+    subitemsLoadLimit: ibexa?.adminUiConfig.contentTree.loadMoreLimit,
+    treeMaxDepth: ibexa?.adminUiConfig.contentTree.treeMaxDepth,
     afterItemToggle: () => {},
     sort: {},
     resizable: true,

@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createCssClassNames } from '../helpers/css.class.names';
 
-const { Translator } = window;
-
-const PaginationInfo = ({ totalCount, viewingCount, extraClasses }) => {
+const PaginationInfo = ({ totalCount, viewingCount, extraClasses, Translator }) => {
     if (totalCount === 0) {
         return null;
     }
@@ -29,10 +27,12 @@ PaginationInfo.propTypes = {
     totalCount: PropTypes.number.isRequired,
     viewingCount: PropTypes.number.isRequired,
     extraClasses: PropTypes.string,
+    Translator: PropTypes.object,
 };
 
 PaginationInfo.defaultProps = {
     extraClasses: '',
+    Translator: window.Translator
 };
 
 export default PaginationInfo;

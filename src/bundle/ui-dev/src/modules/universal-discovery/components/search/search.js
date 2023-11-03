@@ -12,10 +12,10 @@ import ContentTable from '../content-table/content.table';
 import Filters from '../filters/filters';
 import SearchTags from './search.tags';
 import { useSearchByQueryFetch } from '../../hooks/useSearchByQueryFetch';
-import { AllowedContentTypesContext, SearchTextContext } from '../../universal.discovery.module';
+import { AllowedContentTypesContext, ConfigContext, SearchTextContext } from '../../universal.discovery.module';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
-const { Translator, ibexa } = window;
+const { Translator } = window;
 
 const selectedContentTypesReducer = (state, action) => {
     switch (action.type) {
@@ -30,12 +30,8 @@ const selectedContentTypesReducer = (state, action) => {
     }
 };
 
-const configLanguages = ibexa.adminUiConfig.languages;
-const languages = configLanguages.priority.map((value) => {
-    return configLanguages.mappings[value];
-});
-
 const Search = ({ itemsPerPage }) => {
+    const adminUiConfig = useContext(ConfigContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const [searchText] = useContext(SearchTextContext);
     const [offset, setOffset] = useState(0);
@@ -43,10 +39,15 @@ const Search = ({ itemsPerPage }) => {
     const [selectedSection, setSelectedSection] = useState('');
     const [selectedSubtree, setSelectedSubtree] = useState('');
     const [selectedSubtreeBreadcrumbs, setSelectedSubtreeBreadcrumbs] = useState('');
-    const firstLanguageCode = languages.length ? languages[0].languageCode : '';
+    const { languages } = adminUiConfig;
+    const mappedLanguages = languages.priority.map((value) => {
+        return languages.mappings[value];
+    });
+    const firstLanguageCode = mappedLanguages.length ? mappedLanguages[0].languageCode : '';
     const [selectedLanguage, setSelectedLanguage] = useState(firstLanguageCode);
     const prevSearchText = useRef(null);
     const [isLoading, data, searchByQuery] = useSearchByQueryFetch();
+
     const search = () => {
         const shouldResetOffset = prevSearchText.current !== searchText && offset !== 0;
 
@@ -64,7 +65,7 @@ const Search = ({ itemsPerPage }) => {
     };
     const changePage = (pageIndex) => setOffset(pageIndex * itemsPerPage);
     const renderCustomTableHeader = () => {
-        const selectedLanguageName = ibexa.adminUiConfig.languages.mappings[selectedLanguage].name;
+        const selectedLanguageName = languages.mappings[selectedLanguage].name;
         const searchResultsTitle = Translator.trans(
             /*@Desc("Results for “%search_phrase%” (%total%)")*/ 'search.search_results',
             {

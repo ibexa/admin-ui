@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
 
+import { formatShortDateTime } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/timezone.helper';
+import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+
 import Icon from '../common/icon/icon';
 import Thumbnail from '../common/thumbnail/thumbnail';
 import { createCssClassNames } from '../common/helpers/css.class.names';
@@ -12,9 +15,11 @@ import {
     ContentTypesMapContext,
     RestInfoContext,
     AllowRedirectsContext,
+    ConfigContext,
+    RoutingContext,
 } from './universal.discovery.module';
 
-const { Translator, ibexa, Routing } = window;
+const { Translator } = window;
 
 export const getLocationData = (loadedLocationsMap, markedLocationId) =>
     loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === markedLocationId) ||
@@ -22,13 +27,14 @@ export const getLocationData = (loadedLocationsMap, markedLocationId) =>
         loadedLocationsMap[loadedLocationsMap.length - 1].subitems.find((subitem) => subitem.location.id === markedLocationId));
 
 const ContentMetaPreview = () => {
+    const Routing = useContext(RoutingContext);
     const refContentMetaPreview = useRef(null);
+    const adminUiConfig = useContext(ConfigContext);
     const [markedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const restInfo = useContext(RestInfoContext);
     const allowRedirects = useContext(AllowRedirectsContext);
-    const { formatShortDateTime } = ibexa.helpers.timezone;
     const locationData = useMemo(() => getLocationData(loadedLocationsMap, markedLocationId), [markedLocationId, loadedLocationsMap]);
     const lastModifiedLabel = Translator.trans(/*@Desc("Modified")*/ 'meta_preview.last_modified', {}, 'ibexa_universal_discovery_widget');
     const creationDateLabel = Translator.trans(/*@Desc("Created")*/ 'meta_preview.creation_date', {}, 'ibexa_universal_discovery_widget');
@@ -37,9 +43,10 @@ const ContentMetaPreview = () => {
         {},
         'ibexa_universal_discovery_widget',
     );
+    const { timezone, dateFormat } = adminUiConfig;
 
     useEffect(() => {
-        ibexa.helpers.tooltips.parse(refContentMetaPreview.current);
+        parseTooltip(refContentMetaPreview.current);
     });
 
     if (!markedLocationId || markedLocationId === 1 || !locationData) {
@@ -144,13 +151,17 @@ const ContentMetaPreview = () => {
                         <div className="c-content-meta-preview__details-item">
                             <div className="c-content-meta-preview__details-item-row">{lastModifiedLabel}</div>
                             <div className="c-content-meta-preview__details-item-row">
-                                {formatShortDateTime(new Date(location.ContentInfo.Content.lastModificationDate))}
+                                {formatShortDateTime(
+                                    new Date(location.ContentInfo.Content.lastModificationDate, timezone, dateFormat.shortDateTimeFormat),
+                                )}
                             </div>
                         </div>
                         <div className="c-content-meta-preview__details-item">
                             <div className="c-content-meta-preview__details-item-row">{creationDateLabel}</div>
                             <div className="c-content-meta-preview__details-item-row">
-                                {formatShortDateTime(new Date(location.ContentInfo.Content.publishedDate))}
+                                {formatShortDateTime(
+                                    new Date(location.ContentInfo.Content.publishedDate, timezone, dateFormat.shortDateTimeFormat),
+                                )}
                             </div>
                         </div>
                         <div className="c-content-meta-preview__details-item">
@@ -159,7 +170,7 @@ const ContentMetaPreview = () => {
                                 {version.VersionInfo.languageCodes.split(',').map((languageCode) => {
                                     return (
                                         <span key={languageCode} className="c-content-meta-preview__translation">
-                                            {window.ibexa.adminUiConfig.languages.mappings[languageCode].name}
+                                            {adminUiConfig.languages.mappings[languageCode].name}
                                         </span>
                                     );
                                 })}
@@ -178,7 +189,5 @@ const ContentMetaPreview = () => {
         </div>
     );
 };
-
-ibexa.addConfig('adminUiConfig.universalDiscoveryWidget.contentMetaPreview', ContentMetaPreview);
 
 export default ContentMetaPreview;

@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
+
 import Tab from './components/tab/tab';
 import GridView from './components/grid-view/grid.view';
 import Finder from './components/finder/finder';
 import TreeView from './components/tree-view/tree.view';
 
-import { CurrentViewContext, TabsConfigContext } from './universal.discovery.module';
-
-const { Translator, ibexa } = window;
+import { CurrentViewContext, TabsConfigContext, getTranslator } from './universal.discovery.module';
 
 const BrowseTabModule = () => {
     const [currentView] = useContext(CurrentViewContext);
@@ -25,17 +25,11 @@ const BrowseTabModule = () => {
     );
 };
 
-ibexa.addConfig(
-    'adminUiConfig.universalDiscoveryWidget.tabs',
-    [
-        {
-            id: 'browse',
-            component: BrowseTabModule,
-            label: Translator.trans(/*@Desc("Browse")*/ 'browse.label', {}, 'ibexa_universal_discovery_widget'),
-            icon: window.ibexa.helpers.icon.getIconPath('browse'),
-        },
-    ],
-    true,
-);
+export const BrowseTab = {
+    id: 'browse',
+    component: BrowseTabModule,
+    getLabel: () => getTranslator().trans(/*@Desc("Browse")*/ 'browse.label', {}, 'ibexa_universal_discovery_widget'),
+    getIcon: () => getIconPath('browse'),
+};
 
 export default BrowseTabModule;

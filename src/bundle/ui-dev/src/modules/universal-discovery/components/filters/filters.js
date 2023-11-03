@@ -9,17 +9,18 @@ import {
     SelectedLanguageContext,
     SelectedSubtreeBreadcrumbsContext,
 } from '../search/search';
-import UniversalDiscoveryModule, { DropdownPortalRefContext } from '../../universal.discovery.module';
+
+import UniversalDiscoveryModule, { ConfigContext, DropdownPortalRefContext, TranslatorContext } from '../../universal.discovery.module';
 
 import Dropdown from '../../../common/dropdown/dropdown';
 import ContentTypeSelector from '../content-type-selector/content.type.selector';
 import Icon from '../../../common/icon/icon';
 
-const { Translator, ibexa } = window;
-
-const languages = Object.values(ibexa.adminUiConfig.languages.mappings);
+const { ibexa } = window;
 
 const Filters = ({ search }) => {
+    const Translator = useContext(TranslatorContext);
+    const [languages, sections] = useContext(ConfigContext);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
     const [selectedSection, setSelectedSection] = useContext(SelectedSectionContext);
     const [selectedSubtree, setSelectedSubtree] = useContext(SelectedSubtreeContext);
@@ -113,13 +114,13 @@ const Filters = ({ search }) => {
     const subtreeLabel = Translator.trans(/*@Desc("Subtree")*/ 'filters.subtree', {}, 'ibexa_universal_discovery_widget');
     const clearLabel = Translator.trans(/*@Desc("Clear")*/ 'filters.clear', {}, 'ibexa_universal_discovery_widget');
     const applyLabel = Translator.trans(/*@Desc("Apply")*/ 'filters.apply', {}, 'ibexa_universal_discovery_widget');
-    const languageOptions = languages
+    const languageOptions = Object.values(languages.mappings)
         .filter((language) => language.enabled)
         .map((language) => ({
             value: language.languageCode,
             label: language.name,
         }));
-    const sectionOptions = Object.entries(ibexa.adminUiConfig.sections).map(([sectionIdentifier, sectionName]) => ({
+    const sectionOptions = Object.entries(sections).map(([sectionIdentifier, sectionName]) => ({
         value: sectionIdentifier,
         label: sectionName,
     }));

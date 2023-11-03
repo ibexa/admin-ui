@@ -8,8 +8,20 @@
 
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/@popperjs/core/dist/umd/popper.min.js') }}"></script>
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+        
+        {# Exclud from final version #}
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/react/umd/react.production.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/react-dom/umd/react-dom.production.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/prop-types/prop-types.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/create-react-class/create-react-class.min.js') }}"></script>
+        {# <script src="{{ asset('bundles/ibexaadminuiassets/vendors/moment/min/moment-with-locales.min.js') }}"></script>
+        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/moment-timezone/builds/moment-timezone-with-data.min.js') }}"></script> #}
+        {# <script src="{{ asset('bundles/bazingajstranslation/js/translator.min.js') }}"></script> #}
+        {# <script src="{{ asset('/bundles/fosjsrouting/js/router.js') }}"></script> #}
+        
     </head>
     <body class="ibexa-login-view">
+       <div id="react-udw"></div>
         <div class="container-fluid ibexa-main-container">
             <div class="row ibexa-login">
                 <img class="ibexa-login__logo" src="{{ asset('bundles/ibexaadminui/img/ibexa-logo.svg') }}" alt="ibexa" />
@@ -17,6 +29,7 @@
                     <div class="row ibexa-login__content-row">
                         <div class="col-4 ibexa-login__info-col">
                             <h1 class="ibexa-login__info-headline">{{ 'base.welcome'|trans|desc('Welcome to<br/> Ibexa DXP')|raw }}</h1>
+                             
                             <div class="ibexa-login__support-wrapper">
                                 <h3 class="ibexa-login__support-headline">{{ 'base.need_assistance'|trans|desc('Get to know Ibexa DXP') }}</h3>
                                 <span class="ibexa-login__support-content">
@@ -25,10 +38,11 @@
                                         '%ibexa_contact_link%': '<a class="ibexa-link ibexa-link--light ibexa-link--no-hover-color" href="https://www.ibexa.co/about-ibexa/contact-us">Contact us</a>'
                                     })| desc('See the %ibexa_documentation_link%<br/>or %ibexa_contact_link%')|raw }}
                                 </span>
+                                
                             </div>
                         </div>
                         <div class="col-4 ibexa-login__actions-col">
-                            {%- block content -%} {%- endblock content -%}
+                            {%- block content -%}{%- endblock content -%}
                         </div>
                     </div>
                 </div>
@@ -42,5 +56,9 @@
             </script>
             <script type="text/javascript" src="//cdn.crowdin.com/jipt/jipt.js"></script>
         {% endif %}
+
+
+        {{ encore_entry_script_tags('ibexa-test-udw-js', null, 'ibexa') }}
+        {# {{ encore_entry_link_tags('ibexa-admin-ui-layout-css', null, 'ibexa') }} #}
     </body>
 </html>

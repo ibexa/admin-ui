@@ -11,19 +11,21 @@ import {
     AllowRedirectsContext,
     ActiveTabContext,
     ContentTypesMapContext,
+    ConfigContext,
+    RoutingContext,
 } from '../..//universal.discovery.module';
 
-const { Routing, ibexa } = window;
-
 const ContentEditButton = ({ version, location, isDisabled, label }) => {
+    const Routing = useContext(RoutingContext);
     const restInfo = useContext(RestInfoContext);
+    const adminUiConfig = useContext(ConfigContext);
     const allowRedirects = useContext(AllowRedirectsContext);
     const [, setEditOnTheFlyData] = useContext(EditOnTheFlyDataContext);
     const [, setActiveTab] = useContext(ActiveTabContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const [isTranslationSelectorVisible, setIsTranslationSelectorVisible] = useState(false);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
-    const isUserContentType = ibexa.adminUiConfig.userContentTypes.includes(contentTypeInfo.identifier);
+    const isUserContentType = adminUiConfig.userContentTypes.includes(contentTypeInfo.identifier);
     const btnClassName = createCssClassNames({
         'c-content-edit-button__btn btn ibexa-btn ibexa-btn--ghost': true,
         'ibexa-btn--no-text': label !== null,
