@@ -1,6 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+
 import {
     UDWContext,
     SelectedLocationsContext,
@@ -18,7 +20,7 @@ const TreeItemToggleSelection = ({ locationId, isContainer, contentTypeIdentifie
     const isUDW = useContext(UDWContext);
 
     useEffect(() => {
-        ibexa.helpers.tooltips.parse(document.querySelector('.c-list'));
+        parseTooltip(document.querySelector('.c-list'));
     }, []);
 
     if (!isUDW) {

@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+
 import ContentTableItem from './content.table.item';
 import Pagination from '../../../common/pagination/pagination';
 import { MultipleConfigContext } from '../../universal.discovery.module';
@@ -24,7 +26,7 @@ const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPa
     );
 
     useEffect(() => {
-        ibexa.helpers.tooltips.parse(refContentTable.current);
+        parseTooltip(refContentTable.current);
     }, []);
 
     return (

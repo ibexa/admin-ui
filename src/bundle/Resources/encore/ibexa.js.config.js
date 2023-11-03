@@ -2,25 +2,11 @@ const path = require('path');
 const fs = require('fs');
 const translationsPath = path.resolve('./public/assets/translations/');
 const fieldTypesPath = path.resolve(__dirname, '../public/js/scripts/fieldType/');
+const translations = [];
 const layout = [
-    path.resolve(__dirname, '../public/js/scripts/helpers/icon.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/location.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/text.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/request.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/notification.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/timezone.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/content.type.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/user.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/tooltips.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/table.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/cookies.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/tag.view.select.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/pagination.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/object.instances.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/middle.ellipsis.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/form.validation.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/form.error.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/system.helper.js'),
+    path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/config.loader.js'),
+    path.resolve(__dirname, '../../ui-dev/src/modules/config.loader.js'),
+    path.resolve(__dirname, '../public/js/scripts/helpers/config.loader.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.format.date.js'),
     path.resolve(__dirname, '../public/js/scripts/core/draggable.js'),
     path.resolve(__dirname, '../public/js/scripts/core/dropdown.js'),
@@ -73,6 +59,7 @@ if (fs.existsSync(translationsPath)) {
     fs.readdirSync(translationsPath).forEach((file) => {
         if (file !== 'config.js' && path.extname(file) === '.js') {
             layout.push(path.resolve(translationsPath, file));
+            translations.push(path.resolve(translationsPath, file));
         }
     });
 }
@@ -87,6 +74,8 @@ if (fs.existsSync(fieldTypesPath)) {
 
 module.exports = (Encore) => {
     Encore.addEntry('ibexa-admin-ui-layout-js', layout)
+        .addEntry('ibexa-translations', translations)
+        .addEntry('ibexa-test-udw-js', [path.resolve(__dirname, '../public/js/scripts/___udw.test.js')])
         .addEntry('ibexa-admin-ui-error-page-js', [path.resolve(__dirname, '../public/js/scripts/admin.error.page.js')])
         .addEntry('ibexa-admin-ui-bookmark-list-js', [
             path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),
@@ -186,13 +175,7 @@ module.exports = (Encore) => {
         .addEntry('ibexa-admin-ui-modal-location-trash-single-asset-js', [
             path.resolve(__dirname, '../public/js/scripts/button.state.radio.toggle.js'),
         ])
-        .addEntry('ibexa-admin-ui-dashboard-js', [
-            path.resolve(__dirname, '../public/js/scripts/udw/browse.js'),
-            path.resolve(__dirname, '../public/js/scripts/cotf/create.js'),
-            path.resolve(__dirname, '../public/js/scripts/button.content.edit.js'),
-            path.resolve(__dirname, '../public/js/scripts/admin.version.edit.conflict.js'),
-            path.resolve(__dirname, '../public/js/scripts/button.translation.edit.js'),
-        ])
+        .addEntry('ibexa-admin-ui-dashboard-js', [path.resolve(__dirname, '../public/js/scripts/udw/browse.js')])
         .addEntry('ibexa-admin-ui-link-manager-list-js', [path.resolve(__dirname, '../public/js/scripts/admin.linkmanager.list.js')])
         .addEntry('ibexa-admin-ui-link-manager-view-js', [path.resolve(__dirname, '../public/js/scripts/button.content.edit.js')])
         .addEntry('ibexa-admin-ui-url-wildcards-list-js', [path.resolve(__dirname, '../public/js/scripts/admin.urlwildcards.list.js')])

@@ -1,5 +1,6 @@
 import { showErrorNotification } from '../../common/services/notification.service';
 import { handleRequestResponse, handleRequestResponseStatus } from '../../common/helpers/request.helper.js';
+import Routing from '../../../../../../../../../friendsofsymfony/jsrouting-bundle/Resources/public/js/router';
 
 const HEADERS_CREATE_VIEW = {
     Accept: 'application/vnd.ibexa.api.View+json; version=1.1',
@@ -9,6 +10,21 @@ const ENDPOINT_CREATE_VIEW = '/api/ibexa/v2/views';
 const ENDPOINT_BOOKMARK = '/api/ibexa/v2/bookmark';
 
 export const QUERY_LIMIT = 50;
+
+let RoutingInstance = window.Routing;
+
+const getRoute = async (routeName, params) => {
+    if (RoutingInstance) {
+        return RoutingInstance.generate(routeName, params);
+    }
+
+    const fetchedRoutingData = await fetchRoutingData();
+
+    RoutingInstance = Routing;
+    RoutingInstance.setRoutingData(fetchedRoutingData);
+
+    return RoutingInstance.generate(routeName, params);
+};
 
 const showErrorNotificationAbortWrapper = (error) => {
     if (error?.name === 'AbortError') {
@@ -34,12 +50,12 @@ const mapSubitems = (subitems) => {
     });
 };
 
-export const findLocationsByParentLocationId = (
+export const findLocationsByParentLocationId = async (
     { token, parentLocationId, limit = QUERY_LIMIT, offset = 0, sortClause = 'DatePublished', sortOrder = 'ascending', gridView = false },
     callback,
 ) => {
     const routeName = gridView ? 'ibexa.udw.location.gridview.data' : 'ibexa.udw.location.data';
-    const url = window.Routing.generate(routeName, {
+    const url = await getRoute(routeName, {
         locationId: parentLocationId,
     });
     const request = new Request(`${url}?limit=${limit}&offset=${offset}&sortClause=${sortClause}&sortOrder=${sortOrder}`, {
@@ -69,7 +85,7 @@ export const findLocationsByParentLocationId = (
         .catch(showErrorNotificationAbortWrapper);
 };
 
-export const loadAccordionData = (
+export const loadAccordionData = async (
     {
         token,
         parentLocationId,
@@ -81,8 +97,7 @@ export const loadAccordionData = (
     },
     callback,
 ) => {
-    const routeName = gridView ? 'ibexa.udw.accordion.gridview.data' : 'ibexa.udw.accordion.data';
-    const url = window.Routing.generate(routeName, {
+    const url = await getRoute(routeName, {
         locationId: parentLocationId,
     });
     const request = new Request(`${url}?limit=${limit}&sortClause=${sortClause}&sortOrder=${sortOrder}&rootLocationId=${rootLocationId}`, {
@@ -349,8 +364,8 @@ export const loadContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LI
         .catch(showErrorNotificationAbortWrapper);
 };
 
-export const loadLocationsWithPermissions = ({ locationIds, signal }, callback) => {
-    const url = window.Routing.generate('ibexa.udw.locations.data');
+export const loadLocationsWithPermissions = async ({ locationIds, signal }, callback) => {
+    const url = await getRoute('ibexa.udw.locations.data');
     const request = new Request(`${url}?locationIds=${locationIds}`, {
         method: 'GET',
         mode: 'same-origin',
@@ -358,4 +373,231 @@ export const loadLocationsWithPermissions = ({ locationIds, signal }, callback) 
     });
 
     fetch(request, { signal }).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
+};
+
+//Dummy request
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+export const fetchAdminConfig = async ({ token, siteaccess }) => {
+    const request = new Request('/api/ibexa/v2/content/types', {
+        method: 'GET',
+        headers: {
+            Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
+            'X-Siteaccess': siteaccess,
+            'X-CSRF-Token': token,
+        },
+        mode: 'same-origin',
+        credentials: 'same-origin',
+    });
+
+    const resposne = await fetch(request);
+    const jsonResponse = {
+        userId: 14,
+        backOfficeLanguage: 'pl_PL',
+        languages: {
+            mappings: {
+                'eng-GB': {
+                    name: 'English (United Kingdom)',
+                    id: 2,
+                    languageCode: 'eng-GB',
+                    enabled: true,
+                },
+            },
+            priority: ['eng-GB'],
+        },
+        section: {
+            standard: 'Standard',
+            users: 'Users',
+            media: 'Media',
+            form: 'Form',
+            site_skeleton: 'Site skeleton',
+            taxonomy: 'Taxonomy',
+            product_taxonomy: 'Products Taxonomy',
+            corporate_account: 'Corporate Account',
+        },
+        contentTypes: {
+            Content: [
+                {
+                    id: 2,
+                    identifier: 'article',
+                    name: 'Article',
+                    isContainer: true,
+                    thumbnail: '/bundles/ibexaicons/img/all-icons.svg#article',
+                    href: '/api/ibexa/v2/content/types/2',
+                },
+                {
+                    id: 1,
+                    identifier: 'folder',
+                    name: 'Folder',
+                    isContainer: true,
+                    thumbnail: '/bundles/ibexaicons/img/all-icons.svg#folder',
+                    href: '/api/ibexa/v2/content/types/1',
+                },
+                {
+                    id: 43,
+                    identifier: 'form',
+                    name: 'Form',
+                    isContainer: false,
+                    thumbnail: '/bundles/ibexaicons/img/all-icons.svg#form',
+                    href: '/api/ibexa/v2/content/types/43',
+                },
+                {
+                    id: 42,
+                    identifier: 'landing_page',
+                    name: 'Landing page',
+                    isContainer: true,
+                    thumbnail: '/bundles/ibexaicons/img/all-icons.svg#landing_page',
+                    href: '/api/ibexa/v2/content/types/42',
+                },
+                {
+                    id: 45,
+                    identifier: 'product_category_tag',
+                    name: 'Product category',
+                    isContainer: false,
+                    thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                    href: '/api/ibexa/v2/content/types/45',
+                },
+                {
+                    id: 44,
+                    identifier: 'tag',
+                    name: 'Tag',
+                    isContainer: false,
+                    thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                    href: '/api/ibexa/v2/content/types/44',
+                },
+            ],
+            Users: [
+                {
+                    id: 46,
+                    identifier: 'customer',
+                    name: 'Customer',
+                    isContainer: false,
+                    thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                    href: '/api/ibexa/v2/content/types/46',
+                },
+                {
+                    id: 4,
+                    identifier: 'user',
+                    name: 'User',
+                    isContainer: false,
+                    thumbnail: '/bundles/ibexaicons/img/all-icons.svg#user',
+                    href: '/api/ibexa/v2/content/types/4',
+                },
+                {
+                    id: 3,
+                    identifier: 'user_group',
+                    name: 'User group',
+                    isContainer: true,
+                    thumbnail: '/bundles/ibexaicons/img/all-icons.svg#user_group',
+                    href: '/api/ibexa/v2/content/types/3',
+                },
+            ],
+            Media: [
+                {
+                    id: 12,
+                    identifier: 'file',
+                    name: 'File',
+                    isContainer: false,
+                    thumbnail: '/bundles/ibexaicons/img/all-icons.svg#file',
+                    href: '/api/ibexa/v2/content/types/12',
+                },
+                {
+                    id: 5,
+                    identifier: 'image',
+                    name: 'Image',
+                    isContainer: false,
+                    thumbnail: '/bundles/ibexaicons/img/all-icons.svg#image',
+                    href: '/api/ibexa/v2/content/types/5',
+                },
+            ],
+            'Customer Portal': [
+                {
+                    id: 52,
+                    identifier: 'customer_portal',
+                    name: 'Customer Portal',
+                    isContainer: true,
+                    thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                    href: '/api/ibexa/v2/content/types/52',
+                },
+                {
+                    id: 51,
+                    identifier: 'customer_portal_page',
+                    name: 'Customer Portal Page',
+                    isContainer: false,
+                    thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                    href: '/api/ibexa/v2/content/types/51',
+                },
+            ],
+            product: [],
+            corporate_account: [
+                {
+                    id: 48,
+                    identifier: 'company',
+                    name: 'Company',
+                    isContainer: false,
+                    thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                    href: '/api/ibexa/v2/content/types/48',
+                    isHidden: true,
+                },
+                {
+                    id: 50,
+                    identifier: 'corporate_account_application',
+                    name: 'Corporate Account Application',
+                    isContainer: false,
+                    thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                    href: '/api/ibexa/v2/content/types/50',
+                    isHidden: true,
+                },
+                {
+                    id: 49,
+                    identifier: 'shipping_address',
+                    name: 'Shipping address',
+                    isContainer: false,
+                    thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                    href: '/api/ibexa/v2/content/types/49',
+                    isHidden: true,
+                },
+                {
+                    id: 47,
+                    identifier: 'member',
+                    name: 'Member',
+                    isContainer: false,
+                    thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                    href: '/api/ibexa/v2/content/types/47',
+                    isHidden: true,
+                },
+            ],
+        },
+        contentTree: {
+            loadMoreLimit: 30,
+            childrenLoadMaxLimit: 200,
+            treeMaxDepth: 10,
+            allowedContentTypes: [],
+            ignoredContentTypes: [],
+            treeRootLocationId: 2,
+            contextualTreeRootLocationIds: [2, 5, 43, 48, 55, 56, 60],
+        },
+        userContentTypes: ['user', 'member'],
+        timezone: 'UTC',
+        dateFormat: {
+            fullDateTimeFormat: 'LLLL dd, yyyy HH:mm',
+            shortDateTimeFormat: 'dd/MM/yyyy HH:mm',
+        },
+        iconPaths: {
+            iconSets: {
+                streamlineicons: '/bundles/ibexaicons/img/all-icons.svg',
+            },
+            defaultIconSet: 'streamlineicons',
+        },
+    };
+
+    return jsonResponse;
+};
+
+export const fetchRoutingData = async () => {
+    const response = await fetch('/admin/js/routing');
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
 };

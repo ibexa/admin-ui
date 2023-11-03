@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+
 import Icon from '../../../common/icon/icon';
 import Thumbnail from '../../../common/thumbnail/thumbnail';
 
@@ -33,7 +35,7 @@ const SelectedLocationsItem = ({ location, permissions }) => {
     const thumbnailData = version ? version.Thumbnail : {};
 
     useEffect(() => {
-        ibexa.helpers.tooltips.parse(refSelectedLocationsItem.current);
+        parseTooltip(refSelectedLocationsItem.current);
     }, []);
 
     return (

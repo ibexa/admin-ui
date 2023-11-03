@@ -1,63 +1,60 @@
-(function (global, doc, ibexa) {
-    let contentTypesDataMap = null;
+import { getContext as getHelpersContext } from './helpers.service';
 
-    /**
-     * Creates map with content types identifiers as keys for faster lookup
-     *
-     * @function createContentTypeDataMap
-     * @returns {Object} contentTypesDataMap
-     */
-    const createContentTypeDataMap = () =>
-        Object.values(ibexa.adminUiConfig.contentTypes).reduce((contentTypeDataMap, contentTypeGroup) => {
-            for (const contentTypeData of contentTypeGroup) {
-                contentTypeDataMap[contentTypeData.identifier] = contentTypeData;
-            }
+let contentTypesDataMap = null;
 
-            return contentTypeDataMap;
-        }, {});
-
-    /**
-     * Returns an URL to a content type icon
-     *
-     * @function getContentTypeIcon
-     * @param {String} contentTypeIdentifier
-     * @returns {String|null} url to icon
-     */
-    const getContentTypeIconUrl = (contentTypeIdentifier) => {
-        if (!contentTypesDataMap) {
-            contentTypesDataMap = createContentTypeDataMap();
+/**
+ * Creates map with content types identifiers as keys for faster lookup
+ *
+ * @function createContentTypeDataMap
+ * @returns {Object} contentTypesDataMap
+ */
+const createContentTypeDataMap = () =>
+    Object.values(getHelpersContext().contentTypes).reduce((contentTypeDataMap, contentTypeGroup) => {
+        for (const contentTypeData of contentTypeGroup) {
+            contentTypeDataMap[contentTypeData.identifier] = contentTypeData;
         }
 
-        if (!contentTypeIdentifier || !contentTypesDataMap[contentTypeIdentifier]) {
-            return null;
-        }
+        return contentTypeDataMap;
+    }, {});
 
-        const iconUrl = contentTypesDataMap[contentTypeIdentifier].thumbnail;
+/**
+ * Returns an URL to a content type icon
+ *
+ * @function getContentTypeIcon
+ * @param {String} contentTypeIdentifier
+ * @returns {String|null} url to icon
+ */
+const getContentTypeIconUrl = (contentTypeIdentifier) => {
+    if (!contentTypesDataMap) {
+        contentTypesDataMap = createContentTypeDataMap();
+    }
 
-        return iconUrl;
-    };
+    if (!contentTypeIdentifier || !contentTypesDataMap[contentTypeIdentifier]) {
+        return null;
+    }
 
-    /**
-     * Returns contentType name from contentType identifier
-     *
-     * @function getContentTypeName
-     * @param {String} contentTypeIdentifier
-     * @returns {String|null} contentType name
-     */
-    const getContentTypeName = (contentTypeIdentifier) => {
-        if (!contentTypesDataMap) {
-            contentTypesDataMap = createContentTypeDataMap();
-        }
+    const iconUrl = contentTypesDataMap[contentTypeIdentifier].thumbnail;
 
-        if (!contentTypeIdentifier || !contentTypesDataMap[contentTypeIdentifier]) {
-            return null;
-        }
+    return iconUrl;
+};
 
-        return contentTypesDataMap[contentTypeIdentifier].name;
-    };
+/**
+ * Returns contentType name from contentType identifier
+ *
+ * @function getContentTypeName
+ * @param {String} contentTypeIdentifier
+ * @returns {String|null} contentType name
+ */
+const getContentTypeName = (contentTypeIdentifier) => {
+    if (!contentTypesDataMap) {
+        contentTypesDataMap = createContentTypeDataMap();
+    }
 
-    ibexa.addConfig('helpers.contentType', {
-        getContentTypeIconUrl,
-        getContentTypeName,
-    });
-})(window, window.document, window.ibexa);
+    if (!contentTypeIdentifier || !contentTypesDataMap[contentTypeIdentifier]) {
+        return null;
+    }
+
+    return contentTypesDataMap[contentTypeIdentifier].name;
+};
+
+export { getContentTypeIconUrl, getContentTypeName };

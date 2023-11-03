@@ -4,17 +4,19 @@ import PropTypes from 'prop-types';
 import TopMenuSearchInput from './top.menu.search.input';
 import Icon from '../../../common/icon/icon';
 
-import { TitleContext, CancelContext } from '../../universal.discovery.module';
+import { TitleContext, CancelContext, ConfigContext } from '../../universal.discovery.module';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
-const { Translator, ibexa } = window;
+const { Translator } = window;
 
 const TopMenu = ({ actionsDisabledMap }) => {
+    const adminUiConfig = useContext(ConfigContext);
+    const { topMenuActions } = adminUiConfig.universalDiscoveryWidget;
     const title = useContext(TitleContext);
     const cancelUDW = useContext(CancelContext);
     const [isSearchOpened, setIsSearchOpened] = useState(false);
     const sortedActions = useMemo(() => {
-        const actions = [...ibexa.adminUiConfig.universalDiscoveryWidget.topMenuActions];
+        const actions = topMenuActions;
 
         return actions.sort((actionA, actionB) => {
             return actionB.priority - actionA.priority;

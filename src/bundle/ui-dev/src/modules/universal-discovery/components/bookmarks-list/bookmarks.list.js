@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+
 import Icon from '../../../common/icon/icon';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
@@ -62,7 +64,7 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
     }, [data.items, isLoading]);
 
     useEffect(() => {
-        ibexa.helpers.tooltips.parse(refBookmarksList.current);
+        parseTooltip(refBookmarksList.current);
     }, [bookmarks]);
 
     if (!bookmarks.length) {
