@@ -20,7 +20,6 @@ use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\SectionService;
-use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
@@ -34,11 +33,9 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
 {
     public const URI_FRAGMENT = 'ibexa-tab-location-view-details';
 
-    protected UserService $userService;
+    private SectionService $sectionService;
 
-    protected SectionService $sectionService;
-
-    protected DatasetFactory $datasetFactory;
+    private DatasetFactory $datasetFactory;
 
     private FormFactoryInterface $formFactory;
 
@@ -48,7 +45,6 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         Environment $twig,
         TranslatorInterface $translator,
         SectionService $sectionService,
-        UserService $userService,
         DatasetFactory $datasetFactory,
         FormFactoryInterface $formFactory,
         PermissionResolver $permissionResolver,
@@ -57,7 +53,6 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         parent::__construct($twig, $translator, $eventDispatcher);
 
         $this->sectionService = $sectionService;
-        $this->userService = $userService;
         $this->datasetFactory = $datasetFactory;
         $this->formFactory = $formFactory;
         $this->permissionResolver = $permissionResolver;
@@ -114,9 +109,6 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         return array_replace($contextParameters, $viewParameters->getArrayCopy());
     }
 
-    /**
-     * @param \ArrayObject $parameters
-     */
     private function supplySortFieldClauseMap(ArrayObject $parameters): void
     {
         $parameters['sort_field_clause_map'] = [
@@ -132,11 +124,7 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         ];
     }
 
-    /**
-     * @param \ArrayObject $parameters
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
-     */
-    private function supplyObjectStateParameters(ArrayObject &$parameters, ContentInfo $contentInfo): void
+    private function supplyObjectStateParameters(ArrayObject $parameters, ContentInfo $contentInfo): void
     {
         $objectStatesDataset = $this->datasetFactory->objectStates();
         $objectStatesDataset->load($contentInfo);
@@ -176,11 +164,6 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         return $this->permissionResolver->hasAccess('state', 'assign') !== false;
     }
 
-    /**
-     * @param \ArrayObject $parameters
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     */
     private function supplySectionParameters(ArrayObject $parameters, ContentInfo $contentInfo, Location $location): void
     {
         $canSeeSection = $this->permissionResolver->canUser('section', 'view', $contentInfo);
@@ -208,10 +191,6 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         }
     }
 
-    /**
-     * @param \ArrayObject $parameters
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     */
     private function supplyFormLocationUpdate(ArrayObject $parameters, Location $location): void
     {
         $parameters['form_location_update'] = $this->formFactory->create(
@@ -220,10 +199,6 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         )->createView();
     }
 
-    /**
-     * @param \ArrayObject $parameters
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
-     */
     private function supplyTranslations(ArrayObject $parameters, VersionInfo $versionInfo): void
     {
         $translationsDataset = $this->datasetFactory->translations();
