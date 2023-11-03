@@ -1,5 +1,7 @@
 import React, { useContext, createRef } from 'react';
 
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
+
 import {
     ContentOnTheFlyDataContext,
     TabsContext,
@@ -11,21 +13,16 @@ import {
     ConfirmContext,
     LoadedLocationsMapContext,
     MultipleConfigContext,
+    RoutingContext,
+    getTranslator
 } from './universal.discovery.module';
 import { findLocationsById } from './services/universal.discovery.service';
 import deepClone from '../common/helpers/deep.clone.helper';
 
-const { ibexa, Translator, Routing } = window;
-
-const generateIframeUrl = ({ locationId, languageCode, contentTypeIdentifier }) => {
-    return Routing.generate('ibexa.content.on_the_fly.create', {
-        locationId,
-        languageCode,
-        contentTypeIdentifier,
-    });
-};
+const { Translator } = window;
 
 const ContentCreateTabModule = () => {
+    const Routing = useContext(RoutingContext);
     const [contentOnTheFlyData, setContentOnTheFlyData] = useContext(ContentOnTheFlyDataContext);
     const tabs = useContext(TabsContext);
     const contentOnTheFlyConfig = useContext(ContentOnTheFlyConfigContext);
@@ -36,8 +33,16 @@ const ContentCreateTabModule = () => {
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [multiple] = useContext(MultipleConfigContext);
-    const iframeUrl = generateIframeUrl(contentOnTheFlyData);
     const iframeRef = createRef();
+    const iframeUrl = () => {
+        const { locationId, languageCode, contentTypeIdentifier } = contentOnTheFlyData;
+
+        return Routing.generate('ibexa.content.on_the_fly.create', {
+            locationId,
+            languageCode,
+            contentTypeIdentifier,
+        });
+    };
     const cancelContentCreate = () => {
         setCreateContentVisible(false);
         setContentOnTheFlyData({});
@@ -98,18 +103,12 @@ const ContentCreateTabModule = () => {
     );
 };
 
-ibexa.addConfig(
-    'adminUiConfig.universalDiscoveryWidget.tabs',
-    [
-        {
-            id: 'content-create',
-            component: ContentCreateTabModule,
-            label: Translator.trans(/*@Desc("Content create")*/ 'content_create.label', {}, 'ibexa_universal_discovery_widget'),
-            icon: ibexa.helpers.icon.getIconPath('search'),
-            isHiddenOnList: true,
-        },
-    ],
-    true,
-);
+const ContentCreateTab = {
+    id: 'content-create',
+    component: ContentCreateTabModule,
+    getLabel: () => getTranslator().trans(/*@Desc("Content create")*/ 'content_create.label', {}, 'ibexa_universal_discovery_widget'),
+    getIcon: () => getIconPath('search'),
+    isHiddenOnList: true,
+};
 
-export default ContentCreateTabModule;
+export { ContentCreateTabModule as default, ContentCreateTab };

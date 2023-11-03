@@ -1,13 +1,11 @@
-(function (global, doc, ibexa) {
-    const escapeHTML = (string) => {
-        const stringTempNode = doc.createElement('div');
+const { document: doc } = window;
 
-        stringTempNode.appendChild(doc.createTextNode(string));
+const escapeHTML = (string) => {
+    const stringTempNode = doc.createElement('div');
 
-        return stringTempNode.innerHTML;
-    };
+    stringTempNode.appendChild(doc.createTextNode(string));
 
-    ibexa.addConfig('helpers.text', {
-        escapeHTML,
-    });
-})(window, window.document, window.ibexa);
+    return stringTempNode.innerHTML;
+};
+
+export { escapeHTML };

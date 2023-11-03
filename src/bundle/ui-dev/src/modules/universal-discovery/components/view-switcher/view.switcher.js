@@ -2,11 +2,10 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import SimpleDropdown from '../../../common/simple-dropdown/simple.dropdown';
-import { CurrentViewContext, VIEWS } from '../../universal.discovery.module';
-
-const { ibexa, Translator } = window;
+import { CurrentViewContext, TranslatorContext, VIEWS } from '../../universal.discovery.module';
 
 const ViewSwitcher = ({ isDisabled }) => {
+    const Translator = useContext(TranslatorContext);
     const viewLabel = Translator.trans(/*@Desc("View")*/ 'view_switcher.view', {}, 'ibexa_universal_discovery_widget');
     const [currentView, setCurrentView] = useContext(CurrentViewContext);
     const selectedOption = VIEWS.find((option) => option.value === currentView);
@@ -36,16 +35,10 @@ ViewSwitcher.defaultProps = {
     isDisabled: false,
 };
 
-ibexa.addConfig(
-    'adminUiConfig.universalDiscoveryWidget.topMenuActions',
-    [
-        {
-            id: 'view-switcher',
-            priority: 10,
-            component: ViewSwitcher,
-        },
-    ],
-    true,
-);
+export const ViewSwitcherButton = {
+    id: 'view-switcher',
+    priority: 10,
+    component: ViewSwitcher,
+};
 
 export default ViewSwitcher;

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
+import { hideAll as hideAllTooltips } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 import Icon from '../../../common/icon/icon';
 
 import {
@@ -13,7 +14,7 @@ import {
     ContentTypesMapContext,
 } from '../../universal.discovery.module';
 
-const { Translator, ibexa } = window;
+const { Translator } = window;
 
 const ContentCreateButton = ({ isDisabled }) => {
     const [markedLocationId] = useContext(MarkedLocationIdContext);
@@ -25,7 +26,7 @@ const ContentCreateButton = ({ isDisabled }) => {
     const contentTypesMap = useContext(ContentTypesMapContext);
     const createLabel = Translator.trans(/*@Desc("Create")*/ 'create_content.create', {}, 'ibexa_universal_discovery_widget');
     const toggleContentCreateVisibility = () => {
-        ibexa.helpers.tooltips.hideAll();
+        hideAllTooltips();
         setCreateContentVisible((prevState) => !prevState);
     };
     let selectedLocation = loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === markedLocationId);
@@ -72,16 +73,10 @@ ContentCreateButton.defaultProps = {
     isDisabled: false,
 };
 
-ibexa.addConfig(
-    'adminUiConfig.universalDiscoveryWidget.topMenuActions',
-    [
-        {
-            id: 'content-create-button',
-            priority: 30,
-            component: ContentCreateButton,
-        },
-    ],
-    true,
-);
+export const ContentCreateButtonMenuItem = {
+    id: 'content-create-button',
+    priority: 30,
+    component: ContentCreateButton,
+};
 
 export default ContentCreateButton;

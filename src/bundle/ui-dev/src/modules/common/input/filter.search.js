@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../../common/helpers/css.class.names';
 
 const { Translator } = window;
-const defaultPlaceholder = Translator.trans(/*@Desc("Search...")*/ 'search.placeholder', {}, 'ibexa_universal_discovery_widget');
+// const defaultPlaceholder = Translator.trans(/*@Desc("Search...")*/ 'search.placeholder', {}, 'ibexa_universal_discovery_widget');
+const defaultPlaceholder = 'Search...';
 
 const Search = ({ onChange, placeholder, extraClasses, value }) => {
     const searchClassName = createCssClassNames({

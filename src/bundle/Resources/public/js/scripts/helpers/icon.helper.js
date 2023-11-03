@@ -1,11 +1,8 @@
-(function (global, doc, ibexa) {
-    const getIconPath = (path, iconSet = ibexa.adminUiConfig.iconPaths.defaultIconSet) => {
-        const iconSetPath = ibexa.adminUiConfig.iconPaths.iconSets[iconSet];
+import { getContext as getHelpersContext } from './helpers.service';
 
-        return `${iconSetPath}#${path}`;
-    };
+const getIconPath = (path, iconSet = getHelpersContext().iconPaths.defaultIconSet) => {
+    const iconSetPath = getHelpersContext().iconPaths.iconSets[iconSet];
+    return `${iconSetPath}#${path}`;
+};
 
-    ibexa.addConfig('helpers.icon', {
-        getIconPath,
-    });
-})(window, window.document, window.ibexa);
+export { getIconPath };

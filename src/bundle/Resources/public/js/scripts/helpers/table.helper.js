@@ -1,18 +1,16 @@
-(function (global, doc, ibexa) {
-    const onChangeHandler = (activeClass, event) => {
-        const { checked } = event.target;
-        const action = checked ? 'add' : 'remove';
-        const parentRow = event.target.closest('tr');
+const { document: doc } = window;
 
-        parentRow.classList[action](activeClass);
-    };
-    const parseCheckbox = (checkboxSelector, activeClass) => {
-        doc.querySelectorAll(checkboxSelector).forEach((checkboxNode) => {
-            checkboxNode.addEventListener('change', onChangeHandler.bind(this, activeClass), false);
-        });
-    };
+const onChangeHandler = (activeClass, event) => {
+    const { checked } = event.target;
+    const action = checked ? 'add' : 'remove';
+    const parentRow = event.target.closest('tr');
 
-    ibexa.addConfig('helpers.table', {
-        parseCheckbox,
+    parentRow.classList[action](activeClass);
+};
+const parseCheckbox = (checkboxSelector, activeClass) => {
+    doc.querySelectorAll(checkboxSelector).forEach((checkboxNode) => {
+        checkboxNode.addEventListener('change', onChangeHandler.bind(this, activeClass), false);
     });
-})(window, window.document, window.ibexa);
+};
+
+export { parseCheckbox };

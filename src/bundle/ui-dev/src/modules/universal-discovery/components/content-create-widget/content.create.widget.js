@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 
+import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 import Icon from '../../../common/icon/icon';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
@@ -12,26 +13,26 @@ import {
     LoadedLocationsMapContext,
     ContentOnTheFlyConfigContext,
     AllowedContentTypesContext,
+    ConfigContext,
 } from '../../universal.discovery.module';
 import Dropdown from '../../../common/dropdown/dropdown';
 
-const { Translator, ibexa } = window;
-
-const configLanguages = ibexa.adminUiConfig.languages;
-const languages = configLanguages.priority.map((languageCode) => {
-    return configLanguages.mappings[languageCode];
-});
-const contentTypes = Object.entries(ibexa.adminUiConfig.contentTypes);
+const { Translator } = window;
 
 const ContentCreateWidget = () => {
     const refContentTree = useRef(null);
+    const adminUiConfig = useContext(ConfigContext);
     const dropdownListRef = useContext(DropdownPortalRefContext);
     const [markedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap] = useContext(LoadedLocationsMapContext);
     const { allowedLanguages, preselectedLanguage, preselectedContentType } = useContext(ContentOnTheFlyConfigContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
+    const { languages, contentTypes } = adminUiConfig;
     const selectedLocation = loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === markedLocationId);
-    const filteredLanguages = languages.filter((language) => {
+    const mappedLanguages = languages.priority.map((languageCode) => {
+        return languages.mappings[languageCode];
+    });
+    const filteredLanguages = mappedLanguages.filter((language) => {
         const userHasPermission =
             !selectedLocation ||
             !selectedLocation.permissions ||
@@ -101,7 +102,7 @@ const ContentCreateWidget = () => {
         'ibexa-extra-actions--hidden': !createContentVisible,
         'c-content-create': true,
     });
-    const languageOptions = languages
+    const languageOptions = mappedLanguages
         .filter((language) => language.enabled)
         .map((language) => ({
             value: language.languageCode,
@@ -113,7 +114,7 @@ const ContentCreateWidget = () => {
     }, [preselectedLanguage, firstLanguageCode]);
 
     useEffect(() => {
-        ibexa.helpers.tooltips.parse(refContentTree.current);
+        parseTooltip(refContentTree.current);
     }, []);
 
     return (
@@ -160,7 +161,7 @@ const ContentCreateWidget = () => {
                         </div>
                         <div className="ibexa-instant-filter__desc">{filtersDescLabel}</div>
                         <div className="ibexa-instant-filter__items">
-                            {contentTypes.map(([groupName, groupItems]) => {
+                            {Object.entries(contentTypes).map(([groupName, groupItems]) => {
                                 const restrictedContentTypeIds = selectedLocation?.permissions?.create.restrictedContentTypeIds ?? [];
                                 const isHiddenGroup = groupItems.every((groupItem) => {
                                     const isNotSearchedName = filterQuery && !groupItem.name.toLowerCase().includes(filterQuery);

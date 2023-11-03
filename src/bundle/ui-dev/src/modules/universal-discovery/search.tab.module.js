@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
+
 import Tab from './components/tab/tab';
 import Search from './components/search/search';
 
-import { LoadedLocationsMapContext, MarkedLocationIdContext, TabsConfigContext } from './universal.discovery.module';
-
-const { ibexa, Translator } = window;
+import { LoadedLocationsMapContext, MarkedLocationIdContext, TabsConfigContext, getTranslator } from './universal.discovery.module';
 
 const SearchTabModule = () => {
     const tabsConfig = useContext(TabsConfigContext);
@@ -34,18 +34,12 @@ const SearchTabModule = () => {
     );
 };
 
-ibexa.addConfig(
-    'adminUiConfig.universalDiscoveryWidget.tabs',
-    [
-        {
-            id: 'search',
-            component: SearchTabModule,
-            label: Translator.trans(/*@Desc("Search")*/ 'search.label', {}, 'ibexa_universal_discovery_widget'),
-            icon: ibexa.helpers.icon.getIconPath('search'),
-            isHiddenOnList: true,
-        },
-    ],
-    true,
-);
+const SearchTab = {
+    id: 'search',
+    component: SearchTabModule,
+    getLabel: () => getTranslator().trans(/*@Desc("Search")*/ 'search.label', {}, 'ibexa_universal_discovery_widget'),
+    getIcon: () => getIconPath('search'),
+    isHiddenOnList: true,
+};
 
-export default SearchTabModule;
+export { SearchTabModule as ValueTypeDefault, SearchTab };
