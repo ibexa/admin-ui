@@ -281,6 +281,11 @@
         <target state="new">Policies</target>
         <note>key: tab.name.policies</note>
       </trans-unit>
+      <trans-unit id="eeca4145269fdae93e31aba7725f260e0c44839a" resname="tab.name.quick_preview">
+        <source>View</source>
+        <target state="new">View</target>
+        <note>key: tab.name.quick_preview</note>
+      </trans-unit>
       <trans-unit id="8954433abc5d011c00f81f317c7eebec41fbb1c0" resname="tab.name.relations">
         <source>Relations</source>
         <target state="new">Relations</target>
@@ -305,11 +310,6 @@
         <source>Versions</source>
         <target state="new">Versions</target>
         <note>key: tab.name.versions</note>
-      </trans-unit>
-      <trans-unit id="eb3b504a0281951f15692e888226579aa99bb512" resname="tab.name.view">
-        <source>View</source>
-        <target state="new">View</target>
-        <note>key: tab.name.view</note>
       </trans-unit>
       <trans-unit id="373c6d223e1f346d71cf6cfd85f0fbc3d76ca1d5" resname="tab.relations.no_relations">
         <source>This Content item has no related content.</source>
