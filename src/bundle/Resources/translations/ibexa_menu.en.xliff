@@ -191,6 +191,26 @@
         <target state="new">Save and close</target>
         <note>key: content_type_group_edit__sidebar_right__save_and_close</note>
       </trans-unit>
+      <trans-unit id="b9d80e97adb2652e91e325140cbc792f65a7c603" resname="footer__blog">
+        <source>Blog</source>
+        <target state="new">Blog</target>
+        <note>key: footer__blog</note>
+      </trans-unit>
+      <trans-unit id="fee1f191496526a7bdbcc332ae90d952890954ee" resname="footer__documentation">
+        <source>Help</source>
+        <target state="new">Help</target>
+        <note>key: footer__documentation</note>
+      </trans-unit>
+      <trans-unit id="7019e37284adb9139f32484937ee6bd3fd1a492d" resname="footer__getting_started">
+        <source>Getting started</source>
+        <target state="new">Getting started</target>
+        <note>key: footer__getting_started</note>
+      </trans-unit>
+      <trans-unit id="ad267ec98e2e0db080910ed9d208f5fccf8b3dc1" resname="footer__ibexa">
+        <source>Ibexa</source>
+        <target state="new">Ibexa</target>
+        <note>key: footer__ibexa</note>
+      </trans-unit>
       <trans-unit id="65804c068820b5fa679357bc65c5862d0fc90701" resname="language_create__sidebar_right__cancel">
         <source>Discard</source>
         <target state="new">Discard</target>

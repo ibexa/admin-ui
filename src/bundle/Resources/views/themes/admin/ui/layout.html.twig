@@ -195,6 +195,9 @@
                                 </div>
                             {% endblock %}
                             {% block content %}{% endblock %}
+                            {% block footer %}
+                                {{ knp_menu_render('ibexa.admin_ui.menu.footer') }}
+                            {% endblock %}
                         </div>
                     </div>
                 {% endblock %}

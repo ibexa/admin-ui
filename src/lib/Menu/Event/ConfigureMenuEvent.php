@@ -51,6 +51,7 @@ class ConfigureMenuEvent extends Event
     public const OBJECT_STATE_EDIT_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.object_state_edit_sidebar_right';
     public const USER_SETTING_UPDATE_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.user_setting_update_sidebar_right';
     public const CONTENT_TYPE_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.content_type_sidebar_right';
+    public const FOOTER_MENU = 'ibexa.admin_ui.menu_configure.footer_menu';
 
     /** @var \Knp\Menu\FactoryInterface */
     private $factory;
