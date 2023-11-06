@@ -42,3 +42,11 @@ services:
             $translationHelper: '@Ibexa\Core\Helper\TranslationHelper'
         tags:
             - { name: ibexa.admin_ui.tab, group: location-view }
+
+    Ibexa\AdminUi\Tab\LocationView\QuickPreviewTab:
+        public: true
+        autowire: true
+        arguments:
+            $configResolver: '@ibexa.config.resolver'
+        tags:
+            - { name: ibexa.admin_ui.tab, group: location-view }
