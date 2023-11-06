@@ -197,8 +197,8 @@
         <note>key: footer__blog</note>
       </trans-unit>
       <trans-unit id="fee1f191496526a7bdbcc332ae90d952890954ee" resname="footer__documentation">
-        <source>Help</source>
-        <target state="new">Help</target>
+        <source>User Documentation</source>
+        <target state="new">User Documentation</target>
         <note>key: footer__documentation</note>
       </trans-unit>
       <trans-unit id="7019e37284adb9139f32484937ee6bd3fd1a492d" resname="footer__getting_started">
