@@ -1,27 +1,26 @@
 .ibexa-footer {
-    position: absolute;
-    bottom: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    height: calculateRem(50px);
     margin-top: calculateRem(24px);
-    padding: 0 calculateRem(24px);
     background-color: $ibexa-color-white;
     font-size: calculateRem(14px);
     color: $ibexa-color-dark-300;
 
-    &__brand-img {
-        margin-right: calculateRem(16px);
-        max-width: calculateRem(32px);
-    }
-
     &__link {
         display: inline-block;
-        margin-left: calculateRem(24px);
+        margin-left: calculateRem(8px);
         font-size: calculateRem(14px);
         color: $ibexa-color-dark-300;
+
+        a {
+            color: $ibexa-color-dark-300;
+
+            &:hover {
+                color: $ibexa-color-primary
+            }
+        }
     }
 }
 

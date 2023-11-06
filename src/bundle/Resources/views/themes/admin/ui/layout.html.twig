@@ -196,7 +196,7 @@
                             {% endblock %}
                             {% block content %}{% endblock %}
                             {% block footer %}
-                                {{ knp_menu_render('ibexa.admin_ui.menu.footer') }}
+                                {% include '@ibexadesign/ui/footer.html.twig' %}
                             {% endblock %}
                         </div>
                     </div>

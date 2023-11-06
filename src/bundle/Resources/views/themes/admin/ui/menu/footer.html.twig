@@ -1,0 +1,34 @@
+{% extends '@KnpMenu/menu.html.twig' %}
+
+{% trans_default_domain 'ibexa_menu' %}
+
+{% block root %}
+    {% set listAttributes = item.childrenAttributes|merge({ class: 'ibexa_'}) %}
+    {{ block('list') -}}
+{% endblock %}
+
+{% block list %}
+    {% if item.hasChildren and options.depth is not same as(0) and item.displayChildren %}
+        {{ block('children') }}
+    {% endif %}
+{% endblock %}
+
+{% block item %}
+    {%- if item.uri is not empty and (not matcher.isCurrent(item) or options.currentAsLink) %}
+        {{ block('linkElement') }}
+    {%- else %}
+        {{ block('spanElement') }}
+    {%- endif %}
+{% endblock %}
+
+{% block linkElement %}
+    {% import _self as knp_menu %}
+    {% if item.name == constant('Ibexa\\AdminUi\\Menu\\FooterMenuBuilder::ITEM_IBEXA') %}
+        <span class="ibexa-footer__link">
+            {{ 'footer__powered_by'|trans()|desc('Powered by') }}
+            <a href="{{ item.uri }}" {{ knp_menu.attributes(item.linkAttributes) }}>{{ block('label') }}</a>
+        </span>
+    {% else %}
+        <a href="{{ item.uri }}" class="ibexa-footer__link" {{ knp_menu.attributes(item.linkAttributes) }}>{{ block('label') }}</a>
+    {% endif %}
+{% endblock %}

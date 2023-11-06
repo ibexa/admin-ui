@@ -30,14 +30,14 @@ final class FooterMenuBuilder extends AbstractBuilder implements TranslationCont
 
         $this->addExternalLinkMenuItem(
             $menu,
-            self::ITEM__GETTING_STARTED,
-            'https://doc.ibexa.co/projects/userguide/en/latest/getting_started/get_started/'
+            self::ITEM_IBEXA,
+            'https://www.ibexa.co/products'
         );
 
         $this->addExternalLinkMenuItem(
             $menu,
-            self::ITEM_DOCUMENTATION,
-            'https://doc.ibexa.co/projects/userguide/en/latest/'
+            self::ITEM__GETTING_STARTED,
+            'https://doc.ibexa.co/projects/userguide/en/latest/getting_started/get_started/'
         );
 
         $this->addExternalLinkMenuItem(
@@ -48,8 +48,8 @@ final class FooterMenuBuilder extends AbstractBuilder implements TranslationCont
 
         $this->addExternalLinkMenuItem(
             $menu,
-            self::ITEM_IBEXA,
-            'https://www.ibexa.co/products'
+            self::ITEM_DOCUMENTATION,
+            'https://doc.ibexa.co/projects/userguide/en/latest/'
         );
 
         return $menu;
@@ -64,7 +64,7 @@ final class FooterMenuBuilder extends AbstractBuilder implements TranslationCont
     {
         return [
             (new Message(self::ITEM__GETTING_STARTED, 'ibexa_menu'))->setDesc('Getting started'),
-            (new Message(self::ITEM_DOCUMENTATION, 'ibexa_menu'))->setDesc('Help'),
+            (new Message(self::ITEM_DOCUMENTATION, 'ibexa_menu'))->setDesc('User Documentation'),
             (new Message(self::ITEM_BLOG, 'ibexa_menu'))->setDesc('Blog'),
             (new Message(self::ITEM_IBEXA, 'ibexa_menu'))->setDesc('Ibexa'),
         ];

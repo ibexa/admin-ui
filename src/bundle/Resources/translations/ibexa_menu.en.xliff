@@ -211,6 +211,11 @@
         <target state="new">Ibexa</target>
         <note>key: footer__ibexa</note>
       </trans-unit>
+      <trans-unit id="499e2277963912fefc7a148110bed5a059870d50" resname="footer__powered_by">
+        <source>Powered by</source>
+        <target state="new">Powered by</target>
+        <note>key: footer__powered_by</note>
+      </trans-unit>
       <trans-unit id="65804c068820b5fa679357bc65c5862d0fc90701" resname="language_create__sidebar_right__cancel">
         <source>Discard</source>
         <target state="new">Discard</target>
