@@ -105,7 +105,7 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
      */
     public function getOrder(): int
     {
-        return 700;
+        return 400;
     }
 
     /**

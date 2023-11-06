@@ -90,7 +90,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
 
     public function getOrder(): int
     {
-        return 600;
+        return 300;
     }
 
     /**

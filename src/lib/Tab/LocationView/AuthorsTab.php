@@ -49,7 +49,7 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
 
     public function getOrder(): int
     {
-        return 200;
+        return 600x;
     }
 
     /**
