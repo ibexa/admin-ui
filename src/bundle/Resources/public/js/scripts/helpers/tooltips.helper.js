@@ -1,6 +1,6 @@
 (function (global, doc, ibexa, bootstrap) {
     let lastInsertTooltipTarget = null;
-    const TOOLTIPS_SELECTOR = '[title]';
+    const TOOLTIPS_SELECTOR = '[title], [data-tooltip-title]';
     const observerConfig = {
         childList: true,
         subtree: true,
@@ -93,7 +93,7 @@
         return texHeight;
     };
     const isTitleEllipsized = (node) => {
-        const title = node.title || node.dataset.originalTitle;
+        const title = node.dataset.originalTitle;
         const { width: nodeWidth, height: nodeHeight } = node.getBoundingClientRect();
         const computedNodeStyles = getComputedStyle(node);
         const styles = {
@@ -112,6 +112,38 @@
 
         return textHeight > nodeHeight;
     };
+    const initializeTooltip = (tooltipNode) => {
+        const { delayShow, delayHide } = tooltipNode.dataset;
+        const delay = {
+            show: delayShow ? parseInt(delayShow, 10) : 150,
+            hide: delayHide ? parseInt(delayHide, 10) : 75,
+        };
+        const extraClass = tooltipNode.dataset.tooltipExtraClass ?? '';
+        const placement = tooltipNode.dataset.tooltipPlacement ?? 'bottom';
+        const trigger = tooltipNode.dataset.tooltipTrigger ?? 'hover focus';
+        const useHtml = tooltipNode.dataset.tooltipUseHtml !== undefined;
+        const container = tooltipNode.dataset.tooltipContainerSelector
+            ? tooltipNode.closest(tooltipNode.dataset.tooltipContainerSelector)
+            : 'body';
+        const iframe = document.querySelector(tooltipNode.dataset.tooltipIframeSelector);
+
+        new bootstrap.Tooltip(tooltipNode, {
+            delay,
+            placement,
+            trigger,
+            container,
+            popperConfig: modifyPopperConfig.bind(null, iframe),
+            html: useHtml,
+            template: `<div class="tooltip ibexa-tooltip ${extraClass}">
+                            <div class="tooltip-arrow ibexa-tooltip__arrow"></div>
+                            <div class="tooltip-inner ibexa-tooltip__inner"></div>
+                       </div>`,
+        });
+
+        tooltipNode.addEventListener('inserted.bs.tooltip', (event) => {
+            lastInsertTooltipTarget = event.currentTarget;
+        });
+    };
     const parse = (baseElement = doc) => {
         if (!baseElement) {
             return;
@@ -124,78 +156,46 @@
         }
 
         for (const tooltipNode of tooltipNodes) {
-            if (tooltipNode.hasAttribute('title')) {
-                const hasEllipsisStyle = getComputedStyle(tooltipNode).textOverflow === 'ellipsis';
+            const hasEllipsisStyle = getComputedStyle(tooltipNode).textOverflow === 'ellipsis';
+            const hasNewTitle = tooltipNode.hasAttribute('title');
+            const tooltipInitialized = !!tooltipNode.dataset.originalTitle;
+            let shouldHaveTooltip = !hasEllipsisStyle;
 
-                if (hasEllipsisStyle) {
-                    resizeEllipsisObserver.observe(tooltipNode);
+            if (!tooltipInitialized && hasNewTitle) {
+                resizeEllipsisObserver.observe(tooltipNode);
+                tooltipNode.dataset.originalTitle = tooltipNode.title;
 
-                    const isEllipsized = isTitleEllipsized(tooltipNode);
-                    const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipNode);
-
-                    if (tooltipInstance) {
-                        if (!isEllipsized) {
-                            tooltipInstance.dispose();
-                        }
-
-                        continue;
-                    }
-
-                    if (isEllipsized) {
-                        if (tooltipNode.dataset.title) {
-                            tooltipNode.title = tooltipNode.dataset.title;
-                        }
-                    } else {
-                        if (tooltipNode.title) {
-                            tooltipNode.dataset.title = tooltipNode.title;
-                            tooltipNode.title = '';
-                        }
-
-                        continue;
-                    }
+                if (!shouldHaveTooltip) {
+                    shouldHaveTooltip = isTitleEllipsized(tooltipNode);
                 }
 
-                const { delayShow, delayHide } = tooltipNode.dataset;
-                const delay = {
-                    show: delayShow ? parseInt(delayShow, 10) : 150,
-                    hide: delayHide ? parseInt(delayHide, 10) : 75,
-                };
-                const extraClass = tooltipNode.dataset.tooltipExtraClass ?? '';
-                const placement = tooltipNode.dataset.tooltipPlacement ?? 'bottom';
-                const trigger = tooltipNode.dataset.tooltipTrigger ?? 'hover focus';
-                const useHtml = tooltipNode.dataset.tooltipUseHtml !== undefined;
-                const container = tooltipNode.dataset.tooltipContainerSelector
-                    ? tooltipNode.closest(tooltipNode.dataset.tooltipContainerSelector)
-                    : 'body';
-                const iframe = document.querySelector(tooltipNode.dataset.tooltipIframeSelector);
+                if (shouldHaveTooltip) {
+                    initializeTooltip(tooltipNode);
+                } else {
+                    tooltipNode.removeAttribute('title');
+                }
+            } else if (tooltipInitialized && (hasNewTitle || hasEllipsisStyle)) {
+                if (hasNewTitle) {
+                    tooltipNode.dataset.originalTitle = tooltipNode.title;
+                }
                 const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipNode);
+                const hasTooltip = !!tooltipInstance;
 
-                if (tooltipInstance) {
-                    tooltipNode.title = tooltipInstance._getTitle();
+                if (!shouldHaveTooltip) {
+                    shouldHaveTooltip = isTitleEllipsized(tooltipNode);
+                }
 
+                if (hasTooltip && ((hasNewTitle && shouldHaveTooltip) || !shouldHaveTooltip)) {
                     tooltipInstance.dispose();
                 }
 
-                tooltipNode.dataset.originalTitle = tooltipNode.title;
+                if (shouldHaveTooltip && (hasNewTitle || !hasTooltip)) {
+                    tooltipNode.title = tooltipNode.dataset.originalTitle;
 
-                new bootstrap.Tooltip(tooltipNode, {
-                    delay,
-                    placement,
-                    trigger,
-                    container,
-                    popperConfig: modifyPopperConfig.bind(null, iframe),
-                    html: useHtml,
-                    template: `<div class="tooltip ibexa-tooltip ${extraClass}">
-                                    <div class="tooltip-arrow ibexa-tooltip__arrow"></div>
-                                    <div class="tooltip-inner ibexa-tooltip__inner"></div>
-                               </div>`,
-                });
-
-                tooltipNode.title = '';
-
-                tooltipNode.addEventListener('inserted.bs.tooltip', (event) => {
-                    lastInsertTooltipTarget = event.currentTarget;
-                });
+                    initializeTooltip(tooltipNode);
+                } else {
+                    tooltipNode.removeAttribute('title');
+                }
             }
         }
     };
