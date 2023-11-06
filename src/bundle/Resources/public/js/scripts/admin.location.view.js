@@ -5,8 +5,6 @@
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const sortContainer = doc.querySelector('[data-sort-field][data-sort-order]');
-    const sortField = sortContainer.getAttribute('data-sort-field');
-    const sortOrder = sortContainer.getAttribute('data-sort-order');
     const handleEditItem = (content, location) => {
         const contentId = content._id;
         const locationId = location._id;
@@ -124,6 +122,8 @@
     };
 
     listContainers.forEach((container) => {
+		const sortField = sortContainer.getAttribute('data-sort-field');
+		const sortOrder = sortContainer.getAttribute('data-sort-order');
         const subitemsRoot = ReactDOM.createRoot(container);
         const parentLocationId = parseInt(container.dataset.location, 10);
         const activeView = getLocationActiveView(parentLocationId);
