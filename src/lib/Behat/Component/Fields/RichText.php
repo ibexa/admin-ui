@@ -8,13 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\Component\Fields;
 
-use Behat\Mink\Session;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Element\Mapper\ElementTextMapper;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use Ibexa\FieldTypeRichText\Configuration\Provider\CustomStyle;
 use PHPUnit\Framework\Assert;
 
 class RichText extends FieldTypeComponent
@@ -28,15 +26,6 @@ class RichText extends FieldTypeComponent
         'Heading 5' => 'h5',
         'Heading 6' => 'h6',
     ];
-
-    /** @var \Ibexa\FieldTypeRichText\Configuration\Provider\CustomStyle */
-    private $customStyleProvider;
-
-    public function __construct(Session $session, CustomStyle $customStyleProvider)
-    {
-        parent::__construct($session);
-        $this->customStyleProvider = $customStyleProvider;
-    }
 
     private function getFieldInput(): ElementInterface
     {
@@ -141,16 +130,14 @@ class RichText extends FieldTypeComponent
 
     public function clickEmbedInlineButton(): void
     {
-        $buttonPosition = 11 + $this->getCustomStylesOffset();
         $this->openElementsToolbar();
-        $this->clickElementsToolbarButton($buttonPosition);
+        $this->clickElementsToolbarButton('Embed inline');
     }
 
     public function clickEmbedButton(): void
     {
-        $buttonPosition = 8 + $this->getCustomStylesOffset();
         $this->openElementsToolbar();
-        $this->clickElementsToolbarButton($buttonPosition);
+        $this->clickElementsToolbarButton('Embed');
     }
 
     public function equalsEmbedInlineItem($itemName): bool
@@ -194,20 +181,13 @@ class RichText extends FieldTypeComponent
         $this->getSession()->executeScript($script);
     }
 
-    private function getCustomStylesOffset(): int
-    {
-        return count(array_filter($this->customStyleProvider->getConfiguration(), static function (array $config): bool {
-            return $config['inline'] === true;
-        }));
-    }
-
-    private function clickElementsToolbarButton(int $buttonPosition): void
+    private function clickElementsToolbarButton(string $buttonText): void
     {
         $script = sprintf(
-            "document.querySelectorAll('%s %s')[%d].click()",
+            "Array.from(document.querySelectorAll('%s %s')).filter(e => e.textContent =='%s')[0].click()",
             $this->getLocator('additionalToolbar')->getSelector(),
             $this->getLocator('toolbarElement')->getSelector(),
-            $buttonPosition,
+            $buttonText
         );
 
         $this->getSession()->executeScript($script);
