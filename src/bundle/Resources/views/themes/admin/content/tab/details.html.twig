@@ -134,23 +134,25 @@
     body_rows,
 } %}
 
-{% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
-    headline: 'tab.details.sub_items_sorting_order'|trans|desc('Sub-item sorting order'),
-} only %}
-
-<div class="bg-white ml-4" data-sort-field="{{ sort_field_clause_map[location.sortField] }}" data-sort-order="{{ location.sortOrder ? 'ascending' : 'descending' }}">
-    {{ form_start(form_location_update, {
-        'method': 'POST',
-        'action': path('ibexa.location.update'),
-        'attr': {'class': 'form-inline ibexa-form-inline justify-content-start'}
-        }) }}
-
-    {{ form_label(form_location_update.sort_field, 'tab.details.sub_items_listing_by.order_by'|trans|desc('Order by')) }}
-    {{ form_widget(form_location_update.sort_field, { 'attr': {'class': 'ibexa-form-autosubmit ml-2'} }) }}
-
-    {{ form_label(form_location_update.sort_order, 'tab.details.sub_items_listing_by.in'|trans|desc('in')) }}
-    {{ form_widget(form_location_update.sort_order, { 'attr': {'class': 'ibexa-form-autosubmit ml-2'} }) }}
-
-    {% do form_location_update.update.setRendered() %}
-    {{ form_end(form_location_update) }}
-</div>
+{%  if show_sorting ?? true %}
+    {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
+        headline: 'tab.details.sub_items_sorting_order'|trans|desc('Sub-item sorting order'),
+    } only %}
+    
+    <div class="bg-white ml-4" data-sort-field="{{ sort_field_clause_map[location.sortField] }}" data-sort-order="{{ location.sortOrder ? 'ascending' : 'descending' }}">
+        {{ form_start(form_location_update, {
+            'method': 'POST',
+            'action': path('ibexa.location.update'),
+            'attr': {'class': 'form-inline ibexa-form-inline justify-content-start'}
+            }) }}
+    
+        {{ form_label(form_location_update.sort_field, 'tab.details.sub_items_listing_by.order_by'|trans|desc('Order by')) }}
+        {{ form_widget(form_location_update.sort_field, { 'attr': {'class': 'ibexa-form-autosubmit ml-2'} }) }}
+    
+        {{ form_label(form_location_update.sort_order, 'tab.details.sub_items_listing_by.in'|trans|desc('in')) }}
+        {{ form_widget(form_location_update.sort_order, { 'attr': {'class': 'ibexa-form-autosubmit ml-2'} }) }}
+    
+        {% do form_location_update.update.setRendered() %}
+        {{ form_end(form_location_update) }}
+    </div>
+{% endif %}
