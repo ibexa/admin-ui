@@ -41,7 +41,7 @@ export const useSearchByQueryFetch = () => {
                 dispatchLoadedLocationsAction({ type: 'CLEAR_LOCATIONS' });
                 dispatch({ type: SEARCH_END, response });
             };
-            let query = { FullTextCriterion: `${searchText}*` };
+            const query = { FullTextCriterion: `${searchText}*` };
 
             if (contentTypesIdentifiers && contentTypesIdentifiers.length) {
                 query.ContentTypeIdentifierCriterion = contentTypesIdentifiers;
@@ -55,7 +55,9 @@ export const useSearchByQueryFetch = () => {
                 query.SubtreeCriterion = subtreePathString;
             }
 
-            if (imageCriterionData) {
+            const isImageCriterionDataEmpty = Object.keys(imageCriterionData).length === 0;
+
+            if (isImageCriterionDataEmpty) {
                 const imageCriterion = {
                     fieldDefIdentifier: 'image',
                     ...imageCriterionData,
