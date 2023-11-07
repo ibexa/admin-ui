@@ -2,15 +2,15 @@ import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 
 import Icon from '../../../common/icon/icon';
-import TableViewColumnsTogglerListElement from './table.view.columns.toggler.list.element';
-import { headerLabels } from './table.view.component';
+import ViewColumnsTogglerListElement from './view.columns.toggler.list.element';
+import { columnsLabels } from '../../sub.items.module';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
 const { Translator } = window;
 
 const DEFAULT_PANEL_HEIGHT = 450;
 
-export default class TableViewColumnsTogglerComponent extends Component {
+export default class ViewColumnsTogglerComponent extends Component {
     constructor(props) {
         super(props);
 
@@ -50,9 +50,9 @@ export default class TableViewColumnsTogglerComponent extends Component {
     }
 
     getBtnBottomDocumentOffset() {
-        const buttonTopOffset = this._refTogglerButton.current.getBoundingClientRect().top + window.scrollY;
+        const buttonTopOffset = this._refTogglerButton.current.getBoundingClientRect().top;
 
-        return document.documentElement.scrollHeight - buttonTopOffset;
+        return window.innerHeight - buttonTopOffset;
     }
 
     hidePanel({ target }) {
@@ -60,7 +60,7 @@ export default class TableViewColumnsTogglerComponent extends Component {
             return;
         }
 
-        const isClickInsideToggler = target.closest('.c-table-view-columns-toggler');
+        const isClickInsideToggler = target.closest('.c-view-columns-toggler');
 
         if (!isClickInsideToggler) {
             this.setState(() => ({
@@ -71,6 +71,7 @@ export default class TableViewColumnsTogglerComponent extends Component {
 
     togglePanel() {
         this.setState((state) => ({
+            buttonBottomDocumentOffset: this.getBtnBottomDocumentOffset(),
             isOpen: !state.isOpen,
         }));
     }
@@ -86,17 +87,17 @@ export default class TableViewColumnsTogglerComponent extends Component {
         const showAboveBtn = buttonBottomDocumentOffset < panelHeight;
         const className = createCssClassNames({
             'ibexa-popup-menu': true,
-            'c-table-view-columns-toggler__panel': true,
-            'c-table-view-columns-toggler__panel--above-btn': showAboveBtn,
+            'c-view-columns-toggler__panel': true,
+            'c-view-columns-toggler__panel--above-btn': showAboveBtn,
         });
 
         return (
             <ul className={className} ref={this._refPanel}>
                 {Object.entries(columnsVisibility).map(([columnKey, isColumnVisible]) => {
-                    const label = headerLabels[columnKey];
+                    const label = columnsLabels[columnKey];
 
                     return (
-                        <TableViewColumnsTogglerListElement
+                        <ViewColumnsTogglerListElement
                             key={columnKey}
                             label={label}
                             columnKey={columnKey}
@@ -109,27 +110,45 @@ export default class TableViewColumnsTogglerComponent extends Component {
         );
     }
 
-    render() {
-        const filterLabel = Translator.trans(/*@Desc("Filters")*/ 'items_table.header.filters', {}, 'ibexa_sub_items');
+    renderCaretIcon() {
+        const iconName = this.state.isOpen ? 'caret-up' : 'caret-down';
+
+        return <Icon name={iconName} extraClasses="ibexa-icon--tiny-small c-simple-dropdown__expand-icon" />;
+    };
+
+    renderToggler() {
+        const label = Translator.trans(/*@Desc("Columns")*/ 'view_columns_toggler.label', {}, 'ibexa_sub_items');
 
         return (
-            <div className="c-table-view-columns-toggler">
-                <button
-                    ref={this._refTogglerButton}
-                    type="button"
-                    title={filterLabel}
-                    className="btn ibexa-btn ibexa-btn--small ibexa-btn--ghost ibexa-btn--no-text"
-                    onClick={this.togglePanel}
-                >
-                    <Icon name="filters" extraClasses="ibexa-icon--small" />
-                </button>
-                {this.renderPanel()}
+            <div
+                ref={this._refTogglerButton}
+                role="button"
+                className="c-simple-dropdown__selected"
+                onClick={this.togglePanel}
+            >
+                <Icon name="column-settings" extraClasses="ibexa-icon--small c-simple-dropdown__selected-item-type-icon" />
+                <span className="c-simple-dropdown__selected-item-label">
+                    {label}
+                </span>
+                {this.renderCaretIcon()}
+            </div>
+        )
+
+    }
+
+    render() {
+        return (
+            <div class="c-view-columns-toggler">
+                <div className="c-simple-dropdown c-simple-dropdown--switcher">
+                    {this.renderToggler()}
+                    {this.renderPanel()}
+                </div>
             </div>
         );
     }
 }
 
-TableViewColumnsTogglerComponent.propTypes = {
+ViewColumnsTogglerComponent.propTypes = {
     columnsVisibility: PropTypes.object.isRequired,
     toggleColumnVisibility: PropTypes.func.isRequired,
 };

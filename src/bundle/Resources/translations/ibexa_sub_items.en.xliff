@@ -201,80 +201,75 @@
         <target state="new">Sub-items</target>
         <note>key: items_list.title</note>
       </trans-unit>
-      <trans-unit id="a72b23e13c6c44cfd6fc6661f83bc0b5e7c8a90c" resname="items_table.header.content_type">
+      <trans-unit id="a56dd82e28edbd75b7c55283b5b44dd1490384ce" resname="items_table.columns.content_type">
         <source>Content type</source>
         <target state="new">Content type</target>
-        <note>key: items_table.header.content_type</note>
+        <note>key: items_table.columns.content_type</note>
       </trans-unit>
-      <trans-unit id="d8bac590d6c8bf7c4e58ad1d7dbe4aad57e54e43" resname="items_table.header.contributor">
+      <trans-unit id="fa6e7e45abf61567e0d1ab3e5b8855a5085cadae" resname="items_table.columns.contributor">
         <source>Contributor</source>
         <target state="new">Contributor</target>
-        <note>key: items_table.header.contributor</note>
+        <note>key: items_table.columns.contributor</note>
       </trans-unit>
-      <trans-unit id="0cc77521bf45c4018b51099ec6e7faa02892be10" resname="items_table.header.creator">
+      <trans-unit id="8e8d14262fcea6fa7081e817b89c58c98bda7da4" resname="items_table.columns.creator">
         <source>Creator</source>
         <target state="new">Creator</target>
-        <note>key: items_table.header.creator</note>
+        <note>key: items_table.columns.creator</note>
       </trans-unit>
-      <trans-unit id="1cb1922ab4f684747ddabe1a1b1277893e31006d" resname="items_table.header.filters">
-        <source>Filters</source>
-        <target state="new">Filters</target>
-        <note>key: items_table.header.filters</note>
-      </trans-unit>
-      <trans-unit id="fdb8e418a944ccd7b2b8575c09abf1838589d51b" resname="items_table.header.location_id">
+      <trans-unit id="b39a09f106e84c99140ab662398683d31167f187" resname="items_table.columns.location_id">
         <source>Location ID</source>
         <target state="new">Location ID</target>
-        <note>key: items_table.header.location_id</note>
+        <note>key: items_table.columns.location_id</note>
       </trans-unit>
-      <trans-unit id="86e7d70a1dee14408d841d5f2f7bc3bf4d4579a3" resname="items_table.header.location_remote_id">
+      <trans-unit id="28d58f5a1ea14e412362c48a13f0ec1944b435f5" resname="items_table.columns.location_remote_id">
         <source>Location remote ID</source>
         <target state="new">Location remote ID</target>
-        <note>key: items_table.header.location_remote_id</note>
+        <note>key: items_table.columns.location_remote_id</note>
       </trans-unit>
-      <trans-unit id="8f1583d031a1cc60061659b8a55291496f0a40c6" resname="items_table.header.modified">
+      <trans-unit id="6417f1ee0b87d142e672c6b8b40c91bfba774ea6" resname="items_table.columns.modified">
         <source>Modified</source>
         <target state="new">Modified</target>
-        <note>key: items_table.header.modified</note>
+        <note>key: items_table.columns.modified</note>
       </trans-unit>
-      <trans-unit id="2527737a2f92308589f03f3b73fed29ef744eb50" resname="items_table.header.name">
+      <trans-unit id="a2f9a18449417e2f3d377ebf5b4ac121b97f01bc" resname="items_table.columns.name">
         <source>Name</source>
         <target state="new">Name</target>
-        <note>key: items_table.header.name</note>
+        <note>key: items_table.columns.name</note>
       </trans-unit>
-      <trans-unit id="725a35139d6927f9c5ac199aa42a0baf362986fb" resname="items_table.header.object_id">
+      <trans-unit id="f43363086beadd2015800ea855d3c7fca39decde" resname="items_table.columns.object_id">
         <source>Object ID</source>
         <target state="new">Object ID</target>
-        <note>key: items_table.header.object_id</note>
+        <note>key: items_table.columns.object_id</note>
       </trans-unit>
-      <trans-unit id="d8a8032b67e3e3626e01d4983b4d76a4e9d2c999" resname="items_table.header.object_remote_id">
+      <trans-unit id="00933a7c2d24ecd374e80b45453c3143ada80bcc" resname="items_table.columns.object_remote_id">
         <source>Object remote ID</source>
         <target state="new">Object remote ID</target>
-        <note>key: items_table.header.object_remote_id</note>
+        <note>key: items_table.columns.object_remote_id</note>
       </trans-unit>
-      <trans-unit id="ee6e79244a03c8adceb13aa6a7aff2cb496cb9d0" resname="items_table.header.priority">
+      <trans-unit id="bf7e8b547e1597b4862f76e4a5374df05fffae82" resname="items_table.columns.priority">
         <source>Priority</source>
         <target state="new">Priority</target>
-        <note>key: items_table.header.priority</note>
+        <note>key: items_table.columns.priority</note>
       </trans-unit>
-      <trans-unit id="9194a0b943ca204c20acd7695c577b976ce4c964" resname="items_table.header.pubished">
+      <trans-unit id="d64063d4bc7a810257b1831d187083c5dcb5d8ba" resname="items_table.columns.pubished">
         <source>Published</source>
         <target state="new">Published</target>
-        <note>key: items_table.header.pubished</note>
+        <note>key: items_table.columns.pubished</note>
       </trans-unit>
-      <trans-unit id="ed4e5502d8ec6f16e9e87bdd0704d0a5af38dcc5" resname="items_table.header.section">
+      <trans-unit id="edf9d69f4f4424fe683396fb1752dead42a6053b" resname="items_table.columns.section">
         <source>Section</source>
         <target state="new">Section</target>
-        <note>key: items_table.header.section</note>
+        <note>key: items_table.columns.section</note>
       </trans-unit>
-      <trans-unit id="2efb1da52dd6f25dd90474e85b5c73761adb4183" resname="items_table.header.translations">
+      <trans-unit id="acd68e6e17ecbb38a2359e362034130d47b3a85e" resname="items_table.columns.translations">
         <source>Translations</source>
         <target state="new">Translations</target>
-        <note>key: items_table.header.translations</note>
+        <note>key: items_table.columns.translations</note>
       </trans-unit>
-      <trans-unit id="9f055743ae2bf600810c4935ab10873ca4dac6d9" resname="items_table.header.visibility">
+      <trans-unit id="ffeb0fd8579ca369a5a42375b1673f0c9d003562" resname="items_table.columns.visibility">
         <source>Visibility</source>
         <target state="new">Visibility</target>
-        <note>key: items_table.header.visibility</note>
+        <note>key: items_table.columns.visibility</note>
       </trans-unit>
       <trans-unit id="0d59826a85ae0f5cc7f6d56efa18d2b9cbe7c687" resname="items_table.row.not_visible.label">
         <source>Not Visible</source>
@@ -310,6 +305,11 @@
         <source>Reveal</source>
         <target state="new">Reveal</target>
         <note>key: unhide_locations_btn.label</note>
+      </trans-unit>
+      <trans-unit id="712c8bc3c12cd6e3f3940ae76271148a9e4b0818" resname="view_columns_toggler.label">
+        <source>Columns</source>
+        <target state="new">Columns</target>
+        <note>key: view_columns_toggler.label</note>
       </trans-unit>
       <trans-unit id="71163c5c559fc7ddbd92441dc94c4eddc7e58274" resname="view_switcher.grid_view">
         <source>Grid view</source>
