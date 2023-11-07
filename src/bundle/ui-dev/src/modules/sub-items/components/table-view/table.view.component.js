@@ -3,51 +3,17 @@ import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 
 import TableViewItemComponent from './table.view.item.component';
-import TableViewColumnsTogglerComponent from './table.view.columns.toggler';
 import ThreeStateCheckboxComponent from '../three-state-checkbox/three.state.checkbox.component';
 import LanguageSelector from '../sub-items-list/language.selector.compoment';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
+import { columnsLabels as headerLabels } from '../../sub.items.module';
 
-const { Translator } = window;
-
-const COLUMNS_VISIBILITY_LOCAL_STORAGE_DATA_KEY = 'sub-items_columns-visibility';
-const DEFAULT_COLUMNS_VISIBILITY = {
-    modified: true,
-    'content-type': true,
-    priority: true,
-    translations: true,
-    visibility: true,
-    creator: true,
-    contributor: true,
-    published: true,
-    section: true,
-    'location-id': true,
-    'location-remote-id': true,
-    'object-id': true,
-    'object-remote-id': true,
-};
 const SORTKEY_MAP = {
     name: 'ContentName',
     modified: 'DateModified',
     priority: 'LocationPriority',
 };
 const TABLE_HEAD_CLASS = 'ibexa-table__header-cell c-table-view__cell c-table-view__cell--head';
-export const headerLabels = {
-    name: Translator.trans(/*@Desc("Name")*/ 'items_table.header.name', {}, 'ibexa_sub_items'),
-    modified: Translator.trans(/*@Desc("Modified")*/ 'items_table.header.modified', {}, 'ibexa_sub_items'),
-    'content-type': Translator.trans(/*@Desc("Content type")*/ 'items_table.header.content_type', {}, 'ibexa_sub_items'),
-    priority: Translator.trans(/*@Desc("Priority")*/ 'items_table.header.priority', {}, 'ibexa_sub_items'),
-    translations: Translator.trans(/*@Desc("Translations")*/ 'items_table.header.translations', {}, 'ibexa_sub_items'),
-    visibility: Translator.trans(/*@Desc("Visibility")*/ 'items_table.header.visibility', {}, 'ibexa_sub_items'),
-    creator: Translator.trans(/*@Desc("Creator")*/ 'items_table.header.creator', {}, 'ibexa_sub_items'),
-    contributor: Translator.trans(/*@Desc("Contributor")*/ 'items_table.header.contributor', {}, 'ibexa_sub_items'),
-    published: Translator.trans(/*@Desc("Published")*/ 'items_table.header.pubished', {}, 'ibexa_sub_items'),
-    section: Translator.trans(/*@Desc("Section")*/ 'items_table.header.section', {}, 'ibexa_sub_items'),
-    'location-id': Translator.trans(/*@Desc("Location ID")*/ 'items_table.header.location_id', {}, 'ibexa_sub_items'),
-    'location-remote-id': Translator.trans(/*@Desc("Location remote ID")*/ 'items_table.header.location_remote_id', {}, 'ibexa_sub_items'),
-    'object-id': Translator.trans(/*@Desc("Object ID")*/ 'items_table.header.object_id', {}, 'ibexa_sub_items'),
-    'object-remote-id': Translator.trans(/*@Desc("Object remote ID")*/ 'items_table.header.object_remote_id', {}, 'ibexa_sub_items'),
-};
 
 export default class TableViewComponent extends Component {
     constructor(props) {
@@ -55,8 +21,6 @@ export default class TableViewComponent extends Component {
 
         this.renderItem = this.renderItem.bind(this);
         this.selectAll = this.selectAll.bind(this);
-        this.setColumnsVisibilityInLocalStorage = this.setColumnsVisibilityInLocalStorage.bind(this);
-        this.toggleColumnVisibility = this.toggleColumnVisibility.bind(this);
         this.setLanguageSelectorData = this.setLanguageSelectorData.bind(this);
         this.openLanguageSelector = this.openLanguageSelector.bind(this);
         this.closeLanguageSelector = this.closeLanguageSelector.bind(this);
@@ -66,7 +30,6 @@ export default class TableViewComponent extends Component {
         this._refScroller = createRef();
 
         this.state = {
-            columnsVisibility: this.getColumnsVisibilityFromLocalStorage(),
             languageSelectorData: {},
             languageSelectorOpen: false,
             scrollShadowLeft: false,
@@ -80,8 +43,8 @@ export default class TableViewComponent extends Component {
         this.handleScrollerScroll();
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (this.state.columnsVisibility !== prevState.columnsVisibility) {
+    componentDidUpdate(prevProps) {
+        if (this.props.columnsVisibility !== prevProps.columnsVisibility) {
             this.handleScrollerScroll();
         }
     }
@@ -107,27 +70,6 @@ export default class TableViewComponent extends Component {
         });
     }
 
-    getColumnsVisibilityFromLocalStorage() {
-        const columnsVisibilityData = localStorage.getItem(COLUMNS_VISIBILITY_LOCAL_STORAGE_DATA_KEY);
-        const columnsVisibility = { ...DEFAULT_COLUMNS_VISIBILITY };
-
-        if (columnsVisibilityData) {
-            Object.entries(JSON.parse(columnsVisibilityData)).forEach(([id, isVisible]) => {
-                if (id in columnsVisibility) {
-                    columnsVisibility[id] = isVisible;
-                }
-            });
-        }
-
-        return columnsVisibility;
-    }
-
-    setColumnsVisibilityInLocalStorage() {
-        const columnsVisibilityData = JSON.stringify(this.state.columnsVisibility);
-
-        localStorage.setItem(COLUMNS_VISIBILITY_LOCAL_STORAGE_DATA_KEY, columnsVisibilityData);
-    }
-
     /**
      * Selects all visible items
      */
@@ -137,18 +79,6 @@ export default class TableViewComponent extends Component {
         const isSelectAction = !anyLocationSelected;
 
         toggleAllItemsSelect(isSelectAction);
-    }
-
-    toggleColumnVisibility(column) {
-        this.setState(
-            (state) => ({
-                columnsVisibility: {
-                    ...state.columnsVisibility,
-                    [column]: !state.columnsVisibility[column],
-                },
-            }),
-            this.setColumnsVisibilityInLocalStorage,
-        );
     }
 
     /**
@@ -185,7 +115,8 @@ export default class TableViewComponent extends Component {
      * @memberof TableViewComponent
      */
     renderItem(item) {
-        const { columnsVisibility, scrollShadowLeft, scrollShadowRight } = this.state;
+        const { scrollShadowLeft, scrollShadowRight } = this.state;
+        const { columnsVisibility } = this.props;
         const { handleItemPriorityUpdate, handleEditItem, generateLink, languages, onItemSelect, selectedLocationsIds } = this.props;
         const isSelected = selectedLocationsIds.has(item.id);
 
@@ -209,8 +140,8 @@ export default class TableViewComponent extends Component {
     }
 
     renderBasicColumnsHeader() {
-        const { sortClause, sortOrder, onSortChange } = this.props;
-        const { columnsVisibility, scrollShadowLeft } = this.state;
+        const { sortClause, sortOrder, onSortChange, columnsVisibility } = this.props;
+        const { scrollShadowLeft } = this.state;
         const columnsToRender = {
             name: true,
             ...columnsVisibility,
@@ -263,16 +194,10 @@ export default class TableViewComponent extends Component {
             return null;
         }
 
-        const { columnsVisibility, scrollShadowRight } = this.state;
         const { selectedLocationsIds, items } = this.props;
         const anyLocationSelected = !!selectedLocationsIds.size;
         const allLocationsSelected = selectedLocationsIds.size === items.length;
         const isCheckboxIndeterminate = anyLocationSelected && !allLocationsSelected;
-        const togglerClassName = createCssClassNames({
-            'c-table-view__cell': true,
-            'c-table-view__cell--toggler': true,
-            'c-table-view__cell--shadow-left': scrollShadowRight,
-        });
 
         return (
             <thead className="c-table-view__head">
@@ -287,12 +212,7 @@ export default class TableViewComponent extends Component {
                         />
                     </th>
                     {this.renderBasicColumnsHeader()}
-                    <th className={togglerClassName}>
-                        <TableViewColumnsTogglerComponent
-                            columnsVisibility={columnsVisibility}
-                            toggleColumnVisibility={this.toggleColumnVisibility}
-                        />
-                    </th>
+                    <th></th>
                 </tr>
             </thead>
         );

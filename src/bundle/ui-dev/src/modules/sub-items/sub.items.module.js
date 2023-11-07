@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
+import ViewColumnsTogglerComponent from './components/view-columns-toggler/view.columns.toggler';
 import ViewSwitcherComponent from './components/view-switcher/view.switcher.component.js';
 import SubItemsListComponent from './components/sub-items-list/sub.items.list.component.js';
 import Popup from '../common/popup/popup.component';
@@ -23,6 +24,39 @@ const DEFAULT_SORT_ORDER = ASCENDING_SORT_ORDER;
 const ACTION_FLOW_ADD_LOCATIONS = 'add';
 const ACTION_FLOW_MOVE = 'move';
 const SUBITEMS_PADDING = 24;
+
+const COLUMNS_VISIBILITY_LOCAL_STORAGE_DATA_KEY = 'sub-items_columns-visibility';
+const DEFAULT_COLUMNS_VISIBILITY = {
+    'content-type': true,
+    priority: false,
+    translations: true,
+    visibility: true,
+    contributor: true,
+    modified: true,
+    creator: false,
+    published: false,
+    section: false,
+    'location-id': false,
+    'location-remote-id': false,
+    'object-id': false,
+    'object-remote-id': false,
+};
+export const columnsLabels = {
+    name: Translator.trans(/*@Desc("Name")*/ 'items_table.columns.name', {}, 'ibexa_sub_items'),
+    modified: Translator.trans(/*@Desc("Modified")*/ 'items_table.columns.modified', {}, 'ibexa_sub_items'),
+    'content-type': Translator.trans(/*@Desc("Content type")*/ 'items_table.columns.content_type', {}, 'ibexa_sub_items'),
+    priority: Translator.trans(/*@Desc("Priority")*/ 'items_table.columns.priority', {}, 'ibexa_sub_items'),
+    translations: Translator.trans(/*@Desc("Translations")*/ 'items_table.columns.translations', {}, 'ibexa_sub_items'),
+    visibility: Translator.trans(/*@Desc("Visibility")*/ 'items_table.columns.visibility', {}, 'ibexa_sub_items'),
+    creator: Translator.trans(/*@Desc("Creator")*/ 'items_table.columns.creator', {}, 'ibexa_sub_items'),
+    contributor: Translator.trans(/*@Desc("Contributor")*/ 'items_table.columns.contributor', {}, 'ibexa_sub_items'),
+    published: Translator.trans(/*@Desc("Published")*/ 'items_table.columns.pubished', {}, 'ibexa_sub_items'),
+    section: Translator.trans(/*@Desc("Section")*/ 'items_table.columns.section', {}, 'ibexa_sub_items'),
+    'location-id': Translator.trans(/*@Desc("Location ID")*/ 'items_table.columns.location_id', {}, 'ibexa_sub_items'),
+    'location-remote-id': Translator.trans(/*@Desc("Location remote ID")*/ 'items_table.columns.location_remote_id', {}, 'ibexa_sub_items'),
+    'object-id': Translator.trans(/*@Desc("Object ID")*/ 'items_table.columns.object_id', {}, 'ibexa_sub_items'),
+    'object-remote-id': Translator.trans(/*@Desc("Object remote ID")*/ 'items_table.columns.object_remote_id', {}, 'ibexa_sub_items'),
+};
 
 export const VIEW_MODE_TABLE = 'table';
 export const VIEW_MODE_GRID = 'grid';
@@ -56,6 +90,8 @@ export default class SubItemsModule extends Component {
         this.changeSorting = this.changeSorting.bind(this);
         this.calculateSubItemsWidth = this.calculateSubItemsWidth.bind(this);
         this.resizeSubItems = this.resizeSubItems.bind(this);
+        this.setColumnsVisibilityInLocalStorage = this.setColumnsVisibilityInLocalStorage.bind(this);
+        this.toggleColumnVisibility = this.toggleColumnVisibility.bind(this);
 
         this._refListViewWrapper = React.createRef();
         this._refMainContainerWrapper = React.createRef();
@@ -82,6 +118,7 @@ export default class SubItemsModule extends Component {
             sortClause: sortClauseData.name,
             sortOrder: sortClauseData.order,
             subItemsWidth: this.calculateSubItemsWidth(),
+            columnsVisibility: this.getColumnsVisibilityFromLocalStorage(),
         };
     }
 
@@ -1199,7 +1236,7 @@ export default class SubItemsModule extends Component {
     }
 
     renderListView() {
-        const { activePageItems, sortClause, sortOrder } = this.state;
+        const { activePageItems, sortClause, sortOrder, columnsVisibility } = this.state;
         const pageLoaded = !!activePageItems;
 
         if (!pageLoaded) {
@@ -1222,6 +1259,7 @@ export default class SubItemsModule extends Component {
                 onSortChange={this.changeSorting}
                 sortClause={sortClause}
                 sortOrder={sortOrder}
+                columnsVisibility={this.filterSmartModeColumns(columnsVisibility)}
                 languageContainerSelector={this.props.languageContainerSelector}
             />
         );
@@ -1237,9 +1275,66 @@ export default class SubItemsModule extends Component {
         );
     }
 
+    filterSmartModeColumns(allColumns) {
+        if (false) {
+            return allColumns;
+        }
+
+        const expertModeColumns = [
+            'section',
+            'location-id',
+            'location-remote-id',
+            'object-id',
+            'object-remote-id',
+        ];
+
+        const filteredColumns = {};
+
+        Object.keys(allColumns).forEach((columnKey) => {
+            if (!expertModeColumns.includes(columnKey)) {
+                filteredColumns[columnKey] = allColumns[columnKey];
+            }
+        })
+
+        return filteredColumns;
+    }
+
+    getColumnsVisibilityFromLocalStorage() {
+        const columnsVisibilityData = localStorage.getItem(COLUMNS_VISIBILITY_LOCAL_STORAGE_DATA_KEY);
+        const columnsVisibility = { ...DEFAULT_COLUMNS_VISIBILITY };
+
+        if (columnsVisibilityData) {
+            Object.entries(JSON.parse(columnsVisibilityData)).forEach(([id, isVisible]) => {
+                if (id in columnsVisibility) {
+                    columnsVisibility[id] = isVisible;
+                }
+            });
+        }
+
+        return columnsVisibility;
+    }
+
+    setColumnsVisibilityInLocalStorage() {
+        const columnsVisibilityData = JSON.stringify(this.state.columnsVisibility);
+
+        localStorage.setItem(COLUMNS_VISIBILITY_LOCAL_STORAGE_DATA_KEY, columnsVisibilityData);
+    }
+
+    toggleColumnVisibility(column) {
+        this.setState(
+            (state) => ({
+                columnsVisibility: {
+                    ...state.columnsVisibility,
+                    [column]: !state.columnsVisibility[column],
+                },
+            }),
+            this.setColumnsVisibilityInLocalStorage,
+        );
+    }
+
     render() {
         const listTitle = Translator.trans(/*@Desc("Sub-items")*/ 'items_list.title', {}, 'ibexa_sub_items');
-        const { selectedItems, activeView, totalCount, isDuringBulkOperation, activePageItems, subItemsWidth } = this.state;
+        const { selectedItems, activeView, totalCount, isDuringBulkOperation, activePageItems, subItemsWidth, columnsVisibility } = this.state;
         const nothingSelected = !selectedItems.size;
         const isTableViewActive = activeView === VIEW_MODE_TABLE;
         const pageLoaded = !!activePageItems;
@@ -1273,6 +1368,10 @@ export default class SubItemsModule extends Component {
                             {this.renderBulkHideBtn(bulkHideBtnDisabled)}
                             {this.renderBulkUnhideBtn(bulkUnhideBtnDisabled)}
                             {this.renderBulkDeleteBtn(bulkBtnDisabled)}
+                            <ViewColumnsTogglerComponent
+                                columnsVisibility={this.filterSmartModeColumns(columnsVisibility)}
+                                toggleColumnVisibility={this.toggleColumnVisibility}
+                            />
                             <ViewSwitcherComponent onViewChange={this.switchView} activeView={activeView} isDisabled={!totalCount} />
                         </div>
                     </div>
