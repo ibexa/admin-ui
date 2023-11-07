@@ -59,11 +59,15 @@
         fetch(request, { signal })
             .then(getJsonFromResponse)
             .then(showResults.bind(this, searchText))
-            .catch(() =>
+            .catch((error) => {
+                if (error.name === 'AbortError') {
+                    return;
+                }
+
                 showErrorNotification(
                     Translator.trans(/*@Desc("Cannot load suggestions")*/ 'autocomplete.request.error', {}, 'ibexa_search'),
-                ),
-            );
+                );
+            });
     };
     const handleTyping = (event) => {
         const searchText = event.currentTarget.value.trim();
