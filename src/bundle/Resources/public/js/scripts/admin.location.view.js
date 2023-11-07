@@ -122,8 +122,8 @@
     };
 
     listContainers.forEach((container) => {
-	const sortField = sortContainer.getAttribute('data-sort-field');
-	const sortOrder = sortContainer.getAttribute('data-sort-order');
+        const sortField = sortContainer.getAttribute('data-sort-field');
+        const sortOrder = sortContainer.getAttribute('data-sort-order');
         const subitemsRoot = ReactDOM.createRoot(container);
         const parentLocationId = parseInt(container.dataset.location, 10);
         const activeView = getLocationActiveView(parentLocationId);
