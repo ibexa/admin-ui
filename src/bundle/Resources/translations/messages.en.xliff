@@ -444,8 +444,8 @@
         <note>key: focus_mode.disable.tooltip</note>
       </trans-unit>
       <trans-unit id="193e30b10643373d56daa5ee33b77e8f47d3f36d" resname="focus_mode.disable_hint">
-        <source>To exit focus mode, click the %icon% or press Esc</source>
-        <target state="new">To exit focus mode, click the %icon% or press Esc</target>
+        <source>To exit focus mode, click the %icon% or press Esc.</source>
+        <target state="new">To exit focus mode, click the %icon% or press Esc.</target>
         <note>key: focus_mode.disable_hint</note>
       </trans-unit>
       <trans-unit id="876c1f3845f42bec6ff26f25c8f2de53a4367539" resname="focus_mode.enable.label">
