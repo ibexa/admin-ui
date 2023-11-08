@@ -35,6 +35,8 @@ export const useSearchByQueryFetch = () => {
             offset,
             languageCode,
             imageCriterionData = null,
+            aggregations = {},
+            filters = {},
         ) => {
             const handleFetch = (response) => {
                 setMarkedLocationId(null);
@@ -55,26 +57,19 @@ export const useSearchByQueryFetch = () => {
                 query.SubtreeCriterion = subtreePathString;
             }
 
-            const isImageCriterionDataEmpty = Object.keys(imageCriterionData).length === 0;
+            const isImageCriterionDataEmpty = !imageCriterionData || Object.keys(imageCriterionData).length === 0;
 
-            if (isImageCriterionDataEmpty) {
+            if (!isImageCriterionDataEmpty) {
                 const imageCriterion = {
                     fieldDefIdentifier: 'image',
                     ...imageCriterionData,
                 };
 
                 query.ImageCriterion = imageCriterion;
-                query.Aggregations = [
-                    {
-                        ContentTypeTermAggregation: {
-                            name: 'image',
-                        },
-                    },
-                ];
             }
 
-            dispatch({ type: SEARCH_START });
-            findLocationsBySearchQuery({ ...restInfo, query, limit, offset, languageCode }, handleFetch);
+            (query.ContentTypeIdentifierCriterion = 'image'), dispatch({ type: SEARCH_START });
+            findLocationsBySearchQuery({ ...restInfo, query, aggregations, filters, limit, offset, languageCode }, handleFetch);
         },
         [restInfo, dispatch],
     );
