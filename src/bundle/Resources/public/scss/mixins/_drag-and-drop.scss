@@ -309,10 +309,7 @@
     &--invalid {
         #{$self}__content {
             border-color: $ibexa-color-danger;
-
-            * {
-                color: $ibexa-color-danger;
-            }
+            color: $ibexa-color-danger;
 
             .ibexa-dropdown {
                 &__selection-info::before,
