@@ -115,7 +115,7 @@
         });
     };
 
-    ibexaTables.forEach((table) => {
+    const initTableCheckboxesListeners = (table) => {
         const tableHasBulkCheckbox = !!table.querySelector(
             '.ibexa-table__header-cell-checkbox:not(.ibexa-table__header-cell-checkbox--custom-init)',
         );
@@ -134,6 +134,16 @@
             },
             false,
         );
-    });
+    };
+
+    ibexaTables.forEach(initTableCheckboxesListeners);
     initStickyTables();
+
+    doc.body.addEventListener(
+        'ibexa-init-main-table-checkboxes-listeners',
+        (event) => {
+            initTableCheckboxesListeners(event.detail.table);
+        },
+        false,
+    );
 })(window, window.document);
