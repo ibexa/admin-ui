@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\LocationView;
 
-use ArrayObject;
 use Ibexa\AdminUi\Specification\UserExists;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
@@ -72,21 +71,21 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         $versionInfo = $content->getVersionInfo();
         $contentInfo = $versionInfo->getContentInfo();
 
-        $viewParameters = new ArrayObject([
+        $viewParameters = [
             'content_info' => $contentInfo,
             'version_info' => $versionInfo,
-        ]);
+        ];
 
         $this->supplyCreator($viewParameters, $contentInfo);
         $this->supplyLastContributor($viewParameters, $versionInfo);
 
-        return array_replace($contextParameters, $viewParameters->getArrayCopy());
+        return array_replace($contextParameters, $viewParameters);
     }
 
     /**
-     * @param \ArrayObject<string, mixed|null> $parameters
+     * @param array<string, mixed|null> $parameters
      */
-    private function supplyLastContributor(ArrayObject $parameters, VersionInfo $versionInfo): void
+    private function supplyLastContributor(array &$parameters, VersionInfo $versionInfo): void
     {
         $parameters['last_contributor'] = null;
         if ((new UserExists($this->userService))->isSatisfiedBy($versionInfo->creatorId)) {
@@ -95,9 +94,9 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     }
 
     /**
-     * @param \ArrayObject<string, mixed|null> $parameters
+     * @param array<string, mixed|null> $parameters
      */
-    private function supplyCreator(ArrayObject $parameters, ContentInfo $contentInfo): void
+    private function supplyCreator(array &$parameters, ContentInfo $contentInfo): void
     {
         $parameters['creator'] = null;
         if ((new UserExists($this->userService))->isSatisfiedBy($contentInfo->ownerId)) {
