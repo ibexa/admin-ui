@@ -44,7 +44,7 @@ services:
   Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionCreate:
     parent: Ibexa\Rest\Server\Common\Parser
     tags:
-      - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.ContentTypFieldDefinitionCreate }
+      - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.ContentTypeFieldDefinitionCreate }
 
   Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionDelete:
     parent: Ibexa\Rest\Server\Common\Parser

@@ -25,7 +25,7 @@
         add: {
             actionName: 'add_field_definition',
             method: 'POST',
-            contentType: 'application/vnd.ibexa.api.ContentTypFieldDefinitionCreate+json',
+            contentType: 'application/vnd.ibexa.api.ContentTypeFieldDefinitionCreate+json',
         },
         remove: {
             actionName: 'remove_field_definition',
