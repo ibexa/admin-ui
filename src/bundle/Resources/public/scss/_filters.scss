@@ -53,6 +53,9 @@
             color: $ibexa-color-dark;
             margin-top: calculateRem(16px);
             margin-bottom: calculateRem(4px);
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
         }
     }
 

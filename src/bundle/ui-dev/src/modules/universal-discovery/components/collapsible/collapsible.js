@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
+const { ibexa } = window;
+
 const Collapsible = ({ isInitiallyExpanded, title, children }) => {
     const [isExpanded, setIsExpanded] = useState(isInitiallyExpanded);
     const className = createCssClassNames({
@@ -9,9 +11,12 @@ const Collapsible = ({ isInitiallyExpanded, title, children }) => {
         'c-filters__collapsible--hidden': !isExpanded,
     });
     const toggleCollapsed = () => setIsExpanded((prevState) => !prevState);
+    const initTooltipsRef = (node) => {
+        ibexa.helpers.tooltips.parse(node);
+    };
 
     return (
-        <div className={className}>
+        <div className={className} ref={initTooltipsRef}>
             <div className="c-filters__collapsible-title" onClick={toggleCollapsed}>
                 {title}
             </div>

@@ -139,7 +139,7 @@
         {{ form_widget(form[choice.value], {
             'attr': {'data-name': choice.label},
             'label': choice.label,
-            'label_attr': {'class': 'checkbox-inline'}
+            'label_attr': {'class': 'checkbox-inline', 'title': choice.label}
         }) }}
     </li>
 {%- endblock -%}
