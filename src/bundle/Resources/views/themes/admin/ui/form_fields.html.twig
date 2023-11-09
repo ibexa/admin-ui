@@ -129,7 +129,7 @@
 
 {%- block search_type_choice_widget_options -%}
     <li class="ibexa-content-type-selector__item">
-        {{ form_widget(form[choice.value], {'attr': {'data-name': choice.label}, 'label_attr': {'class': 'checkbox-inline'}}) }}
+        {{ form_widget(form[choice.value], {'attr': {'data-name': choice.label}, 'label_attr': {'class': 'checkbox-inline', 'title': choice.label }}) }}
     </li>
 {%- endblock -%}
 

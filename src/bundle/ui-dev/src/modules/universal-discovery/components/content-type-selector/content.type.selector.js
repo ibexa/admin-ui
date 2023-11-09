@@ -56,6 +56,8 @@ const ContentTypeSelector = () => {
                                             <label
                                                 className="checkbox-inline form-check-label"
                                                 htmlFor={`ibexa-search-content-type-${contentType.identifier}`}
+                                                title={contentType.name}
+                                                data-tooltip-container-selector=".c-udw-tab"
                                             >
                                                 {contentType.name}
                                             </label>
