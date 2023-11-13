@@ -1,0 +1,19 @@
+{% set version_no = content.versionInfo.versionNo %}
+{% set language = language|default(content.prioritizedFieldLanguageCode) %}
+{% set siteaccess = 'site' %}
+
+<div class="ibexa-location-preview">
+    <div class="ibexa-location-preview__iframe-wrapper">
+        <iframe
+            class="ibexa-location-preview__iframe"
+            src="{{ url('ibexa.version.preview', {
+                    'contentId': content.id,
+                    'versionNo': version_no,
+                    'language': language,
+                    'siteAccessName': siteaccess,
+                })}}"
+            frameborder="0"
+        >
+        </iframe>
+    </div>
+</div>

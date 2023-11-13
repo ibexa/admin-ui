@@ -1,0 +1,9 @@
+.ibexa-location-preview {
+    padding-top: calculateRem(12px);
+
+    &__iframe {
+        width: calculateRem(1920px);
+        aspect-ratio: 16/9;
+        transform-origin: left top;
+    }
+}
