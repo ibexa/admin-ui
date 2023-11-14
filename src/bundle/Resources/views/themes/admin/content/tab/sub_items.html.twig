@@ -1,0 +1,21 @@
+{% trans_default_domain 'ibexa_locationview' %}
+
+{% set sub_items %}
+        {% include '@ibexadesign/ui/component/sub_items/sub_items.html.twig' %}
+{% endset %}
+
+{% set content_details_items = [
+    {
+        label: 'tab.sub_items.sub_items'|trans()|desc('Sub Items'),
+        content: sub_items,
+    },
+] %}
+
+{% include '@ibexadesign/ui/component/details/details.html.twig' with {
+    headline: 'tab.subitems.sub_items'|trans()|desc('Sub Items'),
+    items: content_details_items,
+} only %}
+
+{% block react_modules %}
+    {{ encore_entry_script_tags('ibexa-admin-ui-subitems-js', null, 'ibexa') }}
+{% endblock %}
