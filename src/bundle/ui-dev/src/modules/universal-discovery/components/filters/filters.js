@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect, useCallback, useRef } from 'rea
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
+import { removeRootFromPathString, findLocationsByIds, buildLocationsBreadcrumbs } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/location.helper';
+
 import {
     SelectedContentTypesContext,
     SelectedSectionContext,
@@ -10,17 +12,15 @@ import {
     SelectedSubtreeBreadcrumbsContext,
 } from '../search/search';
 
-import UniversalDiscoveryModule, { ConfigContext, DropdownPortalRefContext, TranslatorContext } from '../../universal.discovery.module';
+import UniversalDiscoveryModule, { ConfigContext, DropdownPortalRefContext, getTranslator } from '../../universal.discovery.module';
 
 import Dropdown from '../../../common/dropdown/dropdown';
 import ContentTypeSelector from '../content-type-selector/content.type.selector';
 import Icon from '../../../common/icon/icon';
 
-const { ibexa } = window;
-
 const Filters = ({ search }) => {
-    const Translator = useContext(TranslatorContext);
-    const [languages, sections] = useContext(ConfigContext);
+    const Translator = getTranslator();
+    const adminUiConfig = useContext(ConfigContext);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
     const [selectedSection, setSelectedSection] = useContext(SelectedSectionContext);
     const [selectedSubtree, setSelectedSubtree] = useContext(SelectedSubtreeContext);
@@ -32,7 +32,6 @@ const Filters = ({ search }) => {
     const [isNestedUdwOpened, setIsNestedUdwOpened] = useState(false);
     const filterSubtreeUdwConfig = JSON.parse(window.document.querySelector('#react-udw').dataset.filterSubtreeUdwConfig);
     const handleNestedUdwConfirm = (items) => {
-        const { removeRootFromPathString, findLocationsByIds, buildLocationsBreadcrumbs } = ibexa.helpers.location;
         const [{ pathString }] = items;
 
         findLocationsByIds(removeRootFromPathString(pathString), (locations) =>
@@ -46,7 +45,7 @@ const Filters = ({ search }) => {
     const nestedUdwConfig = {
         onConfirm: handleNestedUdwConfirm,
         onCancel: () => setIsNestedUdwOpened(false),
-        tabs: ibexa.adminUiConfig.universalDiscoveryWidget.tabs,
+        tabs: adminUiConfig.universalDiscoveryWidget.tabs,
         title: 'Browsing content',
         ...filterSubtreeUdwConfig,
     };
