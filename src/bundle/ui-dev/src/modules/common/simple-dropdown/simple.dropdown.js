@@ -36,7 +36,7 @@ const SimpleDropdown = ({ options, selectedOption, extraClasses, onOptionClick, 
         return (
             <li key={item.value} className={itemClass} onClick={() => onOptionClickWrapper(item)}>
                 {item.iconName && <Icon name={item.iconName} extraClasses="c-simple-dropdown__list-item-type-icon ibexa-icon--small" />}
-                <span>{item.label}</span>
+                <span>{item.label ?? item.getLabel()}</span>
                 {isItemSelected && (
                     <div className="c-simple-dropdown__list-item-checkmark">
                         <Icon name="checkmark" extraClasses="c-simple-dropdown__list-item-checkmark-icon ibexa-icon--tiny-small" />
@@ -57,7 +57,7 @@ const SimpleDropdown = ({ options, selectedOption, extraClasses, onOptionClick, 
 
         return (
             <span className="c-simple-dropdown__selected-item-label">
-                {selectedItemLabel.length ? selectedItemLabel : selectedOption.label}
+                {selectedItemLabel.length ? selectedItemLabel : selectedOption.label ?? selectedOption.getLabel()}
             </span>
         );
     };

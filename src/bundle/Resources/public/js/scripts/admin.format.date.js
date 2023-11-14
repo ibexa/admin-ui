@@ -1,33 +1,29 @@
-import { formatICU } from './helpers/timezone.helper';
-
 (function (moment, ibexa) {
     const { backOfficeLanguage } = ibexa.adminUiConfig;
 
     moment.locale(backOfficeLanguage);
-    // moment.fn.formatICU = function (format) {
-    //     return formatICU(format);
-    // };
-    // /*
-    //     ([yqLdDeEcaZ])\1* -> find any pattern of one or repeated one of these characters
-    //     or
-    //     \'([^\']|(\'\'))*\' -> find any string in ' ' quotes
-    // */
+
+    /*
+        ([yqLdDeEcaZ])\1* -> find any pattern of one or repeated one of these characters
+        or
+        \'([^\']|(\'\'))*\' -> find any string in ' ' quotes
+    */
     const formatICUEx = /([yqLdDeEcaZ])\1*|'([^']|(''))*'/g;
-    // /*
-    //     Allowed formats:
-    //         y, yy, yyyy, Y, YY, YYYY,
-    //         q, Q,
-    //         M, MM, MMM, MMMM, L, LL, LLL, LLLL,
-    //         w, WW,
-    //         d, dd,
-    //         D, DDD,
-    //         E, EE, EEE, EEEE, EEEEEE, e, ee, eee, eeee, eeeeee, c, cc, ccc, cccc, cccccc,
-    //         a,
-    //         h, hh, H, HH, k, kk,
-    //         m, mm,
-    //         s, ss, S...,
-    //         Z, ZZ, ZZZ, ZZZZZ
-    // */
+    /*
+        Allowed formats:
+            y, yy, yyyy, Y, YY, YYYY,
+            q, Q,
+            M, MM, MMM, MMMM, L, LL, LLL, LLLL,
+            w, WW,
+            d, dd,
+            D, DDD,
+            E, EE, EEE, EEEE, EEEEEE, e, ee, eee, eeee, eeeeee, c, cc, ccc, cccc, cccccc,
+            a,
+            h, hh, H, HH, k, kk,
+            m, mm,
+            s, ss, S...,
+            Z, ZZ, ZZZ, ZZZZZ
+    */
     const formatICUMap = {
         y: 'Y',
         yy: 'YY',
@@ -82,6 +78,7 @@ import { formatICU } from './helpers/timezone.helper';
             if (formatICUMap[icuStr] === undefined) {
                 return icuStr;
             }
+
             return typeof formatICUMap[icuStr] === 'function' ? formatICUMap[icuStr].call(this) : formatICUMap[icuStr];
         });
 
