@@ -15,7 +15,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 /**
- * Base class representing Tab using EventDisaptcher for extensibility.
+ * Base class representing Tab using EventDispatcher for extensibility.
  *
  * It extends AbstractTab by adding Event Dispatching before rendering view.
  */
@@ -24,11 +24,6 @@ abstract class AbstractEventDispatchingTab extends AbstractTab
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
     protected $eventDispatcher;
 
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     */
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
@@ -39,9 +34,6 @@ abstract class AbstractEventDispatchingTab extends AbstractTab
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function renderView(array $parameters): string
     {
         $event = new TabViewRenderEvent(
@@ -57,15 +49,12 @@ abstract class AbstractEventDispatchingTab extends AbstractTab
         );
     }
 
-    /**
-     * @return string
-     */
     abstract public function getTemplate(): string;
 
     /**
-     * @param mixed[] $contextParameters
+     * @param array<string, mixed> $contextParameters
      *
-     * @return mixed[]
+     * @return array<string, mixed>
      */
     abstract public function getTemplateParameters(array $contextParameters = []): array;
 }

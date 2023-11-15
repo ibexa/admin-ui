@@ -21,11 +21,6 @@ abstract class AbstractControllerBasedTab extends AbstractTab
     /** @var \Symfony\Bridge\Twig\Extension\HttpKernelRuntime */
     protected $httpKernelRuntime;
 
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Symfony\Bridge\Twig\Extension\HttpKernelRuntime $httpKernelRuntime
-     */
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
@@ -44,9 +39,7 @@ abstract class AbstractControllerBasedTab extends AbstractTab
     /**
      * Returns ControllerReference used to render the tab.
      *
-     * @param array $parameters
-     *
-     * @return \Symfony\Component\HttpKernel\Controller\ControllerReference
+     * @param array<string, mixed> $parameters
      */
     abstract public function getControllerReference(array $parameters): ControllerReference;
 }

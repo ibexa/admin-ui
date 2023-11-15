@@ -16,24 +16,18 @@ interface TabInterface
 {
     /**
      * Returns identifier of the tab.
-     *
-     * @return string
      */
     public function getIdentifier(): string;
 
     /**
      * Returns name of the tab which is displayed as a tab's title in the UI.
-     *
-     * @return string
      */
     public function getName(): string;
 
     /**
      * Returns HTML body of the tab.
      *
-     * @param array $parameters
-     *
-     * @return string
+     * @param array<string, mixed> $parameters
      */
     public function renderView(array $parameters): string;
 }

@@ -17,8 +17,6 @@ interface OrderedTabInterface
 {
     /**
      * Get the order of this tab.
-     *
-     * @return int
      */
     public function getOrder(): int;
 }

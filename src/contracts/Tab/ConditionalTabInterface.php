@@ -10,16 +10,14 @@ namespace Ibexa\Contracts\AdminUi\Tab;
 
 /**
  * Conditional Tab interface needs to be implemented by tabs,
- * which needs to be evaluate depends on context.
+ * which needs to be evaluated depends on context.
  */
 interface ConditionalTabInterface
 {
     /**
      * Get information about tab presence.
      *
-     * @param array $parameters
-     *
-     * @return bool
+     * @param array<string, mixed> $parameters
      */
     public function evaluate(array $parameters): bool;
 }

@@ -24,12 +24,6 @@ abstract class AbstractRouteBasedTab extends AbstractTab
     /** @var \Symfony\Bridge\Twig\Extension\HttpKernelRuntime */
     private $httpKernelRuntime;
 
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
-     * @param \Symfony\Bridge\Twig\Extension\HttpKernelRuntime $httpKernelRuntime
-     */
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
@@ -55,18 +49,16 @@ abstract class AbstractRouteBasedTab extends AbstractTab
     /**
      * Returns route name used to generate path to the resource.
      *
-     * @param array $parameters
-     *
-     * @return string
+     * @param array<string, mixed> $parameters
      */
     abstract public function getRouteName(array $parameters): string;
 
     /**
      * Returns parameters array required to generate path using the router.
      *
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      *
-     * @return array
+     * @return array<string, mixed>
      */
     abstract public function getRouteParameters(array $parameters): array;
 }
