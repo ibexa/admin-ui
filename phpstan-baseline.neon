@@ -1561,51 +1561,6 @@ parameters:
 			path: src/contracts/Permission/PermissionCheckerInterface.php
 
 		-
-			message: "#^Method Ibexa\\\\Contracts\\\\AdminUi\\\\Tab\\\\AbstractControllerBasedTab\\:\\:getControllerReference\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/contracts/Tab/AbstractControllerBasedTab.php
-
-		-
-			message: "#^Method Ibexa\\\\Contracts\\\\AdminUi\\\\Tab\\\\AbstractControllerBasedTab\\:\\:renderView\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/contracts/Tab/AbstractControllerBasedTab.php
-
-		-
-			message: "#^Method Ibexa\\\\Contracts\\\\AdminUi\\\\Tab\\\\AbstractEventDispatchingTab\\:\\:renderView\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/contracts/Tab/AbstractEventDispatchingTab.php
-
-		-
-			message: "#^Method Ibexa\\\\Contracts\\\\AdminUi\\\\Tab\\\\AbstractRouteBasedTab\\:\\:getRouteName\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/contracts/Tab/AbstractRouteBasedTab.php
-
-		-
-			message: "#^Method Ibexa\\\\Contracts\\\\AdminUi\\\\Tab\\\\AbstractRouteBasedTab\\:\\:getRouteParameters\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/contracts/Tab/AbstractRouteBasedTab.php
-
-		-
-			message: "#^Method Ibexa\\\\Contracts\\\\AdminUi\\\\Tab\\\\AbstractRouteBasedTab\\:\\:getRouteParameters\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/contracts/Tab/AbstractRouteBasedTab.php
-
-		-
-			message: "#^Method Ibexa\\\\Contracts\\\\AdminUi\\\\Tab\\\\AbstractRouteBasedTab\\:\\:renderView\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/contracts/Tab/AbstractRouteBasedTab.php
-
-		-
-			message: "#^Method Ibexa\\\\Contracts\\\\AdminUi\\\\Tab\\\\ConditionalTabInterface\\:\\:evaluate\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/contracts/Tab/ConditionalTabInterface.php
-
-		-
-			message: "#^Method Ibexa\\\\Contracts\\\\AdminUi\\\\Tab\\\\TabInterface\\:\\:renderView\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/contracts/Tab/TabInterface.php
-
-		-
 			message: "#^Method Ibexa\\\\Contracts\\\\AdminUi\\\\UniversalDiscovery\\\\Provider\\:\\:getBreadcrumbLocations\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/contracts/UniversalDiscovery/Provider.php
@@ -8836,29 +8791,14 @@ parameters:
 			path: src/lib/Tab/Dashboard/AbstractMediaTab.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\Dashboard\\\\EveryoneContentTab\\:\\:renderView\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
+			message: "#^Parameter \\#1 \\$query of class Ibexa\\\\Core\\\\Pagination\\\\Pagerfanta\\\\LocationSearchAdapter constructor expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\LocationQuery, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Query given\\.$#"
 			count: 1
 			path: src/lib/Tab/Dashboard/EveryoneContentTab.php
 
 		-
 			message: "#^Parameter \\#1 \\$query of class Ibexa\\\\Core\\\\Pagination\\\\Pagerfanta\\\\LocationSearchAdapter constructor expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\LocationQuery, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Query given\\.$#"
 			count: 1
-			path: src/lib/Tab/Dashboard/EveryoneContentTab.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\Dashboard\\\\EveryoneMediaTab\\:\\:renderView\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
-			count: 1
 			path: src/lib/Tab/Dashboard/EveryoneMediaTab.php
-
-		-
-			message: "#^Parameter \\#1 \\$query of class Ibexa\\\\Core\\\\Pagination\\\\Pagerfanta\\\\LocationSearchAdapter constructor expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\LocationQuery, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Query given\\.$#"
-			count: 1
-			path: src/lib/Tab/Dashboard/EveryoneMediaTab.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\Dashboard\\\\MyContentTab\\:\\:renderView\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Tab/Dashboard/MyContentTab.php
 
 		-
 			message: "#^Parameter \\#1 \\$query of class Ibexa\\\\Core\\\\Pagination\\\\Pagerfanta\\\\LocationSearchAdapter constructor expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\LocationQuery, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Query given\\.$#"
@@ -8879,11 +8819,6 @@ parameters:
 			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\Dashboard\\\\MyDraftsTab\\:\\:renderView\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Tab/Dashboard/MyDraftsTab.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\Dashboard\\\\MyMediaTab\\:\\:renderView\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Tab/Dashboard/MyMediaTab.php
 
 		-
 			message: "#^Parameter \\#1 \\$query of class Ibexa\\\\Core\\\\Pagination\\\\Pagerfanta\\\\LocationSearchAdapter constructor expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\LocationQuery, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Query given\\.$#"
@@ -9177,11 +9112,6 @@ parameters:
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\URLManagement\\\\LinkManagerTab\\:\\:evaluate\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Tab/URLManagement/LinkManagerTab.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\URLManagement\\\\LinkManagerTab\\:\\:renderView\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Tab/URLManagement/LinkManagerTab.php
 

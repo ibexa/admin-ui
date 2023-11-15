@@ -23,10 +23,6 @@ abstract class AbstractTab implements TabInterface
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     protected $translator;
 
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     */
     public function __construct(Environment $twig, TranslatorInterface $translator)
     {
         $this->twig = $twig;
