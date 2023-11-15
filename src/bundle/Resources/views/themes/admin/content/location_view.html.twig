@@ -143,11 +143,10 @@
                     }) }}
 
                     {% if content_type.isContainer %}
-                    {{ form_start(form_subitems_content_edit, { 'action': path('ibexa.content.edit'), 'attr': { 'hidden': 'hidden' }}) }}
-                    {{ form_end(form_subitems_content_edit) }}
+                        {{ form_start(form_subitems_content_edit, { 'action': path('ibexa.content.edit'), 'attr': { 'hidden': 'hidden' }}) }}
+                        {{ form_end(form_subitems_content_edit) }}
 
-
-                    {% include '@ibexadesign/content/modal/location_bulk_action_failed.html.twig' only %}
+                        {% include '@ibexadesign/content/modal/location_bulk_action_failed.html.twig' only %}
                     {% endif %}
 
                     {% if form_user_invitation is defined %}
