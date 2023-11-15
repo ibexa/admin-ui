@@ -175,8 +175,7 @@ class RichText extends FieldTypeComponent
     private function clickElementsToolbarButton(string $buttonText): void
     {
         $script = sprintf(
-            "Array.from(document.querySelectorAll('%s %s')).filter(e => e.textContent =='%s')[0].click()",
-            $this->getLocator('additionalToolbar')->getSelector(),
+            "Array.from(document.querySelectorAll('%s')).filter(e => e.textContent =='%s')[0].click()",
             $this->getLocator('toolbarElement')->getSelector(),
             $buttonText
         );
