@@ -212,7 +212,7 @@ export default class TableViewComponent extends Component {
                         />
                     </th>
                     {this.renderBasicColumnsHeader()}
-                    <th></th>
+                    <th />
                 </tr>
             </thead>
         );
@@ -256,6 +256,7 @@ TableViewComponent.propTypes = {
     sortClause: PropTypes.string.isRequired,
     sortOrder: PropTypes.string.isRequired,
     languageContainerSelector: PropTypes.string.isRequired,
+    columnsVisibility: PropTypes.object.isRequired,
 };
 
 TableViewComponent.defaultProps = {

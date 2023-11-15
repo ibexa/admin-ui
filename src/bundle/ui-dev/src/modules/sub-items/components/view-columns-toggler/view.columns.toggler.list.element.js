@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 const ViewColumnsTogglerListElement = ({ label, isColumnVisible, toggleColumnVisibility, columnKey }) => {
     return (
-        <li className="ibexa-popup-menu__item c-view-columns-toggler-list-element" onClick={() => toggleColumnVisibility(columnKey)}>
-            <div className="ibexa-popup-menu__item-content">
+        <li className="ibexa-popup-menu__item c-view-columns-toggler-list-element">
+            <button className="ibexa-popup-menu__item-content" type="button" onClick={() => toggleColumnVisibility(columnKey)}>
                 <input
                     className="form-check-input ibexa-input ibexa-input--checkbox"
                     type="checkbox"
@@ -12,7 +12,7 @@ const ViewColumnsTogglerListElement = ({ label, isColumnVisible, toggleColumnVis
                     readOnly={true}
                 />
                 <label className="form-check-label c-view-columns-toggler-list-element__label">{label}</label>
-            </div>
+            </button>
         </li>
     );
 };

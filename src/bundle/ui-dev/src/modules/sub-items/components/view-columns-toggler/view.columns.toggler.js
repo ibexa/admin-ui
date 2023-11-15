@@ -114,31 +114,23 @@ export default class ViewColumnsTogglerComponent extends Component {
         const iconName = this.state.isOpen ? 'caret-up' : 'caret-down';
 
         return <Icon name={iconName} extraClasses="ibexa-icon--tiny-small c-simple-dropdown__expand-icon" />;
-    };
+    }
 
     renderToggler() {
         const label = Translator.trans(/*@Desc("Columns")*/ 'view_columns_toggler.label', {}, 'ibexa_sub_items');
 
         return (
-            <button
-                ref={this._refTogglerButton}
-                role="button"
-                className="c-simple-dropdown__selected"
-                onClick={this.togglePanel}
-            >
+            <button ref={this._refTogglerButton} type="button" className="c-simple-dropdown__selected" onClick={this.togglePanel}>
                 <Icon name="column-settings" extraClasses="ibexa-icon--small c-simple-dropdown__selected-item-type-icon" />
-                <span className="c-simple-dropdown__selected-item-label">
-                    {label}
-                </span>
+                <span className="c-simple-dropdown__selected-item-label">{label}</span>
                 {this.renderCaretIcon()}
             </button>
-        )
-
+        );
     }
 
     render() {
         return (
-            <div class="c-view-columns-toggler">
+            <div className="c-view-columns-toggler">
                 <div className="c-simple-dropdown c-simple-dropdown--switcher">
                     {this.renderToggler()}
                     {this.renderPanel()}

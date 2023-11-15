@@ -1272,17 +1272,8 @@ export default class SubItemsModule extends Component {
     }
 
     filterSmartModeColumns(allColumns) {
-        if (false) {
-            return allColumns;
-        }
-
-        const expertModeColumns = [
-            'section',
-            'location-id',
-            'location-remote-id',
-            'object-id',
-            'object-remote-id',
-        ];
+        // TODO: filter when smart mode implemented
+        const expertModeColumns = ['section', 'location-id', 'location-remote-id', 'object-id', 'object-remote-id'];
 
         const filteredColumns = {};
 
@@ -1290,7 +1281,7 @@ export default class SubItemsModule extends Component {
             if (!expertModeColumns.includes(columnKey)) {
                 filteredColumns[columnKey] = allColumns[columnKey];
             }
-        })
+        });
 
         return filteredColumns;
     }
@@ -1330,7 +1321,8 @@ export default class SubItemsModule extends Component {
 
     render() {
         const listTitle = Translator.trans(/*@Desc("Sub-items")*/ 'items_list.title', {}, 'ibexa_sub_items');
-        const { selectedItems, activeView, totalCount, isDuringBulkOperation, activePageItems, subItemsWidth, columnsVisibility } = this.state;
+        const { selectedItems, activeView, totalCount, isDuringBulkOperation, activePageItems, subItemsWidth, columnsVisibility } =
+            this.state;
         const nothingSelected = !selectedItems.size;
         const isTableViewActive = activeView === VIEW_MODE_TABLE;
         const pageLoaded = !!activePageItems;
