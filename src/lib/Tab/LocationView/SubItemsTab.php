@@ -26,7 +26,7 @@ class SubItemsTab extends AbstractEventDispatchingTab implements OrderedTabInter
 
     public function getName(): string
     {
-        /** @Desc("Subitems") */
+        /** @Desc("Sub-items") */
         return $this->translator->trans('tab.name.sub_items', [], 'ibexa_locationview');
     }
 

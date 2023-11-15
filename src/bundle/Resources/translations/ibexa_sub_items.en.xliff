@@ -197,8 +197,8 @@
         <note>key: instant.filter.placeholder</note>
       </trans-unit>
       <trans-unit id="2a9e4002be191374ee14674d2e67eb9fe2d631d2" resname="items_list.title">
-        <source>Subitems</source>
-        <target state="new">Subitems</target>
+        <source>Sub-items</source>
+        <target state="new">Sub-items</target>
         <note>key: items_list.title</note>
       </trans-unit>
       <trans-unit id="a56dd82e28edbd75b7c55283b5b44dd1490384ce" resname="items_table.columns.content_type">

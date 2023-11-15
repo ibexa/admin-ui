@@ -70,11 +70,11 @@ const SimpleDropdown = ({ options, selectedOption, extraClasses, onOptionClick, 
     };
     const renderSelectedItem = () => {
         return (
-            <div className="c-simple-dropdown__selected" onClick={toggleExpanded}>
+            <button className="c-simple-dropdown__selected" onClick={toggleExpanded}>
                 {renderSelectedIcon()}
                 {renderSelectedLabel()}
                 {renderCaretIcon()}
-            </div>
+            </button>
         );
     };
 

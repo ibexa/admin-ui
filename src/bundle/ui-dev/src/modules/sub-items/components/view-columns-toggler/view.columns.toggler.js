@@ -120,7 +120,7 @@ export default class ViewColumnsTogglerComponent extends Component {
         const label = Translator.trans(/*@Desc("Columns")*/ 'view_columns_toggler.label', {}, 'ibexa_sub_items');
 
         return (
-            <div
+            <button
                 ref={this._refTogglerButton}
                 role="button"
                 className="c-simple-dropdown__selected"
@@ -131,7 +131,7 @@ export default class ViewColumnsTogglerComponent extends Component {
                     {label}
                 </span>
                 {this.renderCaretIcon()}
-            </div>
+            </button>
         )
 
     }

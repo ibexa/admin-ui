@@ -177,8 +177,6 @@ export default class SubItemsModule extends Component {
         const calculatedWidth = this.calculateSubItemsWidth();
         const { subItemsWidth } = this.state;
 
-        console.log(calculatedWidth);
-
         if (calculatedWidth !== subItemsWidth) {
             this.setState({ subItemsWidth: calculatedWidth });
         }
@@ -187,8 +185,6 @@ export default class SubItemsModule extends Component {
     calculateSubItemsWidth() {
         const mainRow = document.querySelector('.ibexa-main-row');
         const mainRowRect = mainRow.getBoundingClientRect();
-
-        console.log(mainRowRect);
 
         return mainRowRect.width - 2 * SUBITEMS_PADDING;
     }
@@ -1333,7 +1329,7 @@ export default class SubItemsModule extends Component {
     }
 
     render() {
-        const listTitle = Translator.trans(/*@Desc("Subitems")*/ 'items_list.title', {}, 'ibexa_sub_items');
+        const listTitle = Translator.trans(/*@Desc("Sub-items")*/ 'items_list.title', {}, 'ibexa_sub_items');
         const { selectedItems, activeView, totalCount, isDuringBulkOperation, activePageItems, subItemsWidth, columnsVisibility } = this.state;
         const nothingSelected = !selectedItems.size;
         const isTableViewActive = activeView === VIEW_MODE_TABLE;
