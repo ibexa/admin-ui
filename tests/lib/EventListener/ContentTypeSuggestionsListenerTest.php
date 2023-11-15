@@ -46,7 +46,7 @@ final class ContentTypeSuggestionsListenerTest extends TestCase
         ], $actualSubservients);
     }
 
-    public function testSkipSuggestionComputationIfAggregationApiIsNotSupported(): void
+    public function testSkipSuggestionComputationIfAggregationAPIIsNotSupported(): void
     {
         $this->disableSupportForAggregationAPI();
         $this->expectSuggestionsAreNotComputed();
