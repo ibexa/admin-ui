@@ -69,7 +69,7 @@ export const useSearchByQueryFetch = () => {
                 query.ImageCriterion = imageCriterion;
             }
 
-            (query.ContentTypeIdentifierCriterion = 'image'), dispatch({ type: SEARCH_START });
+            dispatch({ type: SEARCH_START });
             findLocationsBySearchQuery({ ...restInfo, query, aggregations, filters, limit, offset, languageCode }, handleFetch);
         },
         [restInfo, dispatch],
