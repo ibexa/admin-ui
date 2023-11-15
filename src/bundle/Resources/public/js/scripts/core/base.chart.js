@@ -28,7 +28,7 @@
             },
         },
     };
-    const defaultPlugins = {};
+    const defaultPlugins = [];
 
     class BaseChart {
         constructor(data, options = {}, plugins = []) {

@@ -32,6 +32,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/core/split.btn.js'),
     path.resolve(__dirname, '../public/js/scripts/core/pie.chart.js'),
     path.resolve(__dirname, '../public/js/scripts/core/bar.chart.js'),
+    path.resolve(__dirname, '../public/js/scripts/core/doughnut.chart.js'),
     path.resolve(__dirname, '../public/js/scripts/core/adaptive.items.js'),
     path.resolve(__dirname, '../public/js/scripts/core/popup.menu.js'),
     path.resolve(__dirname, '../public/js/scripts/core/tag.view.select.js'),

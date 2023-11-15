@@ -1,7 +1,7 @@
 (function (global, doc, ibexa) {
     class DoughnutChart extends ibexa.core.BaseChart {
-        constructor(data) {
-            super(data);
+        constructor(data, options = {}, plugins = []) {
+            super(data, options, plugins);
 
             this.type = 'doughnut';
         }
@@ -11,5 +11,5 @@
         }
     }
 
-    ibexa.addConfig('core.chart.Doughnut', DoughnutChart);
+    ibexa.addConfig('core.chart.DoughnutChart', DoughnutChart);
 })(window, window.document, window.ibexa);
