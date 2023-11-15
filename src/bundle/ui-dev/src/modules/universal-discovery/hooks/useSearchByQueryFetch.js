@@ -37,13 +37,14 @@ export const useSearchByQueryFetch = () => {
             imageCriterionData = null,
             aggregations = {},
             filters = {},
+            fullTextCriterion = null,
         ) => {
             const handleFetch = (response) => {
                 setMarkedLocationId(null);
                 dispatchLoadedLocationsAction({ type: 'CLEAR_LOCATIONS' });
                 dispatch({ type: SEARCH_END, response });
             };
-            const query = { FullTextCriterion: `${searchText}*` };
+            const query = { FullTextCriterion: fullTextCriterion ? fullTextCriterion : `${searchText}*` };
 
             if (contentTypesIdentifiers && contentTypesIdentifiers.length) {
                 query.ContentTypeIdentifierCriterion = contentTypesIdentifiers;

@@ -169,11 +169,12 @@ export const findLocationsBySearchQuery = (
     fetch(request)
         .then(handleRequestResponse)
         .then((response) => {
-            const { count, searchHits } = response.View.Result;
+            const { count, aggregations: searchAggregations, searchHits } = response.View.Result;
             const items = searchHits.searchHit.map((searchHit) => searchHit.value.Location);
 
             callback({
                 items,
+                aggregations: searchAggregations,
                 count,
             });
         })
