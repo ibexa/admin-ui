@@ -57,13 +57,6 @@ class RichText extends FieldTypeComponent
         return [$this->getFieldInput()->getText()];
     }
 
-    public function openElementsToolbar(): void
-    {
-        $this->focusFieldInput();
-        $script = "document.querySelector('.ck-toolbar__grouped-dropdown > .ck-dropdown__button').click()";
-        $this->getSession()->executeScript($script);
-    }
-
     public function changeStyle(string $style): void
     {
         $this->focusFieldInput();
@@ -130,13 +123,11 @@ class RichText extends FieldTypeComponent
 
     public function clickEmbedInlineButton(): void
     {
-        $this->openElementsToolbar();
         $this->clickElementsToolbarButton('Embed inline');
     }
 
     public function clickEmbedButton(): void
     {
-        $this->openElementsToolbar();
         $this->clickElementsToolbarButton('Embed');
     }
 
