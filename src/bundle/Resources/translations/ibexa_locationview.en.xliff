@@ -297,8 +297,8 @@
         <note>key: tab.name.roles</note>
       </trans-unit>
       <trans-unit id="7e5efcb8041239f2e067d416f6ebfdfe9cd120a1" resname="tab.name.sub_items">
-        <source>Sub Items</source>
-        <target state="new">Sub Items</target>
+        <source>Subitems</source>
+        <target state="new">Subitems</target>
         <note>key: tab.name.sub_items</note>
       </trans-unit>
       <trans-unit id="0b83b391386f47130b2d3ac1869fe27aa8c45fb7" resname="tab.name.translations">
@@ -370,16 +370,6 @@
         <source>Link</source>
         <target state="new">Link</target>
         <note>key: tab.relations.table.relation_type.link</note>
-      </trans-unit>
-      <trans-unit id="e15e09e3ad5166f8e0e114e46f2e1ddeedb2ddfd" resname="tab.sub_items.sub_items">
-        <source>Sub Items</source>
-        <target state="new">Sub Items</target>
-        <note>key: tab.sub_items.sub_items</note>
-      </trans-unit>
-      <trans-unit id="bb527ae9124dec0ed6732f8cb32e7f1c8855a727" resname="tab.subitems.sub_items">
-        <source>Sub Items</source>
-        <target state="new">Sub Items</target>
-        <note>key: tab.subitems.sub_items</note>
       </trans-unit>
       <trans-unit id="492cea0fd67c4af8e41d21710668239c9db66cfc" resname="tab.translations.action.add">
         <source>Add</source>
