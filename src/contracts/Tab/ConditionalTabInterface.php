@@ -10,7 +10,7 @@ namespace Ibexa\Contracts\AdminUi\Tab;
 
 /**
  * Conditional Tab interface needs to be implemented by tabs,
- * which needs to be evaluated depends on context.
+ * which needs to be evaluated depending on the context.
  */
 interface ConditionalTabInterface
 {
