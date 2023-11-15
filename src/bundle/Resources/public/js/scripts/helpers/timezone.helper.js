@@ -29,4 +29,5 @@
         formatShortDateTime,
         getBrowserTimezone,
     });
+    console.log('d');
 })(window, window.document, window.ibexa, window.moment);

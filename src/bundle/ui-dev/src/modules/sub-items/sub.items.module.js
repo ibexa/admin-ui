@@ -22,7 +22,7 @@ const DESCENDING_SORT_ORDER = 'descending';
 const DEFAULT_SORT_ORDER = ASCENDING_SORT_ORDER;
 const ACTION_FLOW_ADD_LOCATIONS = 'add';
 const ACTION_FLOW_MOVE = 'move';
-const SUBITEMS_PADDING = 15;
+const SUBITEMS_PADDING = 24;
 
 export const VIEW_MODE_TABLE = 'table';
 export const VIEW_MODE_GRID = 'grid';
@@ -140,6 +140,8 @@ export default class SubItemsModule extends Component {
         const calculatedWidth = this.calculateSubItemsWidth();
         const { subItemsWidth } = this.state;
 
+        console.log(calculatedWidth);
+
         if (calculatedWidth !== subItemsWidth) {
             this.setState({ subItemsWidth: calculatedWidth });
         }
@@ -149,7 +151,9 @@ export default class SubItemsModule extends Component {
         const mainRow = document.querySelector('.ibexa-main-row');
         const mainRowRect = mainRow.getBoundingClientRect();
 
-        return mainRowRect.width - SUBITEMS_PADDING;
+        console.log(mainRowRect);
+
+        return mainRowRect.width - 2 * SUBITEMS_PADDING;
     }
 
     getDefaultSortClause(sortClauses) {

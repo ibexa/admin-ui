@@ -123,13 +123,6 @@
 {% endblock %}
 
 {% block content %}
-    <div id="ibexa-mfu"
-        data-parent-content-language="{{ content.versionInfo.initialLanguageCode }}"
-        data-parent-location-path="{{ location.pathString }}"
-        data-parent-content-type-identifier="{{ content_type.identifier }}"
-        data-parent-content-type-id="{{ content_type.id }}"
-        data-current-language="{{ app.request.get('languageCode') ?: content.prioritizedFieldLanguageCode }}"
-    ></div>
     <div class="align-items-stretch ibexa-main-row">
         <div class="ibexa-content-container">
             <div class="panel panel-primary">
@@ -178,6 +171,7 @@
 
 {% block react_modules %}
     {{ encore_entry_script_tags('ibexa-admin-ui-mfu-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-subitems-js', null, 'ibexa') }}
     {{ encore_entry_script_tags('ibexa-admin-ui-content-tree-js', null, 'ibexa') }}
 {% endblock %}
 
