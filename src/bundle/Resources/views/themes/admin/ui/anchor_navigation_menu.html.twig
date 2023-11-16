@@ -21,7 +21,7 @@
                 <ul class="ibexa-anchor-navigation-menu__sections ibexa-anchor-navigation-menu__sections--active">
                     {% for item in items %}
                         {% set item_label = item is iterable ? item.label : item %}
-                        {% set sanitized_item = item is iterable and item.target_id is defined ? item.target_id : item_label|slug %}
+                        {% set sanitized_item = item is iterable and item.target_id is defined ? item.target_id : item_label|lower|slug %}
 
                         <li class="ibexa-anchor-navigation-menu__sections-item">
                             <button
