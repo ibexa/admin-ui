@@ -12,11 +12,11 @@ import {
     SelectedLocationsContext,
     MultipleConfigContext,
     ContentTypesMapContext,
+    getTranslator
 } from '../../universal.discovery.module';
 
-const { Translator } = window;
-
 const ContentCreateButton = ({ isDisabled }) => {
+    const Translator = getTranslator();
     const [markedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap] = useContext(LoadedLocationsMapContext);
     const [, setCreateContentVisible] = useContext(CreateContentWidgetContext);

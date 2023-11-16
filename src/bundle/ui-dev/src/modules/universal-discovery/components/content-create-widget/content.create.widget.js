@@ -14,12 +14,12 @@ import {
     ContentOnTheFlyConfigContext,
     AllowedContentTypesContext,
     ConfigContext,
+    getTranslator
 } from '../../universal.discovery.module';
 import Dropdown from '../../../common/dropdown/dropdown';
 
-const { Translator } = window;
-
 const ContentCreateWidget = () => {
+    const Translator = getTranslator();
     const refContentTree = useRef(null);
     const adminUiConfig = useContext(ConfigContext);
     const dropdownListRef = useContext(DropdownPortalRefContext);

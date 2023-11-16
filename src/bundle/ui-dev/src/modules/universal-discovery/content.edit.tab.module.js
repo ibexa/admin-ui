@@ -8,11 +8,10 @@ import {
     LoadedLocationsMapContext,
     EditOnTheFlyDataContext,
     RoutingContext,
+    getTranslator
 } from './universal.discovery.module';
 import { findLocationsByParentLocationId } from './services/universal.discovery.service';
 import deepClone from '../common/helpers/deep.clone.helper';
-
-const { Translator } = window;
 
 const ContentEditTabModule = () => {
     const Routing = useContext(RoutingContext);
@@ -104,8 +103,7 @@ const ContentEditTabModule = () => {
 const ContentEditTab = {
     id: 'content-edit',
     component: ContentEditTabModule,
-    // label: Translator.trans(/*@Desc("Content edit")*/ 'content_edit.label', {}, 'ibexa_universal_discovery_widget'),
-    label: 'Content edit',
+    getLabel: () => getTranslator().trans(/*@Desc("Content edit")*/ 'content_edit.label', {}, 'ibexa_universal_discovery_widget'),
     isHiddenOnList: true,
 };
 

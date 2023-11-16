@@ -19,8 +19,6 @@ import {
 import { findLocationsById } from './services/universal.discovery.service';
 import deepClone from '../common/helpers/deep.clone.helper';
 
-const { Translator } = window;
-
 const ContentCreateTabModule = () => {
     const Routing = useContext(RoutingContext);
     const [contentOnTheFlyData, setContentOnTheFlyData] = useContext(ContentOnTheFlyDataContext);

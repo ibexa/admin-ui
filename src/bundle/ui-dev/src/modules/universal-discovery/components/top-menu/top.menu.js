@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 import TopMenuSearchInput from './top.menu.search.input';
 import Icon from '../../../common/icon/icon';
 
-import { TitleContext, CancelContext, ConfigContext } from '../../universal.discovery.module';
+import { TitleContext, CancelContext, ConfigContext, getTranslator } from '../../universal.discovery.module';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
-const { Translator } = window;
-
 const TopMenu = ({ actionsDisabledMap }) => {
+    const Translator = getTranslator();
     const adminUiConfig = useContext(ConfigContext);
     const { topMenuActions } = adminUiConfig.universalDiscoveryWidget;
     const title = useContext(TitleContext);
