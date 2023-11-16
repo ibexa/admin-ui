@@ -1,61 +1,79 @@
 services:
-  Ibexa\AdminUi\REST\Input\Parser\BulkOperation:
-      parent: Ibexa\Rest\Server\Common\Parser
-      tags:
-        - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.BulkOperation }
+    Ibexa\AdminUi\REST\Input\Parser\BulkOperation:
+        parent: Ibexa\Rest\Server\Common\Parser
+        tags:
+            - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.BulkOperation }
 
-  Ibexa\AdminUi\REST\Input\Parser\Operation:
-      parent: Ibexa\Rest\Server\Common\Parser
-      tags:
-        - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.internal.Operation }
+    Ibexa\AdminUi\REST\Input\Parser\Operation:
+        parent: Ibexa\Rest\Server\Common\Parser
+        tags:
+            - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.internal.Operation }
 
-  Ibexa\AdminUi\REST\Output\ValueObjectVisitor\BulkOperationResponse:
-      parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
-      tags:
-        - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\BulkOperationResponse }
+    Ibexa\AdminUi\REST\Output\ValueObjectVisitor\BulkOperationResponse:
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
+        tags:
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\BulkOperationResponse }
 
-  #
-  # Content Tree
-  #
+    #
+    # Content Tree
+    #
 
-  Ibexa\AdminUi\REST\Input\Parser\ContentTree\LoadSubtreeRequestNode:
-    parent: Ibexa\Rest\Server\Common\Parser
-    tags:
-      - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.ContentTreeLoadSubtreeRequestNode }
+    Ibexa\AdminUi\REST\Input\Parser\ContentTree\LoadSubtreeRequestNode:
+        parent: Ibexa\Rest\Server\Common\Parser
+        tags:
+            - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.ContentTreeLoadSubtreeRequestNode }
 
-  Ibexa\AdminUi\REST\Input\Parser\ContentTree\LoadSubtreeRequest:
-    parent: Ibexa\Rest\Server\Common\Parser
-    tags:
-      - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.ContentTreeLoadSubtreeRequest }
+    Ibexa\AdminUi\REST\Input\Parser\ContentTree\LoadSubtreeRequest:
+        parent: Ibexa\Rest\Server\Common\Parser
+        tags:
+            - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.ContentTreeLoadSubtreeRequest }
 
-  Ibexa\AdminUi\REST\Output\ValueObjectVisitor\ContentTree\Node:
-      parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
-      tags:
-          - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\ContentTree\Node }
+    Ibexa\AdminUi\REST\Output\ValueObjectVisitor\ContentTree\Node:
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
+        tags:
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\ContentTree\Node }
 
-  Ibexa\AdminUi\REST\Output\ValueObjectVisitor\ContentTree\Root:
-      parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
-      tags:
-          - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\ContentTree\Root }
+    Ibexa\AdminUi\REST\Output\ValueObjectVisitor\ContentTree\Root:
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
+        tags:
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\ContentTree\Root }
 
-  #
-  # Content type create/edit form
-  #
-  Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionCreate:
-    parent: Ibexa\Rest\Server\Common\Parser
-    tags:
-      - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.ContentTypeFieldDefinitionCreate }
+    #
+    # Content type create/edit form
+    #
+    Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionCreate:
+        parent: Ibexa\Rest\Server\Common\Parser
+        tags:
+            - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.ContentTypeFieldDefinitionCreate }
 
-  Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionDelete:
-    parent: Ibexa\Rest\Server\Common\Parser
-    tags:
-      - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.ContentTypeFieldDefinitionDelete }
+    Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionDelete:
+        parent: Ibexa\Rest\Server\Common\Parser
+        tags:
+            - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.ContentTypeFieldDefinitionDelete }
 
-  Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionReorder:
-    parent: Ibexa\Rest\Server\Common\Parser
-    tags:
-      - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.ContentTypeFieldDefinitionReorder }
+    Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionReorder:
+        parent: Ibexa\Rest\Server\Common\Parser
+        tags:
+            - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.ContentTypeFieldDefinitionReorder }
 
-  Ibexa\AdminUi\REST\Security\NonAdminRESTRequestMatcher:
-      arguments:
-          $siteAccessGroups: '%ibexa.site_access.groups%'
+    Ibexa\AdminUi\REST\Security\NonAdminRESTRequestMatcher:
+        arguments:
+            $siteAccessGroups: '%ibexa.site_access.groups%'
+
+    #
+    # Universal Discovery Module
+    #
+    Ibexa\AdminUi\REST\Output\ValueObjectVisitor\UniversalDiscovery\LocationDataVisitor:
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
+        tags:
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\UniversalDiscovery\LocationData }
+
+    Ibexa\AdminUi\REST\Output\ValueObjectVisitor\UniversalDiscovery\LocationListDataVisitor:
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
+        tags:
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\UniversalDiscovery\LocationListData }
+
+    Ibexa\AdminUi\REST\Output\ValueObjectVisitor\UniversalDiscovery\AccordionDataVisitor:
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
+        tags:
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\UniversalDiscovery\AccordionData }
