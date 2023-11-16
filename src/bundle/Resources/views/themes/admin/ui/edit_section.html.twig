@@ -4,7 +4,7 @@
     class: (attr.class|default('')
             ~ ' ibexa-anchor-navigation-sections__section ibexa-anchor-navigation__section'
         )|trim,
-    'data-id': section_id,
+    'data-id': '#' ~ section_id|lower|slug,
 }) %}
 
 <div {{ html.attributes(attr) }}>
