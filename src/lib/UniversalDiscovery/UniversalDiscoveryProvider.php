@@ -120,7 +120,7 @@ class UniversalDiscoveryProvider implements Provider
         foreach ($columnLocations as $columnLocationId) {
             $columnLocationId = (int)$columnLocationId;
             $columnLocation = ($columnLocationId !== self::ROOT_LOCATION_ID)
-                ? $this->getRestFormat($this->locationService->loadLocation($columnLocationId))
+                ? $this->locationService->loadLocation($columnLocationId)
                 : null;
 
             $subItems = $this->getSubitemLocations($columnLocationId, 0, $limit, $sortClause);
@@ -175,7 +175,7 @@ class UniversalDiscoveryProvider implements Provider
                 $location = $searchHit->valueObject;
 
                 return [
-                    'location' => $this->getRestFormat($location),
+                    'location' => $location,
                     'permissions' => $this->getLocationPermissionRestrictions($location),
                 ];
             },
@@ -201,13 +201,13 @@ class UniversalDiscoveryProvider implements Provider
         return [
             'create' => [
                 'hasAccess' => $lookupCreateLimitationsResult->hasAccess,
-                'restrictedContentTypeIds' => $createLimitationsValues[Limitation::CONTENTTYPE],
-                'restrictedLanguageCodes' => $createLimitationsValues[Limitation::LANGUAGE],
+                'restrictedContentTypeIds' => [10, 20, 30],
+                'restrictedLanguageCodes' => ['eng-GB', 'ger-DE'],
             ],
             'edit' => [
                 'hasAccess' => $lookupUpdateLimitationsResult->hasAccess,
-                'restrictedContentTypeIds' => $updateLimitationsValues[Limitation::CONTENTTYPE],
-                'restrictedLanguageCodes' => $updateLimitationsValues[Limitation::LANGUAGE],
+                'restrictedContentTypeIds' => [10, 20, 30],
+                'restrictedLanguageCodes' => ['eng-GB', 'ger-DE'],
             ],
         ];
     }
@@ -228,13 +228,11 @@ class UniversalDiscoveryProvider implements Provider
         );
 
         return array_map(
-            function (SearchHit $searchHit) {
+            static function (SearchHit $searchHit) {
                 /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
                 $content = $searchHit->valueObject;
 
-                return $this->getRestFormat(
-                    new Version($content, $content->getContentType(), [])
-                );
+                return new Version($content, $content->getContentType(), []);
             },
             $searchResult->searchHits
         );
@@ -257,15 +255,14 @@ class UniversalDiscoveryProvider implements Provider
 
         return [
             'locations' => array_map(
-                function (SearchHit $searchHit) {
+                static function (SearchHit $searchHit) {
                     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
                     $location = $searchHit->valueObject;
-                    $restLocation = new RestLocation(
+
+                    return new RestLocation(
                         $location,
                         0 // Putting '0' here should suffice as this is not important from UDW standpoint
                     );
-
-                    return $this->getRestFormat($restLocation);
                 },
                 $searchResult->searchHits
             ),
@@ -290,10 +287,10 @@ class UniversalDiscoveryProvider implements Provider
         $contentType = $this->contentTypeService->loadContentType($location->getContentInfo()->contentTypeId);
 
         return [
-            'location' => $this->getRestFormat($location),
+            'location' => $location,
             'bookmarked' => $this->bookmarkService->isBookmarked($location),
             'permissions' => $this->getLocationPermissionRestrictions($location),
-            'version' => $this->getRestFormat(new Version($content, $contentType, [])),
+            'version' => new Version($content, $contentType, []),
             'subitems' => $this->getSubitemLocations($locationId, $offset, $limit, $sortClause),
         ];
     }
@@ -325,10 +322,10 @@ class UniversalDiscoveryProvider implements Provider
         $versions = $this->getSubitemContents($locationId, $offset, $limit, $sortClause);
 
         return [
-            'location' => $this->getRestFormat($location),
+            'location' => $location,
             'bookmarked' => $this->bookmarkService->isBookmarked($location),
             'permissions' => $this->getLocationPermissionRestrictions($location),
-            'version' => $this->getRestFormat(new Version($content, $contentType, [])),
+            'version' => new Version($content, $contentType, []),
             'subitems' => [
                 'locations' => $locations['locations'],
                 'totalCount' => $locations['totalCount'],
@@ -369,11 +366,17 @@ class UniversalDiscoveryProvider implements Provider
         return array_slice($locationIds, $index);
     }
 
-    private function moveSelectedLocationOnTop(Location $location, array $locations, bool $isLastColumnLocationId): array
-    {
-        $index = array_search($location->id, array_map(static function (array $location) {
-            return $location['Location']['id'];
-        }, $locations));
+    private function moveSelectedLocationOnTop(
+        Location $location,
+        array $locations,
+        bool $isLastColumnLocationId
+    ): array {
+        $index = array_search($location->id, array_map(
+            static function (RestLocation $location) {
+                return $location->location->id;
+            },
+            $locations
+        ), true);
 
         // Location is on the list, remove because we add location on top
         if ($index !== false) {
@@ -382,7 +385,7 @@ class UniversalDiscoveryProvider implements Provider
         }
 
         if ($isLastColumnLocationId) {
-            array_unshift($locations, $this->getRestFormat($location));
+            array_unshift($locations, $location);
         }
 
         return $locations;
