@@ -1,4 +1,4 @@
-import assetsLibraryWidget from '../../../../../../../assets-library-widget/src/bundle/Resources/public/js/assets.library.widget';
+import assetsLibraryWidget from '@ibexa-assets-library-widget/src/bundle/Resources/public/js/assets.library.widget';
 
 (function (global, doc, React, ReactDOM) {
     let udwRoot = null;
@@ -16,7 +16,7 @@ import assetsLibraryWidget from '../../../../../../../assets-library-widget/src/
             },
             onCancel: closeUDW,
             restInfo: {
-                token: 'f72e8ac375def2c346d5d3e7057a.u0r1YnqgMyL6zbfVE5Mxdi3yA6TaXKZTmAALD7BzFTM.iH-qKyzHa3Oshv2ya6Z7B36xZfeqFskQwGYmTOo0cGDSL6RSKNV6dL6j1A',
+                token: '0b3b96f4c5fcd.bHTsJMDym1W3FJTlAFn0aOClYQuQlNkzlO340R02Vec.CwSKcaKzqj7QbKOVQi63GrPoD2f405hhrJ2yiUd9DYg_F7pM8abIAdxA-w',
                 siteaccess: 'admin',
             },
         };
@@ -26,7 +26,7 @@ import assetsLibraryWidget from '../../../../../../../assets-library-widget/src/
     };
 
     triggerElement.addEventListener('click', openUdw, false);
-    setTimeout(() => {
-        openUdw();
-    }, 100);
+    // setTimeout(() => {
+    //     openUdw();
+    // }, 100);
 })(window, window.document, window.React, window.ReactDOM);
