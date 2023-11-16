@@ -3,7 +3,8 @@ import React, { useContext, useState, useMemo, useEffect, useCallback } from 're
 import Icon from '../../../common/icon/icon';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
-import { LoadedLocationsMapContext, getTranslator } from '../../universal.discovery.module';
+import { LoadedLocationsMapContext } from '../../universal.discovery.module';
+import { getTranslator } from '../../../modules.service';
 
 const Breadcrumbs = () => {
     const Translator = getTranslator();

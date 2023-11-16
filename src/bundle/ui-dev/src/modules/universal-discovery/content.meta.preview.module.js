@@ -8,6 +8,7 @@ import Thumbnail from '../common/thumbnail/thumbnail';
 import { createCssClassNames } from '../common/helpers/css.class.names';
 import ContentEditButton from './components/content-edit-button/content.edit.button';
 
+import { getTranslator, getRouting, getAdminUiConfig } from '../modules.service';
 import { addBookmark, removeBookmark } from './services/universal.discovery.service';
 import {
     MarkedLocationIdContext,
@@ -15,9 +16,6 @@ import {
     ContentTypesMapContext,
     RestInfoContext,
     AllowRedirectsContext,
-    ConfigContext,
-    RoutingContext,
-    getTranslator
 } from './universal.discovery.module';
 
 export const getLocationData = (loadedLocationsMap, markedLocationId) =>
@@ -27,9 +25,9 @@ export const getLocationData = (loadedLocationsMap, markedLocationId) =>
 
 const ContentMetaPreview = () => {
     const Translator = getTranslator()
-    const Routing = useContext(RoutingContext);
+    const Routing = getRouting();
+    const adminUiConfig = getAdminUiConfig();
     const refContentMetaPreview = useRef(null);
-    const adminUiConfig = useContext(ConfigContext);
     const [markedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
@@ -151,17 +149,13 @@ const ContentMetaPreview = () => {
                         <div className="c-content-meta-preview__details-item">
                             <div className="c-content-meta-preview__details-item-row">{lastModifiedLabel}</div>
                             <div className="c-content-meta-preview__details-item-row">
-                                {formatShortDateTime(
-                                    new Date(location.ContentInfo.Content.lastModificationDate, timezone, dateFormat.shortDateTimeFormat),
-                                )}
+                                { formatShortDateTime(new Date(location.ContentInfo.Content.lastModificationDate), timezone, dateFormat.shortDateTimeFormat) }
                             </div>
                         </div>
                         <div className="c-content-meta-preview__details-item">
                             <div className="c-content-meta-preview__details-item-row">{creationDateLabel}</div>
                             <div className="c-content-meta-preview__details-item-row">
-                                {formatShortDateTime(
-                                    new Date(location.ContentInfo.Content.publishedDate, timezone, dateFormat.shortDateTimeFormat),
-                                )}
+                                {formatShortDateTime(new Date(location.ContentInfo.Content.publishedDate), timezone, dateFormat.shortDateTimeFormat)}
                             </div>
                         </div>
                         <div className="c-content-meta-preview__details-item">

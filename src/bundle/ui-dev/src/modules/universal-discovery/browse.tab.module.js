@@ -7,7 +7,8 @@ import GridView from './components/grid-view/grid.view';
 import Finder from './components/finder/finder';
 import TreeView from './components/tree-view/tree.view';
 
-import { CurrentViewContext, TabsConfigContext, getTranslator } from './universal.discovery.module';
+import { CurrentViewContext, TabsConfigContext } from './universal.discovery.module';
+import { getTranslator } from '../modules.service';
 
 const BrowseTabModule = () => {
     const [currentView] = useContext(CurrentViewContext);

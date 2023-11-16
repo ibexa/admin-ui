@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../../../common/icon/icon';
 
-const { ibexa, Translator } = window;
+import { showWarningNotification } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/notification.helper';
+import { getContentTypeIconUrl } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/content.type.helper';
+import { getTranslator, getAdminUiConfig } from '../../../modules.service';
 
 class ListItem extends Component {
     constructor(props) {
@@ -13,6 +15,8 @@ class ListItem extends Component {
         this.loadMoreSubitems = this.loadMoreSubitems.bind(this);
         this.handleAfterExpandedStateChange = this.handleAfterExpandedStateChange.bind(this);
 
+        this.Translator = getTranslator()
+        this.adminUiConfig = getAdminUiConfig();
         this.secondaryItemActions = this.getSecondaryItemActions();
         this.sortedActions = this.getSortedActions();
 
@@ -23,7 +27,7 @@ class ListItem extends Component {
     }
 
     getSecondaryItemActions() {
-        const { secondaryItemActions } = ibexa.adminUiConfig.contentTreeWidget;
+        const { secondaryItemActions } = this.adminUiConfig.contentTreeWidget;
 
         if (!secondaryItemActions) {
             return [];
@@ -35,7 +39,7 @@ class ListItem extends Component {
     }
 
     getSortedActions() {
-        const { itemActions } = ibexa.adminUiConfig.contentTreeWidget;
+        const { itemActions } = this.adminUiConfig.contentTreeWidget;
         const actions = itemActions ? [...itemActions] : [];
 
         return actions.sort((actionA, actionB) => {
@@ -52,13 +56,13 @@ class ListItem extends Component {
         const currentDepth = currentPath.split(',').length - 1;
 
         if (currentDepth >= treeMaxDepth) {
-            const notificationMessage = Translator.trans(
+            const notificationMessage = this.Translator.trans(
                 /*@Desc("Cannot load sub-items for this Location because you reached max tree depth.")*/ 'expand_item.limit.message',
                 {},
                 'ibexa_content_tree',
             );
 
-            ibexa.helpers.notification.showWarningNotification(notificationMessage);
+            showWarningNotification(notificationMessage);
 
             return;
         }
@@ -121,11 +125,11 @@ class ListItem extends Component {
 
         if (!this.state.isLoading || this.props.subitems.length) {
             if (locationId === 1) {
-                iconAttrs.customPath = ibexa.helpers.contentType.getContentTypeIconUrl('folder');
+                iconAttrs.customPath = getContentTypeIconUrl('folder');
             } else {
                 iconAttrs.customPath =
-                    ibexa.helpers.contentType.getContentTypeIconUrl(contentTypeIdentifier) ||
-                    ibexa.helpers.contentType.getContentTypeIconUrl('file');
+                    getContentTypeIconUrl(contentTypeIdentifier) ||
+                    getContentTypeIconUrl('file');
             }
         } else {
             iconAttrs.name = 'spinner';
@@ -172,7 +176,7 @@ class ListItem extends Component {
             return null;
         }
 
-        const message = Translator.trans(/*@Desc("Loading limit reached")*/ 'show_more.limit_reached', {}, 'ibexa_content_tree');
+        const message = this.Translator.trans(/*@Desc("Loading limit reached")*/ 'show_more.limit_reached', {}, 'ibexa_content_tree');
 
         return <div className="c-list-item__load-more-limit-info">{message}</div>;
     }
@@ -287,6 +291,7 @@ ListItem.propTypes = {
     isRootItem: PropTypes.bool,
     onClick: PropTypes.func,
     indent: PropTypes.number,
+    adminUiConfig: PropTypes.object,
 };
 
 ListItem.defaultProps = {
@@ -296,6 +301,7 @@ ListItem.defaultProps = {
     onClick: () => {},
     subitemsLoadLimit: null,
     indent: 0,
+    adminUiConfig: window.ibexa?.adminUiConfig,
 };
 
 export default ListItem;

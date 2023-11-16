@@ -3,8 +3,6 @@ const fs = require('fs');
 const translationsPath = path.resolve('./public/assets/translations/');
 const fieldTypesPath = path.resolve(__dirname, '../public/js/scripts/fieldType/');
 const layout = [
-    path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/config.loader.js'),
-    path.resolve(__dirname, '../../ui-dev/src/modules/config.loader.js'),
     path.resolve(__dirname, '../public/js/scripts/helpers/config.loader.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.format.date.js'),
     path.resolve(__dirname, '../public/js/scripts/core/draggable.js'),
@@ -192,6 +190,7 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/admin.settings.datetimeformat.update.js'),
         ])
         .addEntry('ibexa-admin-ui-udw-js', [
+            path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/config.loader.js'),
             path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/universal.discovery.module.js'),
         ])
         .addEntry('ibexa-admin-ui-udw-tabs-js', [
@@ -224,6 +223,7 @@ module.exports = (Encore) => {
         .addEntry('ibexa-admin-ui-subitems-js', [path.resolve(__dirname, '../../ui-dev/src/modules/sub-items/sub.items.module.js')])
         .addEntry('ibexa-admin-ui-content-tree-js', [
             path.resolve(__dirname, '../../ui-dev/src/modules/content-tree/content.tree.module.js'),
+            path.resolve(__dirname, '../../ui-dev/src/modules/content-tree/config.loader.js'),
         ])
         .addEntry('ibexa-admin-ui-url-management-js', [
             path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),

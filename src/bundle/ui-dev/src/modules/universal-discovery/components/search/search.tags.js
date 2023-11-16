@@ -6,10 +6,10 @@ import {
     SelectedSubtreeBreadcrumbsContext,
 } from '../search/search';
 import Tag from '../../../common/tag/tag';
-
-const { ibexa } = window;
+import { getAdminUiConfig } from '../../../modules.service';
 
 const SearchTags = () => {
+    const adminUiConfig = getAdminUiConfig();
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
     const [selectedSection, setSelectedSection] = useContext(SelectedSectionContext);
     const [, setSelectedSubtree] = useContext(SelectedSubtreeContext);
@@ -18,7 +18,7 @@ const SearchTags = () => {
         setSelectedSubtree('');
         setSelectedSubtreeBreadcrumbs('');
     };
-    const contentTypesMap = Object.values(ibexa.adminUiConfig.contentTypes).reduce((contentTypeDataMap, contentTypeGroup) => {
+    const contentTypesMap = Object.values(adminUiConfig.contentTypes).reduce((contentTypeDataMap, contentTypeGroup) => {
         for (const contentTypeData of contentTypeGroup) {
             contentTypeDataMap[contentTypeData.identifier] = contentTypeData;
         }

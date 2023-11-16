@@ -1,6 +1,6 @@
 import { showErrorNotification } from '../../common/services/notification.service';
 import { handleRequestResponse, handleRequestResponseStatus } from '../../common/helpers/request.helper.js';
-import Routing from '../../../../../../../../../friendsofsymfony/jsrouting-bundle/Resources/public/js/router';
+import { getRouting } from '../../modules.service.js';
 
 const HEADERS_CREATE_VIEW = {
     Accept: 'application/vnd.ibexa.api.View+json; version=1.1',
@@ -10,21 +10,6 @@ const ENDPOINT_CREATE_VIEW = '/api/ibexa/v2/views';
 const ENDPOINT_BOOKMARK = '/api/ibexa/v2/bookmark';
 
 export const QUERY_LIMIT = 50;
-
-let RoutingInstance = window.Routing;
-
-const getRoute = async (routeName, params) => {
-    if (RoutingInstance) {
-        return RoutingInstance.generate(routeName, params);
-    }
-
-    const fetchedRoutingData = await fetchRoutingData();
-
-    RoutingInstance = Routing;
-    RoutingInstance.setRoutingData(fetchedRoutingData);
-
-    return RoutingInstance.generate(routeName, params);
-};
 
 const showErrorNotificationAbortWrapper = (error) => {
     if (error?.name === 'AbortError') {
@@ -54,10 +39,12 @@ export const findLocationsByParentLocationId = async (
     { token, parentLocationId, limit = QUERY_LIMIT, offset = 0, sortClause = 'DatePublished', sortOrder = 'ascending', gridView = false },
     callback,
 ) => {
+    const Routing = getRouting();
     const routeName = gridView ? 'ibexa.udw.location.gridview.data' : 'ibexa.udw.location.data';
-    const url = await getRoute(routeName, {
+    const url = Routing.generate(routeName, {
         locationId: parentLocationId,
     });
+
     const request = new Request(`${url}?limit=${limit}&offset=${offset}&sortClause=${sortClause}&sortOrder=${sortOrder}`, {
         method: 'GET',
         headers: { 'X-CSRF-Token': token },
@@ -97,7 +84,8 @@ export const loadAccordionData = async (
     },
     callback,
 ) => {
-    const url = await getRoute(routeName, {
+    const Routing = getRouting();
+    const url = Routing.generate(routeName, {
         locationId: parentLocationId,
     });
     const request = new Request(`${url}?limit=${limit}&sortClause=${sortClause}&sortOrder=${sortOrder}&rootLocationId=${rootLocationId}`, {
@@ -365,7 +353,8 @@ export const loadContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LI
 };
 
 export const loadLocationsWithPermissions = async ({ locationIds, signal }, callback) => {
-    const url = await getRoute('ibexa.udw.locations.data');
+    const Routing = getRouting();
+    const url = Routing.generate('ibexa.udw.locations.data');
     const request = new Request(`${url}?locationIds=${locationIds}`, {
         method: 'GET',
         mode: 'same-origin',
@@ -578,11 +567,33 @@ export const fetchAdminConfig = async ({ token, siteaccess }) => {
             treeRootLocationId: 2,
             contextualTreeRootLocationIds: [2, 5, 43, 48, 55, 56, 60],
         },
+        contentTreeWidget: {
+            secondaryItemActions: [
+                {
+                    id: 'toggle-selection-button',
+                    priority: 30,
+                },
+            ],
+        },
+        sections: {
+            standard: 'Standard',
+            users: 'Users',
+            media: 'Media',
+            form: 'Form',
+            site_skeleton: 'Site skeleton',
+            taxonomy: 'Taxonomy',
+            product_taxonomy: 'Products Taxonomy',
+            corporate_account: 'Corporate Account',
+        },
         userContentTypes: ['user', 'member'],
         timezone: 'UTC',
         dateFormat: {
-            fullDateTimeFormat: 'LLLL dd, yyyy HH:mm',
-            shortDateTimeFormat: 'dd/MM/yyyy HH:mm',
+            fullDateTime: 'LLLL dd, yyyy HH:mm',
+            fullDate: 'LLLL dd, yyyy',
+            fullTime: 'HH:mm',
+            shortDateTime: 'dd/MM/yyyy HH:mm',
+            shortDate: 'dd/MM/yyyy',
+            shortTime: 'HH:mm',
         },
         iconPaths: {
             iconSets: {

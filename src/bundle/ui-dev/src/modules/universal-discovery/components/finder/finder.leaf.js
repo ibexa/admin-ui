@@ -17,7 +17,7 @@ import {
     AllowedContentTypesContext,
 } from '../../universal.discovery.module';
 
-const { document, ibexa } = window;
+const { document } = window;
 
 const FinderLeaf = ({ location }) => {
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);

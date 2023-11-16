@@ -12,15 +12,15 @@ import {
     SelectedLocationsContext,
     ConfirmContext,
     LoadedLocationsMapContext,
-    MultipleConfigContext,
-    RoutingContext,
-    getTranslator
+    MultipleConfigContext
 } from './universal.discovery.module';
+import { getTranslator, getRouting } from '../modules.service';
 import { findLocationsById } from './services/universal.discovery.service';
 import deepClone from '../common/helpers/deep.clone.helper';
 
+
 const ContentCreateTabModule = () => {
-    const Routing = useContext(RoutingContext);
+    const Routing = getRouting();
     const [contentOnTheFlyData, setContentOnTheFlyData] = useContext(ContentOnTheFlyDataContext);
     const tabs = useContext(TabsContext);
     const contentOnTheFlyConfig = useContext(ContentOnTheFlyConfigContext);

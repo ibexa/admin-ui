@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import FinderLeaf from './finder.leaf';
 import Icon from '../../../common/icon/icon';
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper.js';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { useFindLocationsByParentLocationIdFetch } from '../../hooks/useFindLocationsByParentLocationIdFetch';
@@ -14,8 +15,6 @@ import {
     MarkedLocationIdContext,
     SORTING_OPTIONS,
 } from '../../universal.discovery.module';
-
-const { ibexa } = window;
 
 const CLASS_IS_BRANCH_RESIZING = 'ibexa-is-branch-resizing';
 const SCROLL_OFFSET = 200;
@@ -89,7 +88,7 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
         const contentName = selectedLocation ? selectedLocation.location.ContentInfo.Content.TranslatedName : '';
         const iconPath = locationData.location
             ? contentTypesMap[locationData.location.ContentInfo.Content.ContentType._href].thumbnail
-            : ibexa.helpers.icon.getIconPath('folder');
+            : getIconPath('folder');
 
         return (
             <div className="c-finder-branch__info-wrapper">
