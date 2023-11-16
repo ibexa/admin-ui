@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: false
+        public: false
+
+    ibexa.admin_ui.component.user_menu:
+        class: Ibexa\AdminUi\Component\TwigComponent
+        arguments:
+            $template: '@@ibexadesign/ui/user_menu.html.twig'
+        tags:
+            - { name: ibexa.admin_ui.component, group: user-menu }

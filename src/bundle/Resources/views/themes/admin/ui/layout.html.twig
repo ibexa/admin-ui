@@ -134,10 +134,7 @@
                 </div>
                 <div class="ibexa-main-header__user-menu-column">
                     {% block user_menu %}
-                        {{ knp_menu_render('ezplatform_admin_ui.menu.user', {
-                            'depth': 1,
-                            'template': '@ibexadesign/ui/menu/user.html.twig'
-                        }) }}
+                        {{ ibexa_render_component_group('user-menu') }}
                     {% endblock %}
                 </div>
             </header>
