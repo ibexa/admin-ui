@@ -3,11 +3,10 @@ import React, { useContext, useState, useMemo, useEffect, useCallback } from 're
 import Icon from '../../../common/icon/icon';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
-import { LoadedLocationsMapContext } from '../../universal.discovery.module';
-
-const { Translator } = window;
+import { LoadedLocationsMapContext, getTranslator } from '../../universal.discovery.module';
 
 const Breadcrumbs = () => {
+    const Translator = getTranslator();
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [hiddenListVisible, setHiddenListVisible] = useState(false);
     const { visibleItems, hiddenItems } = useMemo(() => {

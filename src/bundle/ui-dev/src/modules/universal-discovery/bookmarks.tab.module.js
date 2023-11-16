@@ -21,8 +21,6 @@ import {
 } from './universal.discovery.module';
 import { loadAccordionData } from './services/universal.discovery.service';
 
-const { Translator } = window;
-
 const BookmarksTabModule = () => {
     const shouldRestorePreviousStateRef = useRef(true);
     const restInfo = useContext(RestInfoContext);

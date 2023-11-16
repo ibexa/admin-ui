@@ -17,9 +17,8 @@ import {
     AllowRedirectsContext,
     ConfigContext,
     RoutingContext,
+    getTranslator
 } from './universal.discovery.module';
-
-const { Translator } = window;
 
 export const getLocationData = (loadedLocationsMap, markedLocationId) =>
     loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === markedLocationId) ||
@@ -27,6 +26,7 @@ export const getLocationData = (loadedLocationsMap, markedLocationId) =>
         loadedLocationsMap[loadedLocationsMap.length - 1].subitems.find((subitem) => subitem.location.id === markedLocationId));
 
 const ContentMetaPreview = () => {
+    const Translator = getTranslator()
     const Routing = useContext(RoutingContext);
     const refContentMetaPreview = useRef(null);
     const adminUiConfig = useContext(ConfigContext);
