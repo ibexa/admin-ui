@@ -17,8 +17,6 @@ import {
     AllowedContentTypesContext,
 } from '../../universal.discovery.module';
 
-const { ibexa } = window;
-
 const SCROLL_OFFSET = 200;
 
 const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {

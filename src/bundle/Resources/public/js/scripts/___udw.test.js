@@ -12,12 +12,12 @@ import assetsLibraryWidget from '@ibexa-assets-library-widget/src/bundle/Resourc
         const triggerElement = event.currentTarget;
         const configUDW = {
             ...JSON.parse(triggerElement.dataset.udwConfig),
-            title: triggerElement.classList.contains('ibexa-open-image-picker') ? 'Image picker' : 'UDW'
-        }
-        console.log(JSON.parse(triggerElement.dataset.udwConfig));
+            title: triggerElement.classList.contains('ibexa-open-image-picker') ? 'Image picker' : 'UDW',
+        };
 
         const config = {
             ...configUDW,
+            multiple: true,
             // activeTab: 'image_picker',
             // rootLocationId: 51,
             onConfirm: () => {
@@ -25,7 +25,7 @@ import assetsLibraryWidget from '@ibexa-assets-library-widget/src/bundle/Resourc
             },
             onCancel: closeUDW,
             restInfo: {
-                token: '0b3b96f4c5fcd.bHTsJMDym1W3FJTlAFn0aOClYQuQlNkzlO340R02Vec.CwSKcaKzqj7QbKOVQi63GrPoD2f405hhrJ2yiUd9DYg_F7pM8abIAdxA-w',
+                token: 'd841ca.RfcZs2jLlEue-t8KFM7BfoA2BqMHpC06UOuqerrXQ4A.BpBS-17zyyqsqed-V7SNSOhvWelS7hkOadnEI_y4DbYfj2zEPPzBCf2ltA',
                 siteaccess: 'admin',
             },
         };
@@ -33,8 +33,6 @@ import assetsLibraryWidget from '@ibexa-assets-library-widget/src/bundle/Resourc
         udwRoot = ReactDOM.createRoot(container);
         udwRoot.render(React.createElement(assetsLibraryWidget, config));
     };
-
-    
 
     imagePickerBtn.addEventListener('click', openUdw, false);
     udwBtn.addEventListener('click', openUdw, false);

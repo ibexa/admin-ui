@@ -5,7 +5,8 @@ import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
 import Tab from './components/tab/tab';
 import Search from './components/search/search';
 
-import { LoadedLocationsMapContext, MarkedLocationIdContext, TabsConfigContext, getTranslator } from './universal.discovery.module';
+import { LoadedLocationsMapContext, MarkedLocationIdContext, TabsConfigContext,  } from './universal.discovery.module';
+import { getTranslator } from '../modules.service';
 
 const SearchTabModule = () => {
     const tabsConfig = useContext(TabsConfigContext);

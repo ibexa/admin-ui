@@ -19,11 +19,11 @@ import {
     SelectedLocationsContext,
     SortOrderContext,
     SortingContext,
-    ConfigContext,
 } from '../../universal.discovery.module';
+import { getAdminUiConfig } from '../../../modules.service';
 
 const TreeView = ({ itemsPerPage }) => {
-    const adminUiConfig = useContext(ConfigContext);
+    const adminUiConfig = getAdminUiConfig();
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const [multiple] = useContext(MultipleConfigContext);

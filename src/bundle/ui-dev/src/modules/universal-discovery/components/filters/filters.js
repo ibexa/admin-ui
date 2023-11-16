@@ -2,7 +2,11 @@ import React, { useContext, useState, useEffect, useCallback, useRef } from 'rea
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-import { removeRootFromPathString, findLocationsByIds, buildLocationsBreadcrumbs } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/location.helper';
+import {
+    removeRootFromPathString,
+    findLocationsByIds,
+    buildLocationsBreadcrumbs,
+} from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/location.helper';
 
 import {
     SelectedContentTypesContext,
@@ -12,7 +16,8 @@ import {
     SelectedSubtreeBreadcrumbsContext,
 } from '../search/search';
 
-import UniversalDiscoveryModule, { ConfigContext, DropdownPortalRefContext, getTranslator } from '../../universal.discovery.module';
+import UniversalDiscoveryModule, { DropdownPortalRefContext } from '../../universal.discovery.module';
+import { getAdminUiConfig, getTranslator } from '../../../modules.service';
 
 import Dropdown from '../../../common/dropdown/dropdown';
 import ContentTypeSelector from '../content-type-selector/content.type.selector';
@@ -20,7 +25,7 @@ import Icon from '../../../common/icon/icon';
 
 const Filters = ({ search }) => {
     const Translator = getTranslator();
-    const adminUiConfig = useContext(ConfigContext);
+    const adminUiConfig = getAdminUiConfig();
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
     const [selectedSection, setSelectedSection] = useContext(SelectedSectionContext);
     const [selectedSubtree, setSelectedSubtree] = useContext(SelectedSubtreeContext);
@@ -41,7 +46,6 @@ const Filters = ({ search }) => {
         setSelectedSubtree(pathString);
         setIsNestedUdwOpened(false);
     };
-
     const nestedUdwConfig = {
         onConfirm: handleNestedUdwConfirm,
         onCancel: () => setIsNestedUdwOpened(false),
@@ -113,13 +117,13 @@ const Filters = ({ search }) => {
     const subtreeLabel = Translator.trans(/*@Desc("Subtree")*/ 'filters.subtree', {}, 'ibexa_universal_discovery_widget');
     const clearLabel = Translator.trans(/*@Desc("Clear")*/ 'filters.clear', {}, 'ibexa_universal_discovery_widget');
     const applyLabel = Translator.trans(/*@Desc("Apply")*/ 'filters.apply', {}, 'ibexa_universal_discovery_widget');
-    const languageOptions = Object.values(languages.mappings)
+    const languageOptions = Object.values(adminUiConfig.languages.mappings)
         .filter((language) => language.enabled)
         .map((language) => ({
             value: language.languageCode,
             label: language.name,
         }));
-    const sectionOptions = Object.entries(sections).map(([sectionIdentifier, sectionName]) => ({
+    const sectionOptions = Object.entries(adminUiConfig.sections).map(([sectionIdentifier, sectionName]) => ({
         value: sectionIdentifier,
         label: sectionName,
     }));

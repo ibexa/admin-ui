@@ -4,11 +4,11 @@ import { SelectedContentTypesContext } from '../search/search';
 import { AllowedContentTypesContext } from '../../universal.discovery.module';
 
 import Collapsible from '../collapsible/collapsible';
-
-const { ibexa } = window;
+import { getAdminUiConfig } from '../../../modules.service';
 
 const ContentTypeSelector = () => {
-    const { contentTypes: contentTypesMap } = ibexa.adminUiConfig;
+    const adminUiConfig = getAdminUiConfig();
+    const { contentTypes: contentTypesMap } = adminUiConfig;
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
     const handleContentTypeSelect = ({ nativeEvent }) => {

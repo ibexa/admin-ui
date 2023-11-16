@@ -14,7 +14,7 @@ import {
 import { findLocationsById } from '../../services/universal.discovery.service';
 import ToggleSelection from '../toggle-selection/toggle.selection';
 
-const { ibexa, document } = window;
+const { document } = window;
 
 const TreeItemToggleSelection = ({ locationId, isContainer, contentTypeIdentifier }) => {
     const isUDW = useContext(UDWContext);
@@ -55,17 +55,11 @@ const TreeItemToggleSelection = ({ locationId, isContainer, contentTypeIdentifie
     );
 };
 
-ibexa.addConfig(
-    'adminUiConfig.contentTreeWidget.secondaryItemActions',
-    [
-        {
-            id: 'toggle-selection-button',
-            priority: 30,
-            component: TreeItemToggleSelection,
-        },
-    ],
-    true,
-);
+export const TreeItemToggleSelectionMenuButton = {
+    id: 'toggle-selection-button',
+    priority: 30,
+    component: TreeItemToggleSelection,
+};
 
 TreeItemToggleSelection.propTypes = {
     locationId: PropTypes.number.isRequired,

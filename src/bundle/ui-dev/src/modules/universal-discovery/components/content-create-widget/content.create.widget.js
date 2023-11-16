@@ -12,16 +12,15 @@ import {
     MarkedLocationIdContext,
     LoadedLocationsMapContext,
     ContentOnTheFlyConfigContext,
-    AllowedContentTypesContext,
-    ConfigContext,
-    getTranslator
+    AllowedContentTypesContext
 } from '../../universal.discovery.module';
+import { getAdminUiConfig, getTranslator } from '../../../modules.service';
 import Dropdown from '../../../common/dropdown/dropdown';
 
 const ContentCreateWidget = () => {
     const Translator = getTranslator();
+    const adminUiConfig = getAdminUiConfig();
     const refContentTree = useRef(null);
-    const adminUiConfig = useContext(ConfigContext);
     const dropdownListRef = useContext(DropdownPortalRefContext);
     const [markedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap] = useContext(LoadedLocationsMapContext);

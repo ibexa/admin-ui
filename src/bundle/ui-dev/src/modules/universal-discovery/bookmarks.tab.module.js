@@ -17,8 +17,8 @@ import {
     SortOrderContext,
     RootLocationIdContext,
     TabsConfigContext,
-    getTranslator
 } from './universal.discovery.module';
+import { getTranslator } from '../modules.service';
 import { loadAccordionData } from './services/universal.discovery.service';
 
 const BookmarksTabModule = () => {

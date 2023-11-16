@@ -10,10 +10,12 @@ import SelectedLocationsItem from './selected.locations.item';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
 import { SelectedLocationsContext, AllowConfirmationContext } from '../../universal.discovery.module';
+import { getTranslator } from '../../../modules.service';
 
-const { Translator, bootstrap } = window;
+const { bootstrap } = window;
 
 const SelectedLocations = () => {
+    const Translator = getTranslator();
     const refSelectedLocations = useRef(null);
     const refTogglerButton = useRef(null);
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);

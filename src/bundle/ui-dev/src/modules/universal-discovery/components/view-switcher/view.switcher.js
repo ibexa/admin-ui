@@ -2,7 +2,9 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import SimpleDropdown from '../../../common/simple-dropdown/simple.dropdown';
-import { CurrentViewContext, getTranslator, VIEWS } from '../../universal.discovery.module';
+import { getTranslator } from '../../../modules.service';
+import { CurrentViewContext, VIEWS } from '../../universal.discovery.module';
+
 
 const ViewSwitcher = ({ isDisabled }) => {
     const Translator = getTranslator();

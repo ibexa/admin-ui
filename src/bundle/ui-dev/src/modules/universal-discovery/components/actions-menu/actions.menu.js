@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 
-import { AllowConfirmationContext, ConfirmContext, CancelContext, SelectedLocationsContext, getTranslator } from '../../universal.discovery.module';
+import { AllowConfirmationContext, ConfirmContext, CancelContext, SelectedLocationsContext } from '../../universal.discovery.module';
+import { getTranslator } from '../../../modules.service';
 
 const ActionsMenu = () => {
     const Translator = getTranslator();

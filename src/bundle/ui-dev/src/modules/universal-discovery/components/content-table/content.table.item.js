@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ToggleSelection from '../toggle-selection/toggle.selection';
 import Icon from '../../../common/icon/icon';
 
+import { formatShortDateTime } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/timezone.helper';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { loadAccordionData } from '../../services/universal.discovery.service';
 import {
@@ -32,7 +33,6 @@ const ContentTableItem = ({ location }) => {
     const [, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const [multiple] = useContext(MultipleConfigContext);
     const rootLocationId = useContext(RootLocationIdContext);
-    const { formatShortDateTime } = window.ibexa.helpers.timezone;
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
     const containersOnly = useContext(ContainersOnlyContext);

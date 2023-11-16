@@ -1,6 +1,5 @@
 import { showErrorNotification } from '../../common/services/notification.service';
 import { handleRequestResponse, handleRequestResponseStatus } from '../../common/helpers/request.helper.js';
-import Routing from '../../../../../../../../../friendsofsymfony/jsrouting-bundle/Resources/public/js/router';
 
 const HEADERS_CREATE_VIEW = {
     Accept: 'application/vnd.ibexa.api.View+json; version=1.1',
@@ -13,21 +12,6 @@ const ENDPOINT_ACCORDION = '/api/ibexa/v2/module/universal-discovery/accordion';
 const ENDPOINT_LOCATION_LIST = '/api/ibexa/v2/module/universal-discovery/locations';
 
 export const QUERY_LIMIT = 50;
-
-let RoutingInstance = window.Routing;
-
-const getRoute = async (routeName, params) => {
-    if (RoutingInstance) {
-        return RoutingInstance.generate(routeName, params);
-    }
-
-    const fetchedRoutingData = await fetchRoutingData();
-
-    RoutingInstance = Routing;
-    RoutingInstance.setRoutingData(fetchedRoutingData);
-
-    return RoutingInstance.generate(routeName, params);
-};
 
 const showErrorNotificationAbortWrapper = (error) => {
     if (error?.name === 'AbortError') {
@@ -609,11 +593,33 @@ export const fetchAdminConfig = async ({ token, siteaccess }) => {
             treeRootLocationId: 2,
             contextualTreeRootLocationIds: [2, 5, 43, 48, 55, 56, 60],
         },
+        contentTreeWidget: {
+            secondaryItemActions: [
+                {
+                    id: 'toggle-selection-button',
+                    priority: 30,
+                },
+            ],
+        },
+        sections: {
+            standard: 'Standard',
+            users: 'Users',
+            media: 'Media',
+            form: 'Form',
+            site_skeleton: 'Site skeleton',
+            taxonomy: 'Taxonomy',
+            product_taxonomy: 'Products Taxonomy',
+            corporate_account: 'Corporate Account',
+        },
         userContentTypes: ['user', 'member'],
         timezone: 'UTC',
         dateFormat: {
-            fullDateTimeFormat: 'LLLL dd, yyyy HH:mm',
-            shortDateTimeFormat: 'dd/MM/yyyy HH:mm',
+            fullDateTime: 'LLLL dd, yyyy HH:mm',
+            fullDate: 'LLLL dd, yyyy',
+            fullTime: 'HH:mm',
+            shortDateTime: 'dd/MM/yyyy HH:mm',
+            shortDate: 'dd/MM/yyyy',
+            shortTime: 'HH:mm',
         },
         iconPaths: {
             iconSets: {
