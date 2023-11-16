@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import ContentEditButton from '../content-edit-button/content.edit.button';
 
-const { ibexa } = window;
-
 const SelectedItemEditButton = ({ location, permissions }) => {
     const hasAccess = permissions && permissions.edit.hasAccess;
 
@@ -15,21 +13,15 @@ const SelectedItemEditButton = ({ location, permissions }) => {
     );
 };
 
-ibexa.addConfig(
-    'adminUiConfig.universalDiscoveryWidget.selectedItemActions',
-    [
-        {
-            id: 'content-edit-button',
-            priority: 30,
-            component: SelectedItemEditButton,
-        },
-    ],
-    true,
-);
-
 SelectedItemEditButton.propTypes = {
     location: PropTypes.object.isRequired,
     permissions: PropTypes.object.isRequired,
+};
+
+export const SelectedItemEditMenuButton = {
+    id: 'content-edit-button',
+    priority: 30,
+    component: SelectedItemEditButton,
 };
 
 export default SelectedItemEditButton;

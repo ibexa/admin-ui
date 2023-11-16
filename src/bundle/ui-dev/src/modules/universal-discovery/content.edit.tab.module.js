@@ -6,15 +6,14 @@ import {
     RestInfoContext,
     SelectedLocationsContext,
     LoadedLocationsMapContext,
-    EditOnTheFlyDataContext,
-    RoutingContext,
-    getTranslator
+    EditOnTheFlyDataContext
 } from './universal.discovery.module';
+import { getTranslator, getRouting } from '../modules.service';
 import { findLocationsByParentLocationId } from './services/universal.discovery.service';
 import deepClone from '../common/helpers/deep.clone.helper';
 
 const ContentEditTabModule = () => {
-    const Routing = useContext(RoutingContext);
+    const Routing = getRouting();
     const restInfo = useContext(RestInfoContext);
     const tabs = useContext(TabsContext);
     const [, setActiveTab] = useContext(ActiveTabContext);

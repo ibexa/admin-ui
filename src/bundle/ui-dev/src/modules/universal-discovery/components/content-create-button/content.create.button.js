@@ -11,9 +11,9 @@ import {
     ContentOnTheFlyConfigContext,
     SelectedLocationsContext,
     MultipleConfigContext,
-    ContentTypesMapContext,
-    getTranslator
+    ContentTypesMapContext
 } from '../../universal.discovery.module';
+import { getTranslator } from '../../../modules.service';
 
 const ContentCreateButton = ({ isDisabled }) => {
     const Translator = getTranslator();

@@ -4,21 +4,20 @@ import PropTypes from 'prop-types';
 import Icon from '../../../common/icon/icon';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import TranslationSelector from '../translation-selector/translation.selector';
-import { createDraft } from '../..//services/universal.discovery.service';
+import { getAdminUiConfig, getRouting } from '../../../modules.service';
+import { createDraft } from '../../services/universal.discovery.service';
 import {
     RestInfoContext,
     EditOnTheFlyDataContext,
     AllowRedirectsContext,
     ActiveTabContext,
-    ContentTypesMapContext,
-    ConfigContext,
-    RoutingContext,
+    ContentTypesMapContext
 } from '../..//universal.discovery.module';
 
 const ContentEditButton = ({ version, location, isDisabled, label }) => {
-    const Routing = useContext(RoutingContext);
+    const Routing = getRouting();
+    const adminUiConfig = getAdminUiConfig();
     const restInfo = useContext(RestInfoContext);
-    const adminUiConfig = useContext(ConfigContext);
     const allowRedirects = useContext(AllowRedirectsContext);
     const [, setEditOnTheFlyData] = useContext(EditOnTheFlyDataContext);
     const [, setActiveTab] = useContext(ActiveTabContext);
