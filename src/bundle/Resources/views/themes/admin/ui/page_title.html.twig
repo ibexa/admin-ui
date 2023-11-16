@@ -4,7 +4,7 @@
     <div class="ibexa-page-title">
         <div class="ibexa-page-title__top">
             <h1 class="ibexa-page-title__title">
-                {{ title }}
+                <span class="ibexa-page-title__content" title="{{ title }}">{{ title }}</span>
                 {% block tag %}
                     {% if tag is defined %}
                         {% set attr = tag_attr|default({})|merge({
