@@ -2,7 +2,6 @@ const path = require('path');
 const fs = require('fs');
 const translationsPath = path.resolve('./public/assets/translations/');
 const fieldTypesPath = path.resolve(__dirname, '../public/js/scripts/fieldType/');
-const translations = [];
 const layout = [
     path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/config.loader.js'),
     path.resolve(__dirname, '../../ui-dev/src/modules/config.loader.js'),
@@ -59,7 +58,6 @@ if (fs.existsSync(translationsPath)) {
     fs.readdirSync(translationsPath).forEach((file) => {
         if (file !== 'config.js' && path.extname(file) === '.js') {
             layout.push(path.resolve(translationsPath, file));
-            translations.push(path.resolve(translationsPath, file));
         }
     });
 }
@@ -74,7 +72,6 @@ if (fs.existsSync(fieldTypesPath)) {
 
 module.exports = (Encore) => {
     Encore.addEntry('ibexa-admin-ui-layout-js', layout)
-        .addEntry('ibexa-translations', translations)
         .addEntry('ibexa-test-udw-js', [path.resolve(__dirname, '../public/js/scripts/___udw.test.js')])
         .addEntry('ibexa-admin-ui-error-page-js', [path.resolve(__dirname, '../public/js/scripts/admin.error.page.js')])
         .addEntry('ibexa-admin-ui-bookmark-list-js', [
