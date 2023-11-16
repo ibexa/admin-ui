@@ -1,6 +1,0 @@
-services:
-  Ibexa\AdminUi\Component\Search\GlobalSearchTwigComponent:
-    autowire: true
-    public: false
-    tags:
-      - { name: ibexa.admin_ui.component, group: global-search }
