@@ -4,6 +4,12 @@ services:
         autoconfigure: false
         public: false
 
+    Ibexa\AdminUi\Component\Search\GlobalSearchTwigComponent:
+        autowire: true
+        public: false
+        tags:
+            - { name: ibexa.admin_ui.component, group: global-search }
+
     ibexa.admin_ui.component.user_menu:
         class: Ibexa\AdminUi\Component\TwigComponent
         arguments:
