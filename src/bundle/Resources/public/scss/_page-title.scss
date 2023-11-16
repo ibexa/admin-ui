@@ -12,14 +12,21 @@
     }
 
     &__title {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    &__content {
         display: inline-block;
         max-width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .ibexa-badge {
-        margin: calculateRem(5px) 0 0 calculateRem(16px);
+        margin-left: calculateRem(16px);
         font-family: $ibexa-font-family;
     }
 }
