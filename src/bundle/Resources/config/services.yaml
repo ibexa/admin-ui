@@ -1,6 +1,7 @@
 imports:
     - { resource: services/service_aliases.yaml }
     - { resource: services/config.yaml }
+    - { resource: services/controller_argument_resolvers.yaml }
     - { resource: services/controllers.yaml }
     - { resource: services/tabs.yaml }
     - { resource: services/menu.yaml }
