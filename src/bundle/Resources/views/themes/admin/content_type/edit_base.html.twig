@@ -26,7 +26,7 @@
             {% if content_type_edit_anchor_menu|default([])|length > 1 %}
                 {% for item in content_type_edit_anchor_menu %}
                     {% set items = items|merge([{
-                        target_id: item.attributes['data-target-id'],
+                        target_id: item.attributes['data-target-id']|lower|slug,
                         label: item.label is defined ? item.label|trans : item.name,
                     }]) %}
                 {% endfor %}
