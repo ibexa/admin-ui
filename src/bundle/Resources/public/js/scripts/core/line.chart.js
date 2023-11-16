@@ -1,50 +1,32 @@
-(function (global, doc, ibexa, Chart) {
+(function (global, doc, ibexa) {
     const MAX_NUMBER_OF_LABELS = 16;
     const lineDefaultOptions = {
         elements: {
             point: {
                 radius: 2,
             },
-            line: {
-                tension: 0,
-            },
         },
         scales: {
-            xAxes: [
-                {
-                    display: true,
-                    gridLines: {
-                        display: false,
-                    },
-                    ticks: {
-                        maxRotation: 0,
-                        autoSkip: false,
-                        callback: (value, index, labels) => {
-                            const labelsInterval = Math.max(Math.ceil(labels.length / MAX_NUMBER_OF_LABELS), 1);
-                            const shouldDisplayLabel = !(index % labelsInterval);
+            x: {
+                display: true,
+                grid: {
+                    display: false,
+                },
+                ticks: {
+                    maxRotation: 0,
+                    autoSkip: false,
+                    callback: function (value, index, ticks) {
+                        const label = this.getLabelForValue(value);
+                        const labelsInterval = Math.max(Math.ceil(ticks.length / MAX_NUMBER_OF_LABELS), 1);
+                        const shouldDisplayLabel = !(index % labelsInterval);
 
-                            return shouldDisplayLabel ? value : null;
-                        },
+                        return shouldDisplayLabel ? label : null;
                     },
                 },
-            ],
-            yAxes: [
-                {
-                    display: true,
-                    type: 'logarithmic',
-                    ticks: {
-                        callback: (...args) => {
-                            const value = Chart.Ticks.formatters.logarithmic.call(this, ...args);
-
-                            if (value.length) {
-                                return Number(value).toLocaleString();
-                            }
-
-                            return value;
-                        },
-                    },
-                },
-            ],
+            },
+            y: {
+                display: true,
+            },
         },
     };
 
@@ -70,4 +52,4 @@
     }
 
     ibexa.addConfig('core.chart.LineChart', LineChart);
-})(window, window.document, window.ibexa, window.Chart);
+})(window, window.document, window.ibexa);

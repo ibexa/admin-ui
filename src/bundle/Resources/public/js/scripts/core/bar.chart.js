@@ -1,14 +1,12 @@
 (function (global, doc, ibexa) {
     const barDefaultOptions = {
         scales: {
-            xAxes: [
-                {
-                    display: true,
-                    gridLines: {
-                        display: false,
-                    },
+            x: {
+                display: true,
+                grid: {
+                    display: false,
                 },
-            ],
+            },
         },
     };
 

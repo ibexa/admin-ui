@@ -5,8 +5,10 @@
     const defaultOptions = {
         responsive: true,
         maintainAspectRatio: false,
-        legend: {
-            display: false,
+        plugins: {
+            legend: {
+                display: false,
+            },
         },
         tooltips: {
             enabled: true,
@@ -26,11 +28,13 @@
             },
         },
     };
+    const defaultPlugins = [];
 
     class BaseChart {
-        constructor(data, options = {}) {
+        constructor(data, options = {}, plugins = []) {
             this.setData(data);
             this.setOptions(options);
+            this.setPlugins(plugins);
             this.lang = document.documentElement.lang.replace('_', '-'); // TODO: Get this config from settings
         }
 
@@ -44,6 +48,10 @@
                 ...defaultOptions,
                 ...options,
             };
+        }
+
+        setPlugins(plugins) {
+            this.plugins = [...defaultPlugins, ...plugins];
         }
 
         getType() {}
@@ -74,13 +82,14 @@
         }
 
         render() {
-            this.chart = new Chart(this.canvas.getContext('2d'), {
+            this.chart = new Chart(this.canvas, {
                 type: this.getType(),
                 data: {
                     labels: this.labels,
                     datasets: this.datasets,
                 },
                 options: this.options,
+                plugins: this.plugins,
             });
 
             this.updateChartMessageDisplay();
