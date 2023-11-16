@@ -2,15 +2,24 @@ import assetsLibraryWidget from '@ibexa-assets-library-widget/src/bundle/Resourc
 
 (function (global, doc, React, ReactDOM) {
     let udwRoot = null;
+
+    const imagePickerBtn = doc.querySelector('.ibexa-open-image-picker');
+    const udwBtn = doc.querySelector('.ibexa-relations__cta-btn');
+
     const container = doc.getElementById('react-udw');
-    const triggerElement = doc.querySelector('.ibexa-open-image-picker');
     const closeUDW = () => udwRoot.unmount();
-    const openUdw = async () => {
-        const config = {
+    const openUdw = async (event) => {
+        const triggerElement = event.currentTarget;
+        const configUDW = {
             ...JSON.parse(triggerElement.dataset.udwConfig),
-            title: 'test image picker',
-            activeTab: 'image_picker',
-            rootLocationId: 51,
+            title: triggerElement.classList.contains('ibexa-open-image-picker') ? 'Image picker' : 'UDW'
+        }
+        console.log(JSON.parse(triggerElement.dataset.udwConfig));
+
+        const config = {
+            ...configUDW,
+            // activeTab: 'image_picker',
+            // rootLocationId: 51,
             onConfirm: () => {
                 console.log('confirm');
             },
@@ -25,7 +34,10 @@ import assetsLibraryWidget from '@ibexa-assets-library-widget/src/bundle/Resourc
         udwRoot.render(React.createElement(assetsLibraryWidget, config));
     };
 
-    triggerElement.addEventListener('click', openUdw, false);
+    
+
+    imagePickerBtn.addEventListener('click', openUdw, false);
+    udwBtn.addEventListener('click', openUdw, false);
     // setTimeout(() => {
     //     openUdw();
     // }, 100);

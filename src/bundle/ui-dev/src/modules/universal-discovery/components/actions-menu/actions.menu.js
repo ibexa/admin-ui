@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
 
-import { AllowConfirmationContext, ConfirmContext, CancelContext, SelectedLocationsContext } from '../../universal.discovery.module';
-
-const { Translator } = window;
+import { AllowConfirmationContext, ConfirmContext, CancelContext, SelectedLocationsContext, getTranslator } from '../../universal.discovery.module';
 
 const ActionsMenu = () => {
+    const Translator = getTranslator();
     const onConfirm = useContext(ConfirmContext);
     const cancelUDW = useContext(CancelContext);
     const allowConfirmation = useContext(AllowConfirmationContext);

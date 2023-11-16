@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
 
-import { ConfigContext } from '../../universal.discovery.module';
-
-const { Translator } = window;
+import { ConfigContext, getTranslator } from '../../universal.discovery.module';
 
 const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation, version, isOpen }) => {
+    const Translator = getTranslator();
     const adminUiConfig = useContext(ConfigContext);
     const languageCodes = version ? version.VersionInfo.languageCodes.split(',') : [];
     const editTranslationLabel = Translator.trans(

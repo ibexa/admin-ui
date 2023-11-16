@@ -5,8 +5,21 @@
 
     {% block login_form %}
         {{ ibexa_render_component_group('login-form-before') }}
-<button data-udw-config="{&quot;multiple&quot;:false,&quot;multipleItemsLimit&quot;:0,&quot;rootLocationId&quot;:1,&quot;startingLocationId&quot;:1,&quot;containersOnly&quot;:false,&quot;allowedContentTypes&quot;:null,&quot;activeSortClause&quot;:&quot;DatePublished&quot;,&quot;activeSortOrder&quot;:&quot;ascending&quot;,&quot;activeTab&quot;:&quot;browse&quot;,&quot;activeView&quot;:&quot;finder&quot;,&quot;allowRedirects&quot;:false,&quot;allowConfirmation&quot;:true,&quot;contentOnTheFly&quot;:{&quot;allowedLanguages&quot;:null,&quot;allowedLocations&quot;:null,&quot;preselectedLanguage&quot;:null,&quot;preselectedContentType&quot;:null,&quot;hidden&quot;:false,&quot;autoConfirmAfterPublish&quot;:true},&quot;tabsConfig&quot;:{&quot;search&quot;:{&quot;itemsPerPage&quot;:50,&quot;priority&quot;:10,&quot;hidden&quot;:false},&quot;bookmarks&quot;:{&quot;itemsPerPage&quot;:50,&quot;priority&quot;:20,&quot;hidden&quot;:false},&quot;browse&quot;:{&quot;itemsPerPage&quot;:50,&quot;priority&quot;:30}}}" class="btn ibexa-btn ibexa-btn--primary ibexa-open-image-picker">Open Image Picker</button>
         
+        <button 
+            data-udw-config="{&quot;multiple&quot;:false,&quot;multipleItemsLimit&quot;:0,&quot;rootLocationId&quot;:51,&quot;startingLocationId&quot;:1,&quot;containersOnly&quot;:false,&quot;allowedContentTypes&quot;:null,&quot;activeSortClause&quot;:&quot;DatePublished&quot;,&quot;activeSortOrder&quot;:&quot;ascending&quot;,&quot;activeTab&quot;:&quot;image_picker&quot;,&quot;activeView&quot;:&quot;finder&quot;,&quot;allowRedirects&quot;:false,&quot;allowConfirmation&quot;:true,&quot;contentOnTheFly&quot;:{&quot;allowedLanguages&quot;:null,&quot;allowedLocations&quot;:null,&quot;preselectedLanguage&quot;:null,&quot;preselectedContentType&quot;:null,&quot;hidden&quot;:false,&quot;autoConfirmAfterPublish&quot;:true},&quot;tabsConfig&quot;:{&quot;search&quot;:{&quot;itemsPerPage&quot;:50,&quot;priority&quot;:10,&quot;hidden&quot;:false},&quot;bookmarks&quot;:{&quot;itemsPerPage&quot;:50,&quot;priority&quot;:20,&quot;hidden&quot;:false},&quot;browse&quot;:{&quot;itemsPerPage&quot;:50,&quot;priority&quot;:30}}}"
+            class="btn ibexa-btn ibexa-btn--primary ibexa-open-image-picker"
+            >
+            Open Image Picker
+        </button>
+        <button 
+            data-udw-config="{&quot;multiple&quot;:false,&quot;multipleItemsLimit&quot;:0,&quot;rootLocationId&quot;:1,&quot;startingLocationId&quot;:1,&quot;containersOnly&quot;:false,&quot;allowedContentTypes&quot;:null,&quot;activeSortClause&quot;:&quot;DatePublished&quot;,&quot;activeSortOrder&quot;:&quot;ascending&quot;,&quot;activeTab&quot;:&quot;browse&quot;,&quot;activeView&quot;:&quot;finder&quot;,&quot;allowRedirects&quot;:false,&quot;allowConfirmation&quot;:true,&quot;contentOnTheFly&quot;:{&quot;allowedLanguages&quot;:null,&quot;allowedLocations&quot;:null,&quot;preselectedLanguage&quot;:null,&quot;preselectedContentType&quot;:null,&quot;hidden&quot;:false,&quot;autoConfirmAfterPublish&quot;:true},&quot;tabsConfig&quot;:{&quot;search&quot;:{&quot;itemsPerPage&quot;:50,&quot;priority&quot;:10,&quot;hidden&quot;:false},&quot;bookmarks&quot;:{&quot;itemsPerPage&quot;:50,&quot;priority&quot;:20,&quot;hidden&quot;:false},&quot;browse&quot;:{&quot;itemsPerPage&quot;:50,&quot;priority&quot;:30}}}" 
+            data-limit="1" 
+            class="ibexa-relations__cta-btn btn ibexa-btn ibexa-btn--secondary" 
+            type="button"
+        >
+            Open UDW
+        </button>
         <form action="{{ path( 'login_check' ) }}" method="post" role="form">
             <fieldset>
                 {% block login_form_errors %}

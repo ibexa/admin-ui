@@ -12,10 +12,8 @@ import ContentTable from '../content-table/content.table';
 import Filters from '../filters/filters';
 import SearchTags from './search.tags';
 import { useSearchByQueryFetch } from '../../hooks/useSearchByQueryFetch';
-import { AllowedContentTypesContext, ConfigContext, SearchTextContext } from '../../universal.discovery.module';
+import { AllowedContentTypesContext, ConfigContext, SearchTextContext, getTranslator } from '../../universal.discovery.module';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
-
-const { Translator } = window;
 
 const selectedContentTypesReducer = (state, action) => {
     switch (action.type) {
@@ -31,6 +29,7 @@ const selectedContentTypesReducer = (state, action) => {
 };
 
 const Search = ({ itemsPerPage }) => {
+    const Translator = getTranslator();
     const adminUiConfig = useContext(ConfigContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const [searchText] = useContext(SearchTextContext);
