@@ -1,7 +1,7 @@
 {% import '@ibexadesign/ui/component/macros.html.twig' as html %}
 
 {% if title is defined %}
-    <div class="ibexa-page-title {% if page_title_class %}{{ page_title_class }}{% endif %}">
+    <div class="ibexa-page-title {% if page_title_class is defined %}{{ page_title_class }}{% endif %}">
         <div class="ibexa-page-title__top">
             <h1 class="ibexa-page-title__title">
                 {{ title }}
