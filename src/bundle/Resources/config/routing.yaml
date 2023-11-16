@@ -843,45 +843,6 @@ ibexa.object_state.content_state.update:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ObjectStateController::updateContentStateAction'
 
 #
-# Universal Discovery Widget
-#
-
-ibexa.udw.location.data:
-    path: /module/universal-discovery/location/{locationId}
-    options:
-        expose: true
-    defaults:
-        _controller: 'Ibexa\Bundle\AdminUi\Controller\UniversalDiscoveryController::locationAction'
-
-ibexa.udw.locations.data:
-    path: /module/universal-discovery/locations
-    options:
-        expose: true
-    defaults:
-        _controller: 'Ibexa\Bundle\AdminUi\Controller\UniversalDiscoveryController::locationsAction'
-
-ibexa.udw.location.gridview.data:
-    path: /module/universal-discovery/location/{locationId}/gridview
-    options:
-        expose: true
-    defaults:
-        _controller: 'Ibexa\Bundle\AdminUi\Controller\UniversalDiscoveryController::locationGridViewAction'
-
-ibexa.udw.accordion.data:
-    path: /module/universal-discovery/accordion/{locationId}
-    options:
-        expose: true
-    defaults:
-        _controller: 'Ibexa\Bundle\AdminUi\Controller\UniversalDiscoveryController::accordionAction'
-
-ibexa.udw.accordion.gridview.data:
-    path: /module/universal-discovery/accordion/{locationId}/gridview
-    options:
-        expose: true
-    defaults:
-        _controller: 'Ibexa\Bundle\AdminUi\Controller\UniversalDiscoveryController::accordionGridViewAction'
-
-#
 # Bookmark manager
 #
 

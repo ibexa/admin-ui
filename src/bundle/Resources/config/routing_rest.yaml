@@ -62,3 +62,42 @@ ibexa.content_type.field_definition.reorder:
     controller: 'Ibexa\Bundle\AdminUi\Controller\FieldDefinitionController::reorderFieldDefinitionsAction'
     requirements:
         contentTypeGroupId: \d+
+
+#
+# Universal Discovery Widget
+#
+
+ibexa.udw.location.data:
+    path: /module/universal-discovery/location/{locationId}
+    controller: 'Ibexa\Bundle\AdminUi\Controller\UniversalDiscoveryController::locationAction'
+    methods: [GET]
+    options:
+        expose: true
+
+ibexa.udw.location.gridview.data:
+    path: /module/universal-discovery/location/{locationId}/gridview
+    controller: 'Ibexa\Bundle\AdminUi\Controller\UniversalDiscoveryController::locationGridViewAction'
+    methods: [GET]
+    options:
+        expose: true
+
+ibexa.udw.locations.data:
+    path: /module/universal-discovery/locations
+    controller: 'Ibexa\Bundle\AdminUi\Controller\UniversalDiscoveryController::locationsAction'
+    methods: [GET]
+    options:
+        expose: true
+
+ibexa.udw.accordion.data:
+    path: /module/universal-discovery/accordion/{locationId}
+    controller: 'Ibexa\Bundle\AdminUi\Controller\UniversalDiscoveryController::accordionAction'
+    methods: [GET]
+    options:
+        expose: true
+
+ibexa.udw.accordion.gridview.data:
+    path: /module/universal-discovery/accordion/{locationId}/gridview
+    controller: 'Ibexa\Bundle\AdminUi\Controller\UniversalDiscoveryController::accordionGridViewAction'
+    methods: [GET]
+    options:
+        expose: true
