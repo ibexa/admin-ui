@@ -1,9 +1,9 @@
-@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
+@IbexaOSS @IbexaHeadless  @javascript
 Feature: Searching for a Content item
   As an administrator
   I want to search for Content items.
 
-  @javascript @APIUser:admin
+  @IbexaExperience @IbexaCommerce
   Scenario: Content can be searched for
     Given I create "folder" Content items in root in "eng-GB"
       | name              | short_name          |
@@ -13,7 +13,6 @@ Feature: Searching for a Content item
     When I search for a Content named "Searched folder"
     Then I should see in search results an item named "Searched folder"
 
-  @javascript @APIUser:admin
   Scenario: Content can be searched for in UDW
     Given I create "folder" Content items in root in "eng-GB"
       | name      | short_name  |
