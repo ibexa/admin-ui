@@ -196,6 +196,14 @@
         display: none;
     }
 
+    &__items-list-header {
+        color: $ibexa-color-dark-400;
+        font-size: $ibexa-text-font-size-small;
+        font-weight: 400;
+        line-height: calculateRem(18px);
+        padding: calculateRem(12px) calculateRem(16px) 0;
+    }
+
     &__items-list {
         list-style: none;
         padding: calculateRem(8.5px);

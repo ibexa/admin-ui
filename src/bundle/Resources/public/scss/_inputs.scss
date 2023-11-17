@@ -25,7 +25,8 @@
     transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
     border: calculateRem(1px) solid $ibexa-color-dark-300;
 
-    &:hover {
+    &:hover,
+    &--hovered {
         border-color: var(--ibexa-input-primary-color);
     }
 
