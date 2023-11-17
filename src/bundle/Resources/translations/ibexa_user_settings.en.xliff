@@ -12,13 +12,13 @@
         <note>key: list.title</note>
       </trans-unit>
       <trans-unit id="ecbb0cf3b32660e173d0b1e4af6a5c8470045128" resname="section.my_account_settings">
-        <source>My account settings</source>
-        <target state="new">My account settings</target>
+        <source>Account settings</source>
+        <target state="new">Account settings</target>
         <note>key: section.my_account_settings</note>
       </trans-unit>
       <trans-unit id="a225cd02a97a3cff5001bf4651bbe84dc62c3631" resname="section.my_preferences">
-        <source>My preferences</source>
-        <target state="new">My preferences</target>
+        <source>Preferences</source>
+        <target state="new">Preferences</target>
         <note>key: section.my_preferences</note>
       </trans-unit>
       <trans-unit id="53b6d0de00a5f914e863bed8b805457da18742ac" resname="settings.autosave.value.description">

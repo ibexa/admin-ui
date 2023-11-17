@@ -1,7 +1,11 @@
 <div class="ibexa-details">
     {% block details_header %}
         {% if headline is defined %}
-            <div class="ibexa-details__header {{ is_inline_headline|default(false) ? 'ibexa-details__header--inline-headline' }}">
+            <div class="
+                ibexa-details__header 
+                {{ is_inline_headline|default(false) ? 'ibexa-details__header--inline-headline' }}
+                {{ is_small_headline|default(false) ? 'ibexa-details__header--small' }}
+            ">
                 {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
                     headline,
                     actions: headline_items|default([])
@@ -15,8 +19,8 @@
                 {% if item.is_break|default(false) %}
                     <div class="ibexa-details__item ibexa-details__item--break"></div>
                 {% else %}
-                    <div class="ibexa-details__item">
-                        <div class="ibexa-details__item-label ibexa-label">{{ item.label }}</div>
+                    <div class="ibexa-details__item {{ item_inline|default(false) ? 'ibexa-details__item--inline' }}">
+                        <div class="ibexa-details__item-label {{ item_inline|default(false) ? '' : 'ibexa-label' }}">{{ item.label }}</div>
                         <div class="ibexa-details__item-content">
                             {{ item.content_raw is defined ? item.content_raw|raw : item.content }}
                         </div>
