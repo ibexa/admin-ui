@@ -20,11 +20,9 @@ use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
-use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
-use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use JMS\TranslationBundle\Model\Message;
@@ -70,8 +68,6 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
     private $permissionChecker;
 
-    private LanguageService $languageService;
-
     private SiteaccessResolverInterface  $siteaccessResolver;
 
     public function __construct(
@@ -83,7 +79,6 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         LocationService $locationService,
         UniversalDiscoveryExtension $udwExtension,
         PermissionCheckerInterface $permissionChecker,
-        LanguageService $languageService,
         SiteaccessResolverInterface $siteaccessResolver
     ) {
         parent::__construct($factory, $eventDispatcher);
@@ -94,7 +89,6 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         $this->locationService = $locationService;
         $this->udwExtension = $udwExtension;
         $this->permissionChecker = $permissionChecker;
-        $this->languageService = $languageService;
         $this->siteaccessResolver = $siteaccessResolver;
     }
 
