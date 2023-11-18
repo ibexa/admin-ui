@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
 use Ibexa\AdminUi\Specification\Location\IsRoot;
@@ -19,8 +20,11 @@ use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
+use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use JMS\TranslationBundle\Model\Message;
@@ -37,6 +41,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
 {
     /* Menu items */
     public const ITEM__CREATE = 'content__sidebar_right__create';
+    public const ITEM__PREVIEW = 'content__sidebar_right__preview';
     public const ITEM__EDIT = 'content__sidebar_right__edit';
     public const ITEM__SEND_TO_TRASH = 'content__sidebar_right__send_to_trash';
     public const ITEM__COPY = 'content__sidebar_right__copy';
@@ -65,6 +70,10 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
     private $permissionChecker;
 
+    private LanguageService $languageService;
+
+    private SiteaccessResolverInterface  $siteaccessResolver;
+
     public function __construct(
         MenuItemFactory $factory,
         EventDispatcherInterface $eventDispatcher,
@@ -73,7 +82,9 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         ConfigResolverInterface $configResolver,
         LocationService $locationService,
         UniversalDiscoveryExtension $udwExtension,
-        PermissionCheckerInterface $permissionChecker
+        PermissionCheckerInterface $permissionChecker,
+        LanguageService $languageService,
+        SiteaccessResolverInterface $siteaccessResolver
     ) {
         parent::__construct($factory, $eventDispatcher);
 
@@ -83,6 +94,8 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         $this->locationService = $locationService;
         $this->udwExtension = $udwExtension;
         $this->permissionChecker = $permissionChecker;
+        $this->languageService = $languageService;
+        $this->siteaccessResolver = $siteaccessResolver;
     }
 
     /**
@@ -193,6 +206,16 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             ),
         ]);
 
+        $mainPreviewItemLanguageCode = $content->contentInfo->mainLanguageCode;
+        $previewItem = $this->getContentPreviewItem(
+            $location,
+            $content,
+            [
+                'extras' => ['orderNumber' => 12],
+            ],
+        );
+        $menu->addChild($previewItem);
+
         $canSendInvitation = $this->permissionResolver->canUser(
             'user',
             'invite',
@@ -301,6 +324,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         return [
             (new Message(self::ITEM__CREATE, 'ibexa_menu'))->setDesc('Create content'),
             (new Message(self::ITEM__EDIT, 'ibexa_menu'))->setDesc('Edit'),
+            (new Message(self::ITEM__PREVIEW, 'ibexa_menu'))->setDesc('Preview'),
             (new Message(self::ITEM__SEND_TO_TRASH, 'ibexa_menu'))->setDesc('Send to trash'),
             (new Message(self::ITEM__COPY, 'ibexa_menu'))->setDesc('Copy'),
             (new Message(self::ITEM__COPY_SUBTREE, 'ibexa_menu'))->setDesc('Copy Subtree'),
@@ -441,6 +465,55 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     {
         return $this->configResolver->getParameter(
             'subtree_operations.copy_subtree.limit'
+        );
+    }
+
+    /**
+     * @param array<string, mixed> $options
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
+    private function getContentPreviewItem(
+        Location $location,
+        Content $content,
+        array $options
+    ): ItemInterface {
+        $versionNo = $content->getVersionInfo()->versionNo;
+        $languageCode = $content->contentInfo->mainLanguageCode;
+
+        $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
+            $location,
+            $versionNo,
+            $languageCode
+        );
+
+        $canPreview = $this->permissionResolver->canUser(
+            'content',
+            'versionread',
+            $content,
+            [$location]
+        );
+
+        if ($canPreview && !empty($siteAccesses)) {
+            $actionOptions = [
+                'route' => 'ibexa.content.preview',
+                'routeParameters' => [
+                    'contentId' => $content->contentInfo->getId(),
+                    'versionNo' => $content->getVersionInfo()->versionNo,
+                    'languageCode' => $languageCode,
+                    'locationId' => $location->id,
+                ],
+            ];
+        } else {
+            $actionOptions = [
+                'attributes' => ['disabled' => 'disabled'],
+            ];
+        }
+
+        return $this->createMenuItem(
+            self::ITEM__PREVIEW,
+            array_merge($options, $actionOptions)
         );
     }
 }
