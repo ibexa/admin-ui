@@ -86,7 +86,7 @@ class RelationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
      */
     public function getOrder(): int
     {
-        return 500;
+        return 600;
     }
 
     /**
