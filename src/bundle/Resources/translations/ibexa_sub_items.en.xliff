@@ -326,11 +326,6 @@
         <target state="new">View</target>
         <note>key: view_switcher.view</note>
       </trans-unit>
-      <trans-unit id="5ae5a511a5c344781ad0caa53efe7b33429c6132" resname="viewing_message">
-        <source>Viewing %viewingCount% out of %totalCount% sub-items</source>
-        <target state="new">Viewing %viewingCount% out of %totalCount% sub-items</target>
-        <note>key: viewing_message</note>
-      </trans-unit>
     </body>
   </file>
 </xliff>

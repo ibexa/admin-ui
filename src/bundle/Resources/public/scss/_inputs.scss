@@ -115,6 +115,7 @@
         position: relative;
         display: inline-block;
         cursor: pointer;
+        background-color: $ibexa-color-white;
 
         &:disabled {
             &.form-check-input {
@@ -128,7 +129,6 @@
         height: calculateRem(16px);
         border-radius: calculateRem(2px);
         margin-bottom: calculateRem(3px);
-        background-color: transparent;
 
         &.form-check-input.form-check-input {
             float: none;

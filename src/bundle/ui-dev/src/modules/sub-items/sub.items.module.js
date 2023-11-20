@@ -9,6 +9,7 @@ import ActionButton from './components/action-btn/action.btn.js';
 import Pagination from '../common/pagination/pagination.js';
 import NoItemsComponent from './components/no-items/no.items.component.js';
 import Icon from '../common/icon/icon.js';
+import PaginationInfo from '../common/pagination/pagination.info.js';
 
 import deepClone from '../common/helpers/deep.clone.helper.js';
 import { updateLocationPriority, loadLocation as loadLocationService } from './services/sub.items.service';
@@ -1093,22 +1094,9 @@ export default class SubItemsModule extends Component {
      */
     renderPaginationInfo() {
         const { totalCount, activePageItems } = this.state;
-
-        if (totalCount === 0) {
-            return null;
-        }
-
         const viewingCount = activePageItems ? activePageItems.length : 0;
-        const message = Translator.trans(
-            /*@Desc("Viewing %viewingCount% out of %totalCount% sub-items")*/ 'viewing_message',
-            {
-                viewingCount,
-                totalCount,
-            },
-            'ibexa_sub_items',
-        );
 
-        return <div className="m-sub-items__pagination-info ibexa-pagination__info" dangerouslySetInnerHTML={{ __html: message }} />;
+        return <PaginationInfo totalCount={totalCount} viewingCount={viewingCount} extraClasses="m-sub-items__pagination-info" />;
     }
 
     /**
