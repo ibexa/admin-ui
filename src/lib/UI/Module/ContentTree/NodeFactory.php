@@ -349,8 +349,7 @@ final class NodeFactory
         $children = [];
         if ($loadChildren && $depth < $this->getSetting('tree_max_depth')) {
             $searchResult = $this->findSubitems($location, $limit, $offset, $sortClause, $sortOrder);
-            /** @var int $totalChildrenCount */
-            $totalChildrenCount = $searchResult->totalCount;
+            $totalChildrenCount = (int) $searchResult->totalCount;
 
             /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $childLocation */
             foreach (array_column($searchResult->searchHits, 'valueObject') as $childLocation) {
