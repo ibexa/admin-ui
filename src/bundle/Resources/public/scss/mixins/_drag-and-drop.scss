@@ -501,7 +501,25 @@
     }
 
     &--invalid {
-        border-color: $ibexa-color-danger;
+        #{$self}__content {
+            border-color: $ibexa-color-danger;
+            color: $ibexa-color-danger;
+
+            .ibexa-dropdown {
+                &__selection-info::before,
+                &__selection-info::after {
+                    background: $ibexa-color-danger;
+                }
+
+                .ibexa-dropdown__selected-item {
+                    color: $ibexa-color-danger;
+                }
+            }
+
+            .ibexa-icon {
+                fill: $ibexa-color-danger;
+            }
+        }
     }
 }
 
