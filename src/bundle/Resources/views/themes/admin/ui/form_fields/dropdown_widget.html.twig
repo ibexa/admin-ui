@@ -27,6 +27,10 @@
             is_dynamic: attr.is_dynamic|default(false),
             has_select_all_toggler: attr.has_select_all_toggler|default(false),
             placeholder: attr.placeholder|default(placeholder),
+            selected_item_template_path: selected_item_template_path|default(null),
+            list_item_template_path: list_item_template_path|default(null),
+            items_class: items_class|default(null),
+            items_list_header: items_list_header|default(null),
         } only %}
     {% endif %}
 {%- endblock choice_widget -%}
