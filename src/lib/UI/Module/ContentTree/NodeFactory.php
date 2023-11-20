@@ -377,11 +377,7 @@ final class NodeFactory
             }
         }
 
-        /** @var string $currentUserLanguageCode */
-        $currentUserLanguageCode = $this->userSettingService->getUserSetting('language');
-        $translations = in_array($currentUserLanguageCode, $versionInfo->languageCodes, true)
-            ? array_unique(array_merge([$currentUserLanguageCode], $versionInfo->languageCodes))
-            : $versionInfo->languageCodes;
+        $translations = $versionInfo->languageCodes;
         $previewableTranslations = array_filter(
             $translations,
             fn (string $languageCode): bool => $this->isPreviewable($location, $content, $languageCode)

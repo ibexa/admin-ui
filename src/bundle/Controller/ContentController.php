@@ -382,7 +382,10 @@ class ContentController extends Controller
             $siteAccessesList[$siteAccess->name] = $this->siteAccessNameGenerator->generate($siteAccess);
         }
 
-        if ($preselectedSiteAccess && !array_key_exists($preselectedSiteAccess, $siteAccessesList)) {
+        if (
+            $preselectedSiteAccess !== null &&
+            !array_key_exists($preselectedSiteAccess, $siteAccessesList)
+        ) {
             $preselectedSiteAccess = null;
         }
 

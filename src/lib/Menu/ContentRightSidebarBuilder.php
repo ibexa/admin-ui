@@ -200,7 +200,6 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             ),
         ]);
 
-        $mainPreviewItemLanguageCode = $content->contentInfo->mainLanguageCode;
         $previewItem = $this->getContentPreviewItem(
             $location,
             $content,
