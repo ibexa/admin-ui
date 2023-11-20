@@ -11,8 +11,6 @@ namespace Ibexa\AdminUi\Tab\LocationView;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use JMS\TranslationBundle\Annotation\Desc;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\Environment;
 
 class SubItemsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
