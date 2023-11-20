@@ -74,7 +74,7 @@
 
         searchAbortController?.abort();
 
-        if (searchText.length <= minQueryLength) {
+        if (searchText.length < minQueryLength) {
             hideAutocomplete();
 
             return;
