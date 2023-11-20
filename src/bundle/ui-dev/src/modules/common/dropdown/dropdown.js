@@ -161,7 +161,7 @@ const Dropdown = ({
     };
     const renderSelectedMultipleItem = (item) => {
         return (
-            <li className="ibexa-dropdown__selected-item " data-value="pending">
+            <li className="ibexa-dropdown__selected-item">
                 {item.label}
                 <span className="ibexa-dropdown__remove-selection" onClick={() => onChange(item.value)} />
             </li>
