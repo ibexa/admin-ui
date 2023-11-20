@@ -282,8 +282,8 @@
         <note>key: tab.name.policies</note>
       </trans-unit>
       <trans-unit id="eeca4145269fdae93e31aba7725f260e0c44839a" resname="tab.name.quick_preview">
-        <source>View</source>
-        <target state="new">View</target>
+        <source>Quick Preview</source>
+        <target state="new">Quick Preview</target>
         <note>key: tab.name.quick_preview</note>
       </trans-unit>
       <trans-unit id="8954433abc5d011c00f81f317c7eebec41fbb1c0" resname="tab.name.relations">
