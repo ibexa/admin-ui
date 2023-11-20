@@ -27,8 +27,8 @@
         <note>key: content.create.create_content</note>
       </trans-unit>
       <trans-unit id="90210d6d68a4c36d75906bd4fea9194a88988205" resname="content.create.editing_details">
-        <source>Location: %content%</source>
-        <target state="new">Location: %content%</target>
+        <source>under %content%</source>
+        <target state="new">under %content%</target>
         <note>key: content.create.editing_details</note>
       </trans-unit>
       <trans-unit id="a443a2a76348e8431df4346c11079f9e56735473" resname="content.create.filters.desc">
@@ -91,6 +91,41 @@
         <target state="new">Enter your team members email addresses.</target>
         <note>key: modal.info</note>
       </trans-unit>
+      <trans-unit id="6c7b23f10048a1a732637fab418a66e6aa10b3dc" resname="tab.author.authors">
+        <source>Authors</source>
+        <target state="new">Authors</target>
+        <note>key: tab.author.authors</note>
+      </trans-unit>
+      <trans-unit id="f3531550ad402d3be828ec391f1a80a295d3382c" resname="tab.author.content_id">
+        <source>Content ID</source>
+        <target state="new">Content ID</target>
+        <note>key: tab.author.content_id</note>
+      </trans-unit>
+      <trans-unit id="762ccb5d0506d7818b3b00dcd1459dfa6b4776d9" resname="tab.author.creator">
+        <source>Creator</source>
+        <target state="new">Creator</target>
+        <note>key: tab.author.creator</note>
+      </trans-unit>
+      <trans-unit id="732e6a42956aa790c56e1c0a0af8af89189c5c96" resname="tab.author.creator.not_found">
+        <source>Can't fetch creator</source>
+        <target state="new">Can't fetch creator</target>
+        <note>key: tab.author.creator.not_found</note>
+      </trans-unit>
+      <trans-unit id="ccdfe4ede13f639239013d24eeedafd222f1f85e" resname="tab.author.last_contributor">
+        <source>Last contributor</source>
+        <target state="new">Last contributor</target>
+        <note>key: tab.author.last_contributor</note>
+      </trans-unit>
+      <trans-unit id="fbb9528d62d1dff7395ce7078bf7e066b6becb68" resname="tab.author.last_contributor.not_found">
+        <source>Can't fetch last contributor</source>
+        <target state="new">Can't fetch last contributor</target>
+        <note>key: tab.author.last_contributor.not_found</note>
+      </trans-unit>
+      <trans-unit id="6bb8a4c032509c485369da8d80e46b248911bbe7" resname="tab.author.location_id">
+        <source>Location ID</source>
+        <target state="new">Location ID</target>
+        <note>key: tab.author.location_id</note>
+      </trans-unit>
       <trans-unit id="4fd9a40170cf4bc5acff719c14eaf2d15fc9942d" resname="tab.details.change_section ">
         <source>Change section</source>
         <target state="new">Change section</target>
@@ -115,26 +150,6 @@
         <source>Content remote ID</source>
         <target state="new">Content remote ID</target>
         <note>key: tab.details.content_remote_id</note>
-      </trans-unit>
-      <trans-unit id="dc195b32e812b751daa7a3321844c9712e1460ba" resname="tab.details.creator">
-        <source>Creator</source>
-        <target state="new">Creator</target>
-        <note>key: tab.details.creator</note>
-      </trans-unit>
-      <trans-unit id="91b45af4dd219651dc8b1a7d050822b71f03fad3" resname="tab.details.creator.not_found">
-        <source>Can't fetch creator</source>
-        <target state="new">Can't fetch creator</target>
-        <note>key: tab.details.creator.not_found</note>
-      </trans-unit>
-      <trans-unit id="acc17a8db8d00036233faa9948ad9a496cd621b3" resname="tab.details.last_contributor">
-        <source>Last contributor</source>
-        <target state="new">Last contributor</target>
-        <note>key: tab.details.last_contributor</note>
-      </trans-unit>
-      <trans-unit id="ba5ca8a7f923f6ee3a0e6bf9aca428403d0158fd" resname="tab.details.last_contributor.not_found">
-        <source>Can't fetch last contributor</source>
-        <target state="new">Can't fetch last contributor</target>
-        <note>key: tab.details.last_contributor.not_found</note>
       </trans-unit>
       <trans-unit id="671c2d4e91244548b29e8f293cd8d4d97a3c23bd" resname="tab.details.location_id">
         <source>Location ID</source>
@@ -246,9 +261,14 @@
         <target state="new">Visibility</target>
         <note>key: tab.locations.visibility</note>
       </trans-unit>
+      <trans-unit id="d1b8c4b5f1920ea90e6b4e1376a3e8167f2ef21a" resname="tab.name.authors">
+        <source>Authors</source>
+        <target state="new">Authors</target>
+        <note>key: tab.name.authors</note>
+      </trans-unit>
       <trans-unit id="5d92b84a6c78bd443010f172c47d01ce0dacacd7" resname="tab.name.details">
-        <source>Details</source>
-        <target state="new">Details</target>
+        <source>Technical Details</source>
+        <target state="new">Technical Details</target>
         <note>key: tab.name.details</note>
       </trans-unit>
       <trans-unit id="bc992b410ec56cce18c994806d7518fd47da2caa" resname="tab.name.locations">
@@ -260,6 +280,11 @@
         <source>Policies</source>
         <target state="new">Policies</target>
         <note>key: tab.name.policies</note>
+      </trans-unit>
+      <trans-unit id="eeca4145269fdae93e31aba7725f260e0c44839a" resname="tab.name.quick_preview">
+        <source>Quick Preview</source>
+        <target state="new">Quick Preview</target>
+        <note>key: tab.name.quick_preview</note>
       </trans-unit>
       <trans-unit id="8954433abc5d011c00f81f317c7eebec41fbb1c0" resname="tab.name.relations">
         <source>Relations</source>
@@ -285,11 +310,6 @@
         <source>Versions</source>
         <target state="new">Versions</target>
         <note>key: tab.name.versions</note>
-      </trans-unit>
-      <trans-unit id="eb3b504a0281951f15692e888226579aa99bb512" resname="tab.name.view">
-        <source>View</source>
-        <target state="new">View</target>
-        <note>key: tab.name.view</note>
       </trans-unit>
       <trans-unit id="373c6d223e1f346d71cf6cfd85f0fbc3d76ca1d5" resname="tab.relations.no_relations">
         <source>This Content item has no related content.</source>
