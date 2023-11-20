@@ -54,7 +54,7 @@
         "ibexa/user": "~4.6.0@dev",
         "ibexa/fieldtype-richtext": "~4.6.0@dev",
         "ibexa/rest": "~4.6.0@dev",
-        "ibexa/search": "~4.6.0@dev",
+        "ibexa/search": "~4.6.x-dev",
         "babdev/pagerfanta-bundle": "^2.1",
         "knplabs/knp-menu-bundle": "^3.0",
         "mck89/peast": "^1.9",
