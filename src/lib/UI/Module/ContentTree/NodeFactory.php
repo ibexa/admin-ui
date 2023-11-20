@@ -29,7 +29,6 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Helper\TranslationHelper;
 use Ibexa\Core\Repository\Repository;
-use Ibexa\User\UserSetting\UserSettingService;
 
 /**
  * @internal
@@ -62,8 +61,6 @@ final class NodeFactory
 
     private SiteaccessResolverInterface  $siteaccessResolver;
 
-    private UserSettingService $userSettingService;
-
     /** @var int */
     private $maxLocationIdsInSingleAggregation;
 
@@ -76,7 +73,6 @@ final class NodeFactory
         PermissionResolver $permissionResolver,
         Repository $repository,
         SiteaccessResolverInterface $siteaccessResolver,
-        UserSettingService $userSettingService,
         int $maxLocationIdsInSingleAggregation
     ) {
         $this->bookmarkService = $bookmarkService;
@@ -87,7 +83,6 @@ final class NodeFactory
         $this->permissionResolver = $permissionResolver;
         $this->repository = $repository;
         $this->siteaccessResolver = $siteaccessResolver;
-        $this->userSettingService = $userSettingService;
         $this->maxLocationIdsInSingleAggregation = $maxLocationIdsInSingleAggregation;
     }
 
