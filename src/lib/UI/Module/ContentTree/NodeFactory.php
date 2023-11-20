@@ -379,12 +379,12 @@ final class NodeFactory
 
         /** @var string $currentUserLanguageCode */
         $currentUserLanguageCode = $this->userSettingService->getUserSetting('language');
-        $translations = in_array($currentUserLanguageCode, $versionInfo->languageCodes)
+        $translations = in_array($currentUserLanguageCode, $versionInfo->languageCodes, true)
             ? array_unique(array_merge([$currentUserLanguageCode], $versionInfo->languageCodes))
             : $versionInfo->languageCodes;
         $previewableTranslations = array_filter(
             $translations,
-            fn ($languageCode) => $this->checkIsPreviewable($location, $content, $languageCode)
+            fn (string $languageCode): bool => $this->isPreviewable($location, $content, $languageCode)
         );
 
         return new Node(
@@ -454,7 +454,7 @@ final class NodeFactory
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    private function checkIsPreviewable(
+    private function isPreviewable(
         Location $location,
         Content $content,
         string $languageCode
