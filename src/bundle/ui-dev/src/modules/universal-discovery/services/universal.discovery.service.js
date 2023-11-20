@@ -137,7 +137,7 @@ export const loadAccordionData = (
 };
 
 export const findLocationsBySearchQuery = (
-    { token, siteaccess, query, limit = QUERY_LIMIT, offset = 0, languageCode = null },
+    { token, siteaccess, query, aggregations, filters, limit = QUERY_LIMIT, offset = 0, languageCode = null },
     callback,
 ) => {
     const useAlwaysAvailable = true;
@@ -151,6 +151,8 @@ export const findLocationsBySearchQuery = (
                 FacetBuilders: {},
                 SortClauses: {},
                 Query: query,
+                Aggregations: aggregations,
+                Filters: filters,
                 limit,
                 offset,
             },
@@ -167,11 +169,12 @@ export const findLocationsBySearchQuery = (
     fetch(request)
         .then(handleRequestResponse)
         .then((response) => {
-            const { count, searchHits } = response.View.Result;
+            const { count, aggregations: searchAggregations, searchHits } = response.View.Result;
             const items = searchHits.searchHit.map((searchHit) => searchHit.value.Location);
 
             callback({
                 items,
+                aggregations: searchAggregations,
                 count,
             });
         })

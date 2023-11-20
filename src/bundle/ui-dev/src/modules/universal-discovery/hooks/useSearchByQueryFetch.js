@@ -26,13 +26,25 @@ export const useSearchByQueryFetch = () => {
     const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [{ isLoading, data }, dispatch] = useReducer(searchByQueryReducer, { isLoading: false, data: {} });
     const searchByQuery = useCallback(
-        (searchText, contentTypesIdentifiers, sectionIdentifier, subtreePathString, limit, offset, languageCode) => {
+        (
+            searchText,
+            contentTypesIdentifiers,
+            sectionIdentifier,
+            subtreePathString,
+            limit,
+            offset,
+            languageCode,
+            imageCriterionData = null,
+            aggregations = {},
+            filters = {},
+            fullTextCriterion = null,
+        ) => {
             const handleFetch = (response) => {
                 setMarkedLocationId(null);
                 dispatchLoadedLocationsAction({ type: 'CLEAR_LOCATIONS' });
                 dispatch({ type: SEARCH_END, response });
             };
-            const query = { FullTextCriterion: `${searchText}*` };
+            const query = { FullTextCriterion: fullTextCriterion ? fullTextCriterion : `${searchText}*` };
 
             if (contentTypesIdentifiers && contentTypesIdentifiers.length) {
                 query.ContentTypeIdentifierCriterion = contentTypesIdentifiers;
@@ -46,8 +58,19 @@ export const useSearchByQueryFetch = () => {
                 query.SubtreeCriterion = subtreePathString;
             }
 
+            const isImageCriterionDataEmpty = !imageCriterionData || Object.keys(imageCriterionData).length === 0;
+
+            if (!isImageCriterionDataEmpty) {
+                const imageCriterion = {
+                    fieldDefIdentifier: 'image',
+                    ...imageCriterionData,
+                };
+
+                query.ImageCriterion = imageCriterion;
+            }
+
             dispatch({ type: SEARCH_START });
-            findLocationsBySearchQuery({ ...restInfo, query, limit, offset, languageCode }, handleFetch);
+            findLocationsBySearchQuery({ ...restInfo, query, aggregations, filters, limit, offset, languageCode }, handleFetch);
         },
         [restInfo, dispatch],
     );
