@@ -76,3 +76,5 @@ parameters:
     ibexa.io.multifile_upload.max_file_size: 5242880
 
     ibexa.admin_ui.content_tree.node_factory.max_location_ids_in_single_aggregation: 100
+
+    ibexa.admin_ui.config.default.user_mode: 'smart'
