@@ -27,8 +27,8 @@
         <note>key: content.create.create_content</note>
       </trans-unit>
       <trans-unit id="90210d6d68a4c36d75906bd4fea9194a88988205" resname="content.create.editing_details">
-        <source>Location: %content%</source>
-        <target state="new">Location: %content%</target>
+        <source>under %content%</source>
+        <target state="new">under %content%</target>
         <note>key: content.create.editing_details</note>
       </trans-unit>
       <trans-unit id="a443a2a76348e8431df4346c11079f9e56735473" resname="content.create.filters.desc">
@@ -267,7 +267,7 @@
         <note>key: tab.name.authors</note>
       </trans-unit>
       <trans-unit id="5d92b84a6c78bd443010f172c47d01ce0dacacd7" resname="tab.name.details">
-        <source>Technical details</source>
+        <source>Technical Details</source>
         <target state="new">Technical Details</target>
         <note>key: tab.name.details</note>
       </trans-unit>
