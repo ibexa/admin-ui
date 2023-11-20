@@ -19,8 +19,8 @@
 {% block content %}
     {% embed '@ibexadesign/ui/component/tab/tabs.html.twig' with {
         tabs: [
-          { id: 'my-preferences', label: 'section.my_preferences'|trans|desc('My preferences'), active: true },
-          { id: 'my-account-settings', label: 'section.my_account_settings'|trans|desc('My account settings') },
+          { id: 'my-preferences', label: 'section.my_preferences'|trans|desc('Preferences'), active: true },
+          { id: 'my-account-settings', label: 'section.my_account_settings'|trans|desc('Account settings') },
         ]
     } %}
         {% block tab_content %}
@@ -30,13 +30,15 @@
                         {% if settings_group.settings is not empty %}
                             {% set headline_items %}
                                 <a
-                                    title="{{ 'list.action.edit'|trans|desc('Edit') }}"
                                     href="{{ path('ibexa.user_settings.update', { 'identifier': settings_group.identifier }) }}"
-                                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
                                 >
                                     <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
                                         <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
                                     </svg>
+                                    <span class="ibexa-btn__label">
+                                        {{ 'list.action.edit'|trans|desc('Edit') }}
+                                    </span>
                                 </a>
                             {% endset %}
                             {% set items = [] %}
@@ -51,7 +53,10 @@
                             {% include '@ibexadesign/ui/component/details/details.html.twig' with {
                                 headline: settings_group.name,
                                 headline_items: headline_items,
+                                is_small_headline: true,
                                 items: items,
+                                view_mode: "vertical",
+                                item_inline: true,
                             } only %}
                         {% endif %}
                     {% endfor %}
@@ -62,7 +67,7 @@
                     {% set actions %}
                         <a
                             href="{{ path('ibexa.user_profile.change_password') }}"
-                            class="btn ibexa-btn ibexa-btn--ghost"
+                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
                         >
                             <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
                                 <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
