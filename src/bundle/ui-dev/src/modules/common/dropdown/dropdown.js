@@ -110,7 +110,7 @@ const Dropdown = ({
         setItemsListStyles(itemsStyles);
     };
     const renderItemsList = () => {
-        const placeholder = Translator.trans(/*@Desc("Search...")*/ 'dropdown.placeholder', {}, 'ibexa_universal_discovery_widget');
+        const searchPlaceholder = Translator.trans(/*@Desc("Search...")*/ 'dropdown.placeholder', {}, 'ibexa_universal_discovery_widget');
         const itemsContainerClass = createCssClassNames({
             'ibexa-dropdown__items': true,
             'ibexa-dropdown__items--search-hidden': options.length < minSearchItems,
@@ -121,7 +121,7 @@ const Dropdown = ({
                 <div className="ibexa-input-text-wrapper">
                     <input
                         type="text"
-                        placeholder={placeholder}
+                        placeholder={searchPlaceholder}
                         className="ibexa-dropdown__items-filter ibexa-input ibexa-input--small ibexa-input--text form-control"
                         onChange={updateFilterValue}
                         value={filterText}
