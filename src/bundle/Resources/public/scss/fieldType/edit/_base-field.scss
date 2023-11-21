@@ -30,6 +30,10 @@
     &__focus-mode-control-container {
         display: flex;
         align-self: flex-end;
+
+        .ibexa-label {
+            display: none;
+        }
     }
 
     &__focus-mode-control-btn {
@@ -141,7 +145,15 @@
             }
 
             &__focus-mode-control-container {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
                 height: calculateRem(40px);
+
+                .ibexa-label {
+                    display: inline-flex;
+                    margin: calculateRem(8px) 0 0 0;
+                }
             }
 
             &__focus-mode-control-btn {
