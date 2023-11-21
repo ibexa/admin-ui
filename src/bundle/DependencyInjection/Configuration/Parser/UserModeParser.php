@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
+use Ibexa\AdminUi\UserSetting\UserMode;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\AbstractParser;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
@@ -27,6 +28,11 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  */
 final class UserModeParser extends AbstractParser
 {
+    private const MODES = [
+        'expert' => UserMode::EXPERT,
+        'smart' => UserMode::SMART,
+    ];
+
     /**
      * @param array<string, mixed> $scopeSettings
      */
@@ -63,10 +69,16 @@ final class UserModeParser extends AbstractParser
         string $currentScope,
         ContextualizerInterface $contextualizer
     ): void {
+        $userMode = $settings['default_user_mode'];
+
+        if (false === array_key_exists($userMode, self::MODES)) {
+            return;
+        }
+
         $contextualizer->setContextualParameter(
             'admin_ui.default_user_mode',
             $currentScope,
-            $settings['default_user_mode']
+            self::MODES[$userMode]
         );
     }
 }

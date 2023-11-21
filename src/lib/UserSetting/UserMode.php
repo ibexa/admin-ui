@@ -22,11 +22,6 @@ final class UserMode implements ValueDefinitionInterface, FormMapperInterface, T
     public const EXPERT = '0';
     public const SMART = '1';
 
-    private const MODES = [
-        'expert' => self::EXPERT,
-        'smart' => self::SMART,
-    ];
-
     private const TRANSLATION_DOMAIN = 'ibexa_user_settings';
 
     private TranslatorInterface $translator;
@@ -73,7 +68,7 @@ final class UserMode implements ValueDefinitionInterface, FormMapperInterface, T
 
     public function getDefaultValue(): string
     {
-        return self::MODES[$this->configResolver->getParameter('default.admin_ui.default_user_mode')];
+        return $this->configResolver->getParameter('admin_ui.default_user_mode');
     }
 
     public function mapFieldForm(
