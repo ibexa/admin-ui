@@ -5,31 +5,35 @@
     {% set user_image = user.content.thumbnail %}
 
     <div class="ibexa-header-user-menu">
-        <div
-            class="ibexa-header-user-menu__notifications-toggler"
-            data-bs-toggle="modal"
-            data-bs-target="#view-notifications"
-        >
-            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--light">
-                <use xlink:href="{{ ibexa_icon_path('bell') }}"></use>
-            </svg>
-            <span class="ibexa-header-user-menu__notice-dot ibexa-header-user-menu__notice-dot--no-notice"></span>
+        <div class="ibexa-header-user-menu__notifications">
+            <button class="btn ibexa-btn ibexa-btn--no-text ibexa-header-user-menu__notifications-toggler">
+                <svg class="ibexa-icon ibexa-icon--small ibexa-icon--light">
+                    <use xlink:href="{{ ibexa_icon_path('bell') }}"></use>
+                </svg>
+                <span class="ibexa-header-user-menu__notice-dot ibexa-header-user-menu__notice-dot--no-notice"></span>
+            </button>
+            <div class="ibexa-header-user-menu__notifications-popup-content">
+                {{ include('@ibexadesign/account/notifications/popup.html.twig') }}
+            </div>
+            
+            {{ include('@ibexadesign/account/notifications/modal.html.twig') }}
         </div>
-        <button class="ibexa-header-user-menu__toggler">
-            <div class="ibexa-header-user-menu__thumbnail-wrapper">
-                {% include '@ibexadesign/ui/component/user_thumbnail/user_thumbnail.html.twig' with {
-                    user_content: user.content,
-                } %}
-            </div>
-        </button>
+        
+        <div class="ibexa-header-user-menu__user">
+            <button class="ibexa-header-user-menu__toggler">
+                <div class="ibexa-header-user-menu__thumbnail-wrapper">
+                    {% include '@ibexadesign/ui/component/user_thumbnail/user_thumbnail.html.twig' with {
+                        user_content: user.content,
+                    } %}
+                </div>
+            </button>
 
-        {{ include('@ibexadesign/account/notifications/modal.html.twig') }}
-
-        <div class="ibexa-header-user-menu__popup-menu ibexa-popup-menu ibexa-popup-menu--hidden">
-            <div class="ibexa-header-user-menu__popup-menu-title">
-                {{ 'user_menu.popup_menu.title'|trans({'%userName%': user.name})|desc('Logged as %userName%') }}
+            <div class="ibexa-header-user-menu__popup-menu ibexa-popup-menu ibexa-popup-menu--hidden">
+                <div class="ibexa-header-user-menu__popup-menu-title">
+                    {{ 'user_menu.popup_menu.title'|trans({'%userName%': user.name})|desc('Logged as %userName%') }}
+                </div>
+                {{ parent() }}
             </div>
-            {{ parent() }}
         </div>
     </div>
 {% endblock %}

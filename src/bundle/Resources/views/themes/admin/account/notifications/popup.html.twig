@@ -1,0 +1,27 @@
+{% trans_default_domain 'notifications' %}
+
+<div class="ibexa-notifications-popup">
+    <div class="ibexa-notifications-popup__header">
+        <h4 class="ibexa-notifications-popup__header-title">{{ 'notifications'|trans|desc('Notifications') }}</h4>
+        <div class="ibexa-notifications-popup__header-actions-wrapper">
+            <button class="btn ibexa-btn ibexa-btn--small ibexa-btn--no-text ibexa-notifications-popup__header-context-menu-toggler">
+                <svg class="ibexa-icon ibexa-icon--small">
+                    <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="ibexa-notifications-popup__body">
+        <div class="ibexa-notifications-popup__body-spinner">
+            <svg class="ibexa-icon ibexa-spin">
+                <use xlink:href="{{ ibexa_icon_path('spinner') }}"></use>
+            </svg>
+        </div>
+        <div class="ibexa-notifications-popup__body-content">
+            {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\NotificationController::renderNotificationsPageAction', {
+                'page': 1,
+            })) }}
+        </div>
+    </div>
+</div>

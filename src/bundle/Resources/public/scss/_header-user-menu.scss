@@ -52,6 +52,25 @@
         border-radius: 50%;
     }
 
+
+    &__notifications {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .popover {
+            max-width: initial;
+            background: initial;
+            border: 0;
+            pointer-events: all; // for popovers inside .modal-dialog
+        }
+
+        .popover-body {
+            padding: 0;
+            color: initial;
+        }
+    }
+
     &__notifications-toggler {
         display: flex;
         align-items: flex-end;
@@ -67,16 +86,27 @@
         }
     }
 
+    &__notifications-popup-content {
+        display: none;
+    }
+
     &__notice-dot {
-        width: calculateRem(6px);
-        height: calculateRem(6px);
+        position: absolute;
+        right: calculateRem(4px);
+        top: calculateRem(-2px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: calculateRem(20px);
+        height: calculateRem(20px);
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        color: $ibexa-color-white;
+        font-size: $ibexa-text-font-size-small;
         border-radius: 50%;
         background: $ibexa-color-danger;
         opacity: 1;
-        cursor: pointer;
-        position: absolute;
-        left: calculateRem(10px);
-        top: 0;
 
         &--no-notice {
             opacity: 0;

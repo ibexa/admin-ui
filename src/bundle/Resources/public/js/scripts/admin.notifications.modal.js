@@ -100,7 +100,9 @@
     const updatePendingNotificationsView = (notificationsInfo) => {
         const noticeDot = doc.querySelector('.ibexa-header-user-menu__notice-dot');
 
+        noticeDot.innerText = notificationsInfo.pending;
         noticeDot.classList.toggle('ibexa-header-user-menu__notice-dot--no-notice', notificationsInfo.pending === 0);
+
     };
     const setPendingNotificationCount = (notificationsInfo) => {
         updatePendingNotificationsView(notificationsInfo);
