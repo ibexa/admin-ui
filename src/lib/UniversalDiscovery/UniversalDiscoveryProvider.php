@@ -228,7 +228,7 @@ class UniversalDiscoveryProvider implements Provider
         );
 
         return array_map(
-            static function (SearchHit $searchHit) {
+            static function (SearchHit $searchHit): Version {
                 /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
                 $content = $searchHit->valueObject;
 
@@ -255,7 +255,7 @@ class UniversalDiscoveryProvider implements Provider
 
         return [
             'locations' => array_map(
-                static function (SearchHit $searchHit) {
+                static function (SearchHit $searchHit): RestLocation {
                     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
                     $location = $searchHit->valueObject;
 
@@ -378,7 +378,7 @@ class UniversalDiscoveryProvider implements Provider
         bool $isLastColumnLocationId
     ): array {
         $index = array_search($location->id, array_map(
-            static function (RestLocation $location) {
+            static function (RestLocation $location): int {
                 return $location->location->id;
             },
             $locations
