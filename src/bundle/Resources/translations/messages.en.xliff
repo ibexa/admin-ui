@@ -434,8 +434,8 @@
         <note>key: fieldview.toggler.show</note>
       </trans-unit>
       <trans-unit id="3ed43e39f88eb44efe31d1befa4287bcf0501520" resname="focus_mode.disable.label">
-        <source>Default mode</source>
-        <target state="new">Default mode</target>
+        <source>Exit focus mode</source>
+        <target state="new">Exit focus mode</target>
         <note>key: focus_mode.disable.label</note>
       </trans-unit>
       <trans-unit id="4955a4170a73b14b10dd0387dc24e076ea6a09b3" resname="focus_mode.disable.tooltip">
