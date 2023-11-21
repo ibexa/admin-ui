@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ibexa\Bundle\AdminUi\ControllerArgumentResolver\UniversalDiscoveryRequestQueryArgumentResolver:
+        tags:
+            - { name: controller.argument_value_resolver, priority: 50 }

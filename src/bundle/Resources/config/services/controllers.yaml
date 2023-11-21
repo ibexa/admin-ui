@@ -178,7 +178,7 @@ services:
             - controller.service_arguments
 
     Ibexa\Bundle\AdminUi\Controller\UniversalDiscoveryController:
-        parent: Ibexa\Contracts\AdminUi\Controller\Controller
+        parent: Ibexa\Rest\Server\Controller
         autowire: true
         tags:
             - controller.service_arguments

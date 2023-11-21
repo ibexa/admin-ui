@@ -7,6 +7,9 @@ const HEADERS_CREATE_VIEW = {
 };
 const ENDPOINT_CREATE_VIEW = '/api/ibexa/v2/views';
 const ENDPOINT_BOOKMARK = '/api/ibexa/v2/bookmark';
+const ENDPOINT_LOCATION = '/api/ibexa/v2/module/universal-discovery/location';
+const ENDPOINT_ACCORDION = '/api/ibexa/v2/module/universal-discovery/accordion';
+const ENDPOINT_LOCATION_LIST = '/api/ibexa/v2/module/universal-discovery/locations';
 
 export const QUERY_LIMIT = 50;
 
@@ -35,16 +38,30 @@ const mapSubitems = (subitems) => {
 };
 
 export const findLocationsByParentLocationId = (
-    { token, parentLocationId, limit = QUERY_LIMIT, offset = 0, sortClause = 'DatePublished', sortOrder = 'ascending', gridView = false },
+    {
+        token,
+        siteaccess,
+        parentLocationId,
+        limit = QUERY_LIMIT,
+        offset = 0,
+        sortClause = 'DatePublished',
+        sortOrder = 'ascending',
+        gridView = false,
+    },
     callback,
 ) => {
-    const routeName = gridView ? 'ibexa.udw.location.gridview.data' : 'ibexa.udw.location.data';
-    const url = window.Routing.generate(routeName, {
-        locationId: parentLocationId,
-    });
+    let url = `${ENDPOINT_LOCATION}/${parentLocationId}`;
+    if (gridView) {
+        url += '/gridview';
+    }
+
     const request = new Request(`${url}?limit=${limit}&offset=${offset}&sortClause=${sortClause}&sortOrder=${sortOrder}`, {
         method: 'GET',
-        headers: { 'X-CSRF-Token': token },
+        headers: {
+            'X-CSRF-Token': token,
+            Accept: 'application/json',
+            'X-Siteaccess': siteaccess,
+        },
         mode: 'same-origin',
         credentials: 'same-origin',
     });
@@ -52,7 +69,7 @@ export const findLocationsByParentLocationId = (
     fetch(request)
         .then(handleRequestResponse)
         .then((response) => {
-            const { bookmarked, location, permissions, subitems, version } = response;
+            const { bookmarked, location, permissions, subitems, version } = response.LocationData;
             const subitemsData = mapSubitems(subitems);
             const locationData = {
                 location: location ? location.Location : null,
@@ -72,6 +89,7 @@ export const findLocationsByParentLocationId = (
 export const loadAccordionData = (
     {
         token,
+        siteaccess,
         parentLocationId,
         limit = QUERY_LIMIT,
         sortClause = 'DatePublished',
@@ -81,13 +99,17 @@ export const loadAccordionData = (
     },
     callback,
 ) => {
-    const routeName = gridView ? 'ibexa.udw.accordion.gridview.data' : 'ibexa.udw.accordion.data';
-    const url = window.Routing.generate(routeName, {
-        locationId: parentLocationId,
-    });
+    let url = `${ENDPOINT_ACCORDION}/${parentLocationId}`;
+    if (gridView) {
+        url += '/gridview';
+    }
     const request = new Request(`${url}?limit=${limit}&sortClause=${sortClause}&sortOrder=${sortOrder}&rootLocationId=${rootLocationId}`, {
         method: 'GET',
-        headers: { 'X-CSRF-Token': token },
+        headers: {
+            'X-CSRF-Token': token,
+            Accept: 'application/json',
+            'X-Siteaccess': siteaccess,
+        },
         mode: 'same-origin',
         credentials: 'same-origin',
     });
@@ -95,22 +117,23 @@ export const loadAccordionData = (
     fetch(request)
         .then(handleRequestResponse)
         .then((response) => {
-            const mappedItems = response.breadcrumb.map((item) => {
+            const data = response.AccordionData;
+            const mappedItems = data.breadcrumb.map((item) => {
                 const location = item.Location;
-                const itemData = response.columns[location.id];
+                const itemData = data.columns[location.id];
                 const mappedItem = {
                     location,
                     totalCount: itemData ? itemData.subitems.totalCount : undefined,
                     subitems: itemData ? mapSubitems(itemData.subitems) : [],
                     parentLocationId: location.id,
-                    collapsed: !response.columns[location.id],
+                    collapsed: !data.columns[location.id],
                 };
 
                 return mappedItem;
             });
 
-            const rootLocationData = response.columns[1];
-            const lastLocationData = response.columns[parentLocationId];
+            const rootLocationData = data.columns[1];
+            const lastLocationData = data.columns[parentLocationId];
 
             if (rootLocationData) {
                 mappedItems.unshift({
@@ -352,9 +375,13 @@ export const loadContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LI
         .catch(showErrorNotificationAbortWrapper);
 };
 
-export const loadLocationsWithPermissions = ({ locationIds, signal }, callback) => {
-    const url = window.Routing.generate('ibexa.udw.locations.data');
-    const request = new Request(`${url}?locationIds=${locationIds}`, {
+export const loadLocationsWithPermissions = ({ token, siteaccess, locationIds, signal }, callback) => {
+    const request = new Request(`${ENDPOINT_LOCATION_LIST}?locationIds=${locationIds}`, {
+        headers: {
+            Accept: 'application/vnd.ibexa.api.VersionUpdate+json',
+            'X-Siteaccess': siteaccess,
+            'X-CSRF-Token': token,
+        },
         method: 'GET',
         mode: 'same-origin',
         credentials: 'same-origin',

@@ -946,11 +946,6 @@ parameters:
 			path: src/bundle/Controller/URLWildcardController.php
 
 		-
-			message: "#^Method Ibexa\\\\Bundle\\\\AdminUi\\\\Controller\\\\UniversalDiscoveryController\\:\\:locationsAction\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/bundle/Controller/UniversalDiscoveryController.php
-
-		-
 			message: "#^Cannot access property \\$languageCode on Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\|null\\.$#"
 			count: 1
 			path: src/bundle/Controller/UrlAliasController.php

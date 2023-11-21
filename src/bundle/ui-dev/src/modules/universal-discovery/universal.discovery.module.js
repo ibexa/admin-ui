@@ -175,7 +175,9 @@ const UniversalDiscoveryModule = (props) => {
         }
 
         return new Promise((resolve) => {
-            loadLocationsWithPermissions({ locationIds, signal: abortControllerRef.current.signal }, (response) => resolve(response));
+            loadLocationsWithPermissions({ ...restInfo, locationIds, signal: abortControllerRef.current.signal }, (response) =>
+                resolve(response),
+            );
         });
     };
     const loadVersions = (signal = null) => {
@@ -283,7 +285,7 @@ const UniversalDiscoveryModule = (props) => {
 
             const clonedSelectedLocation = deepClone(selectedLocations);
 
-            locationsWithPermissions.forEach((item) => {
+            locationsWithPermissions.LocationList.locations.forEach((item) => {
                 const locationWithoutPermissions = clonedSelectedLocation.find(
                     (selectedItem) => selectedItem.location.id === item.location.Location.id,
                 );
