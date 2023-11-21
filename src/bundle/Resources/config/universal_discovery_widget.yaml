@@ -77,4 +77,4 @@ system:
                 subtree_search:
                     multiple: false
                 image_picker:
-                    activeTab: 'browse'
+                    active_tab: 'browse'
