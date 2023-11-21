@@ -128,7 +128,9 @@ final class AccordionDataVisitor extends AbstractLocationDataVisitor
         $generator->startList('locations');
 
         foreach ($locations as $location) {
+            $generator->startHashElement('Location');
             $visitor->visitValueObject($location);
+            $generator->endHashElement('Location');
         }
 
         $generator->endList('locations');
