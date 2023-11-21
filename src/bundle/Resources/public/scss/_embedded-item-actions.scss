@@ -1,0 +1,13 @@
+.ibexa-embedded-item-actions {
+    &__loader-container {
+        min-width: calculateRem(100px);
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__loader {
+        margin: calculateRem(10px);
+
+        @include spinner(calculateRem(24px), calculateRem(3px));
+    }
+}

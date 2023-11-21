@@ -1,11 +1,7 @@
 <div class="ibexa-embedded-item-actions">
     {% block loader %}
-        <ul class="ibexa-embedded-item-actions__loader ibexa-popup-menu ibexa-popup-menu--hidden">
-            <li class="ibexa-popup-menu__item">
-                <svg class="ibexa-icon ibexa-icon--small ibexa-spin">
-                    <use xlink:href="{{ ibexa_icon_path('spinner') }}"></use>
-                </svg>
-            </li>
+        <ul class="ibexa-embedded-item-actions__loader-container ibexa-popup-menu ibexa-popup-menu--hidden">
+            <li class="ibexa-popup-menu____item ibexa-embedded-item-actions__loader"></li>
         </ul>
     {% endblock %}
 

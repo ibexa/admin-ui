@@ -219,7 +219,7 @@
         triggerElement.dataset.isMenuAttached = 1;
 
         const mainContainer = container.closest('.ibexa-embedded-item-actions');
-        const menuLoader = mainContainer.querySelector('.ibexa-embedded-item-actions__loader');
+        const menuLoader = mainContainer.querySelector('.ibexa-embedded-item-actions__loader-container');
         const askForLanguagesData = Object.keys(languages).length !== 1;
         const languagesData = askForLanguagesData
             ? await getLanguagesData({
