@@ -39,11 +39,6 @@ final class UserModeGroup extends AbstractGroup
 
     public function getDescription(): string
     {
-        return $this->translator->trans(
-            /** @Desc("") */
-            'settings.group.mode.description',
-            [],
-            'ibexa_user_settings'
-        );
+        return '';
     }
 }
