@@ -83,7 +83,7 @@ export default class ViewColumnsTogglerComponent extends Component {
 
         const { columnsVisibility, toggleColumnVisibility } = this.props;
         const { buttonBottomDocumentOffset, panelHeight: measuredPanelHeight } = this.state;
-        const panelHeight = measuredPanelHeight ? measuredPanelHeight : DEFAULT_PANEL_HEIGHT;
+        const panelHeight = measuredPanelHeight ?? DEFAULT_PANEL_HEIGHT;
         const showAboveBtn = buttonBottomDocumentOffset < panelHeight;
         const className = createCssClassNames({
             'ibexa-popup-menu': true,
