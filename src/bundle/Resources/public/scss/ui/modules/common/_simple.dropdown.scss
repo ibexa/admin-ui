@@ -9,6 +9,7 @@
 
     &__selected {
         font-size: $ibexa-text-font-size-medium;
+        border: 0;
         padding: calculateRem(2px) calculateRem(30px) calculateRem(2px) calculateRem(8px);
         min-height: calculateRem(21px);
         cursor: pointer;

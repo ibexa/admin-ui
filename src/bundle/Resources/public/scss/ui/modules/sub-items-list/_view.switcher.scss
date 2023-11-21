@@ -1,5 +1,6 @@
 .c-view-switcher {
-    margin-left: calculateRem(8px);
-    padding-left: calculateRem(8px);
-    border-left: calculateRem(2px) solid $ibexa-color-light;
+    background-color: $ibexa-color-light-100;
+    padding: calculateRem(12px) calculateRem(16px) calculateRem(12px) 0;
+    border-top-right-radius: calculateRem(12px);
+    border-bottom-right-radius: calculateRem(12px);
 }

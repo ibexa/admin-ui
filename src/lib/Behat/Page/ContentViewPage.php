@@ -76,9 +76,6 @@ class ContentViewPage extends Page
     /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
-    /** @var bool */
-    private $expectedIsContainer;
-
     /** @var \Ibexa\Behat\Core\Behat\ArgumentParser; */
     private $argumentParser;
 
@@ -193,6 +190,7 @@ class ContentViewPage extends Page
 
     public function goToSubItem(string $contentItemName): void
     {
+        $this->switchToTab('Sub-items');
         $this->subItemList->verifyIsLoaded();
         $this->subItemList->sortBy('Modified', false);
 
@@ -215,9 +213,8 @@ class ContentViewPage extends Page
 
     public function setExpectedLocationPath(string $locationPath)
     {
-        [$this->expectedContentType, $this->expectedContentName, $contentId, $contentMainLocationId, $isContainer] = $this->getContentData($this->argumentParser->parseUrl($locationPath));
+        [$this->expectedContentType, $this->expectedContentName, $contentId, $contentMainLocationId] = $this->getContentData($this->argumentParser->parseUrl($locationPath));
         $this->route = sprintf('/view/content/%s/full/1/%s', $contentId, $contentMainLocationId);
-        $this->expectedIsContainer = $isContainer;
         $this->locationPath = $locationPath;
         $this->subItemList->shouldHaveGridViewEnabled($this->hasGridViewEnabledByDefault());
     }
@@ -231,10 +228,6 @@ class ContentViewPage extends Page
             $this->breadcrumb->getBreadcrumb(),
             'Breadcrumb shows invalid path'
         );
-
-        if ($this->expectedIsContainer) {
-            $this->subItemList->verifyIsLoaded();
-        }
 
         Assert::assertEquals(
             $this->expectedContentName,
@@ -266,6 +259,8 @@ class ContentViewPage extends Page
 
     public function isChildElementPresent(array $parameters): bool
     {
+        $this->switchToTab('Sub-items');
+
         return $this->subItemList->isElementInTable($parameters);
     }
 
@@ -331,7 +326,6 @@ class ContentViewPage extends Page
                 $content->getName(),
                 $content->id,
                 $content->contentInfo->getMainLocation()->id,
-                $content->getContentType()->isContainer,
             ];
         });
     }

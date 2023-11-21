@@ -123,13 +123,6 @@
 {% endblock %}
 
 {% block content %}
-    <div id="ibexa-mfu"
-        data-parent-content-language="{{ content.versionInfo.initialLanguageCode }}"
-        data-parent-location-path="{{ location.pathString }}"
-        data-parent-content-type-identifier="{{ content_type.identifier }}"
-        data-parent-content-type-id="{{ content_type.id }}"
-        data-current-language="{{ app.request.get('languageCode') ?: content.prioritizedFieldLanguageCode }}"
-    ></div>
     <div class="align-items-stretch ibexa-main-row">
         <div class="ibexa-content-container">
             <div class="panel panel-primary">
@@ -146,21 +139,14 @@
                         'roles_pagination_params': roles_pagination_params,
                         'policies_pagination_params': policies_pagination_params,
                         'is_location_visible': not location.invisible,
+                        'subitems_module': subitems_module,
                     }) }}
 
                     {% if content_type.isContainer %}
-                    {{ form_start(form_subitems_content_edit, { 'action': path('ibexa.content.edit'), 'attr': { 'hidden': 'hidden' }}) }}
-                    {{ form_end(form_subitems_content_edit) }}
-                    {% set udwConfigSingle = ibexa_udw_config('single_container', {}) %}
-                    <div class="ibexa-sil"
-                        data-location="{{ location.id }}"
-                        data-mfu-create-permissions-config="{{ subitems_module.content_create_permissions_for_mfu|json_encode() }}"
-                        data-items="{{ subitems_module.items }}"
-                        data-content-types="{{ subitems_module.content_type_info_list }}"
-                        data-udw-config-bulk-move-items="{{ udwConfigSingle }}"
-                        data-udw-config-bulk-add-location="{{ udwConfigSingle }}"
-                    ></div>
-                    {% include '@ibexadesign/content/modal/location_bulk_action_failed.html.twig' only %}
+                        {{ form_start(form_subitems_content_edit, { 'action': path('ibexa.content.edit'), 'attr': { 'hidden': 'hidden' }}) }}
+                        {{ form_end(form_subitems_content_edit) }}
+
+                        {% include '@ibexadesign/content/modal/location_bulk_action_failed.html.twig' only %}
                     {% endif %}
 
                     {% if form_user_invitation is defined %}
@@ -183,8 +169,8 @@
 {% endblock %}
 
 {% block react_modules %}
-    {{ encore_entry_script_tags('ibexa-admin-ui-subitems-js', null, 'ibexa') }}
     {{ encore_entry_script_tags('ibexa-admin-ui-mfu-js', null, 'ibexa') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-subitems-js', null, 'ibexa') }}
     {{ encore_entry_script_tags('ibexa-admin-ui-content-tree-js', null, 'ibexa') }}
 {% endblock %}
 

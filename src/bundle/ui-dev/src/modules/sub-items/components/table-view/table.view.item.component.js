@@ -263,9 +263,18 @@ export default class TableViewItemComponent extends PureComponent {
         const { invisible, hidden } = this.props.item;
         const visibleLabel = Translator.trans(/*@Desc("Visible")*/ 'items_table.row.visible.label', {}, 'ibexa_sub_items');
         const notVisibleLabel = Translator.trans(/*@Desc("Not Visible")*/ 'items_table.row.not_visible.label', {}, 'ibexa_sub_items');
-        const label = !invisible && !hidden ? visibleLabel : notVisibleLabel;
+        const isVisible = !invisible && !hidden;
+        const label = isVisible ? visibleLabel : notVisibleLabel;
+        const badgeClasses = createCssClassNames({
+            'ibexa-badge': true,
+            'ibexa-badge--success': isVisible,
+        });
 
-        return <div className="c-table-view-item__text-wrapper">{label}</div>;
+        return (
+            <div className="c-table-view-item__text-wrapper">
+                <span className={badgeClasses}>{label}</span>
+            </div>
+        );
     }
 
     renderCreatorCell() {

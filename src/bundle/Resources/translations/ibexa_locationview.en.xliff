@@ -296,6 +296,11 @@
         <target state="new">Roles</target>
         <note>key: tab.name.roles</note>
       </trans-unit>
+      <trans-unit id="7e5efcb8041239f2e067d416f6ebfdfe9cd120a1" resname="tab.name.sub_items">
+        <source>Sub-items</source>
+        <target state="new">Sub-items</target>
+        <note>key: tab.name.sub_items</note>
+      </trans-unit>
       <trans-unit id="0b83b391386f47130b2d3ac1869fe27aa8c45fb7" resname="tab.name.translations">
         <source>Translations</source>
         <target state="new">Translations</target>
