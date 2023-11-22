@@ -559,6 +559,8 @@ ibexa.content.preview:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\ContentController::previewAction'
         languageCode: ~
         locationId: ~
+    options:
+        expose: true
 
 # IBX-1079: Translate routes with proxy suffix have to be prioritized to avoid issues with URL generations
 ibexa.content.translate.proxy:

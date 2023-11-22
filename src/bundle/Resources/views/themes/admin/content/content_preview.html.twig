@@ -3,6 +3,7 @@
 {% trans_default_domain 'ibexa_content_preview' %}
 
 {% set is_published = content.contentInfo.published and content.contentInfo.mainLocationId is not null %}
+{% set preselected_site_access = preselected_site_access|default(siteaccesses|first) %}
 
 {% block body_class %}ibexa-content-preview{% endblock %}
 
@@ -23,25 +24,29 @@
         </div>
         <div class="ibexa-preview-header__item ibexa-preview-header__item--siteaccess">
             {% set value = '' %}
-            {% set choices = siteaccesses|map((site_accesses_name, site_access_label) => {
+            {% set choices = siteaccesses|map((site_access_name, site_access_label) => {
                 value: path(
                     'ibexa.version.preview',
                     {
                         'contentId': content.id,
                         'versionNo': version_no,
                         'language': language_code,
-                        'siteAccessName': site_accesses_name
+                        'siteAccessName': site_access_name
                     }
                 ),
-                label: site_access_label|trans({}, 'ezplatform_siteaccess')
+                label: site_access_label|trans({}, 'ezplatform_siteaccess'),
+                is_selected: site_access_name == preselected_site_access,
             }) %}
             {% set source %}
                 <select class="form-control ibexa-input">
                     {% for choice in choices %}
-                        {% if loop.first %}
+                        {% if choice.is_selected %}
                             {% set value = choice.value %}
                         {% endif %}
-                        <option value="{{ choice.value }}">
+                        <option
+                            value="{{ choice.value }}"
+                            {% if choice.is_selected %}selected{% endif %}
+                        >
                             {{ choice.label }}
                         </option>
                     {% endfor %}
@@ -78,7 +83,9 @@
 {% block content %}
     <div class="ibexa-preview">
         <div class="ibexa-preview__iframe ibexa-preview__iframe--desktop">
-            <iframe src="{{ url('ibexa.version.preview', {'contentId': content.id, 'versionNo': version_no, 'language': language_code, 'siteAccessName': siteaccesses|first}) }}" frameborder="0"></iframe>
+            <iframe src="{{ url('ibexa.version.preview', {
+                'contentId': content.id, 'versionNo': version_no, 'language': language_code, 'siteAccessName': preselected_site_access
+            }) }}" frameborder="0"></iframe>
         </div>
     </div>
 {% endblock %}

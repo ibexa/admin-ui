@@ -344,11 +344,14 @@ class ContentController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function previewAction(
+        Request $request,
         Content $content,
         ?string $languageCode = null,
         ?int $versionNo = null,
         ?Location $location = null
     ): Response {
+        $preselectedSiteAccess = $request->query->get('preselectedSiteAccess');
+
         if (null === $languageCode) {
             $languageCode = $content->contentInfo->mainLanguageCode;
         }
@@ -379,12 +382,20 @@ class ContentController extends Controller
             $siteAccessesList[$siteAccess->name] = $this->siteAccessNameGenerator->generate($siteAccess);
         }
 
+        if (
+            $preselectedSiteAccess !== null &&
+            !array_key_exists($preselectedSiteAccess, $siteAccessesList)
+        ) {
+            $preselectedSiteAccess = null;
+        }
+
         return $this->render('@ibexadesign/content/content_preview.html.twig', [
             'location' => $location,
             'content' => $content,
             'language_code' => $languageCode,
             'siteaccesses' => $siteAccessesList,
             'version_no' => $versionNo ?? $content->getVersionInfo()->versionNo,
+            'preselected_site_access' => $preselectedSiteAccess,
         ]);
     }
 
