@@ -69,7 +69,7 @@ final class AdminUiParser extends AbstractParser
     ): void {
         $userMode = $settings['default_user_mode'];
 
-        if (false === array_key_exists($userMode, self::MODES)) {
+        if (!array_key_exists($userMode, self::MODES)) {
             return;
         }
 
