@@ -24,7 +24,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *              default_user_mode: smart
  * ```
  */
-final class AdminUIParser extends AbstractParser
+final class AdminUiParser extends AbstractParser
 {
     private const MODES = [
         'expert' => UserMode::EXPERT,
@@ -45,7 +45,7 @@ final class AdminUIParser extends AbstractParser
 
         $settings = $scopeSettings['admin_ui'];
 
-        $this->addSuggestionParameters($settings, $currentScope, $contextualizer);
+        $this->addUserModeParameters($settings, $currentScope, $contextualizer);
     }
 
     public function addSemanticConfig(NodeBuilder $nodeBuilder): void
@@ -62,7 +62,7 @@ final class AdminUIParser extends AbstractParser
     /**
      * @param array<string, mixed> $settings
      */
-    private function addSuggestionParameters(
+    private function addUserModeParameters(
         array $settings,
         string $currentScope,
         ContextualizerInterface $contextualizer
