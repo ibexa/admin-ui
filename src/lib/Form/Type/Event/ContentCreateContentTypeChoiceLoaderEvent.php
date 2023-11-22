@@ -37,4 +37,9 @@ final class ContentCreateContentTypeChoiceLoaderEvent extends Event
     {
         $this->contentTypeGroups[$name] = $contentTypes;
     }
+
+    public function removeContentTypeGroup(string $name): void
+    {
+        unset($this->contentTypeGroups[$name]);
+    }
 }
