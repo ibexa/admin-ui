@@ -22,8 +22,6 @@ final class UserMode implements ValueDefinitionInterface, FormMapperInterface, T
     public const EXPERT = '0';
     public const SMART = '1';
 
-    private const TRANSLATION_DOMAIN = 'ibexa_user_settings';
-
     private TranslatorInterface $translator;
 
     private ConfigResolverInterface $configResolver;
@@ -41,7 +39,7 @@ final class UserMode implements ValueDefinitionInterface, FormMapperInterface, T
         return $this->translator->trans(
             'user.setting.mode.name',
             [],
-            self::TRANSLATION_DOMAIN
+            'ibexa_user_settings'
         );
     }
 
@@ -50,20 +48,18 @@ final class UserMode implements ValueDefinitionInterface, FormMapperInterface, T
         return $this->translator->trans(
             'user.setting.mode.description',
             [],
-            self::TRANSLATION_DOMAIN
+            'ibexa_user_settings'
         );
     }
 
     public function getDisplayValue(string $storageValue): string
     {
-        switch (true) {
-            case $storageValue === self::EXPERT:
-                return $this->translator->trans('user.setting.mode.expert', [], self::TRANSLATION_DOMAIN);
-            case $storageValue === self::SMART:
-                return $this->translator->trans('user.setting.mode.smart', [], self::TRANSLATION_DOMAIN);
-        }
+        $translationMap = [
+            self::EXPERT => $this->translator->trans('user.setting.mode.expert', [], 'ibexa_user_settings'),
+            self::SMART => $this->translator->trans('user.setting.mode.smart', [], 'ibexa_user_settings'),
+        ];
 
-        return $storageValue;
+        return $translationMap[$storageValue] ?? $storageValue;
     }
 
     public function getDefaultValue(): string
@@ -82,8 +78,8 @@ final class UserMode implements ValueDefinitionInterface, FormMapperInterface, T
                 'label' => 'user.setting.mode.name',
                 'expanded' => true,
                 'multiple' => false,
-                'translation_domain' => self::TRANSLATION_DOMAIN,
-                'help' => $this->translator->trans('user.setting.mode.help', [], self::TRANSLATION_DOMAIN),
+                'translation_domain' => 'ibexa_user_settings',
+                'help' => $this->translator->trans('user.setting.mode.help', [], 'ibexa_user_settings'),
                 'help_html' => true,
             ]
         );
@@ -92,24 +88,26 @@ final class UserMode implements ValueDefinitionInterface, FormMapperInterface, T
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message('user.setting.mode.help', self::TRANSLATION_DOMAIN))
+            (new Message('user.setting.mode.help', 'ibexa_user_settings'))
                 ->setDesc(
-                    '<p><strong>Smart mode</strong> – A clean and intuitive interface with a simplified content structure, designed for new and non-advanced users. Features include:</p>
+                    '<p><strong>Smart mode</strong> – A clean and intuitive interface with a simplified content
+                        structure, designed for new and non-advanced users. Features include:</p>
                         <ul>
                             <li>Quick preview</li>
                             <li>Hidden Technical Details tab</li>
                             <li>Hidden Locations and Versions tabs in Content items</li>
                         </ul>
-                        <p><strong>Expert mode</strong> – Tailored for experienced users familiar with Ibexa DXP. Provides comprehensive insights into the technical aspects of Content structure, including:</p>
+                        <p><strong>Expert mode</strong> – Tailored for experienced users familiar with Ibexa DXP. 
+                        Provides comprehensive insights into the technical aspects of Content structure, including:</p>
                         <ul>
                             <li>Technical Details tab</li>
                             <li>Location: Archived versions</li>
                         </ul>'
                 ),
-            (new Message('user.setting.mode.expert', self::TRANSLATION_DOMAIN))->setDesc('Expert'),
-            (new Message('user.setting.mode.smart', self::TRANSLATION_DOMAIN))->setDesc('Smart'),
-            (new Message('user.setting.mode.name', self::TRANSLATION_DOMAIN))->setDesc('Mode'),
-            (new Message('user.setting.mode.description', self::TRANSLATION_DOMAIN))->setDesc('Mode'),
+            (new Message('user.setting.mode.expert', 'ibexa_user_settings'))->setDesc('Expert'),
+            (new Message('user.setting.mode.smart', 'ibexa_user_settings'))->setDesc('Smart'),
+            (new Message('user.setting.mode.name', 'ibexa_user_settings'))->setDesc('Mode'),
+            (new Message('user.setting.mode.description', 'ibexa_user_settings'))->setDesc('Mode'),
         ];
     }
 }

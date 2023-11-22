@@ -788,11 +788,6 @@
         <target state="new">Are you sure you want to delete selected URL wildcard(s)?</target>
         <note>key: url_wildcard.modal.message</note>
       </trans-unit>
-      <trans-unit id="7036f294d389a7a41226580ce5f0c62bc1a85c21" resname="user.setting.mode.name">
-        <source>user.setting.mode.name</source>
-        <target state="new">user.setting.mode.name</target>
-        <note>key: user.setting.mode.name</note>
-      </trans-unit>
       <trans-unit id="cc411f80de934035a8572d79cb383398775f3cde" resname="user_menu.popup_menu.title">
         <source>Logged as %userName%</source>
         <target state="new">Logged as %userName%</target>

@@ -16,8 +16,6 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 /**
  * Configuration parser for user modes.
  *
- * @Example configuration:
- *
  * ```yaml
  * ibexa:
  *   system:
@@ -26,7 +24,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *              default_user_mode: smart
  * ```
  */
-final class UserModeParser extends AbstractParser
+final class AdminUIParser extends AbstractParser
 {
     private const MODES = [
         'expert' => UserMode::EXPERT,
@@ -52,13 +50,13 @@ final class UserModeParser extends AbstractParser
 
     public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
-        $rootProductCatalogNode = $nodeBuilder->arrayNode('admin_ui');
-        $rootProductCatalogNode->children()
-                ->enumNode('default_user_mode')
-                    ->info('Default user mode setting')
-                    ->values(['smart', 'expert'])
-                ->end()
-            ->end();
+        $root = $nodeBuilder->arrayNode('admin_ui');
+        $root->children()
+            ->enumNode('default_user_mode')
+                ->info('Default user mode setting')
+                ->values(['smart', 'expert'])
+            ->end()
+        ->end();
     }
 
     /**

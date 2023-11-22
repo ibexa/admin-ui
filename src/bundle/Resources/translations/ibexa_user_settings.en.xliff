@@ -56,11 +56,6 @@
         <target state="new">Date and Time will be displayed in this format:</target>
         <note>key: settings.datetime_format.preview_label</note>
       </trans-unit>
-      <trans-unit id="f37ef9b83569317526cc7c550502606dfa703625" resname="settings.group.mode.description">
-        <source>settings.group.mode.description</source>
-        <target state="new"></target>
-        <note>key: settings.group.mode.description</note>
-      </trans-unit>
       <trans-unit id="4030d22c6edcd7185a9584ae76a5948aedaa1594" resname="settings.group.mode.name">
         <source>Mode</source>
         <target state="new">Mode</target>
