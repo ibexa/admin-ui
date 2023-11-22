@@ -97,7 +97,7 @@ final class UserMode implements ValueDefinitionInterface, FormMapperInterface, T
                             <li>Hidden Technical Details tab</li>
                             <li>Hidden Locations and Versions tabs in Content items</li>
                         </ul>
-                        <p><strong>Expert mode</strong> – Tailored for experienced users familiar with Ibexa DXP. 
+                        <p><strong>Expert mode</strong> – Tailored for experienced users familiar with Ibexa DXP.
                         Provides comprehensive insights into the technical aspects of Content structure, including:</p>
                         <ul>
                             <li>Technical Details tab</li>
