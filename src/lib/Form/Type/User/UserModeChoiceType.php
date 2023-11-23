@@ -20,8 +20,8 @@ final class UserModeChoiceType extends AbstractType
         $resolver->setDefaults([
             'translation_domain' => 'ibexa_user_settings',
             'choices' => [
-                'user.setting.mode.expert' => UserMode::EXPERT,
                 'user.setting.mode.smart' => UserMode::SMART,
+                'user.setting.mode.expert' => UserMode::EXPERT,
             ],
         ]);
     }
