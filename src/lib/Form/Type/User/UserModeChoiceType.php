@@ -15,12 +15,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class UserModeChoiceType extends AbstractType
 {
-    private const TRANSLATION_DOMAIN = 'ibexa_user_settings';
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'translation_domain' => self::TRANSLATION_DOMAIN,
+            'translation_domain' => 'ibexa_user_settings',
             'choices' => [
                 'user.setting.mode.expert' => UserMode::EXPERT,
                 'user.setting.mode.smart' => UserMode::SMART,
