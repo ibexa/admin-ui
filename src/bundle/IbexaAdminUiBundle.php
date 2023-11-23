@@ -72,6 +72,7 @@ class IbexaAdminUiBundle extends Bundle
             new Parser\SubtreePath(),
             new Parser\LimitationValueTemplates(),
             new Parser\Assets(),
+            new Parser\AdminUiParser(),
         ];
     }
 }

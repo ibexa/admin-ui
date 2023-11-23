@@ -56,6 +56,11 @@
         <target state="new">Date and Time will be displayed in this format:</target>
         <note>key: settings.datetime_format.preview_label</note>
       </trans-unit>
+      <trans-unit id="4030d22c6edcd7185a9584ae76a5948aedaa1594" resname="settings.group.mode.name">
+        <source>Mode</source>
+        <target state="new">Mode</target>
+        <note>key: settings.group.mode.name</note>
+      </trans-unit>
       <trans-unit id="3e6a40d77072c330caa54630a0ee78371e3b5bcc" resname="settings.in_context_translation.value.description">
         <source>Toggle In-Context translation feature</source>
         <target state="new">Toggle In-Context translation feature</target>
@@ -75,6 +80,51 @@
         <source>In-Context translation</source>
         <target state="new">In-Context translation</target>
         <note>key: settings.in_context_translation.value.title</note>
+      </trans-unit>
+      <trans-unit id="1908a078c655a123c1e03b2b8dbe39240ad9d7f5" resname="user.setting.mode.description">
+        <source>Mode</source>
+        <target state="new">Mode</target>
+        <note>key: user.setting.mode.description</note>
+      </trans-unit>
+      <trans-unit id="581ee2faad6bfe1d4af2e60bf3912162bd57aedd" resname="user.setting.mode.expert">
+        <source>Expert</source>
+        <target state="new">Expert</target>
+        <note>key: user.setting.mode.expert</note>
+      </trans-unit>
+      <trans-unit id="7bbfadd84e2abbfb1923b38c4b27f14fe4585c55" resname="user.setting.mode.help">
+        <source><![CDATA[<p><strong>Smart mode</strong> – A clean and intuitive interface with a simplified content structure, designed for new and non-advanced users. Features include:</p>
+                        <ul>
+                            <li>Quick preview</li>
+                            <li>Hidden Technical Details tab</li>
+                            <li>Hidden Locations and Versions tabs in Content items</li>
+                        </ul>
+                        <p><strong>Expert mode</strong> – Tailored for experienced users familiar with Ibexa DXP. Provides comprehensive insights into the technical aspects of Content structure, including:</p>
+                        <ul>
+                            <li>Technical Details tab</li>
+                            <li>Location: Archived versions</li>
+                        </ul>]]></source>
+        <target state="new"><![CDATA[<p><strong>Smart mode</strong> – A clean and intuitive interface with a simplified content structure, designed for new and non-advanced users. Features include:</p>
+                        <ul>
+                            <li>Quick preview</li>
+                            <li>Hidden Technical Details tab</li>
+                            <li>Hidden Locations and Versions tabs in Content items</li>
+                        </ul>
+                        <p><strong>Expert mode</strong> – Tailored for experienced users familiar with Ibexa DXP. Provides comprehensive insights into the technical aspects of Content structure, including:</p>
+                        <ul>
+                            <li>Technical Details tab</li>
+                            <li>Location: Archived versions</li>
+                        </ul>]]></target>
+        <note>key: user.setting.mode.help</note>
+      </trans-unit>
+      <trans-unit id="7036f294d389a7a41226580ce5f0c62bc1a85c21" resname="user.setting.mode.name">
+        <source>Mode</source>
+        <target state="new">Mode</target>
+        <note>key: user.setting.mode.name</note>
+      </trans-unit>
+      <trans-unit id="3d0f321c83d4cf337389cbd0a0d36dc218516750" resname="user.setting.mode.smart">
+        <source>Smart</source>
+        <target state="new">Smart</target>
+        <note>key: user.setting.mode.smart</note>
       </trans-unit>
     </body>
   </file>

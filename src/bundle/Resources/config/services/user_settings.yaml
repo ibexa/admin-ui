@@ -25,3 +25,12 @@ services:
         tags:
             - { name: ibexa.user.setting.value, identifier: in_context_translation, group: location, priority: 60 }
             - { name: ibexa.user.setting.mapper.form, identifier: in_context_translation }
+
+    Ibexa\AdminUi\UserSetting\Group\UserModeGroup:
+        tags:
+            - { name: ibexa.user.setting.group, identifier: mode, priority: -10 }
+
+    Ibexa\AdminUi\UserSetting\UserMode:
+        tags:
+            - { name: ibexa.user.setting.value, identifier: user_mode, group: mode, priority: 10 }
+            - { name: ibexa.user.setting.mapper.form, identifier: user_mode }
