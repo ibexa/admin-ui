@@ -20,7 +20,7 @@
 
             <a
                 class="ibexa-preview-header__link btn ibexa-btn ibexa-btn--ghost"
-                href="{{ back_url }}"
+                href="{{ back_url|default('') }}"
             >
                 <svg class="ibexa-icon ibexa-icon--small-medium">
                     <use xlink:href="{{ ibexa_icon_path('back') }}"></use>
