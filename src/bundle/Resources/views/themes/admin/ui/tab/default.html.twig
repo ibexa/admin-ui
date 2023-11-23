@@ -9,5 +9,8 @@
 } %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ibexa-admin-ui-tabs-js', null, 'ibexa') }}
+    {% set render_encore_entry = render_encore_entry is defined ? render_encore_entry : true %}
+    {% if render_encore_entry %}
+        {{ encore_entry_script_tags('ibexa-admin-ui-tabs-js', null, 'ibexa') }}
+    {% endif %}
 {% endblock %}
