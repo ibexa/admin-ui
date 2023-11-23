@@ -351,6 +351,7 @@ class ContentController extends Controller
         ?Location $location = null
     ): Response {
         $preselectedSiteAccess = $request->query->get('preselectedSiteAccess');
+        $referrer = $request->query->get('referrer');
 
         if (null === $languageCode) {
             $languageCode = $content->contentInfo->mainLanguageCode;
@@ -396,6 +397,7 @@ class ContentController extends Controller
             'siteaccesses' => $siteAccessesList,
             'version_no' => $versionNo ?? $content->getVersionInfo()->versionNo,
             'preselected_site_access' => $preselectedSiteAccess,
+            'referrer' => $referrer ?? 'content_draft_edit',
         ]);
     }
 

@@ -496,6 +496,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
                     'versionNo' => $content->getVersionInfo()->versionNo,
                     'languageCode' => $languageCode,
                     'locationId' => $location->id,
+                    'referrer' => 'content_view',
                 ],
             ];
         } else {
