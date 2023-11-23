@@ -100,6 +100,12 @@
                 </svg>
                 {{ content_type.name }}
             </span>
+            <button
+                    class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--udw-browse"
+                    data-udw-config="{{ ibexa_udw_config('image_picker') }}"
+            >
+                Image Picker
+            </button>
         {% endblock %}
     {% endembed %}
 

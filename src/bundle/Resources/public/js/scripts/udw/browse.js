@@ -26,6 +26,8 @@
                 title,
                 multiple: false,
                 ...config,
+                activeTab: 'image_picker',
+                rootLocationId: 43,
             }),
         );
     };
