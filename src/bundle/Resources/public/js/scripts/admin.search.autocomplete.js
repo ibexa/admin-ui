@@ -142,7 +142,13 @@
         removeClickOutsideEventListener();
         removeKeyboardEventListener();
     };
+    const focusSearch = (event) => {
+        if (event.shiftKey && event.code === 'Slash') {
+            globalSearchInput.focus();
+        }
+    };
 
     globalSearchInput.addEventListener('keyup', handleTyping, false);
     clearBtn.addEventListener('click', hideAutocomplete, false);
+    doc.addEventListener('keyup', focusSearch, false);
 })(window, document, window.ibexa, window.Routing, window.Translator);

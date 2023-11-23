@@ -75,6 +75,14 @@
         &::placeholder {
             color: $ibexa-color-light;
         }
+
+        &:focus {
+            & ~ .ibexa-global-search {
+                &__shortcut {
+                    display: none;
+                }
+            }
+        }
     }
 
     &__autocomplete-no-results {
@@ -216,5 +224,18 @@
                 }
             }
         }
+    }
+
+    &__shortcut {
+        display: inline-block;
+        line-height: calculateRem(16px);
+        font-size: calculateRem(12px);
+        padding: 0 calculateRem(4px);
+        background-color: $ibexa-color-info-700;
+        border-radius: calculateRem(4px);
+        font-weight: 400;
+        position: absolute;
+        bottom: calculateRem(1px);
+        right: calculateRem(100px);
     }
 }
