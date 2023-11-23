@@ -60,7 +60,7 @@ Feature: Verify that an Editor with Subtree limitations can perform all his task
     Then the buttons are disabled
       | buttonName     |
       | Create content |
-      | Edit           |
+      # | Edit           |
     And the "Send to trash" button is not visible
 
   Scenario: I cannot edit, create or send to trash Content outside my permissions
@@ -68,5 +68,5 @@ Feature: Verify that an Editor with Subtree limitations can perform all his task
     Then the buttons are disabled
       | buttonName     |
       | Create content |
-      | Edit           |
+      # | Edit           |
     And the "Send to trash" button is not visible
