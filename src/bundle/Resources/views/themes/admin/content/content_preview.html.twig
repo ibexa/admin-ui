@@ -12,15 +12,23 @@
 {% block header_row %}
     <div class="ibexa-preview-header">
         <div class="ibexa-preview-header__item ibexa-preview-header__item--back">
-            {% if referrer == 'content_view' %}
-                {% set back_url = url('ibexa.content.view', { 'contentId': content.id, 'locationId': location.id }) %}
-            {% elseif referrer == 'content_draft_edit' %}
-                {% set back_url = url('ibexa.content.draft.edit', {'contentId': content.id, 'versionNo': version_no, 'language': language_code, 'locationId': is_published ? location.id : null}) %}
+            {% if referrer == 'content_draft_edit' %}
+                {% set back_url = url('ibexa.content.draft.edit', {
+                    contentId: content.id,
+                    versionNo: version_no,
+                    language: language_code,
+                    locationId: is_published ? location.id : null,
+                }) %}
+            {% else %}
+                {% set back_url = url('ibexa.content.view', {
+                    contentId: content.id,
+                    locationId: location.id,
+                }) %}
             {% endif %}
 
             <a
                 class="ibexa-preview-header__link btn ibexa-btn ibexa-btn--ghost"
-                href="{{ back_url|default('') }}"
+                href="{{ back_url }}"
             >
                 <svg class="ibexa-icon ibexa-icon--small-medium">
                     <use xlink:href="{{ ibexa_icon_path('back') }}"></use>
