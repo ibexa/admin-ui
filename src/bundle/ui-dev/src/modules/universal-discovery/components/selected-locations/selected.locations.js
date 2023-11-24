@@ -4,6 +4,7 @@ import {
     parse as parseTooltip,
     hideAll as hideAllTooltips,
 } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+import { getBootstrap } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/helpers.service';
 
 import Icon from '../../../common/icon/icon';
 import SelectedLocationsItem from './selected.locations.item';
@@ -11,8 +12,6 @@ import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
 import { SelectedLocationsContext, AllowConfirmationContext } from '../../universal.discovery.module';
 import { getTranslator } from '../../../modules.service';
-
-const { bootstrap } = window;
 
 const SelectedLocations = () => {
     const Translator = getTranslator();
@@ -112,6 +111,7 @@ const SelectedLocations = () => {
         parseTooltip(refSelectedLocations.current);
         hideAllTooltips();
 
+        const bootstrap = getBootstrap();
         const toggleButtonTooltip = bootstrap.Tooltip.getOrCreateInstance('.c-selected-locations__toggle-button');
 
         toggleButtonTooltip.setContent({ '.tooltip-inner': togglerLabel });

@@ -1,4 +1,6 @@
-import assetsLibraryWidget from '@ibexa-assets-library-widget/src/bundle/Resources/public/js/assets.library.widget';
+// import assetsLibraryWidget from '@ibexa-assets-library-widget/src/bundle/Resources/public/js/assets.library.widget';
+
+import AssetsLibraryWidget from '../../../../../../../assets-library-widget/src/bundle/Resources/public/js/assets.library.widget';
 
 (function (global, doc, React, ReactDOM) {
     let udwRoot = null;
@@ -20,18 +22,19 @@ import assetsLibraryWidget from '@ibexa-assets-library-widget/src/bundle/Resourc
             multiple: true,
             // activeTab: 'image_picker',
             // rootLocationId: 51,
+            locale: 'fr',
             onConfirm: () => {
                 console.log('confirm');
             },
             onCancel: closeUDW,
             restInfo: {
-                token: 'd841ca.RfcZs2jLlEue-t8KFM7BfoA2BqMHpC06UOuqerrXQ4A.BpBS-17zyyqsqed-V7SNSOhvWelS7hkOadnEI_y4DbYfj2zEPPzBCf2ltA',
+                token: '8e7fad165a6abd4f171b393757951c.PUrOKxvL2BT20kXvz9Yae1EKisPKMuuFuy7MwakA-eE.aRigbHOdvEOsqAPXrrVZOD5PyJX-Apy1lmSCl_wxo4NRfoFBTKS5IYeoCA',
                 siteaccess: 'admin',
             },
         };
 
         udwRoot = ReactDOM.createRoot(container);
-        udwRoot.render(React.createElement(assetsLibraryWidget, config));
+        udwRoot.render(React.createElement(AssetsLibraryWidget, config));
     };
 
     imagePickerBtn.addEventListener('click', openUdw, false);
