@@ -4,14 +4,16 @@ import PropTypes from 'prop-types';
 
 import { createCssClassNames } from '../../common/helpers/css.class.names';
 import Icon from '../../common/icon/icon';
+import { getTranslator } from '../../modules.service';
 
-const { Translator, document } = window;
+const { document } = window;
 const MIN_SEARCH_ITEMS_DEFAULT = 5;
 const MIN_ITEMS_LIST_HEIGHT = 150;
 const ITEMS_LIST_WIDGET_MARGIN = 8;
 const ITEMS_LIST_SITE_MARGIN = ITEMS_LIST_WIDGET_MARGIN + 4;
 
 const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, extraClasses, renderSelectedItem, minSearchItems }) => {
+    const Translator = getTranslator();
     const containerRef = useRef();
     const containerItemsRef = useRef();
     const [isExpanded, setIsExpanded] = useState(false);
@@ -140,7 +142,7 @@ const Dropdown = ({ dropdownListRef, value, options, onChange, small, single, ex
         };
 
         document.body.addEventListener('click', onInteractionOutside, false);
-        scrollContainer.addEventListener('scroll', calculateAndSetItemsListStyles, false);
+        scrollContainer?.addEventListener('scroll', calculateAndSetItemsListStyles, false);
 
         return () => {
             document.body.removeEventListener('click', onInteractionOutside);

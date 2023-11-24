@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 
-const { Translator } = window;
+import { getTranslator } from '../../modules.service';
 
 const CLASS_NON_SCROLLABLE = 'ibexa-non-scrollable';
 const CLASS_MODAL_OPEN = 'modal-open';
@@ -20,11 +20,12 @@ class Popup extends Component {
     constructor(props) {
         super(props);
 
+        this.Translator = getTranslator();
         this._refModal = null;
 
         this.setModalRef = this.setModalRef.bind(this);
         this.onKeyUp = this.onKeyUp.bind(this);
-
+        
         this.state = {
             currentProps: {
                 isVisible: props.isVisible,
@@ -121,7 +122,7 @@ class Popup extends Component {
             return;
         }
 
-        const closeBtnLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'ibexa_universal_discovery_widget');
+        const closeBtnLabel = this.Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'ibexa_universal_discovery_widget');
 
         return (
             <button

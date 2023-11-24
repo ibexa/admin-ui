@@ -85,6 +85,7 @@ export const loadAccordionData = async (
     callback,
 ) => {
     const Routing = getRouting();
+    const routeName = gridView ? 'ibexa.udw.accordion.gridview.data' : 'ibexa.udw.accordion.data';
     const url = Routing.generate(routeName, {
         locationId: parentLocationId,
     });
@@ -384,6 +385,7 @@ export const fetchAdminConfig = async ({ token, siteaccess }) => {
     const jsonResponse = {
         userId: 14,
         backOfficeLanguage: 'pl_PL',
+        translatorLangs: ['en', 'fr'],
         languages: {
             mappings: {
                 'eng-GB': {

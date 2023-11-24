@@ -41,7 +41,7 @@ const ContentMetaPreview = () => {
         {},
         'ibexa_universal_discovery_widget',
     );
-    const { timezone, dateFormat } = adminUiConfig;
+    const { languages, timezone, dateFormat } = adminUiConfig;
 
     useEffect(() => {
         parseTooltip(refContentMetaPreview.current);
@@ -164,7 +164,7 @@ const ContentMetaPreview = () => {
                                 {version.VersionInfo.languageCodes.split(',').map((languageCode) => {
                                     return (
                                         <span key={languageCode} className="c-content-meta-preview__translation">
-                                            {adminUiConfig.languages.mappings[languageCode].name}
+                                            {languages.mappings[languageCode].name}
                                         </span>
                                     );
                                 })}

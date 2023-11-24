@@ -1,4 +1,6 @@
-const { bootstrap, document: doc } = window;
+import { getBootstrap } from './helpers.service';
+
+const { document: doc } = window;
 
 let lastInsertTooltipTarget = null;
 const TOOLTIPS_SELECTOR = '[title]';
@@ -117,7 +119,7 @@ const parse = (baseElement = doc) => {
     if (!baseElement) {
         return;
     }
-
+    const bootstrap = getBootstrap();
     const tooltipNodes = [...baseElement.querySelectorAll(TOOLTIPS_SELECTOR)];
 
     if (baseElement instanceof Element) {
@@ -205,6 +207,7 @@ const hideAll = (baseElement = doc) => {
         return;
     }
 
+    const bootstrap = getBootstrap();
     const tooltipsNode = baseElement.querySelectorAll(TOOLTIPS_SELECTOR);
 
     for (const tooltipNode of tooltipsNode) {
