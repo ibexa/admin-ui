@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 
 import { createCssClassNames } from '@ibexa-admin-ui/src/bundle/ui-dev/src/modules/common/helpers/css.class.names';
-
-const { bootstrap, Translator } = window;
+import { getTranslator } from '../../modules.service';
+import { getBootstrap } from '../../../../../Resources/public/js/scripts/helpers/helpers.service';
 
 const CLASS_NON_SCROLLABLE = 'ibexa-non-scrollable';
 const CLASS_MODAL_OPEN = 'modal-open';
@@ -33,7 +33,9 @@ const Popup = ({
     extraClasses,
 }) => {
     const modalRef = useRef(null);
-
+    const Translator = getTranslator();
+    const bootstrap = getBootstrap();
+    
     useEffect(() => {
         document.body.classList.toggle(CLASS_MODAL_OPEN, isVisible);
         document.body.classList.toggle(CLASS_NON_SCROLLABLE, isVisible);

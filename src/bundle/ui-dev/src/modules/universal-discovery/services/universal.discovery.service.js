@@ -103,6 +103,7 @@ export const loadAccordionData = async (
     if (gridView) {
         url += '/gridview';
     }
+
     const request = new Request(`${url}?limit=${limit}&sortClause=${sortClause}&sortOrder=${sortOrder}&rootLocationId=${rootLocationId}`, {
         method: 'GET',
         headers: {
@@ -410,6 +411,7 @@ export const fetchAdminConfig = async ({ token, siteaccess }) => {
     const jsonResponse = {
         userId: 14,
         backOfficeLanguage: 'pl_PL',
+        translatorLangs: ['en', 'fr'],
         languages: {
             mappings: {
                 'eng-GB': {

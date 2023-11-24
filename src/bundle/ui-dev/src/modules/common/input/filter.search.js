@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createCssClassNames } from '../../common/helpers/css.class.names';
-
-const { Translator } = window;
-// const defaultPlaceholder = Translator.trans(/*@Desc("Search...")*/ 'search.placeholder', {}, 'ibexa_universal_discovery_widget');
-const defaultPlaceholder = 'Search...';
+import { getTranslator } from '../../modules.service';
 
 const Search = ({ onChange, placeholder, extraClasses, value }) => {
+    const inputPlaceholder = placeholder ?? getTranslator().trans(/*@Desc("Search...")*/ 'search.placeholder', {}, 'ibexa_universal_discovery_widget')
     const searchClassName = createCssClassNames({
         'form-control': true,
         'ibexa-input': true,
@@ -14,7 +12,7 @@ const Search = ({ onChange, placeholder, extraClasses, value }) => {
         [extraClasses]: true,
     });
 
-    return <input type="text" name="filter" placeholder={placeholder} value={value} onChange={onChange} className={searchClassName} />;
+    return <input type="text" name="filter" placeholder={inputPlaceholder} value={value} onChange={onChange} className={searchClassName} />;
 };
 
 Search.propTypes = {
@@ -25,7 +23,7 @@ Search.propTypes = {
 };
 
 Search.defaultProps = {
-    placeholder: defaultPlaceholder,
+    placeholder: '',
     extraClasses: '',
 };
 
