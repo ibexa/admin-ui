@@ -401,11 +401,24 @@ class LocationController extends Controller
             ) {
                 $this->trashRelatedAsset($location->getContentInfo());
             }
-            $this->trashService->trash($location);
+            $trashItem = $this->trashService->trash($location);
             $this->repository->commit();
         } catch (\Exception $exception) {
             $this->repository->rollback();
             throw $exception;
+        }
+
+        if ($trashItem === null) {
+            $this->notificationHandler->info(
+                $this->translator->trans(
+                    /** @Desc("Location '%name%' was not moved to Trash.") */
+                    'location.trash.failure',
+                    ['%name%' => $location->getContentInfo()->name],
+                    'ibexa_location'
+                )
+            );
+
+            return $this->redirectToLocation($location);
         }
 
         $this->notificationHandler->success(
@@ -418,35 +431,6 @@ class LocationController extends Controller
         );
 
         return $this->redirectToLocation($parentLocation);
-    }
-
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Location\LocationTrashData|\Ibexa\AdminUi\Form\Data\Location\LocationTrashContainerData $data
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     */
-    private function handleTrashLocationForm($data): RedirectResponse
-    {
-        $location = $data->getLocation();
-        $parentLocation = $this->locationService->loadLocation($location->parentLocationId);
-        $this->trashService->trash($location);
-
-        $this->notificationHandler->success(
-            $this->translator->trans(
-                /** @Desc("Location '%name%' moved to Trash.") */
-                'location.trash.success',
-                ['%name%' => $location->getContentInfo()->name],
-                'ibexa_location'
-            )
-        );
-
-        return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-            'contentId' => $parentLocation->contentId,
-            'locationId' => $parentLocation->id,
-        ]));
     }
 
     /**
@@ -670,6 +654,7 @@ class LocationController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (LocationAssignSubtreeData $data) {
                 $section = $data->getSection();
+                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
                 $location = $data->getLocation();
 
                 $this->sectionService->assignSectionToSubtree($location, $section);
