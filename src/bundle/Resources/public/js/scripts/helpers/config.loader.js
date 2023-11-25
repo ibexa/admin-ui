@@ -6,12 +6,12 @@ import {
     getContentTypeNameByHref,
 } from './content.type.helper';
 import { getCookie, setCookie, setBackOfficeCookie } from './cookies.helper';
+import { formatLine } from './form.error.helper';
 import { formatErrorLine, validateIsEmptyField } from './form.validation.helper';
+import { highlightText } from './highlight.helper';
 import { getIconPath } from './icon.helper';
 import { removeRootFromPathString, findLocationsByIds, buildLocationsBreadcrumbs } from './location.helper';
-import { getJsonFromResponse, getTextFromResponse, getStatusFromResponse } from './request.helper';
-import { parse as parseTooltips, hideAll as hideAllTooltips, observe as observerTooltips } from './tooltips.helper';
-import { convertDateToTimezone, formatFullDateTime, formatShortDateTime, getBrowserTimezone } from './timezone.helper';
+import { parse as parseMiddleEllipsis, parseAll as parseAllMiddleEllipsis, update as updateMiddleEllipsis } from './middle.ellipsis';
 import {
     showNotification,
     showInfoNotification,
@@ -19,9 +19,9 @@ import {
     showWarningNotification,
     showErrorNotification,
 } from './notification.helper';
-import { parse as parseMiddleEllipsis, parseAll as parseAllMiddleEllipsis, update as updateMiddleEllipsis } from './middle.ellipsis';
 import { setInstance, getInstance, clearInstance } from './object.instances';
 import { computePages } from './pagination.helper';
+import { getJsonFromResponse, getTextFromResponse, getStatusFromResponse } from './request.helper';
 import {
     isWindows,
     isMac,
@@ -39,6 +39,8 @@ import {
 import { parseCheckbox as parseCheckboxTable } from './table.helper';
 import { buildItemsFromUDWResponse } from './tag.view.select.helper';
 import { escapeHTML } from './text.helper';
+import { convertDateToTimezone, formatFullDateTime, formatShortDateTime, getBrowserTimezone } from './timezone.helper';
+import { parse as parseTooltips, hideAll as hideAllTooltips, observe as observerTooltips } from './tooltips.helper';
 import { getId as getUserId } from './user.helper';
 
 (function (ibexa) {
@@ -50,27 +52,22 @@ import { getId as getUserId } from './user.helper';
         getContentTypeNameByHref,
     });
     ibexa.addConfig('helpers.cookies', { getCookie, setCookie, setBackOfficeCookie });
+    ibexa.addConfig('helpers.formError', { formatLine });
     ibexa.addConfig('helpers.formValidation', { formatErrorLine, validateIsEmptyField });
+    ibexa.addConfig('helpers.highlight', { highlightText });
     ibexa.addConfig('helpers.icon', { getIconPath });
     ibexa.addConfig('helpers.location', { removeRootFromPathString, findLocationsByIds, buildLocationsBreadcrumbs });
-    ibexa.addConfig('helpers.request', { getJsonFromResponse, getTextFromResponse, getStatusFromResponse });
-    ibexa.addConfig('helpers.tooltips', {
-        parse: parseTooltips,
-        hideAll: hideAllTooltips,
-        observe: observerTooltips,
+    ibexa.addConfig('helpers.ellipsis.middle', {
+        parse: parseMiddleEllipsis,
+        parseAll: parseAllMiddleEllipsis,
+        update: updateMiddleEllipsis,
     });
-    ibexa.addConfig('helpers.timezone', { convertDateToTimezone, formatFullDateTime, formatShortDateTime, getBrowserTimezone });
     ibexa.addConfig('helpers.notification', {
         showNotification,
         showInfoNotification,
         showSuccessNotification,
         showWarningNotification,
         showErrorNotification,
-    });
-    ibexa.addConfig('helpers.ellipsis.middle', {
-        parse: parseMiddleEllipsis,
-        parseAll: parseAllMiddleEllipsis,
-        update: updateMiddleEllipsis,
     });
     ibexa.addConfig('helpers.objectInstances', {
         setInstance,
@@ -95,5 +92,12 @@ import { getId as getUserId } from './user.helper';
     ibexa.addConfig('helpers.table', { parseCheckbox: parseCheckboxTable });
     ibexa.addConfig('helpers.tagViewSelect', { buildItemsFromUDWResponse });
     ibexa.addConfig('helpers.text', { escapeHTML });
+    ibexa.addConfig('helpers.request', { getJsonFromResponse, getTextFromResponse, getStatusFromResponse });
+    ibexa.addConfig('helpers.timezone', { convertDateToTimezone, formatFullDateTime, formatShortDateTime, getBrowserTimezone });
+    ibexa.addConfig('helpers.tooltips', {
+        parse: parseTooltips,
+        hideAll: hideAllTooltips,
+        observe: observerTooltips,
+    });
     ibexa.addConfig('helpers.user', { getId: getUserId });
 })(window.ibexa);

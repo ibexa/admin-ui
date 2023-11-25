@@ -28,7 +28,7 @@ import AssetsLibraryWidget from '../../../../../../../assets-library-widget/src/
             },
             onCancel: closeUDW,
             restInfo: {
-                token: '8e7fad165a6abd4f171b393757951c.PUrOKxvL2BT20kXvz9Yae1EKisPKMuuFuy7MwakA-eE.aRigbHOdvEOsqAPXrrVZOD5PyJX-Apy1lmSCl_wxo4NRfoFBTKS5IYeoCA',
+                token: 'b3dafbdd2217d101f5628.VGKDJWLsJ9pdt20oZfOfU7rH2yAKTdOHUhcaX_-Qd-U.OlvidReOcL8nwzlKBqvsK_byllJeDv7zAH1qEofxFpQzKvl3FYVL9wr8Gg',
                 siteaccess: 'admin',
             },
         };

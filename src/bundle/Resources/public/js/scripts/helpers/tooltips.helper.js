@@ -116,6 +116,7 @@ const isTitleEllipsized = (node) => {
     return textHeight > nodeHeight;
 };
 const initializeTooltip = (tooltipNode) => {
+    const bootstrap = getBootstrap();
     const { delayShow, delayHide } = tooltipNode.dataset;
     const delay = {
         show: delayShow ? parseInt(delayShow, 10) : 150,

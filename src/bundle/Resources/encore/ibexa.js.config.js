@@ -4,6 +4,7 @@ const translationsPath = path.resolve('./public/assets/translations/');
 const fieldTypesPath = path.resolve(__dirname, '../public/js/scripts/fieldType/');
 const layout = [
     path.resolve(__dirname, '../public/js/scripts/helpers/config.loader.js'),
+    path.resolve(__dirname, '../public/js/scripts/core/config.loader.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.format.date.js'),
     path.resolve(__dirname, '../public/js/scripts/core/draggable.js'),
     path.resolve(__dirname, '../public/js/scripts/core/dropdown.js'),

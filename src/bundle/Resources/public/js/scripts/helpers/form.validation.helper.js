@@ -1,8 +1,5 @@
-console.log('form.validation: Translator');
-
+import { getContext } from './helpers.service';
 import { getIconPath } from './icon.helper';
-
-const { Translator } = window;
 
 const formatErrorLine = (errorMessage) => {
     const errorIcon = `<svg class="ibexa-icon ibexa-icon--small ibexa-form-error__icon">
@@ -19,6 +16,7 @@ const formatErrorLine = (errorMessage) => {
 };
 const checkIsEmpty = (field) => {
     let errorMessage = '';
+    const Translator = getContext().Translator;
     const input = field.querySelector('.ibexa-input');
     const label = field.querySelector('.ibexa-label');
 
