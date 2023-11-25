@@ -120,7 +120,7 @@
         };
         const extraClass = tooltipNode.dataset.tooltipExtraClass ?? '';
         const placement = tooltipNode.dataset.tooltipPlacement ?? 'bottom';
-        const trigger = tooltipNode.dataset.tooltipTrigger ?? 'hover focus';
+        const trigger = tooltipNode.dataset.tooltipTrigger ?? 'hover';
         const useHtml = tooltipNode.dataset.tooltipUseHtml !== undefined;
         const container = tooltipNode.dataset.tooltipContainerSelector
             ? tooltipNode.closest(tooltipNode.dataset.tooltipContainerSelector)
