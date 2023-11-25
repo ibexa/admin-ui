@@ -14,6 +14,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Aggregation\ContentTypeTermAggregation;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ParentLocationId;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -54,10 +55,34 @@ final class ContentTypeSuggestionsListener implements EventSubscriberInterface
 
         $suggestions = $this->getSuggestions($event->getTargetLocation());
         if (!empty($suggestions)) {
+            $suggestions = array_filter(
+                $suggestions,
+                fn (ContentType $contentType): bool => $this->isContentTypeAvailable(
+                    $event->getContentTypeGroups(),
+                    $contentType
+                )
+            );
+
             $event->setContentTypeGroups([
                 $this->getSuggestionsGroupLabel() => $suggestions,
             ] + $event->getContentTypeGroups());
         }
+    }
+
+    /**
+     * @param array<string, \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[]> $contentTypes
+     */
+    private function isContentTypeAvailable(array $contentTypes, ContentType $needle): bool
+    {
+        foreach ($contentTypes as $group) {
+            foreach ($group as $contentType) {
+                if ($contentType->identifier === $needle->identifier) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private function getSuggestionsGroupLabel(): string
