@@ -150,8 +150,8 @@ class ListItem extends Component {
         }
 
         const { isLoading } = this.state;
-        const seeMoreLabel = Translator.trans(/*@Desc("See more")*/ 'see_more', {}, 'ibexa_content_tree');
-        const loadingMoreLabel = Translator.trans(/*@Desc("Loading more...")*/ 'loading_more', {}, 'ibexa_content_tree');
+        const seeMoreLabel = this.Translator.trans(/*@Desc("See more")*/ 'see_more', {}, 'ibexa_content_tree');
+        const loadingMoreLabel = this.Translator.trans(/*@Desc("Loading more...")*/ 'loading_more', {}, 'ibexa_content_tree');
         const btnLabel = isLoading ? loadingMoreLabel : seeMoreLabel;
         let loadingSpinner = null;
 
