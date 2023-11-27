@@ -1,4 +1,4 @@
-import { getBootstrap } from './helpers.service';
+import { getBootstrap } from './context.helper';
 
 const { document: doc } = window;
 

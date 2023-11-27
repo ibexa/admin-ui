@@ -8,7 +8,7 @@ import Finder from './components/finder/finder';
 import TreeView from './components/tree-view/tree.view';
 
 import { CurrentViewContext, TabsConfigContext } from './universal.discovery.module';
-import { getTranslator } from '../modules.service';
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const BrowseTabModule = () => {
     const [currentView] = useContext(CurrentViewContext);

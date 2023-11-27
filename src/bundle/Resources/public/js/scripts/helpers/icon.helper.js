@@ -1,11 +1,13 @@
-import { getContext as getHelpersContext } from './helpers.service';
+import { getAdminUiConfig } from './context.helper';
 
 const getIconPath = (path, iconSet) => {
+    const adminUiConfig = getAdminUiConfig();
+
     if (!iconSet) {
-        iconSet = getHelpersContext().iconPaths.defaultIconSet;
+        iconSet = adminUiConfig.defaultIconSet;
     }
 
-    const iconSetPath = getHelpersContext().iconPaths.iconSets[iconSet];
+    const iconSetPath = adminUiConfig.iconSets[iconSet];
     return `${iconSetPath}#${path}`;
 };
 

@@ -10,7 +10,7 @@ import Icon from '../../../common/icon/icon';
 import Thumbnail from '../../../common/thumbnail/thumbnail';
 
 import { SelectedLocationsContext, ContentTypesMapContext } from '../../universal.discovery.module';
-import { getAdminUiConfig, getTranslator } from '../../../modules.service';
+import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const SelectedLocationsItem = ({ location, permissions }) => {
     const adminUiConfig = getAdminUiConfig();

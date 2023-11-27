@@ -1,14 +1,8 @@
-import { getContext as getHelpersContext } from './helpers.service';
+import { getAdminUiConfig, getMoment } from './context.helper';
 
-const getMomentInstance = () => {
-    const config = getHelpersContext();
-
-    return window.moment ?? config.moment;
-};
-
-const convertDateToTimezone = (date, timezone = getHelpersContext().timezone, forceSameTime = false) => {
-    const moment = getMomentInstance();
-
+const convertDateToTimezone = (date, timezone = getAdminUiConfig().timezone, forceSameTime = false) => {
+    const moment = getMoment();
+    
     return moment(date).tz(timezone, forceSameTime);
 };
 const formatDate = (date, timezone = null, format) => {
@@ -16,14 +10,14 @@ const formatDate = (date, timezone = null, format) => {
         date = convertDateToTimezone(date, timezone);
     }
 
-    const moment = getMomentInstance();
+    const moment = getMoment();
 
     return moment(date).formatICU(format);
 };
-const formatFullDateTime = (date, timezone = getHelpersContext().timezone, format = getHelpersContext().dateFormat.fullDateTime) => {
+const formatFullDateTime = (date, timezone = getAdminUiConfig().timezone, format = getAdminUiConfig().dateFormat.fullDateTime) => {
     return formatDate(date, timezone, format);
 };
-const formatShortDateTime = (date, timezone = getHelpersContext().timezone, format = getHelpersContext().dateFormat.shortDateTime) => {
+const formatShortDateTime = (date, timezone = getAdminUiConfig().timezone, format = getAdminUiConfig().dateFormat.shortDateTime) => {
     return formatDate(date, timezone, format);
 };
 const getBrowserTimezone = () => {

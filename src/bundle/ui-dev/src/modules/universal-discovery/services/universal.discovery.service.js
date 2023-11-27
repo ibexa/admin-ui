@@ -391,10 +391,6 @@ export const loadLocationsWithPermissions = ({ token, siteaccess, locationIds, s
     fetch(request, { signal }).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
 };
 
-//Dummy request
-function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
 export const fetchAdminConfig = async ({ token, siteaccess }) => {
     const request = new Request('/api/ibexa/v2/content/types', {
         method: 'GET',
@@ -409,9 +405,9 @@ export const fetchAdminConfig = async ({ token, siteaccess }) => {
 
     const resposne = await fetch(request);
     const jsonResponse = {
-        userId: 14,
+        userId: 14, // <---- extra options
         backOfficeLanguage: 'pl_PL',
-        translatorLangs: ['en', 'fr'],
+        translatorLangs: ['en', 'fr'], // <--- extra options
         languages: {
             mappings: {
                 'eng-GB': {
@@ -595,14 +591,6 @@ export const fetchAdminConfig = async ({ token, siteaccess }) => {
             treeRootLocationId: 2,
             contextualTreeRootLocationIds: [2, 5, 43, 48, 55, 56, 60],
         },
-        contentTreeWidget: {
-            secondaryItemActions: [
-                {
-                    id: 'toggle-selection-button',
-                    priority: 30,
-                },
-            ],
-        },
         sections: {
             standard: 'Standard',
             users: 'Users',
@@ -623,12 +611,10 @@ export const fetchAdminConfig = async ({ token, siteaccess }) => {
             shortDate: 'dd/MM/yyyy',
             shortTime: 'HH:mm',
         },
-        iconPaths: {
-            iconSets: {
-                streamlineicons: '/bundles/ibexaicons/img/all-icons.svg',
-            },
-            defaultIconSet: 'streamlineicons',
+        iconSets: {
+            streamlineicons: '/bundles/ibexaicons/img/all-icons.svg',
         },
+        defaultIconSet: 'streamlineicons',
     };
 
     return jsonResponse;

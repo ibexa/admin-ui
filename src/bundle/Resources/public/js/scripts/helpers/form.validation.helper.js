@@ -1,4 +1,4 @@
-import { getContext } from './helpers.service';
+import { getTranslator } from './context.helper';
 import { getIconPath } from './icon.helper';
 
 const formatErrorLine = (errorMessage) => {
@@ -16,7 +16,7 @@ const formatErrorLine = (errorMessage) => {
 };
 const checkIsEmpty = (field) => {
     let errorMessage = '';
-    const Translator = getContext().Translator;
+    const Translator = getTranslator();
     const input = field.querySelector('.ibexa-input');
     const label = field.querySelector('.ibexa-label');
 

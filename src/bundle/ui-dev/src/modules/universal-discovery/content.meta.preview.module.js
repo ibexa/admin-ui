@@ -8,7 +8,7 @@ import Thumbnail from '../common/thumbnail/thumbnail';
 import { createCssClassNames } from '../common/helpers/css.class.names';
 import ContentEditButton from './components/content-edit-button/content.edit.button';
 
-import { getTranslator, getRouting, getAdminUiConfig } from '../modules.service';
+import { getTranslator, getRouting, getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { addBookmark, removeBookmark } from './services/universal.discovery.service';
 import {
     MarkedLocationIdContext,

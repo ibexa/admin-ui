@@ -4,7 +4,7 @@ import Icon from '../../../common/icon/icon';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { LoadedLocationsMapContext } from '../../universal.discovery.module';
-import { getTranslator } from '../../../modules.service';
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const Breadcrumbs = () => {
     const Translator = getTranslator();

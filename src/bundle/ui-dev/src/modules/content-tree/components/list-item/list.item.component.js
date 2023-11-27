@@ -4,7 +4,7 @@ import Icon from '../../../common/icon/icon';
 
 import { showWarningNotification } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/notification.helper';
 import { getContentTypeIconUrl } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/content.type.helper';
-import { getTranslator, getAdminUiConfig } from '../../../modules.service';
+import { getTranslator, getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 class ListItem extends Component {
     constructor(props) {

@@ -14,7 +14,7 @@ import SearchTags from './search.tags';
 import { useSearchByQueryFetch } from '../../hooks/useSearchByQueryFetch';
 import { AllowedContentTypesContext, SearchTextContext } from '../../universal.discovery.module';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
-import { getAdminUiConfig, getTranslator } from '../../../modules.service';
+import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const selectedContentTypesReducer = (state, action) => {
     switch (action.type) {
