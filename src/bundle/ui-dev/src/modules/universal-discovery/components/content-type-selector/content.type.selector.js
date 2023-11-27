@@ -4,7 +4,7 @@ import { SelectedContentTypesContext } from '../search/search';
 import { AllowedContentTypesContext } from '../../universal.discovery.module';
 
 import Collapsible from '../collapsible/collapsible';
-import { getAdminUiConfig } from '../../../modules.service';
+import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const ContentTypeSelector = () => {
     const adminUiConfig = getAdminUiConfig();

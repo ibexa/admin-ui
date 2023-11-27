@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
 import PopupActions from '../popup-actions/popup.actions';
-import { getTranslator } from '../../../modules.service';
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const Header = ({ isCollapsed, toggleCollapseTree, actions, popupRef }) => {
     const Translator = getTranslator();

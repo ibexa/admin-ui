@@ -1,4 +1,4 @@
-import { getContext, getFlatpickr } from '../helpers/helpers.service';
+import { getAdminUiConfig, getFlatpickr } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { convertDateToTimezone, formatShortDateTime } from '../helpers/timezone.helper';
 import { setInstance } from '../helpers/object.instances';
 
@@ -53,7 +53,8 @@ class DateTimePicker {
         }
 
         const timestamps = dates.map((date) => {
-            const selectedDateWithUserTimezone = convertDateToTimezone(date, getContext().timezone, true);
+            const { timezone } = getAdminUiConfig();
+            const selectedDateWithUserTimezone = convertDateToTimezone(date, timezone, true);
             const timestamp = Math.floor(selectedDateWithUserTimezone.valueOf() / 1000);
 
             return timestamp;

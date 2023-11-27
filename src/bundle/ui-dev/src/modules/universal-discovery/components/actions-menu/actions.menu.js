@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { AllowConfirmationContext, ConfirmContext, CancelContext, SelectedLocationsContext } from '../../universal.discovery.module';
-import { getTranslator } from '../../../modules.service';
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const ActionsMenu = () => {
     const Translator = getTranslator();

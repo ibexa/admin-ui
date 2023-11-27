@@ -1,9 +1,7 @@
 import { escapeHTML } from './text.helper';
 import { getJsonFromResponse } from './request.helper';
 import { showErrorNotification } from './notification.helper';
-import { getContext as getHelpersContext } from './helpers.service';
-
-const { document: doc } = window;
+import { getToken, getSiteaccess, getTranslator } from './context.helper';
 
 const removeRootFromPathString = (pathString) => {
     const pathArray = pathString.split('/').filter((id) => id);
@@ -13,7 +11,9 @@ const removeRootFromPathString = (pathString) => {
 const buildLocationsBreadcrumbs = (locations) =>
     locations.map((Location) => escapeHTML(Location.ContentInfo.Content.TranslatedName)).join(' / ');
 const findLocationsByIds = (idList, callback) => {
-    const { token, siteaccess, Translator } = getHelpersContext();
+    const token = getToken();
+    const siteaccess = getSiteaccess();
+    const Translator = getTranslator();
     const body = JSON.stringify({
         ViewInput: {
             identifier: `locations-by-path-string-${idList.join('-')}`,
@@ -33,8 +33,8 @@ const findLocationsByIds = (idList, callback) => {
             Accept: 'application/vnd.ibexa.api.View+json; version=1.1',
             'Content-Type': 'application/vnd.ibexa.api.ViewInput+json; version=1.1',
             'X-Requested-With': 'XMLHttpRequest',
-            'X-Siteaccess': siteaccess ?? doc.querySelector('meta[name="SiteAccess"]')?.content,
-            'X-CSRF-Token': token ?? doc.querySelector('meta[name="CSRF-Token"]')?.content,
+            'X-Siteaccess': siteaccess,
+            'X-CSRF-Token': token,
         },
         body,
         mode: 'same-origin',

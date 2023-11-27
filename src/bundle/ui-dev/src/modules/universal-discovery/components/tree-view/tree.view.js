@@ -20,7 +20,7 @@ import {
     SortOrderContext,
     SortingContext,
 } from '../../universal.discovery.module';
-import { getAdminUiConfig } from '../../../modules.service';
+import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const TreeView = ({ itemsPerPage }) => {
     const adminUiConfig = getAdminUiConfig();

@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 
 import { createCssClassNames } from '@ibexa-admin-ui/src/bundle/ui-dev/src/modules/common/helpers/css.class.names';
-import { getTranslator } from '../../modules.service';
-import { getBootstrap } from '../../../../../Resources/public/js/scripts/helpers/helpers.service';
+import { getTranslator, getBootstrap } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const CLASS_NON_SCROLLABLE = 'ibexa-non-scrollable';
 const CLASS_MODAL_OPEN = 'modal-open';

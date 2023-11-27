@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { createCssClassNames } from '../../common/helpers/css.class.names';
 import Icon from '../../common/icon/icon';
-import { getTranslator } from '../../modules.service';
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const { document } = window;
 const MIN_SEARCH_ITEMS_DEFAULT = 5;

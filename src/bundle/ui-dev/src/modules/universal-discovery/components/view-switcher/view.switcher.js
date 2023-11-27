@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import SimpleDropdown from '../../../common/simple-dropdown/simple.dropdown';
-import { getTranslator } from '../../../modules.service';
+import { getTranslator } from '../../../../../../Resources/public/js/scripts/helpers/context.helper';
 import { CurrentViewContext, VIEWS } from '../../universal.discovery.module';
 
 

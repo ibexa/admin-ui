@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Icon from '../../../common/icon/icon';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import TranslationSelector from '../translation-selector/translation.selector';
-import { getAdminUiConfig, getRouting } from '../../../modules.service';
+import { getAdminUiConfig, getRouting } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { createDraft } from '../../services/universal.discovery.service';
 import {
     RestInfoContext,

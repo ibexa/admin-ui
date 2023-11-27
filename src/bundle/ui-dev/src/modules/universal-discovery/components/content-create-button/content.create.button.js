@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { hideAll as hideAllTooltips } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 import Icon from '../../../common/icon/icon';
 
@@ -13,7 +14,6 @@ import {
     MultipleConfigContext,
     ContentTypesMapContext
 } from '../../universal.discovery.module';
-import { getTranslator } from '../../../modules.service';
 
 const ContentCreateButton = ({ isDisabled }) => {
     const Translator = getTranslator();

@@ -6,7 +6,7 @@ import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/publ
 import ContentTableItem from './content.table.item';
 import Pagination from '../../../common/pagination/pagination';
 import { MultipleConfigContext } from '../../universal.discovery.module';
-import { getTranslator } from '../../../modules.service';
+import { getTranslator } from '../../../../../../Resources/public/js/scripts/helpers/context.helper';
 
 const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPageChange, renderCustomHeader }) => {
     const Translator = getTranslator();

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ListItem from '../list-item/list.item.component';
-import { getTranslator, getRouting } from '../../../modules.service';
+import { getTranslator, getRouting } from '../../../../../../Resources/public/js/scripts/helpers/context.helper';
 
 const List = ({
     items,

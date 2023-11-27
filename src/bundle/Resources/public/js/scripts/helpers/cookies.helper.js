@@ -1,8 +1,8 @@
-import { getContext as getHelpersContext } from './helpers.service';
+import { getAdminUiConfig } from './context.helper';
 
 const { document: doc } = window;
 
-const setBackOfficeCookie = (name, value, maxAgeDays = 356, path = getHelpersContext().backOfficePath) => {
+const setBackOfficeCookie = (name, value, maxAgeDays = 356, path = getAdminUiConfig().backOfficePath) => {
     setCookie(name, value, maxAgeDays, path);
 };
 const setCookie = (name, value, maxAgeDays = 356, path = '/') => {

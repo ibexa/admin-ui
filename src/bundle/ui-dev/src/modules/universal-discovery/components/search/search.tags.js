@@ -6,7 +6,7 @@ import {
     SelectedSubtreeBreadcrumbsContext,
 } from '../search/search';
 import Tag from '../../../common/tag/tag';
-import { getAdminUiConfig } from '../../../modules.service';
+import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const SearchTags = () => {
     const adminUiConfig = getAdminUiConfig();

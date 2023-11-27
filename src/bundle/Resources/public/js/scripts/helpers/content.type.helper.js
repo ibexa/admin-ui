@@ -1,4 +1,4 @@
-import { getContext as getHelpersContext } from './helpers.service';
+import { getAdminUiConfig } from './context.helper';
 
 let contentTypesDataMap = null;
 let contentTypesDataMapByHref = null;
@@ -10,7 +10,7 @@ let contentTypesDataMapByHref = null;
  * @returns {Object} contentTypesDataMap
  */
 const createContentTypeDataMap = () =>
-    Object.values(getHelpersContext().contentTypes).reduce((contentTypeDataMap, contentTypeGroup) => {
+    Object.values(getAdminUiConfig().contentTypes).reduce((contentTypeDataMap, contentTypeGroup) => {
         for (const contentTypeData of contentTypeGroup) {
             contentTypeDataMap[contentTypeData.identifier] = contentTypeData;
         }
@@ -19,7 +19,7 @@ const createContentTypeDataMap = () =>
     }, {});
 
 const createContentTypeDataMapByHref = () =>
-    Object.values(getHelpersContext().contentTypes).reduce((contentTypeDataMapByHref, contentTypeGroup) => {
+    Object.values(getAdminUiConfig().contentTypes).reduce((contentTypeDataMapByHref, contentTypeGroup) => {
         for (const contentTypeData of contentTypeGroup) {
             contentTypeDataMapByHref[contentTypeData.href] = contentTypeData;
         }

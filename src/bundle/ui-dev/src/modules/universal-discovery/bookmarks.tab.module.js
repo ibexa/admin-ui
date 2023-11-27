@@ -18,7 +18,7 @@ import {
     RootLocationIdContext,
     TabsConfigContext,
 } from './universal.discovery.module';
-import { getTranslator } from '../modules.service';
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { loadAccordionData } from './services/universal.discovery.service';
 
 const BookmarksTabModule = () => {
