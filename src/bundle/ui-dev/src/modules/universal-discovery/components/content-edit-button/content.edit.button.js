@@ -11,7 +11,7 @@ import {
     EditOnTheFlyDataContext,
     AllowRedirectsContext,
     ActiveTabContext,
-    ContentTypesMapContext
+    ContentTypesMapContext,
 } from '../..//universal.discovery.module';
 
 const ContentEditButton = ({ version, location, isDisabled, label }) => {

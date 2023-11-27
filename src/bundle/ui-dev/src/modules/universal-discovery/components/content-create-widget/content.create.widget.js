@@ -12,7 +12,7 @@ import {
     MarkedLocationIdContext,
     LoadedLocationsMapContext,
     ContentOnTheFlyConfigContext,
-    AllowedContentTypesContext
+    AllowedContentTypesContext,
 } from '../../universal.discovery.module';
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import Dropdown from '../../../common/dropdown/dropdown';

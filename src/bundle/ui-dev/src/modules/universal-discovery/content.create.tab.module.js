@@ -12,12 +12,11 @@ import {
     SelectedLocationsContext,
     ConfirmContext,
     LoadedLocationsMapContext,
-    MultipleConfigContext
+    MultipleConfigContext,
 } from './universal.discovery.module';
 import { getTranslator, getRouting } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { findLocationsById } from './services/universal.discovery.service';
 import deepClone from '../common/helpers/deep.clone.helper';
-
 
 const ContentCreateTabModule = () => {
     const Routing = getRouting();

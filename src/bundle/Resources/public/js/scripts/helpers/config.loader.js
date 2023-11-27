@@ -48,7 +48,10 @@ import { getId as getUserId } from './user.helper';
         getContentTypeIconUrl,
         getContentTypeName,
         getContentTypeIconUrlByHref,
+<<<<<<< HEAD
         getContentTypeDataByHref,
+=======
+>>>>>>> da3193a28 (Prettier)
         getContentTypeNameByHref,
     });
     ibexa.addConfig('helpers.cookies', { getCookie, setCookie, setBackOfficeCookie });

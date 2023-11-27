@@ -1,11 +1,4 @@
-let { 
-    bootstrap,
-    flatpickr,
-    moment,
-    Popper,
-    Routing,
-    Translator
-} = window;
+let { bootstrap, flatpickr, moment, Popper, Routing, Translator } = window;
 let adminUiConfig = window.ibexa?.adminUiConfig;
 let token = document.querySelector('meta[name="CSRF-Token"]')?.content;
 let siteaccess = document.querySelector('meta[name="SiteAccess"]')?.content;
@@ -29,11 +22,3 @@ export const getMoment = () => moment;
 export const getPopper = () => Popper;
 export const getRouting = () => Routing;
 export const getTranslator = () => Translator;
-
-
-
-
-
-
-
-

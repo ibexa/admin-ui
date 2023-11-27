@@ -12,7 +12,7 @@ import {
     ContentOnTheFlyConfigContext,
     SelectedLocationsContext,
     MultipleConfigContext,
-    ContentTypesMapContext
+    ContentTypesMapContext,
 } from '../../universal.discovery.module';
 
 const ContentCreateButton = ({ isDisabled }) => {

@@ -6,7 +6,7 @@ import {
     RestInfoContext,
     SelectedLocationsContext,
     LoadedLocationsMapContext,
-    EditOnTheFlyDataContext
+    EditOnTheFlyDataContext,
 } from './universal.discovery.module';
 import { getTranslator, getRouting } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { findLocationsByParentLocationId } from './services/universal.discovery.service';
