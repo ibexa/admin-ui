@@ -502,16 +502,11 @@ parameters:
 
 		-
 			message: "#^Cannot call method getContentInfo\\(\\) on Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\|null\\.$#"
-			count: 12
+			count: 11
 			path: src/bundle/Controller/LocationController.php
 
 		-
 			message: "#^Parameter \\#1 \\$contentInfo of method Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\LocationService\\:\\:createLocation\\(\\) expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\ContentInfo, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\ContentInfo\\|null given\\.$#"
-			count: 1
-			path: src/bundle/Controller/LocationController.php
-
-		-
-			message: "#^Parameter \\#1 \\$location of method Ibexa\\\\Contracts\\\\AdminUi\\\\Controller\\\\Controller\\:\\:redirectToLocation\\(\\) expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\|null given\\.$#"
 			count: 1
 			path: src/bundle/Controller/LocationController.php
 

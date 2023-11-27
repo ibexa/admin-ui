@@ -401,24 +401,11 @@ class LocationController extends Controller
             ) {
                 $this->trashRelatedAsset($location->getContentInfo());
             }
-            $trashItem = $this->trashService->trash($location);
+            $this->trashService->trash($location);
             $this->repository->commit();
         } catch (\Exception $exception) {
             $this->repository->rollback();
             throw $exception;
-        }
-
-        if ($trashItem === null) {
-            $this->notificationHandler->info(
-                $this->translator->trans(
-                    /** @Desc("Location '%name%' was not moved to Trash.") */
-                    'location.trash.failure',
-                    ['%name%' => $location->getContentInfo()->name],
-                    'ibexa_location'
-                )
-            );
-
-            return $this->redirectToLocation($location);
         }
 
         $this->notificationHandler->success(
