@@ -6,7 +6,7 @@
     height: 100%;
     padding: calculateRem(16px);
 
-    &__icon-container {
+    &__spinner-container {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -14,5 +14,9 @@
         height: 100%;
         border-radius: $ibexa-border-radius;
         background: $ibexa-color-white;
+    }
+
+    &__spinner {
+        @include spinner(calculateRem(48px), calculateRem(6px), $ibexa-color-dark-300);
     }
 }

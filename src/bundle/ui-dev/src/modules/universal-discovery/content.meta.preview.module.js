@@ -24,7 +24,7 @@ export const getLocationData = (loadedLocationsMap, markedLocationId) =>
         loadedLocationsMap[loadedLocationsMap.length - 1].subitems.find((subitem) => subitem.location.id === markedLocationId));
 
 const ContentMetaPreview = () => {
-    const Translator = getTranslator()
+    const Translator = getTranslator();
     const Routing = getRouting();
     const adminUiConfig = getAdminUiConfig();
     const refContentMetaPreview = useRef(null);
@@ -149,13 +149,21 @@ const ContentMetaPreview = () => {
                         <div className="c-content-meta-preview__details-item">
                             <div className="c-content-meta-preview__details-item-row">{lastModifiedLabel}</div>
                             <div className="c-content-meta-preview__details-item-row">
-                                { formatShortDateTime(new Date(location.ContentInfo.Content.lastModificationDate), timezone, dateFormat.shortDateTimeFormat) }
+                                {formatShortDateTime(
+                                    new Date(location.ContentInfo.Content.lastModificationDate),
+                                    timezone,
+                                    dateFormat.shortDateTimeFormat,
+                                )}
                             </div>
                         </div>
                         <div className="c-content-meta-preview__details-item">
                             <div className="c-content-meta-preview__details-item-row">{creationDateLabel}</div>
                             <div className="c-content-meta-preview__details-item-row">
-                                {formatShortDateTime(new Date(location.ContentInfo.Content.publishedDate), timezone, dateFormat.shortDateTimeFormat)}
+                                {formatShortDateTime(
+                                    new Date(location.ContentInfo.Content.publishedDate),
+                                    timezone,
+                                    dateFormat.shortDateTimeFormat,
+                                )}
                             </div>
                         </div>
                         <div className="c-content-meta-preview__details-item">

@@ -34,7 +34,7 @@ const Popup = ({
     const modalRef = useRef(null);
     const Translator = getTranslator();
     const bootstrap = getBootstrap();
-    
+
     useEffect(() => {
         document.body.classList.toggle(CLASS_MODAL_OPEN, isVisible);
         document.body.classList.toggle(CLASS_NON_SCROLLABLE, isVisible);

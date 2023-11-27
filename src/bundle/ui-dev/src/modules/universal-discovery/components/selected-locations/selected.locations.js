@@ -1,6 +1,9 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 
-import { parse as parseTooltip, hideAll as hideAllTooltips } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+import {
+    parse as parseTooltip,
+    hideAll as hideAllTooltips,
+} from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 import { getBootstrap, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 import Icon from '../../../common/icon/icon';
@@ -8,7 +11,6 @@ import SelectedLocationsItem from './selected.locations.item';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
 import { SelectedLocationsContext, AllowConfirmationContext } from '../../universal.discovery.module';
-
 
 const SelectedLocations = () => {
     const Translator = getTranslator();

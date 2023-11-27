@@ -7,6 +7,6 @@ const formatLine = (...args) => {
     );
 
     return formatErrorLine(...args);
-}
+};
 
 export { formatLine };

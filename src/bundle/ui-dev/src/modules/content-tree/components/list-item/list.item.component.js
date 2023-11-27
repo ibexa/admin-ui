@@ -15,7 +15,7 @@ class ListItem extends Component {
         this.loadMoreSubitems = this.loadMoreSubitems.bind(this);
         this.handleAfterExpandedStateChange = this.handleAfterExpandedStateChange.bind(this);
 
-        this.Translator = getTranslator()
+        this.Translator = getTranslator();
         this.adminUiConfig = getAdminUiConfig();
         this.secondaryItemActions = this.getSecondaryItemActions();
         this.sortedActions = this.getSortedActions();
@@ -127,9 +127,7 @@ class ListItem extends Component {
             if (locationId === 1) {
                 iconAttrs.customPath = getContentTypeIconUrl('folder');
             } else {
-                iconAttrs.customPath =
-                    getContentTypeIconUrl(contentTypeIdentifier) ||
-                    getContentTypeIconUrl('file');
+                iconAttrs.customPath = getContentTypeIconUrl(contentTypeIdentifier) || getContentTypeIconUrl('file');
             }
         } else {
             iconAttrs.name = 'spinner';

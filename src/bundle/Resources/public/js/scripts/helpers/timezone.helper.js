@@ -2,7 +2,7 @@ import { getAdminUiConfig, getMoment } from './context.helper';
 
 const convertDateToTimezone = (date, timezone = getAdminUiConfig().timezone, forceSameTime = false) => {
     const moment = getMoment();
-    
+
     return moment(date).tz(timezone, forceSameTime);
 };
 const formatDate = (date, timezone = null, format) => {

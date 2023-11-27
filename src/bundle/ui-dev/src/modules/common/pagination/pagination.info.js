@@ -32,7 +32,7 @@ PaginationInfo.propTypes = {
 
 PaginationInfo.defaultProps = {
     extraClasses: '',
-    Translator: window.Translator
+    Translator: window.Translator,
 };
 
 export default PaginationInfo;

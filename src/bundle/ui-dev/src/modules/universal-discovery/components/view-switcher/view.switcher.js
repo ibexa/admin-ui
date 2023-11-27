@@ -5,7 +5,6 @@ import SimpleDropdown from '../../../common/simple-dropdown/simple.dropdown';
 import { getTranslator } from '../../../../../../Resources/public/js/scripts/helpers/context.helper';
 import { CurrentViewContext, VIEWS } from '../../universal.discovery.module';
 
-
 const ViewSwitcher = ({ isDisabled }) => {
     const Translator = getTranslator();
     const viewLabel = Translator.trans(/*@Desc("View")*/ 'view_switcher.view', {}, 'ibexa_universal_discovery_widget');

@@ -611,10 +611,12 @@ export const fetchAdminConfig = async ({ token, siteaccess }) => {
             shortDate: 'dd/MM/yyyy',
             shortTime: 'HH:mm',
         },
-        iconSets: {
-            streamlineicons: '/bundles/ibexaicons/img/all-icons.svg',
+        iconPaths: {
+            iconSets: {
+                streamlineicons: '/bundles/ibexaicons/img/all-icons.svg',
+            },
+            defaultIconSet: 'streamlineicons',
         },
-        defaultIconSet: 'streamlineicons',
     };
 
     return jsonResponse;
