@@ -676,6 +676,18 @@ ibexa.user.invite.to_group:
     controller: Ibexa\Bundle\AdminUi\Controller\User\InvitationController::sendInvitationsAction
     methods: ['POST']
 
+ibexa.user.profile.view:
+    path: /user/profile/{userId}/view
+    controller: Ibexa\Bundle\AdminUi\Controller\User\ProfileViewController::viewAction
+    methods: ['GET']
+    options:
+        expose: true
+
+ibexa.user.profile.edit:
+    path: /user/profile/edit
+    controller: Ibexa\Bundle\AdminUi\Controller\User\ProfileEditController::editAction
+    methods: ['GET', 'POST']
+
 #
 # Custom URL alias
 #

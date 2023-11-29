@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ibexa\AdminUi\UserProfile\UserProfileConfiguration: ~
+
+    Ibexa\AdminUi\UserProfile\UserProfileConfigurationInterface:
+        alias: Ibexa\AdminUi\UserProfile\UserProfileConfiguration
+
+    Ibexa\AdminUi\UserProfile\UserProfileFieldGroupsProvider:
+        decorates: Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList
+        arguments:
+            $innerService: '@.inner'
+
+

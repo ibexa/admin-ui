@@ -1,0 +1,118 @@
+{% extends "@ibexadesign/ui/layout.html.twig" %}
+
+{% trans_default_domain 'ibexa_admin_ui' %}
+
+{% block body_class %}ibexa-user-profile-view{% endblock %}
+
+{% block breadcrumbs %}
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
+        { value: 'profile.view.title'|trans|desc('User profile') }
+    ]} %}
+{% endblock %}
+
+{% block header %}
+    {% include '@ibexadesign/ui/page_title.html.twig' with {
+        title: 'user_profile.page.title'|trans|desc('User profile')
+    } %}
+{% endblock %}
+
+{% set content = user.content %}
+
+{% block content %}
+    <div class="ibexa-user-profile">
+        <header class="ibexa-user-profile__header ibexa-container container">
+            <div class="ibexa-user-profile-name">
+                <h2>{{ ibexa_content_name(content) }}</h2>
+            </div>
+            <div class="ibexa-user-thumbnail-wrapper">
+                {% include '@ibexadesign/ui/component/user_thumbnail/user_thumbnail.html.twig' with {
+                    user_content: content,
+                    user: user,
+                    attr_svg: { width: 220, height: 220 }
+                } only %}
+            </div>
+        </header>
+
+        <div class="ibexa-user-profile__body">
+            <aside class="ibexa-user-profile__aside">
+                <div class="ibexa-user-profile-summary ibexa-container container">
+                    <div class="ibexa-user-profile-summary__header">
+                        <h3>{{ 'user_profile.summary.title'|trans|desc('Summary') }}</h3>
+
+                        {% if ibexa_is_current_user(user) %}
+                            <a href="{{ path('ibexa.user.profile.edit') }}" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small">
+                                <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
+                                    <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
+                                </svg>
+                                <span class="ibexa-btn__label">
+                                    {{ 'user_profile.action.edit'|trans|desc('Edit') }}
+                                </span>
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    <div class="ibexa-details">
+                        <div class="ibexa-details__items ibexa-details__items--vertical ">
+                            <div class="ibexa-details__item ibexa-details__item--inline">
+                                <div class="ibexa-details__item-label ibexa-label">
+                                    {{ 'user_profile.summary.full_name.label'|trans|desc("Full name") }}
+                                </div>
+                                <div class="ibexa-details__item-content">
+                                    {{ ibexa_content_name(content) }}
+                                </div>
+                            </div>
+
+                            <div class="ibexa-details__item ibexa-details__item--inline">
+                                <div class="ibexa-details__item-label ibexa-label">
+                                    {{ 'user_profile.summary.email.label'|trans|desc("Email") }}
+                                </div>
+                                <div class="ibexa-details__item-content">
+                                    <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+                                </div>
+                            </div>
+                            {% for group in field_groups %}
+                                {% set field_definitions = content.getContentType().getFieldDefinitions().filterByGroup(group) %}
+
+                                {% for field_definition in field_definitions %}
+                                    {% set field_identifier = field_definition.identifier %}
+                                    <div class="ibexa-details__item ibexa-details__item--inline">
+                                        <div class="ibexa-details__item-label ibexa-label">
+                                            {{ ibexa_field_name(content, field_identifier) }}
+                                        </div>
+                                        <div class="ibexa-details__item-content">
+                                            {% if not ibexa_field_is_empty(content, field_identifier) %}
+                                                {{ ibexa_render_field(content, field_identifier) }}
+                                            {% else %}
+                                                <em>{{ '-' }}</em>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ibexa-user-profile-roles ibexa-container container">
+                    <div class="ibexa-user-profile-summary__header">
+                        <h3>{{ 'user_profile.roles.header'|trans|desc('Roles') }}</h3>
+                    </div>
+
+                    {% for role_assigment in roles %}
+                        <div class="ibexa-tag">
+                            <div class="ibexa-tag__content">
+                                {{ role_assigment.identifier }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </aside>
+
+            <main class="ibexa-user-profile__blocks">
+                <div class="ibexa-container container">
+                    {{ ibexa_render_component_group('user-profile-blocks') }}
+                </div>
+            </main>
+        </div>
+    </div>
+{% endblock %}

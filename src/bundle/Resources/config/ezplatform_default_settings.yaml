@@ -34,7 +34,7 @@ parameters:
     ibexa.site_access.config.default.subitems_module.limit: 10
 
     # User identifier
-    ibexa.site_access.config.admin_group.user_content_type_identifier: ['user']
+    ibexa.site_access.config.admin_group.user_content_type_identifier: ['user', 'editor']
 
     # User Group identifier
     ibexa.site_access.config.admin_group.user_group_content_type_identifier: ['user_group']
@@ -82,3 +82,8 @@ parameters:
 
     ibexa.site_access.config.admin_group.autosave.enabled: true
     ibexa.site_access.config.admin_group.autosave.interval: 60
+
+    # User profiles
+    ibexa.site_access.config.admin_group.user_profile.enabled: false
+    ibexa.site_access.config.admin_group.user_profile.content_types: ['editor', 'user']
+    ibexa.site_access.config.admin_group.user_profile.field_groups: ['about', 'contact']

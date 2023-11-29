@@ -30,6 +30,10 @@ services:
         tags:
             - { name: twig.extension }
 
+    Ibexa\Bundle\AdminUi\Templating\Twig\UserProfileExtension:
+        tags:
+            - { name: twig.extension }
+
     Ibexa\Bundle\AdminUi\Templating\Twig\LocationExtension:
         tags:
             - { name: twig.extension }

@@ -135,6 +135,10 @@ services:
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'suggestions' }
 
+    Ibexa\AdminUi\UI\Config\Provider\UserProfile:
+        tags:
+            - { name: ibexa.admin_ui.config.provider, key: 'userProfile' }
+
     # Resolvers
     Ibexa\AdminUi\REST\Generator\ApplicationConfigRestGeneratorRegistry:
         arguments:

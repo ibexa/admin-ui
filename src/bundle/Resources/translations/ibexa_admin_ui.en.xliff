@@ -21,6 +21,11 @@
         <target state="new">Select language</target>
         <note>key: edit_translation.list.title</note>
       </trans-unit>
+      <trans-unit id="773756d8360258c56797a597252082a335b25e2c" resname="profile.view.title">
+        <source>User profile</source>
+        <target state="new">User profile</target>
+        <note>key: profile.view.title</note>
+      </trans-unit>
       <trans-unit id="e4b8188e898e654dae14fc6b18133958f8e56084" resname="translation.remove.success">
         <source>Removed '%languageCode%' translation from '%name%'.</source>
         <target state="new">Removed '%languageCode%' translation from '%name%'.</target>
@@ -35,6 +40,36 @@
         <source>Smart mode</source>
         <target state="new">Smart mode</target>
         <note>key: user.mode.smart</note>
+      </trans-unit>
+      <trans-unit id="d88f09dfa6b5a01de87c36fb97c09902cebcb3cc" resname="user_profile.action.edit">
+        <source>Edit</source>
+        <target state="new">Edit</target>
+        <note>key: user_profile.action.edit</note>
+      </trans-unit>
+      <trans-unit id="e3ac3ec941d44047ec290142bd7b8f82c6c8c12b" resname="user_profile.page.title">
+        <source>User profile</source>
+        <target state="new">User profile</target>
+        <note>key: user_profile.page.title</note>
+      </trans-unit>
+      <trans-unit id="0f5838e96bc64daa4815d5ffc1acdfab0e9b1af5" resname="user_profile.roles.header">
+        <source>Roles</source>
+        <target state="new">Roles</target>
+        <note>key: user_profile.roles.header</note>
+      </trans-unit>
+      <trans-unit id="aa94b4cc1cf42bcbfceb6172acff13c06239dc4d" resname="user_profile.summary.email.label">
+        <source>Email</source>
+        <target state="new">Email</target>
+        <note>key: user_profile.summary.email.label</note>
+      </trans-unit>
+      <trans-unit id="3ee13773bc4319ba7dc1edb313ed506419c3d611" resname="user_profile.summary.full_name.label">
+        <source>Full name</source>
+        <target state="new">Full name</target>
+        <note>key: user_profile.summary.full_name.label</note>
+      </trans-unit>
+      <trans-unit id="80c8ddeaa953a747d78aea56eb7911c665af0794" resname="user_profile.summary.title">
+        <source>Summary</source>
+        <target state="new">Summary</target>
+        <note>key: user_profile.summary.title</note>
       </trans-unit>
       <trans-unit id="885ec7aab950e05f729031321cddbb6d7f9c3246" resname="version.delete.success">
         <source>Removed version(s) from '%name%'.</source>

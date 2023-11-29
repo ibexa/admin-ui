@@ -203,6 +203,20 @@ services:
         tags:
             - controller.service_arguments
 
+    Ibexa\Bundle\AdminUi\Controller\User\ProfileViewController:
+        parent: Ibexa\Contracts\AdminUi\Controller\Controller
+        autowire: true
+        tags:
+            - controller.service_arguments
+
+    Ibexa\Bundle\AdminUi\Controller\User\ProfileEditController:
+        parent: Ibexa\Contracts\AdminUi\Controller\Controller
+        autowire: true
+        arguments:
+            $userActionDispatcher: '@Ibexa\ContentForms\Form\ActionDispatcher\UserDispatcher'
+        tags:
+            - controller.service_arguments
+
     Ibexa\Bundle\AdminUi\Controller\Version\VersionConflictController: ~
 
     Ibexa\Bundle\AdminUi\Controller\VersionController:
