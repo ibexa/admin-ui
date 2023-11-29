@@ -1,0 +1,19 @@
+.ibexa-chart-no-data {
+    padding: calculateRem(16px);
+    margin: 0;
+
+    &__wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__label {
+        margin-left: calculateRem(56px);
+        margin-bottom: calculateRem(16px);
+        font-weight: $headings-font-weight;
+        font-size: $h2-font-size;
+        font-family: $ibexa-font-family-headings;
+        color: $ibexa-color-dark-400;
+    }
+}

@@ -256,6 +256,11 @@
         <target state="new"><![CDATA[No data collected<br/> for the selected period]]></target>
         <note>key: dashboard.charts.no_data</note>
       </trans-unit>
+      <trans-unit id="ac9c8e4ba677f57a59ea64aa615cb0b153bae149" resname="dashboard.charts.no_results">
+        <source>No results found</source>
+        <target state="new">No results found</target>
+        <note>key: dashboard.charts.no_results</note>
+      </trans-unit>
       <trans-unit id="8fedbb70c8494c057fb45930e46671a659bae616" resname="dropdown.clear">
         <source>Clear (%selected_items_count%)</source>
         <target state="new">Clear (%selected_items_count%)</target>

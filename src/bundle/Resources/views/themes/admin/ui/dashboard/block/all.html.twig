@@ -2,7 +2,7 @@
 
 {% set parameters = parameters|default({})|merge({ hide_toggler: true }) %}
 
-<div class="card border-light ibexa-card ibexa-card--no-padding mb-4">
+<div class="card border-light ibexa-card ibexa-card--no-padding">
     <div class="ibexa-card__title">{{ 'everyone'|trans|desc('Common content') }}</div>
     <div class="ibexa-card__body">
         {{ ibexa_render_component_group('dashboard-all-tab-groups', parameters) }}
