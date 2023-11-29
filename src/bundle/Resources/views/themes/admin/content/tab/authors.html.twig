@@ -22,9 +22,20 @@
         content: creator_name,
     },
     {
+        label: 'tab.author.published'|trans|desc('Published'),
+        content: content_info.publishedDate | ibexa_full_datetime
+    },
+    {
+        is_break: true
+    },
+    {
         label: 'tab.author.last_contributor'|trans()|desc('Last contributor'),
         content: last_contributor_name,
-    }
+    },
+    {
+        label: 'tab.author.modified'|trans|desc('Modified'),
+        content: content_info.modificationDate | ibexa_full_datetime
+    },
 ] %}
 
 {% include '@ibexadesign/ui/component/details/details.html.twig' with {

@@ -126,6 +126,16 @@
         <target state="new">Location ID</target>
         <note>key: tab.author.location_id</note>
       </trans-unit>
+      <trans-unit id="d3e1f764a54cdc6e1a8e0c1d197c9d439f734b31" resname="tab.author.modified">
+        <source>Modified</source>
+        <target state="new">Modified</target>
+        <note>key: tab.author.modified</note>
+      </trans-unit>
+      <trans-unit id="49a9415aa25635c21a41acd68ca891c7320923c0" resname="tab.author.published">
+        <source>Published</source>
+        <target state="new">Published</target>
+        <note>key: tab.author.published</note>
+      </trans-unit>
       <trans-unit id="4fd9a40170cf4bc5acff719c14eaf2d15fc9942d" resname="tab.details.change_section ">
         <source>Change section</source>
         <target state="new">Change section</target>
