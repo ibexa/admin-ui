@@ -12,13 +12,16 @@ use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
 use Ibexa\AdminUi\Form\Data\Version\VersionRemoveData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Specification\ContentIsUser;
+use Ibexa\AdminUi\Specification\UserMode\IsUserModeEnabled;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\UserSetting\UserMode;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\User\UserSetting\UserSettingService;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -49,6 +52,8 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
     /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
+    private UserSettingService $userSettingService;
+
     /**
      * @param \Twig\Environment $twig
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
@@ -67,6 +72,7 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
         UrlGeneratorInterface $urlGenerator,
         PermissionResolver $permissionResolver,
         UserService $userService,
+        UserSettingService $userSettingService,
         EventDispatcherInterface $eventDispatcher
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
@@ -76,6 +82,7 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
         $this->urlGenerator = $urlGenerator;
         $this->permissionResolver = $permissionResolver;
         $this->userService = $userService;
+        $this->userSettingService = $userSettingService;
     }
 
     /**
@@ -115,7 +122,12 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
      */
     public function evaluate(array $parameters): bool
     {
-        return $this->permissionResolver->canUser('content', 'versionread', $parameters['content']);
+        $isExpertMode = IsUserModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(UserMode::EXPERT);
+        if ($isExpertMode) {
+            return $this->permissionResolver->canUser('content', 'versionread', $parameters['content']);
+        }
+
+        return false;
     }
 
     /**

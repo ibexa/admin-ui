@@ -15,21 +15,25 @@ use Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData;
 use Ibexa\AdminUi\Form\Type\Location\LocationAssignSectionType;
 use Ibexa\AdminUi\Form\Type\Location\LocationUpdateType;
 use Ibexa\AdminUi\Form\Type\ObjectState\ContentObjectStateUpdateType;
+use Ibexa\AdminUi\Specification\UserMode\IsUserModeEnabled;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\UserSetting\UserMode;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
+use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\SectionService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\User\UserSetting\UserSettingService;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
-class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
+class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterface, ConditionalTabInterface
 {
     public const URI_FRAGMENT = 'ibexa-tab-location-view-details';
 
@@ -41,6 +45,8 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
 
     private PermissionResolver $permissionResolver;
 
+    private UserSettingService $userSettingService;
+
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
@@ -48,6 +54,7 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         DatasetFactory $datasetFactory,
         FormFactoryInterface $formFactory,
         PermissionResolver $permissionResolver,
+        UserSettingService $userSettingService,
         EventDispatcherInterface $eventDispatcher
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
@@ -56,6 +63,7 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         $this->datasetFactory = $datasetFactory;
         $this->formFactory = $formFactory;
         $this->permissionResolver = $permissionResolver;
+        $this->userSettingService = $userSettingService;
     }
 
     public function getIdentifier(): string
@@ -72,6 +80,11 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     public function getOrder(): int
     {
         return 200;
+    }
+
+    public function evaluate(array $parameters): bool
+    {
+        return IsUserModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(UserMode::EXPERT);
     }
 
     /**

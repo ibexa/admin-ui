@@ -14,8 +14,11 @@ use Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData;
 use Ibexa\AdminUi\Form\Data\Location\LocationSwapData;
 use Ibexa\AdminUi\Form\Data\Location\LocationUpdateVisibilityData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Specification\UserMode\IsUserModeEnabled;
 use Ibexa\AdminUi\UI\Value\Content\Location\Mapper;
+use Ibexa\AdminUi\UserSetting\UserMode;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
+use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\SearchService;
@@ -24,6 +27,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter;
+use Ibexa\User\UserSetting\UserSettingService;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -33,7 +37,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
-class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
+class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInterface, ConditionalTabInterface
 {
     public const URI_FRAGMENT = 'ibexa-tab-location-view-locations';
     private const PAGINATION_PARAM_NAME = 'locations-tab-page';
@@ -59,6 +63,8 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
+    private UserSettingService $userSettingService;
+
     /**
      * @param \Twig\Environment $twig
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
@@ -81,7 +87,8 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
         SearchService $searchService,
         RequestStack $requestStack,
         Mapper $locationToUILocationMapper,
-        ConfigResolverInterface $configResolver
+        ConfigResolverInterface $configResolver,
+        UserSettingService $userSettingService
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
 
@@ -92,6 +99,7 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
         $this->configResolver = $configResolver;
         $this->searchService = $searchService;
         $this->locationToUILocationMapper = $locationToUILocationMapper;
+        $this->userSettingService = $userSettingService;
     }
 
     /**
@@ -117,6 +125,11 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     public function getOrder(): int
     {
         return 400;
+    }
+
+    public function evaluate(array $parameters): bool
+    {
+        return IsUserModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(UserMode::EXPERT);
     }
 
     /**

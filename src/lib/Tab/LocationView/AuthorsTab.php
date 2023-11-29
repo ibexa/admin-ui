@@ -9,31 +9,39 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Tab\LocationView;
 
 use Ibexa\AdminUi\Specification\UserExists;
+use Ibexa\AdminUi\Specification\UserMode\IsUserModeEnabled;
+use Ibexa\AdminUi\UserSetting\UserMode;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
+use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\User\UserSetting\UserSettingService;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
-class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
+class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterface, ConditionalTabInterface
 {
     public const URI_FRAGMENT = 'ibexa-tab-location-view-authors';
 
     private UserService $userService;
 
+    private UserSettingService $userSettingService;
+
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
         UserService $userService,
+        UserSettingService $userSettingService,
         EventDispatcherInterface $eventDispatcher
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
 
         $this->userService = $userService;
+        $this->userSettingService = $userSettingService;
     }
 
     public function getIdentifier(): string
@@ -80,6 +88,11 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         $this->supplyLastContributor($viewParameters, $versionInfo);
 
         return array_replace($contextParameters, $viewParameters);
+    }
+
+    public function evaluate(array $parameters): bool
+    {
+        return IsUserModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(UserMode::SMART);
     }
 
     /**
