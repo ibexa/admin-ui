@@ -266,6 +266,11 @@
         <target state="new">Authors</target>
         <note>key: tab.name.authors</note>
       </trans-unit>
+      <trans-unit id="cbbcbdffdfb49411175c7039130d7ae05a5af6cf" resname="tab.name.data">
+        <source>Data</source>
+        <target state="new">Data</target>
+        <note>key: tab.name.data</note>
+      </trans-unit>
       <trans-unit id="5d92b84a6c78bd443010f172c47d01ce0dacacd7" resname="tab.name.details">
         <source>Technical Details</source>
         <target state="new">Technical Details</target>
@@ -280,11 +285,6 @@
         <source>Policies</source>
         <target state="new">Policies</target>
         <note>key: tab.name.policies</note>
-      </trans-unit>
-      <trans-unit id="eeca4145269fdae93e31aba7725f260e0c44839a" resname="tab.name.quick_preview">
-        <source>Quick Preview</source>
-        <target state="new">Quick Preview</target>
-        <note>key: tab.name.quick_preview</note>
       </trans-unit>
       <trans-unit id="8954433abc5d011c00f81f317c7eebec41fbb1c0" resname="tab.name.relations">
         <source>Relations</source>
