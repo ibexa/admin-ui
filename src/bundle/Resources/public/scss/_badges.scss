@@ -11,6 +11,48 @@
     white-space: nowrap;
     display: inline-block;
 
+    &--status {
+        position: relative;
+        padding-left: calculateRem(20px);
+        padding-top: calculateRem(3px);
+        padding-bottom: calculateRem(3px);
+        border-width: calculateRem(1px);
+        border-style: solid;
+        background-color: transparent;
+        border-color: transparent;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: calculateRem(8px);
+            width: calculateRem(6px);
+            height: calculateRem(6px);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: $ibexa-color-light-700;
+        }
+
+        &.ibexa-badge--success,
+        &.ibexa-badge--danger {
+           color: $ibexa-color-black;
+           background-color: transparent;
+           border-color: transparent;
+        }
+
+        &.ibexa-badge--success {
+            &::before {
+                background-color: $ibexa-color-success-600;
+            }
+        }
+
+        &.ibexa-badge--danger {
+            &::before {
+                background-color: $ibexa-color-danger-600;
+            }
+        }
+    }
+
     @mixin version-properties($color, $background-color, $text-color: false) {
         @if $text-color {
             color: $text-color;
