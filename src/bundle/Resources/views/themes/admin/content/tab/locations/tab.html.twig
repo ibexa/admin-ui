@@ -55,7 +55,6 @@
                                     type="checkbox"
                                     class="ibexa-toggle__input ibexa-content-locations__visibility-checkbox"
                                     {{ not location.explicitlyHidden ? 'checked' }}
-                                    type="checkbox"
                                     name="updateVisibility"
                                     {{ not can_hide[location.id] ? 'disabled' }}
                                     value="{{ location.id }}"
