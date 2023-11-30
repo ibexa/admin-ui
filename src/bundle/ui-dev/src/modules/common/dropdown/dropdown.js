@@ -19,6 +19,7 @@ const Dropdown = ({
     onChange,
     small,
     single,
+    disabled,
     placeholder,
     extraClasses,
     renderSelectedItem,
@@ -39,12 +40,13 @@ const Dropdown = ({
         'ibexa-dropdown--single': single,
         'ibexa-dropdown--multi': !single,
         'ibexa-dropdown--small': small,
+        'ibexa-dropdown--disabled': disabled,
         'ibexa-dropdown--expanded': isExpanded,
         [extraClasses]: true,
     });
     const toggleExpanded = () => {
         calculateAndSetItemsListStyles();
-        setIsExpanded((prevState) => !prevState);
+        setIsExpanded((prevState) => !prevState && !disabled);
     };
     const updateFilterValue = (event) => setFilterText(event.target.value);
     const resetInputValue = () => setFilterText('');
@@ -264,6 +266,7 @@ Dropdown.propTypes = {
     onChange: PropTypes.func.isRequired,
     small: PropTypes.bool,
     single: PropTypes.bool,
+    disabled: PropTypes.bool,
     placeholder: PropTypes.string,
     extraClasses: PropTypes.string,
     renderSelectedItem: PropTypes.func,
@@ -273,6 +276,7 @@ Dropdown.propTypes = {
 Dropdown.defaultProps = {
     small: false,
     single: false,
+    disabled: false,
     placeholder: null,
     extraClasses: '',
     renderSelectedItem: (item) => item?.label,
