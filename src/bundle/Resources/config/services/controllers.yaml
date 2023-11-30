@@ -191,6 +191,12 @@ services:
         tags:
             - controller.service_arguments
 
+    Ibexa\Bundle\AdminUi\Controller\User\UserModeController:
+        parent: Ibexa\Contracts\AdminUi\Controller\Controller
+        autowire: true
+        tags:
+            - controller.service_arguments
+
     Ibexa\Bundle\AdminUi\Controller\UserOnTheFlyController:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true

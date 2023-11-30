@@ -1,0 +1,7 @@
+{% trans_default_domain 'ibexa_admin_ui' %}
+
+{% form_theme form '@ibexadesign/ui/form_fields.html.twig'  %}
+
+{{ form_start(form, { attr: { class: 'mt-2'}}) }}
+    {{ form_widget(form.mode) }}
+{{ form_end(form) }}

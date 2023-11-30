@@ -67,9 +67,9 @@
     {%- endfor -%}
 {%- endblock -%}
 
-{%- block search_widget -%} 
+{%- block search_widget -%}
     {% set has_search = true %}
-    
+
     {{ block('form_widget_simple') }}
 {%- endblock -%}
 
@@ -554,3 +554,12 @@
         </div>
     </div>
 {%- endblock -%}
+
+{% block user_mode_toggle_widget %}
+    {% set label_on  = 'expert_mode'|trans|desc('Expert mode') %}
+    {% set label_off = 'expert_mode'|trans|desc('Smart mode') %}
+    {% set small = true %}
+    {% set checked = ibexa_is_expert_mode() %}
+
+    {{ block('toggle_widget') }}
+{% endblock %}
