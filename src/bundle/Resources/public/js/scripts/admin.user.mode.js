@@ -1,10 +1,10 @@
-(function (global, doc, ibexa) {
+(function (global, doc) {
     const FORM_SELECTOR = 'form[name=user_mode_change]';
     const form = doc.querySelector(FORM_SELECTOR);
 
     form.querySelectorAll('input[type=checkbox]').forEach((input) => {
-        input.addEventListener('change', (e) => {
+        input.addEventListener('change', () => {
             form.submit();
-        })
-    })
-})(window, window.document, window.ibexa);
+        });
+    });
+})(window, window.document);
