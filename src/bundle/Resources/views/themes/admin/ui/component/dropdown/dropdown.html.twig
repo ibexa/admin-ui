@@ -123,6 +123,14 @@
             <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-overflow-number" hidden></li>
         </ul>
         <div class="ibexa-dropdown__items {{ items_class|default('') }} {{ choices_flat|length < min_search_items ? 'ibexa-dropdown__items--search-hidden' }}">
+            {% block items_list_header %}
+                {% if items_list_header is defined %}
+                    <div class="ibexa-dropdown__items-list-header">
+                        {{ items_list_header }}
+                    </div>
+                {% endif %}
+            {% endblock items_list_header %}
+
             {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true } only -%}
                 {% block content %}
                     <input
@@ -143,14 +151,6 @@
                     {{ selection_toggler_label }}
                 </button>
             {% endif %}
-
-            {% block items_list_header %}
-                {% if items_list_header is defined %}
-                    <div class="ibexa-dropdown__items-list-header">
-                        {{ items_list_header }}
-                    </div>
-                {% endif %}
-            {% endblock items_list_header %}
 
             <ul
                 class="ibexa-dropdown__items-list"
@@ -183,6 +183,13 @@
                     {% include list_item_template_path with { choice, custom_form, icon: item_icon, icon_class: item_icon_class } %}
                 {% endfor %}
             </ul>
+
+            <div class="ibexa-dropdown__items-list-filter-empty" hidden>
+                <svg>
+                    <use xlink:href="{{ ibexa_icon_path('filter-empty') }}"></use>
+                </svg>
+                <div class="ibexa-dropdown__items-list-filter-empty-message"></div>
+            </div>
         </div>
     </div>
 </div>

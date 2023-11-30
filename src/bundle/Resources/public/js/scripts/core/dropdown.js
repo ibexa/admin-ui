@@ -36,6 +36,7 @@
             this.itemsContainer = this.container.querySelector('.ibexa-dropdown__items');
             this.itemsListContainer = this.itemsContainer.querySelector('.ibexa-dropdown__items-list');
             this.itemsFilterInput = this.itemsContainer.querySelector('.ibexa-dropdown__items-filter');
+            this.itemsListFilterEmptyContainer = this.itemsContainer.querySelector('.ibexa-dropdown__items-list-filter-empty');
             this.selectionTogglerBtn = this.itemsContainer.querySelector('.ibexa-dropdown__selection-toggler-btn');
 
             this.isDynamic = this.container.classList.contains('ibexa-dropdown--dynamic');
@@ -308,22 +309,33 @@
         }
 
         filterItems(event) {
-            const forceShowItems = event.currentTarget.value.length < MINIMUM_LETTERS_TO_FILTER;
+            const searchedTerm = event.currentTarget.value;
+            const forceShowItems = searchedTerm.length < MINIMUM_LETTERS_TO_FILTER;
             const allItems = [...this.itemsListContainer.querySelectorAll('[data-filter-value]')];
             const groups = [...this.itemsListContainer.querySelectorAll('.ibexa-dropdown__item-group')];
             const separator = this.itemsListContainer.querySelector('.ibexa-dropdown__separator');
+            const emptyMessage = Translator.trans(
+                /*@Desc("No results found for &quot;%phrase%&quot;")*/ 'dropdown.no_results',
+                { phrase: searchedTerm },
+                'ibexa_dropdown',
+            );
             let hideSeparator = true;
+            let anyItemVisible = false;
 
             if (separator) {
                 separator.setAttribute('hidden', 'hidden');
             }
 
             allItems.forEach((item) => {
-                const isItemVisible = forceShowItems || this.compareItem(item.dataset.filterValue, event.currentTarget.value);
+                const isItemVisible = forceShowItems || this.compareItem(item.dataset.filterValue, searchedTerm);
                 const isPreferredChoice = item.classList.contains('ibexa-dropdown__item--preferred-choice');
 
                 if (isPreferredChoice && isItemVisible) {
                     hideSeparator = false;
+                }
+
+                if (isItemVisible) {
+                    anyItemVisible = true;
                 }
 
                 item.classList.toggle('ibexa-dropdown__item--hidden', !isItemVisible);
@@ -338,6 +350,10 @@
             if (separator && !hideSeparator) {
                 separator.removeAttribute('hidden');
             }
+
+            this.itemsListContainer.toggleAttribute('hidden', !anyItemVisible);
+            this.itemsListFilterEmptyContainer.toggleAttribute('hidden', anyItemVisible);
+            this.itemsListFilterEmptyContainer.querySelector('.ibexa-dropdown__items-list-filter-empty-message').innerHTML = emptyMessage;
         }
 
         itemsPopoverContent() {
@@ -434,9 +450,9 @@
                 ? Translator.trans(
                       /*@Desc("Clear (%selected_items_count%)")*/ 'dropdown.clear',
                       { selected_items_count: selectedItems.length },
-                      'messages',
+                      'ibexa_dropdown',
                   )
-                : Translator.trans(/*@Desc("Select All")*/ 'dropdown.select_all', {}, 'messages');
+                : Translator.trans(/*@Desc("Select All")*/ 'dropdown.select_all', {}, 'ibexa_dropdown');
 
             this.selectionTogglerBtn.innerHTML = label;
         }

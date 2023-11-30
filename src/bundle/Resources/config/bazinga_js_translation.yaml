@@ -11,4 +11,5 @@ active_domains:
     - 'ibexa_trash_ui'
     - 'ibexa_user_invitation'
     - 'ibexa_content_type'
+    - 'ibexa_dropdown'
     - 'messages'

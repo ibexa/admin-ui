@@ -211,6 +211,19 @@
         overflow-y: auto;
     }
 
+    &__items-list-filter-empty {
+        padding: calculateRem(16px);
+        text-align: center;
+    }
+
+    &__items-list-filter-empty-message {
+        color: $ibexa-color-dark-400;
+        font-size: $ibexa-text-font-size;
+        font-weight: 600;
+        line-height: calculateRem(24px);
+        padding: calculateRem(24px) 0;
+    }
+
     &__item-check {
         position: absolute;
         right: calculateRem(4px);

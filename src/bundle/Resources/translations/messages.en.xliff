@@ -261,20 +261,10 @@
         <target state="new">No results found</target>
         <note>key: dashboard.charts.no_results</note>
       </trans-unit>
-      <trans-unit id="8fedbb70c8494c057fb45930e46671a659bae616" resname="dropdown.clear">
-        <source>Clear (%selected_items_count%)</source>
-        <target state="new">Clear (%selected_items_count%)</target>
-        <note>key: dropdown.clear</note>
-      </trans-unit>
       <trans-unit id="272e650f8667b4f4fcb7032b85b98ef4a9974f0f" resname="dropdown.search">
         <source>Search...</source>
         <target state="new">Search...</target>
         <note>key: dropdown.search</note>
-      </trans-unit>
-      <trans-unit id="3f446c9bfc8591ebdb9a2bc8fa98410bdcc4ced2" resname="dropdown.select_all">
-        <source>Select All</source>
-        <target state="new">Select All</target>
-        <note>key: dropdown.select_all</note>
       </trans-unit>
       <trans-unit id="7cb40cbc703336ab1285e81ebf100b82b05a0e27" resname="error.page.403.actions">
         <source><![CDATA[Contact your administrator to request access.<br/>Go back to the <a href="%dashboard%">dashboard</a> or <a href="%search%">search</a> for another item.]]></source>

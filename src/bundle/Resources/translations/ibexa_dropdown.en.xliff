@@ -11,6 +11,11 @@
         <target state="new">Clear (%selected_items_count%)</target>
         <note>key: dropdown.clear</note>
       </trans-unit>
+      <trans-unit id="ada9f9b1f9f1b312d3b2de5dbdbcf89065f72608" resname="dropdown.no_results">
+        <source><![CDATA[No results found for &quot;%phrase%&quot;]]></source>
+        <target state="new"><![CDATA[No results found for &quot;%phrase%&quot;]]></target>
+        <note>key: dropdown.no_results</note>
+      </trans-unit>
       <trans-unit id="a3390555f717ffd9b3560f17198e5a437899967f" resname="dropdown.placeholder">
         <source>Choose an option</source>
         <target state="new">Choose an option</target>
