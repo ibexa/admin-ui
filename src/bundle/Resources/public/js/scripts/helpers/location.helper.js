@@ -1,7 +1,7 @@
 import { escapeHTML } from './text.helper';
 import { getJsonFromResponse } from './request.helper';
 import { showErrorNotification } from './notification.helper';
-import { getToken, getSiteaccess, getTranslator } from './context.helper';
+import { getRestInfo, getTranslator } from './context.helper';
 
 const removeRootFromPathString = (pathString) => {
     const pathArray = pathString.split('/').filter((id) => id);
@@ -11,8 +11,7 @@ const removeRootFromPathString = (pathString) => {
 const buildLocationsBreadcrumbs = (locations) =>
     locations.map((Location) => escapeHTML(Location.ContentInfo.Content.TranslatedName)).join(' / ');
 const findLocationsByIds = (idList, callback) => {
-    const token = getToken();
-    const siteaccess = getSiteaccess();
+    const { token, siteaccess, instanceUrl } = getRestInfo();
     const Translator = getTranslator();
     const body = JSON.stringify({
         ViewInput: {
@@ -27,7 +26,7 @@ const findLocationsByIds = (idList, callback) => {
             },
         },
     });
-    const request = new Request('/api/ibexa/v2/views', {
+    const request = new Request(`${instanceUrl}/api/ibexa/v2/views`, {
         method: 'POST',
         headers: {
             Accept: 'application/vnd.ibexa.api.View+json; version=1.1',

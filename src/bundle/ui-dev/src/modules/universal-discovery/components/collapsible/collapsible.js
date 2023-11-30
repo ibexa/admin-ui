@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
-
-const { ibexa } = window;
+import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 
 const Collapsible = ({ isInitiallyExpanded, title, children }) => {
     const [isExpanded, setIsExpanded] = useState(isInitiallyExpanded);
@@ -12,7 +11,7 @@ const Collapsible = ({ isInitiallyExpanded, title, children }) => {
     });
     const toggleCollapsed = () => setIsExpanded((prevState) => !prevState);
     const initTooltipsRef = (node) => {
-        ibexa.helpers.tooltips.parse(node);
+        parseTooltip(node);
     };
 
     return (
