@@ -556,8 +556,8 @@
 {%- endblock -%}
 
 {% block user_mode_toggle_widget %}
-    {% set label_on  = 'expert_mode'|trans|desc('Expert mode') %}
-    {% set label_off = 'expert_mode'|trans|desc('Smart mode') %}
+    {% set label_on  = 'user.mode.expert'|trans({}, 'ibexa_admin_ui')|desc('Expert mode') %}
+    {% set label_off = 'user.mode.smart'|trans({}, 'ibexa_admin_ui')|desc('Smart mode') %}
     {% set small = true %}
     {% set checked = ibexa_is_expert_mode() %}
 
