@@ -103,6 +103,8 @@ export const VIEWS = [
 ];
 
 const defaultRestInfo = {
+    accsessToken: null,
+    instanceUrl: window.location.origin,
     token: document.querySelector('meta[name="CSRF-Token"]')?.content,
     siteaccess: document.querySelector('meta[name="SiteAccess"]')?.content,
 };

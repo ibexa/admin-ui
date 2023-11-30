@@ -17,6 +17,6 @@
     }
 
     &__spinner {
-        @include spinner(calculateRem(48px), calculateRem(6px), $ibexa-color-dark-300);
+        @include spinner(calculateRem(48px), calculateRem(6px), $ibexa-color-primary);
     }
 }
