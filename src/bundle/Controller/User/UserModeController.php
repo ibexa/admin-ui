@@ -13,12 +13,14 @@ use Ibexa\AdminUi\Form\Type\User\UserModeChangeType;
 use Ibexa\AdminUi\UserSetting\UserMode;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\User\UserSetting\UserSettingService;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 final class UserModeController extends Controller
 {
+    private const RETURN_URL_PARAM = 'returnUrl';
+
     private UserSettingService $userSettingService;
 
     public function __construct(UserSettingService $userSettingService)
@@ -26,7 +28,7 @@ final class UserModeController extends Controller
         $this->userSettingService = $userSettingService;
     }
 
-    public function changeAction(RequestStack $requestStack, Request $request): Response
+    public function changeAction(Request $request, ?string $returnUrl): Response
     {
         $data = new UserModeChangeData();
         $data->setMode($this->userSettingService->getUserSetting(UserMode::IDENTIFIER)->value === UserMode::EXPERT);
@@ -35,9 +37,12 @@ final class UserModeController extends Controller
             UserModeChangeType::class,
             $data,
             [
-                'action' => $this->generateUrl('ibexa.user_mode.change', [
-                    'referrer' => $requestStack->getMainRequest() !== null ? $requestStack->getMainRequest()->getRequestUri() : null,
-                ]),
+                'action' => $this->generateUrl(
+                    'ibexa.user_mode.change',
+                    [
+                        self::RETURN_URL_PARAM => $returnUrl,
+                    ]
+                ),
                 'method' => Request::METHOD_POST,
             ]
         );
@@ -49,7 +54,7 @@ final class UserModeController extends Controller
                 $data->getMode() ? UserMode::EXPERT : UserMode::SMART
             );
 
-            return $this->redirect($request->query->get('referrer'));
+            return $this->createRedirectToReturnUrl($request);
         }
 
         return $this->render(
@@ -58,5 +63,20 @@ final class UserModeController extends Controller
                 'form' => $form->createView(),
             ]
         );
+    }
+
+    private function createRedirectToReturnUrl(Request $request): RedirectResponse
+    {
+        $url = $request->query->get(self::RETURN_URL_PARAM);
+        if (is_string($url) && $this->isSafeUrl($url, $request->getBaseUrl())) {
+            return new RedirectResponse($url);
+        }
+
+        throw $this->createAccessDeniedException('Malformed return URL');
+    }
+
+    private function isSafeUrl(string $referer, string $baseUrl): bool
+    {
+        return str_starts_with($referer, $baseUrl);
     }
 }
