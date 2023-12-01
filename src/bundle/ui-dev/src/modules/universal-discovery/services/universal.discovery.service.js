@@ -1,3 +1,4 @@
+import { getAuthenticationHeaders } from '../../common/services/common.service.js';
 import { showErrorNotification } from '../../common/services/notification.service';
 import { handleRequestResponse, handleRequestResponseStatus } from '../../common/helpers/request.helper.js';
 
@@ -62,7 +63,7 @@ export const findLocationsByParentLocationId = (
         method: 'GET',
         headers: {
             Accept: 'application/json',
-            ...getAuthHeaders({ token, siteaccess, accessToken }),
+            ...getAuthenticationHeaders({ token, siteaccess, accessToken }),
         },
         mode: 'same-origin',
         credentials: 'same-origin',
@@ -112,7 +113,7 @@ export const loadAccordionData = async (
         method: 'GET',
         headers: {
             Accept: 'application/json',
-            ...getAuthHeaders({ token, siteaccess, accessToken }),
+            ...getAuthenticationHeaders({ token, siteaccess, accessToken }),
         },
         mode: 'same-origin',
         credentials: 'same-origin',
@@ -196,12 +197,11 @@ export const findLocationsBySearchQuery = (
             },
         },
     });
-    console.log('findLocationsBySearchQuery');
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
         headers: {
             ...HEADERS_CREATE_VIEW,
-            ...getAuthHeaders({ token, siteaccess, accessToken: null }), //!!oauth error
+            ...getAuthenticationHeaders({ token, siteaccess, accessToken }),
         },
         body,
         mode: 'same-origin',
@@ -240,12 +240,11 @@ export const findLocationsById = (
             },
         },
     });
-    console.log('findLocationsById');
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
         headers: {
             ...HEADERS_CREATE_VIEW,
-            ...getAuthHeaders({ token, siteaccess, accessToken: null }), // Error with oauth
+            ...getAuthenticationHeaders({ token, siteaccess, accessToken }), // Error with oauth
         },
         body,
         mode: 'same-origin',
@@ -256,7 +255,7 @@ export const findLocationsById = (
         .then(handleRequestResponse)
         .then((response) => {
             const items = response.View.Result.searchHits.searchHit.map((searchHit) => searchHit.value.Location);
-            console.log(response);
+
             callback(items);
         })
         .catch(showErrorNotificationAbortWrapper);
@@ -266,7 +265,6 @@ export const findContentInfo = (
     { token, siteaccess, accessToken, contentId, limit = QUERY_LIMIT, offset = 0, instanceUrl = DEFAULT_INSTANCE_URL },
     callback,
 ) => {
-    console.log('findContentInfo');
     const body = JSON.stringify({
         ViewInput: {
             identifier: `udw-load-content-info-${contentId}`,
@@ -284,7 +282,7 @@ export const findContentInfo = (
         method: 'POST',
         headers: {
             ...HEADERS_CREATE_VIEW,
-            ...getAuthHeaders({ token, siteaccess, accessToken }),
+            ...getAuthenticationHeaders({ token, siteaccess, accessToken }),
         },
         body,
         mode: 'same-origin',
@@ -306,7 +304,7 @@ export const loadBookmarks = ({ token, siteaccess, accessToken, limit, offset, i
         method: 'GET',
         headers: {
             Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
-            ...getAuthHeaders({ token, siteaccess, accessToken }),
+            ...getAuthenticationHeaders({ token, siteaccess, accessToken }),
         },
         mode: 'same-origin',
         credentials: 'same-origin',
@@ -326,7 +324,7 @@ export const loadBookmarks = ({ token, siteaccess, accessToken, limit, offset, i
 const toggleBookmark = ({ siteaccess, token, accessToken, locationId, instanceUrl = DEFAULT_INSTANCE_URL }, callback, method) => {
     const request = new Request(`${instanceUrl}${ENDPOINT_BOOKMARK}/${locationId}`, {
         method,
-        headers: getAuthHeaders({ token, siteaccess, accessToken }),
+        headers: getAuthenticationHeaders({ token, siteaccess, accessToken }),
         mode: 'same-origin',
         credentials: 'same-origin',
     });
@@ -347,7 +345,7 @@ export const loadContentTypes = ({ token, siteaccess, accessToken, instanceUrl =
         method: 'GET',
         headers: {
             Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
-            ...getAuthHeaders({ token, siteaccess, accessToken }),
+            ...getAuthenticationHeaders({ token, siteaccess, accessToken }),
         },
         mode: 'same-origin',
         credentials: 'same-origin',
@@ -361,7 +359,7 @@ export const createDraft = ({ token, siteaccess, accessToken, contentId, instanc
         method: 'COPY',
         headers: {
             Accept: 'application/vnd.ibexa.api.VersionUpdate+json',
-            ...getAuthHeaders({ token, siteaccess, accessToken }),
+            ...getAuthenticationHeaders({ token, siteaccess, accessToken }),
         },
         mode: 'same-origin',
         credentials: 'same-origin',
@@ -374,7 +372,6 @@ export const loadContentInfo = (
     { token, siteaccess, accessToken, contentId, limit = QUERY_LIMIT, offset = 0, signal, instanceUrl = DEFAULT_INSTANCE_URL },
     callback,
 ) => {
-    console.log('loadContentInfo');
     const body = JSON.stringify({
         ViewInput: {
             identifier: `udw-load-content-info-${contentId}`,
@@ -392,7 +389,7 @@ export const loadContentInfo = (
         method: 'POST',
         headers: {
             ...HEADERS_CREATE_VIEW,
-            ...getAuthHeaders({ token, siteaccess, accessToken: null }), //!! oauth error
+            ...getAuthenticationHeaders({ token, siteaccess, accessToken }),
         },
         body,
         mode: 'same-origin',
@@ -416,7 +413,7 @@ export const loadLocationsWithPermissions = (
     const request = new Request(`${instanceUrl}${ENDPOINT_LOCATION_LIST}?locationIds=${locationIds}`, {
         headers: {
             Accept: 'application/vnd.ibexa.api.VersionUpdate+json',
-            ...getAuthHeaders({ token, siteaccess, accessToken }),
+            ...getAuthenticationHeaders({ token, siteaccess, accessToken }),
         },
         method: 'GET',
         mode: 'same-origin',
@@ -426,33 +423,22 @@ export const loadLocationsWithPermissions = (
     fetch(request, { signal }).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
 };
 
-export const getAuthHeaders = ({ token, siteaccess, accessToken }) => {
-    return accessToken
-        ? {
-              Authorization: `Bearer ${accessToken}`,
-          }
-        : {
-              'X-Siteaccess': siteaccess,
-              'X-CSRF-Token': token,
-          };
-};
-
 export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanceUrl = DEFAULT_INSTANCE_URL }) => {
     const request = new Request(`${instanceUrl}/api/ibexa/v2/content/types`, {
         method: 'GET',
         headers: {
             Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
-            ...getAuthHeaders({ token, siteaccess, accessToken }),
+            ...getAuthenticationHeaders({ token, siteaccess, accessToken }),
         },
         mode: 'same-origin',
         credentials: 'same-origin',
     });
 
     const resposne = await fetch(request);
+
     const jsonResponse = {
         userId: 14, // <---- extra options
-        backOfficeLanguage: 'pl_PL',
-        translatorLangs: ['en', 'fr'], // <--- extra options
+        //backOfficeLanguage: 'pl_PL', 
         languages: {
             mappings: {
                 'eng-GB': {
