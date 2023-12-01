@@ -43,7 +43,7 @@ class TableRow extends Component
 
     public function edit(): void
     {
-        $this->element->find($this->getLocator('edit'))->execute(new MouseOverAndClick());
+        $this->element->find($this->getLocator('edit'))->execute(new Click());
     }
 
     public function copy(): void
