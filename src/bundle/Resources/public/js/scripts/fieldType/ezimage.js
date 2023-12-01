@@ -133,10 +133,14 @@
                 },
             ],
         });
+
+        const inputFileFieldContainer = fieldContainer.querySelector(SELECTOR_INPUT_FILE);
+        const { allowedFileTypes } = inputFileFieldContainer.dataset;
         const previewField = new EzImageFilePreviewField({
             validator,
             fieldContainer,
-            fileTypeAccept: fieldContainer.querySelector(SELECTOR_INPUT_FILE).accept,
+            fileTypeAccept: inputFileFieldContainer.accept,
+            allowedFileTypes: typeof allowedFileTypes !== 'undefined' ? allowedFileTypes.split(',') : [],
         });
 
         previewField.init();
