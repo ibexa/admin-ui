@@ -216,6 +216,10 @@
         text-align: center;
     }
 
+    &__items-list-filter-empty-img {
+        max-width: calculateRem(300px);
+    }
+
     &__items-list-filter-empty-message {
         color: $ibexa-color-dark-400;
         font-size: $ibexa-text-font-size;
