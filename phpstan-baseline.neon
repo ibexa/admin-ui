@@ -1751,11 +1751,6 @@ parameters:
 			path: src/lib/Behat/BrowserContext/ContentViewContext.php
 
 		-
-			message: "#^Property Ibexa\\\\AdminUi\\\\Behat\\\\BrowserContext\\\\ContentViewContext\\:\\:\\$universalDiscoveryWidget is never read, only written\\.$#"
-			count: 1
-			path: src/lib/Behat/BrowserContext/ContentViewContext.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Behat\\\\BrowserContext\\\\LanguageContext\\:\\:deleteLanguageNamed\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Behat/BrowserContext/LanguageContext.php
@@ -3036,17 +3031,7 @@ parameters:
 			path: src/lib/Behat/Page/ContentViewPage.php
 
 		-
-			message: "#^Property Ibexa\\\\AdminUi\\\\Behat\\\\Page\\\\ContentViewPage\\:\\:\\$contentUpdatePage is never read, only written\\.$#"
-			count: 1
-			path: src/lib/Behat/Page/ContentViewPage.php
-
-		-
 			message: "#^Property Ibexa\\\\AdminUi\\\\Behat\\\\Page\\\\ContentViewPage\\:\\:\\$route has no type specified\\.$#"
-			count: 1
-			path: src/lib/Behat/Page/ContentViewPage.php
-
-		-
-			message: "#^Property Ibexa\\\\AdminUi\\\\Behat\\\\Page\\\\ContentViewPage\\:\\:\\$userUpdatePage is never read, only written\\.$#"
 			count: 1
 			path: src/lib/Behat/Page/ContentViewPage.php
 

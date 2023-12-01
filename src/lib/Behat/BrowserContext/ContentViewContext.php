@@ -11,20 +11,16 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Component\DraftConflictDialog;
-use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\AdminUi\Behat\Page\ContentViewPage;
 use Ibexa\Behat\Core\Behat\ArgumentParser;
 use PHPUnit\Framework\Assert;
 
-class ContentViewContext implements Context
+final class ContentViewContext implements Context
 {
     private $argumentParser;
 
     /** @var \Ibexa\AdminUi\Behat\Page\ContentViewPage */
     private $contentViewPage;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
-    private $universalDiscoveryWidget;
 
     /** @var \Ibexa\AdminUi\Behat\Component\DraftConflictDialog */
     private $draftConflictDialog;
@@ -32,12 +28,10 @@ class ContentViewContext implements Context
     public function __construct(
         ArgumentParser $argumentParser,
         ContentViewPage $contentViewPage,
-        UniversalDiscoveryWidget $universalDiscoveryWidget,
         DraftConflictDialog $draftConflictDialog
     ) {
         $this->argumentParser = $argumentParser;
         $this->contentViewPage = $contentViewPage;
-        $this->universalDiscoveryWidget = $universalDiscoveryWidget;
         $this->draftConflictDialog = $draftConflictDialog;
     }
 
@@ -48,6 +42,14 @@ class ContentViewContext implements Context
     public function startCreatingContent(string $contentType, string $language = null): void
     {
         $this->contentViewPage->startCreatingContent($contentType, $language);
+    }
+
+    /**
+     * @Given I am using the DXP in :mode mode
+     */
+    public function switchToUserMode(string $mode): void
+    {
+        $this->contentViewPage->switchToUserMode($mode);
     }
 
     /**
