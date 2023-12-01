@@ -347,6 +347,7 @@ export default class ContentTreeModule extends Component {
         return {
             token: this.props.restInfo.token,
             siteaccess: this.props.restInfo.siteaccess,
+            accessToken: this.props.restInfo.accessToken,
             subtree: this.subtree,
             sortClause: this.props.sort.sortClause,
             sortOrder: this.props.sort.sortOrder,
@@ -385,6 +386,7 @@ ContentTreeModule.propTypes = {
     restInfo: PropTypes.shape({
         token: PropTypes.string.isRequired,
         siteaccess: PropTypes.string.isRequired,
+        accessToken: PropTypes.string
     }).isRequired,
     onClickItem: PropTypes.func,
     readSubtree: PropTypes.func,

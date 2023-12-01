@@ -5,6 +5,20 @@ export const HEADERS_VIEWS = {
     'Content-Type': 'application/vnd.ibexa.api.ViewInput+json; version=1.1',
 };
 
+export const getAuthenticationHeaders = ({ token, siteaccess, accessToken }) => {
+    if (accessToken) {
+        return {
+            Authorization: `Bearer ${accessToken}`,
+            ...(siteaccess && { 'X-Siteaccess': siteaccess }),
+        }
+    }
+
+    return {
+        ...(siteaccess && { 'X-Siteaccess': siteaccess }),
+        ...(token && { 'X-CSRF-Token': token }),
+      };
+};
+
 export const handleRequestResponse = (response) => {
     if (!response.ok) {
         throw Error(response.statusText);

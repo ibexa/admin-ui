@@ -1,17 +1,18 @@
+import { getAuthenticationHeaders } from '../../common/services/common.service.js';
 import { handleRequestResponse } from '../../common/helpers/request.helper';
 import { showErrorNotification } from '../../common/services/notification.service';
 
 const ENDPOINT_LOAD_SUBITEMS = '/api/ibexa/v2/location/tree/load-subitems';
 const ENDPOINT_LOAD_SUBTREE = '/api/ibexa/v2/location/tree/load-subtree';
 
-export const loadLocationItems = ({ siteaccess }, parentLocationId, callback, limit = 50, offset = 0) => {
+export const loadLocationItems = ({ siteaccess, accessToken }, parentLocationId, callback, limit = 50, offset = 0) => {
     const request = new Request(`${ENDPOINT_LOAD_SUBITEMS}/${parentLocationId}/${limit}/${offset}`, {
         method: 'GET',
         mode: 'same-origin',
         credentials: 'same-origin',
         headers: {
             Accept: 'application/vnd.ibexa.api.ContentTreeNode+json',
-            'X-Siteaccess': siteaccess,
+            ...getAuthenticationHeaders({ siteaccess, accessToken })
         },
     });
 
@@ -28,7 +29,7 @@ export const loadLocationItems = ({ siteaccess }, parentLocationId, callback, li
         .catch(showErrorNotification);
 };
 
-export const loadSubtree = ({ token, siteaccess, subtree, sortClause, sortOrder }, callback) => {
+export const loadSubtree = ({ token, siteaccess, accessToken, subtree, sortClause, sortOrder }, callback) => {
     let path = ENDPOINT_LOAD_SUBTREE;
 
     if (sortClause && sortOrder) {
@@ -48,8 +49,7 @@ export const loadSubtree = ({ token, siteaccess, subtree, sortClause, sortOrder 
         headers: {
             Accept: 'application/vnd.ibexa.api.ContentTreeRoot+json',
             'Content-Type': 'application/vnd.ibexa.api.ContentTreeLoadSubtreeRequest+json',
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
+            ...getAuthenticationHeaders({ token, siteaccess, accessToken })
         },
     });
 
