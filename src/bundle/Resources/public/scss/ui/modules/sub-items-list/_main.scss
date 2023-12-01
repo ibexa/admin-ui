@@ -13,6 +13,34 @@
         padding-bottom: calculateRem(20px);
         border-bottom: calculateRem(1px) solid $ibexa-color-dark-200;
         margin-top: 0;
+
+        &__headline {
+            overflow: initial;
+        }
+
+        &__actions {
+            &--adaptive {
+                overflow: hidden;
+                flex-grow: 1;
+                justify-content: flex-end;
+
+                .ibexa-adaptive-items__item--hidden {
+                    display: none;
+                }
+            }
+        }
+
+        .c-simple-dropdown {
+            &:hover {
+                .c-simple-dropdown__selected {
+                    color: $ibexa-color-primary;
+
+                    .ibexa-icon {
+                        fill: $ibexa-color-primary;
+                    }
+                }
+            }
+        }
     }
 
     &__list {
