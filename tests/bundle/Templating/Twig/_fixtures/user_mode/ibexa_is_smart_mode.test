@@ -1,0 +1,8 @@
+--TEST--
+"ibexa_is_smart_mode" function
+--TEMPLATE--
+{{ ibexa_is_smart_mode() ? 'YES' : 'NO' }}
+--DATA--
+return [];
+--EXPECT--
+YES

@@ -1,0 +1,22 @@
+--TEST--
+"ibexa_location_sort_field_as_rest_sort_clause" function
+--TEMPLATE--
+{% for location in locations %}
+{{ ibexa_location_sort_field_as_rest_sort_clause(location) }}
+{% endfor %}
+--DATA--
+use \Ibexa\Contracts\Core\Repository\Values\Content\Location;
+
+return [
+    'locations' => $this->getLocationWithAllPossibleSortFields(),
+];
+--EXPECT--
+LocationPath
+DatePublished
+DateModified
+SectionIdentifier
+LocationDepth
+LocationPriority
+ContentName
+LocationId
+ContentId
