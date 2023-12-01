@@ -48,7 +48,6 @@ class ContentTypeChoiceType extends AbstractType
             ->setDefaults([
                 'choice_loader' => $this->contentTypeChoiceLoader,
                 'choice_label' => 'name',
-                'choice_name' => 'identifier',
                 'choice_value' => 'identifier',
             ]);
     }

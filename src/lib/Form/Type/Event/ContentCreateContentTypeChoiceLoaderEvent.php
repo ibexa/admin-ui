@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Event;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class ContentCreateContentTypeChoiceLoaderEvent extends Event
@@ -17,9 +18,15 @@ final class ContentCreateContentTypeChoiceLoaderEvent extends Event
     /** @var array<string, array<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType>> */
     private array $contentTypeGroups;
 
-    public function __construct(array $contentTypeGroups)
+    private ?Location $targetLocation;
+
+    /**
+     * @param array<string, array<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType>> $contentTypeGroups
+     */
+    public function __construct(array $contentTypeGroups, ?Location $targetLocation)
     {
         $this->contentTypeGroups = $contentTypeGroups;
+        $this->targetLocation = $targetLocation;
     }
 
     /**
@@ -28,6 +35,14 @@ final class ContentCreateContentTypeChoiceLoaderEvent extends Event
     public function getContentTypeGroups(): array
     {
         return $this->contentTypeGroups;
+    }
+
+    /**
+     * @param array<string, array<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType>> $contentTypeGroups
+     */
+    public function setContentTypeGroups(array $contentTypeGroups): void
+    {
+        $this->contentTypeGroups = $contentTypeGroups;
     }
 
     /**
@@ -41,5 +56,10 @@ final class ContentCreateContentTypeChoiceLoaderEvent extends Event
     public function removeContentTypeGroup(string $name): void
     {
         unset($this->contentTypeGroups[$name]);
+    }
+
+    public function getTargetLocation(): ?Location
+    {
+        return $this->targetLocation;
     }
 }

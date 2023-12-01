@@ -30,8 +30,7 @@ class ContentCreateType extends AbstractType
     /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     protected $languageService;
 
-    /** @var \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface */
-    private $contentCreateContentTypeChoiceLoader;
+    private ContentCreateContentTypeChoiceLoader $contentCreateContentTypeChoiceLoader;
 
     /** @var \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface */
     private $languageChoiceLoader;
@@ -44,7 +43,6 @@ class ContentCreateType extends AbstractType
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface $contentTypeChoiceLoader
      * @param \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface $languageChoiceLoader
      * @param \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface $permissionChecker
      * @param \Ibexa\AdminUi\Permission\LookupLimitationsTransformer $lookupLimitationsTransformer
@@ -94,6 +92,7 @@ class ContentCreateType extends AbstractType
                     'multiple' => false,
                     'expanded' => true,
                     'choice_loader' => $this->contentCreateContentTypeChoiceLoader
+                        ->setTargetLocation($location)
                         ->setRestrictedContentTypeIds($restrictedContentTypesIds),
                 ]
             )

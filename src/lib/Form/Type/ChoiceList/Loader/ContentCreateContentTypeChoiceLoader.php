@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
 use Ibexa\AdminUi\Form\Type\Event\ContentCreateContentTypeChoiceLoaderEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
@@ -18,10 +19,12 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
 {
     private ContentTypeChoiceLoader $contentTypeChoiceLoader;
 
+    private EventDispatcherInterface $eventDispatcher;
+
     /** @var array<int> */
     private array $restrictedContentTypesIds;
 
-    private EventDispatcherInterface $eventDispatcher;
+    private ?Location $targetLocation = null;
 
     public function __construct(
         ContentTypeChoiceLoader $contentTypeChoiceLoader,
@@ -38,6 +41,18 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
         return $this;
     }
 
+    public function getTargetLocation(): ?Location
+    {
+        return $this->targetLocation;
+    }
+
+    public function setTargetLocation(?Location $targetLocation): self
+    {
+        $this->targetLocation = $targetLocation;
+
+        return $this;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -46,7 +61,7 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
         $contentTypesGroups = $this->contentTypeChoiceLoader->getChoiceList();
 
         $event = $this->eventDispatcher->dispatch(
-            new ContentCreateContentTypeChoiceLoaderEvent($contentTypesGroups),
+            new ContentCreateContentTypeChoiceLoaderEvent($contentTypesGroups, $this->targetLocation),
             ContentCreateContentTypeChoiceLoaderEvent::RESOLVE_CONTENT_TYPES
         );
 

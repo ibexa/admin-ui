@@ -47,21 +47,24 @@
 {%- endblock -%}
 
 {%- block content_type_choice_widget_options -%}
-    {%- for group_label, choice in options -%}
-        {%- if choice is iterable -%}
+    {%- for key, option in options -%}
+        {%- if option is iterable -%}
             <div class="ibexa-instant-filter__group">
-                <div class="ibexa-instant-filter__group-name">{{ choice_translation_domain is same as(false) ? group_label : group_label|trans({}, choice_translation_domain) }}</div>
-                {%- set options = choice -%}
+                <div class="ibexa-instant-filter__group-name">
+                    {{ choice_translation_domain is same as(false) ? key : key|trans({}, choice_translation_domain) }}
+                </div>
+
+                {%- set options = option -%}
                 {{- block('content_type_choice_widget_options') -}}
             </div>
         {%- else -%}
             <div class="ibexa-instant-filter__group-item">
-                <label class="ibexa-instant-filter__group-item-label-icon" for="{{ form[choice.value].vars.id }}">
+                <label class="ibexa-instant-filter__group-item-label-icon" for="{{ form[key].vars.id }}">
                     <svg class="ibexa-icon ibexa-icon--small">
-                        <use xlink:href="{{ ibexa_content_type_icon(choice.value) }}"></use>
+                        <use xlink:href="{{ ibexa_content_type_icon(option.value) }}"></use>
                     </svg>
                 </label>
-                {{ form_widget(form[choice.value]) }}
+                {{ form_widget(form[key]) }}
             </div>
         {%- endif -%}
     {%- endfor -%}
