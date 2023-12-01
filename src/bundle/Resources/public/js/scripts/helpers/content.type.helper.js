@@ -80,7 +80,7 @@
         return iconUrl;
     };
 
-    const getContentTypeNameByHref = (contentTypeHref) => {
+    const getContentTypeDataByHref = (contentTypeHref) => {
         if (!contentTypesDataMapByHref) {
             contentTypesDataMapByHref = createContentTypeDataMapByHref();
         }
@@ -89,13 +89,18 @@
             return null;
         }
 
-        return contentTypesDataMapByHref[contentTypeHref].name;
+        return contentTypesDataMapByHref[contentTypeHref];
+    };
+
+    const getContentTypeNameByHref = (contentTypeHref) => {
+        return getContentTypeDataByHref(contentTypeHref)?.name ?? null;
     };
 
     ibexa.addConfig('helpers.contentType', {
         getContentTypeIconUrl,
         getContentTypeName,
         getContentTypeIconUrlByHref,
+        getContentTypeDataByHref,
         getContentTypeNameByHref,
     });
 })(window, window.document, window.ibexa);
