@@ -529,8 +529,10 @@ UniversalDiscoveryModule.propTypes = {
     allowRedirects: PropTypes.bool.isRequired,
     allowConfirmation: PropTypes.bool.isRequired,
     restInfo: PropTypes.shape({
-        token: PropTypes.string.isRequired,
-        siteaccess: PropTypes.string.isRequired,
+        token: PropTypes.string,
+        siteaccess: PropTypes.string,
+        accsessToken: PropTypes.string,
+        instanceUrl: PropTypes.string,
     }),
 };
 
