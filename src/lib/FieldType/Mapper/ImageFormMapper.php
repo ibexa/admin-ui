@@ -97,7 +97,15 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
     {
         $mimeTypeChoiceList = [];
         foreach ($this->allowedMimeTypes as $mimeType) {
-            $extensions = implode(', ', $this->mimeTypes->getExtensions($mimeType));
+            $extensions = implode(
+                ', ',
+                array_map(
+                    static function (string $extension): string {
+                        return '*.' . $extension;
+                    },
+                    $this->mimeTypes->getExtensions($mimeType)
+                )
+            );
             $label = explode('image/', $mimeType);
             $mimeTypeChoiceList[$label[1] . " ($extensions)"] = $mimeType;
         }
