@@ -10,8 +10,8 @@ namespace Ibexa\AdminUi\Behat\Component\Table;
 
 use Behat\Mink\Session;
 use Ibexa\Behat\Browser\Component\Component;
-use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\Action\Click;
+use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Locator\LocatorCollection;
 use Ibexa\Behat\Browser\Locator\LocatorInterface;
