@@ -9,9 +9,12 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Specification\UserMode\IsUserModeEnabled;
+use Ibexa\AdminUi\UserSetting\UserMode;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\User\UserSetting\UserSettingService;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -141,6 +144,8 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
     private $tokenStorage;
 
+    private UserSettingService $userSettingService;
+
     /**
      * @param \Ibexa\AdminUi\Menu\MenuItemFactory $factory
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
@@ -152,13 +157,15 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         EventDispatcherInterface $eventDispatcher,
         ConfigResolverInterface $configResolver,
         PermissionResolver $permissionResolver,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        UserSettingService $userSettingService
     ) {
         parent::__construct($factory, $eventDispatcher);
 
         $this->configResolver = $configResolver;
         $this->permissionResolver = $permissionResolver;
         $this->tokenStorage = $tokenStorage;
+        $this->userSettingService = $userSettingService;
     }
 
     protected function getConfigureEventName(): string
@@ -297,32 +304,34 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             ]
         );
 
-        $contentGroupSettings = $menu->addChild(
-            self::ITEM_CONTENT_GROUP_SETTINGS,
-            [
-                'extras' => [
-                    'orderNumber' => 75,
+        if (IsUserModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(UserMode::EXPERT)) {
+            $contentGroupSettings = $menu->addChild(
+                self::ITEM_CONTENT_GROUP_SETTINGS,
+                [
+                    'extras' => [
+                        'orderNumber' => 75,
+                    ],
                 ],
-            ],
-        );
-
-        if ($this->permissionResolver->hasAccess('section', 'view') !== false) {
-            $contentGroupSettings->addChild(
-                self::ITEM_ADMIN__SECTIONS,
-                self::ITEM_ADMIN_OPTIONS[self::ITEM_ADMIN__SECTIONS]
             );
-        }
 
-        $contentGroupSettings->addChild(
-            self::ITEM_ADMIN__CONTENT_TYPES,
-            self::ITEM_ADMIN_OPTIONS[self::ITEM_ADMIN__CONTENT_TYPES]
-        );
+            if ($this->permissionResolver->hasAccess('section', 'view') !== false) {
+                $contentGroupSettings->addChild(
+                    self::ITEM_ADMIN__SECTIONS,
+                    self::ITEM_ADMIN_OPTIONS[self::ITEM_ADMIN__SECTIONS]
+                );
+            }
 
-        if ($this->permissionResolver->hasAccess('state', 'administrate')) {
             $contentGroupSettings->addChild(
-                self::ITEM_ADMIN__OBJECT_STATES,
-                self::ITEM_ADMIN_OPTIONS[self::ITEM_ADMIN__OBJECT_STATES]
+                self::ITEM_ADMIN__CONTENT_TYPES,
+                self::ITEM_ADMIN_OPTIONS[self::ITEM_ADMIN__CONTENT_TYPES]
             );
+
+            if ($this->permissionResolver->hasAccess('state', 'administrate')) {
+                $contentGroupSettings->addChild(
+                    self::ITEM_ADMIN__OBJECT_STATES,
+                    self::ITEM_ADMIN_OPTIONS[self::ITEM_ADMIN__OBJECT_STATES]
+                );
+            }
         }
 
         if (null !== $contentStructureItem) {

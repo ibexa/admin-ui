@@ -10,9 +10,12 @@ namespace Ibexa\Tests\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\MainMenuBuilder;
 use Ibexa\AdminUi\Menu\MenuItemFactory;
+use Ibexa\AdminUi\UserSetting\UserMode;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\UserInterface;
+use Ibexa\User\UserSetting\UserSetting;
+use Ibexa\User\UserSetting\UserSettingService;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\MenuItem;
 use PHPUnit\Framework\TestCase;
@@ -36,6 +39,9 @@ class MainMenuBuilerTest extends TestCase
 
     /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
     private $tokenStorage;
+
+    /** @var \Ibexa\User\UserSetting\UserSettingService&\PHPUnit\Framework\MockObject\MockObject */
+    private UserSettingService $userSettingService;
 
     protected function setUp(): void
     {
@@ -151,11 +157,17 @@ class MainMenuBuilerTest extends TestCase
 
         $token = new TestBrowserToken([], $this->createMock(UserInterface::class));
         $this->tokenStorage->method('getToken')->willReturn($token);
+
+        $userSetting = $this->createMock(UserSetting::class);
+        $userSetting->method('__get')->with('value')->willReturn(UserMode::EXPERT);
+
+        $this->userSettingService = $this->createMock(UserSettingService::class);
+        $this->userSettingService->method('getUserSetting')->with(UserMode::IDENTIFIER)->willReturn($userSetting);
     }
 
     protected function tearDown(): void
     {
-        unset($this->factory, $this->eventDispatcher, $this->configResolver, $this->permissionResolver, $this->tokenStorage);
+        unset($this->factory, $this->eventDispatcher, $this->configResolver, $this->permissionResolver, $this->tokenStorage, $this->userSettingService);
     }
 
     public function testCreateMenuForUserWithAdministratePolicy()
@@ -171,7 +183,8 @@ class MainMenuBuilerTest extends TestCase
             $this->eventDispatcher,
             $this->configResolver,
             $this->permissionResolver,
-            $this->tokenStorage
+            $this->tokenStorage,
+            $this->userSettingService
         );
         $menu = $menuBuilder->createStructure([]);
 
@@ -193,7 +206,8 @@ class MainMenuBuilerTest extends TestCase
             $this->eventDispatcher,
             $this->configResolver,
             $this->permissionResolver,
-            $this->tokenStorage
+            $this->tokenStorage,
+            $this->userSettingService
         );
         $menu = $menuBuilder->createStructure([]);
 

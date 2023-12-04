@@ -19,6 +19,7 @@ use Ibexa\AdminUi\Behat\Component\LanguagePicker;
 use Ibexa\AdminUi\Behat\Component\SubItemsList;
 use Ibexa\AdminUi\Behat\Component\TranslationDialog;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
+use Ibexa\AdminUi\Behat\Component\UpperMenu;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -44,9 +45,6 @@ class ContentViewPage extends Page
     /** @var \Ibexa\AdminUi\Behat\Component\ContentTypePicker */
     private $contentTypePicker;
 
-    /** @var ContentUpdateItemPage */
-    private $contentUpdatePage;
-
     /** @var string */
     private $expectedContentType;
 
@@ -70,9 +68,6 @@ class ContentViewPage extends Page
     /** @var \Ibexa\AdminUi\Behat\Component\ContentItemAdminPreview */
     private $contentItemAdminPreview;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\UserUpdatePage */
-    private $userUpdatePage;
-
     /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
@@ -85,40 +80,39 @@ class ContentViewPage extends Page
     /** @var \Ibexa\AdminUi\Behat\Component\IbexaDropdown */
     private $ibexaDropdown;
 
+    private UpperMenu $upperMenu;
+
     public function __construct(
         Session $session,
         Router $router,
         ContentActionsMenu $contentActionsMenu,
         SubItemsList $subItemList,
         ContentTypePicker $contentTypePicker,
-        ContentUpdateItemPage $contentUpdatePage,
         LanguagePicker $languagePicker,
         Dialog $dialog,
         TranslationDialog $translationDialog,
         Repository $repository,
         Breadcrumb $breadcrumb,
         ContentItemAdminPreview $contentItemAdminPreview,
-        UserUpdatePage $userUpdatePage,
         ArgumentParser $argumentParser,
         UniversalDiscoveryWidget $universalDiscoveryWidget,
-        IbexaDropdown $ibexaDropdown
+        IbexaDropdown $ibexaDropdown,
+        UpperMenu $upperMenu
     ) {
         parent::__construct($session, $router);
-
         $this->contentActionsMenu = $contentActionsMenu;
         $this->subItemList = $subItemList;
         $this->contentTypePicker = $contentTypePicker;
-        $this->contentUpdatePage = $contentUpdatePage;
         $this->languagePicker = $languagePicker;
         $this->dialog = $dialog;
         $this->translationDialog = $translationDialog;
         $this->breadcrumb = $breadcrumb;
         $this->contentItemAdminPreview = $contentItemAdminPreview;
-        $this->userUpdatePage = $userUpdatePage;
         $this->repository = $repository;
         $this->argumentParser = $argumentParser;
         $this->universalDiscoveryWidget = $universalDiscoveryWidget;
         $this->ibexaDropdown = $ibexaDropdown;
+        $this->upperMenu = $upperMenu;
     }
 
     public function startCreatingContent(string $contentTypeName, string $language = null)
@@ -186,6 +180,29 @@ class ContentViewPage extends Page
         $this->ibexaDropdown->verifyIsLoaded();
         $this->ibexaDropdown->selectOption($language);
         $this->verifyIsLoaded();
+    }
+
+    public function switchToUserMode(string $mode): void
+    {
+        $this->upperMenu->switchToUserMode($mode);
+
+        $expertModeTab = 'Technical Details';
+
+        if (strtolower($mode) === 'expert') {
+            $this->getHTMLPage()
+                ->setTimeout(3)
+                ->findAll($this->getLocator('tab'))
+                ->getByCriterion(new ElementTextCriterion($expertModeTab))
+                ->assert()
+                ->isVisible();
+        } else {
+            $this->getHTMLPage()
+                ->setTimeout(3)
+                ->findAll($this->getLocator('tab'))
+                ->filterBy(new ElementTextCriterion($expertModeTab))
+                ->assert()
+                ->isEmpty();
+        }
     }
 
     public function goToSubItem(string $contentItemName): void

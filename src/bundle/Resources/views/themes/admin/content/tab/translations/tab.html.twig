@@ -29,8 +29,13 @@
 
         {% set body_row_cols = body_row_cols|merge([
             { content: translation.name },
-            { content: translation.languageCode },
         ]) %}
+
+        {% if ibexa_is_expert_mode() %}
+            {% set body_row_cols = body_row_cols|merge([
+                { content: translation.languageCode }
+            ]) %}
+        {% endif %}
 
         {% if main_translation_switch %}
             {% set col_raw %}
@@ -55,8 +60,14 @@
     {% set head_cols = [
         { has_checkbox: true },
         { content: 'tab.translations.language_name'|trans|desc('Language name') },
-        { content: 'tab.translations.language_code'|trans|desc('Language code') },
     ] %}
+
+    {% if ibexa_is_expert_mode() %}
+        {% set head_cols = head_cols|merge([
+            { content: 'tab.translations.language_code'|trans|desc('Language code') }
+        ]) %}
+    {% endif %}
+
     {% if main_translation_switch %}
         {% set head_cols = head_cols|merge([{
             content: 'tab.translations.main_language'|trans|desc('Main language'),

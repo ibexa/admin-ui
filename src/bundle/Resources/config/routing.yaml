@@ -951,3 +951,11 @@ ibexa.permission.limitation.language.content_read:
     methods: [GET]
     requirements:
         contentInfoId: \d+
+
+
+### User Mode
+
+ibexa.user_mode.change:
+    path: /user/change-mode
+    controller: 'Ibexa\Bundle\AdminUi\Controller\User\UserModeController::changeAction'
+    methods: [GET, POST]

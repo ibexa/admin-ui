@@ -6,9 +6,9 @@
 
     <div class="ibexa-header-user-menu">
         <div
-            class="ibexa-header-user-menu__notifications-toggler"
-            data-bs-toggle="modal"
-            data-bs-target="#view-notifications"
+                class="ibexa-header-user-menu__notifications-toggler"
+                data-bs-toggle="modal"
+                data-bs-target="#view-notifications"
         >
             <svg class="ibexa-icon ibexa-icon--small ibexa-icon--light">
                 <use xlink:href="{{ ibexa_icon_path('bell') }}"></use>
@@ -27,8 +27,17 @@
 
         <div class="ibexa-header-user-menu__popup-menu ibexa-popup-menu ibexa-popup-menu--hidden">
             <div class="ibexa-header-user-menu__popup-menu-title">
-                {{ 'user_menu.popup_menu.title'|trans({'%userName%': user.name})|desc('Logged as %userName%') }}
+                {% block current_user %}
+                    {{ 'user_menu.popup_menu.title'|trans({'%userName%': user.name})|desc('Logged as %userName%') }}
+                {% endblock %}
+
+                {% block user_mode_toggle %}
+                    {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\User\\UserModeController::changeAction', {
+                        returnUrl: url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params'))
+                    })) }}
+                {% endblock %}
             </div>
+
             {{ parent() }}
         </div>
     </div>
@@ -38,7 +47,7 @@
     {% if item.name != 'root' %}
         {% set link_attributes = item.linkAttributes|merge({'class': (item.linkAttributes.class|default('') ~ ' ibexa-popup-menu__item-content')|trim}) %}
         {% set attributes = item.attributes|merge({'class': (item.attributes.class|default('') ~ ' ibexa-popup-menu__item')|trim}) %}
-        
+
         {% do item.setLinkAttributes(link_attributes) %}
         {% do item.setAttributes(attributes) %}
     {% endif %}
@@ -52,6 +61,6 @@
 
 {% block linkElement %}
     {% import _self as knp_menu %}
-    
+
     <a href="{{ item.uri }}"{{ knp_menu.attributes(item.linkAttributes) }}>{{ block('label') }}</a>
 {% endblock %}

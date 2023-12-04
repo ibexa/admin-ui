@@ -19,6 +19,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class UserMode implements ValueDefinitionInterface, FormMapperInterface, TranslationContainerInterface
 {
+    public const IDENTIFIER = 'user_mode';
+
     public const EXPERT = '0';
     public const SMART = '1';
 

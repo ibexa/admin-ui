@@ -1,0 +1,15 @@
+--TEST--
+"ibexa_location_sort_order_as_rest_value" function
+--TEMPLATE--
+{{ ibexa_location_sort_order_as_rest_value(location_asc) }}
+{{ ibexa_location_sort_order_as_rest_value(location_desc) }}
+--DATA--
+use \Ibexa\Contracts\Core\Repository\Values\Content\Location;
+
+return [
+    'location_asc' => $this->createLocationWithSortOrder(Location::SORT_ORDER_ASC),
+    'location_desc' => $this->createLocationWithSortOrder(Location::SORT_ORDER_DESC),
+];
+--EXPECT--
+ascending
+descending

@@ -25,3 +25,11 @@ services:
             - '@Ibexa\AdminUi\Limitation\Templating\LimitationBlockRenderer'
         tags:
             - { name: twig.extension }
+
+    Ibexa\Bundle\AdminUi\Templating\Twig\UserModeExtension:
+        tags:
+            - { name: twig.extension }
+
+    Ibexa\Bundle\AdminUi\Templating\Twig\LocationExtension:
+        tags:
+            - { name: twig.extension }
