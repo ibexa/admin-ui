@@ -134,3 +134,20 @@ services:
             $resultLimit: '%ibexa.site_access.config.default.search.suggestion.result_limit%'
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'suggestions' }
+
+
+    # Resolvers
+    Ibexa\AdminUi\REST\Resolver\ApplicationConfigRestResolverRegistry:
+        arguments:
+            $resolvers: !tagged_iterator { tag: ibexa.admin_ui.config.provider.rest.resolver, index_by: namespace }
+
+    Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestResolverRegistryInterface:
+        alias: Ibexa\AdminUi\REST\Resolver\ApplicationConfigRestResolverRegistry
+
+    Ibexa\AdminUi\REST\Resolver\UserConfigRestResolver:
+        tags:
+            - { name: ibexa.admin_ui.config.provider.rest.resolver }
+
+    Ibexa\AdminUi\REST\Resolver\ProfilePictureFieldConfigRestResolver:
+        tags:
+            - { name: ibexa.admin_ui.config.provider.rest.resolver }
