@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component\Table;
 
 use Behat\Mink\Session;
 use Ibexa\Behat\Browser\Component\Component;
+use Ibexa\Behat\Browser\Element\Action\Click;
 use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Locator\LocatorCollection;
@@ -43,7 +44,7 @@ class TableRow extends Component
 
     public function edit(): void
     {
-        $this->element->find($this->getLocator('edit'))->execute(new MouseOverAndClick());
+        $this->element->find($this->getLocator('edit'))->execute(new Click());
     }
 
     public function copy(): void
