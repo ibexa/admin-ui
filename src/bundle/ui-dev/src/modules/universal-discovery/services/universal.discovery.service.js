@@ -438,7 +438,7 @@ export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanc
 
     const jsonResponse = {
         userId: 14, // <---- extra options
-        //backOfficeLanguage: 'pl_PL', 
+        backOfficeLanguage: 'pl_PL', 
         languages: {
             mappings: {
                 'eng-GB': {
