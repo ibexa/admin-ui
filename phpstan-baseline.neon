@@ -8431,6 +8431,11 @@ parameters:
 			path: src/lib/REST/Input/Parser/Operation.php
 
 		-
+			message: "#^Cannot call method resolve\\(\\) on Ibexa\\\\Contracts\\\\AdminUi\\\\REST\\\\ApplicationConfigRestResolverInterface\\|null\\.$#"
+			count: 1
+			path: src/lib/REST/Output/ValueObjectVisitor/ApplicationConfigVisitor.php
+
+		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\REST\\\\Output\\\\ValueObjectVisitor\\\\BulkOperationResponse\\:\\:visit\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/REST/Output/ValueObjectVisitor/BulkOperationResponse.php
