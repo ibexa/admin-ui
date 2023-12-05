@@ -130,7 +130,8 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
         return $this->twig->render('@ibexadesign/ui/dashboard/tab/my_draft_list.html.twig', [
             'data' => $pagination->getCurrentPageResults(),
             'pager' => $pagination,
-            'pager_options' => [
+            // merge pager options, prioritizing the ones passed via $parameters
+            'pager_options' => ($parameters['pager_options'] ?? []) + [
                 'pageParameter' => '[' . self::PAGINATION_PARAM_NAME . ']',
             ],
         ]);
