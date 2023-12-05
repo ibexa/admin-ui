@@ -40,6 +40,9 @@ final class ContentEditFormProcessor implements EventSubscriberInterface
         $formConfig = $form->getConfig();
         $defaultUrl = $this->router->generate('ibexa.content_draft.list');
 
-        $event->setResponse(new RedirectResponse($formConfig->getAction() ?: $defaultUrl));
+        $response = $event->getResponse();
+        $targetUrl = $response instanceof RedirectResponse ? $response->getTargetUrl() : null;
+
+        $event->setResponse(new RedirectResponse($targetUrl ?: ($formConfig->getAction() ?: $defaultUrl)));
     }
 }
