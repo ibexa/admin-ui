@@ -70,7 +70,7 @@ export const findLocationsByParentLocationId = (
             }
         }),
         mode: getRequestMode({ instanceUrl }),
-        credentials: getRequestCredencials({ instanceUrl }),
+        credentials: 'same-origin',
     });
 
     fetch(request)
@@ -124,7 +124,7 @@ export const loadAccordionData = async (
             }
         }),
         mode: getRequestMode({ instanceUrl }),
-        credentials: getRequestCredencials({ instanceUrl }),
+        credentials: 'same-origin',
     });
 
     fetch(request)
@@ -215,7 +215,7 @@ export const findLocationsBySearchQuery = (
         }),
         body,
         mode: getRequestMode({ instanceUrl }),
-        credentials: getRequestCredencials({ instanceUrl }),
+        credentials: 'same-origin',
     });
 
     fetch(request)
@@ -261,7 +261,7 @@ export const findLocationsById = (
         }),
         body,
         mode: getRequestMode({ instanceUrl }),
-        credentials: getRequestCredencials({ instanceUrl }),
+        credentials: 'same-origin',
     });
 
     fetch(request)
@@ -301,7 +301,7 @@ export const findContentInfo = (
         }),
         body,
         mode: getRequestMode({ instanceUrl }),
-        credentials: getRequestCredencials({ instanceUrl }),
+        credentials: 'same-origin',
     });
 
     fetch(request)
@@ -326,7 +326,7 @@ export const loadBookmarks = ({ token, siteaccess, accessToken, limit, offset, i
             }
         }),
         mode: getRequestMode({ instanceUrl }),
-        credentials: getRequestCredencials({ instanceUrl }),
+        credentials: 'same-origin',
     });
 
     fetch(request)
@@ -345,7 +345,7 @@ const toggleBookmark = ({ siteaccess, token, accessToken, locationId, instanceUr
         method,
         headers: getRequestHeaders({ token, siteaccess, accessToken }),
         mode: getRequestMode({ instanceUrl }),
-        credentials: getRequestCredencials({ instanceUrl }),
+        credentials: 'same-origin',
     });
 
     fetch(request).then(handleRequestResponseStatus).then(callback).catch(showErrorNotificationAbortWrapper);
@@ -371,7 +371,7 @@ export const loadContentTypes = ({ token, siteaccess, accessToken, instanceUrl =
             }
         }),
         mode: getRequestMode({ instanceUrl }),
-        credentials: getRequestCredencials({ instanceUrl }),
+        credentials: 'same-origin',
     });
 
     fetch(request).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
@@ -389,7 +389,7 @@ export const createDraft = ({ token, siteaccess, accessToken, contentId, instanc
             }
         }),
         mode: getRequestMode({ instanceUrl }),
-        credentials: getRequestCredencials({ instanceUrl }),
+        credentials: 'same-origin',
     });
 
     fetch(request).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
@@ -422,7 +422,7 @@ export const loadContentInfo = (
         }),
         body,
         mode: getRequestMode({ instanceUrl }),
-        credentials: getRequestCredencials({ instanceUrl }),
+        credentials: 'same-origin',
     });
 
     fetch(request, { signal })
@@ -450,13 +450,223 @@ export const loadLocationsWithPermissions = (
         }),
         method: 'GET',
         mode: getRequestMode({ instanceUrl }),
-        credentials: getRequestCredencials({ instanceUrl }),
+        credentials: 'same-origin',
     });
 
     fetch(request, { signal }).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
 };
 
 export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanceUrl = DEFAULT_INSTANCE_URL }) => {
+    console.log('CORS V2');
+
+    if (instanceUrl !== 'https://127.0.0.1:8000') {
+        return {
+            userId: 14,
+            backOfficeLanguage: 'pl_PL',
+            languages: {
+                mappings: {
+                    'eng-GB': {
+                        name: 'English (United Kingdom)',
+                        id: 2,
+                        languageCode: 'eng-GB',
+                        enabled: true,
+                    },
+                },
+                priority: ['eng-GB'],
+            },
+            contentTypes: {
+                Content: [
+                    {
+                        id: 2,
+                        identifier: 'article',
+                        name: 'Article',
+                        isContainer: true,
+                        thumbnail: '/bundles/ibexaicons/img/all-icons.svg#article',
+                        href: '/api/ibexa/v2/content/types/2',
+                    },
+                    {
+                        id: 1,
+                        identifier: 'folder',
+                        name: 'Folder',
+                        isContainer: true,
+                        thumbnail: '/bundles/ibexaicons/img/all-icons.svg#folder',
+                        href: '/api/ibexa/v2/content/types/1',
+                    },
+                    {
+                        id: 43,
+                        identifier: 'form',
+                        name: 'Form',
+                        isContainer: false,
+                        thumbnail: '/bundles/ibexaicons/img/all-icons.svg#form',
+                        href: '/api/ibexa/v2/content/types/43',
+                    },
+                    {
+                        id: 42,
+                        identifier: 'landing_page',
+                        name: 'Landing page',
+                        isContainer: true,
+                        thumbnail: '/bundles/ibexaicons/img/all-icons.svg#landing_page',
+                        href: '/api/ibexa/v2/content/types/42',
+                    },
+                    {
+                        id: 45,
+                        identifier: 'product_category_tag',
+                        name: 'Product category',
+                        isContainer: false,
+                        thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                        href: '/api/ibexa/v2/content/types/45',
+                    },
+                    {
+                        id: 44,
+                        identifier: 'tag',
+                        name: 'Tag',
+                        isContainer: false,
+                        thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                        href: '/api/ibexa/v2/content/types/44',
+                    },
+                ],
+                Users: [
+                    {
+                        id: 46,
+                        identifier: 'customer',
+                        name: 'Customer',
+                        isContainer: false,
+                        thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                        href: '/api/ibexa/v2/content/types/46',
+                    },
+                    {
+                        id: 4,
+                        identifier: 'user',
+                        name: 'User',
+                        isContainer: false,
+                        thumbnail: '/bundles/ibexaicons/img/all-icons.svg#user',
+                        href: '/api/ibexa/v2/content/types/4',
+                    },
+                    {
+                        id: 3,
+                        identifier: 'user_group',
+                        name: 'User group',
+                        isContainer: true,
+                        thumbnail: '/bundles/ibexaicons/img/all-icons.svg#user_group',
+                        href: '/api/ibexa/v2/content/types/3',
+                    },
+                ],
+                Media: [
+                    {
+                        id: 12,
+                        identifier: 'file',
+                        name: 'File',
+                        isContainer: false,
+                        thumbnail: '/bundles/ibexaicons/img/all-icons.svg#file',
+                        href: '/api/ibexa/v2/content/types/12',
+                    },
+                    {
+                        id: 5,
+                        identifier: 'image',
+                        name: 'Image',
+                        isContainer: false,
+                        thumbnail: '/bundles/ibexaicons/img/all-icons.svg#image',
+                        href: '/api/ibexa/v2/content/types/5',
+                    },
+                ],
+                'Customer Portal': [
+                    {
+                        id: 52,
+                        identifier: 'customer_portal',
+                        name: 'Customer Portal',
+                        isContainer: true,
+                        thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                        href: '/api/ibexa/v2/content/types/52',
+                    },
+                    {
+                        id: 51,
+                        identifier: 'customer_portal_page',
+                        name: 'Customer Portal Page',
+                        isContainer: false,
+                        thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                        href: '/api/ibexa/v2/content/types/51',
+                    },
+                ],
+                product: [],
+                corporate_account: [
+                    {
+                        id: 48,
+                        identifier: 'company',
+                        name: 'Company',
+                        isContainer: false,
+                        thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                        href: '/api/ibexa/v2/content/types/48',
+                        isHidden: true,
+                    },
+                    {
+                        id: 50,
+                        identifier: 'corporate_account_application',
+                        name: 'Corporate Account Application',
+                        isContainer: false,
+                        thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                        href: '/api/ibexa/v2/content/types/50',
+                        isHidden: true,
+                    },
+                    {
+                        id: 49,
+                        identifier: 'shipping_address',
+                        name: 'Shipping address',
+                        isContainer: false,
+                        thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                        href: '/api/ibexa/v2/content/types/49',
+                        isHidden: true,
+                    },
+                    {
+                        id: 47,
+                        identifier: 'member',
+                        name: 'Member',
+                        isContainer: false,
+                        thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file',
+                        href: '/api/ibexa/v2/content/types/47',
+                        isHidden: true,
+                    },
+                ],
+            },
+            contentTree: {
+                loadMoreLimit: 30,
+                childrenLoadMaxLimit: 200,
+                treeMaxDepth: 10,
+                allowedContentTypes: [],
+                ignoredContentTypes: [],
+                treeRootLocationId: 2,
+                contextualTreeRootLocationIds: [2, 5, 43, 48, 55, 56, 60],
+            },
+            sections: {
+                standard: 'Standard',
+                users: 'Users',
+                media: 'Media',
+                form: 'Form',
+                site_skeleton: 'Site skeleton',
+                taxonomy: 'Taxonomy',
+                product_taxonomy: 'Products Taxonomy',
+                corporate_account: 'Corporate Account',
+            },
+            userContentTypes: ['user', 'member'],
+            timezone: 'UTC',
+            dateFormat: {
+                fullDateTime: 'LLLL dd, yyyy HH:mm',
+                fullDate: 'LLLL dd, yyyy',
+                fullTime: 'HH:mm',
+                shortDateTime: 'dd/MM/yyyy HH:mm',
+                shortDate: 'dd/MM/yyyy',
+                shortTime: 'HH:mm',
+            },
+            iconPaths: {
+                iconSets: {
+                    streamlineicons: '/bundles/ibexaicons/img/all-icons.svg',
+                },
+                defaultIconSet: 'streamlineicons',
+            },
+        };
+    
+        return jsonResponse;
+    }
+
     const request = new Request(`${instanceUrl}/api/ibexa/v2/application-config`, {
         method: 'GET',
         headers: getRequestHeaders({
@@ -468,13 +678,11 @@ export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanc
             }
         }),
         mode: getRequestMode({ instanceUrl }),
-        credentials: getRequestCredencials({ instanceUrl }),
+        credentials: 'same-origin',
     });
 
     const adminUiData = await fetch(request);
     const adminUiConfig = await adminUiData.json();
-
-    console.log(adminUiConfig.ApplicationConfig);
 
     return adminUiConfig.ApplicationConfig;
 };
