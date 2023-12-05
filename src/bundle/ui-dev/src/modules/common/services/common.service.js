@@ -9,10 +9,6 @@ export const getRequestMode = ({ instanceUrl }) => {
     return window.location.origin === instanceUrl ? 'same-origin' : 'cors';
 }
 
-export const getRequestCredencials = ({ instanceUrl }) => {
-    return window.location.origin === instanceUrl ? 'same-origin' : 'include';
-}
-
 export const getRequestHeaders = ({ token, siteaccess, accessToken, extraHeaders }) => {
     if (accessToken) {
         return {

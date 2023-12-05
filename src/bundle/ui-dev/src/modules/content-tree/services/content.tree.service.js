@@ -1,4 +1,4 @@
-import { getRequestHeaders, getRequestMode, getRequestCredencials } from '../../common/services/common.service.js';
+import { getRequestHeaders, getRequestMode } from '../../common/services/common.service.js';
 import { handleRequestResponse } from '../../common/helpers/request.helper';
 import { showErrorNotification } from '../../common/services/notification.service';
 
@@ -10,7 +10,7 @@ export const loadLocationItems = ({ siteaccess, accessToken, instanceUrl = DEFAU
     const request = new Request(`${ENDPOINT_LOAD_SUBITEMS}/${parentLocationId}/${limit}/${offset}`, {
         method: 'GET',
         mode: getRequestMode({ instanceUrl }),
-        credentials: getRequestCredencials({ instanceUrl }),
+        credentials: 'same-origin',
         headers: getRequestHeaders({
             siteaccess,
             accessToken,
@@ -43,7 +43,7 @@ export const loadSubtree = ({ token, siteaccess, accessToken, subtree, sortClaus
     const request = new Request(path, {
         method: 'POST',
         mode: getRequestMode({ instanceUrl }),
-        credentials: getRequestCredencials({ instanceUrl }),
+        credentials: 'same-origin',
         body: JSON.stringify({
             LoadSubtreeRequest: {
                 '_media-type': 'application/vnd.ibexa.api.ContentTreeLoadSubtreeRequest',
