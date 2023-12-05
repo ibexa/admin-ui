@@ -437,8 +437,8 @@ export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanc
     const resposne = await fetch(request);
 
     const jsonResponse = {
-        userId: 14, // <---- extra options
-        backOfficeLanguage: 'pl_PL', 
+        userId: 14,
+        backOfficeLanguage: 'pl_PL',
         languages: {
             mappings: {
                 'eng-GB': {
@@ -449,16 +449,6 @@ export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanc
                 },
             },
             priority: ['eng-GB'],
-        },
-        section: {
-            standard: 'Standard',
-            users: 'Users',
-            media: 'Media',
-            form: 'Form',
-            site_skeleton: 'Site skeleton',
-            taxonomy: 'Taxonomy',
-            product_taxonomy: 'Products Taxonomy',
-            corporate_account: 'Corporate Account',
         },
         contentTypes: {
             Content: [
