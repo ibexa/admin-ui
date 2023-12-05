@@ -267,6 +267,7 @@ export default class TableViewItemComponent extends PureComponent {
         const label = isVisible ? visibleLabel : notVisibleLabel;
         const badgeClasses = createCssClassNames({
             'ibexa-badge': true,
+            'ibexa-badge--status': true,
             'ibexa-badge--success': isVisible,
         });
 
