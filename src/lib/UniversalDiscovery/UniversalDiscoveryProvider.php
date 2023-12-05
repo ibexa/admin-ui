@@ -201,13 +201,13 @@ class UniversalDiscoveryProvider implements Provider
         return [
             'create' => [
                 'hasAccess' => $lookupCreateLimitationsResult->hasAccess,
-                'restrictedContentTypeIds' => [10, 20, 30],
-                'restrictedLanguageCodes' => ['eng-GB', 'ger-DE'],
+                'restrictedContentTypeIds' => $createLimitationsValues[Limitation::CONTENTTYPE],
+                'restrictedLanguageCodes' => $createLimitationsValues[Limitation::LANGUAGE],
             ],
             'edit' => [
                 'hasAccess' => $lookupUpdateLimitationsResult->hasAccess,
-                'restrictedContentTypeIds' => [10, 20, 30],
-                'restrictedLanguageCodes' => ['eng-GB', 'ger-DE'],
+                'restrictedContentTypeIds' => $updateLimitationsValues[Limitation::CONTENTTYPE],
+                'restrictedLanguageCodes' => $updateLimitationsValues[Limitation::LANGUAGE],
             ],
         ];
     }
