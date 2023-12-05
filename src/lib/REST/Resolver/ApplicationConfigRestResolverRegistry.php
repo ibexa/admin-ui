@@ -28,10 +28,10 @@ final class ApplicationConfigRestResolverRegistry implements ApplicationConfigRe
         string $namespace,
         string $parameter
     ): bool {
-        foreach ($this->resolvers as $mapper) {
+        foreach ($this->resolvers as $resolver) {
             if (
-                $mapper->supportsNamespace($namespace)
-                && $mapper->supportsParameter($parameter)
+                $resolver->supportsNamespace($namespace)
+                && $resolver->supportsParameter($parameter)
             ) {
                 return true;
             }
@@ -42,8 +42,8 @@ final class ApplicationConfigRestResolverRegistry implements ApplicationConfigRe
 
     public function hasResolvers(string $namespace): bool
     {
-        foreach ($this->resolvers as $mapper) {
-            if ($mapper->supportsNamespace($namespace)) {
+        foreach ($this->resolvers as $resolver) {
+            if ($resolver->supportsNamespace($namespace)) {
                 return true;
             }
         }
@@ -53,12 +53,9 @@ final class ApplicationConfigRestResolverRegistry implements ApplicationConfigRe
 
     public function getResolver(string $namespace, string $parameter): ?ApplicationConfigRestResolverInterface
     {
-        foreach ($this->resolvers as $mapper) {
-            if (
-                $mapper->supportsNamespace($namespace)
-                && $mapper->supportsParameter($parameter)
-            ) {
-                return $mapper;
+        foreach ($this->resolvers as $resolver) {
+            if ($this->hasResolver($namespace, $parameter)) {
+                return $resolver;
             }
         }
 
@@ -70,9 +67,9 @@ final class ApplicationConfigRestResolverRegistry implements ApplicationConfigRe
      */
     public function getResolvers(string $namespace): iterable
     {
-        foreach ($this->resolvers as $mapper) {
-            if ($mapper->supportsNamespace($namespace)) {
-                yield $mapper;
+        foreach ($this->resolvers as $resolver) {
+            if ($resolver->supportsNamespace($namespace)) {
+                yield $resolver;
             }
         }
     }
