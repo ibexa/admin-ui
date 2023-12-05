@@ -5,18 +5,28 @@ export const HEADERS_VIEWS = {
     'Content-Type': 'application/vnd.ibexa.api.ViewInput+json; version=1.1',
 };
 
-export const getAuthenticationHeaders = ({ token, siteaccess, accessToken }) => {
+export const getRequestMode = ({ instanceUrl }) => {
+    return window.location.origin === instanceUrl ? 'same-origin' : 'cors';
+}
+
+export const getRequestCredencials = ({ instanceUrl }) => {
+    return window.location.origin === instanceUrl ? 'same-origin' : 'include';
+}
+
+export const getRequestHeaders = ({ token, siteaccess, accessToken, extraHeaders }) => {
     if (accessToken) {
         return {
             Authorization: `Bearer ${accessToken}`,
             ...(siteaccess && { 'X-Siteaccess': siteaccess }),
-        }
+            ...extraHeaders
+        };
     }
 
     return {
-        ...(siteaccess && { 'X-Siteaccess': siteaccess }),
         ...(token && { 'X-CSRF-Token': token }),
-      };
+        ...(siteaccess && { 'X-Siteaccess': siteaccess }),
+        ...extraHeaders
+    };
 };
 
 export const handleRequestResponse = (response) => {
