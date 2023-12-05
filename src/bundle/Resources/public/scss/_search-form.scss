@@ -36,6 +36,11 @@
             margin-top: 0;
             font-size: $ibexa-text-font-size-extra-large;
         }
+
+        .ibexa-table-sub-header {
+            border-bottom: calculateRem(1px) solid $ibexa-color-dark-200;
+            padding-bottom: calculateRem(8px);
+        }
     }
 
     &__results-language {
@@ -107,6 +112,21 @@
         flex-basis: 50%;
         padding: calculateRem(8px);
         display: flex;
+    }
+
+    &__spellcheck-suggestion {
+        font-style: italic;
+
+        a {
+            font-style: normal;
+            font-weight: bold;
+        }
+    }
+
+    &__no-results {
+        .ibexa-search-form__spellcheck-suggestion {
+            color: $ibexa-color-dark-400;
+        }
     }
 
     .ibexa-btn--secondary.ibexa-btn {

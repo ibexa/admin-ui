@@ -17,10 +17,13 @@
             <h2 class="ibexa-search-form__no-results-title">
                 {{ 'search.no_results.title'|trans({'%query%': form.query.vars.value})|desc('No results found for "%query%"') }}
             </h2>
+
+            {% include '@ibexadesign/ui/search/spellcheck.html.twig' %}
+
             <div class="ibexa-search-form__no-results-subtitle">
                 {% for hint in no_results_hints %}
                     <div class="ibexa-search-form__no-results-hint">
-                        <div class="ibexa-search-form__no-results-hint-icon-wrapper">
+                        <div  class="ibexa-search-form__no-results-hint-icon-wrapper">
                             <svg class="ibexa-icon ibexa-icon--small-medium">
                                 <use xlink:href="{{ ibexa_icon_path('approved') }}"></use>
                             </svg>
@@ -182,14 +185,10 @@
             } %}
                 {% trans_default_domain 'ibexa_search' %}
                 {% block between_header_and_table %}
-                    <span class="ibexa-search-form__results-language">
-                        {% if form.children.search_language.vars.value != '' %}
-                            {{ 'search.in_language'|trans({
-                                '%search_language%': form.children.search_language.vars.data.name,
-                            })|desc('in %search_language%')}}
-                        {% endif %}
-                    </span>
-                    {% include '@ibexadesign/ui/search/criteria_tags.html.twig' %}
+                    <div class="ibexa-table-sub-header">
+                        {% include '@ibexadesign/ui/search/criteria_tags.html.twig' %}
+                        {% include '@ibexadesign/ui/search/spellcheck.html.twig' %}
+                    </div>
                 {% endblock %}
             {% endembed %}
 
