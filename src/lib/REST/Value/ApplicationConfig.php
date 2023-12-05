@@ -24,7 +24,7 @@ final class ApplicationConfig extends Value
     }
 
     /**
-     * @return array<mixed>
+     * @return array<string, mixed>
      */
     public function getConfig(): array
     {
