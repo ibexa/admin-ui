@@ -107,7 +107,7 @@ ibexa.udw.accordion.gridview.data:
 #
 
 ibexa.rest.application_config:
-    path: /application-config/
+    path: /application-config
     controller: 'Ibexa\Bundle\AdminUi\Controller\ApplicationConfigController::loadConfigAction'
     methods: [GET]
     options:

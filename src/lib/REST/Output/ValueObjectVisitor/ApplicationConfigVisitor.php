@@ -13,6 +13,9 @@ use Ibexa\Contracts\Rest\Output\Generator;
 use Ibexa\Contracts\Rest\Output\ValueObjectVisitor;
 use Ibexa\Contracts\Rest\Output\Visitor;
 
+/**
+ * @internal
+ */
 final class ApplicationConfigVisitor extends ValueObjectVisitor
 {
     private ApplicationConfigRestResolverRegistryInterface $applicationConfigRestResolverRegistry;
