@@ -6,14 +6,17 @@
 
 {% block header %}
     {% set url_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.url_edit.sidebar_right', [], {
-        save_and_close_selector: '#' ~ form.saveAndClose.vars.id,
+        save_and_close_selector: '#' ~ form.save_and_close.vars.id,
         save_selector: '#' ~ form.save.vars.id,
+        url: url
     }) %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
         action_name: 'url.editing'|trans|desc('Editing'),
         title: 'url.editing.title'|trans({'%url%': url.url|u.truncate(50) })|desc('Link %url%'),
-        context_actions: knp_menu_render(url_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
+        context_actions: knp_menu_render(url_create_sidebar_right, {
+            'template': '@ibexadesign/ui/menu/context_menu.html.twig'
+        })
     } %}
 {% endblock %}
 
