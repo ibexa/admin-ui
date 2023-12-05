@@ -3,12 +3,19 @@
 {% trans_default_domain 'ibexa_search' %}
 
 <div class="ibexa-global-search">
+    {% set is_mac = 'Mac OS X' in app.request.headers.get('user-agent') %}
+    {% set shortcut = is_mac ? '⌘ + /' : 'Ctrl + /' %}
+    {% set shortcut_title = 'global_search.focus.hint'|trans|desc('Search') ~ ' <span class="ibexa-global-search__shortcut">' ~ shortcut ~ '</span>' %}
+
     {{ form_start(form, { attr: { class: 'form-inline', id: 'ibexa-global-search-form' }}) }}
         {{ form_widget(form.query, {
             attr: {
                 class: 'ibexa-global-search__input',
                 placeholder: 'header.search'|trans|desc('Search...'),
-                autocomplete: "off"
+                autocomplete: "off",
+                title: shortcut_title,
+                'data-tooltip-use-html': true,
+                'data-tooltip-trigger': 'hover',
             }
         }) }}
     {{ form_end(form) }}

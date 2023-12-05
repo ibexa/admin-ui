@@ -74,5 +74,6 @@
         isPastePressed,
         isPrintPressed,
         isSelectAllPressed,
+        isShortcutWithLetter,
     });
 })(window, window.document, window.ibexa);

@@ -74,14 +74,7 @@
 {%- endblock -%}
 
 {%- block _search_query_widget -%}
-    {% trans_default_domain 'ibexa_search' %}
-
     {% set has_search = true %}
-    {%- set extra_content -%}
-        <div class="ibexa-global-search__shortcut">
-            {{ 'global_search.focus.hint'|trans|desc('Press `Shift` + `/` to focus') }}
-        </div>
-    {%- endset -%}
 
     {{ block('form_widget_simple') }}
 {%- endblock -%}
@@ -401,11 +394,6 @@
         {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search, should_clear_button_send_form } -%}
             {% block content %}
                 {{ input_html }}
-            {% endblock %}
-            {% block extra_content %}
-                {% if extra_content is defined %}
-                    {{ extra_content }}
-                {% endif %}
             {% endblock %}
         {%- endembed -%}
     {%- else -%}

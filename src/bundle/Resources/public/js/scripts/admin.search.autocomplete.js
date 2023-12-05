@@ -2,6 +2,7 @@
     const globalSearch = doc.querySelector('.ibexa-global-search');
     const { getJsonFromResponse } = ibexa.helpers.request;
     const { showErrorNotification } = ibexa.helpers.notification;
+    const { isShortcutWithLetter } = ibexa.helpers.system;
     const { minQueryLength, resultLimit } = ibexa.adminUiConfig.suggestions;
 
     if (!globalSearch) {
@@ -143,12 +144,12 @@
         removeKeyboardEventListener();
     };
     const focusSearch = (event) => {
-        if (event.shiftKey && event.code === 'Slash') {
+        if (isShortcutWithLetter(event, '/')) {
             globalSearchInput.focus();
         }
     };
 
     globalSearchInput.addEventListener('keyup', handleTyping, false);
     clearBtn.addEventListener('click', hideAutocomplete, false);
-    doc.addEventListener('keyup', focusSearch, false);
+    doc.addEventListener('keydown', focusSearch, false);
 })(window, document, window.ibexa, window.Routing, window.Translator);
