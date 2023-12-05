@@ -177,8 +177,8 @@
         <note>key: search.section</note>
       </trans-unit>
       <trans-unit id="923ca53f6602fe7eabe79838efdca27c2756b0fd" resname="search.spellcheck.suggestion">
-        <source>Did you mean "%s"?</source>
-        <target state="new">Did you mean "%s"?</target>
+        <source>Did you mean %s?</source>
+        <target state="new">Did you mean %s?</target>
         <note>key: search.spellcheck.suggestion</note>
       </trans-unit>
       <trans-unit id="b484be9d33f5cd9961f4ddd89c628f2cbca2a6a1" resname="search.subtree">

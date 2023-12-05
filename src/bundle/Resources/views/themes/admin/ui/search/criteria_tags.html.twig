@@ -1,6 +1,16 @@
 {% trans_default_domain 'ibexa_search' %}
 
 <div class="ibexa-search-criteria-tags">
+    {% if form.children.search_language.vars.value != '' %}
+        <div class="ibexa-tag ibexa-search-criteria-tags__tag">
+            <div class="ibexa-tag__content">
+                {{ 'search.in_language'|trans({
+                    '%search_language%': form.children.search_language.vars.data.name,
+                })|desc('in %search_language%')}}
+            </div>
+        </div>
+    {% endif %}
+
     {% if form.content_types.vars.data is not empty %}
         {% for content_type in form.content_types.vars.data %}
             {{ include('@ibexadesign/ui/search_tag.html.twig', {
