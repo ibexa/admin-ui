@@ -8,16 +8,17 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\AdminUi\REST;
 
-interface ApplicationConfigRestResolverInterface
+use Ibexa\Contracts\Rest\Output\Generator;
+use Ibexa\Contracts\Rest\Output\Visitor;
+
+interface ApplicationConfigRestGeneratorInterface
 {
     public function supportsNamespace(string $namespace): bool;
 
     public function supportsParameter(string $parameterName): bool;
 
     /**
-     * @param array<mixed> $config
-     *
-     * @return mixed
+     * @param mixed $parameter
      */
-    public function resolve(array $config);
+    public function generate($parameter, Generator $generator, Visitor $visitor): void;
 }

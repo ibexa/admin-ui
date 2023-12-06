@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\REST\Output\ValueObjectVisitor;
 
-use Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestResolverRegistryInterface;
+use Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestGeneratorRegistryInterface;
 use Ibexa\Contracts\Rest\Output\Generator;
 use Ibexa\Contracts\Rest\Output\ValueObjectVisitor;
 use Ibexa\Contracts\Rest\Output\Visitor;
@@ -18,11 +18,11 @@ use Ibexa\Contracts\Rest\Output\Visitor;
  */
 final class ApplicationConfigVisitor extends ValueObjectVisitor
 {
-    private ApplicationConfigRestResolverRegistryInterface $applicationConfigRestResolverRegistry;
+    private ApplicationConfigRestGeneratorRegistryInterface $applicationConfigRestGeneratorRegistry;
 
-    public function __construct(ApplicationConfigRestResolverRegistryInterface $applicationConfigRestResolverRegistry)
+    public function __construct(ApplicationConfigRestGeneratorRegistryInterface $applicationConfigRestGeneratorRegistry)
     {
-        $this->applicationConfigRestResolverRegistry = $applicationConfigRestResolverRegistry;
+        $this->applicationConfigRestGeneratorRegistry = $applicationConfigRestGeneratorRegistry;
     }
 
     /**
@@ -31,10 +31,12 @@ final class ApplicationConfigVisitor extends ValueObjectVisitor
     public function visit(Visitor $visitor, Generator $generator, $data): void
     {
         $generator->startObjectElement('ApplicationConfig');
+        $visitor->setHeader('Content-Type', $generator->getMediaType('ApplicationConfig'));
 
         foreach ($data->getConfig() as $namespace => $config) {
-            if ($this->applicationConfigRestResolverRegistry->hasResolvers($namespace)) {
-                $this->visitInternalResolver(
+            // Checks if namespace has internal generators to generate custom output.
+            if ($this->applicationConfigRestGeneratorRegistry->hasGenerators($namespace)) {
+                $this->visitInternalGenerator(
                     $visitor,
                     $generator,
                     $namespace,
@@ -51,9 +53,9 @@ final class ApplicationConfigVisitor extends ValueObjectVisitor
     }
 
     /**
-     * @param array<mixed> $config
+     * @param array<string, mixed> $config
      */
-    private function visitInternalResolver(
+    private function visitInternalGenerator(
         Visitor $visitor,
         Generator $generator,
         string $namespace,
@@ -62,23 +64,15 @@ final class ApplicationConfigVisitor extends ValueObjectVisitor
         $generator->startHashElement($namespace);
 
         foreach ($config as $name => $value) {
-            if (!$this->applicationConfigRestResolverRegistry->hasResolver($namespace, $name)) {
+            if (!$this->applicationConfigRestGeneratorRegistry->hasGenerator($namespace, $name)) {
                 $generator->generateFieldTypeHash($name, $value);
 
                 continue;
             }
 
-            $resolvedConfig = $this->applicationConfigRestResolverRegistry
-                ->getResolver($namespace, $name)
-                ->resolve($config);
-
-            if (is_object($resolvedConfig)) {
-                $generator->startHashElement($name);
-                $visitor->visitValueObject($resolvedConfig);
-                $generator->endHashElement($name);
-            } else {
-                $generator->generateFieldTypeHash($name, $resolvedConfig);
-            }
+            $this->applicationConfigRestGeneratorRegistry
+                ->getGenerator($namespace, $name)
+                ->generate($value, $generator, $visitor);
         }
 
         $generator->endHashElement($namespace);

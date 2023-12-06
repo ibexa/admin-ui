@@ -84,6 +84,6 @@ services:
     Ibexa\AdminUi\REST\Output\ValueObjectVisitor\ApplicationConfigVisitor:
         parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
         arguments:
-            $applicationConfigRestResolverRegistry: '@Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestResolverRegistryInterface'
+            $applicationConfigRestGeneratorRegistry: '@Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestGeneratorRegistryInterface'
         tags:
             - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\ApplicationConfig }

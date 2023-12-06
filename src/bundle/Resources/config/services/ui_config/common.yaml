@@ -136,17 +136,17 @@ services:
             - { name: ibexa.admin_ui.config.provider, key: 'suggestions' }
 
     # Resolvers
-    Ibexa\AdminUi\REST\Resolver\ApplicationConfigRestResolverRegistry:
+    Ibexa\AdminUi\REST\Generator\ApplicationConfigRestGeneratorRegistry:
         arguments:
-            $resolvers: !tagged_iterator { tag: ibexa.admin_ui.config.provider.rest.resolver }
+            $generators: !tagged_iterator { tag: ibexa.admin_ui.config.provider.rest.generator }
 
-    Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestResolverRegistryInterface:
-        alias: Ibexa\AdminUi\REST\Resolver\ApplicationConfigRestResolverRegistry
+    Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestGeneratorRegistryInterface:
+        alias: Ibexa\AdminUi\REST\Generator\ApplicationConfigRestGeneratorRegistry
 
-    Ibexa\AdminUi\REST\Resolver\UserConfigRestResolver:
+    Ibexa\AdminUi\REST\Generator\UserConfigRestGenerator:
         tags:
-            - { name: ibexa.admin_ui.config.provider.rest.resolver, priority: -10 }
+            - { name: ibexa.admin_ui.config.provider.rest.generator, priority: -10 }
 
-    Ibexa\AdminUi\REST\Resolver\ProfilePictureFieldConfigRestResolver:
+    Ibexa\AdminUi\REST\Generator\ProfilePictureFieldConfigRestGenerator:
         tags:
-            - { name: ibexa.admin_ui.config.provider.rest.resolver, priority: -10 }
+            - { name: ibexa.admin_ui.config.provider.rest.generator, priority: -10 }
