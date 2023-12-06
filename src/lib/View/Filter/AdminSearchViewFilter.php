@@ -97,7 +97,7 @@ class AdminSearchViewFilter implements EventSubscriberInterface
             return;
         }
 
-        $search = $request->query->get('search');
+        $search = $request->query->all('search');
         $limit = isset($search['limit']) ? (int)$search['limit'] : $this->configResolver->getParameter('pagination.search_limit');
         $page = isset($search['page']) ? (int)$search['page'] : 1;
         $query = $search['query'] ?? '';
