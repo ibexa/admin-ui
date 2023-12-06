@@ -10691,52 +10691,7 @@ parameters:
 			path: src/lib/View/Filter/AdminSearchViewFilter.php
 
 		-
-			message: "#^Offset 'content_types' on string\\|null in empty\\(\\) does not exist\\.$#"
-			count: 1
-			path: src/lib/View/Filter/AdminSearchViewFilter.php
-
-		-
-			message: "#^Offset 'created' on string\\|null on left side of \\?\\? does not exist\\.$#"
-			count: 1
-			path: src/lib/View/Filter/AdminSearchViewFilter.php
-
-		-
-			message: "#^Offset 'last_modified' on string\\|null on left side of \\?\\? does not exist\\.$#"
-			count: 1
-			path: src/lib/View/Filter/AdminSearchViewFilter.php
-
-		-
-			message: "#^Offset 'limit' on string\\|null in isset\\(\\) does not exist\\.$#"
-			count: 1
-			path: src/lib/View/Filter/AdminSearchViewFilter.php
-
-		-
-			message: "#^Offset 'page' on string\\|null in isset\\(\\) does not exist\\.$#"
-			count: 1
-			path: src/lib/View/Filter/AdminSearchViewFilter.php
-
-		-
-			message: "#^Offset 'query' on string\\|null on left side of \\?\\? does not exist\\.$#"
-			count: 1
-			path: src/lib/View/Filter/AdminSearchViewFilter.php
-
-		-
-			message: "#^Offset 'section' on string\\|null in empty\\(\\) does not exist\\.$#"
-			count: 1
-			path: src/lib/View/Filter/AdminSearchViewFilter.php
-
-		-
-			message: "#^Offset 'subtree' on string\\|null on left side of \\?\\? does not exist\\.$#"
-			count: 1
-			path: src/lib/View/Filter/AdminSearchViewFilter.php
-
-		-
 			message: "#^Property Ibexa\\\\AdminUi\\\\View\\\\Filter\\\\AdminSearchViewFilter\\:\\:\\$siteAccessGroups type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/View/Filter/AdminSearchViewFilter.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
 			count: 1
 			path: src/lib/View/Filter/AdminSearchViewFilter.php
 
