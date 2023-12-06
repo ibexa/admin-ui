@@ -6,13 +6,25 @@
  */
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
+use Ibexa\AdminUi\Event\FilterContentTypesEvent;
 use Ibexa\AdminUi\UI\Service\ContentTypeIconResolver;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
+/**
+ * @phpstan-type TContentTypeData array{
+ *      id: int,
+ *      identifier: string,
+ *      name: string|null,
+ *      isContainer: bool,
+ *      thumbnail: string,
+ *      href: string,
+ *  }
+ */
 class ContentTypes implements ProviderInterface
 {
     /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
@@ -27,6 +39,8 @@ class ContentTypes implements ProviderInterface
     /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
     private $urlGenerator;
 
+    private EventDispatcherInterface $eventDispatcher;
+
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
      * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
@@ -37,16 +51,18 @@ class ContentTypes implements ProviderInterface
         ContentTypeService $contentTypeService,
         UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
         ContentTypeIconResolver $contentTypeIconResolver,
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->contentTypeService = $contentTypeService;
         $this->userLanguagePreferenceProvider = $userLanguagePreferenceProvider;
         $this->contentTypeIconResolver = $contentTypeIconResolver;
         $this->urlGenerator = $urlGenerator;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
-     * @return mixed Anything that is serializable via json_encode()
+     * @phpstan-return array<string, array<TContentTypeData>>
      */
     public function getConfig()
     {
@@ -67,20 +83,31 @@ class ContentTypes implements ProviderInterface
             });
 
             foreach ($contentTypes as $contentType) {
-                $contentTypeGroups[$contentTypeGroup->identifier][] = [
-                    'id' => $contentType->id,
-                    'identifier' => $contentType->identifier,
-                    'name' => $contentType->getName(),
-                    'isContainer' => $contentType->isContainer,
-                    'thumbnail' => $this->contentTypeIconResolver->getContentTypeIcon($contentType->identifier),
-                    'href' => $this->urlGenerator->generate('ibexa.rest.load_content_type', [
-                        'contentTypeId' => $contentType->id,
-                    ]),
-                ];
+                $contentTypeGroups[$contentTypeGroup->identifier][] = $this->getContentTypeData($contentType);
             }
         }
 
-        return $contentTypeGroups;
+        /** @var \Ibexa\AdminUi\Event\FilterContentTypesEvent $event */
+        $event = $this->eventDispatcher->dispatch(new FilterContentTypesEvent($contentTypeGroups));
+
+        return $event->getContentTypeGroups();
+    }
+
+    /**
+     * @phpstan-return TContentTypeData
+     */
+    private function getContentTypeData(ContentType $contentType): array
+    {
+        return [
+            'id' => $contentType->id,
+            'identifier' => $contentType->identifier,
+            'name' => $contentType->getName(),
+            'isContainer' => $contentType->isContainer,
+            'thumbnail' => $this->contentTypeIconResolver->getContentTypeIcon($contentType->identifier),
+            'href' => $this->urlGenerator->generate('ibexa.rest.load_content_type', [
+                'contentTypeId' => $contentType->id,
+            ]),
+        ];
     }
 }
 
