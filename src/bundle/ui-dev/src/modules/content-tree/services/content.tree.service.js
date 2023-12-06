@@ -34,7 +34,7 @@ export const loadLocationItems = ({ siteaccess, accessToken, instanceUrl = DEFAU
 };
 
 export const loadSubtree = ({ token, siteaccess, accessToken, subtree, sortClause, sortOrder, instanceUrl = DEFAULT_INSTANCE_URL }, callback) => {
-    let path = ENDPOINT_LOAD_SUBTREE;
+    let path = `${instanceUrl}${ENDPOINT_LOAD_SUBTREE}`;
 
     if (sortClause && sortOrder) {
         path += `?sortClause=${sortClause}&sortOrder=${sortOrder}`;
