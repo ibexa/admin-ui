@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Component\Component;
+use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
-use Ibexa\Behat\Browser\Exception\TimeoutException;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class ContentActionsMenu extends Component
@@ -33,18 +33,12 @@ class ContentActionsMenu extends Component
             ->filterBy(new ElementTextCriterion($buttonName));
 
         if ($buttons->any()) {
-            $buttons->single()->click();
+            $buttons->single()->execute(new MouseOverAndClick());
 
             return;
         }
 
-        try {
-            $this->getHTMLPage()->find($this->getLocator('moreButton'))->click();
-        } catch (TimeoutException $e) {
-            $this->getHTMLPage()
-                ->findAll($this->getLocator('menuButton'))
-                ->getByCriterion(new ElementTextCriterion($buttonName));
-        }
+        $this->getHTMLPage()->find($this->getLocator('moreButton'))->click();
         $this->getHTMLPage()
             ->findAll($this->getLocator('expandedMenuButton'))
             ->getByCriterion(new ElementTextCriterion($buttonName))->click();
@@ -66,13 +60,7 @@ class ContentActionsMenu extends Component
             return;
         }
 
-        try {
-            $this->getHTMLPage()->find($this->getLocator('moreButton'))->click();
-        } catch (TimeoutException $e) {
-            $this->getHTMLPage()
-                ->findAll($this->getLocator('menuButton'))
-                ->getByCriterion(new ElementTextCriterion($buttonName));
-        }
+        $this->getHTMLPage()->find($this->getLocator('moreButton'))->click();
         $this->getHTMLPage()
             ->findAll($this->getLocator('expandedMenuButton'))
             ->getByCriterion(new ElementTextCriterion($groupName))
