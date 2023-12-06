@@ -456,11 +456,6 @@ parameters:
 			path: src/bundle/Controller/LinkManagerController.php
 
 		-
-			message: "#^Call to method getLocation\\(\\) on an unknown class Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\Location\\\\LocationTrashContainerData\\.$#"
-			count: 1
-			path: src/bundle/Controller/LocationController.php
-
-		-
 			message: "#^Cannot access offset 0 on iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Relation\\>\\.$#"
 			count: 1
 			path: src/bundle/Controller/LocationController.php
@@ -497,7 +492,7 @@ parameters:
 
 		-
 			message: "#^Cannot access property \\$parentLocationId on Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\|null\\.$#"
-			count: 2
+			count: 1
 			path: src/bundle/Controller/LocationController.php
 
 		-
@@ -507,21 +502,11 @@ parameters:
 
 		-
 			message: "#^Cannot call method getContentInfo\\(\\) on Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\|null\\.$#"
-			count: 12
-			path: src/bundle/Controller/LocationController.php
-
-		-
-			message: "#^Method Ibexa\\\\Bundle\\\\AdminUi\\\\Controller\\\\LocationController\\:\\:handleTrashLocationForm\\(\\) is unused\\.$#"
-			count: 1
+			count: 11
 			path: src/bundle/Controller/LocationController.php
 
 		-
 			message: "#^Parameter \\#1 \\$contentInfo of method Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\LocationService\\:\\:createLocation\\(\\) expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\ContentInfo, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\ContentInfo\\|null given\\.$#"
-			count: 1
-			path: src/bundle/Controller/LocationController.php
-
-		-
-			message: "#^Parameter \\#1 \\$location of method Ibexa\\\\Contracts\\\\AdminUi\\\\Controller\\\\Controller\\:\\:redirectToLocation\\(\\) expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\|null given\\.$#"
 			count: 1
 			path: src/bundle/Controller/LocationController.php
 
@@ -541,13 +526,8 @@ parameters:
 			path: src/bundle/Controller/LocationController.php
 
 		-
-			message: "#^Parameter \\#1 \\$location of method Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\SectionService\\:\\:assignSectionToSubtree\\(\\) expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\|null given\\.$#"
-			count: 1
-			path: src/bundle/Controller/LocationController.php
-
-		-
 			message: "#^Parameter \\#1 \\$location of method Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\TrashService\\:\\:trash\\(\\) expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\|null given\\.$#"
-			count: 2
+			count: 1
 			path: src/bundle/Controller/LocationController.php
 
 		-
@@ -577,11 +557,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$targetParentLocation of method Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\LocationService\\:\\:copySubtree\\(\\) expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\|null given\\.$#"
-			count: 1
-			path: src/bundle/Controller/LocationController.php
-
-		-
-			message: "#^Parameter \\$data of method Ibexa\\\\Bundle\\\\AdminUi\\\\Controller\\\\LocationController\\:\\:handleTrashLocationForm\\(\\) has invalid type Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\Location\\\\LocationTrashContainerData\\.$#"
 			count: 1
 			path: src/bundle/Controller/LocationController.php
 

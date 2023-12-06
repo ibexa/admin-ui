@@ -421,35 +421,6 @@ class LocationController extends Controller
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Location\LocationTrashData|\Ibexa\AdminUi\Form\Data\Location\LocationTrashContainerData $data
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     */
-    private function handleTrashLocationForm($data): RedirectResponse
-    {
-        $location = $data->getLocation();
-        $parentLocation = $this->locationService->loadLocation($location->parentLocationId);
-        $this->trashService->trash($location);
-
-        $this->notificationHandler->success(
-            $this->translator->trans(
-                /** @Desc("Location '%name%' moved to Trash.") */
-                'location.trash.success',
-                ['%name%' => $location->getContentInfo()->name],
-                'ibexa_location'
-            )
-        );
-
-        return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-            'contentId' => $parentLocation->contentId,
-            'locationId' => $parentLocation->id,
-        ]));
-    }
-
-    /**
      * Handles removing locations assigned to content item based on submitted form.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -670,6 +641,7 @@ class LocationController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (LocationAssignSubtreeData $data) {
                 $section = $data->getSection();
+                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
                 $location = $data->getLocation();
 
                 $this->sectionService->assignSectionToSubtree($location, $section);
