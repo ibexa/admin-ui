@@ -10,12 +10,10 @@
     padding: calculateRem(12px) calculateRem(16px);
 
     &__panel {
-        top: calculateRem(36px);
-        right: calculateRem(17px);
+        min-width: calculateRem(200px);
 
-        &--above-btn {
-            bottom: calculateRem(36px);
-            top: auto;
+        &--hidden {
+            display: none;
         }
     }
 }
