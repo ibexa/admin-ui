@@ -217,4 +217,14 @@
             }
         }
     }
+
+    &__shortcut {
+        display: inline-block;
+        line-height: calculateRem(21px);
+        font-size: $ibexa-text-font-size-medium;
+        padding: 0 calculateRem(4px);
+        background-color: $ibexa-color-light-300;
+        border-radius: calculateRem(4px);
+        font-weight: 400;
+    }
 }

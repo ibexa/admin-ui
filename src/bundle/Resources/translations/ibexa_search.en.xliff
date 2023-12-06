@@ -21,6 +21,11 @@
         <target state="new">View all results</target>
         <note>key: autocomplete.view_all_results</note>
       </trans-unit>
+      <trans-unit id="75d6d16d28be17ef015b223c19696f17e99f2be3" resname="global_search.focus.hint">
+        <source>Search</source>
+        <target state="new">Search</target>
+        <note>key: global_search.focus.hint</note>
+      </trans-unit>
       <trans-unit id="7100bfb6741e032fcfcc681f3eceef78650e4672" resname="header.search">
         <source>Search...</source>
         <target state="new">Search...</target>

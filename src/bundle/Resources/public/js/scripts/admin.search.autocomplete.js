@@ -2,6 +2,7 @@
     const globalSearch = doc.querySelector('.ibexa-global-search');
     const { getJsonFromResponse } = ibexa.helpers.request;
     const { showErrorNotification } = ibexa.helpers.notification;
+    const { isShortcutWithLetter } = ibexa.helpers.system;
     const { minQueryLength, resultLimit } = ibexa.adminUiConfig.suggestions;
 
     if (!globalSearch) {
@@ -142,7 +143,13 @@
         removeClickOutsideEventListener();
         removeKeyboardEventListener();
     };
+    const focusSearch = (event) => {
+        if (isShortcutWithLetter(event, '/')) {
+            globalSearchInput.focus();
+        }
+    };
 
     globalSearchInput.addEventListener('keyup', handleTyping, false);
     clearBtn.addEventListener('click', hideAutocomplete, false);
+    doc.addEventListener('keydown', focusSearch, false);
 })(window, document, window.ibexa, window.Routing, window.Translator);
