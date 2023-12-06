@@ -1,8 +1,9 @@
 import { useEffect, useContext, useReducer } from 'react';
 
-import { findLocationsByParentLocationId } from '../services/universal.discovery.service';
-import { RestInfoContext, BlockFetchLocationHookContext } from '../universal.discovery.module';
+import { findLocationsByParentLocationId, findSuggestions } from '../services/universal.discovery.service';
+import { RestInfoContext, BlockFetchLocationHookContext, SuggestionsStorageContext } from '../universal.discovery.module';
 
+const { ibexa } = window;
 const fetchInitialState = {
     dataFetched: false,
     data: {},
@@ -22,7 +23,38 @@ const fetchReducer = (state, action) => {
 export const useFindLocationsByParentLocationIdFetch = (locationData, { sortClause, sortOrder }, limit, offset, gridView = false) => {
     const restInfo = useContext(RestInfoContext);
     const [isFetchLocationHookBlocked] = useContext(BlockFetchLocationHookContext);
+    const [suggestionsStorage, setSuggestionsStorage] = useContext(SuggestionsStorageContext);
     const [state, dispatch] = useReducer(fetchReducer, fetchInitialState);
+    const getFindLocationsPromise = () =>
+        new Promise((resolve) => {
+            findLocationsByParentLocationId(
+                {
+                    ...restInfo,
+                    parentLocationId: locationData.parentLocationId,
+                    sortClause,
+                    sortOrder,
+                    limit,
+                    offset,
+                    gridView,
+                },
+                resolve,
+            );
+        });
+    const getFindSuggestionsPromise = () =>
+        new Promise((resolve) => {
+            if (suggestionsStorage[locationData.parentLocationId]) {
+                resolve(suggestionsStorage[locationData.parentLocationId]);
+
+                return;
+            }
+
+            findSuggestions(
+                {
+                    ...restInfo,
+                },
+                resolve,
+            );
+        });
 
     useEffect(() => {
         if (isFetchLocationHookBlocked) {
@@ -43,24 +75,21 @@ export const useFindLocationsByParentLocationIdFetch = (locationData, { sortClau
         }
 
         dispatch({ type: 'FETCH_START' });
-        findLocationsByParentLocationId(
-            {
-                ...restInfo,
-                parentLocationId: locationData.parentLocationId,
-                sortClause,
-                sortOrder,
-                limit,
-                offset,
-                gridView,
-            },
-            (response) => {
-                if (effectCleaned) {
-                    return;
-                }
+        Promise.all([getFindLocationsPromise(), getFindSuggestionsPromise()]).then(([locations, suggestions]) => {
+            if (effectCleaned) {
+                return;
+            }
 
-                dispatch({ type: 'FETCH_END', data: response });
-            },
-        );
+            const suggestionsResults = suggestions.View.Result.searchHits.searchHit.map(({ value }) => ({
+                data: ibexa.helpers.contentType.getContentTypeDataByHref(value.Content.ContentType._href),
+            }));
+
+            setSuggestionsStorage((prevState) => ({
+                ...prevState,
+                [locationData.parentLocationId]: suggestionsResults,
+            }));
+            dispatch({ type: 'FETCH_END', data: locations });
+        });
 
         return () => {
             effectCleaned = true;

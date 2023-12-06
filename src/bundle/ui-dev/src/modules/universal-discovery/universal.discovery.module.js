@@ -181,6 +181,7 @@ export const EditOnTheFlyDataContext = createContext();
 export const BlockFetchLocationHookContext = createContext();
 export const SearchTextContext = createContext();
 export const DropdownPortalRefContext = createContext();
+export const SuggestionsStorageContext = createContext();
 
 const UniversalDiscoveryModule = (props) => {
     const { restInfo } = props;
@@ -202,6 +203,7 @@ const UniversalDiscoveryModule = (props) => {
         props.startingLocationId && props.startingLocationId !== 1 && props.startingLocationId !== props.rootLocationId,
     );
     const [searchText, setSearchText] = useState('');
+    const [suggestionsStorage, setSuggestionsStorage] = useState({});
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useLoadedLocationsReducer([
         { parentLocationId: props.rootLocationId, subitems: [] },
     ]);
@@ -475,40 +477,47 @@ const UniversalDiscoveryModule = (props) => {
                                                                                                                 setCreateContentVisible,
                                                                                                             ]}
                                                                                                         >
-                                                                                                            <ContentOnTheFlyDataContext.Provider
+                                                                                                            <SuggestionsStorageContext.Provider
                                                                                                                 value={[
-                                                                                                                    contentOnTheFlyData,
-                                                                                                                    setContentOnTheFlyData,
+                                                                                                                    suggestionsStorage,
+                                                                                                                    setSuggestionsStorage,
                                                                                                                 ]}
                                                                                                             >
-                                                                                                                <ContentOnTheFlyConfigContext.Provider
-                                                                                                                    value={
-                                                                                                                        props.contentOnTheFly
-                                                                                                                    }
+                                                                                                                <ContentOnTheFlyDataContext.Provider
+                                                                                                                    value={[
+                                                                                                                        contentOnTheFlyData,
+                                                                                                                        setContentOnTheFlyData,
+                                                                                                                    ]}
                                                                                                                 >
-                                                                                                                    <EditOnTheFlyDataContext.Provider
-                                                                                                                        value={[
-                                                                                                                            editOnTheFlyData,
-                                                                                                                            setEditOnTheFlyData,
-                                                                                                                        ]}
+                                                                                                                    <ContentOnTheFlyConfigContext.Provider
+                                                                                                                        value={
+                                                                                                                            props.contentOnTheFly
+                                                                                                                        }
                                                                                                                     >
-                                                                                                                        <SearchTextContext.Provider
+                                                                                                                        <EditOnTheFlyDataContext.Provider
                                                                                                                             value={[
-                                                                                                                                searchText,
-                                                                                                                                setSearchText,
+                                                                                                                                editOnTheFlyData,
+                                                                                                                                setEditOnTheFlyData,
                                                                                                                             ]}
                                                                                                                         >
-                                                                                                                            <DropdownPortalRefContext.Provider
-                                                                                                                                value={
-                                                                                                                                    dropdownPortalRef
-                                                                                                                                }
+                                                                                                                            <SearchTextContext.Provider
+                                                                                                                                value={[
+                                                                                                                                    searchText,
+                                                                                                                                    setSearchText,
+                                                                                                                                ]}
                                                                                                                             >
-                                                                                                                                <Tab />
-                                                                                                                            </DropdownPortalRefContext.Provider>
-                                                                                                                        </SearchTextContext.Provider>
-                                                                                                                    </EditOnTheFlyDataContext.Provider>
-                                                                                                                </ContentOnTheFlyConfigContext.Provider>
-                                                                                                            </ContentOnTheFlyDataContext.Provider>
+                                                                                                                                <DropdownPortalRefContext.Provider
+                                                                                                                                    value={
+                                                                                                                                        dropdownPortalRef
+                                                                                                                                    }
+                                                                                                                                >
+                                                                                                                                    <Tab />
+                                                                                                                                </DropdownPortalRefContext.Provider>
+                                                                                                                            </SearchTextContext.Provider>
+                                                                                                                        </EditOnTheFlyDataContext.Provider>
+                                                                                                                    </ContentOnTheFlyConfigContext.Provider>
+                                                                                                                </ContentOnTheFlyDataContext.Provider>
+                                                                                                            </SuggestionsStorageContext.Provider>
                                                                                                         </CreateContentWidgetContext.Provider>
                                                                                                     </SelectedLocationsContext.Provider>
                                                                                                 </RootLocationIdContext.Provider>

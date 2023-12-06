@@ -475,4 +475,33 @@ export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanc
     const adminUiConfig = await adminUiData.json();
 
     return adminUiConfig.ApplicationConfig;
+}
+
+export const findSuggestions = ({ siteaccess, token }, callback) => {
+    const body = JSON.stringify({
+        ViewInput: {
+            identifier: 'view_with_aggregation',
+            ContentQuery: {
+                limit: '2',
+                offset: '0',
+                Aggregations: [
+                    {
+                        ContentTypeTermAggregation: {
+                            name: 'content_type',
+                        },
+                    },
+                ],
+            },
+        },
+    });
+
+    const request = new Request(ENDPOINT_CREATE_VIEW, {
+        method: 'POST',
+        headers: { ...HEADERS_CREATE_VIEW, 'X-Siteaccess': siteaccess, 'X-CSRF-Token': token },
+        body,
+        mode: 'same-origin',
+        credentials: 'same-origin',
+    });
+
+    fetch(request).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
 };
