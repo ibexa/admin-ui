@@ -2,6 +2,7 @@ import { escapeHTML } from './text.helper';
 import { getJsonFromResponse } from './request.helper';
 import { showErrorNotification } from './notification.helper';
 import { getRestInfo, getTranslator } from './context.helper';
+import { getRequestHeaders, getRequestMode } from '../../../../../ui-dev/src/modules/common/services/common.service';
 
 const removeRootFromPathString = (pathString) => {
     const pathArray = pathString.split('/').filter((id) => id);
@@ -11,7 +12,7 @@ const removeRootFromPathString = (pathString) => {
 const buildLocationsBreadcrumbs = (locations) =>
     locations.map((Location) => escapeHTML(Location.ContentInfo.Content.TranslatedName)).join(' / ');
 const findLocationsByIds = (idList, callback) => {
-    const { token, siteaccess, instanceUrl } = getRestInfo();
+    const { token, siteaccess, accessToken, instanceUrl } = getRestInfo();
     const Translator = getTranslator();
     const body = JSON.stringify({
         ViewInput: {
@@ -28,15 +29,18 @@ const findLocationsByIds = (idList, callback) => {
     });
     const request = new Request(`${instanceUrl}/api/ibexa/v2/views`, {
         method: 'POST',
-        headers: {
-            Accept: 'application/vnd.ibexa.api.View+json; version=1.1',
-            'Content-Type': 'application/vnd.ibexa.api.ViewInput+json; version=1.1',
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-        },
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/vnd.ibexa.api.View+json; version=1.1',
+                'Content-Type': 'application/vnd.ibexa.api.ViewInput+json; version=1.1',
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+        }),
         body,
-        mode: 'same-origin',
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
     const errorMessage = Translator.trans(
