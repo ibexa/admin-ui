@@ -113,7 +113,6 @@ export const UDWContext = createContext();
 export const RestInfoContext = createContext();
 export const AllowRedirectsContext = createContext();
 export const AllowConfirmationContext = createContext();
-export const TranslatorContext = createContext();
 export const ContentTypesMapContext = createContext();
 export const ContentTypesInfoMapContext = createContext();
 export const MultipleConfigContext = createContext();

@@ -8,10 +8,10 @@ const restInfo = {
 };
 
 export const setRestInfo = ({ instanceUrl, token, csrfToken, siteaccess }) => {
-    (restInfo.instanceUrl = instanceUrl ?? restInfo.instanceUrl),
-        (restInfo.token = token ?? restInfo.token),
-        (restInfo.csrfToken = csrfToken ?? restInfo.csrfToken),
-        (restInfo.siteaccess = siteaccess ?? restInfo.siteaccess);
+    restInfo.instanceUrl = instanceUrl ?? restInfo.instanceUrl;
+    restInfo.token = token ?? restInfo.token;
+    restInfo.csrfToken = csrfToken ?? restInfo.csrfToken;
+    restInfo.siteaccess = siteaccess ?? restInfo.siteaccess;
 };
 export const setAdminUiConfig = (loadedAdminUiConfig) => (adminUiConfig = loadedAdminUiConfig);
 export const setBootstrap = (bootstrapInstance, forceSet = false) => {
