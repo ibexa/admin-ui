@@ -8,40 +8,40 @@ const restInfo = {
 };
 
 export const setRestInfo = ({ instanceUrl, token, csrfToken, siteaccess }) => {
-    restInfo.instanceUrl = instanceUrl ?? restInfo.instanceUrl,
-    restInfo.token = token ?? restInfo.token,
-    restInfo.csrfToken = csrfToken ?? restInfo.csrfToken,
-    restInfo.siteaccess = siteaccess ?? restInfo.siteaccess
+    (restInfo.instanceUrl = instanceUrl ?? restInfo.instanceUrl),
+        (restInfo.token = token ?? restInfo.token),
+        (restInfo.csrfToken = csrfToken ?? restInfo.csrfToken),
+        (restInfo.siteaccess = siteaccess ?? restInfo.siteaccess);
 };
 export const setAdminUiConfig = (loadedAdminUiConfig) => (adminUiConfig = loadedAdminUiConfig);
 export const setBootstrap = (bootstrapInstance, forceSet = false) => {
     if (!bootstrap || forceSet) {
-        bootstrap = bootstrapInstance
+        bootstrap = bootstrapInstance;
     }
-}
+};
 export const setFlatpickr = (flatpickrInstance, forceSet = false) => {
     if (!flatpickr || forceSet) {
-        flatpickr = flatpickrInstance
+        flatpickr = flatpickrInstance;
     }
-}
+};
 export const setMoment = (momentInstance, forceSet = false) => {
     if (!moment || forceSet) {
-        moment = momentInstance
+        moment = momentInstance;
     }
 };
 export const setPopper = (PopperInstance, forceSet = false) => {
     if (!Popper || forceSet) {
-        Popper = PopperInstance
+        Popper = PopperInstance;
     }
 };
 export const setRouting = (RoutingInstance, forceSet = false) => {
     if (!Routing || forceSet) {
-        Routing = RoutingInstance
+        Routing = RoutingInstance;
     }
 };
 export const setTranslator = (TranslatorInstance, forceSet = false) => {
     if (!Translator || forceSet) {
-        Translator = TranslatorInstance
+        Translator = TranslatorInstance;
     }
 };
 

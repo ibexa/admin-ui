@@ -7,21 +7,21 @@ export const HEADERS_VIEWS = {
 
 export const getRequestMode = ({ instanceUrl }) => {
     return window.location.origin === instanceUrl ? 'same-origin' : 'cors';
-}
+};
 
 export const getRequestHeaders = ({ token, siteaccess, accessToken, extraHeaders }) => {
     if (accessToken) {
         return {
             Authorization: `Bearer ${accessToken}`,
             ...(siteaccess && { 'X-Siteaccess': siteaccess }),
-            ...extraHeaders
+            ...extraHeaders,
         };
     }
 
     return {
         ...(token && { 'X-CSRF-Token': token }),
         ...(siteaccess && { 'X-Siteaccess': siteaccess }),
-        ...extraHeaders
+        ...extraHeaders,
     };
 };
 
