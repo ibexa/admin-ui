@@ -8,18 +8,42 @@ const restInfo = {
 };
 
 export const setRestInfo = ({ instanceUrl, token, csrfToken, siteaccess }) => {
-    restInfo.instanceUrl = restInfo.instanceUrl ?? instanceUrl;
-    restInfo.token = restInfo.token ?? token;
-    restInfo.csrfToken = restInfo.csrfToken ?? csrfToken;
-    restInfo.siteaccess = restInfo.siteaccess ?? siteaccess;
+    restInfo.instanceUrl = instanceUrl ?? restInfo.instanceUrl,
+    restInfo.token = token ?? restInfo.token,
+    restInfo.csrfToken = csrfToken ?? restInfo.csrfToken,
+    restInfo.siteaccess = siteaccess ?? restInfo.siteaccess
 };
 export const setAdminUiConfig = (loadedAdminUiConfig) => (adminUiConfig = loadedAdminUiConfig);
-export const setBootstrap = (bootstrapInstance) => (bootstrap = bootstrapInstance);
-export const setFlatpickr = (flatpickrInstance) => (flatpickr = flatpickrInstance);
-export const setMoment = (momentInstance) => (moment = momentInstance);
-export const setPopper = (PopperInstance) => (Popper = PopperInstance);
-export const setRouting = (RoutingInstance) => (Routing = RoutingInstance);
-export const setTranslator = (TranslatorInstance) => (Translator = TranslatorInstance);
+export const setBootstrap = (bootstrapInstance, forceSet = false) => {
+    if (!bootstrap || forceSet) {
+        bootstrap = bootstrapInstance
+    }
+}
+export const setFlatpickr = (flatpickrInstance, forceSet = false) => {
+    if (!flatpickr || forceSet) {
+        flatpickr = flatpickrInstance
+    }
+}
+export const setMoment = (momentInstance, forceSet = false) => {
+    if (!moment || forceSet) {
+        moment = momentInstance
+    }
+};
+export const setPopper = (PopperInstance, forceSet = false) => {
+    if (!Popper || forceSet) {
+        Popper = PopperInstance
+    }
+};
+export const setRouting = (RoutingInstance, forceSet = false) => {
+    if (!Routing || forceSet) {
+        Routing = RoutingInstance
+    }
+};
+export const setTranslator = (TranslatorInstance, forceSet = false) => {
+    if (!Translator || forceSet) {
+        Translator = TranslatorInstance
+    }
+};
 
 export const getAdminUiConfig = () => adminUiConfig;
 export const getBootstrap = () => bootstrap;
