@@ -155,7 +155,8 @@
         color: $ibexa-color-dark;
         text-decoration: underline;
         font-size: $ibexa-text-font-size-medium;
-        transition: background $ibexa-admin-transition-duration $ibexa-admin-transition,
+        transition:
+            background $ibexa-admin-transition-duration $ibexa-admin-transition,
             color $ibexa-admin-transition-duration $ibexa-admin-transition;
 
         .ibexa-icon {

@@ -7,7 +7,9 @@
     border-color: $ibexa-color-light-400;
     border-top-left-radius: $ibexa-border-radius;
     border-top-right-radius: $ibexa-border-radius;
-    transition: all $ibexa-admin-transition-duration $ibexa-admin-transition, border-bottom-width 0;
+    transition:
+        all $ibexa-admin-transition-duration $ibexa-admin-transition,
+        border-bottom-width 0;
     z-index: 1050;
 
     &__container {
