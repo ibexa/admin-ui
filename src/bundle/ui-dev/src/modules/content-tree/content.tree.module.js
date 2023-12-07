@@ -386,7 +386,7 @@ ContentTreeModule.propTypes = {
     restInfo: PropTypes.shape({
         token: PropTypes.string.isRequired,
         siteaccess: PropTypes.string.isRequired,
-        accessToken: PropTypes.string
+        accessToken: PropTypes.string,
     }).isRequired,
     onClickItem: PropTypes.func,
     readSubtree: PropTypes.func,

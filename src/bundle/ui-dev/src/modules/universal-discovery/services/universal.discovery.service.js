@@ -1,4 +1,4 @@
-import { getRequestHeaders, getRequestMode, getRequestCredencials } from '../../common/services/common.service.js';
+import { getRequestHeaders, getRequestMode } from '../../common/services/common.service.js';
 import { showErrorNotification } from '../../common/services/notification.service';
 import { handleRequestResponse, handleRequestResponseStatus } from '../../common/helpers/request.helper.js';
 
@@ -67,7 +67,7 @@ export const findLocationsByParentLocationId = (
             accessToken,
             extraHeaders: {
                 Accept: 'application/json',
-            }
+            },
         }),
         mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
@@ -121,7 +121,7 @@ export const loadAccordionData = async (
             accessToken,
             extraHeaders: {
                 Accept: 'application/json',
-            }
+            },
         }),
         mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
@@ -211,7 +211,7 @@ export const findLocationsBySearchQuery = (
             token,
             siteaccess,
             accessToken,
-            extraHeaders: HEADERS_CREATE_VIEW
+            extraHeaders: HEADERS_CREATE_VIEW,
         }),
         body,
         mode: getRequestMode({ instanceUrl }),
@@ -257,7 +257,7 @@ export const findLocationsById = (
             token,
             siteaccess,
             accessToken,
-            extraHeaders: HEADERS_CREATE_VIEW
+            extraHeaders: HEADERS_CREATE_VIEW,
         }),
         body,
         mode: getRequestMode({ instanceUrl }),
@@ -297,7 +297,7 @@ export const findContentInfo = (
             token,
             siteaccess,
             accessToken,
-            extraHeaders: HEADERS_CREATE_VIEW
+            extraHeaders: HEADERS_CREATE_VIEW,
         }),
         body,
         mode: getRequestMode({ instanceUrl }),
@@ -322,8 +322,8 @@ export const loadBookmarks = ({ token, siteaccess, accessToken, limit, offset, i
             siteaccess,
             accessToken,
             extraHeaders: {
-                Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json'
-            }
+                Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
+            },
         }),
         mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
@@ -368,7 +368,7 @@ export const loadContentTypes = ({ token, siteaccess, accessToken, instanceUrl =
             accessToken,
             extraHeaders: {
                 Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
-            }
+            },
         }),
         mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
@@ -386,7 +386,7 @@ export const createDraft = ({ token, siteaccess, accessToken, contentId, instanc
             accessToken,
             extraHeaders: {
                 Accept: 'application/vnd.ibexa.api.VersionUpdate+json',
-            }
+            },
         }),
         mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
@@ -418,7 +418,7 @@ export const loadContentInfo = (
             token,
             siteaccess,
             accessToken,
-            extraHeaders: HEADERS_CREATE_VIEW
+            extraHeaders: HEADERS_CREATE_VIEW,
         }),
         body,
         mode: getRequestMode({ instanceUrl }),
@@ -446,7 +446,7 @@ export const loadLocationsWithPermissions = (
             accessToken,
             extraHeaders: {
                 Accept: 'application/vnd.ibexa.api.VersionUpdate+json',
-            }
+            },
         }),
         method: 'GET',
         mode: getRequestMode({ instanceUrl }),
@@ -463,9 +463,9 @@ export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanc
             token,
             siteaccess,
             accessToken,
-            extraHeaders:{
+            extraHeaders: {
                 Accept: 'application/json',
-            }
+            },
         }),
         mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
