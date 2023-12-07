@@ -18,7 +18,6 @@ import { TreeItemToggleSelectionMenuButton } from './components/tree-item-toggle
     ibexa.addConfig('modules.UniversalDiscovery', UniversalDiscoveryModule);
     ibexa.addConfig('adminUiConfig.universalDiscoveryWidget.tabs', [BookmarksTab], true);
     ibexa.addConfig('adminUiConfig.universalDiscoveryWidget.tabs', [BrowseTab], true);
-    // ibexa.addConfig('adminUiConfig.universalDiscoveryWidget.tabs', [ImagePickerTab], true);
     ibexa.addConfig('adminUiConfig.universalDiscoveryWidget.tabs', [ContentCreateTab], true);
     ibexa.addConfig('adminUiConfig.universalDiscoveryWidget.tabs', [ContentEditTab], true);
     ibexa.addConfig('adminUiConfig.universalDiscoveryWidget.tabs', [SearchTab], true);
