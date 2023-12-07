@@ -14,7 +14,7 @@ const ENDPOINT_ACCORDION = '/api/ibexa/v2/module/universal-discovery/accordion';
 const ENDPOINT_LOCATION_LIST = '/api/ibexa/v2/module/universal-discovery/locations';
 
 export const QUERY_LIMIT = 50;
-console.log('TEST LOCAL INSTANCE')
+
 const showErrorNotificationAbortWrapper = (error) => {
     if (error?.name === 'AbortError') {
         return;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { getIconPath } from '../../../../../Resources/public/js/scripts/helpers/icon.helper';
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
 
 const Icon = (props) => {
     const linkHref = props.customPath ? props.customPath : getIconPath(props.name);
