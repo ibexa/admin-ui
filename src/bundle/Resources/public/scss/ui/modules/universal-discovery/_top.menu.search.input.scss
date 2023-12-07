@@ -27,7 +27,9 @@
         opacity: 0;
         transform: translateY(-50%) scaleX(0);
         transform-origin: left;
-        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition, transform 0s;
+        transition:
+            all $ibexa-admin-transition-duration $ibexa-admin-transition,
+            transform 0s;
 
         &:focus {
             outline: none;

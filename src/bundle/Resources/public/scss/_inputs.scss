@@ -103,7 +103,9 @@
     }
 
     &--textarea {
-        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition, box-shadow 0s; // Chrome does not render box-shadow properly with transition
+        transition:
+            all $ibexa-admin-transition-duration $ibexa-admin-transition,
+            box-shadow 0s; // Chrome does not render box-shadow properly with transition
         height: calculateRem(120px);
         padding: calculateRem(10px) calculateRem(16px);
     }

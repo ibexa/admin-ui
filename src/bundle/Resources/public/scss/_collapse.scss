@@ -63,7 +63,8 @@
     }
 
     &--heavy {
-        box-shadow: inset 0 0 0 calculateRem(1px) $ibexa-color-light,
+        box-shadow:
+            inset 0 0 0 calculateRem(1px) $ibexa-color-light,
             calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info, 0.05);
         border-radius: $ibexa-border-radius;
         transition: all $ibexa-admin-transition-duration;

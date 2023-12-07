@@ -34,7 +34,9 @@
 
         &:hover {
             color: $ibexa-color-white;
-            box-shadow: 0 0 0 transparent, $ibexa-btn-hover-box-shadow;
+            box-shadow:
+                0 0 0 transparent,
+                $ibexa-btn-hover-box-shadow;
 
             .ibexa-icon {
                 fill: $ibexa-color-white;
@@ -196,7 +198,9 @@
             color: $ibexa-color-white;
             fill: $ibexa-color-white;
             background-color: $ibexa-color-dark;
-            box-shadow: 0 0 0 transparent, $ibexa-btn-hover-box-shadow-dark;
+            box-shadow:
+                0 0 0 transparent,
+                $ibexa-btn-hover-box-shadow-dark;
 
             .ibexa-icon {
                 fill: $ibexa-color-white;
@@ -230,7 +234,9 @@
 
         &:hover {
             color: $ibexa-color-white;
-            box-shadow: 0 0 0 transparent, $ibexa-btn-hover-box-shadow-info;
+            box-shadow:
+                0 0 0 transparent,
+                $ibexa-btn-hover-box-shadow-info;
             background-color: $ibexa-color-info;
 
             .ibexa-icon {
@@ -298,7 +304,9 @@
 
         &:hover {
             border-color: $ibexa-color-info;
-            box-shadow: 0 0 0 transparent, $ibexa-btn-hover-box-shadow-info;
+            box-shadow:
+                0 0 0 transparent,
+                $ibexa-btn-hover-box-shadow-info;
         }
 
         &:focus {

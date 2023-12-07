@@ -374,7 +374,8 @@
 
         &:not(.ibexa-dropdown--disabled):not(:hover) {
             &.ibexa-dropdown {
-                $versions: 'primary' $ibexa-color-primary $ibexa-color-primary $ibexa-color-primary-200,
+                $versions:
+                    'primary' $ibexa-color-primary $ibexa-color-primary $ibexa-color-primary-200,
                     'secondary' $ibexa-color-dark $ibexa-color-dark $ibexa-color-light-400,
                     'info' $ibexa-color-info $ibexa-color-info $ibexa-color-info-200,
                     'danger' $ibexa-color-danger $ibexa-color-danger $ibexa-color-danger-200,

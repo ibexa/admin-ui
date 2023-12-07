@@ -237,7 +237,10 @@
                     border-right-width: 0;
                     background-color: $ibexa-color-light-300;
                     border-color: $ibexa-color-light-300;
-                    transition: all $ibexa-admin-transition-duration $ibexa-admin-transition, margin-bottom 1ms, border-color 1ms;
+                    transition:
+                        all $ibexa-admin-transition-duration $ibexa-admin-transition,
+                        margin-bottom 1ms,
+                        border-color 1ms;
                 }
 
                 &::after {
@@ -299,7 +302,10 @@
                         border: calculateRem(1px) solid $ibexa-color-light;
                         border-right-width: 0;
                         z-index: 2;
-                        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition, margin-bottom 1ms, border-color 1ms;
+                        transition:
+                            all $ibexa-admin-transition-duration $ibexa-admin-transition,
+                            margin-bottom 1ms,
+                            border-color 1ms;
                     }
 
                     &::after {

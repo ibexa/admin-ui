@@ -5,8 +5,11 @@
         background-color: $ibexa-color-white;
     }
     25% {
-        box-shadow: inset 10px 10px 10px 4px rgba(237, 237, 237, 0.1), inset -10px -10px 10px 4px rgba(237, 237, 237, 0.1),
-            inset 10px -10px 10px 4px rgba(237, 237, 237, 0.1), inset -10px 10px 10px 4px rgba(237, 237, 237, 0.1);
+        box-shadow:
+            inset 10px 10px 10px 4px rgba(237, 237, 237, 0.1),
+            inset -10px -10px 10px 4px rgba(237, 237, 237, 0.1),
+            inset 10px -10px 10px 4px rgba(237, 237, 237, 0.1),
+            inset -10px 10px 10px 4px rgba(237, 237, 237, 0.1);
     }
     50% {
         transform: scale(0.75);
@@ -26,8 +29,11 @@
     }
     50% {
         transform: scale(0.75);
-        box-shadow: inset 10px 10px 10px 4px rgba(237, 237, 237, 0.1), inset -10px -10px 10px 4px rgba(237, 237, 237, 0.1),
-            inset 10px -10px 10px 4px rgba(237, 237, 237, 0.1), inset -10px 10px 10px 4px rgba(237, 237, 237, 0.1);
+        box-shadow:
+            inset 10px 10px 10px 4px rgba(237, 237, 237, 0.1),
+            inset -10px -10px 10px 4px rgba(237, 237, 237, 0.1),
+            inset 10px -10px 10px 4px rgba(237, 237, 237, 0.1),
+            inset -10px 10px 10px 4px rgba(237, 237, 237, 0.1);
         background-color: rgba(237, 237, 237, 0.1);
     }
     100% {

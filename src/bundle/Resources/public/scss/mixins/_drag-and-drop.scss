@@ -1,7 +1,9 @@
 @mixin drag-module-backdrop-background {
     background-image: radial-gradient($ibexa-color-light 0.5px, transparent 0); // 0.5px is needed so that both on HD and Retina we have 1px
     background-color: $ibexa-color-light-200;
-    background-position: 0 0, calculateRem(5px) calculateRem(5px);
+    background-position:
+        0 0,
+        calculateRem(5px) calculateRem(5px);
     background-size: calculateRem(5px) calculateRem(5px);
 }
 

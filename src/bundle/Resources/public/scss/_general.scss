@@ -56,7 +56,9 @@ img {
 .btn {
     white-space: normal;
     cursor: pointer;
-    transition: opacity 0.3s $ibexa-admin-transition, background 0.3s $ibexa-admin-transition;
+    transition:
+        opacity 0.3s $ibexa-admin-transition,
+        background 0.3s $ibexa-admin-transition;
 }
 
 .ezrichtext-field {
