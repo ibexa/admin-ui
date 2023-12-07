@@ -1,8 +1,7 @@
 import { escapeHTML } from './text.helper';
-import { getJsonFromResponse } from './request.helper';
+import { getJsonFromResponse, getRequestHeaders, getRequestMode } from './request.helper';
 import { showErrorNotification } from './notification.helper';
 import { getRestInfo, getTranslator } from './context.helper';
-import { getRequestHeaders, getRequestMode } from '../../../../../ui-dev/src/modules/common/services/common.service';
 
 const removeRootFromPathString = (pathString) => {
     const pathArray = pathString.split('/').filter((id) => id);

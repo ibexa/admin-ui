@@ -13,6 +13,7 @@ import {
     loadContentInfo,
     loadLocationsWithPermissions,
 } from './services/universal.discovery.service';
+
 import {
     parse as parseTooltips,
     hideAll as hideAllTooltips,
@@ -37,7 +38,7 @@ export const SORTING_OPTIONS = [
         selectedLabel: () => {
             return (
                 <div className="c-simple-dropdown__option-label">
-                    {getTranslator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
+                    {getTranslator().trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
                     <Icon name="back" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
                 </div>
             );
@@ -58,7 +59,7 @@ export const SORTING_OPTIONS = [
         selectedLabel: () => {
             return (
                 <div className="c-simple-dropdown__option-label">
-                    {getTranslator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
+                    {getTranslator().trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
                     <Icon name="back" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
                 </div>
             );

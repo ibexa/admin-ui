@@ -356,7 +356,6 @@ export default class ContentTreeModule extends Component {
 
     render() {
         const { onClickItem, subitemsLimit, subitemsLoadLimit, treeMaxDepth, userId, resizable } = this.props;
-
         const attrs = {
             items: this.items,
             currentLocationId: this.getCurrentLocationId(),

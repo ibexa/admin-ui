@@ -3,12 +3,6 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import {
-    removeRootFromPathString,
-    findLocationsByIds,
-    buildLocationsBreadcrumbs,
-} from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/location.helper';
-
-import {
     SelectedContentTypesContext,
     SelectedSectionContext,
     SelectedSubtreeContext,
@@ -17,11 +11,17 @@ import {
 } from '../search/search';
 
 import UniversalDiscoveryModule, { DropdownPortalRefContext } from '../../universal.discovery.module';
-import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 import Dropdown from '../../../common/dropdown/dropdown';
 import ContentTypeSelector from '../content-type-selector/content.type.selector';
 import Icon from '../../../common/icon/icon';
+
+import {
+    removeRootFromPathString,
+    findLocationsByIds,
+    buildLocationsBreadcrumbs,
+} from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/location.helper';
+import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const Filters = ({ search }) => {
     const Translator = getTranslator();

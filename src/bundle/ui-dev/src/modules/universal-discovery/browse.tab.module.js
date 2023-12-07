@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 
-import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
-
 import Tab from './components/tab/tab';
 import GridView from './components/grid-view/grid.view';
 import Finder from './components/finder/finder';
 import TreeView from './components/tree-view/tree.view';
 
 import { CurrentViewContext, TabsConfigContext } from './universal.discovery.module';
+
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
 
 const BrowseTabModule = () => {
     const [currentView] = useContext(CurrentViewContext);

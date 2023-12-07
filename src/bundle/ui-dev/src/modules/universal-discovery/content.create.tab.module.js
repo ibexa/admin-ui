@@ -1,7 +1,5 @@
 import React, { useContext, createRef } from 'react';
 
-import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
-
 import {
     ContentOnTheFlyDataContext,
     TabsContext,
@@ -14,9 +12,12 @@ import {
     LoadedLocationsMapContext,
     MultipleConfigContext,
 } from './universal.discovery.module';
-import { getTranslator, getRouting } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+
 import { findLocationsById } from './services/universal.discovery.service';
 import deepClone from '../common/helpers/deep.clone.helper';
+
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
+import { getTranslator, getRouting } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const ContentCreateTabModule = () => {
     const Routing = getRouting();
@@ -31,7 +32,7 @@ const ContentCreateTabModule = () => {
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [multiple] = useContext(MultipleConfigContext);
     const iframeRef = createRef();
-    const iframeUrl = () => {
+    const getIframeUrl = () => {
         const { locationId, languageCode, contentTypeIdentifier } = contentOnTheFlyData;
 
         return Routing.generate('ibexa.content.on_the_fly.create', {
@@ -95,7 +96,7 @@ const ContentCreateTabModule = () => {
 
     return (
         <div className="m-content-create">
-            <iframe src={iframeUrl()} className="m-content-create__iframe" ref={iframeRef} onLoad={handleIframeLoad} />
+            <iframe src={getIframeUrl()} className="m-content-create__iframe" ref={iframeRef} onLoad={handleIframeLoad} />
         </div>
     );
 };

@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 
-import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
-import Icon from '../../../common/icon/icon';
-
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
+import Icon from '../../../common/icon/icon';
+import Dropdown from '../../../common/dropdown/dropdown';
+
 import {
     DropdownPortalRefContext,
     CreateContentWidgetContext,
@@ -14,8 +14,9 @@ import {
     ContentOnTheFlyConfigContext,
     AllowedContentTypesContext,
 } from '../../universal.discovery.module';
+
+import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
-import Dropdown from '../../../common/dropdown/dropdown';
 
 const ContentCreateWidget = () => {
     const Translator = getTranslator();

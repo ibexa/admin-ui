@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createCssClassNames } from '../helpers/css.class.names';
 
-const PaginationInfo = ({ totalCount, viewingCount, extraClasses, Translator }) => {
+import { getTranslator } from '../../../../../Resources/public/js/scripts/helpers/context.helper';
+
+const PaginationInfo = ({ totalCount, viewingCount, extraClasses }) => {
     if (totalCount === 0) {
         return null;
     }
-
+    const Translator = getTranslator();
     const className = createCssClassNames({
         'ibexa-pagination__info': true,
         [extraClasses]: true,
@@ -27,12 +29,10 @@ PaginationInfo.propTypes = {
     totalCount: PropTypes.number.isRequired,
     viewingCount: PropTypes.number.isRequired,
     extraClasses: PropTypes.string,
-    Translator: PropTypes.object,
 };
 
 PaginationInfo.defaultProps = {
     extraClasses: '',
-    Translator: window.Translator,
 };
 
 export default PaginationInfo;

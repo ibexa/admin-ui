@@ -1,15 +1,10 @@
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
 
-import { formatShortDateTime } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/timezone.helper';
-import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
-
 import Icon from '../common/icon/icon';
 import Thumbnail from '../common/thumbnail/thumbnail';
 import { createCssClassNames } from '../common/helpers/css.class.names';
-import ContentEditButton from './components/content-edit-button/content.edit.button';
-
-import { getTranslator, getRouting, getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { addBookmark, removeBookmark } from './services/universal.discovery.service';
+import ContentEditButton from './components/content-edit-button/content.edit.button';
 import {
     MarkedLocationIdContext,
     LoadedLocationsMapContext,
@@ -17,6 +12,10 @@ import {
     RestInfoContext,
     AllowRedirectsContext,
 } from './universal.discovery.module';
+
+import { formatShortDateTime } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/timezone.helper';
+import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+import { getTranslator, getRouting, getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 export const getLocationData = (loadedLocationsMap, markedLocationId) =>
     loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === markedLocationId) ||

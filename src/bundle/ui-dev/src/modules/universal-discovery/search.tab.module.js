@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 
-import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
-
 import Tab from './components/tab/tab';
 import Search from './components/search/search';
 
 import { LoadedLocationsMapContext, MarkedLocationIdContext, TabsConfigContext } from './universal.discovery.module';
+
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
 
 const SearchTabModule = () => {
     const tabsConfig = useContext(TabsConfigContext);

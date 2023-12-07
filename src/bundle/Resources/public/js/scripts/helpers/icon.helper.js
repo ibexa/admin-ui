@@ -8,6 +8,7 @@ const getIconPath = (path, iconSet) => {
     }
 
     const iconSetPath = adminUiConfig.iconPaths.iconSets[iconSet];
+
     return `${iconSetPath}#${path}`;
 };
 

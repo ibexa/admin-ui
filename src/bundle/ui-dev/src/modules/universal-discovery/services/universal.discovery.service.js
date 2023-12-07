@@ -1,4 +1,4 @@
-import { getRequestHeaders, getRequestMode } from '../../common/services/common.service.js';
+import { getRequestHeaders, getRequestMode } from '../../../../../Resources/public/js/scripts/helpers/request.helper.js';
 import { showErrorNotification } from '../../common/services/notification.service';
 import { handleRequestResponse, handleRequestResponseStatus } from '../../common/helpers/request.helper.js';
 

@@ -5,26 +5,6 @@ export const HEADERS_VIEWS = {
     'Content-Type': 'application/vnd.ibexa.api.ViewInput+json; version=1.1',
 };
 
-export const getRequestMode = ({ instanceUrl }) => {
-    return window.location.origin === instanceUrl ? 'same-origin' : 'cors';
-};
-
-export const getRequestHeaders = ({ token, siteaccess, accessToken, extraHeaders }) => {
-    if (accessToken) {
-        return {
-            Authorization: `Bearer ${accessToken}`,
-            ...(siteaccess && { 'X-Siteaccess': siteaccess }),
-            ...extraHeaders,
-        };
-    }
-
-    return {
-        ...(token && { 'X-CSRF-Token': token }),
-        ...(siteaccess && { 'X-Siteaccess': siteaccess }),
-        ...extraHeaders,
-    };
-};
-
 export const handleRequestResponse = (response) => {
     if (!response.ok) {
         throw Error(response.statusText);
