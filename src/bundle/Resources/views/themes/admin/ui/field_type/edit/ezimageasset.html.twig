@@ -52,7 +52,7 @@
 
     {% if mime_types is defined %}
         <div class="ibexa-data-source__message--mime-types">
-            {{ 'fieldtype.binary_base.mime_types'|trans({'%mime_types%': mime_types|join(',')})|desc('Allowed mime types: %mime_types%') }}
+            {{ 'fieldtype.binary_base.mime_types'|trans({'%mime_types%': mime_types|join(', ')})|desc('Allowed mime types: %mime_types%') }}
         </div>
     {% endif %}
 
