@@ -166,6 +166,11 @@
         <target state="new">Max file size: %size%</target>
         <note>key: fieldtype.binary_base.max_file_size</note>
       </trans-unit>
+      <trans-unit id="b19a26b0ded06a8d2bfc9490e2645ba682c8ca30" resname="fieldtype.binary_base.mime_types">
+        <source>Allowed mime types: %mime_types%</source>
+        <target state="new">Allowed mime types: %mime_types%</target>
+        <note>key: fieldtype.binary_base.mime_types</note>
+      </trans-unit>
       <trans-unit id="763e9b64f4f0024e90753727ccc212a3596bfccd" resname="fieldtype.binary_base.upload_file">
         <source>Upload file</source>
         <target state="new">Upload file</target>

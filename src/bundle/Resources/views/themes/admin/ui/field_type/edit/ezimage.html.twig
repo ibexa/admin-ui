@@ -5,6 +5,7 @@
 {%- block ezplatform_fieldtype_ezimage_row -%}
     {% set preview_block_name = 'ezimage_preview' %}
     {% set max_file_size = min(form.parent.vars.value.fieldDefinition.validatorConfiguration.FileSizeValidator.maxFileSize * 1024 * 1024, max_upload_size|round) %}
+
     {% if mime_types is defined %}
         {% set attr = attr|merge({'data-allowed-file-types': mime_types|join(',') }) %}
     {% else %}
