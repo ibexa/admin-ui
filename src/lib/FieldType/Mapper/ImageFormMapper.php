@@ -44,6 +44,18 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
     {
         $isTranslation = $data->contentTypeData->languageCode !== $data->contentTypeData->mainLanguageCode;
+
+        if (!empty($this->allowedMimeTypes)) {
+            $fieldDefinitionForm
+                ->add('mimeTypes', ChoiceType::class, [
+                    'required' => false,
+                    'multiple' => true,
+                    'choices' => $this->getMimeTypesChoiceList(),
+                    'property_path' => 'fieldSettings[mimeTypes]',
+                    'label' => /** @Desc("Image types") */ 'field_definition.ezimage.image_types',
+                ]);
+        }
+
         $fieldDefinitionForm
             ->add('maxSize', NumberType::class, [
                 'required' => false,
@@ -61,13 +73,6 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
                 ],
                 'disabled' => $isTranslation,
                 'scale' => 1,
-            ])
-            ->add('mimeTypes', ChoiceType::class, [
-                'required' => false,
-                'multiple' => true,
-                'choices' => $this->getMimeTypesChoiceList(),
-                'property_path' => 'fieldSettings[mimeTypes]',
-                'label' => /** @Desc("Image types") */ 'field_definition.ezimage.image_types',
             ])
             ->add('isAlternativeTextRequired', CheckboxType::class, [
                 'required' => false,
