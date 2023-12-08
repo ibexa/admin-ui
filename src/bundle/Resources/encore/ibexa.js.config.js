@@ -175,7 +175,13 @@ module.exports = (Encore) => {
         .addEntry('ibexa-admin-ui-modal-location-trash-single-asset-js', [
             path.resolve(__dirname, '../public/js/scripts/button.state.radio.toggle.js'),
         ])
-        .addEntry('ibexa-admin-ui-dashboard-js', [path.resolve(__dirname, '../public/js/scripts/udw/browse.js')])
+        .addEntry('ibexa-admin-ui-dashboard-js', [
+            path.resolve(__dirname, '../public/js/scripts/udw/browse.js'),
+            path.resolve(__dirname, '../public/js/scripts/cotf/create.js'),
+            path.resolve(__dirname, '../public/js/scripts/button.content.edit.js'),
+            path.resolve(__dirname, '../public/js/scripts/admin.version.edit.conflict.js'),
+            path.resolve(__dirname, '../public/js/scripts/button.translation.edit.js'),
+        ])
         .addEntry('ibexa-admin-ui-link-manager-list-js', [path.resolve(__dirname, '../public/js/scripts/admin.linkmanager.list.js')])
         .addEntry('ibexa-admin-ui-link-manager-view-js', [path.resolve(__dirname, '../public/js/scripts/button.content.edit.js')])
         .addEntry('ibexa-admin-ui-url-wildcards-list-js', [path.resolve(__dirname, '../public/js/scripts/admin.urlwildcards.list.js')])
