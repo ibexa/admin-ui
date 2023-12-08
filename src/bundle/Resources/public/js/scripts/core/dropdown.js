@@ -88,7 +88,7 @@
 
         createSelectedItem(value, label, icon) {
             const container = doc.createElement('div');
-            const selectedItemRendered = this.selectedItemTemplate.replace('{{ value }}', value).replace('{{ label }}', label);
+            const selectedItemRendered = this.selectedItemTemplate.replaceAll('{{ value }}', value).replaceAll('{{ label }}', label);
 
             container.insertAdjacentHTML('beforeend', selectedItemRendered);
 
