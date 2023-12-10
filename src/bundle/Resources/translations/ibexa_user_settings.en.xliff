@@ -130,11 +130,6 @@
         <target state="new">user.setting.focus_mode.on</target>
         <note>key: user.setting.focus_mode.on</note>
       </trans-unit>
-      <trans-unit id="581ee2faad6bfe1d4af2e60bf3912162bd57aedd" resname="user.setting.mode.expert">
-        <source>Expert</source>
-        <target state="new">Expert</target>
-        <note>key: user.setting.mode.expert</note>
-      </trans-unit>
       <trans-unit id="7bbfadd84e2abbfb1923b38c4b27f14fe4585c55" resname="user.setting.mode.help">
         <source><![CDATA[<p><strong>Smart mode</strong> – A clean and intuitive interface with a simplified content structure, designed for new and non-advanced users. Features include:</p>
                         <ul>
@@ -164,11 +159,6 @@
         <source>Mode</source>
         <target state="new">Mode</target>
         <note>key: user.setting.mode.name</note>
-      </trans-unit>
-      <trans-unit id="3d0f321c83d4cf337389cbd0a0d36dc218516750" resname="user.setting.mode.smart">
-        <source>Smart</source>
-        <target state="new">Smart</target>
-        <note>key: user.setting.mode.smart</note>
       </trans-unit>
     </body>
   </file>
