@@ -277,8 +277,8 @@
         <note>key: tab.name.authors</note>
       </trans-unit>
       <trans-unit id="cbbcbdffdfb49411175c7039130d7ae05a5af6cf" resname="tab.name.data">
-        <source>Data</source>
-        <target state="new">Data</target>
+        <source>Fields</source>
+        <target state="new">Fields</target>
         <note>key: tab.name.data</note>
       </trans-unit>
       <trans-unit id="5d92b84a6c78bd443010f172c47d01ce0dacacd7" resname="tab.name.details">

@@ -1,20 +1,20 @@
 (function (global, doc) {
     let activeFieldEdit = null;
-    const FOCUS_MODE_ENABLE_EVENT_NAME = 'ibexa-focus-mode:enable';
-    const FOCUS_MODE_DISABLE_EVENT_NAME = 'ibexa-focus-mode:disable';
-    const focusModeEnableBtns = doc.querySelectorAll('.ibexa-field-edit__focus-mode-control-btn--enable');
-    const focusModeDisbaleBtns = doc.querySelectorAll('.ibexa-field-edit__focus-mode-control-btn--disable');
-    const changeFocusModeState = (active) => {
+    const DISTRACTION_FREE_MODE_ENABLE_EVENT_NAME = 'ibexa-distraction-free:enable';
+    const DISTRACTION_FREE_DISABLE_EVENT_NAME = 'ibexa-distraction-free:disable';
+    const distractionFreeModeEnableBtns = doc.querySelectorAll('.ibexa-field-edit__distraction-free-control-btn--enable');
+    const distractionFreeModeDisableBtns = doc.querySelectorAll('.ibexa-field-edit__distraction-free-control-btn--disable');
+    const changeDistractionFreeModeState = (active) => {
         if (!activeFieldEdit) {
             return;
         }
 
-        const dispatchEventName = active ? FOCUS_MODE_ENABLE_EVENT_NAME : FOCUS_MODE_DISABLE_EVENT_NAME;
+        const dispatchEventName = active ? DISTRACTION_FREE_MODE_ENABLE_EVENT_NAME : DISTRACTION_FREE_DISABLE_EVENT_NAME;
         const editorSourceElement = activeFieldEdit.querySelector('.ibexa-data-source__richtext');
         const editorInstance = editorSourceElement.ckeditorInstance;
 
-        activeFieldEdit.classList.toggle('ibexa-field-edit--focus-mode-active', active);
-        editorInstance.set('focusModeActive', active);
+        activeFieldEdit.classList.toggle('ibexa-field-edit--distraction-free-mode-active', active);
+        editorInstance.set('distractionFreeModeActive', active);
 
         doc.body.dispatchEvent(
             new CustomEvent(dispatchEventName, {
@@ -30,33 +30,33 @@
     };
     const handleKeyPress = (event) => {
         if (event.key === 'Escape') {
-            changeFocusModeState(false);
+            changeDistractionFreeModeState(false);
         }
     };
 
-    focusModeEnableBtns.forEach((btn) => {
+    distractionFreeModeEnableBtns.forEach((btn) => {
         btn.addEventListener(
             'click',
             ({ currentTarget }) => {
                 activeFieldEdit = currentTarget.closest('.ibexa-field-edit');
-                changeFocusModeState(true);
+                changeDistractionFreeModeState(true);
             },
             false,
         );
     });
-    focusModeDisbaleBtns.forEach((btn) => {
-        btn.addEventListener('click', () => changeFocusModeState(false), false);
+    distractionFreeModeDisableBtns.forEach((btn) => {
+        btn.addEventListener('click', () => changeDistractionFreeModeState(false), false);
     });
 
     doc.body.addEventListener(
-        FOCUS_MODE_ENABLE_EVENT_NAME,
+        DISTRACTION_FREE_MODE_ENABLE_EVENT_NAME,
         () => {
             doc.body.addEventListener('keydown', handleKeyPress, false);
         },
         false,
     );
     doc.body.addEventListener(
-        FOCUS_MODE_DISABLE_EVENT_NAME,
+        DISTRACTION_FREE_DISABLE_EVENT_NAME,
         () => {
             doc.body.removeEventListener('keydown', handleKeyPress, false);
         },
