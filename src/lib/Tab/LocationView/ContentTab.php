@@ -53,7 +53,7 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
 
     public function getName(): string
     {
-        return $this->translator->trans(/** @Desc("Data") */ 'tab.name.data', [], 'ibexa_locationview');
+        return $this->translator->trans(/** @Desc("Fields") */ 'tab.name.data', [], 'ibexa_locationview');
     }
 
     public function getOrder(): int
