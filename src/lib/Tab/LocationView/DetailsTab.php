@@ -15,9 +15,9 @@ use Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData;
 use Ibexa\AdminUi\Form\Type\Location\LocationAssignSectionType;
 use Ibexa\AdminUi\Form\Type\Location\LocationUpdateType;
 use Ibexa\AdminUi\Form\Type\ObjectState\ContentObjectStateUpdateType;
-use Ibexa\AdminUi\Specification\UserMode\IsUserModeEnabled;
+use Ibexa\AdminUi\Specification\UserMode\IsFocusModeEnabled;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
-use Ibexa\AdminUi\UserSetting\UserMode;
+use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
@@ -84,7 +84,7 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
 
     public function evaluate(array $parameters): bool
     {
-        return IsUserModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(UserMode::EXPERT);
+        return IsFocusModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(FocusMode::FOCUS_MODE_OFF);
     }
 
     /**

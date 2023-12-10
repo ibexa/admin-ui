@@ -30,7 +30,7 @@ services:
         tags:
             - { name: ibexa.user.setting.group, identifier: mode, priority: -10 }
 
-    Ibexa\AdminUi\UserSetting\UserMode:
+    Ibexa\AdminUi\UserSetting\FocusMode:
         tags:
-            - { name: ibexa.user.setting.value, identifier: user_mode, group: mode, priority: 10 }
-            - { name: ibexa.user.setting.mapper.form, identifier: user_mode }
+            - { name: ibexa.user.setting.value, identifier: focus_mode, group: mode, priority: 10 }
+            - { name: ibexa.user.setting.mapper.form, identifier: focus_mode }

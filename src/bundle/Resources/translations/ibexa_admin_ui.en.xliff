@@ -26,15 +26,15 @@
         <target state="new">Removed '%languageCode%' translation from '%name%'.</target>
         <note>key: translation.remove.success</note>
       </trans-unit>
-      <trans-unit id="0f313126239afeaa231f0b3d612157cf45a2bc18" resname="user.mode.expert">
-        <source>Expert mode</source>
-        <target state="new">Expert mode</target>
-        <note>key: user.mode.expert</note>
+      <trans-unit id="73736cfd7959543f99b6edba300bc4d7c9c5683a" resname="user.focus_mode.off">
+        <source>Focus mode off</source>
+        <target state="new">Focus mode off</target>
+        <note>key: user.focus_mode.off</note>
       </trans-unit>
-      <trans-unit id="51322eb3bc0a8251318410f06eb9d1595727d749" resname="user.mode.smart">
-        <source>Smart mode</source>
-        <target state="new">Smart mode</target>
-        <note>key: user.mode.smart</note>
+      <trans-unit id="8606b9e2c215d136dccfdb4b64cd5bfaa5a904cc" resname="user.focus_mode.on">
+        <source>Focus mode on</source>
+        <target state="new">Focus mode on</target>
+        <note>key: user.focus_mode.on</note>
       </trans-unit>
       <trans-unit id="d88f09dfa6b5a01de87c36fb97c09902cebcb3cc" resname="user_profile.action.edit">
         <source>Edit</source>

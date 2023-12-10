@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
-use Ibexa\AdminUi\Specification\UserMode\IsUserModeEnabled;
-use Ibexa\AdminUi\UserSetting\UserMode;
+use Ibexa\AdminUi\Specification\UserMode\IsFocusModeEnabled;
+use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
@@ -304,7 +304,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             ]
         );
 
-        if (IsUserModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(UserMode::EXPERT)) {
+        if (IsFocusModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(FocusMode::FOCUS_MODE_OFF)) {
             $contentGroupSettings = $menu->addChild(
                 self::ITEM_CONTENT_GROUP_SETTINGS,
                 [

@@ -81,10 +81,54 @@
         <target state="new">In-Context translation</target>
         <note>key: settings.in_context_translation.value.title</note>
       </trans-unit>
-      <trans-unit id="1908a078c655a123c1e03b2b8dbe39240ad9d7f5" resname="user.setting.mode.description">
-        <source>Mode</source>
-        <target state="new">Mode</target>
-        <note>key: user.setting.mode.description</note>
+      <trans-unit id="05bad24df7e1efd6680f0c20d79080430605bf48" resname="user.setting.focus_mode.description">
+        <source>Focus mode</source>
+        <target state="new">Focus mode</target>
+        <note>key: user.setting.focus_mode.description</note>
+      </trans-unit>
+      <trans-unit id="cffd55da53aff9b2efc64a42454deb1984c0264c" resname="user.setting.focus_mode.help">
+        <source><![CDATA[<p><strong>Focus mode: on</strong> – A clean and intuitive interface with a simplified content
+                        structure, designed for new and non-advanced users. Features include:</p>
+                        <ul>
+                            <li>View</li>
+                            <li>Hidden Technical Details tab</li>
+                            <li>Hidden Locations and Versions tabs in Content items</li>
+                        </ul>
+                        <p><strong>Focus mode: off</strong> – Tailored for experienced users familiar with Ibexa DXP.
+                        Provides comprehensive insights into the technical aspects of Content structure, including:</p>
+                        <ul>
+                            <li>Technical Details tab</li>
+                            <li>Location: Archived versions</li>
+                        </ul>]]></source>
+        <target state="new"><![CDATA[<p><strong>Focus mode: on</strong> – A clean and intuitive interface with a simplified content
+                        structure, designed for new and non-advanced users. Features include:</p>
+                        <ul>
+                            <li>View</li>
+                            <li>Hidden Technical Details tab</li>
+                            <li>Hidden Locations and Versions tabs in Content items</li>
+                        </ul>
+                        <p><strong>Focus mode: off</strong> – Tailored for experienced users familiar with Ibexa DXP.
+                        Provides comprehensive insights into the technical aspects of Content structure, including:</p>
+                        <ul>
+                            <li>Technical Details tab</li>
+                            <li>Location: Archived versions</li>
+                        </ul>]]></target>
+        <note>key: user.setting.focus_mode.help</note>
+      </trans-unit>
+      <trans-unit id="585f7f7c62212ea3de792ae339db9e838f27d77a" resname="user.setting.focus_mode.name">
+        <source>Focus mode</source>
+        <target state="new">Focus mode</target>
+        <note>key: user.setting.focus_mode.name</note>
+      </trans-unit>
+      <trans-unit id="ff6e958aad946d4fed9a52212626b24394e70764" resname="user.setting.focus_mode.off">
+        <source>user.setting.focus_mode.off</source>
+        <target state="new">user.setting.focus_mode.off</target>
+        <note>key: user.setting.focus_mode.off</note>
+      </trans-unit>
+      <trans-unit id="77b180457c16ed97dcf406f5d225f2bbeac16d4a" resname="user.setting.focus_mode.on">
+        <source>user.setting.focus_mode.on</source>
+        <target state="new">user.setting.focus_mode.on</target>
+        <note>key: user.setting.focus_mode.on</note>
       </trans-unit>
       <trans-unit id="581ee2faad6bfe1d4af2e60bf3912162bd57aedd" resname="user.setting.mode.expert">
         <source>Expert</source>

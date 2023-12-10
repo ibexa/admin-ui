@@ -12,7 +12,7 @@ use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Tab\LocationView\LocationsTab;
 use Ibexa\AdminUi\UI\Value\Content\Location\Mapper;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
-use Ibexa\AdminUi\UserSetting\UserMode;
+use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\SearchService;
@@ -45,7 +45,7 @@ final class LocationsTabVisibilityTest extends AbstractTabVisibilityTestCase
 
     public function dataProviderForTestTabVisibilityInGivenUserMode(): iterable
     {
-        yield 'smart mode' => [UserMode::SMART, [], false];
-        yield 'expert mode' => [UserMode::EXPERT, [], true];
+        yield 'focus mode on' => [FocusMode::FOCUS_MODE_ON, [], false];
+        yield 'focus mode off' => [FocusMode::FOCUS_MODE_OFF, [], true];
     }
 }

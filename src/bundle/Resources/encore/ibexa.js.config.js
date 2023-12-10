@@ -39,7 +39,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/admin.anchor.navigation'),
     path.resolve(__dirname, '../public/js/scripts/admin.context.menu'),
     path.resolve(__dirname, '../public/js/scripts/admin.distraction.free.mode.js'),
-    path.resolve(__dirname, '../public/js/scripts/admin.user.mode.js'),
+    path.resolve(__dirname, '../public/js/scripts/admin.focus.mode.js'),
     path.resolve(__dirname, '../public/js/scripts/sidebar/main.menu.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.input.text.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.table.js'),

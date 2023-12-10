@@ -8,29 +8,29 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Bundle\AdminUi\Templating\Twig;
 
-use Ibexa\AdminUi\UserSetting\UserMode;
-use Ibexa\Bundle\AdminUi\Templating\Twig\UserModeExtension;
+use Ibexa\AdminUi\UserSetting\FocusMode;
+use Ibexa\Bundle\AdminUi\Templating\Twig\FocusModeExtension;
 use Ibexa\User\UserSetting\UserSetting;
 use Ibexa\User\UserSetting\UserSettingService;
 use Twig\Test\IntegrationTestCase;
 
-final class UserModeExtensionTest extends IntegrationTestCase
+final class FocusModeExtensionTest extends IntegrationTestCase
 {
     protected function getExtensions(): array
     {
         $userSetting = $this->createMock(UserSetting::class);
-        $userSetting->method('__get')->with('value')->willReturn(UserMode::SMART);
+        $userSetting->method('__get')->with('value')->willReturn(FocusMode::FOCUS_MODE_ON);
 
         $userSettingService = $this->createMock(UserSettingService::class);
-        $userSettingService->method('getUserSetting')->with(UserMode::IDENTIFIER)->willReturn($userSetting);
+        $userSettingService->method('getUserSetting')->with(FocusMode::IDENTIFIER)->willReturn($userSetting);
 
         return [
-            new UserModeExtension($userSettingService),
+            new FocusModeExtension($userSettingService),
         ];
     }
 
     protected function getFixturesDir(): string
     {
-        return __DIR__ . '/_fixtures/user_mode/';
+        return __DIR__ . '/_fixtures/focus_mode/';
     }
 }

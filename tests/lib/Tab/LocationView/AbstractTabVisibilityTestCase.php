@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Tab\LocationView;
 
-use Ibexa\AdminUi\UserSetting\UserMode;
+use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
 use Ibexa\User\UserSetting\UserSetting;
 use Ibexa\User\UserSetting\UserSettingService;
@@ -27,7 +27,7 @@ abstract class AbstractTabVisibilityTestCase extends TestCase
         $userSetting->method('__get')->with('value')->willReturn($userMode);
 
         $userSettingService = $this->createMock(UserSettingService::class);
-        $userSettingService->method('getUserSetting')->with(UserMode::IDENTIFIER)->willReturn($userSetting);
+        $userSettingService->method('getUserSetting')->with(FocusMode::IDENTIFIER)->willReturn($userSetting);
 
         $actualResult = $this->createTabForVisibilityInGivenUserModeTest($userSettingService)->evaluate($parameters);
 

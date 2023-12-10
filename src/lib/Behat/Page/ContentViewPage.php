@@ -184,7 +184,7 @@ class ContentViewPage extends Page
 
     public function switchToUserMode(string $mode): void
     {
-        $this->upperMenu->switchToUserMode($mode);
+        $this->upperMenu->switchToFocusMode($mode);
 
         $expertModeTab = 'Technical Details';
 

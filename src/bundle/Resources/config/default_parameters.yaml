@@ -77,4 +77,4 @@ parameters:
 
     ibexa.admin_ui.content_tree.node_factory.max_location_ids_in_single_aggregation: 100
 
-    ibexa.site_access.config.default.admin_ui.default_user_mode: '1'
+    ibexa.site_access.config.default.admin_ui.default_focus_mode: '1'

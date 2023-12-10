@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
-use Ibexa\AdminUi\UserSetting\UserMode;
+use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\AbstractParser;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
@@ -21,14 +21,14 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *   system:
  *      default: # configuration per siteaccess or siteaccess group
  *          admin_ui:
- *              default_user_mode: smart
+ *              default_focus_mode: on
  * ```
  */
 final class AdminUiParser extends AbstractParser
 {
     private const MODES = [
-        'expert' => UserMode::EXPERT,
-        'smart' => UserMode::SMART,
+        'off' => FocusMode::FOCUS_MODE_OFF,
+        'on' => FocusMode::FOCUS_MODE_ON,
     ];
 
     /**
@@ -52,9 +52,9 @@ final class AdminUiParser extends AbstractParser
     {
         $root = $nodeBuilder->arrayNode('admin_ui');
         $root->children()
-            ->enumNode('default_user_mode')
-                ->info('Default user mode setting')
-                ->values(['smart', 'expert'])
+            ->enumNode('default_focus_mode')
+                ->info('Default focus mode value')
+                ->values(['on', 'off'])
             ->end()
         ->end();
     }
@@ -67,14 +67,14 @@ final class AdminUiParser extends AbstractParser
         string $currentScope,
         ContextualizerInterface $contextualizer
     ): void {
-        $userMode = $settings['default_user_mode'];
+        $userMode = $settings['default_focus_mode'];
 
         if (!array_key_exists($userMode, self::MODES)) {
             return;
         }
 
         $contextualizer->setContextualParameter(
-            'admin_ui.default_user_mode',
+            'admin_ui.default_focus_mode',
             $currentScope,
             self::MODES[$userMode]
         );

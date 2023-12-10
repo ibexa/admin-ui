@@ -191,7 +191,7 @@ services:
         tags:
             - controller.service_arguments
 
-    Ibexa\Bundle\AdminUi\Controller\User\UserModeController:
+    Ibexa\Bundle\AdminUi\Controller\User\FocusModeController:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true
         tags:

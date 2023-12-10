@@ -31,7 +31,7 @@
             { content: translation.name },
         ]) %}
 
-        {% if ibexa_is_expert_mode() %}
+        {% if ibexa_is_focus_mode_off() %}
             {% set body_row_cols = body_row_cols|merge([
                 { content: translation.languageCode }
             ]) %}
@@ -62,7 +62,7 @@
         { content: 'tab.translations.language_name'|trans|desc('Language name') },
     ] %}
 
-    {% if ibexa_is_expert_mode() %}
+    {% if ibexa_is_focus_mode_off() %}
         {% set head_cols = head_cols|merge([
             { content: 'tab.translations.language_code'|trans|desc('Language code') }
         ]) %}

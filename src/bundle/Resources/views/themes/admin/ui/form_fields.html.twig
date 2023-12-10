@@ -558,11 +558,11 @@
     </div>
 {%- endblock -%}
 
-{% block user_mode_toggle_widget %}
-    {% set label_on  = 'user.mode.expert'|trans({}, 'ibexa_admin_ui')|desc('Expert mode') %}
-    {% set label_off = 'user.mode.smart'|trans({}, 'ibexa_admin_ui')|desc('Smart mode') %}
+{% block focus_mode_toggle_widget %}
+    {% set label_on  = 'user.focus_mode.on'|trans({}, 'ibexa_admin_ui')|desc('Focus mode on') %}
+    {% set label_off = 'user.focus_mode.off'|trans({}, 'ibexa_admin_ui')|desc('Focus mode off') %}
     {% set small = true %}
-    {% set checked = ibexa_is_expert_mode() %}
+    {% set checked = ibexa_is_focus_mode_on() %}
 
     {{ block('toggle_widget') }}
 {% endblock %}

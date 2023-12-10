@@ -8,22 +8,22 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\User;
 
-final class UserModeChangeData
+final class FocusModeChangeData
 {
-    private ?bool $mode;
+    private ?bool $enabled;
 
     public function __construct(?bool $data = null)
     {
-        $this->mode = $data;
+        $this->enabled = $data;
     }
 
-    public function getMode(): ?bool
+    public function isEnabled(): ?bool
     {
-        return $this->mode;
+        return $this->enabled;
     }
 
-    public function setMode(?bool $mode): void
+    public function setEnabled(?bool $enabled): void
     {
-        $this->mode = $mode;
+        $this->enabled = $enabled;
     }
 }

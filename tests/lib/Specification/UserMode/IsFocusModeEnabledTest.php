@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Specification\UserMode;
 
-use Ibexa\AdminUi\Specification\UserMode\IsUserModeEnabled;
-use Ibexa\AdminUi\UserSetting\UserMode;
+use Ibexa\AdminUi\Specification\UserMode\IsFocusModeEnabled;
+use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\User\UserSetting\UserSetting;
 use Ibexa\User\UserSetting\UserSettingService;
 use PHPUnit\Framework\TestCase;
 
-final class IsUserModeEnabledTest extends TestCase
+final class IsFocusModeEnabledTest extends TestCase
 {
     /**
      * @dataProvider dataProviderForIsSatisfiedBy
@@ -23,7 +23,7 @@ final class IsUserModeEnabledTest extends TestCase
     {
         self::assertEquals(
             $expectedResult,
-            (new IsUserModeEnabled($userMode))->isSatisfiedBy($value)
+            (new IsFocusModeEnabled($userMode))->isSatisfiedBy($value)
         );
     }
 
@@ -36,11 +36,11 @@ final class IsUserModeEnabledTest extends TestCase
         $userSetting->method('__get')->with('value')->willReturn($userMode);
 
         $userSettingService = $this->createMock(UserSettingService::class);
-        $userSettingService->method('getUserSetting')->with(UserMode::IDENTIFIER)->willReturn($userSetting);
+        $userSettingService->method('getUserSetting')->with(FocusMode::IDENTIFIER)->willReturn($userSetting);
 
         self::assertEquals(
             $expectedResult,
-            IsUserModeEnabled::fromUserSettings($userSettingService)->isSatisfiedBy($value)
+            IsFocusModeEnabled::fromUserSettings($userSettingService)->isSatisfiedBy($value)
         );
     }
 
@@ -49,9 +49,9 @@ final class IsUserModeEnabledTest extends TestCase
      */
     public function dataProviderForIsSatisfiedBy(): iterable
     {
-        yield [UserMode::SMART, UserMode::SMART, true];
-        yield [UserMode::SMART, UserMode::EXPERT, false];
-        yield [UserMode::EXPERT, UserMode::SMART, false];
-        yield [UserMode::EXPERT, UserMode::EXPERT, true];
+        yield [FocusMode::FOCUS_MODE_ON, FocusMode::FOCUS_MODE_ON, true];
+        yield [FocusMode::FOCUS_MODE_ON, FocusMode::FOCUS_MODE_OFF, false];
+        yield [FocusMode::FOCUS_MODE_OFF, FocusMode::FOCUS_MODE_ON, false];
+        yield [FocusMode::FOCUS_MODE_OFF, FocusMode::FOCUS_MODE_OFF, true];
     }
 }

@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Tab\LocationView;
 
 use Ibexa\AdminUi\Specification\UserExists;
-use Ibexa\AdminUi\Specification\UserMode\IsUserModeEnabled;
-use Ibexa\AdminUi\UserSetting\UserMode;
+use Ibexa\AdminUi\Specification\UserMode\IsFocusModeEnabled;
+use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
@@ -92,7 +92,7 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
 
     public function evaluate(array $parameters): bool
     {
-        return IsUserModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(UserMode::SMART);
+        return IsFocusModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(FocusMode::FOCUS_MODE_ON);
     }
 
     /**
