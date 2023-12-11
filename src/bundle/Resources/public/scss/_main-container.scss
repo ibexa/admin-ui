@@ -70,7 +70,16 @@
                 .ibexa-main-container {
                     &__side-column {
                         min-width: 0;
-                        width: 0;
+                    }
+                }
+
+                &.ibexa-main-container {
+                    &--without-anchor-close-btn {
+                        .ibexa-main-container {
+                            &__side-column {
+                                width: 0;
+                            }
+                        }
                     }
                 }
             }
