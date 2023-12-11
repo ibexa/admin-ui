@@ -159,6 +159,13 @@ export default class SubItemsModule extends Component {
         }
 
         this.adaptHeaderActions();
+
+        const subitemsTab = this._refMainContainerWrapper.current.closest('.ibexa-tab-content__pane');
+        const subitemsNavTab = document.querySelector(`.ibexa-tabs__link[href="#${subitemsTab.id}"]`);
+
+        subitemsNavTab.addEventListener('shown.bs.tab', () => {
+            this.popperInstance.forceUpdate();
+        });
     }
 
     componentDidUpdate() {
@@ -193,6 +200,7 @@ export default class SubItemsModule extends Component {
         const { subItemsWidth } = this.state;
 
         if (calculatedWidth !== subItemsWidth) {
+            this.popperInstance.forceUpdate();
             this.setState({ subItemsWidth: calculatedWidth });
         }
     }
@@ -1440,14 +1448,6 @@ export default class SubItemsModule extends Component {
         const isTableViewActive = activeView === VIEW_MODE_TABLE;
         const pageLoaded = !!activePageItems;
         const bulkBtnDisabled = nothingSelected || !isTableViewActive || !pageLoaded;
-        const actionBtns = [
-            ...this.props.extraActions.map(this.renderExtraActions),
-            this.renderBulkMoveBtn(bulkBtnDisabled),
-            this.renderBulkAddLocationBtn(bulkBtnDisabled),
-            this.renderBulkHideBtn(bulkHideBtnDisabled),
-            this.renderBulkUnhideBtn(bulkUnhideBtnDisabled),
-            this.renderBulkDeleteBtn(bulkBtnDisabled),
-        ];
         let bulkHideBtnDisabled = true;
         let bulkUnhideBtnDisabled = true;
         let listClassName = 'm-sub-items__list';
@@ -1462,6 +1462,15 @@ export default class SubItemsModule extends Component {
             bulkHideBtnDisabled = !selectedItemsValues.some((item) => !item.hidden);
             bulkUnhideBtnDisabled = !selectedItemsValues.some((item) => !!item.hidden);
         }
+
+        const actionBtns = [
+            ...this.props.extraActions.map(this.renderExtraActions),
+            this.renderBulkMoveBtn(bulkBtnDisabled),
+            this.renderBulkAddLocationBtn(bulkBtnDisabled),
+            this.renderBulkHideBtn(bulkHideBtnDisabled),
+            this.renderBulkUnhideBtn(bulkUnhideBtnDisabled),
+            this.renderBulkDeleteBtn(bulkBtnDisabled),
+        ];
 
         return (
             <div ref={this._refMainContainerWrapper}>
