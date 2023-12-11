@@ -222,5 +222,10 @@ services:
     Ibexa\Bundle\AdminUi\Controller\Permission\LanguageLimitationController:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true
+
+
+    Ibexa\Bundle\AdminUi\Controller\ApplicationConfigController:
+        parent: Ibexa\Rest\Server\Controller
+        autowire: true
         tags:
             - controller.service_arguments

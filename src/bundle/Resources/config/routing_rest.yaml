@@ -101,3 +101,14 @@ ibexa.udw.accordion.gridview.data:
     methods: [GET]
     options:
         expose: true
+
+#
+# ApplicationConfig
+#
+
+ibexa.rest.application_config:
+    path: /application-config
+    controller: 'Ibexa\Bundle\AdminUi\Controller\ApplicationConfigController::loadConfigAction'
+    methods: [GET]
+    options:
+        expose: true

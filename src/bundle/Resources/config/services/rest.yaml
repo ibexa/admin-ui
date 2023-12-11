@@ -77,3 +77,13 @@ services:
         parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
         tags:
             - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\UniversalDiscovery\AccordionData }
+
+    #
+    # ApplicationConfig
+    #
+    Ibexa\AdminUi\REST\Output\ValueObjectVisitor\ApplicationConfigVisitor:
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
+        arguments:
+            $applicationConfigRestGeneratorRegistry: '@Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestGeneratorRegistryInterface'
+        tags:
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\ApplicationConfig }
