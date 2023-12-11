@@ -68,7 +68,7 @@
                     {% if can_change_password == false %}
                         {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
                             type: 'warning',
-                            title: 'user.password.message'|trans()|desc('You don\'t have permissions to change the password. Contact your administrator.'),
+                            title: 'my_account_settings.password.message'|trans|desc('You don\'t have permissions to change the password. Contact your administrator.'),
                             icon_path: ibexa_icon_path('warning'),
                             show_close_btn: true
 		                } only %}

@@ -508,6 +508,11 @@
         <target state="new">Password</target>
         <note>key: my_account_settings.password.title</note>
       </trans-unit>
+      <trans-unit id="0305297fa410b3bfb22eb87fa2bea63dabf7e2d6" resname="my_account_settings.password.message">
+        <source>You don't have permissions to change the password. Contact your administrator.</source>
+        <target state="new">You don't have permissions to change the password. Contact your administrator.</target>
+        <note>key: user.password.message</note>
+      </trans-unit>
       <trans-unit id="5b03625b8de51d296ad7f4bc980e631c964185d8" resname="notification.no_longer_available">
         <source>The Content item is no longer available</source>
         <target state="new">The Content item is no longer available</target>
