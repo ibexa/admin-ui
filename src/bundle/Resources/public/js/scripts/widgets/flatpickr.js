@@ -1,4 +1,4 @@
-import flatpickrLanguages from '../../../../../../../../../../public/bundles/ibexaadminuiassets/vendors/flatpickr/dist/l10n';
+import flatpickrLanguages from '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/flatpickr/dist/l10n';
 
 (function (global, doc, ibexa, flatpickr) {
     const { backOfficeLanguage } = ibexa.adminUiConfig;
