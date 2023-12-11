@@ -127,6 +127,12 @@
                             <img class="ibexa-main-header__brand-image" src="{{ asset('bundles/ibexaadminui/img/ibexa-logo.svg') }}" alt="Ibexa" />
                         </a>
                     {% endblock %}
+                    {% block user_mode %}
+                        {# TODO: get user mode from backend #}
+                        {{ include('@ibexadesign/ui/user_mode_badge.html.twig', {
+                            smart_mode: true,
+                        }) }}
+                    {% endblock %}
                 </div>
                 <div class="ibexa-main-header__search-column">
                     {% block global_search %}

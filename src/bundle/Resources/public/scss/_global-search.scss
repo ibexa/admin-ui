@@ -1,6 +1,6 @@
 .ibexa-global-search {
     width: 100%;
-    max-width: calculateRem(670px);
+    max-width: calculateRem(600px);
     position: relative;
 
     .ibexa-input-text-wrapper {
@@ -21,9 +21,9 @@
 
             &--search {
                 background: $ibexa-color-info-600;
-                width: calculateRem(58px);
-                height: calculateRem(48px);
-                transform: translateX(10px);
+                width: calculateRem(40px);
+                height: calculateRem(40px);
+                transform: translateX(calculateRem(8px));
 
                 &:hover {
                     box-shadow: 0 calculateRem(22px) calculateRem(24px) 0 rgba($ibexa-color-info, 0.2);
@@ -49,10 +49,11 @@
     }
 
     &__input {
-        height: calculateRem(48px);
+        height: calculateRem(40px);
+        padding: calculateRem(4px) calculateRem(56px) calculateRem(4px) calculateRem(16px);
         color: $ibexa-color-white;
         border-color: $ibexa-color-info;
-        background: $ibexa-color-info-800;
+        background: rgba($ibexa-color-white, 0.1);
 
         &.ibexa-input--text:not(:focus):placeholder-shown {
             border-color: transparent;
@@ -62,8 +63,7 @@
             &:not(:disabled) {
                 &:focus,
                 &:hover {
-                    border-color: $ibexa-color-info;
-                    background: $ibexa-color-info-800;
+                    border-color: $ibexa-color-info-600;
                 }
             }
         }
