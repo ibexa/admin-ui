@@ -21,7 +21,8 @@
         tabs: [
           { id: 'my-preferences', label: 'section.my_preferences'|trans|desc('Preferences'), active: true },
           { id: 'my-account-settings', label: 'section.my_account_settings'|trans|desc('Account settings') },
-        ]
+        ],
+        hide_toggler: true
     } %}
         {% block tab_content %}
             {% embed '@ibexadesign/ui/component/tab/tab_pane.html.twig' with { id: 'my-preferences', active: true } %}
