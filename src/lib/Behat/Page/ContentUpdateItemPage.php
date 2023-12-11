@@ -64,11 +64,14 @@ class ContentUpdateItemPage extends Page
             Assert::assertEquals(
                 $this->pageTitle,
                 $this->getHTMLPage()
-                    ->setTimeout(10)
+                    ->setTimeout(20)
                     ->find($this->getLocator('pageTitle'))->getText()
             );
         }
-        $this->getHTMLPage()->setTimeout(10)->find($this->getLocator('formElement'))->assert()->isVisible();
+        $this->getHTMLPage()
+            ->setTimeout(20)
+            ->find($this->getLocator('formElement'))
+            ->assert()->isVisible();
         $this->contentActionsMenu->verifyIsLoaded();
 
         // close notification about new draft created successfully if it's still visible
