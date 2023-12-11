@@ -24,6 +24,9 @@
     <div class="ibexa-content-tree-container"
         data-tree-root-location-id="{{ content_tree_module_root|default(ibexa_admin_ui_config['contentTree']['treeRootLocationId']) }}"
         data-current-location-path="{{ location_path|default('') }}"
+        {% if header is defined %}
+            data-header="{{ header }}"
+        {% endif %}
         style="{{ content_tree_width_style }}"
     >
         <div class="ibexa-content-tree-container__root"></div>
