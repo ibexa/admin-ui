@@ -114,9 +114,6 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         return $menu;
     }
 
-    /**
-     * @return \JMS\TranslationBundle\Model\Message[]
-     */
     public static function getTranslationMessages(): array
     {
         return [

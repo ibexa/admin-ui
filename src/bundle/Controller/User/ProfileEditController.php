@@ -23,8 +23,8 @@ use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
-use Ibexa\Core\Base\Exceptions\UnauthorizedException as CoreUnauthorizedException;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -77,7 +77,7 @@ final class ProfileEditController extends Controller
         }
 
         if (!$this->permissionResolver->canUser('user', 'selfedit', $user)) {
-            throw new CoreUnauthorizedException('user', 'selfedit', ['userId' => $user->getUserId()]);
+            throw $this->createAccessDeniedException();
         }
 
         $languageCode ??= $user->contentInfo->mainLanguageCode;
@@ -104,11 +104,11 @@ final class ProfileEditController extends Controller
             }
         }
 
-        $location = $this->repository->sudo(function () use ($user) {
-            return $this->locationService->loadLocation(
+        $location = $this->repository->sudo(
+            fn (): Location => $this->locationService->loadLocation(
                 (int)$user->versionInfo->contentInfo->mainLocationId
-            );
-        });
+            )
+        );
 
         $parentLocation = null;
         try {

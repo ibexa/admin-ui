@@ -1,7 +1,7 @@
 .ibexa-user-profile-view {
     .ibexa-user-profile {
         &__header {
-            background: $ibexa-color-light-100;
+            background: $ibexa-color-light-100 url('/bundles/ibexaadminui/img/user-profile-bg.svg') top right no-repeat;
             height: calculateRem(276px);
             padding: 0;
             position: relative;
@@ -17,8 +17,8 @@
                     border-radius: 50%;
 
                     &--img {
-                        width: 220px;
-                        height: 220px;
+                        width: calculateRem(220px);
+                        height: calculateRem(220px);
                     }
                 }
             }
@@ -41,7 +41,7 @@
         }
 
         &__aside {
-            width: 590px;
+            width: calculateRem(590px);
             margin-right: calculateRem(20px);
 
             .ibexa-user-profile-summary {

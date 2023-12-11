@@ -11,6 +11,7 @@ namespace Ibexa\Bundle\AdminUi\Controller\User;
 use Ibexa\AdminUi\Specification\UserProfile\IsProfileAvailable;
 use Ibexa\AdminUi\UserProfile\UserProfileConfigurationInterface;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\UserService;
@@ -26,17 +27,21 @@ final class ProfileViewController extends Controller
 
     private RoleService $roleService;
 
+    private PermissionResolver $permissionResolver;
+
     private UserProfileConfigurationInterface $configuration;
 
     public function __construct(
         Repository $repository,
         UserService $userService,
         RoleService $roleService,
+        PermissionResolver $permissionResolver,
         UserProfileConfigurationInterface $configuration
     ) {
         $this->repository = $repository;
         $this->userService = $userService;
         $this->roleService = $roleService;
+        $this->permissionResolver = $permissionResolver;
         $this->configuration = $configuration;
     }
 
@@ -47,12 +52,15 @@ final class ProfileViewController extends Controller
             throw $this->createNotFoundException();
         }
 
+        $canEditProfile = $this->permissionResolver->canUser('user', 'selfedit', $user);
+
         return $this->render(
             '@ibexadesign/account/profile/view.html.twig',
             [
                 'user' => $user,
                 'roles' => $this->getUserRoles($user),
                 'field_groups' => $this->configuration->getFieldGroups(),
+                'can_edit_profile' => $canEditProfile,
             ]
         );
     }
@@ -62,6 +70,10 @@ final class ProfileViewController extends Controller
      */
     private function getUserRoles(User $user): iterable
     {
+        if ($this->permissionResolver->hasAccess('role', 'read') !== true) {
+            return [];
+        }
+
         /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment[] $assignments */
         $assignments = $this->repository->sudo(function () use ($user): iterable {
             return $this->roleService->getRoleAssignmentsForUser($user, true);

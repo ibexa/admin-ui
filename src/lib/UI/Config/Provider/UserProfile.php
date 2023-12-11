@@ -27,7 +27,7 @@ final class UserProfile implements ProviderInterface
     {
         return [
             'enabled' => $this->configuration->isEnabled(),
-            'content_types' => $this->configuration->getContentTypes(),
+            'contentTypes' => $this->configuration->getContentTypes(),
         ];
     }
 }

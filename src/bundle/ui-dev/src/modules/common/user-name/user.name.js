@@ -4,17 +4,18 @@ import PropTypes from 'prop-types';
 import Thumbnail from '../thumbnail/thumbnail';
 const { Routing, ibexa } = window;
 
-const isUserProfileEnabled = (contentType) => {
+const isUserProfileEnabled = (contentTypeIdentifier) => {
     const config = ibexa.adminUiConfig.userProfile;
+
     if (config.enabled) {
-        return config.contentType.contains(contentType);
+        return config.contentTypes.includes(contentTypeIdentifier);
     }
 
     return false;
 };
 
-const UserName = ({ userId, name, thumbnail, contentType }) => {
-    if (isUserProfileEnabled(contentType)) {
+const UserName = ({ userId, name, thumbnail, contentTypeIdentifier }) => {
+    if (isUserProfileEnabled(contentTypeIdentifier)) {
         const profileUrl = Routing.generate('ibexa.user.profile.view', { userId: userId });
 
         return (
@@ -50,7 +51,7 @@ UserName.propTypes = {
         mimeType: PropTypes.string.isRequired,
         uri: PropTypes.string.isRequired,
     }).isRequired,
-    contentType: PropTypes.string.isRequired,
+    contentTypeIdentifier: PropTypes.string.isRequired,
 };
 
 export default UserName;

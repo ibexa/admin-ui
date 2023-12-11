@@ -951,6 +951,11 @@ parameters:
 			path: src/bundle/Controller/User/InvitationController.php
 
 		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Form\\\\ClickableInterface\\|Symfony\\\\Component\\\\Form\\\\FormInterface\\:\\:getName\\(\\)\\.$#"
+			count: 1
+			path: src/bundle/Controller/User/ProfileEditController.php
+
+		-
 			message: "#^Cannot access property \\$id on Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\ContentInfo\\|null\\.$#"
 			count: 1
 			path: src/bundle/Controller/User/UserDeleteController.php
@@ -11010,11 +11015,6 @@ parameters:
 			message: "#^Call to an undefined method Symfony\\\\Contracts\\\\Translation\\\\TranslatorInterface\\:\\:expects\\(\\)\\.$#"
 			count: 2
 			path: tests/lib/EventListener/RequestLocaleListenerTest.php
-
-		-
-			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNull\\(\\) with void will always evaluate to false\\.$#"
-			count: 2
-			path: tests/lib/EventListener/SetViewParametersListenerTest.php
 
 		-
 			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\EventListener\\\\SetViewParametersListenerTest\\:\\:createFieldMock\\(\\) should return Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Field&PHPUnit\\\\Framework\\\\MockObject\\\\MockObject but returns PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Symfony\\\\Component\\\\Form\\\\FormInterface\\.$#"

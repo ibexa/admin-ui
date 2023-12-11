@@ -18,7 +18,7 @@
         icon_name: content_type.name,
         show_autosave_status: false,
         title: "%s %s"|format(user.getFieldValue('first_name'), user.getFieldValue('last_name')),
-        subtitle: 'editing_details'|trans({ '%location%': parent_location.contentInfo.name })|desc('Location: %location%'),
+        subtitle: parent_location ? 'editing_details'|trans({ '%location%': parent_location.contentInfo.name })|desc('Location: %location%') : null,
         context_actions: knp_menu_render(user_content_edit_menu, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
 {% endblock %}

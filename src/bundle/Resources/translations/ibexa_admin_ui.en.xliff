@@ -21,11 +21,6 @@
         <target state="new">Select language</target>
         <note>key: edit_translation.list.title</note>
       </trans-unit>
-      <trans-unit id="773756d8360258c56797a597252082a335b25e2c" resname="profile.view.title">
-        <source>User profile</source>
-        <target state="new">User profile</target>
-        <note>key: profile.view.title</note>
-      </trans-unit>
       <trans-unit id="e4b8188e898e654dae14fc6b18133958f8e56084" resname="translation.remove.success">
         <source>Removed '%languageCode%' translation from '%name%'.</source>
         <target state="new">Removed '%languageCode%' translation from '%name%'.</target>

@@ -6,7 +6,7 @@
 
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
-        { value: 'profile.view.title'|trans|desc('User profile') }
+        { value: 'user_profile.view.title'|trans|desc('User profile') }
     ]} %}
 {% endblock %}
 
@@ -39,7 +39,7 @@
                     <div class="ibexa-user-profile-summary__header">
                         <h3>{{ 'user_profile.summary.title'|trans|desc('Summary') }}</h3>
 
-                        {% if ibexa_is_current_user(user) %}
+                        {% if can_edit_profile and ibexa_is_current_user(user) %}
                             <a href="{{ path('ibexa.user.profile.edit') }}" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small">
                                 <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
                                     <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
@@ -51,66 +51,60 @@
                         {% endif %}
                     </div>
 
-                    <div class="ibexa-details">
-                        <div class="ibexa-details__items ibexa-details__items--vertical ">
-                            <div class="ibexa-details__item ibexa-details__item--inline">
-                                <div class="ibexa-details__item-label ibexa-label">
-                                    {{ 'user_profile.summary.full_name.label'|trans|desc("Full name") }}
-                                </div>
-                                <div class="ibexa-details__item-content">
-                                    {{ ibexa_content_name(content) }}
-                                </div>
-                            </div>
+                    {% set email_link %}
+                        <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+                    {% endset %}
 
-                            <div class="ibexa-details__item ibexa-details__item--inline">
-                                <div class="ibexa-details__item-label ibexa-label">
-                                    {{ 'user_profile.summary.email.label'|trans|desc("Email") }}
-                                </div>
-                                <div class="ibexa-details__item-content">
-                                    <a href="mailto:{{ user.email }}">{{ user.email }}</a>
-                                </div>
-                            </div>
-                            {% for group in field_groups %}
-                                {% set field_definitions = content.getContentType().getFieldDefinitions().filterByGroup(group) %}
+                    {% set items = [
+                        {
+                            label: 'user_profile.summary.full_name.label'|trans|desc("Full name"),
+                            content: ibexa_content_name(content)
+                        },
+                        {
+                            label: 'user_profile.summary.email.label'|trans|desc("Email"),
+                            content_raw: email_link
+                        }
+                    ] %}
 
-                                {% for field_definition in field_definitions %}
-                                    {% set field_identifier = field_definition.identifier %}
-                                    <div class="ibexa-details__item ibexa-details__item--inline">
-                                        <div class="ibexa-details__item-label ibexa-label">
-                                            {{ ibexa_field_name(content, field_identifier) }}
-                                        </div>
-                                        <div class="ibexa-details__item-content">
-                                            {% if not ibexa_field_is_empty(content, field_identifier) %}
-                                                {{ ibexa_render_field(content, field_identifier) }}
-                                            {% else %}
-                                                <em>{{ '-' }}</em>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
+                    {% for group in field_groups %}
+                        {% set field_definitions = content.getContentType().getFieldDefinitions().filterByGroup(group) %}
 
-                <div class="ibexa-user-profile-roles ibexa-container container">
-                    <div class="ibexa-user-profile-summary__header">
-                        <h3>{{ 'user_profile.roles.header'|trans|desc('Roles') }}</h3>
-                    </div>
-
-                    {% for role_assigment in roles %}
-                        <div class="ibexa-tag">
-                            <div class="ibexa-tag__content">
-                                {{ role_assigment.identifier }}
-                            </div>
-                        </div>
+                        {% for field_definition in field_definitions %}
+                            {% set field_identifier = field_definition.identifier %}
+                            {% set items = items|merge([{
+                                label: ibexa_field_name(content, field_identifier),
+                                content_raw: not ibexa_field_is_empty(content, field_identifier) ? ibexa_render_field(content, field_identifier) : '-'
+                            }]) %}
+                        {% endfor %}
                     {% endfor %}
+
+                    {% include '@ibexadesign/ui/component/details/details.html.twig' with {
+                        view_mode: 'vertical',
+                        item_inline: true,
+                        items
+                    } %}
                 </div>
+
+                {% if roles is not empty %}
+                    <div class="ibexa-user-profile-roles ibexa-container container">
+                        <div class="ibexa-user-profile-summary__header">
+                            <h3>{{ 'user_profile.roles.header'|trans|desc('Roles') }}</h3>
+                        </div>
+
+                        {% for role_assigment in roles %}
+                            <div class="ibexa-tag">
+                                <div class="ibexa-tag__content">
+                                    {{ role_assigment.identifier }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </aside>
 
             <main class="ibexa-user-profile__blocks">
                 <div class="ibexa-container container">
-                    {{ ibexa_render_component_group('user-profile-blocks') }}
+                    {{ ibexa_render_component_group('user-profile-blocks', { user }) }}
                 </div>
             </main>
         </div>

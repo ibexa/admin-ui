@@ -291,7 +291,7 @@ export default class TableViewItemComponent extends PureComponent {
                     userId={owner.id}
                     name={this.getName(owner)}
                     thumbnail={owner.thumbnail}
-                    contentType={owner.content._type.identifier}
+                    contentTypeIdentifier={owner.content?._type?.identifier}
                 />
             </div>
         );
@@ -310,7 +310,7 @@ export default class TableViewItemComponent extends PureComponent {
                     userId={creator.id}
                     name={this.getName(creator)}
                     thumbnail={creator.thumbnail}
-                    contentType={creator.content._type.identifier}
+                    contentTypeIdentifier={creator.content?._type?.identifier}
                 />
             </div>
         );

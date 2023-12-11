@@ -13,5 +13,3 @@ services:
         decorates: Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList
         arguments:
             $innerService: '@.inner'
-
-

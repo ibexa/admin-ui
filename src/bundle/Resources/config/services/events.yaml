@@ -66,3 +66,7 @@ services:
             $siteAccessGroups: '%ibexa.site_access.groups%'
         tags:
             - { name: kernel.event_subscriber }
+
+    Ibexa\AdminUi\EventListener\UserProfileListener:
+        tags:
+            - { name: kernel.event_subscriber }
