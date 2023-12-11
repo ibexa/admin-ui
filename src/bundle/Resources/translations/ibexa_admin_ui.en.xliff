@@ -11,6 +11,31 @@
         <target state="new">Missing or invalid CSRF token</target>
         <note>key: asset.upload.invalid_csrf</note>
       </trans-unit>
+      <trans-unit id="68a1a5ea4fa56098f5eae44460514a09ea8f8509" resname="distraction_free_mode.disable.label">
+        <source>Exit distraction free mode</source>
+        <target state="new">Exit distraction free mode</target>
+        <note>key: distraction_free_mode.disable.label</note>
+      </trans-unit>
+      <trans-unit id="3b73a0132e7934156fcf413f3af229612d8eca9c" resname="distraction_free_mode.disable.tooltip">
+        <source>Exit distraction free mode.</source>
+        <target state="new">Exit distraction free mode.</target>
+        <note>key: distraction_free_mode.disable.tooltip</note>
+      </trans-unit>
+      <trans-unit id="d4de5a4ec1a58e845b16ca57b75b6b7585b2c5af" resname="distraction_free_mode.disable_hint">
+        <source>To exit distraction free mode, click the %icon% or press Esc.</source>
+        <target state="new">To exit distraction free mode, click the %icon% or press Esc.</target>
+        <note>key: distraction_free_mode.disable_hint</note>
+      </trans-unit>
+      <trans-unit id="2b32ded42b66d42abbe117ec91d128e2c85bd20d" resname="distraction_free_mode.enable.label">
+        <source>Distraction free mode</source>
+        <target state="new">Distraction free mode</target>
+        <note>key: distraction_free_mode.enable.label</note>
+      </trans-unit>
+      <trans-unit id="8145d8a19ad7bb79048f2a1391153c8f45b2d14f" resname="distraction_free_mode.enable.tooltip">
+        <source>Enter distraction free mode. It shows only rich text editor toolbar and focuses your attention on editing text.</source>
+        <target state="new">Enter distraction free mode. It shows only rich text editor toolbar and focuses your attention on editing text.</target>
+        <note>key: distraction_free_mode.enable.tooltip</note>
+      </trans-unit>
       <trans-unit id="d899cb1dbb25a42ea34f296bf7bef9821df66b72" resname="edit_translation.edit.title">
         <source>Edit</source>
         <target state="new">Edit</target>

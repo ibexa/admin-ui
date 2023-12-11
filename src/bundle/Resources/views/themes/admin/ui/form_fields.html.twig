@@ -508,6 +508,8 @@
 {%- endblock %}
 
 {%- block distraction_free_mode -%}
+    {% trans_default_domain 'ibexa_admin_ui' %}
+
     {%- set title_icon -%}
         <svg class="ibexa-icon ibexa-icon--small">
             <use xlink:href="{{ ibexa_icon_path('un-focus') }}"></use>
