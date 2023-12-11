@@ -65,10 +65,19 @@
             {% endembed %}
             {% embed '@ibexadesign/ui/component/tab/tab_pane.html.twig' with { id: 'my-account-settings' } %}
                 {% block content %}
+                    {% if can_change_password == false %}
+                        {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
+                            type: 'warning',
+                            title: 'user.password.message'|trans()|desc('You don\'t have permissions to change the password. Contact your administrator.'),
+                            icon_path: ibexa_icon_path('warning'),
+                            show_close_btn: true
+		                } only %}
+                    {% endif %}
                     {% set actions %}
                         <a
                             href="{{ path('ibexa.user_profile.change_password') }}"
-                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small
+                                  {% if can_change_password == false %} disabled{% endif %}"
                         >
                             <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
                                 <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>

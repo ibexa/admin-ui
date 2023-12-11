@@ -140,6 +140,11 @@
         <target state="new">user.setting.mode.name</target>
         <note>key: user.setting.mode.name</note>
       </trans-unit>
+      <trans-unit id="62a733989339fcacd48d611b2bb971366a4a8590" resname="user.password.message">
+        <source>You don't have permissions to change the password. Contact your administrator.</source>
+        <target state="new">You don't have permissions to change the password. Contact your administrator.</target>
+        <note>key: my_account_settings.password.message</note>
+      </trans-unit>
     </body>
   </file>
 </xliff>
