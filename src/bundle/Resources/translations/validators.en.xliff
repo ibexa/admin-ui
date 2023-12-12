@@ -96,6 +96,11 @@
         <target state="new">{fieldName}: Cannot upload. File exceeds file size limit.</target>
         <note>key: js.error.invalid_file_size</note>
       </trans-unit>
+      <trans-unit id="e34fdb2fe0c2a86056b2e9084b9226c921044df6" resname="js.error.invalid_file_type">
+        <source>{fieldName}: Cannot upload. File has wrong type.</source>
+        <target state="new">{fieldName}: Cannot upload. File has wrong type.</target>
+        <note>key: js.error.invalid_file_type</note>
+      </trans-unit>
       <trans-unit id="21c38818d1cb73ff54f0dc0b184d6de25058f24d" resname="js.error.invalid_url">
         <source>A valid URL is required</source>
         <target state="new">A valid URL is required</target>

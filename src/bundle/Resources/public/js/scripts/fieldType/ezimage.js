@@ -125,6 +125,13 @@
                 },
                 {
                     isValueValidator: false,
+                    selector: `${SELECTOR_INPUT_FILE}`,
+                    eventName: 'ibexa-invalid-file-type',
+                    callback: 'showFileTypeError',
+                    errorNodeSelectors: ['.ibexa-form-error'],
+                },
+                {
+                    isValueValidator: false,
                     selector: SELECTOR_INPUT_ALT,
                     eventName: EVENT_CANCEL_ERROR,
                     callback: 'cancelErrors',

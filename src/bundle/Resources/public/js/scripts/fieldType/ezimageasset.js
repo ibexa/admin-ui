@@ -187,11 +187,16 @@
          */
         handleInputChange(event) {
             const [file] = event.currentTarget.files;
-            const { languageCode } = event.currentTarget.dataset;
+            const { languageCode, allowedFileTypes } = event.currentTarget.dataset;
             const isFileSizeLimited = this.maxFileSize > 0;
             const maxFileSizeExceeded = isFileSizeLimited && file.size > this.maxFileSize;
 
             if (maxFileSizeExceeded) {
+                this.resetInputField();
+                return;
+            }
+
+            if (!allowedFileTypes.includes(file.type)) {
                 this.resetInputField();
                 return;
             }
@@ -242,6 +247,13 @@
                     selector: `${SELECTOR_INPUT_FILE}`,
                     eventName: 'ibexa-invalid-file-size',
                     callback: 'showFileSizeError',
+                    errorNodeSelectors: ['.ibexa-form-error'],
+                },
+                {
+                    isValueValidator: false,
+                    selector: `${SELECTOR_INPUT_FILE}`,
+                    eventName: 'ibexa-invalid-file-type',
+                    callback: 'showFileTypeError',
                     errorNodeSelectors: ['.ibexa-form-error'],
                 },
             ],

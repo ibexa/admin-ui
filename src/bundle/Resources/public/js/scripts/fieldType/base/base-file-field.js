@@ -16,6 +16,7 @@
             const isRequired = input.required || this.fieldContainer.classList.contains('ibexa-field-edit--required');
             const dataMaxSize = +input.dataset.maxFileSize;
             const maxFileSize = parseInt(dataMaxSize, 10);
+            const { allowedFileTypes } = input.dataset;
             const isEmpty = input.files && !input.files.length && dataContainer && !dataContainer.hasAttribute('hidden');
             let result = { isError: false };
 
@@ -26,8 +27,14 @@
                 };
             }
 
-            if (!isEmpty && maxFileSize > 0 && input.files[0] && input.files[0].size > maxFileSize) {
-                result = this.validateFileSize(event);
+            const file = input.files[0];
+
+            if (!isEmpty && maxFileSize > 0 && file && file.size > maxFileSize) {
+                result = this.validateFileSize();
+            }
+
+            if (!isEmpty && allowedFileTypes.length > 0 && file && !allowedFileTypes.includes(file.type)) {
+                result = this.showFileTypeError();
             }
 
             return result;
@@ -48,6 +55,16 @@
             const result = {
                 isError: true,
                 errorMessage: ibexa.errors.invalidFileSize.replace('{fieldName}', label),
+            };
+
+            return result;
+        }
+
+        showFileTypeError() {
+            const label = this.fieldContainer.querySelector(SELECTOR_FIELD_LABEL).innerHTML;
+            const result = {
+                isError: true,
+                errorMessage: ibexa.errors.invalidFileType.replace('{fieldName}', label),
             };
 
             return result;

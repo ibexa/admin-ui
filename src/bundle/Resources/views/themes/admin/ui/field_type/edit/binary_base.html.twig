@@ -53,9 +53,15 @@
         <div class="ibexa-data-source__message--filesize">{{ 'fieldtype.binary_base.max_file_size'|trans({'%size%': max_file_size|default(0)|ibexa_file_size(2)})|desc('Max file size: %size%') }}</div>
     {% endif %}
 
-    {% if mime_types is defined %}
-        <div class="ibexa-data-source__message--mime-types">
-            {{ 'fieldtype.binary_base.mime_types'|trans({'%mime_types%': mime_types|join(', ')})|desc('Allowed mime types: %mime_types%') }}
+    {% if image_extensions is defined %}
+        {% set extensions = [] %}
+
+        {% for mime_type in mime_types %}
+            {% set extensions = extensions|merge(image_extensions[mime_type]) %}
+        {% endfor %}
+
+        <div class="ibexa-data-source__message--image-extensions">
+            {{ 'fieldtype.binary_base.image_extensions'|trans({'%extensions%': extensions|join(', ')})|desc('Allowed extensions: %extensions%') }}
         </div>
     {% endif %}
 

@@ -87,6 +87,10 @@
                 return this.showFileSizeError();
             }
 
+            if (this.allowedFileTypes.length > 0 && !this.allowedFileTypes.includes(file.type)) {
+                return this.showFileTypeError();
+            }
+
             const changeEvent = new Event('change');
 
             this.inputField.files = event.dataTransfer.files;
@@ -100,6 +104,10 @@
          */
         showFileSizeError() {
             this.inputField.dispatchEvent(new CustomEvent('ibexa-invalid-file-size'));
+        }
+
+        showFileTypeError() {
+            this.inputField.dispatchEvent(new CustomEvent('ibexa-invalid-file-type'));
         }
 
         /**

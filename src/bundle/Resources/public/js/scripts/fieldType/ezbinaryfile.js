@@ -41,6 +41,13 @@
                     callback: 'showFileSizeError',
                     errorNodeSelectors: ['.ibexa-form-error'],
                 },
+                {
+                    isValueValidator: false,
+                    selector: `input[type="file"]`,
+                    eventName: 'ibexa-invalid-file-type',
+                    callback: 'showFileTypeError',
+                    errorNodeSelectors: ['.ibexa-form-error'],
+                },
             ],
         });
         const previewField = new EzBinaryFilePreviewField({
