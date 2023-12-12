@@ -15,7 +15,7 @@
 
     &__icon-wrapper {
         grid-area: icon;
-        margin-top: calculateRem(2px);
+        align-items: center;
         display: flex;
     }
 
