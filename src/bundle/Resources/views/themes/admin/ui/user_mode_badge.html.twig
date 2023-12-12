@@ -1,0 +1,7 @@
+{% trans_default_domain 'ibexa_user_mode_badge' %}
+
+{% if focus_mode == true %}
+    <div class="ibexa-user-mode-badge">
+        {{ 'user_mode_badge.focus'|trans|desc('Focus mode') }}
+    </div>
+{% endif %}
