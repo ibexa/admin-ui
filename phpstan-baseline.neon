@@ -11017,11 +11017,6 @@ parameters:
 			path: tests/lib/EventListener/RequestLocaleListenerTest.php
 
 		-
-			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNull\\(\\) with void will always evaluate to false\\.$#"
-			count: 2
-			path: tests/lib/EventListener/SetViewParametersListenerTest.php
-
-		-
 			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\EventListener\\\\SetViewParametersListenerTest\\:\\:createFieldMock\\(\\) should return Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Field&PHPUnit\\\\Framework\\\\MockObject\\\\MockObject but returns PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Symfony\\\\Component\\\\Form\\\\FormInterface\\.$#"
 			count: 1
 			path: tests/lib/EventListener/SetViewParametersListenerTest.php
