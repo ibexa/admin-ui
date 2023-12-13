@@ -143,6 +143,12 @@ services:
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'userProfile' }
 
+    Ibexa\AdminUi\UI\Config\Provider\Module\ImagePicker:
+        arguments:
+            $imageFieldDefinitionIdentifiers: '%ibexa.image_picker.field_definition_identifiers%'
+        tags:
+            - { name: ibexa.admin_ui.config.provider, key: 'imagePicker' }
+
     # Resolvers
     Ibexa\AdminUi\REST\Generator\ApplicationConfigRestGeneratorRegistry:
         arguments:
