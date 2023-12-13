@@ -44,7 +44,15 @@ export const useSearchByQueryFetch = () => {
                 dispatchLoadedLocationsAction({ type: 'CLEAR_LOCATIONS' });
                 dispatch({ type: SEARCH_END, response });
             };
-            const query = { FullTextCriterion: fullTextCriterion ? fullTextCriterion : `${searchText}*` };
+            const query = {};
+
+            if (searchText) {
+                query.FullTextCriterion = `${searchText}*`;
+            }
+
+            if (fullTextCriterion) {
+                query.FullTextCriterion = fullTextCriterion;
+            }
 
             if (contentTypesIdentifiers && contentTypesIdentifiers.length) {
                 query.ContentTypeIdentifierCriterion = contentTypesIdentifiers;

@@ -475,4 +475,88 @@ export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanc
     const adminUiConfig = await adminUiData.json();
 
     return adminUiConfig.ApplicationConfig;
+    //     userId: 14,
+    //     backOfficeLanguage: 'eng_GB',
+    //     languages: {
+    //         mappings: {
+    //             'eng-GB': {
+    //                 name: 'English (United Kingdom)',
+    //                 id: 2,
+    //                 languageCode: 'eng-GB',
+    //                 enabled: true,
+    //             },
+    //         },
+    //         priority: ['eng-GB'],
+    //     },
+    //     contentTree: {
+    //         loadMoreLimit: 30,
+    //         childrenLoadMaxLimit: 200,
+    //         treeMaxDepth: 10,
+    //         allowedContentTypes: [],
+    //         ignoredContentTypes: [],
+    //         treeRootLocationId: 2,
+    //         contextualTreeRootLocationIds: [2, 5, 43, 48, 57],
+    //     },
+    //     contentTypes: {
+    //         Content: [
+    //             {
+    //                 id: 1,
+    //                 identifier: 'folder',
+    //                 name: 'Folder',
+    //                 isContainer: true,
+    //                 thumbnail: './ibexa-icons.svg#folder',
+    //                 href: '/api/ibexa/v2/content/types/1',
+    //             },
+    //         ],
+    //         Users: [
+    //             {
+    //                 id: 4,
+    //                 identifier: 'user',
+    //                 name: 'User',
+    //                 isContainer: false,
+    //                 thumbnail: './ibexa-icons.svg#user',
+    //                 href: '/api/ibexa/v2/content/types/4',
+    //             },
+    //             {
+    //                 id: 3,
+    //                 identifier: 'user_group',
+    //                 name: 'User group',
+    //                 isContainer: true,
+    //                 thumbnail: './ibexa-icons.svg#user_group',
+    //                 href: '/api/ibexa/v2/content/types/3',
+    //             },
+    //         ],
+    //         Media: [
+    //             {
+    //                 id: 13,
+    //                 identifier: 'image',
+    //                 name: 'Image',
+    //                 isContainer: false,
+    //                 thumbnail: './ibexa-icons.svg#image',
+    //                 href: '/api/ibexa/v2/content/types/13',
+    //             },
+    //         ],
+    //     },
+    //     sections: {
+    //         standard: 'Standard',
+    //         users: 'Users',
+    //         media: 'Media',
+    //     },
+    //     userContentTypes: ['user'],
+    //     timezone: 'UTC',
+    //     dateFormat: {
+    //         fullDateTime: 'LLLL dd, yyyy HH:mm',
+    //         fullDate: 'LLLL dd, yyyy',
+    //         fullTime: 'HH:mm',
+    //         shortDateTime: 'dd/MM/yyyy HH:mm',
+    //         shortDate: 'dd/MM/yyyy',
+    //         shortTime: 'HH:mm',
+    //     },
+    //     iconPaths: {
+    //         iconSets: {
+    //             streamlineicons: '/bundles/ibexaicons/img/all-icons.svg',
+    //         },
+    //         defaultIconSet: 'streamlineicons',
+    //     },
+    // };
 };
