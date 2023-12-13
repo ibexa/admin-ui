@@ -9,15 +9,11 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Component\Component;
-use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
 
 class UpperMenu extends Component
 {
-    private const FOCUS_MODE = ['On', 'Off'];
-
     public function goToDashboard(): void
     {
         $this->getHTMLPage()->find($this->getLocator('dashboardLink'))->click();
@@ -48,39 +44,19 @@ class UpperMenu extends Component
         $this->getHTMLPage()->findAll($this->getLocator('userSettingsItem'))->getByCriterion(new ElementTextCriterion($option))->click();
     }
 
-    public function switchToFocusMode(string $newMode): void
+    public function setFocusMode(bool $expectedModeStatus): void
     {
         $this->getHTMLPage()->find($this->getLocator('userSettingsToggle'))->click();
 
-        $currentMode = explode(
-            ' ',
-            $this->getHTMLPage()->find($this->getLocator('focusMode'))->getText()
-        )[0];
+        $isEnabled = $this->getHTMLPage()->setTimeout(3)->findAll($this->getLocator('userFocusEnabled'))->any();
 
-        if (strtolower($newMode) !== strtolower($currentMode)) {
+        if ($expectedModeStatus != $isEnabled) {
             $this->getHTMLPage()->find($this->getLocator('focusMode'))->click();
-            $this->getHTMLPage()
-                ->waitUntilCondition(
-                    new ElementNotExistsCondition($this->getHTMLPage(), $this->getLocator('userSettingsPopup'))
-                );
-        } else {
-            $this->getHTMLPage()->find($this->getLocator('userSettingsToggle'))->click();
+
+            return;
         }
-    }
-
-    public function getCurrentFocusMode(): string
-    {
-        $this->getHTMLPage()->find($this->getLocator('userSettingsToggle'))->click();
-
-        $mode = explode(
-            ' ',
-            $this->getHTMLPage()->find($this->getLocator('focusMode'))->getText()
-        )[0];
-        Assert::assertContains($mode, self::FOCUS_MODE);
 
         $this->getHTMLPage()->find($this->getLocator('userSettingsToggle'))->click();
-
-        return $mode;
     }
 
     public function verifyIsLoaded(): void
@@ -99,7 +75,8 @@ class UpperMenu extends Component
             new VisibleCSSLocator('userSettingsPopup', '.ibexa-header-user-menu .ibexa-header-user-menu__popup-menu'),
             new VisibleCSSLocator('searchInput', '.ibexa-main-header #search_query'),
             new VisibleCSSLocator('searchButton', '.ibexa-main-header .ibexa-input-text-wrapper__action-btn--search'),
-            new VisibleCSSLocator('focusMode', '[name="focus_mode_change"] .ibexa-toggle__label'),
+            new VisibleCSSLocator('userFocusEnabled', '#focus_mode_change_enabled'),
+            new VisibleCSSLocator('userFocusMode', '[name="focus_mode_change"] .ibexa-toggle__switcher'),
         ];
     }
 }
