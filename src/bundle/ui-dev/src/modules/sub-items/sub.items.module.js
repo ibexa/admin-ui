@@ -1319,14 +1319,27 @@ export default class SubItemsModule extends Component {
         );
     }
 
+    renderColumnsToggler() {
+        const { activeView, columnsVisibility } = this.state;
+
+        if (activeView !== VIEW_MODE_GRID) {
+            return (
+                <ViewColumnsTogglerComponent
+                    columnsVisibility={this.filterSmartModeColumns(columnsVisibility)}
+                    toggleColumnVisibility={this.toggleColumnVisibility}
+                />
+            );
+        }
+    }
+
     render() {
         const listTitle = Translator.trans(/*@Desc("Sub-items")*/ 'items_list.title', {}, 'ibexa_sub_items');
-        const { selectedItems, activeView, totalCount, isDuringBulkOperation, activePageItems, subItemsWidth, columnsVisibility } =
-            this.state;
+        const { selectedItems, activeView, totalCount, isDuringBulkOperation, activePageItems, subItemsWidth } = this.state;
         const nothingSelected = !selectedItems.size;
         const isTableViewActive = activeView === VIEW_MODE_TABLE;
         const pageLoaded = !!activePageItems;
         const bulkBtnDisabled = nothingSelected || !isTableViewActive || !pageLoaded;
+
         let bulkHideBtnDisabled = true;
         let bulkUnhideBtnDisabled = true;
         let listClassName = 'm-sub-items__list';
@@ -1356,10 +1369,7 @@ export default class SubItemsModule extends Component {
                             {this.renderBulkHideBtn(bulkHideBtnDisabled)}
                             {this.renderBulkUnhideBtn(bulkUnhideBtnDisabled)}
                             {this.renderBulkDeleteBtn(bulkBtnDisabled)}
-                            <ViewColumnsTogglerComponent
-                                columnsVisibility={this.filterSmartModeColumns(columnsVisibility)}
-                                toggleColumnVisibility={this.toggleColumnVisibility}
-                            />
+                            {this.renderColumnsToggler()}
                             <ViewSwitcherComponent onViewChange={this.switchView} activeView={activeView} isDisabled={!totalCount} />
                         </div>
                     </div>
