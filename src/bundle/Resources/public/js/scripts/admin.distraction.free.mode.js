@@ -2,8 +2,8 @@
     let activeFieldEdit = null;
     const DISTRACTION_FREE_MODE_ENABLE_EVENT_NAME = 'ibexa-distraction-free:enable';
     const DISTRACTION_FREE_DISABLE_EVENT_NAME = 'ibexa-distraction-free:disable';
-    const distractionFreeModeEnableBtns = doc.querySelectorAll('.ibexa-field-edit__distraction-free-control-btn--enable');
-    const distractionFreeModeDisableBtns = doc.querySelectorAll('.ibexa-field-edit__distraction-free-control-btn--disable');
+    const distractionFreeModeEnableBtns = doc.querySelectorAll('.ibexa-field-edit__distraction-free-mode-control-btn--enable');
+    const distractionFreeModeDisableBtns = doc.querySelectorAll('.ibexa-field-edit__distraction-free-mode-control-btn--disable');
     const changeDistractionFreeModeState = (active) => {
         if (!activeFieldEdit) {
             return;
