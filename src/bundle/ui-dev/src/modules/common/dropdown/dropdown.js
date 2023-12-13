@@ -266,7 +266,7 @@ const Dropdown = ({
 
 Dropdown.propTypes = {
     dropdownListRef: PropTypes.object.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
     options: PropTypes.array.isRequired,
     onChange: PropTypes.func.isRequired,
     small: PropTypes.bool,

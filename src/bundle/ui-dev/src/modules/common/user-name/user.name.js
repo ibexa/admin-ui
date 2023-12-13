@@ -45,7 +45,7 @@ const UserName = ({ userId, name, thumbnail, contentTypeIdentifier }) => {
 };
 
 UserName.propTypes = {
-    userId: PropTypes.string.isRequired,
+    userId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     thumbnail: PropTypes.shape({
         mimeType: PropTypes.string.isRequired,
