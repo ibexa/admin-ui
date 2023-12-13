@@ -121,43 +121,23 @@
         <note>key: user.setting.focus_mode.name</note>
       </trans-unit>
       <trans-unit id="ff6e958aad946d4fed9a52212626b24394e70764" resname="user.setting.focus_mode.off">
-        <source>user.setting.focus_mode.off</source>
-        <target state="new">user.setting.focus_mode.off</target>
+        <source>Off</source>
+        <target state="new">Off</target>
         <note>key: user.setting.focus_mode.off</note>
       </trans-unit>
       <trans-unit id="77b180457c16ed97dcf406f5d225f2bbeac16d4a" resname="user.setting.focus_mode.on">
-        <source>user.setting.focus_mode.on</source>
-        <target state="new">user.setting.focus_mode.on</target>
+        <source>On</source>
+        <target state="new">On</target>
         <note>key: user.setting.focus_mode.on</note>
       </trans-unit>
       <trans-unit id="7bbfadd84e2abbfb1923b38c4b27f14fe4585c55" resname="user.setting.mode.help">
-        <source><![CDATA[<p><strong>Smart mode</strong> – A clean and intuitive interface with a simplified content structure, designed for new and non-advanced users. Features include:</p>
-                        <ul>
-                            <li>Quick preview</li>
-                            <li>Hidden Technical Details tab</li>
-                            <li>Hidden Locations and Versions tabs in Content items</li>
-                        </ul>
-                        <p><strong>Expert mode</strong> – Tailored for experienced users familiar with Ibexa DXP. Provides comprehensive insights into the technical aspects of Content structure, including:</p>
-                        <ul>
-                            <li>Technical Details tab</li>
-                            <li>Location: Archived versions</li>
-                        </ul>]]></source>
-        <target state="new"><![CDATA[<p><strong>Smart mode</strong> – A clean and intuitive interface with a simplified content structure, designed for new and non-advanced users. Features include:</p>
-                        <ul>
-                            <li>Quick preview</li>
-                            <li>Hidden Technical Details tab</li>
-                            <li>Hidden Locations and Versions tabs in Content items</li>
-                        </ul>
-                        <p><strong>Expert mode</strong> – Tailored for experienced users familiar with Ibexa DXP. Provides comprehensive insights into the technical aspects of Content structure, including:</p>
-                        <ul>
-                            <li>Technical Details tab</li>
-                            <li>Location: Archived versions</li>
-                        </ul>]]></target>
+        <source>user.setting.mode.help</source>
+        <target state="new">user.setting.mode.help</target>
         <note>key: user.setting.mode.help</note>
       </trans-unit>
       <trans-unit id="7036f294d389a7a41226580ce5f0c62bc1a85c21" resname="user.setting.mode.name">
-        <source>Mode</source>
-        <target state="new">Mode</target>
+        <source>user.setting.mode.name</source>
+        <target state="new">user.setting.mode.name</target>
         <note>key: user.setting.mode.name</note>
       </trans-unit>
     </body>

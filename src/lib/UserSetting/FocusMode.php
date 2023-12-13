@@ -60,8 +60,8 @@ final class FocusMode implements ValueDefinitionInterface, FormMapperInterface, 
     public function getDisplayValue(string $storageValue): string
     {
         $translationMap = [
-            self::FOCUS_MODE_OFF => $this->translator->trans('user.setting.focus_mode.off', [], 'ibexa_user_settings'),
-            self::FOCUS_MODE_ON => $this->translator->trans('user.setting.focus_mode.on', [], 'ibexa_user_settings'),
+            self::FOCUS_MODE_OFF => $this->translator->trans(/** @Desc("Off") */'user.setting.focus_mode.off', [], 'ibexa_user_settings'),
+            self::FOCUS_MODE_ON => $this->translator->trans(/** @Desc("On") */'user.setting.focus_mode.on', [], 'ibexa_user_settings'),
         ];
 
         return $translationMap[$storageValue] ?? $storageValue;
