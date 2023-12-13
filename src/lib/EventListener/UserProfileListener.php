@@ -16,6 +16,7 @@ use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Core\Repository\Values\User\UserUpdateStruct;
+use Ibexa\Core\FieldType\User\Type as UserFieldType;
 use Ibexa\Core\Repository\Repository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -129,7 +130,7 @@ final class UserProfileListener implements EventSubscriberInterface
         }
 
         foreach ($data->fieldsData as $fieldData) {
-            if ($fieldData->getFieldTypeIdentifier() === 'ezuser') {
+            if ($fieldData->getFieldTypeIdentifier() === UserFieldType::class) {
                 return false;
             }
         }

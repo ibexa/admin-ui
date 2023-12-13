@@ -25,6 +25,7 @@ use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Core\FieldType\User\Type as UserFieldType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -84,7 +85,7 @@ final class ProfileEditController extends Controller
 
         $data = (new UserUpdateMapper())->mapToFormData($user, $user->getContentType(), [
             'languageCode' => $languageCode,
-            'filter' => static fn (Field $field): bool => $field->fieldTypeIdentifier !== 'ezuser',
+            'filter' => static fn (Field $field): bool => $field->fieldTypeIdentifier !== UserFieldType::FIELD_TYPE_IDENTIFIER,
         ]);
 
         $form = $this->createForm(
