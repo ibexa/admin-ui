@@ -6,23 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta;
+namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
-use eZ\Publish\API\Repository\ContentService;
-use EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\Contracts\Core\Repository\ContentService;
 use Pagerfanta\Adapter\AdapterInterface;
 
 final class ContentDraftAdapter implements AdapterInterface
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory */
+    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     private $datasetFactory;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory $datasetFactory
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
      */
     public function __construct(ContentService $contentService, DatasetFactory $datasetFactory)
     {
@@ -35,7 +35,7 @@ final class ContentDraftAdapter implements AdapterInterface
      *
      * @return int the number of results
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function getNbResults()
     {
@@ -50,7 +50,7 @@ final class ContentDraftAdapter implements AdapterInterface
      *
      * @return array|\Traversable the slice
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function getSlice($offset, $length)
     {
@@ -60,3 +60,5 @@ final class ContentDraftAdapter implements AdapterInterface
             ->getContentDrafts();
     }
 }
+
+class_alias(ContentDraftAdapter::class, 'EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\ContentDraftAdapter');

@@ -1,19 +1,14 @@
-.ez-field-edit--ezselection {
-    .ez-data-source {
+.ibexa-field-edit--ezselection {
+    .ibexa-data-source {
         position: relative;
 
-        .ez-custom-dropdown {
-            &__wrapper {
-                max-width: calculateRem(550px);
-            }
-
+        .ibexa-dropdown {
             &__selection-info {
                 width: 100%;
             }
 
             &__items {
                 max-height: calculateRem(300px);
-                max-width: calculateRem(550px);
                 overflow-y: auto;
                 width: 100%;
             }

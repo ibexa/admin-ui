@@ -1,9 +1,8 @@
-import flatpickrLanguages
-    from '../../../../../../../../../../public/bundles/ezplatformadminuiassets/vendors/flatpickr/dist/l10n';
+import flatpickrLanguages from '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/flatpickr/dist/l10n';
 
-(function (global, doc, eZ, flatpickr) {
-    const { backOfficeLanguage } = eZ.adminUiConfig;
+(function (global, doc, ibexa, flatpickr) {
+    const { backOfficeLanguage } = ibexa.adminUiConfig;
     const flatpickrLanguage = flatpickrLanguages[backOfficeLanguage] ?? flatpickrLanguages.default;
 
     flatpickr.localize(flatpickrLanguage);
-})(window, window.document, window.eZ, window.flatpickr);
+})(window, window.document, window.ibexa, window.flatpickr);

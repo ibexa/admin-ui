@@ -1,35 +1,35 @@
 .c-translation-selector {
     @include container-box-shadow-right;
 
-    position: absolute;
-    right: 100%;
+    position: fixed;
+    right: 0;
     top: 0;
     height: 100%;
-    width: calculateRem(360px);
-    background-color: $ibexa-white;
+    width: calculateRem(700px);
+    background-color: $ibexa-color-white;
     transform: scaleX(1);
     transform-origin: right center;
     opacity: 1;
-    transition: all 0.4s ease-in;
+    transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
     padding: calculateRem(16px);
+    z-index: 5;
 
     &--hidden {
         transform: scaleX(0);
         opacity: 0;
-        transition: all 0.2s ease-out;
     }
 
     &__header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: calculateRem(4px) calculateRem(8px) calculateRem(24px) calculateRem(8px);
+        padding: calculateRem(4px) calculateRem(8px) calculateRem(24px) calculateRem(16px);
         margin-bottom: calculateRem(24px);
-        border-bottom: calculateRem(1px) solid $ibexa-color-base;
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
     }
 
     &__title {
-        color: $ibexa-color-primary;
+        margin-bottom: 0;
     }
 
     &__close-button {
@@ -39,10 +39,26 @@
     &__languages-wrapper {
         max-height: calc(100% - #{calculateRem(50px)});
         overflow: auto;
+        width: 75%;
+        padding: calculateRem(16px);
     }
 
     &__language {
-        padding: calculateRem(8px);
+        background: $ibexa-color-white;
+        display: flex;
+        width: 100%;
+        padding: calculateRem(13px) calculateRem(10px);
+        border: calculateRem(1px) solid $ibexa-color-light;
+        border-radius: $ibexa-border-radius;
+        box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 rgba($ibexa-color-info, 0.05);
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
         cursor: pointer;
+        margin-bottom: calculateRem(8px);
+
+        &:hover {
+            border-color: $ibexa-color-dark;
+            transform: scale(1.02) translateX(-10px);
+            box-shadow: calculateRem(4px) calculateRem(10px) calculateRem(17px) 0 rgba($ibexa-color-info, 0.2);
+        }
     }
 }

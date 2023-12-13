@@ -1,0 +1,22 @@
+<tr class="ibexa-table__row">
+    <td class="ibexa-table__empty-table-cell" colspan="{{ colspan|default(9999) }}">
+        <img
+            class="ibexa-table__empty-table-image"
+            src="{{ empty_image|default(asset('/bundles/ibexaadminui/img/ibexa-empty-table.svg')) }}"
+            alt="{{ empty_table_info_text|default('Table is empty') }}"
+        />
+        <div class="ibexa-table__empty-table-text">
+            {% if empty_table_info_text is defined %}
+                <div class="ibexa-table__empty-table-info-text">{{ empty_table_info_text }}</div>
+            {% endif %}
+
+            {% if empty_table_action_text is defined %}
+                <div class="ibexa-table__empty-table-action-text">{{ empty_table_action_text }}</div>
+            {% endif %}
+
+            {% if empty_table_extra_actions is defined %}
+                {{ empty_table_extra_actions|raw }}
+            {% endif %}
+        </div>
+    </td>
+</tr>

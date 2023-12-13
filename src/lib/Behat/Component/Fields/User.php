@@ -6,6 +6,7 @@
  */
 namespace Ibexa\AdminUi\Behat\Component\Fields;
 
+use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Mapper\ElementTextMapper;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -29,12 +30,7 @@ class User extends FieldTypeComponent
 
     public function setSpecificFieldValue(string $fieldName, string $value): void
     {
-        $fieldLocator = CSSLocatorBuilder::base($this->parentLocator)
-            ->withDescendant($this->getLocator($fieldName))
-            ->build()
-        ;
-
-        $this->getHTMLPage()->find($fieldLocator)->setValue($value);
+        $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator($fieldName))->setValue($value);
     }
 
     public function getValue(): array
@@ -47,12 +43,7 @@ class User extends FieldTypeComponent
 
     public function getSpecificFieldValue(string $fieldName): string
     {
-        $fieldLocator = CSSLocatorBuilder::base($this->parentLocator)
-            ->withDescendant($this->getLocator($fieldName))
-            ->build()
-        ;
-
-        return $this->getHTMLPage()->find($fieldLocator)->getValue();
+        return $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator($fieldName))->getValue();
     }
 
     public function verifyValue(array $value): void
@@ -93,20 +84,20 @@ class User extends FieldTypeComponent
             new VisibleCSSLocator('password', '#ezplatform_content_forms_user_create_fieldsData_user_account_value_password_first,#ezplatform_content_forms_user_update_fieldsData_user_account_value_password_first'),
             new VisibleCSSLocator('confirmPassword', '#ezplatform_content_forms_user_create_fieldsData_user_account_value_password_second,#ezplatform_content_forms_user_update_fieldsData_user_account_value_password_second'),
             new VisibleCSSLocator('email', '#ezplatform_content_forms_user_create_fieldsData_user_account_value_email,#ezplatform_content_forms_user_update_fieldsData_user_account_value_email'),
-            new VisibleCSSLocator('buttonEnabled', '#ezplatform_content_forms_user_create_fieldsData_user_account_value_enabled,#ezplatform_content_forms_user_update_fieldsData_user_account_value_enabled'),
+            new VisibleCSSLocator('buttonEnabled', '.ibexa-toggle--checkbox'),
+            new VisibleCSSLocator('buttonEnabledToggleConfirmation', '.ibexa-toggle--is-checked'),
         ];
     }
 
     private function setEnabledField(bool $enabled)
     {
-        $fieldLocator = CSSLocatorBuilder::base($this->parentLocator)
-            ->withDescendant($this->getLocator('buttonEnabled'))
-            ->build();
-
-        $field = $this->getHTMLPage()->find($fieldLocator);
-        $isCurrentlyEnabled = $field->hasClass('is-checked');
+        $isCurrentlyEnabled = $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator('buttonEnabled'))->getText() === 'On';
         if ($isCurrentlyEnabled !== $enabled) {
-            $field->click();
+            $script = sprintf("document.querySelector('%s %s').click()", $this->parentLocator->getSelector(), $this->getLocator('buttonEnabled')->getSelector());
+            $this->getHTMLPage()->executeJavaScript($script);
+            $this->getHTMLPage()
+                ->setTimeout(10)
+                ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('buttonEnabledToggleConfirmation')));
         }
     }
 }

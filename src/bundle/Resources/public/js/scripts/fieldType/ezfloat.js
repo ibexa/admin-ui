@@ -1,8 +1,8 @@
-(function(global, doc, eZ) {
-    const SELECTOR_FIELD = '.ez-field-edit--ezfloat';
-    const SELECTOR_ERROR_NODE = '.ez-data-source';
+(function (global, doc, ibexa) {
+    const SELECTOR_FIELD = '.ibexa-field-edit--ezfloat';
+    const SELECTOR_ERROR_NODE = `${SELECTOR_FIELD} .ibexa-form-error`;
 
-    class EzFloatValidator extends eZ.BaseFieldValidator {
+    class EzFloatValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
@@ -19,19 +19,19 @@
             const isLess = value < parseFloat(event.target.getAttribute('min'));
             const isGreater = value > parseFloat(event.target.getAttribute('max'));
             const isError = (isEmpty && isRequired) || (!isEmpty && (!isFloat || isLess || isGreater));
-            const label = event.target.closest(SELECTOR_FIELD).querySelector('.ez-field-edit__label').innerHTML;
+            const label = event.target.closest(SELECTOR_FIELD).querySelector('.ibexa-field-edit__label').innerHTML;
             const result = { isError };
 
             if (isEmpty) {
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             } else if (!isFloat) {
-                result.errorMessage = eZ.errors.isNotFloat.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.isNotFloat.replace('{fieldName}', label);
             } else if (isLess) {
-                result.errorMessage = eZ.errors.isLess
+                result.errorMessage = ibexa.errors.isLess
                     .replace('{fieldName}', label)
                     .replace('{minValue}', event.target.getAttribute('min'));
             } else if (isGreater) {
-                result.errorMessage = eZ.errors.isGreater
+                result.errorMessage = ibexa.errors.isGreater
                     .replace('{fieldName}', label)
                     .replace('{maxValue}', event.target.getAttribute('max'));
             }
@@ -45,7 +45,7 @@
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [
             {
-                selector: '.ez-field-edit--ezfloat input',
+                selector: '.ibexa-field-edit--ezfloat input',
                 eventName: 'blur',
                 callback: 'validateFloat',
                 errorNodeSelectors: [SELECTOR_ERROR_NODE],
@@ -55,5 +55,5 @@
 
     validator.init();
 
-    eZ.addConfig('fieldTypeValidators', [validator], true);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('fieldTypeValidators', [validator], true);
+})(window, window.document, window.ibexa);

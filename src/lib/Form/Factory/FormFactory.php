@@ -6,132 +6,123 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Factory;
+namespace Ibexa\AdminUi\Form\Factory;
 
-use eZ\Publish\API\Repository\Values\User\User;
-use EzSystems\EzPlatformAdminUi\Form\Data\Bookmark\BookmarkRemoveData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentEditData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentRemoveData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentLocationAddData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentLocationRemoveData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\TranslationAddData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\TranslationDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentType\ContentTypesDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupsDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguagesDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationCopyData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationCopySubtreeData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationMoveData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationSwapData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationTrashData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationUpdateVisibilityData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateGroupCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateGroupDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateGroupsDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateGroupUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Policy\PoliciesDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleAssignmentCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleAssignmentDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleAssignmentsDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Role\RolesDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Search\SearchData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionContentAssignData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionsDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\URL\URLListData;
-use EzSystems\EzPlatformAdminUi\Form\Data\URL\URLUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\URLWildcard\URLWildcardData;
-use EzSystems\EzPlatformAdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\URLWildcard\URLWildcardUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\User\Setting\UserSettingUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\User\UserDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\User\UserEditData;
-use EzSystems\EzPlatformAdminUi\Form\Data\User\UserPasswordChangeData;
-use EzSystems\EzPlatformAdminUi\Form\Data\User\UserPasswordForgotData;
-use EzSystems\EzPlatformAdminUi\Form\Data\User\UserPasswordForgotWithLoginData;
-use EzSystems\EzPlatformAdminUi\Form\Data\User\UserPasswordResetData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Version\VersionRemoveData;
-use EzSystems\EzPlatformAdminUi\Form\Type\Bookmark\BookmarkRemoveType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\CustomUrl\CustomUrlAddType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\CustomUrl\CustomUrlRemoveType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\Draft\ContentCreateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\Draft\ContentEditType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\Draft\ContentRemoveType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\Location\ContentLocationAddType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\Location\ContentLocationRemoveType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\Location\ContentMainLocationUpdateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\Translation\TranslationAddType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\Translation\TranslationDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\ContentType\ContentTypesDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupCreateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupsDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupUpdateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Language\LanguageCreateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Language\LanguageDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Language\LanguagesDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Language\LanguageUpdateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationCopySubtreeType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationCopyType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationMoveType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationSwapType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationTrashType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationUpdateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationUpdateVisibilityType;
-use EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateGroupCreateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateGroupDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateGroupsDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateGroupUpdateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Policy\PoliciesDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Policy\PolicyCreateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Policy\PolicyCreateWithLimitationType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Policy\PolicyDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Policy\PolicyUpdateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Role\RoleAssignmentCreateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Role\RoleAssignmentDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Role\RoleAssignmentsDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Role\RoleCreateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Role\RoleDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Role\RolesDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Role\RoleUpdateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Search\SearchType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Section\SectionContentAssignType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Section\SectionCreateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Section\SectionDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Section\SectionsDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Section\SectionUpdateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\URL\URLEditType;
-use EzSystems\EzPlatformAdminUi\Form\Type\URL\URLListType;
-use EzSystems\EzPlatformAdminUi\Form\Type\URLWildcard\URLWildcardDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\URLWildcard\URLWildcardType;
-use EzSystems\EzPlatformAdminUi\Form\Type\URLWildcard\URLWildcardUpdateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\User\UserDeleteType;
-use EzSystems\EzPlatformAdminUi\Form\Type\User\UserEditType;
-use EzSystems\EzPlatformAdminUi\Form\Type\User\UserPasswordChangeType;
-use EzSystems\EzPlatformAdminUi\Form\Type\User\UserPasswordForgotType;
-use EzSystems\EzPlatformAdminUi\Form\Type\User\UserPasswordForgotWithLoginType;
-use EzSystems\EzPlatformAdminUi\Form\Type\User\UserPasswordResetType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Version\VersionRemoveType;
-use EzSystems\EzPlatformUser\Form\Type\UserSettingUpdateType;
+use Ibexa\AdminUi\Form\Data\Bookmark\BookmarkRemoveData;
+use Ibexa\AdminUi\Form\Data\Content\ContentVisibilityUpdateData;
+use Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData;
+use Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData;
+use Ibexa\AdminUi\Form\Data\Content\Draft\ContentCreateData;
+use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
+use Ibexa\AdminUi\Form\Data\Content\Draft\ContentRemoveData;
+use Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationAddData;
+use Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationRemoveData;
+use Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData;
+use Ibexa\AdminUi\Form\Data\Content\Translation\TranslationAddData;
+use Ibexa\AdminUi\Form\Data\Content\Translation\TranslationDeleteData;
+use Ibexa\AdminUi\Form\Data\ContentType\ContentTypesDeleteData;
+use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupCreateData;
+use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupDeleteData;
+use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupsDeleteData;
+use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData;
+use Ibexa\AdminUi\Form\Data\Language\LanguageCreateData;
+use Ibexa\AdminUi\Form\Data\Language\LanguageDeleteData;
+use Ibexa\AdminUi\Form\Data\Language\LanguagesDeleteData;
+use Ibexa\AdminUi\Form\Data\Language\LanguageUpdateData;
+use Ibexa\AdminUi\Form\Data\Location\LocationCopyData;
+use Ibexa\AdminUi\Form\Data\Location\LocationCopySubtreeData;
+use Ibexa\AdminUi\Form\Data\Location\LocationMoveData;
+use Ibexa\AdminUi\Form\Data\Location\LocationSwapData;
+use Ibexa\AdminUi\Form\Data\Location\LocationTrashData;
+use Ibexa\AdminUi\Form\Data\Location\LocationUpdateData;
+use Ibexa\AdminUi\Form\Data\Location\LocationUpdateVisibilityData;
+use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupCreateData;
+use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupDeleteData;
+use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupsDeleteData;
+use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupUpdateData;
+use Ibexa\AdminUi\Form\Data\Policy\PoliciesDeleteData;
+use Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData;
+use Ibexa\AdminUi\Form\Data\Policy\PolicyDeleteData;
+use Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData;
+use Ibexa\AdminUi\Form\Data\Role\RoleAssignmentCreateData;
+use Ibexa\AdminUi\Form\Data\Role\RoleAssignmentDeleteData;
+use Ibexa\AdminUi\Form\Data\Role\RoleAssignmentsDeleteData;
+use Ibexa\AdminUi\Form\Data\Role\RoleCreateData;
+use Ibexa\AdminUi\Form\Data\Role\RoleDeleteData;
+use Ibexa\AdminUi\Form\Data\Role\RolesDeleteData;
+use Ibexa\AdminUi\Form\Data\Role\RoleUpdateData;
+use Ibexa\AdminUi\Form\Data\Section\SectionContentAssignData;
+use Ibexa\AdminUi\Form\Data\Section\SectionCreateData;
+use Ibexa\AdminUi\Form\Data\Section\SectionDeleteData;
+use Ibexa\AdminUi\Form\Data\Section\SectionsDeleteData;
+use Ibexa\AdminUi\Form\Data\Section\SectionUpdateData;
+use Ibexa\AdminUi\Form\Data\URL\URLListData;
+use Ibexa\AdminUi\Form\Data\URL\URLUpdateData;
+use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardData;
+use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
+use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardUpdateData;
+use Ibexa\AdminUi\Form\Data\User\UserDeleteData;
+use Ibexa\AdminUi\Form\Data\User\UserEditData;
+use Ibexa\AdminUi\Form\Data\Version\VersionRemoveData;
+use Ibexa\AdminUi\Form\Type\Bookmark\BookmarkRemoveType;
+use Ibexa\AdminUi\Form\Type\Content\ContentVisibilityUpdateType;
+use Ibexa\AdminUi\Form\Type\Content\CustomUrl\CustomUrlAddType;
+use Ibexa\AdminUi\Form\Type\Content\CustomUrl\CustomUrlRemoveType;
+use Ibexa\AdminUi\Form\Type\Content\Draft\ContentCreateType;
+use Ibexa\AdminUi\Form\Type\Content\Draft\ContentEditType;
+use Ibexa\AdminUi\Form\Type\Content\Draft\ContentRemoveType;
+use Ibexa\AdminUi\Form\Type\Content\Location\ContentLocationAddType;
+use Ibexa\AdminUi\Form\Type\Content\Location\ContentLocationRemoveType;
+use Ibexa\AdminUi\Form\Type\Content\Location\ContentMainLocationUpdateType;
+use Ibexa\AdminUi\Form\Type\Content\Translation\TranslationAddType;
+use Ibexa\AdminUi\Form\Type\Content\Translation\TranslationDeleteType;
+use Ibexa\AdminUi\Form\Type\ContentType\ContentTypesDeleteType;
+use Ibexa\AdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupCreateType;
+use Ibexa\AdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupDeleteType;
+use Ibexa\AdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupsDeleteType;
+use Ibexa\AdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupUpdateType;
+use Ibexa\AdminUi\Form\Type\Language\LanguageCreateType;
+use Ibexa\AdminUi\Form\Type\Language\LanguageDeleteType;
+use Ibexa\AdminUi\Form\Type\Language\LanguagesDeleteType;
+use Ibexa\AdminUi\Form\Type\Language\LanguageUpdateType;
+use Ibexa\AdminUi\Form\Type\Location\LocationCopySubtreeType;
+use Ibexa\AdminUi\Form\Type\Location\LocationCopyType;
+use Ibexa\AdminUi\Form\Type\Location\LocationMoveType;
+use Ibexa\AdminUi\Form\Type\Location\LocationSwapType;
+use Ibexa\AdminUi\Form\Type\Location\LocationTrashType;
+use Ibexa\AdminUi\Form\Type\Location\LocationUpdateType;
+use Ibexa\AdminUi\Form\Type\Location\LocationUpdateVisibilityType;
+use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateGroupCreateType;
+use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateGroupDeleteType;
+use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateGroupsDeleteType;
+use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateGroupUpdateType;
+use Ibexa\AdminUi\Form\Type\Policy\PoliciesDeleteType;
+use Ibexa\AdminUi\Form\Type\Policy\PolicyCreateType;
+use Ibexa\AdminUi\Form\Type\Policy\PolicyCreateWithLimitationType;
+use Ibexa\AdminUi\Form\Type\Policy\PolicyDeleteType;
+use Ibexa\AdminUi\Form\Type\Policy\PolicyUpdateType;
+use Ibexa\AdminUi\Form\Type\Role\RoleAssignmentCreateType;
+use Ibexa\AdminUi\Form\Type\Role\RoleAssignmentDeleteType;
+use Ibexa\AdminUi\Form\Type\Role\RoleAssignmentsDeleteType;
+use Ibexa\AdminUi\Form\Type\Role\RoleCreateType;
+use Ibexa\AdminUi\Form\Type\Role\RoleDeleteType;
+use Ibexa\AdminUi\Form\Type\Role\RolesDeleteType;
+use Ibexa\AdminUi\Form\Type\Role\RoleUpdateType;
+use Ibexa\AdminUi\Form\Type\Search\SearchType;
+use Ibexa\AdminUi\Form\Type\Section\SectionContentAssignType;
+use Ibexa\AdminUi\Form\Type\Section\SectionCreateType;
+use Ibexa\AdminUi\Form\Type\Section\SectionDeleteType;
+use Ibexa\AdminUi\Form\Type\Section\SectionsDeleteType;
+use Ibexa\AdminUi\Form\Type\Section\SectionUpdateType;
+use Ibexa\AdminUi\Form\Type\URL\URLEditType;
+use Ibexa\AdminUi\Form\Type\URL\URLListType;
+use Ibexa\AdminUi\Form\Type\URLWildcard\URLWildcardDeleteType;
+use Ibexa\AdminUi\Form\Type\URLWildcard\URLWildcardType;
+use Ibexa\AdminUi\Form\Type\URLWildcard\URLWildcardUpdateType;
+use Ibexa\AdminUi\Form\Type\User\UserDeleteType;
+use Ibexa\AdminUi\Form\Type\User\UserEditType;
+use Ibexa\AdminUi\Form\Type\Version\VersionRemoveType;
+use Ibexa\Bundle\Search\Form\Data\SearchData;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Util\StringUtil;
@@ -165,7 +156,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentEditData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData|null $data
      * @param string|null $name
      * @param array $options
      *
@@ -194,7 +185,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentCreateData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Content\Draft\ContentCreateData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -212,7 +203,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\ContentType\ContentTypesDeleteData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\ContentType\ContentTypesDeleteData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -229,7 +220,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupCreateData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupCreateData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -248,7 +239,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -263,7 +254,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupDeleteData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupDeleteData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -278,7 +269,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupsDeleteData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupsDeleteData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -295,7 +286,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\TranslationAddData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Content\Translation\TranslationAddData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -312,7 +303,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\TranslationDeleteData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Content\Translation\TranslationDeleteData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -329,7 +320,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Version\VersionRemoveData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Version\VersionRemoveData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -346,7 +337,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentLocationAddData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationAddData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -361,7 +352,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentLocationRemoveData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationRemoveData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -376,7 +367,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationSwapData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Location\LocationSwapData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -391,7 +382,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -413,7 +404,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationTrashData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Location\LocationTrashData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -423,12 +414,13 @@ class FormFactory
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationTrashType::class);
+        $data = $data ?? new LocationTrashData();
 
         return $this->formFactory->createNamed($name, LocationTrashType::class, $data);
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationMoveData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Location\LocationMoveData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -443,7 +435,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationCopyData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Location\LocationCopyData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -458,7 +450,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationUpdateVisibilityData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Location\LocationUpdateVisibilityData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -475,7 +467,20 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationUpdateData|null $data
+     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     */
+    public function updateVisibilityContent(
+        ?ContentVisibilityUpdateData $data = null,
+        ?string $name = null
+    ): FormInterface {
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentVisibilityUpdateType::class);
+        $data = $data ?? new ContentVisibilityUpdateData();
+
+        return $this->formFactory->createNamed($name, ContentVisibilityUpdateType::class, $data);
+    }
+
+    /**
+     * @param \Ibexa\AdminUi\Form\Data\Location\LocationUpdateData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -490,7 +495,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionContentAssignData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Section\SectionContentAssignData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -505,7 +510,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionDeleteData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Section\SectionDeleteData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -520,7 +525,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionsDeleteData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Section\SectionsDeleteData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -537,7 +542,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionCreateData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Section\SectionCreateData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -556,7 +561,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionUpdateData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Section\SectionUpdateData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -571,7 +576,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageCreateData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Language\LanguageCreateData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -590,7 +595,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageUpdateData $data
+     * @param \Ibexa\AdminUi\Form\Data\Language\LanguageUpdateData $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -605,7 +610,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageDeleteData $data
+     * @param \Ibexa\AdminUi\Form\Data\Language\LanguageDeleteData $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -620,7 +625,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguagesDeleteData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Language\LanguagesDeleteData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -637,7 +642,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleCreateData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Role\RoleCreateData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -652,7 +657,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleUpdateData $data
+     * @param \Ibexa\AdminUi\Form\Data\Role\RoleUpdateData $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -667,7 +672,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleDeleteData $data
+     * @param \Ibexa\AdminUi\Form\Data\Role\RoleDeleteData $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -682,7 +687,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Role\RolesDeleteData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Role\RolesDeleteData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -699,7 +704,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleAssignmentCreateData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Role\RoleAssignmentCreateData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -718,7 +723,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleAssignmentDeleteData $data
+     * @param \Ibexa\AdminUi\Form\Data\Role\RoleAssignmentDeleteData $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -740,7 +745,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleAssignmentsDeleteData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Role\RoleAssignmentsDeleteData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -757,7 +762,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyCreateData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -772,7 +777,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyCreateData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -787,7 +792,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyUpdateData $data
+     * @param \Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -802,7 +807,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyDeleteData $data
+     * @param \Ibexa\AdminUi\Form\Data\Policy\PolicyDeleteData $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -817,7 +822,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Policy\PoliciesDeleteData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Policy\PoliciesDeleteData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -834,7 +839,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Search\SearchData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Search\SearchData|null $data
      * @param string|null $name
      * @param array $options
      *
@@ -851,7 +856,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\URL\URLListData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\URL\URLListData|null $data
      * @param string|null $name
      * @param array $options
      *
@@ -868,7 +873,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\URL\URLUpdateData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\URL\URLUpdateData|null $data
      * @param string|null $name
      * @param array $options
      *
@@ -885,7 +890,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\User\UserDeleteData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\User\UserDeleteData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -900,95 +905,7 @@ class FormFactory
     }
 
     /**
-     * @deprecated Since eZ Platform 3.0.2 method moved to EzPlatformUser Bundle. Use it instead.
-     * @see \EzSystems\EzPlatformUser\Form\Factory\FormFactory::changeUserPassword.
-     *
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\User\UserPasswordChangeData $data
-     * @param string|null $name
-     * @param \eZ\Publish\API\Repository\Values\User\User|null $user
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     */
-    public function changeUserPassword(
-        UserPasswordChangeData $data = null,
-        ?string $name = null,
-        ?User $user = null
-    ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(UserPasswordChangeType::class);
-
-        return $this->formFactory->createNamed($name, UserPasswordChangeType::class, $data, [
-            'user' => $user,
-        ]);
-    }
-
-    /**
-     * @deprecated Since eZ Platform 3.0.2 method moved to EzPlatformUser Bundle. Use it instead.
-     * @see \EzSystems\EzPlatformUser\Form\Factory\FormFactory::forgotUserPassword.
-     *
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\User\UserPasswordForgotData $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     */
-    public function forgotUserPassword(
-        UserPasswordForgotData $data = null,
-        ?string $name = null
-    ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(UserPasswordForgotType::class);
-
-        return $this->formFactory->createNamed($name, UserPasswordForgotType::class, $data);
-    }
-
-    /**
-     * @deprecated Since eZ Platform 3.0.2 method moved to EzPlatformUser Bundle. Use it instead.
-     * @see \EzSystems\EzPlatformUser\Form\Factory\FormFactory::forgotUserPassword.
-     *
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\User\UserPasswordForgotWithLoginData $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     */
-    public function forgotUserPasswordWithLogin(
-        UserPasswordForgotWithLoginData $data = null,
-        ?string $name = null
-    ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(UserPasswordForgotWithLoginType::class);
-
-        return $this->formFactory->createNamed($name, UserPasswordForgotWithLoginType::class, $data);
-    }
-
-    /**
-     * @deprecated Since eZ Platform 3.0.2 method moved to EzPlatformUser Bundle. Use it instead.
-     * @see \EzSystems\EzPlatformUser\Form\Factory\FormFactory::resetUserPassword.
-     *
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\User\UserPasswordResetData $data
-     * @param string|null $name
-     * @param \eZ\Publish\API\Repository\Values\User\User|null $user
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     */
-    public function resetUserPassword(
-        UserPasswordResetData $data = null,
-        ?string $name = null,
-        ?User $user = null
-    ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(UserPasswordResetType::class);
-
-        return $this->formFactory->createNamed($name, UserPasswordResetType::class, $data, [
-            'user' => $user,
-        ]);
-    }
-
-    /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -1003,7 +920,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -1018,7 +935,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateGroupCreateData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupCreateData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -1037,7 +954,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateGroupDeleteData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupDeleteData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -1052,7 +969,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateGroupsDeleteData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupsDeleteData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -1069,7 +986,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateGroupUpdateData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupUpdateData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -1084,7 +1001,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationCopySubtreeData $data
+     * @param \Ibexa\AdminUi\Form\Data\Location\LocationCopySubtreeData $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -1099,7 +1016,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Bookmark\BookmarkRemoveData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Bookmark\BookmarkRemoveData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -1114,32 +1031,7 @@ class FormFactory
     }
 
     /**
-     * @deprecated Since eZ Platform 3.0.2 method moved to EzPlatformUser Bundle. Use it instead.
-     * @see \EzSystems\EzPlatformUser\Form\Factory\FormFactory::updateUserSetting.
-     *
-     * @param string $userSettingIdentifier
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\User\Setting\UserSettingUpdateData $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
-    public function updateUserSetting(
-        string $userSettingIdentifier,
-        UserSettingUpdateData $data = null,
-        ?string $name = null
-    ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(UserSettingUpdateType::class);
-
-        return $this->formFactory->createNamed(
-            $name,
-            UserSettingUpdateType::class,
-            $data,
-            ['user_setting_identifier' => $userSettingIdentifier]
-        );
-    }
-
-    /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\User\UserEditData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\User\UserEditData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -1158,7 +1050,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentRemoveData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Content\Draft\ContentRemoveData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -1173,7 +1065,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\URLWildcard\URLWildcardData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardData|null $data
      * @param string|null $name
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
@@ -1194,7 +1086,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\URLWildcard\URLWildcardUpdateData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardUpdateData|null $data
      * @param string|null $name
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
@@ -1215,7 +1107,7 @@ class FormFactory
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\URLWildcard\URLWildcardDeleteData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardDeleteData|null $data
      * @param string|null $name
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
@@ -1235,3 +1127,5 @@ class FormFactory
         );
     }
 }
+
+class_alias(FormFactory::class, 'EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory');

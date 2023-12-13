@@ -3,7 +3,7 @@ name: Browser tests
 on:
     push:
         branches:
-            - master
+            - main
             - '[0-9]+.[0-9]+'
     pull_request: ~
 
@@ -13,9 +13,23 @@ jobs:
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
         with:
             project-edition: 'oss'
-            project-version: '^3.3.x-dev'
             test-suite:  '--profile=browser --suite=admin-ui-full'
             test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
             test-setup-phase-2: '--profile=setup --suite=content-translation --mode=standard'
+            job-count: 2
+            timeout: 40
         secrets:
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    page-builder:
+        name: "Basic Page Builder tests"
+        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
+        with:
+            project-edition: 'experience'
+            test-suite:  '--profile=browser --suite=personas'
+            test-setup-phase-1: '--profile=setup --suite=personas --tags=@setup --mode=standard'
+            timeout: 40
+        secrets:
+            SATIS_NETWORK_KEY: ${{ secrets.SATIS_NETWORK_KEY }}
+            SATIS_NETWORK_TOKEN: ${{ secrets.SATIS_NETWORK_TOKEN }}
+            TRAVIS_GITHUB_TOKEN: ${{ secrets.TRAVIS_GITHUB_TOKEN }}
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
