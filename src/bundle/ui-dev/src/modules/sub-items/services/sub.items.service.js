@@ -67,21 +67,33 @@ export const loadLocation = ({ token, siteaccess }, { locationId = 2, limit = 10
                                     remoteId
                                     mainLanguageCode
                                     owner {
+                                        id
                                         name
                                         thumbnail {
                                             uri
                                             alternativeText
                                             mimeType
                                         }
+                                        content {
+                                            _type {
+                                                identifier
+                                            }                                                                                        
+                                        }
                                     }
                                     currentVersion {
                                         versionNumber
                                         creator {
+                                            id
                                             name
                                             thumbnail {
                                                 uri
                                                 alternativeText
                                                 mimeType
+                                            }
+                                            content {
+                                                _type {
+                                                    identifier
+                                                }                                                                                        
                                             }
                                         }
                                         languageCodes

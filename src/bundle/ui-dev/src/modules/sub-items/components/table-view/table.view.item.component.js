@@ -287,7 +287,12 @@ export default class TableViewItemComponent extends PureComponent {
 
         return (
             <div className="c-table-view-item__text-wrapper">
-                <UserName name={this.getName(this.props.item.content._info.owner)} thumbnail={owner.thumbnail} />
+                <UserName
+                    userId={owner.id}
+                    name={this.getName(owner)}
+                    thumbnail={owner.thumbnail}
+                    contentTypeIdentifier={owner.content?._type?.identifier}
+                />
             </div>
         );
     }
@@ -301,7 +306,12 @@ export default class TableViewItemComponent extends PureComponent {
 
         return (
             <div className="c-table-view-item__text-wrapper">
-                <UserName name={this.getName(creator)} thumbnail={creator.thumbnail} />
+                <UserName
+                    userId={creator.id}
+                    name={this.getName(creator)}
+                    thumbnail={creator.thumbnail}
+                    contentTypeIdentifier={creator.content?._type?.identifier}
+                />
             </div>
         );
     }

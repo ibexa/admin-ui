@@ -951,6 +951,11 @@ parameters:
 			path: src/bundle/Controller/User/InvitationController.php
 
 		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Form\\\\ClickableInterface\\|Symfony\\\\Component\\\\Form\\\\FormInterface\\:\\:getName\\(\\)\\.$#"
+			count: 1
+			path: src/bundle/Controller/User/ProfileEditController.php
+
+		-
 			message: "#^Cannot access property \\$id on Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\ContentInfo\\|null\\.$#"
 			count: 1
 			path: src/bundle/Controller/User/UserDeleteController.php
@@ -8167,11 +8172,6 @@ parameters:
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Menu\\\\UserMenuBuilder\\:\\:createStructure\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Menu/UserMenuBuilder.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Menu\\\\UserMenuBuilder\\:\\:getTranslationMessages\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Menu/UserMenuBuilder.php
 

@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Component\Content;
 
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\AdminUi\Component\Renderable;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
@@ -63,11 +64,15 @@ class PreviewUnavailableTwigComponent implements Renderable
             $versionNo = null;
         }
 
-        $siteaccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
-            $location,
-            $versionNo,
-            $language->languageCode
-        );
+        try {
+            $siteaccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
+                $location,
+                $versionNo,
+                $language->languageCode
+            );
+        } catch (UnauthorizedException $e) {
+            $siteaccesses = [];
+        }
 
         if (empty($siteaccesses)) {
             return $this->twig->render(

@@ -531,6 +531,11 @@
         <target state="new">Save and close</target>
         <note>key: url_wildcard_edit__sidebar_right__save_and_close</note>
       </trans-unit>
+      <trans-unit id="4b4f243361b4b2302972e72a91e95052da5fb703" resname="user___view_profile">
+        <source>View Profile</source>
+        <target state="new">View Profile</target>
+        <note>key: user___view_profile</note>
+      </trans-unit>
       <trans-unit id="06accb26fbb1b72012942af2b3e03f7c138e28c3" resname="user__content">
         <source>Logout</source>
         <target state="new">Logout</target>
