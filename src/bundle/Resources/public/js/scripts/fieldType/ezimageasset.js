@@ -196,6 +196,11 @@
                 return;
             }
 
+            if (this.allowedFileTypes.length > 0 && !this.allowedFileTypes.includes(file.type)) {
+                this.resetInputField();
+                return;
+            }
+
             this.fieldContainer.querySelector('.ibexa-field-edit__option--remove-media').checked = false;
 
             this.createAsset(file, languageCode);
