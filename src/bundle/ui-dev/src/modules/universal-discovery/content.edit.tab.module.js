@@ -102,7 +102,11 @@ const ContentEditTabModule = () => {
 const ContentEditTab = {
     id: 'content-edit',
     component: ContentEditTabModule,
-    getLabel: () => getTranslator().trans(/*@Desc("Content edit")*/ 'content_edit.label', {}, 'ibexa_universal_discovery_widget'),
+    getLabel: () => {
+        const Translator = getTranslator();
+
+        return Translator.trans(/*@Desc("Content edit")*/ 'content_edit.label', {}, 'ibexa_universal_discovery_widget');
+    },
     isHiddenOnList: true,
 };
 

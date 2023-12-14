@@ -15,7 +15,6 @@ class ListItem extends Component {
         this.loadMoreSubitems = this.loadMoreSubitems.bind(this);
         this.handleAfterExpandedStateChange = this.handleAfterExpandedStateChange.bind(this);
 
-        this.Translator = getTranslator();
         this.adminUiConfig = getAdminUiConfig();
         this.secondaryItemActions = this.getSecondaryItemActions();
         this.sortedActions = this.getSortedActions();
@@ -52,11 +51,12 @@ class ListItem extends Component {
     }
 
     toggleExpandedState() {
+        const Translator = getTranslator();
         const { path: currentPath, treeMaxDepth } = this.props;
         const currentDepth = currentPath.split(',').length - 1;
 
         if (currentDepth >= treeMaxDepth) {
-            const notificationMessage = this.Translator.trans(
+            const notificationMessage = Translator.trans(
                 /*@Desc("Cannot load sub-items for this Location because you reached max tree depth.")*/ 'expand_item.limit.message',
                 {},
                 'ibexa_content_tree',
@@ -142,6 +142,7 @@ class ListItem extends Component {
     }
 
     renderLoadMoreBtn() {
+        const Translator = getTranslator();
         const { subitems, subitemsLimit } = this.props;
         const subitemsLimitReached = subitems.length >= subitemsLimit;
 
@@ -150,8 +151,8 @@ class ListItem extends Component {
         }
 
         const { isLoading } = this.state;
-        const seeMoreLabel = this.Translator.trans(/*@Desc("See more")*/ 'see_more', {}, 'ibexa_content_tree');
-        const loadingMoreLabel = this.Translator.trans(/*@Desc("Loading more...")*/ 'loading_more', {}, 'ibexa_content_tree');
+        const seeMoreLabel = Translator.trans(/*@Desc("See more")*/ 'see_more', {}, 'ibexa_content_tree');
+        const loadingMoreLabel = Translator.trans(/*@Desc("Loading more...")*/ 'loading_more', {}, 'ibexa_content_tree');
         const btnLabel = isLoading ? loadingMoreLabel : seeMoreLabel;
         let loadingSpinner = null;
 
@@ -167,6 +168,7 @@ class ListItem extends Component {
     }
 
     renderSubitemsLimitReachedInfo() {
+        const Translator = getTranslator();
         const { subitems, subitemsLimit } = this.props;
         const subitemsLimitReached = subitems.length >= subitemsLimit;
 
@@ -174,7 +176,7 @@ class ListItem extends Component {
             return null;
         }
 
-        const message = this.Translator.trans(/*@Desc("Loading limit reached")*/ 'show_more.limit_reached', {}, 'ibexa_content_tree');
+        const message = Translator.trans(/*@Desc("Loading limit reached")*/ 'show_more.limit_reached', {}, 'ibexa_content_tree');
 
         return <div className="c-list-item__load-more-limit-info">{message}</div>;
     }

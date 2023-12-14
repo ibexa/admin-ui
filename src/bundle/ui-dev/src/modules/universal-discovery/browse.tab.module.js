@@ -29,7 +29,11 @@ const BrowseTabModule = () => {
 export const BrowseTab = {
     id: 'browse',
     component: BrowseTabModule,
-    getLabel: () => getTranslator().trans(/*@Desc("Browse")*/ 'browse.label', {}, 'ibexa_universal_discovery_widget'),
+    getLabel: () => {
+        const Translator = getTranslator();
+
+        return Translator.trans(/*@Desc("Browse")*/ 'browse.label', {}, 'ibexa_universal_discovery_widget');
+    },
     getIcon: () => getIconPath('browse'),
 };
 

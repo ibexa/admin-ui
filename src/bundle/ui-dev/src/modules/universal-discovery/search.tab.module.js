@@ -38,7 +38,11 @@ const SearchTabModule = () => {
 const SearchTab = {
     id: 'search',
     component: SearchTabModule,
-    getLabel: () => getTranslator().trans(/*@Desc("Search")*/ 'search.label', {}, 'ibexa_universal_discovery_widget'),
+    getLabel: () => {
+        const Translator = getTranslator();
+
+        return Translator.trans(/*@Desc("Search")*/ 'search.label', {}, 'ibexa_universal_discovery_widget');
+    },
     getIcon: () => getIconPath('search'),
     isHiddenOnList: true,
 };
