@@ -16,7 +16,7 @@
             const isRequired = input.required || this.fieldContainer.classList.contains('ibexa-field-edit--required');
             const dataMaxSize = +input.dataset.maxFileSize;
             const maxFileSize = parseInt(dataMaxSize, 10);
-            const { allowedFileTypes= [] } = input.dataset;
+            const { allowedFileTypes = [] } = input.dataset;
             const isEmpty = input.files && !input.files.length && dataContainer && !dataContainer.hasAttribute('hidden');
             let result = { isError: false };
 
