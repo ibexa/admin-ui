@@ -10,7 +10,7 @@ namespace Ibexa\Tests\AdminUi\Tab\LocationView;
 
 use Ibexa\AdminUi\Tab\LocationView\DetailsTab;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
-use Ibexa\AdminUi\UserSetting\UserMode;
+use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\SectionService;
@@ -38,7 +38,7 @@ final class DetailsTabVisibilityTest extends AbstractTabVisibilityTestCase
 
     public function dataProviderForTestTabVisibilityInGivenUserMode(): iterable
     {
-        yield 'smart mode' => [UserMode::SMART, [], false];
-        yield 'expert mode' => [UserMode::EXPERT, [], true];
+        yield 'focus mode on' => [FocusMode::FOCUS_MODE_ON, [], false];
+        yield 'focus mode off' => [FocusMode::FOCUS_MODE_OFF, [], true];
     }
 }

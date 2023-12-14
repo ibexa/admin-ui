@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Tests\AdminUi\Tab\LocationView;
 
 use Ibexa\AdminUi\Tab\LocationView\AuthorsTab;
-use Ibexa\AdminUi\UserSetting\UserMode;
+use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\User\UserSetting\UserSettingService;
@@ -32,7 +32,7 @@ final class AuthorsTabVisibilityTest extends AbstractTabVisibilityTestCase
 
     public function dataProviderForTestTabVisibilityInGivenUserMode(): iterable
     {
-        yield 'smart mode' => [UserMode::SMART, [], true];
-        yield 'expert mode' => [UserMode::EXPERT, [], false];
+        yield 'focus mode on' => [FocusMode::FOCUS_MODE_ON, [], true];
+        yield 'focus mode off' => [FocusMode::FOCUS_MODE_OFF, [], false];
     }
 }

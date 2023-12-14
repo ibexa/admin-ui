@@ -15,7 +15,7 @@
         color: $ibexa-color-danger;
     }
 
-    &__focus-mode {
+    &__distraction-free-mode {
         display: flex;
         flex-direction: column;
         height: auto;
@@ -23,11 +23,11 @@
         border-radius: $ibexa-border-radius $ibexa-border-radius 0 0;
     }
 
-    &__focus-mode-notice-container {
+    &__distraction-free-mode-notice-container {
         display: none;
     }
 
-    &__focus-mode-control-container {
+    &__distraction-free-mode-control-container {
         display: flex;
         align-self: flex-end;
 
@@ -36,7 +36,7 @@
         }
     }
 
-    &__focus-mode-control-btn {
+    &__distraction-free-mode-control-btn {
         align-self: flex-end;
 
         &--enable {
@@ -93,22 +93,19 @@
         }
     }
 
-    &--has-focus-mode {
+    &--has-distraction-free-mode {
         display: flex;
         flex-wrap: wrap;
 
         .ibexa-field-edit {
-            &__focus-mode {
+            &__distraction-free-mode {
                 margin: auto 0 0;
                 align-self: baseline;
+                width: 20%;
             }
 
             &__label-wrapper {
                 width: 80%;
-            }
-
-            &__focus-mode {
-                width: 20%;
             }
 
             &__data {
@@ -117,7 +114,7 @@
         }
     }
 
-    &--focus-mode-active {
+    &--distraction-free-mode-active {
         position: fixed;
         top: 0;
         left: 0;
@@ -133,18 +130,18 @@
                 display: none;
             }
 
-            &__focus-mode {
+            &__distraction-free-mode {
                 width: 100%;
                 height: fit-content;
                 padding: calculateRem(32px) calculateRem(32px) 0 calculateRem(32px);
             }
 
-            &__focus-mode-notice-container {
+            &__distraction-free-mode-notice-container {
                 display: block;
                 width: 100%;
             }
 
-            &__focus-mode-control-container {
+            &__distraction-free-mode-control-container {
                 display: flex;
                 justify-content: space-between;
                 width: 100%;
@@ -156,7 +153,7 @@
                 }
             }
 
-            &__focus-mode-control-btn {
+            &__distraction-free-mode-control-btn {
                 margin: 0;
 
                 &--enable {
@@ -188,7 +185,7 @@
         }
     }
 
-    &--focus-mode-active.is-invalid {
+    &--distraction-free-mode-active.is-invalid {
         .ibexa-field-edit {
             &__data {
                 border-radius: 0;

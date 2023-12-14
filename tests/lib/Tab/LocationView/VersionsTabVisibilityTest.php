@@ -11,7 +11,7 @@ namespace Ibexa\Tests\AdminUi\Tab\LocationView;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Tab\LocationView\VersionsTab;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
-use Ibexa\AdminUi\UserSetting\UserMode;
+use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
@@ -52,14 +52,14 @@ final class VersionsTabVisibilityTest extends AbstractTabVisibilityTestCase
 
     public function dataProviderForTestTabVisibilityInGivenUserMode(): iterable
     {
-        yield 'smart mode' => [
-            UserMode::SMART,
+        yield 'focus mode on' => [
+            FocusMode::FOCUS_MODE_ON,
             ['content' => $this->exampleContent],
             false,
         ];
 
-        yield 'expert mode' => [
-            UserMode::EXPERT,
+        yield 'focus mode off' => [
+            FocusMode::FOCUS_MODE_OFF,
             ['content' => $this->exampleContent],
             true,
         ];

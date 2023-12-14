@@ -12,9 +12,9 @@ use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
 use Ibexa\AdminUi\Form\Data\Version\VersionRemoveData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Specification\ContentIsUser;
-use Ibexa\AdminUi\Specification\UserMode\IsUserModeEnabled;
+use Ibexa\AdminUi\Specification\UserMode\IsFocusModeEnabled;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
-use Ibexa\AdminUi\UserSetting\UserMode;
+use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
@@ -122,8 +122,8 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
      */
     public function evaluate(array $parameters): bool
     {
-        $isExpertMode = IsUserModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(UserMode::EXPERT);
-        if ($isExpertMode) {
+        $isFocusModeOff = IsFocusModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(FocusMode::FOCUS_MODE_OFF);
+        if ($isFocusModeOff) {
             return $this->permissionResolver->canUser('content', 'versionread', $parameters['content']);
         }
 

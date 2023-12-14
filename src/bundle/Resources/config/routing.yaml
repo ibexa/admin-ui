@@ -965,9 +965,9 @@ ibexa.permission.limitation.language.content_read:
         contentInfoId: \d+
 
 
-### User Mode
+### Focus Mode
 
-ibexa.user_mode.change:
-    path: /user/change-mode
-    controller: 'Ibexa\Bundle\AdminUi\Controller\User\UserModeController::changeAction'
+ibexa.focus_mode.change:
+    path: /user/focus-mode
+    controller: 'Ibexa\Bundle\AdminUi\Controller\User\FocusModeController::changeAction'
     methods: [GET, POST]

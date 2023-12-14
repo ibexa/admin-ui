@@ -182,26 +182,27 @@ class ContentViewPage extends Page
         $this->verifyIsLoaded();
     }
 
-    public function switchToUserMode(string $mode): void
+    public function setFocusMode(bool $expectedModeStatus): void
     {
-        $this->upperMenu->switchToUserMode($mode);
+        $this->upperMenu->setFocusMode($expectedModeStatus);
 
-        $expertModeTab = 'Technical Details';
+        // TODO: Rework this after Focus mode label is visible next to Ibexa's logo
+        $focusModeExcludedTab = 'Technical Details';
 
-        if (strtolower($mode) === 'expert') {
+        if ($expectedModeStatus) {
             $this->getHTMLPage()
                 ->setTimeout(3)
                 ->findAll($this->getLocator('tab'))
-                ->getByCriterion(new ElementTextCriterion($expertModeTab))
+                ->filterBy(new ElementTextCriterion($focusModeExcludedTab))
                 ->assert()
-                ->isVisible();
+                ->isEmpty();
         } else {
             $this->getHTMLPage()
                 ->setTimeout(3)
                 ->findAll($this->getLocator('tab'))
-                ->filterBy(new ElementTextCriterion($expertModeTab))
+                ->getByCriterion(new ElementTextCriterion($focusModeExcludedTab))
                 ->assert()
-                ->isEmpty();
+                ->isVisible();
         }
     }
 

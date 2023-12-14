@@ -45,11 +45,19 @@ final class ContentViewContext implements Context
     }
 
     /**
-     * @Given I am using the DXP in :mode mode
+     * @Given I am using the DXP with Focus mode disabled
      */
-    public function switchToUserMode(string $mode): void
+    public function disableFocusMode(): void
     {
-        $this->contentViewPage->switchToUserMode($mode);
+        $this->contentViewPage->setFocusMode(false);
+    }
+
+    /**
+     * @Given I am using the DXP in Focus mode
+     */
+    public function enableFocusMode(): void
+    {
+        $this->contentViewPage->setFocusMode(true);
     }
 
     /**

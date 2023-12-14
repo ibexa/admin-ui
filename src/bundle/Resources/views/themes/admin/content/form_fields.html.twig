@@ -80,10 +80,10 @@
     {% set fieldtype_identifier = fieldtype.vars.value.fieldDefinition.fieldTypeIdentifier %}
     {% set translation_mode = fieldtype.vars.mainLanguageCode != fieldtype.vars.languageCode %}
     {% set fieldtype_is_not_translatable = translation_mode and not fieldtype.vars.value.fieldDefinition.isTranslatable %}
-    {% set has_focus_mode = fieldtype_identifier == 'ezrichtext' %}
+    {% set has_distraction_free_mode = fieldtype_identifier == 'ezrichtext' %}
 
     {% set widget_wrapper_attr = widget_wrapper_attr|default({})|merge({'class': (widget_wrapper_attr.class|default('') ~ ' ibexa-field-edit__data ibexa-field-edit__data')|trim}) %}
-    {% set wrapper_class = 'ibexa-field-edit ibexa-field-edit--' ~ fieldtype_identifier ~ ' ibexa-field-edit ibexa-field-edit--' ~ fieldtype_identifier ~ (has_focus_mode ? ' ibexa-field-edit--has-focus-mode') %}
+    {% set wrapper_class = 'ibexa-field-edit ibexa-field-edit--' ~ fieldtype_identifier ~ ' ibexa-field-edit ibexa-field-edit--' ~ fieldtype_identifier ~ (has_distraction_free_mode ? ' ibexa-field-edit--has-distraction-free-mode') %}
 
     {% if fieldtype.vars.disabled %}
         {% set wrapper_class = wrapper_class ~ ' ibexa-field-edit--disabled ibexa-field-edit--disabled' %}
@@ -118,8 +118,8 @@
             {% with { 'compound': false } %}{{ block('form_label') }}{% endwith %}
         </div>
 
-        {% if has_focus_mode %}
-            {{- block('focus_mode') }}
+        {% if has_distraction_free_mode %}
+            {{- block('distraction_free_mode') }}
         {% endif %}
 
         {% if widget_container_block is defined %}

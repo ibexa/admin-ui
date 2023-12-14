@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
-use Ibexa\AdminUi\UserSetting\UserMode;
+use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\User\UserSetting\UserSettingService;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-final class UserModeExtension extends AbstractExtension
+final class FocusModeExtension extends AbstractExtension
 {
     private UserSettingService $userService;
 
@@ -26,18 +26,18 @@ final class UserModeExtension extends AbstractExtension
     {
         return [
             new TwigFunction(
-                'ibexa_is_expert_mode',
-                fn (): bool => $this->isModeEnabled(UserMode::EXPERT)
+                'ibexa_is_focus_mode_off',
+                fn (): bool => $this->isModeEnabled(FocusMode::FOCUS_MODE_OFF)
             ),
             new TwigFunction(
-                'ibexa_is_smart_mode',
-                fn (): bool => $this->isModeEnabled(UserMode::SMART)
+                'ibexa_is_focus_mode_on',
+                fn (): bool => $this->isModeEnabled(FocusMode::FOCUS_MODE_ON)
             ),
         ];
     }
 
     private function isModeEnabled(string $mode): bool
     {
-        return $this->userService->getUserSetting(UserMode::IDENTIFIER)->value === $mode;
+        return $this->userService->getUserSetting(FocusMode::IDENTIFIER)->value === $mode;
     }
 }

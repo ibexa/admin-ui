@@ -12,17 +12,18 @@ use Ibexa\AdminUi\Form\Type\User\UserModeChoiceType;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Contracts\User\UserSetting\FormMapperInterface;
 use Ibexa\Contracts\User\UserSetting\ValueDefinitionInterface;
+use JMS\TranslationBundle\Annotation\Desc;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class UserMode implements ValueDefinitionInterface, FormMapperInterface, TranslationContainerInterface
+final class FocusMode implements ValueDefinitionInterface, FormMapperInterface, TranslationContainerInterface
 {
-    public const IDENTIFIER = 'user_mode';
+    public const IDENTIFIER = 'focus_mode';
 
-    public const EXPERT = '0';
-    public const SMART = '1';
+    public const FOCUS_MODE_OFF = '0';
+    public const FOCUS_MODE_ON = '1';
 
     private TranslatorInterface $translator;
 
@@ -39,7 +40,8 @@ final class UserMode implements ValueDefinitionInterface, FormMapperInterface, T
     public function getName(): string
     {
         return $this->translator->trans(
-            'user.setting.mode.name',
+            /** @Desc("Focus mode") */
+            'user.setting.focus_mode.name',
             [],
             'ibexa_user_settings'
         );
@@ -48,7 +50,8 @@ final class UserMode implements ValueDefinitionInterface, FormMapperInterface, T
     public function getDescription(): string
     {
         return $this->translator->trans(
-            'user.setting.mode.description',
+            /** @Desc("Focus mode") */
+            'user.setting.focus_mode.description',
             [],
             'ibexa_user_settings'
         );
@@ -57,8 +60,8 @@ final class UserMode implements ValueDefinitionInterface, FormMapperInterface, T
     public function getDisplayValue(string $storageValue): string
     {
         $translationMap = [
-            self::EXPERT => $this->translator->trans('user.setting.mode.expert', [], 'ibexa_user_settings'),
-            self::SMART => $this->translator->trans('user.setting.mode.smart', [], 'ibexa_user_settings'),
+            self::FOCUS_MODE_OFF => $this->translator->trans(/** @Desc("Off") */'user.setting.focus_mode.off', [], 'ibexa_user_settings'),
+            self::FOCUS_MODE_ON => $this->translator->trans(/** @Desc("On") */'user.setting.focus_mode.on', [], 'ibexa_user_settings'),
         ];
 
         return $translationMap[$storageValue] ?? $storageValue;
@@ -66,7 +69,7 @@ final class UserMode implements ValueDefinitionInterface, FormMapperInterface, T
 
     public function getDefaultValue(): string
     {
-        return $this->configResolver->getParameter('admin_ui.default_user_mode');
+        return $this->configResolver->getParameter('admin_ui.default_focus_mode');
     }
 
     public function mapFieldForm(
@@ -90,26 +93,22 @@ final class UserMode implements ValueDefinitionInterface, FormMapperInterface, T
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message('user.setting.mode.help', 'ibexa_user_settings'))
+            (new Message('user.setting.focus_mode.help', 'ibexa_user_settings'))
                 ->setDesc(
-                    '<p><strong>Smart mode</strong> – A clean and intuitive interface with a simplified content
+                    '<p><strong>Focus mode: on</strong> – A clean and intuitive interface with a simplified content
                         structure, designed for new and non-advanced users. Features include:</p>
                         <ul>
-                            <li>Quick preview</li>
+                            <li>View</li>
                             <li>Hidden Technical Details tab</li>
                             <li>Hidden Locations and Versions tabs in Content items</li>
                         </ul>
-                        <p><strong>Expert mode</strong> – Tailored for experienced users familiar with Ibexa DXP.
+                        <p><strong>Focus mode: off</strong> – Tailored for experienced users familiar with Ibexa DXP.
                         Provides comprehensive insights into the technical aspects of Content structure, including:</p>
                         <ul>
                             <li>Technical Details tab</li>
                             <li>Location: Archived versions</li>
                         </ul>'
                 ),
-            (new Message('user.setting.mode.expert', 'ibexa_user_settings'))->setDesc('Expert'),
-            (new Message('user.setting.mode.smart', 'ibexa_user_settings'))->setDesc('Smart'),
-            (new Message('user.setting.mode.name', 'ibexa_user_settings'))->setDesc('Mode'),
-            (new Message('user.setting.mode.description', 'ibexa_user_settings'))->setDesc('Mode'),
         ];
     }
 }

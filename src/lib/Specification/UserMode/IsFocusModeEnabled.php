@@ -8,17 +8,17 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification\UserMode;
 
-use Ibexa\AdminUi\UserSetting\UserMode;
+use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 use Ibexa\User\UserSetting\UserSettingService;
 
-final class IsUserModeEnabled extends AbstractSpecification
+final class IsFocusModeEnabled extends AbstractSpecification
 {
-    private string $mode;
+    private string $enabled;
 
-    public function __construct(string $mode)
+    public function __construct(string $enabled)
     {
-        $this->mode = $mode;
+        $this->enabled = $enabled;
     }
 
     /**
@@ -26,11 +26,11 @@ final class IsUserModeEnabled extends AbstractSpecification
      */
     public function isSatisfiedBy($item): bool
     {
-        return $this->mode === $item;
+        return $this->enabled === $item;
     }
 
     public static function fromUserSettings(UserSettingService $userService): self
     {
-        return new self($userService->getUserSetting(UserMode::IDENTIFIER)->value);
+        return new self($userService->getUserSetting(FocusMode::IDENTIFIER)->value);
     }
 }
