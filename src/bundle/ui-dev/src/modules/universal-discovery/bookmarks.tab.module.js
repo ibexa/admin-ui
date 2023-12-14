@@ -99,7 +99,11 @@ const BookmarksTabModule = () => {
 export const BookmarksTab = {
     id: 'bookmarks',
     component: BookmarksTabModule,
-    getLabel: () => getTranslator().trans(/*@Desc("Bookmarks")*/ 'bookmarks.label', {}, 'ibexa_universal_discovery_widget'),
+    getLabel: () => {
+        const Translator = getTranslator();
+
+        return Translator.trans(/*@Desc("Bookmarks")*/ 'bookmarks.label', {}, 'ibexa_universal_discovery_widget');
+    },
     getIcon: () => getIconPath('bookmark'),
 };
 

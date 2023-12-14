@@ -28,17 +28,21 @@ export const SORTING_OPTIONS = [
     {
         value: 'date:asc',
         getLabel: () => {
+            const Translator = getTranslator();
+
             return (
                 <div className="c-simple-dropdown__option-label">
-                    {getTranslator().trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
+                    {Translator.trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
                     <Icon name="back" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
                 </div>
             );
         },
         selectedLabel: () => {
+            const Translator = getTranslator();
+
             return (
                 <div className="c-simple-dropdown__option-label">
-                    {getTranslator().trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
+                    {Translator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
                     <Icon name="back" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
                 </div>
             );
@@ -49,17 +53,21 @@ export const SORTING_OPTIONS = [
     {
         value: 'date:desc',
         getLabel: () => {
+            const Translator = getTranslator();
+
             return (
                 <div className="c-simple-dropdown__option-label">
-                    {getTranslator().trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
+                    {Translator.trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
                     <Icon name="back" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
                 </div>
             );
         },
         selectedLabel: () => {
+            const Translator = getTranslator();
+
             return (
                 <div className="c-simple-dropdown__option-label">
-                    {getTranslator().trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
+                    {Translator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
                     <Icon name="back" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
                 </div>
             );
@@ -69,17 +77,39 @@ export const SORTING_OPTIONS = [
     },
     {
         value: 'name:asc',
-        getLabel: () => getTranslator().trans(/*@Desc("Name A-Z")*/ 'sorting.name.asc.label', {}, 'ibexa_universal_discovery_widget'),
-        selectedLabel: () =>
-            getTranslator().trans(/*@Desc("Sort by name A-Z")*/ 'sorting.name.asc.selected_label', {}, 'ibexa_universal_discovery_widget'),
+        getLabel: () => {
+            const Translator = getTranslator();
+
+            return Translator.trans(/*@Desc("Name A-Z")*/ 'sorting.name.asc.label', {}, 'ibexa_universal_discovery_widget');
+        },
+        selectedLabel: () => {
+            const Translator = getTranslator();
+
+            return Translator.trans(
+                /*@Desc("Sort by name A-Z")*/ 'sorting.name.asc.selected_label',
+                {},
+                'ibexa_universal_discovery_widget',
+            );
+        },
         sortClause: 'ContentName',
         sortOrder: 'ascending',
     },
     {
         value: 'name:desc',
-        getLabel: () => getTranslator().trans(/*@Desc("Name Z-A")*/ 'sorting.name.desc.label', {}, 'ibexa_universal_discovery_widget'),
-        selectedLabel: () =>
-            getTranslator().trans(/*@Desc("Sort by name Z-A")*/ 'sorting.name.desc.selected_label', {}, 'ibexa_universal_discovery_widget'),
+        getLabel: () => {
+            const Translator = getTranslator();
+
+            return Translator.trans(/*@Desc("Name Z-A")*/ 'sorting.name.desc.label', {}, 'ibexa_universal_discovery_widget');
+        },
+        selectedLabel: () => {
+            const Translator = getTranslator();
+
+            return Translator.trans(
+                /*@Desc("Sort by name Z-A")*/ 'sorting.name.desc.selected_label',
+                {},
+                'ibexa_universal_discovery_widget',
+            );
+        },
         sortClause: 'ContentName',
         sortOrder: 'descending',
     },
@@ -89,17 +119,29 @@ export const VIEWS = [
     {
         value: 'finder',
         iconName: 'panels',
-        getLabel: () => getTranslator().trans(/*@Desc("Panels view")*/ 'sorting.panels.view', {}, 'ibexa_universal_discovery_widget'),
+        getLabel: () => {
+            const Translator = getTranslator();
+
+            return Translator.trans(/*@Desc("Panels view")*/ 'sorting.panels.view', {}, 'ibexa_universal_discovery_widget');
+        },
     },
     {
         value: 'grid',
         iconName: 'view-grid',
-        getLabel: () => getTranslator().trans(/*@Desc("Grid view")*/ 'sorting.grid.view', {}, 'ibexa_universal_discovery_widget'),
+        getLabel: () => {
+            const Translator = getTranslator();
+
+            return Translator.trans(/*@Desc("Grid view")*/ 'sorting.grid.view', {}, 'ibexa_universal_discovery_widget');
+        },
     },
     {
         value: 'tree',
         iconName: 'content-tree',
-        getLabel: () => getTranslator().trans(/*@Desc("Tree view")*/ 'sorting.tree.view', {}, 'ibexa_universal_discovery_widget'),
+        getLabel: () => {
+            const Translator = getTranslator();
+
+            return Translator.trans(/*@Desc("Tree view")*/ 'sorting.tree.view', {}, 'ibexa_universal_discovery_widget');
+        },
     },
 ];
 

@@ -104,7 +104,11 @@ const ContentCreateTabModule = () => {
 const ContentCreateTab = {
     id: 'content-create',
     component: ContentCreateTabModule,
-    getLabel: () => getTranslator().trans(/*@Desc("Content create")*/ 'content_create.label', {}, 'ibexa_universal_discovery_widget'),
+    getLabel: () => {
+        const Translator = getTranslator();
+
+        return Translator.trans(/*@Desc("Content create")*/ 'content_create.label', {}, 'ibexa_universal_discovery_widget');
+    },
     getIcon: () => getIconPath('search'),
     isHiddenOnList: true,
 };
