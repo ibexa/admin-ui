@@ -3851,11 +3851,6 @@ parameters:
 			path: src/lib/FieldType/Mapper/ISBNFormMapper.php
 
 		-
-			message: "#^Constructor of class Ibexa\\\\AdminUi\\\\FieldType\\\\Mapper\\\\ImageFormMapper has an unused parameter \\$fieldTypeService\\.$#"
-			count: 1
-			path: src/lib/FieldType/Mapper/ImageFormMapper.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\FieldType\\\\Mapper\\\\ImageFormMapper\\:\\:configureOptions\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/FieldType/Mapper/ImageFormMapper.php

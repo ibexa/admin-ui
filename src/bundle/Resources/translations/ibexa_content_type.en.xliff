@@ -601,6 +601,11 @@
         <target state="new">Minimum value</target>
         <note>key: field_definition.ezfloat.min_value</note>
       </trans-unit>
+      <trans-unit id="8959be663eef40d92147918da792f8677772ea0c" resname="field_definition.ezimage.image_types">
+        <source>Image types</source>
+        <target state="new">Image types</target>
+        <note>key: field_definition.ezimage.image_types</note>
+      </trans-unit>
       <trans-unit id="5e8015fbf9269d3ee1bbb99b09005cf6b165ab53" resname="field_definition.ezimage.is_alternative_text_required">
         <source>Alternative text is required</source>
         <target state="new">Alternative text is required</target>

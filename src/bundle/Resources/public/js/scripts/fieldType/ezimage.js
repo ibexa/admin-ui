@@ -125,6 +125,13 @@
                 },
                 {
                     isValueValidator: false,
+                    selector: `${SELECTOR_INPUT_FILE}`,
+                    eventName: 'ibexa-invalid-file-type',
+                    callback: 'showFileTypeError',
+                    errorNodeSelectors: ['.ibexa-form-error'],
+                },
+                {
+                    isValueValidator: false,
                     selector: SELECTOR_INPUT_ALT,
                     eventName: EVENT_CANCEL_ERROR,
                     callback: 'cancelErrors',
@@ -133,10 +140,14 @@
                 },
             ],
         });
+
+        const inputFileFieldContainer = fieldContainer.querySelector(SELECTOR_INPUT_FILE);
+        const { allowedFileTypes } = inputFileFieldContainer.dataset;
         const previewField = new EzImageFilePreviewField({
             validator,
             fieldContainer,
-            fileTypeAccept: fieldContainer.querySelector(SELECTOR_INPUT_FILE).accept,
+            fileTypeAccept: inputFileFieldContainer.accept,
+            allowedFileTypes: typeof allowedFileTypes !== 'undefined' ? allowedFileTypes.split(',') : [],
         });
 
         previewField.init();

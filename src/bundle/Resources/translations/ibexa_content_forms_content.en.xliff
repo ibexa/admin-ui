@@ -161,6 +161,11 @@
         <target state="new">or</target>
         <note>key: fieldtype.binary_base.drag_drop.or</note>
       </trans-unit>
+      <trans-unit id="0f71380bdf7b1b566dfd532ec3611aa13b2f0c38" resname="fieldtype.binary_base.image_extensions">
+        <source>Allowed extensions: %extensions%</source>
+        <target state="new">Allowed extensions: %extensions%</target>
+        <note>key: fieldtype.binary_base.image_extensions</note>
+      </trans-unit>
       <trans-unit id="858c986173f1ef87d7acda017535b86f01bca87d" resname="fieldtype.binary_base.max_file_size">
         <source>Max file size: %size%</source>
         <target state="new">Max file size: %size%</target>

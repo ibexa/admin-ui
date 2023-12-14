@@ -46,6 +46,8 @@ services:
             - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezfloat }
 
     Ibexa\AdminUi\FieldType\Mapper\ImageFormMapper:
+        arguments:
+            $allowedMimeTypes: '%ibexa.field_type.ezimage.mime_types%'
         tags:
             - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezimage }
 

@@ -140,6 +140,13 @@
                     errorNodeSelectors: ['.ibexa-field-edit--ezmedia .ibexa-form-error'],
                 },
                 {
+                    isValueValidator: false,
+                    selector: SELECTOR_INPUT_FILE,
+                    eventName: 'ibexa-invalid-file-type',
+                    callback: 'showFileTypeError',
+                    errorNodeSelectors: ['.ibexa-field-edit--ezmedia .ibexa-form-error'],
+                },
+                {
                     selector: '.ibexa-field-edit-preview__dimensions .form-control',
                     eventName: 'blur',
                     callback: 'validateDimensions',
