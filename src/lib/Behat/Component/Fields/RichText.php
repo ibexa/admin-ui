@@ -131,6 +131,11 @@ class RichText extends FieldTypeComponent
         $this->clickElementsToolbarButton('Embed');
     }
 
+    public function clickImageButton(): void
+    {
+        $this->clickElementsToolbarButton('Image');
+    }
+
     public function equalsEmbedInlineItem($itemName): bool
     {
         return $itemName === $this->getHTMLPage()->find($this->getLocator('embedInlineTitle'))->getText();
@@ -153,7 +158,18 @@ class RichText extends FieldTypeComponent
             new VisibleCSSLocator('unorderedListElement', '.ibexa-data-source__richtext ul li'),
             new VisibleCSSLocator('embedInlineTitle', '.ibexa-embed-inline .ibexa-embed-content__title'),
             new VisibleCSSLocator('embedTitle', '.ibexa-embed .ibexa-embed-content__title'),
+            new VisibleCSSLocator('distractionFreeMode', '[data-original-title*="distraction free"]'),
         ];
+    }
+
+    public function enterDistractionFreeMode(): void
+    {
+        $this->find($this->parentLocator)->find($this->getLocator('distractionFreeMode'))->click();
+    }
+
+    public function exitDistractionFreeMode(): void
+    {
+        $this->find($this->parentLocator)->find($this->getLocator('distractionFreeMode'))->click();
     }
 
     public function getFieldTypeIdentifier(): string
