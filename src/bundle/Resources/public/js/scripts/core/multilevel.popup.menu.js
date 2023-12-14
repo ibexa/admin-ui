@@ -72,7 +72,6 @@
             const branchItems = this.getBranchItems(branchElement);
             const offset = isTopBranch ? [0, 3] : [-8, 2];
             const branchSearchInput = branchElement.querySelector('.ibexa-multilevel-popup-menu__search-input');
-
             const popperInstance = Popper.createPopper(referenceElement ?? triggerElement, branchElement, {
                 placement,
                 modifiers: [

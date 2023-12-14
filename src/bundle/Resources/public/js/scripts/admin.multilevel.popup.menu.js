@@ -7,6 +7,7 @@
         const multilevelPopupMenu = new ibexa.core.MultilevelPopupMenu({
             container,
             triggerElement: doc.querySelector(container.dataset.triggerElementSelector),
+            initialBranchPlacement: container.dataset.initialBranchPlacement,
         });
 
         multilevelPopupMenu.init();
