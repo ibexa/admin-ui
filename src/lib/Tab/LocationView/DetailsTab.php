@@ -79,7 +79,7 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
 
     public function getOrder(): int
     {
-        return 200;
+        return 750;
     }
 
     public function evaluate(array $parameters): bool

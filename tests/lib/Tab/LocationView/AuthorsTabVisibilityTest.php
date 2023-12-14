@@ -25,7 +25,6 @@ final class AuthorsTabVisibilityTest extends AbstractTabVisibilityTestCase
             $this->createMock(Environment::class),
             $this->createMock(TranslatorInterface::class),
             $this->createMock(UserService::class),
-            $userSettingService,
             $this->createMock(EventDispatcherInterface::class)
         );
     }
@@ -33,6 +32,6 @@ final class AuthorsTabVisibilityTest extends AbstractTabVisibilityTestCase
     public function dataProviderForTestTabVisibilityInGivenUserMode(): iterable
     {
         yield 'focus mode on' => [FocusMode::FOCUS_MODE_ON, [], true];
-        yield 'focus mode off' => [FocusMode::FOCUS_MODE_OFF, [], false];
+        yield 'focus mode off' => [FocusMode::FOCUS_MODE_OFF, [], true];
     }
 }
