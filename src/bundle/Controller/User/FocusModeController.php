@@ -12,6 +12,8 @@ use Ibexa\AdminUi\Form\Data\User\FocusModeChangeData;
 use Ibexa\AdminUi\Form\Type\User\FocusModeChangeType;
 use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\User\UserSetting\UserSettingService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,11 +23,22 @@ final class FocusModeController extends Controller
 {
     private const RETURN_URL_PARAM = 'returnUrl';
 
+    private const FOCUS_MODE_HIDDEN_MENU_ITEMS = ['section', 'state', 'contenttypegroup'];
+
     private UserSettingService $userSettingService;
 
-    public function __construct(UserSettingService $userSettingService)
-    {
+    private ConfigResolverInterface $configResolver;
+
+    private LocationService $locationService;
+
+    public function __construct(
+        UserSettingService $userSettingService,
+        ConfigResolverInterface $configResolver,
+        LocationService $locationService
+    ) {
         $this->userSettingService = $userSettingService;
+        $this->configResolver = $configResolver;
+        $this->locationService = $locationService;
     }
 
     public function changeAction(Request $request, ?string $returnUrl): Response
@@ -69,6 +82,10 @@ final class FocusModeController extends Controller
     {
         $url = $request->query->get(self::RETURN_URL_PARAM);
         if (is_string($url) && $this->isSafeUrl($url, $request->getBaseUrl())) {
+            if ($this->isRedirectRouteHidden($url)) {
+                return new RedirectResponse($this->getDefaultUrl());
+            }
+
             return new RedirectResponse($url);
         }
 
@@ -78,5 +95,28 @@ final class FocusModeController extends Controller
     private function isSafeUrl(string $referer, string $baseUrl): bool
     {
         return str_starts_with($referer, $baseUrl);
+    }
+
+    private function isRedirectRouteHidden(string $returnUrl): bool
+    {
+        foreach (self::FOCUS_MODE_HIDDEN_MENU_ITEMS as $item) {
+            if (str_contains($returnUrl, $item)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function getDefaultUrl(): string
+    {
+        $locationId = $this->configResolver->getParameter('location_ids.content_structure');
+        $location = $this->locationService->loadLocation($locationId);
+        $contentId = $location->getContentInfo()->id;
+
+        return $this->generateUrl('ibexa.content.view', [
+            'locationId' => $locationId,
+            'contentId' => $contentId,
+        ]);
     }
 }
