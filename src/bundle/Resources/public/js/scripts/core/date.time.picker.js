@@ -1,118 +1,124 @@
-(function (global, doc, ibexa, flatpickr) {
-    const { convertDateToTimezone, formatShortDateTime } = ibexa.helpers.timezone;
-    const userTimezone = ibexa.adminUiConfig.timezone;
-    const DEFAULT_CONFIG = {
-        enableTime: true,
-        time_24hr: true,
-        formatDate: (date) => formatShortDateTime(date, null),
-    };
+import { getAdminUiConfig, getFlatpickr } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { convertDateToTimezone, formatShortDateTime } from '../helpers/timezone.helper';
+import { setInstance } from '../helpers/object.instances';
 
-    class DateTimePicker {
-        constructor(config) {
-            this.container = config.container;
-            this.fieldWrapper = this.container.querySelector('.ibexa-date-time-picker');
-            this.inputField = this.fieldWrapper.querySelector('.ibexa-date-time-picker__input');
-            this.actionsWrapper = this.fieldWrapper.querySelector('.ibexa-input-text-wrapper__actions');
-            this.calendarBtn = this.actionsWrapper.querySelector('.ibexa-input-text-wrapper__action-btn--calendar');
-            this.clearBtn = this.fieldWrapper.querySelector('.ibexa-input-text-wrapper__action-btn--clear');
-            this.customOnChange = config.onChange;
+const { ibexa } = window;
 
-            this.init = this.init.bind(this);
-            this.onChange = this.onChange.bind(this);
-            this.onInput = this.onInput.bind(this);
-            this.clear = this.clear.bind(this);
+const DEFAULT_CONFIG = {
+    enableTime: true,
+    time_24hr: true,
+    formatDate: (date) => formatShortDateTime(date, null),
+};
 
-            this.flatpickrConfig = {
-                ...DEFAULT_CONFIG,
-                inline: this.fieldWrapper.classList.contains('ibexa-date-time-picker--inline-datetime-popup'),
-                onChange: this.onChange,
-                ignoredFocusElements: [this.actionsWrapper],
-                ...(config.flatpickrConfig ?? {}),
-            };
+class DateTimePicker {
+    constructor(config) {
+        this.container = config.container;
+        this.fieldWrapper = this.container.querySelector('.ibexa-date-time-picker');
+        this.inputField = this.fieldWrapper.querySelector('.ibexa-date-time-picker__input');
+        this.actionsWrapper = this.fieldWrapper.querySelector('.ibexa-input-text-wrapper__actions');
+        this.calendarBtn = this.actionsWrapper.querySelector('.ibexa-input-text-wrapper__action-btn--calendar');
+        this.clearBtn = this.fieldWrapper.querySelector('.ibexa-input-text-wrapper__action-btn--clear');
+        this.customOnChange = config.onChange;
 
-            ibexa.helpers.objectInstances.setInstance(this.container, this);
+        this.init = this.init.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.onInput = this.onInput.bind(this);
+        this.clear = this.clear.bind(this);
+
+        this.flatpickrConfig = {
+            ...DEFAULT_CONFIG,
+            inline: this.fieldWrapper.classList.contains('ibexa-date-time-picker--inline-datetime-popup'),
+            onChange: this.onChange,
+            ignoredFocusElements: [this.actionsWrapper],
+            ...(config.flatpickrConfig ?? {}),
+        };
+
+        setInstance(this.container, this);
+    }
+
+    clear() {
+        this.flatpickrInstance.clear();
+    }
+
+    onChange(dates) {
+        const isDateSelected = !!dates[0];
+        const otherArguments = { inputField: this.inputField, dates };
+
+        if (!isDateSelected) {
+            this.inputField.dataset.timestamp = '';
+
+            this.customOnChange([''], otherArguments);
+
+            return;
         }
 
-        clear() {
-            this.flatpickrInstance.clear();
-        }
+        const timestamps = dates.map((date) => {
+            const { timezone } = getAdminUiConfig();
+            const selectedDateWithUserTimezone = convertDateToTimezone(date, timezone, true);
+            const timestamp = Math.floor(selectedDateWithUserTimezone.valueOf() / 1000);
 
-        onChange(dates) {
-            const isDateSelected = !!dates[0];
-            const otherArguments = { inputField: this.inputField, dates };
+            return timestamp;
+        });
 
-            if (!isDateSelected) {
-                this.inputField.dataset.timestamp = '';
+        [this.inputField.dataset.timestamp] = timestamps;
 
-                this.customOnChange([''], otherArguments);
+        this.customOnChange(timestamps, otherArguments);
+    }
 
-                return;
-            }
+    onInput(event) {
+        event.preventDefault();
 
-            const timestamps = dates.map((date) => {
-                const selectedDateWithUserTimezone = convertDateToTimezone(date, userTimezone, true);
-                const timestamp = Math.floor(selectedDateWithUserTimezone.valueOf() / 1000);
-
-                return timestamp;
-            });
-
-            [this.inputField.dataset.timestamp] = timestamps;
-
-            this.customOnChange(timestamps, otherArguments);
-        }
-
-        onInput(event) {
-            event.preventDefault();
-
-            if (event.target.value === '' && this.inputField.dataset.timestamp !== '') {
-                this.clear();
-            }
-        }
-
-        onKeyUp(isMinute, event) {
-            const inputValue = event.target.value;
-
-            if (inputValue.length === 0) {
-                return;
-            }
-
-            const value = parseInt(inputValue, 10);
-
-            if (typeof value === 'number' && value >= 0) {
-                const flatpickrDate = this.flatpickrInstance.selectedDates[0];
-
-                if (isMinute) {
-                    flatpickrDate.setMinutes(value);
-                } else {
-                    flatpickrDate.setHours(value);
-                }
-
-                if (this.flatpickrConfig.minDate.getTime() > flatpickrDate.getTime()) {
-                    return;
-                }
-
-                this.flatpickrInstance.setDate(flatpickrDate, true);
-            }
-        }
-
-        init() {
-            this.flatpickrInstance = flatpickr(this.inputField, this.flatpickrConfig);
-
-            this.inputField.addEventListener('input', this.onInput, false);
-            this.calendarBtn.addEventListener(
-                'click',
-                () => {
-                    this.flatpickrInstance.open();
-                },
-                false,
-            );
-
-            if (this.flatpickrInstance.config.enableTime) {
-                this.flatpickrInstance.minuteElement.addEventListener('keyup', this.onKeyUp.bind(this, true), false);
-                this.flatpickrInstance.hourElement.addEventListener('keyup', this.onKeyUp.bind(this, false), false);
-            }
+        if (event.target.value === '' && this.inputField.dataset.timestamp !== '') {
+            this.clear();
         }
     }
 
-    ibexa.addConfig('core.DateTimePicker', DateTimePicker);
-})(window, window.document, window.ibexa, window.flatpickr);
+    onKeyUp(isMinute, event) {
+        const inputValue = event.target.value;
+
+        if (inputValue.length === 0) {
+            return;
+        }
+
+        const value = parseInt(inputValue, 10);
+
+        if (typeof value === 'number' && value >= 0) {
+            const flatpickrDate = this.flatpickrInstance.selectedDates[0];
+
+            if (isMinute) {
+                flatpickrDate.setMinutes(value);
+            } else {
+                flatpickrDate.setHours(value);
+            }
+
+            if (this.flatpickrConfig.minDate.getTime() > flatpickrDate.getTime()) {
+                return;
+            }
+
+            this.flatpickrInstance.setDate(flatpickrDate, true);
+        }
+    }
+
+    init() {
+        const flatpickr = getFlatpickr();
+        this.flatpickrInstance = flatpickr(this.inputField, this.flatpickrConfig);
+
+        this.inputField.addEventListener('input', this.onInput, false);
+        this.calendarBtn.addEventListener(
+            'click',
+            () => {
+                this.flatpickrInstance.open();
+            },
+            false,
+        );
+
+        if (this.flatpickrInstance.config.enableTime) {
+            this.flatpickrInstance.minuteElement.addEventListener('keyup', this.onKeyUp.bind(this, true), false);
+            this.flatpickrInstance.hourElement.addEventListener('keyup', this.onKeyUp.bind(this, false), false);
+        }
+    }
+}
+
+ibexa?.addConfig('core.DateTimePicker', DateTimePicker);
+
+export { DateTimePicker };

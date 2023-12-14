@@ -1,7 +1,9 @@
 import React, { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
+import { getId as getUserId } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/user.helper';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
+
 import ContentTreeModule from '../../../content-tree/content.tree.module';
 import { loadAccordionData } from '../../services/universal.discovery.service';
 import { getLocationData } from '../../content.meta.preview.module';
@@ -18,10 +20,10 @@ import {
     SortOrderContext,
     SortingContext,
 } from '../../universal.discovery.module';
-
-const { ibexa } = window;
+import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const TreeView = ({ itemsPerPage }) => {
+    const adminUiConfig = getAdminUiConfig();
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const [multiple] = useContext(MultipleConfigContext);
@@ -34,7 +36,7 @@ const TreeView = ({ itemsPerPage }) => {
     const restInfo = useContext(RestInfoContext);
     const rootLocationId = useContext(RootLocationIdContext);
     const locationData = useMemo(() => getLocationData(loadedLocationsMap, markedLocationId), [markedLocationId, loadedLocationsMap]);
-    const userId = ibexa.helpers.user.getId();
+    const userId = adminUiConfig.userId ?? getUserId();
     const expandItem = (item, event) => {
         event.preventDefault();
         event.currentTarget.closest('.c-list-item__row').querySelector('.c-list-item__toggler').click();
@@ -107,6 +109,9 @@ const TreeView = ({ itemsPerPage }) => {
                     userId={userId}
                     currentLocationPath={currentLocationPath}
                     rootLocationId={rootLocationId}
+                    subitemsLimit={adminUiConfig.contentTree.childrenLoadMaxLimi}
+                    subitemsLoadLimit={adminUiConfig.contentTree.loadMoreLimit}
+                    treeMaxDepth={adminUiConfig.contentTree.treeMaxDepth}
                     restInfo={restInfo}
                     onClickItem={expandItem}
                     readSubtree={readSubtree}

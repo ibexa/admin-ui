@@ -1,6 +1,8 @@
+import { getRequestHeaders, getRequestMode } from '../../../../../Resources/public/js/scripts/helpers/request.helper.js';
 import { showErrorNotification } from '../../common/services/notification.service';
 import { handleRequestResponse, handleRequestResponseStatus } from '../../common/helpers/request.helper.js';
 
+const DEFAULT_INSTANCE_URL = window.location.origin;
 const HEADERS_CREATE_VIEW = {
     Accept: 'application/vnd.ibexa.api.View+json; version=1.1',
     'Content-Type': 'application/vnd.ibexa.api.ViewInput+json; version=1.1',
@@ -41,28 +43,33 @@ export const findLocationsByParentLocationId = (
     {
         token,
         siteaccess,
+        accessToken,
         parentLocationId,
         limit = QUERY_LIMIT,
         offset = 0,
         sortClause = 'DatePublished',
         sortOrder = 'ascending',
         gridView = false,
+        instanceUrl = DEFAULT_INSTANCE_URL,
     },
     callback,
 ) => {
-    let url = `${ENDPOINT_LOCATION}/${parentLocationId}`;
+    let url = `${instanceUrl}${ENDPOINT_LOCATION}/${parentLocationId}`;
     if (gridView) {
         url += '/gridview';
     }
 
     const request = new Request(`${url}?limit=${limit}&offset=${offset}&sortClause=${sortClause}&sortOrder=${sortOrder}`, {
         method: 'GET',
-        headers: {
-            'X-CSRF-Token': token,
-            Accept: 'application/json',
-            'X-Siteaccess': siteaccess,
-        },
-        mode: 'same-origin',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/json',
+            },
+        }),
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
@@ -86,31 +93,37 @@ export const findLocationsByParentLocationId = (
         .catch(showErrorNotificationAbortWrapper);
 };
 
-export const loadAccordionData = (
+export const loadAccordionData = async (
     {
         token,
         siteaccess,
+        accessToken,
         parentLocationId,
         limit = QUERY_LIMIT,
         sortClause = 'DatePublished',
         sortOrder = 'ascending',
         gridView = false,
         rootLocationId = 1,
+        instanceUrl = DEFAULT_INSTANCE_URL,
     },
     callback,
 ) => {
-    let url = `${ENDPOINT_ACCORDION}/${parentLocationId}`;
+    let url = `${instanceUrl}${ENDPOINT_ACCORDION}/${parentLocationId}`;
     if (gridView) {
         url += '/gridview';
     }
+
     const request = new Request(`${url}?limit=${limit}&sortClause=${sortClause}&sortOrder=${sortOrder}&rootLocationId=${rootLocationId}`, {
         method: 'GET',
-        headers: {
-            'X-CSRF-Token': token,
-            Accept: 'application/json',
-            'X-Siteaccess': siteaccess,
-        },
-        mode: 'same-origin',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/json',
+            },
+        }),
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
@@ -160,7 +173,18 @@ export const loadAccordionData = (
 };
 
 export const findLocationsBySearchQuery = (
-    { token, siteaccess, query, aggregations, filters, limit = QUERY_LIMIT, offset = 0, languageCode = null },
+    {
+        token,
+        siteaccess,
+        accessToken,
+        query,
+        aggregations,
+        filters,
+        limit = QUERY_LIMIT,
+        offset = 0,
+        languageCode = null,
+        instanceUrl = DEFAULT_INSTANCE_URL,
+    },
     callback,
 ) => {
     const useAlwaysAvailable = true;
@@ -181,11 +205,16 @@ export const findLocationsBySearchQuery = (
             },
         },
     });
-    const request = new Request(ENDPOINT_CREATE_VIEW, {
+    const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
-        headers: { ...HEADERS_CREATE_VIEW, 'X-Siteaccess': siteaccess, 'X-CSRF-Token': token },
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: HEADERS_CREATE_VIEW,
+        }),
         body,
-        mode: 'same-origin',
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
@@ -204,7 +233,10 @@ export const findLocationsBySearchQuery = (
         .catch(showErrorNotificationAbortWrapper);
 };
 
-export const findLocationsById = ({ token, siteaccess, id, limit = QUERY_LIMIT, offset = 0 }, callback) => {
+export const findLocationsById = (
+    { token, siteaccess, accessToken, id, limit = QUERY_LIMIT, offset = 0, instanceUrl = DEFAULT_INSTANCE_URL },
+    callback,
+) => {
     const body = JSON.stringify({
         ViewInput: {
             identifier: `udw-locations-by-id-${id}`,
@@ -218,11 +250,17 @@ export const findLocationsById = ({ token, siteaccess, id, limit = QUERY_LIMIT, 
             },
         },
     });
-    const request = new Request(ENDPOINT_CREATE_VIEW, {
+
+    const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
-        headers: { ...HEADERS_CREATE_VIEW, 'X-Siteaccess': siteaccess, 'X-CSRF-Token': token },
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: HEADERS_CREATE_VIEW,
+        }),
         body,
-        mode: 'same-origin',
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
@@ -236,7 +274,10 @@ export const findLocationsById = ({ token, siteaccess, id, limit = QUERY_LIMIT, 
         .catch(showErrorNotificationAbortWrapper);
 };
 
-export const findContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LIMIT, offset = 0 }, callback) => {
+export const findContentInfo = (
+    { token, siteaccess, accessToken, contentId, limit = QUERY_LIMIT, offset = 0, instanceUrl = DEFAULT_INSTANCE_URL },
+    callback,
+) => {
     const body = JSON.stringify({
         ViewInput: {
             identifier: `udw-load-content-info-${contentId}`,
@@ -250,11 +291,16 @@ export const findContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LI
             },
         },
     });
-    const request = new Request(ENDPOINT_CREATE_VIEW, {
+    const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
-        headers: { ...HEADERS_CREATE_VIEW, 'X-Siteaccess': siteaccess, 'X-CSRF-Token': token },
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: HEADERS_CREATE_VIEW,
+        }),
         body,
-        mode: 'same-origin',
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
@@ -268,15 +314,18 @@ export const findContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LI
         .catch(showErrorNotificationAbortWrapper);
 };
 
-export const loadBookmarks = ({ token, siteaccess, limit, offset }, callback) => {
-    const request = new Request(`${ENDPOINT_BOOKMARK}?limit=${limit}&offset=${offset}`, {
+export const loadBookmarks = ({ token, siteaccess, accessToken, limit, offset, instanceUrl = DEFAULT_INSTANCE_URL }, callback) => {
+    const request = new Request(`${instanceUrl}${ENDPOINT_BOOKMARK}?limit=${limit}&offset=${offset}`, {
         method: 'GET',
-        headers: {
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-            Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
-        },
-        mode: 'same-origin',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
+            },
+        }),
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
@@ -291,14 +340,11 @@ export const loadBookmarks = ({ token, siteaccess, limit, offset }, callback) =>
         .catch(showErrorNotificationAbortWrapper);
 };
 
-const toggleBookmark = ({ siteaccess, token, locationId }, callback, method) => {
-    const request = new Request(`${ENDPOINT_BOOKMARK}/${locationId}`, {
+const toggleBookmark = ({ siteaccess, token, accessToken, locationId, instanceUrl = DEFAULT_INSTANCE_URL }, callback, method) => {
+    const request = new Request(`${instanceUrl}${ENDPOINT_BOOKMARK}/${locationId}`, {
         method,
-        headers: {
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-        },
-        mode: 'same-origin',
+        headers: getRequestHeaders({ token, siteaccess, accessToken }),
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
@@ -313,37 +359,46 @@ export const removeBookmark = (options, callback) => {
     toggleBookmark(options, callback, 'DELETE');
 };
 
-export const loadContentTypes = ({ token, siteaccess }, callback) => {
-    const request = new Request('/api/ibexa/v2/content/types', {
+export const loadContentTypes = ({ token, siteaccess, accessToken, instanceUrl = DEFAULT_INSTANCE_URL }, callback) => {
+    const request = new Request(`${instanceUrl}/api/ibexa/v2/content/types`, {
         method: 'GET',
-        headers: {
-            Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-        },
-        mode: 'same-origin',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
+            },
+        }),
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
     fetch(request).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
 };
 
-export const createDraft = ({ token, siteaccess, contentId }, callback) => {
-    const request = new Request(`/api/ibexa/v2/content/objects/${contentId}/currentversion`, {
+export const createDraft = ({ token, siteaccess, accessToken, contentId, instanceUrl = DEFAULT_INSTANCE_URL }, callback) => {
+    const request = new Request(`${instanceUrl}/api/ibexa/v2/content/objects/${contentId}/currentversion`, {
         method: 'COPY',
-        headers: {
-            Accept: 'application/vnd.ibexa.api.VersionUpdate+json',
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-        },
-        mode: 'same-origin',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/vnd.ibexa.api.VersionUpdate+json',
+            },
+        }),
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
     fetch(request).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
 };
 
-export const loadContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LIMIT, offset = 0, signal }, callback) => {
+export const loadContentInfo = (
+    { token, siteaccess, accessToken, contentId, limit = QUERY_LIMIT, offset = 0, signal, instanceUrl = DEFAULT_INSTANCE_URL },
+    callback,
+) => {
     const body = JSON.stringify({
         ViewInput: {
             identifier: `udw-load-content-info-${contentId}`,
@@ -357,11 +412,16 @@ export const loadContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LI
             },
         },
     });
-    const request = new Request(ENDPOINT_CREATE_VIEW, {
+    const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
-        headers: { ...HEADERS_CREATE_VIEW, 'X-Siteaccess': siteaccess, 'X-CSRF-Token': token },
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: HEADERS_CREATE_VIEW,
+        }),
         body,
-        mode: 'same-origin',
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
@@ -375,17 +435,44 @@ export const loadContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LI
         .catch(showErrorNotificationAbortWrapper);
 };
 
-export const loadLocationsWithPermissions = ({ token, siteaccess, locationIds, signal }, callback) => {
-    const request = new Request(`${ENDPOINT_LOCATION_LIST}?locationIds=${locationIds}`, {
-        headers: {
-            Accept: 'application/vnd.ibexa.api.VersionUpdate+json',
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-        },
+export const loadLocationsWithPermissions = (
+    { token, siteaccess, accessToken, locationIds, signal, instanceUrl = DEFAULT_INSTANCE_URL },
+    callback,
+) => {
+    const request = new Request(`${instanceUrl}${ENDPOINT_LOCATION_LIST}?locationIds=${locationIds}`, {
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/vnd.ibexa.api.VersionUpdate+json',
+            },
+        }),
         method: 'GET',
-        mode: 'same-origin',
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
     fetch(request, { signal }).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
+};
+
+export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanceUrl = DEFAULT_INSTANCE_URL }) => {
+    const request = new Request(`${instanceUrl}/api/ibexa/v2/application-config`, {
+        method: 'GET',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/json',
+            },
+        }),
+        mode: getRequestMode({ instanceUrl }),
+        credentials: 'same-origin',
+    });
+
+    const adminUiData = await fetch(request);
+    const adminUiConfig = await adminUiData.json();
+
+    return adminUiConfig.ApplicationConfig;
 };

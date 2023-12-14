@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
+
 const Icon = (props) => {
-    const linkHref = props.customPath ? props.customPath : window.ibexa.helpers.icon.getIconPath(props.name);
+    const linkHref = props.customPath ? props.customPath : getIconPath(props.name);
     let className = 'ibexa-icon';
 
     if (props.extraClasses) {

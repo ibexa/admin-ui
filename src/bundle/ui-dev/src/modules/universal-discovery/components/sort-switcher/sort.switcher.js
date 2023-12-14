@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import SimpleDropdown from '../../../common/simple-dropdown/simple.dropdown';
 import { SortingContext, SortOrderContext, SORTING_OPTIONS } from '../../universal.discovery.module';
 
-const { ibexa } = window;
-
 const SortSwitcher = ({ isDisabled }) => {
     const [sorting, setSorting] = useContext(SortingContext);
     const [sortOrder, setSortOrder] = useContext(SortOrderContext);
@@ -36,16 +34,10 @@ SortSwitcher.defaultProps = {
     isDisabled: false,
 };
 
-ibexa.addConfig(
-    'adminUiConfig.universalDiscoveryWidget.topMenuActions',
-    [
-        {
-            id: 'sort-switcher',
-            priority: 20,
-            component: SortSwitcher,
-        },
-    ],
-    true,
-);
+export const SortSwitcherMenuButton = {
+    id: 'sort-switcher',
+    priority: 20,
+    component: SortSwitcher,
+};
 
 export default SortSwitcher;

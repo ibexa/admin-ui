@@ -1,14 +1,20 @@
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+import {
+    parse as parseTooltip,
+    hideAll as hideAllTooltips,
+} from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+
 import Icon from '../../../common/icon/icon';
 import Thumbnail from '../../../common/thumbnail/thumbnail';
 
 import { SelectedLocationsContext, ContentTypesMapContext } from '../../universal.discovery.module';
-
-const { Translator, ibexa } = window;
+import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const SelectedLocationsItem = ({ location, permissions }) => {
+    const adminUiConfig = getAdminUiConfig();
+    const Translator = getTranslator();
     const refSelectedLocationsItem = useRef(null);
     const [, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
@@ -18,11 +24,11 @@ const SelectedLocationsItem = ({ location, permissions }) => {
         'ibexa_universal_discovery_widget',
     );
     const removeFromSelection = () => {
-        ibexa.helpers.tooltips.hideAll(refSelectedLocationsItem.current);
+        hideAllTooltips(refSelectedLocationsItem.current);
         dispatchSelectedLocationsAction({ type: 'REMOVE_SELECTED_LOCATION', id: location.id });
     };
     const sortedActions = useMemo(() => {
-        const { selectedItemActions } = ibexa.adminUiConfig.universalDiscoveryWidget;
+        const { selectedItemActions } = adminUiConfig.universalDiscoveryWidget;
         const actions = selectedItemActions ? [...selectedItemActions] : [];
 
         return actions.sort((actionA, actionB) => {
@@ -33,7 +39,7 @@ const SelectedLocationsItem = ({ location, permissions }) => {
     const thumbnailData = version ? version.Thumbnail : {};
 
     useEffect(() => {
-        ibexa.helpers.tooltips.parse(refSelectedLocationsItem.current);
+        parseTooltip(refSelectedLocationsItem.current);
     }, []);
 
     return (

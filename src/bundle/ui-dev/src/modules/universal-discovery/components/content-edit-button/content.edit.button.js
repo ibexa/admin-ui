@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import Icon from '../../../common/icon/icon';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import TranslationSelector from '../translation-selector/translation.selector';
-import { createDraft } from '../..//services/universal.discovery.service';
+import { getAdminUiConfig, getRouting } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { createDraft } from '../../services/universal.discovery.service';
 import {
     RestInfoContext,
     EditOnTheFlyDataContext,
@@ -13,9 +14,9 @@ import {
     ContentTypesMapContext,
 } from '../..//universal.discovery.module';
 
-const { Routing, ibexa } = window;
-
 const ContentEditButton = ({ version, location, isDisabled, label }) => {
+    const Routing = getRouting();
+    const adminUiConfig = getAdminUiConfig();
     const restInfo = useContext(RestInfoContext);
     const allowRedirects = useContext(AllowRedirectsContext);
     const [, setEditOnTheFlyData] = useContext(EditOnTheFlyDataContext);
@@ -23,7 +24,7 @@ const ContentEditButton = ({ version, location, isDisabled, label }) => {
     const contentTypesMap = useContext(ContentTypesMapContext);
     const [isTranslationSelectorVisible, setIsTranslationSelectorVisible] = useState(false);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
-    const isUserContentType = ibexa.adminUiConfig.userContentTypes.includes(contentTypeInfo.identifier);
+    const isUserContentType = adminUiConfig.userContentTypes.includes(contentTypeInfo.identifier);
     const btnClassName = createCssClassNames({
         'c-content-edit-button__btn btn ibexa-btn ibexa-btn--ghost': true,
         'ibexa-btn--no-text': label !== null,

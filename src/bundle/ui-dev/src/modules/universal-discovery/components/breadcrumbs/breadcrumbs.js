@@ -4,10 +4,10 @@ import Icon from '../../../common/icon/icon';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { LoadedLocationsMapContext } from '../../universal.discovery.module';
-
-const { Translator } = window;
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const Breadcrumbs = () => {
+    const Translator = getTranslator();
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [hiddenListVisible, setHiddenListVisible] = useState(false);
     const { visibleItems, hiddenItems } = useMemo(() => {

@@ -1,14 +1,19 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 
+import {
+    parse as parseTooltip,
+    hideAll as hideAllTooltips,
+} from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+import { getBootstrap, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+
 import Icon from '../../../common/icon/icon';
 import SelectedLocationsItem from './selected.locations.item';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
 import { SelectedLocationsContext, AllowConfirmationContext } from '../../universal.discovery.module';
 
-const { Translator, ibexa, bootstrap } = window;
-
 const SelectedLocations = () => {
+    const Translator = getTranslator();
     const refSelectedLocations = useRef(null);
     const refTogglerButton = useRef(null);
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
@@ -30,7 +35,7 @@ const SelectedLocations = () => {
     );
     const togglerLabel = isExpanded ? collapseLabel : expandLabel;
     const clearSelection = () => {
-        ibexa.helpers.tooltips.hideAll(refSelectedLocations.current);
+        hideAllTooltips(refSelectedLocations.current);
         dispatchSelectedLocationsAction({ type: 'CLEAR_SELECTED_LOCATIONS' });
     };
     const toggleExpanded = () => {
@@ -102,9 +107,10 @@ const SelectedLocations = () => {
     };
 
     useEffect(() => {
-        ibexa.helpers.tooltips.parse(refSelectedLocations.current);
-        ibexa.helpers.tooltips.hideAll();
+        parseTooltip(refSelectedLocations.current);
+        hideAllTooltips();
 
+        const bootstrap = getBootstrap();
         const toggleButtonTooltip = bootstrap.Tooltip.getOrCreateInstance('.c-selected-locations__toggle-button');
 
         toggleButtonTooltip.setContent({ '.tooltip-inner': togglerLabel });

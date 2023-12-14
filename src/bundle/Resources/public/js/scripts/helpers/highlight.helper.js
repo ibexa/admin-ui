@@ -1,28 +1,25 @@
-(function (global, doc, ibexa) {
-    const { escapeHTML } = ibexa.helpers.text;
-    const highlightText = (searchText, string, template) => {
-        const stringLowerCase = string.toLowerCase();
-        const searchTextLowerCase = searchText.toLowerCase();
-        const matches = stringLowerCase.matchAll(searchTextLowerCase);
-        const stringArray = [];
-        let previousIndex = 0;
+import { escapeHTML } from './text.helper';
 
-        for (const match of matches) {
-            const endOfSearchTextIndex = match.index + searchText.length;
-            const renderedTemplate = template.replace('{{ highlightText }}', escapeHTML(string.slice(match.index, endOfSearchTextIndex)));
+const highlightText = (searchText, string, template) => {
+    const stringLowerCase = string.toLowerCase();
+    const searchTextLowerCase = searchText.toLowerCase();
+    const matches = stringLowerCase.matchAll(searchTextLowerCase);
+    const stringArray = [];
+    let previousIndex = 0;
 
-            stringArray.push(escapeHTML(string.slice(previousIndex, match.index)));
-            stringArray.push(renderedTemplate);
+    for (const match of matches) {
+        const endOfSearchTextIndex = match.index + searchText.length;
+        const renderedTemplate = template.replace('{{ highlightText }}', escapeHTML(string.slice(match.index, endOfSearchTextIndex)));
 
-            previousIndex = match.index + searchText.length;
-        }
+        stringArray.push(escapeHTML(string.slice(previousIndex, match.index)));
+        stringArray.push(renderedTemplate);
 
-        stringArray.push(escapeHTML(string.slice(previousIndex)));
+        previousIndex = match.index + searchText.length;
+    }
 
-        return stringArray.join('');
-    };
+    stringArray.push(escapeHTML(string.slice(previousIndex)));
 
-    ibexa.addConfig('helpers.highlight', {
-        highlightText,
-    });
-})(window, window.document, window.ibexa);
+    return stringArray.join('');
+};
+
+export { highlightText };

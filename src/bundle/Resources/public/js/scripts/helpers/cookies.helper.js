@@ -1,30 +1,27 @@
-(function (global, doc, ibexa) {
-    const { backOfficePath } = ibexa.adminUiConfig;
-    const setBackOfficeCookie = (name, value, maxAgeDays = 356, path = backOfficePath) => {
-        setCookie(name, value, maxAgeDays, path);
-    };
-    const setCookie = (name, value, maxAgeDays = 356, path = '/') => {
-        const maxAge = maxAgeDays * 24 * 60 * 60;
+import { getAdminUiConfig } from './context.helper';
 
-        doc.cookie = `${name}=${value};max-age=${maxAge};path=${path}`;
-    };
-    const getCookie = (name) => {
-        const decodedCookie = decodeURIComponent(doc.cookie);
-        const cookiesArray = decodedCookie.split(';');
+const { document: doc } = window;
 
-        const cookieValue = cookiesArray.find((cookie) => {
-            const cookieString = cookie.trim();
-            const seachingString = `${name}=`;
+const setBackOfficeCookie = (name, value, maxAgeDays = 356, path = getAdminUiConfig().backOfficePath) => {
+    setCookie(name, value, maxAgeDays, path);
+};
+const setCookie = (name, value, maxAgeDays = 356, path = '/') => {
+    const maxAge = maxAgeDays * 24 * 60 * 60;
 
-            return cookieString.indexOf(seachingString) === 0;
-        });
+    doc.cookie = `${name}=${value};max-age=${maxAge};path=${path}`;
+};
+const getCookie = (name) => {
+    const decodedCookie = decodeURIComponent(doc.cookie);
+    const cookiesArray = decodedCookie.split(';');
 
-        return cookieValue ? cookieValue.split('=')[1] : null;
-    };
+    const cookieValue = cookiesArray.find((cookie) => {
+        const cookieString = cookie.trim();
+        const seachingString = `${name}=`;
 
-    ibexa.addConfig('helpers.cookies', {
-        getCookie,
-        setCookie,
-        setBackOfficeCookie,
+        return cookieString.indexOf(seachingString) === 0;
     });
-})(window, window.document, window.ibexa);
+
+    return cookieValue ? cookieValue.split('=')[1] : null;
+};
+
+export { getCookie, setCookie, setBackOfficeCookie };

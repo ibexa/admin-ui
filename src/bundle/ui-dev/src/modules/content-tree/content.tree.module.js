@@ -347,6 +347,7 @@ export default class ContentTreeModule extends Component {
         return {
             token: this.props.restInfo.token,
             siteaccess: this.props.restInfo.siteaccess,
+            accessToken: this.props.restInfo.accessToken,
             subtree: this.subtree,
             sortClause: this.props.sort.sortClause,
             sortOrder: this.props.sort.sortOrder,
@@ -373,8 +374,6 @@ export default class ContentTreeModule extends Component {
     }
 }
 
-ibexa.addConfig('modules.ContentTree', ContentTreeModule);
-
 ContentTreeModule.propTypes = {
     rootLocationId: PropTypes.number,
     currentLocationPath: PropTypes.number.isRequired,
@@ -386,6 +385,7 @@ ContentTreeModule.propTypes = {
     restInfo: PropTypes.shape({
         token: PropTypes.string.isRequired,
         siteaccess: PropTypes.string.isRequired,
+        accessToken: PropTypes.string,
     }).isRequired,
     onClickItem: PropTypes.func,
     readSubtree: PropTypes.func,
@@ -399,10 +399,10 @@ ContentTreeModule.propTypes = {
 
 ContentTreeModule.defaultProps = {
     preloadedLocations: [],
-    rootLocationId: ibexa.adminUiConfig.contentTree.treeRootLocationId,
-    subitemsLimit: ibexa.adminUiConfig.contentTree.childrenLoadMaxLimit,
-    subitemsLoadLimit: ibexa.adminUiConfig.contentTree.loadMoreLimit,
-    treeMaxDepth: ibexa.adminUiConfig.contentTree.treeMaxDepth,
+    rootLocationId: ibexa?.adminUiConfig.contentTree.treeRootLocationId,
+    subitemsLimit: ibexa?.adminUiConfig.contentTree.childrenLoadMaxLimit,
+    subitemsLoadLimit: ibexa?.adminUiConfig.contentTree.loadMoreLimit,
+    treeMaxDepth: ibexa?.adminUiConfig.contentTree.treeMaxDepth,
     afterItemToggle: () => {},
     sort: {},
     resizable: true,

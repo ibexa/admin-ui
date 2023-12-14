@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createCssClassNames } from '../helpers/css.class.names';
 
-const { Translator } = window;
+import { getTranslator } from '../../../../../Resources/public/js/scripts/helpers/context.helper';
 
 const PaginationInfo = ({ totalCount, viewingCount, extraClasses }) => {
     if (totalCount === 0) {
         return null;
     }
-
+    const Translator = getTranslator();
     const className = createCssClassNames({
         'ibexa-pagination__info': true,
         [extraClasses]: true,

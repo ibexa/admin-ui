@@ -18,7 +18,8 @@ import {
 } from './universal.discovery.module';
 import { loadAccordionData } from './services/universal.discovery.service';
 
-const { Translator, ibexa } = window;
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const BookmarksTabModule = () => {
     const shouldRestorePreviousStateRef = useRef(true);
@@ -95,17 +96,11 @@ const BookmarksTabModule = () => {
     );
 };
 
-ibexa.addConfig(
-    'adminUiConfig.universalDiscoveryWidget.tabs',
-    [
-        {
-            id: 'bookmarks',
-            component: BookmarksTabModule,
-            label: Translator.trans(/*@Desc("Bookmarks")*/ 'bookmarks.label', {}, 'ibexa_universal_discovery_widget'),
-            icon: ibexa.helpers.icon.getIconPath('bookmark'),
-        },
-    ],
-    true,
-);
+export const BookmarksTab = {
+    id: 'bookmarks',
+    component: BookmarksTabModule,
+    getLabel: () => getTranslator().trans(/*@Desc("Bookmarks")*/ 'bookmarks.label', {}, 'ibexa_universal_discovery_widget'),
+    getIcon: () => getIconPath('bookmark'),
+};
 
 export default BookmarksTabModule;

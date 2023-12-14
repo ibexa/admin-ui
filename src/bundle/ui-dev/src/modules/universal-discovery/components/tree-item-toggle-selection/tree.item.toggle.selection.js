@@ -1,6 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+
 import {
     UDWContext,
     SelectedLocationsContext,
@@ -12,13 +14,13 @@ import {
 import { findLocationsById } from '../../services/universal.discovery.service';
 import ToggleSelection from '../toggle-selection/toggle.selection';
 
-const { ibexa, document } = window;
+const { document } = window;
 
 const TreeItemToggleSelection = ({ locationId, isContainer, contentTypeIdentifier }) => {
     const isUDW = useContext(UDWContext);
 
     useEffect(() => {
-        ibexa.helpers.tooltips.parse(document.querySelector('.c-list'));
+        parseTooltip(document.querySelector('.c-list'));
     }, []);
 
     if (!isUDW) {
@@ -53,17 +55,11 @@ const TreeItemToggleSelection = ({ locationId, isContainer, contentTypeIdentifie
     );
 };
 
-ibexa.addConfig(
-    'adminUiConfig.contentTreeWidget.secondaryItemActions',
-    [
-        {
-            id: 'toggle-selection-button',
-            priority: 30,
-            component: TreeItemToggleSelection,
-        },
-    ],
-    true,
-);
+export const TreeItemToggleSelectionMenuButton = {
+    id: 'toggle-selection-button',
+    priority: 30,
+    component: TreeItemToggleSelection,
+};
 
 TreeItemToggleSelection.propTypes = {
     locationId: PropTypes.number.isRequired,

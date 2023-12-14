@@ -39,10 +39,10 @@ const TabSelector = () => {
                         className={className}
                         key={tab.id}
                         onClick={onClick}
-                        title={tab.label}
+                        title={tab.getLabel()}
                         data-tooltip-container-selector=".c-udw-tab"
                     >
-                        <Icon customPath={tab.icon} extraClasses="ibexa-icon--small-medium" />
+                        <Icon customPath={tab.getIcon()} extraClasses="ibexa-icon--small-medium" />
                     </div>
                 );
             })}

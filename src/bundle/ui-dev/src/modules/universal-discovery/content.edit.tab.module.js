@@ -8,12 +8,12 @@ import {
     LoadedLocationsMapContext,
     EditOnTheFlyDataContext,
 } from './universal.discovery.module';
+import { getTranslator, getRouting } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { findLocationsByParentLocationId } from './services/universal.discovery.service';
 import deepClone from '../common/helpers/deep.clone.helper';
 
-const { ibexa, Translator, Routing } = window;
-
 const ContentEditTabModule = () => {
+    const Routing = getRouting();
     const restInfo = useContext(RestInfoContext);
     const tabs = useContext(TabsContext);
     const [, setActiveTab] = useContext(ActiveTabContext);
@@ -99,17 +99,11 @@ const ContentEditTabModule = () => {
     );
 };
 
-ibexa.addConfig(
-    'adminUiConfig.universalDiscoveryWidget.tabs',
-    [
-        {
-            id: 'content-edit',
-            component: ContentEditTabModule,
-            label: Translator.trans(/*@Desc("Content edit")*/ 'content_edit.label', {}, 'ibexa_universal_discovery_widget'),
-            isHiddenOnList: true,
-        },
-    ],
-    true,
-);
+const ContentEditTab = {
+    id: 'content-edit',
+    component: ContentEditTabModule,
+    getLabel: () => getTranslator().trans(/*@Desc("Content edit")*/ 'content_edit.label', {}, 'ibexa_universal_discovery_widget'),
+    isHiddenOnList: true,
+};
 
-export default ContentEditTabModule;
+export { ContentEditTabModule as default, ContentEditTab };

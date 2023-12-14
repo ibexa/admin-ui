@@ -14,97 +14,101 @@ import {
     loadLocationsWithPermissions,
 } from './services/universal.discovery.service';
 
-const { Translator, ibexa, document } = window;
+import {
+    parse as parseTooltips,
+    hideAll as hideAllTooltips,
+} from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+
+const { document } = window;
 
 const CLASS_SCROLL_DISABLED = 'ibexa-scroll-disabled';
 
 export const SORTING_OPTIONS = [
     {
         value: 'date:asc',
-        label: (
-            <div className="c-simple-dropdown__option-label">
-                {Translator.trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
-                <Icon name="back" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
-            </div>
-        ),
-        selectedLabel: (
-            <div className="c-simple-dropdown__option-label">
-                {Translator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
-                <Icon name="back" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
-            </div>
-        ),
+        getLabel: () => {
+            return (
+                <div className="c-simple-dropdown__option-label">
+                    {getTranslator().trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
+                    <Icon name="back" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
+                </div>
+            );
+        },
+        selectedLabel: () => {
+            return (
+                <div className="c-simple-dropdown__option-label">
+                    {getTranslator().trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
+                    <Icon name="back" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
+                </div>
+            );
+        },
         sortClause: 'DatePublished',
         sortOrder: 'ascending',
     },
     {
         value: 'date:desc',
-        label: (
-            <div className="c-simple-dropdown__option-label">
-                {Translator.trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
-                <Icon name="back" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
-            </div>
-        ),
-        selectedLabel: (
-            <div className="c-simple-dropdown__option-label">
-                {Translator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
-                <Icon name="back" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
-            </div>
-        ),
+        getLabel: () => {
+            return (
+                <div className="c-simple-dropdown__option-label">
+                    {getTranslator().trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
+                    <Icon name="back" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
+                </div>
+            );
+        },
+        selectedLabel: () => {
+            return (
+                <div className="c-simple-dropdown__option-label">
+                    {getTranslator().trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
+                    <Icon name="back" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
+                </div>
+            );
+        },
         sortClause: 'DatePublished',
         sortOrder: 'descending',
     },
     {
         value: 'name:asc',
-        label: Translator.trans(/*@Desc("Name A-Z")*/ 'sorting.name.asc.label', {}, 'ibexa_universal_discovery_widget'),
-        selectedLabel: Translator.trans(
-            /*@Desc("Sort by name A-Z")*/ 'sorting.name.asc.selected_label',
-            {},
-            'ibexa_universal_discovery_widget',
-        ),
+        getLabel: () => getTranslator().trans(/*@Desc("Name A-Z")*/ 'sorting.name.asc.label', {}, 'ibexa_universal_discovery_widget'),
+        selectedLabel: () =>
+            getTranslator().trans(/*@Desc("Sort by name A-Z")*/ 'sorting.name.asc.selected_label', {}, 'ibexa_universal_discovery_widget'),
         sortClause: 'ContentName',
         sortOrder: 'ascending',
     },
     {
         value: 'name:desc',
-        label: Translator.trans(/*@Desc("Name Z-A")*/ 'sorting.name.desc.label', {}, 'ibexa_universal_discovery_widget'),
-        selectedLabel: Translator.trans(
-            /*@Desc("Sort by name Z-A")*/ 'sorting.name.desc.selected_label',
-            {},
-            'ibexa_universal_discovery_widget',
-        ),
+        getLabel: () => getTranslator().trans(/*@Desc("Name Z-A")*/ 'sorting.name.desc.label', {}, 'ibexa_universal_discovery_widget'),
+        selectedLabel: () =>
+            getTranslator().trans(/*@Desc("Sort by name Z-A")*/ 'sorting.name.desc.selected_label', {}, 'ibexa_universal_discovery_widget'),
         sortClause: 'ContentName',
         sortOrder: 'descending',
     },
 ];
+
 export const VIEWS = [
     {
         value: 'finder',
         iconName: 'panels',
-        label: Translator.trans(/*@Desc("Panels view")*/ 'sorting.panels.view', {}, 'ibexa_universal_discovery_widget'),
+        getLabel: () => getTranslator().trans(/*@Desc("Panels view")*/ 'sorting.panels.view', {}, 'ibexa_universal_discovery_widget'),
     },
     {
         value: 'grid',
         iconName: 'view-grid',
-        label: Translator.trans(/*@Desc("Grid view")*/ 'sorting.grid.view', {}, 'ibexa_universal_discovery_widget'),
+        getLabel: () => getTranslator().trans(/*@Desc("Grid view")*/ 'sorting.grid.view', {}, 'ibexa_universal_discovery_widget'),
     },
     {
         value: 'tree',
         iconName: 'content-tree',
-        label: Translator.trans(/*@Desc("Tree view")*/ 'sorting.tree.view', {}, 'ibexa_universal_discovery_widget'),
+        getLabel: () => getTranslator().trans(/*@Desc("Tree view")*/ 'sorting.tree.view', {}, 'ibexa_universal_discovery_widget'),
     },
 ];
 
-const restInfo = {
-    token: document.querySelector('meta[name="CSRF-Token"]').content,
-    siteaccess: document.querySelector('meta[name="SiteAccess"]').content,
+const defaultRestInfo = {
+    accsessToken: null,
+    instanceUrl: window.location.origin,
+    token: document.querySelector('meta[name="CSRF-Token"]')?.content,
+    siteaccess: document.querySelector('meta[name="SiteAccess"]')?.content,
 };
-const contentTypesMapGlobal = Object.values(ibexa.adminUiConfig.contentTypes).reduce((contentTypesMap, contentTypesGroup) => {
-    contentTypesGroup.forEach((contentType) => {
-        contentTypesMap[contentType.href] = contentType;
-    });
-
-    return contentTypesMap;
-}, {});
 
 export const UDWContext = createContext();
 export const RestInfoContext = createContext();
@@ -137,7 +141,9 @@ export const SearchTextContext = createContext();
 export const DropdownPortalRefContext = createContext();
 
 const UniversalDiscoveryModule = (props) => {
-    const { tabs } = ibexa.adminUiConfig.universalDiscoveryWidget;
+    const { restInfo } = props;
+    const adminUiConfig = getAdminUiConfig();
+    const { tabs } = adminUiConfig.universalDiscoveryWidget;
     const defaultMarkedLocationId = props.startingLocationId || props.rootLocationId;
     const abortControllerRef = useRef();
     const dropdownPortalRef = useRef();
@@ -195,6 +201,13 @@ const UniversalDiscoveryModule = (props) => {
             loadContentInfo({ ...restInfo, contentId, signal }, (response) => resolve(response));
         });
     };
+    const contentTypesMapGlobal = Object.values(adminUiConfig.contentTypes).reduce((contentTypesMap, contentTypesGroup) => {
+        contentTypesGroup.forEach((contentType) => {
+            contentTypesMap[contentType.href] = contentType;
+        });
+
+        return contentTypesMap;
+    }, {});
     const onConfirm = useCallback(
         (selectedItems = selectedLocations) => {
             loadVersions().then((locationsWithVersions) => {
@@ -241,17 +254,17 @@ const UniversalDiscoveryModule = (props) => {
             addContentTypesInfo(contentTypesMap);
         };
 
-        window.ibexa.adminUiConfig.universalDiscoveryWidget.contentTypesLoaders?.forEach((contentTypesLoader) =>
+        adminUiConfig.universalDiscoveryWidget.contentTypesLoaders?.forEach((contentTypesLoader) =>
             contentTypesLoader(addContentTypesInfo),
         );
 
         loadContentTypes(restInfo, handleLoadContentTypes);
         document.body.dispatchEvent(new CustomEvent('ibexa-udw-opened'));
-        ibexa.helpers.tooltips.parse(document.querySelector('.c-udw-tab'));
+        parseTooltips(document.querySelector('.c-udw-tab'));
 
         return () => {
             document.body.dispatchEvent(new CustomEvent('ibexa-udw-closed'));
-            ibexa.helpers.tooltips.hideAll();
+            hideAllTooltips();
         };
     }, []);
 
@@ -371,7 +384,6 @@ const UniversalDiscoveryModule = (props) => {
         dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: locationsMap });
     }, [sorting, sortOrder]);
 
-    /* eslint-disable max-len */
     return (
         <div className={className}>
             <UDWContext.Provider value={true}>
@@ -516,6 +528,12 @@ UniversalDiscoveryModule.propTypes = {
     selectedLocations: PropTypes.array,
     allowRedirects: PropTypes.bool.isRequired,
     allowConfirmation: PropTypes.bool.isRequired,
+    restInfo: PropTypes.shape({
+        token: PropTypes.string,
+        siteaccess: PropTypes.string,
+        accsessToken: PropTypes.string,
+        instanceUrl: PropTypes.string,
+    }),
 };
 
 UniversalDiscoveryModule.defaultProps = {
@@ -529,8 +547,7 @@ UniversalDiscoveryModule.defaultProps = {
     activeSortOrder: 'ascending',
     activeView: 'finder',
     selectedLocations: [],
+    restInfo: defaultRestInfo,
 };
-
-ibexa.addConfig('modules.UniversalDiscovery', UniversalDiscoveryModule);
 
 export default UniversalDiscoveryModule;

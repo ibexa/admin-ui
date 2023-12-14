@@ -1,11 +1,15 @@
-(function (global, doc, ibexa) {
-    const getIconPath = (path, iconSet = ibexa.adminUiConfig.iconPaths.defaultIconSet) => {
-        const iconSetPath = ibexa.adminUiConfig.iconPaths.iconSets[iconSet];
+import { getAdminUiConfig } from './context.helper';
 
-        return `${iconSetPath}#${path}`;
-    };
+const getIconPath = (path, iconSet) => {
+    const adminUiConfig = getAdminUiConfig();
 
-    ibexa.addConfig('helpers.icon', {
-        getIconPath,
-    });
-})(window, window.document, window.ibexa);
+    if (!iconSet) {
+        iconSet = adminUiConfig.iconPaths.defaultIconSet;
+    }
+
+    const iconSetPath = adminUiConfig.iconPaths.iconSets[iconSet];
+
+    return `${iconSetPath}#${path}`;
+};
+
+export { getIconPath };

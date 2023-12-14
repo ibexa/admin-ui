@@ -1,12 +1,12 @@
-(function (global, doc, ibexa) {
-    // @deprecated, will be removed in 5.0
-    ibexa.addConfig('helpers.formError', {
-        formatLine: (...args) => {
-            console.warn(
-                'helpers.formError.formatLine method is deprecated and will be removed in 5.0, please use helpers.formValidation.formatErrorLine instead.',
-            );
+import { formatErrorLine } from './form.validation.helper';
 
-            return ibexa.helpers.formValidation.formatErrorLine(...args);
-        },
-    });
-})(window, window.document, window.ibexa);
+// @deprecated, will be removed in 5.0
+const formatLine = (...args) => {
+    console.warn(
+        'helpers.formError.formatLine method is deprecated and will be removed in 5.0, please use helpers.formValidation.formatErrorLine instead.',
+    );
+
+    return formatErrorLine(...args);
+};
+
+export { formatLine };

@@ -5,9 +5,11 @@ import ContentTableItem from './content.table.item';
 import Pagination from '../../../common/pagination/pagination';
 import { MultipleConfigContext } from '../../universal.discovery.module';
 
-const { Translator, ibexa } = window;
+import { getTranslator } from '../../../../../../Resources/public/js/scripts/helpers/context.helper';
+import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 
 const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPageChange, renderCustomHeader }) => {
+    const Translator = getTranslator();
     const [multiple] = useContext(MultipleConfigContext);
     const refContentTable = useRef(null);
     const nameLabel = Translator.trans(/*@Desc("Name")*/ 'content_table.name', {}, 'ibexa_universal_discovery_widget');
@@ -24,7 +26,7 @@ const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPa
     );
 
     useEffect(() => {
-        ibexa.helpers.tooltips.parse(refContentTable.current);
+        parseTooltip(refContentTable.current);
     }, []);
 
     return (

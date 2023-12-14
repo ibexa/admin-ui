@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 
 import { AllowConfirmationContext, ConfirmContext, CancelContext, SelectedLocationsContext } from '../../universal.discovery.module';
-
-const { Translator } = window;
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const ActionsMenu = () => {
+    const Translator = getTranslator();
     const onConfirm = useContext(ConfirmContext);
     const cancelUDW = useContext(CancelContext);
     const allowConfirmation = useContext(AllowConfirmationContext);

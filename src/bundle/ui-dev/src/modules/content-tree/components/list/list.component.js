@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ListItem from '../list-item/list.item.component';
-
-const { Translator } = window;
+import { getTranslator, getRouting } from '../../../../../../Resources/public/js/scripts/helpers/context.helper';
 
 const List = ({
     items,
@@ -17,6 +16,8 @@ const List = ({
     isRoot,
     onClickItem,
 }) => {
+    const Translator = getTranslator();
+    const Routing = getRouting();
     const commonAttrs = { loadMoreSubitems, subitemsLoadLimit, subitemsLimit, treeMaxDepth, afterItemToggle, onClickItem };
     const listAttrs = { ...commonAttrs, currentLocationId };
     const listItemAttrs = commonAttrs;
@@ -36,7 +37,7 @@ const List = ({
         <ul className="c-list">
             {items.map((item) => {
                 const hasPreviousPath = path && path.length;
-                const locationHref = window.Routing.generate('ibexa.content.view', {
+                const locationHref = Routing.generate('ibexa.content.view', {
                     contentId: item.contentId,
                     locationId: item.locationId,
                 });

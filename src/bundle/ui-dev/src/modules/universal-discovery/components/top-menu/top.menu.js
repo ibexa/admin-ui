@@ -6,15 +6,17 @@ import Icon from '../../../common/icon/icon';
 
 import { TitleContext, CancelContext } from '../../universal.discovery.module';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
-
-const { Translator, ibexa } = window;
+import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const TopMenu = ({ actionsDisabledMap }) => {
+    const Translator = getTranslator();
+    const adminUiConfig = getAdminUiConfig();
+    const { topMenuActions } = adminUiConfig.universalDiscoveryWidget;
     const title = useContext(TitleContext);
     const cancelUDW = useContext(CancelContext);
     const [isSearchOpened, setIsSearchOpened] = useState(false);
     const sortedActions = useMemo(() => {
-        const actions = [...ibexa.adminUiConfig.universalDiscoveryWidget.topMenuActions];
+        const actions = topMenuActions;
 
         return actions.sort((actionA, actionB) => {
             return actionB.priority - actionA.priority;

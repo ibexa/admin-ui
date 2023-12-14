@@ -6,16 +6,14 @@ import ActionsMenu from '../actions-menu/actions.menu';
 import TabSelector from '../tab-selector/tab.selector';
 import SelectedLocations from '../selected-locations/selected.locations';
 import ContentCreateWidget from '../content-create-widget/content.create.widget';
+import ContentMetaPreview from '../../content.meta.preview.module';
 
 import { SelectedLocationsContext, DropdownPortalRefContext, MultipleConfigContext } from '../../universal.discovery.module';
-
-const { ibexa } = window;
 
 const Tab = ({ children, actionsDisabledMap }) => {
     const topBarRef = useRef();
     const bottomBarRef = useRef();
     const [contentHeight, setContentHeight] = useState('100%');
-    const ContentMetaPreview = ibexa.adminUiConfig.universalDiscoveryWidget.contentMetaPreview;
     const [selectedLocations] = useContext(SelectedLocationsContext);
     const dropdownPortalRef = useContext(DropdownPortalRefContext);
     const [multiple] = useContext(MultipleConfigContext);

@@ -3,25 +3,7 @@ const fs = require('fs');
 const translationsPath = path.resolve('./public/assets/translations/');
 const fieldTypesPath = path.resolve(__dirname, '../public/js/scripts/fieldType/');
 const layout = [
-    path.resolve(__dirname, '../public/js/scripts/helpers/icon.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/location.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/text.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/request.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/notification.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/timezone.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/content.type.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/user.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/tooltips.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/table.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/cookies.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/tag.view.select.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/pagination.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/object.instances.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/middle.ellipsis.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/form.validation.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/form.error.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/system.helper.js'),
-    path.resolve(__dirname, '../public/js/scripts/helpers/highlight.helper.js'),
+    path.resolve(__dirname, '../public/js/scripts/helpers/config.loader.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.format.date.js'),
     path.resolve(__dirname, '../public/js/scripts/core/draggable.js'),
     path.resolve(__dirname, '../public/js/scripts/core/dropdown.js'),
@@ -219,6 +201,7 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/admin.settings.datetimeformat.update.js'),
         ])
         .addEntry('ibexa-admin-ui-udw-js', [
+            path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/config.loader.js'),
             path.resolve(__dirname, '../../ui-dev/src/modules/universal-discovery/universal.discovery.module.js'),
         ])
         .addEntry('ibexa-admin-ui-udw-tabs-js', [
@@ -251,6 +234,7 @@ module.exports = (Encore) => {
         .addEntry('ibexa-admin-ui-subitems-js', [path.resolve(__dirname, '../../ui-dev/src/modules/sub-items/sub.items.module.js')])
         .addEntry('ibexa-admin-ui-content-tree-js', [
             path.resolve(__dirname, '../../ui-dev/src/modules/content-tree/content.tree.module.js'),
+            path.resolve(__dirname, '../../ui-dev/src/modules/content-tree/config.loader.js'),
         ])
         .addEntry('ibexa-admin-ui-url-management-js', [
             path.resolve(__dirname, '../public/js/scripts/button.state.toggle.js'),

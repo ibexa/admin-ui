@@ -1,55 +1,41 @@
-(function (global, doc, ibexa) {
-    /**
-     * Handles request error
-     *
-     * @function handleRequest
-     * @param {Response} response
-     * @returns {Error|Response}
-     */
-    const handleRequest = (response) => {
-        if (!response.ok) {
-            throw Error(response.statusText);
-        }
+const handleRequest = (response) => {
+    if (!response.ok) {
+        throw Error(response.statusText);
+    }
 
-        return response;
+    return response;
+};
+
+const getJsonFromResponse = (response) => {
+    return handleRequest(response).json();
+};
+
+const getTextFromResponse = (response) => {
+    return handleRequest(response).text();
+};
+
+const getStatusFromResponse = (response) => {
+    return handleRequest(response).status;
+};
+
+const getRequestMode = ({ instanceUrl }) => {
+    return window.location.origin === instanceUrl ? 'same-origin' : 'cors';
+};
+
+const getRequestHeaders = ({ token, siteaccess, accessToken, extraHeaders }) => {
+    if (accessToken) {
+        return {
+            Authorization: `Bearer ${accessToken}`,
+            ...(siteaccess && { 'X-Siteaccess': siteaccess }),
+            ...extraHeaders,
+        };
+    }
+
+    return {
+        ...(token && { 'X-CSRF-Token': token }),
+        ...(siteaccess && { 'X-Siteaccess': siteaccess }),
+        ...extraHeaders,
     };
+};
 
-    /**
-     * Handles request JSON response
-     *
-     * @function getJsonFromResponse
-     * @param {Response} response
-     * @returns {Error|Promise}
-     */
-    const getJsonFromResponse = (response) => {
-        return handleRequest(response).json();
-    };
-
-    /**
-     * Handles request text response
-     *
-     * @function getTextFromResponse
-     * @param {Response} response
-     * @returns {Error|Promise}
-     */
-    const getTextFromResponse = (response) => {
-        return handleRequest(response).text();
-    };
-
-    /**
-     * Handles request response; returns status if response is OK
-     *
-     * @function getStatusFromResponse
-     * @param {Response} response
-     * @returns {Error|Promise}
-     */
-    const getStatusFromResponse = (response) => {
-        return handleRequest(response).status;
-    };
-
-    ibexa.addConfig('helpers.request', {
-        getJsonFromResponse,
-        getTextFromResponse,
-        getStatusFromResponse,
-    });
-})(window, window.document, window.ibexa);
+export { getJsonFromResponse, getTextFromResponse, getStatusFromResponse, getRequestMode, getRequestHeaders };

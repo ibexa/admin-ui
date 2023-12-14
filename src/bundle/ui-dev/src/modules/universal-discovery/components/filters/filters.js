@@ -9,17 +9,23 @@ import {
     SelectedLanguageContext,
     SelectedSubtreeBreadcrumbsContext,
 } from '../search/search';
+
 import UniversalDiscoveryModule, { DropdownPortalRefContext } from '../../universal.discovery.module';
 
 import Dropdown from '../../../common/dropdown/dropdown';
 import ContentTypeSelector from '../content-type-selector/content.type.selector';
 import Icon from '../../../common/icon/icon';
 
-const { Translator, ibexa } = window;
-
-const languages = Object.values(ibexa.adminUiConfig.languages.mappings);
+import {
+    removeRootFromPathString,
+    findLocationsByIds,
+    buildLocationsBreadcrumbs,
+} from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/location.helper';
+import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const Filters = ({ search }) => {
+    const Translator = getTranslator();
+    const adminUiConfig = getAdminUiConfig();
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
     const [selectedSection, setSelectedSection] = useContext(SelectedSectionContext);
     const [selectedSubtree, setSelectedSubtree] = useContext(SelectedSubtreeContext);
@@ -31,7 +37,6 @@ const Filters = ({ search }) => {
     const [isNestedUdwOpened, setIsNestedUdwOpened] = useState(false);
     const filterSubtreeUdwConfig = JSON.parse(window.document.querySelector('#react-udw').dataset.filterSubtreeUdwConfig);
     const handleNestedUdwConfirm = (items) => {
-        const { removeRootFromPathString, findLocationsByIds, buildLocationsBreadcrumbs } = ibexa.helpers.location;
         const [{ pathString }] = items;
 
         findLocationsByIds(removeRootFromPathString(pathString), (locations) =>
@@ -41,11 +46,10 @@ const Filters = ({ search }) => {
         setSelectedSubtree(pathString);
         setIsNestedUdwOpened(false);
     };
-
     const nestedUdwConfig = {
         onConfirm: handleNestedUdwConfirm,
         onCancel: () => setIsNestedUdwOpened(false),
-        tabs: ibexa.adminUiConfig.universalDiscoveryWidget.tabs,
+        tabs: adminUiConfig.universalDiscoveryWidget.tabs,
         title: 'Browsing content',
         ...filterSubtreeUdwConfig,
     };
@@ -113,13 +117,13 @@ const Filters = ({ search }) => {
     const subtreeLabel = Translator.trans(/*@Desc("Subtree")*/ 'filters.subtree', {}, 'ibexa_universal_discovery_widget');
     const clearLabel = Translator.trans(/*@Desc("Clear")*/ 'filters.clear', {}, 'ibexa_universal_discovery_widget');
     const applyLabel = Translator.trans(/*@Desc("Apply")*/ 'filters.apply', {}, 'ibexa_universal_discovery_widget');
-    const languageOptions = languages
+    const languageOptions = Object.values(adminUiConfig.languages.mappings)
         .filter((language) => language.enabled)
         .map((language) => ({
             value: language.languageCode,
             label: language.name,
         }));
-    const sectionOptions = Object.entries(ibexa.adminUiConfig.sections).map(([sectionIdentifier, sectionName]) => ({
+    const sectionOptions = Object.entries(adminUiConfig.sections).map(([sectionIdentifier, sectionName]) => ({
         value: sectionIdentifier,
         label: sectionName,
     }));

@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
 
-const { Translator, ibexa } = window;
+import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation, version, isOpen }) => {
+    const Translator = getTranslator();
+    const adminUiConfig = getAdminUiConfig();
     const languageCodes = version ? version.VersionInfo.languageCodes.split(',') : [];
     const editTranslationLabel = Translator.trans(
         /*@Desc("Select translation")*/ 'meta_preview.edit_translation',
@@ -33,7 +35,7 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
                         className="c-translation-selector__language"
                         onClick={selectTranslation.bind(this, languageCode)}
                     >
-                        {ibexa.adminUiConfig.languages.mappings[languageCode].name}
+                        {adminUiConfig.languages.mappings[languageCode].name}
                     </div>
                 ))}
             </div>
