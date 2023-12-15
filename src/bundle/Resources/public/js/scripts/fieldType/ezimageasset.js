@@ -187,7 +187,7 @@
          */
         handleInputChange(event) {
             const [file] = event.currentTarget.files;
-            const { languageCode, allowedFileTypes } = event.currentTarget.dataset;
+            const { languageCode } = event.currentTarget.dataset;
             const isFileSizeLimited = this.maxFileSize > 0;
             const maxFileSizeExceeded = isFileSizeLimited && file.size > this.maxFileSize;
 
@@ -196,7 +196,7 @@
                 return;
             }
 
-            if (!allowedFileTypes.includes(file.type)) {
+            if (this.allowedFileTypes.length > 0 && !this.allowedFileTypes.includes(file.type)) {
                 this.resetInputField();
                 return;
             }
@@ -259,10 +259,13 @@
             ],
         });
 
+        const inputFileFieldContainer = fieldContainer.querySelector(SELECTOR_INPUT_FILE);
+        const { allowedFileTypes = [] } = inputFileFieldContainer.dataset;
         const previewField = new EzImageAssetPreviewField({
             validator,
             fieldContainer,
-            fileTypeAccept: fieldContainer.querySelector(SELECTOR_INPUT_FILE).accept,
+            fileTypeAccept: inputFileFieldContainer.accept,
+            allowedFileTypes,
         });
 
         previewField.init();
