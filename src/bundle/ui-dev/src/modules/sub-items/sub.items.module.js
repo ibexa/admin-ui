@@ -1322,14 +1322,16 @@ export default class SubItemsModule extends Component {
     renderColumnsToggler() {
         const { activeView, columnsVisibility } = this.state;
 
-        if (activeView !== VIEW_MODE_GRID) {
-            return (
-                <ViewColumnsTogglerComponent
-                    columnsVisibility={this.filterSmartModeColumns(columnsVisibility)}
-                    toggleColumnVisibility={this.toggleColumnVisibility}
-                />
-            );
+        if (activeView === VIEW_MODE_GRID) {
+            return null;
         }
+
+        return (
+            <ViewColumnsTogglerComponent
+                columnsVisibility={this.filterSmartModeColumns(columnsVisibility)}
+                toggleColumnVisibility={this.toggleColumnVisibility}
+            />
+        );
     }
 
     render() {
