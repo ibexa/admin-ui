@@ -92,6 +92,10 @@ services:
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'autosave' }
 
+    Ibexa\AdminUi\UI\Config\Provider\FocusMode:
+        tags:
+            - { name: ibexa.admin_ui.config.provider, key: 'focusMode' }
+
     Ibexa\Bundle\AdminUi\Templating\Twig\PathStringExtension: ~
 
     Ibexa\Bundle\AdminUi\Templating\Twig\ContentTypeIconExtension: ~
