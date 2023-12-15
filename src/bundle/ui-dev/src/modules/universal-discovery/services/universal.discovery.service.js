@@ -475,19 +475,22 @@ export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanc
     const adminUiConfig = await adminUiData.json();
 
     return adminUiConfig.ApplicationConfig;
-}
+};
 
-export const findSuggestions = ({ siteaccess, token }, callback) => {
+export const findSuggestions = ({ siteaccess, token, parentLocationId }, callback) => {
     const body = JSON.stringify({
         ViewInput: {
             identifier: 'view_with_aggregation',
-            ContentQuery: {
-                limit: '2',
+            LocationQuery: {
+                limit: '10',
                 offset: '0',
+                Filter: {
+                    ParentLocationIdCriterion: parentLocationId,
+                },
                 Aggregations: [
                     {
                         ContentTypeTermAggregation: {
-                            name: 'content_type',
+                            name: 'suggestions',
                         },
                     },
                 ],

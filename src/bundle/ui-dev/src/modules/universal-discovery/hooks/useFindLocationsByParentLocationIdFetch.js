@@ -1,9 +1,9 @@
 import { useEffect, useContext, useReducer } from 'react';
 
+import { getContentTypeDataByHref } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/content.type.helper';
 import { findLocationsByParentLocationId, findSuggestions } from '../services/universal.discovery.service';
 import { RestInfoContext, BlockFetchLocationHookContext, SuggestionsStorageContext } from '../universal.discovery.module';
 
-const { ibexa } = window;
 const fetchInitialState = {
     dataFetched: false,
     data: {},
@@ -51,6 +51,7 @@ export const useFindLocationsByParentLocationIdFetch = (locationData, { sortClau
             findSuggestions(
                 {
                     ...restInfo,
+                    parentLocationId: locationData.parentLocationId,
                 },
                 resolve,
             );
@@ -80,14 +81,17 @@ export const useFindLocationsByParentLocationIdFetch = (locationData, { sortClau
                 return;
             }
 
-            const suggestionsResults = suggestions.View.Result.searchHits.searchHit.map(({ value }) => ({
-                data: ibexa.helpers.contentType.getContentTypeDataByHref(value.Content.ContentType._href),
+            const suggestionsResults = suggestions.View?.Result.aggregations[0].entries.map(({ key }) => ({
+                data: getContentTypeDataByHref(key.ContentType._href),
             }));
 
-            setSuggestionsStorage((prevState) => ({
-                ...prevState,
-                [locationData.parentLocationId]: suggestionsResults,
-            }));
+            if (suggestionsResults) {
+                setSuggestionsStorage((prevState) => ({
+                    ...prevState,
+                    [locationData.parentLocationId]: suggestionsResults,
+                }));
+            }
+
             dispatch({ type: 'FETCH_END', data: locations });
         });
 

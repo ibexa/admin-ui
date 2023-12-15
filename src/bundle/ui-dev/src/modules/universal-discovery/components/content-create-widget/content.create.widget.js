@@ -48,6 +48,7 @@ const ContentCreateWidget = () => {
     const firstLanguageCode = filteredLanguages.length ? filteredLanguages[0].languageCode : '';
     const [selectedLanguage, setSelectedLanguage] = useState(preselectedLanguage || firstLanguageCode);
     const [selectedContentType, setSelectedContentType] = useState(preselectedContentType);
+    const [isSelectedSuggestion, setIsSelectedSuggestion] = useState(false);
     const [, setActiveTab] = useContext(ActiveTabContext);
     const [createContentVisible, setCreateContentVisible] = useContext(CreateContentWidgetContext);
     const [, setContentOnTheFlyData] = useContext(ContentOnTheFlyDataContext);
@@ -110,8 +111,8 @@ const ContentCreateWidget = () => {
             value: language.languageCode,
             label: language.name,
         }));
-    const contentTypesWithSuggestions = [...contentTypes];
-    const suggestions = suggestionsStorage[selectedLocation?.parentLocationId];
+    const contentTypesWithSuggestions = Object.entries(contentTypes);
+    const suggestions = suggestionsStorage[selectedLocation?.parentLocationId] ?? [];
 
     useEffect(() => {
         setSelectedLanguage(preselectedLanguage || firstLanguageCode);
@@ -209,9 +210,13 @@ const ContentCreateWidget = () => {
                                                 (allowedContentTypes && !allowedContentTypes.includes(identifier));
                                             const className = createCssClassNames({
                                                 'ibexa-instant-filter__group-item': true,
-                                                'ibexa-instant-filter__group-item--selected': identifier === selectedContentType,
+                                                'ibexa-instant-filter__group-item--selected':
+                                                    identifier === selectedContentType && isSuggestionGroup === isSelectedSuggestion,
                                             });
-                                            const updateSelectedContentType = () => setSelectedContentType(identifier);
+                                            const updateSelectedContentType = () => {
+                                                setSelectedContentType(identifier);
+                                                setIsSelectedSuggestion(isSuggestionGroup);
+                                            };
 
                                             if (isHidden) {
                                                 return null;
