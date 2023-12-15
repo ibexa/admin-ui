@@ -28,9 +28,6 @@ services:
             $siteaccessGroups: '%ibexa.site_access.groups%'
             $systemUrlRedirectProcessor: '@Ibexa\AdminUi\Form\Processor\Content\UrlRedirectProcessor.inner'
 
-    Ibexa\AdminUi\Form\Processor\ContentEditFormProcessor:
-        public: true
-
     Ibexa\AdminUi\Form\Processor\ContentEditNotificationFormProcessor:
         public: true
         arguments:
