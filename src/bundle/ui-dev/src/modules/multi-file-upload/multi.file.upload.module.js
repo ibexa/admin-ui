@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import UploadPopupComponent from './components/upload-popup/upload.popup.component';
 import { createFileStruct, publishFile, deleteFile, checkCanUpload } from './services/multi.file.upload.service';
 import Icon from '../common/icon/icon';
 
-const { Translator, ibexa } = window;
+const { Translator, ibexa, document } = window;
 
 export default class MultiFileUploadModule extends Component {
     constructor(props) {
@@ -270,7 +271,7 @@ export default class MultiFileUploadModule extends Component {
             removeItemsToUpload: this.removeItemsToUpload,
         };
 
-        return <UploadPopupComponent {...attrs} />;
+        return ReactDOM.createPortal(<UploadPopupComponent {...attrs} />, document.body);
     }
 
     render() {
