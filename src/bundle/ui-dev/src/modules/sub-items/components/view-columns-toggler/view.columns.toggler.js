@@ -117,9 +117,16 @@ export default class ViewColumnsTogglerComponent extends Component {
 
     renderToggler() {
         const label = Translator.trans(/*@Desc("Columns")*/ 'view_columns_toggler.label', {}, 'ibexa_sub_items');
+        const { isColumnsTogglerDisabled } = this.props;
 
         return (
-            <button ref={this._refTogglerButton} type="button" className="c-simple-dropdown__selected" onClick={this.togglePanel}>
+            <button
+                ref={this._refTogglerButton}
+                type="button"
+                className="c-simple-dropdown__selected"
+                onClick={this.togglePanel}
+                disabled={isColumnsTogglerDisabled}
+            >
                 <Icon name="column-settings" extraClasses="ibexa-icon--small c-simple-dropdown__selected-item-type-icon" />
                 <span className="c-simple-dropdown__selected-item-label">{label}</span>
                 {this.renderCaretIcon()}
@@ -142,4 +149,5 @@ export default class ViewColumnsTogglerComponent extends Component {
 ViewColumnsTogglerComponent.propTypes = {
     columnsVisibility: PropTypes.object.isRequired,
     toggleColumnVisibility: PropTypes.func.isRequired,
+    isColumnsTogglerDisabled: PropTypes.bool.isRequired,
 };

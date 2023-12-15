@@ -1319,24 +1319,10 @@ export default class SubItemsModule extends Component {
         );
     }
 
-    renderColumnsToggler() {
-        const { activeView, columnsVisibility } = this.state;
-
-        if (activeView === VIEW_MODE_GRID) {
-            return null;
-        }
-
-        return (
-            <ViewColumnsTogglerComponent
-                columnsVisibility={this.filterSmartModeColumns(columnsVisibility)}
-                toggleColumnVisibility={this.toggleColumnVisibility}
-            />
-        );
-    }
-
     render() {
         const listTitle = Translator.trans(/*@Desc("Sub-items")*/ 'items_list.title', {}, 'ibexa_sub_items');
-        const { selectedItems, activeView, totalCount, isDuringBulkOperation, activePageItems, subItemsWidth } = this.state;
+        const { selectedItems, activeView, totalCount, isDuringBulkOperation, activePageItems, subItemsWidth, columnsVisibility } =
+            this.state;
         const nothingSelected = !selectedItems.size;
         const isTableViewActive = activeView === VIEW_MODE_TABLE;
         const pageLoaded = !!activePageItems;
@@ -1371,7 +1357,11 @@ export default class SubItemsModule extends Component {
                             {this.renderBulkHideBtn(bulkHideBtnDisabled)}
                             {this.renderBulkUnhideBtn(bulkUnhideBtnDisabled)}
                             {this.renderBulkDeleteBtn(bulkBtnDisabled)}
-                            {this.renderColumnsToggler()}
+                            <ViewColumnsTogglerComponent
+                                columnsVisibility={this.filterSmartModeColumns(columnsVisibility)}
+                                toggleColumnVisibility={this.toggleColumnVisibility}
+                                isColumnsTogglerDisabled={activeView === VIEW_MODE_GRID}
+                            />
                             <ViewSwitcherComponent onViewChange={this.switchView} activeView={activeView} isDisabled={!totalCount} />
                         </div>
                     </div>
