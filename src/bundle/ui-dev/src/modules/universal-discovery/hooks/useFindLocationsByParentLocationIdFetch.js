@@ -81,7 +81,7 @@ export const useFindLocationsByParentLocationIdFetch = (locationData, { sortClau
                 return;
             }
 
-            const suggestionsResults = suggestions.View?.Result.aggregations[0].entries.map(({ key }) => ({
+            const suggestionsResults = suggestions.View?.Result.aggregations[0]?.entries.map(({ key }) => ({
                 data: getContentTypeDataByHref(key.ContentType._href),
             }));
 
