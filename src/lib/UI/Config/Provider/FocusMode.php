@@ -22,7 +22,7 @@ final class FocusMode implements ProviderInterface
         $this->userSettingService = $userSettingService;
     }
 
-    public function getConfig()
+    public function getConfig(): bool
     {
         return IsFocusModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(FocusModeSetting::FOCUS_MODE_ON);
     }
