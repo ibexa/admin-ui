@@ -70,6 +70,12 @@ export default class ViewColumnsTogglerComponent extends Component {
     }
 
     togglePanel() {
+        const { isDisabled } = this.props;
+
+        if (isDisabled) {
+            return;
+        }
+
         this.setState(
             (state) => ({
                 isOpen: !state.isOpen,
@@ -128,9 +134,16 @@ export default class ViewColumnsTogglerComponent extends Component {
     }
 
     render() {
+        const { isDisabled } = this.props;
+        const simpleDropdownClassName = createCssClassNames({
+            'c-simple-dropdown': true,
+            'c-simple-dropdown--switcher': true,
+            'c-simple-dropdown--disabled': isDisabled,
+        });
+
         return (
             <div className="c-view-columns-toggler">
-                <div className="c-simple-dropdown c-simple-dropdown--switcher">
+                <div className={simpleDropdownClassName}>
                     {this.renderToggler()}
                     {this.renderPanel()}
                 </div>
@@ -142,4 +155,5 @@ export default class ViewColumnsTogglerComponent extends Component {
 ViewColumnsTogglerComponent.propTypes = {
     columnsVisibility: PropTypes.object.isRequired,
     toggleColumnVisibility: PropTypes.func.isRequired,
+    isDisabled: PropTypes.bool.isRequired,
 };

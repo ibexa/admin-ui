@@ -143,4 +143,24 @@
             }
         }
     }
+
+    &--disabled {
+        &:hover {
+            border-color: transparent;
+
+            .c-simple-dropdown {
+                &__expand-icon {
+                    fill: $ibexa-color-dark;
+                }
+
+                &__selected {
+                    color: $ibexa-color-dark;
+
+                    .ibexa-icon {
+                        fill: $ibexa-color-dark;
+                    }
+                }
+            }
+        }
+    }
 }

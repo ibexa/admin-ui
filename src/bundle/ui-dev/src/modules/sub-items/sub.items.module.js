@@ -1327,6 +1327,7 @@ export default class SubItemsModule extends Component {
         const isTableViewActive = activeView === VIEW_MODE_TABLE;
         const pageLoaded = !!activePageItems;
         const bulkBtnDisabled = nothingSelected || !isTableViewActive || !pageLoaded;
+
         let bulkHideBtnDisabled = true;
         let bulkUnhideBtnDisabled = true;
         let listClassName = 'm-sub-items__list';
@@ -1359,6 +1360,7 @@ export default class SubItemsModule extends Component {
                             <ViewColumnsTogglerComponent
                                 columnsVisibility={this.filterSmartModeColumns(columnsVisibility)}
                                 toggleColumnVisibility={this.toggleColumnVisibility}
+                                isDisabled={activeView === VIEW_MODE_GRID}
                             />
                             <ViewSwitcherComponent onViewChange={this.switchView} activeView={activeView} isDisabled={!totalCount} />
                         </div>
