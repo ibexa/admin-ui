@@ -13,18 +13,6 @@
         padding-bottom: calculateRem(20px);
         border-bottom: calculateRem(1px) solid $ibexa-color-dark-200;
         margin-top: 0;
-
-        .c-simple-dropdown {
-            &:hover {
-                .c-simple-dropdown__selected {
-                    color: $ibexa-color-primary;
-
-                    .ibexa-icon {
-                        fill: $ibexa-color-primary;
-                    }
-                }
-            }
-        }
     }
 
     &__list {
