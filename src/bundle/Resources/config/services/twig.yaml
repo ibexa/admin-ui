@@ -33,3 +33,7 @@ services:
     Ibexa\Bundle\AdminUi\Templating\Twig\LocationExtension:
         tags:
             - { name: twig.extension }
+
+    Ibexa\Bundle\AdminUi\Templating\Twig\UserPreferenceExtension: ~
+
+    Ibexa\Bundle\AdminUi\Templating\Twig\UserPreferenceRuntime: ~
