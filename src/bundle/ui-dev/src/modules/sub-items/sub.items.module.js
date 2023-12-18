@@ -1360,7 +1360,7 @@ export default class SubItemsModule extends Component {
                             <ViewColumnsTogglerComponent
                                 columnsVisibility={this.filterSmartModeColumns(columnsVisibility)}
                                 toggleColumnVisibility={this.toggleColumnVisibility}
-                                isColumnsTogglerDisabled={activeView === VIEW_MODE_GRID}
+                                isDisabled={activeView === VIEW_MODE_GRID}
                             />
                             <ViewSwitcherComponent onViewChange={this.switchView} activeView={activeView} isDisabled={!totalCount} />
                         </div>

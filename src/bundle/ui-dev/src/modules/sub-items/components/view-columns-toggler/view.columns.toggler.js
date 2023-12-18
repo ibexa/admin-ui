@@ -70,6 +70,12 @@ export default class ViewColumnsTogglerComponent extends Component {
     }
 
     togglePanel() {
+        const { isDisabled } = this.props;
+
+        if (isDisabled) {
+            return;
+        }
+
         this.setState(
             (state) => ({
                 isOpen: !state.isOpen,
@@ -117,7 +123,6 @@ export default class ViewColumnsTogglerComponent extends Component {
 
     renderToggler() {
         const label = Translator.trans(/*@Desc("Columns")*/ 'view_columns_toggler.label', {}, 'ibexa_sub_items');
-        const { isColumnsTogglerDisabled } = this.props;
 
         return (
             <button
@@ -125,7 +130,6 @@ export default class ViewColumnsTogglerComponent extends Component {
                 type="button"
                 className="c-simple-dropdown__selected"
                 onClick={this.togglePanel}
-                disabled={isColumnsTogglerDisabled}
             >
                 <Icon name="column-settings" extraClasses="ibexa-icon--small c-simple-dropdown__selected-item-type-icon" />
                 <span className="c-simple-dropdown__selected-item-label">{label}</span>
@@ -135,9 +139,16 @@ export default class ViewColumnsTogglerComponent extends Component {
     }
 
     render() {
+        const { isDisabled } = this.props;
+        const simpleDropdownClassName = createCssClassNames({
+            'c-simple-dropdown': true,
+            'c-simple-dropdown--switcher': true,
+            'c-simple-dropdown--disabled': isDisabled,
+        });
+
         return (
             <div className="c-view-columns-toggler">
-                <div className="c-simple-dropdown c-simple-dropdown--switcher">
+                <div className={simpleDropdownClassName}>
                     {this.renderToggler()}
                     {this.renderPanel()}
                 </div>
@@ -149,5 +160,5 @@ export default class ViewColumnsTogglerComponent extends Component {
 ViewColumnsTogglerComponent.propTypes = {
     columnsVisibility: PropTypes.object.isRequired,
     toggleColumnVisibility: PropTypes.func.isRequired,
-    isColumnsTogglerDisabled: PropTypes.bool.isRequired,
+    isDisabled: PropTypes.bool.isRequired,
 };
