@@ -12,7 +12,7 @@
     class: ('btn ibexa-btn ibexa-split-btn__main-btn '
         ~ (type is defined and type is not null ? 'ibexa-btn--' ~ type ~ ' ')
         ~ main_btn_attr.class|default(''))|trim,
-    type: add_to_cart_btn_attr.type|default('button'),
+    type: main_btn_attr.type|default('button'),
 }) %}
 
 {% set toggler_btn_attr = toggler_btn_attr|default({})|merge({
@@ -20,6 +20,17 @@
         ~ (type is defined and type is not null ? 'ibexa-btn--' ~ type ~ ' ')
         ~ toggler_btn_attr.class|default(''))|trim,
     type: toggler_btn_attr.type|default('button'),
+}) %}
+
+{% set popup_params = popup_params|default({})|merge({
+    is_custom_init: true,
+    attr: popup_attr,
+    groups: [
+        {
+            id: 'default',
+            items: subitems,
+        },
+    ],
 }) %}
 
 {% set main_btn_element = main_btn_element|default('button') %}
@@ -49,16 +60,7 @@
         {% endblock %}
 
         {% block popup %}
-            {% include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu.html.twig' with {
-                is_custom_init: true,
-                attr: popup_attr,
-                groups: [
-                    {
-                        id: 'default',
-                        items: subitems,
-                    },
-                ],
-            } %}
+            {% include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu.html.twig' with popup_params %}
         {% endblock %}
     </div>
 {% endblock %}
