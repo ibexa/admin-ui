@@ -69,7 +69,7 @@ class UpperMenu extends Component
         return [
             new VisibleCSSLocator('dashboardLink', '.ibexa-main-header__brand'),
             new VisibleCSSLocator('pendingNotification', '.ibexa-header-user-menu__notice-dot'),
-            new VisibleCSSLocator('userSettingsToggle', '.ibexa-header-user-menu'),
+            new VisibleCSSLocator('userSettingsToggle', '.ibexa-header-user-menu__toggler'),
             new VisibleCSSLocator('userNotifications', '.ibexa-header-user-menu__notifications-toggler'),
             new VisibleCSSLocator('userSettingsItem', '.ibexa-popup-menu__item'),
             new VisibleCSSLocator('userSettingsPopup', '.ibexa-header-user-menu .ibexa-header-user-menu__popup-menu'),
