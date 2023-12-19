@@ -2,7 +2,7 @@
 
 {% set user_image = user_content.thumbnail %}
 
-{% if user_image.mimeType == 'image/svg+xml' %}
+{% if user_image.mimeType is defined and user_image.mimeType == 'image/svg+xml' %}
     {% set attr_svg = attr_svg|default({})|merge({
         class: ('ibexa-user-thumbnail ibexa-user-thumbnail--svg ' ~ attr_svg.class|default(''))|trim,
         width: attr_svg.width is defined ? attr_svg.width : '24',
@@ -13,7 +13,7 @@
     <svg {{ html.attributes(attr_svg|default({})) }}>
         <use xlink:href="{{ user_image.resource }}"></use>
     </svg>
-{% else %}
+{% elseif (user_image.resource is defined) %}
     {% set attr_img = attr_img|default({})|merge({
         class: ('ibexa-user-thumbnail ibexa-user-thumbnail--img ' ~ attr_img.class|default(''))|trim,
         src: attr_img.src is defined ? attr_img.src : user_image.resource,
