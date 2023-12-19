@@ -171,7 +171,7 @@ class UniversalDiscoveryWidget extends Component
 
     public function searchForContent(string $name): void
     {
-        $this->getHTMLPage()->find($this->getLocator('inputField'))->setValue($name);
+        $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('inputField'))->setValue($name);
         $this->getHTMLPage()->find($this->getLocator('searchButton'))->click();
 
         $this->getHTMLPage()
