@@ -561,8 +561,8 @@
 {%- endblock -%}
 
 {% block focus_mode_toggle_widget %}
-    {% set label_on  = 'user.focus_mode.on'|trans({}, 'ibexa_admin_ui')|desc('Focus mode on') %}
-    {% set label_off = 'user.focus_mode.off'|trans({}, 'ibexa_admin_ui')|desc('Focus mode off') %}
+    {% set label_on  = 'user.focus_mode.on'|trans({}, 'ibexa_admin_ui')|desc('Focus mode') %}
+    {% set label_off = 'user.focus_mode.off'|trans({}, 'ibexa_admin_ui')|desc('Focus mode') %}
     {% set small = true %}
     {% set checked = ibexa_is_focus_mode_on() %}
 

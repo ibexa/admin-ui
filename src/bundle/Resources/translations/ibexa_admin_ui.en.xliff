@@ -52,13 +52,13 @@
         <note>key: translation.remove.success</note>
       </trans-unit>
       <trans-unit id="73736cfd7959543f99b6edba300bc4d7c9c5683a" resname="user.focus_mode.off">
-        <source>Focus mode off</source>
-        <target state="new">Focus mode off</target>
+        <source>Focus mode</source>
+        <target state="new">Focus mode</target>
         <note>key: user.focus_mode.off</note>
       </trans-unit>
       <trans-unit id="8606b9e2c215d136dccfdb4b64cd5bfaa5a904cc" resname="user.focus_mode.on">
-        <source>Focus mode on</source>
-        <target state="new">Focus mode on</target>
+        <source>Focus mode</source>
+        <target state="new">Focus mode</target>
         <note>key: user.focus_mode.on</note>
       </trans-unit>
       <trans-unit id="d88f09dfa6b5a01de87c36fb97c09902cebcb3cc" resname="user_profile.action.edit">
