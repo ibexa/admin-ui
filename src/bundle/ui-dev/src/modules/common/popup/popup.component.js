@@ -30,6 +30,7 @@ const Popup = ({
     noHeader,
     noCloseBtn,
     extraClasses,
+    tooltip,
 }) => {
     const modalRef = useRef(null);
     const Translator = getTranslator();
@@ -99,7 +100,7 @@ const Popup = ({
                         ? renderCloseBtn
                         : title && (
                               <div className="modal-header c-popup__header">
-                                  <h3 className="modal-title c-popup__headline" title={title}>
+                                  <h3 className="modal-title c-popup__headline" title={tooltip ? title : null}>
                                       <span className="c-popup__title">{title}</span>
                                       {subtitle && <span className="c-popup__subtitle">{subtitle}</span>}
                                   </h3>
@@ -147,6 +148,7 @@ Popup.propTypes = {
     noCloseBtn: PropTypes.bool,
     noKeyboard: PropTypes.bool,
     extraClasses: PropTypes.string,
+    tooltip: PropTypes.bool,
 };
 
 Popup.defaultProps = {
@@ -159,6 +161,7 @@ Popup.defaultProps = {
     extraClasses: '',
     title: null,
     subtitle: null,
+    tooltip: true,
 };
 
 export default Popup;
