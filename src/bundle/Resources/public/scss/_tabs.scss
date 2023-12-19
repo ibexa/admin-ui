@@ -48,7 +48,7 @@
                 }
 
                 &--error {
-                    .ibexa-tabs__tab-warning-icon {
+                    .ibexa-tabs__tab-error-icon {
                         display: inline-block;
                     }
 
@@ -91,7 +91,7 @@
                 }
             }
 
-            &__tab-warning-icon {
+            &__tab-error-icon {
                 display: none;
                 margin-left: calculateRem(4px);
                 fill: $ibexa-color-danger;
@@ -104,7 +104,7 @@
 
         .ibexa-popup-menu__item {
             &--error {
-                .ibexa-tabs__tab-warning-icon {
+                .ibexa-tabs__tab-error-icon {
                     display: inline-block;
                     margin-top: calculateRem(-3px);
                 }
@@ -204,7 +204,7 @@
                 }
             }
 
-            &__tab-warning-icon {
+            &__tab-error-icon {
                 display: none;
                 position: absolute;
                 right: calculateRem(20px);
@@ -232,7 +232,7 @@
                 margin-left: calculateRem(-3px);
 
                 &--error {
-                    .ibexa-tabs__tab-warning-icon {
+                    .ibexa-tabs__tab-error-icon {
                         display: flex;
                     }
                 }
