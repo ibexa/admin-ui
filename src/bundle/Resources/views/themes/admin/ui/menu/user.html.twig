@@ -33,7 +33,7 @@
 
                 {% block focus_mode_toggle %}
                     {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\User\\FocusModeController::changeAction', {
-                        returnUrl: url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params'))
+                        returnPath: app.request.attributes.get('semanticPathinfo')
                     })) }}
                 {% endblock %}
             </div>

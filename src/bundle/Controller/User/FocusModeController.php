@@ -12,39 +12,47 @@ use Ibexa\AdminUi\Form\Data\User\FocusModeChangeData;
 use Ibexa\AdminUi\Form\Type\User\FocusModeChangeType;
 use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
-use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\User\UserSetting\UserSettingService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 final class FocusModeController extends Controller
 {
-    private const RETURN_URL_PARAM = 'returnUrl';
-
-    private const FOCUS_MODE_HIDDEN_MENU_ITEMS = ['section', 'state', 'contenttypegroup'];
+    private const RETURN_PATH_PARAM = 'returnPath';
 
     private UserSettingService $userSettingService;
 
-    private ConfigResolverInterface $configResolver;
+    private UrlMatcherInterface $urlMatcher;
 
-    private LocationService $locationService;
+    private RouterInterface $router;
 
+    /** @var iterable<\Ibexa\Contracts\AdminUi\FocusMode\RedirectStrategyInterface> */
+    private iterable $redirectStrategies;
+
+    /**
+     * @param iterable<\Ibexa\Contracts\AdminUi\FocusMode\RedirectStrategyInterface> $redirectStrategies
+     */
     public function __construct(
         UserSettingService $userSettingService,
-        ConfigResolverInterface $configResolver,
-        LocationService $locationService
+        UrlMatcherInterface $urlMatcher,
+        RouterInterface $router,
+        iterable $redirectStrategies
     ) {
         $this->userSettingService = $userSettingService;
-        $this->configResolver = $configResolver;
-        $this->locationService = $locationService;
+        $this->urlMatcher = $urlMatcher;
+        $this->router = $router;
+        $this->redirectStrategies = $redirectStrategies;
     }
 
-    public function changeAction(Request $request, ?string $returnUrl): Response
+    public function changeAction(Request $request, ?string $returnPath): Response
     {
         $data = new FocusModeChangeData();
-        $data->setEnabled($this->userSettingService->getUserSetting(FocusMode::IDENTIFIER)->value === FocusMode::FOCUS_MODE_ON);
+        $data->setEnabled(
+            $this->userSettingService->getUserSetting(FocusMode::IDENTIFIER)->value === FocusMode::FOCUS_MODE_ON
+        );
 
         $form = $this->createForm(
             FocusModeChangeType::class,
@@ -53,7 +61,7 @@ final class FocusModeController extends Controller
                 'action' => $this->generateUrl(
                     'ibexa.focus_mode.change',
                     [
-                        self::RETURN_URL_PARAM => $returnUrl,
+                        self::RETURN_PATH_PARAM => $returnPath,
                     ]
                 ),
                 'method' => Request::METHOD_POST,
@@ -67,7 +75,7 @@ final class FocusModeController extends Controller
                 $data->isEnabled() ? FocusMode::FOCUS_MODE_ON : FocusMode::FOCUS_MODE_OFF
             );
 
-            return $this->createRedirectToReturnUrl($request);
+            return $this->createRedirectToReturnPath($request);
         }
 
         return $this->render(
@@ -78,18 +86,17 @@ final class FocusModeController extends Controller
         );
     }
 
-    private function createRedirectToReturnUrl(Request $request): RedirectResponse
+    private function createRedirectToReturnPath(Request $request): RedirectResponse
     {
-        $url = $request->query->get(self::RETURN_URL_PARAM);
-        if (is_string($url) && $this->isSafeUrl($url, $request->getBaseUrl())) {
-            if ($this->isRedirectRouteHidden($url)) {
-                return new RedirectResponse($this->getDefaultUrl());
-            }
+        $path = $this->resolveReturnPath(
+            $request->query->get(self::RETURN_PATH_PARAM) ?? ''
+        );
 
-            return new RedirectResponse($url);
+        if (!$this->isSafeUrl($path, $request->getBaseUrl())) {
+            throw $this->createAccessDeniedException('Malformed return path');
         }
 
-        throw $this->createAccessDeniedException('Malformed return URL');
+        return new RedirectResponse($path);
     }
 
     private function isSafeUrl(string $referer, string $baseUrl): bool
@@ -97,26 +104,37 @@ final class FocusModeController extends Controller
         return str_starts_with($referer, $baseUrl);
     }
 
-    private function isRedirectRouteHidden(string $returnUrl): bool
+    private function resolveReturnPath(string $path): string
     {
-        foreach (self::FOCUS_MODE_HIDDEN_MENU_ITEMS as $item) {
-            if (str_contains($returnUrl, $item)) {
-                return true;
+        $rootRouteInfo = $this->router->match('/');
+        $rootRoute = $this->generateUrl($rootRouteInfo['_route'], $rootRouteInfo);
+
+        $rootPath = rtrim(parse_url($rootRoute, PHP_URL_PATH) ?: '', '/');
+        $route = $this->matchRouteByPath($path);
+
+        $fullPath = $rootPath . $path;
+        foreach ($this->redirectStrategies as $strategy) {
+            if ($strategy->supports($route)) {
+                return $strategy->generateRedirectPath($fullPath);
             }
         }
 
-        return false;
+        return $fullPath;
     }
 
-    private function getDefaultUrl(): string
+    private function matchRouteByPath(string $path): string
     {
-        $locationId = $this->configResolver->getParameter('location_ids.content_structure');
-        $location = $this->locationService->loadLocation($locationId);
-        $contentId = $location->getContentInfo()->id;
+        $originalContext = $this->urlMatcher->getContext();
 
-        return $this->generateUrl('ibexa.content.view', [
-            'locationId' => $locationId,
-            'contentId' => $contentId,
-        ]);
+        $context = clone $originalContext;
+        $context->setMethod('GET');
+
+        $this->urlMatcher->setContext($context);
+
+        ['_route' => $route] = $this->urlMatcher->match($path);
+
+        $this->urlMatcher->setContext($originalContext);
+
+        return $route;
     }
 }

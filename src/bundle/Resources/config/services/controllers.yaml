@@ -194,6 +194,8 @@ services:
     Ibexa\Bundle\AdminUi\Controller\User\FocusModeController:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true
+        arguments:
+            $redirectStrategies: !tagged_iterator 'ibexa.admin_ui.focus_mode.redirect_strategy'
         tags:
             - controller.service_arguments
 
