@@ -3,7 +3,7 @@
 {% block main_container_class %}
     ibexa-main-container--edit-container
 
-    {%- set has_anchor_menu_items = anchor_params.items|default([])|length > 1 -%}
+    {%- set has_anchor_menu_items = anchor_params.items|default([])|length > 1 or ignored_content_fields|default([])|length > 1 -%}
     {%- set has_anchor_close_btn = anchor_params.close_href|default(null) is not empty -%}
 
     {{- has_anchor_menu_items ? ' ibexa-main-container--with-anchor-menu-items ' : ' ibexa-main-container--without-anchor-menu-items ' -}}
