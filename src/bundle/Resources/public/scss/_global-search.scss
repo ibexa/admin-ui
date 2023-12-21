@@ -86,7 +86,7 @@
 
     &__autocomplete-view-all {
         display: flex;
-        justify-content: end;
+        justify-content: space-between;
         padding: calculateRem(4px) 0;
 
         .ibexa-btn {
@@ -94,6 +94,17 @@
                 color: $ibexa-color-dark;
             }
         }
+    }
+
+    &__autocomplete-total-count {
+        font-size: $ibexa-text-font-size-medium;
+        color: $ibexa-color-dark-400;
+        display: flex;
+        align-items: center;
+    }
+
+    &__autocomplete-total-count {
+        margin-left: calculateRem(4px);
     }
 
     &__autocomplete-item {

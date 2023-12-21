@@ -13,12 +13,13 @@
     const clearBtn = globalSearch.querySelector(' .ibexa-input-text-wrapper__action-btn--clear');
     const autocompleteNode = globalSearch.querySelector('.ibexa-global-search__autocomplete');
     const autocompleteListNode = globalSearch.querySelector('.ibexa-global-search__autocomplete-list');
+    const autocompleteResultsCountNumber = globalSearch.querySelector('.ibexa-global-search__autocomplete-total-count-number');
     let searchAbortController;
-    const showResults = (searchText, results) => {
+    const showResults = (searchText, { suggestionResults, totalCount }) => {
         const { renderers } = ibexa.autocomplete;
         const fragment = doc.createDocumentFragment();
 
-        results.forEach((result) => {
+        suggestionResults.forEach((result) => {
             const container = doc.createElement('ul');
             const renderer = renderers[result.type];
 
@@ -40,11 +41,12 @@
 
         autocompleteListNode.innerHTML = '';
         autocompleteListNode.append(fragment);
+        autocompleteResultsCountNumber.innerHTML = totalCount;
 
         window.ibexa.helpers.ellipsis.middle.parse(autocompleteListNode);
 
         autocompleteNode.classList.remove('ibexa-global-search__autocomplete--hidden');
-        autocompleteNode.classList.toggle('ibexa-global-search__autocomplete--results-empty', results.length === 0);
+        autocompleteNode.classList.toggle('ibexa-global-search__autocomplete--results-empty', suggestionResults.length === 0);
     };
     const getAutocompleteList = (searchText) => {
         const url = Routing.generate('ibexa.search.suggestion', { query: searchText, limit: resultLimit });
