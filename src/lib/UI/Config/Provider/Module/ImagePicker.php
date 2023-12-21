@@ -10,28 +10,31 @@ namespace Ibexa\AdminUi\UI\Config\Provider\Module;
 
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
+/**
+ * @template TConfig of array{
+ *      imageFieldDefinitionIdentifiers: array<string>,
+ *      imageContentTypeIdentifiers: array<string>,
+ *      aggregations: array<string, array<string, string>>,
+ *  }
+ */
 final class ImagePicker implements ProviderInterface
 {
-    /** @var array<string> */
-    private array $imageFieldDefinitionIdentifiers;
+    /** @phpstan-var TConfig */
+    private array $config;
 
     /**
-     * @param array<string> $imageFieldDefinitionIdentifiers
+     * @phpstan-param TConfig $config
      */
-    public function __construct(array $imageFieldDefinitionIdentifiers)
+    public function __construct(array $config)
     {
-        $this->imageFieldDefinitionIdentifiers = $imageFieldDefinitionIdentifiers;
+        $this->config = $config;
     }
 
     /**
-     * @return array{
-     *     imageFieldDefinitionIdentifiers: array<string>,
-     * }
+     * @phpstan-return TConfig
      */
     public function getConfig(): array
     {
-        return [
-            'imageFieldDefinitionIdentifiers' => $this->imageFieldDefinitionIdentifiers,
-        ];
+        return $this->config;
     }
 }

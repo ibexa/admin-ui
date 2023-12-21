@@ -145,7 +145,10 @@ services:
 
     Ibexa\AdminUi\UI\Config\Provider\Module\ImagePicker:
         arguments:
-            $imageFieldDefinitionIdentifiers: '%ibexa.image_picker.field_definition_identifiers%'
+            $config:
+                imageFieldDefinitionIdentifiers: '%ibexa.image_picker.field_definition_identifiers%'
+                imageContentTypeIdentifiers: '%ibexa.image_picker.content_type_identifiers%'
+                aggregations: '%ibexa.image_picker.aggregations%'
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'imagePicker' }
 

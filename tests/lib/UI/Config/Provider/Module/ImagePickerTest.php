@@ -14,13 +14,27 @@ use PHPUnit\Framework\TestCase;
 
 final class ImagePickerTest extends TestCase
 {
-    private const FIELD_DEFINITION_IDENTIFIERS = ['foo', 'bar'];
+    private const FIELD_DEFINITION_IDENTIFIERS = ['field_foo', 'field_bar'];
+    private const CONTENT_TYPE_IDENTIFIERS = ['content_type_foo', 'content_type_bar'];
+    private const AGGREGATIONS = [
+        'KeywordTermAggregation' => [
+            'name' => 'keywords',
+            'contentTypeIdentifier' => 'keywords',
+            'fieldDefinitionIdentifier' => 'keywords',
+        ],
+    ];
 
     private ProviderInterface $provider;
 
     protected function setUp(): void
     {
-        $this->provider = new ImagePicker(self::FIELD_DEFINITION_IDENTIFIERS);
+        $this->provider = new ImagePicker(
+            [
+                'imageFieldDefinitionIdentifiers' => self::FIELD_DEFINITION_IDENTIFIERS,
+                'imageContentTypeIdentifiers' => self::CONTENT_TYPE_IDENTIFIERS,
+                'aggregations' => self::AGGREGATIONS,
+            ]
+        );
     }
 
     public function testGetConfig(): void
@@ -28,6 +42,8 @@ final class ImagePickerTest extends TestCase
         self::assertSame(
             [
                 'imageFieldDefinitionIdentifiers' => self::FIELD_DEFINITION_IDENTIFIERS,
+                'imageContentTypeIdentifiers' => self::CONTENT_TYPE_IDENTIFIERS,
+                'aggregations' => self::AGGREGATIONS,
             ],
             $this->provider->getConfig()
         );
