@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
+import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import ViewColumnsTogglerComponent from './components/view-columns-toggler/view.columns.toggler';
 import ViewSwitcherComponent from './components/view-switcher/view.switcher.component.js';
 import SubItemsListComponent from './components/sub-items-list/sub.items.list.component.js';
@@ -97,6 +98,7 @@ export default class SubItemsModule extends Component {
         this._refMainContainerWrapper = React.createRef();
         this.bulkActionModalContainer = null;
         this.udwContainer = null;
+        this.adminUiConfig = getAdminUiConfig();
 
         const sortClauseData = this.getDefaultSortClause(props.sortClauses);
 
@@ -1255,7 +1257,7 @@ export default class SubItemsModule extends Component {
                 onSortChange={this.changeSorting}
                 sortClause={sortClause}
                 sortOrder={sortOrder}
-                columnsVisibility={this.filterSmartModeColumns(columnsVisibility)}
+                columnsVisibility={this.filterColumnsVisibility(columnsVisibility)}
                 languageContainerSelector={this.props.languageContainerSelector}
             />
         );
@@ -1271,14 +1273,20 @@ export default class SubItemsModule extends Component {
         );
     }
 
-    filterSmartModeColumns(allColumns) {
-        // TODO: filter when smart mode implemented
-        const expertModeColumns = ['section', 'location-id', 'location-remote-id', 'object-id', 'object-remote-id'];
+    getColumnsToFilterOut() {
+        if (this.adminUiConfig.focusMode) {
+            return ['section', 'location-id', 'location-remote-id', 'object-id', 'object-remote-id'];
+        }
 
+        return [];
+    }
+
+    filterColumnsVisibility(allColumns) {
+        const columnsToFilterOut = this.getColumnsToFilterOut();
         const filteredColumns = {};
 
         Object.keys(allColumns).forEach((columnKey) => {
-            if (!expertModeColumns.includes(columnKey)) {
+            if (!columnsToFilterOut.includes(columnKey)) {
                 filteredColumns[columnKey] = allColumns[columnKey];
             }
         });
@@ -1358,7 +1366,7 @@ export default class SubItemsModule extends Component {
                             {this.renderBulkUnhideBtn(bulkUnhideBtnDisabled)}
                             {this.renderBulkDeleteBtn(bulkBtnDisabled)}
                             <ViewColumnsTogglerComponent
-                                columnsVisibility={this.filterSmartModeColumns(columnsVisibility)}
+                                columnsVisibility={this.filterColumnsVisibility(columnsVisibility)}
                                 toggleColumnVisibility={this.toggleColumnVisibility}
                                 isDisabled={activeView === VIEW_MODE_GRID}
                             />
