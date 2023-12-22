@@ -8,19 +8,18 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
-use Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface;
-use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
-use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class SiteAccessPreviewChoiceLoader extends BaseChoiceLoader
 {
     private SiteAccessChoiceLoader $siteAccessChoiceLoader;
+
     private UrlGeneratorInterface $urlGenerator;
+
     private int $contentId;
+
     private string $languageCode;
+
     private int $versionNo;
 
     public function __construct(
@@ -30,7 +29,6 @@ final class SiteAccessPreviewChoiceLoader extends BaseChoiceLoader
         string $languageCode,
         int $versionNo
     ) {
-
         $this->siteAccessChoiceLoader = $siteAccessChoiceLoader;
         $this->urlGenerator = $urlGenerator;
         $this->contentId = $contentId;
@@ -53,7 +51,7 @@ final class SiteAccessPreviewChoiceLoader extends BaseChoiceLoader
                     'contentId' => $this->contentId,
                     'versionNo' => $this->versionNo,
                     'language' => $this->languageCode,
-                    'siteAccessName' => $siteAccessKey
+                    'siteAccessName' => $siteAccessKey,
                 ]
             );
         }

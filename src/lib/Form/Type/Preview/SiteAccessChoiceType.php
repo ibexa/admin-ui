@@ -14,17 +14,10 @@ use Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Core\MVC\Symfony\SiteAccess\Router;
-use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\ChoiceList;
-use Symfony\Component\Form\ChoiceList\Factory\Cache\ChoiceLoader;
-use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -42,7 +35,6 @@ final class SiteAccessChoiceType extends AbstractType
         SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
         UrlGeneratorInterface $urlGenerator
     ) {
-
         $this->siteAccessResolver = $siteAccessResolver;
         $this->siteAccessNameGenerator = $siteAccessNameGenerator;
         $this->urlGenerator = $urlGenerator;
@@ -66,7 +58,6 @@ final class SiteAccessChoiceType extends AbstractType
                             $options['languageCode'],
                             $options['versionNo'],
                         )
-
                     );
                 },
             ]);
