@@ -5,7 +5,7 @@
     if (form) {
         form.querySelectorAll('input[type=checkbox]').forEach((input) => {
             input.addEventListener('change', () => {
-                form.submit();
+                form.requestSubmit();
             });
         });
     }

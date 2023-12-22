@@ -24,6 +24,7 @@ final class FocusModeChangeType extends AbstractType
             [
                 'label' => null,
                 'block_prefix' => 'focus_mode_toggle',
+                'required' => false,
             ]
         );
     }

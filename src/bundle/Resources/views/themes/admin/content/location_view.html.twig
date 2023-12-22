@@ -3,15 +3,21 @@
 {% extends "@ibexadesign/ui/layout.html.twig" %}
 
 {% trans_default_domain 'ibexa_locationview' %}
-{% form_theme form_location_copy '@ibexadesign/ui/form/flat_widgets.html.twig' %}
-{% form_theme form_location_move '@ibexadesign/ui/form/flat_widgets.html.twig' %}
+{% if form_location_copy is defined %}
+    {% form_theme form_location_copy '@ibexadesign/ui/form/flat_widgets.html.twig' %}
+{% endif %}
+{% if form_location_move is defined %}
+    {% form_theme form_location_move '@ibexadesign/ui/form/flat_widgets.html.twig' %}
+{% endif %}
 {% if form_content_edit is defined %}
     {% form_theme form_content_edit '@ibexadesign/ui/form_fields.html.twig' %}
 {% endif %}
 {% if form_user_edit is defined %}
     {% form_theme form_user_edit '@ibexadesign/ui/form_fields.html.twig' %}
 {% endif %}
-{% form_theme form_content_create '@ibexadesign/ui/form_fields.html.twig' %}
+{% if form_content_create is defined %}
+    {% form_theme form_content_create '@ibexadesign/ui/form_fields.html.twig' %}
+{% endif %}
 
 {% block body_class %}ibexa-content-view{% endblock %}
 
