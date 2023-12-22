@@ -12,7 +12,7 @@
                     {{ content_type_name }}
                 </span>
             </div>
-            <div class="ibexa-global-search__autocomplete-item-breadcrumbs">
+            <div class="ibexa-global-search__autocomplete-item-breadcrumbs {{ breadcrumbs_class }}">
                 {{ include('@ibexadesign/ui/component/middle_ellipsis/middle_ellipsis.html.twig', {
                     name: content_breadcrumbs,
                 }) }}

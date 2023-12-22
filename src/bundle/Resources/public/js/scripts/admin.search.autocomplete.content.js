@@ -13,7 +13,6 @@
     const renderItem = (result, searchText) => {
         const { locationId, contentId, name, contentTypeIdentifier, pathString, parentLocations } = result;
         const pathArray = pathString.split('/').filter((id) => id);
-
         const breadcrumb = pathArray.reduce((total, pathLocationId, index) => {
             const parentLocation = parentLocations.find((parent) => parent.locationId === parseInt(pathLocationId, 10));
 
@@ -23,7 +22,7 @@
 
             return index === 0 ? parentLocation.name : `${total} / ${parentLocation.name}`;
         }, '');
-
+        const breadcrumbsClass = !breadcrumb ? 'ibexa-global-search__autocomplete-item-breadcrumbs--empty' : '';
         const autocompleteItemTemplate = autocompleteContentTemplateNode.dataset.templateItem;
         const autocompleteHighlightTemplate = autocompleteListNode.dataset.templateHighlight;
         const renderedTemplate = autocompleteItemTemplate
@@ -31,6 +30,7 @@
             .replace('{{ iconHref }}', getContentTypeIconUrl(contentTypeIdentifier))
             .replace('{{ contentTypeName }}', escapeHTML(getContentTypeName(contentTypeIdentifier)))
             .replaceAll('{{ contentBreadcrumbs }}', breadcrumb)
+            .replaceAll('{{ breadcrumbsClass }}', breadcrumbsClass)
             .replace('{{ contentHref }}', Routing.generate('ibexa.content.view', { contentId, locationId }));
 
         return renderedTemplate;

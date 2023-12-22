@@ -160,12 +160,21 @@
         font-size: $ibexa-text-font-size-small;
         display: flex;
         color: $ibexa-color-dark-400;
+
+        .ibexa-middle-ellipsis__name--start,
+        .ibexa-middle-ellipsis__name--end {
+            .ibexa-middle-ellipsis__name-ellipsized {
+                color: $ibexa-color-dark-400;
+            }
+        }
+
+        .ibexa-icon {
+            fill: $ibexa-color-dark-400;
+        }
     }
 
     &__autocomplete-item-content-type-wrapper {
-        margin-right: calculateRem(4px);
         padding-right: calculateRem(4px);
-        border-right: calculateRem(1px) solid $ibexa-color-light;
         font-weight: bold;
         display: flex;
         justify-content: center;
@@ -179,6 +188,12 @@
 
     &__autocomplete-item-breadcrumbs {
         min-width: 0;
+        padding-left: calculateRem(4px);
+        border-left: calculateRem(1px) solid $ibexa-color-light;
+
+        &--empty {
+            border: none;
+        }
     }
 
     &__autocomplete-list {
