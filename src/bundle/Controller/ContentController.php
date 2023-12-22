@@ -17,6 +17,7 @@ use Ibexa\AdminUi\Form\DataMapper\MainTranslationUpdateMapper;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Form\Type\Content\Translation\MainTranslationUpdateType;
+use Ibexa\AdminUi\Form\Type\Preview\SiteAccessChoiceType;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
@@ -40,6 +41,7 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Base\Exceptions\BadStateException;
 use Ibexa\Core\Helper\TranslationHelper;
 use JMS\TranslationBundle\Annotation\Desc;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -90,6 +92,8 @@ class ContentController extends Controller
     /** @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface */
     private $eventDispatcher;
 
+    private FormFactoryInterface $baseFormFactory;
+
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
         ContentService $contentService,
@@ -104,7 +108,8 @@ class ContentController extends Controller
         TranslationHelper $translationHelper,
         ConfigResolverInterface $configResolver,
         SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        FormFactoryInterface $baseFormFactory
     ) {
         $this->notificationHandler = $notificationHandler;
         $this->contentService = $contentService;
@@ -120,6 +125,7 @@ class ContentController extends Controller
         $this->configResolver = $configResolver;
         $this->siteAccessNameGenerator = $siteAccessNameGenerator;
         $this->eventDispatcher = $eventDispatcher;
+        $this->baseFormFactory = $baseFormFactory;
     }
 
     /**
@@ -390,11 +396,23 @@ class ContentController extends Controller
             $preselectedSiteAccess = null;
         }
 
+        $siteAccessSelector = $this->baseFormFactory->create(
+            SiteAccessChoiceType::class,
+            $preselectedSiteAccess,
+            [
+                'location' => $location,
+                'content' => $content,
+                'versionNo' => $versionNo ?? $content->getVersionInfo()->versionNo,
+                'languageCode' => $languageCode,
+            ]
+        );
+
         return $this->render('@ibexadesign/content/content_preview.html.twig', [
             'location' => $location,
             'content' => $content,
             'language_code' => $languageCode,
             'siteaccesses' => $siteAccessesList,
+            'siteAccessForm' => $siteAccessSelector->createView(),
             'version_no' => $versionNo ?? $content->getVersionInfo()->versionNo,
             'preselected_site_access' => $preselectedSiteAccess,
             'referrer' => $referrer ?? 'content_draft_edit',
