@@ -87,33 +87,28 @@
         <note>key: user.setting.focus_mode.description</note>
       </trans-unit>
       <trans-unit id="cffd55da53aff9b2efc64a42454deb1984c0264c" resname="user.setting.focus_mode.help">
-        <source><![CDATA[<p><strong>Focus mode: on</strong> – A clean and intuitive interface with a simplified content
+        <source><![CDATA[<p><strong>Focus mode</strong> – A clean and intuitive interface with a simplified Content
                         structure, designed for new and non-advanced users. Features include:</p>
                         <ul>
-                            <li>View</li>
+                            <li>View tab displaying site preview within the context</li>
                             <li>Hidden Technical details tab</li>
                             <li>Hidden Locations and Versions tabs in Content items</li>
                         </ul>
-                        <p><strong>Focus mode: off</strong> – Tailored for experienced users familiar with Ibexa DXP.
-                        Provides comprehensive insights into the technical aspects of Content structure, including:</p>
-                        <ul>
-                            <li>Technical details tab</li>
-                            <li>Location: Archived versions</li>
-                        </ul>]]></source>
-        <target state="new"><![CDATA[<p><strong>Focus mode: on</strong> – A clean and intuitive interface with a simplified content
+                    </p>]]></source>
+        <target state="new"><![CDATA[<p><strong>Focus mode</strong> – A clean and intuitive interface with a simplified Content
                         structure, designed for new and non-advanced users. Features include:</p>
                         <ul>
-                            <li>View</li>
+                            <li>View tab displaying site preview within the context</li>
                             <li>Hidden Technical details tab</li>
                             <li>Hidden Locations and Versions tabs in Content items</li>
                         </ul>
-                        <p><strong>Focus mode: off</strong> – Tailored for experienced users familiar with Ibexa DXP.
-                        Provides comprehensive insights into the technical aspects of Content structure, including:</p>
-                        <ul>
-                            <li>Technical details tab</li>
-                            <li>Location: Archived versions</li>
-                        </ul>]]></target>
+                    </p>]]></target>
         <note>key: user.setting.focus_mode.help</note>
+      </trans-unit>
+      <trans-unit id="3f9f3faa4259dc9c627396c82133e9f615e388a8" resname="user.setting.focus_mode.label">
+        <source>Enable focus mode</source>
+        <target state="new">Enable focus mode</target>
+        <note>key: user.setting.focus_mode.label</note>
       </trans-unit>
       <trans-unit id="585f7f7c62212ea3de792ae339db9e838f27d77a" resname="user.setting.focus_mode.name">
         <source>Focus mode</source>
@@ -121,24 +116,14 @@
         <note>key: user.setting.focus_mode.name</note>
       </trans-unit>
       <trans-unit id="ff6e958aad946d4fed9a52212626b24394e70764" resname="user.setting.focus_mode.off">
-        <source>Off</source>
-        <target state="new">Off</target>
+        <source>Disabled</source>
+        <target state="new">Disabled</target>
         <note>key: user.setting.focus_mode.off</note>
       </trans-unit>
       <trans-unit id="77b180457c16ed97dcf406f5d225f2bbeac16d4a" resname="user.setting.focus_mode.on">
-        <source>On</source>
-        <target state="new">On</target>
+        <source>Enabled</source>
+        <target state="new">Enabled</target>
         <note>key: user.setting.focus_mode.on</note>
-      </trans-unit>
-      <trans-unit id="7bbfadd84e2abbfb1923b38c4b27f14fe4585c55" resname="user.setting.mode.help">
-        <source>user.setting.mode.help</source>
-        <target state="new">user.setting.mode.help</target>
-        <note>key: user.setting.mode.help</note>
-      </trans-unit>
-      <trans-unit id="7036f294d389a7a41226580ce5f0c62bc1a85c21" resname="user.setting.mode.name">
-        <source>user.setting.mode.name</source>
-        <target state="new">user.setting.mode.name</target>
-        <note>key: user.setting.mode.name</note>
       </trans-unit>
     </body>
   </file>

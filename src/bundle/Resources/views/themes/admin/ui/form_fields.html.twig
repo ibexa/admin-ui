@@ -568,3 +568,8 @@
 
     {{ block('toggle_widget') }}
 {% endblock %}
+
+{% block user_mode_choice_widget %}
+    {% set checked = ibexa_is_focus_mode_on() %}
+    {{ block('toggle_widget') }}
+{% endblock %}
