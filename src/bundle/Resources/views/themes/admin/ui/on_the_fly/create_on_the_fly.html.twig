@@ -31,7 +31,7 @@
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
         action_name: 'creating'|trans|desc('Creating'),
         title: 'new_content_item'|trans({'%contentType%': content_type.name})|desc('New %contentType%'),
-        icon_name: 'content-type',
+        icon_name: content_type.identifier,
         show_autosave_status: true,
         description: content_type.description,
         context_actions: context_actions,
