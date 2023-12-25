@@ -27,7 +27,7 @@
         {% set col_raw %}
             {%- set limitation = role_assignment.rolelimitation -%}
             {%- if limitation -%}
-                <ul class="list-unstyled">
+                <ul class="list-unstyled m-0">
                     <li>
                         <span class="font-weight-bold" title="{{ 'policy.limitation.identifier_tooltip' | trans({'%identifier%': limitation.identifier})|desc('"%identifier%" Limitation') }}">
                             {{ ('policy.limitation.identifier.' ~ limitation.identifier|lower)|trans({'%identifier%': limitation.identifier}, 'ibexa_content_forms_policies')|desc('%identifier%') }}:
