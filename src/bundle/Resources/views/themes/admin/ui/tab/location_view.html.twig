@@ -4,7 +4,8 @@
     content: tab.view,
     active: index == 0
 }) %}
-{% include '@ibexadesign/ui/component/tab/tabs.html.twig' with { 
+{% include '@ibexadesign/ui/component/tab/tabs.html.twig' with {
     tabs: tabs_to_show,
+    hide_toggler: true,
     include_tab_more: true,
 } %}
