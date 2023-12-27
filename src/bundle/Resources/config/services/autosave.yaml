@@ -4,6 +4,11 @@ services:
         autowire: true
         public: false
 
+    Ibexa\AdminUi\Autosave\AutosaveService: ~
+
+    Ibexa\Contracts\AdminUi\Autosave\AutosaveServiceInterface:
+        alias: Ibexa\AdminUi\Autosave\AutosaveService
+
     Ibexa\AdminUi\EventListener\ContentProxyCreateDraftListener: ~
 
     Ibexa\AdminUi\Form\Processor\Content\AutosaveProcessor:

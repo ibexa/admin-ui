@@ -8,41 +8,36 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\EventListener;
 
-use Ibexa\AdminUi\UserSetting\Autosave as AutosaveSetting;
+use Ibexa\Contracts\AdminUi\Autosave\AutosaveServiceInterface;
 use Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent;
 use Ibexa\Contracts\AdminUi\Event\ContentProxyTranslateEvent;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
-use Ibexa\User\UserSetting\UserSettingService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 
 class ContentProxyCreateDraftListener implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Ibexa\User\UserSetting\UserSettingService */
-    private $userSettingService;
+    private AutosaveServiceInterface $autosaveService;
 
-    /** @var \Symfony\Component\Routing\RouterInterface */
-    private $router;
+    private RouterInterface $router;
 
     public function __construct(
         ContentService $contentService,
         LocationService $locationService,
-        UserSettingService $userSettingService,
+        AutosaveServiceInterface $autosaveService,
         RouterInterface $router
     ) {
         $this->contentService = $contentService;
         $this->locationService = $locationService;
-        $this->userSettingService = $userSettingService;
+        $this->autosaveService = $autosaveService;
         $this->router = $router;
     }
 
@@ -56,9 +51,7 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
 
     public function create(ContentProxyCreateEvent $event): void
     {
-        $isAutosaveEnabled = $this->userSettingService->getUserSetting('autosave')->value === AutosaveSetting::ENABLED_OPTION;
-
-        if (!$isAutosaveEnabled) {
+        if (!$this->autosaveService->isEnabled()) {
             return;
         }
 
@@ -103,9 +96,7 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
 
     public function translate(ContentProxyTranslateEvent $event): void
     {
-        $isAutosaveEnabled = $this->userSettingService->getUserSetting('autosave')->value === AutosaveSetting::ENABLED_OPTION;
-
-        if (!$isAutosaveEnabled) {
+        if (!$this->autosaveService->isEnabled()) {
             return;
         }
 

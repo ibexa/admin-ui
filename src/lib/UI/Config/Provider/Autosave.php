@@ -8,29 +8,23 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
-use Ibexa\AdminUi\UserSetting\Autosave as AutosaveSetting;
+use Ibexa\Contracts\AdminUi\Autosave\AutosaveServiceInterface;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
-use Ibexa\User\UserSetting\UserSettingService;
 
 class Autosave implements ProviderInterface
 {
-    /** @var \Ibexa\User\UserSetting\UserSettingService */
-    private $userSettingService;
+    private AutosaveServiceInterface $autosaveService;
 
-    public function __construct(
-        UserSettingService $userSettingService
-    ) {
-        $this->userSettingService = $userSettingService;
+    public function __construct(AutosaveServiceInterface $autosaveService)
+    {
+        $this->autosaveService = $autosaveService;
     }
 
     public function getConfig(): array
     {
-        $isEnabled = $this->userSettingService->getUserSetting('autosave')->value === AutosaveSetting::ENABLED_OPTION;
-        $interval = (int)$this->userSettingService->getUserSetting('autosave_interval')->value * 1000;
-
         return [
-            'enabled' => $isEnabled,
-            'interval' => $interval,
+            'enabled' => $this->autosaveService->isEnabled(),
+            'interval' => $this->autosaveService->getInterval(),
         ];
     }
 }
