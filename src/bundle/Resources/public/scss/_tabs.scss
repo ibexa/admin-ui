@@ -99,7 +99,7 @@
 
         .nav-item {
             position: relative;
-            margin-bottom: calculateRem(-1px);
+            margin-bottom: 0;
         }
 
         .nav-link {
@@ -146,7 +146,6 @@
                     border-left: calculateRem(5px) solid transparent;
                     border-right: calculateRem(5px) solid transparent;
                     border-top: calculateRem(5px) solid $ibexa-color-black;
-                    transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
                 }
 
                 &--rolled-up {
@@ -171,17 +170,15 @@
                 right: 0;
                 top: 0;
                 bottom: 0;
-                margin-top: calculateRem(-1px);
+                margin-top: calculateRem(-0.5px);
                 z-index: 2;
 
                 .ibexa-svg-tab-corner-border {
-                    stroke: $ibexa-color-light-300;
-                    transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+                    stroke: $ibexa-color-light;
                 }
 
                 .ibexa-svg-tab-corner-inside {
                     fill: $ibexa-color-light-300;
-                    transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
                 }
             }
 
@@ -210,7 +207,6 @@
                 border-bottom: calculateRem(1px) solid $ibexa-color-light;
                 outline: none;
                 font-size: calculateRem(14px);
-                transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
                 margin-left: calculateRem(-3px);
 
                 &--error {
@@ -236,11 +232,6 @@
                     border-bottom-width: 0;
                     border-right-width: 0;
                     background-color: $ibexa-color-light-300;
-                    border-color: $ibexa-color-light-300;
-                    transition:
-                        all $ibexa-admin-transition-duration $ibexa-admin-transition,
-                        margin-bottom 1ms,
-                        border-color 1ms;
                 }
 
                 &::after {
@@ -251,7 +242,6 @@
                     bottom: 0;
                     border-bottom: calculateRem(1px) solid $ibexa-color-light;
                     z-index: 3;
-                    transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
                 }
 
                 &[disabled] {
@@ -278,7 +268,6 @@
                         border-right-width: 0;
                         z-index: 2;
                         margin-bottom: -0.1px;
-                        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
                     }
 
                     &::after {
@@ -299,18 +288,20 @@
 
                 &:hover:not([disabled]):not(&--active) {
                     &::before {
-                        border: calculateRem(1px) solid $ibexa-color-light;
+                        border: calculateRem(1px) solid $ibexa-color-primary;
                         border-right-width: 0;
                         z-index: 2;
-                        transition:
-                            all $ibexa-admin-transition-duration $ibexa-admin-transition,
-                            margin-bottom 1ms,
-                            border-color 1ms;
                     }
 
                     &::after {
-                        border-color: $ibexa-color-light;
+                        border-color: $ibexa-color-primary;
                         right: 0;
+                    }
+
+                    .ibexa-tabs__tab-corner {
+                        .ibexa-svg-tab-corner-border {
+                            stroke: $ibexa-color-primary;
+                        }
                     }
                 }
 
@@ -336,6 +327,12 @@
                     background: transparent;
                     border-width: 0;
                     z-index: 5;
+
+                    &:focus-visible {
+                        box-shadow: none;
+                        border: calculateRem(1px) solid $ibexa-color-primary;
+                        border-top-left-radius: calculateRem(10px);
+                    }
                 }
             }
 
@@ -353,7 +350,7 @@
     border: calculateRem(1px) solid $ibexa-color-light;
     border-radius: 0 calculateRem(10px) calculateRem(10px) calculateRem(10px);
     overflow: hidden;
-    box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info, 0.1);
+    box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info-600, 0.1);
     background-color: $ibexa-color-white;
 
     &__single-tab {
