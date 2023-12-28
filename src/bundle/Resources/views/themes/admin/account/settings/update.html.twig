@@ -9,8 +9,8 @@
     {% set user_setting_update_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_setting_update.sidebar_right', [], {'user_setting': user_setting}) %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
-        action_name: 'list.title'|trans|desc('User settings'),
-        title: 'list.title'|trans|desc('User settings'),
+        action_name: 'list.action_name'|trans({'%action%': title|lower})|desc('Editing %action%'),
+        title: title,
         context_actions: knp_menu_render(user_setting_update_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
 {% endblock %}

@@ -11,6 +11,11 @@
         <target state="new">User settings</target>
         <note>key: list.title</note>
       </trans-unit>
+      <trans-unit id="91023a897ee0c18e2cc4f392c2eefb06f935882e" resname="list.action_name">
+        <source>Editing %action%</source>
+        <target state="new">Editing %action%</target>
+        <note>key: list.action_name</note>
+      </trans-unit>
       <trans-unit id="ecbb0cf3b32660e173d0b1e4af6a5c8470045128" resname="section.my_account_settings">
         <source>Account settings</source>
         <target state="new">Account settings</target>
