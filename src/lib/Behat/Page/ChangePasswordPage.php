@@ -25,7 +25,7 @@ class ChangePasswordPage extends Page
     public function verifyIsLoaded(): void
     {
         $this->contentActionsMenu->verifyIsLoaded();
-        $this->getHTMLPage()->find($this->getLocator('title'))->assert()->textEquals('Change my password');
+        $this->getHTMLPage()->find($this->getLocator('title'))->assert()->textEquals('Password');
     }
 
     public function setOldPassword(string $value): void
