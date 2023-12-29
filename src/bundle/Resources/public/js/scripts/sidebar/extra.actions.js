@@ -56,15 +56,26 @@
             focusElement.focus();
         }
     };
+    const init = (dataset) => {
+        const url = new URL(window.location.href);
+        const actionsParams = url.searchParams.getAll('actions');
+
+        if (actionsParams.includes(dataset.actions)) {
+            toggleExtraActionsWidget(dataset);
+        }
+    };
 
     btns.forEach((btn) => {
+        const { dataset } = btn;
+
         btn.addEventListener(
             'click',
             () => {
-                toggleExtraActionsWidget(btn.dataset);
+                toggleExtraActionsWidget(dataset);
             },
             false,
         );
+        init(dataset);
     });
     doc.body.addEventListener('ibexa-extra-actions:toggle-widget', (event) => toggleExtraActionsWidget(event.detail), false);
 
