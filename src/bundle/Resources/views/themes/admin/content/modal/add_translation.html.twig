@@ -28,6 +28,8 @@
                 'class': 'ibexa-translation__language-wrapper ibexa-translation__language-wrapper--language'
             },
         }) }}
+
+        {{ ibexa_render_component_group('form-content-add-translation-body', { form }) }}
     {% endblock %}
     {% block footer_content %}
         {{ form_widget(form.add, {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary ibexa-btn--create-translation'}}) }}

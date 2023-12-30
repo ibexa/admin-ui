@@ -5,6 +5,7 @@
 
     .modal-body {
         display: flex;
+        flex-wrap: wrap;
         padding-bottom: calculateRem(140px);
 
         .ibexa-label {
