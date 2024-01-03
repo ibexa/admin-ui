@@ -54,7 +54,7 @@ class GroupLimitationMapper extends MultipleSelectionBasedMapper implements Limi
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('group'),
                 'ibexa_content_forms_policies'
-            )->setDesc('Content Type Group'),
+            )->setDesc('Content type group'),
         ];
     }
 }

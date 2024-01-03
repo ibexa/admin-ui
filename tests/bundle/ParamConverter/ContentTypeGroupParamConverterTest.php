@@ -77,7 +77,7 @@ class ContentTypeGroupParamConverterTest extends AbstractParamConverterTest
 
         $this->expectException(NotFoundHttpException::class);
         $this->expectExceptionMessage(
-            sprintf('Content Type group %s not found.', $contentTypeGroupId)
+            sprintf('Content type group %s not found.', $contentTypeGroupId)
         );
 
         $this->serviceMock

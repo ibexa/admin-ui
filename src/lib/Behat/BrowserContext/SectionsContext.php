@@ -53,11 +53,11 @@ class SectionsContext implements Context
 
         foreach ($contentItems->getHash() as $contentItem) {
             $expectedName = $contentItem['Name'];
-            $expectedContentType = $contentItem['Content Type'];
+            $expectedContentType = $contentItem['Content type'];
             $expectedPath = $contentItem['Path'];
             Assert::assertTrue(
                 $this->sectionPage->hasAssignedItem(
-                    ['Name' => $expectedName, 'Content Type' => $expectedContentType, 'Path' => $expectedPath]
+                    ['Name' => $expectedName, 'Content type' => $expectedContentType, 'Path' => $expectedPath]
                 )
             );
         }

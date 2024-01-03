@@ -36,8 +36,8 @@ class ContentTypeParamConverterTest extends AbstractParamConverterTest
     /**
      * @dataProvider dataProvider
      *
-     * @param mixed $contentTypeId The content type identifier fetched from the request
-     * @param int $contentTypeIdToLoad The content type identifier used to load the Content Type draft
+     * @param mixed $contentTypeId The Content type identifier fetched from the request
+     * @param int $contentTypeIdToLoad The Content type identifier used to load the Content type draft
      */
     public function testApplyId($contentTypeId, int $contentTypeIdLoad)
     {
@@ -78,7 +78,7 @@ class ContentTypeParamConverterTest extends AbstractParamConverterTest
         $contentTypeId = 42;
 
         $this->expectException(NotFoundHttpException::class);
-        $this->expectExceptionMessage(sprintf('Content Type %s not found.', $contentTypeId));
+        $this->expectExceptionMessage(sprintf('Content type %s not found.', $contentTypeId));
 
         $this->serviceMock
             ->expects($this->once())
@@ -137,7 +137,7 @@ class ContentTypeParamConverterTest extends AbstractParamConverterTest
         $contentTypeIdentifier = 'test_identifier';
 
         $this->expectException(NotFoundHttpException::class);
-        $this->expectExceptionMessage(sprintf('Content Type %s not found.', $contentTypeIdentifier));
+        $this->expectExceptionMessage(sprintf('Content type %s not found.', $contentTypeIdentifier));
 
         $this->serviceMock
             ->expects($this->once())

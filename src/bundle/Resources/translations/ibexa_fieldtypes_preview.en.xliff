@@ -167,8 +167,8 @@
         <note>key: ezmedia.yes</note>
       </trans-unit>
       <trans-unit id="df17c526bb1674b64ac8a4cd4eda1af9e0c5e7e5" resname="ezobjectrelation.content_type">
-        <source>Content Type</source>
-        <target state="new">Content Type</target>
+        <source>Content type</source>
+        <target state="new">Content type</target>
         <note>key: ezobjectrelation.content_type</note>
       </trans-unit>
       <trans-unit id="feb25b24199466f077038c5e6e38209deae21471" resname="ezobjectrelation.name">
@@ -187,8 +187,8 @@
         <note>key: ezobjectrelation.version_created</note>
       </trans-unit>
       <trans-unit id="61c7580e3e4d4547527322089f577eca2ff1ea5b" resname="ezobjectrelationlist.content_type">
-        <source>Content Type</source>
-        <target state="new">Content Type</target>
+        <source>Content type</source>
+        <target state="new">Content type</target>
         <note>key: ezobjectrelationlist.content_type</note>
       </trans-unit>
       <trans-unit id="07ffe77032c4f0b4f8c64f7c40218274e805491f" resname="ezobjectrelationlist.created">

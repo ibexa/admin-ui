@@ -43,7 +43,7 @@ const InstantFilter = (props) => {
                 <input
                     type="text"
                     className="ibexa-instant-filter__input form-control"
-                    placeholder={Translator.trans(/*@Desc("Search by Content Type")*/ 'instant.filter.placeholder', {}, 'ibexa_sub_items')}
+                    placeholder={Translator.trans(/*@Desc("Search by Content type")*/ 'instant.filter.placeholder', {}, 'ibexa_sub_items')}
                     value={filterQuery}
                     onChange={(event) => setFilterQuery(event.target.value)}
                 />

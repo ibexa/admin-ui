@@ -15,7 +15,7 @@
         {% for content_type in form.content_types.vars.data %}
             {{ include('@ibexadesign/ui/search_tag.html.twig', {
                 'content': content_type.name,
-                'title': "#{'search.content.type'|trans|desc('Content Type')}: #{content_type.name}",
+                'title': "#{'search.content.type'|trans|desc('Content type')}: #{content_type.name}",
                 'target_selector': "#search_content_types_#{content_type.identifier}",
                 'btn_class': "ibexa-tag__remove-btn--content-types",
             }) }}

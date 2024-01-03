@@ -34,7 +34,7 @@ class UserGroupIdentifier extends AbstractParser
     {
         $nodeBuilder
             ->arrayNode('user_group_content_type_identifier')
-                ->info('User Group Content Type identifier configuration.')
+                ->info('User Group Content type identifier configuration.')
                 ->example(['user_group', 'my_custom_user_group_identifier'])
                 ->requiresAtLeastOneElement()
                 ->prototype('scalar')->end()

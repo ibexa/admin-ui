@@ -125,7 +125,7 @@ class ContentTypeGroupController extends Controller
                 $group = $this->contentTypeService->createContentTypeGroup($createStruct);
 
                 $this->notificationHandler->success(
-                    /** @Desc("Created Content Type group '%name%'.") */
+                    /** @Desc("Created Content type group '%name%'.") */
                     'content_type_group.create.success',
                     ['%name%' => $data->getIdentifier()],
                     'ibexa_content_type'
@@ -178,7 +178,7 @@ class ContentTypeGroupController extends Controller
                 $this->contentTypeService->updateContentTypeGroup($group, $updateStruct);
 
                 $this->notificationHandler->success(
-                    /** @Desc("Updated Content Type group '%name%'.") */
+                    /** @Desc("Updated Content type group '%name%'.") */
                     'content_type_group.update.success',
                     ['%name%' => $group->identifier],
                     'ibexa_content_type'
@@ -228,7 +228,7 @@ class ContentTypeGroupController extends Controller
                 $this->contentTypeService->deleteContentTypeGroup($group);
 
                 $this->notificationHandler->success(
-                    /** @Desc("Deleted Content Type group '%name%'.") */
+                    /** @Desc("Deleted Content type group '%name%'.") */
                     'content_type_group.delete.success',
                     ['%name%' => $group->identifier],
                     'ibexa_content_type'
@@ -244,7 +244,7 @@ class ContentTypeGroupController extends Controller
     }
 
     /**
-     * Handles removing content type groups based on submitted form.
+     * Handles removing Content type groups based on submitted form.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
@@ -265,7 +265,7 @@ class ContentTypeGroupController extends Controller
                     $this->contentTypeService->deleteContentTypeGroup($group);
 
                     $this->notificationHandler->success(
-                        /** @Desc("Deleted Content Type group '%name%'.") */
+                        /** @Desc("Deleted Content type group '%name%'.") */
                         'content_type_group.delete.success',
                         ['%name%' => $group->identifier],
                         'ibexa_content_type'

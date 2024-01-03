@@ -93,7 +93,7 @@ class SubItemsList extends Component
 
     public function clickListElement(string $contentName, string $contentType)
     {
-        $this->getTable()->getTableRow(['Name' => $contentName, 'Content Type' => $contentType])->goToItem();
+        $this->getTable()->getTableRow(['Name' => $contentName, 'Content type' => $contentType])->goToItem();
     }
 
     public function isElementInTable(array $elementData): bool

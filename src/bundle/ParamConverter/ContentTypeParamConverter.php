@@ -60,7 +60,7 @@ class ContentTypeParamConverter implements ParamConverterInterface
                 $contentType = $this->contentTypeService->loadContentTypeByIdentifier($identifier, $prioritizedLanguages);
             }
         } catch (NotFoundException $e) {
-            throw new NotFoundHttpException('Content Type ' . ($id ?? $identifier) . ' not found.');
+            throw new NotFoundHttpException('Content type ' . ($id ?? $identifier) . ' not found.');
         }
 
         $request->attributes->set($configuration->getName(), $contentType);

@@ -62,7 +62,7 @@ class ContentTypeGroupsPage extends Page
     public function verifyIsLoaded(): void
     {
         Assert::assertEquals(
-            'Content Type groups',
+            'Content type groups',
             $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText()
         );
         $this->getHTMLPage()
@@ -71,7 +71,7 @@ class ContentTypeGroupsPage extends Page
 
     public function getName(): string
     {
-        return 'Content Type groups';
+        return 'Content type groups';
     }
 
     protected function getRoute(): string

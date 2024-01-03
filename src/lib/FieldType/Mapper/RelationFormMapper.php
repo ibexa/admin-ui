@@ -36,7 +36,7 @@ class RelationFormMapper extends AbstractRelationFormMapper
                 'multiple' => true,
                 'required' => false,
                 'property_path' => 'fieldSettings[selectionContentTypes]',
-                'label' => /** @Desc("Allowed Content Types") */ 'field_definition.ezobjectrelation.selection_content_types',
+                'label' => /** @Desc("Allowed Content types") */ 'field_definition.ezobjectrelation.selection_content_types',
                 'disabled' => $isTranslation,
             ]);
     }

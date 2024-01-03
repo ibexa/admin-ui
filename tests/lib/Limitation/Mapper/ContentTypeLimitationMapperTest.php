@@ -79,7 +79,7 @@ class ContentTypeLimitationMapperTest extends TestCase
         $this->logger
             ->expects($this->once())
             ->method('error')
-            ->with('Could not map the Limitation value: could not find a Content Type with ID ' . self::EXAMPLE_CONTENT_TYPE_ID_A);
+            ->with('Could not map the Limitation value: could not find a Content type with ID ' . self::EXAMPLE_CONTENT_TYPE_ID_A);
 
         $actual = $this->mapper->mapLimitationValue(new ContentTypeLimitation([
             'limitationValues' => [self::EXAMPLE_CONTENT_TYPE_ID_A],

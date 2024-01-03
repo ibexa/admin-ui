@@ -47,7 +47,7 @@ class ContentTypeGroupParamConverter implements ParamConverterInterface
         try {
             $group = $this->contentTypeService->loadContentTypeGroup($id);
         } catch (NotFoundException $e) {
-            throw new NotFoundHttpException("Content Type group $id not found.");
+            throw new NotFoundHttpException("Content type group $id not found.");
         }
 
         $request->attributes->set($configuration->getName(), $group);

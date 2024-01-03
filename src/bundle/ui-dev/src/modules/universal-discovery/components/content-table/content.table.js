@@ -15,7 +15,7 @@ const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPa
     const nameLabel = Translator.trans(/*@Desc("Name")*/ 'content_table.name', {}, 'ibexa_universal_discovery_widget');
     const modifiedLabel = Translator.trans(/*@Desc("Modified")*/ 'content_table.modified', {}, 'ibexa_universal_discovery_widget');
     const contentTypeLabel = Translator.trans(
-        /*@Desc("Content Type")*/ 'content_table.content_type',
+        /*@Desc("Content type")*/ 'content_table.content_type',
         {},
         'ibexa_universal_discovery_widget',
     );

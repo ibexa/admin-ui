@@ -11,13 +11,13 @@
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
-        { value: 'content_type_group.breadcrumb.list'|trans|desc('Content Types') }
+        { value: 'content_type_group.breadcrumb.list'|trans|desc('Content types') }
     ]} %}
 {% endblock %}
 
 {% block header %}
     {% include '@ibexadesign/ui/page_title.html.twig' with {
-        title: 'content_type_group.view.list.title'|trans|desc('Content Type groups'),
+        title: 'content_type_group.view.list.title'|trans|desc('Content type groups'),
     } %}
 {% endblock %}
 
@@ -120,12 +120,12 @@
                 { has_checkbox: true },
                 { content: 'content_type_group.view.list.column.identifier'|trans|desc('Name') },
                 { content: 'content_type_group.view.list.column.id'|trans|desc('ID') },
-                { content: 'content_type_group.view.list.column.content_types_count'|trans|desc('Number of Content Types') },
+                { content: 'content_type_group.view.list.column.content_types_count'|trans|desc('Number of Content types') },
                 { },
             ],
             body_rows,
             show_notice: show_table_notice,
-            notice_message: 'content_type_group.view.list.cannot_delete_notice'|trans|desc('You cannot delete the disabled Content Type groups, because they contain Content Types.'),
+            notice_message: 'content_type_group.view.list.cannot_delete_notice'|trans|desc('You cannot delete the disabled Content type groups, because they contain Content types.'),
         } %}
             {% block header %}
                 {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
@@ -149,7 +149,7 @@
                             </button>
                             {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                                 'id': modal_data_target,
-                                'message': 'content_type_group.modal.message'|trans|desc('Do you want to delete the Content Type group?'),
+                                'message': 'content_type_group.modal.message'|trans|desc('Do you want to delete the Content type group?'),
                                 'data_click': '#content_type_groups_delete_delete',
                             }%}
                         {% endif %}
