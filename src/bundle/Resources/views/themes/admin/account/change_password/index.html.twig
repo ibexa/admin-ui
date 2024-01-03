@@ -8,7 +8,9 @@
 {% trans_default_domain 'ibexa_user_change_password' %}
 
 {% set anchor_params = {
-    close_href: path('ibexa.user_settings.list'),
+    close_href: path('ibexa.user_settings.list', {
+        '_fragment': 'ibexa-tab-my-account-settings'
+    }),
 } %}
 
 {% block header %}
