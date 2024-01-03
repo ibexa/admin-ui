@@ -62,6 +62,7 @@
 
     &__close {
         font-weight: 600;
+        margin-right: calculateRem(20px);
     }
 
     &__section-groups {

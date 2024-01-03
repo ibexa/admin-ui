@@ -2,7 +2,11 @@
 
 {% trans_default_domain 'ibexa_language' %}
 
-{% block main_container_class %}ibexa-main-container--edit-container ibexa-main-container--without-anchor-menu-items{% endblock %}
+{% block main_container_class %}
+    ibexa-main-container--edit-container
+    ibexa-main-container--without-anchor-menu-items
+    ibexa-main-container--without-anchor-close-btn
+{% endblock %}
 
 {% block header %}
     {% block header_admin %}{% endblock %}

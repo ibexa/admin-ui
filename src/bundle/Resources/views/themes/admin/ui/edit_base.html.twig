@@ -3,8 +3,11 @@
 {% block main_container_class %}
     ibexa-main-container--edit-container
 
-    {%- set has_anchor_menu_items = anchor_params.items|default([])|length > 1 -%}
-    {{ has_anchor_menu_items ? ' ibexa-main-container--with-anchor-menu-items' : ' ibexa-main-container--without-anchor-menu-items' }}
+    {%- set has_anchor_menu_items = anchor_params.items|default([])|length > 1 or ignored_content_fields|default([]) is not empty -%}
+    {%- set has_anchor_close_btn = anchor_params.close_href|default(null) is not empty -%}
+
+    {{- has_anchor_menu_items ? ' ibexa-main-container--with-anchor-menu-items ' : ' ibexa-main-container--without-anchor-menu-items ' -}}
+    {{- not has_anchor_close_btn ? ' ibexa-main-container--without-anchor-close-btn ' -}}
 {% endblock %}
 
 {% block header_row %}{% endblock %}
