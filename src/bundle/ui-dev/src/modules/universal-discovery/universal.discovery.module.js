@@ -381,7 +381,9 @@ const UniversalDiscoveryModule = (props) => {
 
     useEffect(() => {
         if (currentView === 'grid') {
-            loadedLocationsMap[loadedLocationsMap.length - 1].subitems = [];
+            if (loadedLocationsMap[loadedLocationsMap.length - 1]) {
+                loadedLocationsMap[loadedLocationsMap.length - 1].subitems = [];
+            }
 
             dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: loadedLocationsMap });
         } else if (
