@@ -1,6 +1,6 @@
 <div class="ibexa-anchor-navigation-menu">
     <div class="ibexa-anchor-navigation-menu__header">
-        {% if close_href is defined %}
+        {% if close_href is defined and close_href is not null %}
             <a
                 class="btn ibexa-btn ibexa-btn--ghost ibexa-anchor-navigation-menu__close"
                 href="{{ close_href }}"

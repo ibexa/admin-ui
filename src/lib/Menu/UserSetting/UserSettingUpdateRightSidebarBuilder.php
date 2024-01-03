@@ -25,8 +25,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    public const ITEM__SAVE = 'user_setting_edit__sidebar_right__save';
-    public const ITEM__CANCEL = 'user_setting_edit__sidebar_right__cancel';
+    public const ITEM__SAVE = 'user_setting_update__sidebar_right__save';
+    public const ITEM__SAVE_AND_EDIT = 'user_setting_update__sidebar_right__save_end_edit';
+    public const ITEM__CANCEL = 'user_setting_update__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
@@ -61,16 +62,31 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
+        $saveItem = $this->createMenuItem(
+            self::ITEM__SAVE,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => '#user_setting_update_update',
+                ],
+            ]
+        );
+
+        $saveItem->addChild(
+            self::ITEM__SAVE_AND_EDIT,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => '#user_setting_update_update_and_edit',
+                ],
+                'extras' => [
+                    'orderNumber' => 10,
+                ],
+            ]
+        );
+
         $menu->setChildren([
-            self::ITEM__SAVE => $this->createMenuItem(
-                self::ITEM__SAVE,
-                [
-                    'attributes' => [
-                        'class' => 'ibexa-btn--trigger',
-                        'data-click' => '#user_setting_update_update',
-                    ],
-                ]
-            ),
+            self::ITEM__SAVE => $saveItem,
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
@@ -89,6 +105,7 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
     {
         return [
             (new Message(self::ITEM__SAVE, 'ibexa_menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__SAVE_AND_EDIT, 'ibexa_menu'))->setDesc('Save'),
             (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard'),
         ];
     }
