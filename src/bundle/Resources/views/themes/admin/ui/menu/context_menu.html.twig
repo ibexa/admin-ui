@@ -14,9 +14,11 @@
         {% endfor %}
     {% endset %}
 
+    {% set default_selector_btn_classes = options.selector_btn_classes|default('') %}
+
     {{ include('@ibexadesign/ui/component/context_menu/context_menu.html.twig', {
         menu_items: menu_items,
-        selector_btn_classes: item.extras.adaptiveItemsSelectorBtnClass|default('')
+        selector_btn_classes: item.extras.adaptiveItemsSelectorBtnClass|default(default_selector_btn_classes)
     }) }}
 {% endblock %}
 
@@ -111,7 +113,7 @@
             {% if item.extras.primary|default(false) %}
                 {%- set default_classes = default_classes ~ ' ' ~ options.primary_item_class|default('ibexa-btn--primary') -%}
             {% else %}
-                {%- set default_classes = default_classes ~ ' ibexa-btn--secondary' -%}
+                {%- set default_classes = default_classes ~ ' ' ~ options.secondary_item_class|default('ibexa-btn--secondary') -%}
             {% endif %}
         {% endif %}
 
