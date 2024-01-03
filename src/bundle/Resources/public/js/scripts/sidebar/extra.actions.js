@@ -56,7 +56,7 @@
             focusElement.focus();
         }
     };
-    const init = (dataset) => {
+    const initExtraActionsWidget = (dataset) => {
         const url = new URL(window.location.href);
         const actionsParams = url.searchParams.getAll('actions');
 
@@ -75,10 +75,9 @@
             },
             false,
         );
-        init(dataset);
+        initExtraActionsWidget(dataset);
     });
     doc.body.addEventListener('ibexa-extra-actions:toggle-widget', (event) => toggleExtraActionsWidget(event.detail), false);
-
     doc.querySelectorAll('.ibexa-extra-actions .ibexa-btn--close').forEach((closeBtn) =>
         closeBtn.addEventListener(
             'click',
