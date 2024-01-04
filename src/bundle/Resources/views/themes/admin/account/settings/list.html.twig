@@ -73,7 +73,7 @@
                             show_close_btn: true
                         } only %}
                     {% endif %}
-                    {% set actions %}
+                    {% set headline_items %}
                         <a
                             href="{{ path('ibexa.user_profile.change_password') }}"
                             class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small
@@ -88,10 +88,18 @@
                         </a>
                     {% endset %}
 
-                    {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
+                    {% set item = [{
+                        label: 'my_account_settings.password.title'|trans|desc('Password'),
+                        content: '**********'
+                    }] %}
+	
+                    {% include '@ibexadesign/ui/component/details/details.html.twig' with {
                         headline: 'my_account_settings.password.title'|trans|desc('Password'),
-                        actions,
-                    } %}
+                        headline_items: headline_items,
+                        items: item,
+                        view_mode: "vertical",
+                        item_inline: true,
+                    } only %}
                 {% endblock %}
             {% endembed %}
         {% endblock %}
