@@ -152,8 +152,8 @@
         <note>key: content_type_edit__anchor_menu__global_properties</note>
       </trans-unit>
       <trans-unit id="17d86a1011976758251b804acfbe8092d2860946" resname="content_type_edit__sidebar_right__cancel">
-        <source>Delete draft</source>
-        <target state="new">Delete draft</target>
+        <source>Discard</source>
+        <target state="new">Discard</target>
         <note>key: content_type_edit__sidebar_right__cancel</note>
       </trans-unit>
       <trans-unit id="0668f686a0f7a6d86fa52c7799fb5a7141ff83aa" resname="content_type_edit__sidebar_right__publish_and_edit">
