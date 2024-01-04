@@ -34,7 +34,6 @@ class UserSettingsPage extends Page
 
     public function verifyIsLoaded(): void
     {
-        $this->contentActionsMenu->verifyIsLoaded();
         $this->getHTMLPage()->find($this->getLocator('title'))->assert()->textEquals('User settings');
     }
 
@@ -55,7 +54,7 @@ class UserSettingsPage extends Page
     {
         return [
             new VisibleCSSLocator('button', '.ibexa-btn'),
-            new VisibleCSSLocator('title', '.ibexa-edit-header__title'),
+            new VisibleCSSLocator('title', '.ibexa-edit-header__title,.ibexa-page-title__content'),
             new VisibleCSSLocator('autosaveDraftValueDropdown', '#user_setting_update_autosave div.ibexa-dropdown__wrapper > ul'),
             new VisibleCSSLocator('autosaveIntervalEdit', '#user_setting_update_autosave_interval_value'),
         ];
