@@ -94,6 +94,7 @@
     &:not(.ibexa-tabs--switcher) {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         position: relative;
         user-select: none;
 

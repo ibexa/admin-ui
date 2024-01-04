@@ -44,7 +44,7 @@
             {% endblock %}
         {% endif %}
 
-        {{ ibexa_render_component_group('location-view-tabs-after') }}
+        {% block tabs_list_after %}{% endblock %}
 
         {% if not hide_toggler|default(false) %}
             <div class="ibexa-tabs__toggler">
