@@ -10,7 +10,7 @@ Feature: Verify that an User allowed to change password can change his password
     And I change password from "Passw0rd-42" to "Passw0rd-43"
     And I perform the "Update" action
     Then success notification that "Your password has been successfully changed." appears
-    And I should be on Dashboard page
+    And I should be on "User settings" page
 
   Scenario: I can log in with new password
     Given I open Login page in admin SiteAccess
