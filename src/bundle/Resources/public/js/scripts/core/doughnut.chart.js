@@ -24,6 +24,12 @@
 
             this.setOptions(options);
             this.type = 'doughnut';
+
+            this.initialize(data.ref);
+        }
+
+        initialize(ref) {
+            ref.classList.add('ibexa-chart--doughnut');
         }
 
         getType() {
