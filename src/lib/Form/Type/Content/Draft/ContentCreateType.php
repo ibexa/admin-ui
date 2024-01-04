@@ -17,12 +17,15 @@ use Ibexa\AdminUi\Form\Type\Language\LanguageChoiceType;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
+use Symfony\Component\Form\Event\PreSubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentCreateType extends AbstractType
@@ -41,24 +44,22 @@ class ContentCreateType extends AbstractType
     /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
     private $permissionChecker;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface $languageChoiceLoader
-     * @param \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface $permissionChecker
-     * @param \Ibexa\AdminUi\Permission\LookupLimitationsTransformer $lookupLimitationsTransformer
-     */
+    private LocationService $locationService;
+
     public function __construct(
         LanguageService $languageService,
         ContentCreateContentTypeChoiceLoader $contentCreateContentTypeChoiceLoader,
         ChoiceLoaderInterface $languageChoiceLoader,
         PermissionCheckerInterface $permissionChecker,
-        LookupLimitationsTransformer $lookupLimitationsTransformer
+        LookupLimitationsTransformer $lookupLimitationsTransformer,
+        LocationService $locationService
     ) {
         $this->languageService = $languageService;
         $this->contentCreateContentTypeChoiceLoader = $contentCreateContentTypeChoiceLoader;
         $this->languageChoiceLoader = $languageChoiceLoader;
         $this->permissionChecker = $permissionChecker;
         $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
+        $this->locationService = $locationService;
     }
 
     /**
@@ -119,6 +120,21 @@ class ContentCreateType extends AbstractType
                         'content_draft_create_type.create',
                 ]
             );
+
+        $builder->addEventListener(
+            FormEvents::PRE_SUBMIT,
+            function (PreSubmitEvent $event): void {
+                $location = $this->locationService->loadLocation(
+                    (int)$event->getData()['parent_location']
+                );
+                $form = $event->getForm();
+                $opts = $form->get('content_type')->getConfig()->getOptions();
+                $opts['choice_loader'] = $this->contentCreateContentTypeChoiceLoader
+                    ->setTargetLocation($location);
+                $form->remove('content_type');
+                $form->add('content_type', ContentTypeChoiceType::class, $opts);
+            }
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver)
