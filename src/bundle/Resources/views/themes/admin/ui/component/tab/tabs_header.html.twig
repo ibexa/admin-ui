@@ -43,6 +43,9 @@
                 }) }}
             {% endblock %}
         {% endif %}
+
+        {{ ibexa_render_component_group('location-view-tabs-after') }}
+
         {% if not hide_toggler|default(false) %}
             <div class="ibexa-tabs__toggler">
                 <span class="ibexa-tabs__toggler-show">
