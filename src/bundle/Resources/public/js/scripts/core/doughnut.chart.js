@@ -41,6 +41,7 @@
 
         setPlugins(plugins) {
             super.setPlugins(plugins);
+
             this.plugins = [...doughnutPlugins, ...this.plugins];
         }
     }
