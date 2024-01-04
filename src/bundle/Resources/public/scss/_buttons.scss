@@ -373,7 +373,7 @@
         &:focus {
             color: $ibexa-color-white;
             border-color: $ibexa-color-white;
-            box-shadow: 0 0 0 calculateRem(3px) rgba($ibexa-color-white, 0.2);;
+            box-shadow: 0 0 0 calculateRem(3px) rgba($ibexa-color-white, 0.2);
 
             .ibexa-icon {
                 fill: $ibexa-color-white;
@@ -385,7 +385,9 @@
             fill: $ibexa-color-white;
             background-color: transparent;
             border-color: $ibexa-color-white;
-            box-shadow: 0 0 0 transparent, 0 calculateRem(22px) calculateRem(24px) 0 rgba($ibexa-color-white, 0.2);
+            box-shadow:
+                0 0 0 transparent,
+                0 calculateRem(22px) calculateRem(24px) 0 rgba($ibexa-color-white, 0.2);
 
             .ibexa-icon {
                 fill: $ibexa-color-white;
