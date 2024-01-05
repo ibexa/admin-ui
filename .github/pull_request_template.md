@@ -1,10 +1,10 @@
-| Question                       | Answer                                                |
-|--------------------------------|-------------------------------------------------------|
-| **JIRA issue**                 | [IBX-XXXXX](https://issues.ibexa.co/browse/IBX-XXXXX) |
-| **Type**                       | bug                                                   |
-| **Target eZ Platform version** | `v4.6`                                                |
-| **BC breaks**                  | no                                                    |
-| **Doc needed**                 | no                                                    |
+| Question             | Answer                                                |
+|----------------------|-------------------------------------------------------|
+| **JIRA issue**       | [IBX-XXXXX](https://issues.ibexa.co/browse/IBX-XXXXX) |
+| **Type**             | bug                                                   |
+| **Target version**   | `v4.6`                                                |
+| **BC breaks**        | no                                                    |
+| **Doc needed**       | no                                                    |
 
 <!-- Replace this comment with Pull Request description -->
 
