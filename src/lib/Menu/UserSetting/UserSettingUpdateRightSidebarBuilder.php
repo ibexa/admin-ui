@@ -25,8 +25,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    public const ITEM__SAVE = 'object_state_edit__sidebar_right__save';
-    public const ITEM__CANCEL = 'object_state_edit__sidebar_right__cancel';
+    public const ITEM__SAVE = 'user_setting_edit__sidebar_right__save';
+    public const ITEM__CANCEL = 'user_setting_edit__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
@@ -88,8 +88,8 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__SAVE, 'ibexa_menu'))->setDesc('Save'),
-            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__SAVE, 'ibexa_menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard'),
         ];
     }
 }

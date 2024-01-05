@@ -38,7 +38,7 @@ Feature: Content Items creation
     And I'm on Content view Page for root
     And I go to user settings
     And I disable autosave
-    And I perform the "Save" action
+    And I perform the "Save and close" action
     And I'm on Content view Page for root
     When I start creating a new content "Article"
     And I set content fields
