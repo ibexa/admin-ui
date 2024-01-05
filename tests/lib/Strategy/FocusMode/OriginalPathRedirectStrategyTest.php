@@ -22,22 +22,24 @@ final class OriginalPathRedirectStrategyTest extends TestCase
 
     /**
      * @dataProvider dataProviderForTestSupports
+     *
+     * @param array<string, string> $pathData
      */
-    public function testSupports(string $path, bool $doesSupport): void
+    public function testSupports(array $pathData, bool $doesSupport): void
     {
-        self::assertSame($doesSupport, $this->strategy->supports($path));
+        self::assertSame($doesSupport, $this->strategy->supports($pathData));
     }
 
     /**
-     * @return iterable<array{string, bool}>
+     * @return iterable<array{array<string, string>, bool}>
      */
     public function dataProviderForTestSupports(): iterable
     {
-        yield ['foo.path', false];
+        yield [['_route' => 'foo.path'], false];
 
-        yield ['ibexa.section.list', false];
+        yield [['_route' => 'ibexa.section.list'], false];
 
-        yield ['ibexa.content.view', true];
+        yield [['_route' => 'ibexa.content.view'], true];
     }
 
     /**

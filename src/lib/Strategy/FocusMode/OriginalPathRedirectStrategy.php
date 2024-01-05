@@ -12,8 +12,13 @@ use Ibexa\Contracts\AdminUi\FocusMode\RedirectStrategyInterface;
 
 final class OriginalPathRedirectStrategy implements RedirectStrategyInterface
 {
-    public function supports(string $route): bool
+    /**
+     * @param array<string, string> $routeData
+     */
+    public function supports(array $routeData): bool
     {
+        ['_route' => $route] = $routeData;
+
         return $route === 'ibexa.content.view';
     }
 

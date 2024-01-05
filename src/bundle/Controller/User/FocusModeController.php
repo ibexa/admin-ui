@@ -117,7 +117,10 @@ final class FocusModeController extends Controller
         return $fullPath;
     }
 
-    private function matchRouteByPath(string $path): string
+    /**
+     * @return array<string, string>
+     */
+    private function matchRouteByPath(string $path): array
     {
         $originalContext = $this->urlMatcher->getContext();
 
@@ -125,11 +128,10 @@ final class FocusModeController extends Controller
         $context->setMethod('GET');
 
         $this->urlMatcher->setContext($context);
-
-        ['_route' => $route] = $this->urlMatcher->match($path);
+        $routeData = $this->urlMatcher->match($path);
 
         $this->urlMatcher->setContext($originalContext);
 
-        return $route;
+        return $routeData;
     }
 }

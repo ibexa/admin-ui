@@ -31,8 +31,15 @@ final class ContentStructureRedirectStrategy implements RedirectStrategyInterfac
         $this->router = $router;
     }
 
-    public function supports(string $route): bool
+    /**
+     * Contains paths that are not available in "Focus mode" so shouldn't be redirected to.
+     *
+     * @param array<string, string> $routeData
+     */
+    public function supports(array $routeData): bool
     {
+        ['_route' => $route] = $routeData;
+
         return in_array(
             $route,
             [

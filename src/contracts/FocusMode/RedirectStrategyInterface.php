@@ -10,7 +10,10 @@ namespace Ibexa\Contracts\AdminUi\FocusMode;
 
 interface RedirectStrategyInterface
 {
-    public function supports(string $route): bool;
+    /**
+     * @param array<string, string> $routeData
+     */
+    public function supports(array $routeData): bool;
 
     public function generateRedirectPath(string $originalPath): string;
 }
