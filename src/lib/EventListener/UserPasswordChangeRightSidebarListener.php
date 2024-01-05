@@ -57,7 +57,10 @@ class UserPasswordChangeRightSidebarListener implements EventSubscriberInterface
             self::ITEM__CANCEL,
             [
                 'extras' => ['translation_domain' => 'ibexa_menu'],
-                'route' => 'ibexa.dashboard',
+                'route' => 'ibexa.user_settings.list',
+                'routeParameters' => [
+                    '_fragment' => 'ibexa-tab-my-account-settings',
+                ]
             ]
         );
     }

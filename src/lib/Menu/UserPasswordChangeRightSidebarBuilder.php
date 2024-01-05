@@ -76,7 +76,10 @@ class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implements T
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'route' => 'ibexa.dashboard',
+                    'route' => 'ibexa.user_settings.list',
+                    'routeParameters' => [
+                        '_fragment' => 'ibexa-tab-my-account-settings',
+                    ]
                 ]
             ),
         ]);
