@@ -7,12 +7,6 @@
 
 {% trans_default_domain 'ibexa_user_change_password' %}
 
-{% set anchor_params = {
-    close_href: path('ibexa.user_settings.list', {
-        '_fragment': 'ibexa-tab-my-account-settings'
-    }),
-} %}
-
 {% block header %}
     {% set user_password_change_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_password_change.sidebar_right') %}
 
