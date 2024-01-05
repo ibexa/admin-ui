@@ -79,7 +79,7 @@ class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implements T
                     'route' => 'ibexa.user_settings.list',
                     'routeParameters' => [
                         '_fragment' => 'ibexa-tab-my-account-settings',
-                    ]
+                    ],
                 ]
             ),
         ]);

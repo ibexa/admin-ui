@@ -60,7 +60,7 @@ class UserPasswordChangeRightSidebarListener implements EventSubscriberInterface
                 'route' => 'ibexa.user_settings.list',
                 'routeParameters' => [
                     '_fragment' => 'ibexa-tab-my-account-settings',
-                ]
+                ],
             ]
         );
     }
