@@ -14,10 +14,11 @@ import Icon from '../common/icon/icon.js';
 import PaginationInfo from '../common/pagination/pagination.info.js';
 
 import deepClone from '../common/helpers/deep.clone.helper.js';
+import { createCssClassNames } from '../common/helpers/css.class.names';
 import { updateLocationPriority, loadLocation as loadLocationService } from './services/sub.items.service';
 import { bulkAddLocations, bulkDeleteItems, bulkHideLocations, bulkUnhideLocations, bulkMoveLocations } from './services/bulk.service.js';
 
-const { Translator, ibexa } = window;
+const { Translator, ibexa, Popper, document } = window;
 
 export const ASCENDING_SORT_ORDER = 'ascending';
 const DESCENDING_SORT_ORDER = 'descending';
@@ -93,9 +94,17 @@ export default class SubItemsModule extends Component {
         this.resizeSubItems = this.resizeSubItems.bind(this);
         this.setColumnsVisibilityInLocalStorage = this.setColumnsVisibilityInLocalStorage.bind(this);
         this.toggleColumnVisibility = this.toggleColumnVisibility.bind(this);
+        this.adaptHeaderActions = this.adaptHeaderActions.bind(this);
+        this.showMorePanel = this.showMorePanel.bind(this);
+        this.hideMorePanel = this.hideMorePanel.bind(this);
+        this.renderExtraActions = this.renderExtraActions.bind(this);
+        this.renderActionBtnWrapper = this.renderActionBtnWrapper.bind(this);
 
         this._refListViewWrapper = React.createRef();
         this._refMainContainerWrapper = React.createRef();
+        this._refAdaptiveItemsWrapper = React.createRef();
+        this._refAdaptiveItemMoreBtn = React.createRef();
+        this._refAdaptiveItemMorePanel = React.createRef();
         this.bulkActionModalContainer = null;
         this.udwContainer = null;
         this.adminUiConfig = getAdminUiConfig();
@@ -121,6 +130,8 @@ export default class SubItemsModule extends Component {
             sortOrder: sortClauseData.order,
             subItemsWidth: this.calculateSubItemsWidth(),
             columnsVisibility: this.getColumnsVisibilityFromLocalStorage(),
+            morePanelVisible: false,
+            morePanelVisibleItemsIndexes: [],
         };
     }
 
@@ -146,6 +157,15 @@ export default class SubItemsModule extends Component {
         if (!this.state.activePageItems) {
             this.loadPage(0);
         }
+
+        this.adaptHeaderActions();
+
+        const subitemsTab = this._refMainContainerWrapper.current.closest('.ibexa-tab-content__pane');
+        const subitemsNavTab = document.querySelector(`.ibexa-tabs__link[href="#${subitemsTab.id}"]`);
+
+        subitemsNavTab.addEventListener('shown.bs.tab', () => {
+            this.popperInstance.forceUpdate();
+        });
     }
 
     componentDidUpdate() {
@@ -180,6 +200,7 @@ export default class SubItemsModule extends Component {
         const { subItemsWidth } = this.state;
 
         if (calculatedWidth !== subItemsWidth) {
+            this.popperInstance.forceUpdate();
             this.setState({ subItemsWidth: calculatedWidth });
         }
     }
@@ -1120,7 +1141,7 @@ export default class SubItemsModule extends Component {
     renderExtraActions(action, index) {
         const Action = action.component;
 
-        return <Action key={index} className="m-sub-items__action" {...action.attrs} />;
+        return this.renderActionBtnWrapper(<Action {...action.attrs} />, 'm-sub-items__action', { key: index });
     }
 
     /**
@@ -1169,34 +1190,46 @@ export default class SubItemsModule extends Component {
         );
     }
 
+    renderActionBtnWrapper(btn, extraClasses = '', extraProps = {}) {
+        return (
+            <div className={`ibexa-adaptive-items__item ${extraClasses}`} {...extraProps}>
+                {btn}
+            </div>
+        );
+    }
+
     renderBulkMoveBtn(disabled) {
         const label = Translator.trans(/*@Desc("Move")*/ 'move_btn.label', {}, 'ibexa_sub_items');
 
-        return <ActionButton disabled={disabled} onClick={this.onMoveBtnClick} label={label} type="move" />;
+        return this.renderActionBtnWrapper(<ActionButton disabled={disabled} onClick={this.onMoveBtnClick} label={label} type="move" />);
     }
 
     renderBulkAddLocationBtn(disabled) {
         const label = Translator.trans(/*@Desc("Add Locations")*/ 'add_locations_btn.label', {}, 'ibexa_sub_items');
 
-        return <ActionButton disabled={disabled} onClick={this.onAddLocationsBtnClick} label={label} type="create-location" />;
+        return this.renderActionBtnWrapper(
+            <ActionButton disabled={disabled} onClick={this.onAddLocationsBtnClick} label={label} type="create-location" />,
+        );
     }
 
     renderBulkHideBtn(disabled) {
         const label = Translator.trans(/*@Desc("Hide")*/ 'hide_locations_btn.label', {}, 'ibexa_sub_items');
 
-        return <ActionButton disabled={disabled} onClick={this.onHideBtnClick} label={label} type="hide" />;
+        return this.renderActionBtnWrapper(<ActionButton disabled={disabled} onClick={this.onHideBtnClick} label={label} type="hide" />);
     }
 
     renderBulkUnhideBtn(disabled) {
         const label = Translator.trans(/*@Desc("Reveal")*/ 'unhide_locations_btn.label', {}, 'ibexa_sub_items');
 
-        return <ActionButton disabled={disabled} onClick={this.onUnhideBtnClick} label={label} type="reveal" />;
+        return this.renderActionBtnWrapper(
+            <ActionButton disabled={disabled} onClick={this.onUnhideBtnClick} label={label} type="reveal" />,
+        );
     }
 
     renderBulkDeleteBtn(disabled) {
         const label = Translator.trans(/*@Desc("Delete")*/ 'trash_btn.label', {}, 'ibexa_sub_items');
 
-        return <ActionButton disabled={disabled} onClick={this.onDeleteBtnClick} label={label} type="trash" />;
+        return this.renderActionBtnWrapper(<ActionButton disabled={disabled} onClick={this.onDeleteBtnClick} label={label} type="trash" />);
     }
 
     renderSpinner() {
@@ -1327,6 +1360,86 @@ export default class SubItemsModule extends Component {
         );
     }
 
+    hideMorePanel() {
+        this.setState(
+            () => ({ morePanelVisible: false }),
+            () => {
+                setTimeout(() => {
+                    document.body.removeEventListener('click', this.hideMorePanel, false);
+                }, 1);
+            },
+        );
+    }
+
+    showMorePanel() {
+        this.setState(
+            () => ({ morePanelVisible: true }),
+            () => {
+                setTimeout(() => {
+                    document.body.addEventListener('click', this.hideMorePanel, false);
+                }, 1);
+            },
+        );
+    }
+
+    renderMoreBtn(actionBtns) {
+        const panelClasses = createCssClassNames({
+            'm-sub-items__adaptive-items-popup': true,
+            'ibexa-popup-menu': true,
+            'ibexa-popup-menu--hidden': !this.state.morePanelVisible,
+        });
+        const filteredActionBtns = actionBtns.filter((el, index) => {
+            return this.state.morePanelVisibleItemsIndexes.includes(index);
+        });
+
+        return [
+            this.renderActionBtnWrapper(
+                <ActionButton disabled={false} onClick={this.showMorePanel} type="options" />,
+                'ibexa-adaptive-items__item--selector',
+                { ref: this._refAdaptiveItemMoreBtn },
+            ),
+            ReactDOM.createPortal(
+                <div className={panelClasses} ref={this._refAdaptiveItemMorePanel}>
+                    {filteredActionBtns}
+                </div>,
+                document.body,
+            ),
+        ];
+    }
+
+    adaptHeaderActions() {
+        this.popperInstance = new Popper.createPopper(this._refAdaptiveItemMoreBtn.current, this._refAdaptiveItemMorePanel.current, {
+            placement: 'bottom-end',
+            modifiers: [
+                {
+                    name: 'flip',
+                    enabled: true,
+                    options: {
+                        fallbackPlacements: ['top-end'],
+                        boundary: document.body,
+                    },
+                },
+            ],
+        });
+
+        this.adaptiveItems = new ibexa.core.AdaptiveItems({
+            itemHiddenClass: 'ibexa-adaptive-items__item--hidden',
+            container: this._refAdaptiveItemsWrapper.current,
+            getActiveItem: () => null,
+            onAdapted: (visibleItems, hiddenItems) => {
+                const adaptiveItemsIterableArr = [...this.adaptiveItems.items];
+
+                const visibleItemsInPanelIndexes = [...hiddenItems].map((hiddenItem) => {
+                    return adaptiveItemsIterableArr.indexOf(hiddenItem);
+                });
+
+                this.setState(() => ({ morePanelVisibleItemsIndexes: visibleItemsInPanelIndexes }));
+            },
+        });
+
+        this.adaptiveItems.init();
+    }
+
     render() {
         const listTitle = Translator.trans(/*@Desc("Sub-items")*/ 'items_list.title', {}, 'ibexa_sub_items');
         const { selectedItems, activeView, totalCount, isDuringBulkOperation, activePageItems, subItemsWidth, columnsVisibility } =
@@ -1335,7 +1448,6 @@ export default class SubItemsModule extends Component {
         const isTableViewActive = activeView === VIEW_MODE_TABLE;
         const pageLoaded = !!activePageItems;
         const bulkBtnDisabled = nothingSelected || !isTableViewActive || !pageLoaded;
-
         let bulkHideBtnDisabled = true;
         let bulkUnhideBtnDisabled = true;
         let listClassName = 'm-sub-items__list';
@@ -1351,6 +1463,15 @@ export default class SubItemsModule extends Component {
             bulkUnhideBtnDisabled = !selectedItemsValues.some((item) => !!item.hidden);
         }
 
+        const actionBtns = [
+            ...this.props.extraActions.map(this.renderExtraActions),
+            this.renderBulkMoveBtn(bulkBtnDisabled),
+            this.renderBulkAddLocationBtn(bulkBtnDisabled),
+            this.renderBulkHideBtn(bulkHideBtnDisabled),
+            this.renderBulkUnhideBtn(bulkUnhideBtnDisabled),
+            this.renderBulkDeleteBtn(bulkBtnDisabled),
+        ];
+
         return (
             <div ref={this._refMainContainerWrapper}>
                 <div className="m-sub-items" style={{ width: `${subItemsWidth}px` }}>
@@ -1358,13 +1479,14 @@ export default class SubItemsModule extends Component {
                         <div className="ibexa-table-header__headline">
                             {listTitle} ({this.state.totalCount})
                         </div>
+                        <div
+                            className="ibexa-table-header__actions ibexa-table-header__actions--adaptive ibexa-adaptive-items"
+                            ref={this._refAdaptiveItemsWrapper}
+                        >
+                            {actionBtns}
+                            {this.renderMoreBtn(actionBtns)}
+                        </div>
                         <div className="ibexa-table-header__actions">
-                            {this.props.extraActions.map(this.renderExtraActions)}
-                            {this.renderBulkMoveBtn(bulkBtnDisabled)}
-                            {this.renderBulkAddLocationBtn(bulkBtnDisabled)}
-                            {this.renderBulkHideBtn(bulkHideBtnDisabled)}
-                            {this.renderBulkUnhideBtn(bulkUnhideBtnDisabled)}
-                            {this.renderBulkDeleteBtn(bulkBtnDisabled)}
                             <ViewColumnsTogglerComponent
                                 columnsVisibility={this.filterColumnsVisibility(columnsVisibility)}
                                 toggleColumnVisibility={this.toggleColumnVisibility}
