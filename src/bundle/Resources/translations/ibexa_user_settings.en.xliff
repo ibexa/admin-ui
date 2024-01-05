@@ -91,26 +91,26 @@
                         structure, designed for new and non-advanced users. Features include:</p>
                         <ul>
                             <li>View</li>
-                            <li>Hidden Technical Details tab</li>
+                            <li>Hidden Technical details tab</li>
                             <li>Hidden Locations and Versions tabs in Content items</li>
                         </ul>
                         <p><strong>Focus mode: off</strong> – Tailored for experienced users familiar with Ibexa DXP.
                         Provides comprehensive insights into the technical aspects of Content structure, including:</p>
                         <ul>
-                            <li>Technical Details tab</li>
+                            <li>Technical details tab</li>
                             <li>Location: Archived versions</li>
                         </ul>]]></source>
         <target state="new"><![CDATA[<p><strong>Focus mode: on</strong> – A clean and intuitive interface with a simplified content
                         structure, designed for new and non-advanced users. Features include:</p>
                         <ul>
                             <li>View</li>
-                            <li>Hidden Technical Details tab</li>
+                            <li>Hidden Technical details tab</li>
                             <li>Hidden Locations and Versions tabs in Content items</li>
                         </ul>
                         <p><strong>Focus mode: off</strong> – Tailored for experienced users familiar with Ibexa DXP.
                         Provides comprehensive insights into the technical aspects of Content structure, including:</p>
                         <ul>
-                            <li>Technical Details tab</li>
+                            <li>Technical details tab</li>
                             <li>Location: Archived versions</li>
                         </ul>]]></target>
         <note>key: user.setting.focus_mode.help</note>

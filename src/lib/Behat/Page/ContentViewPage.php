@@ -187,7 +187,7 @@ class ContentViewPage extends Page
         $this->upperMenu->setFocusMode($expectedModeStatus);
 
         // TODO: Rework this after Focus mode label is visible next to Ibexa's logo
-        $focusModeExcludedTab = 'Technical Details';
+        $focusModeExcludedTab = 'Technical details';
 
         if ($expectedModeStatus) {
             $this->getHTMLPage()
