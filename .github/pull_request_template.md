@@ -1,18 +1,16 @@
-| Question      | Answer
-| ------------- | ---
-| Tickets       | <!-- URLs to GitHub or JIRA issue(s) (or N/A) -->
-| Bug fix?      | yes/no
-| New feature?  | yes/no
-| BC breaks?    | yes/no
-| Tests pass?   | yes/no
-| Doc needed?   | yes/no
-| License       | [GPL-2.0](https://github.com/ibexa/admin-ui/blob/main/LICENSE)
-<!-- Keep in mind: Your contribution has to be compatible with GPL-2.0 as well: https://www.gnu.org/licenses/old-licenses/gpl-2.0-faq.html#GPLModuleLicense -->
-
+| Question                       | Answer                                                |
+|--------------------------------|-------------------------------------------------------|
+| **JIRA issue**                 | [IBX-XXXXX](https://issues.ibexa.co/browse/IBX-XXXXX) |
+| **Type**                       | bug                                                   |
+| **Target eZ Platform version** | `v4.6`                                                |
+| **BC breaks**                  | no                                                    |
+| **Doc needed**                 | no                                                    |
 
 <!-- Replace this comment with Pull Request description -->
 
-
 #### Checklist:
-- [ ] Coding standards (`$ composer fix-cs`)
-- [ ] Ready for Code Review
+- [ ] Provided PR description.
+- [ ] Tested the solution manually.
+- [ ] Provided automated test coverage.
+- [ ] Checked that target branch is set correctly (master for features, the oldest supported for bugs).
+- [ ] Asked for a review (ping `@ibexa/engineering`).
