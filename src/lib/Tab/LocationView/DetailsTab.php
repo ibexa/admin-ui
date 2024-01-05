@@ -73,7 +73,7 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
 
     public function getName(): string
     {
-        /** @Desc("Technical Details") */
+        /** @Desc("Technical details") */
         return $this->translator->trans('tab.name.details', [], 'ibexa_locationview');
     }
 
