@@ -84,6 +84,10 @@ class ContentCreateType extends AbstractType
             $restrictedLanguageCodes = $limitationsValues[Limitation::LANGUAGE];
         }
 
+        $choiceLoader = $this->contentCreateContentTypeChoiceLoader
+            ->setTargetLocation($location)
+            ->setRestrictedContentTypeIds($restrictedContentTypesIds);
+
         $builder
             ->add(
                 'content_type',
@@ -92,9 +96,7 @@ class ContentCreateType extends AbstractType
                     'label' => false,
                     'multiple' => false,
                     'expanded' => true,
-                    'choice_loader' => $this->contentCreateContentTypeChoiceLoader
-                        ->setTargetLocation($location)
-                        ->setRestrictedContentTypeIds($restrictedContentTypesIds),
+                    'choice_loader' => $choiceLoader,
                 ]
             )
             ->add(
@@ -123,14 +125,13 @@ class ContentCreateType extends AbstractType
 
         $builder->addEventListener(
             FormEvents::PRE_SUBMIT,
-            function (PreSubmitEvent $event): void {
+            function (PreSubmitEvent $event) use ($choiceLoader): void {
                 $location = $this->locationService->loadLocation(
                     (int)$event->getData()['parent_location']
                 );
                 $form = $event->getForm();
                 $opts = $form->get('content_type')->getConfig()->getOptions();
-                $opts['choice_loader'] = $this->contentCreateContentTypeChoiceLoader
-                    ->setTargetLocation($location);
+                $opts['choice_loader'] = $choiceLoader->setTargetLocation($location);
                 $form->remove('content_type');
                 $form->add('content_type', ContentTypeChoiceType::class, $opts);
             }
