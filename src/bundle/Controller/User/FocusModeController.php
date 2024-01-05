@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
-use Symfony\Component\Routing\RouterInterface;
 
 final class FocusModeController extends Controller
 {
@@ -26,8 +25,6 @@ final class FocusModeController extends Controller
     private UserSettingService $userSettingService;
 
     private UrlMatcherInterface $urlMatcher;
-
-    private RouterInterface $router;
 
     /** @var iterable<\Ibexa\Contracts\AdminUi\FocusMode\RedirectStrategyInterface> */
     private iterable $redirectStrategies;
@@ -38,12 +35,10 @@ final class FocusModeController extends Controller
     public function __construct(
         UserSettingService $userSettingService,
         UrlMatcherInterface $urlMatcher,
-        RouterInterface $router,
         iterable $redirectStrategies
     ) {
         $this->userSettingService = $userSettingService;
         $this->urlMatcher = $urlMatcher;
-        $this->router = $router;
         $this->redirectStrategies = $redirectStrategies;
     }
 
@@ -106,7 +101,7 @@ final class FocusModeController extends Controller
 
     private function resolveReturnPath(string $path): string
     {
-        $rootRouteInfo = $this->router->match('/');
+        $rootRouteInfo = $this->urlMatcher->match('/');
         $rootRoute = $this->generateUrl($rootRouteInfo['_route'], $rootRouteInfo);
 
         $rootPath = rtrim(parse_url($rootRoute, PHP_URL_PATH) ?: '', '/');

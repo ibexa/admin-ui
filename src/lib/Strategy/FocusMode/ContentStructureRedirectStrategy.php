@@ -33,11 +33,16 @@ final class ContentStructureRedirectStrategy implements RedirectStrategyInterfac
 
     public function supports(string $route): bool
     {
-        return $route === 'ibexa.section.list'
-            || $route === 'ibexa.content_type_group.list'
-            || $route === 'ibexa.object_state.groups.list'
-            || $route === 'ibexa.content_type_group.view'
-        ;
+        return in_array(
+            $route,
+            [
+                'ibexa.section.list',
+                'ibexa.content_type_group.list',
+                'ibexa.object_state.groups.list',
+                'ibexa.content_type_group.view',
+            ],
+            true
+        );
     }
 
     public function generateRedirectPath(string $originalPath): string

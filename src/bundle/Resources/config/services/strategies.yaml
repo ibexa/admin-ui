@@ -12,7 +12,7 @@ services:
 
     Ibexa\AdminUi\Strategy\FocusMode\ContentStructureRedirectStrategy:
         tags:
-            - { name: ibexa.admin_ui.focus_mode.redirect_strategy, priority: -100 }
+            - { name: ibexa.admin_ui.focus_mode.redirect_strategy, priority: -90 }
 
     Ibexa\AdminUi\Strategy\FocusMode\OriginalPathRedirectStrategy:
         tags:
