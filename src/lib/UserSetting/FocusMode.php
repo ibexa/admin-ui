@@ -99,13 +99,13 @@ final class FocusMode implements ValueDefinitionInterface, FormMapperInterface, 
                         structure, designed for new and non-advanced users. Features include:</p>
                         <ul>
                             <li>View</li>
-                            <li>Hidden Technical Details tab</li>
+                            <li>Hidden Technical details tab</li>
                             <li>Hidden Locations and Versions tabs in Content items</li>
                         </ul>
                         <p><strong>Focus mode: off</strong> – Tailored for experienced users familiar with Ibexa DXP.
                         Provides comprehensive insights into the technical aspects of Content structure, including:</p>
                         <ul>
-                            <li>Technical Details tab</li>
+                            <li>Technical details tab</li>
                             <li>Location: Archived versions</li>
                         </ul>'
                 ),
