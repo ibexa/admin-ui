@@ -31,7 +31,8 @@
             position: relative;
         }
 
-        &--created, &--modified {
+        &--created,
+        &--modified {
             .ibexa-date-time-picker {
                 width: 100%;
 
