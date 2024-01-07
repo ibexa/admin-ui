@@ -31,6 +31,16 @@
             position: relative;
         }
 
+        &--created, &--modified {
+            .ibexa-date-time-picker {
+                width: 100%;
+
+                &__input {
+                    font-size: calculateRem(13px);
+                }
+            }
+        }
+
         &--subtree {
             .ibexa-tag-view-select {
                 &__selected-list {
