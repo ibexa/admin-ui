@@ -23,7 +23,7 @@
 
     outline: none;
     transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
-    border: calculateRem(1px) solid $ibexa-color-dark-300;
+    border: calculateRem(1px) solid var(--ibexa-input-border-color, #{$ibexa-color-dark-300});
 
     &:hover,
     &--hovered {
@@ -118,7 +118,7 @@
         position: relative;
         display: inline-block;
         cursor: pointer;
-        background-color: $ibexa-color-white;
+        background-color: var(--ibexa-input-choice-bg-color, #{$ibexa-color-white});
 
         &:disabled {
             &.form-check-input {

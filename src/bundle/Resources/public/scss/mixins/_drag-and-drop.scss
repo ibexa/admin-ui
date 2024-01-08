@@ -550,9 +550,9 @@
     font-weight: 600;
 }
 
-@mixin drag-item-placeholder {
+@mixin drag-item-placeholder($border-color: $ibexa-color-info) {
     display: flex;
-    border: calculateRem(2px) solid $ibexa-color-info;
+    border: calculateRem(2px) solid $border-color;
     border-radius: calculateRem(8px);
     margin-top: calculateRem(8px);
 
