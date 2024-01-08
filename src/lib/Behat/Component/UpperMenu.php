@@ -52,11 +52,15 @@ class UpperMenu extends Component
 
         if ($expectedModeStatus != $isEnabled) {
             $this->getHTMLPage()->find($this->getLocator('userFocusMode'))->click();
-
-            return;
+        } else {
+            $this->getHTMLPage()->find($this->getLocator('userSettingsToggle'))->click();
         }
 
-        $this->getHTMLPage()->find($this->getLocator('userSettingsToggle'))->click();
+        if ($expectedModeStatus) {
+            $this->getHTMLPage()->find($this->getLocator('focusModeBadge'))->assert()->textEquals('Focus mode');
+        } else {
+            $this->getHTMLPage()->findAll($this->getLocator('focusModeBadge'))->assert()->isEmpty();
+        }
     }
 
     public function verifyIsLoaded(): void
@@ -77,6 +81,7 @@ class UpperMenu extends Component
             new VisibleCSSLocator('searchButton', '.ibexa-main-header .ibexa-input-text-wrapper__action-btn--search'),
             new VisibleCSSLocator('userFocusEnabled', '[name="focus_mode_change"] .ibexa-toggle__label--on'),
             new VisibleCSSLocator('userFocusMode', '[name="focus_mode_change"] .ibexa-toggle__switcher'),
+            new VisibleCSSLocator('focusModeBadge', '.ibexa-user-mode-badge'),
         ];
     }
 }
