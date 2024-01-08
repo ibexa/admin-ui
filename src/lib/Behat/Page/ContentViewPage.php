@@ -185,25 +185,6 @@ class ContentViewPage extends Page
     public function setFocusMode(bool $expectedModeStatus): void
     {
         $this->upperMenu->setFocusMode($expectedModeStatus);
-
-        // TODO: Rework this after Focus mode label is visible next to Ibexa's logo
-        $focusModeExcludedTab = 'Technical details';
-
-        if ($expectedModeStatus) {
-            $this->getHTMLPage()
-                ->setTimeout(3)
-                ->findAll($this->getLocator('tab'))
-                ->filterBy(new ElementTextCriterion($focusModeExcludedTab))
-                ->assert()
-                ->isEmpty();
-        } else {
-            $this->getHTMLPage()
-                ->setTimeout(3)
-                ->findAll($this->getLocator('tab'))
-                ->getByCriterion(new ElementTextCriterion($focusModeExcludedTab))
-                ->assert()
-                ->isVisible();
-        }
     }
 
     public function goToSubItem(string $contentItemName): void
