@@ -4,6 +4,7 @@
         constructor(config) {
             this.popupMenuElement = config.popupMenuElement;
             this.triggerElement = config.triggerElement;
+            this.openedMenuClass = config.openedMenuClass;
             this.onItemClick = config.onItemClick || (() => {});
             this.position = config.position || (() => {});
 
@@ -79,6 +80,10 @@
         handleToggle() {
             this.popupMenuElement.classList.toggle(CLASS_POPUP_MENU_HIDDEN);
             this.updatePosition();
+
+            if (this.openedMenuClass) {
+                this.triggerElement.classList.toggle(this.openedMenuClass);
+            }
         }
 
         handleClickOutsidePopupMenu(event) {

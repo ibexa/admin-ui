@@ -10,5 +10,6 @@
     new ibexa.core.PopupMenu({
         triggerElement: togglerElement,
         popupMenuElement,
+        openedMenuClass: 'ibexa-header-user-menu__toggler--expanded',
     });
 })(window, window.document, window.ibexa);

@@ -2,6 +2,8 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    padding-left: calculateRem(16px);
+    border-left: calculateRem(1px) solid $ibexa-color-light;
 
     &__popup-menu {
         z-index: 1060;
@@ -26,29 +28,58 @@
     &__toggler {
         display: flex;
         align-items: center;
-        margin-left: calculateRem(8px);
-        border: none;
+        position: relative;
+        margin-left: calculateRem(16px);
+        padding: calculateRem(2px) calculateRem(20px) calculateRem(2px) calculateRem(2px);
+        border-radius: calculateRem(12px);
+        border: calculateRem(1px) solid transparent;
+        background: rgba($ibexa-color-white, 0.1);
 
+        &::before,
         &::after {
             content: '';
-            width: 0;
-            height: 0;
-            margin-left: calculateRem(8px);
-            border-left: calculateRem(4px) solid transparent;
-            border-right: calculateRem(4px) solid transparent;
-            border-top: calculateRem(4px) solid $ibexa-color-white;
+            position: absolute;
+            z-index: 1;
+            width: calculateRem(7px);
+            height: calculateRem(1px);
+            background: $ibexa-color-white;
+        }
+
+        &::before {
+            transform: rotate(135deg);
+            right: calculateRem(5px);
+        }
+
+        &::after {
+            transform: rotate(-135deg);
+            right: calculateRem(10px);
+        }
+
+        &:focus {
+            border-color: $ibexa-color-white;
+            box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-white, 0.2);
         }
 
         &:hover {
+            &::before,
             &::after {
-                border-top: calculateRem(4px) solid $ibexa-color-info;
+                background: $ibexa-color-info;
+            }
+        }
+
+        &--expanded {
+            &::before {
+                transform: rotate(45deg);
+            }
+
+            &::after {
+                transform: rotate(-45deg);
             }
         }
     }
 
     &__thumbnail-wrapper {
         display: flex;
-        border: calculateRem(3px) solid $ibexa-color-black;
         border-radius: 50%;
     }
 
