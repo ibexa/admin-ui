@@ -16,6 +16,11 @@
         <target state="new">Cannot load suggestions</target>
         <note>key: autocomplete.request.error</note>
       </trans-unit>
+      <trans-unit id="95d62d3e38a2c9042e56a3c7fb087d8645384229" resname="autocomplete.results_count">
+        <source>Results</source>
+        <target state="new">Results</target>
+        <note>key: autocomplete.results_count</note>
+      </trans-unit>
       <trans-unit id="9909b3aba5a51f5fd34ba6c9fdba12115ced5564" resname="autocomplete.view_all_results">
         <source>View all results</source>
         <target state="new">View all results</target>

@@ -27,6 +27,10 @@
             })|e('html_attr')  }}">
         </ul>
         <div class="ibexa-global-search__autocomplete-view-all">
+            <div class="ibexa-global-search__autocomplete-total-count">
+                {{ 'autocomplete.results_count'|trans|desc('Results') }}:
+                <span class="ibexa-global-search__autocomplete-total-count-number"></span>
+            </div>
             <button 
                 class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
                 type="submit"
