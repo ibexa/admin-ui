@@ -5,6 +5,7 @@
         border-bottom: calculateRem(1px) solid $ibexa-color-dark-300;
         width: calculateRem(10px);
         margin: calculateRem(24px) calculateRem(8px);
+        align-self: center;
     }
 
     &__inputs-wrapper {
