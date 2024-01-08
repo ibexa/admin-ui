@@ -7,8 +7,8 @@
     </header>
     <body>
       <trans-unit id="653b9891e9f38d7f9f56485fb0fe26250c3b1ac3" resname="actions_menu.cancel">
-        <source>Cancel</source>
-        <target state="new">Cancel</target>
+        <source>Discard</source>
+        <target state="new">Discard</target>
         <note>key: actions_menu.cancel</note>
       </trans-unit>
       <trans-unit id="5042ae08713a600d25e4ddded7e9334daf182bbf" resname="actions_menu.confirm">
