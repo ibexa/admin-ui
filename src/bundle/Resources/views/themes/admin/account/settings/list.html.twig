@@ -54,7 +54,6 @@
                             {% include '@ibexadesign/ui/component/details/details.html.twig' with {
                                 headline: settings_group.name,
                                 headline_items: headline_items,
-                                is_small_headline: true,
                                 items: items,
                                 view_mode: "vertical",
                                 item_inline: true,
@@ -92,7 +91,7 @@
                         label: 'my_account_settings.password.title'|trans|desc('Password'),
                         content: '**********'
                     }] %}
-	
+
                     {% include '@ibexadesign/ui/component/details/details.html.twig' with {
                         headline: 'my_account_settings.password.title'|trans|desc('Password'),
                         headline_items: headline_items,
