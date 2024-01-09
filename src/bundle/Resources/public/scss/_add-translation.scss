@@ -8,6 +8,7 @@
         flex-wrap: wrap;
         padding-bottom: calculateRem(140px);
 
+        .form-group:first-of-type .ibexa-label,
         .ibexa-label {
             margin-top: 0;
         }
