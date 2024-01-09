@@ -250,7 +250,10 @@ const Dropdown = ({
                         {selectedItems.length === 0 && renderPlaceholder()}
                         {single && <li className="ibexa-dropdown__selected-item">{renderSelectedItem(selectedItems[0])}</li>}
                         {!single && selectedItems.map((singleValue) => renderSelectedMultipleItem(singleValue))}
-                        <li className="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-overflow-number">
+                        <li
+                            className="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-overflow-number"
+                            hidden={overflowItemsCount === 0}
+                        >
                             {overflowItemsCount}
                         </li>
                     </ul>
