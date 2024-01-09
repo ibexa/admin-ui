@@ -13,6 +13,7 @@ import {
     LoadedLocationsMapContext,
     ContentOnTheFlyConfigContext,
     AllowedContentTypesContext,
+    SuggestionsStorageContext,
 } from '../../universal.discovery.module';
 
 import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
@@ -27,6 +28,7 @@ const ContentCreateWidget = () => {
     const [loadedLocationsMap] = useContext(LoadedLocationsMapContext);
     const { allowedLanguages, preselectedLanguage, preselectedContentType } = useContext(ContentOnTheFlyConfigContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
+    const [suggestionsStorage] = useContext(SuggestionsStorageContext);
     const { languages, contentTypes } = adminUiConfig;
     const selectedLocation = loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === markedLocationId);
     const mappedLanguages = languages.priority.map((languageCode) => {
@@ -46,6 +48,7 @@ const ContentCreateWidget = () => {
     const firstLanguageCode = filteredLanguages.length ? filteredLanguages[0].languageCode : '';
     const [selectedLanguage, setSelectedLanguage] = useState(preselectedLanguage || firstLanguageCode);
     const [selectedContentType, setSelectedContentType] = useState(preselectedContentType);
+    const [isSelectedSuggestion, setIsSelectedSuggestion] = useState(false);
     const [, setActiveTab] = useContext(ActiveTabContext);
     const [createContentVisible, setCreateContentVisible] = useContext(CreateContentWidgetContext);
     const [, setContentOnTheFlyData] = useContext(ContentOnTheFlyDataContext);
@@ -108,6 +111,8 @@ const ContentCreateWidget = () => {
             value: language.languageCode,
             label: language.name,
         }));
+    const contentTypesWithSuggestions = Object.entries(contentTypes);
+    const suggestions = suggestionsStorage[selectedLocation?.parentLocationId] ?? [];
 
     useEffect(() => {
         setSelectedLanguage(preselectedLanguage || firstLanguageCode);
@@ -116,6 +121,10 @@ const ContentCreateWidget = () => {
     useEffect(() => {
         parseTooltip(refContentTree.current);
     }, []);
+
+    if (suggestions) {
+        contentTypesWithSuggestions.unshift(['Suggestions', suggestions.map(({ data }) => data)]);
+    }
 
     return (
         <div className="ibexa-extra-actions-container">
@@ -161,7 +170,8 @@ const ContentCreateWidget = () => {
                         </div>
                         <div className="ibexa-instant-filter__desc">{filtersDescLabel}</div>
                         <div className="ibexa-instant-filter__items">
-                            {Object.entries(contentTypes).map(([groupName, groupItems]) => {
+                            {contentTypesWithSuggestions.map(([groupName, groupItems], index) => {
+                                const isSuggestionGroup = suggestions.length && index === 0;
                                 const restrictedContentTypeIds = selectedLocation?.permissions?.create.restrictedContentTypeIds ?? [];
                                 const isHiddenGroup = groupItems.every((groupItem) => {
                                     const isNotSearchedName = filterQuery && !groupItem.name.toLowerCase().includes(filterQuery);
@@ -171,7 +181,13 @@ const ContentCreateWidget = () => {
                                         allowedContentTypes && !allowedContentTypes.includes(groupItem.identifier);
                                     const isHiddenByConfig = groupItem.isHidden;
 
-                                    return isNotSearchedName || hasNotPermission || isNotAllowedContentType || isHiddenByConfig;
+                                    return (
+                                        isNotSearchedName ||
+                                        hasNotPermission ||
+                                        isNotAllowedContentType ||
+                                        isHiddenByConfig ||
+                                        (isNotSearchedName && isSuggestionGroup)
+                                    );
                                 });
 
                                 if (isHiddenGroup) {
@@ -194,9 +210,13 @@ const ContentCreateWidget = () => {
                                                 (allowedContentTypes && !allowedContentTypes.includes(identifier));
                                             const className = createCssClassNames({
                                                 'ibexa-instant-filter__group-item': true,
-                                                'ibexa-instant-filter__group-item--selected': identifier === selectedContentType,
+                                                'ibexa-instant-filter__group-item--selected':
+                                                    identifier === selectedContentType && isSuggestionGroup === isSelectedSuggestion,
                                             });
-                                            const updateSelectedContentType = () => setSelectedContentType(identifier);
+                                            const updateSelectedContentType = () => {
+                                                setSelectedContentType(identifier);
+                                                setIsSelectedSuggestion(isSuggestionGroup);
+                                            };
 
                                             if (isHidden) {
                                                 return null;

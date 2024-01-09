@@ -476,3 +476,35 @@ export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanc
 
     return adminUiConfig.ApplicationConfig;
 };
+
+export const findSuggestions = ({ siteaccess, token, parentLocationId }, callback) => {
+    const body = JSON.stringify({
+        ViewInput: {
+            identifier: 'view_with_aggregation',
+            LocationQuery: {
+                limit: '10',
+                offset: '0',
+                Filter: {
+                    ParentLocationIdCriterion: parentLocationId,
+                },
+                Aggregations: [
+                    {
+                        ContentTypeTermAggregation: {
+                            name: 'suggestions',
+                        },
+                    },
+                ],
+            },
+        },
+    });
+
+    const request = new Request(ENDPOINT_CREATE_VIEW, {
+        method: 'POST',
+        headers: { ...HEADERS_CREATE_VIEW, 'X-Siteaccess': siteaccess, 'X-CSRF-Token': token },
+        body,
+        mode: 'same-origin',
+        credentials: 'same-origin',
+    });
+
+    fetch(request).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
+};
