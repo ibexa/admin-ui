@@ -10,6 +10,9 @@ namespace Ibexa\AdminUi\Strategy\FocusMode;
 
 use Ibexa\Contracts\AdminUi\FocusMode\RedirectStrategyInterface;
 
+/**
+ * @internal
+ */
 final class OriginalPathRedirectStrategy implements RedirectStrategyInterface
 {
     /**

@@ -45,17 +45,17 @@ final class ContentStructureRedirectStrategyTest extends TestCase
      */
     public function dataProviderForTestSupports(): iterable
     {
-        yield [['_route' => 'foo.path'], false];
+        yield 'foo.path' => [['_route' => 'foo.path'], false];
 
-        yield [['_route' => 'ibexa.content.view'], false];
+        yield 'ibexa.content.view' => [['_route' => 'ibexa.content.view'], false];
 
-        yield [['_route' => 'ibexa.section.list'], true];
+        yield 'ibexa.section.list' => [['_route' => 'ibexa.section.list'], true];
 
-        yield [['_route' => 'ibexa.content_type_group.list'], true];
+        yield 'ibexa.content_type_group.list' => [['_route' => 'ibexa.content_type_group.list'], true];
 
-        yield [['_route' => 'ibexa.object_state.groups.list'], true];
+        yield 'ibexa.object_state.groups.list' => [['_route' => 'ibexa.object_state.groups.list'], true];
 
-        yield [['_route' => 'ibexa.content_type_group.view'], true];
+        yield 'ibexa.content_type_group.view' => [['_route' => 'ibexa.content_type_group.view'], true];
     }
 
     /**
@@ -74,9 +74,9 @@ final class ContentStructureRedirectStrategyTest extends TestCase
      */
     public function dataProviderForTestGenerateRedirectPath(): iterable
     {
-        yield ['ibexa.section.list', '/admin/view/content/456/full/1/123'];
+        yield 'ibexa.section.list' => ['ibexa.section.list', '/admin/view/content/456/full/1/123'];
 
-        yield ['ibexa.content_type_group.list', '/admin/view/content/456/full/1/123'];
+        yield 'ibexa.content_type_group.list' => ['ibexa.content_type_group.list', '/admin/view/content/456/full/1/123'];
     }
 
     /**

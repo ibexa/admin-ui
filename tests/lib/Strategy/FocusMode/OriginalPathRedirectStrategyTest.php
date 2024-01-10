@@ -35,11 +35,11 @@ final class OriginalPathRedirectStrategyTest extends TestCase
      */
     public function dataProviderForTestSupports(): iterable
     {
-        yield [['_route' => 'foo.path'], false];
+        yield 'foo.path' => [['_route' => 'foo.path'], false];
 
-        yield [['_route' => 'ibexa.section.list'], false];
+        yield 'ibexa.section.list' => [['_route' => 'ibexa.section.list'], false];
 
-        yield [['_route' => 'ibexa.content.view'], true];
+        yield 'ibexa.content.view' => [['_route' => 'ibexa.content.view'], true];
     }
 
     /**
@@ -58,8 +58,8 @@ final class OriginalPathRedirectStrategyTest extends TestCase
      */
     public function dataProviderForTestGenerateRedirectPath(): iterable
     {
-        yield ['foo.path', 'foo.path'];
+        yield 'foo.path' => ['foo.path', 'foo.path'];
 
-        yield ['ibexa.calendar.view', 'ibexa.calendar.view'];
+        yield 'ibexa.calendar.view' => ['ibexa.calendar.view', 'ibexa.calendar.view'];
     }
 }

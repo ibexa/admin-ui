@@ -13,6 +13,9 @@ use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\Routing\RouterInterface;
 
+/**
+ * @internal
+ */
 final class ContentStructureRedirectStrategy implements RedirectStrategyInterface
 {
     private ConfigResolverInterface $configResolver;
