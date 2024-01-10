@@ -3,7 +3,7 @@
 
 {% set extra_actions = [] %}
 
-{% if not field_definition.vars.disable_remove|default(false) %}
+{% if not field_definition.vars.disable_remove|default(false) and not is_translation %}
     {% set extra_actions = extra_actions|merge([
         {
             'icon_name': 'discard',
@@ -12,6 +12,7 @@
         }
     ]) %}
 {% endif %}
+
 {%- embed "@ibexadesign/ui/component/collapse.html.twig" with {
     'is_expanded': false,
     'is_draggable': is_draggable ?? true,
