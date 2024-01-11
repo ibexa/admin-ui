@@ -22,7 +22,7 @@
     }
 
     &__selection-info {
-        color: $ibexa-color-dark;
+        color: var(--ibexa-text-color, #{$ibexa-color-dark});
         line-height: calculateRem(21px);
         height: calculateRem(48px);
         padding: 0 calculateRem(36px) 0 calculateRem(16px);
@@ -44,7 +44,7 @@
             top: 50%;
             width: calculateRem(10px);
             height: calculateRem(1px);
-            background: $ibexa-color-dark;
+            background: var(--ibexa-text-color, #{$ibexa-color-dark});
             transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
         }
 
@@ -170,9 +170,9 @@
 
     &__items {
         width: 100%;
-        background: $ibexa-color-white;
-        border: calculateRem(1px) solid $ibexa-color-light;
-        color: $ibexa-color-dark;
+        background: var(--ibexa-dropdown-items-bg-color, #{$ibexa-color-white});
+        border: calculateRem(1px) solid var(--ibexa-dropdown-items-border-color, #{$ibexa-color-light});
+        color: var(--ibexa-text-color, #{$ibexa-color-dark});
         border-radius: $ibexa-border-radius;
         display: flex;
         flex-direction: column;
@@ -273,11 +273,12 @@
         }
 
         &:hover {
-            background-color: $ibexa-color-light-300;
+            color: var(--ibexa-dropdown-items-item-hover-text-color, #{$ibexa-color-dark});
+            background-color: var(--ibexa-dropdown-items-item-hover-bg-color, #{$ibexa-color-light-300});
         }
 
         &[disabled] {
-            color: $ibexa-color-dark-300;
+            color: var(--ibexa-dropdown-items-item-disabled-color, #{$ibexa-color-dark-300});
 
             &:hover {
                 cursor: not-allowed;
@@ -294,7 +295,7 @@
                 bottom: 0;
                 left: 0;
                 width: 100%;
-                border-bottom: calculateRem(1px) solid $ibexa-color-light;
+                border-bottom: calculateRem(1px) solid var(--ibexa-dropdown-items-separator-color, #{$ibexa-color-light});
             }
         }
     }
@@ -314,7 +315,7 @@
     }
 
     &__separator {
-        background-color: $ibexa-color-light-600;
+        background-color: var(--ibexa-dropdown-items-separator-color, #{$ibexa-color-light-600});
     }
 
     &__items-filter {
