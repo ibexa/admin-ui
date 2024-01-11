@@ -66,6 +66,11 @@
         <target state="new">Content create</target>
         <note>key: content_create.label</note>
       </trans-unit>
+      <trans-unit id="64f19d8055dc93bc222ddb63342200d68bf47958" resname="content_create.placeholder">
+        <source>Search by content type</source>
+        <target state="new">Search by content type</target>
+        <note>key: content_create.placeholder</note>
+      </trans-unit>
       <trans-unit id="cb13371418234a9257a76bcc2a55768d5e5e58d8" resname="content_edit.label">
         <source>Content edit</source>
         <target state="new">Content edit</target>

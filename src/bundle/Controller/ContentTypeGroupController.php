@@ -125,7 +125,7 @@ class ContentTypeGroupController extends Controller
                 $group = $this->contentTypeService->createContentTypeGroup($createStruct);
 
                 $this->notificationHandler->success(
-                    /** @Desc("Created Content type group '%name%'.") */
+                    /** @Desc("Created content type group '%name%'.") */
                     'content_type_group.create.success',
                     ['%name%' => $data->getIdentifier()],
                     'ibexa_content_type'
