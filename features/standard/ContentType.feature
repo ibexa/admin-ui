@@ -32,7 +32,7 @@ Feature: Content types management
       And I add field "Country" to content type definition
       And I set "Name" to "Country field" for "Country" field
       And I perform the "Save and close" action
-    Then notification that "content type" "New content type" is updated appears
+    Then notification that "Content type" "New content type" is updated appears
     Then I should be on content type page for "Test content type"
       And content type has proper Global properties
         | label                | value                     |
