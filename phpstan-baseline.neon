@@ -8066,16 +8066,6 @@ parameters:
 			path: src/lib/Menu/Event/ConfigureMenuEvent.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Menu\\\\LeftSidebarBuilder\\:\\:createStructure\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Menu/LeftSidebarBuilder.php
-
-		-
-			message: "#^Property Ibexa\\\\AdminUi\\\\Menu\\\\LeftSidebarBuilder\\:\\:\\$translator is never read, only written\\.$#"
-			count: 1
-			path: src/lib/Menu/LeftSidebarBuilder.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Menu\\\\MainMenuBuilder\\:\\:createStructure\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Menu/MainMenuBuilder.php
