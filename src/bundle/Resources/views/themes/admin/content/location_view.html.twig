@@ -13,7 +13,7 @@
 {% endif %}
 {% form_theme form_content_create '@ibexadesign/ui/form_fields.html.twig' %}
 
-{% block body_class %}ibexa-content-view ibexa-tb-theme ibexa-tb-theme--dark{% endblock %}
+{% block body_class %}ibexa-content-view{% endblock %}
 
 {% block content_tree %}
     {% set container_width_cookie = 'ibexa-tb_ibexa-content-tree_%d_container-width'|format(ibexa_admin_ui_config.user.user.id) %}

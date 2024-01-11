@@ -68,9 +68,9 @@ parameters:
     ibexa.site_access.config.admin_group.user_edit.templates.create: '@@ibexadesign/user/create.html.twig'
 
     # Content Tree Module
-    ibexa.site_access.config.admin_group.content_tree_module.load_more_limit: 20
-    ibexa.site_access.config.admin_group.content_tree_module.children_load_max_limit: 30
-    ibexa.site_access.config.admin_group.content_tree_module.tree_max_depth: 3
+    ibexa.site_access.config.admin_group.content_tree_module.load_more_limit: 30
+    ibexa.site_access.config.admin_group.content_tree_module.children_load_max_limit: 200
+    ibexa.site_access.config.admin_group.content_tree_module.tree_max_depth: 10
     ibexa.site_access.config.admin_group.content_tree_module.allowed_content_types: []
     ibexa.site_access.config.admin_group.content_tree_module.ignored_content_types: []
     ibexa.site_access.config.admin_group.content_tree_module.tree_root_location_id: ~
