@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Form\Processor\Content;
 
 use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\ContentForms\Form\Processor\ContentFormProcessor;
+use Ibexa\Contracts\AdminUi\Autosave\AutosaveServiceInterface;
 use Ibexa\Contracts\AdminUi\Event\AutosaveEvents;
 use Ibexa\Contracts\Core\Repository\Exceptions\Exception as APIException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -17,12 +18,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AutosaveProcessor implements EventSubscriberInterface
 {
-    /** @var \Ibexa\ContentForms\Form\Processor\ContentFormProcessor */
-    private $innerContentFormProcessor;
+    private AutosaveServiceInterface $autosaveService;
+
+    private ContentFormProcessor $innerContentFormProcessor;
 
     public function __construct(
+        AutosaveServiceInterface $autosaveService,
         ContentFormProcessor $innerContentFormProcessor
     ) {
+        $this->autosaveService = $autosaveService;
         $this->innerContentFormProcessor = $innerContentFormProcessor;
     }
 
@@ -36,10 +40,13 @@ class AutosaveProcessor implements EventSubscriberInterface
     public function processAutosave(FormActionEvent $event): void
     {
         try {
+            $this->autosaveService->setInProgress(true);
             $this->innerContentFormProcessor->processSaveDraft($event);
             $statusCode = Response::HTTP_OK;
         } catch (APIException $exception) {
             $statusCode = Response::HTTP_BAD_REQUEST;
+        } finally {
+            $this->autosaveService->setInProgress(false);
         }
 
         $event->setResponse(

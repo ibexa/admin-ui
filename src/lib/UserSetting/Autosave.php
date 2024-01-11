@@ -19,6 +19,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class Autosave implements ValueDefinitionInterface, FormMapperInterface
 {
+    public const IDENTIFIER = 'autosave';
+
     public const ENABLED_OPTION = 'enabled';
     public const DISABLED_OPTION = 'disabled';
 

@@ -18,6 +18,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AutosaveInterval implements ValueDefinitionInterface, FormMapperInterface
 {
+    public const IDENTIFIER = 'autosave_interval';
+
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
 

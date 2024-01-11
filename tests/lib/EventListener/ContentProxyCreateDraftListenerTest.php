@@ -10,7 +10,7 @@ namespace Ibexa\Tests\AdminUi\EventListener;
 
 use Ibexa\AdminUi\Event\Options;
 use Ibexa\AdminUi\EventListener\ContentProxyCreateDraftListener;
-use Ibexa\AdminUi\UserSetting\Autosave;
+use Ibexa\Contracts\AdminUi\Autosave\AutosaveServiceInterface;
 use Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent;
 use Ibexa\Contracts\AdminUi\Event\ContentProxyTranslateEvent;
 use Ibexa\Contracts\Core\FieldType\Value;
@@ -22,8 +22,6 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
-use Ibexa\User\UserSetting\UserSetting;
-use Ibexa\User\UserSetting\UserSettingService;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -33,15 +31,8 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
 {
     public function testCreateContentAutosaveEnabled(): void
     {
-        $userSettingService = $this->createMock(UserSettingService::class);
-        $userSettingService
-            ->method('getUserSetting')
-            ->with('autosave')
-            ->willReturn(
-                new UserSetting([
-                    'value' => Autosave::ENABLED_OPTION,
-                ])
-            );
+        $autosaveService = $this->createMock(AutosaveServiceInterface::class);
+        $autosaveService->method('isEnabled')->willReturn(true);
 
         $contentService = $this->createMock(ContentService::class);
         $contentService
@@ -69,7 +60,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
             new ContentProxyCreateDraftListener(
                 $contentService,
                 $this->createMock(LocationService::class),
-                $userSettingService,
+                $autosaveService,
                 $router
             )
         );
@@ -85,15 +76,8 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
 
     public function testCreateContentOnTheFlyAutosaveEnabled(): void
     {
-        $userSettingService = $this->createMock(UserSettingService::class);
-        $userSettingService
-            ->method('getUserSetting')
-            ->with('autosave')
-            ->willReturn(
-                new UserSetting([
-                    'value' => Autosave::ENABLED_OPTION,
-                ])
-            );
+        $autosaveService = $this->createMock(AutosaveServiceInterface::class);
+        $autosaveService->method('isEnabled')->willReturn(true);
 
         $contentInfo = $this->createMock(ContentInfo::class);
 
@@ -138,7 +122,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
             new ContentProxyCreateDraftListener(
                 $contentService,
                 $this->createMock(LocationService::class),
-                $userSettingService,
+                $autosaveService,
                 $router
             )
         );
@@ -154,15 +138,8 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
 
     public function testTranslateContentAutosaveEnabled(): void
     {
-        $userSettingService = $this->createMock(UserSettingService::class);
-        $userSettingService
-            ->method('getUserSetting')
-            ->with('autosave')
-            ->willReturn(
-                new UserSetting([
-                    'value' => Autosave::ENABLED_OPTION,
-                ])
-            );
+        $autosaveService = $this->createMock(AutosaveServiceInterface::class);
+        $autosaveService->method('isEnabled')->willReturn(true);
 
         $contentType = $this->getContentType([
             $this->getFieldDefinition('field_a', true),
@@ -222,7 +199,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
             new ContentProxyCreateDraftListener(
                 $contentService,
                 $this->createMock(LocationService::class),
-                $userSettingService,
+                $autosaveService,
                 $router
             )
         );
@@ -234,15 +211,8 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
 
     public function testAutosaveDisabled(): void
     {
-        $userSettingService = $this->createMock(UserSettingService::class);
-        $userSettingService
-            ->method('getUserSetting')
-            ->with('autosave')
-            ->willReturn(
-                new UserSetting([
-                    'value' => Autosave::DISABLED_OPTION,
-                ])
-            );
+        $autosaveService = $this->createMock(AutosaveServiceInterface::class);
+        $autosaveService->method('isEnabled')->willReturn(true);
 
         $contentService = $this->createMock(ContentService::class);
         $contentService
@@ -275,7 +245,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
             new ContentProxyCreateDraftListener(
                 $contentService,
                 $this->createMock(LocationService::class),
-                $userSettingService,
+                $autosaveService,
                 $this->createMock(RouterInterface::class)
             )
         );
