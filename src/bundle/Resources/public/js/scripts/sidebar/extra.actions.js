@@ -56,18 +56,28 @@
             focusElement.focus();
         }
     };
+    const initExtraActionsWidget = (dataset) => {
+        const url = new URL(window.location.href);
+        const actionsParams = url.searchParams.getAll('actions');
+
+        if (actionsParams.includes(dataset.actions)) {
+            toggleExtraActionsWidget(dataset);
+        }
+    };
 
     btns.forEach((btn) => {
+        const { dataset } = btn;
+
         btn.addEventListener(
             'click',
             () => {
-                toggleExtraActionsWidget(btn.dataset);
+                toggleExtraActionsWidget(dataset);
             },
             false,
         );
+        initExtraActionsWidget(dataset);
     });
     doc.body.addEventListener('ibexa-extra-actions:toggle-widget', (event) => toggleExtraActionsWidget(event.detail), false);
-
     doc.querySelectorAll('.ibexa-extra-actions .ibexa-btn--close').forEach((closeBtn) =>
         closeBtn.addEventListener(
             'click',
