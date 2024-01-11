@@ -23,14 +23,14 @@
         </div>
         <div class="ibexa-preview-header__item ibexa-preview-header__item--siteaccess">
             {% set value = '' %}
-            {% set choices = siteaccesses|map((site_accesses_name, site_access_label) => {
+            {% set choices = siteaccesses|map((site_access_label, site_access_name) => {
                 value: path(
                     'ibexa.version.preview',
                     {
                         'contentId': content.id,
                         'versionNo': version_no,
                         'language': language_code,
-                        'siteAccessName': site_accesses_name
+                        'siteAccessName': site_access_name
                     }
                 ),
                 label: site_access_label|trans({}, 'ezplatform_siteaccess')
