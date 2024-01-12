@@ -16,6 +16,7 @@ use Ibexa\AdminUi\Form\Type\Content\LocationType;
 use Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\Core\Repository\LanguageService;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -24,6 +25,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CustomUrlAddType extends AbstractType
 {
@@ -115,7 +117,7 @@ class CustomUrlAddType extends AbstractType
                         $this->siteAccessNameGenerator,
                         $location
                     ),
-                    'placeholder' =>  /** @Desc("None") */ 'custom_url_alias_add_form.site_access.placeholder',
+                    'placeholder' => /** @Desc("None") */ 'custom_url_alias_add_form.site_access.placeholder',
                 ]
             )
             ->add(
@@ -130,13 +132,22 @@ class CustomUrlAddType extends AbstractType
             $this->addLanguageFieldBasedOnContentListener,
             'onPreSetData',
         ]);
+
         $builder->addEventListener(FormEvents::PRE_SUBMIT, [
             $this->buildPathFromRootListener,
             'onPreSubmitData',
         ]);
+
         $builder->addEventListener(FormEvents::PRE_SET_DATA, [
             $this->checkboxIfRootLocationListener,
             'onPreSetData',
+        ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'translation_domain' => 'ibexa_content_url',
         ]);
     }
 }
