@@ -407,8 +407,8 @@
         <note>key: content_type_group.delete.submit</note>
       </trans-unit>
       <trans-unit id="7d3672fcf2f0e1982152c4e6759bd03143f9f028" resname="content_type_group.delete.success">
-        <source>Deleted Content type group '%name%'.</source>
-        <target state="new">Deleted Content type group '%name%'.</target>
+        <source>Deleted content type group '%name%'.</source>
+        <target state="new">Deleted content type group '%name%'.</target>
         <note>key: content_type_group.delete.success</note>
       </trans-unit>
       <trans-unit id="f9cf70fcb6c6aef73a8a39eb0a9cd4e71c11b5ba" resname="content_type_group.edit.action_name">
