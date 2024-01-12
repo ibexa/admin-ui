@@ -72,7 +72,7 @@ Feature: Content types management
       And I add field "Date" to content type definition
     And I set "Name" to "DateField" for "Date" field
       And I perform the "Save and close" action
-    Then success notification that "content type 'TestEdit CT' updated." appears
+    Then success notification that "Content type 'TestEdit CT' updated." appears
     Then I should be on content type page for "Test content type edited"
       And content type has proper Global properties
         | label                | value                     |
@@ -92,5 +92,5 @@ Feature: Content types management
     And I'm on content type Page for "Content" group
     And there's a "TestDelete CT" on content types list
     When I delete "TestDelete CT" content type
-    Then success notification that "content type 'TestDelete CT' deleted." appears
+    Then success notification that "Content type 'TestDelete CT' deleted." appears
     And there's no "TestDelete CT" on content types list
