@@ -17,7 +17,7 @@
     <ul class="ibexa-available-field-types__list">
         {% for item in field_type_toolbar %}
             <li
-                class="ibexa-available-field-type"
+                class="ibexa-available-field-type {{ is_draggable is defined and is_draggable == false ? 'ibexa-available-field-type--immovable' }}"
                 data-item-identifier="{{ item.identifier }}"
             >
                 <div

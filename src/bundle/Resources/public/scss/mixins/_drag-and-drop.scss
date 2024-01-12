@@ -117,7 +117,7 @@
         margin-bottom: calculateRem(24px);
     }
 
-    &:hover:not(&--unavailable) {
+    &:hover:not(&--unavailable, &--immovable) {
         #{$self}__content {
             border-color: $ibexa-color-dark;
             transform: scale(1.02) translateX(-10px);
@@ -181,6 +181,21 @@
             fill: $ibexa-color-dark-300;
             border-color: $ibexa-color-light-300;
             background: $ibexa-color-light-300;
+            box-shadow: none;
+        }
+
+        #{$self}__drag-icon {
+            fill: $ibexa-color-dark-300;
+        }
+    }
+
+    &--immovable {
+        cursor: not-allowed;
+
+        #{$self}__content {
+            color: $ibexa-color-dark-300;
+            fill: $ibexa-color-dark-300;
+            border-color: $ibexa-color-light-300;
             box-shadow: none;
         }
 
