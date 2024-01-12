@@ -6556,7 +6556,7 @@ parameters:
 			path: src/lib/Form/Type/ContentType/ContentTypesDeleteType.php
 
 		-
-			message: "#^Parameter \\#1 \\$child of method Symfony\\\\Component\\\\Form\\\\FormBuilderInterface\\:\\:add\\(\\) expects string\\|Symfony\\\\Component\\\\Form\\\\FormBuilderInterface, int\\|string given\\.$#"
+			message: "#^Parameter \\#1 \\$child of method Symfony\\\\Component\\\\Form\\\\FormBuilderInterface\\<mixed\\>\\:\\:add\\(\\) expects string\\|Symfony\\\\Component\\\\Form\\\\FormBuilderInterface, int\\|string given\\.$#"
 			count: 1
 			path: src/lib/Form/Type/ContentType/FieldDefinitionsCollectionType.php
 
