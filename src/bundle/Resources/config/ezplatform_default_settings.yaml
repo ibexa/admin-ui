@@ -84,6 +84,6 @@ parameters:
     ibexa.site_access.config.admin_group.autosave.interval: 60
 
     # User profiles
-    ibexa.site_access.config.admin_group.user_profile.enabled: false
-    ibexa.site_access.config.admin_group.user_profile.content_types: ['editor', 'user']
-    ibexa.site_access.config.admin_group.user_profile.field_groups: ['about', 'contact']
+    ibexa.site_access.config.default.user_profile.enabled: false
+    ibexa.site_access.config.default.user_profile.content_types: []
+    ibexa.site_access.config.default.user_profile.field_groups: []

@@ -54,7 +54,7 @@ final class UserProfile extends AbstractParser
         );
 
         $contextualizer->setContextualParameter(
-            'user_profiler.content_types',
+            'user_profile.content_types',
             $currentScope,
             $scopeSettings['user_profile']['content_types']
         );
