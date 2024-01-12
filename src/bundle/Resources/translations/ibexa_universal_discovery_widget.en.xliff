@@ -107,8 +107,8 @@
         <note>key: create_content.label</note>
       </trans-unit>
       <trans-unit id="61059b2a945e7873b9ff9a72bd164d8ae001ccd4" resname="create_content.select_content_type">
-        <source>Select a Content type</source>
-        <target state="new">Select a Content type</target>
+        <source>Select a content type</source>
+        <target state="new">Select a content type</target>
         <note>key: create_content.select_content_type</note>
       </trans-unit>
       <trans-unit id="620f985461da78639f600259b95ebd3cdf2d9ed2" resname="create_content.select_language">

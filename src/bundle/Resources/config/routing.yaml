@@ -231,7 +231,7 @@ ibexa.role_assignment.bulk_delete:
         roleId: \d+
 
 #
-# Content type Group
+# Content type group
 #
 
 ibexa.content_type_group.list:

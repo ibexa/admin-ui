@@ -178,7 +178,7 @@ class ContentTypeGroupController extends Controller
                 $this->contentTypeService->updateContentTypeGroup($group, $updateStruct);
 
                 $this->notificationHandler->success(
-                    /** @Desc("Updated Content type group '%name%'.") */
+                    /** @Desc("Updated content type group '%name%'.") */
                     'content_type_group.update.success',
                     ['%name%' => $group->identifier],
                     'ibexa_content_type'
@@ -244,7 +244,7 @@ class ContentTypeGroupController extends Controller
     }
 
     /**
-     * Handles removing Content type groups based on submitted form.
+     * Handles removing content type groups based on submitted form.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *

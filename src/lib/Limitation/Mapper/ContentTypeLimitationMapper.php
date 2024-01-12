@@ -71,7 +71,7 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('parentgroup'),
                 'ibexa_content_forms_policies'
-            )->setDesc('Content type Group of Parent'),
+            )->setDesc('Content type group of Parent'),
         ];
     }
 }

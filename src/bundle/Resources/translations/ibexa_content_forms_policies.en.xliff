@@ -62,8 +62,8 @@
         <note>key: policy.limitation.identifier.parentdepth</note>
       </trans-unit>
       <trans-unit id="cb52ff8582459d1bc981e9f98cf1c79876f83a1e" resname="policy.limitation.identifier.parentgroup">
-        <source>Content type Group of Parent</source>
-        <target state="new">Content type Group of Parent</target>
+        <source>Content type group of Parent</source>
+        <target state="new">Content type group of Parent</target>
         <note>key: policy.limitation.identifier.parentgroup</note>
       </trans-unit>
       <trans-unit id="6208b97847450b255559e4a56c51ff06b76a08dd" resname="policy.limitation.identifier.parentowner">

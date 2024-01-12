@@ -17,8 +17,8 @@
         <note>key: ez.content_type.identifier.pattern</note>
       </trans-unit>
       <trans-unit id="e03cdf7df4e43a891269e0bbe734e7bab5cc61eb" resname="ez.content_type.identifier.unique">
-        <source>The Content type identifier "%identifier%" is used by another Content type. Enter a unique identifier.</source>
-        <target state="new">The Content type identifier "%identifier%" is used by another Content type. Enter a unique identifier.</target>
+        <source>The content type identifier "%identifier%" is used by another content type. Enter a unique identifier.</source>
+        <target state="new">The content type identifier "%identifier%" is used by another content type. Enter a unique identifier.</target>
         <note>key: ez.content_type.identifier.unique</note>
       </trans-unit>
       <trans-unit id="7ecfa6bd2c1993d18d067f3abe3acebeb9c2458c" resname="ez.content_type.names">
