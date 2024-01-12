@@ -68,6 +68,8 @@
             this.filterItems = this.filterItems.bind(this);
             this.toggleItemsSelection = this.toggleItemsSelection.bind(this);
             this.setSelectionTogglerLabel = this.setSelectionTogglerLabel.bind(this);
+            this.onBeforePopoverShow = this.onBeforePopoverShow.bind(this);
+            this.onBeforePopoverHide = this.onBeforePopoverHide.bind(this);
             this.onPopoverShow = this.onPopoverShow.bind(this);
             this.onPopoverHide = this.onPopoverHide.bind(this);
             this.itemsPopoverContent = this.itemsPopoverContent.bind(this);
@@ -220,6 +222,14 @@
             const bottomHeight = documentElementHeight - bottom;
 
             return Math.max(topHeight, bottomHeight) - DROPDOWN_MARGIN;
+        }
+
+        onBeforePopoverShow() {
+            this.container.classList.add('ibexa-dropdown--expanded');
+        }
+
+        onBeforePopoverHide() {
+            this.container.classList.remove('ibexa-dropdown--expanded');
         }
 
         onPopoverShow() {
@@ -500,6 +510,8 @@
             this.hideOptions();
             this.fitItems();
 
+            this.itemsPopover._element.addEventListener('show.bs.popover', this.onBeforePopoverShow);
+            this.itemsPopover._element.addEventListener('hide.bs.popover', this.onBeforePopoverHide);
             this.itemsPopover._element.addEventListener('shown.bs.popover', this.onPopoverShow);
             this.itemsPopover._element.addEventListener('hidden.bs.popover', this.onPopoverHide);
             this.itemsListContainer

@@ -45,6 +45,7 @@
             width: calculateRem(10px);
             height: calculateRem(1px);
             background: $ibexa-color-dark;
+            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
         }
 
         &::before {
