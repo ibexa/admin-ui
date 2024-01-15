@@ -54,8 +54,9 @@
         const areAllAddGroupBtnsDisabled = [...addGroupBtns].every((btn) =>
             btn.classList.contains('ibexa-popup-menu__item-content--disabled'),
         );
+        const isAddGroupTriggerBtnDisabled = addGroupTriggerBtn.dataset.isDisabled == 'true';
 
-        addGroupTriggerBtn.disabled = areAllAddGroupBtnsDisabled;
+        addGroupTriggerBtn.disabled = isAddGroupTriggerBtnDisabled || areAllAddGroupBtnsDisabled;
     };
     const searchField = (event) => {
         const fieldFilterQueryLowerCase = event.currentTarget.value.toLowerCase();
