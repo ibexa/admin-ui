@@ -437,8 +437,8 @@
         <note>key: content_type_group.update.submit</note>
       </trans-unit>
       <trans-unit id="ff50d4b8d26d81f538b0ebabc392cbb05b6da162" resname="content_type_group.update.success">
-        <source>Updated Content type group '%name%'.</source>
-        <target state="new">Updated Content type group '%name%'.</target>
+        <source>Updated content type group '%name%'.</source>
+        <target state="new">Updated content type group '%name%'.</target>
         <note>key: content_type_group.update.success</note>
       </trans-unit>
       <trans-unit id="8eb8668549f90436db605805680144f4b87c7fc0" resname="content_type_group.view.list.action.add">
