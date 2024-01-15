@@ -16,22 +16,38 @@ use Ibexa\User\UserSetting\UserSettingService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 
 final class FocusModeController extends Controller
 {
-    private const RETURN_URL_PARAM = 'returnUrl';
+    private const RETURN_PATH_PARAM = 'returnPath';
 
     private UserSettingService $userSettingService;
 
-    public function __construct(UserSettingService $userSettingService)
-    {
+    private UrlMatcherInterface $urlMatcher;
+
+    /** @var iterable<\Ibexa\Contracts\AdminUi\FocusMode\RedirectStrategyInterface> */
+    private iterable $redirectStrategies;
+
+    /**
+     * @param iterable<\Ibexa\Contracts\AdminUi\FocusMode\RedirectStrategyInterface> $redirectStrategies
+     */
+    public function __construct(
+        UserSettingService $userSettingService,
+        UrlMatcherInterface $urlMatcher,
+        iterable $redirectStrategies
+    ) {
         $this->userSettingService = $userSettingService;
+        $this->urlMatcher = $urlMatcher;
+        $this->redirectStrategies = $redirectStrategies;
     }
 
-    public function changeAction(Request $request, ?string $returnUrl): Response
+    public function changeAction(Request $request, ?string $returnPath): Response
     {
         $data = new FocusModeChangeData();
-        $data->setEnabled($this->userSettingService->getUserSetting(FocusMode::IDENTIFIER)->value === FocusMode::FOCUS_MODE_ON);
+        $data->setEnabled(
+            $this->userSettingService->getUserSetting(FocusMode::IDENTIFIER)->value === FocusMode::FOCUS_MODE_ON
+        );
 
         $form = $this->createForm(
             FocusModeChangeType::class,
@@ -40,7 +56,7 @@ final class FocusModeController extends Controller
                 'action' => $this->generateUrl(
                     'ibexa.focus_mode.change',
                     [
-                        self::RETURN_URL_PARAM => $returnUrl,
+                        self::RETURN_PATH_PARAM => $returnPath,
                     ]
                 ),
                 'method' => Request::METHOD_POST,
@@ -54,7 +70,7 @@ final class FocusModeController extends Controller
                 $data->isEnabled() ? FocusMode::FOCUS_MODE_ON : FocusMode::FOCUS_MODE_OFF
             );
 
-            return $this->createRedirectToReturnUrl($request);
+            return $this->createRedirectToReturnPath($request);
         }
 
         return $this->render(
@@ -65,18 +81,57 @@ final class FocusModeController extends Controller
         );
     }
 
-    private function createRedirectToReturnUrl(Request $request): RedirectResponse
+    private function createRedirectToReturnPath(Request $request): RedirectResponse
     {
-        $url = $request->query->get(self::RETURN_URL_PARAM);
-        if (is_string($url) && $this->isSafeUrl($url, $request->getBaseUrl())) {
-            return new RedirectResponse($url);
+        $path = $this->resolveReturnPath(
+            $request->query->get(self::RETURN_PATH_PARAM) ?? ''
+        );
+
+        if (!$this->isSafeUrl($path, $request->getBaseUrl())) {
+            throw $this->createAccessDeniedException('Malformed return path');
         }
 
-        throw $this->createAccessDeniedException('Malformed return URL');
+        return new RedirectResponse($path);
     }
 
     private function isSafeUrl(string $referer, string $baseUrl): bool
     {
         return str_starts_with($referer, $baseUrl);
+    }
+
+    private function resolveReturnPath(string $path): string
+    {
+        $rootRouteInfo = $this->urlMatcher->match('/');
+        $rootRoute = $this->generateUrl($rootRouteInfo['_route'], $rootRouteInfo);
+
+        $rootPath = rtrim(parse_url($rootRoute, PHP_URL_PATH) ?: '', '/');
+        $route = $this->matchRouteByPath($path);
+
+        $fullPath = $rootPath . $path;
+        foreach ($this->redirectStrategies as $strategy) {
+            if ($strategy->supports($route)) {
+                return $strategy->generateRedirectPath($fullPath);
+            }
+        }
+
+        return $fullPath;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private function matchRouteByPath(string $path): array
+    {
+        $originalContext = $this->urlMatcher->getContext();
+
+        $context = clone $originalContext;
+        $context->setMethod('GET');
+
+        $this->urlMatcher->setContext($context);
+        $routeData = $this->urlMatcher->match($path);
+
+        $this->urlMatcher->setContext($originalContext);
+
+        return $routeData;
     }
 }
