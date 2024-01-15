@@ -60,8 +60,18 @@ final class FocusMode implements ValueDefinitionInterface, FormMapperInterface, 
     public function getDisplayValue(string $storageValue): string
     {
         $translationMap = [
-            self::FOCUS_MODE_OFF => $this->translator->trans(/** @Desc("Off") */'user.setting.focus_mode.off', [], 'ibexa_user_settings'),
-            self::FOCUS_MODE_ON => $this->translator->trans(/** @Desc("On") */'user.setting.focus_mode.on', [], 'ibexa_user_settings'),
+            self::FOCUS_MODE_OFF => $this->translator->trans(
+                /** @Desc("Disabled") */
+                'user.setting.focus_mode.off',
+                [],
+                'ibexa_user_settings'
+            ),
+            self::FOCUS_MODE_ON => $this->translator->trans(
+                /** @Desc("Enabled") */
+                'user.setting.focus_mode.on',
+                [],
+                'ibexa_user_settings'
+            ),
         ];
 
         return $translationMap[$storageValue] ?? $storageValue;
@@ -80,11 +90,11 @@ final class FocusMode implements ValueDefinitionInterface, FormMapperInterface, 
             'value',
             UserModeChoiceType::class,
             [
-                'label' => 'user.setting.mode.name',
+                'label' => 'user.setting.focus_mode.label',
                 'expanded' => true,
                 'multiple' => false,
                 'translation_domain' => 'ibexa_user_settings',
-                'help' => $this->translator->trans('user.setting.mode.help', [], 'ibexa_user_settings'),
+                'help' => $this->translator->trans('user.setting.focus_mode.help', [], 'ibexa_user_settings'),
                 'help_html' => true,
             ]
         );
@@ -93,21 +103,17 @@ final class FocusMode implements ValueDefinitionInterface, FormMapperInterface, 
     public static function getTranslationMessages(): array
     {
         return [
+            (new Message('user.setting.focus_mode.label', 'ibexa_user_settings'))->setDesc('Enable focus mode'),
             (new Message('user.setting.focus_mode.help', 'ibexa_user_settings'))
                 ->setDesc(
-                    '<p><strong>Focus mode: on</strong> – A clean and intuitive interface with a simplified content
+                    '<p><strong>Focus mode</strong> – A clean and intuitive interface with a simplified content
                         structure, designed for new and non-advanced users. Features include:</p>
                         <ul>
-                            <li>View</li>
+                            <li>View tab displaying site preview within the context</li>
                             <li>Hidden Technical details tab</li>
                             <li>Hidden Locations and Versions tabs in Content items</li>
                         </ul>
-                        <p><strong>Focus mode: off</strong> – Tailored for experienced users familiar with Ibexa DXP.
-                        Provides comprehensive insights into the technical aspects of Content structure, including:</p>
-                        <ul>
-                            <li>Technical details tab</li>
-                            <li>Location: Archived versions</li>
-                        </ul>'
+                    </p>'
                 ),
         ];
     }
