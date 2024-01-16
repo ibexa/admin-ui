@@ -11,7 +11,7 @@
     {% set user_password_change_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_password_change.sidebar_right') %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
-        action_name: 'user_change_password.change_password'|trans|desc('Change password'),
+	    action_name: 'user_change_password.editing_password'|trans|desc('Editing Password'),
         title: 'user_change_password.title'|trans|desc('Password'),
         context_actions: knp_menu_render(user_password_change_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}

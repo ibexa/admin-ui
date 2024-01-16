@@ -21,9 +21,6 @@
     <div class="ibexa-edit-content__container">
         {{ form_start(form) }}
             {{ form_widget(form.identifier, {'attr': {'hidden': 'hidden'}}) }}
-            {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
-                headline: user_setting_group.name
-            } %}
             {% for user_setting in user_setting_group.settings %}
                 <div>
                     {{ form_widget(attribute(form, user_setting.identifier)) }}
