@@ -12,7 +12,9 @@ use Ibexa\AdminUi\Form\Data\User\FocusModeChangeData;
 use Ibexa\AdminUi\Form\Type\User\FocusModeChangeType;
 use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Event\FocusModeChangedEvent;
 use Ibexa\User\UserSetting\UserSettingService;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,6 +23,8 @@ use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 final class FocusModeController extends Controller
 {
     private const RETURN_PATH_PARAM = 'returnPath';
+
+    private EventDispatcherInterface $eventDispatcher;
 
     private UserSettingService $userSettingService;
 
@@ -33,10 +37,12 @@ final class FocusModeController extends Controller
      * @param iterable<\Ibexa\Contracts\AdminUi\FocusMode\RedirectStrategyInterface> $redirectStrategies
      */
     public function __construct(
+        EventDispatcherInterface $eventDispatcher,
         UserSettingService $userSettingService,
         UrlMatcherInterface $urlMatcher,
         iterable $redirectStrategies
     ) {
+        $this->eventDispatcher = $eventDispatcher;
         $this->userSettingService = $userSettingService;
         $this->urlMatcher = $urlMatcher;
         $this->redirectStrategies = $redirectStrategies;
@@ -69,6 +75,8 @@ final class FocusModeController extends Controller
                 FocusMode::IDENTIFIER,
                 $data->isEnabled() ? FocusMode::FOCUS_MODE_ON : FocusMode::FOCUS_MODE_OFF
             );
+
+            $this->eventDispatcher->dispatch(new FocusModeChangedEvent($data->isEnabled()));
 
             return $this->createRedirectToReturnPath($request);
         }

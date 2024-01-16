@@ -941,6 +941,11 @@ parameters:
 			path: src/bundle/Controller/UrlAliasController.php
 
 		-
+			message: "#^Parameter \\#1 \\$enabled of class Ibexa\\\\Contracts\\\\AdminUi\\\\Event\\\\FocusModeChangedEvent constructor expects bool, bool\\|null given\\.$#"
+			count: 1
+			path: src/bundle/Controller/User/FocusModeController.php
+
+		-
 			message: "#^Cannot access property \\$name on Ibexa\\\\Core\\\\MVC\\\\Symfony\\\\SiteAccess\\|null\\.$#"
 			count: 1
 			path: src/bundle/Controller/User/InvitationController.php
