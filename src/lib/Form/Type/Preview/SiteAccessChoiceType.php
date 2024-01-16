@@ -57,7 +57,13 @@ final class SiteAccessChoiceType extends AbstractType
                             $options['content']->id,
                             $options['languageCode'],
                             $options['versionNo'],
-                        )
+                        ),
+                        [
+                            $options['location'],
+                            $options['content']->id,
+                            $options['languageCode'],
+                            $options['versionNo'],
+                        ]
                     );
                 },
             ]);
