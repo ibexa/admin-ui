@@ -43,6 +43,7 @@
                 }) }}
             {% endblock %}
         {% endif %}
+
         {% if not hide_toggler|default(false) %}
             <div class="ibexa-tabs__toggler">
                 <span class="ibexa-tabs__toggler-show">
@@ -54,4 +55,6 @@
             </div>
         {% endif %}
     </div>
+
+    {% block tabs_list_after %}{% endblock %}
 </div>

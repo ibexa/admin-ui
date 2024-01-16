@@ -153,6 +153,9 @@
         },
         false,
     );
+    secondLevelMenuNode.addEventListener('ibexa-menu:hide', () => {
+        ibexa.helpers.cookies.setBackOfficeCookie('ibexa-aui_menu-secondary-width', SECOND_LEVEL_COLLAPSED_WIDTH);
+    });
 
     if (showFistLevelPopupButton && selectorItem) {
         const adaptiveItems = new ibexa.core.AdaptiveItems({
