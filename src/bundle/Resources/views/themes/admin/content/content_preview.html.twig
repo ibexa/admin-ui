@@ -9,6 +9,8 @@
 
 {% block left_sidebar %}{% endblock %}
 
+{% form_theme site_access_form '@ibexadesign/ui/form_fields.html.twig' %}
+
 {% block header_row %}
     <div class="ibexa-preview-header">
         <div class="ibexa-preview-header__item ibexa-preview-header__item--back">
@@ -37,7 +39,7 @@
             </a>
         </div>
         <div class="ibexa-preview-header__item ibexa-preview-header__item--siteaccess">
-            {{ form(siteAccessForm) }}
+            {{ form(site_access_form) }}
         </div>
         <div class="ibexa-preview-header__item ibexa-preview-header__item--actions">
             <button data-preview-mode="desktop" class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--selector ibexa-btn--selected ibexa-preview-header__action">
