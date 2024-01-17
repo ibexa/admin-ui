@@ -77,7 +77,7 @@
         }
 
         &::placeholder {
-            color: $ibexa-color-dark-400;
+            color: var(--ibexa-input-placeholder-color, #{$ibexa-color-dark-400});
             font-size: $ibexa-text-font-size-medium;
             line-height: calculateRem(21px);
         }
@@ -168,7 +168,7 @@
                 background-color: var(--ibexa-input-checked-disabled-bg-color, #{$ibexa-color-primary-300});
 
                 &::after {
-                    border-color: var(--ibexa-input-checked-disabled-text-color, #{$ibexa-color-primary-300});
+                    border-color: var(--ibexa-input-checked-disabled-text-color, #{$ibexa-color-white});
                 }
             }
         }
@@ -403,7 +403,7 @@
         transform: translate(0, -50%);
         height: calculateRem(24px);
         padding: 0;
-        fill: $ibexa-color-dark;
+        fill: var(--ibexa-text-color, #{$ibexa-color-dark});
         z-index: 1;
     }
 

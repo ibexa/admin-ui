@@ -116,7 +116,7 @@
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/chart-js/dist/chart.umd.js') }}"></script>
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/js-md5/build/md5.min.js') }}"></script>
     </head>
-    <body class="{% block body_class %}{% endblock %}">
+    <body class="{% block body_class %}ibexa-theme {% if ibexa_is_focus_mode_on() %}ibexa-theme--dark{% endif %}{% endblock %}">
         <div id="react-udw" data-filter-subtree-udw-config="{{ ibexa_udw_config('single_container', {}) }}"></div>
 
         {% block header_row %}

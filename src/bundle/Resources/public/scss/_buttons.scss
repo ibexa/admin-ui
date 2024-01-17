@@ -21,7 +21,7 @@
         border-color: transparent;
 
         .ibexa-icon {
-            fill: $ibexa-color-primary;
+            fill: var(--ibexa-primary-color, #{$ibexa-color-primary});
         }
     }
 
