@@ -3,6 +3,7 @@
     const SECOND_LEVEL_EXPANDED_WIDTH = 220;
     const SECOND_LEVEL_MANUAL_RESIZE_MIN_WIDTH = 80;
     const mainMenuNode = doc.querySelector('.ibexa-main-menu');
+    let activeItemName = null;
 
     if (!mainMenuNode) {
         return;
@@ -39,9 +40,24 @@
 
         doc.removeEventListener('mousemove', collapseSecondLevelMenu);
     };
-    const showSecondLevelMenu = ({ currentTarget }) => {
+    const showAndHideSecondLevelMenu = ({ currentTarget }) => {
         if (!currentTarget.dataset.bsToggle) {
             return;
+        }
+
+        if (currentTarget.classList.contains('active')) {
+            const { itemName } = currentTarget.parentNode.dataset;
+
+            if (activeItemName === itemName) {
+                currentTarget.classList.remove('active');
+                secondLevelMenuNode.classList.add('ibexa-main-menu__navbar--hidden');
+                secondLevelMenuNode.style.width = 0;
+                activeItemName = null;
+
+                return;
+            }
+
+            activeItemName = itemName;
         }
 
         firstLevelMenuNode.classList.add('ibexa-main-menu__navbar--collapsed');
@@ -139,7 +155,7 @@
     parseMenuTitles();
 
     firstLevelMenuNode.querySelectorAll('.ibexa-main-menu__item-action').forEach((button) => {
-        button.addEventListener('click', showSecondLevelMenu, false);
+        button.addEventListener('click', showAndHideSecondLevelMenu, false);
     });
 
     secondLevelMenuNode.querySelector('.ibexa-main-menu__toggler').addEventListener('click', toggleSecondLevelMenu, false);
