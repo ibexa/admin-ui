@@ -44,7 +44,7 @@
     &--textarea,
     &--date {
         font-size: $ibexa-text-font-size-medium;
-        color: var(--ibexa-text-color, #{$ibexa-color-dark});
+        color: var(--ibexa-input-text-color, var(--ibexa-text-color, #{$ibexa-color-dark}));
         line-height: calculateRem(21px);
         border: calculateRem(1px) solid var(--ibexa-input-border-color, #{$ibexa-color-dark-200});
         border-radius: $ibexa-border-radius;
@@ -52,7 +52,7 @@
 
         &:focus,
         &.form-control:focus {
-            color: var(--ibexa-text-color, #{$ibexa-color-dark});
+            color: var(--ibexa-input-text-color, var(--ibexa-text-color, #{$ibexa-color-dark}));
         }
 
         &:hover:not(:disabled) {
@@ -403,7 +403,7 @@
         transform: translate(0, -50%);
         height: calculateRem(24px);
         padding: 0;
-        fill: var(--ibexa-text-color, #{$ibexa-color-dark});
+        fill: var(--ibexa-btn-icon-fill-color, #{$ibexa-color-dark});
         z-index: 1;
     }
 
