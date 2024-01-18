@@ -205,6 +205,7 @@ export const findLocationsBySearchQuery = (
             },
         },
     });
+    const abortController = new AbortController();
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
         headers: getRequestHeaders({
@@ -216,6 +217,7 @@ export const findLocationsBySearchQuery = (
         body,
         mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
+        signal: abortController.signal,
     });
 
     fetch(request)
@@ -231,6 +233,10 @@ export const findLocationsBySearchQuery = (
             });
         })
         .catch(showErrorNotificationAbortWrapper);
+
+    return {
+        abortController,
+    };
 };
 
 export const findLocationsById = (
