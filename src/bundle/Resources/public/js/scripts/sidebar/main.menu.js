@@ -40,7 +40,7 @@
 
         doc.removeEventListener('mousemove', collapseSecondLevelMenu);
     };
-    const showAndHideSecondLevelMenu = ({ currentTarget }) => {
+    const switchSubMenuDisplay = ({ currentTarget }) => {
         if (!currentTarget.dataset.bsToggle) {
             return;
         }
@@ -155,7 +155,7 @@
     parseMenuTitles();
 
     firstLevelMenuNode.querySelectorAll('.ibexa-main-menu__item-action').forEach((button) => {
-        button.addEventListener('click', showAndHideSecondLevelMenu, false);
+        button.addEventListener('click', switchSubMenuDisplay, false);
     });
 
     secondLevelMenuNode.querySelector('.ibexa-main-menu__toggler').addEventListener('click', toggleSecondLevelMenu, false);
