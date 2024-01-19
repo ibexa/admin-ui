@@ -5,10 +5,6 @@
 
 {% block body_class %}ibexa-user-settings-update-view{% endblock %}
 
-{% set anchor_params = {
-    close_href: path('ibexa.user_settings.list'),
-} %}
-
 {% block header %}
     {% set user_setting_update_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_setting_update.sidebar_right', [], {'user_setting': user_setting}) %}
 
@@ -34,6 +30,7 @@
                 </div>
             {% endfor %}
             {{ form_widget(form.update, {'attr': {'hidden': 'hidden'}}) }}
+            {{ form_widget(form.update_and_edit, { attr: { hidden: 'hidden' }}) }}
         {{ form_end(form) }}
     </div>
 {% endblock %}

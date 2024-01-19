@@ -35,7 +35,7 @@ class ContentTypeEditRightSidebarBuilder extends AbstractContentTypeRightSidebar
         return [
             (new Message(self::ITEM__SAVE, 'ibexa_menu'))->setDesc('Save and close'),
             (new Message(self::ITEM__PUBLISH_AND_EDIT, 'ibexa_menu'))->setDesc('Save'),
-            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Delete draft'),
+            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard'),
         ];
     }
 

@@ -17,6 +17,7 @@
                     sublabel: item.sublabel|default(null),
                     branch: item.branch|default(null),
                     item_attr: item.item_attr|default({}),
+                    action_attr: item.action_attr|default({}),
                 }) -%}
 
                 {%- include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_item.html.twig'

@@ -18,6 +18,8 @@
             this.handleItemWithSubitemsClick = this.handleItemWithSubitemsClick.bind(this);
 
             doc.addEventListener('click', this.handleClickOutside, false);
+
+            ibexa.helpers.objectInstances.setInstance(this.container, this);
         }
 
         init() {
