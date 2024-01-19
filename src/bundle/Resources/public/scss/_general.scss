@@ -208,3 +208,10 @@ select {
         padding: 0;
     }
 }
+
+.ibexa-safari-tooltip {
+    &::before {
+        content: '';
+        display: block;
+    }
+}
