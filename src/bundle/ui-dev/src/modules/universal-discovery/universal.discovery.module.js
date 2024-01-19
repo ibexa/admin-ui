@@ -551,7 +551,7 @@ const UniversalDiscoveryModule = (props) => {
 
 UniversalDiscoveryModule.propTypes = {
     onConfirm: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
+    onCancel: PropTypes.func,
     title: PropTypes.string.isRequired,
     activeTab: PropTypes.string,
     rootLocationId: PropTypes.number,
@@ -590,6 +590,7 @@ UniversalDiscoveryModule.propTypes = {
 };
 
 UniversalDiscoveryModule.defaultProps = {
+    onCancel: null,
     activeTab: 'browse',
     rootLocationId: 1,
     startingLocationId: null,

@@ -36,7 +36,7 @@ const TreeView = ({ itemsPerPage }) => {
     const restInfo = useContext(RestInfoContext);
     const rootLocationId = useContext(RootLocationIdContext);
     const locationData = useMemo(() => getLocationData(loadedLocationsMap, markedLocationId), [markedLocationId, loadedLocationsMap]);
-    const userId = adminUiConfig.userId ?? getUserId();
+    const userId = getUserId();
     const expandItem = (item, event) => {
         event.preventDefault();
         event.currentTarget.closest('.c-list-item__row').querySelector('.c-list-item__toggler').click();

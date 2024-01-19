@@ -114,7 +114,7 @@
         }
     }
 
-    &--expanded &__items {
+    &--expanded .c-simple-dropdown__items {
         opacity: 1;
         height: auto;
     }
