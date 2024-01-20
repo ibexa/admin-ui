@@ -261,6 +261,16 @@
         <target state="new">Assigning users and groups</target>
         <note>key: role_assignment.view.add.title</note>
       </trans-unit>
+      <trans-unit id="a21a7a13956cadf2256095fbdd062f1b33dd05a8" resname="role_assignment.view.list.action.add">
+        <source>Assign to Users/Groups</source>
+        <target state="new">Assign to Users/Groups</target>
+        <note>key: role_assignment.view.list.action.add</note>
+      </trans-unit>
+      <trans-unit id="76361d414c957ff63dcfdaf4490b3e9a2c632750" resname="role_assignment.view.list.action.delete">
+        <source>Unassign</source>
+        <target state="new">Unassign</target>
+        <note>key: role_assignment.view.list.action.delete</note>
+      </trans-unit>
       <trans-unit id="5111796ffacfccc152f157c56a6e7219d35c3fd8" resname="role_assignment.view.list.header">
         <source>Users and Groups</source>
         <target state="new">Users and Groups</target>
@@ -305,6 +315,16 @@
         <source>Users</source>
         <target state="new">Users</target>
         <note>key: role_assignment.view.type.users</note>
+      </trans-unit>
+      <trans-unit id="dbf106b93a7e7d51edb35af32e96fa6b6196dd64" resname="role_assignments.modal.delete_label">
+        <source>Unassign</source>
+        <target state="new">Unassign</target>
+        <note>key: role_assignments.modal.delete_label</note>
+      </trans-unit>
+      <trans-unit id="304836ca19b0d01940431c18b955ae028a6110f9" resname="role_assignments.modal.message">
+        <source>Do you want to unassign the Users/Groups?</source>
+        <target state="new">Do you want to unassign the Users/Groups?</target>
+        <note>key: role_assignments.modal.message</note>
       </trans-unit>
       <trans-unit id="e9f659f5717d317c994c7950c14bcb4be644062c" resname="tab.roles.limitation">
         <source>Limitation</source>

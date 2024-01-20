@@ -58,6 +58,8 @@
     } %}
         {% block header %}
             {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
+                {% trans_default_domain 'ibexa_role' %}
+
                 {% block actions %}
                     {% if can_assign %}
                         <a
@@ -90,6 +92,7 @@
                             'id': modal_data_target,
                             'message': 'role_assignments.modal.message'|trans|desc('Do you want to unassign the Users/Groups?'),
                             'data_click': '#role_assignments_delete_delete',
+                            'delete_label': 'role_assignments.modal.delete_label'|trans|desc('Unassign'),
                         }%}
                     {% endif %}
                 {% endblock %}
