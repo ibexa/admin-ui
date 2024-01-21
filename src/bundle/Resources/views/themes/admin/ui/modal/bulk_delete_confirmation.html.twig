@@ -9,7 +9,10 @@
     {% endblock %}
     {% block footer_content %}
         <button class="btn ibexa-btn ibexa-btn--primary ibexa-btn--trigger" data-click="{{ data_click }}">
-            {{ 'modal.delete'|trans|desc('Delete') }}
+            {% if not delete_label is defined %}
+                {% set delete_label = 'modal.delete'|trans|desc('Delete') %}
+            {% endif %}
+            {{ delete_label }}
         </button>
         <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
             {{ 'modal.cancel'|trans|desc('Cancel') }}
