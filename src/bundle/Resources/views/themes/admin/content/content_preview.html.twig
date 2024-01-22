@@ -38,7 +38,7 @@
         </div>
         <div class="ibexa-preview-header__item ibexa-preview-header__item--siteaccess">
             {% set value = '' %}
-            {% set choices = siteaccesses|map((site_access_name, site_access_label) => {
+            {% set choices = siteaccesses|map((site_access_label, site_access_name) => {
                 value: path(
                     'ibexa.version.preview',
                     {
