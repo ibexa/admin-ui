@@ -123,7 +123,7 @@ const initializeTooltip = (tooltipNode, hasEllipsisStyle) => {
         show: delayShow ? parseInt(delayShow, 10) : 150,
         hide: delayHide ? parseInt(delayHide, 10) : 75,
     };
-    const title = tooltipNode.title;
+    const { title } = tooltipNode;
     const extraClass = tooltipNode.dataset.tooltipExtraClass ?? '';
     const placement = tooltipNode.dataset.tooltipPlacement ?? 'bottom';
     const trigger = tooltipNode.dataset.tooltipTrigger ?? 'hover';
