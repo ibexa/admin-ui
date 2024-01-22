@@ -43,7 +43,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @Then Content Type has proper Global properties
+     * @Then content type has proper Global properties
      */
     public function contentTypeHasProperGlobalProperties(TableNode $table): void
     {
@@ -53,7 +53,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @When I create a new Content Type
+     * @When I create a new content type
      */
     public function createNewContentType(): void
     {
@@ -61,7 +61,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @When I create a new Content Type group
+     * @When I create a new content type group
      */
     public function createNewContentTypeGroup(): void
     {
@@ -69,7 +69,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @Then Content Type :contentTypeName has proper fields
+     * @Then content type :contentTypeName has proper fields
      */
     public function contentTypeHasProperFields(TableNode $table): void
     {
@@ -81,7 +81,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @Given there's no :contentTypeName on Content Types list
+     * @Given there's no :contentTypeName on content types list
      */
     public function thereSNoOnContentTypesList($contentTypeName)
     {
@@ -89,7 +89,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @Given there's no :contentTypeGroupName Content Type group on Content Type groups list
+     * @Given there's no :contentTypeGroupName content type group on content type groups list
      */
     public function thereSNoOnContentTypesGroupList($contentTypeGroupName)
     {
@@ -97,7 +97,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @Given there's a :contentTypeGroupName Content Type group on Content Type groups list
+     * @Given there's a :contentTypeGroupName content type group on content type groups list
      */
     public function thereSAOnContentTypesGroupList($contentTypeGroupName)
     {
@@ -105,7 +105,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @Given there's a :contentTypeName on Content Types list
+     * @Given there's a :contentTypeName on content types list
      */
     public function thereAContentTypeOnContentTypesList($contentTypeName)
     {
@@ -113,7 +113,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @When I select :categoryName category to Content Type definition
+     * @When I select :categoryName category to content type definition
      */
     public function iSelectCategory(string $categoryName): void
     {
@@ -123,7 +123,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @When I add field :fieldName to Content Type definition
+     * @When I add field :fieldName to content type definition
      */
     public function iAddField(string $fieldName): void
     {
@@ -139,7 +139,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @When I start editing Content Type :contentTypeName
+     * @When I start editing content type :contentTypeName
      */
     public function iStartEditingItem(string $contentTypeName): void
     {
@@ -147,7 +147,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @When I start editing Content Type group :contentTypeGroupName
+     * @When I start editing content type group :contentTypeGroupName
      */
     public function iStartEditingContentTypeGroup(string $contentTypeGroupName): void
     {
@@ -155,7 +155,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @When I delete :contentTypeName Content Type
+     * @When I delete :contentTypeName content type
      */
     public function iDeleteContentType(string $contentTypeName)
     {
@@ -163,7 +163,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @When I delete :contentTypeGroupName from Content Type groups
+     * @When I delete :contentTypeGroupName from content type groups
      */
     public function iDeleteContentTypeGroup(string $contentTypeGroupName)
     {
@@ -171,7 +171,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @Given I'm on Content Type Page for :contentTypeGroup group
+     * @Given I'm on content type Page for :contentTypeGroup group
      */
     public function iMOnContentTypePageFor(string $contentTypeGroup)
     {
@@ -181,7 +181,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @Then I should be on Content Type group page for :contentTypeGroup group
+     * @Then I should be on content type group page for :contentTypeGroup group
      */
     public function iShouldBeOnContentTypeGroupPage($contentTypeGroup)
     {
@@ -190,7 +190,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @Then I should be on Content Type page for :contentTypeName
+     * @Then I should be on content type page for :contentTypeName
      */
     public function iShouldBeOnContentTypePage(string $contentTypeName)
     {
@@ -199,7 +199,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @Then there're no Content Types for that group
+     * @Then there're no content types for that group
      */
     public function thereAreNoContentTypes()
     {
@@ -207,7 +207,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @Then there's an empty :contentTypeGroupName Content Type group on Content Type groups list
+     * @Then there's an empty :contentTypeGroupName content type group on content type groups list
      */
     public function thereIsAnEmptyContentTypeGroup(string $contentTypeGroupName)
     {
@@ -215,7 +215,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @Then there's non-empty :contentTypeGroupName Content Type group on Content Type groups list
+     * @Then there's non-empty :contentTypeGroupName content type group on content type groups list
      */
     public function thereIsANonEmptyContentTypeGroup(string $contentTypeGroupName)
     {
@@ -223,7 +223,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @Then Content Type group :contentTypeGroupName cannot be selected
+     * @Then content type group :contentTypeGroupName cannot be selected
      */
     public function contentTypeGroupCannotBeSelected(string $contentTypeGroupName)
     {

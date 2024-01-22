@@ -11,5 +11,5 @@ export const loadContentTypes = (contentTypeIds, callback) => {
     fetch(request)
         .then(handleRequestResponse)
         .then(callback)
-        .catch(() => window.ibexa.helpers.notification.showErrorNotification('Cannot load Content Types'));
+        .catch(() => window.ibexa.helpers.notification.showErrorNotification('Cannot load content types'));
 };

@@ -98,7 +98,7 @@ class PolicyTranslationExtractor implements ExtractorInterface
      */
     private function humanize(string $text): string
     {
-        $replace = ['Content Type'];
+        $replace = ['Content type'];
         $search = ['class'];
 
         return ucfirst(trim(str_replace($search, $replace, strtolower(preg_replace(['/([A-Z])/', '/[_\s]+/'], ['_$1', ' '], $text)))));

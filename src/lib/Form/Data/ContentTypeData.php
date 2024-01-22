@@ -141,11 +141,11 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
     {
         return [
             Message::create('ez.content_type.descriptions', 'validators')
-                ->setDesc('Content Type description cannot be longer than 255 characters.'),
+                ->setDesc('Content type description cannot be longer than 255 characters.'),
             Message::create('ez.content_type.identifier.pattern', 'validators')
-                ->setDesc('Content Type identifier may only contain letters from "a" to "z", numbers and underscores.'),
+                ->setDesc('Content type identifier may only contain letters from "a" to "z", numbers and underscores.'),
             Message::create('ez.content_type.names', 'validators')
-                ->setDesc('Content Type name cannot be blank and cannot be longer than 255 characters.'),
+                ->setDesc('Content type name cannot be blank and cannot be longer than 255 characters.'),
         ];
     }
 }

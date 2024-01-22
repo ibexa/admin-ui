@@ -403,7 +403,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             (new Message(self::ITEM_ADMIN__SECTIONS, 'ibexa_menu'))->setDesc('Sections'),
             (new Message(self::ITEM_ADMIN__ROLES, 'ibexa_menu'))->setDesc('Roles'),
             (new Message(self::ITEM_ADMIN__LANGUAGES, 'ibexa_menu'))->setDesc('Languages'),
-            (new Message(self::ITEM_ADMIN__CONTENT_TYPES, 'ibexa_menu'))->setDesc('Content Types'),
+            (new Message(self::ITEM_ADMIN__CONTENT_TYPES, 'ibexa_menu'))->setDesc('Content types'),
             (new Message(self::ITEM_ADMIN__USERS, 'ibexa_menu'))->setDesc('Users'),
             (new Message(self::ITEM_ADMIN__OBJECT_STATES, 'ibexa_menu'))->setDesc('Object States'),
             (new Message(self::ITEM_ADMIN__URL_MANAGEMENT, 'ibexa_menu'))->setDesc('URL management'),

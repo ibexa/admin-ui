@@ -42,8 +42,8 @@
         <note>key: search</note>
       </trans-unit>
       <trans-unit id="2c0d71c1688c1f04ff156bb9dff167ca5ae663b6" resname="search.any.content.type">
-        <source>Any Content Type</source>
-        <target state="new">Any Content Type</target>
+        <source>Any content type</source>
+        <target state="new">Any content type</target>
         <note>key: search.any.content.type</note>
       </trans-unit>
       <trans-unit id="08232f4c5c3ca88a7f2fd8e29eda7e20ec346aae" resname="search.any_time">
@@ -62,8 +62,8 @@
         <note>key: search.clear</note>
       </trans-unit>
       <trans-unit id="52574f2c1d5e0b3ffcd4f105b770e91ae1e519fa" resname="search.content.type">
-        <source>Content Type</source>
-        <target state="new">Content Type</target>
+        <source>Content type</source>
+        <target state="new">Content type</target>
         <note>key: search.content.type</note>
       </trans-unit>
       <trans-unit id="738c66eb92535505455b34b383f8089fb1bc0479" resname="search.created">
@@ -207,8 +207,8 @@
         <note>key: search.translation</note>
       </trans-unit>
       <trans-unit id="0c9866a19fd5d3074bdb05b339df05b7c05a5661" resname="search.type">
-        <source>Content Type</source>
-        <target state="new">Content Type</target>
+        <source>Content type</source>
+        <target state="new">Content type</target>
         <note>key: search.type</note>
       </trans-unit>
     </body>

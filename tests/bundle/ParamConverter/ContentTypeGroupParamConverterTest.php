@@ -35,7 +35,7 @@ class ContentTypeGroupParamConverterTest extends AbstractParamConverterTest
      * @dataProvider dataProvider
      *
      * @param mixed $contentTypeGroupId The identifier fetched from the request
-     * @param int $contentTypeGroupIdToLoad The identifier used to load the Content Type Group
+     * @param int $contentTypeGroupIdToLoad The identifier used to load the content type Group
      */
     public function testApply($contentTypeGroupId, int $contentTypeGroupIdToLoad)
     {
@@ -77,7 +77,7 @@ class ContentTypeGroupParamConverterTest extends AbstractParamConverterTest
 
         $this->expectException(NotFoundHttpException::class);
         $this->expectExceptionMessage(
-            sprintf('Content Type group %s not found.', $contentTypeGroupId)
+            sprintf('Content type group %s not found.', $contentTypeGroupId)
         );
 
         $this->serviceMock

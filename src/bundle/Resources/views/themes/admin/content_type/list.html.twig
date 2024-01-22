@@ -89,7 +89,7 @@
         ],
         body_rows,
         show_notice: show_table_notice,
-        notice_message: 'content_type.view.list.cannot_delete_notice'|trans|desc('You cannot delete the disabled Content Types, because Content items of those types exist.'),
+        notice_message: 'content_type.view.list.cannot_delete_notice'|trans|desc('You cannot delete the disabled content types, because Content items of those types exist.'),
     } %}
         {% block header %}
             {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
@@ -113,7 +113,7 @@
                         </button>
                         {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                             'id': modal_data_target,
-                            'message': 'content_type.modal.message'|trans|desc('Do you want to delete the Content Type?'),
+                            'message': 'content_type.modal.message'|trans|desc('Do you want to delete the content type?'),
                             'data_click': '#content_types_delete_delete',
                         }%}
                     {% endif %}

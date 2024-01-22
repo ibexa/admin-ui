@@ -50,7 +50,7 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
             try {
                 $values[] = $this->contentTypeService->loadContentType($contentTypeId);
             } catch (NotFoundException $e) {
-                $this->logger->error(sprintf('Could not map the Limitation value: could not find a Content Type with ID %s', $contentTypeId));
+                $this->logger->error(sprintf('Could not map the Limitation value: could not find a content type with ID %s', $contentTypeId));
             }
         }
 
@@ -63,15 +63,15 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('class'),
                 'ibexa_content_forms_policies'
-            )->setDesc('Content Type'),
+            )->setDesc('Content type'),
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('parentclass'),
                 'ibexa_content_forms_policies'
-            )->setDesc('Content Type of Parent'),
+            )->setDesc('Content type of Parent'),
             Message::create(
                 LimitationIdentifierToLabelConverter::convert('parentgroup'),
                 'ibexa_content_forms_policies'
-            )->setDesc('Content Type Group of Parent'),
+            )->setDesc('Content type group of Parent'),
         ];
     }
 }

@@ -64,7 +64,7 @@ class ContentTypeCreateType extends AbstractType
                     }
                 ),
             ])
-            ->add('create', SubmitType::class, ['label' => /** @Desc("Create a Content Type") */ 'content_type.create']);
+            ->add('create', SubmitType::class, ['label' => /** @Desc("Create a content type") */ 'content_type.create']);
     }
 }
 

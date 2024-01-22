@@ -32,8 +32,8 @@
         <note>key: editing_details</note>
       </trans-unit>
       <trans-unit id="009667fab56f0bec66634f009a75ffd9425f2987" resname="fieldtype.translation_is_disabled">
-        <source>Translating the %fieldName% Field is disabled. See Content Type definition for details.</source>
-        <target state="new">Translating the %fieldName% Field is disabled. See Content Type definition for details.</target>
+        <source>Translating the %fieldName% Field is disabled. See content type definition for details.</source>
+        <target state="new">Translating the %fieldName% Field is disabled. See content type definition for details.</target>
         <note>key: fieldtype.translation_is_disabled</note>
       </trans-unit>
       <trans-unit id="39b4081643351e2a41c1b3b811b6dc78fb528520" resname="on_the_fly.cancel">

@@ -17,8 +17,8 @@
         <note>key: content_type.action.edit</note>
       </trans-unit>
       <trans-unit id="0a08ba6425acc6e52b75ebbe0b77d90df5cb81a1" resname="content_type.add.missing_language">
-        <source>Cannot create Content Type. Could not find language with identifier '%languageCode%'</source>
-        <target state="new">Cannot create Content Type. Could not find language with identifier '%languageCode%'</target>
+        <source>Cannot create content type. Could not find language with identifier '%languageCode%'</source>
+        <target state="new">Cannot create content type. Could not find language with identifier '%languageCode%'</target>
         <note>key: content_type.add.missing_language</note>
       </trans-unit>
       <trans-unit id="5626938e64bdad8be0c090d0018c868960859d0a" resname="content_type.breadcrumb.view">
@@ -37,18 +37,18 @@
         <note>key: content_type.content_field_definitions</note>
       </trans-unit>
       <trans-unit id="e7a6e28719e705ca85e715114370d15deee0cd59" resname="content_type.copy.error">
-        <source>Content Type '%name%' cannot be copied.</source>
-        <target state="new">Content Type '%name%' cannot be copied.</target>
+        <source>Content type '%name%' cannot be copied.</source>
+        <target state="new">Content type '%name%' cannot be copied.</target>
         <note>key: content_type.copy.error</note>
       </trans-unit>
       <trans-unit id="31674753c7d944af06b98387a96ce93f36f6adb4" resname="content_type.copy.success">
-        <source>Content Type '%name%' copied.</source>
-        <target state="new">Content Type '%name%' copied.</target>
+        <source>Content type '%name%' copied.</source>
+        <target state="new">Content type '%name%' copied.</target>
         <note>key: content_type.copy.success</note>
       </trans-unit>
       <trans-unit id="529a1012c7fe5ca6fafdb5d070ac8ececfe94af6" resname="content_type.create">
-        <source>Create a Content Type</source>
-        <target state="new">Create a Content Type</target>
+        <source>Create a content type</source>
+        <target state="new">Create a content type</target>
         <note>key: content_type.create</note>
       </trans-unit>
       <trans-unit id="7b64ebcf792d888de957eaee1c3734c97c80db98" resname="content_type.default_always_available">
@@ -97,8 +97,8 @@
         <note>key: content_type.delete</note>
       </trans-unit>
       <trans-unit id="5ecc210ad42274409db7ec4e56ba286b487639c6" resname="content_type.delete.success">
-        <source>Content Type '%name%' deleted.</source>
-        <target state="new">Content Type '%name%' deleted.</target>
+        <source>Content type '%name%' deleted.</source>
+        <target state="new">Content type '%name%' deleted.</target>
         <note>key: content_type.delete.success</note>
       </trans-unit>
       <trans-unit id="f2a3cc77cdadcff8883b0022e006e24918307687" resname="content_type.description">
@@ -107,8 +107,8 @@
         <note>key: content_type.description</note>
       </trans-unit>
       <trans-unit id="2f9cb676bb073af7a8e4b52b374384dfc0aa9551" resname="content_type.edit.error.already_exists">
-        <source>Draft of Content Type '%name%' already exists and is locked by '%userContentName%'</source>
-        <target state="new">Draft of Content Type '%name%' already exists and is locked by '%userContentName%'</target>
+        <source>Draft of content type '%name%' already exists and is locked by '%userContentName%'</source>
+        <target state="new">Draft of content type '%name%' already exists and is locked by '%userContentName%'</target>
         <note>key: content_type.edit.error.already_exists</note>
       </trans-unit>
       <trans-unit id="bafafe330e90f8d93a41e93801984fed4c79512e" resname="content_type.edit.error.no_added_fields_definition">
@@ -212,13 +212,13 @@
         <note>key: content_type.sort_field.5</note>
       </trans-unit>
       <trans-unit id="f75919a228809d6de255e3fd535c4eaaf8789241" resname="content_type.sort_field.6">
-        <source>Content Type identifier</source>
-        <target state="new">Content Type identifier</target>
+        <source>Content type identifier</source>
+        <target state="new">Content type identifier</target>
         <note>key: content_type.sort_field.6</note>
       </trans-unit>
       <trans-unit id="f4bd88a45172f3cf7e268c40cfc27b0c5336bc9b" resname="content_type.sort_field.7">
-        <source>Content Type name</source>
-        <target state="new">Content Type name</target>
+        <source>Content type name</source>
+        <target state="new">Content type name</target>
         <note>key: content_type.sort_field.7</note>
       </trans-unit>
       <trans-unit id="d605ada5b53c58b7d08df3379cdc8c9ffc619a3f" resname="content_type.sort_field.8">
@@ -297,8 +297,8 @@
         <note>key: content_type.sort_order.1</note>
       </trans-unit>
       <trans-unit id="48d3eb66c0f8928777189eab11eae254866852b2" resname="content_type.update.success">
-        <source>Content Type '%name%' updated.</source>
-        <target state="new">Content Type '%name%' updated.</target>
+        <source>Content type '%name%' updated.</source>
+        <target state="new">Content type '%name%' updated.</target>
         <note>key: content_type.update.success</note>
       </trans-unit>
       <trans-unit id="6ab7362c77b22ff8bc0d14eeaae8514b0a683473" resname="content_type.url_alias_schema">
@@ -332,8 +332,8 @@
         <note>key: content_type.view.edit.global_properties</note>
       </trans-unit>
       <trans-unit id="36fb0205d165f72c996205435b5a06ba42695bb6" resname="content_type.view.edit.notranslatable_fields_disabled">
-        <source>Some of the Fields are disabled when translating a Content Type. To modify them, edit the Content Type in the main language.</source>
-        <target state="new">Some of the Fields are disabled when translating a Content Type. To modify them, edit the Content Type in the main language.</target>
+        <source>Some of the Fields are disabled when translating a content type. To modify them, edit the content type in the main language.</source>
+        <target state="new">Some of the Fields are disabled when translating a content type. To modify them, edit the content type in the main language.</target>
         <note>key: content_type.view.edit.notranslatable_fields_disabled</note>
       </trans-unit>
       <trans-unit id="803a61fc8cf4e7bdfcf27432bb35e379a4971134" resname="content_type.view.list.action.add">
@@ -342,8 +342,8 @@
         <note>key: content_type.view.list.action.add</note>
       </trans-unit>
       <trans-unit id="da5f710198c48c803b3d0e2272e488903f92e569" resname="content_type.view.list.cannot_delete_notice">
-        <source>You cannot delete the disabled Content Types, because Content items of those types exist.</source>
-        <target state="new">You cannot delete the disabled Content Types, because Content items of those types exist.</target>
+        <source>You cannot delete the disabled content types, because Content items of those types exist.</source>
+        <target state="new">You cannot delete the disabled content types, because Content items of those types exist.</target>
         <note>key: content_type.view.list.cannot_delete_notice</note>
       </trans-unit>
       <trans-unit id="bef02fc3d41e74bf002af93b413a2a203a04db1a" resname="content_type.view.list.column.id">
@@ -372,8 +372,8 @@
         <note>key: content_type.view.view.title</note>
       </trans-unit>
       <trans-unit id="83a16866c8ff14a4966553088657aafbb9db8edb" resname="content_type_group.breadcrumb.list">
-        <source>Content Types</source>
-        <target state="new">Content Types</target>
+        <source>Content types</source>
+        <target state="new">Content types</target>
         <note>key: content_type_group.breadcrumb.list</note>
       </trans-unit>
       <trans-unit id="541e02854f7e561d84637ce99ec6fd6e8404bce4" resname="content_type_group.breadcrumb.view">
@@ -397,8 +397,8 @@
         <note>key: content_type_group.create.submit</note>
       </trans-unit>
       <trans-unit id="00f7021226b49438a6e4b36cfd212b9553deb762" resname="content_type_group.create.success">
-        <source>Created Content Type group '%name%'.</source>
-        <target state="new">Created Content Type group '%name%'.</target>
+        <source>Created content type group '%name%'.</source>
+        <target state="new">Created content type group '%name%'.</target>
         <note>key: content_type_group.create.success</note>
       </trans-unit>
       <trans-unit id="eec79e4a9109f28892797768f085eab39eaedc31" resname="content_type_group.delete.submit">
@@ -407,13 +407,13 @@
         <note>key: content_type_group.delete.submit</note>
       </trans-unit>
       <trans-unit id="7d3672fcf2f0e1982152c4e6759bd03143f9f028" resname="content_type_group.delete.success">
-        <source>Deleted Content Type group '%name%'.</source>
-        <target state="new">Deleted Content Type group '%name%'.</target>
+        <source>Deleted content type group '%name%'.</source>
+        <target state="new">Deleted content type group '%name%'.</target>
         <note>key: content_type_group.delete.success</note>
       </trans-unit>
       <trans-unit id="f9cf70fcb6c6aef73a8a39eb0a9cd4e71c11b5ba" resname="content_type_group.edit.action_name">
-        <source>Editing Content Type group</source>
-        <target state="new">Editing Content Type group</target>
+        <source>Editing content type group</source>
+        <target state="new">Editing content type group</target>
         <note>key: content_type_group.edit.action_name</note>
       </trans-unit>
       <trans-unit id="cd6124f27c9a5743763f9a49cfc160d34723d713" resname="content_type_group.new.action_name">
@@ -437,8 +437,8 @@
         <note>key: content_type_group.update.submit</note>
       </trans-unit>
       <trans-unit id="ff50d4b8d26d81f538b0ebabc392cbb05b6da162" resname="content_type_group.update.success">
-        <source>Updated Content Type group '%name%'.</source>
-        <target state="new">Updated Content Type group '%name%'.</target>
+        <source>Updated content type group '%name%'.</source>
+        <target state="new">Updated content type group '%name%'.</target>
         <note>key: content_type_group.update.success</note>
       </trans-unit>
       <trans-unit id="8eb8668549f90436db605805680144f4b87c7fc0" resname="content_type_group.view.list.action.add">
@@ -452,13 +452,13 @@
         <note>key: content_type_group.view.list.action.edit</note>
       </trans-unit>
       <trans-unit id="5aa9caad73d044de86886dd25688b5d1267c1f6b" resname="content_type_group.view.list.cannot_delete_notice">
-        <source>You cannot delete the disabled Content Type groups, because they contain Content Types.</source>
-        <target state="new">You cannot delete the disabled Content Type groups, because they contain Content Types.</target>
+        <source>You cannot delete the disabled content type groups, because they contain content types.</source>
+        <target state="new">You cannot delete the disabled content type groups, because they contain content types.</target>
         <note>key: content_type_group.view.list.cannot_delete_notice</note>
       </trans-unit>
       <trans-unit id="125bee275441fe2bd28cb9388b790c634d8ae3c6" resname="content_type_group.view.list.column.content_types_count">
-        <source>Number of Content Types</source>
-        <target state="new">Number of Content Types</target>
+        <source>Number of content types</source>
+        <target state="new">Number of content types</target>
         <note>key: content_type_group.view.list.column.content_types_count</note>
       </trans-unit>
       <trans-unit id="cd462ce30cd4d0b21393e24ca2c9e974369c1f57" resname="content_type_group.view.list.column.id">
@@ -472,13 +472,13 @@
         <note>key: content_type_group.view.list.column.identifier</note>
       </trans-unit>
       <trans-unit id="9522e89ad894375dcf878ae282bdd793946fc375" resname="content_type_group.view.list.title">
-        <source>Content Type groups</source>
-        <target state="new">Content Type groups</target>
+        <source>Content type groups</source>
+        <target state="new">Content type groups</target>
         <note>key: content_type_group.view.list.title</note>
       </trans-unit>
       <trans-unit id="b857ebe01d0a852bd8e10d599e75004fb961f1d5" resname="content_type_group.view.new.title">
-        <source>New Content Type group</source>
-        <target state="new">New Content Type group</target>
+        <source>New content type group</source>
+        <target state="new">New content type group</target>
         <note>key: content_type_group.view.new.title</note>
       </trans-unit>
       <trans-unit id="1769b5258d896d9ccb207c09e04534ce9a01c571" resname="content_type_group.view.view.title">
@@ -492,13 +492,13 @@
         <note>key: creating</note>
       </trans-unit>
       <trans-unit id="3e8769270428f8e66f5880d772f45e09d2c88aa0" resname="creating.title">
-        <source>New Content type</source>
-        <target state="new">New Content type</target>
+        <source>New content type</source>
+        <target state="new">New content type</target>
         <note>key: creating.title</note>
       </trans-unit>
       <trans-unit id="6b7aac07f7af9bb4762fd3a87ff0a9df02921f7a" resname="editing_content_type">
-        <source>Editing Content type</source>
-        <target state="new">Editing Content type</target>
+        <source>Editing content type</source>
+        <target state="new">Editing content type</target>
         <note>key: editing_content_type</note>
       </trans-unit>
       <trans-unit id="f99cc628dc4d82c5ee69eae79039a2f449eec064" resname="field_definition.description">
@@ -697,8 +697,8 @@
         <note>key: field_definition.ezobjectrelation.root_default_location</note>
       </trans-unit>
       <trans-unit id="fabc9be57b82439dac2f612b9c2a171eb7ce6e04" resname="field_definition.ezobjectrelation.selection_content_types">
-        <source>Allowed Content Types</source>
-        <target state="new">Allowed Content Types</target>
+        <source>Allowed content types</source>
+        <target state="new">Allowed content types</target>
         <note>key: field_definition.ezobjectrelation.selection_content_types</note>
       </trans-unit>
       <trans-unit id="440d8fe80bb8a07b62f17d843721285b2cf8a4d5" resname="field_definition.ezobjectrelation.selection_root">
@@ -727,8 +727,8 @@
         <note>key: field_definition.ezobjectrelationlist.root_default_location</note>
       </trans-unit>
       <trans-unit id="7e061dc7c88fe38c11714695d4034f935788efb3" resname="field_definition.ezobjectrelationlist.selection_content_types">
-        <source>Allowed Content Types</source>
-        <target state="new">Allowed Content Types</target>
+        <source>Allowed content types</source>
+        <target state="new">Allowed content types</target>
         <note>key: field_definition.ezobjectrelationlist.selection_content_types</note>
       </trans-unit>
       <trans-unit id="b08d97ea9175eef7352c7e9c5c8ee0516798bdfa" resname="field_definition.ezobjectrelationlist.selection_default_location">
@@ -922,8 +922,8 @@
         <note>key: location_update_form.update</note>
       </trans-unit>
       <trans-unit id="8c2261eecf1e143eaf524c34f4f89608929c5c81" resname="meta.enabled">
-        <source>Enable %type% for this Content Type</source>
-        <target state="new">Enable %type% for this Content Type</target>
+        <source>Enable %type% for this content type</source>
+        <target state="new">Enable %type% for this content type</target>
         <note>key: meta.enabled</note>
       </trans-unit>
       <trans-unit id="fd1286353570c5703799ba76999323b7c7447b06" resname="no">

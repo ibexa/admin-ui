@@ -60,7 +60,7 @@ class ContentTypePage extends Page
 
     public function getName(): string
     {
-        return 'Content Type';
+        return 'Content type';
     }
 
     public function verifyIsLoaded(): void

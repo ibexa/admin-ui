@@ -57,8 +57,8 @@
         <note>key: dashboard.table.content.edit</note>
       </trans-unit>
       <trans-unit id="e17a8999c9e44b7e8ea1ba0f5cff596ece264da5" resname="dashboard.table.content_type">
-        <source>Content Type</source>
-        <target state="new">Content Type</target>
+        <source>Content type</source>
+        <target state="new">Content type</target>
         <note>key: dashboard.table.content_type</note>
       </trans-unit>
       <trans-unit id="841a1c1c491e1adec03ce7e9476879c4bb32edb7" resname="dashboard.table.contributor">
@@ -92,8 +92,8 @@
         <note>key: dashboard.table.media.edit</note>
       </trans-unit>
       <trans-unit id="0ccebfdea2e8be0bcae0f3cab3f3db5ef47d71c8" resname="dashboard.table.modified_language">
-        <source>Modified Language</source>
-        <target state="new">Modified Language</target>
+        <source>Modified language</source>
+        <target state="new">Modified language</target>
         <note>key: dashboard.table.modified_language</note>
       </trans-unit>
       <trans-unit id="8ba6a26d5deb87771ede293eccde417dfafb8c67" resname="dashboard.table.name">

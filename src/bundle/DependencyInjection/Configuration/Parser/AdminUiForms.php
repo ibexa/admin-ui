@@ -97,7 +97,7 @@ class AdminUiForms extends AbstractParser
                         ->end()
                     ->end()
                     ->arrayNode('content_type_edit')
-                        ->info('Content Type Edit form configuration')
+                        ->info('Content type Edit form configuration')
                         ->children()
                             ->scalarNode('default_meta_field_type_group')
                                 ->info('Group name used to add meta field types')

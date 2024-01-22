@@ -13,7 +13,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
- * Translates Content Type's identifier to domain specific ContentType object.
+ * Translates content type's identifier to domain specific ContentType object.
  */
 class ContentTypeTransformer implements DataTransformerInterface
 {

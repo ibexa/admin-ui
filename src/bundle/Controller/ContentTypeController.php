@@ -195,7 +195,7 @@ class ContentTypeController extends Controller
 
         $createStruct = $this->contentTypeService->newContentTypeCreateStruct('__new__' . md5((string)microtime(true)));
         $createStruct->mainLanguageCode = $mainLanguageCode;
-        $createStruct->names = [$mainLanguageCode => 'New Content Type'];
+        $createStruct->names = [$mainLanguageCode => 'New content type'];
 
         $this->metaFieldDefinitionService->addMetaFieldDefinitions(
             $createStruct,
@@ -206,7 +206,7 @@ class ContentTypeController extends Controller
             $contentTypeDraft = $this->contentTypeService->createContentType($createStruct, [$group]);
         } catch (NotFoundException $e) {
             $this->notificationHandler->error(
-                /** @Desc("Cannot create Content Type. Could not find language with identifier '%languageCode%'") */
+                /** @Desc("Cannot create content type. Could not find language with identifier '%languageCode%'") */
                 'content_type.add.missing_language',
                 ['%languageCode%' => $mainLanguageCode],
                 'ibexa_content_type'
@@ -256,7 +256,7 @@ class ContentTypeController extends Controller
                 } catch (BadStateException $e) {
                     $userId = $contentType->modifierId;
                     $this->notificationHandler->error(
-                        /** @Desc("Draft of Content Type '%name%' already exists and is locked by '%userContentName%'") */
+                        /** @Desc("Draft of content type '%name%' already exists and is locked by '%userContentName%'") */
                         'content_type.edit.error.already_exists',
                         ['%name%' => $contentType->getName(), '%userContentName%' => $this->getUserNameById($userId)],
                         'ibexa_content_type'
@@ -314,7 +314,7 @@ class ContentTypeController extends Controller
                 } catch (BadStateException $e) {
                     $userId = $contentType->modifierId;
                     $this->notificationHandler->error(
-                        /** @Desc("Draft of Content Type '%name%' already exists and is locked by '%userContentName%'") */
+                        /** @Desc("Draft of content type '%name%' already exists and is locked by '%userContentName%'") */
                         'content_type.edit.error.already_exists',
                         ['%name%' => $contentType->getName(), '%userContentName%' => $this->getUserNameById($userId)],
                         'ibexa_content_type'
@@ -369,7 +369,7 @@ class ContentTypeController extends Controller
         if ($contentTypeDraft->modifierId !== $this->getUser()->getAPIUser()->getUserId()) {
             $this->notificationHandler->error(
                 $this->translator->trans(
-                    /** @Desc("Draft of Content Type '%name%' already exists and is locked by '%userContentName%'") */
+                    /** @Desc("Draft of content type '%name%' already exists and is locked by '%userContentName%'") */
                     'content_type.edit.error.already_exists',
                     ['%name%' => $contentType->getName(), '%userContentName%' => $this->getUserNameById($contentTypeDraft->modifierId)],
                     'ibexa_content_type'
@@ -442,14 +442,14 @@ class ContentTypeController extends Controller
                     $contentTypeService->copyContentType($contentType);
 
                     $notificationHandler->success(
-                        /** @Desc("Content Type '%name%' copied.") */
+                        /** @Desc("Content type '%name%' copied.") */
                         'content_type.copy.success',
                         ['%name%' => $contentType->getName()],
                         'ibexa_content_type'
                     );
                 } catch (UnauthorizedException $exception) {
                     $notificationHandler->error(
-                        /** @Desc("Content Type '%name%' cannot be copied.") */
+                        /** @Desc("Content type '%name%' cannot be copied.") */
                         'content_type.copy.error',
                         ['%name%' => $contentType->getName()],
                         'ibexa_content_type'
@@ -517,7 +517,7 @@ class ContentTypeController extends Controller
                 }
 
                 $this->notificationHandler->success(
-                    /** @Desc("Content Type '%name%' updated.") */
+                    /** @Desc("Content type '%name%' updated.") */
                     'content_type.update.success',
                     ['%name%' => $contentTypeDraft->getName()],
                     'ibexa_content_type'
@@ -618,7 +618,7 @@ class ContentTypeController extends Controller
                 $this->contentTypeService->deleteContentType($contentType);
 
                 $this->notificationHandler->success(
-                    /** @Desc("Content Type '%name%' deleted.") */
+                    /** @Desc("Content type '%name%' deleted.") */
                     'content_type.delete.success',
                     ['%name%' => $contentType->getName()],
                     'ibexa_content_type'
@@ -663,7 +663,7 @@ class ContentTypeController extends Controller
                     $this->contentTypeService->deleteContentType($contentType);
 
                     $this->notificationHandler->success(
-                        /** @Desc("Content Type '%name%' deleted.") */
+                        /** @Desc("Content type '%name%' deleted.") */
                         'content_type.delete.success',
                         ['%name%' => $contentType->getName()],
                         'ibexa_content_type'

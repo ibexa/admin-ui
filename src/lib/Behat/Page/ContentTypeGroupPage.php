@@ -87,7 +87,7 @@ class ContentTypeGroupPage extends Page
 
     public function hasAssignedContentItems(string $contentTypeGroupName): bool
     {
-        return $this->table->getTableRow(['Name' => $contentTypeGroupName])->getCellValue('Number of Content Types') > 0;
+        return $this->table->getTableRow(['Name' => $contentTypeGroupName])->getCellValue('Number of content types') > 0;
     }
 
     protected function getRoute(): string
@@ -121,7 +121,7 @@ class ContentTypeGroupPage extends Page
 
     public function getName(): string
     {
-        return 'Content Type group';
+        return 'Content type group';
     }
 
     protected function specifyLocators(): array

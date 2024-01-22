@@ -14,7 +14,7 @@ use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Extension for Field Definition list in Content Type editing form.
+ * Extension for Field Definition list in content type editing form.
  *
  * Hooks up event subscriber used to enforce modifying fields for given field type.
  */

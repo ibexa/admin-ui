@@ -37,8 +37,8 @@
         <note>key: drafts.list.action.remove.confirmation.title</note>
       </trans-unit>
       <trans-unit id="b62c11ec52c71a7923851340a98932ed8ac8704b" resname="drafts.list.content_type">
-        <source>Content Type</source>
-        <target state="new">Content Type</target>
+        <source>Content type</source>
+        <target state="new">Content type</target>
         <note>key: drafts.list.content_type</note>
       </trans-unit>
       <trans-unit id="1b21c0ebc62c6a9d0c320a08a9ca807231fab739" resname="drafts.list.empty">
@@ -52,8 +52,8 @@
         <note>key: drafts.list.last_saved</note>
       </trans-unit>
       <trans-unit id="8c65a0cd673fa4c18f7e730f672579ed65debd3c" resname="drafts.list.modified_language">
-        <source>Modified Language</source>
-        <target state="new">Modified Language</target>
+        <source>Modified language</source>
+        <target state="new">Modified language</target>
         <note>key: drafts.list.modified_language</note>
       </trans-unit>
       <trans-unit id="575dff6addd6d92ef7e8699d89b21cba7915ad7c" resname="drafts.list.name">

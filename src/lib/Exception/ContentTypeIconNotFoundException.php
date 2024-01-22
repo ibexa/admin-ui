@@ -15,7 +15,7 @@ class ContentTypeIconNotFoundException extends RuntimeException
 {
     public function __construct($contentType, $code = 0, Exception $previous = null)
     {
-        parent::__construct("No icon found for '$contentType' Content Type", $code, $previous);
+        parent::__construct("No icon found for '$contentType' content type", $code, $previous);
     }
 }
 

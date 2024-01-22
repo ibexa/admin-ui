@@ -18,7 +18,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * KnpMenuBundle Menu Builder service implementation for AdminUI Content Type View contextual sidebar menu.
+ * KnpMenuBundle Menu Builder service implementation for AdminUI content type View contextual sidebar menu.
  *
  * @see https://symfony.com/doc/current/bundles/KnpMenuBundle/menu_builder_service.html
  */

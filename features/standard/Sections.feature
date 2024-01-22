@@ -60,7 +60,7 @@ Feature: Sections management
     Then success notification that "1 Content items assigned to 'Test Section'" appears
     Then I should be on "Test Section" Section page
       And content items list in section "Test Section" contains items
-        | Name        | Content Type | Path  |
+        | Name        | content type | Path  |
         | TestSection | Folder       | Media |
 
   @javascript
@@ -126,7 +126,7 @@ Feature: Sections management
     Then success notification that "1 Content items assigned to 'Media'" appears
     Then I should be on "Media" Section page
     And content items list in section "Media" contains items
-      | Name        | Content Type | Path  |
+      | Name        | content type | Path  |
       | TestSection | Folder       | Media |
     And I open "Test Section edited2" Section page in admin SiteAccess
     And the "Test Section edited2" has no assigned Content Items
