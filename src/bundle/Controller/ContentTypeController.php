@@ -195,7 +195,7 @@ class ContentTypeController extends Controller
 
         $createStruct = $this->contentTypeService->newContentTypeCreateStruct('__new__' . md5((string)microtime(true)));
         $createStruct->mainLanguageCode = $mainLanguageCode;
-        $createStruct->names = [$mainLanguageCode => 'New Content type'];
+        $createStruct->names = [$mainLanguageCode => 'New content type'];
 
         $this->metaFieldDefinitionService->addMetaFieldDefinitions(
             $createStruct,
@@ -206,7 +206,7 @@ class ContentTypeController extends Controller
             $contentTypeDraft = $this->contentTypeService->createContentType($createStruct, [$group]);
         } catch (NotFoundException $e) {
             $this->notificationHandler->error(
-                /** @Desc("Cannot create Content type. Could not find language with identifier '%languageCode%'") */
+                /** @Desc("Cannot create content type. Could not find language with identifier '%languageCode%'") */
                 'content_type.add.missing_language',
                 ['%languageCode%' => $mainLanguageCode],
                 'ibexa_content_type'
@@ -256,7 +256,7 @@ class ContentTypeController extends Controller
                 } catch (BadStateException $e) {
                     $userId = $contentType->modifierId;
                     $this->notificationHandler->error(
-                        /** @Desc("Draft of Content type '%name%' already exists and is locked by '%userContentName%'") */
+                        /** @Desc("Draft of content type '%name%' already exists and is locked by '%userContentName%'") */
                         'content_type.edit.error.already_exists',
                         ['%name%' => $contentType->getName(), '%userContentName%' => $this->getUserNameById($userId)],
                         'ibexa_content_type'
@@ -314,7 +314,7 @@ class ContentTypeController extends Controller
                 } catch (BadStateException $e) {
                     $userId = $contentType->modifierId;
                     $this->notificationHandler->error(
-                        /** @Desc("Draft of Content type '%name%' already exists and is locked by '%userContentName%'") */
+                        /** @Desc("Draft of content type '%name%' already exists and is locked by '%userContentName%'") */
                         'content_type.edit.error.already_exists',
                         ['%name%' => $contentType->getName(), '%userContentName%' => $this->getUserNameById($userId)],
                         'ibexa_content_type'
@@ -369,7 +369,7 @@ class ContentTypeController extends Controller
         if ($contentTypeDraft->modifierId !== $this->getUser()->getAPIUser()->getUserId()) {
             $this->notificationHandler->error(
                 $this->translator->trans(
-                    /** @Desc("Draft of Content type '%name%' already exists and is locked by '%userContentName%'") */
+                    /** @Desc("Draft of content type '%name%' already exists and is locked by '%userContentName%'") */
                     'content_type.edit.error.already_exists',
                     ['%name%' => $contentType->getName(), '%userContentName%' => $this->getUserNameById($contentTypeDraft->modifierId)],
                     'ibexa_content_type'
@@ -636,7 +636,7 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * Handles removing Content types based on submitted form.
+     * Handles removing content types based on submitted form.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group

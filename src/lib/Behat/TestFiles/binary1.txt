@@ -5,7 +5,7 @@ Feature: Content fields setting and editing
 
   @javascript @common @EZP-29291-excluded
   Scenario Outline: Create content item with given field
-    Given a Content Type "<fieldName> CT" with an "<fieldInternalName>" field definition
+    Given a content type "<fieldName> CT" with an "<fieldInternalName>" field definition
       And I am logged as "admin"
       And I go to "Content structure" in "Content" tab
     When I start creating a new content "<fieldName> CT"

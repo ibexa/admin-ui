@@ -6,7 +6,7 @@ Feature: Content fields setting and editing
 
   @javascript @APIUser:admin @contentQuery
   Scenario Outline: Create content item with Content Query field
-    Given I create a "<fieldName> CT" Content Type in "Content" with "<fieldInternalName>" identifier
+    Given I create a "<fieldName> CT" content type in "Content" with "<fieldInternalName>" identifier
       | Field Type  | Name        | Identifier          | Required | Searchable | Translatable | Settings        |
       | <fieldName> | Field       | <fieldInternalName> | no       | no	        | yes          | <fieldSettings> |
       | Text line   | Name        | name	            | no       | yes	    | yes          |                 |

@@ -60,7 +60,7 @@ Feature: Sections management
     Then success notification that "1 Content items assigned to 'Test Section'" appears
     Then I should be on "Test Section" Section page
       And content items list in section "Test Section" contains items
-        | Name        | Content Type | Path  |
+        | Name        | Content type | Path  |
         | TestSection | Folder       | Media |
 
   @javascript

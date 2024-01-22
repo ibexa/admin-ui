@@ -231,7 +231,7 @@ ibexa.role_assignment.bulk_delete:
         roleId: \d+
 
 #
-# Content Type Group
+# Content type Group
 #
 
 ibexa.content_type_group.list:
@@ -305,7 +305,7 @@ ibexa.trash.delete:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\TrashController::deleteAction'
 
 #
-# Content Type
+# Content type
 #
 
 ibexa.content_type.list:

@@ -35,7 +35,7 @@ class ContentTypeGroupParamConverterTest extends AbstractParamConverterTest
      * @dataProvider dataProvider
      *
      * @param mixed $contentTypeGroupId The identifier fetched from the request
-     * @param int $contentTypeGroupIdToLoad The identifier used to load the Content Type Group
+     * @param int $contentTypeGroupIdToLoad The identifier used to load the content type Group
      */
     public function testApply($contentTypeGroupId, int $contentTypeGroupIdToLoad)
     {

@@ -29,7 +29,7 @@ class ContentTypePicker extends Component
         $this->getHTMLPage()->find($this->getLocator('filterInput'))->setValue($contentTypeName);
         $this->getHTMLPage()->setTimeout(3)->waitUntil(function () use ($countBeforeFiltering) {
             return $countBeforeFiltering === 1 || $this->getDisplayedItemsCount() < $countBeforeFiltering;
-        }, 'The number of displayed Content types did not decrease after filtering.');
+        }, 'The number of displayed content types did not decrease after filtering.');
         $this->getHTMLPage()
             ->findAll($this->getLocator('filteredItem'))
             ->getByCriterion(new ElementTextCriterion($contentTypeName))

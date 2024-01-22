@@ -72,7 +72,7 @@ class ContentTypeIsUserTest extends TestCase
     }
 
     /**
-     * Creates Content Type mock with given identifier and field definitions.
+     * Creates content type mock with given identifier and field definitions.
      *
      * @param string $identifier
      * @param array $fieldsType

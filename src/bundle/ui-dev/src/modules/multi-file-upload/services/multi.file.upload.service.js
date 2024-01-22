@@ -57,7 +57,7 @@ const readFile = function (file, resolve, reject) {
 };
 
 /**
- * Finds a Content type mapping based on a file type
+ * Finds a content type mapping based on a file type
  *
  * @function findFileTypeMapping
  * @param {Array} mappings
@@ -87,13 +87,13 @@ const isMimeTypeAllowed = (mappings, file) => !!findFileTypeMapping(mappings, fi
 const checkFileTypeAllowed = (file, locationMapping) => (!locationMapping ? true : isMimeTypeAllowed(locationMapping.mappings, file));
 
 /**
- * Detects a Content type for a given file
+ * Detects a content type for a given file
  *
  * @function detectContentTypeMapping
  * @param {File} file
  * @param {Object} parentInfo
  * @param {Object} config
- * @returns {Object} detected Content type config
+ * @returns {Object} detected content type config
  */
 const detectContentTypeMapping = (file, parentInfo, config) => {
     const locationMapping = config.locationMappings.find((item) => item.contentTypeIdentifier === parentInfo.contentTypeIdentifier);
@@ -103,11 +103,11 @@ const detectContentTypeMapping = (file, parentInfo, config) => {
 };
 
 /**
- * Gets Content type identifier
+ * Gets content type identifier
  *
  * @function getContentTypeByIdentifier
  * @param {Object} params params object containing token and siteaccess properties
- * @param {String} identifier Content type identifier
+ * @param {String} identifier content type identifier
  * @returns {Promise}
  */
 const getContentTypeByIdentifier = ({ token, siteaccess }, identifier) => {
@@ -126,12 +126,12 @@ const getContentTypeByIdentifier = ({ token, siteaccess }, identifier) => {
 };
 
 /**
- * Get Content type field definition by identifier
+ * Get content type field definition by identifier
  *
  * @function getFieldDefinitionByIdentifier
  * @param {Object} params params object containing token and siteaccess properties
- * @param {Int} contentTypeId Content type id
- * @param {String} fieldIdentifier Content type field identifier
+ * @param {Int} contentTypeId content type id
+ * @param {String} fieldIdentifier content type field identifier
  * @returns {Promise}
  */
 const getFieldDefinitionByIdentifier = ({ token, siteaccess }, contentTypeId, fieldIdentifier) => {
@@ -169,7 +169,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
         .catch(() =>
             window.ibexa.helpers.notification.showErrorNotification(
                 Translator.trans(
-                    /*@Desc("Cannot get Content type by identifier")*/ 'cannot_get_content_type_identifier.message',
+                    /*@Desc("Cannot get content type by identifier")*/ 'cannot_get_content_type_identifier.message',
                     {},
                     'ibexa_multi_file_upload',
                 ),
@@ -189,7 +189,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
                 .catch(() =>
                     window.ibexa.helpers.notification.showErrorNotification(
                         Translator.trans(
-                            /*@Desc("Cannot get Content type by identifier")*/ 'cannot_get_content_type_identifier.message',
+                            /*@Desc("Cannot get content type by identifier")*/ 'cannot_get_content_type_identifier.message',
                             {},
                             'ibexa_multi_file_upload',
                         ),

@@ -9,7 +9,7 @@ Feature: Content fields setting and editing
     Given I create "image" Content items in "/Media/Images/" in "eng-GB"
       | name             | image                                                        |
       | ImageAssetImage  | vendor/ibexa/behat/src/lib/Data/Images/small2.jpg  |
-      And I create a 'Image Asset CT2' Content Type in "Content" with 'ImageAssetCT2' identifier
+      And I create a 'Image Asset CT2' content type in "Content" with 'ImageAssetCT2' identifier
       | Field Type  | Name         | Identifier        | Required | Searchable | Translatable | Settings        |
       | Image Asset | ImageAField  | imageafield       | yes      | no	       | yes          |                 |
       And a "folder" Content item named "MediaFieldsContainer" exists in root
@@ -28,7 +28,7 @@ Feature: Content fields setting and editing
 
   @javascript @APIUser:admin
   Scenario Outline: Create content item with given field
-    Given I create a "<fieldName> CT" Content Type in "Content" with "<fieldInternalName>" identifier
+    Given I create a "<fieldName> CT" content type in "Content" with "<fieldInternalName>" identifier
       | Field Type  | Name        | Identifier          | Required | Searchable | Translatable | Settings       |
       | <fieldName> | Field       | <fieldInternalName> | no      | no	      | yes          | <fieldSettings>  |
       | Text line   | Name        | name	            | no      | yes	      | yes          |                  |

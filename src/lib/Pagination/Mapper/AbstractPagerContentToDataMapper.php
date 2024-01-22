@@ -107,7 +107,7 @@ abstract class AbstractPagerContentToDataMapper
      */
     protected function setTranslatedContentTypesNames(array &$data, array $contentTypeIds): void
     {
-        // load list of Content Types with proper translated names
+        // load list of content types with proper translated names
         $contentTypes = $this->contentTypeService->loadContentTypeList(
             array_unique($contentTypeIds),
             $this->userLanguagePreferenceProvider->getPreferredLanguages()

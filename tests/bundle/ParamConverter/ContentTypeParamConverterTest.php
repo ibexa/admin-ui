@@ -36,8 +36,8 @@ class ContentTypeParamConverterTest extends AbstractParamConverterTest
     /**
      * @dataProvider dataProvider
      *
-     * @param mixed $contentTypeId The Content type identifier fetched from the request
-     * @param int $contentTypeIdToLoad The Content type identifier used to load the Content type draft
+     * @param mixed $contentTypeId The content type identifier fetched from the request
+     * @param int $contentTypeIdToLoad The content type identifier used to load the content type draft
      */
     public function testApplyId($contentTypeId, int $contentTypeIdLoad)
     {

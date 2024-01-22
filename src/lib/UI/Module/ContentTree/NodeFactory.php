@@ -328,7 +328,7 @@ final class NodeFactory
             $uninitializedContentInfoList[$contentId] = $contentInfo;
         }
 
-        // Top Level Location (id = 1) does not have a Content Type
+        // Top Level Location (id = 1) does not have a content type
         $contentType = $location->depth > 0
             ? $contentInfo->getContentType()
             : null;

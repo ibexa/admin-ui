@@ -133,7 +133,7 @@
         {% endif %}
 
         {% if fieldtype_is_not_translatable %}
-            <p class="ibexa-field-edit__nontranslatable ibexa-field-edit__nontranslatable text-secondary">{{ 'fieldtype.translation_is_disabled'|trans({'%fieldName%': label})|desc('Translating the %fieldName% Field is disabled. See Content type definition for details.') }}</p>
+            <p class="ibexa-field-edit__nontranslatable ibexa-field-edit__nontranslatable text-secondary">{{ 'fieldtype.translation_is_disabled'|trans({'%fieldName%': label})|desc('Translating the %fieldName% Field is disabled. See content type definition for details.') }}</p>
         {% endif %}
 
         {% set description = field_type_descriptions[fieldtype.vars.languageCode]|default(field_type_descriptions|first) %}

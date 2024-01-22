@@ -16,11 +16,6 @@
         <target state="new">Edit</target>
         <note>key: content_type.action.edit</note>
       </trans-unit>
-      <trans-unit id="0a08ba6425acc6e52b75ebbe0b77d90df5cb81a1" resname="content_type.add.missing_language">
-        <source>Cannot create Content type. Could not find language with identifier '%languageCode%'</source>
-        <target state="new">Cannot create Content type. Could not find language with identifier '%languageCode%'</target>
-        <note>key: content_type.add.missing_language</note>
-      </trans-unit>
       <trans-unit id="5626938e64bdad8be0c090d0018c868960859d0a" resname="content_type.breadcrumb.view">
         <source>%identifier%</source>
         <target state="new">%identifier%</target>
@@ -45,11 +40,6 @@
         <source>Content type '%name%' copied.</source>
         <target state="new">Content type '%name%' copied.</target>
         <note>key: content_type.copy.success</note>
-      </trans-unit>
-      <trans-unit id="529a1012c7fe5ca6fafdb5d070ac8ececfe94af6" resname="content_type.create">
-        <source>Create a Content type</source>
-        <target state="new">Create a Content type</target>
-        <note>key: content_type.create</note>
       </trans-unit>
       <trans-unit id="7b64ebcf792d888de957eaee1c3734c97c80db98" resname="content_type.default_always_available">
         <source>Make content available even with missing translations</source>
@@ -105,11 +95,6 @@
         <source>Description</source>
         <target state="new">Description</target>
         <note>key: content_type.description</note>
-      </trans-unit>
-      <trans-unit id="2f9cb676bb073af7a8e4b52b374384dfc0aa9551" resname="content_type.edit.error.already_exists">
-        <source>Draft of Content type '%name%' already exists and is locked by '%userContentName%'</source>
-        <target state="new">Draft of Content type '%name%' already exists and is locked by '%userContentName%'</target>
-        <note>key: content_type.edit.error.already_exists</note>
       </trans-unit>
       <trans-unit id="bafafe330e90f8d93a41e93801984fed4c79512e" resname="content_type.edit.error.no_added_fields_definition">
         <source>You have to add at least one field definition</source>
@@ -331,20 +316,10 @@
         <target state="new">Global properties</target>
         <note>key: content_type.view.edit.global_properties</note>
       </trans-unit>
-      <trans-unit id="36fb0205d165f72c996205435b5a06ba42695bb6" resname="content_type.view.edit.notranslatable_fields_disabled">
-        <source>Some of the Fields are disabled when translating a Content type. To modify them, edit the Content type in the main language.</source>
-        <target state="new">Some of the Fields are disabled when translating a Content type. To modify them, edit the Content type in the main language.</target>
-        <note>key: content_type.view.edit.notranslatable_fields_disabled</note>
-      </trans-unit>
       <trans-unit id="803a61fc8cf4e7bdfcf27432bb35e379a4971134" resname="content_type.view.list.action.add">
         <source>Create</source>
         <target state="new">Create</target>
         <note>key: content_type.view.list.action.add</note>
-      </trans-unit>
-      <trans-unit id="da5f710198c48c803b3d0e2272e488903f92e569" resname="content_type.view.list.cannot_delete_notice">
-        <source>You cannot delete the disabled Content types, because Content items of those types exist.</source>
-        <target state="new">You cannot delete the disabled Content types, because Content items of those types exist.</target>
-        <note>key: content_type.view.list.cannot_delete_notice</note>
       </trans-unit>
       <trans-unit id="bef02fc3d41e74bf002af93b413a2a203a04db1a" resname="content_type.view.list.column.id">
         <source>ID</source>
@@ -396,25 +371,10 @@
         <target state="new">Save and close</target>
         <note>key: content_type_group.create.submit</note>
       </trans-unit>
-      <trans-unit id="00f7021226b49438a6e4b36cfd212b9553deb762" resname="content_type_group.create.success">
-        <source>Created Content type group '%name%'.</source>
-        <target state="new">Created Content type group '%name%'.</target>
-        <note>key: content_type_group.create.success</note>
-      </trans-unit>
       <trans-unit id="eec79e4a9109f28892797768f085eab39eaedc31" resname="content_type_group.delete.submit">
         <source>Delete</source>
         <target state="new">Delete</target>
         <note>key: content_type_group.delete.submit</note>
-      </trans-unit>
-      <trans-unit id="7d3672fcf2f0e1982152c4e6759bd03143f9f028" resname="content_type_group.delete.success">
-        <source>Deleted Content type group '%name%'.</source>
-        <target state="new">Deleted Content type group '%name%'.</target>
-        <note>key: content_type_group.delete.success</note>
-      </trans-unit>
-      <trans-unit id="f9cf70fcb6c6aef73a8a39eb0a9cd4e71c11b5ba" resname="content_type_group.edit.action_name">
-        <source>Editing Content type group</source>
-        <target state="new">Editing Content type group</target>
-        <note>key: content_type_group.edit.action_name</note>
       </trans-unit>
       <trans-unit id="cd6124f27c9a5743763f9a49cfc160d34723d713" resname="content_type_group.new.action_name">
         <source>Creating</source>
@@ -436,11 +396,6 @@
         <target state="new">Save and close</target>
         <note>key: content_type_group.update.submit</note>
       </trans-unit>
-      <trans-unit id="ff50d4b8d26d81f538b0ebabc392cbb05b6da162" resname="content_type_group.update.success">
-        <source>Updated Content type group '%name%'.</source>
-        <target state="new">Updated Content type group '%name%'.</target>
-        <note>key: content_type_group.update.success</note>
-      </trans-unit>
       <trans-unit id="8eb8668549f90436db605805680144f4b87c7fc0" resname="content_type_group.view.list.action.add">
         <source>Create</source>
         <target state="new">Create</target>
@@ -450,16 +405,6 @@
         <source>Edit</source>
         <target state="new">Edit</target>
         <note>key: content_type_group.view.list.action.edit</note>
-      </trans-unit>
-      <trans-unit id="5aa9caad73d044de86886dd25688b5d1267c1f6b" resname="content_type_group.view.list.cannot_delete_notice">
-        <source>You cannot delete the disabled Content type groups, because they contain Content types.</source>
-        <target state="new">You cannot delete the disabled Content type groups, because they contain Content types.</target>
-        <note>key: content_type_group.view.list.cannot_delete_notice</note>
-      </trans-unit>
-      <trans-unit id="125bee275441fe2bd28cb9388b790c634d8ae3c6" resname="content_type_group.view.list.column.content_types_count">
-        <source>Number of Content types</source>
-        <target state="new">Number of Content types</target>
-        <note>key: content_type_group.view.list.column.content_types_count</note>
       </trans-unit>
       <trans-unit id="cd462ce30cd4d0b21393e24ca2c9e974369c1f57" resname="content_type_group.view.list.column.id">
         <source>ID</source>
@@ -476,11 +421,6 @@
         <target state="new">Content type groups</target>
         <note>key: content_type_group.view.list.title</note>
       </trans-unit>
-      <trans-unit id="b857ebe01d0a852bd8e10d599e75004fb961f1d5" resname="content_type_group.view.new.title">
-        <source>New Content type group</source>
-        <target state="new">New Content type group</target>
-        <note>key: content_type_group.view.new.title</note>
-      </trans-unit>
       <trans-unit id="1769b5258d896d9ccb207c09e04534ce9a01c571" resname="content_type_group.view.view.title">
         <source>%identifier%</source>
         <target state="new">%identifier%</target>
@@ -490,16 +430,6 @@
         <source>Creating</source>
         <target state="new">Creating</target>
         <note>key: creating</note>
-      </trans-unit>
-      <trans-unit id="3e8769270428f8e66f5880d772f45e09d2c88aa0" resname="creating.title">
-        <source>New Content type</source>
-        <target state="new">New Content type</target>
-        <note>key: creating.title</note>
-      </trans-unit>
-      <trans-unit id="6b7aac07f7af9bb4762fd3a87ff0a9df02921f7a" resname="editing_content_type">
-        <source>Editing Content type</source>
-        <target state="new">Editing Content type</target>
-        <note>key: editing_content_type</note>
       </trans-unit>
       <trans-unit id="f99cc628dc4d82c5ee69eae79039a2f449eec064" resname="field_definition.description">
         <source>Description</source>
@@ -696,11 +626,6 @@
         <target state="new">Root Default Location</target>
         <note>key: field_definition.ezobjectrelation.root_default_location</note>
       </trans-unit>
-      <trans-unit id="fabc9be57b82439dac2f612b9c2a171eb7ce6e04" resname="field_definition.ezobjectrelation.selection_content_types">
-        <source>Allowed Content types</source>
-        <target state="new">Allowed Content types</target>
-        <note>key: field_definition.ezobjectrelation.selection_content_types</note>
-      </trans-unit>
       <trans-unit id="440d8fe80bb8a07b62f17d843721285b2cf8a4d5" resname="field_definition.ezobjectrelation.selection_root">
         <source>Starting Location</source>
         <target state="new">Starting Location</target>
@@ -725,11 +650,6 @@
         <source>Root Default Location</source>
         <target state="new">Root Default Location</target>
         <note>key: field_definition.ezobjectrelationlist.root_default_location</note>
-      </trans-unit>
-      <trans-unit id="7e061dc7c88fe38c11714695d4034f935788efb3" resname="field_definition.ezobjectrelationlist.selection_content_types">
-        <source>Allowed Content types</source>
-        <target state="new">Allowed Content types</target>
-        <note>key: field_definition.ezobjectrelationlist.selection_content_types</note>
       </trans-unit>
       <trans-unit id="b08d97ea9175eef7352c7e9c5c8ee0516798bdfa" resname="field_definition.ezobjectrelationlist.selection_default_location">
         <source>Default Location</source>
@@ -920,11 +840,6 @@
         <source>Update</source>
         <target state="new">Update</target>
         <note>key: location_update_form.update</note>
-      </trans-unit>
-      <trans-unit id="8c2261eecf1e143eaf524c34f4f89608929c5c81" resname="meta.enabled">
-        <source>Enable %type% for this Content type</source>
-        <target state="new">Enable %type% for this Content type</target>
-        <note>key: meta.enabled</note>
       </trans-unit>
       <trans-unit id="fd1286353570c5703799ba76999323b7c7447b06" resname="no">
         <source>No</source>

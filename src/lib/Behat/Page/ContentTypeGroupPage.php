@@ -87,7 +87,7 @@ class ContentTypeGroupPage extends Page
 
     public function hasAssignedContentItems(string $contentTypeGroupName): bool
     {
-        return $this->table->getTableRow(['Name' => $contentTypeGroupName])->getCellValue('Number of Content types') > 0;
+        return $this->table->getTableRow(['Name' => $contentTypeGroupName])->getCellValue('Number of content types') > 0;
     }
 
     protected function getRoute(): string

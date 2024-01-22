@@ -96,7 +96,7 @@ final class ContentViewContext implements Context
 
     /**
      * @Given I start creating a new User
-     * @Given I start creating a new User using :contentTypeName Content Type
+     * @Given I start creating a new User using :contentTypeName content type
      */
     public function startCreatingUser(string $contentTypeName = 'User'): void
     {

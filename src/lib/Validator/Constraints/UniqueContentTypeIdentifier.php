@@ -29,7 +29,7 @@ class UniqueContentTypeIdentifier extends Constraint implements TranslationConta
     {
         return [
             Message::create('ez.content_type.identifier.unique', 'validators')
-                ->setDesc('The Content type identifier "%identifier%" is used by another Content type. Enter a unique identifier.'),
+                ->setDesc('The content type identifier "%identifier%" is used by another content type. Enter a unique identifier.'),
         ];
     }
 
