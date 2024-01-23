@@ -42,6 +42,11 @@
         .ibexa-dropdown {
             margin-left: 0;
         }
+
+        &--undefined {
+            font-style: italic;
+            color: $ibexa-color-dark-400;
+        }
     }
 
     &__header {

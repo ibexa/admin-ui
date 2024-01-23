@@ -58,22 +58,25 @@
                     {% set items = [
                         {
                             label: 'user_profile.summary.full_name.label'|trans|desc("Full name"),
-                            content: ibexa_content_name(content)
+                            content: ibexa_content_name(content),
                         },
                         {
                             label: 'user_profile.summary.email.label'|trans|desc("Email"),
-                            content_raw: email_link
+                            content_raw: email_link,
                         }
                     ] %}
 
                     {% for group in field_groups %}
                         {% set field_definitions = content.getContentType().getFieldDefinitions().filterByGroup(group) %}
-
+                        
                         {% for field_definition in field_definitions %}
+                            {% set undefined_label = 'user_profile.summary.undefined'|trans|desc('undefined') %}
                             {% set field_identifier = field_definition.identifier %}
+                            {% set is_field_empty = ibexa_field_is_empty(content, field_identifier) %}
                             {% set items = items|merge([{
                                 label: ibexa_field_name(content, field_identifier),
-                                content_raw: not ibexa_field_is_empty(content, field_identifier) ? ibexa_render_field(content, field_identifier) : '-'
+                                content_raw: not is_field_empty ? ibexa_render_field(content, field_identifier) : undefined_label,
+                                is_field_empty,
                             }]) %}
                         {% endfor %}
                     {% endfor %}

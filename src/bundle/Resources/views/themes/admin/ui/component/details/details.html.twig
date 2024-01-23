@@ -19,9 +19,11 @@
                 {% if item.is_break|default(false) %}
                     <div class="ibexa-details__item ibexa-details__item--break"></div>
                 {% else %}
+                    {% set is_field_empty = item.is_field_empty is defined and item.is_field_empty %}
+
                     <div class="ibexa-details__item {{ item_inline|default(false) ? 'ibexa-details__item--inline' }}">
                         <div class="ibexa-details__item-label {{ item_inline|default(false) ? '' : 'ibexa-label' }}">{{ item.label }}</div>
-                        <div class="ibexa-details__item-content">
+                        <div class="ibexa-details__item-content{% if is_field_empty %} ibexa-details__item-content--undefined{% endif %}">
                             {{ item.content_raw is defined ? item.content_raw|raw : item.content }}
                         </div>
                     </div>
