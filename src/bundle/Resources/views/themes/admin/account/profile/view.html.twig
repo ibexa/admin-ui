@@ -37,7 +37,7 @@
             <aside class="ibexa-user-profile__aside">
                 <div class="ibexa-user-profile-summary ibexa-container container">
                     <div class="ibexa-user-profile-summary__header">
-                        <h3>{{ 'user_profile.summary.title'|trans|desc('Summary') }}</h3>
+                        <h3 class="ibexa-user-profile-summary__heading">{{ 'user_profile.summary.title'|trans|desc('Summary') }}</h3>
 
                         {% if can_edit_profile and ibexa_is_current_user(user) %}
                             <a href="{{ path('ibexa.user.profile.edit') }}" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small">
@@ -91,7 +91,7 @@
                 {% if roles is not empty %}
                     <div class="ibexa-user-profile-roles ibexa-container container">
                         <div class="ibexa-user-profile-summary__header">
-                            <h3>{{ 'user_profile.roles.header'|trans|desc('Roles') }}</h3>
+                            <h3 class="ibexa-user-profile-summary__heading">{{ 'user_profile.roles.header'|trans|desc('Roles') }}</h3>
                         </div>
 
                         {% for role_assigment in roles %}
@@ -110,9 +110,9 @@
             {%- endset -%}
 
             {% if user_profile_output is not empty %}
-                <main class="ibexa-user-profile__blocks">
-                    <div class="ibexa-container container">{{ user_profile_output }}</div>
-                </main>
+                <div class="ibexa-user-profile__blocks ibexa-container container">
+                    {{ user_profile_output }}
+                </div>
             {% endif %}
         </div>
     </div>
