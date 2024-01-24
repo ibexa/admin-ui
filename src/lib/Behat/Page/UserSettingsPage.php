@@ -34,7 +34,7 @@ class UserSettingsPage extends Page
 
     public function verifyIsLoaded(): void
     {
-        $this->getHTMLPage()->find($this->getLocator('title'))->assert()->textEquals('User settings');
+        $this->getHTMLPage()->find($this->getLocator('title'))->assert()->textEquals('Content authoring');
     }
 
     public function switchTab(string $tabName): void
@@ -64,7 +64,7 @@ class UserSettingsPage extends Page
     {
         $this->getHTMLPage()
             ->findAll(new VisibleCSSLocator('settingsSection', '#ibexa-tab-my-preferences .ibexa-details'))
-            ->getByCriterion(new ChildElementTextCriterion(new VisibleCSSLocator('settingHeader', '.ibexa-table-header__headline'), 'Edit'))
+            ->getByCriterion(new ChildElementTextCriterion(new VisibleCSSLocator('settingHeader', '.ibexa-table-header__headline'), 'Content authoring'))
             ->find(new VisibleCSSLocator('editButton', ' .ibexa-btn__label'))
             ->assert()->textEquals('Edit')
             ->click();
