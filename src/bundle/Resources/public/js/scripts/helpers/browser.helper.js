@@ -1,7 +1,17 @@
 const { userAgent } = window.navigator;
-const isChrome = () => userAgent.indexOf('Chrome') != -1;
-const isFirefox = () => userAgent.indexOf('Firefox') != -1;
-const isSafari = () => userAgent.indexOf('Safari') != -1 && userAgent.indexOf('Chrome') == -1;
-const isEdge = () => userAgent.indexOf('Edg') !== -1;
+const browserObj = {
+    get isChrome() {
+        return userAgent.includes('Chrome');
+    },
+    get isFirefox() {
+        return userAgent.includes('Firefox');
+    },
+    get isSafari() {
+        return userAgent.includes('Safari') && !userAgent.includes('Chrome');
+    },
+    get isEdge() {
+        return userAgent.includes('Edg');
+    },
+};
 
-export { isChrome, isFirefox, isSafari, isEdge };
+export const { isChrome, isFirefox, isSafari, isEdge } = browserObj;

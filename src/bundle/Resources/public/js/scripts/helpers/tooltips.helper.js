@@ -150,7 +150,7 @@ const initializeTooltip = (tooltipNode, hasEllipsisStyle) => {
         lastInsertTooltipTarget = event.currentTarget;
     });
 
-    if (isSafari()) {
+    if (isSafari) {
         if (tooltipNode.children) {
             const childWithTitle = [...tooltipNode.children].find((child) => title === child.textContent);
             const childHasEllipsisStyle = childWithTitle && getComputedStyle(childWithTitle).textOverflow === 'ellipsis';
