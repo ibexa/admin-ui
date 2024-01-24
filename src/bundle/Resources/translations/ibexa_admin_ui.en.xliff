@@ -91,6 +91,11 @@
         <target state="new">Summary</target>
         <note>key: user_profile.summary.title</note>
       </trans-unit>
+      <trans-unit id="57ee98f2b15239e2913b1af974153c9ffcec3339" resname="user_profile.summary.undefined">
+        <source>undefined</source>
+        <target state="new">undefined</target>
+        <note>key: user_profile.summary.undefined</note>
+      </trans-unit>
       <trans-unit id="cb6cbdd3a7414390e8e541915d88eb98c38a6a5d" resname="user_profile.view.title">
         <source>User profile</source>
         <target state="new">User profile</target>
