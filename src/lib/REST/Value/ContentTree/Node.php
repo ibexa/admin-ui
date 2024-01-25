@@ -54,6 +54,8 @@ class Node extends RestValue
     /** @var \Ibexa\AdminUi\REST\Value\ContentTree\Node[] */
     public $children;
 
+    public string $pathString;
+
     /**
      * @param int $depth
      * @param int $locationId
@@ -83,7 +85,8 @@ class Node extends RestValue
         int $totalChildrenCount,
         int $reverseRelationsCount,
         bool $isBookmarked,
-        array $children = []
+        array $children = [],
+        string $pathString = ''
     ) {
         $this->depth = $depth;
         $this->locationId = $locationId;
@@ -100,6 +103,7 @@ class Node extends RestValue
         $this->reverseRelationsCount = $reverseRelationsCount;
         $this->isBookmarked = $isBookmarked;
         $this->children = $children;
+        $this->pathString = $pathString;
     }
 }
 
