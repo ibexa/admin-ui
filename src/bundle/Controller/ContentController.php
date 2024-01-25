@@ -393,12 +393,22 @@ class ContentController extends Controller
             $preselectedSiteAccess !== null &&
             !array_key_exists($preselectedSiteAccess, $siteAccessesList)
         ) {
-            $preselectedSiteAccess = null;
+            $preselectedSiteAccess = reset($siteAccessesList);
         }
+
+        $urlValue = $this->generateUrl(
+            'ibexa.version.preview',
+            [
+                'contentId' => $content->id,
+                'versionNo' => $versionNo ?? $content->getVersionInfo()->versionNo,
+                'language' => $languageCode,
+                'siteAccessName' => $preselectedSiteAccess,
+            ]
+        );
 
         $siteAccessSelector = $this->baseFormFactory->create(
             SiteAccessChoiceType::class,
-            $preselectedSiteAccess,
+            $urlValue,
             [
                 'location' => $location,
                 'content' => $content,
