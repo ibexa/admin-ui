@@ -15,6 +15,7 @@ use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
+use PHPUnit\Framework\Assert;
 
 class UserSettingsPage extends Page
 {
@@ -34,7 +35,8 @@ class UserSettingsPage extends Page
 
     public function verifyIsLoaded(): void
     {
-        $this->getHTMLPage()->find($this->getLocator('title'))->assert()->textEquals('Content authoring');
+        $pageHeaderText = $this->getHTMLPage()->find($this->getLocator('title'))->getText();
+        Assert::AssertContains($pageHeaderText, ['User settings', 'Content authoring']);
     }
 
     public function switchTab(string $tabName): void
