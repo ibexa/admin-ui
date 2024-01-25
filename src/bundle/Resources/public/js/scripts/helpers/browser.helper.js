@@ -1,7 +1,7 @@
 const { userAgent } = window.navigator;
-const isChrome = () => userAgent.includes('Chrome');
+const isEdg = () => userAgent.includes('Edg');
+const isChrome = () => userAgent.includes('Chrome') && !isEdg();
 const isFirefox = () => userAgent.includes('Firefox');
-const isSafari = () => userAgent.includes('Safari') && !isChrome();
-const isEdge = () => userAgent.includes('Edg');
+const isSafari = () => userAgent.includes('Safari') && !isChrome() && !isEdg();
 
-export { isChrome, isFirefox, isSafari, isEdge };
+export { isChrome, isFirefox, isSafari, isEdg };
