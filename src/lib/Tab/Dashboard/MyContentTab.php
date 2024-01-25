@@ -31,6 +31,12 @@ class MyContentTab extends AbstractContentTab implements OrderedTabInterface
         return 200;
     }
 
+    /**
+     * @throws \Twig\Error\Error
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     */
     public function renderView(array $parameters): string
     {
         /** @todo Handle pagination */
@@ -47,7 +53,7 @@ class MyContentTab extends AbstractContentTab implements OrderedTabInterface
         $pager->setCurrentPage($page);
 
         return $this->twig->render('@ibexadesign/ui/dashboard/tab/my_content.html.twig', [
-            'data' => $this->pagerLocationToDataMapper->map($pager),
+            'data' => $this->pagerLocationToDataMapper->map($pager, true),
         ]);
     }
 }

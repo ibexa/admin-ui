@@ -8766,26 +8766,6 @@ parameters:
 			path: src/lib/Tab/Dashboard/PagerContentToDataMapper.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\Dashboard\\\\PagerLocationToDataMapper\\:\\:getAvailableTranslations\\(\\) has invalid return type eZ\\\\Publish\\\\API\\\\Repository\\\\Values\\\\Content\\\\Language\\.$#"
-			count: 1
-			path: src/lib/Tab/Dashboard/PagerLocationToDataMapper.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\Dashboard\\\\PagerLocationToDataMapper\\:\\:getAvailableTranslations\\(\\) should return array\\<eZ\\\\Publish\\\\API\\\\Repository\\\\Values\\\\Content\\\\Language\\> but returns array\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\>\\.$#"
-			count: 1
-			path: src/lib/Tab/Dashboard/PagerLocationToDataMapper.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\Dashboard\\\\PagerLocationToDataMapper\\:\\:map\\(\\) has parameter \\$pager with generic class Pagerfanta\\\\Pagerfanta but does not specify its types\\: T$#"
-			count: 1
-			path: src/lib/Tab/Dashboard/PagerLocationToDataMapper.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\Dashboard\\\\PagerLocationToDataMapper\\:\\:map\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Tab/Dashboard/PagerLocationToDataMapper.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\Event\\\\Subscriber\\\\ConditionalTabSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Tab/Event/Subscriber/ConditionalTabSubscriber.php
