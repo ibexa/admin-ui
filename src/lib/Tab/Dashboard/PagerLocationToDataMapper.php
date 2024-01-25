@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\Dashboard;
 
-use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\UserService;
@@ -20,9 +19,6 @@ use Pagerfanta\Pagerfanta;
 
 final class PagerLocationToDataMapper
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
     /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
@@ -32,22 +28,36 @@ final class PagerLocationToDataMapper
     private LanguageService $languageService;
 
     public function __construct(
-        ContentService $contentService,
         UserService $userService,
         LocationResolver $locationResolver,
         LanguageService $languageService
     ) {
-        $this->contentService = $contentService;
         $this->userService = $userService;
         $this->locationResolver = $locationResolver;
         $this->languageService = $languageService;
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @param \Pagerfanta\Pagerfanta<\Ibexa\Contracts\Core\Repository\Values\Content\Location> $pager
+     *
+     * @return array<
+     *      array{
+     *          'contentTypeId': int,
+     *          'contentId': int,
+     *          'name': string,
+     *          'type': ?string,
+     *          'language': string,
+     *          'available_enabled_translations': \Ibexa\Contracts\Core\Repository\Values\Content\Language[],
+     *          'contributor': ?\Ibexa\Contracts\Core\Repository\Values\User\User,
+     *          'content_type': \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType,
+     *          'modified': \DateTime,
+     *          'resolvedLocation': \Ibexa\Contracts\Core\Repository\Values\Content\Location
+     *      }
+     * >
+     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function map(Pagerfanta $pager, bool $doMapVersionInfoData = false): array
     {
@@ -55,8 +65,8 @@ final class PagerLocationToDataMapper
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
         foreach ($pager as $location) {
-            $contentInfo = $location->contentInfo;
-            $versionInfo = $doMapVersionInfoData ? $this->contentService->loadVersionInfo($contentInfo) : null;
+            $contentInfo = $location->getContentInfo();
+            $versionInfo = $doMapVersionInfoData ? $location->getContent()->getVersionInfo() : null;
             $contentType = $location->getContentInfo()->getContentType();
 
             $data[] = [
@@ -86,7 +96,7 @@ final class PagerLocationToDataMapper
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
      */
     private function getAvailableTranslations(
         VersionInfo $versionInfo
