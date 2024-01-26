@@ -372,7 +372,7 @@
         {%- for error in errors -%}
             <em {% with { attr: form_errors_attr } %}{{ block('attributes') }}{% endwith %}>
                 <svg class="ibexa-icon ibexa-icon--small ibexa-form-error__icon">
-                    <use xlink:href="{{ ibexa_icon_path('warning-triangle') }}"></use>
+                    <use xlink:href="{{ ibexa_icon_path('notice') }}"></use>
                 </svg>
                 {{ error.message }}
             </em>
