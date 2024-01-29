@@ -128,7 +128,7 @@ class ContentViewPage extends Page
 
     public function startCreatingUser(string $contentTypeName)
     {
-        $this->contentActionsMenu->clickButton('Create content');
+        $this->contentActionsMenu->clickButton('Create user');
         $this->contentTypePicker->verifyIsLoaded();
         $this->contentTypePicker->select($contentTypeName);
         $this->contentTypePicker->confirm();
