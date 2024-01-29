@@ -196,11 +196,6 @@
         <target state="new">Save and close</target>
         <note>key: content_type_group_edit__sidebar_right__save_and_close</note>
       </trans-unit>
-      <trans-unit id="117a9c8f65230e6522848ce750abb6e013face3d" resname="ibexa.menu.sidebar_right.create_user">
-        <source>Create user</source>
-        <target state="new">Create user</target>
-        <note>key: ibexa.menu.sidebar_right.create_user</note>
-      </trans-unit>
       <trans-unit id="65804c068820b5fa679357bc65c5862d0fc90701" resname="language_create__sidebar_right__cancel">
         <source>Discard</source>
         <target state="new">Discard</target>
@@ -475,6 +470,11 @@
         <source>Save and close</source>
         <target state="new">Save and close</target>
         <note>key: section_edit__sidebar_right__save_and_close</note>
+      </trans-unit>
+      <trans-unit id="54d372f047fb6efb83ac05eca195c8c891edc64a" resname="sidebar_right.create_user">
+        <source>Create user</source>
+        <target state="new">Create user</target>
+        <note>key: sidebar_right.create_user</note>
       </trans-unit>
       <trans-unit id="ae876d2c3fdb4f08383aefae6106b69dfe124b38" resname="trash__sidebar_right__empty_trash">
         <source>Empty Trash</source>

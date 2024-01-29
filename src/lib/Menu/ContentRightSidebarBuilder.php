@@ -50,7 +50,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     public const ITEM__REVEAL = 'content__sidebar_right__reveal';
     public const ITEM__INVITE = 'content__sidebar_right__invite';
 
-    private const CREATE_USER_LABEL = 'ibexa.menu.sidebar_right.create_user';
+    private const CREATE_USER_LABEL = 'sidebar_right.create_user';
 
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
