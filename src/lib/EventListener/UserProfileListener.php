@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\EventListener;
 
+use Ibexa\AdminUi\Specification\UserProfile\IsProfileAvailable;
+use Ibexa\AdminUi\UserProfile\UserProfileConfigurationInterface;
 use Ibexa\ContentForms\Data\User\UserUpdateData;
 use Ibexa\ContentForms\Event\ContentFormEvents;
 use Ibexa\ContentForms\Event\FormActionEvent;
@@ -34,18 +36,22 @@ final class UserProfileListener implements EventSubscriberInterface
 
     private UserService $userService;
 
+    private UserProfileConfigurationInterface $configuration;
+
     public function __construct(
         Repository $repository,
         PermissionResolver $permissionResolver,
         ContentService $contentService,
         UserService $userService,
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        UserProfileConfigurationInterface $configuration
     ) {
         $this->repository = $repository;
         $this->permissionResolver = $permissionResolver;
         $this->contentService = $contentService;
         $this->userService = $userService;
         $this->urlGenerator = $urlGenerator;
+        $this->configuration = $configuration;
     }
 
     public static function getSubscribedEvents(): array
@@ -140,6 +146,8 @@ final class UserProfileListener implements EventSubscriberInterface
 
     private function canEditUserProfile(User $user): bool
     {
-        return $this->permissionResolver->canUser('user', 'selfedit', $user);
+        return
+            $this->permissionResolver->canUser('user', 'selfedit', $user)
+            && (new IsProfileAvailable($this->configuration))->isSatisfiedBy($user);
     }
 }
