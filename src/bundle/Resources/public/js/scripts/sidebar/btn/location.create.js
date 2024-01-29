@@ -8,16 +8,7 @@
     createActions.forEach((container) => {
         const radioInputs = container.querySelectorAll('.form-check [type="radio"]');
         const submitBtn = container.querySelector('.ibexa-extra-actions__btn--confirm');
-        const cancelBtn = container.querySelector('.ibexa-extra-actions__btn--cancel');
-        const closeBtn = container.querySelector('.ibexa-extra-actions__header .ibexa-btn--close');
 
-        cancelBtn.addEventListener(
-            'click',
-            () => {
-                closeBtn.click();
-            },
-            false,
-        );
         radioInputs.forEach((radioInput) =>
             radioInput.addEventListener(
                 'change',

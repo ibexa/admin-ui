@@ -163,7 +163,6 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         $createAttributes = [
             'class' => 'ibexa-btn--extra-actions ibexa-btn--create ibexa-btn--primary',
             'data-actions' => 'create',
-            'data-focus-element' => '.ibexa-instant-filter__input',
         ];
         $sendToTrashAttributes = [
             'data-bs-toggle' => 'modal',

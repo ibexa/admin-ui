@@ -76,13 +76,7 @@ const ContentCreateWidget = () => {
         {},
         'ibexa_universal_discovery_widget',
     );
-    const selectContentType = Translator.trans(
-        /*@Desc("Select a content type")*/ 'create_content.select_content_type',
-        {},
-        'ibexa_universal_discovery_widget',
-    );
     const createLabel = Translator.trans(/*@Desc("Create")*/ 'create_content.create', {}, 'ibexa_universal_discovery_widget');
-    const closeLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'ibexa_universal_discovery_widget');
     const cancelLabel = Translator.trans(/*@Desc("Discard")*/ 'content_create.cancel.label', {}, 'ibexa_universal_discovery_widget');
     const placeholder = Translator.trans(
         /*@Desc("Search by content type")*/ 'content_create.placeholder',
@@ -90,7 +84,7 @@ const ContentCreateWidget = () => {
         'ibexa_universal_discovery_widget',
     );
     const filtersDescLabel = Translator.trans(
-        /*@Desc("Or choose from list")*/ 'content.create.filters.desc',
+        /*@Desc("Select a content type from list")*/ 'content.create.filters.desc',
         {},
         'ibexa_universal_discovery_widget',
     );
@@ -132,15 +126,6 @@ const ContentCreateWidget = () => {
             <div className={widgetClassName} ref={refContentTree}>
                 <div className="ibexa-extra-actions__header">
                     <h3>{createContentLabel}</h3>
-                    <button
-                        type="button"
-                        className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--close"
-                        onClick={close}
-                        title={closeLabel}
-                        data-tooltip-container-selector=".c-udw-tab"
-                    >
-                        <Icon name="discard" extraClasses="ibexa-icon--small" />
-                    </button>
                     <div className="ibexa-extra-actions__header-subtitle">{createUnderLabel}</div>
                 </div>
                 <div className="ibexa-extra-actions__content ibexa-extra-actions__content--create">
@@ -155,7 +140,6 @@ const ContentCreateWidget = () => {
                             extraClasses="c-udw-dropdown"
                         />
                     </div>
-                    <label className="ibexa-label ibexa-extra-actions__section-header">{selectContentType}</label>
                     <div className="ibexa-extra-actions__section-content ibexa-extra-actions__section-content--content-type">
                         <div className="ibexa-instant-filter">
                             <div className="ibexa-instant-filter__input-wrapper">
