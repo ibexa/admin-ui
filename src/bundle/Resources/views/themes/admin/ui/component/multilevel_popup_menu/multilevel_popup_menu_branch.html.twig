@@ -7,6 +7,11 @@
         ~ branch_attr.class|default(''))|trim,
 }) -%}
 
+{%- set groups_attr = groups_attr|default({})|merge({
+    class: ('ibexa-popup-menu__groups ibexa-multilevel-popup-menu__groups '
+        ~ groups_attr.class|default(''))|trim,
+}) -%}
+
 {%- block branch -%}
     {% trans_default_domain 'ibexa_multilevel_popup_menu' %}
 
@@ -20,7 +25,7 @@
         </div>
 
         {%- block branch_groups -%}
-            <div class="ibexa-multilevel-popup-menu__groups">
+            <div {{ html.attributes(groups_attr, is_template) }}>
                 {%- for group in groups -%}
                     {%- set group_params = group|merge({
                         items: group.items|default([]),
