@@ -38,6 +38,7 @@ export const useSearchByQueryFetch = () => {
             aggregations = {},
             filters = {},
             fullTextCriterion = null,
+            contentNameCriterion = null,
         ) => {
             const handleFetch = (response) => {
                 setMarkedLocationId(null);
@@ -52,6 +53,10 @@ export const useSearchByQueryFetch = () => {
 
             if (fullTextCriterion) {
                 query.FullTextCriterion = fullTextCriterion;
+            }
+
+            if (contentNameCriterion) {
+                query.ContentNameCriterion = contentNameCriterion;
             }
 
             if (contentTypesIdentifiers && contentTypesIdentifiers.length) {
