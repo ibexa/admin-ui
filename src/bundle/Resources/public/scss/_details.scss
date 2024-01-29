@@ -36,16 +36,15 @@
                 }
             }
         }
+
+        &--hidden {
+            display: none;
+        }
     }
 
     &__item-content {
         .ibexa-dropdown {
             margin-left: 0;
-        }
-
-        &--undefined {
-            font-style: italic;
-            color: $ibexa-color-dark-400;
         }
     }
 
@@ -62,5 +61,9 @@
                 padding-bottom: 0;
             }
         }
+    }
+
+    &__alert-container {
+        margin-top: calculateRem(16px);
     }
 }

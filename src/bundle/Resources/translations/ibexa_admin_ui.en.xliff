@@ -11,6 +11,11 @@
         <target state="new">Missing or invalid CSRF token</target>
         <note>key: asset.upload.invalid_csrf</note>
       </trans-unit>
+      <trans-unit id="146d8ba24ca387f03c6fb77fe42c0a6f8dc21aa0" resname="details.alert.empty_fields">
+        <source>You have empty fields in your profile: department, position, location, signature.</source>
+        <target state="new">You have empty fields in your profile: department, position, location, signature.</target>
+        <note>key: details.alert.empty_fields</note>
+      </trans-unit>
       <trans-unit id="68a1a5ea4fa56098f5eae44460514a09ea8f8509" resname="distraction_free_mode.disable.label">
         <source>Exit distraction free mode</source>
         <target state="new">Exit distraction free mode</target>
@@ -90,11 +95,6 @@
         <source>Summary</source>
         <target state="new">Summary</target>
         <note>key: user_profile.summary.title</note>
-      </trans-unit>
-      <trans-unit id="57ee98f2b15239e2913b1af974153c9ffcec3339" resname="user_profile.summary.undefined">
-        <source>undefined</source>
-        <target state="new">undefined</target>
-        <note>key: user_profile.summary.undefined</note>
       </trans-unit>
       <trans-unit id="cb6cbdd3a7414390e8e541915d88eb98c38a6a5d" resname="user_profile.view.title">
         <source>User profile</source>

@@ -1,3 +1,5 @@
+{% trans_default_domain 'ibexa_admin_ui' %}
+
 <div class="ibexa-details">
     {% block details_header %}
         {% if headline is defined %}
@@ -15,15 +17,30 @@
     {% endblock %}
     {% block details_items %}
         <div class="ibexa-details__items {{ view_mode|default('') == 'vertical' ? 'ibexa-details__items--vertical' }}">
+            {% set items_have_empty_field = items|filter((item)=> item.is_field_empty is defined and item.is_field_empty)|length > 0 %}
+            {% if items_have_empty_field %}
+                {% set alert_title = 'details.alert.empty_fields'|trans|desc('Complete your profile.') %}
+                <div class="ibexa-details__alert-container">
+                    {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
+                        type: 'info',
+                        title: alert_title,
+                        show_close_btn: true,
+                        size: 'small',
+                    } only %}
+                </div>
+            {% endif %}
             {% for item in items %}
                 {% if item.is_break|default(false) %}
                     <div class="ibexa-details__item ibexa-details__item--break"></div>
                 {% else %}
                     {% set is_field_empty = item.is_field_empty|default(false) %}
 
-                    <div class="ibexa-details__item {{ item_inline|default(false) ? 'ibexa-details__item--inline' }}">
+                    <div 
+                        class="ibexa-details__item {{ item_inline|default(false) ? 'ibexa-details__item--inline' ~ 
+                        (is_field_empty ? ' ibexa-details__item--hidden') }}"
+                    >
                         <div class="ibexa-details__item-label {{ item_inline|default(false) ? '' : 'ibexa-label' }}">{{ item.label }}</div>
-                        <div class="ibexa-details__item-content{% if is_field_empty %} ibexa-details__item-content--undefined{% endif %}">
+                        <div class="ibexa-details__item-content">
                             {{ item.content_raw is defined ? item.content_raw|raw : item.content }}
                         </div>
                     </div>
