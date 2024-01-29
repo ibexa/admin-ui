@@ -55,11 +55,6 @@
             right: calculateRem(10px);
         }
 
-        &:focus {
-            border-color: $ibexa-color-white;
-            box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-white, 0.2);
-        }
-
         &:hover {
             &::before,
             &::after {
