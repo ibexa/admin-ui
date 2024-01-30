@@ -17,7 +17,7 @@
     {% set attr_img = attr_img|default({})|merge({
         class: ('ibexa-user-thumbnail ibexa-user-thumbnail--img ' ~ attr_img.class|default(''))|trim,
         src: attr_img.src is defined ? attr_img.src : user_image.resource,
-        alt: attr_img.alt is defined ? attr_img.alt : user.name,
+        alt: attr_img.alt is defined ? attr_img.alt : user_content.name,
     }) %}
 
     <img {{ html.attributes(attr_img|default({})) }}/>
