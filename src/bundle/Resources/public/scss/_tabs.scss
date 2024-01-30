@@ -179,7 +179,7 @@
                 }
 
                 .ibexa-svg-tab-corner-inside {
-                    fill: $ibexa-color-light-300;
+                    fill: $ibexa-color-light-200;
                 }
             }
 
@@ -232,7 +232,7 @@
                     border-radius: $ibexa-border-radius 0 0 0;
                     border-bottom-width: 0;
                     border-right-width: 0;
-                    background-color: $ibexa-color-light-300;
+                    background-color: $ibexa-color-light-200;
                 }
 
                 &::after {
@@ -258,13 +258,41 @@
                     }
                 }
 
-                &:hover:not([disabled]),
-                &--active {
+                &:hover:not([disabled]) {
                     z-index: 4;
 
                     &::before {
                         background-color: $ibexa-color-white;
                         border: calculateRem(1px) solid $ibexa-color-light;
+                        border-right-width: 0;
+                        z-index: 2;
+                        margin-bottom: -0.1px;
+                    }
+
+                    &::after {
+                        right: calculateRem(2px);
+                    }
+
+                    .ibexa-tabs__tab-corner {
+                        .ibexa-svg-tab-corner-border {
+                            stroke: $ibexa-color-light;
+                        }
+
+                        .ibexa-svg-tab-corner-inside {
+                            fill: $ibexa-color-white;
+                        }
+                    }
+
+                    .ibexa-tabs__link {
+                        color: $ibexa-color-primary;
+                    }
+                }
+
+                &.ibexa-tabs__tab--active:not([disabled]) {
+                    pointer-events: none;
+
+                    &::before {
+                        background-color: $ibexa-color-white;
                         border-bottom-width: 0;
                         border-right-width: 0;
                         z-index: 2;
@@ -285,24 +313,9 @@
                             fill: $ibexa-color-white;
                         }
                     }
-                }
 
-                &:hover:not([disabled]):not(&--active) {
-                    &::before {
-                        border: calculateRem(1px) solid $ibexa-color-primary;
-                        border-right-width: 0;
-                        z-index: 2;
-                    }
-
-                    &::after {
-                        border-color: $ibexa-color-primary;
-                        right: 0;
-                    }
-
-                    .ibexa-tabs__tab-corner {
-                        .ibexa-svg-tab-corner-border {
-                            stroke: $ibexa-color-primary;
-                        }
+                    .ibexa-tabs__link {
+                        color: inherit;
                     }
                 }
 

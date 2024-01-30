@@ -29,11 +29,22 @@ class DashboardPage extends Page
 
     public function switchTab(string $tableName, string $tabName)
     {
-        $this->getHTMLPage()
+        if ($this->getActiveTabName($tableName) == $tabName) {
+            return;
+        } else {
+            $this->getHTMLPage()
             ->findAll($this->getLocator('tableSelector'))->getByCriterion(new ChildElementTextCriterion($this->getLocator('tableTitle'), $tableName))
             ->findAll($this->getLocator('tableTab'))->getByCriterion(new ElementTextCriterion($tabName))
             ->click()
-        ;
+            ;
+        }
+    }
+
+    public function getActiveTabName(string $tableName): string
+    {
+        return $this->getHTMLPage()
+            ->findAll($this->getLocator('tableSelector'))->getByCriterion(new ChildElementTextCriterion($this->getLocator('tableTitle'), $tableName))
+            ->find($this->getLocator('activeTabLink'))->getText();
     }
 
     public function isListEmpty(): bool
@@ -83,6 +94,7 @@ class DashboardPage extends Page
             new VisibleCSSLocator('pageTitle', '.ibexa-header-wrapper h1'),
             new VisibleCSSLocator('table', '#ibexa-tab-dashboard-my-my-drafts'),
             new VisibleCSSLocator('createButton', '.ibexa-btn--cotf-create'),
+            new VisibleCSSLocator('activeTabLink', '.ibexa-tabs__link.active'),
         ];
     }
 }
