@@ -22,11 +22,6 @@
 
             &__icon-wrapper {
                 margin-top: calculateRem(9px); // Fixing position for rows
-
-                .ibexa-icon {
-                    width: calculateRem(12px);
-                    height: calculateRem(12px);
-                }
             }
         }
     }
@@ -50,9 +45,9 @@
         border-radius: 50%;
         margin-left: calculateRem(5px);
 
-        .ibexa-icon {
-            width: calculateRem(8px);
-            height: calculateRem(8px);
+        &:active,
+        &:focus-visible {
+            box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-primary, 0.25);
         }
     }
 
@@ -120,7 +115,6 @@
                 &:focus-visible {
                     background-color: $ibexa-color-complementary-200;
                     border: calculateRem(1px) solid $ibexa-color-complementary-700;
-                    box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-primary, 0.25);
 
                     .ibexa-icon {
                         fill: $ibexa-color-complementary-700;
@@ -155,7 +149,6 @@
                 &:focus-visible {
                     background-color: $ibexa-color-danger-200;
                     border: calculateRem(1px) solid $ibexa-color-danger-600;
-                    box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-primary, 0.25);
 
                     .ibexa-icon {
                         fill: $ibexa-color-danger-600;
@@ -190,7 +183,6 @@
                 &:focus-visible {
                     background-color: $ibexa-color-accent-200;
                     border: calculateRem(1px) solid $ibexa-color-accent-700;
-                    box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-primary, 0.25);
 
                     .ibexa-icon {
                         fill: $ibexa-color-accent-700;
@@ -229,7 +221,6 @@
                 &:focus-visible {
                     background-color: $ibexa-color-success-200;
                     border: calculateRem(1px) solid $ibexa-color-success-600;
-                    box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-primary, 0.25);
 
                     .ibexa-icon {
                         fill: $ibexa-color-success-700;

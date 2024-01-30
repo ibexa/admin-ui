@@ -6,14 +6,8 @@
     warning: 'warning',
     success: 'approved',
 } %}
-
-{% set size_name_map = {
-    small: 'small',
-    medium: 'medium',
-    large: 'large',
-} %}
-
-{% set size = size|default(size_name_map.medium) %}
+{% set sizes = ['small', 'medium', 'large'] %}
+{% set size = size|default('medium') %}
 
 <div
     class="alert ibexa-alert ibexa-alert--{{ type }} ibexa-alert--{{ size }}

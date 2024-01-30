@@ -10,11 +10,7 @@ const ICON_NAME_MAP = {
     success: 'approved',
 };
 
-const ICON_SIZE_MAP = {
-    SMALL: 'small',
-    MEDIUM: 'medium',
-    LARGE: 'large',
-};
+const SIZES = ['small', 'medium', 'large'];
 
 const Alert = ({
     type,
@@ -74,7 +70,7 @@ Alert.propTypes = {
     onClose: PropTypes.func,
     extraClasses: PropTypes.string,
     children: PropTypes.element,
-    size: PropTypes.oneOf(Object.values(ICON_SIZE_MAP)),
+    size: PropTypes.oneOf(SIZES),
 };
 
 Alert.defaultProps = {
@@ -87,7 +83,7 @@ Alert.defaultProps = {
     onClose: () => {},
     extraClasses: '',
     children: null,
-    size: ICON_SIZE_MAP.MEDIUM,
+    size: 'medium',
 };
 
 export default Alert;

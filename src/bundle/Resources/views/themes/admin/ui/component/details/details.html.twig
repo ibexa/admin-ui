@@ -17,7 +17,7 @@
     {% endblock %}
     {% block details_items %}
         <div class="ibexa-details__items {{ view_mode|default('') == 'vertical' ? 'ibexa-details__items--vertical' }}">
-            {% set items_have_empty_field = items|filter((item)=> item.is_field_empty is defined and item.is_field_empty)|length > 0 %}
+            {% set items_have_empty_field = items|filter((item)=> item.is_field_empty|default(false))|length > 0 %}
             {% if items_have_empty_field %}
                 {% set alert_title = 'details.alert.complete_profile'|trans|desc('Complete your profile.') %}
                 <div class="ibexa-details__alert-container">
