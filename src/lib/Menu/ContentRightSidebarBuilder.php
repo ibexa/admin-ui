@@ -50,6 +50,8 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     public const ITEM__REVEAL = 'content__sidebar_right__reveal';
     public const ITEM__INVITE = 'content__sidebar_right__invite';
 
+    private const CREATE_USER_LABEL = 'sidebar_right.create_user';
+
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
@@ -196,6 +198,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
                     'attributes' => $canCreate
                         ? $createAttributes
                         : array_merge($createAttributes, ['disabled' => 'disabled']),
+                    'label' => $contentIsUserGroup ? self::CREATE_USER_LABEL : self::ITEM__CREATE,
                 ]
             ),
         ]);
@@ -316,6 +319,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     {
         return [
             (new Message(self::ITEM__CREATE, 'ibexa_menu'))->setDesc('Create content'),
+            (new Message(self::CREATE_USER_LABEL, 'ibexa_menu'))->setDesc('Create user'),
             (new Message(self::ITEM__EDIT, 'ibexa_menu'))->setDesc('Edit'),
             (new Message(self::ITEM__PREVIEW, 'ibexa_menu'))->setDesc('Preview'),
             (new Message(self::ITEM__SEND_TO_TRASH, 'ibexa_menu'))->setDesc('Send to trash'),
