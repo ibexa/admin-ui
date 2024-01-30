@@ -18,6 +18,10 @@
             }
 
             super.show();
+
+            const { offsetWidth, style } = this.dropdown.itemsContainer;
+
+            style.width = `${offsetWidth}px`;
         }
     }
     class Dropdown {
