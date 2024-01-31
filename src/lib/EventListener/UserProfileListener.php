@@ -113,9 +113,10 @@ final class UserProfileListener implements EventSubscriberInterface
 
     private function isSupported(UserUpdateData $data): bool
     {
-        return $this->isUserProfileUpdate($data) &&
-            $this->canEditUserProfile($data->user) &&
-            $this->doesOriginateFromProfileEditing();
+        return
+            $this->doesOriginateFromProfileEditing() &&
+            $this->isUserProfileUpdate($data) &&
+            $this->canEditUserProfile($data->user);
     }
 
     private function createUpdateStruct(UserUpdateData $data, string $languageCode): UserUpdateStruct
