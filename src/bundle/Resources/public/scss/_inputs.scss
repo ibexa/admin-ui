@@ -119,7 +119,7 @@
         background-color: var(--ibexa-input-bg-color, #{$ibexa-color-white});
 
         &:disabled {
-            &.form-check-input {
+            &.form-check-input:not(.ibexa-input--toggle) {
                 opacity: 1;
             }
         }
