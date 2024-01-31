@@ -69,22 +69,14 @@ final class UserProfileListener implements EventSubscriberInterface
 
     public function onUserUpdate(FormActionEvent $event): void
     {
-        if (!$this->doesOriginateFromProfileEditing()) {
-            return;
-        }
-
         $form = $event->getForm();
         $data = $event->getData();
 
-        if (!($data instanceof UserUpdateData) || !$this->isUserProfileUpdate($data)) {
+        if (!($data instanceof UserUpdateData) || !$this->isSupported($data)) {
             return;
         }
 
         $user = $data->user;
-        if (!$this->canEditUserProfile($user)) {
-            return;
-        }
-
         $updateStruct = $this->createUpdateStruct($data, $form->getConfig()->getOption('languageCode'));
 
         // user / selfedit policy is enough to edit own profile (checked in
@@ -98,28 +90,13 @@ final class UserProfileListener implements EventSubscriberInterface
 
     public function onUserCancel(FormActionEvent $event): void
     {
-        if (!$this->doesOriginateFromProfileEditing()) {
-            return;
-        }
-
         $data = $event->getData();
-
         if (!($data instanceof UserUpdateData) || !$this->isSupported($data)) {
             return;
         }
 
         $event->setResponse($this->createRedirectToUserProfile($data->user));
         $event->stopPropagation();
-    }
-
-    private function doesOriginateFromProfileEditing(): bool
-    {
-        $request = $this->requestStack->getMainRequest();
-        if ($request === null) {
-            return false;
-        }
-
-        return $request->attributes->get('_route') === 'ibexa.user.profile.edit';
     }
 
     private function createRedirectToUserProfile(User $user): RedirectResponse
@@ -136,7 +113,9 @@ final class UserProfileListener implements EventSubscriberInterface
 
     private function isSupported(UserUpdateData $data): bool
     {
-        return $this->isUserProfileUpdate($data) && $this->canEditUserProfile($data->user);
+        return $this->isUserProfileUpdate($data) &&
+            $this->canEditUserProfile($data->user) &&
+            $this->doesOriginateFromProfileEditing();
     }
 
     private function createUpdateStruct(UserUpdateData $data, string $languageCode): UserUpdateStruct
@@ -172,5 +151,15 @@ final class UserProfileListener implements EventSubscriberInterface
         return
             $this->permissionResolver->canUser('user', 'selfedit', $user)
             && (new IsProfileAvailable($this->configuration))->isSatisfiedBy($user);
+    }
+
+    private function doesOriginateFromProfileEditing(): bool
+    {
+        $request = $this->requestStack->getMainRequest();
+        if ($request === null) {
+            return false;
+        }
+
+        return $request->attributes->get('_route') === 'ibexa.user.profile.edit';
     }
 }
