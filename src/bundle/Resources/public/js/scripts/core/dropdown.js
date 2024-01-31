@@ -23,6 +23,12 @@
 
             style.width = `${offsetWidth}px`;
         }
+
+        dispose() {
+            super.dispose();
+
+            this.dropdown.itemsContainer.style.width = '';
+        }
     }
     class Dropdown {
         constructor(config = {}) {
