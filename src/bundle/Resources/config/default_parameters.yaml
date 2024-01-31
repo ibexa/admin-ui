@@ -86,3 +86,6 @@ parameters:
             name: keywords
             contentTypeIdentifier: image
             fieldDefinitionIdentifier: tags
+
+    #Used only for standalone DAM applications to limit content tree to Media -> Images folder only.
+    ibexa.dam_widget.image.images_folder_location_id: 51
