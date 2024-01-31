@@ -16,6 +16,8 @@
     const adaptiveMenuItemsContainer = firstLevelMenuNode.querySelector('.ibexa-adaptive-items');
     const selectorItem = firstLevelMenuNode.querySelector('.ibexa-adaptive-items__item--selector');
     const adaptiveItemsToPopup = firstLevelMenuNode.querySelectorAll('.ibexa-adaptive-items__item');
+    const navAnchorItems = firstLevelMenuNode.querySelectorAll('.ibexa-main-menu__item-action');
+    const activeItem = [...navAnchorItems].find((el) => el.classList.contains('active'));
     const popupItemsToGenerate = [...adaptiveItemsToPopup].map((item) => {
         const actionItem = item.querySelector('.ibexa-main-menu__item-action');
         const name = item.dataset.itemName;
@@ -45,20 +47,18 @@
             return;
         }
 
-        if (currentTarget.classList.contains('active')) {
-            const { itemName } = currentTarget.parentNode.dataset;
+        const { itemName } = currentTarget.parentNode.dataset;
 
-            if (activeItemName === itemName) {
-                currentTarget.classList.remove('active');
-                secondLevelMenuNode.classList.add('ibexa-main-menu__navbar--hidden');
-                secondLevelMenuNode.style.width = 0;
-                activeItemName = null;
+        if (activeItemName === itemName) {
+            currentTarget.classList.remove('active');
+            secondLevelMenuNode.classList.add('ibexa-main-menu__navbar--hidden');
+            secondLevelMenuNode.style.width = 0;
+            activeItemName = null;
 
-                return;
-            }
-
-            activeItemName = itemName;
+            return;
         }
+
+        activeItemName = itemName;
 
         firstLevelMenuNode.classList.add('ibexa-main-menu__navbar--collapsed');
         secondLevelMenuNode.classList.remove('ibexa-main-menu__navbar--hidden');
@@ -154,9 +154,8 @@
 
     parseMenuTitles();
 
-    firstLevelMenuNode.querySelectorAll('.ibexa-main-menu__item-action').forEach((button) => {
-        button.addEventListener('click', switchSubMenuDisplay, false);
-    });
+    activeItemName = activeItem.parentNode.dataset.itemName;
+    navAnchorItems.forEach((button) => button.addEventListener('click', switchSubMenuDisplay, false));
 
     secondLevelMenuNode.querySelector('.ibexa-main-menu__toggler').addEventListener('click', toggleSecondLevelMenu, false);
     secondLevelMenuNode.querySelector('.ibexa-main-menu__resizer').addEventListener('mousedown', addResizeListeners, false);
