@@ -57,10 +57,9 @@
         }
     };
     const initExtraActionsWidget = (dataset) => {
-        const url = new URL(window.location.href);
-        const actionsParams = url.searchParams.getAll('actions');
+        const hashes = window.location.hash.split('#');
 
-        if (actionsParams.includes(dataset.actions)) {
+        if (hashes.includes(dataset.actions)) {
             toggleExtraActionsWidget(dataset);
         }
     };
