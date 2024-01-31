@@ -356,7 +356,6 @@ class ContentController extends Controller
         ?int $versionNo = null,
         ?Location $location = null
     ): Response {
-        $preselectedSiteAccess = $request->query->get('preselectedSiteAccess');
         $referrer = $request->query->get('referrer');
 
         if (null === $languageCode) {
@@ -389,10 +388,9 @@ class ContentController extends Controller
             $siteAccessesList[$siteAccess->name] = $this->siteAccessNameGenerator->generate($siteAccess);
         }
 
-        if (
-            $preselectedSiteAccess !== null &&
-            !array_key_exists($preselectedSiteAccess, $siteAccessesList)
-        ) {
+        $preselectedSiteAccess = $request->query->get('preselectedSiteAccess', reset($siteAccessesList));
+
+        if (!array_key_exists($preselectedSiteAccess, $siteAccessesList)) {
             $preselectedSiteAccess = reset($siteAccessesList);
         }
 
