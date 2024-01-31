@@ -22,6 +22,7 @@ use Ibexa\Core\FieldType\User\Type as UserFieldType;
 use Ibexa\Core\Repository\Repository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class UserProfileListener implements EventSubscriberInterface
@@ -38,13 +39,16 @@ final class UserProfileListener implements EventSubscriberInterface
 
     private UserProfileConfigurationInterface $configuration;
 
+    private RequestStack $requestStack;
+
     public function __construct(
         Repository $repository,
         PermissionResolver $permissionResolver,
         ContentService $contentService,
         UserService $userService,
         UrlGeneratorInterface $urlGenerator,
-        UserProfileConfigurationInterface $configuration
+        UserProfileConfigurationInterface $configuration,
+        RequestStack $requestStack
     ) {
         $this->repository = $repository;
         $this->permissionResolver = $permissionResolver;
@@ -52,6 +56,7 @@ final class UserProfileListener implements EventSubscriberInterface
         $this->userService = $userService;
         $this->urlGenerator = $urlGenerator;
         $this->configuration = $configuration;
+        $this->requestStack = $requestStack;
     }
 
     public static function getSubscribedEvents(): array
@@ -64,6 +69,10 @@ final class UserProfileListener implements EventSubscriberInterface
 
     public function onUserUpdate(FormActionEvent $event): void
     {
+        if (!$this->doesOriginateFromProfileEditing()) {
+            return;
+        }
+
         $form = $event->getForm();
         $data = $event->getData();
 
@@ -89,6 +98,10 @@ final class UserProfileListener implements EventSubscriberInterface
 
     public function onUserCancel(FormActionEvent $event): void
     {
+        if (!$this->doesOriginateFromProfileEditing()) {
+            return;
+        }
+
         $data = $event->getData();
 
         if (!($data instanceof UserUpdateData) || !$this->isSupported($data)) {
@@ -97,6 +110,16 @@ final class UserProfileListener implements EventSubscriberInterface
 
         $event->setResponse($this->createRedirectToUserProfile($data->user));
         $event->stopPropagation();
+    }
+
+    private function doesOriginateFromProfileEditing(): bool
+    {
+        $request = $this->requestStack->getMainRequest();
+        if ($request === null) {
+            return false;
+        }
+
+        return $request->attributes->get('_route') === 'ibexa.user.profile.edit';
     }
 
     private function createRedirectToUserProfile(User $user): RedirectResponse
