@@ -115,7 +115,7 @@
         cursor: pointer;
 
         &:disabled {
-            &.form-check-input {
+            &.form-check-input:not(.ibexa-input--toggle) {
                 opacity: 1;
             }
         }
