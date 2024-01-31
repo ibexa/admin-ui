@@ -366,7 +366,11 @@
         }
 
         getBranchItems(branchElement) {
-            return [...branchElement.querySelectorAll(':scope > .ibexa-popup-menu__group > .ibexa-popup-menu__item')];
+            return [
+                ...branchElement.querySelectorAll(
+                    ':scope > .ibexa-popup-menu__groups > .ibexa-popup-menu__group > .ibexa-popup-menu__item',
+                ),
+            ];
         }
 
         toggleItemVisibility(menuItem, shouldBeVisible) {
