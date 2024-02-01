@@ -1,6 +1,6 @@
 @mixin input-active {
-    border-color: $ibexa-color-primary;
-    box-shadow: 0 0 calculateRem(2px) 0 rgba($ibexa-color-primary, 0.75);
+    border-color: var(--ibexa-input-focus-border-color, $ibexa-color-primary);
+    box-shadow: 0 0 0 calculateRem(4px) var(--ibexa-input-focus-shadow-color, #{rgba($ibexa-color-primary, 0.25)});
 }
 
 @mixin input-invalid {
@@ -8,6 +8,7 @@
     background-image: none;
     border-color: $ibexa-color-danger;
     background-color: $ibexa-color-danger-100;
+    box-shadow: none;
 }
 
 @mixin area-invalid {

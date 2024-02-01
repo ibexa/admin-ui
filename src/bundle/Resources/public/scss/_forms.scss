@@ -25,6 +25,10 @@ form:not(.form-inline) {
 
     .form-control:focus {
         @include input-active;
+
+        &.is-invalid {
+            @include input-invalid;
+        }
     }
 }
 
