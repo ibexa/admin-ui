@@ -20,7 +20,6 @@ use PHPUnit\Framework\TestCase;
  *         fieldDefinitionIdentifiers: array<string>,
  *         contentTypeIdentifiers: array<string>,
  *         aggregations: aggregations: array<string, array<string, string>>,
- *         imagesFolderLocationId: int,
  *         showImageFilters: bool,
  *     }
  * }
@@ -46,7 +45,6 @@ final class DamWidgetTest extends TestCase
             'fieldDefinitionIdentifier' => 'keywords',
         ],
     ];
-    private const ROOT_LOCATION_ID = 43;
 
     private ProviderInterface $provider;
 
@@ -62,7 +60,6 @@ final class DamWidgetTest extends TestCase
                     'fieldDefinitionIdentifiers' => self::FIELD_DEFINITION_IDENTIFIERS,
                     'contentTypeIdentifiers' => self::CONTENT_TYPE_IDENTIFIERS,
                     'aggregations' => self::IMAGE_AGGREGATIONS,
-                    'imagesFolderLocationId' => self::ROOT_LOCATION_ID,
                 ],
             ],
             $this->repositoryConfigurationProvider
@@ -137,7 +134,6 @@ final class DamWidgetTest extends TestCase
                 'fieldDefinitionIdentifiers' => self::FIELD_DEFINITION_IDENTIFIERS,
                 'contentTypeIdentifiers' => self::CONTENT_TYPE_IDENTIFIERS,
                 'aggregations' => self::IMAGE_AGGREGATIONS,
-                'imagesFolderLocationId' => self::ROOT_LOCATION_ID,
                 'showImageFilters' => $showImageFilters,
             ],
         ];

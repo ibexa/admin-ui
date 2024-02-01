@@ -18,7 +18,6 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
  *         fieldDefinitionIdentifiers: array<string>,
  *         contentTypeIdentifiers: array<string>,
  *         aggregations: array<string, array<string, string>>,
- *         imagesFolderLocationId: int,
  *     }
  *  }
  */
@@ -46,7 +45,6 @@ final class DamWidget implements ProviderInterface
      *         fieldDefinitionIdentifiers: array<string>,
      *         contentTypeIdentifiers: array<string>,
      *         aggregations: array<string, array<string, string>>,
-     *         imagesFolderLocationId: int,
      *         showImageFilters: bool,
      *     }
      * }

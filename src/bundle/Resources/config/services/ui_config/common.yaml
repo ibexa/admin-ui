@@ -150,7 +150,6 @@ services:
                     fieldDefinitionIdentifiers: '%ibexa.dam_widget.image.field_definition_identifiers%'
                     contentTypeIdentifiers: '%ibexa.dam_widget.image.content_type_identifiers%'
                     aggregations: '%ibexa.dam_widget.image.aggregations%'
-                    imagesFolderLocationId: '%ibexa.dam_widget.image.images_folder_location_id%'
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'damWidget' }
 
