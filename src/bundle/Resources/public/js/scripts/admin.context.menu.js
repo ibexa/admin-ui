@@ -116,7 +116,12 @@
             label,
             groupId: 'default',
             onClick: () => clickRelatedBtn(relatedBtnId),
-            processAfterCreated: (itemElement) => addRelatedBtnIdToMenuItem(itemElement, relatedBtnId),
+            processAfterCreated: (itemElement) => {
+                const itemBtn = itemElement.querySelector('.ibexa-multilevel-popup-menu__item-content');
+
+                itemBtn.disabled = menuButton.disabled;
+                addRelatedBtnIdToMenuItem(itemElement, relatedBtnId);
+            },
         };
     });
     const menuTree = {
