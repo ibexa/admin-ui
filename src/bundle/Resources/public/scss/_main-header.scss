@@ -4,7 +4,7 @@
     justify-content: space-between;
     padding: calculateRem(16px) calculateRem(20px) calculateRem(15px);
     background: $ibexa-color-dark;
-    border-bottom: calculateRem(1px) solid rgba($ibexa-color-info, 0.4);
+    border-bottom: calculateRem(1px) solid $ibexa-color-dark-500;
 
     &__brand-column {
         flex: 1;

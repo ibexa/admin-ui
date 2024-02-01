@@ -13,9 +13,9 @@
 
     &__navbar {
         font-size: $ibexa-text-font-size-medium;
-        background-color: $ibexa-color-black-600;
+        background-color: $ibexa-color-dark;
         transition: width $ibexa-admin-transition-duration;
-        border: calculateRem(1px) solid $ibexa-color-info-800;
+        border: calculateRem(1px) solid $ibexa-color-dark-500;
         border-top: none;
         overflow-y: auto;
         overflow-x: hidden;
@@ -78,6 +78,12 @@
 
                     &--popup-container {
                         margin: 0;
+
+                        .ibexa-main-menu__tooltip-trigger {
+                            .ibexa-icon {
+                                fill: $ibexa-color-navigation-400;
+                            }
+                        }
                     }
                 }
 
@@ -197,7 +203,7 @@
                 content: '';
                 width: calc(100% + #{calculateRem(22px)});
                 height: calculateRem(1px);
-                background: $ibexa-color-info-800;
+                background: $ibexa-color-dark-500;
                 position: absolute;
                 top: 0;
                 left: calculateRem(-6px);
@@ -241,16 +247,16 @@
         }
 
         &.active {
-            color: $ibexa-color-info;
-            background-color: $ibexa-color-info-800;
+            color: $ibexa-color-navigation-200;
+            background-color: $ibexa-color-navigation-700;
 
             .ibexa-main-menu {
                 &__item-icon {
-                    fill: $ibexa-color-info;
+                    fill: $ibexa-color-navigation-200;
                 }
 
                 &__item-text-column {
-                    color: $ibexa-color-info;
+                    color: $ibexa-color-navigation-200;
                 }
             }
         }
@@ -280,7 +286,7 @@
             content: '';
             width: calc(100% + #{calculateRem(12px)});
             height: calculateRem(1px);
-            background: $ibexa-color-info-800;
+            background: $ibexa-color-dark-500;
             position: absolute;
             top: 0;
             left: calculateRem(-6px);
