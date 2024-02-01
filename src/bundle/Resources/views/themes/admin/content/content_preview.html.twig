@@ -9,6 +9,8 @@
 
 {% block left_sidebar %}{% endblock %}
 
+{% form_theme site_access_form '@ibexadesign/ui/form_fields.html.twig' %}
+
 {% block header_row %}
     <div class="ibexa-preview-header">
         <div class="ibexa-preview-header__item ibexa-preview-header__item--back">
@@ -37,41 +39,7 @@
             </a>
         </div>
         <div class="ibexa-preview-header__item ibexa-preview-header__item--siteaccess">
-            {% set value = '' %}
-            {% set choices = siteaccesses|map((site_access_label, site_access_name) => {
-                value: path(
-                    'ibexa.version.preview',
-                    {
-                        'contentId': content.id,
-                        'versionNo': version_no,
-                        'language': language_code,
-                        'siteAccessName': site_access_name
-                    }
-                ),
-                label: site_access_label|trans({}, 'ezplatform_siteaccess'),
-                is_selected: site_access_name == preselected_site_access,
-            }) %}
-            {% set source %}
-                <select class="form-control ibexa-input">
-                    {% for choice in choices %}
-                        {% if choice.is_selected %}
-                            {% set value = choice.value %}
-                        {% endif %}
-                        <option
-                            value="{{ choice.value }}"
-                            {% if choice.is_selected %}selected{% endif %}
-                        >
-                            {{ choice.label }}
-                        </option>
-                    {% endfor %}
-                </select>
-            {% endset %}
-
-            {% include '@ibexadesign/ui/component/dropdown/dropdown.html.twig' with {
-                source: source,
-                choices: choices,
-                value: value,
-            } %}
+            {{ form(site_access_form) }}
         </div>
         <div class="ibexa-preview-header__item ibexa-preview-header__item--actions">
             <button data-preview-mode="desktop" class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--selector ibexa-btn--selected ibexa-preview-header__action">
