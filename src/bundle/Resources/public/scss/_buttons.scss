@@ -248,6 +248,16 @@
                 box-shadow: $ibexa-btn-focus-box-shadow-info, $ibexa-btn-hover-box-shadow-info;
             }
         }
+
+        &.disabled,
+        &[disabled],
+        &:disabled {
+            color: $ibexa-color-dark-400;
+            fill: $ibexa-color-dark-400;
+            background-color: $ibexa-color-light;
+            border-color: $ibexa-color-light;
+            box-shadow: none;
+        }
     }
 
     &--info.ibexa-btn {

@@ -1,4 +1,7 @@
 .ibexa-field-edit {
+    position: relative;
+    margin-top: calculateRem(8px);
+
     &__label {
         @include label-required();
     }
@@ -54,6 +57,7 @@
 
     .ibexa-form-error {
         flex-direction: column;
+        position: absolute;
     }
 
     .form-control {

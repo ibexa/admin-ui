@@ -22,7 +22,7 @@
 
 @mixin error-input {
     display: flex;
-    font-size: calculateRem(14px);
+    font-size: calculateRem(12px);
     font-style: normal;
     color: $ibexa-color-danger;
     align-items: center;
@@ -39,5 +39,4 @@
     @include error-input();
 
     flex-basis: 100%;
-    margin: 0 0 calculateRem(10px) calculateRem(2px);
 }

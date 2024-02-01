@@ -450,6 +450,10 @@
     &:hover {
         .ibexa-input {
             border-color: var(--ibexa-input-hover-border-color, #{$ibexa-color-primary});
+
+            &.is-invalid {
+                border-color: var(--ibexa-input-invalid-text-color, #{$ibexa-color-primary});
+            }
         }
     }
 }
