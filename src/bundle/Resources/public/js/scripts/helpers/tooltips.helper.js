@@ -1,3 +1,4 @@
+import { isSafari } from './browser.helper';
 import { getBootstrap } from './context.helper';
 
 const { document: doc } = window;
@@ -115,13 +116,14 @@ const isTitleEllipsized = (node) => {
 
     return textHeight > nodeHeight;
 };
-const initializeTooltip = (tooltipNode) => {
+const initializeTooltip = (tooltipNode, hasEllipsisStyle) => {
     const bootstrap = getBootstrap();
     const { delayShow, delayHide } = tooltipNode.dataset;
     const delay = {
         show: delayShow ? parseInt(delayShow, 10) : 150,
         hide: delayHide ? parseInt(delayHide, 10) : 75,
     };
+    const { title } = tooltipNode;
     const extraClass = tooltipNode.dataset.tooltipExtraClass ?? '';
     const placement = tooltipNode.dataset.tooltipPlacement ?? 'bottom';
     const trigger = tooltipNode.dataset.tooltipTrigger ?? 'hover';
@@ -147,6 +149,21 @@ const initializeTooltip = (tooltipNode) => {
     tooltipNode.addEventListener('inserted.bs.tooltip', (event) => {
         lastInsertTooltipTarget = event.currentTarget;
     });
+
+    if (isSafari()) {
+        if (tooltipNode.children) {
+            const childWithTitle = [...tooltipNode.children].find((child) => title === child.textContent);
+            const childHasEllipsisStyle = childWithTitle && getComputedStyle(childWithTitle).textOverflow === 'ellipsis';
+
+            if (childWithTitle && childHasEllipsisStyle) {
+                childWithTitle.classList.add('ibexa-safari-tooltip');
+            }
+        } else {
+            if (hasEllipsisStyle) {
+                tooltipNode.classList.add('ibexa-safari-tooltip');
+            }
+        }
+    }
 };
 const parse = (baseElement = doc) => {
     if (!baseElement) {
@@ -174,7 +191,7 @@ const parse = (baseElement = doc) => {
             }
 
             if (shouldHaveTooltip) {
-                initializeTooltip(tooltipNode);
+                initializeTooltip(tooltipNode, hasEllipsisStyle);
             } else {
                 tooltipNode.removeAttribute('title');
             }
@@ -196,7 +213,7 @@ const parse = (baseElement = doc) => {
             if (shouldHaveTooltip && (hasNewTitle || !hasTooltip)) {
                 tooltipNode.title = tooltipNode.dataset.originalTitle;
 
-                initializeTooltip(tooltipNode);
+                initializeTooltip(tooltipNode, hasEllipsisStyle);
             } else {
                 tooltipNode.removeAttribute('title');
             }

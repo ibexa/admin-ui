@@ -1,3 +1,4 @@
+import * as browser from './browser.helper';
 import * as contentType from './content.type.helper';
 import * as cookies from './cookies.helper';
 import * as formError from './form.error.helper';
@@ -19,6 +20,7 @@ import * as tooltips from './tooltips.helper';
 import * as user from './user.helper';
 
 (function (ibexa) {
+    ibexa.addConfig('helpers.browser', browser);
     ibexa.addConfig('helpers.contentType', contentType);
     ibexa.addConfig('helpers.cookies', cookies);
     ibexa.addConfig('helpers.formError', formError);
