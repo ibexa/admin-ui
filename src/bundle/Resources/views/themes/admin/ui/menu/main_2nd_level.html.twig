@@ -37,7 +37,7 @@
                     <ul class="ibexa-main-menu__items-list" style="{{ second_menu_list_width_style }}">
                         <li class="ibexa-main-menu__item ibexa-main-menu__item--popup-container">
                             <button
-                                class="ibexa-main-menu__tooltip-trigger ibexa-btn ibexa-btn--small ibexa-btn--no-text ibexa-btn--neon-info"
+                                class="ibexa-main-menu__tooltip-trigger ibexa-btn ibexa-btn--small ibexa-btn--no-text"
                                 data-popup-target-selector="#{{ child.name }}-popup"
                             >
                                 <svg class="ibexa-icon ibexa-icon--small">
@@ -45,7 +45,7 @@
                                 </svg>
                             </button>
 
-                            <ul id="{{ child.name }}-popup" class="ibexa-popup-menu ibexa-popup-menu--info-neon ibexa-popup-menu--hidden ibexa-main-menu-popup">
+                            <ul id="{{ child.name }}-popup" class="ibexa-popup-menu ibexa-popup-menu--navigation ibexa-popup-menu--hidden ibexa-main-menu-popup">
                                 {% for item in child.children %}
                                     {% set renderItemAsGroup = item.children|length > 0 %}
                                     {{ block('popupItem') }}
@@ -61,9 +61,9 @@
             {% endfor %}
         </div>
         <div class="ibexa-main-menu__toggler-container">
-            <button class="ibexa-main-menu__toggler ibexa-btn ibexa-btn--small ibexa-btn--no-text ibexa-btn--neon-info">
+            <button class="ibexa-main-menu__toggler ibexa-btn ibexa-btn--small ibexa-btn--no-text">
                 <svg class="ibexa-icon ibexa-icon--small">
-                    <use xlink:href="{{ ibexa_icon_path('vertical-left-right') }}"></use>
+                    <use xlink:href="{{ ibexa_icon_path('expand-left') }}"></use>
                 </svg>
             </button>
         </div>

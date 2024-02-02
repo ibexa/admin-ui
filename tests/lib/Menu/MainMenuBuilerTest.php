@@ -66,7 +66,7 @@ class MainMenuBuilerTest extends TestCase
                     'route' => 'ibexa.dashboard',
                     'attributes' => [
                         'data-tooltip-placement' => 'right',
-                        'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
+                        'data-tooltip-extra-class' => 'ibexa-tooltip--navigation',
                     ],
                     'extras' => [
                         'icon' => 'dashboard-clean',
@@ -80,7 +80,7 @@ class MainMenuBuilerTest extends TestCase
                 [
                     'attributes' => [
                         'data-tooltip-placement' => 'right',
-                        'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
+                        'data-tooltip-extra-class' => 'ibexa-tooltip--navigation',
                     ],
                     'extras' => [
                         'icon' => 'hierarchy',
@@ -94,7 +94,7 @@ class MainMenuBuilerTest extends TestCase
                 [
                     'attributes' => [
                         'data-tooltip-placement' => 'right',
-                        'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
+                        'data-tooltip-extra-class' => 'ibexa-tooltip--navigation',
                     ],
                     'extras' => [
                         'separate' => true,
@@ -111,7 +111,7 @@ class MainMenuBuilerTest extends TestCase
                     'route' => 'ibexa.bookmark.list',
                     'attributes' => [
                         'data-tooltip-placement' => 'right',
-                        'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
+                        'data-tooltip-extra-class' => 'ibexa-tooltip--navigation',
                     ],
                     'extras' => [
                         'bottom_item' => true,
@@ -127,7 +127,7 @@ class MainMenuBuilerTest extends TestCase
                     'route' => 'ibexa.trash.list',
                     'attributes' => [
                         'data-tooltip-placement' => 'right',
-                        'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
+                        'data-tooltip-extra-class' => 'ibexa-tooltip--navigation',
                     ],
                     'extras' => [
                         'bottom_item' => true,

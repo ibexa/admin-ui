@@ -190,7 +190,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         $contentMenu = $menu->addChild(self::ITEM_CONTENT, [
             'attributes' => [
                 'data-tooltip-placement' => 'right',
-                'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
+                'data-tooltip-extra-class' => 'ibexa-tooltip--navigation',
             ],
             'extras' => [
                 'icon' => 'hierarchy',
@@ -202,7 +202,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             'route' => 'ibexa.dashboard',
             'attributes' => [
                 'data-tooltip-placement' => 'right',
-                'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
+                'data-tooltip-extra-class' => 'ibexa-tooltip--navigation',
             ],
             'extras' => [
                 'icon' => 'dashboard-clean',
@@ -214,7 +214,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             'route' => 'ibexa.content_draft.list',
             'attributes' => [
                 'data-tooltip-placement' => 'right',
-                'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
+                'data-tooltip-extra-class' => 'ibexa-tooltip--navigation',
             ],
             'extras' => [
                 'icon' => 'dashboard-clean',
@@ -225,7 +225,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         $adminMenu = $menu->addChild(self::ITEM_ADMIN, [
             'attributes' => [
                 'data-tooltip-placement' => 'right',
-                'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
+                'data-tooltip-extra-class' => 'ibexa-tooltip--navigation',
                 'class' => 'ibexa-adaptive-items__item--force-show',
             ],
             'extras' => [
@@ -241,7 +241,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
                 'route' => 'ibexa.bookmark.list',
                 'attributes' => [
                     'data-tooltip-placement' => 'right',
-                    'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
+                    'data-tooltip-extra-class' => 'ibexa-tooltip--navigation',
                     'class' => 'ibexa-adaptive-items__item--force-show',
                 ],
                 'extras' => [
@@ -256,7 +256,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             'route' => 'ibexa.trash.list',
             'attributes' => [
                 'data-tooltip-placement' => 'right',
-                'data-tooltip-extra-class' => 'ibexa-tooltip--info-neon',
+                'data-tooltip-extra-class' => 'ibexa-tooltip--navigation',
                 'class' => 'ibexa-adaptive-items__item--force-show',
             ],
             'extras' => [

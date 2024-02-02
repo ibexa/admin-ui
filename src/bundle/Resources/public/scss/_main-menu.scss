@@ -63,6 +63,23 @@
             padding-bottom: calculateRem(32px);
             border-left: none;
 
+            .ibexa-main-menu__tooltip-trigger,
+            .ibexa-main-menu__toggler {
+                .ibexa-icon {
+                    fill: $ibexa-color-navigation-400;
+                }
+
+                &:focus {
+                    box-shadow: none;
+                }
+
+                &:hover {
+                    .ibexa-icon {
+                        fill: $ibexa-color-navigation-200;
+                    }
+                }
+            }
+
             .ibexa-main-menu {
                 &__items-list {
                     width: calculateRem(216px);
@@ -78,12 +95,6 @@
 
                     &--popup-container {
                         margin: 0;
-
-                        .ibexa-main-menu__tooltip-trigger {
-                            .ibexa-icon {
-                                fill: $ibexa-color-navigation-400;
-                            }
-                        }
                     }
                 }
 
@@ -122,6 +133,10 @@
 
                     &__toggler {
                         margin-right: calculateRem(6px);
+
+                        .ibexa-icon {
+                            transform: rotate(180deg);
+                        }
                     }
                 }
 
@@ -233,11 +248,11 @@
 
             .ibexa-main-menu {
                 &__item-icon {
-                    fill: $ibexa-color-info;
+                    fill: $ibexa-color-navigation-400;
                 }
 
                 &__item-text-column {
-                    color: $ibexa-color-info;
+                    color: $ibexa-color-navigation-400;
 
                     &--group {
                         color: $ibexa-color-light-700;
@@ -333,6 +348,7 @@
         padding: calculateRem(5px);
         justify-content: center;
         align-items: center;
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
     }
 
     &__first-level-popup-menu {
