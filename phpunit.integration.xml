@@ -1,0 +1,18 @@
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         bootstrap="tests/integration/bootstrap.php"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         failOnWarning="true"
+         verbose="true">
+    <php>
+        <env name="KERNEL_CLASS" value="Ibexa\Tests\Integration\AdminUi\AdminUiIbexaTestKernel" />
+        <env name="SEARCH_ENGINE" value="legacy" />
+        <env name="DATABASE_URL" value="sqlite://i@i/var/test.db" />
+    </php>
+    <testsuites>
+        <testsuite name="integration">
+            <directory>tests/integration</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
