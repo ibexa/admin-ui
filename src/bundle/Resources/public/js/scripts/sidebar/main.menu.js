@@ -70,6 +70,12 @@
 
             doc.addEventListener('mousemove', collapseSecondLevelMenu, false);
         } else {
+            const secondLevelMenuWidth = ibexa.helpers.cookies.getCookie('ibexa-aui_menu-secondary-width');
+
+            if (!secondLevelMenuWidth) {
+                ibexa.helpers.cookies.setBackOfficeCookie('ibexa-aui_menu-secondary-width', SECOND_LEVEL_EXPANDED_WIDTH);
+            }
+
             setWidthOfSecondLevelMenu();
         }
     };
