@@ -44,8 +44,8 @@ final class SiteAccessPreviewChoiceLoader extends BaseChoiceLoader
         $baseChoiceList = $this->siteAccessChoiceLoader->getChoiceList();
 
         $choiceList = [];
-        foreach ($baseChoiceList as $siteAccessKey => $siteAccessName) {
-            $choiceList[$siteAccessKey] = $this->urlGenerator->generate(
+        foreach ($baseChoiceList as $siteAccessName => $siteAccessKey) {
+            $choiceList[$siteAccessName] = $this->urlGenerator->generate(
                 'ibexa.version.preview',
                 [
                     'contentId' => $this->contentId,
