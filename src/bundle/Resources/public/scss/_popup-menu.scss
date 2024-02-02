@@ -119,7 +119,8 @@
             }
 
             &--current {
-                &, &:hover {
+                &,
+                &:hover {
                     color: $ibexa-color-navigation-200;
                     background-color: $ibexa-color-navigation-700;
                 }
