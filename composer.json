@@ -45,6 +45,7 @@
         "symfony/options-resolver": "^5.0",
         "symfony/asset": "^5.0",
         "symfony/yaml": "^5.0",
+        "symfony/webpack-encore-bundle": "^v1.17",
         "jms/translation-bundle": "^1.5",
         "ibexa/core": "~4.5.0@dev",
         "ibexa/content-forms": "~4.5.0@dev",
