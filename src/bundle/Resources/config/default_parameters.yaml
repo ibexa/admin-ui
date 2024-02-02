@@ -31,6 +31,8 @@ parameters:
         thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#video'
     ibexa.site_access.config.default.content_type.landing_page:
         thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#landing_page'
+    ibexa.site_access.config.default.content_type.editor:
+        thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#author'
     ibexa.site_access.config.default.content_type.default-config:
         thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file'
 
