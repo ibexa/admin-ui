@@ -89,7 +89,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
                     'view' => 'ibexa.language.view',
                     'create' => 'ibexa.language.create',
                 ],
-                'orderNumber' => 40,
+                'orderNumber' => 30,
             ],
         ],
         self::ITEM_ADMIN__CONTENT_TYPES => [
@@ -130,7 +130,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
                     'link_manager_view' => 'ibexa.link_manager.view',
                     'url_wildcard_edit' => 'ibexa.url_wildcard.update',
                 ],
-                'orderNumber' => 30,
+                'orderNumber' => 40,
             ],
         ],
     ];
