@@ -16,6 +16,7 @@ use Ibexa\Bundle\Rest\IbexaRestBundle;
 use Ibexa\Bundle\Search\IbexaSearchBundle;
 use Ibexa\Bundle\Test\Rest\IbexaTestRestBundle;
 use Ibexa\Bundle\User\IbexaUserBundle;
+use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Test\Core\IbexaTestKernel;
 use Ibexa\Rest\Server\Controller\JWT;
 use Knp\Bundle\MenuBundle\KnpMenuBundle;
@@ -47,6 +48,13 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
         yield new IbexaUserBundle();
 
         yield new IbexaAdminUiBundle();
+    }
+
+    protected static function getExposedServicesByClass(): iterable
+    {
+        yield from parent::getExposedServicesByClass();
+
+        yield BookmarkService::class;
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
