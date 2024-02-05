@@ -160,7 +160,7 @@
 
     parseMenuTitles();
 
-    activeItemName = activeItem?.parentNode?.dataset?.itemName ?? null;
+    activeItemName = activeItem?.parentNode.dataset.itemName ?? null;
     navAnchorItems.forEach((button) => button.addEventListener('click', switchSubMenuDisplay, false));
 
     secondLevelMenuNode.querySelector('.ibexa-main-menu__toggler').addEventListener('click', toggleSecondLevelMenu, false);
