@@ -50,5 +50,11 @@
         );
     };
 
+    doc.body.addEventListener('ibexa-instant-filters:add-group', (event) => {
+        const filterContainer = event.detail.container.closest('.ibexa-instant-filter');
+
+        initFilter(filterContainer);
+    });
+
     filters.forEach(initFilter);
 })(window, window.document);

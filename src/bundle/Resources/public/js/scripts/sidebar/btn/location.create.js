@@ -1,11 +1,6 @@
 (function (global, doc) {
     const createActions = doc.querySelectorAll('.ibexa-extra-actions--create');
-
-    if (!createActions.length) {
-        return;
-    }
-
-    createActions.forEach((container) => {
+    const bindCreateActionsEvents = (container) => {
         const radioInputs = container.querySelectorAll('.form-check [type="radio"]');
         const submitBtn = container.querySelector('.ibexa-extra-actions__btn--confirm');
 
@@ -24,5 +19,17 @@
                 false,
             ),
         );
+    };
+
+    doc.body.addEventListener('ibexa-instant-filters:add-group', (event) => {
+        const createActionsContainer = event.detail.container.closest('.ibexa-extra-actions--create');
+
+        bindCreateActionsEvents(createActionsContainer);
     });
+
+    if (!createActions.length) {
+        return;
+    }
+
+    createActions.forEach(bindCreateActionsEvents);
 })(window, window.document);
