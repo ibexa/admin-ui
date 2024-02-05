@@ -18,6 +18,16 @@
             }
 
             super.show();
+
+            const { offsetWidth, style } = this.dropdown.itemsContainer;
+
+            style.width = `${offsetWidth}px`;
+        }
+
+        dispose() {
+            super.dispose();
+
+            this.dropdown.itemsContainer.style.width = '';
         }
     }
     class Dropdown {
