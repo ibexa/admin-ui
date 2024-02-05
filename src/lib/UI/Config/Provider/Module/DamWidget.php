@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config\Provider\Module;
 
+use Ibexa\Bundle\Core\ApiLoader\Exception\InvalidSearchEngine;
+use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
 /**
@@ -24,19 +26,56 @@ final class DamWidget implements ProviderInterface
     /** @phpstan-var TConfig */
     private array $config;
 
+    private RepositoryConfigurationProvider $repositoryConfigurationProvider;
+
     /**
      * @phpstan-param TConfig $config
      */
-    public function __construct(array $config)
-    {
+    public function __construct(
+        array $config,
+        RepositoryConfigurationProvider $repositoryConfigurationProvider
+    ) {
         $this->config = $config;
+        $this->repositoryConfigurationProvider = $repositoryConfigurationProvider;
     }
 
     /**
-     * @phpstan-return TConfig
+     * @phpstan-return array{
+     *     image: array{
+     *         fieldDefinitionIdentifiers: array<string>,
+     *         contentTypeIdentifiers: array<string>,
+     *         aggregations: array<string, array<string, string>>,
+     *         showImageFilters: bool,
+     *     }
+     * }
+     *
+     * @throws \Ibexa\Bundle\Core\ApiLoader\Exception\InvalidSearchEngine
      */
     public function getConfig(): array
     {
-        return $this->config;
+        $widgetConfig = $this->config;
+        $widgetConfig['image']['showImageFilters'] = $this->showImageFilters();
+
+        return $widgetConfig;
+    }
+
+    /**
+     * @throws \Ibexa\Bundle\Core\ApiLoader\Exception\InvalidSearchEngine
+     */
+    private function showImageFilters(): bool
+    {
+        $config = $this->repositoryConfigurationProvider->getRepositoryConfig();
+
+        $searchEngineAlias = $config['search']['engine'] ?? null;
+        if (null === $searchEngineAlias) {
+            throw new InvalidSearchEngine(
+                sprintf(
+                    'Ibexa "%s" Repository has no Search Engine configured',
+                    $this->repositoryConfigurationProvider->getCurrentRepositoryAlias()
+                )
+            );
+        }
+
+        return $searchEngineAlias !== 'legacy';
     }
 }
