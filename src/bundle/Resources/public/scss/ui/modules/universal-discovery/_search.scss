@@ -84,35 +84,9 @@
         font-size: $ibexa-text-font-size-medium;
     }
 
-    &__no-results {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    &__no-results-title,
-    &__no-results-subtitle {
-        color: $ibexa-color-dark-400;
-    }
-
-    &__no-results-subtitle {
-        display: flex;
-        flex-wrap: wrap;
-        max-width: 60%;
-        margin-top: calculateRem(30px);
-
-        .ibexa-icon {
-            margin-right: calculateRem(16px);
-        }
-    }
-
-    &__no-results-hint {
-        flex-basis: 50%;
-        padding: calculateRem(8px);
-        display: flex;
-    }
-
     .c-content-table {
         width: 100%;
     }
+
+    @import '../../../mixins/search-form-no-results';
 }

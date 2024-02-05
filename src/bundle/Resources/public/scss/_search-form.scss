@@ -81,57 +81,11 @@
         }
     }
 
-    &__empty,
-    &__no-results {
-        grid-area: results;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: calculateRem(100px);
-    }
-
-    &__empty-title,
-    &__empty-subtitle,
-    &__no-results-title,
-    &__no-results-subtitle {
-        color: $ibexa-color-dark-400;
-    }
-
-    &__no-results-subtitle {
-        display: flex;
-        flex-wrap: wrap;
-        max-width: 60%;
-        margin-top: calculateRem(30px);
-
-        .ibexa-icon {
-            margin-right: calculateRem(16px);
-        }
-    }
-
-    &__no-results-hint {
-        flex-basis: 50%;
-        padding: calculateRem(8px);
-        display: flex;
-    }
-
-    &__spellcheck-suggestion {
-        font-style: italic;
-
-        a {
-            font-style: normal;
-            font-weight: bold;
-        }
-    }
-
-    &__no-results {
-        .ibexa-search-form__spellcheck-suggestion {
-            color: $ibexa-color-dark-400;
-        }
-    }
-
     .ibexa-btn--secondary.ibexa-btn {
         max-width: 100%;
         overflow: hidden;
         white-space: inherit;
     }
+
+    @import 'mixins/search-form-no-results';
 }
