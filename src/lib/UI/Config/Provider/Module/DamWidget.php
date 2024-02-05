@@ -12,12 +12,14 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
 /**
  * @template TConfig of array{
- *      imageFieldDefinitionIdentifiers: array<string>,
- *      imageContentTypeIdentifiers: array<string>,
- *      aggregations: array<string, array<string, string>>,
+ *     image: array{
+ *         fieldDefinitionIdentifiers: array<string>,
+ *         contentTypeIdentifiers: array<string>,
+ *         aggregations: array<string, array<string, string>>,
+ *     }
  *  }
  */
-final class ImagePicker implements ProviderInterface
+final class DamWidget implements ProviderInterface
 {
     /** @phpstan-var TConfig */
     private array $config;

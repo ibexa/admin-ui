@@ -79,9 +79,9 @@ parameters:
 
     ibexa.site_access.config.default.admin_ui.default_focus_mode: '1'
 
-    ibexa.image_picker.field_definition_identifiers: [image]
-    ibexa.image_picker.content_type_identifiers: [image]
-    ibexa.image_picker.aggregations:
+    ibexa.dam_widget.image.field_definition_identifiers: [image]
+    ibexa.dam_widget.image.content_type_identifiers: [image]
+    ibexa.dam_widget.image.aggregations:
         KeywordTermAggregation:
             name: keywords
             contentTypeIdentifier: image

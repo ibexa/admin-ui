@@ -143,14 +143,15 @@ services:
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'userProfile' }
 
-    Ibexa\AdminUi\UI\Config\Provider\Module\ImagePicker:
+    Ibexa\AdminUi\UI\Config\Provider\Module\DamWidget:
         arguments:
             $config:
-                imageFieldDefinitionIdentifiers: '%ibexa.image_picker.field_definition_identifiers%'
-                imageContentTypeIdentifiers: '%ibexa.image_picker.content_type_identifiers%'
-                aggregations: '%ibexa.image_picker.aggregations%'
+                image:
+                    fieldDefinitionIdentifiers: '%ibexa.dam_widget.image.field_definition_identifiers%'
+                    contentTypeIdentifiers: '%ibexa.dam_widget.image.content_type_identifiers%'
+                    aggregations: '%ibexa.dam_widget.image.aggregations%'
         tags:
-            - { name: ibexa.admin_ui.config.provider, key: 'imagePicker' }
+            - { name: ibexa.admin_ui.config.provider, key: 'damWidget' }
 
     # Resolvers
     Ibexa\AdminUi\REST\Generator\ApplicationConfigRestGeneratorRegistry:

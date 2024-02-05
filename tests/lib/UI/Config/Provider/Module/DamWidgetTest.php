@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\UI\Config\Provider\Module;
 
-use Ibexa\AdminUi\UI\Config\Provider\Module\ImagePicker;
+use Ibexa\AdminUi\UI\Config\Provider\Module\DamWidget;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use PHPUnit\Framework\TestCase;
 
-final class ImagePickerTest extends TestCase
+final class DamWidgetTest extends TestCase
 {
     private const FIELD_DEFINITION_IDENTIFIERS = ['field_foo', 'field_bar'];
     private const CONTENT_TYPE_IDENTIFIERS = ['content_type_foo', 'content_type_bar'];
-    private const AGGREGATIONS = [
+    private const IMAGE_AGGREGATIONS = [
         'KeywordTermAggregation' => [
             'name' => 'keywords',
             'contentTypeIdentifier' => 'keywords',
@@ -28,11 +28,13 @@ final class ImagePickerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->provider = new ImagePicker(
+        $this->provider = new DamWidget(
             [
-                'imageFieldDefinitionIdentifiers' => self::FIELD_DEFINITION_IDENTIFIERS,
-                'imageContentTypeIdentifiers' => self::CONTENT_TYPE_IDENTIFIERS,
-                'aggregations' => self::AGGREGATIONS,
+                'image' => [
+                    'fieldDefinitionIdentifiers' => self::FIELD_DEFINITION_IDENTIFIERS,
+                    'contentTypeIdentifiers' => self::CONTENT_TYPE_IDENTIFIERS,
+                    'aggregations' => self::IMAGE_AGGREGATIONS,
+                ],
             ]
         );
     }
@@ -41,9 +43,11 @@ final class ImagePickerTest extends TestCase
     {
         self::assertSame(
             [
-                'imageFieldDefinitionIdentifiers' => self::FIELD_DEFINITION_IDENTIFIERS,
-                'imageContentTypeIdentifiers' => self::CONTENT_TYPE_IDENTIFIERS,
-                'aggregations' => self::AGGREGATIONS,
+                'image' => [
+                    'fieldDefinitionIdentifiers' => self::FIELD_DEFINITION_IDENTIFIERS,
+                    'contentTypeIdentifiers' => self::CONTENT_TYPE_IDENTIFIERS,
+                    'aggregations' => self::IMAGE_AGGREGATIONS,
+                ],
             ],
             $this->provider->getConfig()
         );
