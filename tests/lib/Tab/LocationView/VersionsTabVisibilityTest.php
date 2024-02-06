@@ -27,15 +27,19 @@ final class VersionsTabVisibilityTest extends AbstractTabVisibilityTestCase
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content&\PHPUnit\Framework\MockObject\MockObject */
     private Content $exampleContent;
 
-    protected function setUp(): void
+    private function getExampleContent(): Content
     {
-        $this->exampleContent = $this->createMock(Content::class);
+        if (!isset($this->exampleContent)) {
+            $this->exampleContent = $this->createMock(Content::class);
+        }
+
+        return $this->exampleContent;
     }
 
     protected function createTabForVisibilityInGivenUserModeTest(UserSettingService $userSettingService): TabInterface
     {
         $permissionResolver = $this->createMock(PermissionResolver::class);
-        $permissionResolver->method('canUser')->with('content', 'versionread', $this->exampleContent)->willReturn(true);
+        $permissionResolver->method('canUser')->with('content', 'versionread', $this->getExampleContent())->willReturn(true);
 
         return new VersionsTab(
             $this->createMock(Environment::class),
@@ -43,7 +47,7 @@ final class VersionsTabVisibilityTest extends AbstractTabVisibilityTestCase
             $this->createMock(DatasetFactory::class),
             $this->createMock(FormFactory::class),
             $this->createMock(UrlGeneratorInterface::class),
-            $this->createMock(PermissionResolver::class),
+            $permissionResolver,
             $this->createMock(UserService::class),
             $userSettingService,
             $this->createMock(EventDispatcherInterface::class),
@@ -54,13 +58,13 @@ final class VersionsTabVisibilityTest extends AbstractTabVisibilityTestCase
     {
         yield 'focus mode on' => [
             FocusMode::FOCUS_MODE_ON,
-            ['content' => $this->exampleContent],
+            ['content' => $this->getExampleContent()],
             false,
         ];
 
         yield 'focus mode off' => [
             FocusMode::FOCUS_MODE_OFF,
-            ['content' => $this->exampleContent],
+            ['content' => $this->getExampleContent()],
             true,
         ];
     }
