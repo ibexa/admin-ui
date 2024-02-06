@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "ContentTreeRoot": {
+      "type": "object",
+      "properties": {
+        "_media-type": {
+          "type": "string"
+        },
+        "ContentTreeNodeList": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "_media-type": {
+                  "type": "string"
+                },
+                "locationId": {
+                  "type": "integer"
+                },
+                "contentId": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "contentTypeIdentifier": {
+                  "type": "string"
+                },
+                "isContainer": {
+                  "type": "boolean"
+                },
+                "isInvisible": {
+                  "type": "boolean"
+                },
+                "displayLimit": {
+                  "type": "integer"
+                },
+                "totalChildrenCount": {
+                  "type": "integer"
+                },
+                "reverseRelationsCount": {
+                  "type": "integer"
+                },
+                "isBookmarked": {
+                  "type": "boolean"
+                },
+                "children": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "_media-type": {
+                          "type": "string"
+                        },
+                        "locationId": {
+                          "type": "integer"
+                        },
+                        "contentId": {
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "contentTypeIdentifier": {
+                          "type": "string"
+                        },
+                        "isContainer": {
+                          "type": "boolean"
+                        },
+                        "isInvisible": {
+                          "type": "boolean"
+                        },
+                        "displayLimit": {
+                          "type": "integer"
+                        },
+                        "totalChildrenCount": {
+                          "type": "integer"
+                        },
+                        "reverseRelationsCount": {
+                          "type": "integer"
+                        },
+                        "isBookmarked": {
+                          "type": "boolean"
+                        },
+                        "children": {
+                          "type": "array",
+                          "items": {}
+                        }
+                      },
+                      "required": [
+                        "_media-type",
+                        "locationId",
+                        "contentId",
+                        "name",
+                        "contentTypeIdentifier",
+                        "isContainer",
+                        "isInvisible",
+                        "displayLimit",
+                        "totalChildrenCount",
+                        "reverseRelationsCount",
+                        "isBookmarked",
+                        "children"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "_media-type",
+                "locationId",
+                "contentId",
+                "name",
+                "contentTypeIdentifier",
+                "isContainer",
+                "isInvisible",
+                "displayLimit",
+                "totalChildrenCount",
+                "reverseRelationsCount",
+                "isBookmarked",
+                "children"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "_media-type",
+        "ContentTreeNodeList"
+      ]
+    }
+  },
+  "required": [
+    "ContentTreeRoot"
+  ]
+}

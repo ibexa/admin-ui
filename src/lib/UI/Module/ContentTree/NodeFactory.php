@@ -95,6 +95,10 @@ final class NodeFactory
     ): Node {
         $uninitializedContentInfoList = [];
         $containerLocations = [];
+
+        $userBookmarks = $this->bookmarkService->loadBookmarks(0, -1);
+        $bookmarkedLocations = array_flip(array_column($userBookmarks->items, 'id'));
+
         $node = $this->buildNode(
             $location,
             $uninitializedContentInfoList,
@@ -103,7 +107,8 @@ final class NodeFactory
             $loadChildren,
             $depth,
             $sortClause,
-            $sortOrder
+            $sortOrder,
+            $bookmarkedLocations
         );
         $versionInfoById = $this->contentService->loadVersionInfoListByContentInfo($uninitializedContentInfoList);
 
