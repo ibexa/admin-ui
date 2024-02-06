@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+
 namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 
 use Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter;
@@ -87,6 +88,7 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
 
     /**
      * @covers \Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter::apply
+     *
      * @dataProvider dataProviderForApplyWithWrongAttribute
      */
     public function testApplyWithWrongAttribute(array $attributes)
@@ -152,6 +154,7 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
 
     /**
      * @covers \Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter::supports
+     *
      * @dataProvider dataProviderForSupport
      */
     public function testSupport(string $class, bool $expected)

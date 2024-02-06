@@ -51,6 +51,7 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
      * @var string
      *
      * @Assert\NotNull()
+     *
      * @Assert\Choice({
      *     RoleAssignmentCreateData::LIMITATION_TYPE_NONE,
      *     RoleAssignmentCreateData::LIMITATION_TYPE_SECTION,

@@ -23,7 +23,6 @@ use PHPUnit\Framework\TestCase;
  *         showImageFilters: bool,
  *     }
  * }
- *
  * @template TRepositoryConfig of array {
  *      engine: string,
  *      connection: string,
