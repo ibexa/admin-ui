@@ -3,7 +3,7 @@ import { getIconPath } from './icon.helper';
 
 const formatErrorLine = (errorMessage) => {
     const errorIcon = `<svg class="ibexa-icon ibexa-icon--small ibexa-form-error__icon">
-        <use xlink:href="${getIconPath('warning-triangle')}"></use>
+        <use xlink:href="${getIconPath('notice')}"></use>
     </svg>`;
     const container = document.createElement('em');
     const errorMessageNode = document.createTextNode(errorMessage);
@@ -35,11 +35,13 @@ const checkIsEmpty = (field) => {
 };
 const validateIsEmptyField = (field) => {
     const input = field.querySelector('.ibexa-input');
+    const label = field.querySelector('.ibexa-label');
     const errorWrapper = field.querySelector('.ibexa-form-error');
     const validatorOutput = checkIsEmpty(field);
     const { isValid, errorMessage } = validatorOutput;
 
     input.classList.toggle('is-invalid', !isValid);
+    label.classList.toggle('is-invalid', !isValid);
     errorWrapper.innerText = '';
 
     if (!isValid) {

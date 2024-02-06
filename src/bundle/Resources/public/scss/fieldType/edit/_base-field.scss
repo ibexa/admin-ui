@@ -1,4 +1,6 @@
 .ibexa-field-edit {
+    margin-top: calculateRem(8px);
+
     &__label {
         @include label-required();
     }

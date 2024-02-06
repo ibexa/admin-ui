@@ -25,6 +25,10 @@ form:not(.form-inline) {
 
     .form-control:focus {
         @include input-active;
+
+        &.is-invalid {
+            @include input-invalid;
+        }
     }
 }
 
@@ -88,7 +92,7 @@ form:not(.form-inline) {
         display: flex;
         align-items: center;
         font-style: normal;
-        margin-top: calculateRem(4px);
+        margin-top: calculateRem(8px);
     }
 
     &__icon {

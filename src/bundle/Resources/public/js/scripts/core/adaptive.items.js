@@ -49,7 +49,6 @@
             }, 0);
             const hiddenItemsWithoutSelector = new Set();
             let currentSize = selectorSize + activeItemSize + forceVisibleItemsSize;
-
             const itemsWithoutForce = this.items.filter((item) => {
                 const isForceHide = item.classList.contains(this.classForceHide);
                 const isForceVisible = item.classList.contains(this.classForceShow);
@@ -95,6 +94,17 @@
                 item.classList.toggle(this.itemHiddenClass, hiddenItemsWithoutSelector.has(item));
             });
             this.selectorItem.classList.toggle(this.itemHiddenClass, !hiddenItemsWithoutSelector.size);
+            this.selectorItem.setAttribute('tabindex', !hiddenItemsWithoutSelector.size ? '-1' : '0');
+
+            const selectorAnchor = this.selectorItem.querySelector('& > .nav-link');
+
+            if (selectorAnchor) {
+                if (!hiddenItemsWithoutSelector.size) {
+                    selectorAnchor.setAttribute('disabled', '');
+                } else {
+                    selectorAnchor.removeAttribute('disabled');
+                }
+            }
 
             const visibleItemsWithoutSelector = new Set([...this.items].filter((item) => !hiddenItemsWithoutSelector.has(item)));
 

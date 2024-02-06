@@ -25,6 +25,10 @@
             }
         }
     }
+
+    &.form-label.is-invalid {
+        color: $ibexa-color-danger;
+    }
 }
 
 .form-check-inline {
