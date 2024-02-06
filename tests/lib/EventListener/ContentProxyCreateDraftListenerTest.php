@@ -212,7 +212,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
     public function testAutosaveDisabled(): void
     {
         $autosaveService = $this->createMock(AutosaveServiceInterface::class);
-        $autosaveService->method('isEnabled')->willReturn(true);
+        $autosaveService->method('isEnabled')->willReturn(false);
 
         $contentService = $this->createMock(ContentService::class);
         $contentService
