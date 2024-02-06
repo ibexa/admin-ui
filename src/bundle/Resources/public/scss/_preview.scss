@@ -1,6 +1,7 @@
 .ibexa-preview {
     &__iframe {
         iframe {
+            pointer-events: none;
             width: 100%;
             height: calc(100vh - 45px);
             display: block;
