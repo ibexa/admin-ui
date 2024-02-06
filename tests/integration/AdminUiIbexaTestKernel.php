@@ -12,19 +12,21 @@ use DAMA\DoctrineTestBundle\DAMADoctrineTestBundle;
 use Hautelook\TemplatedUriBundle\HautelookTemplatedUriBundle;
 use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
 use Ibexa\Bundle\ContentForms\IbexaContentFormsBundle;
+use Ibexa\Bundle\DesignEngine\IbexaDesignEngineBundle;
 use Ibexa\Bundle\Rest\IbexaRestBundle;
 use Ibexa\Bundle\Search\IbexaSearchBundle;
+use Ibexa\Bundle\Test\Rest\IbexaTestRestBundle;
 use Ibexa\Bundle\User\IbexaUserBundle;
+use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Test\Core\IbexaTestKernel;
-use Ibexa\Tests\Integration\AdminUi\DependencyInjection\Configuration\IgnoredConfigParser;
-use Knp\Menu\FactoryInterface;
-use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use Ibexa\Rest\Server\Controller\JWT;
+use Knp\Bundle\MenuBundle\KnpMenuBundle;
 use Swift_Mailer;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Fragment\EsiFragmentRenderer;
-use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollection;
-use Symfony\WebpackEncoreBundle\Asset\TagRenderer;
+use Symfony\Component\Yaml\Yaml;
+use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
 
 /**
  * @internal
@@ -35,75 +37,76 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
     {
         yield from parent::registerBundles();
 
-        yield new IbexaRestBundle();
-        yield new IbexaUserBundle();
-        yield new IbexaAdminUiBundle();
-        yield new IbexaContentFormsBundle();
-        yield new IbexaSearchBundle();
         yield new DAMADoctrineTestBundle();
         yield new HautelookTemplatedUriBundle();
+        yield new KnpMenuBundle();
+        yield new WebpackEncoreBundle();
+
+        yield new IbexaContentFormsBundle();
+        yield new IbexaDesignEngineBundle();
+        yield new IbexaRestBundle();
+        yield new IbexaSearchBundle();
+        yield new IbexaTestRestBundle();
+        yield new IbexaUserBundle();
+
+        yield new IbexaAdminUiBundle();
+    }
+
+    protected static function getExposedServicesByClass(): iterable
+    {
+        yield from parent::getExposedServicesByClass();
+
+        yield BookmarkService::class;
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         parent::registerContainerConfiguration($loader);
 
-        $loader->load(static function (ContainerBuilder $container): void {
-            $container->setParameter('locale_fallback', 'en');
-        });
-
         $loader->load(__DIR__ . '/Resources/ibexa.yaml');
 
         $loader->load(static function (ContainerBuilder $container): void {
-            self::configureIbexaDXPBundles($container);
+            self::configureIbexaBundles($container);
             self::configureThirdPartyBundles($container);
         });
     }
 
-    private static function configureIbexaDXPBundles(ContainerBuilder $container): void
+    private static function configureIbexaBundles(ContainerBuilder $container): void
     {
-        $container->setParameter('form.type_extension.csrf.enabled', false);
-        $container->setParameter('ibexa.http_cache.purge_type', 'local');
-        $container->setParameter('ibexa.http_cache.translation_aware.enabled', false);
-        $container->setParameter('locale_fallback', 'en');
-        $container->register('fragment.renderer.esi', EsiFragmentRenderer::class);
+        // REST
+        $resource = new FileResource(__DIR__ . '/Resources/routing.yaml');
+        $container->addResource($resource);
+        $container->loadFromExtension('framework', [
+            'router' => [
+                'resource' => $resource->getResource(),
+            ],
+        ]);
+        self::addSyntheticService($container, JWT::class);
 
-        /** @var \Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension $kernel */
-        $kernel = $container->getExtension('ibexa');
-        $kernel->addConfigParser(
-            new IgnoredConfigParser(
-                [
-                    'admin_ui_forms',
-                    'calendar',
-                    'content_create_view',
-                    'content_translate_view',
-                    'content_edit_view',
-                    'design',
-                    'search_view',
-                    'universal_discovery_widget_module',
-                ]
-            )
-        );
-    }
+        $configFileName = __DIR__ . '/Resources/ibexa_test_config.yaml';
+        $resource = new FileResource($configFileName);
+        $container->addResource($resource);
 
-    protected static function getExposedServicesByClass(): iterable
-    {
-        yield from parent::getExposedServicesByClass();
+        $extensionConfig = Yaml::parseFile($resource->getResource());
+        foreach ($extensionConfig as $extensionName => $config) {
+            $container->loadFromExtension($extensionName, $config);
+        }
     }
 
     private static function configureThirdPartyBundles(ContainerBuilder $container): void
     {
-        $container->setParameter('fos_http_cache.tag_handler.strict', false);
-        $container->setParameter('fos_http_cache.compiler_pass.tag_annotations', false);
+        $container->loadFromExtension('webpack_encore', [
+            'output_path' => dirname(__DIR__, 2) . '/var/encore/output',
+        ]);
 
         self::addSyntheticService($container, Swift_Mailer::class);
-        self::addSyntheticService($container, JWTTokenManagerInterface::class);
-        self::addSyntheticService($container, FactoryInterface::class);
-        self::addSyntheticService($container, TagRenderer::class, 'webpack_encore.tag_renderer');
-        self::addSyntheticService(
-            $container,
-            EntrypointLookupCollection::class,
-            'webpack_encore.entrypoint_lookup_collection'
-        );
+
+        // bazinga's locale_fallback
+        $container->setParameter('locale_fallback', 'en');
+
+        // Symfony
+        $container->setParameter('form.type_extension.csrf.enabled', false);
+        $container->setParameter('fos_http_cache.tag_handler.strict', false);
+        $container->setParameter('fos_http_cache.compiler_pass.tag_annotations', false);
     }
 }

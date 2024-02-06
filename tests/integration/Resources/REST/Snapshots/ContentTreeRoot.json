@@ -1,0 +1,42 @@
+{
+  "ContentTreeRoot": {
+    "_media-type": "application\/vnd.ibexa.api.ContentTreeRoot+json",
+    "ContentTreeNodeList": [
+      {
+        "_media-type": "application\/vnd.ibexa.api.ContentTreeNode+json",
+        "locationId": 2,
+        "contentId": 57,
+        "versionNo": 1,
+        "translations": "eng-GB",
+        "previewableTranslations": "eng-GB",
+        "name": "Home",
+        "contentTypeIdentifier": "landing_page",
+        "isContainer": true,
+        "isInvisible": false,
+        "displayLimit": 30,
+        "totalChildrenCount": 1,
+        "reverseRelationsCount": 0,
+        "isBookmarked": true,
+        "children": [
+          {
+            "_media-type": "application\/vnd.ibexa.api.ContentTreeNode+json",
+            "locationId": 60,
+            "contentId": 58,
+            "versionNo": 1,
+            "translations": "eng-GB",
+            "previewableTranslations": "eng-GB",
+            "name": "Contact Us",
+            "contentTypeIdentifier": "feedback_form",
+            "isContainer": true,
+            "isInvisible": false,
+            "displayLimit": 30,
+            "totalChildrenCount": 0,
+            "reverseRelationsCount": 0,
+            "isBookmarked": false,
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+}

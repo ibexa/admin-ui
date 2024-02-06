@@ -9691,11 +9691,6 @@ parameters:
 			path: src/lib/UI/Module/ContentTree/NodeFactory.php
 
 		-
-			message: "#^Property Ibexa\\\\AdminUi\\\\UI\\\\Module\\\\ContentTree\\\\NodeFactory\\:\\:\\$bookmarkService is never read, only written\\.$#"
-			count: 1
-			path: src/lib/UI/Module/ContentTree/NodeFactory.php
-
-		-
 			message: "#^Generator expects value type Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\FieldType, Ibexa\\\\Contracts\\\\Core\\\\FieldType\\\\FieldType given\\.$#"
 			count: 1
 			path: src/lib/UI/Module/FieldTypeToolbar/FieldTypeToolbarFactory.php

@@ -1,0 +1,9 @@
+ibexa:
+    siteaccess:
+        list: [admin]
+        groups:
+            admin_group: [admin]
+    system:
+        default:
+            content_tree_module:
+                load_more_limit: 30

@@ -4,6 +4,8 @@
         backupGlobals="false"
         backupStaticAttributes="false"
         bootstrap="tests/integration/bootstrap.php"
+        beStrictAboutOutputDuringTests="true"
+        beStrictAboutTodoAnnotatedTests="true"
         convertErrorsToExceptions="true"
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
