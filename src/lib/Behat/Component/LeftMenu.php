@@ -17,7 +17,7 @@ class LeftMenu extends Component
 {
     public function goToTab(string $tabName): void
     {
-        $menuButton = $this->getHTMLPage()
+        $menuButton = $this->getHTMLPage()->setTimeout(5)
             ->findAll($this->getLocator('menuItem'))
             ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName));
         $menuButton->click();
