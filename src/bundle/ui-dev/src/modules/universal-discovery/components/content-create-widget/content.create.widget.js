@@ -171,7 +171,7 @@ const ContentCreateWidget = () => {
                         <div className="ibexa-instant-filter__desc">{filtersDescLabel}</div>
                         <div className="ibexa-instant-filter__items">
                             {contentTypesWithSuggestions.map(([groupName, groupItems], index) => {
-                                const isSuggestionGroup = suggestions.length && index === 0;
+                                const isSuggestionGroup = !!suggestions.length && index === 0;
                                 const restrictedContentTypeIds = selectedLocation?.permissions?.create.restrictedContentTypeIds ?? [];
                                 const isHiddenGroup = groupItems.every((groupItem) => {
                                     const isNotSearchedName = filterQuery && !groupItem.name.toLowerCase().includes(filterQuery);
