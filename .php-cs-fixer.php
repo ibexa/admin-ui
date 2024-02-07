@@ -11,16 +11,6 @@ use Ibexa\CodeStyle\PhpCsFixer\InternalConfigFactory;
 $configFactory = new InternalConfigFactory();
 $configFactory->withRules([
     'declare_strict_types' => false,
-    'class_attributes_separation' => [
-        'elements' => [
-            'method' => 'one',
-            'property' => 'one',
-        ],
-    ],
-    'class_definition' => [
-        'single_item_single_line' => true,
-        'inline_constructor_arguments' => false,
-    ],
 ]);
 
 return $configFactory

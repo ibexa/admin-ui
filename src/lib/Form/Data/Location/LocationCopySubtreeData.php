@@ -15,17 +15,21 @@ class LocationCopySubtreeData extends AbstractLocationCopyData
     /**
      * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      *
-     * @Assert\NotNull()
      * @AdminUiAssert\LocationIsWithinCopySubtreeLimit()
+     *
      * @AdminUiAssert\LocationIsNotRoot()
+     *
+     * @Assert\NotNull()
      */
     protected $location;
 
     /**
      * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      *
-     * @Assert\NotNull()
      * @AdminUiAssert\LocationIsContainer()
+     *
+     * @Assert\NotNull()
+     *
      * @AdminUiAssert\LocationIsNotSubLocation(
      *     propertyPath="location"
      * )
