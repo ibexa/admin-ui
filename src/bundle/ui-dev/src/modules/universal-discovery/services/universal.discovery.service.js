@@ -14,6 +14,7 @@ const ENDPOINT_ACCORDION = '/api/ibexa/v2/module/universal-discovery/accordion';
 const ENDPOINT_LOCATION_LIST = '/api/ibexa/v2/module/universal-discovery/locations';
 
 export const QUERY_LIMIT = 50;
+export const AGGREGATIONS_LIMIT = 4;
 
 const showErrorNotificationAbortWrapper = (error) => {
     if (error?.name === 'AbortError') {
@@ -483,13 +484,16 @@ export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanc
     return adminUiConfig.ApplicationConfig;
 };
 
-export const findSuggestions = ({ siteaccess, token, parentLocationId }, callback) => {
+export const findSuggestions = (
+    { siteaccess, token, parentLocationId, accessToken, instanceUrl = DEFAULT_INSTANCE_URL, limit = QUERY_LIMIT, offset = 0 },
+    callback,
+) => {
     const body = JSON.stringify({
         ViewInput: {
             identifier: 'view_with_aggregation',
             LocationQuery: {
-                limit: '10',
-                offset: '0',
+                limit,
+                offset,
                 Filter: {
                     ParentLocationIdCriterion: parentLocationId,
                 },
@@ -497,6 +501,7 @@ export const findSuggestions = ({ siteaccess, token, parentLocationId }, callbac
                     {
                         ContentTypeTermAggregation: {
                             name: 'suggestions',
+                            limit: AGGREGATIONS_LIMIT,
                         },
                     },
                 ],
@@ -506,9 +511,16 @@ export const findSuggestions = ({ siteaccess, token, parentLocationId }, callbac
 
     const request = new Request(ENDPOINT_CREATE_VIEW, {
         method: 'POST',
-        headers: { ...HEADERS_CREATE_VIEW, 'X-Siteaccess': siteaccess, 'X-CSRF-Token': token },
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                ...HEADERS_CREATE_VIEW,
+            },
+        }),
         body,
-        mode: 'same-origin',
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
