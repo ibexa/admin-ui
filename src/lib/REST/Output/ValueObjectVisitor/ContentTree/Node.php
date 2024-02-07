@@ -31,6 +31,9 @@ class Node extends ValueObjectVisitor
         $generator->startValueElement('locationId', $data->locationId);
         $generator->endValueElement('locationId');
 
+        $generator->startValueElement('pathString', $data->pathString);
+        $generator->endValueElement('pathString');
+
         $generator->startValueElement('contentId', $data->contentId);
         $generator->endValueElement('contentId');
 

@@ -397,7 +397,8 @@ final class NodeFactory
             $totalChildrenCount,
             $this->getReverseRelationsCount($contentInfo),
             isset($bookmarkLocations[$location->id]),
-            $children
+            $children,
+            $location->getPathString()
         );
     }
 
