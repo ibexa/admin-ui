@@ -66,7 +66,7 @@
             .ibexa-main-menu__tooltip-trigger,
             .ibexa-main-menu__toggler {
                 .ibexa-icon {
-                    fill: $ibexa-color-navigation-400;
+                    fill: $ibexa-color-complementary-primary-400;
                 }
 
                 &:focus {
@@ -75,7 +75,7 @@
 
                 &:hover {
                     .ibexa-icon {
-                        fill: $ibexa-color-navigation-200;
+                        fill: $ibexa-color-complementary-primary-200;
                     }
                 }
             }
@@ -248,11 +248,11 @@
 
             .ibexa-main-menu {
                 &__item-icon {
-                    fill: $ibexa-color-navigation-400;
+                    fill: $ibexa-color-complementary-primary-400;
                 }
 
                 &__item-text-column {
-                    color: $ibexa-color-navigation-400;
+                    color: $ibexa-color-complementary-primary-400;
 
                     &--group {
                         color: $ibexa-color-light-700;
@@ -262,16 +262,16 @@
         }
 
         &.active {
-            color: $ibexa-color-navigation-200;
-            background-color: $ibexa-color-navigation-700;
+            color: $ibexa-color-complementary-primary-200;
+            background-color: $ibexa-color-complementary-primary-700;
 
             .ibexa-main-menu {
                 &__item-icon {
-                    fill: $ibexa-color-navigation-200;
+                    fill: $ibexa-color-complementary-primary-200;
                 }
 
                 &__item-text-column {
-                    color: $ibexa-color-navigation-200;
+                    color: $ibexa-color-complementary-primary-200;
                 }
             }
         }

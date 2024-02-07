@@ -114,15 +114,15 @@
             color: $ibexa-color-white;
 
             &:hover {
-                color: $ibexa-color-navigation-400;
+                color: $ibexa-color-complementary-primary-400;
                 background-color: transparent;
             }
 
             &--current {
                 &,
                 &:hover {
-                    color: $ibexa-color-navigation-200;
-                    background-color: $ibexa-color-navigation-700;
+                    color: $ibexa-color-complementary-primary-200;
+                    background-color: $ibexa-color-complementary-primary-700;
                 }
             }
         }
