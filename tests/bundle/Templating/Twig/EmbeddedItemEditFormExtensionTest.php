@@ -35,6 +35,7 @@ final class EmbeddedItemEditFormExtensionTest extends IntegrationTestCase
 
     /**
      * @dataProvider getLegacyTests
+     *
      * @group legacy
      *
      * @param string $file

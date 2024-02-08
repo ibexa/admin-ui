@@ -15,6 +15,7 @@ class ImageAssetUploadData
 {
     /**
      * @Assert\NotBlank()
+     *
      * @Assert\Image(detectCorrupted = true)
      *
      * @var \Symfony\Component\HttpFoundation\File\UploadedFile

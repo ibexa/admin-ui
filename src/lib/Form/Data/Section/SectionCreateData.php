@@ -21,6 +21,7 @@ class SectionCreateData implements TranslationContainerInterface
      * @var string|null
      *
      * @Assert\NotBlank()
+     *
      * @Assert\Regex(
      *     pattern="/^[[:alnum:]_]+$/",
      *     message="ez.section.identifier.format"

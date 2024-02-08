@@ -18,13 +18,11 @@ use Ibexa\Rest\Value;
  *     totalCount: int,
  *     versions?: array<\Ibexa\Rest\Server\Values\Version>,
  * }
- *
  * @phpstan-type Restrictions array{
  *     hasAccess: bool,
  *     restrictedContentTypeIds: array<int>,
  *     restrictedLanguageCodes: array<string>,
  * }
- *
  * @phpstan-type PermissionRestrictions array{
  *     create: Restrictions,
  *     edit: Restrictions,

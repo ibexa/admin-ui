@@ -21,7 +21,6 @@ use Ibexa\Rest\Value;
  *     permissions?: PermissionRestrictions,
  *     version?: \Ibexa\Rest\Server\Values\Version,
  * }
- *
  * @phpstan-type Columns array<int, Column>
  */
 final class AccordionData extends Value
@@ -34,6 +33,7 @@ final class AccordionData extends Value
 
     /**
      * @param array<\Ibexa\Contracts\Core\Repository\Values\Content\Location> $breadcrumb
+     *
      * @phpstan-param Columns $columns
      */
     public function __construct(array $breadcrumb, array $columns)

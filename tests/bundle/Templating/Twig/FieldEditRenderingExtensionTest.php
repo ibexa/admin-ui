@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+
 namespace Ibexa\Tests\Bundle\AdminUi\Templating\Twig;
 
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
@@ -64,6 +65,7 @@ class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
 
     /**
      * @dataProvider getLegacyTests
+     *
      * @group legacy
      *
      * @param string $file
