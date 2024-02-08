@@ -2,7 +2,11 @@
 
 {% block binary_base_row %}
     {% if not file_is_empty is defined %}
-        {% set file_is_empty = form.parent.vars.value.value.fileName is null or form.parent.vars.value.value.fileSize is null %}
+        {% set file_is_empty =
+            form.parent.vars.value.value.fileName is null
+            or form.parent.vars.value.value.fileSize is null
+            or form.parent.vars.value.value.uri is null
+        %}
     {% endif %}
     {% set fieldtype = form.parent %}
     {% set translation_mode = fieldtype.vars.mainLanguageCode != fieldtype.vars.languageCode %}
