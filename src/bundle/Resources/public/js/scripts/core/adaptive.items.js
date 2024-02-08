@@ -96,7 +96,7 @@
             this.selectorItem.classList.toggle(this.itemHiddenClass, !hiddenItemsWithoutSelector.size);
             this.selectorItem.setAttribute('tabindex', !hiddenItemsWithoutSelector.size ? '-1' : '0');
 
-            const selectorAnchor = this.selectorItem.querySelector('& > .nav-link');
+            const selectorAnchor = this.selectorItem.querySelector(':scope > .nav-link');
 
             if (selectorAnchor) {
                 if (!hiddenItemsWithoutSelector.size) {
