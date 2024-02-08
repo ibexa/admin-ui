@@ -131,13 +131,4 @@
             margin-right: calculateRem(16px);
         }
     }
-
-    &--active {
-        .c-table-view-item {
-            &__cell,
-            &__priority-actions {
-                background: $ibexa-color-light-200;
-            }
-        }
-    }
 }
