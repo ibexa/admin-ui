@@ -15,9 +15,6 @@ use Ibexa\Rest\Input\BaseParser;
 
 class LoadSubtreeRequest extends BaseParser
 {
-    /**
-     * {@inheritdoc}
-     */
     public function parse(array $data, ParsingDispatcher $parsingDispatcher): LoadSubtreeRequestValue
     {
         if (!array_key_exists('nodes', $data) || !is_array($data['nodes'])) {
@@ -31,7 +28,12 @@ class LoadSubtreeRequest extends BaseParser
             $nodes[] = $parsingDispatcher->parse($node, $node['_media-type']);
         }
 
-        return new LoadSubtreeRequestValue($nodes);
+        $filter = null;
+        if (isset($data['filter'])) {
+            $filter = $parsingDispatcher->parse($data['filter'], 'application/vnd.ibexa.api.internal.Filter');
+        }
+
+        return new LoadSubtreeRequestValue($nodes, $filter);
     }
 }
 
