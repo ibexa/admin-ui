@@ -1,10 +1,19 @@
 .ibexa-user-profile-view {
     .ibexa-user-profile {
+        .ibexa-container {
+            padding: calculateRem(24px);
+            margin-bottom: calculateRem(24px);
+        }
+
         &__header {
             background: $ibexa-color-light-100 url('/bundles/ibexaadminui/img/user-profile-bg.svg') top right no-repeat;
             height: calculateRem(276px);
-            padding: 0;
             position: relative;
+
+            &.ibexa-container {
+                padding: 0;
+                margin-bottom: calculateRem(36px);
+            }
 
             .ibexa-user-thumbnail-wrapper {
                 margin: calculateRem(20px);
@@ -29,6 +38,8 @@
                 padding: calculateRem(40px) calculateRem(40px) calculateRem(40px) calculateRem(260px);
                 position: absolute;
                 width: 100%;
+                border-bottom-left-radius: calculateRem(10px);
+                border-bottom-right-radius: calculateRem(10px);
 
                 h2 {
                     font-size: calculateRem(40px);
@@ -49,12 +60,13 @@
                     border-bottom: calculateRem(1px) solid $ibexa-color-light;
                     display: flex;
                     justify-content: space-between;
-                    margin-bottom: calculateRem(20px);
-                    padding: calculateRem(10px) 0;
+                    margin-bottom: calculateRem(16px);
+                    padding: 0 0 calculateRem(8px);
+                }
 
-                    h3 {
-                        font-size: calculateRem(22px);
-                    }
+                &__heading {
+                    font-size: calculateRem(22px);
+                    margin: 0;
                 }
 
                 .ibexa-details {
@@ -74,6 +86,10 @@
 
         &__blocks {
             width: 70%;
+
+            &.ibexa-container {
+                padding-bottom: calculateRem(8px);
+            }
         }
     }
 }

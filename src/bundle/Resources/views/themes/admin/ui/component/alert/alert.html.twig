@@ -1,14 +1,16 @@
 {% import "@ibexadesign/ui/component/macros.html.twig" as html %}
 
 {% set icon_name_map = {
-    info: 'system-information',
-    error: 'circle-close',
-    warning: 'warning-triangle',
-    success: 'checkbox',
+    info: 'about',
+    error: 'notice',
+    warning: 'warning',
+    success: 'approved',
 } %}
+{% set sizes = ['small', 'medium', 'large'] %}
+{% set size = size|default('medium') %}
 
 <div
-    class="alert ibexa-alert ibexa-alert--{{ type }}
+    class="alert ibexa-alert ibexa-alert--{{ type }} ibexa-alert--{{ size }}
         {% if not show_close_btn|default(false) %}ibexa-alert--no-close-btn{% endif %}
         {% if is_toast|default(false) %}ibexa-alert--toast{% endif %}
         {{ class|default('') }}"
@@ -56,7 +58,7 @@
     {% endblock %}
     {% block close_btn %}
         {% if show_close_btn|default(false) %}
-            <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text ibexa-alert__close-btn" data-bs-dismiss="alert">
+            <button class="btn ibexa-btn ibexa-btn--no-text ibexa-alert__close-btn" data-bs-dismiss="alert">
                 <svg class="ibexa-icon ibexa-icon--tiny-small">
                     <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
                 </svg>

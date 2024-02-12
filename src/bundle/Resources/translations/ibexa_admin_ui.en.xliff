@@ -11,6 +11,11 @@
         <target state="new">Missing or invalid CSRF token</target>
         <note>key: asset.upload.invalid_csrf</note>
       </trans-unit>
+      <trans-unit id="9717da29459125f3b5220f29faebb149dfcb3f35" resname="details.alert.complete_profile">
+        <source>Complete your profile.</source>
+        <target state="new">Complete your profile.</target>
+        <note>key: details.alert.complete_profile</note>
+      </trans-unit>
       <trans-unit id="68a1a5ea4fa56098f5eae44460514a09ea8f8509" resname="distraction_free_mode.disable.label">
         <source>Exit distraction free mode</source>
         <target state="new">Exit distraction free mode</target>

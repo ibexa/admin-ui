@@ -5,15 +5,18 @@ import { createCssClassNames } from '../helpers/css.class.names';
 
 const ICON_NAME_MAP = {
     info: 'system-information',
-    error: 'circle-close',
-    warning: 'warning-triangle',
-    success: 'checkbox',
+    error: 'notice',
+    warning: 'warning',
+    success: 'approved',
 };
+
+const SIZES = ['small', 'medium', 'large'];
 
 const Alert = ({
     type,
     title,
     subtitle,
+    size,
     iconName: iconNameProp,
     iconPath,
     showSubtitleBelow,
@@ -25,6 +28,7 @@ const Alert = ({
     const className = createCssClassNames({
         'alert ibexa-alert': true,
         [`ibexa-alert--${type}`]: true,
+        [`ibexa-alert--${size}`]: true,
         [extraClasses]: true,
     });
     const contentClassName = createCssClassNames({
@@ -47,11 +51,7 @@ const Alert = ({
                 <div className="ibexa-alert__extra_content">{children}</div>
             </div>
             {showCloseBtn && (
-                <button
-                    className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text ibexa-alert__close-btn"
-                    type="button"
-                    onClick={onClose}
-                >
+                <button className="btn ibexa-btn ibexa-btn--no-text ibexa-alert__close-btn" type="button" onClick={onClose}>
                     <Icon name="discard" extraClasses="ibexa-icon--tiny-small" />
                 </button>
             )}
@@ -60,7 +60,7 @@ const Alert = ({
 };
 
 Alert.propTypes = {
-    type: PropTypes.string.isRequired,
+    type: PropTypes.oneOf(Object.values(ICON_NAME_MAP)).isRequired,
     title: PropTypes.string,
     subtitle: PropTypes.string,
     iconName: PropTypes.string,
@@ -70,6 +70,7 @@ Alert.propTypes = {
     onClose: PropTypes.func,
     extraClasses: PropTypes.string,
     children: PropTypes.element,
+    size: PropTypes.oneOf(SIZES),
 };
 
 Alert.defaultProps = {
@@ -82,6 +83,7 @@ Alert.defaultProps = {
     onClose: () => {},
     extraClasses: '',
     children: null,
+    size: 'medium',
 };
 
 export default Alert;
