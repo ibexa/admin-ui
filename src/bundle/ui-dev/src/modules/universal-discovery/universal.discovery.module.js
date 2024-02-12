@@ -184,6 +184,7 @@ export const DropdownPortalRefContext = createContext();
 export const SuggestionsStorageContext = createContext();
 
 const UniversalDiscoveryModule = (props) => {
+    console.log('ALW - related PRs msg 1/2');
     const { restInfo } = props;
     const adminUiConfig = getAdminUiConfig();
     const { tabs } = adminUiConfig.universalDiscoveryWidget;
