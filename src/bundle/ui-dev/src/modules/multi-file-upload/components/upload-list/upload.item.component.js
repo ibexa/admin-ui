@@ -11,7 +11,7 @@ const { Translator, ibexa } = window;
 export default class UploadItemComponent extends Component {
     constructor(props) {
         super(props);
-
+        console.log('UPload ', props)
         this.handleFileSizeNotAllowed = this.handleFileSizeNotAllowed.bind(this);
         this.handleFileTypeNotAllowed = this.handleFileTypeNotAllowed.bind(this);
         this.handleContentTypeNotAllowed = this.handleContentTypeNotAllowed.bind(this);

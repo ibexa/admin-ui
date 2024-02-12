@@ -164,7 +164,7 @@
             },
             currentLanguage: mfuContainer.dataset.currentLanguage,
         };
-        console.log('A', mfuAttrs)
+
         subitemsRoot.render(
             React.createElement(ibexa.modules.SubItems, {
                 handleEditItem,

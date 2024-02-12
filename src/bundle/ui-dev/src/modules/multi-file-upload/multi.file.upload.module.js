@@ -8,11 +8,9 @@ import Icon from '../common/icon/icon';
 
 const { Translator, ibexa, document } = window;
 
-
 export default class MultiFileUploadModule extends Component {
     constructor(props) {
         super(props);
-
         let popupVisible = true;
 
         this._itemsUploaded = [];
@@ -38,8 +36,6 @@ export default class MultiFileUploadModule extends Component {
             allowDropOnWindow: true,
             uploadDisabled: Object.values(props.contentCreatePermissionsConfig).every((isEnabled) => !isEnabled),
         };
-
-        console.log(props.contentCreatePermissionsConfig)
     }
 
     componentDidMount() {

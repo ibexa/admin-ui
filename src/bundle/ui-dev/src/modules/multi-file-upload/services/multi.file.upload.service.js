@@ -158,6 +158,7 @@ const getFieldDefinitionByIdentifier = ({ token, siteaccess }, contentTypeId, fi
  * @returns {Promise}
  */
 const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
+    console.log('LanguageCode: ', languageCode, parentInfo.language)
     let parentLocation = `/api/ibexa/v2/content/locations${parentInfo.locationPath}`;
 
     parentLocation = parentLocation.endsWith('/') ? parentLocation.slice(0, -1) : parentLocation;
@@ -252,6 +253,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
  * @returns {Promise}
  */
 const createDraft = ({ struct, token, siteaccess }, requestEventHandlers) => {
+    console.log(struct)
     const xhr = new XMLHttpRequest();
     const body = JSON.stringify(struct);
     const headers = {
@@ -390,6 +392,7 @@ export const createFileStruct = (file, params) => new Promise(readFile.bind(new 
  * @param {Function} callback a success callback
  */
 export const publishFile = (data, requestEventHandlers, callback) => {
+    console.log(data)
     createDraft(data, requestEventHandlers)
         .then(publishDraft.bind(null, data))
         .then(callback)
