@@ -8,6 +8,7 @@ import Icon from '../common/icon/icon';
 
 const { Translator, ibexa, document } = window;
 
+
 export default class MultiFileUploadModule extends Component {
     constructor(props) {
         super(props);
@@ -37,6 +38,8 @@ export default class MultiFileUploadModule extends Component {
             allowDropOnWindow: true,
             uploadDisabled: Object.values(props.contentCreatePermissionsConfig).every((isEnabled) => !isEnabled),
         };
+
+        console.log(props.contentCreatePermissionsConfig)
     }
 
     componentDidMount() {
@@ -284,8 +287,6 @@ export default class MultiFileUploadModule extends Component {
     }
 }
 
-ibexa.addConfig('modules.MultiFileUpload', MultiFileUploadModule);
-
 MultiFileUploadModule.propTypes = {
     adminUiConfig: PropTypes.shape({
         multiFileUpload: PropTypes.shape({
@@ -294,8 +295,9 @@ MultiFileUploadModule.propTypes = {
             locationMappings: PropTypes.arrayOf(PropTypes.object).isRequired,
             maxFileSize: PropTypes.number.isRequired,
         }).isRequired,
-        token: PropTypes.string.isRequired,
-        siteaccess: PropTypes.string.isRequired,
+        token: PropTypes.string,
+        siteaccess: PropTypes.string,
+        accessToken: PropTypes.string
     }).isRequired,
     parentInfo: PropTypes.shape({
         contentTypeIdentifier: PropTypes.string.isRequired,
