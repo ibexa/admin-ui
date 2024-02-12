@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import UploadItemComponent from './upload.item.component';
 
 export default class UploadListComponent extends Component {
@@ -9,6 +10,7 @@ export default class UploadListComponent extends Component {
 
         this.state = {
             items: [],
+            erroredItems: [],
         };
     }
 
@@ -16,13 +18,6 @@ export default class UploadListComponent extends Component {
         this.props.onAfterUpload(this.state.items);
     }
 
-    /**
-     * Handles after file upload event
-     *
-     * @method handleAfterUpload
-     * @param {Object} item
-     * @memberof UploadListComponent
-     */
     handleAfterUpload(item) {
         this.props.removeItemsToUpload([item]);
         this.setState((state) => ({
@@ -30,13 +25,6 @@ export default class UploadListComponent extends Component {
         }));
     }
 
-    /**
-     * Handles after file upload abort event
-     *
-     * @method handleAfterAbort
-     * @param {Object} item
-     * @memberof UploadListComponent
-     */
     handleAfterAbort(item) {
         this.props.removeItemsToUpload([item]);
         this.setState((state) => {
@@ -46,29 +34,39 @@ export default class UploadListComponent extends Component {
         });
     }
 
-    /**
-     * Handles after file delete event
-     *
-     * @method handleAfterDelete
-     * @param {Object} item
-     * @memberof UploadListComponent
-     */
     handleAfterDelete(item) {
-        this.setState((state) => {
-            const items = state.items.filter((data) => data.id !== item.id);
+        this.setState(
+            (state) => {
+                const items = state.items.filter((data) => data.id !== item.id);
+                const erroredItems = state.erroredItems.filter((data) => data.id !== item.id);
 
-            return { uploaded: items.length, items };
+                return { uploaded: items.length, items, erroredItems };
+            },
+            () => this.props.onAfterDelete(item),
+        );
+    }
+
+    handleCreateError(item) {
+        this.props.removeItemsToUpload([item]);
+        this.setState((state) => ({
+            erroredItems: [...state.erroredItems, item],
+        }));
+    }
+
+    removeErroredItems(items) {
+        const itemsIds = items.map((item) => item.id);
+
+        this.setState((prevState) => {
+            const erroredItems = prevState.erroredItems.filter((stateItem) => !itemsIds.includes(stateItem.id));
+
+            if (erroredItems.length !== prevState.erroredItems.length) {
+                return {
+                    erroredItems,
+                };
+            }
         });
     }
 
-    /**
-     * Renders an item to upload
-     *
-     * @method renderItemToUpload
-     * @param {Object} item
-     * @memberof UploadListComponent
-     * @returns {Element}
-     */
     renderItemToUpload(item) {
         return this.renderItem(item, {
             isUploaded: false,
@@ -76,18 +74,12 @@ export default class UploadListComponent extends Component {
             publishFile: this.props.publishFile,
             onAfterAbort: this.handleAfterAbort.bind(this),
             onAfterUpload: this.handleAfterUpload.bind(this),
+            onCreateError: this.handleCreateError.bind(this),
             checkCanUpload: this.props.checkCanUpload,
+            removeItemsToUpload: this.props.removeItemsToUpload,
         });
     }
 
-    /**
-     * Renders an uploaded item
-     *
-     * @method renderUploadedItem
-     * @param {Object} item
-     * @memberof UploadListComponent
-     * @returns {Element}
-     */
     renderUploadedItem(item) {
         return this.renderItem(item, {
             isUploaded: true,
@@ -96,20 +88,19 @@ export default class UploadListComponent extends Component {
         });
     }
 
-    /**
-     * Renders an item
-     *
-     * @method renderItem
-     * @param {Object} item
-     * @param {Object} customAttrs component's custom attrs
-     * @memberof UploadListComponent
-     * @returns {Element}
-     */
+    renderErroredItem(item) {
+        return this.renderItem(item, {
+            isFailed: true,
+            deleteFile: this.props.deleteFile,
+            onAfterDelete: this.handleAfterDelete.bind(this),
+        });
+    }
+
     renderItem(item, customAttrs) {
         const { adminUiConfig, parentInfo, contentCreatePermissionsConfig, contentTypesMap, currentLanguage } = this.props;
         const attrs = {
+            item,
             key: item.id,
-            data: item,
             adminUiConfig,
             parentInfo,
             contentCreatePermissionsConfig,
@@ -123,12 +114,16 @@ export default class UploadListComponent extends Component {
 
     render() {
         const { itemsToUpload } = this.props;
-        const { items } = this.state;
+        const { items, erroredItems } = this.state;
+        const uploadListClassName = createCssClassNames({
+            'c-upload-list': true,
+        });
 
         return (
-            <div className="c-upload-list">
+            <div className={uploadListClassName}>
                 <div className="c-upload-list__items">
                     {itemsToUpload.map(this.renderItemToUpload.bind(this))}
+                    {erroredItems.map(this.renderErroredItem.bind(this))}
                     {items.map(this.renderUploadedItem.bind(this))}
                 </div>
             </div>
@@ -163,9 +158,11 @@ UploadListComponent.propTypes = {
     contentTypesMap: PropTypes.object.isRequired,
     currentLanguage: PropTypes.string,
     removeItemsToUpload: PropTypes.func.isRequired,
+    onAfterDelete: PropTypes.func,
 };
 
 UploadListComponent.defaultProps = {
     itemsToUpload: [],
     currentLanguage: '',
+    onAfterDelete: () => {},
 };

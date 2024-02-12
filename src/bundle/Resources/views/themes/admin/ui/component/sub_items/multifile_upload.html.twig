@@ -3,5 +3,6 @@
     data-parent-location-path="{{ location.pathString }}"
     data-parent-content-type-identifier="{{ contentType.identifier }}"
     data-parent-content-type-id="{{ contentType.id }}"
+    data-parent-name="{{ location.contentInfo.name }}"
     data-current-language="{{ app.request.get('languageCode') ?: content.prioritizedFieldLanguageCode }}"
 ></div>

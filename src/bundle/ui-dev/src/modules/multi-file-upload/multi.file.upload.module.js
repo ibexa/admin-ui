@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
+
+import { getTranslator, getRootNode } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 import UploadPopupComponent from './components/upload-popup/upload.popup.component';
 import { createFileStruct, publishFile, deleteFile, checkCanUpload } from './services/multi.file.upload.service';
 import Icon from '../common/icon/icon';
+import { createCssClassNames } from '../common/helpers/css.class.names';
 
-const { Translator, ibexa, document } = window;
-
+export const MODULES_CAN_TRIGGER_MFU_LIST = {
+    udw: 'UniversalDiscoveryModule',
+    subitems: 'SubItemsModule',
+};
 export default class MultiFileUploadModule extends Component {
     constructor(props) {
         super(props);
 
         let popupVisible = true;
 
+        this.configRootNode = getRootNode();
         this._itemsUploaded = [];
 
         if (!props.itemsToUpload || !props.itemsToUpload.length) {
@@ -22,8 +28,10 @@ export default class MultiFileUploadModule extends Component {
 
         this.handleDropOnWindow = this.handleDropOnWindow.bind(this);
         this.handleAfterUpload = this.handleAfterUpload.bind(this);
+        this.handleAfterDelete = this.handleAfterDelete.bind(this);
         this.showUploadPopup = this.showUploadPopup.bind(this);
         this.hidePopup = this.hidePopup.bind(this);
+        this.confirmPopup = this.confirmPopup.bind(this);
         this.processUploadedFiles = this.processUploadedFiles.bind(this);
         this.setUdwStateOpened = this.setUdwStateOpened.bind(this);
         this.setUdwStateClosed = this.setUdwStateClosed.bind(this);
@@ -42,8 +50,8 @@ export default class MultiFileUploadModule extends Component {
     componentDidMount() {
         this.manageDropEvent();
 
-        window.document.body.addEventListener('ibexa-udw-opened', this.setUdwStateOpened, false);
-        window.document.body.addEventListener('ibexa-udw-closed', this.setUdwStateClosed, false);
+        this.configRootNode.addEventListener('ibexa-udw-opened', this.setUdwStateOpened, false);
+        this.configRootNode.addEventListener('ibexa-udw-closed', this.setUdwStateClosed, false);
     }
 
     componentDidUpdate() {
@@ -51,87 +59,49 @@ export default class MultiFileUploadModule extends Component {
     }
 
     componentWillUnmount() {
-        window.document.body.removeEventListener('ibexa-udw-opened', this.setUdwStateOpened, false);
-        window.document.body.removeEventListener('ibexa-udw-closed', this.setUdwStateClosed, false);
+        this.configRootNode.removeEventListener('ibexa-udw-opened', this.setUdwStateOpened, false);
+        this.configRootNode.removeEventListener('ibexa-udw-closed', this.setUdwStateClosed, false);
     }
 
-    /**
-     * Set udw state as open
-     *
-     * @method setUdwStateOpened
-     * @memberof MultiFileUploadModule
-     */
     setUdwStateOpened() {
         this.setState({ udwOpened: true });
     }
 
-    /**
-     * Set udw state as closed
-     *
-     * @method setUdwStateClosed
-     * @memberof MultiFileUploadModule
-     */
     setUdwStateClosed() {
         this.setState({ udwOpened: false });
     }
 
-    /**
-     * Attaches `drop` and `dragover` events handlers on window
-     *
-     * @method manageDropEvent
-     * @memberof MultiFileUploadModule
-     */
     manageDropEvent() {
         const { uploadDisabled, popupVisible, itemsToUpload } = this.state;
 
         if (!uploadDisabled && !popupVisible && !itemsToUpload.length) {
-            window.addEventListener('drop', this.handleDropOnWindow, false);
-            window.addEventListener('dragover', this.preventDefaultAction, false);
+            this.configRootNode.addEventListener('drop', this.handleDropOnWindow, false);
+            this.configRootNode.addEventListener('dragover', this.preventDefaultAction, false);
         }
     }
 
-    /**
-     * Hides multi file upload popup
-     *
-     * @method hidePopup
-     * @memberof MultiFileUploadModule
-     */
     hidePopup() {
-        this.setState((state) => ({ ...state, popupVisible: false }));
-
+        this.setState((state) => ({ ...state, popupVisible: false, allowDropOnWindow: true }));
         this.props.onPopupClose(this._itemsUploaded);
     }
 
-    /**
-     * Displays multi file upload popup
-     *
-     * @method showUploadPopup
-     * @memberof MultiFileUploadModule
-     */
+    confirmPopup() {
+        this.setState((state) => ({ ...state, popupVisible: false, allowDropOnWindow: true }));
+        this.props.onPopupConfirm(this._itemsUploaded);
+    }
+
     showUploadPopup() {
         this.setState((state) => ({ ...state, popupVisible: true, itemsToUpload: [] }));
     }
 
-    /**
-     * Keeps information about uploaded files.
-     * We want to avoid component rerendering so it's stored in an object instance property.
-     *
-     * @method handleAfterUpload
-     * @param {Array} itemsUploaded
-     * @memberof MultiFileUploadModule
-     */
     handleAfterUpload(itemsUploaded) {
         this._itemsUploaded = [...this._itemsUploaded, ...itemsUploaded];
     }
 
-    /**
-     * Handles dropping on window.
-     * When file/files are dropped onto window the `drop` and `dragover` event handlers are removed.
-     *
-     * @method handleDropOnWindow
-     * @param {Event} event
-     * @memberof MultiFileUploadModule
-     */
+    handleAfterDelete(deletedItem) {
+        this._itemsUploaded = this._itemsUploaded.filter((data) => data.id !== deletedItem.id);
+    }
+
     handleDropOnWindow(event) {
         this.preventDefaultAction(event);
 
@@ -143,20 +113,12 @@ export default class MultiFileUploadModule extends Component {
             return;
         }
 
-        window.removeEventListener('drop', this.handleDropOnWindow, false);
-        window.removeEventListener('dragover', this.preventDefaultAction, false);
+        this.configRootNode.removeEventListener('drop', this.handleDropOnWindow, false);
+        this.configRootNode.removeEventListener('dragover', this.preventDefaultAction, false);
 
         this.setState((state) => ({ ...state, itemsToUpload, popupVisible: true, allowDropOnWindow: false }));
     }
 
-    /**
-     * Extracts information about dropped files
-     *
-     * @method extractDroppedFilesList
-     * @param {Event} event
-     * @returns {undefined|Array}
-     * @memberof MultiFileUploadModule
-     */
     extractDroppedFilesList(event) {
         let list;
 
@@ -169,14 +131,6 @@ export default class MultiFileUploadModule extends Component {
         return list;
     }
 
-    /**
-     * Processes uploaded files and generates an unique file id
-     *
-     * @method processUploadedFiles
-     * @param {Event} event
-     * @returns {Array}
-     * @memberof MultiFileUploadModule
-     */
     processUploadedFiles(event) {
         const list = this.extractDroppedFilesList(event);
 
@@ -186,37 +140,28 @@ export default class MultiFileUploadModule extends Component {
         }));
     }
 
-    /**
-     * Prevents default event actions
-     *
-     * @method preventDefaultAction
-     * @param {Event} event
-     * @memberof MultiFileUploadModule
-     */
     preventDefaultAction(event) {
         event.preventDefault();
         event.stopPropagation();
     }
 
-    /**
-     * Renders multi file upload button,
-     * that allows to open multi file upload popup.
-     *
-     * @method renderBtn
-     * @returns {null|Element}
-     * @memberof MultiFileUploadModule
-     */
     renderBtn() {
         if (!this.props.withUploadButton) {
             return null;
         }
 
+        const Translator = getTranslator();
         const { uploadDisabled } = this.state;
         const label = Translator.trans(/*@Desc("Upload")*/ 'multi_file_upload_open_btn.label', {}, 'ibexa_multi_file_upload');
-
+        const isTriggerBySubitems = this.props.triggeredBy === MODULES_CAN_TRIGGER_MFU_LIST['subitems'];
+        const buttonClassName = createCssClassNames({
+            'ibexa-btn btn': true,
+            'ibexa-btn--secondary ibexa-btn--small': !isTriggerBySubitems,
+            'ibexa-btn--ghost': isTriggerBySubitems,
+        });
         return (
-            <button type="button" className="btn ibexa-btn ibexa-btn--ghost" onClick={this.showUploadPopup} disabled={uploadDisabled}>
-                <Icon name="upload" extraClasses="ibexa-icon--small" /> {label}
+            <button type="button" className={buttonClassName} onClick={this.showUploadPopup} disabled={uploadDisabled}>
+                <Icon name="upload" extraClasses={'ibexa-icon--small'} /> {label}
             </button>
         );
     }
@@ -247,31 +192,35 @@ export default class MultiFileUploadModule extends Component {
         });
     }
 
-    /**
-     * Renders a popup
-     *
-     * @method renderPopup
-     * @returns {null|Element}
-     * @memberof MultiFileUploadModule
-     */
     renderPopup() {
         if (!this.state.popupVisible) {
             return null;
         }
 
+        const Translator = getTranslator();
+        const subtitle = Translator.trans(
+            /*@Desc("Under %name%")*/ 'multi_file_upload_popup.subtitle',
+            { name: this.props.parentInfo.name },
+            'ibexa_multi_file_upload',
+        );
+
         const attrs = {
             ...this.props,
+            subtitle: this.props.parentInfo.name ? subtitle : '',
             visible: true,
             onClose: this.hidePopup,
+            onConfirm: this.confirmPopup,
             itemsToUpload: this.state.itemsToUpload,
             onAfterUpload: this.handleAfterUpload,
+            onAfterDelete: this.handleAfterDelete,
             preventDefaultAction: this.preventDefaultAction,
             processUploadedFiles: this.processUploadedFiles,
             addItemsToUpload: this.addItemsToUpload,
             removeItemsToUpload: this.removeItemsToUpload,
+            contentCreatePermissionsConfig: this.props.contentCreatePermissionsConfig,
         };
 
-        return ReactDOM.createPortal(<UploadPopupComponent {...attrs} />, document.body);
+        return createPortal(<UploadPopupComponent {...attrs} />, this.configRootNode);
     }
 
     render() {
@@ -284,8 +233,6 @@ export default class MultiFileUploadModule extends Component {
     }
 }
 
-ibexa.addConfig('modules.MultiFileUpload', MultiFileUploadModule);
-
 MultiFileUploadModule.propTypes = {
     adminUiConfig: PropTypes.shape({
         multiFileUpload: PropTypes.shape({
@@ -294,25 +241,29 @@ MultiFileUploadModule.propTypes = {
             locationMappings: PropTypes.arrayOf(PropTypes.object).isRequired,
             maxFileSize: PropTypes.number.isRequired,
         }).isRequired,
-        token: PropTypes.string.isRequired,
-        siteaccess: PropTypes.string.isRequired,
+        token: PropTypes.string,
+        siteaccess: PropTypes.string,
+        accessToken: PropTypes.string,
     }).isRequired,
     parentInfo: PropTypes.shape({
         contentTypeIdentifier: PropTypes.string.isRequired,
         contentTypeId: PropTypes.number.isRequired,
         locationPath: PropTypes.string.isRequired,
         language: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
     }).isRequired,
     checkCanUpload: PropTypes.func,
     createFileStruct: PropTypes.func,
     deleteFile: PropTypes.func,
     onPopupClose: PropTypes.func,
+    onPopupConfirm: PropTypes.func,
     publishFile: PropTypes.func,
     itemsToUpload: PropTypes.array,
     withUploadButton: PropTypes.bool,
     contentCreatePermissionsConfig: PropTypes.object,
     contentTypesMap: PropTypes.object.isRequired,
     currentLanguage: PropTypes.string,
+    triggeredBy: PropTypes.string,
 };
 
 MultiFileUploadModule.defaultProps = {
@@ -320,9 +271,11 @@ MultiFileUploadModule.defaultProps = {
     createFileStruct,
     deleteFile,
     onPopupClose: () => {},
+    onPopupConfirm: () => {},
     publishFile,
     itemsToUpload: [],
     withUploadButton: true,
     currentLanguage: '',
     contentCreatePermissionsConfig: {},
+    triggeredBy: MODULES_CAN_TRIGGER_MFU_LIST['subitems'],
 };
