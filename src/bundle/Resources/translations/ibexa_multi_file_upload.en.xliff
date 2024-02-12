@@ -21,10 +21,10 @@
         <target state="new">Cannot get content type by identifier</target>
         <note>key: cannot_get_content_type_identifier.message</note>
       </trans-unit>
-      <trans-unit id="235e57ee5665f61ea5873be5e2f6cd15b05a51c0" resname="cannot_upload.message">
-        <source>Cannot upload file</source>
-        <target state="new">Cannot upload file</target>
-        <note>key: cannot_upload.message</note>
+      <trans-unit id="724639aec53d016963ac59d44dbc0d5db888c6b6" resname="delete.error.message">
+        <source>An error occurred while deleting a file</source>
+        <target state="new">An error occurred while deleting a file</target>
+        <note>key: delete.error.message</note>
       </trans-unit>
       <trans-unit id="9914d81081499df395d9a54e9d5208be234d4367" resname="delete.label">
         <source>Delete</source>
@@ -61,15 +61,35 @@
         <target state="new">Edit</target>
         <note>key: edit.label</note>
       </trans-unit>
+      <trans-unit id="34aa1a315b52b6c1a6c43ce449753c7224b8c4a0" resname="general.error.message">
+        <source>An error occurred while publishing a file</source>
+        <target state="new">An error occurred while publishing a file</target>
+        <note>key: general.error.message</note>
+      </trans-unit>
       <trans-unit id="0cd9663c2a0626f9d1556efe30c151196af02e8e" resname="max_file_size.message">
-        <source>Max file size:</source>
-        <target state="new">Max file size:</target>
+        <source>%contentTypeName% max file size: %maxFileSize%</source>
+        <target state="new">%contentTypeName% max file size: %maxFileSize%</target>
         <note>key: max_file_size.message</note>
+      </trans-unit>
+      <trans-unit id="429208648b00f65a5e36fab1ea37a9fa446ddc78" resname="max_file_size.message.general">
+        <source>Max. file size</source>
+        <target state="new">Max. file size</target>
+        <note>key: max_file_size.message.general</note>
       </trans-unit>
       <trans-unit id="412c9936722fbbcd34664fdbfe33880fad7ef998" resname="multi_file_upload_open_btn.label">
         <source>Upload</source>
         <target state="new">Upload</target>
         <note>key: multi_file_upload_open_btn.label</note>
+      </trans-unit>
+      <trans-unit id="b42fb45b9d30885c4a85318ddb844b10759ff118" resname="multi_file_upload_popup.subtitle">
+        <source>Under %name%</source>
+        <target state="new">Under %name%</target>
+        <note>key: multi_file_upload_popup.subtitle</note>
+      </trans-unit>
+      <trans-unit id="c593b1388a800c1546c5bbbdb6eab08ef170f879" resname="multierror.label">
+        <source>Failed to upload </source>
+        <target state="new">Failed to upload </target>
+        <note>key: multierror.label</note>
       </trans-unit>
       <trans-unit id="b23e0c9a0c723cb5fc100bbf270a045cb6c895da" resname="upload.progress_bar.uploading">
         <source>Uploading...</source>
@@ -86,10 +106,25 @@
         <target state="new">Upload file</target>
         <note>key: upload_btn.label</note>
       </trans-unit>
-      <trans-unit id="6b2bc429ffc374b49b5de9e3563d3d5a7668e4b2" resname="upload_popup.close">
+      <trans-unit id="36999e5e928304452a57984fe9fb29daef497121" resname="upload_popup.close_label">
+        <source>Confirm and close</source>
+        <target state="new">Confirm and close</target>
+        <note>key: upload_popup.close_label</note>
+      </trans-unit>
+      <trans-unit id="69ca9f45ba70d7b75027057e8b1f23057801a70e" resname="upload_popup.confirm_label">
+        <source>Cancel pending upload</source>
+        <target state="new">Cancel pending upload</target>
+        <note>key: upload_popup.confirm_label</note>
+      </trans-unit>
+      <trans-unit id="8964e0ca9f836009ee40abf9e9b013b41b2dd2d4" resname="upload_popup.label">
+        <source>Upload</source>
+        <target state="new">Upload</target>
+        <note>key: upload_popup.label</note>
+      </trans-unit>
+      <trans-unit id="f0af4c073e35f18370b9eb10fe995a6f5de9ac9d" resname="upload_popup.title">
         <source>Multi-file upload</source>
         <target state="new">Multi-file upload</target>
-        <note>key: upload_popup.close</note>
+        <note>key: upload_popup.title</note>
       </trans-unit>
     </body>
   </file>

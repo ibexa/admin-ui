@@ -19,7 +19,7 @@ const Icon = (props) => {
     return (
         <>
             {isIncludedIcon ? (
-                <InculdedIcon cssClass={cssClass} name={props.name} />
+                <InculdedIcon cssClass={cssClass} name={props.name} defaultIconName={props.defaultIconName} />
             ) : (
                 <UrlIcon cssClass={cssClass} name={props.name} customPath={props.customPath} />
             )}
@@ -32,6 +32,7 @@ Icon.propTypes = {
     name: PropTypes.string,
     customPath: PropTypes.string,
     useIncludedIcon: PropTypes.bool,
+    defaultIconName: PropTypes.string,
 };
 
 Icon.defaultProps = {
@@ -39,6 +40,7 @@ Icon.defaultProps = {
     name: null,
     extraClasses: null,
     useIncludedIcon: false,
+    defaultIconName: 'about-info',
 };
 
 export default Icon;

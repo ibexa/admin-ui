@@ -150,6 +150,7 @@
 
             return contentTypeDataMap;
         }, {});
+
         const mfuAttrs = {
             adminUiConfig: {
                 ...ibexa.adminUiConfig,
@@ -160,6 +161,7 @@
                 contentTypeIdentifier: mfuContainer.dataset.parentContentTypeIdentifier,
                 contentTypeId: parseInt(mfuContainer.dataset.parentContentTypeId, 10),
                 locationPath: mfuContainer.dataset.parentLocationPath,
+                name: mfuContainer.dataset.parentName,
                 language: mfuContainer.dataset.parentContentLanguage,
             },
             currentLanguage: mfuContainer.dataset.currentLanguage,
