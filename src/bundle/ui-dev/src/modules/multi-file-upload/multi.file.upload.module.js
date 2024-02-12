@@ -120,7 +120,7 @@ export default class MultiFileUploadModule extends Component {
      * @memberof MultiFileUploadModule
      */
     handleAfterUpload(itemsUploaded) {
-        this._itemsUploaded = itemsUploaded;
+        this._itemsUploaded = [...this._itemsUploaded, ...itemsUploaded];
     }
 
     /**
