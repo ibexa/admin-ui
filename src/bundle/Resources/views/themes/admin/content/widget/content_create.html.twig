@@ -10,14 +10,6 @@
     <div class="ibexa-extra-actions ibexa-extra-actions--create ibexa-extra-actions--hidden" data-actions="{{ data_actions }}">
         <div class="ibexa-extra-actions__header">
             <h2>{{ 'content.create.create_content'|trans|desc('Create content') }}</h2>
-            <button
-                type="button"
-                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text ibexa-btn--close"
-            >
-                <svg class="ibexa-icon ibexa-icon--small">
-                    <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
-                </svg>
-            </button>
             <div class="ibexa-extra-actions__header-subtitle">
                 {% if content is defined %}
                     {{ 'content.create.editing_details'|trans({ '%content%': ibexa_content_name(content) })|desc('under %content%') }}
@@ -33,7 +25,7 @@
                     {{ form_widget(form.language, {'attr': {'class': 'form-control'}}) }}
                 {% endif %}
             </div>
-            <label class="ibexa-label ibexa-extra-actions__section-header">{{ 'content.create.select_content_type'|trans|desc('Select a content type:') }}</label>
+            
             <div class="ibexa-extra-actions__section-content ibexa-extra-actions__section-content--content-type">
                 <div class="ibexa-instant-filter">
                     <div class="ibexa-instant-filter__input-wrapper">
@@ -45,7 +37,7 @@
                         />
                     </div>
                     <div class="ibexa-instant-filter__desc">
-                        {{ ('content.create.filters.desc'|trans|desc('Or choose from list')) }}
+                        {{ ('content.create.filters.desc'|trans|desc('Select a content type from list')) }}
                     </div>
                     <div class="ibexa-instant-filter__items">
                         {{ form_widget(form.content_type) }}

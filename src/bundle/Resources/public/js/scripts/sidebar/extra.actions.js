@@ -2,6 +2,9 @@
     const CLASS_HIDDEN = 'ibexa-extra-actions--hidden';
     const CLASS_EXPANDED = 'ibexa-context-menu--expanded';
     const CLASS_PREVENT_SHOW = 'ibexa-extra-actions--prevent-show';
+    const closeBtns = doc.querySelectorAll(
+        '.ibexa-extra-actions .ibexa-btn--close, .ibexa-extra-actions .ibexa-extra-actions__btn--cancel',
+    );
     const btns = [...doc.querySelectorAll('.ibexa-btn--extra-actions')];
     const menu = doc.querySelector('.ibexa-context-menu');
     const backdrop = new ibexa.core.Backdrop();
@@ -77,7 +80,7 @@
         initExtraActionsWidget(dataset);
     });
     doc.body.addEventListener('ibexa-extra-actions:toggle-widget', (event) => toggleExtraActionsWidget(event.detail), false);
-    doc.querySelectorAll('.ibexa-extra-actions .ibexa-btn--close').forEach((closeBtn) =>
+    closeBtns.forEach((closeBtn) =>
         closeBtn.addEventListener(
             'click',
             (event) => {
