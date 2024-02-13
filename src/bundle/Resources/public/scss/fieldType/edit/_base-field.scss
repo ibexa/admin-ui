@@ -35,6 +35,7 @@
 
         .ibexa-label {
             display: none;
+            padding-bottom: calculateRem(8px);
         }
     }
 
@@ -129,6 +130,7 @@
         flex-direction: column;
         width: 100vw;
         height: 100vh;
+        margin-top: 0;
         padding: calculateRem(16px);
         background: $ibexa-color-black;
 
@@ -152,7 +154,6 @@
                 display: flex;
                 justify-content: space-between;
                 width: 100%;
-                height: calculateRem(40px);
 
                 .ibexa-label {
                     display: inline-flex;
@@ -177,7 +178,7 @@
                 overflow-y: auto;
                 align-self: stretch;
                 flex-grow: 1;
-                padding: calculateRem(8px) calculateRem(32px) calculateRem(32px);
+                padding: 0 calculateRem(32px) calculateRem(32px);
                 background: $ibexa-color-white;
                 border-radius: 0 0 $ibexa-border-radius $ibexa-border-radius;
 
@@ -201,7 +202,7 @@
         }
 
         .ibexa-form-error {
-            padding: calculateRem(16px) calculateRem(32px);
+            padding: 0 calculateRem(32px) calculateRem(16px);
             background: $ibexa-color-white;
             border-radius: 0 0 $ibexa-border-radius $ibexa-border-radius;
         }
