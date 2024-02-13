@@ -165,6 +165,8 @@
             currentLanguage: mfuContainer.dataset.currentLanguage,
         };
 
+        console.log('Key: data-mfu-create-permissions-config | ', 'Twig variable: {{ subitems_module.content_create_permissions_for_mfu|json_encode() }} | ', JSON.parse(container.dataset.mfuCreatePermissionsConfig))
+        
         subitemsRoot.render(
             React.createElement(ibexa.modules.SubItems, {
                 handleEditItem,

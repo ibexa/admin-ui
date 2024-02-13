@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
+
+import { getTranslator, getRestInfo } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 import UploadPopupComponent from './components/upload-popup/upload.popup.component';
 import { createFileStruct, publishFile, deleteFile, checkCanUpload } from './services/multi.file.upload.service';
 import Icon from '../common/icon/icon';
+import { createCssClassNames } from '../common/helpers/css.class.names';
 
-const { Translator, ibexa, document } = window;
+const { document } = window;
 
+export const MODULES_CAN_TRIGGER_MFU_LIST = {
+    udw: 'UniversalDiscoveryModule',
+    subitems: 'SubItemsModule',
+};
 export default class MultiFileUploadModule extends Component {
     constructor(props) {
         super(props);
+
         let popupVisible = true;
 
         this._itemsUploaded = [];
@@ -41,8 +49,8 @@ export default class MultiFileUploadModule extends Component {
     componentDidMount() {
         this.manageDropEvent();
 
-        window.document.body.addEventListener('ibexa-udw-opened', this.setUdwStateOpened, false);
-        window.document.body.addEventListener('ibexa-udw-closed', this.setUdwStateClosed, false);
+        document.body.addEventListener('ibexa-udw-opened', this.setUdwStateOpened, false);
+        document.body.addEventListener('ibexa-udw-closed', this.setUdwStateClosed, false);
     }
 
     componentDidUpdate() {
@@ -50,8 +58,8 @@ export default class MultiFileUploadModule extends Component {
     }
 
     componentWillUnmount() {
-        window.document.body.removeEventListener('ibexa-udw-opened', this.setUdwStateOpened, false);
-        window.document.body.removeEventListener('ibexa-udw-closed', this.setUdwStateClosed, false);
+        document.body.removeEventListener('ibexa-udw-opened', this.setUdwStateOpened, false);
+        document.body.removeEventListener('ibexa-udw-closed', this.setUdwStateClosed, false);
     }
 
     /**
@@ -210,12 +218,18 @@ export default class MultiFileUploadModule extends Component {
             return null;
         }
 
+        const Translator = getTranslator();
         const { uploadDisabled } = this.state;
         const label = Translator.trans(/*@Desc("Upload")*/ 'multi_file_upload_open_btn.label', {}, 'ibexa_multi_file_upload');
-
+        const isTriggerBySubitems = this.props.triggeredBy === MODULES_CAN_TRIGGER_MFU_LIST['subitems'];
+        const buttonClassName = createCssClassNames({
+            'ibexa-btn btn': true,
+            'ibexa-btn--secondary ibexa-btn--small': !isTriggerBySubitems,
+            'ibexa-btn--ghost': isTriggerBySubitems,
+        });
         return (
-            <button type="button" className="btn ibexa-btn ibexa-btn--ghost" onClick={this.showUploadPopup} disabled={uploadDisabled}>
-                <Icon name="upload" extraClasses="ibexa-icon--small" /> {label}
+            <button type="button" className={buttonClassName} onClick={this.showUploadPopup} disabled={uploadDisabled}>
+                <Icon name="upload" extraClasses={'ibexa-icon--small'} /> {label}
             </button>
         );
     }
@@ -269,8 +283,9 @@ export default class MultiFileUploadModule extends Component {
             addItemsToUpload: this.addItemsToUpload,
             removeItemsToUpload: this.removeItemsToUpload,
         };
+        const portalTarget = document.querySelector('.ibexa-assets-library-widget-container');
 
-        return ReactDOM.createPortal(<UploadPopupComponent {...attrs} />, document.body);
+        return createPortal(<UploadPopupComponent {...attrs} />, portalTarget ?? document.body);
     }
 
     render() {
@@ -293,7 +308,7 @@ MultiFileUploadModule.propTypes = {
         }).isRequired,
         token: PropTypes.string,
         siteaccess: PropTypes.string,
-        accessToken: PropTypes.string
+        accessToken: PropTypes.string,
     }).isRequired,
     parentInfo: PropTypes.shape({
         contentTypeIdentifier: PropTypes.string.isRequired,
@@ -311,6 +326,7 @@ MultiFileUploadModule.propTypes = {
     contentCreatePermissionsConfig: PropTypes.object,
     contentTypesMap: PropTypes.object.isRequired,
     currentLanguage: PropTypes.string,
+    triggeredBy: PropTypes.string,
 };
 
 MultiFileUploadModule.defaultProps = {
@@ -323,4 +339,5 @@ MultiFileUploadModule.defaultProps = {
     withUploadButton: true,
     currentLanguage: '',
     contentCreatePermissionsConfig: {},
+    triggeredBy: MODULES_CAN_TRIGGER_MFU_LIST['subitems'],
 };

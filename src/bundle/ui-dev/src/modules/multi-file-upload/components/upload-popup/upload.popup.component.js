@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { parse as parseTooltips } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+
 import TooltipPopup from '../../../common/tooltip-popup/tooltip.popup.component';
 import DropAreaComponent from '../drop-area/drop.area.component';
 import UploadListComponent from '../upload-list/upload.list.component';
-
-const { Translator } = window;
 
 const CLASS_SCROLL_DISABLED = 'ibexa-scroll-disabled';
 
@@ -18,7 +19,7 @@ export default class UploadPopupModule extends Component {
 
     componentDidMount() {
         window.document.body.classList.add(CLASS_SCROLL_DISABLED);
-        window.ibexa.helpers.tooltips.parse(this.refTooltip.current);
+        parseTooltips(this.refTooltip.current);
     }
 
     componentWillUnmount() {
@@ -32,6 +33,7 @@ export default class UploadPopupModule extends Component {
             itemsToUpload: this.props.itemsToUpload,
             removeItemsToUpload: this.props.removeItemsToUpload,
         };
+        const Translator = getTranslator();
         const title = Translator.trans(/*@Desc("Multi-file upload")*/ 'upload_popup.close', {}, 'ibexa_multi_file_upload');
 
         return (

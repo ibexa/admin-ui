@@ -7,10 +7,10 @@ const restInfo = {
     siteaccess: document.querySelector('meta[name="SiteAccess"]')?.content,
 };
 
-export const setRestInfo = ({ instanceUrl, token, csrfToken, siteaccess }) => {
+export const setRestInfo = ({ instanceUrl, accessToken, token, siteaccess }) => {
     restInfo.instanceUrl = instanceUrl ?? restInfo.instanceUrl;
+    restInfo.accessToken = accessToken ?? restInfo.accessToken;
     restInfo.token = token ?? restInfo.token;
-    restInfo.csrfToken = csrfToken ?? restInfo.csrfToken;
     restInfo.siteaccess = siteaccess ?? restInfo.siteaccess;
 };
 export const setAdminUiConfig = (loadedAdminUiConfig) => (adminUiConfig = loadedAdminUiConfig);

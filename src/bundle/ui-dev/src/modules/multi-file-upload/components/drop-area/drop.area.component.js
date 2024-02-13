@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { fileSizeToString } from '../../helpers/text.helper';
-
-const { Translator } = window;
 
 export default class DropAreaComponent extends Component {
     constructor(props) {
@@ -53,6 +52,7 @@ export default class DropAreaComponent extends Component {
     }
 
     render() {
+        const Translator = getTranslator();
         const maxFileSizeMessage = Translator.trans(/*@Desc("Max file size:")*/ 'max_file_size.message', {}, 'ibexa_multi_file_upload');
         const dropActionMessage = Translator.trans(/*@Desc("Drag and drop file")*/ 'drop_action.message', {}, 'ibexa_multi_file_upload');
         const separatorMessage = Translator.trans(/*@Desc("or")*/ 'drop_action.separator', {}, 'ibexa_multi_file_upload');

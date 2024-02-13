@@ -1,13 +1,13 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
-
-const { Translator } = window;
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const INITIAL_HEIGHT = 'initial';
 const HEADER_HEIGHT = 35;
 
 const TooltipPopupComponent = (props) => {
+    const Translator = getTranslator();
     const contentRef = useRef();
     const [maxHeight, setMaxHeight] = useState(INITIAL_HEIGHT);
 

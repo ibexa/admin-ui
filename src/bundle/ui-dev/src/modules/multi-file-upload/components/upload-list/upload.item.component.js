@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { getTranslator, getRestInfo } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { getContentTypeIconUrl } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/content.type.helper';
+
 import ProgressBarComponent from '../progress-bar/progress.bar.component';
 import { fileSizeToString } from '../../helpers/text.helper';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
 
-const { Translator, ibexa } = window;
-
 export default class UploadItemComponent extends Component {
     constructor(props) {
         super(props);
-        console.log('UPload ', props)
+
         this.handleFileSizeNotAllowed = this.handleFileSizeNotAllowed.bind(this);
         this.handleFileTypeNotAllowed = this.handleFileTypeNotAllowed.bind(this);
         this.handleContentTypeNotAllowed = this.handleContentTypeNotAllowed.bind(this);
@@ -24,6 +25,7 @@ export default class UploadItemComponent extends Component {
         this.handleLoadStart = this.handleLoadStart.bind(this);
         this.handleFileDeleted = this.handleFileDeleted.bind(this);
         this.abortUploading = this.abortUploading.bind(this);
+        this.initPublishFile = this.initPublishFile.bind(this);
         this.deleteFile = this.deleteFile.bind(this);
         this.contentInfoInput = null;
         this.contentVersionInfoInput = null;
@@ -94,7 +96,7 @@ export default class UploadItemComponent extends Component {
             parentInfo,
             config: adminUiConfig,
             languageCode: currentLanguage,
-        }).then(this.initPublishFile.bind(this, adminUiConfig));
+        }).then(this.initPublishFile);
     }
 
     /**
@@ -105,9 +107,9 @@ export default class UploadItemComponent extends Component {
      * @param {Object} struct
      * @memberof UploadItemComponent
      */
-    initPublishFile({ token, siteaccess }, struct) {
+    initPublishFile(struct) {
         this.props.publishFile(
-            { struct, token, siteaccess },
+            struct,
             {
                 upload: {
                     onabort: this.handleUploadAbort,
@@ -327,7 +329,7 @@ export default class UploadItemComponent extends Component {
     deleteFile() {
         this.setState(
             () => ({ deleted: true }),
-            () => this.props.deleteFile(this.props.adminUiConfig, this.state.struct, this.handleFileDeleted),
+            () => this.props.deleteFile(this.state.struct, this.handleFileDeleted),
         );
     }
 
@@ -376,7 +378,7 @@ export default class UploadItemComponent extends Component {
             return null;
         }
 
-        const contentTypeIconUrl = ibexa.helpers.contentType.getContentTypeIconUrl(contentTypeIdentifier);
+        const contentTypeIconUrl = getContentTypeIconUrl(contentTypeIdentifier);
 
         return <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small-medium" />;
     }
@@ -406,6 +408,7 @@ export default class UploadItemComponent extends Component {
      * @returns {null|Element}
      */
     renderErrorMessage() {
+        const Translator = getTranslator();
         const { uploaded, aborted, disallowedType, disallowedSize, failed, uploading, disallowedContentType } = this.state;
         const isError = !uploaded && !aborted && (disallowedSize || disallowedType || disallowedContentType) && failed && !uploading;
         const cannotUploadMessage = Translator.trans(
@@ -458,6 +461,7 @@ export default class UploadItemComponent extends Component {
      * @returns {null|Element}
      */
     renderSuccessMessage() {
+        const Translator = getTranslator();
         const { uploaded, aborted, disallowedSize, disallowedType, failed, uploading } = this.state;
         const isSuccess = uploaded && !aborted && !(disallowedSize || disallowedType) && !failed && !uploading;
         const message = Translator.trans(/*@Desc("100% Uploaded")*/ 'upload.success.message', {}, 'ibexa_multi_file_upload');
@@ -478,6 +482,7 @@ export default class UploadItemComponent extends Component {
      * @returns {null|Element}
      */
     renderAbortBtn() {
+        const Translator = getTranslator();
         const { uploaded, aborted, disallowedSize, disallowedType, failed, uploading } = this.state;
         const canAbort = !uploaded && !aborted && !disallowedSize && !disallowedType && !failed && uploading;
 
@@ -530,10 +535,12 @@ export default class UploadItemComponent extends Component {
      * @returns {null|Element}
      */
     renderEditBtn() {
+        const Translator = getTranslator();
+        const { instanceUrl } = getRestInfo();
         const { uploaded, aborted, disallowedSize, disallowedType, failed, uploading } = this.state;
         const canEdit = this.props.isUploaded || (uploaded && !aborted && !(disallowedSize || disallowedType) && !failed && !uploading);
 
-        if (!canEdit) {
+        if (!canEdit || window.origin !== instanceUrl) {
             return null;
         }
 
@@ -566,6 +573,7 @@ export default class UploadItemComponent extends Component {
             return null;
         }
 
+        const Translator = getTranslator();
         const label = Translator.trans(/*@Desc("Delete")*/ 'delete.label', {}, 'ibexa_multi_file_upload');
 
         return (

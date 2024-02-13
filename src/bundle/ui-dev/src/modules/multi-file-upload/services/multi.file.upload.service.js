@@ -1,13 +1,7 @@
-const { Translator } = window;
+import { getTranslator, getRestInfo } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { showErrorNotification } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/notification.helper';
+import { getRequestHeaders, getRequestMode } from '../../../../../Resources/public/js/scripts/helpers/request.helper';
 
-/**
- * Handles ready state change of request
- *
- * @function handleOnReadyStateChange
- * @param {XMLHttpRequest} xhr
- * @param {Function} onSuccess
- * @param {Function} onError
- */
 const handleOnReadyStateChange = (xhr, onSuccess, onError) => {
     if (xhr.readyState !== 4) {
         return;
@@ -26,14 +20,6 @@ const handleOnReadyStateChange = (xhr, onSuccess, onError) => {
 
     onSuccess(JSON.parse(xhr.response));
 };
-
-/**
- * Handles request response
- *
- * @function handleRequestResponse
- * @param {Response} response
- * @returns {String|Response}
- */
 const handleRequestResponse = (response) => {
     if (!response.ok) {
         throw Error(response.text());
@@ -41,134 +27,68 @@ const handleRequestResponse = (response) => {
 
     return response;
 };
-
-/**
- * Read file handler
- *
- * @function readFile
- * @param {File} file
- * @param {Function} resolve
- * @param {Function} reject
- */
 const readFile = function (file, resolve, reject) {
     this.addEventListener('load', () => resolve({ fileReader: this, file }), false);
     this.addEventListener('error', () => reject(), false);
     this.readAsDataURL(file);
 };
-
-/**
- * Finds a content type mapping based on a file type
- *
- * @function findFileTypeMapping
- * @param {Array} mappings
- * @param {File} file
- * @returns {Object|undefined}
- */
 const findFileTypeMapping = (mappings, file) => mappings.find((item) => item.mimeTypes.find((type) => type === file.type));
-
-/**
- * Checks if file's MIME Type is allowed
- *
- * @function isMimeTypeAllowed
- * @param {Array} mappings
- * @param {File} file
- * @returns {Boolean}
- */
 const isMimeTypeAllowed = (mappings, file) => !!findFileTypeMapping(mappings, file);
-
-/**
- * Checks if file type is allowed
- *
- * @function checkFileTypeAllowed
- * @param {File} file
- * @param {Object} locationMapping
- * @returns {Boolean}
- */
 const checkFileTypeAllowed = (file, locationMapping) => (!locationMapping ? true : isMimeTypeAllowed(locationMapping.mappings, file));
-
-/**
- * Detects a content type for a given file
- *
- * @function detectContentTypeMapping
- * @param {File} file
- * @param {Object} parentInfo
- * @param {Object} config
- * @returns {Object} detected content type config
- */
 const detectContentTypeMapping = (file, parentInfo, config) => {
     const locationMapping = config.locationMappings.find((item) => item.contentTypeIdentifier === parentInfo.contentTypeIdentifier);
     const mappings = locationMapping ? locationMapping.mappings : config.defaultMappings;
 
     return findFileTypeMapping(mappings, file) || config.fallbackContentType;
 };
-
-/**
- * Gets content type identifier
- *
- * @function getContentTypeByIdentifier
- * @param {Object} params params object containing token and siteaccess properties
- * @param {String} identifier content type identifier
- * @returns {Promise}
- */
-const getContentTypeByIdentifier = ({ token, siteaccess }, identifier) => {
-    const request = new Request(`/api/ibexa/v2/content/types?identifier=${identifier}`, {
+const getContentTypeByIdentifier = (identifier) => {
+    const { instanceUrl, token, siteaccess, accessToken } = getRestInfo();
+    const request = new Request(`${instanceUrl}/api/ibexa/v2/content/types?identifier=${identifier}`, {
         method: 'GET',
-        headers: {
-            Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-        },
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
+            },
+        }),
         credentials: 'same-origin',
-        mode: 'cors',
+        mode: getRequestMode({ instanceUrl }),
     });
 
     return fetch(request).then(handleRequestResponse);
 };
-
-/**
- * Get content type field definition by identifier
- *
- * @function getFieldDefinitionByIdentifier
- * @param {Object} params params object containing token and siteaccess properties
- * @param {Int} contentTypeId content type id
- * @param {String} fieldIdentifier content type field identifier
- * @returns {Promise}
- */
-const getFieldDefinitionByIdentifier = ({ token, siteaccess }, contentTypeId, fieldIdentifier) => {
-    const request = new Request(`/api/ibexa/v2/content/types/${contentTypeId}/fieldDefinition/${fieldIdentifier}`, {
+const getFieldDefinitionByIdentifier = (contentTypeId, fieldIdentifier) => {
+    const { instanceUrl, token, siteaccess, accessToken } = getRestInfo();
+    const request = new Request(`${instanceUrl}/api/ibexa/v2/content/types/${contentTypeId}/fieldDefinition/${fieldIdentifier}`, {
         method: 'GET',
-        headers: {
-            Accept: 'application/vnd.ibexa.api.FieldDefinition+json',
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-        },
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/vnd.ibexa.api.FieldDefinition+json',
+            },
+        }),
         credentials: 'same-origin',
-        mode: 'cors',
+        mode: getRequestMode({ instanceUrl }),
     });
 
     return fetch(request).then(handleRequestResponse);
 };
-
-/**
- * Prepares a ContentCreate struct based on an uploaded file type
- *
- * @function prepareStruct
- * @param {Object} params params object containing parentInfo and config properties
- * @param {Object} data file data containing File object and FileReader object
- * @returns {Promise}
- */
 const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
-    console.log('LanguageCode: ', languageCode, parentInfo.language)
+    const Translator = getTranslator();
     let parentLocation = `/api/ibexa/v2/content/locations${parentInfo.locationPath}`;
 
     parentLocation = parentLocation.endsWith('/') ? parentLocation.slice(0, -1) : parentLocation;
 
     const mapping = detectContentTypeMapping(data.file, parentInfo, config.multiFileUpload);
 
-    return getContentTypeByIdentifier(config, mapping.contentTypeIdentifier)
+    return getContentTypeByIdentifier(mapping.contentTypeIdentifier)
         .then((response) => response.json())
         .catch(() =>
-            window.ibexa.helpers.notification.showErrorNotification(
+            showErrorNotification(
                 Translator.trans(
                     /*@Desc("Cannot get content type by identifier")*/ 'cannot_get_content_type_identifier.message',
                     {},
@@ -185,10 +105,10 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
             const contentType = response.ContentTypeInfoList.ContentType[0];
             const { contentFieldIdentifier } = mapping;
 
-            return getFieldDefinitionByIdentifier(config, contentType.id, contentFieldIdentifier)
+            return getFieldDefinitionByIdentifier(contentType.id, contentFieldIdentifier)
                 .then((parsedResponse) => parsedResponse.json())
                 .catch(() =>
-                    window.ibexa.helpers.notification.showErrorNotification(
+                    showErrorNotification(
                         Translator.trans(
                             /*@Desc("Cannot get content type by identifier")*/ 'cannot_get_content_type_identifier.message',
                             {},
@@ -224,7 +144,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
                     return struct;
                 })
                 .catch(() =>
-                    window.ibexa.helpers.notification.showErrorNotification(
+                    showErrorNotification(
                         Translator.trans(
                             /*@Desc("Cannot create content structure")*/ 'cannot_create_content_structure.message',
                             {},
@@ -234,7 +154,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
                 );
         })
         .catch(() =>
-            window.ibexa.helpers.notification.showErrorNotification(
+            showErrorNotification(
                 Translator.trans(
                     /*@Desc("Cannot create content structure")*/ 'cannot_create_content_structure.message',
                     {},
@@ -243,28 +163,22 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data) => {
             ),
         );
 };
-
-/**
- * Creates a content draft
- *
- * @function createDraft
- * @param {Object} params params object containing struct, token and siteaccess properties
- * @param {Object} requestEventHandlers object containing a list of callbacks
- * @returns {Promise}
- */
-const createDraft = ({ struct, token, siteaccess }, requestEventHandlers) => {
-    console.log(struct)
+const createDraft = (struct, requestEventHandlers) => {
+    const { instanceUrl, token, siteaccess, accessToken } = getRestInfo();
     const xhr = new XMLHttpRequest();
     const body = JSON.stringify(struct);
-    const headers = {
-        Accept: 'application/vnd.ibexa.api.Content+json',
-        'Content-Type': 'application/vnd.ibexa.api.ContentCreate+json',
-        'X-CSRF-Token': token,
-        'X-Siteaccess': siteaccess,
-    };
+    const headers = getRequestHeaders({
+        token,
+        siteaccess,
+        accessToken,
+        extraHeaders: {
+            Accept: 'application/vnd.ibexa.api.Content+json',
+            'Content-Type': 'application/vnd.ibexa.api.ContentCreate+json',
+        },
+    });
 
     return new Promise((resolve, reject) => {
-        xhr.open('POST', '/api/ibexa/v2/content/objects', true);
+        xhr.open('POST', `${instanceUrl}/api/ibexa/v2/content/objects`, true);
 
         xhr.onreadystatechange = handleOnReadyStateChange.bind(null, xhr, resolve, reject);
 
@@ -292,43 +206,28 @@ const createDraft = ({ struct, token, siteaccess }, requestEventHandlers) => {
         xhr.send(body);
     });
 };
-
-/**
- * Publishes a content draft
- *
- * @function publishDraft
- * @param {Object} params params object containing token and siteaccess properties
- * @param {Object} response object containing created draft struct
- * @returns {Promise}
- */
-const publishDraft = ({ token, siteaccess }, response) => {
-    if (!response || !Object.prototype.hasOwnProperty.call(response, 'Content')) {
+const publishDraft = (data) => {
+    if (!data || !Object.prototype.hasOwnProperty.call(data, 'Content')) {
         return Promise.reject('Cannot publish content based on an uploaded file');
     }
 
-    const request = new Request(response.Content.CurrentVersion.Version._href, {
+    const { instanceUrl, token, siteaccess, accessToken } = getRestInfo();
+    const request = new Request(`${instanceUrl}${data.Content.CurrentVersion.Version._href}`, {
         method: 'POST',
-        headers: {
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-            'X-HTTP-Method-Override': 'PUBLISH',
-        },
-        mode: 'cors',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                'X-HTTP-Method-Override': 'PUBLISH',
+            },
+        }),
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
     return fetch(request).then(handleRequestResponse);
 };
-
-/**
- * Checks whether a content based on an uploaded file can be created
- *
- * @function canCreateContent
- * @param {File} file
- * @param {Object} parentInfo parent info hash
- * @param {Object} config multi file upload config
- * @returns {Boolean}
- */
 const canCreateContent = (file, parentInfo, config) => {
     if (!Object.prototype.hasOwnProperty.call(config, 'contentCreatePermissionsConfig') || !config.contentCreatePermissionsConfig) {
         return true;
@@ -339,16 +238,6 @@ const canCreateContent = (file, parentInfo, config) => {
     return config.contentCreatePermissionsConfig[contentTypeConfig.contentTypeIdentifier];
 };
 
-/**
- * Checks if a file can be uploaded
- *
- * @function checkCanUpload
- * @param {File} file
- * @param {Object} parentInfo parent info hash
- * @param {Object} config multi file upload config
- * @param {Object} callbacks a list of callbacks
- * @returns {Boolean}
- */
 export const checkCanUpload = (file, parentInfo, config, callbacks) => {
     const locationMapping = config.locationMappings.find((item) => item.contentTypeIdentifier === parentInfo.contentTypeIdentifier);
 
@@ -372,54 +261,28 @@ export const checkCanUpload = (file, parentInfo, config, callbacks) => {
 
     return true;
 };
-
-/**
- * Creates a ContentCreate struct based on a file
- *
- * @function createFileStruct
- * @param {File} file
- * @param {Object} params struct params
- * @returns {Promise}
- */
 export const createFileStruct = (file, params) => new Promise(readFile.bind(new FileReader(), file)).then(prepareStruct.bind(null, params));
-
-/**
- * Publishes file
- *
- * @function publishFile
- * @param {Object} data file data
- * @param {Object} requestEventHandlers a list of request event handlers
- * @param {Function} callback a success callback
- */
 export const publishFile = (data, requestEventHandlers, callback) => {
-    console.log(data)
     createDraft(data, requestEventHandlers)
-        .then(publishDraft.bind(null, data))
+        .then(publishDraft)
         .then(callback)
-        .catch(() => window.ibexa.helpers.notification.showErrorNotification('An error occurred while publishing a file'));
+        .catch(showErrorNotification('An error occurred while publishing a file'));
 };
-
-/**
- * Deletes file
- *
- * @function deleteFile
- * @param {Object} systemInfo system info containing: token and siteaccess info.
- * @param {Object} struct Content struct
- * @param {Function} callback file deleted callback
- */
-export const deleteFile = ({ token, siteaccess }, struct, callback) => {
-    const request = new Request(struct.Content._href, {
+export const deleteFile = (struct, callback) => {
+    const { instanceUrl, token, siteaccess, accessToken } = getRestInfo();
+    const request = new Request(`${instanceUrl}${struct.Content._href}`, {
         method: 'DELETE',
-        headers: {
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-        },
-        mode: 'cors',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+        }),
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
     fetch(request)
         .then(handleRequestResponse)
         .then(callback)
-        .catch(() => window.ibexa.helpers.notification.showErrorNotification('An error occurred while deleting a file'));
+        .catch(() => showErrorNotification('An error occurred while deleting a file'));
 };
