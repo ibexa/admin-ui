@@ -203,6 +203,10 @@
         font-weight: 400;
         line-height: calculateRem(18px);
         padding: calculateRem(12px) calculateRem(16px) 0;
+
+        &:empty {
+            padding: 0;
+        }
     }
 
     &__items-list {
