@@ -136,22 +136,32 @@
         {{ form_start(form_location_update, {
             'method': 'POST',
             'action': path('ibexa.location.update'),
-            'attr': {'class': 'form-inline ibexa-form-inline justify-content-start align-items-baseline'}
-            }) }}
+            'attr': {'class': 'form-inline ibexa-form-inline justify-content-start'}
+        }) }}
 
-        {{ form_label(
-            form_location_update.sort_field,
-            'tab.details.sub_items_listing_by.order_by'|trans|desc('Order by'),
-            { label_attr: { class: 'mb-0'} },
-        ) }}
-        {{ form_widget(form_location_update.sort_field, { 'attr': {'class': 'ibexa-form-autosubmit ml-2'} }) }}
+        <div class="form-group">
+            {{ form_label(
+                form_location_update.sort_field,
+                'tab.details.sub_items_listing_by.order_by'|trans|desc('Order by'),
+                { label_attr: { class: 'mb-0 mt-3' } },
+            ) }}
+            {{ form_widget(
+                form_location_update.sort_field,
+                { attr: { class: 'ibexa-form-autosubmit', dropdown_class: 'ms-0', is_small: true }}
+            ) }}
+        </div>
 
-        {{ form_label(
-            form_location_update.sort_order,
-            'tab.details.sub_items_listing_by.in'|trans|desc('in'),
-            { label_attr: { class: 'mb-0'} },
-        ) }}
-        {{ form_widget(form_location_update.sort_order, { 'attr': {'class': 'ibexa-form-autosubmit ml-2'} }) }}
+        <div class="form-group ms-2">
+            {{ form_label(
+                form_location_update.sort_order,
+                'tab.details.sub_items_listing_by.in'|trans|desc('in'),
+                { label_attr: { class: 'mb-0 mt-3' } },
+            ) }}
+            {{ form_widget(
+                form_location_update.sort_order,
+                { attr: { class: ' ibexa-form-autosubmit', dropdown_class: 'ms-0', is_small: true } }
+            ) }}
+        </div>
 
         {% do form_location_update.update.setRendered() %}
         {{ form_end(form_location_update) }}
