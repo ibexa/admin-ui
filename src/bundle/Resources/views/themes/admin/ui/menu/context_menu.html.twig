@@ -58,7 +58,7 @@
     {% if item.children|length > 0 %}
         {% set subitems = [] %}
         {% for item in item.children %}
-            {% set is_subitem = true %}
+            {% set is_btn_label = false %}
             {% set label %}
                 {{ block('label') }}
             {% endset %}
@@ -73,9 +73,14 @@
                 action_attr,
             }]) %}
         {% endfor %}
-        {% set is_subitem = false %}
 
+        {% set is_btn_label = false %}
         {% set label %}
+            {{ block('label') }}
+        {% endset %}
+
+        {% set is_btn_label = true %}
+        {% set btn_label %}
             {{ block('label') }}
         {% endset %}
 
@@ -97,7 +102,7 @@
             toggler_btn_attr: {
                 class: attributes.class|replace({ 'ibexa-btn--trigger': '' }),
             },
-            label,
+            label: btn_label,
             subitems,
         }) }}
 
@@ -128,15 +133,16 @@
                 </svg>
             {% endif %}
 
+            {% set is_btn_label = true %}
             {{ block('label') }}
         </{{element}}>
     {% endif %}
 {% endblock %}
 
 {% block label %}
-    {% if is_subitem|default(false) %}
-        {{ parent() }}
-    {% else %}
+    {% if is_btn_label|default(false) %}
         <span class="ibexa-btn__label">{{ parent() }}</span>
+    {% else %}
+        {{ parent() }}
     {% endif %}
 {% endblock %}
