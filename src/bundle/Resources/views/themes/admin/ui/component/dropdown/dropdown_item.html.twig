@@ -14,7 +14,7 @@
     {% set is_selected = custom_form ? choice.value == value : choice is selectedchoice(value) %}
     <li
         data-value="{{ choice.value }}"
-        data-filter-value="{{ item_label }}"
+        data-filter-value="{{ item_label|e('html_attr') }}"
         {% if choice.icon is defined %}
             data-choice-icon="{{ choice.icon }}"
         {% endif %}
