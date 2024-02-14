@@ -96,6 +96,7 @@
             branchSearchInput.addEventListener('keyup', this.filterBranchItems, false);
             branchSearchInput.addEventListener('input', this.filterBranchItems, false);
             branchElement.popperInstance = popperInstance;
+            branchElement.menuInstanceElement = this.container;
 
             if (isTopBranch) {
                 triggerElement.addEventListener('click', this.handleItemWithSubitemsClick, false);
@@ -217,13 +218,19 @@
         }
 
         closeWithSubbranches(branchElement) {
-            const subitemsWithSubitems = branchElement.querySelectorAll(':scope > .ibexa-popup-menu__item--has-subitems');
+            const subitemsWithSubitems = branchElement.querySelectorAll(
+                ':scope > .ibexa-popup-menu__groups > .ibexa-popup-menu__group > .ibexa-popup-menu__item--has-subitems',
+            );
 
             subitemsWithSubitems.forEach((subitem) => {
                 this.closeWithSubbranches(subitem.branchElement);
             });
 
             this.closeBranch(branchElement);
+        }
+
+        closeMenu() {
+            this.closeWithSubbranches(this.triggerElement.branchElement);
         }
 
         generateMenu(menuTree) {

@@ -66,6 +66,17 @@
             toggleExtraActionsWidget(dataset);
         }
     };
+    const hideMenu = (btn) => {
+        const menuBranch = btn.closest('.ibexa-multilevel-popup-menu__branch');
+
+        if (!menuBranch?.menuInstanceElement) {
+            return;
+        }
+
+        const menuInstance = ibexa.helpers.objectInstances.getInstance(menuBranch.menuInstanceElement);
+
+        menuInstance.closeMenu();
+    };
 
     btns.forEach((btn) => {
         const { dataset } = btn;
@@ -74,6 +85,7 @@
             'click',
             () => {
                 toggleExtraActionsWidget(dataset);
+                hideMenu(btn);
             },
             false,
         );
