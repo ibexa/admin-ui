@@ -6,7 +6,17 @@
 {% block body_class %}ibexa-user-settings-update-view{% endblock %}
 
 {% block header %}
-    {% set user_setting_update_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_setting_update.sidebar_right', [], {'user_setting': user_setting}) %}
+    {% set route = app.request.query.get('route')|default(null) %}
+    {% set content_id = app.request.query.get('content_id')|default(null) %}
+    {% set version = app.request.query.get('version')|default(null) %}
+    {% set language = app.request.query.get('language')|default(null) %}
+    {% set user_setting_update_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_setting_update.sidebar_right', [], {
+        'route': route,
+        'content_id': content_id,
+        'version_no': version,
+        'language': language,
+        'user_setting': user_setting,
+    }) %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
         action_name: 'list.action_name'|trans({'%action%': title|lower})|desc('Editing %action%'),
@@ -30,4 +40,9 @@
             {{ form_widget(form.update_and_edit, { attr: { hidden: 'hidden' }}) }}
         {{ form_end(form) }}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-user-settings-js', null, 'ibexa') }}
 {% endblock %}
