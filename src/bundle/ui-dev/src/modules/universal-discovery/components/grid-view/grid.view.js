@@ -1,23 +1,34 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, createContext } from 'react';
 import PropTypes from 'prop-types';
 
 import GridViewItem from './grid.view.item';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 
 import { useFindLocationsByParentLocationIdFetch } from '../../hooks/useFindLocationsByParentLocationIdFetch';
-import { SORTING_OPTIONS, LoadedLocationsMapContext, SortingContext, SortOrderContext } from '../../universal.discovery.module';
+import {
+    SORTING_OPTIONS,
+    LoadedLocationsMapContext,
+    SortingContext,
+    SortOrderContext,
+    MarkedLocationIdContext,
+} from '../../universal.discovery.module';
+
+export const ActiveLocationIdContext = createContext();
 
 const SCROLL_OFFSET = 200;
 
 const GridView = ({ itemsPerPage }) => {
     const [offset, setOffset] = useState(0);
+    const [markedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [sorting] = useContext(SortingContext);
     const [sortOrder] = useContext(SortOrderContext);
+    const [activeLocationId, setActiveLocationId] = useState(markedLocationId ?? loadedLocationsMap[0]?.parentLocationId);
     const sortingOptions = SORTING_OPTIONS.find((option) => option.sortClause === sorting);
-    const locationData = loadedLocationsMap.length ? loadedLocationsMap[loadedLocationsMap.length - 1] : { subitems: [] };
+    const locationData = loadedLocationsMap.find(({ parentLocationId }) => parentLocationId === activeLocationId);
+    const locationDataToLoad = loadedLocationsMap.length ? loadedLocationsMap[loadedLocationsMap.length - 1] : { subitems: [] };
     const [loadedLocations, isLoading] = useFindLocationsByParentLocationIdFetch(
-        locationData,
+        locationDataToLoad,
         { sortClause: sortingOptions.sortClause, sortOrder },
         itemsPerPage,
         offset,
@@ -53,12 +64,14 @@ const GridView = ({ itemsPerPage }) => {
     }, [loadedLocations, dispatchLoadedLocationsAction, isLoading]);
 
     return (
-        <div className="c-grid">
-            <Breadcrumbs />
-            <div className="ibexa-grid-view c-grid__items-wrapper" onScroll={loadMore}>
-                {locationData.subitems.map(renderItem)}
+        <ActiveLocationIdContext.Provider value={[activeLocationId, setActiveLocationId]}>
+            <div className="c-grid">
+                <Breadcrumbs />
+                <div className="ibexa-grid-view c-grid__items-wrapper" onScroll={loadMore}>
+                    {locationData.subitems.map(renderItem)}
+                </div>
             </div>
-        </div>
+        </ActiveLocationIdContext.Provider>
     );
 };
 

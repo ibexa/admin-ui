@@ -3,12 +3,22 @@ import React, { useContext, useState, useMemo, useEffect, useCallback } from 're
 import Icon from '../../../common/icon/icon';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
-import { LoadedLocationsMapContext } from '../../universal.discovery.module';
+import { LoadedLocationsMapContext, MarkedLocationIdContext } from '../../universal.discovery.module';
+import { ActiveLocationIdContext } from '../grid-view/grid.view';
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+
+const getLoadedLocationsLimitedMap = (loadedLocationsFullMap, activeLocationId) => {
+    const itemIndex = loadedLocationsFullMap.findIndex(({ parentLocationId }) => parentLocationId === activeLocationId);
+
+    return loadedLocationsFullMap.slice(0, itemIndex + 1);
+};
 
 const Breadcrumbs = () => {
     const Translator = getTranslator();
-    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const [, setMarkedLocationId] = useContext(MarkedLocationIdContext);
+    const [activeLocationId, setActiveLocationId] = useContext(ActiveLocationIdContext);
+    const [loadedLocationsFullMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const loadedLocationsMap = getLoadedLocationsLimitedMap(loadedLocationsFullMap, activeLocationId);
     const [hiddenListVisible, setHiddenListVisible] = useState(false);
     const { visibleItems, hiddenItems } = useMemo(() => {
         return loadedLocationsMap.reduce(
@@ -31,6 +41,8 @@ const Breadcrumbs = () => {
         updatedLoadedLocations[updatedLoadedLocations.length - 1].subitems = [];
 
         dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: updatedLoadedLocations });
+        setMarkedLocationId(locationId);
+        setActiveLocationId(locationId);
     };
     const toggleHiddenListVisible = useCallback(() => {
         setHiddenListVisible(!hiddenListVisible);

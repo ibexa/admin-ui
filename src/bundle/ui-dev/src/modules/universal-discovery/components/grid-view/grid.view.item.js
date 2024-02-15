@@ -14,12 +14,14 @@ import {
     ContainersOnlyContext,
     AllowedContentTypesContext,
 } from '../../universal.discovery.module';
+import { ActiveLocationIdContext } from './grid.view';
 
 const isSelectionButtonClicked = (event) => {
     return event.target.closest('.c-udw-toggle-selection');
 };
 
 const GridViewItem = ({ location, version }) => {
+    const [, setActiveLocationId] = useContext(ActiveLocationIdContext);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
@@ -44,6 +46,8 @@ const GridViewItem = ({ location, version }) => {
         }
 
         setMarkedLocationId(location.id);
+        dispatchLoadedLocationsAction({ type: 'CUT_LOCATIONS', locationId: location.id });
+        dispatchLoadedLocationsAction({ type: 'UPDATE_LOCATIONS', data: { parentLocationId: location.id, subitems: [] } });
 
         if (!multiple) {
             dispatchSelectedLocationsAction({ type: 'CLEAR_SELECTED_LOCATIONS' });
@@ -59,6 +63,7 @@ const GridViewItem = ({ location, version }) => {
         }
 
         dispatchLoadedLocationsAction({ type: 'UPDATE_LOCATIONS', data: { parentLocationId: location.id, subitems: [] } });
+        setActiveLocationId(location.id);
     };
     const renderToggleSelection = () => {
         return (
