@@ -13,6 +13,7 @@ use Hautelook\TemplatedUriBundle\HautelookTemplatedUriBundle;
 use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
 use Ibexa\Bundle\ContentForms\IbexaContentFormsBundle;
 use Ibexa\Bundle\DesignEngine\IbexaDesignEngineBundle;
+use Ibexa\Bundle\Notifications\IbexaNotificationsBundle;
 use Ibexa\Bundle\Rest\IbexaRestBundle;
 use Ibexa\Bundle\Search\IbexaSearchBundle;
 use Ibexa\Bundle\Test\Rest\IbexaTestRestBundle;
@@ -48,6 +49,7 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
         yield new IbexaSearchBundle();
         yield new IbexaTestRestBundle();
         yield new IbexaUserBundle();
+        yield new IbexaNotificationsBundle();
 
         yield new IbexaAdminUiBundle();
     }

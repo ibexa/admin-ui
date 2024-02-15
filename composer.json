@@ -72,6 +72,7 @@
         "ibexa/doctrine-schema": "~4.6.0@dev",
         "ibexa/http-cache": "~4.6.0@dev",
         "ibexa/code-style": "^1.3.x-dev",
+        "ibexa/notifications": "~4.6.0@dev",
         "ibexa/test-rest": "^0.1.x-dev",
         "ibexa/test-core": "^0.1.x-dev",
         "phpstan/phpstan": "^1.10",
