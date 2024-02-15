@@ -103,7 +103,7 @@ final class InContextTranslation implements ValueDefinitionInterface, FormMapper
     private function getTranslatedOptionEnabled(): string
     {
         return $this->translator->trans(
-            /** @Desc("enabled") */
+            /** @Desc("Enabled") */
             'settings.in_context_translation.value.enabled',
             [],
             'ibexa_user_settings'
@@ -113,7 +113,7 @@ final class InContextTranslation implements ValueDefinitionInterface, FormMapper
     private function getTranslatedOptionDisabled(): string
     {
         return $this->translator->trans(
-            /** @Desc("disabled") */
+            /** @Desc("Disabled") */
             'settings.in_context_translation.value.disabled',
             [],
             'ibexa_user_settings'

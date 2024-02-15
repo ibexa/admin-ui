@@ -112,7 +112,7 @@ class Autosave implements ValueDefinitionInterface, FormMapperInterface
     private function getTranslatedOptionEnabled(): string
     {
         return $this->translator->trans(
-            /** @Desc("enabled") */
+            /** @Desc("Enabled") */
             'settings.autosave.value.enabled',
             [],
             'ibexa_user_settings'
@@ -122,7 +122,7 @@ class Autosave implements ValueDefinitionInterface, FormMapperInterface
     private function getTranslatedOptionDisabled(): string
     {
         return $this->translator->trans(
-            /** @Desc("disabled") */
+            /** @Desc("Disabled") */
             'settings.autosave.value.disabled',
             [],
             'ibexa_user_settings'
