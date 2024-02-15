@@ -12,7 +12,7 @@ import ContentTable from '../content-table/content.table';
 import Filters from '../filters/filters';
 import SearchTags from './search.tags';
 import { useSearchByQueryFetch } from '../../hooks/useSearchByQueryFetch';
-import { AllowedContentTypesContext, SearchTextContext } from '../../universal.discovery.module';
+import { AllowedContentTypesContext, MarkedLocationIdContext, SearchTextContext } from '../../universal.discovery.module';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
@@ -33,6 +33,7 @@ const Search = ({ itemsPerPage }) => {
     const Translator = getTranslator();
     const adminUiConfig = getAdminUiConfig();
     const allowedContentTypes = useContext(AllowedContentTypesContext);
+    const [, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const [searchText] = useContext(SearchTextContext);
     const [offset, setOffset] = useState(0);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useReducer(selectedContentTypesReducer, []);
@@ -61,6 +62,7 @@ const Search = ({ itemsPerPage }) => {
 
         const contentTypes = !!selectedContentTypes.length ? [...selectedContentTypes] : allowedContentTypes;
 
+        setMarkedLocationId(null);
         searchByQuery(searchText, contentTypes, selectedSection, selectedSubtree, itemsPerPage, offset, selectedLanguage);
     };
     const changePage = (pageIndex) => setOffset(pageIndex * itemsPerPage);
