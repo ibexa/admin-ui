@@ -4,7 +4,7 @@ import Icon from '../icon/icon';
 import { createCssClassNames } from '../helpers/css.class.names';
 
 const ICON_NAME_MAP = {
-    info: 'system-information',
+    info: 'about',
     error: 'notice',
     warning: 'warning',
     success: 'approved',
@@ -52,7 +52,7 @@ const Alert = ({
             </div>
             {showCloseBtn && (
                 <button className="btn ibexa-btn ibexa-btn--no-text ibexa-alert__close-btn" type="button" onClick={onClose}>
-                    <Icon name="discard" extraClasses="ibexa-icon--tiny-small" />
+                    <Icon name="discard" extraClasses="ibexa-icon--tiny" />
                 </button>
             )}
         </div>

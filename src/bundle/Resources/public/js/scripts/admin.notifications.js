@@ -3,10 +3,10 @@
     const notifications = JSON.parse(notificationsContainer.dataset.notifications);
     const { template } = notificationsContainer.dataset;
     const iconsMap = {
-        info: 'system-information',
-        error: 'circle-close',
-        warning: 'warning-triangle',
-        success: 'checkmark',
+        info: 'about',
+        error: 'notice',
+        warning: 'warning',
+        success: 'approved',
     };
     const addNotification = ({ detail }) => {
         const { onShow, label, message, customIconPath, rawPlaceholdersMap = {} } = detail;
