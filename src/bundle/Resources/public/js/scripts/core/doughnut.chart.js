@@ -37,7 +37,7 @@
             this.canvas = this.chartNode.querySelector('.ibexa-chart__canvas');
             this.legendNode = this.chartNode.querySelector('.ibexa-chart-legend');
 
-            this.initialize(data.ref);
+            this.initialize(chartNode);
         }
 
         initialize(ref) {
