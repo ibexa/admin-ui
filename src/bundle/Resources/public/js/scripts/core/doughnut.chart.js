@@ -32,7 +32,6 @@
             super(data, options, plugins);
 
             this.setOptions(options);
-            this.data = data;
             this.type = 'doughnut';
             this.chartNode = data.ref;
             this.canvas = this.chartNode.querySelector('.ibexa-chart__canvas');
