@@ -82,7 +82,9 @@ const Dropdown = ({
                     }
                 }}
             >
-                {!single && <input type="checkbox" className="ibexa-input ibexa-input--checkbox" checked={isItemSelected} onChange={() => {}} />}
+                {!single && (
+                    <input type="checkbox" className="ibexa-input ibexa-input--checkbox" checked={isItemSelected} onChange={() => {}} />
+                )}
                 <span className="ibexa-dropdown__item-label">{item.label}</span>
                 {single && (
                     <div className="ibexa-dropdown__item-check">
@@ -165,7 +167,7 @@ const Dropdown = ({
     };
     const renderSelectedMultipleItem = (item) => {
         return (
-            <li key={item.value}  className="ibexa-dropdown__selected-item">
+            <li key={item.value} className="ibexa-dropdown__selected-item">
                 {item.label}
                 <span className="ibexa-dropdown__remove-selection" onClick={() => onChange(item.value)} />
             </li>
