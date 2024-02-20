@@ -82,7 +82,7 @@ class UserSettingsPage extends Page
     {
         $this->contentActionsMenu->verifyIsLoaded();
         $this->getHTMLPage()->find($this->getLocator('autosaveDraftValueDropdown'))->click();
-        $this->ibexaDropdown->selectOption('disabled');
+        $this->ibexaDropdown->selectOption('Disabled');
     }
 
     protected function getRoute(): string
