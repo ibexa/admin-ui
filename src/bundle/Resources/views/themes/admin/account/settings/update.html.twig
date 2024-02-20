@@ -7,13 +7,13 @@
 
 {% block header %}
     {% set route = app.request.query.get('route')|default(null) %}
-    {% set content_id = app.request.query.get('content_id')|default(null) %}
-    {% set version = app.request.query.get('version')|default(null) %}
+    {% set content_id = app.request.query.get('contentId')|default(null) %}
+    {% set version_no = app.request.query.get('versionNo')|default(null) %}
     {% set language = app.request.query.get('language')|default(null) %}
     {% set user_setting_update_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_setting_update.sidebar_right', [], {
         'route': route,
         'content_id': content_id,
-        'version_no': version,
+        'version_no': version_no,
         'language': language,
         'user_setting': user_setting,
     }) %}
