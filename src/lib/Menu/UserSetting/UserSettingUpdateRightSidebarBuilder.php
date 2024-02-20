@@ -61,7 +61,7 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
     {
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
-        $route = $options['route'];
+        $route = $options['route'] ?? 'ibexa.user_settings.list';
 
         $saveItem = $this->createMenuItem(
             self::ITEM__SAVE,
@@ -70,7 +70,7 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
                     'class' => 'ibexa-btn--trigger',
                     'data-click' => '#user_setting_update_update',
                 ],
-                'route' => $route ?? 'ibexa.user_settings.list',
+                'route' => $route,
                 'routeParameters' => [
                     'contentId' => $options['content_id'] ?? null,
                     'versionNo' => $options['version_no'] ?? null,
@@ -97,7 +97,7 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'route' => $route ?? 'ibexa.user_settings.list',
+                    'route' => $route,
                     'routeParameters' => [
                         'contentId' => $options['content_id'] ?? null,
                         'versionNo' => $options['version_no'] ?? null,
