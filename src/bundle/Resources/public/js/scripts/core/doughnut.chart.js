@@ -66,8 +66,10 @@
                         const { itemTemplate } = this.legendNode.dataset;
                         const fragment = doc.createDocumentFragment();
                         const data = chart.data.datasets[0];
+
                         data.legend.forEach((legendItem, index) => {
                             dataLabelsMap.set(index, true);
+
                             const container = doc.createElement('div');
                             const renderedItemTemplate = itemTemplate
                                 .replace('{{ checked_color }}', data.backgroundColor[index])
@@ -112,11 +114,7 @@
                 return;
             }
 
-            if (checked) {
-                dataLabelsMap.set(datasetIndex, true);
-            } else {
-                dataLabelsMap.set(datasetIndex, false);
-            }
+            dataLabelsMap.set(datasetIndex, checked);
         }
 
         setLegendCheckboxes() {
