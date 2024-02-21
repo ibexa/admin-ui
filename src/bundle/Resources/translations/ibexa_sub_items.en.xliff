@@ -291,6 +291,16 @@
         <target state="new">Move</target>
         <note>key: move_btn.label</note>
       </trans-unit>
+      <trans-unit id="c281023fd6d213d849962bc4a45d59cb7b5c8440" resname="no_items.action">
+        <source>Add sub-items by uploading or use the ‘Create’ button in the top right corner to populate this section.</source>
+        <target state="new">Add sub-items by uploading or use the ‘Create’ button in the top right corner to populate this section.</target>
+        <note>key: no_items.action</note>
+      </trans-unit>
+      <trans-unit id="782f084072f3de4010eed417a9c4abcb5404c601" resname="no_items.info">
+        <source>Add first sub-item</source>
+        <target state="new">Add first sub-item</target>
+        <note>key: no_items.info</note>
+      </trans-unit>
       <trans-unit id="11b5de206f496e357ede3c3798b8e113c2946a60" resname="trash_btn.label">
         <source>Delete</source>
         <target state="new">Delete</target>

@@ -55,6 +55,8 @@
             { content: 'role_assignment.view.list.panel.assignments.column.limitation'|trans|desc('Limitation') },
         ],
         body_rows,
+        empty_table_info_text: 'role_assignment.view.list.no_assignments.info'|trans|desc('Add users assignment'),
+        empty_table_action_text: 'role_assignment.view.list.no_assignments.action'|trans|desc('Select assignments to effectively manage user roles access by adding them to specific groups.'),
     } %}
         {% block header %}
             {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}

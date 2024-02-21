@@ -83,6 +83,8 @@
             { },
         ],
         body_rows,
+        empty_table_info_text: 'policy.view.list.no_policies.info'|trans|desc('Add first policy'),
+        empty_table_action_text: 'policy.view.list.no_policies.action'|trans|desc('Select policies to effectively manage users access.'),
     } %}
         {% block header %}
             {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
