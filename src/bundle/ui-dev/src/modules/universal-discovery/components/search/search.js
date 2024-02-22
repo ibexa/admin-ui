@@ -35,7 +35,7 @@ const Search = ({ itemsPerPage }) => {
     const adminUiConfig = getAdminUiConfig();
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const [, setMarkedLocationId] = useContext(MarkedLocationIdContext);
-    const [activeTab, setActiveTab, previousActiveTab] = useContext(ActiveTabContext);
+    const [, setActiveTab, previousActiveTab] = useContext(ActiveTabContext);
     const [searchText] = useContext(SearchTextContext);
     const [offset, setOffset] = useState(0);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useReducer(selectedContentTypesReducer, []);
@@ -100,6 +100,7 @@ const Search = ({ itemsPerPage }) => {
                     <div className="ibexa-table-header__headline c-search__table-title">
                         {searchResultsTitle}
                         <button
+                            type="button"
                             className="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small c-search__clear-results-btn"
                             onClick={handleResultsClear}
                         >
