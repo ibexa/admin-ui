@@ -450,7 +450,9 @@ const UniversalDiscoveryModule = (props) => {
                                         <MultipleConfigContext.Provider value={[props.multiple, props.multipleItemsLimit]}>
                                             <ContainersOnlyContext.Provider value={props.containersOnly}>
                                                 <AllowedContentTypesContext.Provider value={props.allowedContentTypes}>
-                                                    <ActiveTabContext.Provider value={[activeTab, setActiveTab, previousActiveTab]}>
+                                                    <ActiveTabContext.Provider
+                                                        value={[activeTab, setActiveTab, previousActiveTab, props.activeTab]}
+                                                    >
                                                         <TabsContext.Provider value={tabs}>
                                                             <TabsConfigContext.Provider value={props.tabsConfig}>
                                                                 <TitleContext.Provider value={props.title}>

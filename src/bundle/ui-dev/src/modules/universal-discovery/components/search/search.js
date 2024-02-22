@@ -34,7 +34,7 @@ const Search = ({ itemsPerPage }) => {
     const adminUiConfig = getAdminUiConfig();
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const [, setMarkedLocationId] = useContext(MarkedLocationIdContext);
-    const [, setActiveTab, previousActiveTab] = useContext(ActiveTabContext);
+    const [, setActiveTab, previousActiveTab, initialActiveTab] = useContext(ActiveTabContext);
     const [searchText] = useContext(SearchTextContext);
     const [offset, setOffset] = useState(0);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useReducer(selectedContentTypesReducer, []);
@@ -42,7 +42,6 @@ const Search = ({ itemsPerPage }) => {
     const [selectedSubtree, setSelectedSubtree] = useState('');
     const [selectedSubtreeBreadcrumbs, setSelectedSubtreeBreadcrumbs] = useState('');
     const { languages } = adminUiConfig;
-    const { tabs } = adminUiConfig.universalDiscoveryWidget;
     const mappedLanguages = languages.priority.map((value) => {
         return languages.mappings[value];
     });
@@ -69,7 +68,7 @@ const Search = ({ itemsPerPage }) => {
     };
     const changePage = (pageIndex) => setOffset(pageIndex * itemsPerPage);
     const handleResultsClear = () => {
-        const activeTabNew = previousActiveTab ?? tabs[0].id;
+        const activeTabNew = previousActiveTab ?? initialActiveTab;
 
         setActiveTab(activeTabNew);
     };
