@@ -160,7 +160,7 @@ const Search = ({ itemsPerPage }) => {
                 <>
                     {renderCustomTableHeader()}
                     <div className="c-search__no-results">
-                        <img className="" src="/bundles/ibexaadminui/img/no-results.svg" />
+                        <img src="/bundles/ibexaadminui/img/no-results.svg" />
                         <h2 className="c-search__no-results-title">{noResultsLabel}</h2>
                         <div className="c-search__no-results-subtitle">
                             {noResultsHints.map((hint, key) => (
