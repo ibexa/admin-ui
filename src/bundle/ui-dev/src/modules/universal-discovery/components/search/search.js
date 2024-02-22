@@ -156,23 +156,26 @@ const Search = ({ itemsPerPage }) => {
             ];
 
             return (
-                <div className="c-search__no-results">
-                    <img className="" src="/bundles/ibexaadminui/img/no-results.svg" />
-                    <h2 className="c-search__no-results-title">{noResultsLabel}</h2>
-                    <div className="c-search__no-results-subtitle">
-                        {noResultsHints.map((hint, key) => (
-                            <div
-                                key={key} // eslint-disable-line react/no-array-index-key
-                                className="c-search__no-results-hint"
-                            >
-                                <div className="c-search__no-results-hint-icon-wrapper">
-                                    <Icon name="approved" extraClasses="ibexa-icon--small-medium" />
+                <>
+                    {renderCustomTableHeader()}
+                    <div className="c-search__no-results">
+                        <img className="" src="/bundles/ibexaadminui/img/no-results.svg" />
+                        <h2 className="c-search__no-results-title">{noResultsLabel}</h2>
+                        <div className="c-search__no-results-subtitle">
+                            {noResultsHints.map((hint, key) => (
+                                <div
+                                    key={key} // eslint-disable-line react/no-array-index-key
+                                    className="c-search__no-results-hint"
+                                >
+                                    <div className="c-search__no-results-hint-icon-wrapper">
+                                        <Icon name="approved" extraClasses="ibexa-icon--small-medium" />
+                                    </div>
+                                    <div className="c-search__no-results-hint-text">{hint}</div>
                                 </div>
-                                <div className="c-search__no-results-hint-text">{hint}</div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
-                </div>
+                </>
             );
         }
     };

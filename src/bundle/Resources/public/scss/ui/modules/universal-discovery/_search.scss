@@ -42,6 +42,7 @@
 
     &__content {
         display: flex;
+        flex-direction: column;
         overflow: auto;
         width: 100%;
         flex-shrink: 1;
