@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Tab\Event\TabEvents;
 use Ibexa\AdminUi\Tab\Event\TabGroupEvent;
 use Ibexa\AdminUi\Tab\TabGroup;
 use Ibexa\Contracts\AdminUi\Component\Renderable;
+use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
@@ -64,7 +65,14 @@ class TabsComponent implements Renderable
         foreach ($tabGroupEvent->getData()->getTabs() as $tab) {
             $tabEvent = $this->dispatchTabPreRenderEvent($tab, $parameters);
             $parameters = array_merge($parameters, $tabGroupEvent->getParameters(), $tabEvent->getParameters());
-            $tabs[] = $this->composeTabParameters($tabEvent->getData(), $parameters);
+            // BC Safe: @todo move AbstractEventDispatchingTab::isEnabled to TabInterface
+            $isEnabled = $tab instanceof AbstractEventDispatchingTab
+                ? $tab->isEnabled($parameters)
+                : true;
+
+            if ($isEnabled) {
+                $tabs[] = $this->composeTabParameters($tabEvent->getData(), $parameters);
+            }
         }
 
         return $this->twig->render(

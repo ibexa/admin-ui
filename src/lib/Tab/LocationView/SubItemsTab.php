@@ -10,10 +10,27 @@ namespace Ibexa\AdminUi\Tab\LocationView;
 
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\LocationService;
 use JMS\TranslationBundle\Annotation\Desc;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
 class SubItemsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
+    private LocationService $locationService;
+
+    public function __construct(
+        Environment $twig,
+        TranslatorInterface $translator,
+        EventDispatcherInterface $eventDispatcher,
+        LocationService $locationService
+    ) {
+        parent::__construct($twig, $translator, $eventDispatcher);
+
+        $this->locationService = $locationService;
+    }
+
     public const URI_FRAGMENT = 'ibexa-tab-location-view-sub-items';
 
     public function getIdentifier(): string
@@ -35,6 +52,19 @@ class SubItemsTab extends AbstractEventDispatchingTab implements OrderedTabInter
     public function getTemplate(): string
     {
         return '@ibexadesign/content/tab/sub_items.html.twig';
+    }
+
+    public function isEnabled(array $parameters): bool
+    {
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
+        $contentType = $parameters['contentType'];
+
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        $location = $parameters['location'];
+
+        $hasChildren = $this->locationService->getLocationChildCount($location) > 0;
+
+        return $contentType->isContainer && !$hasChildren;
     }
 
     public function getTemplateParameters(array $contextParameters = []): array
