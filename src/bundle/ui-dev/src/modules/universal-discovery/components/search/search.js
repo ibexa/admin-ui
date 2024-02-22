@@ -15,7 +15,6 @@ import { useSearchByQueryFetch } from '../../hooks/useSearchByQueryFetch';
 import { ActiveTabContext, AllowedContentTypesContext, MarkedLocationIdContext, SearchTextContext } from '../../universal.discovery.module';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
-import { TAB_ID as BROWSE_TAB_ID } from '../../browse.tab.module';
 
 const selectedContentTypesReducer = (state, action) => {
     switch (action.type) {
@@ -43,6 +42,7 @@ const Search = ({ itemsPerPage }) => {
     const [selectedSubtree, setSelectedSubtree] = useState('');
     const [selectedSubtreeBreadcrumbs, setSelectedSubtreeBreadcrumbs] = useState('');
     const { languages } = adminUiConfig;
+    const { tabs } = adminUiConfig.universalDiscoveryWidget;
     const mappedLanguages = languages.priority.map((value) => {
         return languages.mappings[value];
     });
@@ -69,7 +69,7 @@ const Search = ({ itemsPerPage }) => {
     };
     const changePage = (pageIndex) => setOffset(pageIndex * itemsPerPage);
     const handleResultsClear = () => {
-        const activeTabNew = previousActiveTab ?? BROWSE_TAB_ID;
+        const activeTabNew = previousActiveTab ?? tabs[0].id;
 
         setActiveTab(activeTabNew);
     };
