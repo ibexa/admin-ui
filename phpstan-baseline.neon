@@ -9651,7 +9651,7 @@ parameters:
 			path: src/lib/UI/Module/ContentTree/NodeFactory.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Module\\\\ContentTree\\\\NodeFactory\\:\\:countAggregatedSubitems\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Cannot call method warning\\(\\) on Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
 			count: 1
 			path: src/lib/UI/Module/ContentTree/NodeFactory.php
 
