@@ -10,6 +10,8 @@ import { CurrentViewContext, TabsConfigContext } from './universal.discovery.mod
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
 
+export const TAB_ID = 'browse';
+
 const BrowseTabModule = () => {
     const [currentView] = useContext(CurrentViewContext);
     const tabsConfig = useContext(TabsConfigContext);
@@ -27,7 +29,7 @@ const BrowseTabModule = () => {
 };
 
 export const BrowseTab = {
-    id: 'browse',
+    id: TAB_ID,
     component: BrowseTabModule,
     getLabel: () => {
         const Translator = getTranslator();

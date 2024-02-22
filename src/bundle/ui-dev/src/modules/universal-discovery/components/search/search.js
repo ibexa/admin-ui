@@ -12,9 +12,10 @@ import ContentTable from '../content-table/content.table';
 import Filters from '../filters/filters';
 import SearchTags from './search.tags';
 import { useSearchByQueryFetch } from '../../hooks/useSearchByQueryFetch';
-import { AllowedContentTypesContext, MarkedLocationIdContext, SearchTextContext } from '../../universal.discovery.module';
+import { ActiveTabContext, AllowedContentTypesContext, MarkedLocationIdContext, SearchTextContext } from '../../universal.discovery.module';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { TAB_ID as BROWSE_TAB_ID } from '../../browse.tab.module';
 
 const selectedContentTypesReducer = (state, action) => {
     switch (action.type) {
@@ -34,6 +35,7 @@ const Search = ({ itemsPerPage }) => {
     const adminUiConfig = getAdminUiConfig();
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const [, setMarkedLocationId] = useContext(MarkedLocationIdContext);
+    const [activeTab, setActiveTab, previousActiveTab] = useContext(ActiveTabContext);
     const [searchText] = useContext(SearchTextContext);
     const [offset, setOffset] = useState(0);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useReducer(selectedContentTypesReducer, []);
@@ -66,6 +68,11 @@ const Search = ({ itemsPerPage }) => {
         searchByQuery(searchText, contentTypes, selectedSection, selectedSubtree, itemsPerPage, offset, selectedLanguage);
     };
     const changePage = (pageIndex) => setOffset(pageIndex * itemsPerPage);
+    const handleResultsClear = () => {
+        const activeTabNew = previousActiveTab ?? BROWSE_TAB_ID;
+
+        setActiveTab(activeTabNew);
+    };
     const renderCustomTableHeader = () => {
         const selectedLanguageName = languages.mappings[selectedLanguage].name;
         const searchResultsTitle = Translator.trans(
@@ -81,11 +88,24 @@ const Search = ({ itemsPerPage }) => {
             { search_language: selectedLanguageName },
             'ibexa_universal_discovery_widget',
         );
+        const searchResultsClearBtnLabel = Translator.trans(
+            /*@Desc("Clear results")*/ 'search.search_results.clear_btn.label',
+            {},
+            'ibexa_universal_discovery_widget',
+        );
 
         return (
             <>
                 <div className="ibexa-table-header c-search__table-header">
-                    <div className="ibexa-table-header__headline c-search__table-title">{searchResultsTitle}</div>
+                    <div className="ibexa-table-header__headline c-search__table-title">
+                        {searchResultsTitle}
+                        <button
+                            className="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small c-search__clear-results-btn"
+                            onClick={handleResultsClear}
+                        >
+                            {searchResultsClearBtnLabel}
+                        </button>
+                    </div>
                     <div className="c-search__table-subtitle">{searchResultsSubtitle}</div>
                     <div className="c-search__search-tags">
                         <SearchTags />

@@ -190,7 +190,15 @@ const UniversalDiscoveryModule = (props) => {
     const defaultMarkedLocationId = props.startingLocationId || props.rootLocationId;
     const abortControllerRef = useRef();
     const dropdownPortalRef = useRef();
-    const [activeTab, setActiveTab] = useState(props.activeTab);
+    const [{ activeTab, previousActiveTab }, setActiveTabsData] = useState({
+        activeTab: props.activeTab,
+        previousActiveTab: null,
+    });
+    const setActiveTab = (activeTabNew) =>
+        setActiveTabsData(({ activeTab: activeTabOld }) => ({
+            activeTab: activeTabNew,
+            previousActiveTab: activeTabOld,
+        }));
     const [sorting, setSorting] = useState(props.activeSortClause);
     const [sortOrder, setSortOrder] = useState(props.activeSortOrder);
     const [currentView, setCurrentView] = useState(props.activeView);
@@ -442,7 +450,7 @@ const UniversalDiscoveryModule = (props) => {
                                         <MultipleConfigContext.Provider value={[props.multiple, props.multipleItemsLimit]}>
                                             <ContainersOnlyContext.Provider value={props.containersOnly}>
                                                 <AllowedContentTypesContext.Provider value={props.allowedContentTypes}>
-                                                    <ActiveTabContext.Provider value={[activeTab, setActiveTab]}>
+                                                    <ActiveTabContext.Provider value={[activeTab, setActiveTab, previousActiveTab]}>
                                                         <TabsContext.Provider value={tabs}>
                                                             <TabsConfigContext.Provider value={props.tabsConfig}>
                                                                 <TitleContext.Provider value={props.title}>

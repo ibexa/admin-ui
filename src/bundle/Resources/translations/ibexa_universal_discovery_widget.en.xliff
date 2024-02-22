@@ -281,6 +281,11 @@
         <target state="new">Results for “%search_phrase%” (%total%)</target>
         <note>key: search.search_results</note>
       </trans-unit>
+      <trans-unit id="b358d77d29a6b9869920d03666b1ebf0c13e21d2" resname="search.search_results.clear_btn.label">
+        <source>Clear results</source>
+        <target state="new">Clear results</target>
+        <note>key: search.search_results.clear_btn.label</note>
+      </trans-unit>
       <trans-unit id="3ae249fbdcae8da1215537a7407789511ff8fd3b" resname="search.search_results.in_language">
         <source>in %search_language%</source>
         <target state="new">in %search_language%</target>

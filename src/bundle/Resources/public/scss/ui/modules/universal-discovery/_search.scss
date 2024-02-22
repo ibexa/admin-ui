@@ -78,6 +78,10 @@
         font-size: $ibexa-text-font-size-extra-large;
     }
 
+    &__clear-results-btn {
+        margin-left: calculateRem(16px);
+    }
+
     &__table-subtitle {
         display: inline-block;
         margin-bottom: calculateRem(8px);
