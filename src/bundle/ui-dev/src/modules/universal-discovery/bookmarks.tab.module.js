@@ -22,7 +22,11 @@ import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const BookmarksTabModule = () => {
-    const shouldRestorePreviousStateRef = useRef(true);
+    const didBookmarksMarkedLocationRef = useRef(false);
+    const restorationStateRef = useRef({
+        markedLocationId,
+        loadedLocationsMap,
+    });
     const restInfo = useContext(RestInfoContext);
     const tabsConfig = useContext(TabsConfigContext);
     const [currentView] = useContext(CurrentViewContext);
@@ -46,13 +50,24 @@ const BookmarksTabModule = () => {
     };
 
     useEffect(() => {
-        setMarkedLocationId(null);
-        dispatchLoadedLocationsAction({ type: 'CLEAR_LOCATIONS' });
+        const isCleared = markedLocationId === null && loadedLocationsMap?.length === 0;
 
+        if (!isCleared && !didBookmarksMarkedLocationRef.current) {
+            restorationStateRef.current = {
+                markedLocationId,
+                loadedLocationsMap,
+            };
+
+            setMarkedLocationId(null);
+            dispatchLoadedLocationsAction({ type: 'CLEAR_LOCATIONS' });
+        }
+    }, [setMarkedLocationId, dispatchLoadedLocationsAction, markedLocationId, loadedLocationsMap]);
+
+    useEffect(() => {
         return () => {
-            if (shouldRestorePreviousStateRef.current) {
-                setMarkedLocationId(markedLocationId);
-                dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: loadedLocationsMap });
+            if (!didBookmarksMarkedLocationRef.current) {
+                setMarkedLocationId(restorationStateRef.current.markedLocationId);
+                dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: restorationStateRef.current.loadedLocationsMap });
             }
         };
     }, []);
@@ -62,7 +77,7 @@ const BookmarksTabModule = () => {
             return;
         }
 
-        shouldRestorePreviousStateRef.current = false;
+        didBookmarksMarkedLocationRef.current = true;
         setMarkedLocationId(bookmarkedLocationMarked);
         loadAccordionData(
             {
@@ -90,7 +105,7 @@ const BookmarksTabModule = () => {
         <div className="m-bookmarks-tab">
             <Tab>
                 <BookmarksList itemsPerPage={tabsConfig.bookmarks.itemsPerPage} setBookmarkedLocationMarked={setBookmarkedLocationMarked} />
-                {renderBrowseLocations()}
+                {didBookmarksMarkedLocationRef.current && renderBrowseLocations()}
             </Tab>
         </div>
     );
