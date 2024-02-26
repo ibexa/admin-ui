@@ -35,7 +35,7 @@ const Search = ({ itemsPerPage }) => {
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const [, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const [, setActiveTab, previousActiveTab, initialActiveTab] = useContext(ActiveTabContext);
-    const [searchText] = useContext(SearchTextContext);
+    const [searchText, setSearchText] = useContext(SearchTextContext);
     const [offset, setOffset] = useState(0);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useReducer(selectedContentTypesReducer, []);
     const [selectedSection, setSelectedSection] = useState('');
@@ -71,6 +71,7 @@ const Search = ({ itemsPerPage }) => {
         const activeTabNew = previousActiveTab ?? initialActiveTab;
 
         setActiveTab(activeTabNew);
+        setSearchText('');
     };
     const renderCustomTableHeader = () => {
         const selectedLanguageName = languages.mappings[selectedLanguage].name;
@@ -96,16 +97,14 @@ const Search = ({ itemsPerPage }) => {
         return (
             <>
                 <div className="ibexa-table-header c-search__table-header">
-                    <div className="ibexa-table-header__headline c-search__table-title">
-                        {searchResultsTitle}
-                        <button
-                            type="button"
-                            className="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small c-search__clear-results-btn"
-                            onClick={handleResultsClear}
-                        >
-                            {searchResultsClearBtnLabel}
-                        </button>
-                    </div>
+                    <div className="ibexa-table-header__headline c-search__table-title">{searchResultsTitle}</div>
+                    <button
+                        type="button"
+                        className="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small c-search__clear-results-btn"
+                        onClick={handleResultsClear}
+                    >
+                        {searchResultsClearBtnLabel}
+                    </button>
                     <div className="c-search__table-subtitle">{searchResultsSubtitle}</div>
                     <div className="c-search__search-tags">
                         <SearchTags />
