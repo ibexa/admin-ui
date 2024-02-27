@@ -3,6 +3,7 @@
     const SELECTOR_TAB = '.ibexa-tabs__tab';
     const SELECTOR_TAB_ACTIVE = '.ibexa-tabs__tab--active';
     const CLASS_TAB_ACTIVE = 'ibexa-tabs__tab--active';
+    const contentColumn = doc.querySelector('.ibexa-main-container__content-column');
     const switchActiveTabs = (currentTab, previousTab) => {
         if (previousTab) {
             previousTab.classList.remove(CLASS_TAB_ACTIVE);
@@ -35,6 +36,10 @@
         bootstrap.Tab.getOrCreateInstance(activeHashTabLink).show();
 
         switchActiveTabs(activeHashTab, currentActiveTab);
+
+        setTimeout(() => {
+            contentColumn.scrollTo(0, 0);
+        }, 0);
     };
 
     setActiveHashTab();
