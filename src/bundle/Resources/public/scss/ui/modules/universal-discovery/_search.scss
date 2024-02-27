@@ -42,6 +42,7 @@
 
     &__content {
         display: flex;
+        flex-direction: column;
         overflow: auto;
         width: 100%;
         flex-shrink: 1;
@@ -69,16 +70,24 @@
     }
 
     &__table-header {
-        flex-direction: column;
-        align-items: flex-start;
+        display: grid;
+        grid-template: 'title clear-search-btn' 'subtitle subtitle';
+        justify-content: start;
         margin-top: calculateRem(16px);
     }
 
     &__table-tile {
+        grid-area: title;
         font-size: $ibexa-text-font-size-extra-large;
     }
 
+    &__clear-results-btn {
+        grid-area: clear-search-btn;
+        margin-left: calculateRem(16px);
+    }
+
     &__table-subtitle {
+        grid-area: subtitle;
         display: inline-block;
         margin-bottom: calculateRem(8px);
         font-size: $ibexa-text-font-size-medium;

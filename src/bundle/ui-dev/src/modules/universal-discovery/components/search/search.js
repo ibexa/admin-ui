@@ -12,7 +12,7 @@ import ContentTable from '../content-table/content.table';
 import Filters from '../filters/filters';
 import SearchTags from './search.tags';
 import { useSearchByQueryFetch } from '../../hooks/useSearchByQueryFetch';
-import { AllowedContentTypesContext, MarkedLocationIdContext, SearchTextContext } from '../../universal.discovery.module';
+import { ActiveTabContext, AllowedContentTypesContext, MarkedLocationIdContext, SearchTextContext } from '../../universal.discovery.module';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
@@ -34,7 +34,8 @@ const Search = ({ itemsPerPage }) => {
     const adminUiConfig = getAdminUiConfig();
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const [, setMarkedLocationId] = useContext(MarkedLocationIdContext);
-    const [searchText] = useContext(SearchTextContext);
+    const [, setActiveTab, previousActiveTab, initialActiveTab] = useContext(ActiveTabContext);
+    const [searchText, setSearchText] = useContext(SearchTextContext);
     const [offset, setOffset] = useState(0);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useReducer(selectedContentTypesReducer, []);
     const [selectedSection, setSelectedSection] = useState('');
@@ -66,6 +67,12 @@ const Search = ({ itemsPerPage }) => {
         searchByQuery(searchText, contentTypes, selectedSection, selectedSubtree, itemsPerPage, offset, selectedLanguage);
     };
     const changePage = (pageIndex) => setOffset(pageIndex * itemsPerPage);
+    const handleResultsClear = () => {
+        const activeTabNew = previousActiveTab ?? initialActiveTab;
+
+        setActiveTab(activeTabNew);
+        setSearchText('');
+    };
     const renderCustomTableHeader = () => {
         const selectedLanguageName = languages.mappings[selectedLanguage].name;
         const searchResultsTitle = Translator.trans(
@@ -81,11 +88,23 @@ const Search = ({ itemsPerPage }) => {
             { search_language: selectedLanguageName },
             'ibexa_universal_discovery_widget',
         );
+        const searchResultsClearBtnLabel = Translator.trans(
+            /*@Desc("Clear results")*/ 'search.search_results.clear_btn.label',
+            {},
+            'ibexa_universal_discovery_widget',
+        );
 
         return (
             <>
                 <div className="ibexa-table-header c-search__table-header">
                     <div className="ibexa-table-header__headline c-search__table-title">{searchResultsTitle}</div>
+                    <button
+                        type="button"
+                        className="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small c-search__clear-results-btn"
+                        onClick={handleResultsClear}
+                    >
+                        {searchResultsClearBtnLabel}
+                    </button>
                     <div className="c-search__table-subtitle">{searchResultsSubtitle}</div>
                     <div className="c-search__search-tags">
                         <SearchTags />
@@ -136,23 +155,26 @@ const Search = ({ itemsPerPage }) => {
             ];
 
             return (
-                <div className="c-search__no-results">
-                    <img className="" src="/bundles/ibexaadminui/img/no-results.svg" />
-                    <h2 className="c-search__no-results-title">{noResultsLabel}</h2>
-                    <div className="c-search__no-results-subtitle">
-                        {noResultsHints.map((hint, key) => (
-                            <div
-                                key={key} // eslint-disable-line react/no-array-index-key
-                                className="c-search__no-results-hint"
-                            >
-                                <div className="c-search__no-results-hint-icon-wrapper">
-                                    <Icon name="approved" extraClasses="ibexa-icon--small-medium" />
+                <>
+                    {renderCustomTableHeader()}
+                    <div className="c-search__no-results">
+                        <img src="/bundles/ibexaadminui/img/no-results.svg" />
+                        <h2 className="c-search__no-results-title">{noResultsLabel}</h2>
+                        <div className="c-search__no-results-subtitle">
+                            {noResultsHints.map((hint, key) => (
+                                <div
+                                    key={key} // eslint-disable-line react/no-array-index-key
+                                    className="c-search__no-results-hint"
+                                >
+                                    <div className="c-search__no-results-hint-icon-wrapper">
+                                        <Icon name="approved" extraClasses="ibexa-icon--small-medium" />
+                                    </div>
+                                    <div className="c-search__no-results-hint-text">{hint}</div>
                                 </div>
-                                <div className="c-search__no-results-hint-text">{hint}</div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
-                </div>
+                </>
             );
         }
     };
