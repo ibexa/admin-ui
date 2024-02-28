@@ -7,8 +7,7 @@
 
     &__popup-menu {
         z-index: 1060;
-        top: calculateRem(65px);
-        right: calculateRem(24px);
+        top: calculateRem(53px);
         min-width: calculateRem(200px);
         padding: 0;
 
@@ -25,50 +24,38 @@
         font-size: $ibexa-text-font-size-small;
     }
 
+    .ibexa-focus-mode-form {
+        color: $ibexa-color-dark;
+        margin-top: calculateRem(12px);
+    }
+
     &__toggler {
         display: flex;
         align-items: center;
         position: relative;
         margin-left: calculateRem(16px);
-        padding: calculateRem(2px) calculateRem(20px) calculateRem(2px) calculateRem(2px);
-        border-radius: calculateRem(12px);
-        border: calculateRem(1px) solid transparent;
+        padding: calculateRem(2px);
+        border-radius: calculateRem(13px);
+        border: 0;
         background: rgba($ibexa-color-white, 0.1);
 
-        &::before,
-        &::after {
-            content: '';
-            position: absolute;
-            z-index: 1;
-            width: calculateRem(7px);
-            height: calculateRem(1px);
-            background: $ibexa-color-white;
-        }
-
-        &::before {
-            transform: rotate(135deg);
-            right: calculateRem(5px);
-        }
-
-        &::after {
-            transform: rotate(-135deg);
-            right: calculateRem(10px);
-        }
-
-        &:hover {
-            &::before,
-            &::after {
-                background: $ibexa-color-info;
-            }
+        .ibexa-icon {
+            fill: $ibexa-color-white;
+            margin-left: calculateRem(5px);
+            margin-right: calculateRem(4px);
+            transform: rotate(0deg);
+            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
         }
 
         &--expanded {
-            &::before {
-                transform: rotate(45deg);
+            .ibexa-icon {
+                transform: rotate(-180deg);
             }
+        }
 
-            &::after {
-                transform: rotate(-45deg);
+        &:hover {
+            .ibexa-icon {
+                fill: $ibexa-color-info;
             }
         }
     }
@@ -76,6 +63,11 @@
     &__thumbnail-wrapper {
         display: flex;
         border-radius: 50%;
+
+        .ibexa-user-thumbnail {
+            width: calculateRem(22px);
+            height: calculateRem(22px);
+        }
     }
 
     &__notifications-toggler {

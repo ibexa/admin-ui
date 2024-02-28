@@ -21,6 +21,9 @@
                     user_content: user.content,
                 } %}
             </div>
+            <svg class="ibexa-icon ibexa-icon--tiny">
+                <use xlink:href="{{ ibexa_icon_path('caret-down') }}"></use>
+            </svg>
         </button>
 
         {{ include('@ibexadesign/account/notifications/modal.html.twig') }}
