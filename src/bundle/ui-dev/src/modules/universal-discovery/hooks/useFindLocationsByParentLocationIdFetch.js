@@ -52,6 +52,8 @@ export const useFindLocationsByParentLocationIdFetch = (locationData, { sortClau
                 {
                     ...restInfo,
                     parentLocationId: locationData.parentLocationId,
+                    limit,
+                    offset,
                 },
                 resolve,
             );

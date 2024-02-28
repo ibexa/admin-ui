@@ -39,7 +39,10 @@
                     <div class="ibexa-instant-filter__desc">
                         {{ ('content.create.filters.desc'|trans|desc('Select a content type from list')) }}
                     </div>
-                    <div class="ibexa-instant-filter__items">
+                    <div
+                        class="ibexa-instant-filter__items"
+                        data-group-template="{{ include("@ibexadesign/content/widget/instant_filter_group_template.html.twig")|e('html_attr') }}"
+                    >
                         {{ form_widget(form.content_type) }}
                     </div>
                 </div>

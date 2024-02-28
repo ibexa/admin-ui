@@ -58,7 +58,7 @@
                 {{- block('content_type_choice_widget_options') -}}
             </div>
         {%- else -%}
-            <div class="ibexa-instant-filter__group-item">
+            <div class="ibexa-instant-filter__group-item" data-identifier="{{ option.value }}">
                 <label class="ibexa-instant-filter__group-item-label-icon" for="{{ form[key].vars.id }}">
                     <svg class="ibexa-icon ibexa-icon--small">
                         <use xlink:href="{{ ibexa_content_type_icon(option.value) }}"></use>
