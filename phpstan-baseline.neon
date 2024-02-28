@@ -351,6 +351,11 @@ parameters:
 			path: src/bundle/Controller/ContentViewController.php
 
 		-
+			message: "#^Offset 'relation' on string\\|null on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentViewController.php
+
+		-
 			message: "#^Offset 'reverse_relation' on string\\|null on left side of \\?\\? does not exist\\.$#"
 			count: 1
 			path: src/bundle/Controller/ContentViewController.php
@@ -9774,11 +9779,6 @@ parameters:
 			message: "#^Property Ibexa\\\\AdminUi\\\\UI\\\\Dataset\\\\PoliciesDataset\\:\\:\\$userGroupContentTypeIdentifier type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/UI/Dataset/PoliciesDataset.php
-
-		-
-			message: "#^Parameter \\#2 \\$array of function array_map expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Relation\\> given\\.$#"
-			count: 1
-			path: src/lib/UI/Dataset/RelationListDataset.php
 
 		-
 			message: "#^PHPDoc tag @param references unknown parameter\\: \\$versionInfo$#"
