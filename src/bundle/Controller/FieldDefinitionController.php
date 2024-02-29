@@ -19,22 +19,28 @@ use Ibexa\Contracts\Rest\Exceptions;
 use Ibexa\Rest\Message;
 use Ibexa\Rest\Server\Controller as RestController;
 use Ibexa\Rest\Server\Values;
+use JMS\TranslationBundle\Annotation\Ignore;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class FieldDefinitionController extends RestController
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
-    public function __construct(ContentTypeService $contentTypeService, UrlGeneratorInterface $urlGenerator)
-    {
+    private TranslatorInterface $translator;
+
+    public function __construct(
+        ContentTypeService $contentTypeService,
+        UrlGeneratorInterface $urlGenerator,
+        TranslatorInterface $translator
+    ) {
         $this->contentTypeService = $contentTypeService;
         $this->urlGenerator = $urlGenerator;
+        $this->translator = $translator;
     }
 
     public function addFieldDefinitionAction(
@@ -59,7 +65,9 @@ final class FieldDefinitionController extends RestController
 
         $fieldDefinitionCreateStruct->fieldGroup = $input->fieldGroupIdentifier;
         $fieldDefinitionCreateStruct->names = [
-            $language->languageCode => 'New field type',
+            $language->languageCode => strtr('New %name%', [
+                '%name%' => $this->getFieldTypeLabel($input->fieldTypeIdentifier),
+            ]),
         ];
 
         $fieldDefinitionCreateStruct->position = $input->position ?? $this->getNextFieldPosition($contentTypeDraft);
@@ -166,5 +174,20 @@ final class FieldDefinitionController extends RestController
         }
 
         return 0;
+    }
+
+    /**
+     * Generate a human-readable name for field type identifier.
+     */
+    private function getFieldTypeLabel(string $fieldTypeIdentifier): string
+    {
+        $name = $this->translator->trans(
+            /** @Ignore */
+            $fieldTypeIdentifier . '.name',
+            [],
+            'ibexa_fieldtypes'
+        );
+
+        return mb_strtolower($name);
     }
 }
