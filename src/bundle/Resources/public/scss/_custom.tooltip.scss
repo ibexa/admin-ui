@@ -109,13 +109,13 @@
         }
     }
 
-    &--info-neon {
+    &--navigation {
         .ibexa-tooltip {
             &__inner {
                 color: $ibexa-color-dark;
-                background-color: $ibexa-color-info;
+                background-color: $ibexa-color-complementary-primary-400;
                 border-color: transparent;
-                box-shadow: 0 calculateRem(4px) calculateRem(6px) rgba($ibexa-color-info, 0.1);
+                box-shadow: 0 calculateRem(2px) calculateRem(8px) rgba($ibexa-color-dark, 0.15);
             }
         }
 
@@ -124,7 +124,7 @@
             &[data-popper-placement='top'] {
                 .ibexa-tooltip__arrow {
                     &::before {
-                        border-top-color: $ibexa-color-info;
+                        border-top-color: $ibexa-color-complementary-primary-400;
                     }
                 }
             }
@@ -133,7 +133,7 @@
             &[data-popper-placement='right'] {
                 .ibexa-tooltip__arrow {
                     &::before {
-                        border-right-color: $ibexa-color-info;
+                        border-right-color: $ibexa-color-complementary-primary-400;
                     }
                 }
             }
@@ -142,7 +142,7 @@
             &[data-popper-placement='bottom'] {
                 .ibexa-tooltip__arrow {
                     &::before {
-                        border-bottom-color: $ibexa-color-info;
+                        border-bottom-color: $ibexa-color-complementary-primary-400;
                     }
                 }
             }
@@ -151,7 +151,7 @@
             &[data-popper-placement='left'] {
                 .ibexa-tooltip__arrow {
                     &::before {
-                        border-left-color: $ibexa-color-info;
+                        border-left-color: $ibexa-color-complementary-primary-400;
                     }
                 }
             }
