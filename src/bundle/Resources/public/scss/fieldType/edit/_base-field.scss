@@ -40,6 +40,7 @@
 
     &__distraction-free-mode-control-btn {
         align-self: flex-end;
+        align-items: center;
 
         &--enable {
             display: inline-flex;
@@ -47,6 +48,10 @@
 
         &--disable {
             display: none;
+        }
+
+        .ibexa-icon {
+            margin-right: calculateRem(8px);
         }
     }
 
