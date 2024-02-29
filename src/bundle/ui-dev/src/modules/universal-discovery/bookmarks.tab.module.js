@@ -22,11 +22,8 @@ import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const BookmarksTabModule = () => {
-    const didBookmarksMarkedLocationRef = useRef(false);
-    const restorationStateRef = useRef({
-        markedLocationId,
-        loadedLocationsMap,
-    });
+    const isMarkedLocationSetByBookmarksRef = useRef(false);
+    const restorationStateRef = useRef(null);
     const restInfo = useContext(RestInfoContext);
     const tabsConfig = useContext(TabsConfigContext);
     const [currentView] = useContext(CurrentViewContext);
@@ -52,7 +49,7 @@ const BookmarksTabModule = () => {
     useEffect(() => {
         const isCleared = markedLocationId === null && loadedLocationsMap?.length === 0;
 
-        if (!isCleared && !didBookmarksMarkedLocationRef.current) {
+        if (!isCleared && !isMarkedLocationSetByBookmarksRef.current) {
             restorationStateRef.current = {
                 markedLocationId,
                 loadedLocationsMap,
@@ -65,7 +62,7 @@ const BookmarksTabModule = () => {
 
     useEffect(() => {
         return () => {
-            if (!didBookmarksMarkedLocationRef.current) {
+            if (!isMarkedLocationSetByBookmarksRef.current) {
                 setMarkedLocationId(restorationStateRef.current.markedLocationId);
                 dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: restorationStateRef.current.loadedLocationsMap });
             }
@@ -77,8 +74,9 @@ const BookmarksTabModule = () => {
             return;
         }
 
-        didBookmarksMarkedLocationRef.current = true;
+        isMarkedLocationSetByBookmarksRef.current = true;
         setMarkedLocationId(bookmarkedLocationMarked);
+
         loadAccordionData(
             {
                 ...restInfo,
@@ -105,7 +103,7 @@ const BookmarksTabModule = () => {
         <div className="m-bookmarks-tab">
             <Tab>
                 <BookmarksList itemsPerPage={tabsConfig.bookmarks.itemsPerPage} setBookmarkedLocationMarked={setBookmarkedLocationMarked} />
-                {didBookmarksMarkedLocationRef.current && renderBrowseLocations()}
+                {isMarkedLocationSetByBookmarksRef.current && renderBrowseLocations()}
             </Tab>
         </div>
     );
