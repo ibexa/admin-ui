@@ -49,14 +49,6 @@ abstract class AbstractEventDispatchingTab extends AbstractTab
         );
     }
 
-    /**
-     * @param array<string, mixed> $parameters
-     */
-    public function isEnabled(array $parameters): bool
-    {
-        return true;
-    }
-
     abstract public function getTemplate(): string;
 
     /**

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Tab\LocationView;
 
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
+use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use JMS\TranslationBundle\Annotation\Desc;
@@ -16,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
-class SubItemsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
+class SubItemsTab extends AbstractEventDispatchingTab implements OrderedTabInterface, ConditionalTabInterface
 {
     private LocationService $locationService;
 
@@ -54,7 +55,7 @@ class SubItemsTab extends AbstractEventDispatchingTab implements OrderedTabInter
         return '@ibexadesign/content/tab/sub_items.html.twig';
     }
 
-    public function isEnabled(array $parameters): bool
+    public function evaluate(array $parameters): bool
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
         $contentType = $parameters['contentType'];
