@@ -246,6 +246,7 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/admin.input.text.js'),
             path.resolve(__dirname, '../public/js/scripts/login.js'),
         ])
+        .addEntry('ibexa-admin-ui-reset-password-js', [path.resolve(__dirname, '../public/js/scripts/admin.input.text.js')])
         .addEntry('ibexa-admin-ui-user-invitation-modal', [path.resolve(__dirname, '../public/js/scripts/user.invitation.modal.js')])
         .addEntry('ibexa-admin-ui-tabs-js', [
             path.resolve(__dirname, '../public/js/scripts/admin.location.tab.js'),
