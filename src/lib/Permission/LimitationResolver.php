@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Permission;
 
+use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
@@ -74,7 +75,7 @@ final class LimitationResolver implements LimitationResolverInterface
         );
     }
 
-    public function getContentUpdateLimitations(Location $parentLocation): LookupLimitationResult
+    public function getContentUpdateLimitations(Location $location): LookupLimitationResult
     {
         $versionBuilder = new VersionBuilder();
         $versionBuilder->translateToAnyLanguageOf($this->getActiveLanguageCodes());
@@ -83,8 +84,46 @@ final class LimitationResolver implements LimitationResolverInterface
         return $this->permissionResolver->lookupLimitations(
             'content',
             'edit',
-            $parentLocation->getContentInfo(),
-            [$versionBuilder->build(), $parentLocation],
+            $location->getContentInfo(),
+            [$versionBuilder->build(), $location],
+            [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
+        );
+    }
+
+    public function getContentDeleteLimitations(Location $location): LookupLimitationResult
+    {
+        $content = $location->getContent();
+
+        $translations = $content->getVersionInfo()->languageCodes;
+        $target = (new Target\Version())->deleteTranslations($translations);
+
+//        $canDelete = $this->permissionResolver->canUser(
+//            'content',
+//            'remove',
+//            $content,
+//            [$target]
+//        );
+        return $this->permissionResolver->lookupLimitations(
+            'content',
+            'remove',
+            $content,
+            [$target],
+            [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
+        );
+    }
+
+    public function getContentHideLimitations(Location $location): LookupLimitationResult
+    {
+        $content = $location->getContent();
+
+        $translations = $content->getVersionInfo()->languageCodes;
+        $target = (new Target\Version())->deleteTranslations($translations);
+
+        return $this->permissionResolver->lookupLimitations(
+            'content',
+            'hide',
+            $content,
+            [$target],
             [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
         );
     }

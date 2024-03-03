@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UniversalDiscovery;
 
+use Ibexa\AdminUi\Permission\LimitationResolverInterface;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\AdminUi\QueryType\LocationPathQueryType;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
@@ -54,6 +55,8 @@ class UniversalDiscoveryProvider implements Provider
     /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
     private $lookupLimitationsTransformer;
 
+    private LimitationResolverInterface $limitationResolver;
+
     /** @var \Ibexa\AdminUi\QueryType\LocationPathQueryType */
     private $locationPathQueryType;
 
@@ -76,6 +79,7 @@ class UniversalDiscoveryProvider implements Provider
         Visitor $visitor,
         PermissionCheckerInterface $permissionChecker,
         LookupLimitationsTransformer $lookupLimitationsTransformer,
+        LimitationResolverInterface $limitationResolver,
         LocationPathQueryType $locationPathQueryType
     ) {
         $this->locationService = $locationService;
@@ -86,6 +90,7 @@ class UniversalDiscoveryProvider implements Provider
         $this->visitor = $visitor;
         $this->permissionChecker = $permissionChecker;
         $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
+        $this->limitationResolver = $limitationResolver;
         $this->locationPathQueryType = $locationPathQueryType;
     }
 
@@ -187,6 +192,8 @@ class UniversalDiscoveryProvider implements Provider
     {
         $lookupCreateLimitationsResult = $this->permissionChecker->getContentCreateLimitations($location);
         $lookupUpdateLimitationsResult = $this->permissionChecker->getContentUpdateLimitations($location);
+        $lookupDeleteLimitationsResult = $this->limitationResolver->getContentCreateLimitations($location);
+        $lookupHideLimitationsResult = $this->limitationResolver->getContentHideLimitations($location);
 
         $createLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
             $lookupCreateLimitationsResult,
@@ -194,7 +201,17 @@ class UniversalDiscoveryProvider implements Provider
         );
 
         $updateLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
-            $lookupCreateLimitationsResult,
+            $lookupUpdateLimitationsResult,
+            [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
+        );
+
+        $deleteLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
+            $lookupDeleteLimitationsResult,
+            [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
+        );
+
+        $hideLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
+            $lookupHideLimitationsResult,
             [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
         );
 
@@ -206,8 +223,18 @@ class UniversalDiscoveryProvider implements Provider
             ],
             'edit' => [
                 'hasAccess' => $lookupUpdateLimitationsResult->hasAccess,
-                'restrictedContentTypeIds' => $updateLimitationsValues[Limitation::CONTENTTYPE],
+                'restrictedContentTypeIds' => $updateLimitationsValues[Limitation::CONTENTTYPE], // Czy CT ma tutaj sens?
                 'restrictedLanguageCodes' => $updateLimitationsValues[Limitation::LANGUAGE],
+            ],
+            'delete' => [
+                'hasAccess' => $lookupDeleteLimitationsResult->hasAccess,
+                'restrictedContentTypeIds' => $deleteLimitationsValues[Limitation::CONTENTTYPE],
+                'restrictedLanguageCodes' => $deleteLimitationsValues[Limitation::LANGUAGE],
+            ],
+            'hide' => [
+                'hasAccess' => $lookupHideLimitationsResult->hasAccess,
+                'restrictedContentTypeIds' => $hideLimitationsValues[Limitation::CONTENTTYPE],
+                'restrictedLanguageCodes' => $hideLimitationsValues[Limitation::LANGUAGE],
             ],
         ];
     }
