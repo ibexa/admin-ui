@@ -437,11 +437,16 @@
             }
         }
 
-        &:focus-visible,
+        &:focus {
+            box-shadow: none;
+        }
+
         &:active {
-            border: calculateRem(1px) solid;
-            border-image-source: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-                linear-gradient(0deg, $ibexa-color-primary-600, $ibexa-color-primary-600);
+            border: calculateRem(1px) solid $ibexa-color-primary-600;
+        }
+
+        &:focus-visible {
+            border: calculateRem(1px) solid $ibexa-color-primary;
             box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-primary, 0.25);
         }
 
