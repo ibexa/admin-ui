@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Permission;
 
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
@@ -221,6 +222,38 @@ class PermissionChecker implements PermissionCheckerInterface
             'edit',
             $contentInfo,
             [$versionBuilder->build(), $location],
+            [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
+        );
+    }
+
+    public function getContentDeleteLimitations(Location $location): LookupLimitationResult
+    {
+        $content = $location->getContent();
+
+        $translations = $content->getVersionInfo()->languageCodes;
+        $target = (new Target\Version())->deleteTranslations($translations);
+
+        return $this->permissionResolver->lookupLimitations(
+            'content',
+            'remove',
+            $content,
+            [$target],
+            [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
+        );
+    }
+
+    public function getContentHideLimitations(Location $location): LookupLimitationResult
+    {
+        $content = $location->getContent();
+
+        $translations = $content->getVersionInfo()->languageCodes;
+        $target = (new Target\Version())->deleteTranslations($translations);
+
+        return $this->permissionResolver->lookupLimitations(
+            'content',
+            'hide',
+            $content,
+            [$target],
             [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
         );
     }
