@@ -187,6 +187,8 @@ class UniversalDiscoveryProvider implements Provider
     {
         $lookupCreateLimitationsResult = $this->permissionChecker->getContentCreateLimitations($location);
         $lookupUpdateLimitationsResult = $this->permissionChecker->getContentUpdateLimitations($location);
+        $lookupDeleteLimitationsResult = $this->permissionChecker->getContentDeleteLimitations($location);
+        $lookupHideLimitationsResult = $this->permissionChecker->getContentHideLimitations($location);
 
         $createLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
             $lookupCreateLimitationsResult,
@@ -194,7 +196,17 @@ class UniversalDiscoveryProvider implements Provider
         );
 
         $updateLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
-            $lookupCreateLimitationsResult,
+            $lookupUpdateLimitationsResult,
+            [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
+        );
+
+        $deleteLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
+            $lookupDeleteLimitationsResult,
+            [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
+        );
+
+        $hideLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
+            $lookupHideLimitationsResult,
             [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
         );
 
@@ -208,6 +220,16 @@ class UniversalDiscoveryProvider implements Provider
                 'hasAccess' => $lookupUpdateLimitationsResult->hasAccess,
                 'restrictedContentTypeIds' => $updateLimitationsValues[Limitation::CONTENTTYPE],
                 'restrictedLanguageCodes' => $updateLimitationsValues[Limitation::LANGUAGE],
+            ],
+            'delete' => [
+                'hasAccess' => $lookupDeleteLimitationsResult->hasAccess,
+                'restrictedContentTypeIds' => $deleteLimitationsValues[Limitation::CONTENTTYPE],
+                'restrictedLanguageCodes' => $deleteLimitationsValues[Limitation::LANGUAGE],
+            ],
+            'hide' => [
+                'hasAccess' => $lookupHideLimitationsResult->hasAccess,
+                'restrictedContentTypeIds' => $hideLimitationsValues[Limitation::CONTENTTYPE],
+                'restrictedLanguageCodes' => $hideLimitationsValues[Limitation::LANGUAGE],
             ],
         ];
     }
