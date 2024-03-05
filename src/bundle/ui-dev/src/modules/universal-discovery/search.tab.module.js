@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 
 import Tab from './components/tab/tab';
 import Search from './components/search/search';
@@ -10,6 +10,7 @@ import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
 
 const SearchTabModule = () => {
     const tabsConfig = useContext(TabsConfigContext);
+    const restorationStateRef = useRef(null);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
 
@@ -20,9 +21,22 @@ const SearchTabModule = () => {
     };
 
     useEffect(() => {
+        const isCleared = markedLocationId === null && loadedLocationsMap?.length === 0;
+
+        if (!isCleared) {
+            restorationStateRef.current = {
+                markedLocationId,
+                loadedLocationsMap,
+            };
+        }
+    }, [setMarkedLocationId, dispatchLoadedLocationsAction, markedLocationId, loadedLocationsMap]);
+
+    useEffect(() => {
         return () => {
-            setMarkedLocationId(markedLocationId);
-            dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: loadedLocationsMap });
+            if (restorationStateRef.current) {
+                setMarkedLocationId(restorationStateRef.current.markedLocationId);
+                dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: restorationStateRef.current.loadedLocationsMap });
+            }
         };
     }, []);
 
