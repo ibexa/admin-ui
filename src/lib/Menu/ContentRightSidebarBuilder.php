@@ -190,7 +190,6 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             ->isSatisfiedBy($contentType);
         $contentIsUserGroup = (new ContentTypeIsUserGroup($this->configResolver->getParameter('user_group_content_type_identifier')))
             ->isSatisfiedBy($contentType);
-        $label = $this->labelFactory->createLabel($contentType);
 
         $menu->setChildren([
             self::ITEM__CREATE => $this->createMenuItem(
@@ -200,7 +199,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
                     'attributes' => $canCreate
                         ? $createAttributes
                         : array_merge($createAttributes, ['disabled' => 'disabled']),
-                    'label' => $label
+                    'label' => $this->labelFactory->createLabel($contentType),
                 ]
             ),
         ]);
