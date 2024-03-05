@@ -11,6 +11,12 @@ services:
     Ibexa\AdminUi\Menu\MenuItemFactory: ~
 
     #
+    # Right Sidebar Label Factory
+    #
+
+    Ibexa\AdminUi\Menu\ContentRightSidebarLabelFactory: ~
+
+    #
     # Menu Builders
     #
 
