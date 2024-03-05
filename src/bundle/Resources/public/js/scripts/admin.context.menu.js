@@ -34,9 +34,7 @@
             });
         },
     });
-    const clickRelatedBtn = (relatedBtnId) => {
-        const relatedBtn = doc.getElementById(relatedBtnId);
-
+    const clickRelatedBtn = (relatedBtn) => {
         relatedBtn.click();
     };
     const addRelatedBtnIdToMenuItem = (itemElement, relatedBtnId) => {
@@ -67,7 +65,7 @@
 
                 return {
                     label: subitemLabel,
-                    onClick: () => clickRelatedBtn(relatedSubitemBtnId),
+                    onClick: () => clickRelatedBtn(subitemBtn),
                     processAfterCreated: (itemElement) => {
                         const itemBtn = itemElement.querySelector('.ibexa-multilevel-popup-menu__item-content');
 
@@ -90,7 +88,7 @@
                                 {
                                     label: mainBtnAlternativeLabel ?? mainBtnLabel,
                                     sublabel: mainBtnAlternativeSublabel,
-                                    onClick: () => clickRelatedBtn(relatedMainBtnId),
+                                    onClick: () => clickRelatedBtn(mainBtn),
                                     processAfterCreated: (itemElement) => {
                                         const itemBtn = itemElement.querySelector('.ibexa-multilevel-popup-menu__item-content');
 
@@ -115,7 +113,7 @@
         return {
             label,
             groupId: 'default',
-            onClick: () => clickRelatedBtn(relatedBtnId),
+            onClick: () => clickRelatedBtn(menuButton),
             processAfterCreated: (itemElement) => {
                 const itemBtn = itemElement.querySelector('.ibexa-multilevel-popup-menu__item-content');
 
