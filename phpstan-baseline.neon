@@ -10222,7 +10222,7 @@ parameters:
 
 		-
 			message: "#^Access to protected property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\User\\\\LookupLimitationResult\\:\\:\\$hasAccess\\.$#"
-			count: 2
+			count: 4
 			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
 
 		-
