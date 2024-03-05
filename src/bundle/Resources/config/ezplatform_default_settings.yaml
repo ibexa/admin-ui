@@ -44,6 +44,7 @@ parameters:
     ibexa.site_access.config.admin_group.subtree_operations.copy_subtree.limit: 100
 
     # Notifications
+    ibexa.site_access.config.admin_group.notifications.count.interval: 30000
     ibexa.site_access.config.admin_group.notifications.error.timeout: 0
     ibexa.site_access.config.admin_group.notifications.warning.timeout: 0
     ibexa.site_access.config.admin_group.notifications.success.timeout: 5000
