@@ -197,8 +197,8 @@
         <note>key: role.view.edit.title</note>
       </trans-unit>
       <trans-unit id="88d7426f344cc9d85b90903dad013d5806b82faa" resname="role.view.list.action.add">
-        <source>Create</source>
-        <target state="new">Create</target>
+        <source>Create role</source>
+        <target state="new">Create role</target>
         <note>key: role.view.list.action.add</note>
       </trans-unit>
       <trans-unit id="18990f93cd60432ec47a75934185b7edbd3d17bf" resname="role.view.list.action.assign_to_users_or_groups">
