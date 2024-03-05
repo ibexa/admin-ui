@@ -423,6 +423,43 @@
         }
     }
 
+    &--secondary-dark.ibexa-btn {
+        color: $ibexa-color-dark;
+        fill: $ibexa-color-dark;
+        background-color: $ibexa-color-white;
+        border-color: $ibexa-color-light;
+
+        &:hover {
+            box-shadow: 0 calculateRem(11px) calculateRem(12px) 0 rgba($ibexa-color-dark, 0.1);
+
+            .ibexa-icon {
+                fill: $ibexa-color-dark;
+            }
+        }
+
+        &:focus {
+            box-shadow: none;
+        }
+
+        &:active {
+            border: calculateRem(1px) solid $ibexa-color-primary-600;
+        }
+
+        &:focus-visible {
+            border: calculateRem(1px) solid $ibexa-color-primary;
+            box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-primary, 0.25);
+        }
+
+        &.disabled,
+        &[disabled],
+        &:disabled {
+            color: $ibexa-color-dark-300;
+            fill: $ibexa-color-dark-300;
+            border-color: $ibexa-color-dark-100;
+            background-color: $ibexa-color-white;
+        }
+    }
+
     &--small {
         padding-top: calculateRem(6px);
         padding-bottom: calculateRem(6px);
