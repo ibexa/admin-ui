@@ -13,8 +13,9 @@ use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsDashboardContainer;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
-final class ContentRightSidebarLabelFactory implements ContentRightSidebarLabelFactoryInterface
+final class ContentRightSidebarLabelFactory implements ContentRightSidebarLabelFactoryInterface, TranslationContainerInterface
 {
     public const CREATE = 'sidebar_right.create';
     public const CREATE_CONTENT = 'sidebar_right.create_content';
