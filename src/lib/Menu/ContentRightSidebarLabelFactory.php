@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
-use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsDashboardContainer;
+use Ibexa\Dashboard\Specification\ContentTypeIsDashboardContainer;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use JMS\TranslationBundle\Model\Message;
