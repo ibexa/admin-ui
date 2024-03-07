@@ -361,7 +361,7 @@ class ContentViewController extends Controller
 
     private function supplyRelationPagination(ContentView $view, Request $request): void
     {
-        $page = $request->query->get('page');
+        $page = $request->query->all('page');
 
         $view->addParameters([
             'relation_pagination_params' => [

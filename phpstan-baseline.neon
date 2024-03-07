@@ -351,11 +351,6 @@ parameters:
 			path: src/bundle/Controller/ContentViewController.php
 
 		-
-			message: "#^Offset 'relation' on string\\|null on left side of \\?\\? does not exist\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentViewController.php
-
-		-
 			message: "#^Offset 'reverse_relation' on string\\|null on left side of \\?\\? does not exist\\.$#"
 			count: 1
 			path: src/bundle/Controller/ContentViewController.php
