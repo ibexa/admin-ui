@@ -11,7 +11,8 @@
                     size: 18,
                 },
                 formatter: (value, context) => {
-                    const sum = context.dataset.data.reduce((acc, curValue) => acc + curValue, 0);
+                    const visibleData = context.dataset.data.filter((dataValue, dataIndex) => dataLabelsMap.get(dataIndex));
+                    const sum = visibleData.reduce((acc, curValue) => acc + curValue, 0);
                     const percentage = (value / sum) * 100;
 
                     return `${Math.floor(percentage)}%`;
