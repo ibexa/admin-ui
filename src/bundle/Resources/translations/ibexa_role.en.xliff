@@ -91,6 +91,16 @@
         <target state="new">Edit</target>
         <note>key: policy.view.limitations.title</note>
       </trans-unit>
+      <trans-unit id="23ea93648ea660ff72d374919fe6df5398ed070f" resname="policy.view.list.no_policies.action">
+        <source>Select policies to effectively manage users access.</source>
+        <target state="new">Select policies to effectively manage users access.</target>
+        <note>key: policy.view.list.no_policies.action</note>
+      </trans-unit>
+      <trans-unit id="c298a13835d0e03798c0d658b9828774bae0ef45" resname="policy.view.list.no_policies.info">
+        <source>Add first policy</source>
+        <target state="new">Add first policy</target>
+        <note>key: policy.view.list.no_policies.info</note>
+      </trans-unit>
       <trans-unit id="35aa96a30453aa7b604432885032fd961a7f508a" resname="policy.view.list.panel.policies.action.edit">
         <source>Edit</source>
         <target state="new">Edit</target>
@@ -275,6 +285,16 @@
         <source>Users and Groups</source>
         <target state="new">Users and Groups</target>
         <note>key: role_assignment.view.list.header</note>
+      </trans-unit>
+      <trans-unit id="970ece71cc63ecb5801a372c11086cd9c9ea3f6b" resname="role_assignment.view.list.no_assignments.action">
+        <source>Select assignments to effectively manage user roles access by adding them to specific groups.</source>
+        <target state="new">Select assignments to effectively manage user roles access by adding them to specific groups.</target>
+        <note>key: role_assignment.view.list.no_assignments.action</note>
+      </trans-unit>
+      <trans-unit id="60d27e45bb1366da2a24048afbc1ee4f6e53ab1b" resname="role_assignment.view.list.no_assignments.info">
+        <source>Add users assignment</source>
+        <target state="new">Add users assignment</target>
+        <note>key: role_assignment.view.list.no_assignments.info</note>
       </trans-unit>
       <trans-unit id="f7b9f2997c5eada07c20a0bde7e89cc0c688e1ea" resname="role_assignment.view.list.panel.assignments.column.limitation">
         <source>Limitation</source>
