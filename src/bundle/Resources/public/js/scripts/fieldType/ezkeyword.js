@@ -70,8 +70,8 @@
             containerNode: taggifyContainer,
             displayLabel: false,
             displayInputValues: false,
-            // The "," key code
-            hotKeys: [188],
+            // Key codes "," and "Enter"
+            hotKeys: [188, 13],
         });
         const keywordInput = field.querySelector('.ibexa-data-source__input-wrapper .ibexa-data-source__input.form-control');
         const updateKeywords = updateValue.bind(this, keywordInput);
