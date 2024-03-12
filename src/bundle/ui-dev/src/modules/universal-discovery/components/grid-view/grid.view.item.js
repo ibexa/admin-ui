@@ -13,15 +13,15 @@ import {
     MultipleConfigContext,
     ContainersOnlyContext,
     AllowedContentTypesContext,
+    GridActiveLocationIdContext,
 } from '../../universal.discovery.module';
-import { ActiveLocationIdContext } from './grid.view';
 
 const isSelectionButtonClicked = (event) => {
     return event.target.closest('.c-udw-toggle-selection');
 };
 
 const GridViewItem = ({ location, version }) => {
-    const [, setActiveLocationId] = useContext(ActiveLocationIdContext);
+    const [, setGridActiveLocationId] = useContext(GridActiveLocationIdContext);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
@@ -63,7 +63,7 @@ const GridViewItem = ({ location, version }) => {
         }
 
         dispatchLoadedLocationsAction({ type: 'UPDATE_LOCATIONS', data: { parentLocationId: location.id, subitems: [] } });
-        setActiveLocationId(location.id);
+        setGridActiveLocationId(location.id);
     };
     const renderToggleSelection = () => {
         return (

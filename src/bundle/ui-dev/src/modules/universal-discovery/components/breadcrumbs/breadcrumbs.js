@@ -3,8 +3,7 @@ import React, { useContext, useState, useMemo, useEffect, useCallback } from 're
 import Icon from '../../../common/icon/icon';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
-import { LoadedLocationsMapContext, MarkedLocationIdContext } from '../../universal.discovery.module';
-import { ActiveLocationIdContext } from '../grid-view/grid.view';
+import { LoadedLocationsMapContext, MarkedLocationIdContext, GridActiveLocationIdContext } from '../../universal.discovery.module';
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const getLoadedLocationsLimitedMap = (loadedLocationsFullMap, activeLocationId) => {
@@ -16,9 +15,9 @@ const getLoadedLocationsLimitedMap = (loadedLocationsFullMap, activeLocationId) 
 const Breadcrumbs = () => {
     const Translator = getTranslator();
     const [, setMarkedLocationId] = useContext(MarkedLocationIdContext);
-    const [activeLocationId, setActiveLocationId] = useContext(ActiveLocationIdContext);
+    const [gridActiveLocationId, setGridActiveLocationId] = useContext(GridActiveLocationIdContext);
     const [loadedLocationsFullMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
-    const loadedLocationsMap = getLoadedLocationsLimitedMap(loadedLocationsFullMap, activeLocationId);
+    const loadedLocationsMap = getLoadedLocationsLimitedMap(loadedLocationsFullMap, gridActiveLocationId);
     const [hiddenListVisible, setHiddenListVisible] = useState(false);
     const { visibleItems, hiddenItems } = useMemo(() => {
         return loadedLocationsMap.reduce(
@@ -42,7 +41,7 @@ const Breadcrumbs = () => {
 
         dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: updatedLoadedLocations });
         setMarkedLocationId(locationId);
-        setActiveLocationId(locationId);
+        setGridActiveLocationId(locationId);
     };
     const toggleHiddenListVisible = useCallback(() => {
         setHiddenListVisible(!hiddenListVisible);

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, createContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import GridViewItem from './grid.view.item';
@@ -10,22 +10,19 @@ import {
     LoadedLocationsMapContext,
     SortingContext,
     SortOrderContext,
-    MarkedLocationIdContext,
+    GridActiveLocationIdContext,
 } from '../../universal.discovery.module';
-
-export const ActiveLocationIdContext = createContext();
 
 const SCROLL_OFFSET = 200;
 
 const GridView = ({ itemsPerPage }) => {
     const [offset, setOffset] = useState(0);
-    const [markedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [sorting] = useContext(SortingContext);
     const [sortOrder] = useContext(SortOrderContext);
-    const [activeLocationId, setActiveLocationId] = useState(markedLocationId ?? loadedLocationsMap[0]?.parentLocationId);
+    const [gridActiveLocationId] = useContext(GridActiveLocationIdContext);
     const sortingOptions = SORTING_OPTIONS.find((option) => option.sortClause === sorting);
-    const locationData = loadedLocationsMap.find(({ parentLocationId }) => parentLocationId === activeLocationId);
+    const locationData = loadedLocationsMap.find(({ parentLocationId }) => parentLocationId === gridActiveLocationId);
     const locationDataToLoad = loadedLocationsMap.length ? loadedLocationsMap[loadedLocationsMap.length - 1] : { subitems: [] };
     const [loadedLocations, isLoading] = useFindLocationsByParentLocationIdFetch(
         locationDataToLoad,
@@ -64,14 +61,12 @@ const GridView = ({ itemsPerPage }) => {
     }, [loadedLocations, dispatchLoadedLocationsAction, isLoading]);
 
     return (
-        <ActiveLocationIdContext.Provider value={[activeLocationId, setActiveLocationId]}>
-            <div className="c-grid">
-                <Breadcrumbs />
-                <div className="ibexa-grid-view c-grid__items-wrapper" onScroll={loadMore}>
-                    {locationData.subitems.map(renderItem)}
-                </div>
+        <div className="c-grid">
+            <Breadcrumbs />
+            <div className="ibexa-grid-view c-grid__items-wrapper" onScroll={loadMore}>
+                {locationData?.subitems.map(renderItem)}
             </div>
-        </ActiveLocationIdContext.Provider>
+        </div>
     );
 };
 
