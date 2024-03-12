@@ -6,23 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Location;
+namespace Ibexa\AdminUi\Form\Data\Location;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class LocationAssignSubtreeData
 {
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\Section|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null
      *
      * @Assert\NotBlank()
      */
     protected $section;
 
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      *
      * @Assert\NotBlank()
      */
@@ -35,7 +35,7 @@ class LocationAssignSubtreeData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Section|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section|null
      */
     public function getSection(): ?Section
     {
@@ -43,7 +43,7 @@ class LocationAssignSubtreeData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Section|null $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
      */
     public function setSection(?Section $section): void
     {
@@ -51,7 +51,7 @@ class LocationAssignSubtreeData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
     public function getLocation(): ?Location
     {
@@ -59,10 +59,12 @@ class LocationAssignSubtreeData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location|null $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      */
     public function setLocation(?Location $location): void
     {
         $this->location = $location;
     }
 }
+
+class_alias(LocationAssignSubtreeData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationAssignSubtreeData');

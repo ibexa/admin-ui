@@ -1,11 +1,11 @@
-(function(global, doc, eZ) {
-    const getIconPath = (path, iconSet = eZ.adminUiConfig.iconPaths.defaultIconSet) => {
-        const iconSetPath = eZ.adminUiConfig.iconPaths.iconSets[iconSet];
+(function (global, doc, ibexa) {
+    const getIconPath = (path, iconSet = ibexa.adminUiConfig.iconPaths.defaultIconSet) => {
+        const iconSetPath = ibexa.adminUiConfig.iconPaths.iconSets[iconSet];
 
         return `${iconSetPath}#${path}`;
     };
 
-    eZ.addConfig('helpers.icon', {
+    ibexa.addConfig('helpers.icon', {
         getIconPath,
     });
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

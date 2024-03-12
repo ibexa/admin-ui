@@ -1,76 +1,74 @@
-.ez-content-type-selector {
-    $selector: '.ez-content-type-selector';
-    padding-left: calculateRem(38px);
-
-    &__list {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, 150px);
-        justify-content: space-between;
-        list-style: none;
-        padding: 0;
-        margin-top: calculateRem(12px);
-    }
-
-    &__item {
-        display: flex;
-
-        .form-check-inline {
-            margin: calculateRem(4px);
-
-            .form-check-label {
-                font-size: calculateRem(16px);
-                margin-left: calculateRem(4px);
-            }
-        }
+.ibexa-content-type-selector {
+    .accordion-item {
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
     }
 
     &__group-title {
-        color: $ibexa-color-font;
-        position: relative;
-        cursor: pointer;
-        padding-right: calculateRem(24px);
+        .accordion-button {
+            justify-content: space-between;
+            font-size: $ibexa-text-font-size-medium;
+            font-weight: 600;
+            border-bottom: calculateRem(1px) solid transparent;
+            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
-        &:before {
-            content: '';
-            width: 0;
-            height: 0;
-            position: absolute;
-            top: 40%;
-            left: calculateRem(-16px);
+            .ibexa-icon--toggle {
+                transition: var(--bs-accordion-btn-icon-transition);
+            }
 
-            border-left: calculateRem(4px) solid transparent;
-            border-right: calculateRem(4px) solid transparent;
-            border-top: calculateRem(7px) solid $ibexa-black;
-        }
+            &:not(.collapsed) {
+                box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info, 0.05);
+                border-bottom-color: $ibexa-color-light;
 
-        &:before {
-            transform: rotate(-90deg);
+                .ibexa-icon--toggle {
+                    transform: var(--bs-accordion-btn-icon-transform);
+                }
+            }
+
+            &:hover {
+                color: $ibexa-color-primary;
+
+                .ibexa-icon--toggle {
+                    fill: $ibexa-color-primary;
+                }
+            }
+
+            &::after {
+                display: none;
+            }
         }
     }
 
-    &__group {
-        #{$selector}__list {
-            transform: scaleY(1);
-            transform-origin: top center;
-            transition: all 0.2s $ibexa-admin-transition;
-        }
+    &__list-padding-wrapper {
+        padding: calculateRem(16px);
+    }
 
-        &--collapsed {
-            #{$selector}__list {
-                transform: scaleY(0);
-                opacity: 0;
-                height: 0;
-            }
+    &__list {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 0;
+        margin-top: 0;
+    }
 
-            #{$selector}__group-title:before {
-                transform: rotate(0deg);
-            }
-        }
+    &__item {
+        margin-top: calculateRem(12px);
 
-        &:last-of-type {
-            .ez-content-type-selector__list {
-                margin-bottom: calculateRem(8px);
-            }
+        .form-check {
+            display: block;
         }
+    }
+
+    &__show-more {
+        display: inline-block;
+        margin-top: calculateRem(12px);
+        text-decoration: none;
+        font-size: $ibexa-text-font-size-medium;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    &__show-more-text {
+        text-decoration: underline;
     }
 }

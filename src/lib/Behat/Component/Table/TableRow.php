@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component\Table;
 
 use Behat\Mink\Session;
 use Ibexa\Behat\Browser\Component\Component;
+use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Locator\LocatorCollection;
 use Ibexa\Behat\Browser\Locator\LocatorInterface;
@@ -32,7 +33,7 @@ class TableRow extends Component
 
     public function goToItem(): void
     {
-        $this->element->find($this->getLocator('link'))->click();
+        $this->element->find($this->getLocator('link'))->execute(new MouseOverAndClick());
     }
 
     public function select(): void
@@ -42,17 +43,41 @@ class TableRow extends Component
 
     public function edit(): void
     {
-        $this->element->find($this->getLocator('edit'))->click();
+        $this->element->find($this->getLocator('edit'))->execute(new MouseOverAndClick());
+    }
+
+    public function copy(): void
+    {
+        $this->element->find($this->getLocator('copy'))->execute(new MouseOverAndClick());
+    }
+
+    public function deactivate(): void
+    {
+        $this->element->find($this->getLocator('de-active'))->execute(new MouseOverAndClick());
+    }
+
+    public function activate(): void
+    {
+        $this->element
+            ->find($this->getLocator('active'))
+            ->execute(new MouseOverAndClick());
     }
 
     public function assign(): void
     {
+        // TODO: Revisit during redesign
+        $this->element->mouseOver();
         $this->element->find($this->getLocator('assign'))->click();
     }
 
     public function getCellValue(string $headerName): string
     {
         return $this->element->find($this->locatorCollection->get($headerName))->getText();
+    }
+
+    public function getCell(string $headerName): ElementInterface
+    {
+        return $this->element->find($this->locatorCollection->get($headerName));
     }
 
     public function verifyIsLoaded(): void
@@ -66,7 +91,9 @@ class TableRow extends Component
 
     public function canBeSelected(): bool
     {
-        return $this->element->find($this->getLocator('checkbox'))->getAttribute('disabled') !== 'disabled';
+        $disabled = $this->element->find($this->getLocator('checkbox'))->getAttribute('disabled');
+
+        return $disabled !== 'true' && $disabled !== 'disabled';
     }
 
     protected function specifyLocators(): array
@@ -75,7 +102,10 @@ class TableRow extends Component
             new VisibleCSSLocator('link', 'a'),
             new VisibleCSSLocator('checkbox', 'input[type=checkbox]'),
             new VisibleCSSLocator('assign', '[data-original-title="Assign content"],[data-original-title="Assign to Users/Groups"]'),
-            new VisibleCSSLocator('edit', '.ez-icon-edit,[data-original-title="Edit"]'),
+            new VisibleCSSLocator('edit', '.ibexa-icon--edit,[data-original-title="Edit"]'),
+            new VisibleCSSLocator('de-active', '[data-original-title="De-activate"]'),
+            new VisibleCSSLocator('active', '[data-original-title="Activate"]'),
+            new VisibleCSSLocator('copy', '[data-original-title="Copy"]'),
         ];
     }
 }

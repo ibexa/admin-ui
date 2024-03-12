@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\ContentTypeGroup;
+namespace Ibexa\AdminUi\Form\Type\ContentTypeGroup;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData;
+use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ContentTypeGroupUpdateType extends AbstractType
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -32,7 +32,7 @@ class ContentTypeGroupUpdateType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -42,3 +42,5 @@ class ContentTypeGroupUpdateType extends AbstractType
         ]);
     }
 }
+
+class_alias(ContentTypeGroupUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupUpdateType');

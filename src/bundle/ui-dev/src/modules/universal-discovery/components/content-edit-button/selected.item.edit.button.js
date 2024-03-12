@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import ContentEditButton from '../content-edit-button/content.edit.button';
 
+const { ibexa } = window;
+
 const SelectedItemEditButton = ({ location, permissions }) => {
     const hasAccess = permissions && permissions.edit.hasAccess;
 
@@ -13,7 +15,7 @@ const SelectedItemEditButton = ({ location, permissions }) => {
     );
 };
 
-eZ.addConfig(
+ibexa.addConfig(
     'adminUiConfig.universalDiscoveryWidget.selectedItemActions',
     [
         {
@@ -22,7 +24,7 @@ eZ.addConfig(
             component: SelectedItemEditButton,
         },
     ],
-    true
+    true,
 );
 
 SelectedItemEditButton.propTypes = {

@@ -1,0 +1,211 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#2 \\$array of function array_key_exists expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\> given\\.$#"
+			count: 1
+			path: src/bundle/Controller/Content/ContentTreeController.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_shift expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\> given\\.$#"
+			count: 1
+			path: src/bundle/Controller/Content/VersionDraftConflictController.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|null given\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentDraftController.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function usort expects TArray of array\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\>, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\> given\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentTypeController.php
+
+		-
+			message: "#^Parameter \\#1 \\$string1 of function strnatcasecmp expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentTypeController.php
+
+		-
+			message: "#^Parameter \\#2 \\$string2 of function strnatcasecmp expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentTypeController.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\> given\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentTypeGroupController.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_shift expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\> given\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentViewController.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\> given\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentViewController.php
+
+		-
+			message: "#^Parameter \\#1 \\$separator of function explode expects non\\-empty\\-string, string given\\.$#"
+			count: 1
+			path: src/bundle/Templating/Twig/UniversalDiscoveryExtension.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of function date_format expects DateTimeInterface, DateTime\\|false given\\.$#"
+			count: 4
+			path: src/lib/Behat/Component/Fields/DateAndTime.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of function date_format expects DateTimeInterface, DateTime\\|false given\\.$#"
+			count: 4
+			path: src/lib/Behat/Component/Fields/Time.php
+
+		-
+			message: "#^Parameter \\#2 \\$offset of function substr expects int, int\\<0, max\\>\\|false given\\.$#"
+			count: 1
+			path: src/lib/Behat/Page/RolePage.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Field\\> given\\.$#"
+			count: 1
+			path: src/lib/EventListener/ContentProxyCreateDraftListener.php
+
+		-
+			message: "#^Parameter \\#1 \\.\\.\\.\\$arrays of function array_merge expects array, array\\|null given\\.$#"
+			count: 1
+			path: src/lib/Form/DataTransformer/FieldType/BinaryFileValueTransformer.php
+
+		-
+			message: "#^Parameter \\#1 \\.\\.\\.\\$arrays of function array_merge expects array, array\\|null given\\.$#"
+			count: 1
+			path: src/lib/Form/DataTransformer/FieldType/ImageAssetValueTransformer.php
+
+		-
+			message: "#^Parameter \\#1 \\.\\.\\.\\$arrays of function array_merge expects array, array\\|null given\\.$#"
+			count: 1
+			path: src/lib/Form/DataTransformer/FieldType/ImageValueTransformer.php
+
+		-
+			message: "#^Parameter \\#1 \\.\\.\\.\\$arrays of function array_merge expects array, array\\|null given\\.$#"
+			count: 1
+			path: src/lib/Form/DataTransformer/FieldType/MediaValueTransformer.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\> given\\.$#"
+			count: 1
+			path: src/lib/Form/EventListener/AddLanguageFieldBasedOnContentListener.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\> given\\.$#"
+			count: 1
+			path: src/lib/Form/Type/ChoiceList/Loader/AvailableTranslationLanguageChoiceLoader.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\> given\\.$#"
+			count: 1
+			path: src/lib/Form/Type/ChoiceList/Loader/BaseTranslationLanguageChoiceLoader.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\> given\\.$#"
+			count: 2
+			path: src/lib/Form/Type/ChoiceList/Loader/ContentEditTranslationChoiceLoader.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function usort expects TArray of array\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\>, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\> given\\.$#"
+			count: 1
+			path: src/lib/Form/Type/ChoiceList/Loader/ContentTypeChoiceLoader.php
+
+		-
+			message: "#^Parameter \\#1 \\$string1 of function strnatcasecmp expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/lib/Form/Type/ChoiceList/Loader/ContentTypeChoiceLoader.php
+
+		-
+			message: "#^Parameter \\#2 \\$string2 of function strnatcasecmp expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/lib/Form/Type/ChoiceList/Loader/ContentTypeChoiceLoader.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\> given\\.$#"
+			count: 1
+			path: src/lib/Form/Type/Content/Translation/TranslationAddType.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\> given\\.$#"
+			count: 1
+			path: src/lib/Form/Type/ContentType/Translation/TranslationAddType.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function strtolower expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/lib/Form/Type/FieldDefinition/User/PasswordConstraintCheckboxType.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ObjectState\\\\ObjectState\\> given\\.$#"
+			count: 1
+			path: src/lib/Form/Type/ObjectState/ContentObjectStateUpdateType.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\> given\\.$#"
+			count: 1
+			path: src/lib/Pagination/Mapper/AbstractPagerContentToDataMapper.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\> given\\.$#"
+			count: 1
+			path: src/lib/Permission/PermissionChecker.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\User\\\\UserGroup\\> given\\.$#"
+			count: 1
+			path: src/lib/Permission/PermissionChecker.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\> given\\.$#"
+			count: 1
+			path: src/lib/Tab/Dashboard/PagerLocationToDataMapper.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\> given\\.$#"
+			count: 1
+			path: src/lib/Tab/LocationView/ContentTab.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function strtolower expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/lib/Translation/Extractor/PolicyTranslationExtractor.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function usort expects TArray of array\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\>, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\> given\\.$#"
+			count: 1
+			path: src/lib/UI/Config/Provider/ContentTypes.php
+
+		-
+			message: "#^Parameter \\#1 \\$string1 of function strnatcasecmp expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/lib/UI/Config/Provider/ContentTypes.php
+
+		-
+			message: "#^Parameter \\#2 \\$string2 of function strnatcasecmp expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/lib/UI/Config/Provider/ContentTypes.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\VersionInfo\\> given\\.$#"
+			count: 1
+			path: src/lib/UI/Dataset/ContentDraftsDataset.php
+
+		-
+			message: "#^Parameter \\#2 \\$length of function array_chunk expects int\\<1, max\\>, int given\\.$#"
+			count: 1
+			path: src/lib/UI/Module/ContentTree/NodeFactory.php
+
+		-
+			message: "#^Deprecated in PHP 8\\.0\\: Required parameter \\$translator follows optional parameter \\$name\\.$#"
+			count: 1
+			path: tests/lib/Tab/TabRegistryTest.php
+
+		-
+			message: "#^Deprecated in PHP 8\\.0\\: Required parameter \\$twig follows optional parameter \\$name\\.$#"
+			count: 1
+			path: tests/lib/Tab/TabRegistryTest.php

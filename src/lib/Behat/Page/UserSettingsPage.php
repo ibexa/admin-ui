@@ -7,40 +7,67 @@
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use Ibexa\AdminUi\Behat\Component\RightMenu;
+use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
+use Ibexa\AdminUi\Behat\Component\IbexaDropdown;
+use Ibexa\AdminUi\Behat\Component\TableNavigationTab;
+use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
+use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 
 class UserSettingsPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\RightMenu */
-    private $rightMenu;
+    private ContentActionsMenu $contentActionsMenu;
 
-    public function __construct(Session $session, Router $router, RightMenu $rightMenu)
+    private TableNavigationTab $tableNavigationTab;
+
+    private IbexaDropdown $ibexaDropdown;
+
+    public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu, TableNavigationTab $tableNavigationTab, IbexaDropdown $ibexaDropdown)
     {
         parent::__construct($session, $router);
-        $this->rightMenu = $rightMenu;
+        $this->contentActionsMenu = $contentActionsMenu;
+        $this->tableNavigationTab = $tableNavigationTab;
+        $this->ibexaDropdown = $ibexaDropdown;
     }
 
     public function verifyIsLoaded(): void
     {
+        $this->contentActionsMenu->verifyIsLoaded();
         $this->getHTMLPage()->find($this->getLocator('title'))->assert()->textEquals('User Settings');
+    }
+
+    public function switchTab(string $tabName): void
+    {
+        $this->tableNavigationTab->goToTab($tabName);
+    }
+
+    public function changePassword(): void
+    {
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('button'))
+            ->getByCriterion(new ElementTextCriterion('Change password'))
+            ->click();
     }
 
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('title', '.ez-page-title__content-name'),
-            new VisibleCSSLocator('autosaveDraftEditButton', 'a[href$="autosave"]'),
-            new VisibleCSSLocator('autosaveDraftValueDropdown', '#user_setting_update_value'),
-            new VisibleCSSLocator('autosaveIntervalEdit', 'a[href$="interval"]'),
+            new VisibleCSSLocator('button', '.ibexa-btn'),
+            new VisibleCSSLocator('title', '.ibexa-edit-header__title'),
+            new VisibleCSSLocator('autosaveDraftValueDropdown', '#user_setting_update_autosave div.ibexa-dropdown__wrapper > ul'),
+            new VisibleCSSLocator('autosaveIntervalEdit', '#user_setting_update_autosave_interval_value'),
         ];
     }
 
     public function openAutosaveDraftEditionPage(): void
     {
-        $this->getHTMLPage()->find($this->getLocator('autosaveDraftEditButton'))->click();
+        $this->getHTMLPage()
+            ->findAll(new VisibleCSSLocator('settingsSection', '#ibexa-tab-my-preferences .ibexa-details'))
+            ->getByCriterion(new ChildElementTextCriterion(new VisibleCSSLocator('settingHeader', '.ibexa-table-header'), 'Edit Content'))
+            ->find(new VisibleCSSLocator('editButton', '[data-original-title="Edit"]'))
+            ->click();
     }
 
     public function openAutosaveDraftIntervalEditionPage(): void
@@ -50,17 +77,18 @@ class UserSettingsPage extends Page
 
     public function disableAutosave(): void
     {
-        $this->rightMenu->verifyIsLoaded();
-        $this->getHTMLPage()->find($this->getLocator('autosaveDraftValueDropdown'))->selectOption('disabled');
-    }
-
-    public function getName(): string
-    {
-        return 'User Settings';
+        $this->contentActionsMenu->verifyIsLoaded();
+        $this->getHTMLPage()->find($this->getLocator('autosaveDraftValueDropdown'))->click();
+        $this->ibexaDropdown->selectOption('disabled');
     }
 
     protected function getRoute(): string
     {
         return '/user/settings/list';
+    }
+
+    public function getName(): string
+    {
+        return 'User Settings';
     }
 }

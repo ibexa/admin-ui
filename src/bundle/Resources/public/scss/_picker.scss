@@ -1,4 +1,4 @@
-.ez-picker {
+.ibexa-picker {
     position: relative;
 
     &__input[readonly][disabled] {
@@ -22,14 +22,14 @@
         cursor: pointer;
         outline: none;
 
-        .ez-icon {
+        .ibexa-icon {
             transition: fill 0.3s $ibexa-admin-transition;
         }
 
         &:hover,
         &:focus {
-            .ez-icon {
-                fill: $ibexa-color-base-dark;
+            .ibexa-icon {
+                fill: $ibexa-color-dark-300;
             }
         }
     }

@@ -9,40 +9,54 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
+use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent;
 use Ibexa\AdminUi\Behat\Component\Notification;
-use Ibexa\AdminUi\Behat\Component\RightMenu;
+use Ibexa\Behat\API\Facade\ContentFacade;
+use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
+use Ibexa\Behat\Browser\Element\Condition\ElementHasTextCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
+use Ibexa\Behat\Browser\Element\Criterion\ElementTextFragmentCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
+use InvalidArgumentException;
 use PHPUnit\Framework\Assert;
-use Traversable;
 
 class ContentUpdateItemPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\RightMenu */
-    private $rightMenu;
+    /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu */
+    private $contentActionsMenu;
 
     private $pageTitle;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent[] */
-    private $fieldTypeComponents;
+    protected $fieldTypeComponents;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Notification */
     private $notification;
 
+    private string $languageCode;
+
+    private string $contentTypeIdentifier;
+
+    private string $locationPath;
+
+    private ContentFacade $contentFacade;
+
     public function __construct(
         Session $session,
         Router $router,
-        RightMenu $rightMenu,
-        Traversable $fieldTypeComponents,
-        Notification $notification
+        ContentActionsMenu $contentActionsMenu,
+        iterable $fieldTypeComponents,
+        Notification $notification,
+        ContentFacade $contentFacade
     ) {
         parent::__construct($session, $router);
-        $this->rightMenu = $rightMenu;
-        $this->fieldTypeComponents = iterator_to_array($fieldTypeComponents);
+        $this->contentActionsMenu = $contentActionsMenu;
+        $this->fieldTypeComponents = $fieldTypeComponents;
         $this->notification = $notification;
+        $this->contentFacade = $contentFacade;
     }
 
     public function verifyIsLoaded(): void
@@ -51,12 +65,15 @@ class ContentUpdateItemPage extends Page
             Assert::assertEquals(
                 $this->pageTitle,
                 $this->getHTMLPage()
-                    ->setTimeout(10)
+                    ->setTimeout(20)
                     ->find($this->getLocator('pageTitle'))->getText()
             );
         }
-        $this->getHTMLPage()->setTimeout(10)->find($this->getLocator('formElement'))->assert()->isVisible();
-        $this->rightMenu->verifyIsLoaded();
+        $this->getHTMLPage()
+            ->setTimeout(20)
+            ->find($this->getLocator('formElement'))
+            ->assert()->isVisible();
+        $this->contentActionsMenu->verifyIsLoaded();
 
         // close notification about new draft created successfully if it's still visible
         if ($this->notification->isVisible()) {
@@ -75,55 +92,112 @@ class ContentUpdateItemPage extends Page
         return 'Content Update';
     }
 
-    public function fillFieldWithValue(string $label, array $value): void
+    public function fillFieldWithValue(string $label, array $value, ?int $fieldPosition = null): void
     {
-        $this->getField($label)->setValue($value);
+        $this->getField($label, $fieldPosition)->setValue($value);
     }
 
     public function close(): void
     {
+        $this->getHTMLPage()->setTimeout(3)
+            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('closeButton')));
         $this->getHTMLPage()->find($this->getLocator('closeButton'))->click();
+    }
+
+    public function verifyValidationMessage(string $fieldName, string $expectedMessage): void
+    {
+        $this->getField($fieldName)->verifyValidationMessage($expectedMessage);
     }
 
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-content-edit-page-title__title'),
-            new VisibleCSSLocator('formElement', '[name=ezplatform_content_forms_content_edit]'),
-            new VisibleCSSLocator('closeButton', '.ez-content-edit-container__close'),
-            new VisibleCSSLocator('fieldLabel', '.ez-field-edit__label-wrapper label.ez-field-edit__label, .ez-field-edit__label-wrapper legend, .ez-card > .card-body > div > div > legend'),
-            new VisibleCSSLocator('nthField', '.ez-field-edit:nth-of-type(%s)'),
-            new VisibleCSSLocator('activeNthField', '.active .ez-field-edit:nth-of-type(%s)'),
-            new VisibleCSSLocator('noneditableFieldClass', 'ez-field-edit--eznoneditable'),
-            new VisibleCSSLocator('fieldOfType', '.ez-field-edit--%s'),
-            new VisibleCSSLocator('navigationTabs', '.nav-item.ez-tabs__nav-item'),
-            new VisibleCSSLocator('autosaveInfo', '.ez-content-edit-page-title__autosave-info'),
-            new VisibleCSSLocator('autosaveLastSavedInfo', '.ez-content-edit-page-title__autosave-last-saved'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-edit-header__title'),
+            new VisibleCSSLocator('formElement', 'form.ibexa-form, .ibexa-edit-content'),
+            new VisibleCSSLocator('closeButton', '.ibexa-anchor-navigation-menu__close'),
+            new VisibleCSSLocator('nthField', 'div.ibexa-field-edit:nth-of-type(%s)'),
+            new VisibleCSSLocator('nthFieldWithSection', '[data-id="%s"] div.ibexa-field-edit:nth-of-type(%s)'),
+            new VisibleCSSLocator('fieldGroupNthField', '[data-id="%s"] div.ibexa-field-edit:nth-of-type(%s)'),
+            new VisibleCSSLocator('noneditableFieldClass', 'ibexa-field-edit--eznoneditable'),
+            new VisibleCSSLocator('fieldOfType', '.ibexa-field-edit--%s'),
+            new VisibleCSSLocator('navigationTabs', '.ibexa-anchor-navigation-menu__sections-item-btn'),
+            new VisibleCSSLocator('navigationGroups', '.ibexa-anchor-navigation-menu__section-groups-item'),
+            new VisibleCSSLocator('autosaveIsOnInfo', '.ibexa-autosave__status-on'),
+            new VisibleCSSLocator('autosaveSavedInfo', '.ibexa-autosave__status-saved'),
+            new VisibleCSSLocator('autosaveIsOffInfo', '.ibexa-autosave__status-off'),
+            new VisibleCSSLocator('section', '[data-id="%1$s"] .ibexa-field-edit .ibexa-field-edit__label, [data-id="%1$s"] .ibexa-field-edit--eznoneditable .ibexa-label'),
+            new VisibleCSSLocator('fieldLabel', ' .ibexa-field-edit .ibexa-field-edit__label, .ibexa-field-edit--eznoneditable .ibexa-label'),
         ];
     }
 
     protected function getRoute(): string
     {
-        throw new \Exception('This page cannot be opened on its own!');
+        return sprintf(
+            '/content/create/proxy/%s/%s/%d',
+            $this->contentTypeIdentifier,
+            $this->languageCode,
+            $this->contentFacade->getContentByLocationURL($this->locationPath)->contentInfo->getMainLocation()->id
+        );
     }
 
-    public function getField(string $fieldName): FieldTypeComponent
+    public function setExpectedContentDraftData(string $contentTypeIdentifier, string $languageCode, string $locationPath): void
     {
-        $fieldLocator = new VisibleCSSLocator('', sprintf($this->getLocator('nthField')->getSelector(), $this->getFieldPosition($fieldName)));
-        $fieldtypeIdentifier = $this->getFieldtypeIdentifier($fieldLocator, $fieldName);
+        $this->contentTypeIdentifier = $contentTypeIdentifier;
+        $this->languageCode = $languageCode;
+        $this->locationPath = $locationPath;
+    }
+
+    public function getField(string $fieldName, ?int $fieldPosition = null): FieldTypeComponent
+    {
+        if ($fieldPosition === null) {
+            $fieldPosition = $this->getFieldPosition($fieldName);
+        }
+
+        $activeSections = $this->getHTMLPage()
+            ->setTimeout(0)
+            ->findAll(new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__sections-item-btn--active'));
+        $fieldLocator = $activeSections->any() ?
+            new VisibleCSSLocator(
+                'nthFieldWithSection',
+                sprintf(
+                    $this->getLocator('nthFieldWithSection')->getSelector(),
+                    $activeSections->single()->getAttribute('data-target-id'),
+                    $fieldPosition
+                )
+            ) :
+            new VisibleCSSLocator('', sprintf($this->getLocator('nthField')->getSelector(), $fieldPosition));
+
+        $fieldTypeIdentifier = $this->getFieldtypeIdentifier($fieldLocator, $fieldName);
 
         foreach ($this->fieldTypeComponents as $fieldTypeComponent) {
-            if ($fieldTypeComponent->getFieldTypeIdentifier() === $fieldtypeIdentifier) {
+            if ($fieldTypeComponent->getFieldTypeIdentifier() === $fieldTypeIdentifier) {
                 $fieldTypeComponent->setParentLocator($fieldLocator);
 
                 return $fieldTypeComponent;
             }
         }
+
+        throw new InvalidArgumentException(
+            sprintf('Could not handle field %s with field type identifier %s', $fieldName, $fieldTypeIdentifier)
+        );
     }
 
     protected function getFieldPosition(string $fieldName): int
     {
-        $fieldElements = $this->getHTMLPage()->setTimeout(5)->findAll($this->getLocator('fieldLabel'));
+        $activeSections = $this->getHTMLPage()
+            ->setTimeout(0)
+            ->findAll(new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__sections-item-btn--active'));
+        $fieldLabelLocator = $activeSections->any() ?
+            new VisibleCSSLocator(
+                'fieldLabelWithCategories',
+                sprintf(
+                    $this->getLocator('section')->getSelector(),
+                    $activeSections->single()->getAttribute('data-target-id')
+                )
+            ) :
+            $this->getLocator('fieldLabel');
+
+        $fieldElements = $this->getHTMLPage()->setTimeout(5)->findAll($fieldLabelLocator);
 
         $foundFields = [];
         foreach ($fieldElements as $fieldPosition => $fieldElement) {
@@ -154,36 +228,74 @@ class ContentUpdateItemPage extends Page
         }
 
         $fieldClass = $this->getHTMLPage()->find($fieldLocator)->getAttribute('class');
-        preg_match('/ez-field-edit--ez[a-z]*/', $fieldClass, $matches);
+        preg_match('/ibexa-field-edit--[ez|ibexa][a-z_]*/', $fieldClass, $matches);
 
         return explode('--', $matches[0])[1];
     }
 
     public function switchToFieldGroup(string $tabName): void
     {
-        $this->getHTMLPage()
+        $this->getHTMLPage()->setTimeout(3)
             ->findAll($this->getLocator('navigationTabs'))
             ->getByCriterion(new ElementTextCriterion($tabName))
             ->click();
+        $this->getHTMLPage()
+            ->setTimeout(10)
+            ->waitUntilCondition(new ElementHasTextCondition($this->getHTMLPage(), new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__sections-item-btn--active'), $tabName));
+    }
+
+    public function switchToFieldTab(string $tabName): void
+    {
+        $this->getHTMLPage()->setTimeout(3)
+            ->findAll($this->getLocator('navigationGroups'))
+            ->getByCriterion(new ElementTextCriterion($tabName))
+            ->click();
+        $this->getHTMLPage()
+            ->setTimeout(10)
+            ->waitUntilCondition(new ElementHasTextCondition($this->getHTMLPage(), new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__section-groups-item--active'), $tabName));
     }
 
     public function verifyFieldCannotBeEditedDueToLimitation(string $fieldName)
     {
-        $fieldLocator = new VisibleCSSLocator('', sprintf($this->getLocator('activeNthField')->getSelector(), $this->getFieldPosition($fieldName)));
-        $this->getHTMLPage()->find($fieldLocator)->assert()->hasClass('ez-field-edit--disabled');
+        $activeSections = $this->getHTMLPage()->findAll(new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__section-groups-item--active'));
+        $fieldLocator = new VisibleCSSLocator('', sprintf($this
+            ->getLocator('fieldGroupNthField')->getSelector(), $activeSections->single()->getAttribute('data-target-id'), $this->getFieldPosition($fieldName)));
+        $this->getHTMLPage()->find($fieldLocator)->assert()->hasClass('ibexa-field-edit--disabled');
     }
 
     public function verifyAutosaveNotificationIsDisplayed(): void
     {
         $this->getHTMLPage()
-            ->find($this->getLocator('autosaveInfo'))
-            ->assert()->textContains('Autosave is on.');
+            ->find($this->getLocator('autosaveIsOnInfo'))
+            ->assert()->textContains('Autosave is on');
     }
 
     public function verifyAutosaveDraftIsSavedNotificationIsDisplayed(): void
     {
+        $iteration_count = 30;
+
+        while ($iteration_count > 0) {
+            if ($this->isAutosaveDraftSavedNotificationVisible()) {
+                return;
+            }
+            usleep(500000);
+            --$iteration_count;
+        }
+        Assert::fail('Draft has not been autosaved for 15 seconds');
+    }
+
+    public function isAutosaveDraftSavedNotificationVisible(): bool
+    {
+        return $this->getHTMLPage()
+            ->setTimeout(0)
+            ->findAll($this->getLocator('autosaveSavedInfo'))
+            ->filterBy(new ElementTextFragmentCriterion('Draft saved'))->any();
+    }
+
+    public function verifyAutosaveIsOffNotificationIsDisplayed(): void
+    {
         $this->getHTMLPage()
-            ->find($this->getLocator('autosaveLastSavedInfo'))
-            ->assert()->textContains('Last saved draft was on');
+            ->find($this->getLocator('autosaveIsOffInfo'))
+            ->assert()->textContains('Autosave is off');
     }
 }

@@ -1,36 +1,26 @@
 form:not(.form-inline) {
-    .ez-field-edit__label {
-        font-weight: 700;
-        font-size: calculateRem(16px);
-        color: $ibexa-black;
-        margin-bottom: 0;
-        margin-top: calculateRem(20px);
-
-        &:after {
-            content: ': ';
-        }
-
-        &:not(.ez-data-source__label) {
-            @include label-required();
-        }
-    }
-
     .col-form-legend {
         @include label-required();
 
         font-weight: 700;
         font-size: calculateRem(16px);
-        color: $ibexa-black;
+        color: $ibexa-color-black;
         margin-bottom: 0;
         margin-top: calculateRem(20px);
     }
 
     .form-control {
-        background-color: $ibexa-white;
+        background-color: $ibexa-color-white;
     }
 
-    .form-control[readonly] {
-        background-color: $ibexa-white;
+    .form-control:not(.flatpickr-input)[readonly] {
+        color: $ibexa-color-dark-300;
+        background-color: $ibexa-color-light-300;
+
+        &:focus {
+            outline: none;
+            box-shadow: none;
+        }
     }
 
     .form-control:focus {
@@ -38,7 +28,7 @@ form:not(.form-inline) {
     }
 }
 
-.ez-form-inline {
+.ibexa-form-inline {
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-end;
@@ -49,41 +39,73 @@ form:not(.form-inline) {
 
     .col-form-label,
     .form-control,
-    .ez-field-edit__label {
+    .ibexa-field-edit__label {
         margin-right: calculateRem(8px);
     }
 }
 
-.ez-table--no-border {
-    .ez-form-inline {
+.ibexa-table--no-border {
+    .ibexa-form-inline {
         display: flex;
         flex-flow: row wrap;
         justify-content: flex-start;
     }
 }
 
-.ez-field {
-    .ez-field__label {
+.ibexa-field {
+    &__label {
         @include label-required();
-    }
-
-    .ez-data-source__input {
-        &.is-invalid {
-            @include input-invalid;
-        }
-    }
-
-    &__error {
-        @include error-under-label();
     }
 }
 
-.ez-trash-with-asset-checkbox-list {
+.ibexa-trash-with-asset-checkbox-list {
     .form-check-input {
         position: absolute;
     }
 }
 
-.ez-content-create[readonly] {
+.ibexa-content-create[readonly] {
     pointer-events: none;
+}
+
+.ibexa-form-error {
+    display: flex;
+    font-size: $ibexa-text-font-size-small;
+    font-style: normal;
+    color: $ibexa-color-danger;
+    line-height: calculateRem(18px);
+    box-sizing: border-box;
+
+    &:empty {
+        margin-top: 0;
+    }
+
+    &:not(& > &) {
+        flex-direction: column;
+    }
+
+    &__row {
+        display: flex;
+        align-items: center;
+        font-style: normal;
+        margin-top: calculateRem(4px);
+    }
+
+    &__icon {
+        fill: $ibexa-color-danger;
+        margin-right: calculateRem(4px);
+    }
+}
+
+.ibexa-form-help {
+    display: flex;
+    font-size: $ibexa-text-font-size-small;
+    color: $ibexa-color-dark-400;
+    line-height: calculateRem(18px);
+    margin-top: calculateRem(8px);
+
+    &__icon {
+        fill: $ibexa-color-dark-400;
+        margin-right: calculateRem(4px);
+    }
 }

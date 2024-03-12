@@ -50,4 +50,4 @@ Feature: Content fields setting and editing
     Examples:
       | label1    | value1                       | label2     | value2                   | label3  | value3    | oldContentItemName        | newContentItemName           |
       #| latitude  | -37.8                        | longitude  | 145.0                    | address | Melbourne | Los Angeles               | Melbourne                    |
-      | value     | Argentina                    |            |                          |         |           | Angola                    | Argentina                    |
+      | value     | Albania                      |            |                          |         |           | Angola                    | Albania                      |

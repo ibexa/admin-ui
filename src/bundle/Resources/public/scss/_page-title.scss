@@ -1,18 +1,7 @@
-.ez-page-title {
-    display: grid;
-    grid-template-columns: calc(100% - #{calculateRem(50px)}) calculateRem(50px);
-    grid-column-gap: calculateRem(10px);
-    grid-template-rows: auto;
-    grid-template-areas:
-        "content-item bookmark"
-        "content-type-name .";
-
-    &__content-item {
-        width: 100%;
-        margin-bottom: 0;
-        grid-area: content-item;
-        justify-self: start;
-        display: flex;
+.ibexa-page-title {
+    &__top {
+        display: grid;
+        grid-template-columns: auto 1fr;
     }
 
     &__content-name {
@@ -22,17 +11,22 @@
         margin-bottom: calculateRem(16px);
     }
 
-    &__content-type-name {
+    &__title {
         display: flex;
         align-items: center;
-        grid-area: content-type-name;
-        margin-bottom: calculateRem(24px);
-        font-size: calculateRem(16px);
-        font-weight: normal;
-        color: $ibexa-color-font-pale;
-        
-        .ez-icon {
-            margin-right: calculateRem(8px);
-        }
+        overflow: hidden;
+    }
+
+    &__content {
+        display: inline-block;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .ibexa-badge {
+        margin-left: calculateRem(16px);
+        font-family: $ibexa-font-family;
     }
 }

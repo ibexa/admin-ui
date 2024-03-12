@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser;
+namespace Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\AbstractParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\AbstractParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 /**
@@ -17,7 +17,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *
  * Example configuration:
  * ```yaml
- * ezpublish:
+ * ibexa:
  *   system:
  *      default: # configuration per siteaccess or siteaccess group
  *          subtree_operations:
@@ -27,9 +27,6 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  */
 class SubtreeOperations extends AbstractParser
 {
-    /**
-     * @inheritdoc
-     */
     public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
     {
         if (!isset($scopeSettings['subtree_operations']['copy_subtree']['limit'])) {
@@ -61,3 +58,5 @@ class SubtreeOperations extends AbstractParser
             ->end();
     }
 }
+
+class_alias(SubtreeOperations::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\SubtreeOperations');

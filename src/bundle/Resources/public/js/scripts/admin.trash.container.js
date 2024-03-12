@@ -1,7 +1,6 @@
-(function(global, doc, $) {
+(function (global, doc, bootstrap) {
     const toggleForm = doc.querySelector('form[name="location_trash_container"]');
-    const hasAsset = toggleForm.dataset.hasAsset;
-    const hasUniqueAsset = toggleForm.dataset.hasUniqueAsset;
+    const { hasAsset, hasUniqueAsset } = toggleForm.dataset;
 
     const openTrashImageAssetModal = (event) => {
         if (!hasAsset && !hasUniqueAsset) {
@@ -10,9 +9,9 @@
 
         event.preventDefault();
 
-        $('#trash-container-modal').modal('hide');
-        $('#trash-with-asset-modal').modal('show');
+        bootstrap.Modal.getOrCreateInstance(doc.querySelector('#trash-container-modal')).hide();
+        bootstrap.Modal.getOrCreateInstance(doc.querySelector('#trash-with-asset-modal')).show();
     };
 
     toggleForm.addEventListener('submit', openTrashImageAssetModal, false);
-})(window, window.document, window.jQuery);
+})(window, window.document, window.bootstrap);

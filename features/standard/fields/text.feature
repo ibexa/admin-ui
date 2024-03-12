@@ -56,4 +56,4 @@ Feature: Content fields setting and editing
       | name      | Test Name Edited             | email      | edited.email@example.com |         |           | Test Name                 | Test Name Edited             |
       | value     | Edited Lorem ipsum dolor sit |            |                          |         |           | Lorem ipsum dolor sit     | Edited Lorem ipsum dolor sit |
       | value     | Edited Lorem ipsum dolor     |            |                          |         |           | Lorem ipsum dolor         | Edited Lorem ipsum dolor     |
-      | text      | Edited Test URL              | url        | http://www.ez.no         |         |           | Test URL                  | Edited Test URL              |
+      | text      | Edited Test URL              | url        | http://www.ibexa.co         |         |           | Test URL                  | Edited Test URL              |

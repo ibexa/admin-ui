@@ -1,0 +1,75 @@
+.ibexa-summary-tile {
+    display: flex;
+    flex-direction: column;
+    padding: calculateRem(24px) calculateRem(24px);
+    gap: calculateRem(8px);
+    width: calculateRem(450px);
+    background: $ibexa-color-white;
+    border: calculateRem(1px) solid $ibexa-color-light-400;
+    border-radius: $ibexa-border-radius;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__icon-wrapper {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        height: calculateRem(72px);
+        width: calculateRem(72px);
+        border-radius: 50%;
+        background: $ibexa-color-dark;
+
+        .ibexa-icon {
+            fill: $ibexa-color-white;
+        }
+    }
+
+    &__label {
+        font-family: $ibexa-font-family-headings;
+        font-weight: $ibexa-font-weight-bold;
+        font-size: $ibexa-text-font-size-large;
+    }
+
+    &__value {
+        font-weight: $ibexa-font-weight-bold;
+        font-size: $h1-font-size;
+        line-height: calculateRem(36px);
+    }
+
+    @mixin icon-colors($fill, $background) {
+        background: $background;
+
+        .ibexa-icon {
+            fill: $fill;
+        }
+    }
+
+    &__icon-wrapper--color-primary {
+        @include icon-colors($ibexa-color-primary, $ibexa-color-primary-100);
+    }
+
+    &__icon-wrapper--color-secondary {
+        @include icon-colors($ibexa-color-dark, $ibexa-color-light-400);
+    }
+
+    &__icon-wrapper--color-info {
+        @include icon-colors($ibexa-color-info, $ibexa-color-info-100);
+    }
+
+    &__icon-wrapper--color-danger {
+        @include icon-colors($ibexa-color-danger, $ibexa-color-danger-100);
+    }
+
+    &__icon-wrapper--color-success {
+        @include icon-colors($ibexa-color-success, $ibexa-color-success-100);
+    }
+
+    &__icon-wrapper--color-complementary {
+        @include icon-colors($ibexa-color-complementary, $ibexa-color-complementary-100);
+    }
+}

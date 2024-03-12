@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Behat\Component\Table\SubitemsGrid;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Component\Component;
+use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
@@ -46,11 +47,20 @@ class SubItemsList extends Component
             return;
         }
 
-        $this->getHTMLPage()->findAll($this->getLocator('horizontalHeaders'))->getByCriterion(new ElementTextCriterion($columnName))->click();
+        $this->getHTMLPage()
+            ->setTimeout(3)
+            ->findAll($this->getLocator('horizontalHeaders'))
+            ->getByCriterion(new ElementTextCriterion($columnName))
+            ->execute(new MouseOverAndClick());
+
         $isSortedDescending = $this->getHTMLPage()->findAll($this->getLocator('sortingOrderDescending'))->any();
 
         if (!$isSortedDescending && !$ascending) {
-            $this->getHTMLPage()->findAll($this->getLocator('horizontalHeaders'))->getByCriterion(new ElementTextCriterion($columnName))->click();
+            $this->getHTMLPage()
+                ->setTimeout(3)
+                ->findAll($this->getLocator('horizontalHeaders'))
+                ->getByCriterion(new ElementTextCriterion($columnName))
+                ->execute(new MouseOverAndClick());
         }
 
         $verificationLocator = $ascending ?
@@ -70,6 +80,15 @@ class SubItemsList extends Component
         $this->getHTMLPage()->setTimeout(5)->waitUntilCondition(
             new ElementNotExistsCondition($this->getHTMLPage(), $this->getLocator('spinner'))
         );
+
+        if ($this->getTable()->isEmpty()) {
+            return;
+        }
+
+        $this->getHTMLPage()
+            ->setTimeout(3)
+            ->find($this->getLocator('paginationInfo'))
+            ->assert()->textContains('Viewing');
     }
 
     public function clickListElement(string $contentName, string $contentType)
@@ -96,11 +115,12 @@ class SubItemsList extends Component
     {
         return [
             new VisibleCSSLocator('table', '.m-sub-items'),
-            new VisibleCSSLocator('empty', '.c-no-items'),
-            new VisibleCSSLocator('horizontalHeaders', '.m-sub-items .c-table-view__cell--head'),
+            new VisibleCSSLocator('empty', '.ibexa-table__empty-table-cell'),
+            new VisibleCSSLocator('horizontalHeaders', '.m-sub-items .ibexa-table__header-cell'),
+            new VisibleCSSLocator('paginationInfo', '.m-sub-items__pagination-info'),
             new CSSLocator('spinner', '.m-sub-items__spinner-wrapper'),
-            new CSSLocator('sortingOrderAscending', '.m-sub-items .c-table-view__cell--head.c-table-view__cell--sorted-asc'),
-            new CSSLocator('sortingOrderDescending', '.m-sub-items .c-table-view__cell--head.c-table-view__cell--sorted-desc'),
+            new CSSLocator('sortingOrderAscending', '.m-sub-items .ibexa-table__header-cell .ibexa-table__sort-column--sorted-asc'),
+            new CSSLocator('sortingOrderDescending', '.m-sub-items .ibexa-table__header-cell .ibexa-table__sort-column--desc'),
         ];
     }
 }

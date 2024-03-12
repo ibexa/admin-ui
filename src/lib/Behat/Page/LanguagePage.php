@@ -9,12 +9,14 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use eZ\Publish\API\Repository\Repository;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
+use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
+use Ibexa\Contracts\Core\Repository\Repository;
 use PHPUnit\Framework\Assert;
 
 class LanguagePage extends Page
@@ -31,7 +33,7 @@ class LanguagePage extends Page
     /** @var int */
     private $expectedLanguageId;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
     public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog, Repository $repository)
@@ -44,28 +46,50 @@ class LanguagePage extends Page
 
     public function delete()
     {
-        $this->getHTMLPage()->find($this->getLocator('deleteButton'))->click();
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('button'))
+            ->getByCriterion(new ElementTextCriterion('Delete'))
+            ->click();
         $this->dialog->verifyIsLoaded();
         $this->dialog->confirm();
     }
 
-    public function hasProperties($data): bool
+    public function hasProperties(array $languageProperties): bool
     {
         $hasExpectedEnabledFieldValue = true;
-        if (array_key_exists('Enabled', $data)) {
+        if (array_key_exists('Enabled', $languageProperties)) {
             // Table does not handle returning non-string values
-            $hasEnabledField = $this->getHTMLPage()->find($this->getLocator('enabledField'))->hasAttribute('checked');
-            $shouldHaveEnabledField = 'true' === $data['Enabled'];
+            $hasEnabledField = $this->getHTMLPage()->find($this->getLocator('enabledField'))->getValue() === 'on';
+            $shouldHaveEnabledField = 'true' === $languageProperties['Enabled'];
             $hasExpectedEnabledFieldValue = $hasEnabledField === $shouldHaveEnabledField;
-            unset($data['Enabled']);
+            unset($languageProperties['Enabled']);
         }
 
-        return $hasExpectedEnabledFieldValue && $this->table->hasElement($data);
+        if (!$hasExpectedEnabledFieldValue) {
+            return false;
+        }
+
+        foreach ($languageProperties as $label => $value) {
+            $isExpectedValuePresent = $this->getHTMLPage()
+                    ->findAll($this->getLocator('languagePropertiesItem'))
+                    ->getByCriterion(new ChildElementTextCriterion($this->getLocator('languagePropertiesLabel'), $label))
+                    ->find($this->getLocator('languagePropertiesValue'))
+                    ->getText() === $value;
+
+            if (!$isExpectedValuePresent) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function edit()
     {
-        $this->getHTMLPage()->find($this->getLocator('editButton'))->click();
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('button'))
+            ->getByCriterion(new ElementTextCriterion('Edit'))
+            ->click();
     }
 
     public function getName(): string
@@ -106,10 +130,12 @@ class LanguagePage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-header h1'),
-            new VisibleCSSLocator('deleteButton', 'button[data-original-title="Delete language"]'),
-            new VisibleCSSLocator('editButton', '[data-original-title="Edit"]'),
-            new VisibleCSSLocator('enabledField', 'input[data-original-title="Enabled"]'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
+            new VisibleCSSLocator('button', '.ibexa-btn'),
+            new VisibleCSSLocator('enabledField', '.ibexa-input--checkbox'),
+            new VisibleCSSLocator('languagePropertiesItem', '.ibexa-details__item'),
+            new VisibleCSSLocator('languagePropertiesLabel', '.ibexa-details__item-label'),
+            new VisibleCSSLocator('languagePropertiesValue', '.ibexa-details__item-content'),
         ];
     }
 }

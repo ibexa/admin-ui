@@ -13,24 +13,26 @@ import {
     ContentTypesMapContext,
 } from '../../universal.discovery.module';
 
+const { Translator, ibexa } = window;
+
 const ContentCreateButton = ({ isDisabled }) => {
-    const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
-    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
-    const [createContentVisible, setCreateContentVisible] = useContext(CreateContentWidgetContext);
-    const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
+    const [markedLocationId] = useContext(MarkedLocationIdContext);
+    const [loadedLocationsMap] = useContext(LoadedLocationsMapContext);
+    const [, setCreateContentVisible] = useContext(CreateContentWidgetContext);
+    const [selectedLocations] = useContext(SelectedLocationsContext);
     const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
     const { hidden, allowedLocations } = useContext(ContentOnTheFlyConfigContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
-    const createLabel = Translator.trans(/*@Desc("Create")*/ 'create_content.create', {}, 'universal_discovery_widget');
+    const createLabel = Translator.trans(/*@Desc("Create new")*/ 'create_content.create_new', {}, 'universal_discovery_widget');
     const toggleContentCreateVisibility = () => {
-        window.eZ.helpers.tooltips.hideAll();
+        ibexa.helpers.tooltips.hideAll();
         setCreateContentVisible((prevState) => !prevState);
     };
     let selectedLocation = loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === markedLocationId);
 
     if (!selectedLocation && loadedLocationsMap.length) {
         selectedLocation = loadedLocationsMap[loadedLocationsMap.length - 1].subitems.find(
-            (subitem) => subitem.location.id === markedLocationId
+            (subitem) => subitem.location.id === markedLocationId,
         );
     }
 
@@ -50,12 +52,13 @@ const ContentCreateButton = ({ isDisabled }) => {
     return (
         <div className="c-content-create-button">
             <button
-                className="c-content-create-button__btn btn btn-link"
+                className="c-content-create-button__btn btn ibexa-btn ibexa-btn--dark"
                 disabled={isDisabled || !hasAccess || !isAllowedLocation || isLimitReached || !isContainer}
                 onClick={toggleContentCreateVisibility}
-                data-tooltip-container-selector=".c-top-menu"
-                title={createLabel}>
-                <Icon name="create" extraClasses="ez-icon--small-medium ez-icon--primary" /> {createLabel}
+                type="button"
+            >
+                <Icon name="create" extraClasses="ibexa-icon--small" />
+                <span className="ibexa-btn__label">{createLabel}</span>
             </button>
         </div>
     );
@@ -69,7 +72,7 @@ ContentCreateButton.defaultProps = {
     isDisabled: false,
 };
 
-eZ.addConfig(
+ibexa.addConfig(
     'adminUiConfig.universalDiscoveryWidget.topMenuActions',
     [
         {
@@ -78,7 +81,7 @@ eZ.addConfig(
             component: ContentCreateButton,
         },
     ],
-    true
+    true,
 );
 
 export default ContentCreateButton;
