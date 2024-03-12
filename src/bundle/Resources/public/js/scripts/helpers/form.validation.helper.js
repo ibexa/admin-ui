@@ -41,7 +41,11 @@ const validateIsEmptyField = (field) => {
     const { isValid, errorMessage } = validatorOutput;
 
     input.classList.toggle('is-invalid', !isValid);
-    label.classList.toggle('is-invalid', !isValid);
+
+    if (label) {
+        label.classList.toggle('is-invalid', !isValid);
+    }
+
     errorWrapper.innerText = '';
 
     if (!isValid) {
