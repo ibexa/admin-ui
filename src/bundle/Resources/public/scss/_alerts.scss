@@ -16,6 +16,10 @@
         padding: 0 calculateRem(8px);
 
         #{$self} {
+            &__content {
+                padding: calculateRem(4px);
+            }
+
             &__title {
                 font-size: calculateRem(12px);
             }
@@ -28,7 +32,7 @@
 
     &--no-close-btn {
         grid-template: 'icon content actions';
-        grid-template-columns: calculateRem(32px) 1fr auto;
+        grid-template-columns: auto 1fr auto;
     }
 
     &__icon-wrapper {
@@ -60,7 +64,7 @@
         display: flex;
         flex-wrap: wrap;
         align-items: baseline;
-        padding: calculateRem(6px);
+        padding: calculateRem(4px) calculateRem(8px);
 
         &--subtitle-below {
             flex-direction: column;
@@ -236,91 +240,24 @@
         &.ibexa-alert {
             border-radius: $ibexa-border-radius;
 
+            .ibexa-alert__icon-wrapper {
+                margin-top: calculateRem(7px);
+            }
+
             &--info {
                 border: calculateRem(1px) solid $ibexa-color-info;
-
-                .ibexa-alert {
-                    &__icon-wrapper {
-                        border-radius: 50%;
-                        background: $ibexa-color-info;
-                    }
-                }
             }
 
             &--error {
                 border: calculateRem(1px) solid $ibexa-color-danger;
-
-                .ibexa-alert {
-                    &__icon-wrapper {
-                        border-radius: $ibexa-border-radius-small;
-                        background: $ibexa-color-danger;
-                        transform: rotate(45deg);
-
-                        .ibexa-icon {
-                            transform: rotate(-45deg);
-                        }
-                    }
-                }
             }
 
             &--warning {
                 border: calculateRem(1px) solid $ibexa-color-accent;
-
-                .ibexa-alert {
-                    &__icon-wrapper {
-                        position: relative;
-
-                        &:before {
-                            display: inline-block;
-                            margin-left: calculateRem(3px);
-                            border: solid calculateRem(15px) transparent;
-                            border-top-width: 0;
-                            border-bottom-width: calculateRem(25px);
-                            border-bottom-color: $ibexa-color-accent;
-                            clip-path: circle(54% at 50% 69%);
-                            vertical-align: bottom;
-                            content: '';
-                        }
-
-                        .ibexa-icon {
-                            position: absolute;
-                            top: calculateRem(9px);
-                            left: calculateRem(8px);
-                        }
-                    }
-                }
             }
 
             &--success {
                 border: calculateRem(1px) solid $ibexa-color-success;
-
-                .ibexa-alert {
-                    &__icon-wrapper {
-                        border-radius: $ibexa-border-radius-small;
-                        background: $ibexa-color-success;
-                    }
-                }
-            }
-        }
-
-        .ibexa-alert {
-            &__icon-wrapper {
-                width: calculateRem(24px);
-                height: calculateRem(24px);
-                justify-content: center;
-                align-items: center;
-
-                .ibexa-icon {
-                    fill: $ibexa-color-white;
-                }
-            }
-
-            &__close-btn {
-                margin: 0;
-            }
-
-            &__content {
-                margin-top: calculateRem(4px);
             }
         }
     }
