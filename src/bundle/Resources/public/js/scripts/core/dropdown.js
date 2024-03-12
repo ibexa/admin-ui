@@ -65,6 +65,9 @@
 
                 this.container.classList.toggle('is-invalid', isInvalid);
             });
+            this.resizeObserver = new ResizeObserver(() => {
+                this.fitItems();
+            });
             this.currentSelectedValue = this.sourceInput.value;
 
             this.createSelectedItem = this.createSelectedItem.bind(this);
@@ -565,6 +568,7 @@
                 attributes: true,
                 attributeFilter: ['class'],
             });
+            this.resizeObserver.observe(this.container);
 
             const selectedItems = this.container.querySelectorAll(
                 '.ibexa-dropdown__selected-item:not(.ibexa-dropdown__selected-overflow-number):not(.ibexa-dropdown__selected-placeholder)',
