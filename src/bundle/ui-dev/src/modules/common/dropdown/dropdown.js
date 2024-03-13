@@ -106,7 +106,7 @@ const Dropdown = ({
             itemsStyles.maxHeight = window.innerHeight - bottom - ITEMS_LIST_SITE_MARGIN;
         } else {
             const headerContainer = document.querySelector('.ibexa-main-header');
-            const headerHeight = headerContainer.offsetHeight;
+            const headerHeight = headerContainer?.offsetHeight ?? 0;
 
             itemsStyles.top = top - ITEMS_LIST_WIDGET_MARGIN;
             itemsStyles.maxHeight = top - headerHeight - ITEMS_LIST_SITE_MARGIN;
