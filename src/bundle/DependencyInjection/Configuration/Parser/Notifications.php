@@ -24,7 +24,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *              warning: # type of notification
  *                  timeout: 5000 # in milliseconds
  *          notification_count:
- *               interval: # type of notification
+ *               interval: 60000
  * ```
  */
 class Notifications extends AbstractParser
