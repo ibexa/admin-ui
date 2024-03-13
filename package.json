@@ -5,7 +5,7 @@
     "prettier": "eslint-config-ibexa/prettier",
     "dependencies": {},
     "devDependencies": {
-        "eslint-config-ibexa": "https://github.com/ibexa/eslint-config-ibexa.git#~v1.1.0"
+        "eslint-config-ibexa": "https://github.com/ibexa/eslint-config-ibexa.git#~v1.1.1"
     },
     "scripts": {
         "test": "yarn prettier-test && yarn eslint-test",
