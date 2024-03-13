@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, { useContext, useState, useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
@@ -6,6 +6,7 @@ import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/publ
 import Icon from '../../../common/icon/icon';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
+import { findMarkedLocation } from '../../helpers/locations.helper';
 import { useLoadBookmarksFetch } from '../../hooks/useLoadBookmarksFetch';
 import {
     ContentTypesMapContext,
@@ -23,14 +24,18 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
     const refBookmarksList = useRef(null);
     const [offset, setOffset] = useState(0);
     const [bookmarks, setBookmarks] = useState([]);
-    const [markedLocationId] = useContext(MarkedLocationIdContext);
-    const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
+    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const [multiple] = useContext(MultipleConfigContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const containersOnly = useContext(ContainersOnlyContext);
-    const [data, isLoading] = useLoadBookmarksFetch(itemsPerPage, offset);
+    const markedLocationData = useMemo(
+        () => findMarkedLocation(loadedLocationsMap, markedLocationId),
+        [markedLocationId, loadedLocationsMap],
+    );
+    const [data, isLoading, reloadBookmarks] = useLoadBookmarksFetch(itemsPerPage, offset);
     const loadMore = ({ target }) => {
         const areAllItemsLoaded = bookmarks.length >= data.count;
         const isOffsetReached = target.scrollHeight - target.clientHeight - target.scrollTop < SCROLL_OFFSET;
@@ -64,6 +69,16 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
     useEffect(() => {
         parseTooltip(refBookmarksList.current);
     }, [bookmarks]);
+
+    useEffect(() => {
+        const isBookmarkMarked = bookmarks.some(({ id }) => id === markedLocationId);
+
+        if (isBookmarkMarked && markedLocationData.bookmarked === false) {
+            reloadBookmarks();
+            setBookmarks([]);
+            setMarkedLocationId(null);
+        }
+    }, [markedLocationData.bookmarked]);
 
     if (!bookmarks.length) {
         return null;
