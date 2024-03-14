@@ -76,6 +76,11 @@ parameters:
 			path: src/bundle/Controller/BulkOperation/BulkOperationController.php
 
 		-
+			message: "#^Access to protected property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\User\\\\LookupLimitationResult\\:\\:\\$hasAccess\\.$#"
+			count: 4
+			path: src/bundle/Controller/Content/ContentTreeController.php
+
+		-
 			message: "#^Parameter \\#1 \\$locationId of method Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\LocationService\\:\\:loadLocation\\(\\) expects int, int\\|null given\\.$#"
 			count: 1
 			path: src/bundle/Controller/Content/VersionDraftConflictController.php
