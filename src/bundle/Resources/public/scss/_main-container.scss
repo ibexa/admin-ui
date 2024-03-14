@@ -118,10 +118,4 @@
         right: calculateRem(48px);
         bottom: calculateRem(16px);
     }
-
-    .ibexa-pc-config-panel {
-        top: calculateRem(16px);
-        right: calculateRem(16px);
-        height: calc(100vh - #{calculateRem(32px)});
-    }
 }
