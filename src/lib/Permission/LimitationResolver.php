@@ -58,7 +58,7 @@ final class LimitationResolver implements LimitationResolverInterface
         $contentInfo = $parentLocation->getContentInfo();
         $contentType = $contentInfo->getContentType();
         $contentCreateStruct = $this->contentService->newContentCreateStruct($contentType, $contentInfo->getMainLanguageCode());
-        $contentCreateStruct->sectionId = $contentInfo->getSection();
+        $contentCreateStruct->sectionId = $contentInfo->getSectionId();
         $locationCreateStruct = $this->locationService->newLocationCreateStruct($parentLocation->id);
 
         $versionBuilder = new VersionBuilder();

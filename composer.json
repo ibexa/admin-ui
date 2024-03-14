@@ -47,7 +47,7 @@
         "symfony/yaml": "^5.0",
         "symfony/webpack-encore-bundle": "^v1.17",
         "jms/translation-bundle": "^1.5",
-        "ibexa/core": "~4.6.0@dev",
+        "ibexa/core": "dev-added-get-section-id-to-content-info as 4.6.x-dev",
         "ibexa/content-forms": "~4.6.0@dev",
         "ibexa/design-engine": "~4.6.0@dev",
         "ibexa/user": "~4.6.0@dev",
