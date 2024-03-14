@@ -687,8 +687,11 @@ class ContentTypeController extends Controller
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
-    public function viewAction(ContentTypeGroup $group, ContentType $contentType): Response
-    {
+    public function viewAction(
+        ContentTypeGroup $group,
+        ContentType $contentType,
+        Request $request
+    ): Response {
         $fieldDefinitionsByGroup = [];
         foreach ($contentType->fieldDefinitions as $fieldDefinition) {
             $fieldDefinitionsByGroup[$fieldDefinition->fieldGroup ?: 'content'][] = $fieldDefinition;
@@ -710,7 +713,9 @@ class ContentTypeController extends Controller
         $canUpdate = $this->isGranted(new Attribute('class', 'update')) &&
             $this->isGranted(new Attribute('class', 'create'));
 
-        return $this->render('@ibexadesign/content_type/index.html.twig', [
+        $view = $request->attributes->get('view_template') ?? '@ibexadesign/content_type/index.html.twig';
+
+        return $this->render($view, [
             'content_type_group' => $group,
             'content_type' => $contentType,
             'field_definitions_by_group' => $fieldDefinitionsByGroup,
