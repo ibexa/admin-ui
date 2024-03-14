@@ -439,8 +439,8 @@
         <note>key: ezplatform.reset_user_password.link_is_not_valid</note>
       </trans-unit>
       <trans-unit id="5149c594d64197e519d38a1a2e7368140716bb81" resname="ezplatform.reset_user_password.success">
-        <source><![CDATA[Your password has been changed. You can <a href="%login%">log in</a> to eZ Platform.]]></source>
-        <target state="new"><![CDATA[Your password has been changed. You can <a href="%login%">log in</a> to eZ Platform.]]></target>
+        <source><![CDATA[Your password has been changed. You can <a href="%login%">log in</a> to Ibexa DXP.]]></source>
+        <target state="new"><![CDATA[Your password has been changed. You can <a href="%login%">log in</a> to Ibexa DXP.]]></target>
         <note>key: ezplatform.reset_user_password.success</note>
       </trans-unit>
       <trans-unit id="bd5ae6bdfe2b60c317c3b47f27c5bf5a264b71ba" resname="fieldview.toggler.hide">
