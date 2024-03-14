@@ -113,7 +113,6 @@
         flex: 1 1 80%;
     }
 
-    // All Elements influenced by edit container with position fixed
     ~ .ibexa-notifications-container {
         right: calculateRem(48px);
         bottom: calculateRem(16px);
