@@ -59,7 +59,7 @@ final class InContextTranslationListener implements EventSubscriberInterface
             return;
         }
 
-        $inContextSetting = $this->userSettingService->getUserSetting('in_context_translation')->value;
+        $inContextSetting = $this->userSettingService->getUserSetting('in_context_translation')->getValue();
 
         if ($inContextSetting !== InContextTranslation::ENABLED_OPTION) {
             return;

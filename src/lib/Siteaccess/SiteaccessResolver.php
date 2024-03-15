@@ -81,7 +81,7 @@ class SiteaccessResolver implements SiteaccessResolverInterface
     ): array {
         $contentInfo = $location->getContentInfo();
         $versionInfo = $this->contentService->loadVersionInfo($contentInfo, $versionNo);
-        $languageCode = $languageCode ?? $contentInfo->mainLanguageCode;
+        $languageCode = $languageCode ?? $contentInfo->getMainLanguageCode();
 
         $eligibleSiteAccesses = [];
         /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteAccess */

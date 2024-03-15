@@ -151,7 +151,7 @@ final class NodeFactory
         ?string $sortClause = null,
         string $sortOrder = Query::SORT_ASC
     ): SearchResult {
-        $searchQuery = $this->getSearchQuery($parentLocation->id);
+        $searchQuery = $this->getSearchQuery($parentLocation->getId());
 
         $searchQuery->limit = $limit;
         $searchQuery->offset = $offset;
@@ -328,17 +328,17 @@ final class NodeFactory
         array $bookmarkLocations = []
     ): Node {
         $contentInfo = $location->getContentInfo();
-        $contentId = $location->contentId;
+        $contentId = $location->getContentId();
         if (!isset($uninitializedContentInfoList[$contentId])) {
             $uninitializedContentInfoList[$contentId] = $contentInfo;
         }
 
         // Top Level Location (id = 1) does not have a content type
-        $contentType = $location->depth > 0
+        $contentType = $location->getDepth() > 0
             ? $contentInfo->getContentType()
             : null;
 
-        if ($contentType !== null && $contentType->isContainer) {
+        if ($contentType !== null && $contentType->isContainer()) {
             $containerLocations[] = $location;
         }
 
@@ -359,7 +359,7 @@ final class NodeFactory
             /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $childLocation */
             foreach (array_column($searchResult->searchHits, 'valueObject') as $childLocation) {
                 $childLoadSubtreeRequestNode = null !== $loadSubtreeRequestNode
-                    ? $this->findChild($childLocation->id, $loadSubtreeRequestNode)
+                    ? $this->findChild($childLocation->getId(), $loadSubtreeRequestNode)
                     : null;
 
                 $children[] = $this->buildNode(
@@ -376,7 +376,7 @@ final class NodeFactory
             }
         }
 
-        $translations = $versionInfo->languageCodes;
+        $translations = $versionInfo->getLanguageCodes();
         $previewableTranslations = array_filter(
             $translations,
             fn (string $languageCode): bool => $this->isPreviewable($location, $content, $languageCode)
@@ -384,19 +384,19 @@ final class NodeFactory
 
         return new Node(
             $depth,
-            $location->id,
-            $location->contentId,
-            $versionInfo->versionNo,
+            $location->getId(),
+            $location->getContentId(),
+            $versionInfo->getVersionNo(),
             $translations,
             $previewableTranslations,
             '', // node name will be provided later by `supplyTranslatedContentName` method
-            $contentType ? $contentType->identifier : '',
-            $contentType ? $contentType->isContainer : true,
-            $location->invisible || $location->hidden,
+            null !== $contentType ? $contentType->getIdentifier() : '',
+            !(null !== $contentType) || $contentType->isContainer(),
+            $location->isInvisible() || $location->isHidden(),
             $limit,
             $totalChildrenCount,
             $this->getReverseRelationsCount($contentInfo),
-            isset($bookmarkLocations[$location->id]),
+            isset($bookmarkLocations[$location->getId()]),
             $children,
             $location->getPathString()
         );
@@ -455,7 +455,7 @@ final class NodeFactory
         Content $content,
         string $languageCode
     ): bool {
-        $versionNo = $content->getVersionInfo()->versionNo;
+        $versionNo = $content->getVersionInfo()->getVersionNo();
 
         $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
             $location,
