@@ -17,6 +17,8 @@ class LoadExtendedNodeInfoRequest extends BaseParser
 {
     /**
      * {@inheritdoc}
+     *
+     * @param array<mixed> $data
      */
     public function parse(array $data, ParsingDispatcher $parsingDispatcher): LoadNodeExtendedInfoRequestValue
     {
