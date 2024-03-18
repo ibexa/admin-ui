@@ -11,24 +11,24 @@ namespace Ibexa\AdminUi\REST\Value\ContentTree;
 use Ibexa\Rest\Value as RestValue;
 
 /**
- * @phpstan-type Restrictions array{
+ * @phpstan-type TRestrictions array{
  *     hasAccess: bool,
  *     restrictedContentTypeIds: array<int>,
  *     restrictedLanguageCodes: array<string>,
  * }
  *
- * @phpstan-type PermissionRestrictions array{
- *     create: Restrictions,
- *     edit: Restrictions,
+ * @phpstan-type TPermissionRestrictions array{
+ *     create: TRestrictions,
+ *     edit: TRestrictions,
  * }
  */
-class NodeExtendedInfo extends RestValue
+final class NodeExtendedInfo extends RestValue
 {
-    /** @phpstan-var PermissionRestrictions|null */
+    /** @phpstan-var TPermissionRestrictions|null */
     private ?array $permissions;
 
     /**
-     * @phpstan-param PermissionRestrictions|null $permissions
+     * @phpstan-param TPermissionRestrictions|null $permissions
      */
     public function __construct(
         ?array $permissions = null,
@@ -37,7 +37,7 @@ class NodeExtendedInfo extends RestValue
     }
 
     /**
-     * @return PermissionRestrictions|null
+     * @return TPermissionRestrictions|null
      */
     public function getPermissionRestrictions(): ?array
     {
