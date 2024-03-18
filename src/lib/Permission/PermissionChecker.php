@@ -229,10 +229,12 @@ class PermissionChecker implements PermissionCheckerInterface
     public function getContentDeleteLimitations(Location $location): LookupLimitationResult
     {
         $content = $location->getContent();
+        $languages = $content->getVersionInfo()->getLanguages();
+        $languagesArray = $languages instanceof \Traversable ? iterator_to_array($languages) : (array)$languages;
 
         $translations = array_map(
             static fn (Language $language): string => $language->getLanguageCode(),
-            $content->getVersionInfo()->getLanguages()
+            $languagesArray
         );
         $target = (new Target\Version())->deleteTranslations($translations);
 
