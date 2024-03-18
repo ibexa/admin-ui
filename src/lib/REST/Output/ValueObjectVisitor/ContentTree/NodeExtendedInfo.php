@@ -14,7 +14,7 @@ use Ibexa\Contracts\Rest\Output\Visitor;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @phpstan-import-type PermissionRestrictions from \Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo
+ * @phpstan-import-type TPermissionRestrictions from \Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo
  */
 class NodeExtendedInfo extends ValueObjectVisitor
 {
@@ -37,7 +37,7 @@ class NodeExtendedInfo extends ValueObjectVisitor
     }
 
     /**
-     * @phpstan-param PermissionRestrictions $permissionRestrictions
+     * @phpstan-param TPermissionRestrictions $permissionRestrictions
      */
     protected function buildPermissionNode(
         ?array $permissionRestrictions,
