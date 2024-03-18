@@ -124,7 +124,6 @@ class ContentTreeController extends RestController
     }
 
     /**
-     * @return \Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
