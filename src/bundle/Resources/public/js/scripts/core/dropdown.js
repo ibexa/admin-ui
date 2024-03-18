@@ -151,14 +151,15 @@
         }
 
         selectOption(value) {
-            const optionToSelect = this.itemsListContainer.querySelector(`.ibexa-dropdown__item[data-value=${JSON.stringify(value)}]`);
+            const clearValue = JSON.stringify(String(value));
+            const optionToSelect = this.itemsListContainer.querySelector(`.ibexa-dropdown__item[data-value=${clearValue}]`);
 
             return this.onSelect(optionToSelect, true);
         }
 
         onSelect(element, selected) {
             const { choiceIcon } = element.dataset;
-            const value = JSON.stringify(element.dataset.value);
+            const value = JSON.stringify(String(element.dataset.value));
 
             if (this.canSelectOnlyOne && selected) {
                 this.hideOptions();
@@ -238,7 +239,7 @@
         }
 
         deselectOption(option) {
-            const value = JSON.stringify(option.dataset.value);
+            const value = JSON.stringify(String(option.dataset.value));
             const optionSelect = this.sourceInput.querySelector(`[value=${value}]`);
             const itemSelected = this.itemsListContainer.querySelector(`[data-value=${value}]`);
 
@@ -386,7 +387,8 @@
         }
 
         removeOption(value) {
-            const optionNode = this.itemsListContainer.querySelector(`[data-value=${JSON.stringify(value)}]`);
+            const clearValue = JSON.stringify(String(value));
+            const optionNode = this.itemsListContainer.querySelector(`[data-value=${clearValue}]`);
 
             optionNode.remove();
         }
