@@ -2,13 +2,17 @@ import React, { useContext, useState, useMemo, useEffect, useCallback } from 're
 
 import Icon from '../../../common/icon/icon';
 
-import { createCssClassNames } from '../../../common/helpers/css.class.names';
-import { LoadedLocationsMapContext } from '../../universal.discovery.module';
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { createCssClassNames } from '../../../common/helpers/css.class.names';
+import { getLoadedLocationsLimitedMap } from './breadcrumbs.helpers';
+import { LoadedLocationsMapContext, MarkedLocationIdContext, GridActiveLocationIdContext } from '../../universal.discovery.module';
 
 const Breadcrumbs = () => {
     const Translator = getTranslator();
-    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const [, setMarkedLocationId] = useContext(MarkedLocationIdContext);
+    const [gridActiveLocationId, setGridActiveLocationId] = useContext(GridActiveLocationIdContext);
+    const [loadedLocationsFullMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const loadedLocationsMap = getLoadedLocationsLimitedMap(loadedLocationsFullMap, gridActiveLocationId);
     const [hiddenListVisible, setHiddenListVisible] = useState(false);
     const { visibleItems, hiddenItems } = useMemo(() => {
         return loadedLocationsMap.reduce(
@@ -31,6 +35,8 @@ const Breadcrumbs = () => {
         updatedLoadedLocations[updatedLoadedLocations.length - 1].subitems = [];
 
         dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: updatedLoadedLocations });
+        setMarkedLocationId(locationId);
+        setGridActiveLocationId(locationId);
     };
     const toggleHiddenListVisible = useCallback(() => {
         setHiddenListVisible(!hiddenListVisible);
