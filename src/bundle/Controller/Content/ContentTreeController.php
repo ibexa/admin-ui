@@ -123,6 +123,14 @@ class ContentTreeController extends RestController
         return new Root($elements);
     }
 
+    /**
+     * @return \Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     */
     public function loadNodeExtendedInfoAction(Request $request): NodeExtendedInfo
     {
         /** @var \Ibexa\AdminUi\REST\Value\ContentTree\LoadNodeExtendedInfoRequest $loadSubtreeRequest */
