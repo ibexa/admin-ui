@@ -70,12 +70,6 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
                     'class' => 'ibexa-btn--trigger',
                     'data-click' => '#user_setting_update_update',
                 ],
-                'route' => $route,
-                'routeParameters' => [
-                    'contentId' => $options['content_id'] ?? null,
-                    'versionNo' => $options['version_no'] ?? null,
-                    'language' => $options['language'] ?? null,
-                ],
             ],
         );
 
