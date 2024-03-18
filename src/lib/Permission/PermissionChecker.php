@@ -230,7 +230,10 @@ class PermissionChecker implements PermissionCheckerInterface
     {
         $content = $location->getContent();
 
-        $translations = $content->getVersionInfo()->languageCodes;
+        $translations = array_map(
+            static fn (Language $language): string => $language->getLanguageCode(),
+            $content->getVersionInfo()->getLanguages()
+        );
         $target = (new Target\Version())->deleteTranslations($translations);
 
         return $this->permissionResolver->lookupLimitations(

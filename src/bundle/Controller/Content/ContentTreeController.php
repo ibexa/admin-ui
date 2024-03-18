@@ -24,7 +24,7 @@ use Ibexa\Rest\Server\Controller as RestController;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @phpstan-import-type PermissionRestrictions from \Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo
+ * @phpstan-import-type TPermissionRestrictions from \Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo
  */
 class ContentTreeController extends RestController
 {
@@ -141,7 +141,7 @@ class ContentTreeController extends RestController
     }
 
     /**
-     * @return PermissionRestrictions
+     * @return TPermissionRestrictions
      *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
@@ -177,22 +177,22 @@ class ContentTreeController extends RestController
 
         return [
             'create' => [
-                'hasAccess' => $lookupCreateLimitationsResult->hasAccess,
+                'hasAccess' => $lookupCreateLimitationsResult->hasAccess(),
                 'restrictedContentTypeIds' => $createLimitationsValues[Limitation::CONTENTTYPE],
                 'restrictedLanguageCodes' => $createLimitationsValues[Limitation::LANGUAGE],
             ],
             'edit' => [
-                'hasAccess' => $lookupUpdateLimitationsResult->hasAccess,
+                'hasAccess' => $lookupUpdateLimitationsResult->hasAccess(),
                 'restrictedContentTypeIds' => $updateLimitationsValues[Limitation::CONTENTTYPE],
                 'restrictedLanguageCodes' => $updateLimitationsValues[Limitation::LANGUAGE],
             ],
             'delete' => [
-                'hasAccess' => $lookupDeleteLimitationsResult->hasAccess,
+                'hasAccess' => $lookupDeleteLimitationsResult->hasAccess(),
                 'restrictedContentTypeIds' => $deleteLimitationsValues[Limitation::CONTENTTYPE],
                 'restrictedLanguageCodes' => $deleteLimitationsValues[Limitation::LANGUAGE],
             ],
             'hide' => [
-                'hasAccess' => $lookupHideLimitationsResult->hasAccess,
+                'hasAccess' => $lookupHideLimitationsResult->hasAccess(),
                 'restrictedContentTypeIds' => $hideLimitationsValues[Limitation::CONTENTTYPE],
                 'restrictedLanguageCodes' => $hideLimitationsValues[Limitation::LANGUAGE],
             ],

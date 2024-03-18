@@ -10,7 +10,10 @@ namespace Ibexa\AdminUi\REST\Value\ContentTree;
 
 use Ibexa\Rest\Value as RestValue;
 
-class LoadNodeExtendedInfoRequest extends RestValue
+/**
+ * @internal
+ */
+final class LoadNodeExtendedInfoRequest extends RestValue
 {
     public int $locationId;
 

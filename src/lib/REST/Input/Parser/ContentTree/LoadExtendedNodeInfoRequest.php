@@ -20,13 +20,21 @@ class LoadExtendedNodeInfoRequest extends BaseParser
      */
     public function parse(array $data, ParsingDispatcher $parsingDispatcher): LoadNodeExtendedInfoRequestValue
     {
-        if (!array_key_exists('locationId', $data) || !is_int($data['locationId'])) {
+        if (!array_key_exists('Location', $data) || !is_array($data['Location'])) {
             throw new Exceptions\Parser(
-                sprintf("Missing or invalid 'locationId' property for %s.", self::class)
+                sprintf("Missing or invalid 'Location' element for %s.", self::class)
             );
         }
 
-        $locationId = $data['locationId'];
+        if (!array_key_exists('_href', $data['Location'])) {
+            throw new Exceptions\Parser("Missing '_href' attribute for the Location element in LoadExtendedNodeInfoRequest.");
+        }
+
+        $locationHrefParts = explode(
+            '/',
+            $this->requestParser->parseHref($data['Location']['_href'], 'locationPath')
+        );
+        $locationId = (int)array_pop($locationHrefParts);
 
         return new LoadNodeExtendedInfoRequestValue($locationId);
     }
