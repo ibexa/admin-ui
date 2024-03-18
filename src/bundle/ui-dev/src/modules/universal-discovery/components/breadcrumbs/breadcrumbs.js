@@ -2,15 +2,10 @@ import React, { useContext, useState, useMemo, useEffect, useCallback } from 're
 
 import Icon from '../../../common/icon/icon';
 
-import { createCssClassNames } from '../../../common/helpers/css.class.names';
-import { LoadedLocationsMapContext, MarkedLocationIdContext, GridActiveLocationIdContext } from '../../universal.discovery.module';
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
-
-const getLoadedLocationsLimitedMap = (loadedLocationsFullMap, activeLocationId) => {
-    const itemIndex = loadedLocationsFullMap.findIndex(({ parentLocationId }) => parentLocationId === activeLocationId);
-
-    return loadedLocationsFullMap.slice(0, itemIndex + 1);
-};
+import { createCssClassNames } from '../../../common/helpers/css.class.names';
+import { getLoadedLocationsLimitedMap } from './breadcrumbs.helpers';
+import { LoadedLocationsMapContext, MarkedLocationIdContext, GridActiveLocationIdContext } from '../../universal.discovery.module';
 
 const Breadcrumbs = () => {
     const Translator = getTranslator();
