@@ -19,10 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
 class NodeExtendedInfo extends ValueObjectVisitor
 {
     /**
-     * Visit struct returned by controllers.
-     *
-     * @param \Ibexa\Contracts\Rest\Output\Visitor $visitor
-     * @param \Ibexa\Contracts\Rest\Output\Generator $generator
      * @param \Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo $data
      */
     public function visit(Visitor $visitor, Generator $generator, $data): void
