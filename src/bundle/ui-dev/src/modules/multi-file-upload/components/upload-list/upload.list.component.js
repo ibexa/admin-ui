@@ -53,20 +53,6 @@ export default class UploadListComponent extends Component {
         }));
     }
 
-    removeErroredItems(items) {
-        const itemsIds = items.map((item) => item.id);
-
-        this.setState((prevState) => {
-            const erroredItems = prevState.erroredItems.filter((stateItem) => !itemsIds.includes(stateItem.id));
-
-            if (erroredItems.length !== prevState.erroredItems.length) {
-                return {
-                    erroredItems,
-                };
-            }
-        });
-    }
-
     renderItemToUpload(item) {
         return this.renderItem(item, {
             isUploaded: false,

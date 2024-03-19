@@ -208,7 +208,7 @@ const createDraft = (struct, requestEventHandlers) => {
     });
 };
 const publishDraft = (data) => {
-    if (!data || !Object.prototype.hasOwnProperty.call(data, 'Content')) {
+    if (!data?.Content) {
         return Promise.reject('Cannot publish content based on an uploaded file');
     }
 
@@ -241,16 +241,16 @@ const canCreateContent = (file, parentInfo, config) => {
 const getMaxFileSize = (file, parentInfo, config) => {
     const { maxFileSize: contentMaxFileSize } = detectContentTypeMapping(file, parentInfo, config);
 
-    return contentMaxFileSize ? contentMaxFileSize : config.maxFileSize;
+    return contentMaxFileSize || config.maxFileSize;
 };
 
-export const checkCanUpload = (file, parentInfo, config, callbacks) => {
+export const checkCanUpload = (file, parentInfo, config, errorCallback) => {
     const Translator = getTranslator();
     const locationMapping = config.locationMappings.find((item) => item.contentTypeIdentifier === parentInfo.contentTypeIdentifier);
     const maxFileSize = getMaxFileSize(file, parentInfo, config);
 
     if (!canCreateContent(file, parentInfo, config)) {
-        callbacks.contentTypeNotAllowedCallback(
+        errorCallback(
             Translator.trans(
                 /*@Desc("You do not have permission to create this Content item")*/ 'disallowed_content_type.message',
                 {},
@@ -261,17 +261,13 @@ export const checkCanUpload = (file, parentInfo, config, callbacks) => {
         return false;
     }
     if (!checkFileTypeAllowed(file, locationMapping)) {
-        callbacks.fileTypeNotAllowedCallback(
-            Translator.trans(/*@Desc("File type is not allowed")*/ 'disallowed_type.message', {}, 'ibexa_multi_file_upload'),
-        );
+        errorCallback(Translator.trans(/*@Desc("File type is not allowed")*/ 'disallowed_type.message', {}, 'ibexa_multi_file_upload'));
 
         return false;
     }
 
     if (file.size > maxFileSize) {
-        callbacks.fileSizeNotAllowedCallback(
-            Translator.trans(/*@Desc("File size is not allowed")*/ 'disallowed_size.message', {}, 'ibexa_multi_file_upload'),
-        );
+        errorCallback(Translator.trans(/*@Desc("File size is not allowed")*/ 'disallowed_size.message', {}, 'ibexa_multi_file_upload'));
 
         return false;
     }
@@ -282,7 +278,7 @@ export const createFileStruct = (file, params, contentErrorCallback) => {
     return new Promise(readFile.bind(new FileReader(), file)).then((fileData) => prepareStruct(params, fileData, contentErrorCallback));
 };
 export const publishFile = (data, requestEventHandlers, successCallback, contentErrorCallback) => {
-    createDraft(data, requestEventHandlers, contentErrorCallback)
+    createDraft(data, requestEventHandlers)
         .then(publishDraft)
         .then(successCallback)
         .catch(() => {
