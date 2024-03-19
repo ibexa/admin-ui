@@ -13,7 +13,7 @@ use Ibexa\Contracts\Rest\Exceptions;
 use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
 use Ibexa\Rest\Input\BaseParser;
 
-class LoadExtendedNodeInfoRequest extends BaseParser
+final class LoadNodeExtendedInfoRequest extends BaseParser
 {
     /**
      * @param array<mixed> $data
@@ -27,7 +27,7 @@ class LoadExtendedNodeInfoRequest extends BaseParser
         }
 
         if (!array_key_exists('_href', $data['Location'])) {
-            throw new Exceptions\Parser("Missing '_href' attribute for the Location element in LoadExtendedNodeInfoRequest.");
+            throw new Exceptions\Parser("Missing '_href' attribute for the Location element in LoadNodeExtendedInfoRequest.");
         }
 
         $locationHrefParts = explode(
