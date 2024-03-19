@@ -235,6 +235,10 @@ final class DamWidgetTest extends TestCase
                 'contentTypeIdentifier' => self::FOLDER_CONTENT_TYPE_IDENTIFIER,
                 'nameSchemaIdentifiers' => self::FOLDER_NAME_SCHEMA_IDENTIFIERS,
             ],
+            'folder' => [
+                'contentTypeIdentifier' => self::FOLDER_CONTENT_TYPE_IDENTIFIER,
+                'nameFieldIdentifier' => self::FOLDER_NAME_FIELD_IDENTIFIER,
+            ],
         ];
     }
 
