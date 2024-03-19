@@ -13,9 +13,7 @@ export default class UploadItemComponent extends Component {
     constructor(props) {
         super(props);
 
-        this.handleFileSizeNotAllowed = this.handleFileSizeNotAllowed.bind(this);
-        this.handleFileTypeNotAllowed = this.handleFileTypeNotAllowed.bind(this);
-        this.handleContentTypeNotAllowed = this.handleContentTypeNotAllowed.bind(this);
+        this.handleFileValidationError = this.handleFileValidationError.bind(this);
         this.handleEditBtnClick = this.handleEditBtnClick.bind(this);
         this.handleUploadAbort = this.handleUploadAbort.bind(this);
         this.handleUploadError = this.handleUploadError.bind(this);
@@ -75,13 +73,8 @@ export default class UploadItemComponent extends Component {
             ...adminUiConfig.multiFileUpload,
             contentCreatePermissionsConfig,
         };
-        const callbacks = {
-            fileTypeNotAllowedCallback: this.handleFileTypeNotAllowed,
-            fileSizeNotAllowedCallback: this.handleFileSizeNotAllowed,
-            contentTypeNotAllowedCallback: this.handleContentTypeNotAllowed,
-        };
 
-        if (!checkCanUpload(item.file, parentInfo, config, callbacks)) {
+        if (!checkCanUpload(item.file, parentInfo, config, this.handleFileValidationError)) {
             this.setState(() => ({
                 uploading: false,
                 uploaded: false,
@@ -137,33 +130,7 @@ export default class UploadItemComponent extends Component {
         );
     }
 
-    handleFileTypeNotAllowed(errorMsg) {
-        this.setState(
-            (prevState) => ({
-                uploading: false,
-                uploaded: false,
-                aborted: false,
-                failed: true,
-                errorMsgs: [...prevState.errorMsgs, errorMsg],
-            }),
-            () => this.props.onCreateError({ ...this.props.item, errorMsgs: this.state.errorMsgs }),
-        );
-    }
-
-    handleFileSizeNotAllowed(errorMsg) {
-        this.setState(
-            (prevState) => ({
-                uploading: false,
-                uploaded: false,
-                aborted: false,
-                failed: true,
-                errorMsgs: [...prevState.errorMsgs, errorMsg],
-            }),
-            () => this.props.onCreateError({ ...this.props.item, errorMsgs: this.state.errorMsgs }),
-        );
-    }
-
-    handleContentTypeNotAllowed(errorMsg) {
+    handleFileValidationError(errorMsg) {
         this.setState(
             (prevState) => ({
                 uploading: false,
@@ -272,7 +239,7 @@ export default class UploadItemComponent extends Component {
     getContentTypeIdentifier() {
         const { contentTypesMap, item } = this.props;
 
-        if (!item.struct || !item.struct.Content) {
+        if (!item.struct?.Content) {
             return null;
         }
 

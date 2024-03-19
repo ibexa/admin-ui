@@ -13,10 +13,13 @@ export default class DropAreaComponent extends Component {
 
         this.state = {
             filesSizeExpanded: false,
+            isMaxFileSizesMultiMsg: this.props.maxFileSizes.length > 1,
         };
 
         this.openFileSelector = this.openFileSelector.bind(this);
         this.handleUpload = this.handleUpload.bind(this);
+        this.renderMaxFileMsgsToggler = this.renderMaxFileMsgsToggler.bind(this);
+        this.renderMaxFileSizeItems = this.renderMaxFileSizeItems.bind(this);
     }
 
     /**
@@ -46,49 +49,54 @@ export default class DropAreaComponent extends Component {
         event.currentTarget.value = null;
     }
 
-    renderMaxFileSizesMsg() {
+    renderMaxFileMsgsToggler() {
+        const { isMaxFileSizesMultiMsg } = this.state;
+
+        if (!isMaxFileSizesMultiMsg) {
+            return null;
+        }
+
         const Translator = getTranslator();
-        const maxFilesSizeListClassNames = createCssClassNames({
-            'c-drop-area__max-files-size': true,
-            'c-drop-area__max-files-size--expanded': this.state.filesSizeExpanded,
-        });
-        const isMaxFileSizesMultiMsg = this.props.maxFileSizes.length > 1;
+
+        return (
+            <li className="c-drop-area__max-file-size-item">
+                <Icon name="about-info" extraClasses="c-drop-area__max-file-size-icon ibexa-icon--small" />
+                {Translator.trans(/*@Desc("Max. file size")*/ 'max_file_size.message.general', {}, 'ibexa_multi_file_upload')}
+
+                <button
+                    type="button"
+                    className="c-drop-area__max-file-size-toggle-btn"
+                    onClick={() =>
+                        this.setState((prevState) => ({
+                            filesSizeExpanded: !prevState.filesSizeExpanded,
+                        }))
+                    }
+                />
+            </li>
+        );
+    }
+
+    renderMaxFileSizeItems() {
+        const Translator = getTranslator();
+        const { isMaxFileSizesMultiMsg } = this.state;
 
         return (
             <>
-                <ul className={maxFilesSizeListClassNames}>
-                    {isMaxFileSizesMultiMsg && (
-                        <li className="c-drop-area__max-file-size-item">
+                {this.props.maxFileSizes.map((contentType) => (
+                    <li key={contentType.name.replace(/\s/g, '-')} className="c-drop-area__max-file-size-item">
+                        {!isMaxFileSizesMultiMsg && (
                             <Icon name="about-info" extraClasses="c-drop-area__max-file-size-icon ibexa-icon--small" />
-                            {Translator.trans(/*@Desc("Max. file size")*/ 'max_file_size.message.general', {}, 'ibexa_multi_file_upload')}
-
-                            <button
-                                type="button"
-                                className="c-drop-area__max-file-size-toggle-btn"
-                                onClick={() =>
-                                    this.setState((prevState) => ({
-                                        filesSizeExpanded: !prevState.filesSizeExpanded,
-                                    }))
-                                }
-                            />
-                        </li>
-                    )}
-                    {this.props.maxFileSizes.map((contentType) => (
-                        <li key={contentType.name.replace(/\s/g, '-')} className="c-drop-area__max-file-size-item">
-                            {!isMaxFileSizesMultiMsg && (
-                                <Icon name="about-info" extraClasses="c-drop-area__max-file-size-icon ibexa-icon--small" />
-                            )}
-                            {Translator.trans(
-                                /*@Desc("%contentTypeName% max file size: %maxFileSize%")*/ 'max_file_size.message',
-                                {
-                                    contentTypeName: contentType.name,
-                                    maxFileSize: fileSizeToString(contentType.maxFileSize),
-                                },
-                                'ibexa_multi_file_upload',
-                            )}
-                        </li>
-                    ))}
-                </ul>
+                        )}
+                        {Translator.trans(
+                            /*@Desc("%contentTypeName% max file size: %maxFileSize%")*/ 'max_file_size.message',
+                            {
+                                contentTypeName: contentType.name,
+                                maxFileSize: fileSizeToString(contentType.maxFileSize),
+                            },
+                            'ibexa_multi_file_upload',
+                        )}
+                    </li>
+                ))}
             </>
         );
     }
@@ -108,6 +116,10 @@ export default class DropAreaComponent extends Component {
         const dropActionMessage = Translator.trans(/*@Desc("Drag and drop file")*/ 'drop_action.message', {}, 'ibexa_multi_file_upload');
         const separatorMessage = Translator.trans(/*@Desc("or")*/ 'drop_action.separator', {}, 'ibexa_multi_file_upload');
         const uploadBtnLabel = Translator.trans(/*@Desc("Upload file")*/ 'upload_btn.label', {}, 'ibexa_multi_file_upload');
+        const maxFilesSizeListClassNames = createCssClassNames({
+            'c-drop-area__max-files-size': true,
+            'c-drop-area__max-files-size--expanded': this.state.filesSizeExpanded,
+        });
 
         return (
             <form className="c-drop-area" multiple={true} onDrop={this.handleUpload}>
@@ -121,7 +133,12 @@ export default class DropAreaComponent extends Component {
                 >
                     {uploadBtnLabel}
                 </button>
-                <div className="c-drop-area__message c-drop-area__message--filesize">{this.renderMaxFileSizesMsg()}</div>
+                <div className="c-drop-area__message c-drop-area__message--filesize">
+                    <ul className={maxFilesSizeListClassNames}>
+                        {this.renderMaxFileMsgsToggler()}
+                        {this.renderMaxFileSizeItems()}
+                    </ul>
+                </div>
                 <input
                     className="c-drop-area__input--hidden"
                     ref={(ref) => (this._refFileInput = ref)}
