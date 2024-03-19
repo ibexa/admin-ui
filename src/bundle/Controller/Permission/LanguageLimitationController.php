@@ -44,7 +44,7 @@ final class LanguageLimitationController extends Controller
             $contentType,
             $contentInfo->getMainLanguageCode()
         );
-        $contentCreateStruct->sectionId = $contentInfo->getSection();
+        $contentCreateStruct->sectionId = $contentInfo->getSectionId();
         $locationCreateStruct = $this->locationService->newLocationCreateStruct($location->id);
 
         return new JsonResponse(
