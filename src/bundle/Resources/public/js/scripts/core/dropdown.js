@@ -87,7 +87,9 @@
 
         createSelectedItem(value, label, icon) {
             const container = doc.createElement('div');
-            const selectedItemRendered = this.selectedItemTemplate.replace('{{ value }}', value).replace('{{ label }}', label);
+            const selectedItemRendered = this.selectedItemTemplate
+                .replace('{{ value }}', ibexa.helpers.text.escapeHTMLAttribute(value))
+                .replace('{{ label }}', label);
 
             container.insertAdjacentHTML('beforeend', selectedItemRendered);
 
@@ -149,13 +151,15 @@
         }
 
         selectOption(value) {
-            const optionToSelect = this.itemsListContainer.querySelector(`.ibexa-dropdown__item[data-value="${value}"`);
+            const stringifiedValue = JSON.stringify(String(value));
+            const optionToSelect = this.itemsListContainer.querySelector(`.ibexa-dropdown__item[data-value=${stringifiedValue}]`);
 
             return this.onSelect(optionToSelect, true);
         }
 
         onSelect(element, selected) {
-            const { value, choiceIcon } = element.dataset;
+            const { choiceIcon } = element.dataset;
+            const value = JSON.stringify(String(element.dataset.value));
 
             if (this.canSelectOnlyOne && selected) {
                 this.hideOptions();
@@ -163,14 +167,14 @@
             }
 
             if (value) {
-                this.sourceInput.querySelector(`[value="${value}"]`).selected = selected;
+                this.sourceInput.querySelector(`[value=${value}]`).selected = selected;
 
                 if (!this.canSelectOnlyOne) {
                     element.querySelector('.ibexa-input').checked = selected;
                 }
             }
 
-            this.itemsListContainer.querySelector(`[data-value="${value}"]`).classList.toggle('ibexa-dropdown__item--selected', selected);
+            this.itemsListContainer.querySelector(`[data-value=${value}]`).classList.toggle('ibexa-dropdown__item--selected', selected);
 
             const selectedItemsList = this.container.querySelector('.ibexa-dropdown__selection-info');
 
@@ -181,7 +185,7 @@
 
                 this.selectedItemsContainer.insertBefore(this.createSelectedItem(value, label, choiceIcon), targetPlace);
             } else {
-                const valueNode = selectedItemsList.querySelector(`[data-value="${value}"]`);
+                const valueNode = selectedItemsList.querySelector(`[data-value=${value}]`);
 
                 if (valueNode) {
                     valueNode.remove();
@@ -235,9 +239,9 @@
         }
 
         deselectOption(option) {
-            const { value } = option.dataset;
-            const optionSelect = this.sourceInput.querySelector(`[value="${value}"]`);
-            const itemSelected = this.itemsListContainer.querySelector(`[data-value="${value}"]`);
+            const value = JSON.stringify(String(option.dataset.value));
+            const optionSelect = this.sourceInput.querySelector(`[value=${value}]`);
+            const itemSelected = this.itemsListContainer.querySelector(`[data-value=${value}]`);
 
             itemSelected.classList.remove('ibexa-dropdown__item--selected');
 
@@ -383,14 +387,17 @@
         }
 
         removeOption(value) {
-            const optionNode = this.itemsListContainer.querySelector(`[data-value="${value}"]`);
+            const stringifiedValue = JSON.stringify(String(value));
+            const optionNode = this.itemsListContainer.querySelector(`[data-value=${stringifiedValue}]`);
 
             optionNode.remove();
         }
 
         createOption(value, label) {
             const container = doc.createElement('div');
-            const itemRendered = this.itemTemplate.replaceAll('{{ value }}', value).replaceAll('{{ label }}', label);
+            const itemRendered = this.itemTemplate
+                .replaceAll('{{ value }}', ibexa.helpers.text.escapeHTMLAttribute(value))
+                .replaceAll('{{ label }}', label);
 
             container.insertAdjacentHTML('beforeend', itemRendered);
 
