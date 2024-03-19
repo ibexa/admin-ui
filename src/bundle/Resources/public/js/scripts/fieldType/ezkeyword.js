@@ -3,6 +3,8 @@
     const SELECTOR_TAGGIFY = '.ibexa-data-source__taggify';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
     const CLASS_TAGGIFY_FOCUS = 'ibexa-data-source__taggify--focused';
+    const ENTER_KEY_CODE = 13;
+    const COMMA_KEY_CODE = 188;
 
     class EzKeywordValidator extends ibexa.BaseFieldValidator {
         /**
@@ -70,8 +72,7 @@
             containerNode: taggifyContainer,
             displayLabel: false,
             displayInputValues: false,
-            // The "," key code
-            hotKeys: [188],
+            hotKeys: [ENTER_KEY_CODE, COMMA_KEY_CODE],
         });
         const keywordInput = field.querySelector('.ibexa-data-source__input-wrapper .ibexa-data-source__input.form-control');
         const updateKeywords = updateValue.bind(this, keywordInput);
