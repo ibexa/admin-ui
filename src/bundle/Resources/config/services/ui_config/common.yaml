@@ -151,6 +151,7 @@ services:
                     aggregations: '%ibexa.dam_widget.image.aggregations%'
                 folder:
                     contentTypeIdentifier: '%ibexa.dam_widget.folder.content_type_identifier%'
+
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'damWidget' }
 
