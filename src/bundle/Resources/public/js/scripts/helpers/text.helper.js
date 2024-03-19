@@ -7,12 +7,12 @@
         return stringTempNode.innerHTML;
     };
 
-    const escapeHTMLAttribute = (str) => {
-        if (str === null) {
+    const escapeHTMLAttribute = (string) => {
+        if (string === null) {
             return '';
         }
 
-        return String(str)
+        return String(string)
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')

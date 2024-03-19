@@ -151,8 +151,8 @@
         }
 
         selectOption(value) {
-            const clearValue = JSON.stringify(String(value));
-            const optionToSelect = this.itemsListContainer.querySelector(`.ibexa-dropdown__item[data-value=${clearValue}]`);
+            const stringifiedValue = JSON.stringify(String(value));
+            const optionToSelect = this.itemsListContainer.querySelector(`.ibexa-dropdown__item[data-value=${stringifiedValue}]`);
 
             return this.onSelect(optionToSelect, true);
         }
@@ -387,8 +387,8 @@
         }
 
         removeOption(value) {
-            const clearValue = JSON.stringify(String(value));
-            const optionNode = this.itemsListContainer.querySelector(`[data-value=${clearValue}]`);
+            const stringifiedValue = JSON.stringify(String(value));
+            const optionNode = this.itemsListContainer.querySelector(`[data-value=${stringifiedValue}]`);
 
             optionNode.remove();
         }
