@@ -91,5 +91,5 @@ parameters:
             name: keywords
             contentTypeIdentifier: image
             fieldDefinitionIdentifier: tags
-
     ibexa.dam_widget.folder.content_type_identifier: folder
+    ibexa.dam_widget.folder.name_field_identifier: name
