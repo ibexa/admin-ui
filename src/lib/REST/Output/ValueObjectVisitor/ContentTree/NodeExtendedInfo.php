@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @phpstan-import-type TPermissionRestrictions from \Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo
  */
-class NodeExtendedInfo extends ValueObjectVisitor
+final class NodeExtendedInfo extends ValueObjectVisitor
 {
     /**
      * @param \Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo $data
