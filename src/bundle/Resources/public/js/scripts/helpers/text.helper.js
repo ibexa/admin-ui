@@ -7,7 +7,7 @@
         return stringTempNode.innerHTML;
     };
 
-    const escapeDataset = (str) => {
+    const escapeHTMLAttribute = (str) => {
         if (str === null) {
             return '';
         }
@@ -22,6 +22,6 @@
 
     ibexa.addConfig('helpers.text', {
         escapeHTML,
-        escapeDataset,
+        escapeHTMLAttribute,
     });
 })(window, window.document, window.ibexa);

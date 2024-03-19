@@ -88,7 +88,7 @@
         createSelectedItem(value, label, icon) {
             const container = doc.createElement('div');
             const selectedItemRendered = this.selectedItemTemplate
-                .replace('{{ value }}', ibexa.helpers.text.escapeDataset(value))
+                .replace('{{ value }}', ibexa.helpers.text.escapeHTMLAttribute(value))
                 .replace('{{ label }}', label);
 
             container.insertAdjacentHTML('beforeend', selectedItemRendered);
@@ -396,7 +396,7 @@
         createOption(value, label) {
             const container = doc.createElement('div');
             const itemRendered = this.itemTemplate
-                .replaceAll('{{ value }}', ibexa.helpers.text.escapeDataset(value))
+                .replaceAll('{{ value }}', ibexa.helpers.text.escapeHTMLAttribute(value))
                 .replaceAll('{{ label }}', label);
 
             container.insertAdjacentHTML('beforeend', itemRendered);
