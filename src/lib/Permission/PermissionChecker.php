@@ -13,6 +13,7 @@ use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LocationLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentContentTypeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentDepthLimitation;
