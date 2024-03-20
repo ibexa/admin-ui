@@ -13,9 +13,12 @@ use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode;
 use Ibexa\AdminUi\REST\Value\ContentTree\Node;
 use Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo;
 use Ibexa\AdminUi\REST\Value\ContentTree\Root;
+use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\AdminUi\UI\Module\ContentTree\NodeFactory;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
@@ -35,6 +38,10 @@ class ContentTreeController extends RestController
 
     private LookupLimitationsTransformer $lookupLimitationsTransformer;
 
+    private SiteaccessResolverInterface  $siteaccessResolver;
+
+    private PermissionResolver $permissionResolver;
+
     /** @var \Ibexa\AdminUi\UI\Module\ContentTree\NodeFactory */
     private $contentTreeNodeFactory;
 
@@ -42,11 +49,15 @@ class ContentTreeController extends RestController
         LocationService $locationService,
         PermissionCheckerInterface $permissionChecker,
         LookupLimitationsTransformer $lookupLimitationsTransformer,
+        SiteaccessResolverInterface $siteaccessResolver,
+        PermissionResolver $permissionResolver,
         NodeFactory $contentTreeNodeFactory
     ) {
         $this->locationService = $locationService;
         $this->permissionChecker = $permissionChecker;
         $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
+        $this->siteaccessResolver = $siteaccessResolver;
+        $this->permissionResolver = $permissionResolver;
         $this->contentTreeNodeFactory = $contentTreeNodeFactory;
     }
 
@@ -142,9 +153,11 @@ class ContentTreeController extends RestController
 
         $locationId = $loadSubtreeRequest->locationId;
         $location = $this->locationService->loadLocation($locationId);
-        $locationPermissionRestrictions = $this->getLocationPermissionRestrictions($location);
 
-        return new NodeExtendedInfo($locationPermissionRestrictions);
+        $locationPermissionRestrictions = $this->getLocationPermissionRestrictions($location);
+        $previewableTranslations = $this->getPreviewableTranslations($location);
+
+        return new NodeExtendedInfo($locationPermissionRestrictions, $previewableTranslations);
     }
 
     /**
@@ -204,6 +217,53 @@ class ContentTreeController extends RestController
                 'restrictedLanguageCodes' => $hideLimitationsValues[Limitation::LANGUAGE],
             ],
         ];
+    }
+
+    /**
+     * @return array<string>
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
+    private function getPreviewableTranslations(
+        Location $location
+    ): array {
+        $content = $location->getContent();
+
+        $canPreview = $this->permissionResolver->canUser(
+            'content',
+            'versionread',
+            $content,
+            [$location]
+        );
+
+        if (!$canPreview) {
+            return [];
+        }
+
+        $versionInfo = $content->getVersionInfo();
+        $translations = $versionInfo->languageCodes;
+
+        return array_filter(
+            $translations,
+            fn (string $languageCode): bool => $this->hasRelatedSiteaccess($location, $content, $languageCode)
+        );
+    }
+
+    private function hasRelatedSiteaccess(
+        Location $location,
+        Content $content,
+        string $languageCode
+    ): bool {
+        $versionNo = $content->getVersionInfo()->versionNo;
+
+        $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
+            $location,
+            $versionNo,
+            $languageCode
+        );
+
+        return !empty($siteAccesses);
     }
 }
 

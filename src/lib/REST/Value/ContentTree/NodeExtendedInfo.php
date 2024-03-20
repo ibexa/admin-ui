@@ -27,13 +27,18 @@ final class NodeExtendedInfo extends RestValue
     /** @phpstan-var TPermissionRestrictions|null */
     private ?array $permissions;
 
+    /** @var array<string>|null  */
+    private ?array $previewableTranslations;
+
     /**
      * @phpstan-param TPermissionRestrictions|null $permissions
      */
     public function __construct(
         ?array $permissions = null,
+        ?array $previewableTranslations = null
     ) {
         $this->permissions = $permissions;
+        $this->previewableTranslations = $previewableTranslations;
     }
 
     /**
@@ -42,5 +47,13 @@ final class NodeExtendedInfo extends RestValue
     public function getPermissionRestrictions(): ?array
     {
         return $this->permissions;
+    }
+
+    /**
+     * @return array<string>|null
+     */
+    public function getPreviewableTranslations(): ?array
+    {
+        return $this->previewableTranslations;
     }
 }

@@ -28,8 +28,23 @@ final class NodeExtendedInfo extends ValueObjectVisitor
         $visitor->setStatus(Response::HTTP_OK);
 
         $this->buildPermissionNode($data->getPermissionRestrictions(), $generator);
+        $this->buildPreviewableTranslationsNode($data->getPreviewableTranslations(), $generator);
 
         $generator->endObjectElement('ContentTreeNodeExtendedInfo');
+    }
+
+    /**
+     * @param array<string>|null $previewableTranslations
+     */
+    protected function buildPreviewableTranslationsNode(
+        ?array $previewableTranslations,
+        Generator $generator
+    ): void {
+        if ($previewableTranslations === null) {
+            return;
+        }
+
+        $generator->valueElement('previewableTranslations', implode(',', $previewableTranslations));
     }
 
     /**
