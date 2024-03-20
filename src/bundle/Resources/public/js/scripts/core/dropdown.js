@@ -187,9 +187,7 @@
                 }
             }
 
-            this.itemsListContainer
-                .querySelector(`[data-value=${value}]`)
-                .classList.toggle('ibexa-dropdown__item--selected', selected);
+            this.itemsListContainer.querySelector(`[data-value=${value}]`).classList.toggle('ibexa-dropdown__item--selected', selected);
 
             const selectedItemsList = this.container.querySelector('.ibexa-dropdown__selection-info');
 
