@@ -41,8 +41,6 @@ class Node extends ValueObjectVisitor
 
         $generator->valueElement('translations', implode(',', $data->translations));
 
-        $generator->valueElement('previewableTranslations', implode(',', $data->previewableTranslations));
-
         $generator->startValueElement('name', $data->name);
         $generator->endValueElement('name');
 

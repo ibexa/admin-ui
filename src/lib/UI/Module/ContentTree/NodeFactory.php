@@ -10,13 +10,11 @@ namespace Ibexa\AdminUi\UI\Module\ContentTree;
 
 use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode;
 use Ibexa\AdminUi\REST\Value\ContentTree\Node;
-use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\SearchService;
-use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
@@ -59,8 +57,6 @@ final class NodeFactory
 
     private Repository $repository;
 
-    private SiteaccessResolverInterface  $siteaccessResolver;
-
     /** @var int */
     private $maxLocationIdsInSingleAggregation;
 
@@ -72,7 +68,6 @@ final class NodeFactory
         ConfigResolverInterface $configResolver,
         PermissionResolver $permissionResolver,
         Repository $repository,
-        SiteaccessResolverInterface $siteaccessResolver,
         int $maxLocationIdsInSingleAggregation
     ) {
         $this->bookmarkService = $bookmarkService;
@@ -82,7 +77,6 @@ final class NodeFactory
         $this->configResolver = $configResolver;
         $this->permissionResolver = $permissionResolver;
         $this->repository = $repository;
-        $this->siteaccessResolver = $siteaccessResolver;
         $this->maxLocationIdsInSingleAggregation = $maxLocationIdsInSingleAggregation;
     }
 
@@ -377,10 +371,6 @@ final class NodeFactory
         }
 
         $translations = $versionInfo->languageCodes;
-        $previewableTranslations = array_filter(
-            $translations,
-            fn (string $languageCode): bool => $this->isPreviewable($location, $content, $languageCode)
-        );
 
         return new Node(
             $depth,
@@ -388,7 +378,6 @@ final class NodeFactory
             $location->contentId,
             $versionInfo->versionNo,
             $translations,
-            $previewableTranslations,
             '', // node name will be provided later by `supplyTranslatedContentName` method
             $contentType ? $contentType->identifier : '',
             $contentType ? $contentType->isContainer : true,
@@ -444,33 +433,6 @@ final class NodeFactory
         foreach ($node->children as $child) {
             $this->supplyChildrenCount($child, $aggregationResult);
         }
-    }
-
-    /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     */
-    private function isPreviewable(
-        Location $location,
-        Content $content,
-        string $languageCode
-    ): bool {
-        $versionNo = $content->getVersionInfo()->versionNo;
-
-        $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
-            $location,
-            $versionNo,
-            $languageCode
-        );
-
-        $canPreview = $this->permissionResolver->canUser(
-            'content',
-            'versionread',
-            $content,
-            [$location]
-        );
-
-        return $canPreview && !empty($siteAccesses);
     }
 }
 
