@@ -77,6 +77,9 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
             reloadBookmarks();
             setBookmarks([]);
             setMarkedLocationId(null);
+        } else if (!isBookmarkMarked && markedLocationData.bookmarked) {
+            reloadBookmarks();
+            setBookmarks([]);
         }
     }, [markedLocationData.bookmarked]);
 
