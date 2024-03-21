@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { getContentTypeIconUrl } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/content.type.helper';
-import { getRestInfo, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { getTranslator, isAppInStandaloneMode } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
@@ -13,6 +13,7 @@ export default class UploadItemComponent extends Component {
     constructor(props) {
         super(props);
 
+        this.isAppInStandaloneMode = isAppInStandaloneMode();
         this.handleFileValidationError = this.handleFileValidationError.bind(this);
         this.handleEditBtnClick = this.handleEditBtnClick.bind(this);
         this.handleUploadAbort = this.handleUploadAbort.bind(this);
@@ -39,11 +40,11 @@ export default class UploadItemComponent extends Component {
             deleted: false,
             progress: 0,
             xhr: null,
-            struct: props.item.struct || null,
+            struct: props.item.struct ?? null,
             totalSize: fileSizeToString(props.item.file.size),
             uploadedSize: '0',
-            errorMsgs: props.item.errorMsgs || [],
-            isMultipleErrosExpanded: false,
+            errorMsgs: props.item.errorMsgs ?? [],
+            hasMultipleErrorsExpanded: false,
         };
     }
 
@@ -258,26 +259,20 @@ export default class UploadItemComponent extends Component {
             return null;
         }
 
-        const { instanceUrl } = getRestInfo();
         const contentTypeIconUrl = getContentTypeIconUrl(contentTypeIdentifier);
         const [, iconName] = contentTypeIconUrl.split('#');
-        const isStandaloneMode = window.origin !== instanceUrl;
 
-        return (
-            <>
-                {isStandaloneMode ? (
-                    <Icon name={iconName} extraClasses="ibexa-icon--small" defaultIconName="file" />
-                ) : (
-                    <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small" />
-                )}
-            </>
-        );
+        if (this.isAppInStandaloneMode) {
+            return <Icon name={iconName} extraClasses="ibexa-icon--small" defaultIconName="file" />;
+        }
+
+        return <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small" />;
     }
 
     renderProgressBar() {
         const { uploaded, aborted, progress, totalSize, uploadedSize, failed } = this.state;
 
-        if (this.props.isUploaded || uploaded || aborted || failed) {
+        if (uploaded || aborted || failed) {
             return null;
         }
 
@@ -292,8 +287,8 @@ export default class UploadItemComponent extends Component {
         }
 
         const Translator = getTranslator();
-        const isMultipleErros = errorMsgs.length > 1;
-        const label = isMultipleErros
+        const hasMultipleErrors = errorMsgs.length > 1;
+        const label = hasMultipleErrors
             ? Translator.trans(/*@Desc("Failed to upload ")*/ 'multierror.label', {}, 'ibexa_multi_file_upload')
             : errorMsgs[0];
 
@@ -301,13 +296,13 @@ export default class UploadItemComponent extends Component {
             <div className="c-upload-list-item__message c-upload-list-item__message--error">
                 <Icon name="warning" extraClasses="ibexa-icon--tiny-small" />
                 {label}
-                {isMultipleErros && (
+                {hasMultipleErrors && (
                     <button
                         type="button"
                         className="c-upload-list-item__multiple-errors-toggle-btn"
                         onClick={() =>
                             this.setState((prevState) => ({
-                                isMultipleErrosExpanded: !prevState.isMultipleErrosExpanded,
+                                hasMultipleErrorsExpanded: !prevState.hasMultipleErrorsExpanded,
                             }))
                         }
                     >
@@ -380,11 +375,10 @@ export default class UploadItemComponent extends Component {
 
     renderEditBtn() {
         const Translator = getTranslator();
-        const { instanceUrl } = getRestInfo();
-        const { uploaded, aborted, failed, uploading } = this.state;
-        const canEdit = (this.props.isUploaded || (uploaded && !aborted && !uploading)) && !failed;
+        const { uploaded, failed } = this.state;
+        const canEdit = uploaded && !failed;
 
-        if (!canEdit || window.origin !== instanceUrl) {
+        if (!canEdit || this.isAppInStandaloneMode) {
             return null;
         }
 
@@ -403,8 +397,8 @@ export default class UploadItemComponent extends Component {
     }
 
     renderDeleteBtn() {
-        const { uploaded, aborted, failed, uploading } = this.state;
-        const canDelete = this.props.isUploaded || (uploaded && !aborted && !uploading) || failed;
+        const { uploaded, aborted, failed } = this.state;
+        const canDelete = (uploaded && !aborted) || failed;
 
         if (!canDelete) {
             return null;
@@ -426,12 +420,12 @@ export default class UploadItemComponent extends Component {
     }
 
     render() {
-        const { failed, deleted, totalSize, errorMsgs, isMultipleErrosExpanded } = this.state;
-        const isMultipleErros = errorMsgs.length > 1;
+        const { failed, deleted, totalSize, errorMsgs, hasMultipleErrorsExpanded } = this.state;
+        const hasMultipleErrors = errorMsgs.length > 1;
         const wrapperClassName = createCssClassNames({
             'c-upload-list-item': true,
             'c-upload-list-item--errored': failed,
-            'c-upload-list-item--expanded-multiple-errors': isMultipleErrosExpanded,
+            'c-upload-list-item--expanded-multiple-errors': hasMultipleErrorsExpanded,
         });
 
         if (deleted) {
@@ -455,7 +449,7 @@ export default class UploadItemComponent extends Component {
                     {this.renderEditBtn()}
                     {this.renderDeleteBtn()}
                 </div>
-                {isMultipleErros && (
+                {hasMultipleErrors && (
                     <ul className="c-upload-list-item__multiple-errors-list">
                         {errorMsgs.map((errorMsg) => (
                             <li key={errorMsg.replace(/\s/g, '-')} className="c-upload-list-item__multiple-errors-item">

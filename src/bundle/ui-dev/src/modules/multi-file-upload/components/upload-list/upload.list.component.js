@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import UploadItemComponent from './upload.item.component';
 
 export default class UploadListComponent extends Component {
@@ -101,12 +100,9 @@ export default class UploadListComponent extends Component {
     render() {
         const { itemsToUpload } = this.props;
         const { items, erroredItems } = this.state;
-        const uploadListClassName = createCssClassNames({
-            'c-upload-list': true,
-        });
 
         return (
-            <div className={uploadListClassName}>
+            <div className="c-upload-list">
                 <div className="c-upload-list__items">
                     {itemsToUpload.map(this.renderItemToUpload.bind(this))}
                     {erroredItems.map(this.renderErroredItem.bind(this))}

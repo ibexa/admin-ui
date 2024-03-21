@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 
-import { getTranslator, getRootNode } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { getTranslator, getRootDOMElement } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 import UploadPopupComponent from './components/upload-popup/upload.popup.component';
 import { createFileStruct, publishFile, deleteFile, checkCanUpload } from './services/multi.file.upload.service';
@@ -19,7 +19,7 @@ export default class MultiFileUploadModule extends Component {
 
         let popupVisible = true;
 
-        this.configRootNode = getRootNode();
+        this.configRootNode = getRootDOMElement();
         this._itemsUploaded = [];
 
         if (!props.itemsToUpload || !props.itemsToUpload.length) {
@@ -83,11 +83,13 @@ export default class MultiFileUploadModule extends Component {
     hidePopup() {
         this.setState((state) => ({ ...state, popupVisible: false, allowDropOnWindow: true }));
         this.props.onPopupClose(this._itemsUploaded);
+        this._itemsUploaded = [];
     }
 
     confirmPopup() {
         this.setState((state) => ({ ...state, popupVisible: false, allowDropOnWindow: true }));
         this.props.onPopupConfirm(this._itemsUploaded);
+        this._itemsUploaded = [];
     }
 
     showUploadPopup() {
@@ -153,15 +155,15 @@ export default class MultiFileUploadModule extends Component {
         const Translator = getTranslator();
         const { uploadDisabled } = this.state;
         const label = Translator.trans(/*@Desc("Upload")*/ 'multi_file_upload_open_btn.label', {}, 'ibexa_multi_file_upload');
-        const isTriggerBySubitems = this.props.triggeredBy === MODULES_CAN_TRIGGER_MFU_LIST['subitems'];
+        const isTriggeredBySubitems = this.props.triggeredBy === MODULES_CAN_TRIGGER_MFU_LIST['subitems'];
         const buttonClassName = createCssClassNames({
             'ibexa-btn btn': true,
-            'ibexa-btn--secondary ibexa-btn--small': !isTriggerBySubitems,
-            'ibexa-btn--ghost': isTriggerBySubitems,
+            'ibexa-btn--secondary ibexa-btn--small': !isTriggeredBySubitems,
+            'ibexa-btn--ghost': isTriggeredBySubitems,
         });
         return (
             <button type="button" className={buttonClassName} onClick={this.showUploadPopup} disabled={uploadDisabled}>
-                <Icon name="upload" extraClasses={'ibexa-icon--small'} /> {label}
+                <Icon name="upload" extraClasses="ibexa-icon--small" /> {label}
             </button>
         );
     }

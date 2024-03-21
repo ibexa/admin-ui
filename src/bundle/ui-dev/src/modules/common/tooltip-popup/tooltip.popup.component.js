@@ -1,59 +1,56 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
-const TooltipPopupComponent = (props) => {
+const TooltipPopupComponent = ({
+    title,
+    subtitle,
+    children,
+    onConfirm,
+    confirmBtnAttrs,
+    confirmLabel,
+    onClose,
+    closeBtnAttrs,
+    closeLabel,
+    visible,
+}) => {
     const contentRef = useRef();
     const attrs = {
         className: 'c-tooltip-popup',
-        hidden: !props.visible,
+        hidden: !visible,
     };
 
     return (
         <div {...attrs}>
             <div className="c-tooltip-popup__header">
-                <h1 className="c-tooltip-popup__title">{props.title}</h1>
-                {props.subtitle && <div className="c-tooltip-popup__subtitle">{props.subtitle}</div>}
+                <h1 className="c-tooltip-popup__title">{title}</h1>
+                {subtitle && <div className="c-tooltip-popup__subtitle">{subtitle}</div>}
             </div>
             <div className="c-tooltip-popup__content" ref={contentRef}>
-                {props.children}
+                {children}
             </div>
-            {props.showFooter && (
-                <div className="c-tooltip-popup__footer">
-                    {props.onConfirm && (
-                        <button
-                            className="btn ibexa-btn ibexa-btn--primary"
-                            type="button"
-                            onClick={props.onConfirm}
-                            {...props.confirmBtnAttrs}
-                        >
-                            {props.confirmLabel}
-                        </button>
-                    )}
-                    {props.onClose && (
-                        <button
-                            className="btn ibexa-btn ibexa-btn--tertiary"
-                            type="button"
-                            onClick={props.onClose}
-                            {...props.closeBtnAttrs}
-                        >
-                            {props.closeLabel}
-                        </button>
-                    )}
-                </div>
-            )}
+            <div className="c-tooltip-popup__footer">
+                {confirmLabel && (
+                    <button className="btn ibexa-btn ibexa-btn--primary" type="button" onClick={onConfirm} {...confirmBtnAttrs}>
+                        {confirmLabel}
+                    </button>
+                )}
+                {closeLabel && (
+                    <button className="btn ibexa-btn ibexa-btn--tertiary" type="button" onClick={onClose} {...closeBtnAttrs}>
+                        {closeLabel}
+                    </button>
+                )}
+            </div>
         </div>
     );
 };
 
 TooltipPopupComponent.propTypes = {
     title: PropTypes.string.isRequired,
-    subtitle: PropTypes.string,
     children: PropTypes.node.isRequired,
     visible: PropTypes.bool.isRequired,
+    subtitle: PropTypes.string,
     onClose: PropTypes.func,
     onConfirm: PropTypes.func,
-    showFooter: PropTypes.bool,
     confirmLabel: PropTypes.string,
     closeLabel: PropTypes.string,
     confirmBtnAttrs: PropTypes.object,
@@ -64,17 +61,8 @@ TooltipPopupComponent.defaultProps = {
     subtitle: '',
     onClose: () => {},
     onConfirm: () => {},
-    showFooter: true,
-    confirmLabel: () => {
-        const Translator = getTranslator();
-
-        return Translator.trans(/*@Desc("Confirm")*/ 'tooltip.confirm_label', {}, 'ibexa_content');
-    },
-    closeLabel: () => {
-        const Translator = getTranslator();
-
-        return Translator.trans(/*@Desc("Close")*/ 'tooltip.close_label', {}, 'ibexa_content');
-    },
+    confirmLabel: '',
+    closeLabel: '',
     confirmBtnAttrs: {},
     closeBtnAttrs: {},
 };
