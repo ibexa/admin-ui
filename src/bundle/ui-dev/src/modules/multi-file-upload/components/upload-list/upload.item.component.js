@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { getContentTypeIconUrl } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/content.type.helper';
 import { getTranslator, isAppInStandaloneMode } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
@@ -315,10 +315,9 @@ export default class UploadItemComponent extends Component {
 
     renderSuccessMessage() {
         const Translator = getTranslator();
-        const { uploaded, aborted, failed, uploading } = this.state;
-        const isSuccess = uploaded && !aborted && !failed && !uploading;
+        const { uploaded } = this.state;
 
-        if (!isSuccess) {
+        if (!uploaded) {
             return;
         }
 
@@ -334,8 +333,8 @@ export default class UploadItemComponent extends Component {
 
     renderAbortBtn() {
         const Translator = getTranslator();
-        const { uploaded, aborted, failed, uploading } = this.state;
-        const canAbort = !uploaded && !aborted && !failed && uploading;
+        const { uploading } = this.state;
+        const canAbort = uploading;
 
         if (!canAbort) {
             return null;
