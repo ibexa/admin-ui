@@ -102,7 +102,7 @@ const BookmarksTabModule = () => {
     return (
         <div className="m-bookmarks-tab">
             <Tab>
-                {restorationStateRef.current ? (
+                {restorationStateRef.current && (
                     <>
                         <BookmarksList
                             itemsPerPage={tabsConfig.bookmarks.itemsPerPage}
@@ -110,7 +110,7 @@ const BookmarksTabModule = () => {
                         />
                         {renderBrowseLocations()}
                     </>
-                ) : null}
+                )}
             </Tab>
         </div>
     );
