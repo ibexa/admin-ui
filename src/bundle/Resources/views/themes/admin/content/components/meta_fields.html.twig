@@ -1,6 +1,7 @@
 {% extends '@ibexadesign/ui/component/anchor_navigation/section_group.html.twig' %}
 
 {% set data_id = 'ibexa-edit-content-sections-meta' %}
+{% set is_section_visible = show_meta_fields|default(false) %}
 
 {% block sections %}
     {% for identifier in meta_fields %}
