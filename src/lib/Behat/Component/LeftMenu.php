@@ -20,6 +20,7 @@ class LeftMenu extends Component
         $menuButton = $this->getHTMLPage()->setTimeout(5)
             ->findAll($this->getLocator('menuItem'))
             ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName));
+        $menuButton->click();
         $menuButton->find(new VisibleCSSLocator('activeMarker', '.ibexa-main-menu__item-action.active'))->assert()->isVisible();
     }
 
