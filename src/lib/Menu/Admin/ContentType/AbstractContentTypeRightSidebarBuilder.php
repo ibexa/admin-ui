@@ -9,10 +9,9 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Menu\Admin\ContentType;
 
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
-use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 
-abstract class AbstractContentTypeRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
+abstract class AbstractContentTypeRightSidebarBuilder extends AbstractBuilder
 {
     public function createStructure(array $options): ItemInterface
     {
