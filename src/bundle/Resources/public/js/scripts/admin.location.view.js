@@ -150,7 +150,6 @@
 
             return contentTypeDataMap;
         }, {});
-
         const mfuAttrs = {
             adminUiConfig: {
                 ...ibexa.adminUiConfig,

@@ -10,10 +10,10 @@ export default class DropAreaComponent extends Component {
         super(props);
 
         this._refFileInput = null;
+        this.hasMultiMsgForFileSizes = this.props.maxFileSizes.length > 1;
 
         this.state = {
             filesSizeExpanded: false,
-            isMaxFileSizesMultiMsg: this.props.maxFileSizes.length > 1,
         };
 
         this.openFileSelector = this.openFileSelector.bind(this);
@@ -50,19 +50,16 @@ export default class DropAreaComponent extends Component {
     }
 
     renderMaxFileMsgsToggler() {
-        const { isMaxFileSizesMultiMsg } = this.state;
+        const Translator = getTranslator();
 
-        if (!isMaxFileSizesMultiMsg) {
+        if (!this.hasMultiMsgForFileSizes) {
             return null;
         }
-
-        const Translator = getTranslator();
 
         return (
             <li className="c-drop-area__max-file-size-item">
                 <Icon name="about-info" extraClasses="c-drop-area__max-file-size-icon ibexa-icon--small" />
                 {Translator.trans(/*@Desc("Max. file size")*/ 'max_file_size.message.general', {}, 'ibexa_multi_file_upload')}
-
                 <button
                     type="button"
                     className="c-drop-area__max-file-size-toggle-btn"
@@ -78,25 +75,28 @@ export default class DropAreaComponent extends Component {
 
     renderMaxFileSizeItems() {
         const Translator = getTranslator();
-        const { isMaxFileSizesMultiMsg } = this.state;
 
         return (
             <>
-                {this.props.maxFileSizes.map((contentType) => (
-                    <li key={contentType.name.replace(/\s/g, '-')} className="c-drop-area__max-file-size-item">
-                        {!isMaxFileSizesMultiMsg && (
-                            <Icon name="about-info" extraClasses="c-drop-area__max-file-size-icon ibexa-icon--small" />
-                        )}
-                        {Translator.trans(
-                            /*@Desc("%contentTypeName% max file size: %maxFileSize%")*/ 'max_file_size.message',
-                            {
-                                contentTypeName: contentType.name,
-                                maxFileSize: fileSizeToString(contentType.maxFileSize),
-                            },
-                            'ibexa_multi_file_upload',
-                        )}
-                    </li>
-                ))}
+                {this.props.maxFileSizes.map((contentType) => {
+                    const itemKey = contentType.name.replace(/\s/g, '-');
+
+                    return (
+                        <li key={itemKey} className="c-drop-area__max-file-size-item">
+                            {!this.hasMultiMsgForFileSizes && (
+                                <Icon name="about-info" extraClasses="c-drop-area__max-file-size-icon ibexa-icon--small" />
+                            )}
+                            {Translator.trans(
+                                /*@Desc("%contentTypeName% max file size: %maxFileSize%")*/ 'max_file_size.message',
+                                {
+                                    contentTypeName: contentType.name,
+                                    maxFileSize: fileSizeToString(contentType.maxFileSize),
+                                },
+                                'ibexa_multi_file_upload',
+                            )}
+                        </li>
+                    );
+                })}
             </>
         );
     }
@@ -155,7 +155,7 @@ export default class DropAreaComponent extends Component {
 }
 
 DropAreaComponent.propTypes = {
-    maxFileSizes: PropTypes.object.isRequired,
+    maxFileSizes: PropTypes.objectOf(PropTypes.number).isRequired,
     processUploadedFiles: PropTypes.func.isRequired,
     preventDefaultAction: PropTypes.func.isRequired,
     addItemsToUpload: PropTypes.func.isRequired,
