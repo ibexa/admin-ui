@@ -131,14 +131,14 @@ export default class UploadItemComponent extends Component {
         );
     }
 
-    handleFileValidationError(errorMsg) {
+    handleFileValidationError(errorMsgs) {
         this.setState(
-            (prevState) => ({
+            () => ({
                 uploading: false,
                 uploaded: false,
                 aborted: false,
                 failed: true,
-                errorMsgs: [...prevState.errorMsgs, errorMsg],
+                errorMsgs,
             }),
             () => this.props.onCreateError({ ...this.props.item, errorMsgs: this.state.errorMsgs }),
         );
@@ -334,9 +334,8 @@ export default class UploadItemComponent extends Component {
     renderAbortBtn() {
         const Translator = getTranslator();
         const { uploading } = this.state;
-        const canAbort = uploading;
 
-        if (!canAbort) {
+        if (!uploading) {
             return null;
         }
 

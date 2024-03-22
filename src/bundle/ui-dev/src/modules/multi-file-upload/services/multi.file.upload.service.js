@@ -245,30 +245,31 @@ const getMaxFileSize = (file, parentInfo, config) => {
 };
 
 export const checkCanUpload = (file, parentInfo, config, errorCallback) => {
+    const errorMsgs = [];
     const Translator = getTranslator();
     const locationMapping = config.locationMappings.find((item) => item.contentTypeIdentifier === parentInfo.contentTypeIdentifier);
     const maxFileSize = getMaxFileSize(file, parentInfo, config);
 
     if (!canCreateContent(file, parentInfo, config)) {
-        errorCallback(
+        errorMsgs.push(
             Translator.trans(
                 /*@Desc("You do not have permission to create this Content item")*/ 'disallowed_content_type.message',
                 {},
                 'ibexa_multi_file_upload',
             ),
         );
-
-        return false;
     }
-    if (!checkFileTypeAllowed(file, locationMapping)) {
-        errorCallback(Translator.trans(/*@Desc("File type is not allowed")*/ 'disallowed_type.message', {}, 'ibexa_multi_file_upload'));
 
-        return false;
+    if (!checkFileTypeAllowed(file, locationMapping)) {
+        errorMsgs.push(Translator.trans(/*@Desc("File type is not allowed")*/ 'disallowed_type.message', {}, 'ibexa_multi_file_upload'));
     }
 
     if (file.size > maxFileSize) {
-        errorCallback(Translator.trans(/*@Desc("File size is not allowed")*/ 'disallowed_size.message', {}, 'ibexa_multi_file_upload'));
+        errorMsgs.push(Translator.trans(/*@Desc("File size is not allowed")*/ 'disallowed_size.message', {}, 'ibexa_multi_file_upload'));
+    }
 
+    if (errorMsgs.length) {
+        errorCallback(errorMsgs);
         return false;
     }
 
