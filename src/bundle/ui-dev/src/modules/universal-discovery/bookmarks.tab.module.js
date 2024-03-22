@@ -102,8 +102,15 @@ const BookmarksTabModule = () => {
     return (
         <div className="m-bookmarks-tab">
             <Tab>
-                <BookmarksList itemsPerPage={tabsConfig.bookmarks.itemsPerPage} setBookmarkedLocationMarked={setBookmarkedLocationMarked} />
-                {isMarkedLocationSetByBookmarksRef.current && renderBrowseLocations()}
+                {restorationStateRef.current && (
+                    <>
+                        <BookmarksList
+                            itemsPerPage={tabsConfig.bookmarks.itemsPerPage}
+                            setBookmarkedLocationMarked={setBookmarkedLocationMarked}
+                        />
+                        {renderBrowseLocations()}
+                    </>
+                )}
             </Tab>
         </div>
     );

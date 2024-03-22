@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import Icon from '../common/icon/icon';
 import Thumbnail from '../common/thumbnail/thumbnail';
 import { createCssClassNames } from '../common/helpers/css.class.names';
+import { findMarkedLocation } from './helpers/locations.helper';
 import { addBookmark, removeBookmark } from './services/universal.discovery.service';
 import ContentEditButton from './components/content-edit-button/content.edit.button';
 import {
@@ -17,11 +18,6 @@ import { formatShortDateTime } from '@ibexa-admin-ui/src/bundle/Resources/public
 import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 import { getTranslator, getRouting, getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
-export const getLocationData = (loadedLocationsMap, markedLocationId) =>
-    loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === markedLocationId) ||
-    (loadedLocationsMap.length &&
-        loadedLocationsMap[loadedLocationsMap.length - 1].subitems.find((subitem) => subitem.location.id === markedLocationId));
-
 const ContentMetaPreview = () => {
     const Translator = getTranslator();
     const Routing = getRouting();
@@ -32,7 +28,7 @@ const ContentMetaPreview = () => {
     const contentTypesMap = useContext(ContentTypesMapContext);
     const restInfo = useContext(RestInfoContext);
     const allowRedirects = useContext(AllowRedirectsContext);
-    const locationData = useMemo(() => getLocationData(loadedLocationsMap, markedLocationId), [markedLocationId, loadedLocationsMap]);
+    const locationData = useMemo(() => findMarkedLocation(loadedLocationsMap, markedLocationId), [markedLocationId, loadedLocationsMap]);
     const lastModifiedLabel = Translator.trans(/*@Desc("Modified")*/ 'meta_preview.last_modified', {}, 'ibexa_universal_discovery_widget');
     const creationDateLabel = Translator.trans(/*@Desc("Created")*/ 'meta_preview.creation_date', {}, 'ibexa_universal_discovery_widget');
     const translationsLabel = Translator.trans(
