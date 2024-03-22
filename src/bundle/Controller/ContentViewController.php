@@ -172,6 +172,7 @@ class ContentViewController extends Controller
 
         $this->supplyContentType($view);
         $this->supplyDraftPagination($view, $request);
+        $this->supplyRelationPagination($view, $request);
         $this->supplyReverseRelationPagination($view, $request);
         $this->supplyCustomUrlPagination($view, $request);
         $this->supplySystemUrlPagination($view, $request);
@@ -354,6 +355,21 @@ class ContentViewController extends Controller
                 'page' => $page['version_draft'] ?? 1,
                 'pages_map' => $page,
                 'limit' => $this->configResolver->getParameter('pagination.version_draft_limit'),
+            ],
+        ]);
+    }
+
+    private function supplyRelationPagination(ContentView $view, Request $request): void
+    {
+        $page = $request->query->all('page');
+
+        $view->addParameters([
+            'relation_pagination_params' => [
+                'route_name' => $request->get('_route'),
+                'route_params' => $request->get('_route_params'),
+                'page' => $page['relation'] ?? 1,
+                'pages_map' => $page,
+                'limit' => $this->configResolver->getParameter('pagination.relation_limit'),
             ],
         ]);
     }

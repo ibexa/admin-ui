@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\LocationView;
 
+use Ibexa\AdminUi\Pagination\Pagerfanta\RelationAdapter;
 use Ibexa\AdminUi\Pagination\Pagerfanta\ReverseRelationAdapter;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
@@ -129,21 +130,26 @@ class RelationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
         ));
 
         $contentTypeIds = [];
-
-        $relationListDataset = $this->datasetFactory->relationList();
-        $relationListDataset->load($content);
-        $relations = $relationListDataset->getRelations();
+        $relationPagination = new Pagerfanta(
+            new RelationAdapter($this->contentService, $this->datasetFactory, $content)
+        );
+        $relationPaginationParams = $contextParameters['relation_pagination_params'];
+        $relationPagination->setMaxPerPage($relationPaginationParams['limit']);
+        $relationPagination->setCurrentPage(min(
+            max($relationPaginationParams['page'], 1),
+            $relationPagination->getNbPages()
+        ));
 
         $viewParameters = [];
-
+        $relations = $relationPagination->getCurrentPageResults();
         foreach ($relations as $relation) {
             if ($relation->isAccessible()) {
                 /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Relation $relation */
                 $contentTypeIds[] = $relation->getDestinationContentInfo()->contentTypeId;
             }
         }
-
-        $viewParameters['relations'] = $relations;
+        $viewParameters['relation_pager'] = $relationPagination;
+        $viewParameters['relation_pagination_params'] = $relationPaginationParams;
 
         if ($this->permissionResolver->canUser('content', 'reverserelatedlist', $content)) {
             $reverseRelations = $reverseRelationPagination->getCurrentPageResults();
