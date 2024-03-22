@@ -47,9 +47,16 @@ export default class UploadListComponent extends Component {
 
     handleCreateError(item) {
         this.props.removeItemsToUpload([item]);
-        this.setState((state) => ({
-            erroredItems: [...state.erroredItems, item],
-        }));
+
+        this.setState((state) => {
+            const isAlredyAddedToErroredItems = !!state.erroredItems.find((erroredItem) => erroredItem.id === item.id);
+
+            if (!isAlredyAddedToErroredItems) {
+                return {
+                    erroredItems: [...state.erroredItems, item],
+                };
+            }
+        });
     }
 
     renderItemToUpload(item) {
