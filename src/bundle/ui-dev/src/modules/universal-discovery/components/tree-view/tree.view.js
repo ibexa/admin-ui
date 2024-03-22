@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import { getId as getUserId } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/user.helper';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
+import { findMarkedLocation } from '../../helpers/locations.helper';
 
 import ContentTreeModule from '../../../content-tree/content.tree.module';
 import { loadAccordionData } from '../../services/universal.discovery.service';
-import { getLocationData } from '../../content.meta.preview.module';
 import {
     AllowedContentTypesContext,
     ContainersOnlyContext,
@@ -35,7 +35,7 @@ const TreeView = ({ itemsPerPage }) => {
     const contentTypesMap = useContext(ContentTypesMapContext);
     const restInfo = useContext(RestInfoContext);
     const rootLocationId = useContext(RootLocationIdContext);
-    const locationData = useMemo(() => getLocationData(loadedLocationsMap, markedLocationId), [markedLocationId, loadedLocationsMap]);
+    const locationData = useMemo(() => findMarkedLocation(loadedLocationsMap, markedLocationId), [markedLocationId, loadedLocationsMap]);
     const userId = getUserId();
     const expandItem = (item, event) => {
         event.preventDefault();
