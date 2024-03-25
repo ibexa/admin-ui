@@ -13,12 +13,17 @@ use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
 /**
+ * @template TFolderConfig of array{
+ *     contentTypeIdentifier: string,
+ *     nameFieldIdentifier: string
+ * }
  * @template TConfig of array{
  *     image: array{
  *         fieldDefinitionIdentifiers: array<string>,
  *         contentTypeIdentifiers: array<string>,
  *         aggregations: array<string, array<string, string>>,
- *     }
+ *     },
+ *     folder: TFolderConfig
  *  }
  */
 final class DamWidget implements ProviderInterface
@@ -46,7 +51,8 @@ final class DamWidget implements ProviderInterface
      *         contentTypeIdentifiers: array<string>,
      *         aggregations: array<string, array<string, string>>,
      *         showImageFilters: bool,
-     *     }
+     *     },
+     *     folder: TFolderConfig
      * }
      *
      * @throws \Ibexa\Bundle\Core\ApiLoader\Exception\InvalidSearchEngine
