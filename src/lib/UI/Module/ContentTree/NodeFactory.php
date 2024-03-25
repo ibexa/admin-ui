@@ -19,14 +19,12 @@ use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\TermAggregationResult;
-use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
-use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Helper\TranslationHelper;
@@ -112,7 +110,7 @@ final class NodeFactory implements LoggerAwareInterface
         int $depth = 0,
         ?string $sortClause = null,
         string $sortOrder = Query::SORT_ASC,
-        Filter $filter = null
+        ?Criterion $requestFilter = null
     ): Node {
         $uninitializedContentInfoList = [];
         $containerLocations = [];
@@ -130,17 +128,17 @@ final class NodeFactory implements LoggerAwareInterface
             $sortClause,
             $sortOrder,
             $bookmarkedLocations,
-            $filter
+            $requestFilter
         );
         $versionInfoById = $this->contentService->loadVersionInfoListByContentInfo($uninitializedContentInfoList);
 
         $aggregatedChildrenCount = null;
         if ($this->searchService->supports(SearchService::CAPABILITY_AGGREGATIONS)) {
-            $aggregatedChildrenCount = $this->countAggregatedSubitems($containerLocations);
+            $aggregatedChildrenCount = $this->countAggregatedSubitems($containerLocations, $requestFilter);
         }
 
         $this->supplyTranslatedContentName($node, $versionInfoById);
-        $this->supplyChildrenCount($node, $aggregatedChildrenCount, $filter);
+        $this->supplyChildrenCount($node, $aggregatedChildrenCount, $requestFilter);
 
         return $node;
     }
@@ -166,31 +164,24 @@ final class NodeFactory implements LoggerAwareInterface
         int $offset = 0,
         ?string $sortClause = null,
         string $sortOrder = Query::SORT_ASC,
-        Filter $filter = null
-    ): LocationList {
-        $searchQuery = $this->getSearchQuery($parentLocation->id, $filter);
+        ?Criterion $requestFilter = null
+    ): SearchResult {
+        $searchQuery = $this->getSearchQuery($parentLocation->id, $requestFilter);
 
-        $searchQuery->withLimit($limit);
-        $searchQuery->withOffset($offset);
-        foreach ($this->getSortClauses($sortClause, $sortOrder, $parentLocation) as $sortClause) {
-            $searchQuery->withSortClause($sortClause);
-        }
+        $searchQuery->limit = $limit;
+        $searchQuery->offset = $offset;
+        $searchQuery->sortClauses = $this->getSortClauses($sortClause, $sortOrder, $parentLocation);
 
-        $locationService = $this->repository->getLocationService();
-
-        return $locationService->find($searchQuery);
+        return $this->searchService->findLocations($searchQuery);
     }
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation
      */
-    private function getSearchQuery(int $parentLocationId, Filter $requestFilter = null): Filter
+    private function getSearchQuery(int $parentLocationId, ?Criterion $requestFilter = null): LocationQuery
     {
-        $filter = empty($requestFilter)
-            ? new Filter()
-            : new Filter($requestFilter->getCriterion(), $requestFilter->getSortClauses());
-
-        $filter->andWithCriterion(new Criterion\ParentLocationId($parentLocationId));
+        $searchQuery = new LocationQuery();
+        $searchQuery->filter = new Criterion\ParentLocationId($parentLocationId);
 
         $contentTypeCriterion = null;
 
@@ -205,10 +196,14 @@ final class NodeFactory implements LoggerAwareInterface
         }
 
         if (null !== $contentTypeCriterion) {
-            $filter->andWithCriterion($contentTypeCriterion);
+            $searchQuery->filter = new Criterion\LogicalAnd([$searchQuery->filter, $contentTypeCriterion]);
         }
 
-        return $filter;
+        if (null !== $requestFilter) {
+            $searchQuery->filter = new Criterion\LogicalAnd([$searchQuery->filter, $requestFilter]);
+        }
+
+        return $searchQuery;
     }
 
     private function findChild(int $locationId, LoadSubtreeRequestNode $loadSubtreeRequestNode): ?LoadSubtreeRequestNode
@@ -225,19 +220,24 @@ final class NodeFactory implements LoggerAwareInterface
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    private function countSubitems(int $parentLocationId, Filter $filter = null): int
+    private function countSubitems(int $parentLocationId, ?Criterion $requestFilter = null): int
     {
-        $searchQuery = $this->getSearchQuery($parentLocationId, $filter);
+        $searchQuery = $this->getSearchQuery($parentLocationId, $requestFilter);
 
-        $locationService = $this->repository->getLocationService();
+        $searchQuery->limit = 0;
+        $searchQuery->offset = 0;
+        $searchQuery->performCount = true;
 
-        return $locationService->count($searchQuery);
+        return $this->searchService->findLocations($searchQuery)->totalCount;
     }
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $containerLocations
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException
      */
-    private function countAggregatedSubitems(array $containerLocations): array
+    private function countAggregatedSubitems(array $containerLocations, ?Criterion $requestFilter): array
     {
         if (empty($containerLocations)) {
             return [];
@@ -248,7 +248,7 @@ final class NodeFactory implements LoggerAwareInterface
 
             $result = [];
             foreach ($containerLocationsChunks as $containerLocationsChunk) {
-                $result = array_replace($result, $this->countAggregatedSubitems($containerLocationsChunk));
+                $result = array_replace($result, $this->countAggregatedSubitems($containerLocationsChunk, $requestFilter));
             }
 
             return $result;
@@ -261,6 +261,10 @@ final class NodeFactory implements LoggerAwareInterface
         $locationChildrenTermAggregation = new Query\Aggregation\Location\LocationChildrenTermAggregation('childrens');
         $locationChildrenTermAggregation->setLimit(\count($parentLocationIds));
         $searchQuery->aggregations[] = $locationChildrenTermAggregation;
+
+        if (null !== $requestFilter) {
+            $searchQuery->filter = new Criterion\LogicalAnd([$searchQuery->filter, $requestFilter]);
+        }
 
         $result = $this->searchService->findLocations($searchQuery);
 
@@ -297,7 +301,7 @@ final class NodeFactory implements LoggerAwareInterface
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    private function buildSortClause(string $sortClause, string $sortOrder): FilteringSortClause
+    private function buildSortClause(string $sortClause, string $sortOrder): SortClause
     {
         if (!isset(static::SORT_CLAUSE_MAP[$sortClause])) {
             throw new InvalidArgumentException('$sortClause', 'Invalid sort clause');
@@ -305,6 +309,7 @@ final class NodeFactory implements LoggerAwareInterface
 
         $map = static::SORT_CLAUSE_MAP;
 
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause $sortClauseInstance */
         $sortClauseInstance = new $map[$sortClause]();
         $sortClauseInstance->direction = $sortOrder;
 
@@ -312,7 +317,7 @@ final class NodeFactory implements LoggerAwareInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause[]
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
@@ -326,24 +331,7 @@ final class NodeFactory implements LoggerAwareInterface
         }
 
         try {
-            $sortClauses = $parentLocation->getSortClauses();
-            /** @var \Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause[] $filteringSortClauses */
-            $filteringSortClauses = array_filter($sortClauses, function (SortClause $sortClause): bool {
-                if (!$sortClause instanceof FilteringSortClause) {
-                    $this->logger->warning(
-                        sprintf(
-                            'SortClause %s cannot be used',
-                            get_class($sortClause),
-                        )
-                    );
-
-                    return false;
-                }
-
-                return true;
-            });
-
-            return $filteringSortClauses;
+            return $parentLocation->getSortClauses();
         } catch (NotImplementedException $e) {
             return []; // rely on storage engine default sorting
         }
@@ -367,7 +355,7 @@ final class NodeFactory implements LoggerAwareInterface
         ?string $sortClause = null,
         string $sortOrder = Query::SORT_ASC,
         array $bookmarkLocations = [],
-        Filter $filter = null
+        ?Criterion $requestFilter = null
     ): Node {
         $contentInfo = $location->getContentInfo();
         $contentId = $location->contentId;
@@ -395,11 +383,11 @@ final class NodeFactory implements LoggerAwareInterface
         $totalChildrenCount = 0;
         $children = [];
         if ($loadChildren && $depth < $this->getSetting('tree_max_depth')) {
-            $searchResult = $this->findSubitems($location, $limit, $offset, $sortClause, $sortOrder, $filter);
+            $searchResult = $this->findSubitems($location, $limit, $offset, $sortClause, $sortOrder, $requestFilter);
             $totalChildrenCount = (int) $searchResult->totalCount;
 
             /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $childLocation */
-            foreach ($searchResult as $childLocation) {
+            foreach (array_column($searchResult->searchHits, 'valueObject') as $childLocation) {
                 $childLoadSubtreeRequestNode = null !== $loadSubtreeRequestNode
                     ? $this->findChild($childLocation->id, $loadSubtreeRequestNode)
                     : null;
@@ -414,7 +402,7 @@ final class NodeFactory implements LoggerAwareInterface
                     null,
                     Query::SORT_ASC,
                     $bookmarkLocations,
-                    $filter
+                    $requestFilter
                 );
             }
         }
@@ -472,20 +460,23 @@ final class NodeFactory implements LoggerAwareInterface
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    private function supplyChildrenCount(Node $node, ?array $aggregationResult = null, Filter $filter = null): void
-    {
+    private function supplyChildrenCount(
+        Node $node,
+        ?array $aggregationResult = null,
+        ?Criterion $requestFilter = null
+    ): void {
         if ($node->isContainer) {
             if ($aggregationResult !== null) {
                 $totalCount = $aggregationResult[$node->locationId] ?? 0;
             } else {
-                $totalCount = $this->countSubitems($node->locationId, $filter);
+                $totalCount = $this->countSubitems($node->locationId, $requestFilter);
             }
 
             $node->totalChildrenCount = $totalCount;
         }
 
         foreach ($node->children as $child) {
-            $this->supplyChildrenCount($child, $aggregationResult, $filter);
+            $this->supplyChildrenCount($child, $aggregationResult, $requestFilter);
         }
     }
 
