@@ -21,7 +21,9 @@ use PHPUnit\Framework\TestCase;
  *         contentTypeIdentifiers: array<string>,
  *         aggregations: aggregations: array<string, array<string, string>>,
  *         showImageFilters: bool,
- *     }
+ *     },
+ *     contentTypeIdentifier: string,
+ *     nameFieldIdentifier: string,
  * }
  * @template TRepositoryConfig of array {
  *      engine: string,
@@ -35,8 +37,8 @@ use PHPUnit\Framework\TestCase;
  */
 final class DamWidgetTest extends TestCase
 {
-    private const FIELD_DEFINITION_IDENTIFIERS = ['field_foo', 'field_bar'];
-    private const CONTENT_TYPE_IDENTIFIERS = ['content_type_foo', 'content_type_bar'];
+    private const IMAGE_FIELD_DEFINITION_IDENTIFIERS = ['field_foo', 'field_bar'];
+    private const IMAGE_CONTENT_TYPE_IDENTIFIERS = ['content_type_foo', 'content_type_bar'];
     private const IMAGE_AGGREGATIONS = [
         'KeywordTermAggregation' => [
             'name' => 'keywords',
@@ -44,6 +46,9 @@ final class DamWidgetTest extends TestCase
             'fieldDefinitionIdentifier' => 'keywords',
         ],
     ];
+
+    private const FOLDER_CONTENT_TYPE_IDENTIFIER = 'folder';
+    private const FOLDER_NAME_FIELD_IDENTIFIER = 'name';
 
     private ProviderInterface $provider;
 
@@ -56,9 +61,13 @@ final class DamWidgetTest extends TestCase
         $this->provider = new DamWidget(
             [
                 'image' => [
-                    'fieldDefinitionIdentifiers' => self::FIELD_DEFINITION_IDENTIFIERS,
-                    'contentTypeIdentifiers' => self::CONTENT_TYPE_IDENTIFIERS,
+                    'fieldDefinitionIdentifiers' => self::IMAGE_FIELD_DEFINITION_IDENTIFIERS,
+                    'contentTypeIdentifiers' => self::IMAGE_CONTENT_TYPE_IDENTIFIERS,
                     'aggregations' => self::IMAGE_AGGREGATIONS,
+                ],
+                'folder' => [
+                    'contentTypeIdentifier' => self::FOLDER_CONTENT_TYPE_IDENTIFIER,
+                    'nameFieldIdentifier' => self::FOLDER_NAME_FIELD_IDENTIFIER,
                 ],
             ],
             $this->repositoryConfigurationProvider
@@ -130,10 +139,14 @@ final class DamWidgetTest extends TestCase
     {
         return [
             'image' => [
-                'fieldDefinitionIdentifiers' => self::FIELD_DEFINITION_IDENTIFIERS,
-                'contentTypeIdentifiers' => self::CONTENT_TYPE_IDENTIFIERS,
+                'fieldDefinitionIdentifiers' => self::IMAGE_FIELD_DEFINITION_IDENTIFIERS,
+                'contentTypeIdentifiers' => self::IMAGE_CONTENT_TYPE_IDENTIFIERS,
                 'aggregations' => self::IMAGE_AGGREGATIONS,
                 'showImageFilters' => $showImageFilters,
+            ],
+            'folder' => [
+                'contentTypeIdentifier' => self::FOLDER_CONTENT_TYPE_IDENTIFIER,
+                'nameFieldIdentifier' => self::FOLDER_NAME_FIELD_IDENTIFIER,
             ],
         ];
     }
