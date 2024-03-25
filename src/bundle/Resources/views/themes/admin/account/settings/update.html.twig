@@ -6,7 +6,17 @@
 {% block body_class %}ibexa-user-settings-update-view{% endblock %}
 
 {% block header %}
-    {% set user_setting_update_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_setting_update.sidebar_right', [], {'user_setting': user_setting}) %}
+    {% set route = app.request.query.get('route')|default(null) %}
+    {% set content_id = app.request.query.get('contentId')|default(null) %}
+    {% set version_no = app.request.query.get('versionNo')|default(null) %}
+    {% set language = app.request.query.get('language')|default(null) %}
+    {% set user_setting_update_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_setting_update.sidebar_right', [], {
+        'route': route,
+        'content_id': content_id,
+        'version_no': version_no,
+        'language': language,
+        'user_setting': user_setting,
+    }) %}
 
     {% include '@ibexadesign/ui/edit_header.html.twig' with {
         action_name: 'list.action_name'|trans({'%action%': title|lower})|desc('Editing %action%'),
