@@ -47,7 +47,7 @@
         "symfony/yaml": "^5.0",
         "symfony/webpack-encore-bundle": "^v1.17",
         "jms/translation-bundle": "^1.5",
-        "ibexa/core": "~4.5.0@dev",
+        "ibexa/core": "dev-ibx-7717-add-getters-for-lookup-limitation-result as 4.5.x-dev",
         "ibexa/content-forms": "~4.5.0@dev",
         "ibexa/design-engine": "~4.5.0@dev",
         "ibexa/user": "~4.5.0@dev",

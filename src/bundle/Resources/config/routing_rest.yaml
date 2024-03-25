@@ -36,6 +36,15 @@ ibexa.rest.location.tree.load_subtree:
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\Content\ContentTreeController::loadSubtreeAction'
 
+ibexa.rest.location.tree.load_node_extended_info:
+    # @todo change name to content tree
+    path: /location/tree/load-node-extended-info
+    methods: ['POST']
+    options:
+        expose: true
+    defaults:
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\Content\ContentTreeController::loadNodeExtendedInfoAction'
+
 #
 # Content type create/edit form
 #

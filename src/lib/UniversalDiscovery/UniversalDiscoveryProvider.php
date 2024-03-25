@@ -194,7 +194,7 @@ class UniversalDiscoveryProvider implements Provider
         );
 
         $updateLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
-            $lookupCreateLimitationsResult,
+            $lookupUpdateLimitationsResult,
             [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
         );
 
