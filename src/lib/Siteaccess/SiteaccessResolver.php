@@ -71,21 +71,17 @@ class SiteaccessResolver implements SiteaccessResolverInterface
         return array_column($this->getSiteAccessesListForLocation($location, $versionNo, $languageCode), 'name');
     }
 
-    /**
-     * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
-     */
     public function getSiteAccessesListForLocation(
         Location $location,
         ?int $versionNo = null,
-        ?string $languageCode = null
+        ?string $languageCode = null,
+        array $siteAccessList = []
     ): array {
         $contentInfo = $location->getContentInfo();
         $versionInfo = $this->contentService->loadVersionInfo($contentInfo, $versionNo);
         $languageCode = $languageCode ?? $contentInfo->mainLanguageCode;
-
         $eligibleSiteAccesses = [];
-        /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteAccess */
-        foreach ($this->siteAccessService->getAll() as $siteAccess) {
+        foreach ($this->getSiteAccessListToCheck($siteAccessList) as $siteAccess) {
             $context = new SiteaccessPreviewVoterContext($location, $versionInfo, $siteAccess->name, $languageCode);
             foreach ($this->siteAccessPreviewVoters as $siteAccessPreviewVoter) {
                 if ($siteAccessPreviewVoter->vote($context)) {
@@ -98,8 +94,10 @@ class SiteaccessResolver implements SiteaccessResolverInterface
         return $eligibleSiteAccesses;
     }
 
-    public function getSiteAccessesListForContent(Content $content): array
-    {
+    public function getSiteAccessesListForContent(
+        Content $content,
+        array $siteAccessList = []
+    ): array {
         $versionInfo = $content->getVersionInfo();
         $contentInfo = $versionInfo->getContentInfo();
 
@@ -116,7 +114,12 @@ class SiteaccessResolver implements SiteaccessResolverInterface
         foreach ($eligibleLocations as $location) {
             foreach ($eligibleLanguages as $language) {
                 $siteAccesses = array_merge(
-                    $this->getSiteAccessesListForLocation($location, null, $language->languageCode),
+                    $this->getSiteAccessesListForLocation(
+                        $location,
+                        null,
+                        $language->languageCode,
+                        $siteAccessList
+                    ),
                     $siteAccesses
                 );
             }
@@ -136,6 +139,16 @@ class SiteaccessResolver implements SiteaccessResolverInterface
     public function getSiteAccessesList(): array
     {
         return iterator_to_array($this->siteAccessService->getAll());
+    }
+
+    /**
+     * @param array<\Ibexa\Core\MVC\Symfony\SiteAccess> $siteAccessList
+     *
+     * @return iterable<\Ibexa\Core\MVC\Symfony\SiteAccess>
+     */
+    private function getSiteAccessListToCheck(array $siteAccessList = []): iterable
+    {
+        return !empty($siteAccessList) ? $siteAccessList : $this->siteAccessService->getAll();
     }
 }
 

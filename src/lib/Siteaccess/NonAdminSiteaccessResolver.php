@@ -46,23 +46,33 @@ class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
     }
 
     /**
+     * @param \Ibexa\Core\MVC\Symfony\SiteAccess[] $siteAccessList
+     *
      * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
      */
     public function getSiteAccessesListForLocation(
         Location $location,
         ?int $versionNo = null,
-        ?string $languageCode = null
+        ?string $languageCode = null,
+        array $siteAccessList = []
     ): array {
         return array_filter(
-            $this->siteaccessResolver->getSiteAccessesListForLocation($location, $versionNo, $languageCode),
+            $this->siteaccessResolver->getSiteAccessesListForLocation(
+                $location,
+                $versionNo,
+                $languageCode,
+                $siteAccessList
+            ),
             fn (SiteAccess $siteAccess): bool => !$this->isAdminSiteAccess($siteAccess)
         );
     }
 
-    public function getSiteAccessesListForContent(Content $content): array
-    {
+    public function getSiteAccessesListForContent(
+        Content $content,
+        array $siteAccessList = []
+    ): array {
         return array_filter(
-            $this->siteaccessResolver->getSiteAccessesListForContent($content),
+            $this->siteaccessResolver->getSiteAccessesListForContent($content, $siteAccessList),
             fn (SiteAccess $siteAccess): bool => !$this->isAdminSiteAccess($siteAccess)
         );
     }
