@@ -34,6 +34,7 @@ class LeftMenu extends Component
             ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName));
 
         $menuButton->click();
+        sleep(5);
         $this->getHTMLPage()
         ->setTimeout(10)->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('menuSecondLevel')));
 
