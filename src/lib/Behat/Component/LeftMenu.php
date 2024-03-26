@@ -33,7 +33,8 @@ class LeftMenu extends Component
         $menuButton->click();
         $dashboardIcon->mouseOver();
 
-        $this->getHTMLPage()->find($this->getLocator('menuSecondLevel'))->mouseOver();
+        $this->getHTMLPage()
+            ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
 
         $this->getHTMLPage()->setTimeout(5)
             ->findAll($this->getLocator('expandedMenuItem'))
