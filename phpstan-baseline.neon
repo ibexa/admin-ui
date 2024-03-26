@@ -8381,11 +8381,6 @@ parameters:
 			path: src/lib/REST/Input/Parser/BulkOperation.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\REST\\\\Input\\\\Parser\\\\ContentTree\\\\LoadSubtreeRequest\\:\\:parse\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/REST/Input/Parser/ContentTree/LoadSubtreeRequest.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\REST\\\\Input\\\\Parser\\\\ContentTree\\\\LoadSubtreeRequestNode\\:\\:parse\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/REST/Input/Parser/ContentTree/LoadSubtreeRequestNode.php
@@ -8637,11 +8632,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc tag @param references unknown parameter\\: \\$siteAccesses$#"
-			count: 1
-			path: src/lib/Siteaccess/SiteaccessResolver.php
-
-		-
-			message: "#^Parameter \\#1 \\$iterator of function iterator_to_array expects Traversable, iterable\\<Ibexa\\\\Core\\\\MVC\\\\Symfony\\\\SiteAccess\\> given\\.$#"
 			count: 1
 			path: src/lib/Siteaccess/SiteaccessResolver.php
 
@@ -9651,17 +9641,17 @@ parameters:
 			path: src/lib/UI/Module/ContentTree/NodeFactory.php
 
 		-
-			message: "#^Cannot call method warning\\(\\) on Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
-			count: 1
-			path: src/lib/UI/Module/ContentTree/NodeFactory.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Module\\\\ContentTree\\\\NodeFactory\\:\\:buildNode\\(\\) has parameter \\$containerLocations with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/UI/Module/ContentTree/NodeFactory.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Module\\\\ContentTree\\\\NodeFactory\\:\\:countAggregatedSubitems\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/UI/Module/ContentTree/NodeFactory.php
+
+		-
+			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Module\\\\ContentTree\\\\NodeFactory\\:\\:countSubitems\\(\\) should return int but returns int\\|null\\.$#"
 			count: 1
 			path: src/lib/UI/Module/ContentTree/NodeFactory.php
 
@@ -11005,11 +10995,6 @@ parameters:
 			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Form\\\\Data\\\\ContentTranslationDataTest\\:\\:testAddFieldData\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Form/Data/ContentTranslationDataTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$iterator of function iterator_to_array expects Traversable, iterable\\<string, Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\FieldDefinitionData\\> given\\.$#"
-			count: 1
-			path: tests/lib/Form/Data/ContentTypeDataTest.php
 
 		-
 			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Form\\\\Data\\\\FieldDefinitionDataTest\\:\\:testFieldDefinition\\(\\) has no return type specified\\.$#"
