@@ -96,6 +96,18 @@
                 return field.fieldDefinitionIdentifier === imageAssetMapping['contentFieldIdentifier'];
             });
 
+            if (imageField.fieldValue === null) {
+                showErrorNotification(
+                    Translator.trans(
+                        /* @Desc("The chosen asset has no image data available.") */ 'ezimageasset.empty_data.message.error',
+                        {},
+                        'fieldtypes_edit',
+                    ),
+                );
+
+                return;
+            }
+
             this.updateData(
                 response.ContentInfo.Content._id,
                 response.ContentInfo.Content.TranslatedName,
