@@ -104,7 +104,8 @@ class ContentTreeController extends RestController
                 true,
                 0,
                 $sortClause,
-                $sortOrder
+                $sortOrder,
+                $loadSubtreeRequest->filter,
             );
         }
 
