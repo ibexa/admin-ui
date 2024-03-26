@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Component\Component;
+use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -27,12 +28,16 @@ class LeftMenu extends Component
     public function goToSubTab(string $tabName, string $subTabName): void
     {
         $dashboardIcon = $this->getHTMLPage()->find($this->getLocator('dashboardIcon'));
+
         $menuButton = $this->getHTMLPage()->setTimeout(5)
             ->findAll($this->getLocator('menuItem'))
             ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName));
-        $menuButton->click();
-        $dashboardIcon->mouseOver();
 
+        $menuButton->click();
+        $this->getHTMLPage()
+        ->setTimeout(10)->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('menuSecondLevel')));
+
+        $dashboardIcon->mouseOver();
         $this->getHTMLPage()
             ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
 
