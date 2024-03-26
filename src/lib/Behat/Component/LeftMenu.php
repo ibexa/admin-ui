@@ -31,9 +31,10 @@ class LeftMenu extends Component
             ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName));
         $menuButton->click();
 
-        $this->getHTMLPage()->find($this->getLocator('menuSecondLevel'))->mouseOver();
+        $this->getHTMLPage()->setTimeout(5)
+            ->find($this->getLocator('menuSecondLevel'))->mouseOver();
 
-        $this->getHTMLPage()
+        $this->getHTMLPage()->setTimeout(5)
             ->findAll($this->getLocator('expandedMenuItem'))
             ->getByCriterion(new ElementTextCriterion($subTabName))
             ->click();
