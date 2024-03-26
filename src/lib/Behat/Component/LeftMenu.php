@@ -26,6 +26,11 @@ class LeftMenu extends Component
 
     public function goToSubTab(string $tabName): void
     {
+        $menuButton = $this->getHTMLPage()->setTimeout(5)
+            ->findAll($this->getLocator('menuItem'))
+            ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName));
+        $menuButton->click();
+
         $this->getHTMLPage()->find($this->getLocator('menuSecondLevel'))->mouseOver();
 
         $this->getHTMLPage()
