@@ -395,7 +395,7 @@
     }
 
     &__pane {
-        padding: calculateRem(10px) calculateRem(24px) calculateRem(24px);
+        padding: calculateRem(24px);
 
         &--no-padding {
             padding: 0;

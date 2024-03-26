@@ -1,6 +1,4 @@
 .ibexa-field-edit {
-    margin-top: calculateRem(8px);
-
     &__label {
         @include label-required();
     }
@@ -9,7 +7,7 @@
         &--compound {
             border: calculateRem(1px) solid $ibexa-color-dark-200;
             border-radius: $ibexa-border-radius;
-            padding: 0 calculateRem(23px) calculateRem(26px);
+            padding: calculateRem(24px) calculateRem(23px) calculateRem(26px);
         }
     }
 
@@ -234,5 +232,23 @@
         &__data {
             flex: 0 0 calc(100% - #{calculateRem(200px)});
         }
+    }
+}
+
+.ibexa-form-field {
+    margin-bottom: calculateRem(24px);
+
+    &:last-child,
+    &--last {
+        margin-bottom: 0;
+    }
+}
+
+.ibexa-data-form-field {
+    margin-bottom: calculateRem(24px);
+
+    &:last-child,
+    &--last {
+        margin-bottom: 0;
     }
 }

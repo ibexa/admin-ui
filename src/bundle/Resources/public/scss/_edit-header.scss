@@ -15,11 +15,13 @@
     &__container {
         display: flex;
         flex-direction: column;
-        padding: 0 calculateRem(36px);
+        padding: calculateRem(24px) calculateRem(32px);
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
     }
 
     &__title {
         display: flex;
+        margin: 0;
     }
 
     &__name {
@@ -41,7 +43,7 @@
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
         &--top {
-            height: calculateRem(85px);
+            height: calculateRem(48px);
 
             .ibexa-edit-header__title {
                 height: 0;
@@ -52,7 +54,6 @@
         &--bottom {
             flex-direction: column;
             min-width: 60%;
-            min-height: calculateRem(60px);
         }
     }
 
@@ -65,8 +66,7 @@
             justify-content: center;
             white-space: nowrap;
             padding-left: 0;
-            margin-top: calculateRem(20px);
-            height: calculateRem(48px);
+            align-self: flex-start;
 
             .ibexa-icon {
                 margin-right: calculateRem(8px);
@@ -86,7 +86,6 @@
 
     &__context-actions {
         display: flex;
-        margin-top: calculateRem(20px);
         width: 100%;
     }
 
@@ -127,11 +126,6 @@
         margin-top: calculateRem(10px);
     }
 
-    &__bottom-row-line {
-        margin-top: auto;
-        border-bottom: calculateRem(1px) solid $ibexa-color-light;
-    }
-
     .ibexa-autosave {
         display: inline-block;
         border-left: calculateRem(1px) solid $ibexa-color-light;
@@ -149,12 +143,7 @@
                 &--bottom {
                     z-index: 1;
                     min-width: initial;
-                    margin-top: calculateRem(-40px);
-                }
-            }
-
-            &__row {
-                &--bottom {
+                    margin-top: calculateRem(-34px);
                     min-height: initial;
                 }
             }
@@ -164,7 +153,7 @@
             }
 
             &__action-name-container {
-                margin-top: calculateRem(-30px);
+                margin-top: calculateRem(-8px);
             }
 
             &__separate-div {

@@ -27,7 +27,7 @@
 {% block form_fields %}
     <section class="container">
         <div class="card ibexa-card ibexa-card--light">
-            <div class="card-body">
+            <div class="card-body ibexa-card-body">
                 {{ parent() }}
                 {{ form_widget(form.create, {'attr': {'hidden': 'hidden'}}) }}
                 {{ form_widget(form.cancel, {'attr': {'hidden': 'hidden'}}) }}
