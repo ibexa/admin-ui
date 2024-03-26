@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Component\Component;
+use Ibexa\Behat\Browser\Element\Condition\ElementTransitionHasEndedCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -32,7 +33,7 @@ class LeftMenu extends Component
         $menuButton->click();
 
         $this->getHTMLPage()->setTimeout(5)
-            ->find($this->getLocator('menuSecondLevel'))->mouseOver();
+            ->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(), $this->getLocator('menuSecondLevel')));
 
         $this->getHTMLPage()->setTimeout(5)
             ->findAll($this->getLocator('expandedMenuItem'))
