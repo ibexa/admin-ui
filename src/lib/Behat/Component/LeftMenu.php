@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Component\Component;
-use Ibexa\Behat\Browser\Element\Condition\ElementTransitionHasEndedCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -27,13 +26,14 @@ class LeftMenu extends Component
 
     public function goToSubTab(string $tabName, string $subTabName): void
     {
+        $dashboardIcon = $this->getHTMLPage()->find($this->getLocator('dashboardIcon'));
         $menuButton = $this->getHTMLPage()->setTimeout(5)
             ->findAll($this->getLocator('menuItem'))
             ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName));
         $menuButton->click();
+        $dashboardIcon->mouseOver();
 
-        $this->getHTMLPage()->setTimeout(5)
-            ->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(), $this->getLocator('menuSecondLevel')));
+        $this->getHTMLPage()->find($this->getLocator('menuSecondLevel'))->mouseOver();
 
         $this->getHTMLPage()->setTimeout(5)
             ->findAll($this->getLocator('expandedMenuItem'))
@@ -60,6 +60,7 @@ class LeftMenu extends Component
             new VisibleCSSLocator('menuFirstLevel', '.ibexa-main-menu__navbar--first-level'),
             new VisibleCSSLocator('menuSecondLevel', '.ibexa-main-menu__navbar--second-level'),
             new VisibleCSSLocator('menuToggler', '.ibexa-main-menu__toggler'),
+            new VisibleCSSLocator('dashboardIcon', '.ibexa-main-header__brand'),
         ];
     }
 }
