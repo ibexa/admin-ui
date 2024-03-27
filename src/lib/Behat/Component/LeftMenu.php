@@ -30,16 +30,25 @@ class LeftMenu extends Component
             ->findAll($this->getLocator('menuItem'))
             ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName));
 
-        $menuButton->mouseOver();
-        $menuButton->click();
+        if ($this->getHTMLPage()
+            ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->isVisible()) {
+            $this->getHTMLPage()
+                ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
+            $this->getHTMLPage()->setTimeout(5)
+                ->findAll($this->getLocator('expandedMenuItem'))
+                ->getByCriterion(new ElementTextCriterion($subTabName))
+                ->click();
+        } else {
+            $menuButton->mouseOver();
+            $menuButton->click();
+            $this->getHTMLPage()
+                ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
 
-        $this->getHTMLPage()
-            ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
-
-        $this->getHTMLPage()->setTimeout(5)
-            ->findAll($this->getLocator('expandedMenuItem'))
-            ->getByCriterion(new ElementTextCriterion($subTabName))
-            ->click();
+            $this->getHTMLPage()->setTimeout(5)
+                ->findAll($this->getLocator('expandedMenuItem'))
+                ->getByCriterion(new ElementTextCriterion($subTabName))
+                ->click();
+        }
     }
 
     public function toggleMenu(): void
