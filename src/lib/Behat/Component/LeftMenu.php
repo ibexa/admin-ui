@@ -17,21 +17,38 @@ class LeftMenu extends Component
 {
     public function goToTab(string $tabName): void
     {
-        $menuButton = $this->getHTMLPage()
+        $menuButton = $this->getHTMLPage()->setTimeout(5)
             ->findAll($this->getLocator('menuItem'))
             ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName));
         $menuButton->click();
         $menuButton->find(new VisibleCSSLocator('activeMarker', '.ibexa-main-menu__item-action.active'))->assert()->isVisible();
     }
 
-    public function goToSubTab(string $tabName): void
+    public function goToSubTab(string $tabName, string $subTabName): void
     {
-        $this->getHTMLPage()->find($this->getLocator('menuSecondLevel'))->mouseOver();
+        $menuButton = $this->getHTMLPage()->setTimeout(5)
+            ->findAll($this->getLocator('menuItem'))
+            ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName));
 
-        $this->getHTMLPage()
-            ->findAll($this->getLocator('expandedMenuItem'))
-            ->getByCriterion(new ElementTextCriterion($tabName))
-            ->click();
+        if ($this->getHTMLPage()
+            ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->isVisible()) {
+            $this->getHTMLPage()
+                ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
+            $this->getHTMLPage()->setTimeout(5)
+                ->findAll($this->getLocator('expandedMenuItem'))
+                ->getByCriterion(new ElementTextCriterion($subTabName))
+                ->click();
+        } else {
+            $menuButton->mouseOver();
+            $menuButton->click();
+            $this->getHTMLPage()
+                ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
+
+            $this->getHTMLPage()->setTimeout(5)
+                ->findAll($this->getLocator('expandedMenuItem'))
+                ->getByCriterion(new ElementTextCriterion($subTabName))
+                ->click();
+        }
     }
 
     public function verifyIsLoaded(): void
@@ -47,6 +64,7 @@ class LeftMenu extends Component
             new VisibleCSSLocator('menuSelector', '.ibexa-main-menu'),
             new VisibleCSSLocator('menuFirstLevel', '.ibexa-main-menu__navbar--first-level'),
             new VisibleCSSLocator('menuSecondLevel', '.ibexa-main-menu__navbar--second-level'),
+            new VisibleCSSLocator('dashboardIcon', '.ibexa-main-header__brand'),
         ];
     }
 }
