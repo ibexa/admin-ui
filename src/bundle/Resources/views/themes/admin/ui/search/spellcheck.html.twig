@@ -2,11 +2,11 @@
 
 {% if spellcheck is not null and spellcheck.incorrect %}
     <div class="ibexa-search-form__spellcheck-suggestion">
-        {% set suggestion_link %}
+        {%- set suggestion_link -%}
             <a href="{{ path('ibexa.search', app.request.query|merge({'search[query]': spellcheck.query})) }}">
-                {{ spellcheck.query }}
+                {{- spellcheck.query -}}
             </a>
-        {% endset %}
+        {%- endset -%}
 
         {{ 'search.spellcheck.suggestion'|trans|desc('Did you mean %s?')|e('html')|format(suggestion_link)|raw }}
     </div>
