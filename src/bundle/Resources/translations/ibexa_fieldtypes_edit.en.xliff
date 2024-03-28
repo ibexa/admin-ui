@@ -26,6 +26,11 @@
         <target state="new">The image has been published and can now be reused</target>
         <note>key: ezimageasset.create.message.success</note>
       </trans-unit>
+      <trans-unit id="75c1175bca5f2a2334ffe321afdaedf7fa6887bd" resname="ezimageasset.empty_data.message.error">
+        <source>The chosen asset has no image data available.</source>
+        <target state="new">The chosen asset has no image data available.</target>
+        <note>key: ezimageasset.empty_data.message.error</note>
+      </trans-unit>
       <trans-unit id="d10ad93186c93b5a79a7aa921eb874b7df716935" resname="ezmaplocation.create.message.error">
         <source>Area below needs correction</source>
         <target state="new">Area below needs correction</target>
