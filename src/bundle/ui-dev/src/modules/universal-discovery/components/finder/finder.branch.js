@@ -27,6 +27,7 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
     const [sortOrder] = useContext(SortOrderContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const [markedLocationId] = useContext(MarkedLocationIdContext);
+    const totalCount = useRef(0);
     const branchRef = useRef(null);
     const sortingOptions = SORTING_OPTIONS.find((option) => option.sortClause === sorting);
     const [loadedLocations, isLoading] = useFindLocationsByParentLocationIdFetch(
@@ -39,7 +40,7 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
     let resizeStartPositionX = 0;
     let branchCurrentWidth = 0;
     const loadMore = ({ target }) => {
-        const areAllItemsLoaded = locationData.subitems.length >= loadedLocations.totalCount;
+        const areAllItemsLoaded = locationData.subitems.length >= totalCount.current;
         const isOffsetReached = target.scrollHeight - target.clientHeight - target.scrollTop < SCROLL_OFFSET;
 
         if (areAllItemsLoaded || !isOffsetReached || isLoading) {
@@ -135,9 +136,15 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
     };
 
     useEffect(() => {
+        setOffset(0);
+        totalCount.current = 0;
+    }, [sortingOptions.sortClause, sortOrder]);
+
+    useEffect(() => {
         if (loadedLocations.subitems) {
             const data = { ...locationData, ...loadedLocations, subitems: [...locationData.subitems, ...loadedLocations.subitems] };
 
+            totalCount.current = loadedLocations.totalCount;
             dispatchLoadedLocationsAction({ type: 'UPDATE_LOCATIONS', data });
         }
     }, [loadedLocations, dispatchLoadedLocationsAction, isLoading]);
