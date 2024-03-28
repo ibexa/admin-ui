@@ -197,10 +197,6 @@ select {
     border-radius: $ibexa-border-radius;
     box-shadow: $ibexa-edit-header-box-shadow;
     margin-bottom: calculateRem(32px);
-
-    .ibexa-table-header {
-        margin-top: 0;
-    }
 }
 
 .ibexa-error-site {

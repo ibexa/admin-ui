@@ -3,9 +3,9 @@
 
     {% if not formField.rendered %}
         {% if formField.value is defined %}
-            {{- form_widget(formField) -}}
+            {{- form_widget(formField, { attr: { class: 'lala' } }) -}}
         {% else %}
-            <div class="ibexa-field-edit ibexa-field-edit--eznoneditable">
+            <div class="ibexa-field-edit ibexa-form-field ibexa-field-edit--eznoneditable">
                 {{- form_label(formField) -}}
                 <p class="non-editable">
                     {{ 'content.field.non_editable'|trans|desc('This Field Type is not editable') }}

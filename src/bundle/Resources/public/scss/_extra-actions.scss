@@ -63,12 +63,8 @@
         max-height: calc(100% - #{calculateRem(90px)});
         overflow: auto;
 
-        .form-group {
-            margin-bottom: 0;
-        }
-
         &--create {
-            padding-top: 0;
+            padding-top: calculateRem(24px);
             padding-bottom: 0;
         }
     }
