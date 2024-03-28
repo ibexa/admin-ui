@@ -4,7 +4,7 @@
     <div class="ibexa-search-form__spellcheck-suggestion">
         {%- set suggestion_link -%}
             <a href="{{ path('ibexa.search', app.request.query|merge({'search[query]': spellcheck.query})) }}">
-                {{- spellcheck.query -}}
+                {{- spellcheck.query|spaceless -}}
             </a>
         {%- endset -%}
 
