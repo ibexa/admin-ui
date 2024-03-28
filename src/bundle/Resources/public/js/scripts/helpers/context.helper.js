@@ -1,5 +1,6 @@
 let { bootstrap, flatpickr, moment, Popper, Routing, Translator } = window;
 let adminUiConfig = window.ibexa?.adminUiConfig;
+let rootDOMElement = document.body;
 const restInfo = {
     accessToken: null,
     instanceUrl: window.location.origin,
@@ -7,10 +8,10 @@ const restInfo = {
     siteaccess: document.querySelector('meta[name="SiteAccess"]')?.content,
 };
 
-export const setRestInfo = ({ instanceUrl, token, csrfToken, siteaccess }) => {
+export const setRestInfo = ({ instanceUrl, accessToken, token, siteaccess }) => {
     restInfo.instanceUrl = instanceUrl ?? restInfo.instanceUrl;
+    restInfo.accessToken = accessToken ?? restInfo.accessToken;
     restInfo.token = token ?? restInfo.token;
-    restInfo.csrfToken = csrfToken ?? restInfo.csrfToken;
     restInfo.siteaccess = siteaccess ?? restInfo.siteaccess;
 };
 export const setAdminUiConfig = (loadedAdminUiConfig) => (adminUiConfig = loadedAdminUiConfig);
@@ -44,6 +45,7 @@ export const setTranslator = (TranslatorInstance, forceSet = false) => {
         Translator = TranslatorInstance;
     }
 };
+export const setRootDOMElement = (rootDOMElementParam) => (rootDOMElement = rootDOMElementParam);
 
 export const getAdminUiConfig = () => adminUiConfig;
 export const getBootstrap = () => bootstrap;
@@ -53,3 +55,9 @@ export const getPopper = () => Popper;
 export const getRouting = () => Routing;
 export const getTranslator = () => Translator;
 export const getRestInfo = () => restInfo;
+export const getRootDOMElement = () => rootDOMElement;
+export const isExternalInstance = () => {
+    const { instanceUrl } = restInfo;
+
+    return window.origin !== instanceUrl;
+};

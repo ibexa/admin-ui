@@ -5,21 +5,81 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: calculateRem(47px);
 
     &__message {
+        color: $ibexa-color-dark;
+        margin-bottom: calculateRem(16px);
+    }
+
+    &__message--main {
+        cursor: auto;
+        font-weight: 600;
+    }
+
+    &__message--filesize {
+        margin: calculateRem(16px) 0 0 0;
         color: $ibexa-color-dark-400;
-        margin-bottom: calculateRem(12px);
+        font-size: $ibexa-text-font-size-medium;
+    }
 
-        &--main {
-            cursor: auto;
-            font-weight: bold;
-            margin-top: calculateRem(44px);
+    &__max-files-size {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        row-gap: calculateRem(8px);
+
+        &--expanded {
+            .c-drop-area {
+                &__max-file-size-item {
+                    display: flex;
+                }
+
+                &__max-file-size-toggle-btn {
+                    &::after {
+                        transform: rotate(-180deg);
+                    }
+                }
+            }
         }
+    }
 
-        &--filesize {
-            color: $ibexa-color-dark-300;
+    &__max-file-size-item {
+        display: none;
+        gap: calculateRem(4px);
+        justify-content: center;
+        align-items: center;
+        font-size: $ibexa-text-font-size-small;
+
+        &:first-child {
             font-size: $ibexa-text-font-size-medium;
-            margin: calculateRem(12px) 0 calculateRem(44px);
+            display: flex;
+        }
+    }
+
+    &__max-file-size-toggle-btn {
+        width: calculateRem(16px);
+        height: calculateRem(16px);
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        border: none;
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: calculateRem(6px);
+            height: calculateRem(3px);
+            top: calc(50% - calculateRem(3px));
+            right: 0;
+            border-left: calculateRem(6px) solid transparent;
+            border-right: calculateRem(6px) solid transparent;
+            border-top: calculateRem(6px) solid $ibexa-color-dark-400;
+            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
         }
     }
 

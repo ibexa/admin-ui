@@ -9,6 +9,12 @@
         margin: 0;
     }
 
+    &__subtitle {
+        @include modal-subtitle();
+
+        color: $ibexa-color-dark;
+    }
+
     &__close {
         @include close-button();
     }

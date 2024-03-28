@@ -9,13 +9,13 @@
         border-radius: calculateRem(4px);
         transition: width 0.2s linear;
         height: calculateRem(8px);
-        width: 10vw;
+        width: calculateRem(176px);
         position: relative;
 
         &::after {
             content: '';
             width: calc(100% - var(--progress));
-            height: calculateRem(10px);
+            height: calculateRem(11px);
             border-radius: calculateRem(4px);
             position: absolute;
             right: 0;
@@ -29,7 +29,7 @@
     }
 
     &__label {
-        font-size: $ibexa-text-font-size-small;
+        font-size: $ibexa-text-font-size-medium;
         color: $ibexa-color-dark-400;
     }
 }

@@ -101,11 +101,6 @@
         <target state="new">Back</target>
         <note>key: preview_header.back</note>
       </trans-unit>
-      <trans-unit id="583285bb674e4f29b273ceb4b19dc700e44c4130" resname="tooltip.close_label">
-        <source>Close</source>
-        <target state="new">Close</target>
-        <note>key: tooltip.close_label</note>
-      </trans-unit>
       <trans-unit id="2720e3018fc8b1158cb728b1d5dc377ef7293b57" resname="trash.modal.message">
         <source>Are you sure you want to send this Content item to Trash?</source>
         <target state="new">Are you sure you want to send this Content item to Trash?</target>

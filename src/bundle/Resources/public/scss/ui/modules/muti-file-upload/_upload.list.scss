@@ -1,14 +1,5 @@
 .c-upload-list {
-    &__items {
-        margin-top: calculateRem(32px);
-        padding: calculateRem(16px) 0;
-
-        &:not(:empty) {
-            border-top: calculateRem(1px) solid $ibexa-color-light-500;
-        }
-
-        &:last-child {
-            padding-bottom: 0;
-        }
-    }
+    height: 100%;
+    overflow: auto;
+    margin-top: calculateRem(16px);
 }

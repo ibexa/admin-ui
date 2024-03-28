@@ -25,12 +25,14 @@ import Place from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/place.s
 import Product from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/product.svg';
 import Search from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/search.svg';
 import Spinner from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/spinner.svg';
+import Trash from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/trash.svg';
 import Video from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/video.svg';
 import View from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/view.svg';
 import ViewGrid from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/view-grid.svg';
 import ViewList from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/view-list.svg';
 import User from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/user.svg';
 import UserGroup from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/user_group.svg';
+import Upload from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/upload.svg';
 import UploadImage from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/upload-image.svg';
 
 const iconsMap = {
@@ -58,19 +60,20 @@ const iconsMap = {
     product: Product,
     search: Search,
     spinner: Spinner,
+    trash: Trash,
     video: Video,
     view: View,
     'view-grid': ViewGrid,
     'view-list': ViewList,
-    'missing-icon': AboutInfo,
     user: User,
     user_group: UserGroup,
+    upload: Upload,
     'upload-image': UploadImage,
 };
 
 const InculdedIcon = (props) => {
-    const { name, cssClass } = props;
-    const IconComponent = iconsMap[name] ?? iconsMap['missing-icon'];
+    const { name, cssClass, defaultIconName } = props;
+    const IconComponent = iconsMap[name] ?? iconsMap[defaultIconName];
 
     return <IconComponent className={cssClass} />;
 };
@@ -78,11 +81,13 @@ const InculdedIcon = (props) => {
 InculdedIcon.propTypes = {
     cssClass: PropTypes.string,
     name: PropTypes.string,
+    defaultIconName: PropTypes.string,
 };
 
 InculdedIcon.defaultProps = {
     cssClass: '',
-    name: 'missing-icon',
+    name: 'about-info',
+    defaultIconName: 'about-info',
 };
 
 export default InculdedIcon;

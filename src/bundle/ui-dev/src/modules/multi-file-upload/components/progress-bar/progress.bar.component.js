@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const { Translator } = window;
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const ProgressBarComponent = (props) => {
+    const Translator = getTranslator();
     const message = Translator.trans(/*@Desc("Uploading...")*/ 'upload.progress_bar.uploading', {}, 'ibexa_multi_file_upload');
 
     return (
