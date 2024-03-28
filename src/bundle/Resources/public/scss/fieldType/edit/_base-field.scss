@@ -235,15 +235,7 @@
     }
 }
 
-.ibexa-form-field {
-    margin-bottom: calculateRem(24px);
-
-    &:last-child,
-    &--last {
-        margin-bottom: 0;
-    }
-}
-
+.ibexa-form-field,
 .ibexa-data-form-field {
     margin-bottom: calculateRem(24px);
 
