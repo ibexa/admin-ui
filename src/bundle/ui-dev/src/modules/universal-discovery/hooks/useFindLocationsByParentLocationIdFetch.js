@@ -66,15 +66,17 @@ export const useFindLocationsByParentLocationIdFetch = (locationData, { sortClau
 
         let effectCleaned = false;
 
-        if (
-            !locationData.parentLocationId ||
-            locationData.collapsed ||
-            locationData.subitems.length >= locationData.totalCount ||
-            locationData.subitems.length >= limit + offset
-        ) {
-            dispatch({ type: 'FETCH_END', data: {} });
+        if (state.dataFetched) {
+            if (
+                !locationData.parentLocationId ||
+                locationData.collapsed ||
+                locationData.subitems.length >= locationData.totalCount ||
+                locationData.subitems.length >= limit + offset
+            ) {
+                dispatch({ type: 'FETCH_END', data: {} });
 
-            return;
+                return;
+            }
         }
 
         dispatch({ type: 'FETCH_START' });

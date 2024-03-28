@@ -1,7 +1,6 @@
 .c-finder-branch {
     display: flex;
     position: relative;
-    padding: calculateRem(18px) 0 calculateRem(18px) calculateRem(8px);
     border-right: calculateRem(1px) solid $ibexa-color-light;
 
     &--collapsed {
@@ -53,7 +52,7 @@
     &__items-wrapper {
         overflow: auto;
         width: calculateRem(291px);
-        padding-right: calculateRem(8px);
+        padding: calculateRem(8px);
     }
 
     &__resize-handler {
