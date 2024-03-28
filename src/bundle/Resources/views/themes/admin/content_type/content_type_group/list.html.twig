@@ -71,6 +71,16 @@
                 content: col_raw,
                 raw: true,
             }]) %}
+            {% set col_raw %}
+                <svg class="ibexa-icon ibexa-icon--small">
+                    <use xlink:href="{{ ibexa_content_type_group_icon(content_type_group.identifier) }}"></use>
+                </svg>
+            {% endset %}
+            {% set body_row_cols = body_row_cols|merge([{
+                has_icon: true,
+                content: col_raw,
+                raw: true,
+            }]) %}
 
             {% set col_raw %}
                 {% set view_url = path('ibexa.content_type_group.view', {
