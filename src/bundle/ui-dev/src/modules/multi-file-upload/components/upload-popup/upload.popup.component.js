@@ -49,22 +49,57 @@ export default class UploadPopupModule extends Component {
     render() {
         const Translator = getTranslator();
         const label = Translator.trans(/*@Desc("Upload")*/ 'upload_popup.label', {}, 'ibexa_multi_file_upload');
+        const {
+            addItemsToUpload,
+            subtitle,
+            visible,
+            onConfirm,
+            onClose,
+            onAfterUpload,
+            createFileStruct,
+            publishFile,
+            deleteFile,
+            checkCanUpload,
+            adminUiConfig,
+            parentInfo,
+            contentCreatePermissionsConfig,
+            contentTypesMap,
+            currentLanguage,
+            onAfterDelete,
+            itemsToUpload,
+            removeItemsToUpload,
+            preventDefaultAction,
+            processUploadedFiles,
+        } = this.props;
         const tooltipAttrs = {
-            ...this.props,
+            subtitle,
+            visible,
+            onConfirm,
+            onClose,
             title: Translator.trans(/*@Desc("Multi-file upload")*/ 'upload_popup.title', {}, 'ibexa_multi_file_upload'),
             confirmLabel: Translator.trans(/*@Desc("Confirm and close")*/ 'upload_popup.close_label', {}, 'ibexa_multi_file_upload'),
             closeLabel: Translator.trans(/*@Desc("Cancel pending upload")*/ 'upload_popup.confirm_label', {}, 'ibexa_multi_file_upload'),
             confirmBtnAttrs: {
-                disabled: this.props.itemsToUpload.length,
+                disabled: itemsToUpload.length,
             },
             closeBtnAttrs: {
-                disabled: !this.props.itemsToUpload.length,
+                disabled: !itemsToUpload.length,
             },
         };
         const listAttrs = {
-            ...tooltipAttrs,
-            itemsToUpload: this.props.itemsToUpload,
-            removeItemsToUpload: this.props.removeItemsToUpload,
+            onAfterUpload,
+            createFileStruct,
+            publishFile,
+            deleteFile,
+            checkCanUpload,
+            adminUiConfig,
+            parentInfo,
+            contentCreatePermissionsConfig,
+            contentTypesMap,
+            currentLanguage,
+            onAfterDelete,
+            itemsToUpload,
+            removeItemsToUpload,
         };
 
         return (
@@ -72,10 +107,10 @@ export default class UploadPopupModule extends Component {
                 <TooltipPopup {...tooltipAttrs}>
                     <div className="c-upload-popup__label">{label}</div>
                     <DropAreaComponent
-                        addItemsToUpload={this.props.addItemsToUpload}
+                        addItemsToUpload={addItemsToUpload}
                         maxFileSizes={this.getContentTypesMaxFileSize()}
-                        preventDefaultAction={this.props.preventDefaultAction}
-                        processUploadedFiles={this.props.processUploadedFiles}
+                        preventDefaultAction={preventDefaultAction}
+                        processUploadedFiles={processUploadedFiles}
                     />
                     <UploadListComponent {...listAttrs} />
                 </TooltipPopup>
@@ -85,6 +120,7 @@ export default class UploadPopupModule extends Component {
 }
 
 UploadPopupModule.propTypes = {
+    subtitle: PropTypes.string,
     visible: PropTypes.bool,
     itemsToUpload: PropTypes.array,
     onAfterUpload: PropTypes.func.isRequired,
@@ -104,7 +140,6 @@ UploadPopupModule.propTypes = {
     }).isRequired,
     parentInfo: PropTypes.shape({
         contentTypeIdentifier: PropTypes.string.isRequired,
-        contentTypeId: PropTypes.number.isRequired,
         locationPath: PropTypes.string.isRequired,
         language: PropTypes.string.isRequired,
     }).isRequired,
@@ -115,11 +150,18 @@ UploadPopupModule.propTypes = {
     addItemsToUpload: PropTypes.func.isRequired,
     removeItemsToUpload: PropTypes.func.isRequired,
     contentCreatePermissionsConfig: PropTypes.object,
+    onConfirm: PropTypes.func,
+    onClose: PropTypes.func,
+    onAfterDelete: PropTypes.func,
 };
 
 UploadPopupModule.defaultProps = {
+    subtitle: '',
     visible: true,
     itemsToUpload: [],
     currentLanguage: '',
     contentCreatePermissionsConfig: {},
+    onConfirm: () => {},
+    onClose: () => {},
+    onAfterDelete: () => {},
 };

@@ -74,7 +74,7 @@
             position: absolute;
             width: calculateRem(6px);
             height: calculateRem(3px);
-            top: calc(50% - #{calculateRem(3px)});
+            top: calc(50% - calculateRem(3px));
             right: 0;
             border-left: calculateRem(6px) solid transparent;
             border-right: calculateRem(6px) solid transparent;

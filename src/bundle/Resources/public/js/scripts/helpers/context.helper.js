@@ -56,7 +56,7 @@ export const getRouting = () => Routing;
 export const getTranslator = () => Translator;
 export const getRestInfo = () => restInfo;
 export const getRootDOMElement = () => rootDOMElement;
-export const isAppInStandaloneMode = () => {
+export const isExternalInstance = () => {
     const { instanceUrl } = restInfo;
 
     return window.origin !== instanceUrl;
