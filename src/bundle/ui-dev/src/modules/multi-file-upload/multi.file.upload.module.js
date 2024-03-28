@@ -9,10 +9,9 @@ import { createFileStruct, publishFile, deleteFile, checkCanUpload } from './ser
 import Icon from '../common/icon/icon';
 import { createCssClassNames } from '../common/helpers/css.class.names';
 
-export const MODULES_CAN_TRIGGER_MFU_LIST = {
-    udw: 'UniversalDiscoveryModule',
-    subitems: 'SubItemsModule',
-};
+export const UDW_TRIGGER_ID = 'UDW';
+export const SUBITEMS_TRIGGER_ID = 'SUBITEMS';
+
 export default class MultiFileUploadModule extends Component {
     constructor(props) {
         super(props);
@@ -155,7 +154,7 @@ export default class MultiFileUploadModule extends Component {
         const Translator = getTranslator();
         const { uploadDisabled } = this.state;
         const label = Translator.trans(/*@Desc("Upload")*/ 'multi_file_upload_open_btn.label', {}, 'ibexa_multi_file_upload');
-        const isTriggeredBySubitems = this.props.triggeredBy === MODULES_CAN_TRIGGER_MFU_LIST['subitems'];
+        const isTriggeredBySubitems = this.props.triggerId === SUBITEMS_TRIGGER_ID;
         const buttonClassName = createCssClassNames({
             'ibexa-btn btn': true,
             'ibexa-btn--secondary ibexa-btn--small': !isTriggeredBySubitems,
@@ -249,7 +248,6 @@ MultiFileUploadModule.propTypes = {
     }).isRequired,
     parentInfo: PropTypes.shape({
         contentTypeIdentifier: PropTypes.string.isRequired,
-        contentTypeId: PropTypes.number.isRequired,
         locationPath: PropTypes.string.isRequired,
         language: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
@@ -265,7 +263,7 @@ MultiFileUploadModule.propTypes = {
     contentCreatePermissionsConfig: PropTypes.object,
     contentTypesMap: PropTypes.object.isRequired,
     currentLanguage: PropTypes.string,
-    triggeredBy: PropTypes.string,
+    triggerId: PropTypes.string,
 };
 
 MultiFileUploadModule.defaultProps = {
@@ -279,5 +277,5 @@ MultiFileUploadModule.defaultProps = {
     withUploadButton: true,
     currentLanguage: '',
     contentCreatePermissionsConfig: {},
-    triggeredBy: MODULES_CAN_TRIGGER_MFU_LIST['subitems'],
+    triggerId: SUBITEMS_TRIGGER_ID,
 };

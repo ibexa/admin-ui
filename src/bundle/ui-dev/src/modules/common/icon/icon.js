@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { isAppInStandaloneMode } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { isExternalInstance } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { createCssClassNames } from '../helpers/css.class.names';
 
 import UrlIcon from './urlIcon';
@@ -13,7 +13,7 @@ const Icon = (props) => {
         [props.extraClasses]: true,
     });
 
-    const isIconIncluded = props.useIncludedIcon || isAppInStandaloneMode();
+    const isIconIncluded = props.useIncludedIcon || isExternalInstance();
 
     return (
         <>

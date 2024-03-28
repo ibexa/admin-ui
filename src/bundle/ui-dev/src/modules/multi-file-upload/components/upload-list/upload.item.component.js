@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { getContentTypeIconUrl } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/content.type.helper';
-import { getTranslator, isAppInStandaloneMode } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { getTranslator, isExternalInstance } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
@@ -13,7 +13,7 @@ export default class UploadItemComponent extends Component {
     constructor(props) {
         super(props);
 
-        this.isAppInStandaloneMode = isAppInStandaloneMode();
+        this.isExternalInstance = isExternalInstance();
         this.handleFileValidationError = this.handleFileValidationError.bind(this);
         this.handleEditBtnClick = this.handleEditBtnClick.bind(this);
         this.handleUploadAbort = this.handleUploadAbort.bind(this);
@@ -262,7 +262,7 @@ export default class UploadItemComponent extends Component {
         const contentTypeIconUrl = getContentTypeIconUrl(contentTypeIdentifier);
         const [, iconName] = contentTypeIconUrl.split('#');
 
-        if (this.isAppInStandaloneMode) {
+        if (this.isExternalInstance) {
             return <Icon name={iconName} extraClasses="ibexa-icon--small" defaultIconName="file" />;
         }
 
@@ -376,7 +376,7 @@ export default class UploadItemComponent extends Component {
         const { uploaded, failed } = this.state;
         const canEdit = uploaded && !failed;
 
-        if (!canEdit || this.isAppInStandaloneMode) {
+        if (!canEdit || this.isExternalInstance) {
             return null;
         }
 
@@ -482,7 +482,6 @@ UploadItemComponent.propTypes = {
     }).isRequired,
     parentInfo: PropTypes.shape({
         contentTypeIdentifier: PropTypes.string.isRequired,
-        contentTypeId: PropTypes.number.isRequired,
         locationPath: PropTypes.string.isRequired,
         language: PropTypes.string.isRequired,
     }).isRequired,
