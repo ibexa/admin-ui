@@ -101,7 +101,7 @@
                     Translator.trans(
                         /* @Desc("The chosen asset has no image data available.") */ 'ezimageasset.empty_data.message.error',
                         {},
-                        'fieldtypes_edit',
+                        'ibexa_fieldtypes_edit',
                     ),
                 );
 
