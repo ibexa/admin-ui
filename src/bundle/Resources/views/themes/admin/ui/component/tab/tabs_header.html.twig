@@ -3,8 +3,11 @@
 {% set tabs_attr = tabs_attr|default({})|merge({
     class: (tabs_attr.class|default('') ~ ' ibexa-tabs')|trim,
 }) %}
+{% set header_attr = attr|default({})|merge({
+    class: (attr.class|default('') ~ ' ibexa-header')|trim,
+}) %}
 
-<div class="ibexa-header">
+<div {{ html.attributes(header_attr) }}>
     <div {{ html.attributes(tabs_attr) }}>
         <ul class="nav nav-tabs ibexa-tabs__list ibexa-adaptive-items" role="tablist">
             {% block tabs_list %}
