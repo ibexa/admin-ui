@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef, Fragment, useCallback } from 'react';
+import React, { useContext, useState, useEffect, useRef, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import FinderLeaf from './finder.leaf';
