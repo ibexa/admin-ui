@@ -15,6 +15,7 @@
             </svg>
             <span class="ibexa-header-user-menu__notice-dot ibexa-header-user-menu__notice-dot--no-notice"></span>
         </div>
+        {{ ibexa_render_component_group('header-user-menu-middle') }}
         <button class="ibexa-header-user-menu__toggler">
             <div class="ibexa-header-user-menu__thumbnail-wrapper">
                 {% include '@ibexadesign/ui/component/user_thumbnail/user_thumbnail.html.twig' with {
