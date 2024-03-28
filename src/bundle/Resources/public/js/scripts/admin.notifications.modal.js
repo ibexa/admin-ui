@@ -166,12 +166,13 @@
 
     const notificationsTable = modal.querySelector(SELECTOR_TABLE);
     currentPageLink = notificationsTable.dataset.notifications;
+    const interval = Number.parseInt(notificationsTable.dataset.notificationsCountInterval, 10) || INTERVAL;
 
     modal.querySelectorAll(SELECTOR_MODAL_RESULTS).forEach((link) => link.addEventListener('click', handleModalResultsClick, false));
 
     const getNotificationsStatusLoop = () => {
         getNotificationsStatus().finally(() => {
-            global.setTimeout(getNotificationsStatusLoop, INTERVAL);
+            global.setTimeout(getNotificationsStatusLoop, interval);
         });
     };
 
