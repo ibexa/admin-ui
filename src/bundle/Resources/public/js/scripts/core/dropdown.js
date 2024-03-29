@@ -14,6 +14,8 @@
 
         show() {
             if (this.dropdown.container.classList.contains('ibexa-dropdown--disabled')) {
+                super._isHovered = false;
+
                 return;
             }
 
