@@ -46,7 +46,10 @@ abstract class IconResolver
             $config = $this->configResolver->getParameter($parameterName);
         }
 
-        if ((empty($config) || empty($config[static::ICON_KEY])) && $this->configResolver->hasParameter($defaultParameterName)) {
+        if (
+            (empty($config) || empty($config[static::ICON_KEY]))
+            && $this->configResolver->hasParameter($defaultParameterName)
+        ) {
             $config = $this->configResolver->getParameter($defaultParameterName);
         }
 

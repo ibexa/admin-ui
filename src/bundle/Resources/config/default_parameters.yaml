@@ -39,11 +39,11 @@ parameters:
     ibexa.site_access.config.default.content_type_group.default-config:
         thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#file'
     ibexa.site_access.config.default.content_type_group.content:
-        thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#article'
+        thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#content-type-content'
     ibexa.site_access.config.default.content_type_group.users:
-        thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#user_group'
+        thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#user-type'
     ibexa.site_access.config.default.content_type_group.media:
-        thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#gallery'
+        thumbnail: '/bundles/ibexaadminui/img/ibexa-icons.svg#media-type'
 
     ibexa.content_view.tabs.default_template: '@@ibexadesign/ui/tab/default.html.twig'
 
