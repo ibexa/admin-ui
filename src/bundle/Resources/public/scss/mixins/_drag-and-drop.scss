@@ -1,3 +1,8 @@
+:root {
+    --ibexa-hover-color: var(--ibexa-hover-color, $ibexa-color-primary);
+    --ibexa-border-color: var(--ibexa-border-color, $ibexa-color-dark);
+}
+
 @mixin drag-module-backdrop-background {
     background-image: radial-gradient($ibexa-color-light 0.5px, transparent 0); // 0.5px is needed so that both on HD and Retina we have 1px
     background-color: $ibexa-color-light-200;
@@ -290,11 +295,11 @@
         cursor: pointer;
 
         &:hover {
-            color: $ibexa-color-primary;
+            color: var(--ibexa-hover-color);
 
             #{$self}__toggler {
                 .ibexa-icon {
-                    fill: $ibexa-color-primary;
+                    fill: var(--ibexa-hover-color);
                 }
             }
         }
@@ -330,7 +335,7 @@
 
     &:hover {
         #{$self}__content {
-            border-color: $ibexa-color-dark;
+            border-color: var(--ibexa-border-color);
             transform: scale(1.02) translateX(-10px);
             box-shadow: calculateRem(4px) calculateRem(10px) calculateRem(17px) 0 rgba($ibexa-color-info, 0.2);
         }
