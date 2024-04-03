@@ -14,6 +14,10 @@ const SimpleDropdown = ({ options, selectedOption, extraClasses, onOptionClick, 
         'c-simple-dropdown--switcher': isSwitcher,
         [extraClasses]: true,
     });
+    const dropdownItemsClass = createCssClassNames({
+        'c-simple-dropdown__items': true,
+        'c-simple-dropdown__items--hidden': !isExpanded,
+    });
     const toggleExpanded = () => {
         if (isDisabled) {
             return;
@@ -101,7 +105,7 @@ const SimpleDropdown = ({ options, selectedOption, extraClasses, onOptionClick, 
     return (
         <div className={dropdownClass} ref={containerRef}>
             {renderSelectedItem()}
-            <div className="c-simple-dropdown__items">
+            <div className={dropdownItemsClass}>
                 <ul className="c-simple-dropdown__list-items">{options.map(renderItem)}</ul>
             </div>
         </div>
