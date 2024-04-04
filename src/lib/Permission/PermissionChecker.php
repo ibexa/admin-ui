@@ -17,6 +17,7 @@ use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
@@ -229,13 +230,8 @@ class PermissionChecker implements PermissionCheckerInterface
     public function getContentDeleteLimitations(Location $location): LookupLimitationResult
     {
         $content = $location->getContent();
-        $languages = $content->getVersionInfo()->getLanguages();
-        $languagesArray = $languages instanceof \Traversable ? iterator_to_array($languages) : (array)$languages;
+        $translations = $this->getContentTranslations($content);
 
-        $translations = array_map(
-            static fn (Language $language): string => $language->getLanguageCode(),
-            $languagesArray
-        );
         $target = (new Target\Version())->deleteTranslations($translations);
 
         return $this->permissionResolver->lookupLimitations(
@@ -250,12 +246,15 @@ class PermissionChecker implements PermissionCheckerInterface
     public function getContentHideLimitations(Location $location): LookupLimitationResult
     {
         $content = $location->getContent();
+        $translations = $this->getContentTranslations($content);
+
+        $target = (new Target\Version())->deleteTranslations($translations);
 
         return $this->permissionResolver->lookupLimitations(
             'content',
             'hide',
             $content,
-            [$location],
+            [$target],
             [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
         );
     }
@@ -366,6 +365,22 @@ class PermissionChecker implements PermissionCheckerInterface
         }
 
         return $contentTypeIds;
+    }
+
+    /**
+     * @return array<string>
+     */
+    private function getContentTranslations(Content $content): array
+    {
+        $languages = $content->getVersionInfo()->getLanguages();
+        $languagesArray = $languages instanceof \Traversable ? iterator_to_array($languages) : (array)$languages;
+
+        $translations = array_map(
+            static fn (Language $language): string => $language->getLanguageCode(),
+            $languagesArray
+        );
+
+        return $translations;
     }
 }
 
