@@ -57,7 +57,7 @@ abstract class IconResolver
     }
 
     /**
-     * Return configuration parameter name for given content type identifier.
+     * Returns configuration parameter name for given content type identifier.
      */
     private function getConfigParameterName(string $format, string $identifier): string
     {

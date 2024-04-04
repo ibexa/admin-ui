@@ -139,7 +139,7 @@ services:
         lazy: true
 
     Ibexa\AdminUi\UI\Service\IconResolver:
-        abstract:  true
+        abstract: true
 
     Ibexa\AdminUi\UI\Service\ContentTypeIconResolver:
         parent: Ibexa\AdminUi\UI\Service\IconResolver

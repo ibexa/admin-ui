@@ -12,7 +12,7 @@ use Ibexa\AdminUi\UI\Service\ContentTypeGroupIconResolver;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class ContentTypeGroupIconExtension extends AbstractExtension
+final class ContentTypeGroupIconExtension extends AbstractExtension
 {
     private ContentTypeGroupIconResolver $contentTypeGroupIconResolver;
 
