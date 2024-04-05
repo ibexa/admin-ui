@@ -29,18 +29,12 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Helper\TranslationHelper;
 use Ibexa\Core\Repository\Repository;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 /**
  * @internal
  */
-final class NodeFactory implements LoggerAwareInterface
+final class NodeFactory
 {
-    use LoggerAwareTrait;
-
     private const TOP_NODE_CONTENT_ID = 0;
 
     /**
@@ -83,8 +77,7 @@ final class NodeFactory implements LoggerAwareInterface
         PermissionResolver $permissionResolver,
         Repository $repository,
         SiteaccessResolverInterface $siteaccessResolver,
-        int $maxLocationIdsInSingleAggregation,
-        ?LoggerInterface $logger = null
+        int $maxLocationIdsInSingleAggregation
     ) {
         $this->bookmarkService = $bookmarkService;
         $this->contentService = $contentService;
@@ -95,7 +88,6 @@ final class NodeFactory implements LoggerAwareInterface
         $this->repository = $repository;
         $this->siteaccessResolver = $siteaccessResolver;
         $this->maxLocationIdsInSingleAggregation = $maxLocationIdsInSingleAggregation;
-        $this->logger = $logger ?? new NullLogger();
     }
 
     /**

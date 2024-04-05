@@ -34,7 +34,6 @@ class LoadSubtreeRequest extends CriterionParser
             $nodes[] = $parsingDispatcher->parse($node, $node['_media-type']);
         }
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion|null $filter */
         $filter = null;
         if (array_key_exists('Filter', $data) && is_array($data['Filter'])) {
             $filter = $this->processCriteriaArray($data['Filter'], $parsingDispatcher);
