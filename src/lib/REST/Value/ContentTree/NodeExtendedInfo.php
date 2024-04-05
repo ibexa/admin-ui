@@ -12,14 +12,16 @@ use Ibexa\Rest\Value as RestValue;
 
 /**
  * @phpstan-type TRestrictions array{
- *     hasAccess: bool,
- *     restrictedContentTypeIds: array<int>,
- *     restrictedLanguageCodes: array<string>,
+ *      hasAccess: bool,
+ *      restrictedContentTypeIds?: array<int>,
+ *      restrictedLanguageCodes?: array<string>,
  * }
  *
  * @phpstan-type TPermissionRestrictions array{
- *     create: TRestrictions,
- *     edit: TRestrictions,
+ *      create: TRestrictions,
+ *      edit: TRestrictions,
+ *      delete: TRestrictions,
+ *      hide: TRestrictions,
  * }
  */
 final class NodeExtendedInfo extends RestValue
