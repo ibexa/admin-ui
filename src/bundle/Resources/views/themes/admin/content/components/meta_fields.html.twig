@@ -1,7 +1,15 @@
 {% extends '@ibexadesign/ui/component/anchor_navigation/section_group.html.twig' %}
 
+{% trans_default_domain 'ibexa_fields_groups' %}
+
 {% set data_id = 'ibexa-edit-content-sections-meta' %}
 {% set is_section_visible = show_meta_fields|default(false) %}
+
+{% block header %}
+    {% if show_meta_fields_header|default(false) %}
+        <h2 class="ibexa-anchor-navigation__section-group-header">{{ 'metadata'|trans()|desc('Metadata') }}</h2>
+    {% endif %}
+{% endblock %}
 
 {% block sections %}
     {% for identifier in meta_fields %}
