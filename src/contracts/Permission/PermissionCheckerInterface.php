@@ -35,20 +35,6 @@ interface PermissionCheckerInterface
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function getContentUpdateLimitations(Location $location): LookupLimitationResult;
-
-    /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     */
-    public function getContentDeleteLimitations(Location $location): LookupLimitationResult;
-
-    /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     */
-    public function getContentHideLimitations(Location $location): LookupLimitationResult;
 }
 
 class_alias(PermissionCheckerInterface::class, 'EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface');

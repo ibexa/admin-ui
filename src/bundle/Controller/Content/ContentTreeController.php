@@ -13,12 +13,16 @@ use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode;
 use Ibexa\AdminUi\REST\Value\ContentTree\Node;
 use Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo;
 use Ibexa\AdminUi\REST\Value\ContentTree\Root;
+use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\UI\Module\ContentTree\NodeFactory;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Rest\Message;
 use Ibexa\Rest\Server\Controller as RestController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,16 +42,24 @@ class ContentTreeController extends RestController
     /** @var \Ibexa\AdminUi\UI\Module\ContentTree\NodeFactory */
     private $contentTreeNodeFactory;
 
+    private PermissionResolver $permissionResolver;
+
+    private ConfigResolverInterface $configResolver;
+
     public function __construct(
         LocationService $locationService,
         PermissionCheckerInterface $permissionChecker,
         LookupLimitationsTransformer $lookupLimitationsTransformer,
-        NodeFactory $contentTreeNodeFactory
+        NodeFactory $contentTreeNodeFactory,
+        PermissionResolver $permissionResolver,
+        ConfigResolverInterface $configResolver
     ) {
         $this->locationService = $locationService;
         $this->permissionChecker = $permissionChecker;
         $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
         $this->contentTreeNodeFactory = $contentTreeNodeFactory;
+        $this->permissionResolver = $permissionResolver;
+        $this->configResolver = $configResolver;
     }
 
     /**
@@ -159,8 +171,6 @@ class ContentTreeController extends RestController
     {
         $lookupCreateLimitationsResult = $this->permissionChecker->getContentCreateLimitations($location);
         $lookupUpdateLimitationsResult = $this->permissionChecker->getContentUpdateLimitations($location);
-        $lookupDeleteLimitationsResult = $this->permissionChecker->getContentDeleteLimitations($location);
-        $lookupHideLimitationsResult = $this->permissionChecker->getContentHideLimitations($location);
 
         $createLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
             $lookupCreateLimitationsResult,
@@ -172,16 +182,6 @@ class ContentTreeController extends RestController
             [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
         );
 
-        $deleteLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
-            $lookupDeleteLimitationsResult,
-            [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
-        );
-
-        $hideLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
-            $lookupHideLimitationsResult,
-            [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
-        );
-
         return [
             'create' => [
                 'hasAccess' => $lookupCreateLimitationsResult->hasAccess(),
@@ -190,20 +190,70 @@ class ContentTreeController extends RestController
             ],
             'edit' => [
                 'hasAccess' => $lookupUpdateLimitationsResult->hasAccess(),
-                'restrictedContentTypeIds' => $updateLimitationsValues[Limitation::CONTENTTYPE],
                 'restrictedLanguageCodes' => $updateLimitationsValues[Limitation::LANGUAGE],
             ],
             'delete' => [
-                'hasAccess' => $lookupDeleteLimitationsResult->hasAccess(),
-                'restrictedContentTypeIds' => $deleteLimitationsValues[Limitation::CONTENTTYPE],
-                'restrictedLanguageCodes' => $deleteLimitationsValues[Limitation::LANGUAGE],
+                'hasAccess' => $this->canUserRemoveContent($location),
             ],
             'hide' => [
-                'hasAccess' => $lookupHideLimitationsResult->hasAccess(),
-                'restrictedContentTypeIds' => $hideLimitationsValues[Limitation::CONTENTTYPE],
-                'restrictedLanguageCodes' => $hideLimitationsValues[Limitation::LANGUAGE],
+                'hasAccess' => $this->canUserHideContent($location),
             ],
         ];
+    }
+
+    /**
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
+    private function canUserRemoveContent(Location $location): bool
+    {
+        $content = $location->getContent();
+        $contentType = $content->getContentType();
+        $contentIsUser = (new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier')))
+            ->isSatisfiedBy($contentType);
+
+        $translations = $content->getVersionInfo()->languageCodes;
+        $target = (new Target\Version())->deleteTranslations($translations);
+
+        if ($contentIsUser) {
+            return $this->permissionResolver->canUser(
+                'content',
+                'remove',
+                $content,
+                [$target]
+            );
+        }
+
+        if ($location->depth != 1) {
+            return $this->permissionResolver->canUser(
+                'content',
+                'remove',
+                $location->getContentInfo(),
+                [$location, $target]
+            );
+        }
+
+        return false;
+    }
+
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
+    private function canUserHideContent(Location $location): bool
+    {
+        $content = $location->getContent();
+
+        $translations = $content->getVersionInfo()->languageCodes;
+        $target = (new Target\Version())->deleteTranslations($translations);
+
+        return $this->permissionResolver->canUser(
+            'content',
+            'hide',
+            $content,
+            [$target]
+        );
     }
 }
 
