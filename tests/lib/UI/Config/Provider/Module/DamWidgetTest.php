@@ -237,7 +237,7 @@ final class DamWidgetTest extends TestCase
             ],
             'folder' => [
                 'contentTypeIdentifier' => self::FOLDER_CONTENT_TYPE_IDENTIFIER,
-                'nameFieldIdentifier' => self::FOLDER_NAME_FIELD_IDENTIFIER,
+                'nameSchemaIdentifiers' => self::FOLDER_NAME_SCHEMA_IDENTIFIERS,
             ],
         ];
     }
@@ -254,6 +254,31 @@ final class DamWidgetTest extends TestCase
                 'engine' => $searchEngine,
             ],
         ];
+    }
+
+    private function mockContentTypeServiceLoadContentTypeByIdentifier(
+        string $contentTypeIdentifier,
+        ContentType $contentType
+    ): void {
+        $this->contentTypeService
+            ->method('loadContentTypeByIdentifier')
+            ->with($contentTypeIdentifier)
+            ->willReturn($contentType);
+    }
+
+    /**
+     * @param array{
+     *     field: array<string>
+     * } $nameSchemaIdentifiers
+     */
+    private function mockSchemaIdentifierExtractorExtract(
+        string $nameSchema,
+        array $nameSchemaIdentifiers
+    ): void {
+        $this->schemaIdentifierExtractor
+            ->method('extract')
+            ->with($nameSchema)
+            ->willReturn($nameSchemaIdentifiers);
     }
 
     /**
