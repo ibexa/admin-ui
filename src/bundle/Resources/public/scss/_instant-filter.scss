@@ -1,4 +1,12 @@
 .ibexa-instant-filter {
+    &__input-wrapper {
+        margin-top: calculateRem(16px);
+
+        &--hidden {
+            display: none;
+        }
+    }
+
     &__input {
         display: block;
         width: 100%;
