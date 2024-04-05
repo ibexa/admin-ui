@@ -12,6 +12,9 @@ use Ibexa\AdminUi\UI\Config\Provider\Module\DamWidget;
 use Ibexa\Bundle\Core\ApiLoader\Exception\InvalidSearchEngine;
 use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\NameSchema\SchemaIdentifierExtractorInterface;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -22,8 +25,10 @@ use PHPUnit\Framework\TestCase;
  *         aggregations: aggregations: array<string, array<string, string>>,
  *         showImageFilters: bool,
  *     },
- *     contentTypeIdentifier: string,
- *     nameFieldIdentifier: string,
+ *     folder: array{
+ *         contentTypeIdentifier: string,
+ *         nameSchemaIdentifiers: array<string>,
+ *     }
  * }
  * @template TRepositoryConfig of array {
  *      engine: string,
@@ -48,16 +53,26 @@ final class DamWidgetTest extends TestCase
     ];
 
     private const FOLDER_CONTENT_TYPE_IDENTIFIER = 'folder';
-    private const FOLDER_NAME_FIELD_IDENTIFIER = 'name';
+    private const FOLDER_NAME_SCHEMA = '<short_name|name>';
+    private const FOLDER_NAME_SCHEMA_IDENTIFIERS = ['short_name', 'name'];
 
     private ProviderInterface $provider;
 
     /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider&\PHPUnit\Framework\MockObject\MockObject */
     private RepositoryConfigurationProvider $repositoryConfigurationProvider;
 
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService&\PHPUnit\Framework\MockObject\MockObject */
+    private ContentTypeService $contentTypeService;
+
+    /** @var \Ibexa\Contracts\Core\Repository\NameSchema\SchemaIdentifierExtractorInterface&\PHPUnit\Framework\MockObject\MockObject */
+    private SchemaIdentifierExtractorInterface $schemaIdentifierExtractor;
+
     protected function setUp(): void
     {
         $this->repositoryConfigurationProvider = $this->createMock(RepositoryConfigurationProvider::class);
+        $this->contentTypeService = $this->createMock(ContentTypeService::class);
+        $this->schemaIdentifierExtractor = $this->createMock(SchemaIdentifierExtractorInterface::class);
+
         $this->provider = new DamWidget(
             [
                 'image' => [
@@ -67,10 +82,11 @@ final class DamWidgetTest extends TestCase
                 ],
                 'folder' => [
                     'contentTypeIdentifier' => self::FOLDER_CONTENT_TYPE_IDENTIFIER,
-                    'nameFieldIdentifier' => self::FOLDER_NAME_FIELD_IDENTIFIER,
                 ],
             ],
-            $this->repositoryConfigurationProvider
+            $this->contentTypeService,
+            $this->repositoryConfigurationProvider,
+            $this->schemaIdentifierExtractor
         );
     }
 
@@ -85,6 +101,22 @@ final class DamWidgetTest extends TestCase
         array $repositoryConfig
     ): void {
         $this->mockRepositoryConfigurationProviderGetRepositoryConfig($repositoryConfig);
+
+        $contentType = $this->createMock(ContentType::class);
+        $contentType
+            ->method('__get')
+            ->with('nameSchema')
+            ->willReturn(self::FOLDER_NAME_SCHEMA);
+
+        $this->mockContentTypeServiceLoadContentTypeByIdentifier(
+            self::FOLDER_CONTENT_TYPE_IDENTIFIER,
+            $contentType
+        );
+
+        $this->mockSchemaIdentifierExtractorExtract(
+            self::FOLDER_NAME_SCHEMA,
+            ['field' => self::FOLDER_NAME_SCHEMA_IDENTIFIERS]
+        );
 
         self::assertSame(
             $expectedConfiguration,
@@ -146,7 +178,7 @@ final class DamWidgetTest extends TestCase
             ],
             'folder' => [
                 'contentTypeIdentifier' => self::FOLDER_CONTENT_TYPE_IDENTIFIER,
-                'nameFieldIdentifier' => self::FOLDER_NAME_FIELD_IDENTIFIER,
+                'nameSchemaIdentifiers' => self::FOLDER_NAME_SCHEMA_IDENTIFIERS,
             ],
         ];
     }
@@ -163,6 +195,31 @@ final class DamWidgetTest extends TestCase
                 'engine' => $searchEngine,
             ],
         ];
+    }
+
+    private function mockContentTypeServiceLoadContentTypeByIdentifier(
+        string $contentTypeIdentifier,
+        ContentType $contentType
+    ): void {
+        $this->contentTypeService
+            ->method('loadContentTypeByIdentifier')
+            ->with($contentTypeIdentifier)
+            ->willReturn($contentType);
+    }
+
+    /**
+     * @param array{
+     *     field: array<string>
+     * } $nameSchemaIdentifiers
+     */
+    private function mockSchemaIdentifierExtractorExtract(
+        string $nameSchema,
+        array $nameSchemaIdentifiers
+    ): void {
+        $this->schemaIdentifierExtractor
+            ->method('extract')
+            ->with($nameSchema)
+            ->willReturn($nameSchemaIdentifiers);
     }
 
     /**
