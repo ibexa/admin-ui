@@ -1,0 +1,22 @@
+{
+    "ContentTreeNodeExtendedInfo": {
+        "_media-type": "application/vnd.ibexa.api.ContentTreeNodeExtendedInfo+json",
+        "permissions": {
+            "create": {
+                "hasAccess": true,
+                "restrictedContentTypeIds": [],
+                "restrictedLanguageCodes": []
+            },
+            "edit": {
+                "hasAccess": true,
+                "restrictedLanguageCodes": []
+            },
+            "delete": {
+                "hasAccess": false
+            },
+            "hide": {
+                "hasAccess": true
+            }
+        }
+    }
+}

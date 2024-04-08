@@ -1,0 +1,91 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "ContentTreeNodeExtendedInfo": {
+            "type": "object",
+            "properties": {
+                "_media-type": {
+                    "type": "string"
+                },
+                "permissions": {
+                    "type": "object",
+                    "properties": {
+                        "create": {
+                            "type": "object",
+                            "properties": {
+                                "hasAccess": {
+                                    "type": "boolean"
+                                },
+                                "restrictedContentTypeIds": {
+                                    "type": "array",
+                                    "items": {}
+                                },
+                                "restrictedLanguageCodes": {
+                                    "type": "array",
+                                    "items": {}
+                                }
+                            },
+                            "required": [
+                                "hasAccess",
+                                "restrictedContentTypeIds",
+                                "restrictedLanguageCodes"
+                            ]
+                        },
+                        "edit": {
+                            "type": "object",
+                            "properties": {
+                                "hasAccess": {
+                                    "type": "boolean"
+                                },
+                                "restrictedLanguageCodes": {
+                                    "type": "array",
+                                    "items": {}
+                                }
+                            },
+                            "required": [
+                                "hasAccess",
+                                "restrictedLanguageCodes"
+                            ]
+                        },
+                        "delete": {
+                            "type": "object",
+                            "properties": {
+                                "hasAccess": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "required": [
+                                "hasAccess"
+                            ]
+                        },
+                        "hide": {
+                            "type": "object",
+                            "properties": {
+                                "hasAccess": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "required": [
+                                "hasAccess"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "create",
+                        "edit",
+                        "delete",
+                        "hide"
+                    ]
+                }
+            },
+            "required": [
+                "_media-type",
+                "permissions"
+            ]
+        }
+    },
+    "required": [
+        "ContentTreeNodeExtendedInfo"
+    ]
+}
