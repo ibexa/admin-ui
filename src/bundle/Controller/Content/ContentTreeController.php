@@ -142,18 +142,8 @@ class ContentTreeController extends RestController
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function loadNodeExtendedInfoAction(Request $request): NodeExtendedInfo
+    public function loadNodeExtendedInfoAction(Location $location): NodeExtendedInfo
     {
-        /** @var \Ibexa\AdminUi\REST\Value\ContentTree\LoadNodeExtendedInfoRequest $loadSubtreeRequest */
-        $loadSubtreeRequest = $this->inputDispatcher->parse(
-            new Message(
-                ['Content-Type' => $request->headers->get('Content-Type')],
-                $request->getContent()
-            )
-        );
-
-        $locationId = $loadSubtreeRequest->locationId;
-        $location = $this->locationService->loadLocation($locationId);
         $locationPermissionRestrictions = $this->getLocationPermissionRestrictions($location);
 
         return new NodeExtendedInfo($locationPermissionRestrictions);
