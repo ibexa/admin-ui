@@ -3,7 +3,7 @@
 
     {% if not formField.rendered %}
         {% if formField.value is defined %}
-            {{- form_widget(formField, { attr: { class: 'lala' } }) -}}
+            {{- form_widget(formField) -}}
         {% else %}
             <div class="ibexa-field-edit ibexa-form-field ibexa-field-edit--eznoneditable">
                 {{- form_label(formField) -}}
