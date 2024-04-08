@@ -38,7 +38,7 @@ services:
       tags:
           - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\ContentTree\Root }
 
-  Ibexa\AdminUi\REST\Output\ValueObjectVisitor\ContentTree\NodeExtendedInfo:
+  Ibexa\AdminUi\REST\Output\ValueObjectVisitor\ContentTree\NodeExtendedInfoVisitor:
       parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
       tags:
           - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo }

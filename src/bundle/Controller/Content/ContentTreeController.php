@@ -32,15 +32,13 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ContentTreeController extends RestController
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
     private PermissionCheckerInterface $permissionChecker;
 
     private LookupLimitationsTransformer $lookupLimitationsTransformer;
 
-    /** @var \Ibexa\AdminUi\UI\Module\ContentTree\NodeFactory */
-    private $contentTreeNodeFactory;
+    private NodeFactory $contentTreeNodeFactory;
 
     private PermissionResolver $permissionResolver;
 
@@ -140,7 +138,6 @@ class ContentTreeController extends RestController
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function loadNodeExtendedInfoAction(Location $location): NodeExtendedInfo
     {
@@ -152,7 +149,6 @@ class ContentTreeController extends RestController
     /**
      * @return TPermissionRestrictions
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -192,7 +188,6 @@ class ContentTreeController extends RestController
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
@@ -203,7 +198,7 @@ class ContentTreeController extends RestController
         $contentIsUser = (new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier')))
             ->isSatisfiedBy($contentType);
 
-        $translations = $content->getVersionInfo()->languageCodes;
+        $translations = $content->getVersionInfo()->getLanguageCodes();
         $target = (new Target\Version())->deleteTranslations($translations);
 
         if ($contentIsUser) {
@@ -215,7 +210,7 @@ class ContentTreeController extends RestController
             );
         }
 
-        if ($location->depth !== 1) {
+        if ($location->depth > 1) {
             return $this->permissionResolver->canUser(
                 'content',
                 'remove',
@@ -235,7 +230,7 @@ class ContentTreeController extends RestController
     {
         $content = $location->getContent();
 
-        $translations = $content->getVersionInfo()->languageCodes;
+        $translations = $content->getVersionInfo()->getLanguageCodes();
         $target = (new Target\Version())->deleteTranslations($translations);
 
         return $this->permissionResolver->canUser(

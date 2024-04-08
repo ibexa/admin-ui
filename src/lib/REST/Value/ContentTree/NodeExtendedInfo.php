@@ -33,7 +33,7 @@ final class NodeExtendedInfo extends RestValue
      * @phpstan-param TPermissionRestrictions|null $permissions
      */
     public function __construct(
-        ?array $permissions = null,
+        ?array $permissions = null
     ) {
         $this->permissions = $permissions;
     }

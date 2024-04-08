@@ -16,20 +16,22 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @phpstan-import-type TPermissionRestrictions from \Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo
  */
-final class NodeExtendedInfo extends ValueObjectVisitor
+final class NodeExtendedInfoVisitor extends ValueObjectVisitor
 {
+    public const MAIN_ELEMENT = 'ContentTreeNodeExtendedInfo';
+
     /**
      * @param \Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo $data
      */
     public function visit(Visitor $visitor, Generator $generator, $data): void
     {
-        $generator->startObjectElement('ContentTreeNodeExtendedInfo');
-        $visitor->setHeader('Content-Type', $generator->getMediaType('ContentTreeNodeExtendedInfo'));
+        $generator->startObjectElement(self::MAIN_ELEMENT);
+        $visitor->setHeader('Content-Type', $generator->getMediaType(self::MAIN_ELEMENT));
         $visitor->setStatus(Response::HTTP_OK);
 
         $this->buildPermissionNode($data->getPermissionRestrictions(), $generator);
 
-        $generator->endObjectElement('ContentTreeNodeExtendedInfo');
+        $generator->endObjectElement(self::MAIN_ELEMENT);
     }
 
     /**
