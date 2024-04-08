@@ -215,7 +215,7 @@ class ContentTreeController extends RestController
             );
         }
 
-        if ($location->depth != 1) {
+        if ($location->depth !== 1) {
             return $this->permissionResolver->canUser(
                 'content',
                 'remove',
