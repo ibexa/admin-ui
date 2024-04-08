@@ -1,8 +1,10 @@
 <div
-    class="ibexa-anchor-navigation__section-group"
+    class="ibexa-anchor-navigation__section-group
+        {% if is_section_visible|default(false) %}ibexa-anchor-navigation__section-group--active{% endif %}"
     data-id="#{{ data_id }}"
 >
     <div class="ibexa-anchor-navigation-sections">
+        {% block header %}{% endblock %}
         {% block sections %}{% endblock %}
     </div>
 </div>

@@ -15,6 +15,10 @@
         }
     }
 
+    &__section-group-header {
+        padding: calculateRem(16px) 0;
+    }
+
     &__section-header {
         padding-top: calculateRem(64px);
         margin-top: calculateRem(64px);
