@@ -20,7 +20,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Exception\ExceptionInterface as RouteExceptionInterface;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -40,19 +40,19 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
 
-    private RouterInterface $router;
+    private UrlGeneratorInterface $urlGenerator;
 
     public function __construct(
         MenuItemFactory $factory,
         EventDispatcherInterface $eventDispatcher,
         TranslatorInterface $translator,
-        RouterInterface $router,
+        UrlGeneratorInterface $urlGenerator,
         ?LoggerInterface $logger = null
     ) {
         parent::__construct($factory, $eventDispatcher);
 
         $this->translator = $translator;
-        $this->router = $router;
+        $this->urlGenerator = $urlGenerator;
         $this->logger = $logger ?? new NullLogger();
     }
 
@@ -137,7 +137,7 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
     private function routeExists(string $route, array $routeParameters): bool
     {
         try {
-            $this->router->generate($route, $routeParameters);
+            $this->urlGenerator->generate($route, $routeParameters);
 
             return true;
         } catch (RouteExceptionInterface $e) {
