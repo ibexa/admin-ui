@@ -199,7 +199,7 @@ class ContentTreeController extends RestController
             ->isSatisfiedBy($contentType);
 
         $translations = $content->getVersionInfo()->getLanguageCodes();
-        $target = (new Target\Version())->deleteTranslations($translations);
+        $target = (new Target\Version())->deleteTranslations([...$translations]);
 
         if ($contentIsUser) {
             return $this->permissionResolver->canUser(
@@ -231,7 +231,7 @@ class ContentTreeController extends RestController
         $content = $location->getContent();
 
         $translations = $content->getVersionInfo()->getLanguageCodes();
-        $target = (new Target\Version())->deleteTranslations($translations);
+        $target = (new Target\Version())->deleteTranslations([...$translations]);
 
         return $this->permissionResolver->canUser(
             'content',
