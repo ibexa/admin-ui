@@ -134,6 +134,8 @@ class ContentTreeController extends RestController
     }
 
     /**
+     * @internal for internal use by this package
+     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -152,7 +154,7 @@ class ContentTreeController extends RestController
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
-    public function getLocationPermissionRestrictions(Location $location): array
+    private function getLocationPermissionRestrictions(Location $location): array
     {
         $lookupCreateLimitationsResult = $this->permissionChecker->getContentCreateLimitations($location);
         $lookupUpdateLimitationsResult = $this->permissionChecker->getContentUpdateLimitations($location);
@@ -164,7 +166,7 @@ class ContentTreeController extends RestController
 
         $updateLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
             $lookupUpdateLimitationsResult,
-            [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
+            [Limitation::LANGUAGE]
         );
 
         return [
@@ -175,13 +177,16 @@ class ContentTreeController extends RestController
             ],
             'edit' => [
                 'hasAccess' => $lookupUpdateLimitationsResult->hasAccess(),
+                // skipped content type limitation values as in this case it can be inferred from "hasAccess" above
                 'restrictedLanguageCodes' => $updateLimitationsValues[Limitation::LANGUAGE],
             ],
             'delete' => [
                 'hasAccess' => $this->canUserRemoveContent($location),
+                // skipped other limitation values due to performance, until really needed
             ],
             'hide' => [
                 'hasAccess' => $this->canUserHideContent($location),
+                // skipped other limitation values due to performance, until really needed
             ],
         ];
     }
