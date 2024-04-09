@@ -14,7 +14,13 @@ use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Routing\Exception\ExceptionInterface as RouteExceptionInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -22,8 +28,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *
  * @see https://symfony.com/doc/current/bundles/KnpMenuBundle/menu_builder_service.html
  */
-class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
+class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface, LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     /* Menu items */
     public const ITEM__SAVE = 'user_setting_update__sidebar_right__save';
     public const ITEM__SAVE_AND_EDIT = 'user_setting_update__sidebar_right__save_end_edit';
@@ -32,14 +40,20 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
 
+    private RouterInterface $router;
+
     public function __construct(
         MenuItemFactory $factory,
         EventDispatcherInterface $eventDispatcher,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        RouterInterface $router,
+        ?LoggerInterface $logger = null
     ) {
         parent::__construct($factory, $eventDispatcher);
 
         $this->translator = $translator;
+        $this->router = $router;
+        $this->logger = $logger ?? new NullLogger();
     }
 
     /**
@@ -63,6 +77,10 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
         $menu = $this->factory->createItem('root');
         $route = $options['route'] ?? 'ibexa.user_settings.list';
         $routeParameters = $options['route_parameters'] ?? [];
+        if (!$this->routeExists($route, $routeParameters)) {
+            $route = 'ibexa.user_settings.list';
+            $routeParameters = [];
+        }
 
         $saveItem = $this->createMenuItem(
             self::ITEM__SAVE,
@@ -111,6 +129,27 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
             (new Message(self::ITEM__SAVE_AND_EDIT, 'ibexa_menu'))->setDesc('Save'),
             (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard'),
         ];
+    }
+
+    /**
+     * @param array<mixed> $routeParameters
+     */
+    private function routeExists(string $route, array $routeParameters): bool
+    {
+        try {
+            $this->router->generate($route, $routeParameters);
+
+            return true;
+        } catch (RouteExceptionInterface $e) {
+            $this->logger->warning(
+                sprintf('Invalid route in query. %s.', $e->getMessage()),
+                [
+                    'exception' => $e,
+                ],
+            );
+        }
+
+        return false;
     }
 }
 
