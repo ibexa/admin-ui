@@ -45,24 +45,27 @@ final class NodeExtendedInfoVisitor extends ValueObjectVisitor
             return;
         }
 
-        $generator->startHashElement('permissions');
+        $generator->startList('permissions');
 
         foreach ($permissionRestrictions as $function => $restrictions) {
-            $generator->startHashElement($function);
+            $generator->startHashElement('function');
+            $generator->attribute('name', $function);
             foreach ($restrictions as $restrictionKey => $restrictionValue) {
                 if (is_array($restrictionValue)) {
+                    $generator->startHashElement($restrictionKey . 'List');
                     $generator->startList($restrictionKey);
                     foreach ($restrictionValue as $value) {
-                        $generator->valueElement($restrictionKey, $value);
+                        $generator->valueElement('value', $value);
                     }
                     $generator->endList($restrictionKey);
-                } else {
-                    $generator->valueElement($restrictionKey, $restrictionValue);
+                    $generator->endHashElement($restrictionKey . 'List');
+                } elseif (is_bool($restrictionValue)) {
+                    $generator->valueElement($restrictionKey, $generator->serializeBool($restrictionValue));
                 }
             }
-            $generator->endHashElement($function);
+            $generator->endHashElement('function');
         }
 
-        $generator->endHashElement('permissions');
+        $generator->endList('permissions');
     }
 }
