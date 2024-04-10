@@ -88,6 +88,11 @@ export default class MultiFileUploadModule extends Component {
     confirmPopup() {
         this.setState((state) => ({ ...state, popupVisible: false, allowDropOnWindow: true }));
         this.props.onPopupConfirm(this._itemsUploaded);
+
+        if (this.props.triggerId === SUBITEMS_TRIGGER_ID && !!this._itemsUploaded.length) {
+            window.location.reload();
+        }
+
         this._itemsUploaded = [];
     }
 
@@ -96,7 +101,7 @@ export default class MultiFileUploadModule extends Component {
     }
 
     handleAfterUpload(itemsUploaded) {
-        this._itemsUploaded = [...this._itemsUploaded, ...itemsUploaded];
+        this._itemsUploaded = itemsUploaded;
     }
 
     handleAfterDelete(deletedItem) {
@@ -242,9 +247,6 @@ MultiFileUploadModule.propTypes = {
             locationMappings: PropTypes.arrayOf(PropTypes.object).isRequired,
             maxFileSize: PropTypes.number.isRequired,
         }).isRequired,
-        token: PropTypes.string,
-        siteaccess: PropTypes.string,
-        accessToken: PropTypes.string,
     }).isRequired,
     parentInfo: PropTypes.shape({
         contentTypeIdentifier: PropTypes.string.isRequired,

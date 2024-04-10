@@ -463,13 +463,6 @@ export default class UploadItemComponent extends Component {
 
 UploadItemComponent.propTypes = {
     item: PropTypes.object.isRequired,
-    onAfterUpload: PropTypes.func.isRequired,
-    onAfterAbort: PropTypes.func.isRequired,
-    onAfterDelete: PropTypes.func.isRequired,
-    createFileStruct: PropTypes.func.isRequired,
-    publishFile: PropTypes.func.isRequired,
-    deleteFile: PropTypes.func.isRequired,
-    checkCanUpload: PropTypes.func.isRequired,
     adminUiConfig: PropTypes.shape({
         multiFileUpload: PropTypes.shape({
             defaultMappings: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -477,16 +470,21 @@ UploadItemComponent.propTypes = {
             locationMappings: PropTypes.arrayOf(PropTypes.object).isRequired,
             maxFileSize: PropTypes.number.isRequired,
         }).isRequired,
-        token: PropTypes.string.isRequired,
-        siteaccess: PropTypes.string.isRequired,
     }).isRequired,
     parentInfo: PropTypes.shape({
         contentTypeIdentifier: PropTypes.string.isRequired,
         locationPath: PropTypes.string.isRequired,
         language: PropTypes.string.isRequired,
     }).isRequired,
-    contentCreatePermissionsConfig: PropTypes.object,
     contentTypesMap: PropTypes.object.isRequired,
+    onAfterUpload: PropTypes.func,
+    onAfterAbort: PropTypes.func,
+    onAfterDelete: PropTypes.func,
+    createFileStruct: PropTypes.func,
+    publishFile: PropTypes.func,
+    deleteFile: PropTypes.func,
+    checkCanUpload: PropTypes.func,
+    contentCreatePermissionsConfig: PropTypes.object,
     currentLanguage: PropTypes.string,
     isUploaded: PropTypes.bool,
     isFailed: PropTypes.bool,
@@ -496,6 +494,13 @@ UploadItemComponent.propTypes = {
 };
 
 UploadItemComponent.defaultProps = {
+    onAfterUpload: () => {},
+    onAfterAbort: () => {},
+    onAfterDelete: () => {},
+    createFileStruct: () => {},
+    publishFile: () => {},
+    deleteFile: () => {},
+    checkCanUpload: () => {},
     isUploaded: false,
     isFailed: false,
     currentLanguage: '',

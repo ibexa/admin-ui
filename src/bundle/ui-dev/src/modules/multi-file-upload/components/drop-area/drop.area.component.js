@@ -155,7 +155,7 @@ export default class DropAreaComponent extends Component {
 }
 
 DropAreaComponent.propTypes = {
-    maxFileSizes: PropTypes.objectOf(PropTypes.number).isRequired,
+    maxFileSizes: PropTypes.arrayOf(PropTypes.object).isRequired,
     processUploadedFiles: PropTypes.func.isRequired,
     preventDefaultAction: PropTypes.func.isRequired,
     addItemsToUpload: PropTypes.func.isRequired,

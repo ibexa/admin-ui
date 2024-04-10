@@ -35,7 +35,7 @@ const TooltipPopupComponent = ({
                     </button>
                 )}
                 {closeLabel && (
-                    <button className="btn ibexa-btn ibexa-btn--tertiary" type="button" onClick={onClose} {...closeBtnAttrs}>
+                    <button className="btn ibexa-btn ibexa-btn--ghost" type="button" onClick={onClose} {...closeBtnAttrs}>
                         {closeLabel}
                     </button>
                 )}
