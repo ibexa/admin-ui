@@ -41,7 +41,7 @@ interface PermissionCheckerInterface
      * @deprecated 4.6.0 The "\Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface::getContentUpdateLimitations()" method is deprecated, will be removed in 5.0.
      * Use { @see \Ibexa\AdminUi\Permission\LimitationResolverInterface::getContentUpdateLimitations } instead.
      */
-    public function getContentUpdateLimitations(Location $parentLocation): LookupLimitationResult;
+    public function getContentUpdateLimitations(Location $location): LookupLimitationResult;
 }
 
 class_alias(PermissionCheckerInterface::class, 'EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface');

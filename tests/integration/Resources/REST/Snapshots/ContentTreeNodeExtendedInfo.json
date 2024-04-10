@@ -1,0 +1,40 @@
+{
+    "ContentTreeNodeExtendedInfo": {
+        "_media-type": "application\/vnd.ibexa.api.ContentTreeNodeExtendedInfo+json",
+        "permissions": [
+            {
+                "_name": "create",
+                "hasAccess": true,
+                "restrictedContentTypeIdsList": {
+                    "restrictedContentTypeIds": [
+                        "1",
+                        "16"
+                    ]
+                },
+                "restrictedLanguageCodesList": {
+                    "restrictedLanguageCodes": [
+                        "eng-GB",
+                        "eng-US"
+                    ]
+                }
+            },
+            {
+                "_name": "edit",
+                "hasAccess": true,
+                "restrictedLanguageCodesList": {
+                    "restrictedLanguageCodes": [
+                        "eng-GB"
+                    ]
+                }
+            },
+            {
+                "_name": "delete",
+                "hasAccess": false
+            },
+            {
+                "_name": "hide",
+                "hasAccess": false
+            }
+        ]
+    }
+}
