@@ -34,7 +34,7 @@ interface PermissionCheckerInterface
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
-    public function getContentUpdateLimitations(Location $parentLocation): LookupLimitationResult;
+    public function getContentUpdateLimitations(Location $location): LookupLimitationResult;
 }
 
 class_alias(PermissionCheckerInterface::class, 'EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface');

@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\AdminUi;
 
+use DAMA\DoctrineTestBundle\DAMADoctrineTestBundle;
 use Hautelook\TemplatedUriBundle\HautelookTemplatedUriBundle;
 use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
 use Ibexa\Bundle\ContentForms\IbexaContentFormsBundle;
@@ -20,6 +21,7 @@ use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Test\Core\IbexaTestKernel;
 use Ibexa\Rest\Server\Controller\JWT;
 use Knp\Bundle\MenuBundle\KnpMenuBundle;
+use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
 use Swift_Mailer;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
@@ -39,6 +41,8 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
         yield new HautelookTemplatedUriBundle();
         yield new KnpMenuBundle();
         yield new WebpackEncoreBundle();
+        yield new SensioFrameworkExtraBundle();
+        yield new DAMADoctrineTestBundle();
 
         yield new IbexaContentFormsBundle();
         yield new IbexaDesignEngineBundle();
