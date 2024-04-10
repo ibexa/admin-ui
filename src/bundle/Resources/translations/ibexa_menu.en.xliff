@@ -301,6 +301,16 @@
         <target state="new">Drafts</target>
         <note>key: main__drafts</note>
       </trans-unit>
+      <trans-unit id="813e45c24a1dc0a9a8f42bf79b134a5a5dfb08ec" resname="main__integration">
+        <source>Ibexa integration</source>
+        <target state="new">Ibexa integration</target>
+        <note>key: main__integration</note>
+      </trans-unit>
+      <trans-unit id="48074f35e4e4deab2baad17197b480aac4181d1a" resname="main__integration__engage_campaign">
+        <source>Ibexa engage</source>
+        <target state="new">Ibexa engage</target>
+        <note>key: main__integration__engage_campaign</note>
+      </trans-unit>
       <trans-unit id="5376b08940439deec5b89c3df17b09ab8f4ed252" resname="main__trash">
         <source>Trash</source>
         <target state="new">Trash</target>

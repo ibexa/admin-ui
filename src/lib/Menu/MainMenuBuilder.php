@@ -54,6 +54,9 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     public const ITEM_BOOKMARKS = 'main__bookmarks';
     public const ITEM_TRASH = 'main__trash';
 
+    public const ITEM_INTEGRATION = 'main__integration';
+    public const ITEM_INTEGRATION__ENGAGE_CAMPAIGN = 'main__integration__engage_campaign';
+
     public const ITEM_ADMIN_OPTIONS = [
         self::ITEM_ADMIN__SECTIONS => [
             'route' => 'ibexa.section.list',
@@ -266,8 +269,20 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             ],
         ]);
 
+        $campaignItems = $menu->addChild(self::ITEM_INTEGRATION, [
+            'attributes' => [
+                'data-tooltip-placement' => 'right',
+                'data-tooltip-extra-class' => 'ibexa-tooltip--navigation',
+            ],
+            'extras' => [
+                'icon' => 'warning',
+                'orderNumber' => 140,
+            ],
+        ]);
+
         $this->addContentMenuItems($contentMenu);
         $this->addAdminMenuItems($adminMenu);
+        $this->addEngageCampaignItems($campaignItems);
 
         return $menu;
     }
@@ -386,6 +401,28 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     }
 
     /**
+     * @param \Knp\Menu\ItemInterface $menu
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
+    private function addEngageCampaignItems(ItemInterface $menu): void
+    {
+        $menu->addChild(
+            self::ITEM_INTEGRATION__ENGAGE_CAMPAIGN,
+            [
+                'route' => 'ibexa.engage',
+                'attributes' => [
+                    'data-tooltip-placement' => 'right',
+                    'data-tooltip-extra-class' => 'ibexa-tooltip--navigation',
+                ],
+                'extras' => [
+                    'orderNumber' => 0,
+                ],
+            ]
+        );
+    }
+
+    /**
      * @return array
      */
     public static function getTranslationMessages(): array
@@ -407,6 +444,8 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             (new Message(self::ITEM_ADMIN__USERS, 'ibexa_menu'))->setDesc('Users'),
             (new Message(self::ITEM_ADMIN__OBJECT_STATES, 'ibexa_menu'))->setDesc('Object States'),
             (new Message(self::ITEM_ADMIN__URL_MANAGEMENT, 'ibexa_menu'))->setDesc('URL management'),
+            (new Message(self::ITEM_INTEGRATION, 'ibexa_menu'))->setDesc('Ibexa integration'),
+            (new Message(self::ITEM_INTEGRATION__ENGAGE_CAMPAIGN, 'ibexa_menu'))->setDesc('Ibexa engage'),
         ];
     }
 }

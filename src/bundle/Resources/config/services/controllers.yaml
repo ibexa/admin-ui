@@ -81,6 +81,10 @@ services:
 
     Ibexa\Bundle\AdminUi\Controller\DashboardController: ~
 
+    Ibexa\Bundle\AdminUi\Controller\EngageController:
+        parent: Ibexa\Contracts\AdminUi\Controller\Controller
+        autowire: true
+
     Ibexa\Bundle\AdminUi\Controller\LanguageController:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true

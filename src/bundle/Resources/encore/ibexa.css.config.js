@@ -19,5 +19,6 @@ module.exports = (Encore) => {
         .addEntry('ibexa-admin-ui-security-base-css', [
             path.resolve(__dirname, '../public/scss/ibexa-bootstrap.scss'),
             path.resolve(__dirname, '../public/scss/ibexa.scss'),
-        ]);
+        ])
+        .addEntry('ibexa-engage-css', [path.resolve(__dirname, '../public/scss/ibexa-engage.scss')]);
 };

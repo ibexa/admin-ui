@@ -1,0 +1,95 @@
+{% extends '@ibexadesign/ui/layout.html.twig' %}
+
+{% trans_default_domain 'ibexa_engage' %}
+
+{% block body_class %}ibexa-engage{% endblock %}
+{% block main_container_class %}ibexa-eg{% endblock %}
+
+{% set features = [
+    {
+        id: 0,
+        link: 'aaa',
+        title: 'engage.qualifio_campaign_block'|trans|desc('Qualifio campaign block'),
+        text: 'engage.qualifio_campaign_block.description'|trans|desc('Use new Page Builder block to promote the campaign on your landing page.'),
+        icon: 'product',
+    },
+    {
+        id: 1,
+        link: 'bbb',
+        title: 'engage.qualifio_custom_tag'|trans|desc('Qualifio custom tag'),
+        text: 'engage.qualifio_custom_tag.description'|trans|desc('Embed your campaign in the text field using Qualifio custom tag.'),
+        icon: 'dashboard',
+    }
+] %}
+{% set discoverBtns = [
+    {
+        id: 0,
+        label: 'engage.product_page'|trans|desc('Product page'),
+    },
+    {
+        id: 1,
+        label: 'engage.user_guide'|trans|desc('User guider'),
+    }
+] %}
+
+{% block content_column %}
+    <div class="ibexa-eg__container">
+        <div class="ibexa-eg__welcome ibexa-eg__section">
+            <div class="ibexa-eg__header">
+                <h1>{{ 'engage.welcome'|trans|desc('Welcome to Ibexa Engage') }}</h1>
+                <p class="ibexa-eg__title-info">{{ 'engage.information'|trans|desc('Engage audiences across digital channels via 50+ interactive campaign formats
+                (quizzes, contests, surveys, tests, animated games, etc.) and collect valuable data.') }}</p>
+            </div>
+            <div class="ibexa-eg__features">
+                <p class="ibexa-eg__features-info">
+                    {{ 'engage.available_features'|trans|desc('Check available features thanks to integration with Qualifio Engage.') }}
+                </p>
+                <div class="ibexa-eg-feature">
+                    {% for feature in features %}
+                        <a
+                            class="ibexa-eg-feature__tile"
+                            href="{{ feature.link }}"
+                            target="_blank"
+                        >
+                            <div class="ibexa-eg-feature__tile-icon">
+                                <svg class="ibexa-icon ibexa-icon--medium">
+                                    <use xlink:href="{{ ibexa_icon_path(feature.icon) }}"></use>
+                                </svg>
+                            </div>
+                            <div class="ibexa-eg-feature__content">
+                                <h4 class="ibexa-eg-feature__title">{{ feature.title }}</h4>
+                                <span class="ibexa-eg-feature__text">{{ feature.text }}</span>
+                            </div>
+                            <div class="ibexa-eg-feature__open-new-tab">
+                                <svg class="ibexa-icon ibexa-icon--small ibexa-eg-feature__icon-back">
+                                    <use xlink:href="{{ ibexa_icon_path('open-newtab') }}"></use>
+                                </svg>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="ibexa-eg__btn-wrapper">
+                <button class="ibexa-eg__manage-campaigns-btn btn ibexa-btn ibexa-btn--primary">
+                    {{ 'engage.manage_compaigns'|trans|desc('Manage campaigns in Qualifio') }}
+                </button>
+            </div>
+        </div>
+        <div class="ibexa-eg__discover ibexa-eg__section">
+            <div class="ibexa-eg__discover-header-wrapper">
+                <h2 class="ibexa-eg__discover-header">{{ 'engage.discover.header'|trans|desc('Discover Ibexa Engage') }}</h2>
+                <p class="ibexa-eg__discover-description">{{ 'engage.discover.description'|trans|desc('Convert your visitors into customers with high conversion campaigns, published easily and quickly on your website.') }}</p>
+            </div>
+            <div class="ibexa-eg__discover-btns">
+                {%- for discoverBtn in discoverBtns -%}
+                    <button class="ibexa-btn btn ibexa-btn--tertiary ibexa-btn--small">{{ discoverBtn.label }}</button>
+                {%- endfor -%}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('ibexa-engage-css', null, 'ibexa') }}
+{% endblock %}
