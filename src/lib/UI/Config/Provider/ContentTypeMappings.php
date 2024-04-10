@@ -26,19 +26,21 @@ class ContentTypeMappings implements ProviderInterface
     /** @var array<string, mixed> */
     protected array $fallbackContentType = [];
 
-    protected int $maxFileSize = 0;
+    /** @var numeric */
+    protected $maxFileSize = 0;
 
     /**
      * @param array<string, mixed> $locationMappings
      * @param array<string, mixed> $defaultMappings
      * @param array<string, mixed> $fallbackContentType
+     * @param numeric $maxFileSize
      */
     public function __construct(
         ContentTypeService $contentTypeService,
         array $locationMappings,
         array $defaultMappings,
         array $fallbackContentType,
-        int $maxFileSize
+        $maxFileSize
     ) {
         $this->contentTypeService = $contentTypeService;
         $this->locationMappings = $locationMappings;
@@ -123,10 +125,15 @@ class ContentTypeMappings implements ProviderInterface
         ];
     }
 
+    /**
+     * @return numeric
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     */
     private function getContentTypeConfiguredMaxFileSize(
         string $contentTypeIdentifier,
         string $imageFieldTypeIdentifier
-    ): int {
+    ) {
         $contentType = $this->contentTypeService->loadContentTypeByIdentifier(
             $contentTypeIdentifier
         );
@@ -138,7 +145,7 @@ class ContentTypeMappings implements ProviderInterface
 
         $validatorConfig = $imgFieldType->getValidatorConfiguration();
         if (isset($validatorConfig['FileSizeValidator']['maxFileSize'])) {
-            return (int)$validatorConfig['FileSizeValidator']['maxFileSize'] * 1024 * 1024;
+            return $validatorConfig['FileSizeValidator']['maxFileSize'] * 1024 * 1024;
         }
 
         return $this->maxFileSize;
