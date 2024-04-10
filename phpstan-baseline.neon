@@ -8066,11 +8066,6 @@ parameters:
 			path: src/lib/Menu/MainMenuBuilder.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Menu\\\\MainMenuBuilder\\:\\:getTranslationMessages\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Menu/MainMenuBuilder.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Menu\\\\MenuItemFactory\\:\\:createItem\\(\\) has parameter \\$name with no type specified\\.$#"
 			count: 1
 			path: src/lib/Menu/MenuItemFactory.php

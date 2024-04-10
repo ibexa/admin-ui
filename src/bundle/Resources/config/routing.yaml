@@ -971,10 +971,3 @@ ibexa.focus_mode.change:
     path: /user/focus-mode
     controller: 'Ibexa\Bundle\AdminUi\Controller\User\FocusModeController::changeAction'
     methods: [GET, POST]
-
-### Ibexa Integration
-
-ibexa.engage:
-    path: /engage
-    defaults:
-        _controller: 'Ibexa\Bundle\AdminUi\Controller\EngageController::engageAction'

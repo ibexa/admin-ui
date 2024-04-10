@@ -19,6 +19,7 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
@@ -26,7 +27,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  *
  * @see https://symfony.com/doc/current/bundles/KnpMenuBundle/menu_builder_service.html
  */
-class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInterface
+class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInterface, EventSubscriberInterface
 {
     /* Main Menu / Dashboard */
     public const ITEM_DASHBOARD = 'main__dashboard';
@@ -53,9 +54,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     public const ITEM_ADMIN = 'main__admin';
     public const ITEM_BOOKMARKS = 'main__bookmarks';
     public const ITEM_TRASH = 'main__trash';
-
     public const ITEM_INTEGRATION = 'main__integration';
-    public const ITEM_INTEGRATION__ENGAGE_CAMPAIGN = 'main__integration__engage_campaign';
 
     public const ITEM_ADMIN_OPTIONS = [
         self::ITEM_ADMIN__SECTIONS => [
@@ -269,7 +268,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             ],
         ]);
 
-        $campaignItems = $menu->addChild(self::ITEM_INTEGRATION, [
+        $menu->addChild(self::ITEM_INTEGRATION, [
             'attributes' => [
                 'data-tooltip-placement' => 'right',
                 'data-tooltip-extra-class' => 'ibexa-tooltip--navigation',
@@ -282,7 +281,6 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
 
         $this->addContentMenuItems($contentMenu);
         $this->addAdminMenuItems($adminMenu);
-        $this->addEngageCampaignItems($campaignItems);
 
         return $menu;
     }
@@ -400,31 +398,29 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         );
     }
 
-    /**
-     * @param \Knp\Menu\ItemInterface $menu
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     */
-    private function addEngageCampaignItems(ItemInterface $menu): void
+    public function cleanupMenu(ConfigureMenuEvent $event): void
     {
-        $menu->addChild(
-            self::ITEM_INTEGRATION__ENGAGE_CAMPAIGN,
-            [
-                'route' => 'ibexa.engage',
-                'attributes' => [
-                    'data-tooltip-placement' => 'right',
-                    'data-tooltip-extra-class' => 'ibexa-tooltip--navigation',
-                ],
-                'extras' => [
-                    'orderNumber' => 0,
-                ],
-            ]
-        );
+        $menu = $event->getMenu();
+
+        $integrationMenu = $menu->getChild(self::ITEM_INTEGRATION);
+        if ($integrationMenu === null) {
+            return;
+        }
+
+        if (!$integrationMenu->hasChildren()) {
+            $menu->removeChild(self::ITEM_INTEGRATION);
+        }
     }
 
-    /**
-     * @return array
-     */
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            ConfigureMenuEvent::MAIN_MENU => [
+                ['cleanupMenu', -9999],
+            ],
+        ];
+    }
+
     public static function getTranslationMessages(): array
     {
         return [
@@ -445,7 +441,6 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
             (new Message(self::ITEM_ADMIN__OBJECT_STATES, 'ibexa_menu'))->setDesc('Object States'),
             (new Message(self::ITEM_ADMIN__URL_MANAGEMENT, 'ibexa_menu'))->setDesc('URL management'),
             (new Message(self::ITEM_INTEGRATION, 'ibexa_menu'))->setDesc('Ibexa integration'),
-            (new Message(self::ITEM_INTEGRATION__ENGAGE_CAMPAIGN, 'ibexa_menu'))->setDesc('Ibexa engage'),
         ];
     }
 }
