@@ -16,7 +16,6 @@ use Ibexa\Rest\Value as RestValue;
  *      restrictedContentTypeIds?: array<int>,
  *      restrictedLanguageCodes?: array<string>,
  * }
- *
  * @phpstan-type TPermissionRestrictions array{
  *      create: TRestrictions,
  *      edit: TRestrictions,
