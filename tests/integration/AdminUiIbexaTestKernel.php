@@ -39,7 +39,6 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
     {
         yield from parent::registerBundles();
 
-        yield new DAMADoctrineTestBundle();
         yield new HautelookTemplatedUriBundle();
         yield new KnpMenuBundle();
         yield new WebpackEncoreBundle();
