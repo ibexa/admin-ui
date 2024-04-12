@@ -32,6 +32,19 @@ use PHPUnit\Framework\TestCase;
  *         engine: string,
  *     },
  * }
+ * @phpstan-type TContentTypeValueMap array<
+ *     array{
+ *         string,
+ *         array{},
+ *         \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
+ *     }
+ * >
+ * @phpstan-type TSchemaIdentifiersValueMap array<
+ *     array{
+ *         string,
+ *         array{field: array<string>}
+ *     }
+ * >
  *
  * @covers \Ibexa\AdminUi\UI\Config\Provider\Module\ImagePicker
  */
@@ -112,8 +125,8 @@ final class DamWidgetTest extends TestCase
      * @phpstan-param TDamWidgetConfig $expectedConfiguration
      * @phpstan-param TRepositoryConfig $repositoryConfig
      *
-     * @param array<array{string|array<string>|ContentType}> $loadContentTypeValueMap
-     * @param array<array{string|array<string>}> $extractSchemaIdentifiersValueMap
+     * @param TContentTypeValueMap $loadContentTypeValueMap
+     * @param TSchemaIdentifiersValueMap $extractSchemaIdentifiersValueMap
      */
     public function testGetConfig(
         array $expectedConfiguration,
@@ -149,8 +162,8 @@ final class DamWidgetTest extends TestCase
      * @return iterable<array{
      *     TDamWidgetConfig,
      *     TRepositoryConfig,
-     *     array<array{string|array<string>|ContentType}>,
-     *     array<array{string|array<string>}>,
+     *     TContentTypeValueMap,
+     *     TSchemaIdentifiersValueMap,
      * }>
      */
     public function provideDataForTestGetConfig(): iterable
