@@ -697,7 +697,7 @@ class ContentTypeController extends Controller
         if (!in_array($group->id, $contentTypeGroupsIds, true)) {
             throw $this->createNotFoundException(
                 sprintf(
-                    '%s Content Type does not belong to %s Content Type Group.',
+                    '%s content type does not belong to %s content type group.',
                     $contentType->getName(),
                     $group->identifier,
                 ),
