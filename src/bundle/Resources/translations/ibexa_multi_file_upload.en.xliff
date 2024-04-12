@@ -106,14 +106,19 @@
         <target state="new">Upload file</target>
         <note>key: upload_btn.label</note>
       </trans-unit>
+      <trans-unit id="19d5456f3b1299d65b92474d58e70ff787010ba1" resname="upload_popup.cancel_label">
+        <source>Cancel pending upload</source>
+        <target state="new">Cancel pending upload</target>
+        <note>key: upload_popup.cancel_label</note>
+      </trans-unit>
       <trans-unit id="36999e5e928304452a57984fe9fb29daef497121" resname="upload_popup.close_label">
-        <source>Confirm and close</source>
-        <target state="new">Confirm and close</target>
+        <source>Close</source>
+        <target state="new">Close</target>
         <note>key: upload_popup.close_label</note>
       </trans-unit>
       <trans-unit id="69ca9f45ba70d7b75027057e8b1f23057801a70e" resname="upload_popup.confirm_label">
-        <source>Cancel pending upload</source>
-        <target state="new">Cancel pending upload</target>
+        <source>Confirm and close</source>
+        <target state="new">Confirm and close</target>
         <note>key: upload_popup.confirm_label</note>
       </trans-unit>
       <trans-unit id="8964e0ca9f836009ee40abf9e9b013b41b2dd2d4" resname="upload_popup.label">

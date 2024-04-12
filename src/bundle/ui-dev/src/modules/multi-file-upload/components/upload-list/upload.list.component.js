@@ -13,15 +13,18 @@ export default class UploadListComponent extends Component {
         };
     }
 
-    componentDidUpdate() {
-        this.props.onAfterUpload(this.state.items);
-    }
-
     handleAfterUpload(item) {
-        this.props.removeItemsToUpload([item]);
-        this.setState((state) => ({
-            items: [...state.items, item],
-        }));
+        this.setState(
+            (state) => {
+                return {
+                    items: [...state.items, item],
+                };
+            },
+            () => {
+                this.props.removeItemsToUpload([item]);
+                this.props.onAfterUpload(this.state.items);
+            },
+        );
     }
 
     handleAfterAbort(item) {

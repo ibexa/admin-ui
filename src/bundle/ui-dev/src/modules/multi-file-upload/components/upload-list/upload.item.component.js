@@ -342,14 +342,15 @@ export default class UploadItemComponent extends Component {
         const label = Translator.trans(/*@Desc("Abort")*/ 'abort.label', {}, 'ibexa_multi_file_upload');
 
         return (
-            <div
+            <button
                 className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--small c-upload-list-item__action c-upload-list-item__action--abort"
                 onClick={this.abortUploading}
                 title={label}
                 tabIndex="-1"
+                type="button"
             >
                 <Icon name="trash" extraClasses="ibexa-icon--small" />
-            </div>
+            </button>
         );
     }
 
@@ -373,7 +374,7 @@ export default class UploadItemComponent extends Component {
 
     renderEditBtn() {
         const Translator = getTranslator();
-        const { uploaded, failed } = this.state;
+        const { uploaded, failed, struct } = this.state;
         const canEdit = uploaded && !failed;
 
         if (!canEdit || this.isExternalInstance) {
@@ -383,19 +384,21 @@ export default class UploadItemComponent extends Component {
         const label = Translator.trans(/*@Desc("Edit")*/ 'edit.label', {}, 'ibexa_multi_file_upload');
 
         return (
-            <div
+            <button
                 className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--small c-upload-list-item__action c-upload-list-item__action--edit"
                 title={label}
                 onClick={this.handleEditBtnClick}
                 tabIndex="-1"
+                type="button"
+                disabled={!struct}
             >
                 <Icon name="edit" extraClasses="ibexa-icon--small" />
-            </div>
+            </button>
         );
     }
 
     renderDeleteBtn() {
-        const { uploaded, aborted, failed } = this.state;
+        const { uploaded, aborted, failed, struct } = this.state;
         const canDelete = (uploaded && !aborted) || failed;
 
         if (!canDelete) {
@@ -406,14 +409,16 @@ export default class UploadItemComponent extends Component {
         const label = Translator.trans(/*@Desc("Delete")*/ 'delete.label', {}, 'ibexa_multi_file_upload');
 
         return (
-            <div
+            <button
                 className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--small c-upload-list-item__action c-upload-list-item__action--delete"
                 onClick={this.deleteFile}
                 title={label}
                 tabIndex="-1"
+                type="button"
+                disabled={!(struct || failed)}
             >
                 <Icon name="trash" extraClasses="ibexa-icon--small" />
-            </div>
+            </button>
         );
     }
 

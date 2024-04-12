@@ -39,7 +39,7 @@ export default class UploadPopupModule extends Component {
 
             maxFileSizes.push({
                 name: contentTypeName,
-                maxFileSize: contentTypeMapping.maxFileSize || defaultMaxFileSize,
+                maxFileSize: contentTypeMapping?.maxFileSize || defaultMaxFileSize,
             });
 
             return maxFileSizes;
@@ -48,7 +48,18 @@ export default class UploadPopupModule extends Component {
 
     render() {
         const Translator = getTranslator();
+        const hasAnyUploadedItems = !!this.props.uploadedItems.length;
+        const hasAnyItemsToUpload = !!this.props.itemsToUpload.length;
         const label = Translator.trans(/*@Desc("Upload")*/ 'upload_popup.label', {}, 'ibexa_multi_file_upload');
+        const confirmBtnLabel =
+            !hasAnyUploadedItems && !hasAnyItemsToUpload
+                ? Translator.trans(/*@Desc("Close")*/ 'upload_popup.close_label', {}, 'ibexa_multi_file_upload')
+                : Translator.trans(/*@Desc("Confirm and close")*/ 'upload_popup.confirm_label', {}, 'ibexa_multi_file_upload');
+        const closeBtnLabel = Translator.trans(
+            /*@Desc("Cancel pending upload")*/ 'upload_popup.cancel_label',
+            {},
+            'ibexa_multi_file_upload',
+        );
         const {
             addItemsToUpload,
             subtitle,
@@ -77,8 +88,8 @@ export default class UploadPopupModule extends Component {
             onConfirm,
             onClose,
             title: Translator.trans(/*@Desc("Multi-file upload")*/ 'upload_popup.title', {}, 'ibexa_multi_file_upload'),
-            confirmLabel: Translator.trans(/*@Desc("Confirm and close")*/ 'upload_popup.close_label', {}, 'ibexa_multi_file_upload'),
-            closeLabel: Translator.trans(/*@Desc("Cancel pending upload")*/ 'upload_popup.confirm_label', {}, 'ibexa_multi_file_upload'),
+            confirmLabel: confirmBtnLabel,
+            closeLabel: closeBtnLabel,
             confirmBtnAttrs: {
                 disabled: itemsToUpload.length,
             },
@@ -123,6 +134,7 @@ UploadPopupModule.propTypes = {
     subtitle: PropTypes.string,
     visible: PropTypes.bool,
     itemsToUpload: PropTypes.array,
+    uploadedItems: PropTypes.array,
     onAfterUpload: PropTypes.func.isRequired,
     createFileStruct: PropTypes.func.isRequired,
     publishFile: PropTypes.func.isRequired,
@@ -157,6 +169,7 @@ UploadPopupModule.defaultProps = {
     subtitle: '',
     visible: true,
     itemsToUpload: [],
+    uploadedItems: [],
     currentLanguage: '',
     contentCreatePermissionsConfig: {},
     onConfirm: () => {},

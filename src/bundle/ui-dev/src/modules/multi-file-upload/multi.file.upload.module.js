@@ -217,6 +217,7 @@ export default class MultiFileUploadModule extends Component {
             onClose: this.hidePopup,
             onConfirm: this.confirmPopup,
             itemsToUpload: this.state.itemsToUpload,
+            uploadedItems: this._itemsUploaded,
             onAfterUpload: this.handleAfterUpload,
             onAfterDelete: this.handleAfterDelete,
             preventDefaultAction: this.preventDefaultAction,

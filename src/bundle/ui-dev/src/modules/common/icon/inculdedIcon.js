@@ -34,6 +34,7 @@ import User from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/user.svg
 import UserGroup from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/user_group.svg';
 import Upload from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/upload.svg';
 import UploadImage from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/upload-image.svg';
+import Warning from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/warning.svg';
 
 const iconsMap = {
     about: About,
@@ -69,6 +70,7 @@ const iconsMap = {
     user_group: UserGroup,
     upload: Upload,
     'upload-image': UploadImage,
+    warning: Warning,
 };
 
 const InculdedIcon = (props) => {
