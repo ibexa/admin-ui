@@ -28,6 +28,10 @@ const FinderLeaf = ({ location }) => {
     const containersOnly = useContext(ContainersOnlyContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
+    if (contentTypeInfo === undefined) {
+        return;
+    }
+
     const { isContainer } = contentTypeInfo;
     const isSelected = selectedLocations.some((selectedLocation) => selectedLocation.location.id === location.id);
     const isNotSelectable =
