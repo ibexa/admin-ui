@@ -274,7 +274,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
                 'data-tooltip-extra-class' => 'ibexa-tooltip--navigation',
             ],
             'extras' => [
-                'icon' => 'warning',
+                'icon' => 'campaign',
                 'orderNumber' => 140,
             ],
         ]);
