@@ -35,7 +35,7 @@
                                 name: ibexa_content_name(user)
                             }) %}
                             {% set items_map = form.users.vars.data|reduce((output, user) => output + {
-                                (user.content.versionInfo.contentInfo.id): user.id,
+                                (user.id): user.content.versionInfo.contentInfo.mainLocationId,
                             }, {}) %}
                             {% set users_udw_title = "role_assignment.view.add.panel.users_and_groups.users.udw_title"
                                 |trans({}, 'ibexa_role')
