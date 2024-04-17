@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Validator\Constraints;
+namespace Ibexa\AdminUi\Validator\Constraints;
 
-use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzPlatformAdminUi\Specification\Location\IsWithinCopySubtreeLimit;
+use Ibexa\AdminUi\Specification\Location\IsWithinCopySubtreeLimit;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class LocationIsWithinCopySubtreeLimitValidator extends ConstraintValidator
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -34,7 +34,7 @@ class LocationIsWithinCopySubtreeLimitValidator extends ConstraintValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location The value that should be validated
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location The value that should be validated
      * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
      */
     public function validate($location, Constraint $constraint)
@@ -63,3 +63,5 @@ class LocationIsWithinCopySubtreeLimitValidator extends ConstraintValidator
         }
     }
 }
+
+class_alias(LocationIsWithinCopySubtreeLimitValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimitValidator');

@@ -6,12 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Menu;
+namespace Ibexa\AdminUi\Menu;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
-use EzSystems\EzPlatformAdminUi\UniversalDiscovery\ConfigResolver;
-use EzSystems\EzPlatformAdminUiBundle\Templating\Twig\UniversalDiscoveryExtension;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\UniversalDiscovery\ConfigResolver;
+use Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -26,19 +27,19 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__SEARCH = 'sidebar_left__search';
-    const ITEM__BROWSE = 'sidebar_left__browse';
-    const ITEM__BOOKMARK = 'sidebar_left__bookmark';
-    const ITEM__TRASH = 'sidebar_left__trash';
-    const ITEM__TREE = 'sidebar_left__tree';
+    public const ITEM__SEARCH = 'sidebar_left__search';
+    public const ITEM__BROWSE = 'sidebar_left__browse';
+    public const ITEM__BOOKMARK = 'sidebar_left__bookmark';
+    public const ITEM__TRASH = 'sidebar_left__trash';
+    public const ITEM__TREE = 'sidebar_left__tree';
 
-    /** @var \EzSystems\EzPlatformAdminUi\UniversalDiscovery\ConfigResolver */
+    /** @var \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver */
     private $configResolver;
 
-    /** @var \EzSystems\EzPlatformAdminUiBundle\Templating\Twig\UniversalDiscoveryExtension */
+    /** @var \Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension */
     private $udwExtension;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
@@ -73,7 +74,7 @@ class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainer
      *
      * @return \Knp\Menu\ItemInterface
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function createStructure(array $options): ItemInterface
     {
@@ -83,7 +84,7 @@ class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainer
             self::ITEM__SEARCH => $this->createMenuItem(
                 self::ITEM__SEARCH,
                 [
-                    'route' => 'ezplatform.search',
+                    'route' => 'ibexa.search',
                     'extras' => ['icon' => 'search'],
                 ]
             ),
@@ -93,7 +94,7 @@ class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainer
                     'extras' => ['icon' => 'browse'],
                     'attributes' => [
                         'type' => 'button',
-                        'class' => 'btn--udw-browse',
+                        'class' => 'ibexa-btn--udw-browse',
                         'data-udw-config' => $this->udwExtension->renderUniversalDiscoveryWidgetConfig('browse', [
                             'type' => 'content_create',
                         ]),
@@ -107,14 +108,14 @@ class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainer
                     'extras' => ['icon' => 'content-tree'],
                     'attributes' => [
                         'type' => 'button',
-                        'class' => 'ez-btn ez-btn--toggle-content-tree',
+                        'class' => 'btn ibexa-btn ibexa-btn--toggle-content-tree',
                     ],
                 ]
             ),
             self::ITEM__BOOKMARK => $this->createMenuItem(
                 self::ITEM__BOOKMARK,
                 [
-                    'route' => 'ezplatform.bookmark.list',
+                    'route' => 'ibexa.bookmark.list',
                     'extras' => ['icon' => 'bookmark-manager'],
                 ]
             ),
@@ -124,7 +125,7 @@ class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainer
             $menuItems[self::ITEM__TRASH] = $this->createMenuItem(
                 self::ITEM__TRASH,
                 [
-                    'route' => 'ezplatform.trash.list',
+                    'route' => 'ibexa.trash.list',
                     'extras' => ['icon' => 'trash'],
                 ]
             );
@@ -149,3 +150,5 @@ class LeftSidebarBuilder extends AbstractBuilder implements TranslationContainer
         ];
     }
 }
+
+class_alias(LeftSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\LeftSidebarBuilder');

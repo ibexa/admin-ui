@@ -5,6 +5,8 @@ import UploadPopupComponent from './components/upload-popup/upload.popup.compone
 import { createFileStruct, publishFile, deleteFile, checkCanUpload } from './services/multi.file.upload.service';
 import Icon from '../common/icon/icon';
 
+const { Translator, ibexa } = window;
+
 export default class MultiFileUploadModule extends Component {
     constructor(props) {
         super(props);
@@ -24,6 +26,8 @@ export default class MultiFileUploadModule extends Component {
         this.processUploadedFiles = this.processUploadedFiles.bind(this);
         this.setUdwStateOpened = this.setUdwStateOpened.bind(this);
         this.setUdwStateClosed = this.setUdwStateClosed.bind(this);
+        this.addItemsToUpload = this.addItemsToUpload.bind(this);
+        this.removeItemsToUpload = this.removeItemsToUpload.bind(this);
 
         this.state = {
             udwOpened: false,
@@ -37,8 +41,8 @@ export default class MultiFileUploadModule extends Component {
     componentDidMount() {
         this.manageDropEvent();
 
-        window.document.body.addEventListener('ez-udw-opened', this.setUdwStateOpened, false);
-        window.document.body.addEventListener('ez-udw-closed', this.setUdwStateClosed, false);
+        window.document.body.addEventListener('ibexa-udw-opened', this.setUdwStateOpened, false);
+        window.document.body.addEventListener('ibexa-udw-closed', this.setUdwStateClosed, false);
     }
 
     componentDidUpdate() {
@@ -46,8 +50,8 @@ export default class MultiFileUploadModule extends Component {
     }
 
     componentWillUnmount() {
-        window.document.body.removeEventListener('ez-udw-opened', this.setUdwStateOpened, false);
-        window.document.body.removeEventListener('ez-udw-closed', this.setUdwStateClosed, false);
+        window.document.body.removeEventListener('ibexa-udw-opened', this.setUdwStateOpened, false);
+        window.document.body.removeEventListener('ibexa-udw-closed', this.setUdwStateClosed, false);
     }
 
     /**
@@ -92,7 +96,7 @@ export default class MultiFileUploadModule extends Component {
      * @memberof MultiFileUploadModule
      */
     hidePopup() {
-        this.setState((state) => Object.assign({}, state, { popupVisible: false }));
+        this.setState((state) => ({ ...state, popupVisible: false }));
 
         this.props.onPopupClose(this._itemsUploaded);
     }
@@ -104,12 +108,7 @@ export default class MultiFileUploadModule extends Component {
      * @memberof MultiFileUploadModule
      */
     showUploadPopup() {
-        this.setState((state) =>
-            Object.assign({}, state, {
-                popupVisible: true,
-                itemsToUpload: [],
-            })
-        );
+        this.setState((state) => ({ ...state, popupVisible: true, itemsToUpload: [] }));
     }
 
     /**
@@ -121,7 +120,7 @@ export default class MultiFileUploadModule extends Component {
      * @memberof MultiFileUploadModule
      */
     handleAfterUpload(itemsUploaded) {
-        this._itemsUploaded = itemsUploaded;
+        this._itemsUploaded = [...this._itemsUploaded, ...itemsUploaded];
     }
 
     /**
@@ -146,13 +145,7 @@ export default class MultiFileUploadModule extends Component {
         window.removeEventListener('drop', this.handleDropOnWindow, false);
         window.removeEventListener('dragover', this.preventDefaultAction, false);
 
-        this.setState((state) =>
-            Object.assign({}, state, {
-                itemsToUpload,
-                popupVisible: true,
-                allowDropOnWindow: false,
-            })
-        );
+        this.setState((state) => ({ ...state, itemsToUpload, popupVisible: true, allowDropOnWindow: false }));
     }
 
     /**
@@ -217,21 +210,40 @@ export default class MultiFileUploadModule extends Component {
             return null;
         }
 
-        const uploadDisabled = this.state.uploadDisabled;
-        const title = Translator.trans(/*@Desc("Upload sub-items")*/ 'multi_file_upload_open_btn.label', {}, 'multi_file_upload');
-        const attrs = { className: 'm-mfu__btn--upload', title, onClick: this.showUploadPopup, type: 'button' };
-
-        if (uploadDisabled) {
-            delete attrs.onClick;
-
-            attrs.disabled = true;
-        }
+        const { uploadDisabled } = this.state;
+        const label = Translator.trans(/*@Desc("Upload")*/ 'multi_file_upload_open_btn.label', {}, 'multi_file_upload');
 
         return (
-            <button {...attrs}>
-                <Icon name="upload" extraClasses="ez-icon--base-dark ez-icon--small-medium" />
+            <button type="button" className="btn ibexa-btn ibexa-btn--ghost" onClick={this.showUploadPopup} disabled={uploadDisabled}>
+                <Icon name="upload" extraClasses="ibexa-icon--small" /> {label}
             </button>
         );
+    }
+
+    addItemsToUpload(items) {
+        this.setState((prevState) => {
+            const newItems = items.filter((item) => !prevState.itemsToUpload.find((stateItem) => stateItem.id === item.id));
+
+            if (newItems.length) {
+                return {
+                    itemsToUpload: [...prevState.itemsToUpload, ...newItems],
+                };
+            }
+        });
+    }
+
+    removeItemsToUpload(items) {
+        const itemsIds = items.map((item) => item.id);
+
+        this.setState((prevState) => {
+            const itemsToUpload = prevState.itemsToUpload.filter((stateItem) => !itemsIds.includes(stateItem.id));
+
+            if (itemsToUpload.length !== prevState.itemsToUpload.length) {
+                return {
+                    itemsToUpload,
+                };
+            }
+        });
     }
 
     /**
@@ -254,6 +266,8 @@ export default class MultiFileUploadModule extends Component {
             onAfterUpload: this.handleAfterUpload,
             preventDefaultAction: this.preventDefaultAction,
             processUploadedFiles: this.processUploadedFiles,
+            addItemsToUpload: this.addItemsToUpload,
+            removeItemsToUpload: this.removeItemsToUpload,
         };
 
         return <UploadPopupComponent {...attrs} />;
@@ -269,7 +283,7 @@ export default class MultiFileUploadModule extends Component {
     }
 }
 
-eZ.addConfig('modules.MultiFileUpload', MultiFileUploadModule);
+ibexa.addConfig('modules.MultiFileUpload', MultiFileUploadModule);
 
 MultiFileUploadModule.propTypes = {
     adminUiConfig: PropTypes.shape({
@@ -309,4 +323,5 @@ MultiFileUploadModule.defaultProps = {
     itemsToUpload: [],
     withUploadButton: true,
     currentLanguage: '',
+    contentCreatePermissionsConfig: {},
 };

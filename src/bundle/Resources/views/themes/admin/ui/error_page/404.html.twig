@@ -1,23 +1,23 @@
-{% extends '@ezdesign/ui/layout_error.html.twig' %}
+{% extends '@ibexadesign/ui/layout_error.html.twig' %}
 
-{% block body_class %}ez-has-no-sidebars ez-error-site{% endblock %}
+{% block user_menu %}{% endblock %}
+{% block left_sidebar %}{% endblock %}
 
 {% block content %}
-    <div class="ez-error-page-wrapper">
-        <div class="ez-error-page ez-error-page--top-section">
-            <div class="ez-error-page__messages-container">
-                <div class="ez-error-page__icon-wrapper">
-                    <svg class="ez-error-page__icon">
-                        <use xlink:href="{{ ez_icon_path('error-icon') }}"></use>
-                    </svg>
-                </div>
-                <h2 class="ez-error-page__title">{{ 'error.page.404.title'|trans|desc('Page not found') }}</h2>
-                <p class="ez-error-page__message ez-error-page__message--title">{{ 'error.page.404.sub_title'|trans|raw|desc('You probably weren\'t expecting to land here.') }}</p>
-                <p class="ez-error-page__message ez-error-page__message--content">{{ 'error.page.404.message'|trans|raw|desc('The page you requested was not found.<br/> It might have been deleted or it is temporarily unavailable.') }}</p>
+    <div class="ibexa-error-page">
+        <div class="ibexa-error-page__messages-container">
+            <div class="ibexa-error-page__icon-wrapper">
+                <img class="ibexa-error-page__icon" src="{{ asset('bundles/ibexaadminui/img/error_404.svg') }}" />
             </div>
+            <h2 class="ibexa-error-page__title">
+                {{ 'error.page.404.title'|trans|desc('Sorry, this page isn\'t available') }}
+            </h2>
+            <h3 class="ibexa-error-page__subtitle">
+                {{ 'error.page.404.sub_title'|trans|desc('The link may be broken, or the page may have been removed.') }}
+            </h3>
         </div>
-        <div class="ez-error-page ez-error-page--bottom-section">
-            <p class="ez-error-page__message ez-error-page__message--actions">{{ 'error.page.404.actions'|trans({ '%dashboard%': path('ezplatform.dashboard'), '%search%': path('ezplatform.search') })|raw|desc('Check the URL for a typo and try again.<br/>Otherwise, go back to the <a class="error-page__link" href="%dashboard%">dashboard</a> or <a class="error-page__link" href="%search%">search</a> for another Content item.') }}</p>
-        </div>
+        <p class="ibexa-error-page__message">
+            {{ 'error.page.404.actions'|trans({ '%dashboard%': path('ibexa.dashboard'), '%search%': path('ibexa.search') })|raw|desc('Check the URL is spelled correctly and try again.<br/>Go back to the <a href="%dashboard%">dashboard</a> or <a href="%search%">search</a> for another item.') }}
+        </p>
     </div>
 {% endblock %}

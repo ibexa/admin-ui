@@ -1,7 +1,7 @@
-(function(global, doc, eZ, moment) {
-    const userPreferredTimezone = eZ.adminUiConfig.timezone;
-    const userPreferredFullDateTimeFormat = eZ.adminUiConfig.dateFormat.fullDateTime;
-    const userPreferredShortDateTimeFormat = eZ.adminUiConfig.dateFormat.shortDateTime;
+(function (global, doc, ibexa, moment) {
+    const userPreferredTimezone = ibexa.adminUiConfig.timezone;
+    const userPreferredFullDateTimeFormat = ibexa.adminUiConfig.dateFormat.fullDateTime;
+    const userPreferredShortDateTimeFormat = ibexa.adminUiConfig.dateFormat.shortDateTime;
 
     const convertDateToTimezone = (date, timezone = userPreferredTimezone, forceSameTime = false) => {
         return moment(date).tz(timezone, forceSameTime);
@@ -19,10 +19,14 @@
     const formatShortDateTime = (date, timezone = userPreferredTimezone, format = userPreferredShortDateTimeFormat) => {
         return formatDate(date, timezone, format);
     };
+    const getBrowserTimezone = () => {
+        return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    };
 
-    eZ.addConfig('helpers.timezone', {
+    ibexa.addConfig('helpers.timezone', {
         convertDateToTimezone,
         formatFullDateTime,
         formatShortDateTime,
+        getBrowserTimezone,
     });
-})(window, window.document, window.eZ, window.moment);
+})(window, window.document, window.ibexa, window.moment);

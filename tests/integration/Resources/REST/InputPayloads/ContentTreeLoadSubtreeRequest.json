@@ -1,0 +1,22 @@
+{
+  "LoadSubtreeRequest": {
+    "_media-type": "application/vnd.ibexa.api.ContentTreeLoadSubtreeRequest",
+    "nodes": [
+      {
+        "_media-type": "application/vnd.ibexa.api.ContentTreeLoadSubtreeRequestNode",
+        "locationId": 2,
+        "limit": 30,
+        "offset": 0,
+        "children": [
+          {
+            "_media-type": "application/vnd.ibexa.api.ContentTreeLoadSubtreeRequestNode",
+            "locationId": 1,
+            "limit": 200,
+            "offset": 0,
+            "children": []
+          }
+        ]
+      }
+    ]
+  }
+}

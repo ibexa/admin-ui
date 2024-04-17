@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\URL;
+namespace Ibexa\AdminUi\Form\Data\URL;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 class URLListData extends ValueObject
 {
@@ -24,3 +24,5 @@ class URLListData extends ValueObject
     /** @var int */
     public $limit = 10;
 }
+
+class_alias(URLListData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\URL\URLListData');

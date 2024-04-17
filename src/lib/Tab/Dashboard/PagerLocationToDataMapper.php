@@ -8,53 +8,62 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\Dashboard;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\Core\Repository\LocationResolver\LocationResolver;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Core\Repository\LocationResolver\LocationResolver;
 use Pagerfanta\Pagerfanta;
 
 final class PagerLocationToDataMapper
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
-    private $contentService;
-
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
-    /** @var \eZ\Publish\Core\Repository\LocationResolver\LocationResolver */
+    /** @var \Ibexa\Core\Repository\LocationResolver\LocationResolver */
     private $locationResolver;
 
-    /** @var \eZ\Publish\API\Repository\LanguageService */
-    private $languageService;
+    private LanguageService $languageService;
 
     public function __construct(
-        ContentService $contentService,
         UserService $userService,
         LocationResolver $locationResolver,
         LanguageService $languageService
     ) {
-        $this->contentService = $contentService;
         $this->userService = $userService;
         $this->locationResolver = $locationResolver;
         $this->languageService = $languageService;
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\ForbiddenException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @param \Pagerfanta\Pagerfanta<\Ibexa\Contracts\Core\Repository\Values\Content\Location> $pager
+     *
+     * @return array<
+     *      array{
+     *          'contentTypeId': int,
+     *          'contentId': int,
+     *          'name': string,
+     *          'type': ?string,
+     *          'language': string,
+     *          'available_enabled_translations': \Ibexa\Contracts\Core\Repository\Values\Content\Language[],
+     *          'contributor': ?\Ibexa\Contracts\Core\Repository\Values\User\User,
+     *          'content_type': \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType,
+     *          'modified': \DateTime,
+     *          'resolvedLocation': \Ibexa\Contracts\Core\Repository\Values\Content\Location
+     *      }
+     * >
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function map(Pagerfanta $pager, bool $doMapVersionInfoData = false): array
     {
         $data = [];
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
         foreach ($pager as $location) {
             $contentInfo = $location->getContentInfo();
             $versionInfo = $doMapVersionInfoData ? $location->getContent()->getVersionInfo() : null;
@@ -87,7 +96,7 @@ final class PagerLocationToDataMapper
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
      */
     private function getAvailableTranslations(
         VersionInfo $versionInfo

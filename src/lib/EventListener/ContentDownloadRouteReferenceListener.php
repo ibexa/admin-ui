@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\EventListener;
+namespace Ibexa\AdminUi\EventListener;
 
-use eZ\Publish\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent;
-use eZ\Publish\Core\MVC\Symfony\MVCEvents;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use EzSystems\EzPlatformAdminUi\Specification\SiteAccess\IsAdmin;
+use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
+use Ibexa\Core\MVC\Symfony\Event\RouteReferenceGenerationEvent;
+use Ibexa\Core\MVC\Symfony\MVCEvents;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -21,7 +21,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 final class ContentDownloadRouteReferenceListener implements EventSubscriberInterface
 {
-    public const CONTENT_DOWNLOAD_ROUTE_NAME = 'ez_content_download';
+    public const CONTENT_DOWNLOAD_ROUTE_NAME = 'ibexa.content.download';
 
     /** @var array */
     private $siteAccessGroups;
@@ -46,7 +46,7 @@ final class ContentDownloadRouteReferenceListener implements EventSubscriberInte
             return;
         }
 
-        /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess $siteaccess */
+        /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteaccess */
         $siteaccess = $event->getRequest()->attributes->get('siteaccess');
         if ($this->isAdminSiteAccess($siteaccess)) {
             $routeReference->set('siteaccess', $siteaccess->name);
@@ -58,3 +58,5 @@ final class ContentDownloadRouteReferenceListener implements EventSubscriberInte
         return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($siteAccess);
     }
 }
+
+class_alias(ContentDownloadRouteReferenceListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\ContentDownloadRouteReferenceListener');

@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\QueryType;
 
-use EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\SubtreePath;
+use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\SubtreePath;
 
 final class MediaLocationSubtreeQueryType extends LocationSubtreeQueryType
 {

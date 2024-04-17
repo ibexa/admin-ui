@@ -1,27 +1,20 @@
-{% extends '@ezdesign/ui/layout_error.html.twig' %}
-
-{% block body_class %}ez-has-no-sidebars ez-error-site{% endblock %}
+{% extends '@ibexadesign/ui/layout_error.html.twig' %}
 
 {% block content %}
-    <div class="ez-error-page-wrapper">
-        <div class="ez-error-page ez-error-page--top-section">
-            <a href="{{ url('ezplatform.dashboard') }}" class="ez-error-page__logo-link">
-                <img class="ez-error-page__logo-image" src="/bundles/ezplatformadminui/img/ibexa-logo.svg" alt="Ibexa" />
-            </a>
-            <div class="ez-error-page__messages-container">
-                <div class="ez-error-page__icon-wrapper">
-                    <svg class="ez-error-page__icon">
-                        <use xlink:href="{{ ez_icon_path('error-icon') }}"></use>
-                    </svg>
-                </div>
-                <h2 class="ez-error-page__title">{{ 'error.page.403.title'|trans|desc('You don\'t have permission') }}</h2>
-                <p class="ez-error-page__message ez-error-page__message--title">{{ 'error.page.403.sub_title'|trans|raw|desc('Not possible to retrieve or access this page.') }}</p>
+    <div class="ibexa-error-page">
+        <div class="ibexa-error-page__messages-container">
+            <div class="ibexa-error-page__icon-wrapper">
+                <img class="ibexa-error-page__icon" src="{{ asset('bundles/ibexaadminui/img/error_403.svg') }}" />
             </div>
+            <h2 class="ibexa-error-page__title">
+                {{ 'error.page.403.title'|trans|desc('Access denied') }}
+            </h2>
+            <h3 class="ibexa-error-page__subtitle">
+                {{ 'error.page.403.sub_title'|trans|desc('Sorry but you don\'t have permission to access this page.') }}
+            </h3>
         </div>
-        <div class="ez-error-page ez-error-page--bottom-section">
-            <p class="ez-error-page__message ez-error-page__message--actions">{{ 'error.page.403.actions'|trans({ '%dashboard%': path('ezplatform.dashboard'), '%search%': path('ezplatform.search') })|raw|desc('Please contact your Administrator to request access to this content or modify your profile.<br/>Otherwise, go back to <a class="error-page__link" href="%dashboard%">dashboard</a> or <a class="error-page__link" href="%search%">search</a> for another Content item.') }}</p>
-        </div>
+        <p class="ibexa-error-page__message">
+            {{ 'error.page.403.actions'|trans({ '%dashboard%': path('ibexa.dashboard'), '%search%': path('ibexa.search') })|raw|desc('Contact your administrator to request access.<br/>Go back to the <a href="%dashboard%">dashboard</a> or <a href="%search%">search</a> for another item.') }}
+        </p>
     </div>
 {% endblock %}
-
-
