@@ -26,12 +26,22 @@ class ContentTypePicker extends Component
     public function select(string $contentTypeName): void
     {
         $countBeforeFiltering = $this->getDisplayedItemsCount();
-        $this->getHTMLPage()->find($this->getLocator('filterInput'))->setValue($contentTypeName);
-        $this->getHTMLPage()->setTimeout(3)->waitUntil(function () use ($countBeforeFiltering) {
-            return $countBeforeFiltering === 1 || $this->getDisplayedItemsCount() < $countBeforeFiltering;
-        }, 'The number of displayed content types did not decrease after filtering.');
+        if ($countBeforeFiltering > 10) {
+            $this->getHTMLPage()->find($this->getLocator('filterInput'))->clear();
+            $this->getHTMLPage()->find($this->getLocator('filterInput'))->setValue($contentTypeName);
+            $this->getHTMLPage()->setTimeout(3)->waitUntil(function () use ($countBeforeFiltering) {
+                return $countBeforeFiltering === 1 || $this->getDisplayedItemsCount() < $countBeforeFiltering;
+            }, 'The number of displayed content types did not decrease after filtering.');
+            $this->clickOnItem($contentTypeName);
+        } else {
+            $this->clickOnItem($contentTypeName);
+        }
+    }
+
+    public function clickOnItem(string $contentTypeName): void
+    {
         $this->getHTMLPage()
-            ->findAll($this->getLocator('filteredItem'))
+            ->findAll($this->getLocator('contentTypeItem'))
             ->getByCriterion(new ElementTextCriterion($contentTypeName))
             ->click();
     }
@@ -44,13 +54,12 @@ class ContentTypePicker extends Component
 
     protected function getDisplayedItemsCount(): int
     {
-        return $this->getHTMLPage()->findAll($this->getLocator('filteredItem'))->count();
+        return $this->getHTMLPage()->findAll($this->getLocator('contentTypeItem'))->count();
     }
 
     public function verifyIsLoaded(): void
     {
         $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('header'))->assert()->textEquals('Create content');
-        $this->getHTMLPage()->find($this->getLocator('filterInput'))->clear();
     }
 
     public function confirm(): void
@@ -62,7 +71,7 @@ class ContentTypePicker extends Component
     {
         return [
             new VisibleCSSLocator('filterInput', '.ibexa-content-menu-wrapper .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__input, .c-udw-tab .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__input'),
-            new VisibleCSSLocator('filteredItem', '.ibexa-content-menu-wrapper .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__group-item:not([hidden]) .form-check-label, .c-udw-tab .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__group-item:not([hidden]) .form-check-label'),
+            new VisibleCSSLocator('contentTypeItem', '.ibexa-content-menu-wrapper .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__group-item:not([hidden]) .form-check-label, .c-udw-tab .ibexa-extra-actions__section-content--content-type .ibexa-instant-filter__group-item:not([hidden]) .form-check-label'),
             new VisibleCSSLocator('header', '.ibexa-content-menu-wrapper .ibexa-extra-actions--create .ibexa-extra-actions__header h2'),
             new VisibleCSSLocator('languageDropdown', '.ibexa-content-menu-wrapper .ibexa-dropdown__selection-info'),
             new VisibleCSSLocator('createButton', '.c-content-create__confirm-button, [id="content_create_create"]'),
