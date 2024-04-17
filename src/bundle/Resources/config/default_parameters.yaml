@@ -81,12 +81,15 @@ parameters:
 
     ibexa.site_access.config.default.admin_ui.default_focus_mode: '1'
 
-    ibexa.dam_widget.image.field_definition_identifiers: [image]
-    ibexa.dam_widget.image.content_type_identifiers: [image]
+    #### DAM WIDGET
+    ibexa.dam_widget.image.mappings:
+        image:
+            imageFieldIdentifier: image
+
     ibexa.dam_widget.image.aggregations:
         KeywordTermAggregation:
             name: keywords
             contentTypeIdentifier: image
             fieldDefinitionIdentifier: tags
+
     ibexa.dam_widget.folder.content_type_identifier: folder
-    ibexa.dam_widget.folder.name_field_identifier: name

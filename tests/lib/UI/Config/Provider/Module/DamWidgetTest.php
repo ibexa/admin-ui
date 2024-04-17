@@ -12,33 +12,61 @@ use Ibexa\AdminUi\UI\Config\Provider\Module\DamWidget;
 use Ibexa\Bundle\Core\ApiLoader\Exception\InvalidSearchEngine;
 use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\NameSchema\SchemaIdentifierExtractorInterface;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @template TDamWidgetConfig of array {
- *     image: array{
- *         fieldDefinitionIdentifiers: array<string>,
- *         contentTypeIdentifiers: array<string>,
- *         aggregations: aggregations: array<string, array<string, string>>,
- *         showImageFilters: bool,
- *     },
- *     contentTypeIdentifier: string,
- *     nameFieldIdentifier: string,
+ * @phpstan-import-type TImageConfig from DamWidget
+ * @phpstan-import-type TFolderConfig from DamWidget
+ *
+ * @phpstan-type TDamWidgetConfig array{
+ *     image: TImageConfig,
+ *     folder: TFolderConfig
  * }
- * @template TRepositoryConfig of array {
- *      engine: string,
- *      connection: string,
- *      search: array{
- *          engine: string,
- *      },
- *  }
+ * @phpstan-type TRepositoryConfig array{
+ *     engine: string,
+ *     connection: string,
+ *     search: array{
+ *         engine: string,
+ *     },
+ * }
+ * @phpstan-type TContentTypeValueMap array<
+ *     array{
+ *         string,
+ *         array{},
+ *         \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
+ *     }
+ * >
+ * @phpstan-type TSchemaIdentifiersValueMap array<
+ *     array{
+ *         string,
+ *         array{field: array<string>}
+ *     }
+ * >
  *
  * @covers \Ibexa\AdminUi\UI\Config\Provider\Module\ImagePicker
  */
 final class DamWidgetTest extends TestCase
 {
+    private const IMAGE_FOO_CONTENT_TYPE_IDENTIFIER = 'content_type_foo';
+    private const IMAGE_BAR_CONTENT_TYPE_IDENTIFIER = 'content_type_bar';
+    private const IMAGE_FOO_NAME_SCHEMA = '<image_title|name>';
+    private const IMAGE_BAR_NAME_SCHEMA = '<caption|name>';
+    private const IMAGE_FOO_NAME_SCHEMA_IDENTIFIERS = ['image_title', 'name'];
+    private const IMAGE_BAR_NAME_SCHEMA_IDENTIFIERS = ['name'];
+    private const IMAGE_MAPPINGS = [
+        self::IMAGE_FOO_CONTENT_TYPE_IDENTIFIER => [
+            'imageFieldIdentifier' => 'field_foo',
+            'nameSchemaIdentifiers' => self:: IMAGE_FOO_NAME_SCHEMA_IDENTIFIERS,
+        ],
+        self::IMAGE_BAR_CONTENT_TYPE_IDENTIFIER => [
+            'imageFieldIdentifier' => 'field_bar',
+            'nameSchemaIdentifiers' => self:: IMAGE_BAR_NAME_SCHEMA_IDENTIFIERS,
+        ],
+    ];
     private const IMAGE_FIELD_DEFINITION_IDENTIFIERS = ['field_foo', 'field_bar'];
-    private const IMAGE_CONTENT_TYPE_IDENTIFIERS = ['content_type_foo', 'content_type_bar'];
     private const IMAGE_AGGREGATIONS = [
         'KeywordTermAggregation' => [
             'name' => 'keywords',
@@ -48,29 +76,46 @@ final class DamWidgetTest extends TestCase
     ];
 
     private const FOLDER_CONTENT_TYPE_IDENTIFIER = 'folder';
-    private const FOLDER_NAME_FIELD_IDENTIFIER = 'name';
+    private const FOLDER_NAME_SCHEMA = '<short_name|name>';
+    private const FOLDER_NAME_SCHEMA_IDENTIFIERS = ['short_name', 'name'];
 
     private ProviderInterface $provider;
 
     /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider&\PHPUnit\Framework\MockObject\MockObject */
     private RepositoryConfigurationProvider $repositoryConfigurationProvider;
 
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService&\PHPUnit\Framework\MockObject\MockObject */
+    private ContentTypeService $contentTypeService;
+
+    /** @var \Ibexa\Contracts\Core\Repository\NameSchema\SchemaIdentifierExtractorInterface&\PHPUnit\Framework\MockObject\MockObject */
+    private SchemaIdentifierExtractorInterface $schemaIdentifierExtractor;
+
     protected function setUp(): void
     {
         $this->repositoryConfigurationProvider = $this->createMock(RepositoryConfigurationProvider::class);
+        $this->contentTypeService = $this->createMock(ContentTypeService::class);
+        $this->schemaIdentifierExtractor = $this->createMock(SchemaIdentifierExtractorInterface::class);
+
         $this->provider = new DamWidget(
             [
                 'image' => [
-                    'fieldDefinitionIdentifiers' => self::IMAGE_FIELD_DEFINITION_IDENTIFIERS,
-                    'contentTypeIdentifiers' => self::IMAGE_CONTENT_TYPE_IDENTIFIERS,
+                    'mappings' => [
+                        self::IMAGE_FOO_CONTENT_TYPE_IDENTIFIER => [
+                            'imageFieldIdentifier' => 'field_foo',
+                        ],
+                        self::IMAGE_BAR_CONTENT_TYPE_IDENTIFIER => [
+                            'imageFieldIdentifier' => 'field_bar',
+                        ],
+                    ],
                     'aggregations' => self::IMAGE_AGGREGATIONS,
                 ],
                 'folder' => [
                     'contentTypeIdentifier' => self::FOLDER_CONTENT_TYPE_IDENTIFIER,
-                    'nameFieldIdentifier' => self::FOLDER_NAME_FIELD_IDENTIFIER,
                 ],
             ],
-            $this->repositoryConfigurationProvider
+            $this->contentTypeService,
+            $this->repositoryConfigurationProvider,
+            $this->schemaIdentifierExtractor
         );
     }
 
@@ -79,14 +124,21 @@ final class DamWidgetTest extends TestCase
      *
      * @phpstan-param TDamWidgetConfig $expectedConfiguration
      * @phpstan-param TRepositoryConfig $repositoryConfig
+     *
+     * @param TContentTypeValueMap $loadContentTypeValueMap
+     * @param TSchemaIdentifiersValueMap $extractSchemaIdentifiersValueMap
      */
     public function testGetConfig(
         array $expectedConfiguration,
-        array $repositoryConfig
+        array $repositoryConfig,
+        array $loadContentTypeValueMap,
+        array $extractSchemaIdentifiersValueMap
     ): void {
         $this->mockRepositoryConfigurationProviderGetRepositoryConfig($repositoryConfig);
+        $this->mockContentTypeServiceLoadContentTypeByIdentifier($loadContentTypeValueMap);
+        $this->mockSchemaIdentifierExtractorExtract($extractSchemaIdentifiersValueMap);
 
-        self::assertSame(
+        self::assertEquals(
             $expectedConfiguration,
             $this->provider->getConfig()
         );
@@ -109,14 +161,30 @@ final class DamWidgetTest extends TestCase
     /**
      * @return iterable<array{
      *     TDamWidgetConfig,
-     *     TRepositoryConfig
+     *     TRepositoryConfig,
+     *     TContentTypeValueMap,
+     *     TSchemaIdentifiersValueMap,
      * }>
      */
     public function provideDataForTestGetConfig(): iterable
     {
+        $loadContentTypeValueMap = [
+            [self::FOLDER_CONTENT_TYPE_IDENTIFIER, [], $this->createContentTypeMock(self::FOLDER_NAME_SCHEMA)],
+            [self::IMAGE_FOO_CONTENT_TYPE_IDENTIFIER, [], $this->createContentTypeMock(self::IMAGE_FOO_NAME_SCHEMA)],
+            [self::IMAGE_BAR_CONTENT_TYPE_IDENTIFIER, [], $this->createContentTypeMock(self::IMAGE_BAR_NAME_SCHEMA)],
+        ];
+
+        $extractSchemaIdentifiersValueMap = [
+            [self::FOLDER_NAME_SCHEMA, ['field' => self::FOLDER_NAME_SCHEMA_IDENTIFIERS]],
+            [self::IMAGE_FOO_NAME_SCHEMA, ['field' => self::IMAGE_FOO_NAME_SCHEMA_IDENTIFIERS]],
+            [self::IMAGE_BAR_NAME_SCHEMA, ['field' => self::IMAGE_BAR_NAME_SCHEMA_IDENTIFIERS]],
+        ];
+
         yield 'Legacy Search Engine - hide filters' => [
             $this->getExpectedConfig(false),
             $this->getRepositoryConfig('legacy'),
+            $loadContentTypeValueMap,
+            $extractSchemaIdentifiersValueMap,
         ];
 
         $expectedConfigForSolrAndElasticsearch = $this->getExpectedConfig(true);
@@ -124,12 +192,27 @@ final class DamWidgetTest extends TestCase
         yield 'Solr - show filters' => [
             $expectedConfigForSolrAndElasticsearch,
             $this->getRepositoryConfig('solr'),
+            $loadContentTypeValueMap,
+            $extractSchemaIdentifiersValueMap,
         ];
 
         yield 'Elasticsearch - show filters' => [
             $expectedConfigForSolrAndElasticsearch,
             $this->getRepositoryConfig('elasticsearch'),
+            $loadContentTypeValueMap,
+            $extractSchemaIdentifiersValueMap,
         ];
+    }
+
+    private function createContentTypeMock(string $nameSchema): ContentType
+    {
+        $contentType = $this->createMock(ContentType::class);
+        $contentType
+            ->method('__get')
+            ->with('nameSchema')
+            ->willReturn($nameSchema);
+
+        return $contentType;
     }
 
     /**
@@ -140,13 +223,17 @@ final class DamWidgetTest extends TestCase
         return [
             'image' => [
                 'fieldDefinitionIdentifiers' => self::IMAGE_FIELD_DEFINITION_IDENTIFIERS,
-                'contentTypeIdentifiers' => self::IMAGE_CONTENT_TYPE_IDENTIFIERS,
+                'contentTypeIdentifiers' => [
+                    self::IMAGE_FOO_CONTENT_TYPE_IDENTIFIER,
+                    self::IMAGE_BAR_CONTENT_TYPE_IDENTIFIER,
+                ],
                 'aggregations' => self::IMAGE_AGGREGATIONS,
                 'showImageFilters' => $showImageFilters,
+                'mappings' => self::IMAGE_MAPPINGS,
             ],
             'folder' => [
                 'contentTypeIdentifier' => self::FOLDER_CONTENT_TYPE_IDENTIFIER,
-                'nameFieldIdentifier' => self::FOLDER_NAME_FIELD_IDENTIFIER,
+                'nameSchemaIdentifiers' => self::FOLDER_NAME_SCHEMA_IDENTIFIERS,
             ],
         ];
     }
@@ -163,6 +250,26 @@ final class DamWidgetTest extends TestCase
                 'engine' => $searchEngine,
             ],
         ];
+    }
+
+    /**
+     * @param array<array<string|array<string>|ContentType>> $valueMap
+     */
+    private function mockContentTypeServiceLoadContentTypeByIdentifier(array $valueMap): void
+    {
+        $this->contentTypeService
+            ->method('loadContentTypeByIdentifier')
+            ->willReturnMap($valueMap);
+    }
+
+    /**
+     * @param array<array{string|array<string>}> $valueMap
+     */
+    private function mockSchemaIdentifierExtractorExtract(array $valueMap): void
+    {
+        $this->schemaIdentifierExtractor
+            ->method('extract')
+            ->willReturnMap($valueMap);
     }
 
     /**
