@@ -9,6 +9,7 @@ import Blog from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/blog.svg
 import BlogPost from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/blog_post.svg';
 import CaretDown from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/caret-down.svg';
 import CaretUp from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/caret-up.svg';
+import Create from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/create.svg';
 import Checkmark from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/checkmark.svg';
 import ContentTree from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/content-tree.svg';
 import Date from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/date.svg';
@@ -21,6 +22,7 @@ import Form from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/form.svg
 import Gallery from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/gallery.svg';
 import Image from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/image.svg';
 import LandingPage from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/landing_page.svg';
+import Options from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/options.svg';
 import Place from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/place.svg';
 import Product from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/product.svg';
 import Search from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/search.svg';
@@ -43,6 +45,7 @@ const iconsMap = {
     back: Back,
     blog: Blog,
     blog_post: BlogPost,
+    create: Create,
     'caret-down': CaretDown,
     'caret-up': CaretUp,
     checkmark: Checkmark,
@@ -57,6 +60,7 @@ const iconsMap = {
     gallery: Gallery,
     image: Image,
     landing_page: LandingPage,
+    options: Options,
     place: Place,
     product: Product,
     search: Search,
