@@ -118,15 +118,15 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
                 };
 
                 return (
-                    <div
-                        key={bookmark.id}
-                        className={className}
-                        onClick={markLocation}
-                        title={bookmark.ContentInfo.Content.TranslatedName}
-                        data-tooltip-container-selector=".c-bookmarks-list"
-                    >
+                    <div key={bookmark.id} className={className} onClick={markLocation}>
                         <Icon extraClasses="ibexa-icon--small" customPath={contentTypeInfo.thumbnail} />
-                        <span className="c-bookmarks-list__item-name">{bookmark.ContentInfo.Content.TranslatedName}</span>
+                        <span
+                            title={bookmark.ContentInfo.Content.TranslatedName}
+                            data-tooltip-container-selector=".c-bookmarks-list"
+                            className="c-bookmarks-list__item-name"
+                        >
+                            {bookmark.ContentInfo.Content.TranslatedName}
+                        </span>
                     </div>
                 );
             })}
