@@ -16,16 +16,37 @@ use Ibexa\Contracts\Core\Repository\NameSchema\SchemaIdentifierExtractorInterfac
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
 /**
- * @template TConfig of array{
+ * @phpstan-type TConfig array{
  *     image: array{
- *         fieldDefinitionIdentifiers: array<string>,
- *         contentTypeIdentifiers: array<string>,
  *         aggregations: array<string, array<string, string>>,
+ *         mappings: array<
+ *             string,
+ *             array{
+ *                 imageFieldIdentifier: string
+ *             },
+ *         >,
  *     },
  *     folder: array{
  *         contentTypeIdentifier: string,
  *     }
- *  }
+ * }
+ * @phpstan-type TImageConfig array{
+ *     fieldDefinitionIdentifiers: array<string>,
+ *     contentTypeIdentifiers: array<string>,
+ *     aggregations: array<string, array<string, string>>,
+ *     showImageFilters: bool,
+ *     mappings: array<
+ *         string,
+ *         array{
+ *             imageFieldIdentifier: string,
+ *             nameSchemaIdentifiers: array<string>,
+ *         }
+ *     >,
+ * }
+ * @phpstan-type TFolderConfig array{
+ *     contentTypeIdentifier: string,
+ *     nameSchemaIdentifiers: array<string>
+ * }
  */
 final class DamWidget implements ProviderInterface
 {
@@ -55,35 +76,54 @@ final class DamWidget implements ProviderInterface
 
     /**
      * @phpstan-return array{
-     *     image: array{
-     *         fieldDefinitionIdentifiers: array<string>,
-     *         contentTypeIdentifiers: array<string>,
-     *         aggregations: array<string, array<string, string>>,
-     *         showImageFilters: bool,
-     *     },
-     *     folder: array{
-     *         contentTypeIdentifier: string,
-     *         nameSchemaIdentifiers: array<string>
-     *     }
+     *     image: TImageConfig,
+     *     folder: TFolderConfig
      * }
      *
-     * @throws \Ibexa\Bundle\Core\ApiLoader\Exception\InvalidSearchEngine
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function getConfig(): array
     {
-        $widgetConfig = $this->config;
-        $widgetConfig['image']['showImageFilters'] = $this->showImageFilters();
-        $widgetConfig['folder'] = $this->getFolderConfig();
-
-        return $widgetConfig;
+        return [
+            'image' => $this->getImageConfig(),
+            'folder' => $this->getFolderConfig(),
+        ];
     }
 
     /**
-     * @return array{
-     *     contentTypeIdentifier: string,
-     *     nameSchemaIdentifiers: array<string>
-     * }
+     * @phpstan-return TImageConfig
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     */
+    private function getImageConfig(): array
+    {
+        $imageConfig = [
+            'showImageFilters' => $this->showImageFilters(),
+            'aggregations' => $this->config['image']['aggregations'],
+        ];
+
+        $mappings = [];
+        $contentTypeIdentifiers = [];
+        $fieldDefinitionIdentifiers = [];
+
+        foreach ($this->config['image']['mappings'] as $contentTypeIdentifier => $mapping) {
+            $contentTypeIdentifiers[] = $contentTypeIdentifier;
+            $fieldDefinitionIdentifiers[] = $mapping['imageFieldIdentifier'];
+            $mappings[$contentTypeIdentifier] = $mapping;
+
+            $contentType = $this->loadContentType($contentTypeIdentifier);
+            $mappings[$contentTypeIdentifier]['nameSchemaIdentifiers'] = $this->extractNameSchemaIdentifiers($contentType);
+        }
+
+        $imageConfig['mappings'] = $mappings;
+        $imageConfig['contentTypeIdentifiers'] = $contentTypeIdentifiers;
+        $imageConfig['fieldDefinitionIdentifiers'] = $fieldDefinitionIdentifiers;
+
+        return $imageConfig;
+    }
+
+    /**
+     * @phpstan-return TFolderConfig
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */

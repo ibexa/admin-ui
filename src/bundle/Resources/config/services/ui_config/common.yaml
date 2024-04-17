@@ -147,8 +147,7 @@ services:
         arguments:
             $config:
                 image:
-                    fieldDefinitionIdentifiers: '%ibexa.dam_widget.image.field_definition_identifiers%'
-                    contentTypeIdentifiers: '%ibexa.dam_widget.image.content_type_identifiers%'
+                    mappings: '%ibexa.dam_widget.image.mappings%'
                     aggregations: '%ibexa.dam_widget.image.aggregations%'
                 folder:
                     contentTypeIdentifier: '%ibexa.dam_widget.folder.content_type_identifier%'
