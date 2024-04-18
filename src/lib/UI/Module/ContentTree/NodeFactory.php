@@ -333,7 +333,7 @@ final class NodeFactory implements LoggerAwareInterface
                     $this->logger->warning(
                         sprintf(
                             'SortClause %s cannot be used',
-                            $sortClause::class,
+                            get_class($sortClause),
                         )
                     );
 
