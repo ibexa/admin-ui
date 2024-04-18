@@ -1,5 +1,5 @@
 .ibexa-available-field-types {
-    @include sidebar-drag-items();
+    @include toolbox-drag-items;
 
     min-height: calculateRem(700px);
     max-height: calc(100vh - #{calculateRem(200px)});
@@ -7,7 +7,7 @@
 }
 
 .ibexa-available-field-type {
-    @include sidebar-drag-item;
+    @include toolbox-drag-item;
 }
 
 .ibexa-content-type-edit {

@@ -11,7 +11,7 @@
 
         const deleteBtn = container.querySelector(SELECTOR_RESET_STARTING_LOCATION_BTN);
 
-        ibexa.helpers.ellipsis.middle.parseAll();
+        ibexa.helpers.ellipsis.middle.parse();
 
         deleteBtn.addEventListener('click', resetStartingLocation, false);
     };
@@ -99,6 +99,6 @@
     defaultLocationContainers.forEach((defaultLocationContainer) => {
         attachEvents(defaultLocationContainer);
         toggleDisabledState(defaultLocationContainer);
-        ibexa.helpers.ellipsis.middle.parseAll();
+        ibexa.helpers.ellipsis.middle.parse();
     });
 })(window, window.document, window.ibexa, window.React, window.ReactDOM);

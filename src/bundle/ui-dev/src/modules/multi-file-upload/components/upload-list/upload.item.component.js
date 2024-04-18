@@ -6,7 +6,7 @@ import { getTranslator, isExternalInstance } from '@ibexa-admin-ui/src/bundle/Re
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
-import { fileSizeToString } from '../../helpers/text.helper';
+import { fileSizeToString } from '../../../common/helpers/text.helper';
 import ProgressBarComponent from '../progress-bar/progress.bar.component';
 
 export default class UploadItemComponent extends Component {
