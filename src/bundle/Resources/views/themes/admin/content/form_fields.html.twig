@@ -47,6 +47,8 @@
 {%- endblock %}
 
 {% block form_row_subfield -%}
+    {% set ai = attr.ai|default(false) %}
+    {% set is_small = attr.is_small|default(false) %}
     {% set wrapper_class = 'ibexa-data-source__field ibexa-data-source__field--' ~ name %}
     {% if required %}{% set wrapper_class = (wrapper_class ~ ' ibexa-data-source__field--required ibexa-data-source__field--required')|trim %}{% endif %}
     {% if errors|length > 0 %}{% set wrapper_class = (wrapper_class|default('') ~ ' is-invalid')|trim %}{% endif %}
@@ -54,20 +56,31 @@
     {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' ibexa-label ibexa-data-source__label ibexa-data-source__label')|trim}) %}
     {% set label_wrapper_attr = label_wrapper_attr|default({})|merge({'class': (label_wrapper_attr.class|default('') ~ ' ibexa-data-source__label-wrapper ibexa-data-source__label-wrapper')|trim}) %}
     {% set attr = attr|merge({
-        class: (attr.class|default('') ~ ' ibexa-data-source__input ibexa-data-source__input ibexa-input--small')|trim,
-        is_small: true,
+        class: (attr.class|default('') ~ ' ibexa-data-source__input ibexa-data-source__input' ~ (is_small ? ' ibexa-input--small'))|trim,
+        is_small: is_small,
     }) %}
+    {% set widget_wrapper_attr_class = widget_wrapper_attr.class|default('') %}
+    {% if ai %}
+        {% set wrapper_class = wrapper_class ~ ' ibexa-data-source__field--ai' %}
+        {% set widget_wrapper_attr_class = (widget_wrapper_attr_class ~ ' ibexa-data-source__input-wrapper--ai')|trim %}
+        {% set ai_btn %}
+            <div class="ibexa-btn-wrapper">
+                <button class="btn ibexa-btn ibexa-btn--primary ibexa-btn--ai" for="{{ id }}">Gen AI</button>
+            </div>
+        {% endset %}
+    {% endif %}
     {% set wrapper_attr = wrapper_attr|default({})|merge({class: (wrapper_attr.class|default('') ~ ' ' ~ wrapper_class)|trim}) %}
-    {% set widget_wrapper_attr = widget_wrapper_attr|default({})|merge({class: (widget_wrapper_attr.class|default('') ~ ' ibexa-data-source__input-wrapper ibexa-data-source__input-wrapper')|trim}) %}
+    {% set widget_wrapper_attr = widget_wrapper_attr|default({})|merge({class: (widget_wrapper_attr_class ~ ' ibexa-data-source__input-wrapper ibexa-data-source__input-wrapper')|trim}) %}
 
     {% if required %}{% set label_attr = label_attr|merge({'class': label_attr.class ~ ' required' }) %}{% endif %}
-
+    {{ dump(id) }}
     <div{% with { attr: wrapper_attr } %}{{ block('attributes') }}{% endwith %}>
         <div{% with { attr: label_wrapper_attr } %}{{ block('attributes') }}{% endwith %}>
             {{- block('form_label') }}
         </div>
         <div{% with { attr: widget_wrapper_attr } %}{{ block('attributes') }}{% endwith %}>
             {{- form_widget(form, {'attr': attr}) -}}
+            {{- ai_btn|default(null) -}}
         </div>
         <div class="ibexa-form-error">
             {{- block('form_errors') -}}

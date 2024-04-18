@@ -79,6 +79,18 @@
 
                 &__image-alt {
                     grid-area: image-alt;
+
+                    .ibexa-data-source__input-wrapper--ai {
+                        display: flex;
+
+                        .ibexa-input-text-wrapper {
+                            flex: 1;
+                        }
+                    }
+
+                    .ibexa-btn-wrapper {
+                        margin-left: calculateRem(10px);
+                    }
                 }
 
                 &__details {

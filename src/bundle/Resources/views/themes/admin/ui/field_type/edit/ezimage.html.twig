@@ -83,10 +83,11 @@
                 </div>
             </div>
             <div class="ibexa-field-edit-preview__image-alt">
-                {% set alternative_text_label_class = form.vars.is_alternative_text_required ? 'required' : '' %}
+                {% set required_class = 'required' %}
+
                 {{ form_row(form.alternativeText, {
-                    attr: { 'data-is-required': form.vars.is_alternative_text_required, readonly: readonly },
-                    label_attr: { 'class': alternative_text_label_class }
+                    attr: { 'data-is-required': required_class, readonly: readonly, ai: true, is_small: false },
+                    label_attr: { 'class': required_class }
                 }) }}
                 {{ form_errors(form.alternativeText) }}
             </div>
