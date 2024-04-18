@@ -282,9 +282,6 @@ final class NodeFactory
         return $resultsAsArray;
     }
 
-    /**
-     * @return mixed
-     */
     private function getSetting(string $name)
     {
         return $this->configResolver->getParameter("content_tree_module.$name");

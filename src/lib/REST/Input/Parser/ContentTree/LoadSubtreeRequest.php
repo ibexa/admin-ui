@@ -17,8 +17,6 @@ use Ibexa\Rest\Server\Input\Parser\Criterion as CriterionParser;
 class LoadSubtreeRequest extends CriterionParser
 {
     /**
-     * @param array<mixed> $data
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException
      */
     public function parse(array $data, ParsingDispatcher $parsingDispatcher): LoadSubtreeRequestValue
