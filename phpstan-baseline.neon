@@ -8381,31 +8381,6 @@ parameters:
 			path: src/lib/REST/Input/Parser/BulkOperation.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\REST\\\\Input\\\\Parser\\\\ContentTree\\\\LoadSubtreeRequest\\:\\:parse\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/REST/Input/Parser/ContentTree/LoadSubtreeRequest.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\REST\\\\Input\\\\Parser\\\\ContentTree\\\\LoadSubtreeRequestNode\\:\\:parse\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/REST/Input/Parser/ContentTree/LoadSubtreeRequestNode.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\REST\\\\Input\\\\Parser\\\\ContentType\\\\FieldDefinitionCreate\\:\\:parse\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/REST/Input/Parser/ContentType/FieldDefinitionCreate.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\REST\\\\Input\\\\Parser\\\\ContentType\\\\FieldDefinitionDelete\\:\\:parse\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/REST/Input/Parser/ContentType/FieldDefinitionDelete.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\REST\\\\Input\\\\Parser\\\\ContentType\\\\FieldDefinitionReorder\\:\\:parse\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/REST/Input/Parser/ContentType/FieldDefinitionReorder.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\REST\\\\Input\\\\Parser\\\\Operation\\:\\:parse\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/REST/Input/Parser/Operation.php
@@ -9279,61 +9254,6 @@ parameters:
 			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Config\\\\Provider\\\\Autosave\\:\\:getConfig\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/UI/Config/Provider/Autosave.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Config\\\\Provider\\\\ContentTypeMappings\\:\\:__construct\\(\\) has parameter \\$defaultMappings with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/UI/Config/Provider/ContentTypeMappings.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Config\\\\Provider\\\\ContentTypeMappings\\:\\:__construct\\(\\) has parameter \\$fallbackContentType with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/UI/Config/Provider/ContentTypeMappings.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Config\\\\Provider\\\\ContentTypeMappings\\:\\:__construct\\(\\) has parameter \\$locationMappings with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/UI/Config/Provider/ContentTypeMappings.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Config\\\\Provider\\\\ContentTypeMappings\\:\\:buildFallbackContentTypeStructure\\(\\) has parameter \\$fallbackContentType with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/UI/Config/Provider/ContentTypeMappings.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Config\\\\Provider\\\\ContentTypeMappings\\:\\:buildFallbackContentTypeStructure\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/UI/Config/Provider/ContentTypeMappings.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Config\\\\Provider\\\\ContentTypeMappings\\:\\:buildMappingGroupStructure\\(\\) has parameter \\$mappingGroup with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/UI/Config/Provider/ContentTypeMappings.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Config\\\\Provider\\\\ContentTypeMappings\\:\\:buildMappingGroupStructure\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/UI/Config/Provider/ContentTypeMappings.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Config\\\\Provider\\\\ContentTypeMappings\\:\\:getConfig\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/UI/Config/Provider/ContentTypeMappings.php
-
-		-
-			message: "#^Property Ibexa\\\\AdminUi\\\\UI\\\\Config\\\\Provider\\\\ContentTypeMappings\\:\\:\\$defaultMappings type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/UI/Config/Provider/ContentTypeMappings.php
-
-		-
-			message: "#^Property Ibexa\\\\AdminUi\\\\UI\\\\Config\\\\Provider\\\\ContentTypeMappings\\:\\:\\$fallbackContentType type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/UI/Config/Provider/ContentTypeMappings.php
-
-		-
-			message: "#^Property Ibexa\\\\AdminUi\\\\UI\\\\Config\\\\Provider\\\\ContentTypeMappings\\:\\:\\$locationMappings type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/UI/Config/Provider/ContentTypeMappings.php
 
 		-
 			message: "#^Offset 'dirname' does not exist on array\\{dirname\\?\\: string, basename\\: string, extension\\?\\: string, filename\\: string\\}\\.$#"

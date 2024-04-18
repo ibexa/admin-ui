@@ -228,9 +228,7 @@ module.exports = (Encore) => {
                 '../../ui-dev/src/modules/universal-discovery/components/tree-item-toggle-selection/tree.item.toggle.selection.js',
             ),
         ])
-        .addEntry('ibexa-admin-ui-mfu-js', [
-            path.resolve(__dirname, '../../ui-dev/src/modules/multi-file-upload/multi.file.upload.module.js'),
-        ])
+        .addEntry('ibexa-admin-ui-mfu-js', [path.resolve(__dirname, '../../ui-dev/src/modules/multi-file-upload/config.loader.js')])
         .addEntry('ibexa-admin-ui-subitems-js', [path.resolve(__dirname, '../../ui-dev/src/modules/sub-items/sub.items.module.js')])
         .addEntry('ibexa-admin-ui-content-tree-js', [
             path.resolve(__dirname, '../../ui-dev/src/modules/content-tree/content.tree.module.js'),

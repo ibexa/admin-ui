@@ -22,15 +22,17 @@ const PaginationButton = ({ label, disabled, additionalClasses, buttonAdditional
 };
 
 PaginationButton.propTypes = {
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
     disabled: PropTypes.bool,
     onPageChange: PropTypes.func,
-    pageIndex: PropTypes.number.isRequired,
+    pageIndex: PropTypes.number,
     additionalClasses: PropTypes.string,
     buttonAdditionalClasses: PropTypes.string,
 };
 
 PaginationButton.defaultProps = {
+    pageIndex: null,
+    label: '',
     disabled: false,
     additionalClasses: '',
     buttonAdditionalClasses: '',
