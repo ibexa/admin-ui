@@ -76,8 +76,13 @@ class ContentTypes implements ProviderInterface
             $preferredLanguages
         );
 
+        $eventContentTypeGroups = [];
+        foreach ($loadedContentTypeGroups as $contentTypeGroup) {
+            $eventContentTypeGroups[] = $contentTypeGroup;
+        }
+
         /** @var \Ibexa\AdminUi\Event\AddContentTypeGroupToUIConfigEvent $event */
-        $event = $this->eventDispatcher->dispatch(new AddContentTypeGroupToUIConfigEvent($loadedContentTypeGroups));
+        $event = $this->eventDispatcher->dispatch(new AddContentTypeGroupToUIConfigEvent($eventContentTypeGroups));
 
         foreach ($event->getContentTypeGroups() as $contentTypeGroup) {
             $contentTypes = $this->contentTypeService->loadContentTypes(
