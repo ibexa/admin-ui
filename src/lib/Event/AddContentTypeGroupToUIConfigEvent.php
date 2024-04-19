@@ -19,7 +19,8 @@ final class AddContentTypeGroupToUIConfigEvent extends Event
     /**
      * @param array<ContentTypeGroup> $contentTypeGroups
      */
-    public function __construct(array $contentTypeGroups) {
+    public function __construct(array $contentTypeGroups)
+    {
         $this->contentTypeGroups = $contentTypeGroups;
     }
 
