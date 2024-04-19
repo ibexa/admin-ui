@@ -20,10 +20,18 @@
 
         return response.status;
     };
-    const onBookmarkUpdated = (isBookmarked) => {
+    const handleBookmarkUpdated = (isBookmarked) => {
         ibexa.helpers.tooltips.hideAll();
-        toggleBookmarkIconState(isBookmarked);
         isUpdatingBookmark = false;
+
+        doc.body.dispatchEvent(
+            new CustomEvent('ibexa-bookmark-change', {
+                detail: {
+                    bookmarked: isBookmarked,
+                    locationId: currentLocationId,
+                },
+            }),
+        );
     };
     const updateBookmark = (addBookmark) => {
         if (isUpdatingBookmark) {
@@ -43,7 +51,7 @@
             credentials: 'same-origin',
         });
 
-        fetch(request).then(getResponseStatus).then(onBookmarkUpdated.bind(null, addBookmark)).catch(handleUpdateError);
+        fetch(request).then(getResponseStatus).then(handleBookmarkUpdated.bind(null, addBookmark)).catch(handleUpdateError);
     };
     const isCurrentLocation = (locationId) => {
         return parseInt(locationId, 10) === currentLocationId;
@@ -58,18 +66,15 @@
             toggleBookmarkIconState(bookmarked);
         }
     };
-    const checkIsBookmarked = () => {
-        return bookmarkWrapper.classList.contains(CLASS_BOOKMARK_CHECKED);
-    };
-    const onBookmarkChange = () => {
-        const addBookmark = !checkIsBookmarked();
+    const handleBookmarkClick = () => {
+        const isBookmarked = bookmarkWrapper.classList.contains(CLASS_BOOKMARK_CHECKED);
 
-        updateBookmark(addBookmark);
+        updateBookmark(!isBookmarked);
     };
 
     doc.body.addEventListener('ibexa-bookmark-change', updateBookmarkIconState, false);
 
     if (bookmarkWrapper) {
-        bookmarkWrapper.addEventListener('click', onBookmarkChange, false);
+        bookmarkWrapper.addEventListener('click', handleBookmarkClick, false);
     }
 })(window, window.document, window.ibexa);
