@@ -7,6 +7,7 @@
 
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
+use Ibexa\AdminUi\Event\AddContentTypeGroupToUIConfigEvent;
 use Ibexa\AdminUi\Event\FilterContentTypesEvent;
 use Ibexa\AdminUi\UI\Service\ContentTypeIconResolver;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
@@ -24,6 +25,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  *      isContainer: bool,
  *      thumbnail: string,
  *      href: string,
+ *      isHidden: bool,
  *  }
  */
 class ContentTypes implements ProviderInterface
@@ -73,7 +75,11 @@ class ContentTypes implements ProviderInterface
         $loadedContentTypeGroups = $this->contentTypeService->loadContentTypeGroups(
             $preferredLanguages
         );
-        foreach ($loadedContentTypeGroups as $contentTypeGroup) {
+
+        /** @var \Ibexa\AdminUi\Event\AddContentTypeGroupToUIConfigEvent $event */
+        $event = $this->eventDispatcher->dispatch(new AddContentTypeGroupToUIConfigEvent($loadedContentTypeGroups));
+
+        foreach ($event->getContentTypeGroups() as $contentTypeGroup) {
             $contentTypes = $this->contentTypeService->loadContentTypes(
                 $contentTypeGroup,
                 $preferredLanguages
@@ -84,7 +90,10 @@ class ContentTypes implements ProviderInterface
             });
 
             foreach ($contentTypes as $contentType) {
-                $contentTypeGroups[$contentTypeGroup->identifier][] = $this->getContentTypeData($contentType);
+                $contentTypeGroups[$contentTypeGroup->identifier][] = $this->getContentTypeData(
+                    $contentType,
+                    $contentTypeGroup->isSystem,
+                );
             }
         }
 
@@ -97,7 +106,7 @@ class ContentTypes implements ProviderInterface
     /**
      * @phpstan-return TContentTypeData
      */
-    private function getContentTypeData(ContentType $contentType): array
+    private function getContentTypeData(ContentType $contentType, bool $isHidden): array
     {
         return [
             'id' => $contentType->id,
@@ -108,6 +117,7 @@ class ContentTypes implements ProviderInterface
             'href' => $this->urlGenerator->generate('ibexa.rest.load_content_type', [
                 'contentTypeId' => $contentType->id,
             ]),
+            'isHidden' => $isHidden,
         ];
     }
 }
