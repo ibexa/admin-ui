@@ -692,6 +692,18 @@ class ContentTypeController extends Controller
         ContentType $contentType,
         Request $request
     ): Response {
+        $contentTypeGroups = $contentType->getContentTypeGroups();
+        $contentTypeGroupsIds = array_column($contentTypeGroups, 'id');
+        if (!in_array($group->id, $contentTypeGroupsIds, true)) {
+            throw $this->createNotFoundException(
+                sprintf(
+                    '%s content type does not belong to %s content type group.',
+                    $contentType->getName(),
+                    $group->identifier,
+                ),
+            );
+        }
+
         $fieldDefinitionsByGroup = [];
         foreach ($contentType->fieldDefinitions as $fieldDefinition) {
             $fieldDefinitionsByGroup[$fieldDefinition->fieldGroup ?: 'content'][] = $fieldDefinition;
