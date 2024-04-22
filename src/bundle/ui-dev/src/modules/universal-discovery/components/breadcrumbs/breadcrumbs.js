@@ -1,4 +1,4 @@
-import React, { useContext, useState, useMemo, useEffect, useCallback } from 'react';
+import React, { useContext, useState, useMemo, useEffect, useCallback, useRef } from 'react';
 
 import Icon from '../../../common/icon/icon';
 
@@ -9,6 +9,7 @@ import { LoadedLocationsMapContext, MarkedLocationIdContext, GridActiveLocationI
 
 const Breadcrumbs = () => {
     const Translator = getTranslator();
+    const hiddenListWrapperRef = useRef();
     const [, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const [gridActiveLocationId, setGridActiveLocationId] = useContext(GridActiveLocationIdContext);
     const [loadedLocationsFullMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
@@ -41,6 +42,10 @@ const Breadcrumbs = () => {
     const toggleHiddenListVisible = useCallback(() => {
         setHiddenListVisible(!hiddenListVisible);
     }, [setHiddenListVisible, hiddenListVisible]);
+    const handleTogglerClick = (event) => {
+        event.stopPropagation();
+        toggleHiddenListVisible();
+    };
     const renderHiddenList = () => {
         if (!hiddenItems.length) {
             return null;
@@ -56,8 +61,8 @@ const Breadcrumbs = () => {
         });
 
         return (
-            <div className="c-breadcrumbs__hidden-list-wrapper">
-                <button className={toggleClassNames} onClick={toggleHiddenListVisible} type="button">
+            <div ref={hiddenListWrapperRef} className="c-breadcrumbs__hidden-list-wrapper">
+                <button className={toggleClassNames} onClick={handleTogglerClick} type="button">
                     <Icon name="options" extraClasses="ibexa-icon--small-medium" />
                 </button>
                 <ul className={hiddenListClassNames}>
@@ -88,14 +93,24 @@ const Breadcrumbs = () => {
     };
 
     useEffect(() => {
-        if (hiddenListVisible) {
-            window.document.body.addEventListener('click', toggleHiddenListVisible, false);
-        } else {
-            window.document.body.removeEventListener('click', toggleHiddenListVisible, false);
+        if (!hiddenListVisible) {
+            return;
         }
 
-        return () => window.document.body.removeEventListener('click', toggleHiddenListVisible, false);
-    }, [hiddenListVisible, toggleHiddenListVisible]);
+        const hideHiddenMenuOnClickOutside = (event) => {
+            const { target } = event;
+
+            if (hiddenListWrapperRef.current?.contains(target) ?? false) {
+                return;
+            }
+
+            setHiddenListVisible(false);
+        };
+
+        window.document.body.addEventListener('click', hideHiddenMenuOnClickOutside, false);
+
+        return () => window.document.body.removeEventListener('click', hideHiddenMenuOnClickOutside, false);
+    }, [hiddenListVisible, setHiddenListVisible, hiddenListWrapperRef]);
 
     if (loadedLocationsMap.some((loadedLocation) => loadedLocation.parentLocationId !== 1 && !loadedLocation.location)) {
         return null;
