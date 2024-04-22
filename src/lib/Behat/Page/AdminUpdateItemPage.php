@@ -85,7 +85,7 @@ class AdminUpdateItemPage extends Page
             new VisibleCSSLocator('closeButton', '.ibexa-content-edit-container__close'),
             new VisibleCSSLocator('button', '.container button'),
             new VisibleCSSLocator('tab', '.ibexa-anchor-navigation-menu__sections-item'),
-            new VisibleCSSLocator('fieldInput', 'input'),
+            new VisibleCSSLocator('fieldInput', 'input,textarea'),
         ];
     }
 
@@ -94,6 +94,6 @@ class AdminUpdateItemPage extends Page
         return $this->getHTMLPage()
             ->findAll(new XPathLocator('input', '//label/..'))
             ->getByCriterion(new ChildElementTextCriterion(new VisibleCSSLocator('input', 'label'), $fieldName))
-            ->find(new VisibleCSSLocator('input', 'input'));
+            ->find($this->getLocator('fieldInput'));
     }
 }
