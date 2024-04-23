@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\UI\Dataset;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
-use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\RelationListItemInterface;
 
 final class RelationListDataset
 {
@@ -43,15 +43,29 @@ final class RelationListDataset
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function load(
-        Content $content
+        Content $content,
+        int $offset = 0,
+        int $limit = 10
     ): self {
         $versionInfo = $content->getVersionInfo();
+        $relationListItems = $this->contentService->loadRelationList($versionInfo, $offset, $limit)->items;
 
         $this->relations = array_map(
-            function (Relation $relation) use ($content) {
-                return $this->valueFactory->createRelation($relation, $content);
+            function (RelationListItemInterface $relationListItem) use ($content) {
+                if ($relationListItem->hasRelation()) {
+                    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem $relationListItem */
+                    return $this->valueFactory->createRelationItem(
+                        $relationListItem,
+                        $content
+                    );
+                }
+
+                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem $relationListItem */
+                return $this->valueFactory->createUnauthorizedRelationItem(
+                    $relationListItem
+                );
             },
-            $this->contentService->loadRelations($versionInfo)
+            $relationListItems
         );
 
         return $this;
