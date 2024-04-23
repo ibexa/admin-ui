@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\REST\Generator;
 
 use Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestGeneratorInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Rest\Output\Generator;
 use Ibexa\Contracts\Rest\Output\Visitor;
@@ -17,6 +18,13 @@ final class UserConfigRestGenerator implements ApplicationConfigRestGeneratorInt
 {
     private const NAMESPACE = 'user';
     private const PARAMETER = 'user';
+
+    private PermissionResolver $permissionResolver;
+
+    public function __construct(PermissionResolver $permissionResolver)
+    {
+        $this->permissionResolver = $permissionResolver;
+    }
 
     public function supportsNamespace(string $namespace): bool
     {
@@ -30,14 +38,18 @@ final class UserConfigRestGenerator implements ApplicationConfigRestGeneratorInt
 
     public function generate($parameter, Generator $generator, Visitor $visitor): void
     {
-        if ($parameter instanceof User) {
-            $generator->startHashElement(self::PARAMETER);
-            $visitor->visitValueObject($parameter);
-            $generator->endHashElement(self::PARAMETER);
+        if (!$parameter instanceof User) {
+            $generator->generateFieldTypeHash(self::PARAMETER, $parameter);
 
             return;
         }
 
-        $generator->generateFieldTypeHash(self::PARAMETER, $parameter);
+        if (!$this->permissionResolver->canUser('content', 'read', $parameter)) {
+            return;
+        }
+
+        $generator->startHashElement(self::PARAMETER);
+        $visitor->visitValueObject($parameter);
+        $generator->endHashElement(self::PARAMETER);
     }
 }
