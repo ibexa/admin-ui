@@ -9491,11 +9491,6 @@ parameters:
 			path: src/lib/UI/Dataset/PoliciesDataset.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of function array_map expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Relation\\> given\\.$#"
-			count: 1
-			path: src/lib/UI/Dataset/RelationListDataset.php
-
-		-
 			message: "#^PHPDoc tag @param references unknown parameter\\: \\$versionInfo$#"
 			count: 1
 			path: src/lib/UI/Dataset/RelationsDataset.php

@@ -15,6 +15,7 @@ parameters:
     ibexa.site_access.config.admin_group.pagination.role_assignment_limit: 10
     ibexa.site_access.config.admin_group.pagination.policy_limit: 10
     ibexa.site_access.config.admin_group.pagination.version_draft_limit: 5
+    ibexa.site_access.config.admin_group.pagination.relation_limit: 10
     ibexa.site_access.config.admin_group.pagination.reverse_relation_limit: 10
     ibexa.site_access.config.admin_group.pagination.content_system_url_limit: 5
     ibexa.site_access.config.admin_group.pagination.content_custom_url_limit: 5
