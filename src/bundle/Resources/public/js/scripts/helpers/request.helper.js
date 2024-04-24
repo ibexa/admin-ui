@@ -1,5 +1,4 @@
 const handleRequest = (response) => {
-    console.log('Handle request:', response);
     if (!response.ok) {
         throw Error(response.statusText);
     }

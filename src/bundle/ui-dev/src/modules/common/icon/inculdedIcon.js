@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import About from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/about.svg';
 import AboutInfo from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/about-info.svg';
+import Approved from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/approved.svg';
 import Article from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/article.svg';
 import Back from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/back.svg';
 import Blog from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/blog.svg';
@@ -22,6 +23,7 @@ import Form from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/form.svg
 import Gallery from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/gallery.svg';
 import Image from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/image.svg';
 import LandingPage from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/landing_page.svg';
+import Notice from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/notice.svg';
 import Options from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/options.svg';
 import Place from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/place.svg';
 import Product from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/product.svg';
@@ -41,6 +43,7 @@ import Warning from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/warni
 const iconsMap = {
     about: About,
     'about-info': AboutInfo,
+    approved: Approved,
     article: Article,
     back: Back,
     blog: Blog,
@@ -60,6 +63,7 @@ const iconsMap = {
     gallery: Gallery,
     image: Image,
     landing_page: LandingPage,
+    notice: Notice,
     options: Options,
     place: Place,
     product: Product,
