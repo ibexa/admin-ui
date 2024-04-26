@@ -1,4 +1,4 @@
-const ibexa = window.ibexa;
+const { ibexa } = window;
 
 class RichTextValidator extends ibexa.BaseFieldValidator {
     constructor({ richtextEditor, selectorField, labelSelector, ...config }) {
