@@ -2,7 +2,7 @@ const ibexa = window.ibexa;
 
 class RichTextValidator extends ibexa.BaseFieldValidator {
     constructor(config) {
-        super(config);
+        super({ richtextEditor, selectorField, labelSelector });
 
         this.richtextEditor = config.richtextEditor;
         this.selectorField = config.selectorField;
