@@ -4,9 +4,9 @@ class RichTextValidator extends ibexa.BaseFieldValidator {
     constructor(config) {
         super({ richtextEditor, selectorField, labelSelector });
 
-        this.richtextEditor = config.richtextEditor;
-        this.selectorField = config.selectorField;
-        this.labelSelector = config.labelSelector;
+        this.richtextEditor = richtextEditor;
+        this.selectorField = selectorField;
+        this.labelSelector = labelSelector;
     }
 
     /**
