@@ -1,5 +1,5 @@
 .ibexa-chart-no-data {
-    padding: calculateRem(16px);
+    padding: calculateRem(48px) calculateRem(16px);
     margin: 0;
 
     &__wrapper {
@@ -15,5 +15,11 @@
         font-size: $h2-font-size;
         font-family: $ibexa-font-family-headings;
         color: $ibexa-color-dark-400;
+    }
+
+    &__img {
+        width: 50%;
+        max-width: calculateRem(400px);
+        max-height: calculateRem(200px);
     }
 }
