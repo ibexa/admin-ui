@@ -45,7 +45,7 @@ class UserTransformerTest extends TestCase
     {
         $result = $this->userTransformer->transform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /**
@@ -71,7 +71,7 @@ class UserTransformerTest extends TestCase
     {
         $result = $this->userTransformer->reverseTransform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /**
@@ -95,7 +95,7 @@ class UserTransformerTest extends TestCase
         /** @var \Ibexa\Contracts\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject $service */
         $service = $this->createMock(UserService::class);
         $service->method('loadUser')
-            ->will($this->throwException(new class('User not found') extends NotFoundException {
+            ->will(self::throwException(new class('User not found') extends NotFoundException {
             }));
 
         $transformer = new UserTransformer($service);

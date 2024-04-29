@@ -34,14 +34,14 @@ class URLUsagesAdapterTest extends TestCase
         ]);
 
         $this->urlService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findUsages')
             ->with($url, 0, 0)
             ->willReturn($searchResults);
 
         $adapter = new URLUsagesAdapter($url, $this->urlService);
 
-        $this->assertEquals(
+        self::assertEquals(
             $searchResults->totalCount,
             $adapter->getNbResults()
         );
@@ -63,14 +63,14 @@ class URLUsagesAdapterTest extends TestCase
         ]);
 
         $this->urlService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findUsages')
             ->with($url, $offset, $limit)
             ->willReturn($searchResults);
 
         $adapter = new URLUsagesAdapter($url, $this->urlService);
 
-        $this->assertEquals(
+        self::assertEquals(
             $searchResults->items,
             $adapter->getSlice($offset, $limit)
         );

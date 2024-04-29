@@ -31,7 +31,7 @@ class LocationTransformerTest extends TestCase
 
         $result = $transformer->transform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /**
@@ -62,7 +62,7 @@ class LocationTransformerTest extends TestCase
 
         $result = $transformer->reverseTransform(123456);
 
-        $this->assertEquals(new Location(['id' => 123456]), $result);
+        self::assertEquals(new Location(['id' => 123456]), $result);
     }
 
     public function testReverseTransformWithNull()
@@ -75,7 +75,7 @@ class LocationTransformerTest extends TestCase
 
         $result = $transformer->reverseTransform(null);
 
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 
     public function testReverseTransformWithNotFoundException()
@@ -85,7 +85,7 @@ class LocationTransformerTest extends TestCase
 
         $service = $this->createMock(LocationService::class);
         $service->method('loadLocation')
-            ->will($this->throwException(new class('Location not found') extends NotFoundException {
+            ->will(self::throwException(new class('Location not found') extends NotFoundException {
             }));
 
         $transformer = new LocationTransformer($service);

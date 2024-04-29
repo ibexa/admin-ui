@@ -55,7 +55,7 @@ class ContentTypeLimitationMapperTest extends TestCase
 
         foreach ($values as $i => $value) {
             $this->contentTypeService
-                ->expects($this->at($i))
+                ->expects(self::at($i))
                 ->method('loadContentType')
                 ->with($value)
                 ->willReturn($expected[$i]);
@@ -65,20 +65,20 @@ class ContentTypeLimitationMapperTest extends TestCase
             'limitationValues' => $values,
         ]));
 
-        $this->assertEquals($expected, $result);
-        $this->assertCount(3, $result);
+        self::assertEquals($expected, $result);
+        self::assertCount(3, $result);
     }
 
     public function testMapLimitationValueWithNotExistingContentType()
     {
         $this->contentTypeService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadContentType')
             ->with(self::EXAMPLE_CONTENT_TYPE_ID_A)
             ->willThrowException($this->createMock(NotFoundException::class));
 
         $this->logger
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('error')
             ->with('Could not map the Limitation value: could not find a content type with ID ' . self::EXAMPLE_CONTENT_TYPE_ID_A);
 
@@ -86,7 +86,7 @@ class ContentTypeLimitationMapperTest extends TestCase
             'limitationValues' => [self::EXAMPLE_CONTENT_TYPE_ID_A],
         ]));
 
-        $this->assertEmpty($actual);
+        self::assertEmpty($actual);
     }
 }
 

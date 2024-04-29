@@ -62,7 +62,7 @@ class LocationIsWithinCopySubtreeLimitValidatorTest extends TestCase
         $this->locationService->method('count')->willReturn(5);
 
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('addViolation');
 
         $this->mockLocationContentContentTypeIsContainer($this->location);
@@ -87,7 +87,7 @@ class LocationIsWithinCopySubtreeLimitValidatorTest extends TestCase
             ->willReturn($constraintViolationBuilder);
 
         $this->executionContext
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('buildViolation');
 
         $this->validator->validate($this->location, new LocationIsWithinCopySubtreeLimit());

@@ -37,7 +37,7 @@ class UDWBasedValueViewTransformerTest extends TestCase
      */
     public function testTransform(?array $given, ?string $expected)
     {
-        $this->assertEquals($expected, $this->transformer->transform($given));
+        self::assertEquals($expected, $this->transformer->transform($given));
     }
 
     public function dataProviderForTransform(): array
@@ -66,7 +66,7 @@ class UDWBasedValueViewTransformerTest extends TestCase
                 return $this->createLocation($id);
             });
 
-        $this->assertEquals($expected, $this->transformer->reverseTransform($given));
+        self::assertEquals($expected, $this->transformer->reverseTransform($given));
     }
 
     public function dataProviderForReverseTransform(): array

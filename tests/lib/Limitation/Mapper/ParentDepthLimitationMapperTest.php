@@ -20,7 +20,7 @@ class ParentDepthLimitationMapperTest extends TestCase
             'limitationValues' => [256],
         ]));
 
-        $this->assertEquals([256], $result);
+        self::assertEquals([256], $result);
     }
 }
 

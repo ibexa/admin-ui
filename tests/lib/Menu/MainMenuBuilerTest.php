@@ -217,10 +217,10 @@ class MainMenuBuilerTest extends TestCase
 
     private function assertMenuHasAllItems(array $menu): void
     {
-        $this->assertArrayHasKey(MainMenuBuilder::ITEM_CONTENT, $menu);
-        $this->assertArrayHasKey(MainMenuBuilder::ITEM_ADMIN, $menu);
-        $this->assertArrayHasKey(MainMenuBuilder::ITEM_BOOKMARKS, $menu);
-        $this->assertArrayHasKey(MainMenuBuilder::ITEM_TRASH, $menu);
+        self::assertArrayHasKey(MainMenuBuilder::ITEM_CONTENT, $menu);
+        self::assertArrayHasKey(MainMenuBuilder::ITEM_ADMIN, $menu);
+        self::assertArrayHasKey(MainMenuBuilder::ITEM_BOOKMARKS, $menu);
+        self::assertArrayHasKey(MainMenuBuilder::ITEM_TRASH, $menu);
     }
 }
 

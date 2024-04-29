@@ -48,7 +48,7 @@ class SectionLimitationMapperTest extends TestCase
             ]);
 
             $this->sectionServiceMock
-                ->expects($this->at($i))
+                ->expects(self::at($i))
                 ->method('loadSection')
                 ->with($value)
                 ->willReturn($expected[$i]);
@@ -58,7 +58,7 @@ class SectionLimitationMapperTest extends TestCase
             'limitationValues' => $values,
         ]));
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     public function testMapLimitationValueWithNotExistingContentType()
@@ -66,13 +66,13 @@ class SectionLimitationMapperTest extends TestCase
         $values = [self::EXAMPLE_SECTION_ID];
 
         $this->sectionServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadSection')
             ->with($values[0])
             ->willThrowException($this->createMock(NotFoundException::class));
 
         $this->logger
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('error')
             ->with('Could not map the Limitation value: could not find a Section with ID ' . $values[0]);
 
@@ -80,7 +80,7 @@ class SectionLimitationMapperTest extends TestCase
             'limitationValues' => $values,
         ]));
 
-        $this->assertEmpty($actual);
+        self::assertEmpty($actual);
     }
 }
 

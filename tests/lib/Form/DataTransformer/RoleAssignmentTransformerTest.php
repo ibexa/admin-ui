@@ -31,7 +31,7 @@ class RoleAssignmentTransformerTest extends TestCase
 
         $result = $transformer->transform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /**
@@ -62,7 +62,7 @@ class RoleAssignmentTransformerTest extends TestCase
 
         $result = $transformer->reverseTransform(123456);
 
-        $this->assertEquals(new RoleAssignment(['id' => 123456]), $result);
+        self::assertEquals(new RoleAssignment(['id' => 123456]), $result);
     }
 
     public function testReverseTransformWithNull()
@@ -75,7 +75,7 @@ class RoleAssignmentTransformerTest extends TestCase
 
         $result = $transformer->reverseTransform(null);
 
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 
     /**
@@ -97,7 +97,7 @@ class RoleAssignmentTransformerTest extends TestCase
     {
         $service = $this->createMock(RoleService::class);
         $service->method('loadRoleAssignment')
-            ->will($this->throwException(new class('Location not found') extends NotFoundException {
+            ->will(self::throwException(new class('Location not found') extends NotFoundException {
             }));
 
         $transformer = new RoleAssignmentTransformer($service);

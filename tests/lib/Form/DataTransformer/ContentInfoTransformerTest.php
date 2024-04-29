@@ -28,9 +28,9 @@ final class ContentInfoTransformerTest extends TestCase
         $contentService = $this->createMock(ContentService::class);
         $contentService
             ->method('loadContentInfo')
-            ->with($this->logicalAnd(
-                $this->equalTo(self::EXAMPLE_CONTENT_ID),
-                $this->isType('int')
+            ->with(self::logicalAnd(
+                self::equalTo(self::EXAMPLE_CONTENT_ID),
+                self::isType('int')
             ))
             ->willReturn(new ContentInfo([
                 'id' => self::EXAMPLE_CONTENT_ID,
@@ -59,7 +59,7 @@ final class ContentInfoTransformerTest extends TestCase
     {
         $result = $this->contentInfoTransformer->transform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /**
@@ -69,7 +69,7 @@ final class ContentInfoTransformerTest extends TestCase
     {
         $result = $this->contentInfoTransformer->reverseTransform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /**
@@ -93,7 +93,7 @@ final class ContentInfoTransformerTest extends TestCase
         /** @var \Ibexa\Contracts\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject $service */
         $service = $this->createMock(ContentService::class);
         $service->method('loadContentInfo')
-            ->will($this->throwException(new class('ContentInfo not found') extends NotFoundException {
+            ->will(self::throwException(new class('ContentInfo not found') extends NotFoundException {
             }));
 
         $transformer = new ContentInfoTransformer($service);

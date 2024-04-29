@@ -57,16 +57,16 @@ class TrashItemAdapterTest extends TestCase
 
         $searchResult = new SearchResult(['count' => $nbResults]);
         $this->trashService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findTrashItems')
-            ->with($this->equalTo($countQuery))
+            ->with(self::equalTo($countQuery))
             ->willReturn($searchResult);
 
         $adapter = $this->getAdapter($query, $this->trashService);
-        $this->assertSame($nbResults, $adapter->getNbResults());
+        self::assertSame($nbResults, $adapter->getNbResults());
 
         // Running a 2nd time to ensure SearchService::findContent() is called only once.
-        $this->assertSame($nbResults, $adapter->getNbResults());
+        self::assertSame($nbResults, $adapter->getNbResults());
     }
 
     public function testGetSlice()
@@ -97,17 +97,17 @@ class TrashItemAdapterTest extends TestCase
         $searchResult = new SearchResult(['items' => $items, 'count' => $nbResults]);
 
         $this->trashService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findTrashItems')
-            ->with($this->equalTo($searchQuery))
+            ->with(self::equalTo($searchQuery))
             ->willReturn($searchResult);
 
         $adapter = $this->getAdapter($query, $this->trashService);
 
-        $this->assertSame($items, $adapter->getSlice($offset, $limit));
-        $this->assertSame($nbResults, $adapter->getNbResults());
+        self::assertSame($items, $adapter->getSlice($offset, $limit));
+        self::assertSame($nbResults, $adapter->getNbResults());
         // Running a 2nd time to ensure SearchService::findContent() is called only once.
-        $this->assertSame($nbResults, $adapter->getNbResults());
+        self::assertSame($nbResults, $adapter->getNbResults());
     }
 }
 

@@ -45,7 +45,7 @@ class LocationIsNotSubLocationValidatorTest extends TestCase
             ->getMock();
 
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('addViolation');
 
         $constraint = new LocationIsNotSubLocation(['value' => $comparedLocation]);
@@ -86,7 +86,7 @@ class LocationIsNotSubLocationValidatorTest extends TestCase
             ->willReturn($constraintViolationBuilder);
 
         $this->executionContext
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('buildViolation');
 
         $this->validator->validate($location, $constraint);

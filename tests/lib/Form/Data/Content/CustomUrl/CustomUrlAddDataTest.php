@@ -24,10 +24,10 @@ class CustomUrlAddDataTest extends TestCase
 
         $data = new CustomUrlAddData($location, $path, $language, false, true, $siteAccess);
 
-        $this->assertSame($location, $data->getLocation());
-        $this->assertSame($language, $data->getLanguage());
-        $this->assertSame($path, $data->getPath());
-        $this->assertSame($siteAccess, $data->getSiteAccess());
+        self::assertSame($location, $data->getLocation());
+        self::assertSame($language, $data->getLanguage());
+        self::assertSame($path, $data->getPath());
+        self::assertSame($siteAccess, $data->getSiteAccess());
     }
 }
 

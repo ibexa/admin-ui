@@ -60,7 +60,7 @@ class PermissionCheckerTest extends TestCase
     {
         $actual = $this->permissionChecker->getRestrictions($hasAccess, $class);
 
-        $this->assertEquals($expectedRestrictions, $actual);
+        self::assertEquals($expectedRestrictions, $actual);
     }
 
     public function restrictionsProvider(): array
@@ -168,12 +168,12 @@ class PermissionCheckerTest extends TestCase
             ],
         ];
 
-        $this->assertEquals(
+        self::assertEquals(
             [44],
             $this->permissionChecker->getRestrictions($hasAccessA, Limitation\SectionLimitation::class)
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [2, 3],
             $this->permissionChecker->getRestrictions($hasAccessB, Limitation\ContentTypeLimitation::class)
         );

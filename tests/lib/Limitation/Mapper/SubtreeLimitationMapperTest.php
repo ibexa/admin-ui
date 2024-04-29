@@ -57,7 +57,7 @@ class SubtreeLimitationMapperTest extends TestCase
             ]);
 
             $searchServiceMock
-                ->expects($this->at($i))
+                ->expects(self::at($i))
                 ->method('findLocations')
                 ->with($query)
                 ->willReturn($this->createSearchResultsMock($expected[$i]));
@@ -73,7 +73,7 @@ class SubtreeLimitationMapperTest extends TestCase
             'limitationValues' => $values,
         ]));
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     private function createSearchResultsMock($expected)
@@ -82,7 +82,7 @@ class SubtreeLimitationMapperTest extends TestCase
         foreach ($expected as $contentInfo) {
             $locationMock = $this->createMock(Location::class);
             $locationMock
-                ->expects($this->atLeastOnce())
+                ->expects(self::atLeastOnce())
                 ->method('getContentInfo')
                 ->willReturn($contentInfo);
 

@@ -39,7 +39,7 @@ class PolicyCreateMapperTest extends TestCase
     {
         $data = $this->mapper->map($this->createStruct($properties));
 
-        $this->assertEquals($this->createData($properties), $data);
+        self::assertEquals($this->createData($properties), $data);
     }
 
     /**
@@ -51,7 +51,7 @@ class PolicyCreateMapperTest extends TestCase
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));
 
-        $this->assertEquals($this->createStruct($properties), $struct);
+        self::assertEquals($this->createStruct($properties), $struct);
     }
 
     public function testMapWithWrongInstance()

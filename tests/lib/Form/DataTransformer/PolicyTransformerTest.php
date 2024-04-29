@@ -26,7 +26,7 @@ class PolicyTransformerTest extends TestCase
 
         $result = $transformer->transform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /**
@@ -55,7 +55,7 @@ class PolicyTransformerTest extends TestCase
         $transformer = new PolicyTransformer();
         $result = $transformer->reverseTransform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /**

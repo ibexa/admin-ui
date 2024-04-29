@@ -69,21 +69,21 @@ class RequestListenerTest extends TestCase
             HttpKernelInterface::SUB_REQUEST
         );
 
-        $this->assertNull($this->requestListener->onKernelRequest($this->event));
+        self::assertNull($this->requestListener->onKernelRequest($this->event));
     }
 
     public function testOnKernelRequestAllowAccessWithoutSiteAccess()
     {
         $this->request->attributes->set('siteaccess', 'not_siteaccess_object');
 
-        $this->assertNull($this->requestListener->onKernelRequest($this->event));
+        self::assertNull($this->requestListener->onKernelRequest($this->event));
     }
 
     public function testOnKernelRequestAllowAccessWithoutGroupWhitelist()
     {
         $this->request->attributes->set('siteaccess_group_whitelist', null);
 
-        $this->assertNull($this->requestListener->onKernelRequest($this->event));
+        self::assertNull($this->requestListener->onKernelRequest($this->event));
     }
 
     public function testOnKernelRequestAllowAccessWhenGroupMatch()
@@ -91,12 +91,12 @@ class RequestListenerTest extends TestCase
         $this->request->attributes->set('siteaccess', new SiteAccess('some_name'));
         $this->request->attributes->set('siteaccess_group_whitelist', ['group_1', 'group_2']);
 
-        $this->assertNull($this->requestListener->onKernelRequest($this->event));
+        self::assertNull($this->requestListener->onKernelRequest($this->event));
     }
 
     public function testSubscribedEvents()
     {
-        $this->assertSame([KernelEvents::REQUEST => ['onKernelRequest', 13]], $this->requestListener::getSubscribedEvents());
+        self::assertSame([KernelEvents::REQUEST => ['onKernelRequest', 13]], $this->requestListener::getSubscribedEvents());
     }
 }
 

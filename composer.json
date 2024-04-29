@@ -64,10 +64,9 @@
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^v6.7",
-        "friendsofphp/php-cs-fixer": "^3.0",
         "ibexa/behat": "~5.0.x-dev",
         "ibexa/ci-scripts": "^0.2@dev",
-        "ibexa/code-style": "^1.3.x-dev",
+        "ibexa/code-style": "~2.0.0",
         "ibexa/doctrine-schema": "~5.0.x-dev",
         "ibexa/http-cache": "~5.0.x-dev",
         "ibexa/notifications": "~5.0.x-dev",

@@ -44,7 +44,7 @@ final class ContentTranslationMapperTest extends TestCase
     {
         $actualData = $this->mapper->mapToFormData($content, $params);
 
-        $this->assertEquals($expectedData, $actualData);
+        self::assertEquals($expectedData, $actualData);
     }
 
     public function paramsProvider(): array
