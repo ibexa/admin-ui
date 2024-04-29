@@ -8616,11 +8616,6 @@ parameters:
 			path: src/lib/Siteaccess/SiteaccessResolver.php
 
 		-
-			message: "#^Parameter \\#1 \\$iterator of function iterator_to_array expects Traversable, iterable\\<Ibexa\\\\Core\\\\MVC\\\\Symfony\\\\SiteAccess\\> given\\.$#"
-			count: 1
-			path: src/lib/Siteaccess/SiteaccessResolver.php
-
-		-
 			message: "#^Property Ibexa\\\\AdminUi\\\\Siteaccess\\\\SiteaccessResolver\\:\\:\\$siteAccessPreviewVoters \\(array\\<Ibexa\\\\AdminUi\\\\Siteaccess\\\\SiteaccessPreviewVoterInterface\\>\\) does not accept iterable\\.$#"
 			count: 1
 			path: src/lib/Siteaccess/SiteaccessResolver.php
@@ -9554,6 +9549,11 @@ parameters:
 			message: "#^Parameter \\#2 \\$array of function array_map expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\VersionInfo\\> given\\.$#"
 			count: 1
 			path: src/lib/UI/Dataset/VersionsDataset.php
+
+		-
+			message: "#^Access to an undefined property Ibexa\\\\AdminUi\\\\UI\\\\Module\\\\ContentTree\\\\NodeFactory\\:\\:\\$allowedContentTypes\\.$#"
+			count: 1
+			path: src/lib/UI/Module/ContentTree/NodeFactory.php
 
 		-
 			message: "#^Call to an undefined method Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\PermissionResolver\\:\\:sudo\\(\\)\\.$#"
@@ -10756,11 +10756,6 @@ parameters:
 			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
 
 		-
-			message: "#^Method PHPUnit\\\\Framework\\\\Assert\\:\\:assertTrue\\(\\) invoked with 3 parameters, 1\\-2 required\\.$#"
-			count: 1
-			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$name of method Twig\\\\Loader\\\\LoaderInterface\\:\\:getSourceContext\\(\\) expects string, int\\|string given\\.$#"
 			count: 1
 			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
@@ -10777,6 +10772,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$twig of class Ibexa\\\\AdminUi\\\\Limitation\\\\Templating\\\\LimitationBlockRenderer constructor expects Twig\\\\Environment, Twig\\\\Environment\\|null given\\.$#"
+			count: 1
+			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
+
+		-
+			message: "#^Static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertTrue\\(\\) invoked with 3 parameters, 1\\-2 required\\.$#"
 			count: 1
 			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
 
@@ -10920,11 +10920,6 @@ parameters:
 			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Form\\\\Data\\\\ContentTranslationDataTest\\:\\:testAddFieldData\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Form/Data/ContentTranslationDataTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$iterator of function iterator_to_array expects Traversable, iterable\\<string, Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\FieldDefinitionData\\> given\\.$#"
-			count: 1
-			path: tests/lib/Form/Data/ContentTypeDataTest.php
 
 		-
 			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Form\\\\Data\\\\FieldDefinitionDataTest\\:\\:testFieldDefinition\\(\\) has no return type specified\\.$#"
@@ -12612,7 +12607,7 @@ parameters:
 			path: tests/lib/Tab/TabGroupTest.php
 
 		-
-			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with array\\{'tab1', 'tab2'\\} and array\\<Ibexa\\\\Contracts\\\\AdminUi\\\\Tab\\\\TabInterface\\> will always evaluate to false\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with array\\{'tab1', 'tab2'\\} and array\\<Ibexa\\\\Contracts\\\\AdminUi\\\\Tab\\\\TabInterface\\> will always evaluate to false\\.$#"
 			count: 1
 			path: tests/lib/Tab/TabRegistryTest.php
 
