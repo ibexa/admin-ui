@@ -59,7 +59,7 @@ final class NodeFactory
 
     private Repository $repository;
 
-    private SiteaccessResolverInterface  $siteaccessResolver;
+    private SiteaccessResolverInterface $siteaccessResolver;
 
     /** @var int */
     private $maxLocationIdsInSingleAggregation;
