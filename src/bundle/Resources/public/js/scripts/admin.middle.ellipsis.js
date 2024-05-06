@@ -1,3 +1,5 @@
-(function (global, doc, ibexa) {
-    ibexa.helpers.ellipsis.middle.parse();
-})(window, window.document, window.ibexa);
+import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/middle.ellipsis';
+
+(function () {
+    middleEllipsisHelper.parse();
+})();

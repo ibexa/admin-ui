@@ -1,3 +1,5 @@
+import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/middle.ellipsis';
+
 (function (global, doc, ibexa, React, ReactDOM) {
     const SELECTOR_RESET_STARTING_LOCATION_BTN = '.ibexa-tag__remove-btn';
     const defaultLocationContainers = doc.querySelectorAll('.ibexa-default-location');
@@ -11,7 +13,7 @@
 
         const deleteBtn = container.querySelector(SELECTOR_RESET_STARTING_LOCATION_BTN);
 
-        ibexa.helpers.ellipsis.middle.parse();
+        middleEllipsisHelper.parse();
 
         deleteBtn.addEventListener('click', resetStartingLocation, false);
     };
@@ -99,6 +101,6 @@
     defaultLocationContainers.forEach((defaultLocationContainer) => {
         attachEvents(defaultLocationContainer);
         toggleDisabledState(defaultLocationContainer);
-        ibexa.helpers.ellipsis.middle.parse();
+        middleEllipsisHelper.parse();
     });
 })(window, window.document, window.ibexa, window.React, window.ReactDOM);
