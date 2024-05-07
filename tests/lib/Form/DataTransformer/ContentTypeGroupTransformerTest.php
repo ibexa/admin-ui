@@ -38,7 +38,7 @@ final class ContentTypeGroupTransformerTest extends TestCase
      */
     public function testTransformWithValidInput(?APIContentTypeGroup $value, ?int $expected): void
     {
-        $this->assertEquals($expected, $this->transformer->transform($value));
+        self::assertEquals($expected, $this->transformer->transform($value));
     }
 
     public function dataProviderForTransformWithValidInput(): array
@@ -88,7 +88,7 @@ final class ContentTypeGroupTransformerTest extends TestCase
                 ->willReturn($expected);
         }
 
-        $this->assertEquals(
+        self::assertEquals(
             $expected,
             $this->transformer->reverseTransform($value)
         );

@@ -31,7 +31,7 @@ class LanguageTransformerTest extends TestCase
 
         $result = $transformer->transform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /**
@@ -64,7 +64,7 @@ class LanguageTransformerTest extends TestCase
 
         $result = $transformer->reverseTransform('eng-GB');
 
-        $this->assertEquals(new Language(['languageCode' => 'eng-GB']), $result);
+        self::assertEquals(new Language(['languageCode' => 'eng-GB']), $result);
     }
 
     public function testReverseTransformWithNull()
@@ -78,7 +78,7 @@ class LanguageTransformerTest extends TestCase
 
         $result = $transformer->reverseTransform(null);
 
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 
     public function testReverseTransformWithNotFoundException()
@@ -89,7 +89,7 @@ class LanguageTransformerTest extends TestCase
         /** @var \Ibexa\Contracts\Core\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject $languageService */
         $languageService = $this->createMock(LanguageService::class);
         $languageService->method('loadLanguage')
-            ->will($this->throwException(new class('Language not found') extends NotFoundException {
+            ->will(self::throwException(new class('Language not found') extends NotFoundException {
             }));
 
         $transformer = new LanguageTransformer($languageService);

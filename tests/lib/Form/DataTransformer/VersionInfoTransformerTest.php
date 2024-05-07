@@ -39,7 +39,7 @@ final class VersionInfoTransformerTest extends TestCase
      */
     public function testTransformWithValidInput(?VersionInfo $value, ?array $expected): void
     {
-        $this->assertEquals(
+        self::assertEquals(
             $expected,
             $this->transformer->transform($value)
         );
@@ -98,20 +98,20 @@ final class VersionInfoTransformerTest extends TestCase
     {
         if ($expected !== null) {
             $this->contentService
-                ->expects($this->once())
+                ->expects(self::once())
                 ->method('loadVersionInfo')
                 ->with(
-                    $this->equalTo($value['content_info']),
-                    $this->logicalAnd(
-                        $this->equalTo($value['version_no']),
+                    self::equalTo($value['content_info']),
+                    self::logicalAnd(
+                        self::equalTo($value['version_no']),
                         // Make sure value is casted to int
-                        $this->isType('int')
+                        self::isType('int')
                     )
                 )
                 ->willReturn($expected);
         }
 
-        $this->assertEquals(
+        self::assertEquals(
             $expected,
             $this->transformer->reverseTransform($value)
         );

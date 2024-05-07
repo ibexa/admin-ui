@@ -104,12 +104,12 @@ final class InContextTranslationListenerTest extends TestCase
     public function testLocaleIsSet(): void
     {
         $this->request
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setLocale')
             ->with('ach-UG');
 
         $this->translator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setLocale')
             ->with('ach-UG');
 
@@ -138,7 +138,7 @@ final class InContextTranslationListenerTest extends TestCase
     public function testLocaleIsNotSet(): void
     {
         $this->request
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('setLocale');
 
         $event = new RequestEvent(
@@ -171,7 +171,7 @@ final class InContextTranslationListenerTest extends TestCase
             $this->translator
         );
 
-        $this->assertSame(
+        self::assertSame(
             [KernelEvents::REQUEST => [['setInContextTranslation', 5]]],
             $listener::getSubscribedEvents()
         );
@@ -209,7 +209,7 @@ final class InContextTranslationListenerTest extends TestCase
             ->setMethods(['setLocale'])
             ->getMock();
         $request
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('setLocale');
 
         return $request;

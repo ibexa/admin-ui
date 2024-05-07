@@ -60,7 +60,7 @@ class ContentCreateTest extends TestCase
 
         $expectedConfig = $config + $addedConfig;
 
-        $this->assertEquals($expectedConfig, $event->getConfig());
+        self::assertEquals($expectedConfig, $event->getConfig());
     }
 
     /**
@@ -75,7 +75,7 @@ class ContentCreateTest extends TestCase
         $subscriber = $this->getSubscriberWithRestrictions();
         $subscriber->onUdwConfigResolve($event);
 
-        $this->assertEquals($config, $event->getConfig());
+        self::assertEquals($config, $event->getConfig());
     }
 
     public function createTab(): array

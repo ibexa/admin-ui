@@ -290,7 +290,7 @@ final class ContentTypeDraftMapperTest extends TestCase
     {
         $this->eventDispatcher
             ->method('dispatch')
-            ->with($this->isInstanceOf(FieldDefinitionMappingEvent::class), FieldDefinitionMappingEvent::NAME)
+            ->with(self::isInstanceOf(FieldDefinitionMappingEvent::class), FieldDefinitionMappingEvent::NAME)
             ->willReturnCallback(
                 static function (FieldDefinitionMappingEvent $event, string $eventName): Event {
                     $fieldDefinitionData = $event->getFieldDefinitionData();

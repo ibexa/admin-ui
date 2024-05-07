@@ -70,7 +70,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
     private $permissionChecker;
 
-    private SiteaccessResolverInterface  $siteaccessResolver;
+    private SiteaccessResolverInterface $siteaccessResolver;
 
     public function __construct(
         MenuItemFactory $factory,

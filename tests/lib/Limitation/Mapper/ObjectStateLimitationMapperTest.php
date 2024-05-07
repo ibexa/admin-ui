@@ -56,7 +56,7 @@ class ObjectStateLimitationMapperTest extends TestCase
 
         foreach ($values as $i => $value) {
             $this->objectStateService
-                ->expects($this->at($i))
+                ->expects(self::at($i))
                 ->method('loadObjectState')
                 ->with($value)
                 ->willReturn($expected[$i]);
@@ -66,7 +66,7 @@ class ObjectStateLimitationMapperTest extends TestCase
             'limitationValues' => $values,
         ]));
 
-        $this->assertEquals([
+        self::assertEquals([
             'foo:foo', 'bar:bar', 'baz:baz',
         ], $result);
     }
@@ -74,13 +74,13 @@ class ObjectStateLimitationMapperTest extends TestCase
     public function testMapLimitationValueWithNotExistingObjectState()
     {
         $this->objectStateService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadObjectState')
             ->with(self::EXAMPLE_OBJECT_STATE_ID_A)
             ->willThrowException($this->createMock(NotFoundException::class));
 
         $this->logger
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('error')
             ->with('Could not map the Limitation value: could not find an Object state with ID ' . self::EXAMPLE_OBJECT_STATE_ID_A);
 
@@ -88,25 +88,25 @@ class ObjectStateLimitationMapperTest extends TestCase
             'limitationValues' => [self::EXAMPLE_OBJECT_STATE_ID_A],
         ]));
 
-        $this->assertEmpty($actual);
+        self::assertEmpty($actual);
     }
 
     private function createStateMock($value)
     {
         $stateGroupMock = $this->createMock(ObjectStateGroup::class);
         $stateGroupMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getName')
             ->willReturn($value);
 
         $stateMock = $this->createMock(ObjectState::class);
         $stateMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getObjectStateGroup')
             ->willReturn($stateGroupMock);
 
         $stateMock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getName')
             ->willReturn($value);
 

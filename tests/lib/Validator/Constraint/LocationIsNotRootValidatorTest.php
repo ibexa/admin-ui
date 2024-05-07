@@ -38,7 +38,7 @@ class LocationIsNotRootValidatorTest extends TestCase
             ->getMock();
 
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('addViolation');
 
         $this->validator->validate($location, new LocationIsNotRoot());
@@ -53,7 +53,7 @@ class LocationIsNotRootValidatorTest extends TestCase
             ->getMock();
 
         $this->executionContext
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('addViolation');
 
         $this->validator->validate($location, new LocationIsNotRoot());

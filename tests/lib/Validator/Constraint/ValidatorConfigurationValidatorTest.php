@@ -47,7 +47,7 @@ class ValidatorConfigurationValidatorTest extends TestCase
     public function testNotFieldDefinitionData()
     {
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
         $this->validator->validate('foo', new ValidatorConfiguration());
@@ -56,7 +56,7 @@ class ValidatorConfigurationValidatorTest extends TestCase
     public function testValid()
     {
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
         $fieldTypeIdentifier = 'ezstring';
@@ -65,12 +65,12 @@ class ValidatorConfigurationValidatorTest extends TestCase
         $fieldDefData = new FieldDefinitionData(['identifier' => 'foo', 'fieldDefinition' => $fieldDefinition, 'validatorConfiguration' => $validatorConfiguration]);
         $fieldType = $this->createMock(FieldType::class);
         $this->fieldTypeService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getFieldType')
             ->with($fieldTypeIdentifier)
             ->willReturn($fieldType);
         $fieldType
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('validateValidatorConfiguration')
             ->with($validatorConfiguration)
             ->willReturn([]);
@@ -86,7 +86,7 @@ class ValidatorConfigurationValidatorTest extends TestCase
         $fieldDefData = new FieldDefinitionData(['identifier' => 'foo', 'fieldDefinition' => $fieldDefinition, 'validatorConfiguration' => $validatorConfiguration]);
         $fieldType = $this->createMock(FieldType::class);
         $this->fieldTypeService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getFieldType')
             ->with($fieldTypeIdentifier)
             ->willReturn($fieldType);
@@ -94,28 +94,28 @@ class ValidatorConfigurationValidatorTest extends TestCase
         $errorParameter = 'bar';
         $errorMessage = 'error';
         $fieldType
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('validateValidatorConfiguration')
             ->with($validatorConfiguration)
             ->willReturn([new ValidationError($errorMessage, null, ['%foo%' => $errorParameter])]);
 
         $constraintViolationBuilder = $this->createMock(ConstraintViolationBuilderInterface::class);
         $this->executionContext
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('buildViolation')
             ->willReturn($constraintViolationBuilder);
         $this->executionContext
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('buildViolation')
             ->with($errorMessage)
             ->willReturn($constraintViolationBuilder);
         $constraintViolationBuilder
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setParameters')
             ->with(['%foo%' => $errorParameter])
             ->willReturn($constraintViolationBuilder);
         $constraintViolationBuilder
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('addViolation');
 
         $this->validator->validate($fieldDefData, new ValidatorConfiguration());

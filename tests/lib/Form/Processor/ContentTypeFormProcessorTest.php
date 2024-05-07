@@ -142,12 +142,12 @@ final class ContentTypeFormProcessorTest extends TestCase
 
         $fieldTypeSelectionForm = $this->createMock(FormInterface::class);
         $fieldTypeSelectionForm
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getData')
             ->willReturn($fieldTypeIdentifier);
         $mainForm = $this->createMock(FormInterface::class);
         $mainForm
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('get')
             ->with('fieldTypeSelection')
             ->willReturn($fieldTypeSelectionForm);
@@ -159,7 +159,7 @@ final class ContentTypeFormProcessorTest extends TestCase
             ->willReturn($languageCode);
 
         $mainForm
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getConfig')
             ->willReturn($formConfig);
 
@@ -171,18 +171,18 @@ final class ContentTypeFormProcessorTest extends TestCase
             'fieldGroup' => 'content',
         ]);
         $this->contentTypeService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadContentTypeDraft')
             ->with($contentTypeDraft->id)
             ->willReturn($contentTypeDraft);
         $this->contentTypeService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('addFieldDefinition')
-            ->with($contentTypeDraft, $this->equalTo($expectedFieldDefCreateStruct));
+            ->with($contentTypeDraft, self::equalTo($expectedFieldDefCreateStruct));
         $this->groupsList
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getDefaultGroup')
-            ->will($this->returnValue('content'));
+            ->will(self::returnValue('content'));
 
         $event = new FormActionEvent(
             $mainForm,
@@ -204,7 +204,7 @@ final class ContentTypeFormProcessorTest extends TestCase
             ['languageCode' => 'eng-GB']
         );
         $this->contentTypeService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('publishContentTypeDraft')
             ->with($contentTypeDraft);
 
@@ -223,12 +223,12 @@ final class ContentTypeFormProcessorTest extends TestCase
             ['languageCode' => 'eng-GB']
         );
         $this->contentTypeService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('publishContentTypeDraft')
             ->with($contentTypeDraft);
 
         $this->router
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('generate')
             ->with($redirectRoute)
             ->willReturn($redirectUrl);
@@ -259,53 +259,53 @@ final class ContentTypeFormProcessorTest extends TestCase
         $fieldDefForm1 = $this->createMock(FormInterface::class);
         $fieldDefSelected1 = $this->createMock(FormInterface::class);
         $fieldDefForm1
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('get')
             ->with('selected')
             ->willReturn($fieldDefSelected1);
         $fieldDefSelected1
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getData')
             ->willReturn(false);
         $fieldDefForm1
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('getData');
 
         $fieldDefForm2 = $this->createMock(FormInterface::class);
         $fieldDefSelected2 = $this->createMock(FormInterface::class);
         $fieldDefForm2
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('get')
             ->with('selected')
             ->willReturn($fieldDefSelected2);
         $fieldDefSelected2
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getData')
             ->willReturn(true);
         $fieldDefForm2
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getData')
             ->willReturn(new FieldDefinitionData(['fieldDefinition' => $fieldDefinition1]));
 
         $fieldDefForm3 = $this->createMock(FormInterface::class);
         $fieldDefSelected3 = $this->createMock(FormInterface::class);
         $fieldDefForm3
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('get')
             ->with('selected')
             ->willReturn($fieldDefSelected3);
         $fieldDefSelected3
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getData')
             ->willReturn(true);
         $fieldDefForm3
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getData')
             ->willReturn(new FieldDefinitionData(['fieldDefinition' => $fieldDefinition1]));
 
         $mainForm = $this->createMock(FormInterface::class);
         $mainForm
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('get')
             ->with('fieldDefinitionsData')
             ->willReturn([$fieldDefForm1, $fieldDefForm2, $fieldDefForm3]);
@@ -329,7 +329,7 @@ final class ContentTypeFormProcessorTest extends TestCase
             ['languageCode' => 'eng-GB']
         );
         $this->contentTypeService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('deleteContentType')
             ->with($contentTypeDraft);
 
@@ -348,12 +348,12 @@ final class ContentTypeFormProcessorTest extends TestCase
             ['languageCode' => 'eng-GB']
         );
         $this->contentTypeService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('deleteContentType')
             ->with($contentTypeDraft);
 
         $this->router
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('generate')
             ->with($redirectRoute)
             ->willReturn($redirectUrl);

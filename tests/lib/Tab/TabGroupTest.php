@@ -25,11 +25,11 @@ class TabGroupTest extends TestCase
 
         $tabGroup = new TabGroup('group_name');
 
-        $this->assertCount(0, $tabGroup->getTabs());
+        self::assertCount(0, $tabGroup->getTabs());
 
         $tabGroup->addTab($tab);
 
-        $this->assertCount(1, $tabGroup->getTabs());
+        self::assertCount(1, $tabGroup->getTabs());
     }
 
     public function testAddTabWithSameIdentifier()
@@ -49,9 +49,9 @@ class TabGroupTest extends TestCase
         $tabGroup = new TabGroup('group_name');
         $tabGroup->addTab($tab);
 
-        $this->assertCount(1, $tabGroup->getTabs());
+        self::assertCount(1, $tabGroup->getTabs());
         $tabGroup->addTab($tabWithSameIdentifier);
-        $this->assertCount(1, $tabGroup->getTabs());
+        self::assertCount(1, $tabGroup->getTabs());
     }
 
     public function testRemoveTab()
@@ -66,9 +66,9 @@ class TabGroupTest extends TestCase
         $tabGroup = new TabGroup('group_name');
         $tabGroup->addTab($tab);
 
-        $this->assertCount(1, $tabGroup->getTabs());
+        self::assertCount(1, $tabGroup->getTabs());
         $tabGroup->removeTab($tabIdentifier);
-        $this->assertCount(0, $tabGroup->getTabs());
+        self::assertCount(0, $tabGroup->getTabs());
     }
 
     public function testRemoveTabWhenNotExist()
@@ -83,7 +83,7 @@ class TabGroupTest extends TestCase
 
         $tabGroup = new TabGroup('group_name');
 
-        $this->assertCount(0, $tabGroup->getTabs());
+        self::assertCount(0, $tabGroup->getTabs());
         $tabGroup->removeTab($tabIdentifier);
     }
 }

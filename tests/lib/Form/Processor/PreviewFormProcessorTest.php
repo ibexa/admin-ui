@@ -102,7 +102,7 @@ class PreviewFormProcessorTest extends TestCase
         $previewFormProcessor = $this->createPreviewFormProcessor($contentService, $urlGenerator, $this->notificationHandler);
         $previewFormProcessor->processPreview($event);
 
-        $this->assertEquals(new RedirectResponse($url), $event->getResponse());
+        self::assertEquals(new RedirectResponse($url), $event->getResponse());
     }
 
     public function testProcessPreviewHandleExceptionWithNew()
@@ -127,7 +127,7 @@ class PreviewFormProcessorTest extends TestCase
         $contentService
             ->expects(self::once())
             ->method('createContent')
-            ->will($this->throwException(new class('Location not found') extends \Exception {
+            ->will(self::throwException(new class('Location not found') extends \Exception {
             }));
 
         $urlGenerator = $this->generateUrlGeneratorForContentEditUrlMock($contentDraft, $languageCode, $url);
@@ -136,14 +136,14 @@ class PreviewFormProcessorTest extends TestCase
 
         $previewFormProcessor->processPreview($event);
 
-        $this->assertEquals(new RedirectResponse($url), $event->getResponse());
+        self::assertEquals(new RedirectResponse($url), $event->getResponse());
     }
 
     public function testSubscribedEvents()
     {
         $previewFormProcessor = $this->createPreviewFormProcessor();
 
-        $this->assertSame([ContentEditEvents::CONTENT_PREVIEW => ['processPreview', 10]], $previewFormProcessor::getSubscribedEvents());
+        self::assertSame([ContentEditEvents::CONTENT_PREVIEW => ['processPreview', 10]], $previewFormProcessor::getSubscribedEvents());
     }
 
     /**

@@ -47,7 +47,7 @@ class LanguageTypeLimitationMapperTest extends TestCase
 
         foreach ($values as $i => $value) {
             $this->languageService
-                ->expects($this->at($i))
+                ->expects(self::at($i))
                 ->method('loadLanguage')
                 ->with($value)
                 ->willReturn($expected[$i]);
@@ -57,7 +57,7 @@ class LanguageTypeLimitationMapperTest extends TestCase
             'limitationValues' => $values,
         ]));
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     public function testMapLimitationValueWithNotExistingContentType()
@@ -65,13 +65,13 @@ class LanguageTypeLimitationMapperTest extends TestCase
         $values = ['foo'];
 
         $this->languageService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadLanguage')
             ->with($values[0])
             ->willThrowException($this->createMock(NotFoundException::class));
 
         $this->logger
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('error')
             ->with('Could not map the Limitation value: could not find a language with code foo');
 
@@ -79,7 +79,7 @@ class LanguageTypeLimitationMapperTest extends TestCase
             'limitationValues' => $values,
         ]));
 
-        $this->assertEmpty($actual);
+        self::assertEmpty($actual);
     }
 }
 

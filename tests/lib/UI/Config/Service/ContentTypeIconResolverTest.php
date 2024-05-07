@@ -41,7 +41,7 @@ class ContentTypeIconResolverTest extends TestCase
     public function testGetContentTypeIcon(array $config, string $identifier, string $expected)
     {
         $this->configResolver
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('hasParameter')
             ->willReturnCallback(static function (string $key) use ($config) {
                 $key = explode('.', $key);
@@ -50,7 +50,7 @@ class ContentTypeIconResolverTest extends TestCase
             });
 
         $this->configResolver
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getParameter')
             ->willReturnCallback(static function (string $key) use ($config) {
                 $key = explode('.', $key);
@@ -59,13 +59,13 @@ class ContentTypeIconResolverTest extends TestCase
             });
 
         $this->packages
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getUrl')
             ->willReturnCallback(static function (string $uri) {
                 return "https://cdn.example.com/$uri";
             });
 
-        $this->assertEquals($expected, $this->contentTypeIconResolver->getContentTypeIcon($identifier));
+        self::assertEquals($expected, $this->contentTypeIconResolver->getContentTypeIcon($identifier));
     }
 
     public function dataProviderForGetContentTypeIcon(): array

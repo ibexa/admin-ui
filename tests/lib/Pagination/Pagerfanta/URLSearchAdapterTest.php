@@ -36,7 +36,7 @@ class URLSearchAdapterTest extends TestCase
         ]);
 
         $this->urlService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findUrls')
             ->willReturnCallback(function (URLQuery $q) use ($query, $searchResults) {
                 $this->assertEquals($query->filter, $q->filter);
@@ -49,7 +49,7 @@ class URLSearchAdapterTest extends TestCase
 
         $adapter = new URLSearchAdapter($query, $this->urlService);
 
-        $this->assertEquals($searchResults->totalCount, $adapter->getNbResults());
+        self::assertEquals($searchResults->totalCount, $adapter->getNbResults());
     }
 
     public function testGetSlice()
@@ -68,7 +68,7 @@ class URLSearchAdapterTest extends TestCase
         ]);
 
         $this->urlService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findUrls')
             ->willReturnCallback(function (URLQuery $q) use ($query, $limit, $offset, $searchResults) {
                 $this->assertEquals($query->filter, $q->filter);
@@ -81,7 +81,7 @@ class URLSearchAdapterTest extends TestCase
 
         $adapter = new URLSearchAdapter($query, $this->urlService);
 
-        $this->assertEquals($searchResults->items, $adapter->getSlice($offset, $limit));
+        self::assertEquals($searchResults->items, $adapter->getSlice($offset, $limit));
     }
 
     private function createURLQuery()

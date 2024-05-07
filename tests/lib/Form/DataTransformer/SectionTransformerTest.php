@@ -30,7 +30,7 @@ class SectionTransformerTest extends TestCase
 
         $result = $transformer->transform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /**
@@ -61,7 +61,7 @@ class SectionTransformerTest extends TestCase
 
         $result = $transformer->reverseTransform(123456);
 
-        $this->assertEquals(new APISection(['id' => 123456]), $result);
+        self::assertEquals(new APISection(['id' => 123456]), $result);
     }
 
     public function testReverseTransformWithNull()
@@ -74,7 +74,7 @@ class SectionTransformerTest extends TestCase
 
         $result = $transformer->reverseTransform(null);
 
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 
     public function testReverseTransformWithNotFoundException()
@@ -84,7 +84,7 @@ class SectionTransformerTest extends TestCase
 
         $service = $this->createMock(SectionService::class);
         $service->method('loadSection')
-            ->will($this->throwException(new class('Section not found') extends NotFoundException {
+            ->will(self::throwException(new class('Section not found') extends NotFoundException {
             }));
 
         $transformer = new SectionTransformer($service);

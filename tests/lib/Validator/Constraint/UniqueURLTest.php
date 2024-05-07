@@ -22,17 +22,17 @@ class UniqueURLTest extends TestCase
 
     public function testConstruct()
     {
-        $this->assertSame('ez.url.unique', $this->constraint->message);
+        self::assertSame('ez.url.unique', $this->constraint->message);
     }
 
     public function testValidatedBy()
     {
-        $this->assertSame('ezplatform.content_forms.validator.unique_url', $this->constraint->validatedBy());
+        self::assertSame('ezplatform.content_forms.validator.unique_url', $this->constraint->validatedBy());
     }
 
     public function testGetTargets()
     {
-        $this->assertSame(UniqueURL::CLASS_CONSTRAINT, $this->constraint->getTargets());
+        self::assertSame(UniqueURL::CLASS_CONSTRAINT, $this->constraint->getTargets());
     }
 }
 

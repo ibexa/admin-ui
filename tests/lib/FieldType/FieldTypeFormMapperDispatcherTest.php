@@ -53,7 +53,7 @@ class FieldTypeFormMapperDispatcherTest extends TestCase
         $formMock = $this->createMock(FormInterface::class);
 
         $this->fieldDefinitionMapperMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('mapFieldDefinitionForm')
             ->with($formMock, $data);
 

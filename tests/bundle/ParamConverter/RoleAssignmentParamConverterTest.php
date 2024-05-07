@@ -43,7 +43,7 @@ class RoleAssignmentParamConverterTest extends AbstractParamConverterTest
         $valueObject = $this->createMock(RoleAssignment::class);
 
         $this->serviceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadRoleAssignment')
             ->with($roleAssignmentIdToLoad)
             ->willReturn($valueObject);
@@ -55,8 +55,8 @@ class RoleAssignmentParamConverterTest extends AbstractParamConverterTest
         $request = new Request([], [], $requestAttributes);
         $config = $this->createConfiguration(self::SUPPORTED_CLASS, self::PARAMETER_NAME);
 
-        $this->assertTrue($this->converter->apply($request, $config));
-        $this->assertInstanceOf(self::SUPPORTED_CLASS, $request->attributes->get(self::PARAMETER_NAME));
+        self::assertTrue($this->converter->apply($request, $config));
+        self::assertInstanceOf(self::SUPPORTED_CLASS, $request->attributes->get(self::PARAMETER_NAME));
     }
 
     public function testApplyWithWrongAttribute()
@@ -68,8 +68,8 @@ class RoleAssignmentParamConverterTest extends AbstractParamConverterTest
         $request = new Request([], [], $requestAttributes);
         $config = $this->createConfiguration(self::SUPPORTED_CLASS, self::PARAMETER_NAME);
 
-        $this->assertFalse($this->converter->apply($request, $config));
-        $this->assertNull($request->attributes->get(self::PARAMETER_NAME));
+        self::assertFalse($this->converter->apply($request, $config));
+        self::assertNull($request->attributes->get(self::PARAMETER_NAME));
     }
 
     public function testApplyWhenNotFound()
@@ -80,7 +80,7 @@ class RoleAssignmentParamConverterTest extends AbstractParamConverterTest
         $this->expectExceptionMessage(sprintf('Role assignment %s not found.', $roleAssignmentId));
 
         $this->serviceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadRoleAssignment')
             ->with($roleAssignmentId)
             ->willThrowException($this->createMock(NotFoundException::class));

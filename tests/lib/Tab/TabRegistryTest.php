@@ -41,7 +41,7 @@ class TabRegistryTest extends TestCase
         $tabRegistry = new TabRegistry();
         $tabRegistry->addTabGroup($tabGroup);
 
-        $this->assertSame($tabs, $tabRegistry->getTabsByGroupName($this->groupName));
+        self::assertSame($tabs, $tabRegistry->getTabsByGroupName($this->groupName));
     }
 
     public function testGetTabFromGroup()
@@ -55,7 +55,7 @@ class TabRegistryTest extends TestCase
         $tabGroup = $this->createTabGroup($this->groupName, $tabs);
         $tabRegistry->addTabGroup($tabGroup);
 
-        $this->assertSame($tab1, $tabRegistry->getTabFromGroup('tab1', $this->groupName));
+        self::assertSame($tab1, $tabRegistry->getTabFromGroup('tab1', $this->groupName));
     }
 
     public function testGetTabFromGroupWhenGroupDoesNotExist()

@@ -54,8 +54,8 @@ final class ReadAllowedContentTypesTest extends TestCase
     public function testUdwConfigResolveOnUnsupportedConfigName(): void
     {
         $this->permissionResolver->method('hasAccess')->with('content', 'read')->willReturn(true);
-        $this->permissionChecker->expects($this->never())->method('getRestrictions');
-        $this->contentTypeService->expects($this->never())->method('loadContentTypeList');
+        $this->permissionChecker->expects(self::never())->method('getRestrictions');
+        $this->contentTypeService->expects(self::never())->method('loadContentTypeList');
 
         $event = $this->createConfigResolveEvent('unsupported_config_name');
 
@@ -65,14 +65,14 @@ final class ReadAllowedContentTypesTest extends TestCase
             'allowed_content_types' => null,
         ];
 
-        $this->assertEquals($expectedConfig, $event->getConfig());
+        self::assertEquals($expectedConfig, $event->getConfig());
     }
 
     public function testUdwConfigResolveWhenThereIsNoContentReadLimitations(): void
     {
         $this->permissionResolver->method('hasAccess')->with('content', 'read')->willReturn(true);
-        $this->permissionChecker->expects($this->never())->method('getRestrictions');
-        $this->contentTypeService->expects($this->never())->method('loadContentTypeList');
+        $this->permissionChecker->expects(self::never())->method('getRestrictions');
+        $this->contentTypeService->expects(self::never())->method('loadContentTypeList');
 
         $this->assertConfigurationResolvingResult([
             'allowed_content_types' => null,
@@ -82,8 +82,8 @@ final class ReadAllowedContentTypesTest extends TestCase
     public function testUdwConfigResolveWhenThereIsNoContentReadLimitationsAndNoAccess(): void
     {
         $this->permissionResolver->method('hasAccess')->with('content', 'read')->willReturn(false);
-        $this->permissionChecker->expects($this->never())->method('getRestrictions');
-        $this->contentTypeService->expects($this->never())->method('loadContentTypeList');
+        $this->permissionChecker->expects(self::never())->method('getRestrictions');
+        $this->contentTypeService->expects(self::never())->method('loadContentTypeList');
 
         $this->assertConfigurationResolvingResult([
             'allowed_content_types' => [null],
@@ -119,7 +119,7 @@ final class ReadAllowedContentTypesTest extends TestCase
 
             $this->subscriber->onUdwConfigResolve($event);
 
-            $this->assertEquals(
+            self::assertEquals(
                 $expectedConfiguration,
                 $event->getConfig()
             );

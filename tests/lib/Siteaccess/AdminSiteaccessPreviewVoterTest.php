@@ -54,7 +54,7 @@ class AdminSiteaccessPreviewVoterTest extends TestCase
 
         $this->mockConfigMethods($context);
 
-        $this->assertFalse($this->adminSiteaccessPreviewVoter->vote($context));
+        self::assertFalse($this->adminSiteaccessPreviewVoter->vote($context));
     }
 
     /**
@@ -65,28 +65,28 @@ class AdminSiteaccessPreviewVoterTest extends TestCase
         $this->mockConfigMethods($context);
 
         $this->repositoryConfigurationProvider
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('getDefaultRepositoryAlias')
             ->willReturn('default');
 
         $this->repositoryConfigurationProvider
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('getCurrentRepositoryAlias')
             ->willReturn('default');
 
         $this->configResolver
-            ->expects($this->at(3))
+            ->expects(self::at(3))
             ->method('getParameter')
             ->with('repository', null, $context->getSiteaccess())
             ->willReturn(null);
 
         $this->configResolver
-            ->expects($this->at(4))
+            ->expects(self::at(4))
             ->method('getParameter')
             ->with('languages', null, $context->getSiteaccess())
             ->willReturn(['ger-DE']);
 
-        $this->assertFalse($this->adminSiteaccessPreviewVoter->vote($context));
+        self::assertFalse($this->adminSiteaccessPreviewVoter->vote($context));
     }
 
     /**
@@ -97,22 +97,22 @@ class AdminSiteaccessPreviewVoterTest extends TestCase
         $this->mockConfigMethods($context);
 
         $this->configResolver
-            ->expects($this->at(3))
+            ->expects(self::at(3))
             ->method('getParameter')
             ->with('repository', null, $context->getSiteaccess())
             ->willReturn(null);
 
         $this->repositoryConfigurationProvider
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('getDefaultRepositoryAlias')
             ->willReturn('default');
 
         $this->repositoryConfigurationProvider
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('getCurrentRepositoryAlias')
             ->willReturn('main');
 
-        $this->assertFalse($this->adminSiteaccessPreviewVoter->vote($context));
+        self::assertFalse($this->adminSiteaccessPreviewVoter->vote($context));
     }
 
     /**
@@ -123,46 +123,46 @@ class AdminSiteaccessPreviewVoterTest extends TestCase
         $this->mockConfigMethods($context);
 
         $this->configResolver
-            ->expects($this->at(3))
+            ->expects(self::at(3))
             ->method('getParameter')
             ->with('repository', null, $context->getSiteaccess())
             ->willReturn(null);
 
         $this->repositoryConfigurationProvider
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('getDefaultRepositoryAlias')
             ->willReturn('default');
 
         $this->repositoryConfigurationProvider
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('getCurrentRepositoryAlias')
             ->willReturn('default');
 
         $this->configResolver
-            ->expects($this->at(4))
+            ->expects(self::at(4))
             ->method('getParameter')
             ->with('languages', null, $context->getSiteaccess())
             ->willReturn(['eng-GB', 'fre-FR']);
 
-        $this->assertTrue($this->adminSiteaccessPreviewVoter->vote($context));
+        self::assertTrue($this->adminSiteaccessPreviewVoter->vote($context));
     }
 
     private function mockConfigMethods(SiteaccessPreviewVoterContext $context): void
     {
         $this->configResolver
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('getParameter')
             ->with('content.tree_root.location_id', null, $context->getSiteaccess())
             ->willReturn(2);
 
         $this->configResolver
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('getParameter')
             ->with('location_ids.media', null, $context->getSiteaccess())
             ->willReturn(43);
 
         $this->configResolver
-            ->expects($this->at(2))
+            ->expects(self::at(2))
             ->method('getParameter')
             ->with('location_ids.users', null, $context->getSiteaccess())
             ->willReturn(5);

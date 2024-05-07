@@ -51,10 +51,10 @@ final class UniqueContentTypeIdentifierValidatorTest extends TestCase
     {
         $value = new stdClass();
         $this->contentTypeService
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadContentTypeByIdentifier');
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
         $this->validator->validate($value, new UniqueContentTypeIdentifier());
@@ -68,10 +68,10 @@ final class UniqueContentTypeIdentifierValidatorTest extends TestCase
         ]);
 
         $this->contentTypeService
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadContentTypeByIdentifier');
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
         $this->validator->validate($value, new UniqueContentTypeIdentifier());
@@ -86,12 +86,12 @@ final class UniqueContentTypeIdentifierValidatorTest extends TestCase
         ]);
 
         $this->contentTypeService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadContentTypeByIdentifier')
             ->with($identifier)
             ->willThrowException(new NotFoundException('foo', 'bar'));
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
         $this->validator->validate($value, new UniqueContentTypeIdentifier());
@@ -113,12 +113,12 @@ final class UniqueContentTypeIdentifierValidatorTest extends TestCase
             ->setConstructorArgs([['id' => $contentTypeId]])
             ->getMockForAbstractClass();
         $this->contentTypeService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadContentTypeByIdentifier')
             ->with($identifier)
             ->willReturn($returnedContentType);
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
         $this->validator->validate($value, new UniqueContentTypeIdentifier());
@@ -141,27 +141,27 @@ final class UniqueContentTypeIdentifierValidatorTest extends TestCase
             ->setConstructorArgs([['id' => 123]])
             ->getMockForAbstractClass();
         $this->contentTypeService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadContentTypeByIdentifier')
             ->with($identifier)
             ->willReturn($returnedContentType);
         $this->executionContext
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('buildViolation')
             ->with($constraint->message)
             ->willReturn($constraintViolationBuilder);
         $constraintViolationBuilder
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('atPath')
             ->with('identifier')
             ->willReturn($constraintViolationBuilder);
         $constraintViolationBuilder
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setParameter')
             ->with('%identifier%', $identifier)
             ->willReturn($constraintViolationBuilder);
         $constraintViolationBuilder
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('addViolation');
 
         $this->validator->validate($value, $constraint);

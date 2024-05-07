@@ -128,7 +128,7 @@ final class SetViewParametersListenerTest extends TestCase
 
         $this->viewParametersListener->setContentEditViewTemplateParameters(new PreContentViewEvent($contentView));
 
-        $this->assertSame($locations, $contentView->getParameter('parent_locations'));
+        self::assertSame($locations, $contentView->getParameter('parent_locations'));
     }
 
     /**
@@ -175,8 +175,8 @@ final class SetViewParametersListenerTest extends TestCase
 
         $this->viewParametersListener->setContentEditViewTemplateParameters(new PreContentViewEvent($contentView));
 
-        $this->assertSame([], $contentView->getParameter('parent_locations'));
-        $this->assertSame(reset($parentLocations), $contentView->getParameter('parent_location'));
+        self::assertSame([], $contentView->getParameter('parent_locations'));
+        self::assertSame(reset($parentLocations), $contentView->getParameter('parent_location'));
     }
 
     public function testSetViewTemplateParametersWithoutContentEditViewInstance(): void
@@ -186,7 +186,7 @@ final class SetViewParametersListenerTest extends TestCase
         $this->locationService->expects(self::never())
             ->method('loadParentLocationsForDraftContent');
 
-        $this->assertNull(
+        self::assertNull(
             $this->viewParametersListener->setContentEditViewTemplateParameters(
                 new PreContentViewEvent($contentView)
             )
@@ -200,7 +200,7 @@ final class SetViewParametersListenerTest extends TestCase
         $this->locationService->expects(self::never())
             ->method('loadParentLocationsForDraftContent');
 
-        $this->assertNull(
+        self::assertNull(
             $this->viewParametersListener->setUserUpdateViewTemplateParameters(
                 new PreContentViewEvent($view)
             )
@@ -225,7 +225,7 @@ final class SetViewParametersListenerTest extends TestCase
 
         $this->viewParametersListener->setUserUpdateViewTemplateParameters(new PreContentViewEvent($userUpdateView));
 
-        $this->assertSame($user, $userUpdateView->getParameter('creator'));
+        self::assertSame($user, $userUpdateView->getParameter('creator'));
     }
 
     public function testSetContentFieldsParameters(): void
@@ -288,8 +288,8 @@ final class SetViewParametersListenerTest extends TestCase
 
         $this->viewParametersListener->setContentFieldsParameters(new PreContentViewEvent($contentEditView));
 
-        $this->assertSame($ignoredContentFields, $contentEditView->getParameter('ignored_content_fields'));
-        $this->assertSame($groupedFields, $contentEditView->getParameter('grouped_fields'));
+        self::assertSame($ignoredContentFields, $contentEditView->getParameter('ignored_content_fields'));
+        self::assertSame($groupedFields, $contentEditView->getParameter('grouped_fields'));
     }
 
     public function testSubscribedEvents(): void
@@ -310,10 +310,10 @@ final class SetViewParametersListenerTest extends TestCase
 
         $actualSubscribedEvents = $this->viewParametersListener::getSubscribedEvents();
 
-        $this->assertCount(count($actualSubscribedEvents), $expectedSubscribedEvents);
+        self::assertCount(count($actualSubscribedEvents), $expectedSubscribedEvents);
         foreach ($expectedSubscribedEvents as $key => $value) {
-            $this->assertArrayHasKey($key, $actualSubscribedEvents);
-            $this->assertSame($value, $actualSubscribedEvents[$key]);
+            self::assertArrayHasKey($key, $actualSubscribedEvents);
+            self::assertSame($value, $actualSubscribedEvents[$key]);
         }
     }
 
