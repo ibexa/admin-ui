@@ -364,14 +364,14 @@
       <trans-unit id="db6dd97ed4776bb0e9843554c48e3962327e8f50" resname="ezplatform.forgot_user_password.message">
         <source><![CDATA[Hi,
         <br /><br />
-        We have received a request to reset the password for your eZ Platform account. Click “reset password” below to choose a new password:
+        We have received a request to reset the password for your Ibexa DXP account. Click “reset password” below to choose a new password:
         <br /><br />
         <a href="%reset_password%">Reset password</a>
         <br /><br />
         If you did not request a password reset, please ignore this email, and your password will remain the same.]]></source>
         <target state="new"><![CDATA[Hi,
         <br /><br />
-        We have received a request to reset the password for your eZ Platform account. Click “reset password” below to choose a new password:
+        We have received a request to reset the password for your Ibexa DXP account. Click “reset password” below to choose a new password:
         <br /><br />
         <a href="%reset_password%">Reset password</a>
         <br /><br />
