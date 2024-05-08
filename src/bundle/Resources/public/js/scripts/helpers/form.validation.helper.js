@@ -29,7 +29,7 @@ const checkIsEmpty = (field) => {
     }
 
     return {
-        isValid: !!input?.value,
+        isValid: input ? input.value : true,
         errorMessage,
     };
 };
