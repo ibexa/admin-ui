@@ -1,7 +1,7 @@
 .ibexa-content-view .flatpickr-calendar {
     &.animate.open {
-        -webkit-animation: eZfpFadeInDown 300ms cubic-bezier(0.23, 1, 0.32, 1);
-        animation: eZfpFadeInDown 300ms cubic-bezier(0.23, 1, 0.32, 1);
+        -webkit-animation: ibexaFpFadeInDown 300ms cubic-bezier(0.23, 1, 0.32, 1);
+        animation: ibexaFpFadeInDown 300ms cubic-bezier(0.23, 1, 0.32, 1);
     }
 }
 
@@ -13,7 +13,7 @@
     }
 }
 
-@-webkit-keyframes eZfpFadeInDown {
+@-webkit-keyframes ibexaFpFadeInDown {
     from {
         opacity: 0;
     }
@@ -23,7 +23,7 @@
     }
 }
 
-@keyframes eZfpFadeInDown {
+@keyframes ibexaFpFadeInDown {
     from {
         opacity: 0;
     }
