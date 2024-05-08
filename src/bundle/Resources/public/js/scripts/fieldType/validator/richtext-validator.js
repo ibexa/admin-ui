@@ -58,6 +58,8 @@ const initValidator = (container, selectorField, selectorErrorNone, selectorInpu
     });
 
     validator.init();
+
+    return validator;
 };
 
 export default initValidator;

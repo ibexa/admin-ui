@@ -1,4 +1,4 @@
-import initValidator from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/fieldType/validator/richtext-validator';
+import initValidator from './validator/richtext-validator';
 
 (function (global, doc, ibexa, React, ReactDOM) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezrichtext';
