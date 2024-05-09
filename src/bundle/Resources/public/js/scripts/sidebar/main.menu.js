@@ -50,8 +50,19 @@
         const { itemName } = currentTarget.parentNode.dataset;
 
         if (activeItemName === itemName) {
+            const animationController = new AbortController();
+            const { signal } = animationController;
+
+            secondLevelMenuNode.addEventListener(
+                'transitionend',
+                () => {
+                    secondLevelMenuNode.classList.add('ibexa-main-menu__navbar--hidden');
+                    animationController.abort();
+                },
+                { signal },
+            );
+
             currentTarget.classList.remove('active');
-            secondLevelMenuNode.classList.add('ibexa-main-menu__navbar--hidden');
             secondLevelMenuNode.style.width = 0;
             activeItemName = null;
 
