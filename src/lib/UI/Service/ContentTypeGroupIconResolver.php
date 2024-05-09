@@ -10,6 +10,9 @@ namespace Ibexa\AdminUi\UI\Service;
 
 use Symfony\Component\String\Slugger\AsciiSlugger;
 
+/**
+ * @internal
+ */
 final class ContentTypeGroupIconResolver extends IconResolver
 {
     private const PARAM_NAME_FORMAT = 'content_type_group.%s';

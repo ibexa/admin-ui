@@ -27,8 +27,10 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *             bar:
  *                thumbnail: '/assets/images/bar.svg'
  * ```
+ *
+ * @internal
  */
-class ContentTypeGroup extends AbstractParser
+final class ContentTypeGroup extends AbstractParser
 {
     public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
