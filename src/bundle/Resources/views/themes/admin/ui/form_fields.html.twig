@@ -483,7 +483,7 @@
     }) -}}
     {% for form_field in form.children %}
         {% if form_field.isRendered() == false %}
-            {{ form_row(form_field, { row_attr: { class: 'ibexa-content-type-edit__form-field ibexa-form-field' ~ (form_field.vars.name == 'isThumbnail' ? ' ibexa-form-field--last') }} ) }}
+            {{ form_row(form_field, { row_attr: { class: 'ibexa-content-type-edit__form-field ibexa-form-field' ~ (form_field.vars.name == 'isThumbnail' ? ' ibexa-form-field--no-bottom-margin') }} ) }}
         {% endif %}
     {% endfor %}
 {%- endblock %}

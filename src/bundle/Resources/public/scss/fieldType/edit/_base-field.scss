@@ -240,7 +240,7 @@
     margin-bottom: calculateRem(24px);
 
     &:last-child,
-    &--last {
+    &--no-bottom-margin {
         margin-bottom: 0;
     }
 }

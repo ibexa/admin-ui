@@ -55,15 +55,17 @@
                                 {% endblock %}
 
                                 {% block left_column %}
-                                    {{ form_row(form.name, { row_attr: { class: 'ibexa-content-type-edit__form-field ibexa-form-field' }}) }}
-                                    {{ form_row(form.identifier, { row_attr: { class: 'ibexa-content-type-edit__form-field ibexa-form-field' }}) }}
-                                    {{ form_row(form.description, { row_attr: { class: 'ibexa-content-type-edit__form-field ibexa-form-field' }}) }}
-                                    {{ form_row(form.nameSchema, { row_attr: { class: 'ibexa-content-type-edit__form-field ibexa-form-field' }}) }}
-                                    {{ form_row(form.urlAliasSchema, { row_attr: { class: 'ibexa-content-type-edit__form-field ibexa-form-field' }}) }}
-                                    {{ form_row(form.isContainer, { row_attr: { class: 'ibexa-content-type-edit__form-field ibexa-form-field' }}) }}
-                                    {{ form_row(form.defaultSortField, { row_attr: { class: 'ibexa-content-type-edit__form-field ibexa-form-field' }}) }}
-                                    {{ form_row(form.defaultSortOrder, { row_attr: { class: 'ibexa-content-type-edit__form-field ibexa-form-field' }}) }}
-                                    {{ form_row(form.defaultAlwaysAvailable, { row_attr: { class: 'ibexa-content-type-edit__form-field ibexa-form-field' }}) }}
+                                    {% set form_field_options = { row_attr: { class: 'ibexa-form-field' } } %}
+
+                                    {{ form_row(form.name, form_field_options) }}
+                                    {{ form_row(form.identifier, form_field_options) }}
+                                    {{ form_row(form.description, form_field_options) }}
+                                    {{ form_row(form.nameSchema, form_field_options) }}
+                                    {{ form_row(form.urlAliasSchema, form_field_options) }}
+                                    {{ form_row(form.isContainer, form_field_options) }}
+                                    {{ form_row(form.defaultSortField, form_field_options) }}
+                                    {{ form_row(form.defaultSortOrder, form_field_options) }}
+                                    {{ form_row(form.defaultAlwaysAvailable, form_field_options) }}
                                 {% endblock %}
                             {% endembed %}
                         </div>
