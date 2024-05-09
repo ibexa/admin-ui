@@ -19,6 +19,8 @@ import {
 import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
+const MINIMUM_ITEMS_COUNT_FOR_SEARCH_TO_APPEAR = 10;
+
 const ContentCreateWidget = () => {
     const Translator = getTranslator();
     const adminUiConfig = getAdminUiConfig();
@@ -112,11 +114,11 @@ const ContentCreateWidget = () => {
         contentTypesWithSuggestions.unshift(['Suggestions', suggestions.map(({ data }) => data)]);
     }
 
-    const { contentTypesDataToShow, allGroupsItemsCount } = useMemo(
+    const { contentTypesToShow, allGroupsItemsCount } = useMemo(
         () =>
             contentTypesWithSuggestions.reduce(
                 (
-                    { contentTypesDataToShow: contentTypesDataToShowPrevious, allGroupsItemsCount: allGroupsItemsCountPrevious },
+                    { contentTypesToShow: contentTypesToShowPrevious, allGroupsItemsCount: allGroupsItemsCountPrevious },
                     [groupName, groupItems],
                 ) => {
                     const restrictedContentTypeIds = selectedLocation?.permissions?.create.restrictedContentTypeIds ?? [];
@@ -132,21 +134,21 @@ const ContentCreateWidget = () => {
                     const hasAnyItems = !!groupFilteredItems.length;
 
                     if (!hasAnyItems) {
-                        return { contentTypesDataToShow: contentTypesDataToShowPrevious, allGroupsItemsCount: allGroupsItemsCountPrevious };
+                        return { contentTypesToShow: contentTypesToShowPrevious, allGroupsItemsCount: allGroupsItemsCountPrevious };
                     }
 
                     return {
-                        contentTypesDataToShow: [...contentTypesDataToShowPrevious, [groupName, groupFilteredItems]],
+                        contentTypesToShow: [...contentTypesToShowPrevious, [groupName, groupFilteredItems]],
                         allGroupsItemsCount: allGroupsItemsCountPrevious + groupFilteredItems.length,
                     };
                 },
-                { contentTypesDataToShow: [], allGroupsItemsCount: 0 },
+                { contentTypesToShow: [], allGroupsItemsCount: 0 },
             ),
         [contentTypesWithSuggestions, selectedLocation, allowedContentTypes],
     );
     const instantFilterInputWrapperClassName = createCssClassNames({
         'ibexa-instant-filter__input-wrapper': true,
-        'ibexa-instant-filter__input-wrapper--hidden': allGroupsItemsCount < 10,
+        'ibexa-instant-filter__input-wrapper--hidden': allGroupsItemsCount < MINIMUM_ITEMS_COUNT_FOR_SEARCH_TO_APPEAR,
     });
 
     useEffect(() => {
@@ -191,7 +193,7 @@ const ContentCreateWidget = () => {
                         </div>
                         <div className="ibexa-instant-filter__desc">{filtersDescLabel}</div>
                         <div className="ibexa-instant-filter__items">
-                            {contentTypesDataToShow.map(([groupName, groupItems], index) => {
+                            {contentTypesToShow.map(([groupName, groupItems], index) => {
                                 const isSuggestionGroup = !!suggestions.length && index === 0;
                                 const visibleGroupItems = groupItems.filter((groupItem) => {
                                     const isSearchedName = !filterQuery || groupItem.name.toLowerCase().includes(filterQuery);

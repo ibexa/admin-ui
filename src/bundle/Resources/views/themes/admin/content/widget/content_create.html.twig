@@ -28,10 +28,13 @@
 
             <div class="ibexa-extra-actions__section-content ibexa-extra-actions__section-content--content-type">
                 <div class="ibexa-instant-filter">
+                    {% set minimum_items_count_for_search_to_appear = 10 %}
                     <div
                         class="
                             ibexa-instant-filter__input-wrapper
-                            {% if form.content_type.children|length <= 10 %} ibexa-instant-filter__input-wrapper--hidden{% endif %}"
+                            {% if form.content_type.children|length <= minimum_items_count_for_search_to_appear %}
+                                ibexa-instant-filter__input-wrapper--hidden
+                            {% endif %}"
                     >
                         <input
                             type="text"
