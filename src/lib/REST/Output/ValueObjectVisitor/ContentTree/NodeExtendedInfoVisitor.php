@@ -30,8 +30,23 @@ final class NodeExtendedInfoVisitor extends ValueObjectVisitor
         $visitor->setStatus(Response::HTTP_OK);
 
         $this->buildPermissionNode($data->getPermissionRestrictions(), $generator);
+        $this->buildPreviewableTranslationsNode($data->getPreviewableTranslation(), $generator);
 
         $generator->endObjectElement(self::MAIN_ELEMENT);
+    }
+
+    /**
+     * @param string[]|null $previewableTranslation
+     */
+    protected function buildPreviewableTranslationsNode(
+        ?array $previewableTranslation,
+        Generator $generator
+    ): void {
+        if ($previewableTranslation === null) {
+            return;
+        }
+
+        $generator->valueElement('previewableTranslationsString', implode(',', $previewableTranslation));
     }
 
     /**

@@ -10,7 +10,6 @@ namespace Ibexa\AdminUi\UI\Module\ContentTree;
 
 use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode;
 use Ibexa\AdminUi\REST\Value\ContentTree\Node;
-use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
@@ -63,8 +62,6 @@ final class NodeFactory
 
     private Repository $repository;
 
-    private SiteaccessResolverInterface  $siteaccessResolver;
-
     /** @var int */
     private $maxLocationIdsInSingleAggregation;
 
@@ -76,7 +73,6 @@ final class NodeFactory
         ConfigResolverInterface $configResolver,
         PermissionResolver $permissionResolver,
         Repository $repository,
-        SiteaccessResolverInterface $siteaccessResolver,
         int $maxLocationIdsInSingleAggregation
     ) {
         $this->bookmarkService = $bookmarkService;
@@ -86,7 +82,6 @@ final class NodeFactory
         $this->configResolver = $configResolver;
         $this->permissionResolver = $permissionResolver;
         $this->repository = $repository;
-        $this->siteaccessResolver = $siteaccessResolver;
         $this->maxLocationIdsInSingleAggregation = $maxLocationIdsInSingleAggregation;
     }
 
@@ -397,10 +392,7 @@ final class NodeFactory
         }
 
         $translations = $versionInfo->getLanguageCodes();
-        $previewableTranslations = array_filter(
-            $translations,
-            fn (string $languageCode): bool => $this->isPreviewable($location, $content, $languageCode)
-        );
+        $mainLanguageCode = $content->contentInfo->mainLanguageCode;
 
         return new Node(
             $depth,
@@ -408,7 +400,6 @@ final class NodeFactory
             $location->getContentId(),
             $versionInfo->getVersionNo(),
             $translations,
-            $previewableTranslations,
             '', // node name will be provided later by `supplyTranslatedContentName` method
             null !== $contentType ? $contentType->getIdentifier() : '',
             null === $contentType || $contentType->isContainer(),
@@ -417,6 +408,7 @@ final class NodeFactory
             $totalChildrenCount,
             $this->getReverseRelationsCount($contentInfo),
             isset($bookmarkLocations[$location->getId()]),
+            $mainLanguageCode,
             $children,
             $location->getPathString()
         );
@@ -467,33 +459,6 @@ final class NodeFactory
         foreach ($node->children as $child) {
             $this->supplyChildrenCount($child, $aggregationResult, $requestFilter);
         }
-    }
-
-    /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     */
-    private function isPreviewable(
-        Location $location,
-        Content $content,
-        string $languageCode
-    ): bool {
-        $versionNo = $content->getVersionInfo()->getVersionNo();
-
-        $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
-            $location,
-            $versionNo,
-            $languageCode
-        );
-
-        $canPreview = $this->permissionResolver->canUser(
-            'content',
-            'versionread',
-            $content,
-            [$location]
-        );
-
-        return $canPreview && !empty($siteAccesses);
     }
 }
 

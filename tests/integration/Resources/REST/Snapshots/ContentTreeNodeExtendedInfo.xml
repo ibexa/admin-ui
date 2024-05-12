@@ -23,4 +23,5 @@
     <function name="hide">
         <hasAccess>false</hasAccess>
     </function>
+    <previewableTranslationsString />
 </ContentTreeNodeExtendedInfo>
