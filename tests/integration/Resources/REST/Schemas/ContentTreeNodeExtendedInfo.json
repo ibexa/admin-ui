@@ -53,11 +53,15 @@
                             "hasAccess"
                         ]
                     }
+                },
+                "previewableTranslationsString": {
+                    "type": "string"
                 }
             },
             "required": [
                 "_media-type",
-                "permissions"
+                "permissions",
+                "previewableTranslationsString"
             ]
         }
     },
