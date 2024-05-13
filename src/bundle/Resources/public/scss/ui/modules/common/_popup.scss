@@ -1,4 +1,8 @@
 .c-popup {
+    &__dialog {
+        @include modal-main();
+    }
+
     &__content {
         @include modal-content();
     }
