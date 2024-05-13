@@ -1,7 +1,6 @@
 import React, { useRef, useContext } from 'react';
 
 import {
-    TabsContext,
     ActiveTabContext,
     RestInfoContext,
     SelectedLocationsContext,
@@ -15,8 +14,7 @@ import deepClone from '../common/helpers/deep.clone.helper';
 const ContentEditTabModule = () => {
     const Routing = getRouting();
     const restInfo = useContext(RestInfoContext);
-    const tabs = useContext(TabsContext);
-    const [, setActiveTab] = useContext(ActiveTabContext);
+    const [, setActiveTab, previousActiveTab] = useContext(ActiveTabContext);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const [editOnTheFlyData, setEditOnTheFlyData] = useContext(EditOnTheFlyDataContext);
@@ -29,7 +27,7 @@ const ContentEditTabModule = () => {
         }
     };
     const cancelContentEdit = () => {
-        setActiveTab(tabs[0].id);
+        setActiveTab(previousActiveTab);
         setEditOnTheFlyData({});
     };
     const handleContentPublished = (locationId) => {
