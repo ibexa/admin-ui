@@ -17,6 +17,8 @@ class ContentTypePicker extends Component
 {
     private IbexaDropdown $ibexaDropdown;
 
+    public const MINIMUM_ITEMS_COUNT_FOR_SEARCH_INPUT = 10;
+
     public function __construct(Session $session, IbexaDropdown $ibexaDropdown)
     {
         parent::__construct($session);
@@ -26,16 +28,15 @@ class ContentTypePicker extends Component
     public function select(string $contentTypeName): void
     {
         $countBeforeFiltering = $this->getDisplayedItemsCount();
-        if ($countBeforeFiltering > 10) {
+        if ($countBeforeFiltering > self::MINIMUM_ITEMS_COUNT_FOR_SEARCH_INPUT) {
             $this->getHTMLPage()->find($this->getLocator('filterInput'))->clear();
             $this->getHTMLPage()->find($this->getLocator('filterInput'))->setValue($contentTypeName);
             $this->getHTMLPage()->setTimeout(3)->waitUntil(function () use ($countBeforeFiltering) {
-                return $countBeforeFiltering === 1 || $this->getDisplayedItemsCount() < $countBeforeFiltering;
+                return $this->getDisplayedItemsCount() < $countBeforeFiltering;
             }, 'The number of displayed content types did not decrease after filtering.');
-            $this->clickOnItem($contentTypeName);
-        } else {
-            $this->clickOnItem($contentTypeName);
         }
+
+        $this->clickOnItem($contentTypeName);
     }
 
     public function clickOnItem(string $contentTypeName): void
