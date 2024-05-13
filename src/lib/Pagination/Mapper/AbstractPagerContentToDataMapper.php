@@ -113,11 +113,13 @@ abstract class AbstractPagerContentToDataMapper
             $this->userLanguagePreferenceProvider->getPreferredLanguages()
         );
 
+        $contentTypesArray = [...$contentTypes];
+
         foreach ($data as $idx => $item) {
             // get content type from bulk-loaded list or fallback to lazy loaded one if not present
             $contentTypeId = $item['contentTypeId'];
             /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
-            $contentType = $contentTypes[$contentTypeId] ?? $item['content']->getContentType();
+            $contentType = $contentTypesArray[$contentTypeId] ?? $item['content']->getContentType();
 
             $data[$idx]['type'] = $contentType->getName();
             unset($data[$idx]['content'], $data[$idx]['contentTypeId']);
