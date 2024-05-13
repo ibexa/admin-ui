@@ -38,7 +38,7 @@ final class NodeExtendedInfo extends RestValue
      */
     public function __construct(
         ?array $permissions = null,
-        ?array $previewableTranslation = null,
+        ?array $previewableTranslation = null
     ) {
         $this->permissions = $permissions;
         $this->previewableTranslation = $previewableTranslation;
