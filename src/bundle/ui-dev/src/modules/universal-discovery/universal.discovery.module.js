@@ -620,7 +620,7 @@ UniversalDiscoveryModule.defaultProps = {
     rootLocationId: 1,
     startingLocationId: null,
     multiple: false,
-    multipleItemsLimit: 1,
+    multipleItemsLimit: 10,
     containersOnly: false,
     activeSortClause: 'date',
     activeSortOrder: 'ascending',

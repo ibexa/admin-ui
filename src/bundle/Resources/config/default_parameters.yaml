@@ -85,6 +85,7 @@ parameters:
     ibexa.dam_widget.image.mappings:
         image:
             imageFieldIdentifier: image
+            tagsFieldIdentifier: tags
 
     ibexa.dam_widget.image.aggregations:
         KeywordTermAggregation:
