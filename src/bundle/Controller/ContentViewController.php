@@ -158,6 +158,8 @@ class ContentViewController extends Controller
      */
     public function locationViewAction(Request $request, ContentView $view): ContentView
     {
+        $this->performAccessCheck();
+
         // We should not cache ContentView because we use forms with CSRF tokens in template
         // JIRA ref: https://issues.ibexa.co/browse/EZP-28190
         $view->setCacheEnabled(false);
