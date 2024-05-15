@@ -8211,6 +8211,11 @@ parameters:
 			path: src/lib/Notification/TranslatableNotificationHandler.php
 
 		-
+			message: "#^Cannot access offset mixed on iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\>\\.$#"
+			count: 1
+			path: src/lib/Pagination/Mapper/AbstractPagerContentToDataMapper.php
+
+		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Pagination\\\\Mapper\\\\AbstractPagerContentToDataMapper\\:\\:setTranslatedContentTypesNames\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Pagination/Mapper/AbstractPagerContentToDataMapper.php
