@@ -36,6 +36,10 @@ use Ibexa\Core\Repository\Repository;
 final class NodeFactory
 {
     private const TOP_NODE_CONTENT_ID = 0;
+
+    /**
+     * @var array<string, class-string<\Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause>>
+     */
     private const SORT_CLAUSE_MAP = [
         'DatePublished' => SortClause\DatePublished::class,
         'ContentName' => SortClause\ContentName::class,
@@ -97,7 +101,8 @@ final class NodeFactory
         bool $loadChildren = false,
         int $depth = 0,
         ?string $sortClause = null,
-        string $sortOrder = Query::SORT_ASC
+        string $sortOrder = Query::SORT_ASC,
+        ?Criterion $requestFilter = null
     ): Node {
         $uninitializedContentInfoList = [];
         $containerLocations = [];
@@ -114,17 +119,18 @@ final class NodeFactory
             $depth,
             $sortClause,
             $sortOrder,
-            $bookmarkedLocations
+            $bookmarkedLocations,
+            $requestFilter
         );
         $versionInfoById = $this->contentService->loadVersionInfoListByContentInfo($uninitializedContentInfoList);
 
         $aggregatedChildrenCount = null;
         if ($this->searchService->supports(SearchService::CAPABILITY_AGGREGATIONS)) {
-            $aggregatedChildrenCount = $this->countAggregatedSubitems($containerLocations);
+            $aggregatedChildrenCount = $this->countAggregatedSubitems($containerLocations, $requestFilter);
         }
 
         $this->supplyTranslatedContentName($node, $versionInfoById);
-        $this->supplyChildrenCount($node, $aggregatedChildrenCount);
+        $this->supplyChildrenCount($node, $aggregatedChildrenCount, $requestFilter);
 
         return $node;
     }
@@ -149,9 +155,10 @@ final class NodeFactory
         int $limit = 10,
         int $offset = 0,
         ?string $sortClause = null,
-        string $sortOrder = Query::SORT_ASC
+        string $sortOrder = Query::SORT_ASC,
+        ?Criterion $requestFilter = null
     ): SearchResult {
-        $searchQuery = $this->getSearchQuery($parentLocation->id);
+        $searchQuery = $this->getSearchQuery($parentLocation->id, $requestFilter);
 
         $searchQuery->limit = $limit;
         $searchQuery->offset = $offset;
@@ -163,7 +170,7 @@ final class NodeFactory
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation
      */
-    private function getSearchQuery(int $parentLocationId): LocationQuery
+    private function getSearchQuery(int $parentLocationId, ?Criterion $requestFilter = null): LocationQuery
     {
         $searchQuery = new LocationQuery();
         $searchQuery->filter = new Criterion\ParentLocationId($parentLocationId);
@@ -184,6 +191,10 @@ final class NodeFactory
             $searchQuery->filter = new Criterion\LogicalAnd([$searchQuery->filter, $contentTypeCriterion]);
         }
 
+        if (null !== $requestFilter) {
+            $searchQuery->filter = new Criterion\LogicalAnd([$searchQuery->filter, $requestFilter]);
+        }
+
         return $searchQuery;
     }
 
@@ -201,9 +212,9 @@ final class NodeFactory
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    private function countSubitems(int $parentLocationId): int
+    private function countSubitems(int $parentLocationId, ?Criterion $requestFilter = null): int
     {
-        $searchQuery = $this->getSearchQuery($parentLocationId);
+        $searchQuery = $this->getSearchQuery($parentLocationId, $requestFilter);
 
         $searchQuery->limit = 0;
         $searchQuery->offset = 0;
@@ -214,8 +225,11 @@ final class NodeFactory
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $containerLocations
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException
      */
-    private function countAggregatedSubitems(array $containerLocations): array
+    private function countAggregatedSubitems(array $containerLocations, ?Criterion $requestFilter): array
     {
         if (empty($containerLocations)) {
             return [];
@@ -226,7 +240,7 @@ final class NodeFactory
 
             $result = [];
             foreach ($containerLocationsChunks as $containerLocationsChunk) {
-                $result = array_replace($result, $this->countAggregatedSubitems($containerLocationsChunk));
+                $result = array_replace($result, $this->countAggregatedSubitems($containerLocationsChunk, $requestFilter));
             }
 
             return $result;
@@ -239,6 +253,10 @@ final class NodeFactory
         $locationChildrenTermAggregation = new Query\Aggregation\Location\LocationChildrenTermAggregation('childrens');
         $locationChildrenTermAggregation->setLimit(\count($parentLocationIds));
         $searchQuery->aggregations[] = $locationChildrenTermAggregation;
+
+        if (null !== $requestFilter) {
+            $searchQuery->filter = new Criterion\LogicalAnd([$searchQuery->filter, $requestFilter]);
+        }
 
         $result = $this->searchService->findLocations($searchQuery);
 
@@ -325,7 +343,8 @@ final class NodeFactory
         int $depth = 0,
         ?string $sortClause = null,
         string $sortOrder = Query::SORT_ASC,
-        array $bookmarkLocations = []
+        array $bookmarkLocations = [],
+        ?Criterion $requestFilter = null
     ): Node {
         $contentInfo = $location->getContentInfo();
         $contentId = $location->contentId;
@@ -353,7 +372,7 @@ final class NodeFactory
         $totalChildrenCount = 0;
         $children = [];
         if ($loadChildren && $depth < $this->getSetting('tree_max_depth')) {
-            $searchResult = $this->findSubitems($location, $limit, $offset, $sortClause, $sortOrder);
+            $searchResult = $this->findSubitems($location, $limit, $offset, $sortClause, $sortOrder, $requestFilter);
             $totalChildrenCount = (int) $searchResult->totalCount;
 
             /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $childLocation */
@@ -371,7 +390,8 @@ final class NodeFactory
                     $depth + 1,
                     null,
                     Query::SORT_ASC,
-                    $bookmarkLocations
+                    $bookmarkLocations,
+                    $requestFilter
                 );
             }
         }
@@ -429,20 +449,23 @@ final class NodeFactory
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    private function supplyChildrenCount(Node $node, ?array $aggregationResult = null): void
-    {
+    private function supplyChildrenCount(
+        Node $node,
+        ?array $aggregationResult = null,
+        ?Criterion $requestFilter = null
+    ): void {
         if ($node->isContainer) {
             if ($aggregationResult !== null) {
                 $totalCount = $aggregationResult[$node->locationId] ?? 0;
             } else {
-                $totalCount = $this->countSubitems($node->locationId);
+                $totalCount = $this->countSubitems($node->locationId, $requestFilter);
             }
 
             $node->totalChildrenCount = $totalCount;
         }
 
         foreach ($node->children as $child) {
-            $this->supplyChildrenCount($child, $aggregationResult);
+            $this->supplyChildrenCount($child, $aggregationResult, $requestFilter);
         }
     }
 
