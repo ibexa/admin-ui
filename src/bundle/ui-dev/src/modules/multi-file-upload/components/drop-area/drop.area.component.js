@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
-import { fileSizeToString } from '../../helpers/text.helper';
+import { fileSizeToString } from '../../../common/helpers/text.helper';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
 export default class DropAreaComponent extends Component {

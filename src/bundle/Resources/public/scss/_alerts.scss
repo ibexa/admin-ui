@@ -261,15 +261,4 @@
             }
         }
     }
-
-    //Alert Complementary depracated. Will be removed in 5.0.
-    &--complementary {
-        color: $ibexa-color-complementary-700;
-        background-color: $ibexa-color-complementary-100;
-        border-color: $ibexa-color-complementary;
-
-        .ibexa-icon {
-            fill: $ibexa-color-complementary-700;
-        }
-    }
 }

@@ -40,8 +40,6 @@ const parse = (baseElement = doc) => {
         resizeEllipsisObserver.observe(middleEllipsisContainer);
     });
 };
-// @deprecated, will be removed in 5.0
-const parseAll = () => parse(doc);
 const update = (baseElement, content) => {
     const contentElements = [...baseElement.querySelectorAll('.ibexa-middle-ellipsis__name-ellipsized')];
     const contentEscaped = escapeHTML(content);
@@ -53,4 +51,4 @@ const update = (baseElement, content) => {
     parse(baseElement);
 };
 
-export { parse, parseAll, update };
+export { parse, update };

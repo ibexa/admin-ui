@@ -12,211 +12,7 @@
     background-size: calculateRem(5px) calculateRem(5px);
 }
 
-//Sidebar depracated. Will be removed in 5.0. Use Toolbox.
-@mixin sidebar-drag-items {
-    $ibexa-sidebar-width: calculateRem(360px);
-
-    display: flex;
-    flex-direction: column;
-    width: $ibexa-sidebar-width;
-    border: calculateRem(1px) solid $ibexa-color-light;
-    border-radius: calculateRem(5px);
-    overflow: hidden;
-    background: $ibexa-color-white;
-    box-shadow: $ibexa-edit-header-box-shadow;
-    transition-property: opacity, transform;
-    transition-duration: $ibexa-admin-transition-duration;
-    transition-timing-function: $ibexa-admin-transition;
-    transform-origin: top center;
-
-    &__action-bar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: calculateRem(8px) calculateRem(16px);
-        background-color: $ibexa-color-light-400;
-    }
-
-    &__title-bar {
-        padding: calculateRem(5px) calculateRem(32px);
-        border-bottom: calculateRem(1px) solid $ibexa-color-dark-200;
-    }
-
-    &__title {
-        height: calculateRem(33px);
-        line-height: calculateRem(33px);
-        color: $ibexa-color-dark;
-        font-size: $ibexa-text-font-size-large;
-        font-weight: 600;
-        padding: 0;
-        margin: 0;
-    }
-
-    &__search-bar {
-        padding: calculateRem(23px) calculateRem(32px) calculateRem(15px);
-    }
-
-    &__list {
-        padding: calculateRem(5px) calculateRem(32px);
-        margin-bottom: 0;
-        overflow: auto;
-    }
-
-    &--draggable {
-        position: fixed;
-        z-index: 500;
-        top: calculateRem(130px);
-        left: calc(100% - #{$ibexa-sidebar-width} - #{calculateRem(5px)});
-    }
-}
-
-@mixin sidebar-drag-items-group {
-    $self: &;
-
-    height: auto;
-
-    &__title-bar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: calculateRem(36px);
-        border-top: calculateRem(1px) solid $ibexa-color-light;
-        cursor: pointer;
-
-        &:hover {
-            color: $ibexa-color-primary;
-
-            #{$self}__toggler {
-                .ibexa-icon {
-                    fill: $ibexa-color-primary;
-                }
-            }
-        }
-
-        .ibexa-icon {
-            transition: transform $ibexa-admin-transition-duration $ibexa-admin-transition;
-        }
-    }
-
-    &__title {
-        font-size: $ibexa-text-font-size-medium;
-        font-weight: 600;
-    }
-
-    &--collapsed {
-        height: calculateRem(34px);
-        overflow: hidden;
-    }
-}
-
-@mixin sidebar-drag-item {
-    $self: &;
-
-    background: $ibexa-color-light-300;
-    margin-bottom: calculateRem(8px);
-    border-radius: $ibexa-border-radius;
-    display: flex;
-    width: 100%;
-
-    &:last-of-type {
-        margin-bottom: calculateRem(24px);
-    }
-
-    &:hover:not(&--unavailable, &--immovable) {
-        #{$self}__content {
-            border-color: $ibexa-color-dark;
-            transform: scale(1.02) translateX(-10px);
-            box-shadow: calculateRem(4px) calculateRem(10px) calculateRem(17px) 0 rgba($ibexa-color-info, 0.2);
-        }
-
-        #{$self}__drag-icon {
-            fill: $ibexa-color-dark;
-        }
-    }
-
-    &__content {
-        background: $ibexa-color-white;
-        display: flex;
-        width: 100%;
-        padding: calculateRem(13px) calculateRem(10px);
-        border: calculateRem(1px) solid $ibexa-color-light;
-        border-radius: $ibexa-border-radius;
-        box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 rgba($ibexa-color-info, 0.05);
-        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
-
-        &[draggable='true'] {
-            cursor: grab;
-        }
-    }
-
-    &__drag {
-        display: flex;
-        align-items: center;
-        padding: 0 calculateRem(8px) 0 calculateRem(5px);
-    }
-
-    &__drag-icon {
-        fill: $ibexa-color-light;
-    }
-
-    &__type {
-        display: flex;
-        align-items: center;
-        padding: 0 calculateRem(8px);
-    }
-
-    &__label {
-        font-size: $ibexa-text-font-size-medium;
-        font-weight: 600;
-    }
-
-    &__collapse {
-        padding: 0 calculateRem(9px);
-    }
-
-    &--hidden {
-        display: none;
-    }
-
-    &--unavailable {
-        cursor: not-allowed;
-
-        #{$self}__content {
-            color: $ibexa-color-dark-300;
-            fill: $ibexa-color-dark-300;
-            border-color: $ibexa-color-light-300;
-            background: $ibexa-color-light-300;
-            box-shadow: none;
-        }
-
-        #{$self}__drag-icon {
-            fill: $ibexa-color-dark-300;
-        }
-    }
-
-    &--immovable {
-        cursor: not-allowed;
-
-        #{$self}__content {
-            color: $ibexa-color-dark-300;
-            fill: $ibexa-color-dark-300;
-            border-color: $ibexa-color-light-300;
-            box-shadow: none;
-        }
-
-        #{$self}__drag-icon {
-            fill: $ibexa-color-dark-300;
-        }
-    }
-
-    &--is-dragging-out {
-        #{$self}__content {
-            opacity: 0;
-        }
-    }
-}
-
-@mixin toolbar-drag-items {
+@mixin toolbox-drag-items {
     $ibexa-sidebar-min-width: calculateRem(360px);
     $ibexa-sidebar-max-width: calculateRem(520px);
 
@@ -333,7 +129,7 @@
         margin-bottom: calculateRem(24px);
     }
 
-    &:hover {
+    &:hover:not(&--unavailable, &--immovable) {
         #{$self}__content {
             border-color: var(--ibexa-border-color);
             transform: scale(1.02) translateX(-10px);
@@ -390,6 +186,7 @@
     }
 
     &--unavailable {
+        cursor: not-allowed;
         opacity: 0.5;
 
         &:hover {
@@ -399,6 +196,21 @@
                 transform: none;
                 box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 rgba($ibexa-color-info, 0.05);
             }
+        }
+    }
+
+    &--immovable {
+        cursor: not-allowed;
+
+        #{$self}__content {
+            color: $ibexa-color-dark-300;
+            fill: $ibexa-color-dark-300;
+            border-color: $ibexa-color-light-300;
+            box-shadow: none;
+        }
+
+        #{$self}__drag-icon {
+            fill: $ibexa-color-dark-300;
         }
     }
 

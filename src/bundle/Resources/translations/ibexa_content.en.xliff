@@ -81,11 +81,6 @@
         <target state="new">Saving</target>
         <note>key: content_edit.autosave.status_saving.message</note>
       </trans-unit>
-      <trans-unit id="750bead6705b295c7b7d66c27b2768c1b9329ed5" resname="editing_details">
-        <source>Location: %location%</source>
-        <target state="new">Location: %location%</target>
-        <note>key: editing_details</note>
-      </trans-unit>
       <trans-unit id="f7854a70e37ed1a89ba0b4aa7937c586661ef300" resname="embedded_items.action.edit">
         <source>Edit</source>
         <target state="new">Edit</target>

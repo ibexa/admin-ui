@@ -1,3 +1,5 @@
+import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/middle.ellipsis';
+
 (function (global, doc, ibexa) {
     class TagViewSelect {
         constructor(config) {
@@ -24,7 +26,7 @@
             this.attachDeleteEvents = this.attachDeleteEvents.bind(this);
             this.adjustButtonLabel = this.adjustButtonLabel.bind(this);
 
-            ibexa.helpers.ellipsis.middle.parseAll();
+            middleEllipsisHelper.parse();
             this.attachDeleteEvents();
 
             this.disabledObserver = new MutationObserver((mutationsList) => {
@@ -78,7 +80,7 @@
             });
 
             this.inputField.dispatchEvent(new Event('change'));
-            ibexa.helpers.ellipsis.middle.parseAll();
+            middleEllipsisHelper.parse();
             this.toggleDeleteButtons();
             this.adjustButtonLabel();
         }
