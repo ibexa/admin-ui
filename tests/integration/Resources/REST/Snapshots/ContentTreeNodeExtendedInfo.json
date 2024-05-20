@@ -36,6 +36,8 @@
                 "hasAccess": false
             }
         ],
-        "previewableTranslationsString": ""
+        "previewableTranslations": {
+            "values": []
+        }
     }
 }

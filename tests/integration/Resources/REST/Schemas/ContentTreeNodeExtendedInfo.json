@@ -54,14 +54,24 @@
                         ]
                     }
                 },
-                "previewableTranslationsString": {
-                    "type": "string"
-                }
+                "previewableTranslations": {
+                    "type": "object",
+                    "properties": {
+                      "values": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "string"
+                            }
+                        ]
+                      }
+                    }
+                  }
             },
             "required": [
                 "_media-type",
                 "permissions",
-                "previewableTranslationsString"
+                "previewableTranslations"
             ]
         }
     },
