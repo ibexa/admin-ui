@@ -109,11 +109,9 @@
             const selectedItems = [...this.listContainer.querySelectorAll('[data-id]')];
             const hideDeleteButtons = !this.canBeEmpty && selectedItems.length === 1;
 
-            selectedItems.forEach((selectedItem) =>
-                selectedItem
-                    .querySelector('.ibexa-tag-view-select__selected-item-tag-remove-btn')
-                    .toggleAttribute('hidden', hideDeleteButtons),
-            );
+            selectedItems.forEach((selectedItem) => {
+                selectedItem.classList.toggle('ibexa-tag-view-select__selected-item-tag--not-deletable', hideDeleteButtons);
+            });
         }
 
         attachDeleteEvents() {
