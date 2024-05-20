@@ -5,7 +5,7 @@ Field Type Validator is a base class to validate inputs in a Field Type.
 ## How to use it?
 
 ```javascript
-class Validator extends window.eZ.BaseFieldValidator {
+class Validator extends window.ibexa.BaseFieldValidator {
     validateInput(event) {
         // validation
 

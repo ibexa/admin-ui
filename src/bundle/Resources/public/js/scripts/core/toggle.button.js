@@ -1,4 +1,4 @@
-(function (global, doc, eZ) {
+(function (global, doc, ibexa) {
     const SPACE_KEY = ' ';
 
     class ToggleButton {
@@ -78,5 +78,5 @@
         }
     }
 
-    eZ.addConfig('core.ToggleButton', ToggleButton);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('core.ToggleButton', ToggleButton);
+})(window, window.document, window.ibexa);
