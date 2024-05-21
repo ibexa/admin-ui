@@ -112,4 +112,9 @@
         flex-direction: column;
         flex: 1 1 80%;
     }
+
+    ~ .ibexa-notifications-container {
+        right: calculateRem(48px);
+        bottom: calculateRem(16px);
+    }
 }
