@@ -10,12 +10,7 @@
         "psr-4": {
             "Ibexa\\AdminUi\\": "src/lib/",
             "Ibexa\\Bundle\\AdminUi\\": "src/bundle/",
-            "Ibexa\\Contracts\\AdminUi\\": "src/contracts/",
-            "EzSystems\\EzPlatformAdminUiBundle\\": "src/bundle/",
-            "EzSystems\\EzPlatformAdminUi\\": "src/lib/",
-            "EzSystems\\EzPlatformEncoreBundle\\": "src/bundle/",
-            "Ibexa\\Platform\\Bundle\\Assets\\": "src/bundle/",
-            "Ibexa\\Platform\\Assets\\": "src/lib/"
+            "Ibexa\\Contracts\\AdminUi\\": "src/contracts/"
         }
     },
     "autoload-dev": {
