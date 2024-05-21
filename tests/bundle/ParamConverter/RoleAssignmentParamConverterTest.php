@@ -104,5 +104,3 @@ class RoleAssignmentParamConverterTest extends AbstractParamConverterTest
         ];
     }
 }
-
-class_alias(RoleAssignmentParamConverterTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\ParamConverter\RoleAssignmentParamConverterTest');

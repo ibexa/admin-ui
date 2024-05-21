@@ -100,5 +100,3 @@ class SelectionCreateMapperTest extends TestCase
         return new SectionCreateData($properties['identifier'], $properties['name']);
     }
 }
-
-class_alias(SelectionCreateMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataMapper\SelectionCreateMapperTest');

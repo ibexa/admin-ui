@@ -103,5 +103,3 @@ class LocationIsWithinCopySubtreeLimitValidatorTest extends TestCase
         $location->method('getContentInfo')->willReturn($contentInfo);
     }
 }
-
-class_alias(LocationIsWithinCopySubtreeLimitValidatorTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\LocationIsWithinCopySubtreeLimitValidatorTest');

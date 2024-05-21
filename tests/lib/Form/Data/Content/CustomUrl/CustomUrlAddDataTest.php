@@ -30,5 +30,3 @@ class CustomUrlAddDataTest extends TestCase
         self::assertSame($siteAccess, $data->getSiteAccess());
     }
 }
-
-class_alias(CustomUrlAddDataTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\Data\Content\CustomUrl\CustomUrlAddDataTest');

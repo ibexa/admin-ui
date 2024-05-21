@@ -32,5 +32,3 @@ class OwnerLimitationMapperTest extends TestCase
         self::assertEquals($expected, $result);
     }
 }
-
-class_alias(OwnerLimitationMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\OwnerLimitationMapperTest');

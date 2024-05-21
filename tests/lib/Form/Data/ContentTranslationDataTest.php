@@ -57,5 +57,3 @@ class ContentTranslationDataTest extends TestCase
         ]);
     }
 }
-
-class_alias(ContentTranslationDataTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\Data\ContentTranslationDataTest');

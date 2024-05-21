@@ -377,5 +377,3 @@ final class ContentTypeFormProcessorTest extends TestCase
         ]);
     }
 }
-
-class_alias(ContentTypeFormProcessorTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\Processor\ContentTypeFormProcessorTest');

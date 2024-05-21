@@ -76,5 +76,3 @@ class URLUsagesAdapterTest extends TestCase
         );
     }
 }
-
-class_alias(URLUsagesAdapterTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Pagination\Pagerfanta\URLUsagesAdapterTest');

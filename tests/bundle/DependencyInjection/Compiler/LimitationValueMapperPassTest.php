@@ -48,5 +48,3 @@ class LimitationValueMapperPassTest extends AbstractCompilerPassTestCase
         );
     }
 }
-
-class_alias(LimitationValueMapperPassTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\DependencyInjection\Compiler\LimitationValueMapperPassTest');

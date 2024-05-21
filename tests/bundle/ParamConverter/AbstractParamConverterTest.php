@@ -21,5 +21,3 @@ abstract class AbstractParamConverterTest extends CoreAbstractParamConverterTest
         self::assertTrue($this->converter->supports($config));
     }
 }
-
-class_alias(AbstractParamConverterTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\ParamConverter\AbstractParamConverterTest');

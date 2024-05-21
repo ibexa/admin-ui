@@ -158,5 +158,3 @@ class AdminUiFormsTest extends TestCase
         $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
     }
 }
-
-class_alias(AdminUiFormsTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\DependencyInjection\Configuration\Parser\AdminUiFormsTest');

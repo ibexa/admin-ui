@@ -95,5 +95,3 @@ class URLSearchAdapterTest extends TestCase
         return $query;
     }
 }
-
-class_alias(URLSearchAdapterTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Pagination\Pagerfanta\URLSearchAdapterTest');

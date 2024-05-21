@@ -172,5 +172,3 @@ class UserTransformerTest extends TestCase
         return new CoreUser(['content' => $content]);
     }
 }
-
-class_alias(UserTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\UserTransformerTest');

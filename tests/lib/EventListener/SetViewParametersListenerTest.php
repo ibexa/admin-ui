@@ -392,5 +392,3 @@ final class SetViewParametersListenerTest extends TestCase
         return $field;
     }
 }
-
-class_alias(SetViewParametersListenerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\EventListener\SetViewParametersListenerTest');

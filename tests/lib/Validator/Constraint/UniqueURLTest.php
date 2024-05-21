@@ -35,5 +35,3 @@ class UniqueURLTest extends TestCase
         self::assertSame(UniqueURL::CLASS_CONSTRAINT, $this->constraint->getTargets());
     }
 }
-
-class_alias(UniqueURLTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\UniqueURLTest');

@@ -93,5 +93,3 @@ final class IconPathResolverTest extends TestCase
         return $packages;
     }
 }
-
-class_alias(IconPathResolverTest::class, 'Ibexa\Platform\Tests\Assets\Resolver\IconPathResolverTest');

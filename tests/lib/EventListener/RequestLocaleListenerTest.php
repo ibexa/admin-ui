@@ -252,5 +252,3 @@ class RequestLocaleListenerTest extends TestCase
         return $request;
     }
 }
-
-class_alias(RequestLocaleListenerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\EventListener\RequestLocaleListenerTest');

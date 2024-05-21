@@ -228,5 +228,3 @@ final class ReorderByOrderNumberListenerTest extends TestCase
         }, array_values($item->getChildren()));
     }
 }
-
-class_alias(ReorderByOrderNumberListenerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Menu\ReorderByOrderNumberListenerTest');

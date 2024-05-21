@@ -223,5 +223,3 @@ class MainMenuBuilerTest extends TestCase
         self::assertArrayHasKey(MainMenuBuilder::ITEM_TRASH, $menu);
     }
 }
-
-class_alias(MainMenuBuilerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Menu\MainMenuBuilerTest');

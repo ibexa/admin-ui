@@ -121,5 +121,3 @@ class FieldSettingsValidatorTest extends TestCase
         $this->validator->validate($fieldDefData, new FieldSettings());
     }
 }
-
-class_alias(FieldSettingsValidatorTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\FieldSettingsValidatorTest');

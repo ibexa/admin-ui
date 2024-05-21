@@ -110,5 +110,3 @@ class VersionHasConflictTest extends TestCase
         return $versionInfo;
     }
 }
-
-class_alias(VersionHasConflictTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Specification\VersionHasConflictTest');

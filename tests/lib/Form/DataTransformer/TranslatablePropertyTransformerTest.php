@@ -69,5 +69,3 @@ class TranslatablePropertyTransformerTest extends TestCase
         ];
     }
 }
-
-class_alias(TranslatablePropertyTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\TranslatablePropertyTransformerTest');

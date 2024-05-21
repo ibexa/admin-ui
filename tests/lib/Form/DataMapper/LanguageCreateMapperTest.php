@@ -101,5 +101,3 @@ class LanguageCreateMapperTest extends TestCase
             ->setEnabled($properties['enabled']);
     }
 }
-
-class_alias(LanguageCreateMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataMapper\LanguageCreateMapperTest');

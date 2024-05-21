@@ -210,5 +210,3 @@ class TabRegistryTest extends TestCase
         };
     }
 }
-
-class_alias(TabRegistryTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Tab\TabRegistryTest');

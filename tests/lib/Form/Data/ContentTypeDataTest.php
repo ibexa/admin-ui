@@ -137,5 +137,3 @@ class ContentTypeDataTest extends TestCase
         ]);
     }
 }
-
-class_alias(ContentTypeDataTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\Data\ContentTypeDataTest');

@@ -101,5 +101,3 @@ class SelectionUpdateMapperTest extends TestCase
         return new SectionUpdateData(new Section($properties));
     }
 }
-
-class_alias(SelectionUpdateMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataMapper\SelectionUpdateMapperTest');

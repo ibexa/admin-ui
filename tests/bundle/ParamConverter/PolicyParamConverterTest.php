@@ -164,5 +164,3 @@ class PolicyParamConverterTest extends AbstractParamConverterTest
         ];
     }
 }
-
-class_alias(PolicyParamConverterTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\ParamConverter\PolicyParamConverterTest');

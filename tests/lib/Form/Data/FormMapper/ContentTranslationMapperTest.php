@@ -254,5 +254,3 @@ final class ContentTranslationMapperTest extends TestCase
         ]);
     }
 }
-
-class_alias(ContentTranslationMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\Data\FormMapper\ContentTranslationMapperTest');

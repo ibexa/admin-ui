@@ -92,5 +92,3 @@ class LocationIsNotSubLocationValidatorTest extends TestCase
         $this->validator->validate($location, $constraint);
     }
 }
-
-class_alias(LocationIsNotSubLocationValidatorTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\LocationIsNotSubLocationValidatorTest');

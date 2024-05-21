@@ -55,5 +55,3 @@ class SiteAccessLimitationMapperTest extends TestCase
         self::assertEquals(array_values($siteAccessList), $result);
     }
 }
-
-class_alias(SiteAccessLimitationMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\SiteAccessLimitationMapperTest');

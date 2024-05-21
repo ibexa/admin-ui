@@ -123,5 +123,3 @@ class UDWBasedValueViewTransformerTest extends TestCase
         return $location;
     }
 }
-
-class_alias(UDWBasedValueViewTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\UDWBasedValueViewTransformerTest');

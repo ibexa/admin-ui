@@ -29,5 +29,3 @@ class LimitationMock extends Limitation
         return $this->identifier;
     }
 }
-
-class_alias(LimitationMock::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\Templating\Twig\LimitationMock');

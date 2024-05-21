@@ -119,5 +119,3 @@ class ContentTypeIconResolverTest extends TestCase
         ];
     }
 }
-
-class_alias(ContentTypeIconResolverTest::class, 'EzSystems\EzPlatformAdminUi\Tests\UI\Config\Service\ContentTypeIconResolverTest');

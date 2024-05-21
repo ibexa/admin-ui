@@ -104,5 +104,3 @@ final class ContentDownloadRouteReferenceListenerTest extends TestCase
         );
     }
 }
-
-class_alias(ContentDownloadRouteReferenceListenerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\EventListener\ContentDownloadRouteReferenceListenerTest');

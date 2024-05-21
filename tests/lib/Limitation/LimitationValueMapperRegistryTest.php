@@ -73,5 +73,3 @@ class LimitationValueMapperRegistryTest extends TestCase
         self::assertFalse($registry->hasMapper('bar'));
     }
 }
-
-class_alias(LimitationValueMapperRegistryTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\LimitationValueMapperRegistryTest');

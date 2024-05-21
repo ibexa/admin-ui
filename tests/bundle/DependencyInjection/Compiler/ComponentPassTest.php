@@ -68,5 +68,3 @@ class ComponentPassTest extends AbstractCompilerPassTestCase
         $this->compile();
     }
 }
-
-class_alias(ComponentPassTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\DependencyInjection\Compiler\ComponentPassTest');

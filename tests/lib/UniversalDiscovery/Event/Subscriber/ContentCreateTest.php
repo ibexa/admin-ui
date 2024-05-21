@@ -154,5 +154,3 @@ class ContentCreateTest extends TestCase
         );
     }
 }
-
-class_alias(ContentCreateTest::class, 'EzSystems\EzPlatformAdminUi\Tests\UniversalDiscovery\Event\Subscriber\ContentCreateTest');

@@ -121,5 +121,3 @@ class ValidatorConfigurationValidatorTest extends TestCase
         $this->validator->validate($fieldDefData, new ValidatorConfiguration());
     }
 }
-
-class_alias(ValidatorConfigurationValidatorTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\ValidatorConfigurationValidatorTest');

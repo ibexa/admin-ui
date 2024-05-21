@@ -75,5 +75,3 @@ class FormActionEventTest extends TestCase
         self::assertSame($objectOption, $event->getOption('obj'));
     }
 }
-
-class_alias(FormActionEventTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Event\FormActionEventTest');

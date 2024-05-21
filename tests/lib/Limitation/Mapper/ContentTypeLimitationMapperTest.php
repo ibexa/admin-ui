@@ -89,5 +89,3 @@ class ContentTypeLimitationMapperTest extends TestCase
         self::assertEmpty($actual);
     }
 }
-
-class_alias(ContentTypeLimitationMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\ContentTypeLimitationMapperTest');

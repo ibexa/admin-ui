@@ -149,5 +149,3 @@ final class ContentInfoTransformerTest extends TestCase
         ];
     }
 }
-
-class_alias(ContentInfoTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\ContentInfoTransformerTest');

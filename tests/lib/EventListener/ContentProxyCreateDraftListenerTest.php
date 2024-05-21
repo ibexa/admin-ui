@@ -271,5 +271,3 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         ]);
     }
 }
-
-class_alias(ContentProxyCreateDraftListenerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\EventListener\ContentProxyCreateDraftListenerTest');

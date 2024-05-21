@@ -49,5 +49,3 @@ class TimeValueTransformerTest extends TestCase
         $transformer->transform((object) ['time' => 1]);
     }
 }
-
-class_alias(TimeValueTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\TimeValueTransformerTest');

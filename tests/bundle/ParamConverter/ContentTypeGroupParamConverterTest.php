@@ -108,5 +108,3 @@ class ContentTypeGroupParamConverterTest extends AbstractParamConverterTest
         ];
     }
 }
-
-class_alias(ContentTypeGroupParamConverterTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\ParamConverter\ContentTypeGroupParamConverterTest');

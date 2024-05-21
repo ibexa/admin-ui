@@ -93,5 +93,3 @@ class LookupLimitationsTransformerTest extends TestCase
         (new LookupLimitationsTransformer())->getGroupedLimitationValues($lookupLimitations, $emptyLimitationsIdentifiers);
     }
 }
-
-class_alias(LookupLimitationsTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Permission\LookupLimitationsTransformerTest');

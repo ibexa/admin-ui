@@ -60,5 +60,3 @@ class FieldTypeFormMapperDispatcherTest extends TestCase
         $this->dispatcher->map($formMock, $data);
     }
 }
-
-class_alias(FieldTypeFormMapperDispatcherTest::class, 'EzSystems\EzPlatformAdminUi\Tests\FieldType\FieldTypeFormMapperDispatcherTest');

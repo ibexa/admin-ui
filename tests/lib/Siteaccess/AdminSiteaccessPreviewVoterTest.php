@@ -186,5 +186,3 @@ class AdminSiteaccessPreviewVoterTest extends TestCase
         ];
     }
 }
-
-class_alias(AdminSiteaccessPreviewVoterTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Siteaccess\AdminSiteaccessPreviewVoterTest');

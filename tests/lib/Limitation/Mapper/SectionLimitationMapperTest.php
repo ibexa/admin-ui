@@ -83,5 +83,3 @@ class SectionLimitationMapperTest extends TestCase
         self::assertEmpty($actual);
     }
 }
-
-class_alias(SectionLimitationMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\SectionLimitationMapperTest');

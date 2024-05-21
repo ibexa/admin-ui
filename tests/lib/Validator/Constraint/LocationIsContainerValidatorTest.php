@@ -78,5 +78,3 @@ class LocationIsContainerValidatorTest extends TestCase
         $this->validator->validate($this->location, new LocationIsContainer());
     }
 }
-
-class_alias(LocationIsContainerValidatorTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\LocationIsContainerValidatorTest');

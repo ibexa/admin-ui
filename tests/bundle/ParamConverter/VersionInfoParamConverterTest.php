@@ -111,5 +111,3 @@ class VersionInfoParamConverterTest extends AbstractParamConverterTest
         ];
     }
 }
-
-class_alias(VersionInfoParamConverterTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\ParamConverter\VersionInfoParamConverterTest');

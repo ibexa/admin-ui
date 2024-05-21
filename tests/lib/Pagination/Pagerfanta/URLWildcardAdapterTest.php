@@ -113,5 +113,3 @@ final class URLWildcardAdapterTest extends TestCase
         return $query;
     }
 }
-
-class_alias(URLWildcardAdapterTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Pagination\Pagerfanta\URLWildcardAdapterTest');

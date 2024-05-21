@@ -128,5 +128,3 @@ class LocationsTransformerTest extends TestCase
         ];
     }
 }
-
-class_alias(LocationsTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\LocationsTransformerTest');
