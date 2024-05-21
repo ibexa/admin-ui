@@ -79,5 +79,3 @@ class ImageAssetUploadData
         return $this;
     }
 }
-
-class_alias(ImageAssetUploadData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Asset\ImageAssetUploadData');

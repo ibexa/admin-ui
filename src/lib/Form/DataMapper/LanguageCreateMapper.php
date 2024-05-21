@@ -64,5 +64,3 @@ class LanguageCreateMapper implements DataMapperInterface
         ]);
     }
 }
-
-class_alias(LanguageCreateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\LanguageCreateMapper');

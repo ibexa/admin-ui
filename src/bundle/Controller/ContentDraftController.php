@@ -133,5 +133,3 @@ class ContentDraftController extends Controller
         );
     }
 }
-
-class_alias(ContentDraftController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentDraftController');

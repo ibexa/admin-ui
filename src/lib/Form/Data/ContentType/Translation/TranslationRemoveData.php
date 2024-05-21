@@ -106,5 +106,3 @@ class TranslationRemoveData
         $this->languageCodes = $languageCodes;
     }
 }
-
-class_alias(TranslationRemoveData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentType\Translation\TranslationRemoveData');

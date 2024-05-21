@@ -51,5 +51,3 @@ class ObjectStateChoiceType extends AbstractType
             ]);
     }
 }
-
-class_alias(ObjectStateChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateChoiceType');

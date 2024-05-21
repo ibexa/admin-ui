@@ -70,5 +70,3 @@ class PolicyTransformer implements DataTransformerInterface
         ];
     }
 }
-
-class_alias(PolicyTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\PolicyTransformer');

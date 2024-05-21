@@ -114,5 +114,3 @@ class SortFieldChoiceType extends AbstractType
         ];
     }
 }
-
-class_alias(SortFieldChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\SortFieldChoiceType');

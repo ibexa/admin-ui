@@ -51,5 +51,3 @@ class TabEvent extends Event
         $this->parameters = $parameters;
     }
 }
-
-class_alias(TabEvent::class, 'EzSystems\EzPlatformAdminUi\Tab\Event\TabEvent');

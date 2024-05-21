@@ -32,5 +32,3 @@ class ObjectState extends CoreObjectState
         parent::__construct(get_object_vars($objectState) + $properties);
     }
 }
-
-class_alias(ObjectState::class, 'EzSystems\EzPlatformAdminUi\UI\Value\ObjectState\ObjectState');

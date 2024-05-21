@@ -104,5 +104,3 @@ class TrashRightSidebarBuilder extends AbstractBuilder implements TranslationCon
         ];
     }
 }
-
-class_alias(TrashRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\TrashRightSidebarBuilder');

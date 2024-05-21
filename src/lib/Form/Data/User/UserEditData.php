@@ -103,5 +103,3 @@ class UserEditData
         $this->location = $location;
     }
 }
-
-class_alias(UserEditData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\User\UserEditData');

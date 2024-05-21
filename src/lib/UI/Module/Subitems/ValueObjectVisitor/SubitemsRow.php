@@ -32,5 +32,3 @@ class SubitemsRow extends ValueObjectVisitor
         $generator->endObjectElement('SubitemsRow');
     }
 }
-
-class_alias(SubitemsRow::class, 'EzSystems\EzPlatformAdminUi\UI\Module\Subitems\ValueObjectVisitor\SubitemsRow');

@@ -76,5 +76,3 @@ class Node extends ValueObjectVisitor
         $generator->endObjectElement('ContentTreeNode');
     }
 }
-
-class_alias(Node::class, 'EzSystems\EzPlatformAdminUi\REST\Output\ValueObjectVisitor\ContentTree\Node');

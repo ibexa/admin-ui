@@ -43,5 +43,3 @@ class RoleAssignmentsDeleteType extends AbstractType
         ]);
     }
 }
-
-class_alias(RoleAssignmentsDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Role\RoleAssignmentsDeleteType');

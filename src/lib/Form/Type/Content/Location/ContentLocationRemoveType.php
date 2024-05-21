@@ -57,5 +57,3 @@ class ContentLocationRemoveType extends AbstractType
         ]);
     }
 }
-
-class_alias(ContentLocationRemoveType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\Location\ContentLocationRemoveType');

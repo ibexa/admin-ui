@@ -278,5 +278,3 @@ class UserOnTheFlyController extends Controller
         return $view;
     }
 }
-
-class_alias(UserOnTheFlyController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\UserOnTheFlyController');

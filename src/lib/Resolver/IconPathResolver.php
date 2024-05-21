@@ -63,5 +63,3 @@ final class IconPathResolver implements IconPathResolverInterface, EventSubscrib
         $this->iconCache = [];
     }
 }
-
-class_alias(IconPathResolver::class, 'Ibexa\Platform\Assets\Resolver\IconPathResolver');

@@ -23,5 +23,3 @@ class ContentTypeDispatcher extends AbstractActionDispatcher
         return FormEvents::CONTENT_TYPE_UPDATE;
     }
 }
-
-class_alias(ContentTypeDispatcher::class, 'EzSystems\EzPlatformAdminUi\Form\ActionDispatcher\ContentTypeDispatcher');

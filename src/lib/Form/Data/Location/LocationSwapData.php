@@ -63,5 +63,3 @@ class LocationSwapData
         $this->newLocation = $newLocation;
     }
 }
-
-class_alias(LocationSwapData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationSwapData');

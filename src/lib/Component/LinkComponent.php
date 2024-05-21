@@ -71,5 +71,3 @@ class LinkComponent implements Renderable
         ] + $parameters);
     }
 }
-
-class_alias(LinkComponent::class, 'EzSystems\EzPlatformAdminUi\Component\LinkComponent');

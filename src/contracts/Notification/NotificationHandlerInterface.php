@@ -30,5 +30,3 @@ interface NotificationHandlerInterface
      */
     public function error(string $message): void;
 }
-
-class_alias(NotificationHandlerInterface::class, 'EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface');

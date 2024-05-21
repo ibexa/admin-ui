@@ -192,5 +192,3 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
         return $this->formFactory->create(MainTranslationUpdateType::class, $data);
     }
 }
-
-class_alias(TranslationsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\TranslationsTab');

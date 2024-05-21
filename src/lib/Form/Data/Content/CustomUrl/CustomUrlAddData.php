@@ -159,5 +159,3 @@ class CustomUrlAddData
         return $this;
     }
 }
-
-class_alias(CustomUrlAddData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData');

@@ -14,5 +14,3 @@ interface SiteAccessNameGeneratorInterface
 {
     public function generate(SiteAccess $siteAccessIdentifier): string;
 }
-
-class_alias(SiteAccessNameGeneratorInterface::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\SiteAccessNameGeneratorInterface');

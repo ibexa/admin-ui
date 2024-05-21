@@ -105,5 +105,3 @@ class UiActionEvent extends Event implements UiActionEventInterface
         $this->response = $response;
     }
 }
-
-class_alias(UiActionEvent::class, 'EzSystems\EzPlatformAdminUi\UI\Action\UiActionEvent');

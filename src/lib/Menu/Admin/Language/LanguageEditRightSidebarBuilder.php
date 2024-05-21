@@ -112,5 +112,3 @@ class LanguageEditRightSidebarBuilder extends AbstractBuilder implements Transla
         ];
     }
 }
-
-class_alias(LanguageEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\Language\LanguageEditRightSidebarBuilder');

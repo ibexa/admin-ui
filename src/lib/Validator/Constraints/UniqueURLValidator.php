@@ -53,5 +53,3 @@ class UniqueURLValidator extends ConstraintValidator
         }
     }
 }
-
-class_alias(UniqueURLValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\UniqueURLValidator');

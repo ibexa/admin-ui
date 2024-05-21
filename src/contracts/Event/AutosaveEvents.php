@@ -13,5 +13,3 @@ final class AutosaveEvents
     /** @var string */
     public const CONTENT_AUTOSAVE = 'content.edit.autosave';
 }
-
-class_alias(AutosaveEvents::class, 'EzSystems\EzPlatformAdminUi\Event\AutosaveEvents');

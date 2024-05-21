@@ -87,5 +87,3 @@ class Notifications extends AbstractParser
             ->end();
     }
 }
-
-class_alias(Notifications::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\Notifications');

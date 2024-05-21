@@ -85,5 +85,3 @@ final class LookupLimitationsTransformer
         return $groupedLimitationsValues;
     }
 }
-
-class_alias(LookupLimitationsTransformer::class, 'EzSystems\EzPlatformAdminUi\Permission\LookupLimitationsTransformer');

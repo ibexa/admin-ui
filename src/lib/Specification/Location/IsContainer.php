@@ -22,5 +22,3 @@ class IsContainer extends AbstractSpecification
         return $item->getContent()->getContentType()->isContainer;
     }
 }
-
-class_alias(IsContainer::class, 'EzSystems\EzPlatformAdminUi\Specification\Location\IsContainer');

@@ -216,5 +216,3 @@ class RoleService
         }
     }
 }
-
-class_alias(RoleService::class, 'EzSystems\EzPlatformAdminUi\Service\Role\RoleService');

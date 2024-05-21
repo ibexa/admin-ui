@@ -68,5 +68,3 @@ class ContentTypeCreateType extends AbstractType
             ->add('create', SubmitType::class, ['label' => /** @Desc("Create a content type") */ 'content_type.create']);
     }
 }
-
-class_alias(ContentTypeCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\ContentTypeCreateType');

@@ -37,5 +37,3 @@ class Value implements ProviderInterface
         return $this->config;
     }
 }
-
-class_alias(Value::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Value');

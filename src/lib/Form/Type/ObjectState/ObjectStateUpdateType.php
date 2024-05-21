@@ -51,5 +51,3 @@ class ObjectStateUpdateType extends AbstractType
         ]);
     }
 }
-
-class_alias(ObjectStateUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateUpdateType');

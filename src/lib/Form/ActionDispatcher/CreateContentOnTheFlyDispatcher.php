@@ -18,5 +18,3 @@ class CreateContentOnTheFlyDispatcher extends ContentDispatcher
         return ContentOnTheFlyEvents::CONTENT_CREATE;
     }
 }
-
-class_alias(CreateContentOnTheFlyDispatcher::class, 'EzSystems\EzPlatformAdminUi\Form\ActionDispatcher\CreateContentOnTheFlyDispatcher');

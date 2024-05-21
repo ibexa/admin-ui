@@ -48,5 +48,3 @@ class Operation extends RestValue
         $this->content = $content;
     }
 }
-
-class_alias(Operation::class, 'EzSystems\EzPlatformAdminUi\REST\Value\Operation');

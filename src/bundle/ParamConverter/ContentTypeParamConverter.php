@@ -76,5 +76,3 @@ class ContentTypeParamConverter implements ParamConverterInterface
         return ContentType::class === $configuration->getClass();
     }
 }
-
-class_alias(ContentTypeParamConverter::class, 'EzSystems\EzPlatformAdminUiBundle\ParamConverter\ContentTypeParamConverter');

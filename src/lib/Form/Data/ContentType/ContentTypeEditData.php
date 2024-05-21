@@ -86,5 +86,3 @@ class ContentTypeEditData
         $this->language = $language;
     }
 }
-
-class_alias(ContentTypeEditData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentType\ContentTypeEditData');

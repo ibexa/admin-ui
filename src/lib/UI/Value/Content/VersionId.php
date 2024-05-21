@@ -65,5 +65,3 @@ class VersionId
         return new self((int) $contentId, (int) $versionNo);
     }
 }
-
-class_alias(VersionId::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\VersionId');

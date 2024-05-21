@@ -138,5 +138,3 @@ class DateIntervalToArrayTransformer implements DataTransformerInterface
         return $dateInterval;
     }
 }
-
-class_alias(DateIntervalToArrayTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\DateIntervalToArrayTransformer');

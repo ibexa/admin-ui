@@ -58,5 +58,3 @@ final class ContentDownloadRouteReferenceListener implements EventSubscriberInte
         return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($siteAccess);
     }
 }
-
-class_alias(ContentDownloadRouteReferenceListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\ContentDownloadRouteReferenceListener');

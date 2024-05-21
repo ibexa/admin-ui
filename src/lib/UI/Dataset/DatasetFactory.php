@@ -230,5 +230,3 @@ class DatasetFactory implements LoggerAwareInterface
         );
     }
 }
-
-class_alias(DatasetFactory::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory');

@@ -49,5 +49,3 @@ class MultilingualSelectionTransformer implements DataTransformerInterface
         return array_merge($this->data->fieldSettings['multilingualOptions'], [$this->languageCode => $value]);
     }
 }
-
-class_alias(MultilingualSelectionTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\MultilingualSelectionTransformer');

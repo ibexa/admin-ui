@@ -49,5 +49,3 @@ final class IconPathExtension extends AbstractExtension
         return $this->iconPathResolver->resolve($icon, $set);
     }
 }
-
-class_alias(IconPathExtension::class, 'Ibexa\Platform\Bundle\Assets\Twig\Extension\IconSetExtension');

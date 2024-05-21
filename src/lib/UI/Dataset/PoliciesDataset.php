@@ -122,5 +122,3 @@ class PoliciesDataset
         return $this->data;
     }
 }
-
-class_alias(PoliciesDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\PoliciesDataset');

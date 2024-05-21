@@ -452,5 +452,3 @@ class PolicyController extends Controller
         return array_combine($policiesNumbers, array_fill_keys($policiesNumbers, false));
     }
 }
-
-class_alias(PolicyController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\PolicyController');

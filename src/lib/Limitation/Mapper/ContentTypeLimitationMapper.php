@@ -76,5 +76,3 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
         ];
     }
 }
-
-class_alias(ContentTypeLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\ContentTypeLimitationMapper');

@@ -60,5 +60,3 @@ class LanguageCreateType extends AbstractType
         ]);
     }
 }
-
-class_alias(LanguageCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Language\LanguageCreateType');

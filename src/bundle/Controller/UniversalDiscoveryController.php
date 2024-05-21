@@ -117,5 +117,3 @@ class UniversalDiscoveryController extends Controller
         );
     }
 }
-
-class_alias(UniversalDiscoveryController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\UniversalDiscoveryController');

@@ -56,5 +56,3 @@ final class Options implements MutableOptionsBag
         unset($this->options[$key]);
     }
 }
-
-class_alias(Options::class, 'EzSystems\EzPlatformAdminUi\Event\Options');

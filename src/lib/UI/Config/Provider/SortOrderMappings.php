@@ -29,5 +29,3 @@ class SortOrderMappings implements ProviderInterface
         ];
     }
 }
-
-class_alias(SortOrderMappings::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\SortOrderMappings');

@@ -39,5 +39,3 @@ class RoleDeleteType extends AbstractType
         ]);
     }
 }
-
-class_alias(RoleDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Role\RoleDeleteType');

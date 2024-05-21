@@ -63,5 +63,3 @@ class SectionContentAssignData
         $this->locations = $locations;
     }
 }
-
-class_alias(SectionContentAssignData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionContentAssignData');

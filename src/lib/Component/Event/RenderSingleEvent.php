@@ -83,5 +83,3 @@ class RenderSingleEvent extends Event
         return $this->parameters;
     }
 }
-
-class_alias(RenderSingleEvent::class, 'EzSystems\EzPlatformAdminUi\Component\Event\RenderSingleEvent');

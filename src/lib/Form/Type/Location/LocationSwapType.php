@@ -45,5 +45,3 @@ class LocationSwapType extends AbstractType
         ]);
     }
 }
-
-class_alias(LocationSwapType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationSwapType');

@@ -79,5 +79,3 @@ class RoleTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(RoleTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\RoleTransformer');

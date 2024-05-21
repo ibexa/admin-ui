@@ -13,5 +13,3 @@ use Ibexa\Core\MVC\Symfony\View\BaseView;
 class CreateUserOnTheFlyView extends BaseView
 {
 }
-
-class_alias(CreateUserOnTheFlyView::class, 'EzSystems\EzPlatformAdminUi\View\CreateUserOnTheFlyView');

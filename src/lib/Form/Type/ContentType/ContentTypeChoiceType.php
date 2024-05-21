@@ -52,5 +52,3 @@ class ContentTypeChoiceType extends AbstractType
             ]);
     }
 }
-
-class_alias(ContentTypeChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\ContentTypeChoiceType');

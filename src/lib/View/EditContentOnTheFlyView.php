@@ -13,5 +13,3 @@ use Ibexa\ContentForms\Content\View\ContentEditView;
 class EditContentOnTheFlyView extends ContentEditView
 {
 }
-
-class_alias(EditContentOnTheFlyView::class, 'EzSystems\EzPlatformAdminUi\View\EditContentOnTheFlyView');

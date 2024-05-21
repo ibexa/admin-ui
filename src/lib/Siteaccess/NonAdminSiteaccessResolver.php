@@ -88,5 +88,3 @@ class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
         return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($siteAccess);
     }
 }
-
-class_alias(NonAdminSiteaccessResolver::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\NonAdminSiteaccessResolver');

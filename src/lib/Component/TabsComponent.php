@@ -93,5 +93,3 @@ class TabsComponent implements Renderable
         ];
     }
 }
-
-class_alias(TabsComponent::class, 'EzSystems\EzPlatformAdminUi\Component\TabsComponent');

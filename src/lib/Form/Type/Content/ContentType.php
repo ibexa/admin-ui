@@ -43,5 +43,3 @@ class ContentType extends AbstractType
         return HiddenType::class;
     }
 }
-
-class_alias(ContentType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\ContentType');

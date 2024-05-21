@@ -61,5 +61,3 @@ class UserCreateMapper
         $optionsResolver->setRequired('mainLanguageCode');
     }
 }
-
-class_alias(UserCreateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\Data\FormMapper\UserCreateMapper');

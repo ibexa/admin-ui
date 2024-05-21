@@ -64,5 +64,3 @@ class OwnerLimitationMapper extends MultipleSelectionBasedMapper implements Limi
         ];
     }
 }
-
-class_alias(OwnerLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\OwnerLimitationMapper');

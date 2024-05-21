@@ -87,5 +87,3 @@ class ContentVisibilityUpdateData
         $this->location = $location;
     }
 }
-
-class_alias(ContentVisibilityUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\ContentVisibilityUpdateData');

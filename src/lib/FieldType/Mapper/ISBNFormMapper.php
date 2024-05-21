@@ -57,5 +57,3 @@ class ISBNFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(ISBNFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\ISBNFormMapper');

@@ -50,5 +50,3 @@ class ContentTypeIconExtension extends AbstractExtension
         ];
     }
 }
-
-class_alias(ContentTypeIconExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\ContentTypeIconExtension');

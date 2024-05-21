@@ -54,5 +54,3 @@ final class HasAssetRelation implements TrashLocationOptionProvider
         ]);
     }
 }
-
-class_alias(HasAssetRelation::class, 'EzSystems\EzPlatformAdminUi\Form\TrashLocationOptionProvider\HasAssetRelation');

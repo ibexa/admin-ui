@@ -28,5 +28,3 @@ class NotSpecification extends AbstractSpecification
         return $this->baseSpecification->isSatisfiedBy($item);
     }
 }
-
-class_alias(NotSpecification::class, 'EzSystems\EzPlatformAdminUi\Specification\NotSpecification');

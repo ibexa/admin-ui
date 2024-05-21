@@ -151,5 +151,3 @@ class CustomUrlAddType extends AbstractType
         ]);
     }
 }
-
-class_alias(CustomUrlAddType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\CustomUrl\CustomUrlAddType');

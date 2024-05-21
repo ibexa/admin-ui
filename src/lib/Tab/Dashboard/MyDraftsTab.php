@@ -137,5 +137,3 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
         ]);
     }
 }
-
-class_alias(MyDraftsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\Dashboard\MyDraftsTab');

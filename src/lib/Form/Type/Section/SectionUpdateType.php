@@ -53,5 +53,3 @@ class SectionUpdateType extends AbstractType
         ]);
     }
 }
-
-class_alias(SectionUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Section\SectionUpdateType');

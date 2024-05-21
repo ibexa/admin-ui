@@ -39,5 +39,3 @@ final class FormEvents
      */
     public const CONTENT_TYPE_REMOVE_DRAFT = 'contentType.update.removeDraft';
 }
-
-class_alias(FormEvents::class, 'EzSystems\EzPlatformAdminUi\Event\FormEvents');

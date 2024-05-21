@@ -83,5 +83,3 @@ class ObjectStateUpdateData
         $this->objectState = $objectState;
     }
 }
-
-class_alias(ObjectStateUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateUpdateData');

@@ -106,5 +106,3 @@ class ContentTypeService
         return $contentType->mainLanguageCode;
     }
 }
-
-class_alias(ContentTypeService::class, 'EzSystems\EzPlatformAdminUi\Service\ContentTypeService');

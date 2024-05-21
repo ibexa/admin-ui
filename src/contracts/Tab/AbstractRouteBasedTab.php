@@ -62,5 +62,3 @@ abstract class AbstractRouteBasedTab extends AbstractTab
      */
     abstract public function getRouteParameters(array $parameters): array;
 }
-
-class_alias(AbstractRouteBasedTab::class, 'EzSystems\EzPlatformAdminUi\Tab\AbstractRouteBasedTab');

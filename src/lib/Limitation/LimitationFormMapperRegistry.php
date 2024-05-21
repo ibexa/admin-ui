@@ -62,5 +62,3 @@ class LimitationFormMapperRegistry implements LimitationFormMapperRegistryInterf
         return isset($this->limitationFormMappers[$limitationIdentifier]);
     }
 }
-
-class_alias(LimitationFormMapperRegistry::class, 'EzSystems\EzPlatformAdminUi\Limitation\LimitationFormMapperRegistry');

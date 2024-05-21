@@ -48,5 +48,3 @@ class RoleCopyData
         return $this;
     }
 }
-
-class_alias(RoleCopyData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleCopyData');

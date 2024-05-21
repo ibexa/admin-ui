@@ -40,5 +40,3 @@ class SubItemsList implements ProviderInterface
         ];
     }
 }
-
-class_alias(SubItemsList::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Module\SubItemsList');

@@ -121,5 +121,3 @@ class ConfigResolver
         return $udwConfiguration[$configName] ?? [];
     }
 }
-
-class_alias(ConfigResolver::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\ConfigResolver');

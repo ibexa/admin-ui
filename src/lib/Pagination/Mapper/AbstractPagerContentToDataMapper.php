@@ -124,5 +124,3 @@ abstract class AbstractPagerContentToDataMapper
         }
     }
 }
-
-class_alias(AbstractPagerContentToDataMapper::class, 'EzSystems\EzPlatformAdminUi\Pagination\Mapper\AbstractPagerContentToDataMapper');

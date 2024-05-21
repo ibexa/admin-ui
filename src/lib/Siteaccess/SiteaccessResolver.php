@@ -138,5 +138,3 @@ class SiteaccessResolver implements SiteaccessResolverInterface
         return iterator_to_array($this->siteAccessService->getAll());
     }
 }
-
-class_alias(SiteaccessResolver::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessResolver');

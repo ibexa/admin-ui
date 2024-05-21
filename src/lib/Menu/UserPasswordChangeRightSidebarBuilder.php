@@ -98,5 +98,3 @@ class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implements T
         ];
     }
 }
-
-class_alias(UserPasswordChangeRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\UserPasswordChangeRightSidebarBuilder');

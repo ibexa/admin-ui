@@ -53,5 +53,3 @@ class ConfigWrapper implements \ArrayAccess, \JsonSerializable
         return $this->config;
     }
 }
-
-class_alias(ConfigWrapper::class, 'EzSystems\EzPlatformAdminUi\UI\Config\ConfigWrapper');

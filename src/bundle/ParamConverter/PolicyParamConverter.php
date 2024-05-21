@@ -72,5 +72,3 @@ class PolicyParamConverter implements ParamConverterInterface
         return Policy::class === $configuration->getClass();
     }
 }
-
-class_alias(PolicyParamConverter::class, 'EzSystems\EzPlatformAdminUiBundle\ParamConverter\PolicyParamConverter');

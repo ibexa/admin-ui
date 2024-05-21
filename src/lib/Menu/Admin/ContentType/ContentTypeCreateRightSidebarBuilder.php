@@ -55,5 +55,3 @@ class ContentTypeCreateRightSidebarBuilder extends AbstractContentTypeRightSideb
         return self::ITEM__CANCEL;
     }
 }
-
-class_alias(ContentTypeCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\ContentType\ContentTypeCreateRightSidebarBuilder');

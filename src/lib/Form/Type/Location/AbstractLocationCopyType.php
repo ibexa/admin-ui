@@ -42,5 +42,3 @@ abstract class AbstractLocationCopyType extends AbstractType
         ]);
     }
 }
-
-class_alias(AbstractLocationCopyType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Location\AbstractLocationCopyType');

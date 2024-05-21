@@ -19,5 +19,3 @@ interface FieldTypeDefinitionFormMapperDispatcherInterface
 
     public function map(FormInterface $form, FieldDefinitionData $data): void;
 }
-
-class_alias(FieldTypeDefinitionFormMapperDispatcherInterface::class, 'EzSystems\EzPlatformAdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface');

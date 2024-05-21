@@ -15,5 +15,3 @@ interface ContentDraftInterface
      */
     public function isAccessible(): bool;
 }
-
-class_alias(ContentDraftInterface::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\ContentDraftInterface');

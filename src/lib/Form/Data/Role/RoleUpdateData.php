@@ -71,5 +71,3 @@ class RoleUpdateData
         return $this;
     }
 }
-
-class_alias(RoleUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleUpdateData');

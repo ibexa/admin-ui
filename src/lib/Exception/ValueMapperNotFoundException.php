@@ -17,5 +17,3 @@ class ValueMapperNotFoundException extends InvalidArgumentException
         parent::__construct("No LimitationValueMapper found for '$limitationType'", $code, $previous);
     }
 }
-
-class_alias(ValueMapperNotFoundException::class, 'EzSystems\EzPlatformAdminUi\Exception\ValueMapperNotFoundException');

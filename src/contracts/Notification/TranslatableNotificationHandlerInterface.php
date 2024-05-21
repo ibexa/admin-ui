@@ -21,5 +21,3 @@ interface TranslatableNotificationHandlerInterface
 
     public function error(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void;
 }
-
-class_alias(TranslatableNotificationHandlerInterface::class, 'EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface');

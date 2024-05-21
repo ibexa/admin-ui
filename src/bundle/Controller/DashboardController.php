@@ -51,5 +51,3 @@ class DashboardController extends Controller
         ]);
     }
 }
-
-class_alias(DashboardController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\DashboardController');

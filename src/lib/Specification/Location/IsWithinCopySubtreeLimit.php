@@ -52,5 +52,3 @@ class IsWithinCopySubtreeLimit extends AbstractSpecification
         return $location->getContentInfo()->getContentType()->isContainer();
     }
 }
-
-class_alias(IsWithinCopySubtreeLimit::class, 'EzSystems\EzPlatformAdminUi\Specification\Location\IsWithinCopySubtreeLimit');

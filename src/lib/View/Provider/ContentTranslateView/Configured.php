@@ -72,5 +72,3 @@ class Configured implements ViewProvider
         return $view;
     }
 }
-
-class_alias(Configured::class, 'EzSystems\EzPlatformAdminUi\View\Provider\ContentTranslateView\Configured');

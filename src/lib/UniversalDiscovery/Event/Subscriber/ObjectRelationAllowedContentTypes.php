@@ -62,5 +62,3 @@ class ObjectRelationAllowedContentTypes implements EventSubscriberInterface
         $event->setConfig($config);
     }
 }
-
-class_alias(ObjectRelationAllowedContentTypes::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\ObjectRelationAllowedContentTypes');

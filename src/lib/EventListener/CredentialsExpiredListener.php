@@ -64,5 +64,3 @@ final class CredentialsExpiredListener implements EventSubscriberInterface
         return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
     }
 }
-
-class_alias(CredentialsExpiredListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\CredentialsExpiredListener');

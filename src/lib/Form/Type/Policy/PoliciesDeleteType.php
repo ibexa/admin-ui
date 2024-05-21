@@ -44,5 +44,3 @@ class PoliciesDeleteType extends AbstractType
         ]);
     }
 }
-
-class_alias(PoliciesDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Policy\PoliciesDeleteType');

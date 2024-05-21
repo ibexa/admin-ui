@@ -50,10 +50,3 @@ class FieldDefinitionData extends FieldDefinitionUpdateStruct implements Transla
         ];
     }
 }
-
-class_alias(
-    FieldDefinitionData::class,
-    \EzSystems\RepositoryForms\Data\FieldDefinitionData::class
-);
-
-class_alias(FieldDefinitionData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData');

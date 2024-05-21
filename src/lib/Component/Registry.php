@@ -52,5 +52,3 @@ class Registry
         $this->components[$group] = $components;
     }
 }
-
-class_alias(Registry::class, 'EzSystems\EzPlatformAdminUi\Component\Registry');

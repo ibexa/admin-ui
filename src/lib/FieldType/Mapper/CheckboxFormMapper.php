@@ -45,5 +45,3 @@ class CheckboxFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(CheckboxFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\CheckboxFormMapper');

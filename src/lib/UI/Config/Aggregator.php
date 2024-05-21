@@ -85,5 +85,3 @@ class Aggregator
         return $config;
     }
 }
-
-class_alias(Aggregator::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Aggregator');

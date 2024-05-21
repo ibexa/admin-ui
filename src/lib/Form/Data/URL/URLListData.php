@@ -24,5 +24,3 @@ class URLListData extends ValueObject
     /** @var int */
     public $limit = 10;
 }
-
-class_alias(URLListData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\URL\URLListData');

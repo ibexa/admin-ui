@@ -135,5 +135,3 @@ class BookmarkController extends Controller
         return array_combine($bookmarks, array_fill_keys($bookmarks, false));
     }
 }
-
-class_alias(BookmarkController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\BookmarkController');

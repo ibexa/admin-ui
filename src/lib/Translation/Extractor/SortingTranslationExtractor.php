@@ -76,5 +76,3 @@ class SortingTranslationExtractor implements ExtractorInterface
         return $message;
     }
 }
-
-class_alias(SortingTranslationExtractor::class, 'EzSystems\EzPlatformAdminUi\Translation\Extractor\SortingTranslationExtractor');

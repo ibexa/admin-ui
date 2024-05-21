@@ -62,5 +62,3 @@ class LocationTrashData
         $this->trashOptions = $trashOptions;
     }
 }
-
-class_alias(LocationTrashData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationTrashData');

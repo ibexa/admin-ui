@@ -15,5 +15,3 @@ final class SiteAccessKeyGenerator implements SiteAccessKeyGeneratorInterface
         return sprintf('%u', crc32($siteAccessIdentifier));
     }
 }
-
-class_alias(SiteAccessKeyGenerator::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\SiteAccessKeyGenerator');

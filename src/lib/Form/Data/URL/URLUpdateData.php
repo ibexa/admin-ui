@@ -15,5 +15,3 @@ class URLUpdateData extends URLUpdateStruct
     /** @var int */
     public $id;
 }
-
-class_alias(URLUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\URL\URLUpdateData');

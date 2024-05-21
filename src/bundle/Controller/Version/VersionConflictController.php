@@ -59,5 +59,3 @@ class VersionConflictController extends Controller
         return new Response();
     }
 }
-
-class_alias(VersionConflictController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\Version\VersionConflictController');

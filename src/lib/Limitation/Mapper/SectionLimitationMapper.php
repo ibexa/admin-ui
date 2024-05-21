@@ -70,5 +70,3 @@ class SectionLimitationMapper extends MultipleSelectionBasedMapper implements Li
         ];
     }
 }
-
-class_alias(SectionLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\SectionLimitationMapper');

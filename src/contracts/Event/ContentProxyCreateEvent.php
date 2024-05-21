@@ -83,5 +83,3 @@ class ContentProxyCreateEvent extends Event
         return !empty($this->response);
     }
 }
-
-class_alias(ContentProxyCreateEvent::class, 'EzSystems\EzPlatformAdminUi\Event\ContentProxyCreateEvent');

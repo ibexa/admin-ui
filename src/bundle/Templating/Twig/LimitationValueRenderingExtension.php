@@ -52,5 +52,3 @@ class LimitationValueRenderingExtension extends AbstractExtension
         ];
     }
 }
-
-class_alias(LimitationValueRenderingExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\LimitationValueRenderingExtension');

@@ -40,5 +40,3 @@ class RoleCopyType extends AbstractType
         ]);
     }
 }
-
-class_alias(RoleCopyType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Role\RoleCopyType');

@@ -35,5 +35,3 @@ final class Locations implements ProviderInterface
         ];
     }
 }
-
-class_alias(Locations::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Locations');

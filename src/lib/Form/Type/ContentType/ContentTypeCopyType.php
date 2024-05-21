@@ -51,5 +51,3 @@ class ContentTypeCopyType extends AbstractType
             ]);
     }
 }
-
-class_alias(ContentTypeCopyType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\ContentTypeCopyType');

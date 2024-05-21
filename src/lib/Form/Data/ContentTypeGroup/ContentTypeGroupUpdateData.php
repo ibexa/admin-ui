@@ -58,5 +58,3 @@ class ContentTypeGroupUpdateData
         $this->contentTypeGroup = $contentTypeGroup;
     }
 }
-
-class_alias(ContentTypeGroupUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData');

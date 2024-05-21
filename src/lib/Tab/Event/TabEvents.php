@@ -32,5 +32,3 @@ class TabEvents
      */
     public const TAB_RENDER = 'ezplatform.tab.render';
 }
-
-class_alias(TabEvents::class, 'EzSystems\EzPlatformAdminUi\Tab\Event\TabEvents');

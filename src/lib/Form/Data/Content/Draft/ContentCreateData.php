@@ -106,5 +106,3 @@ class ContentCreateData
         return $this;
     }
 }
-
-class_alias(ContentCreateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentCreateData');

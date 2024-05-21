@@ -96,5 +96,3 @@ class NotificationTwigStrategy
         return $contentInfo->isTrashed();
     }
 }
-
-class_alias(NotificationTwigStrategy::class, 'EzSystems\EzPlatformAdminUi\Strategy\NotificationTwigStrategy');

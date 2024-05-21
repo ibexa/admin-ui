@@ -31,5 +31,3 @@ class DateIntervalType extends AbstractType
             ->addModelTransformer(new DateIntervalTransformer());
     }
 }
-
-class_alias(DateIntervalType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Date\DateIntervalType');

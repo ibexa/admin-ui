@@ -63,5 +63,3 @@ class VersionInfoParamConverter implements ParamConverterInterface
         return VersionInfo::class === $configuration->getClass();
     }
 }
-
-class_alias(VersionInfoParamConverter::class, 'EzSystems\EzPlatformAdminUiBundle\ParamConverter\VersionInfoParamConverter');

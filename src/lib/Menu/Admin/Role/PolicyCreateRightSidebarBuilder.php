@@ -86,5 +86,3 @@ class PolicyCreateRightSidebarBuilder extends AbstractBuilder implements Transla
         ];
     }
 }
-
-class_alias(PolicyCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\Role\PolicyCreateRightSidebarBuilder');

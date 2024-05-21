@@ -71,5 +71,3 @@ class ConfigResolveEvent extends Event
         $this->context = $context;
     }
 }
-
-class_alias(ConfigResolveEvent::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\ConfigResolveEvent');

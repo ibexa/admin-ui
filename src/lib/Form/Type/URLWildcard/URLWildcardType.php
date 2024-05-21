@@ -51,5 +51,3 @@ final class URLWildcardType extends AbstractType
         ]);
     }
 }
-
-class_alias(URLWildcardType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\URLWildcard\URLWildcardType');

@@ -21,5 +21,3 @@ final class ContentSubtreeQueryType extends SubtreeQueryType
         return $this->configResolver->getParameter(SubtreePath::CONTENT_SUBTREE_PATH);
     }
 }
-
-class_alias(ContentSubtreeQueryType::class, 'EzSystems\EzPlatformAdminUi\QueryType\ContentSubtreeQueryType');

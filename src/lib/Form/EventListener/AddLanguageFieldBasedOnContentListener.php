@@ -92,5 +92,3 @@ class AddLanguageFieldBasedOnContentListener
         );
     }
 }
-
-class_alias(AddLanguageFieldBasedOnContentListener::class, 'EzSystems\EzPlatformAdminUi\Form\EventListener\AddLanguageFieldBasedOnContentListener');

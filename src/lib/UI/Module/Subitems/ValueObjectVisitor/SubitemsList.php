@@ -38,5 +38,3 @@ class SubitemsList extends ValueObjectVisitor
         $generator->endObjectElement('SubitemsList');
     }
 }
-
-class_alias(SubitemsList::class, 'EzSystems\EzPlatformAdminUi\UI\Module\Subitems\ValueObjectVisitor\SubitemsList');

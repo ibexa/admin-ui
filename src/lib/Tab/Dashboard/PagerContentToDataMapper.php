@@ -118,5 +118,3 @@ class PagerContentToDataMapper extends AbstractPagerContentToDataMapper
         return $data;
     }
 }
-
-class_alias(PagerContentToDataMapper::class, 'EzSystems\EzPlatformAdminUi\Tab\Dashboard\PagerContentToDataMapper');

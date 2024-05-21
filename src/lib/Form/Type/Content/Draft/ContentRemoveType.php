@@ -53,5 +53,3 @@ class ContentRemoveType extends AbstractType
         ]);
     }
 }
-
-class_alias(ContentRemoveType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\Draft\ContentRemoveType');

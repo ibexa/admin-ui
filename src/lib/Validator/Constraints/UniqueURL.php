@@ -37,5 +37,3 @@ class UniqueURL extends Constraint
         return self::CLASS_CONSTRAINT;
     }
 }
-
-class_alias(UniqueURL::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\UniqueURL');

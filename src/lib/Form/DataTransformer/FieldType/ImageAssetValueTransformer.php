@@ -64,5 +64,3 @@ class ImageAssetValueTransformer extends AbstractBinaryBaseTransformer implement
         return new Value($value['destinationContentId'], $value['alternativeText']);
     }
 }
-
-class_alias(ImageAssetValueTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType\ImageAssetValueTransformer');

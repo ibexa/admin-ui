@@ -141,5 +141,3 @@ class PoliciesTab extends AbstractEventDispatchingTab implements OrderedTabInter
         return array_replace($contextParameters, $viewParameters);
     }
 }
-
-class_alias(PoliciesTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\PoliciesTab');

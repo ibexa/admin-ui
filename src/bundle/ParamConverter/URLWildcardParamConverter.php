@@ -61,5 +61,3 @@ class URLWildcardParamConverter implements ParamConverterInterface
         return URLWildcard::class === $configuration->getClass();
     }
 }
-
-class_alias(URLWildcardParamConverter::class, 'EzSystems\EzPlatformAdminUiBundle\ParamConverter\URLWildcardParamConverter');

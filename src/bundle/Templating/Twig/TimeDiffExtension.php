@@ -49,5 +49,3 @@ class TimeDiffExtension extends AbstractExtension
         return $this->dateTimeFormatter->formatDiff($from, $to ?? new DateTime());
     }
 }
-
-class_alias(TimeDiffExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\TimeDiffExtension');

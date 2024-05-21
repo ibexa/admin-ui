@@ -82,5 +82,3 @@ class CustomUrlsDataset
         return $this->data;
     }
 }
-
-class_alias(CustomUrlsDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\CustomUrlsDataset');

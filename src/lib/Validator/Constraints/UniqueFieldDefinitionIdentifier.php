@@ -39,5 +39,3 @@ class UniqueFieldDefinitionIdentifier extends Constraint implements TranslationC
         return self::CLASS_CONSTRAINT;
     }
 }
-
-class_alias(UniqueFieldDefinitionIdentifier::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifier');

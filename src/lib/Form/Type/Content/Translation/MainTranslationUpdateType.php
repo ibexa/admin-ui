@@ -56,5 +56,3 @@ class MainTranslationUpdateType extends AbstractType
         ]);
     }
 }
-
-class_alias(MainTranslationUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\Translation\MainTranslationUpdateType');

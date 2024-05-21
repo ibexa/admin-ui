@@ -112,5 +112,3 @@ class RoleCreateRightSidebarBuilder extends AbstractBuilder implements Translati
         ];
     }
 }
-
-class_alias(RoleCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\Role\RoleCreateRightSidebarBuilder');

@@ -21,5 +21,3 @@ final class MediaSubtreeQueryType extends SubtreeQueryType
         return $this->configResolver->getParameter(SubtreePath::MEDIA_SUBTREE_PATH);
     }
 }
-
-class_alias(MediaSubtreeQueryType::class, 'EzSystems\EzPlatformAdminUi\QueryType\MediaSubtreeQueryType');

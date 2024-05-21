@@ -52,5 +52,3 @@ class TrashItemCheckboxType extends AbstractType
         ]);
     }
 }
-
-class_alias(TrashItemCheckboxType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Trash\TrashItemCheckboxType');

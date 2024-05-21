@@ -131,5 +131,3 @@ class CompileAssetsCommand extends Command implements BackwardCompatibleCommand
         return ['ezplatform:encore:compile'];
     }
 }
-
-class_alias(CompileAssetsCommand::class, 'EzSystems\EzPlatformEncoreBundle\Command\CompileAssetsCommand');

@@ -57,5 +57,3 @@ class UDWBasedValueViewTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(UDWBasedValueViewTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\UDWBasedValueViewTransformer');

@@ -42,5 +42,3 @@ class TranslatablePropertyTransformer implements DataTransformerInterface
         return [$this->languageCode => $value];
     }
 }
-
-class_alias(TranslatablePropertyTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\TranslatablePropertyTransformer');

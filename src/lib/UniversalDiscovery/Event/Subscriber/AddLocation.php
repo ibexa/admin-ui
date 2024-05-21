@@ -32,5 +32,3 @@ final class AddLocation implements EventSubscriberInterface
         $event->setConfig($config);
     }
 }
-
-class_alias(AddLocation::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\AddLocation');

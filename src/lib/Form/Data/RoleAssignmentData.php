@@ -85,5 +85,3 @@ class RoleAssignmentData
         $this->locations = $locations;
     }
 }
-
-class_alias(RoleAssignmentData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\RoleAssignmentData');

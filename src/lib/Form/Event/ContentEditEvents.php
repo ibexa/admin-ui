@@ -15,5 +15,3 @@ final class ContentEditEvents
      */
     public const CONTENT_PREVIEW = 'content.edit.preview';
 }
-
-class_alias(ContentEditEvents::class, 'EzSystems\EzPlatformAdminUi\Form\Event\ContentEditEvents');

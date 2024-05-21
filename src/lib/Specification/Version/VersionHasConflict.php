@@ -54,5 +54,3 @@ class VersionHasConflict extends AbstractSpecification
         return false;
     }
 }
-
-class_alias(VersionHasConflict::class, 'EzSystems\EzPlatformAdminUi\Specification\Version\VersionHasConflict');

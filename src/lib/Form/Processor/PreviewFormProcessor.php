@@ -195,5 +195,3 @@ class PreviewFormProcessor implements EventSubscriberInterface
         return $referrerLocation ?? $this->locationService->loadLocation($content->contentInfo->mainLocationId);
     }
 }
-
-class_alias(PreviewFormProcessor::class, 'EzSystems\EzPlatformAdminUi\Form\Processor\PreviewFormProcessor');

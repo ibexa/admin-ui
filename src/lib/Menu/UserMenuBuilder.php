@@ -124,5 +124,3 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         ];
     }
 }
-
-class_alias(UserMenuBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\UserMenuBuilder');

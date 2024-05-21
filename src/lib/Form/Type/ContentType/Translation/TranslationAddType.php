@@ -204,5 +204,3 @@ class TranslationAddType extends AbstractType
             );
     }
 }
-
-class_alias(TranslationAddType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\Translation\TranslationAddType');

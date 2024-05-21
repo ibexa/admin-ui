@@ -119,5 +119,3 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
         return $mimeTypeChoiceList;
     }
 }
-
-class_alias(ImageFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\ImageFormMapper');

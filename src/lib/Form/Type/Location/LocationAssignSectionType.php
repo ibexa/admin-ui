@@ -45,5 +45,3 @@ class LocationAssignSectionType extends AbstractType
         ]);
     }
 }
-
-class_alias(LocationAssignSectionType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationAssignSectionType');

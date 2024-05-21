@@ -128,5 +128,3 @@ class ContentEditData
         return $this;
     }
 }
-
-class_alias(ContentEditData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentEditData');

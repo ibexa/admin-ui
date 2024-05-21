@@ -71,5 +71,3 @@ class ComponentExtension extends AbstractExtension
         return $this->renderer->renderSingle($group, $id, $parameters);
     }
 }
-
-class_alias(ComponentExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\ComponentExtension');

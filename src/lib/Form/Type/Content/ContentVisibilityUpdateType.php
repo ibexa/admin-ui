@@ -48,5 +48,3 @@ class ContentVisibilityUpdateType extends AbstractType
         ]);
     }
 }
-
-class_alias(ContentVisibilityUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\ContentVisibilityUpdateType');

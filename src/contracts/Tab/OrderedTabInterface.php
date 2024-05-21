@@ -20,5 +20,3 @@ interface OrderedTabInterface
      */
     public function getOrder(): int;
 }
-
-class_alias(OrderedTabInterface::class, 'EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface');

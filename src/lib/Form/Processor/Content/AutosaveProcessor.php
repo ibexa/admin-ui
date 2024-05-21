@@ -55,5 +55,3 @@ class AutosaveProcessor implements EventSubscriberInterface
         );
     }
 }
-
-class_alias(AutosaveProcessor::class, 'EzSystems\EzPlatformAdminUi\Form\Processor\Content\AutosaveProcessor');

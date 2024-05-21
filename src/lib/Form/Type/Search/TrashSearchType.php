@@ -103,5 +103,3 @@ class TrashSearchType extends AbstractType
         ]);
     }
 }
-
-class_alias(TrashSearchType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Search\TrashSearchType');

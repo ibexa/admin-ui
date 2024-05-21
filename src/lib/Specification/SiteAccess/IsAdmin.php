@@ -42,5 +42,3 @@ class IsAdmin extends AbstractSpecification
         return in_array($item->name, $this->siteAccessGroups[IbexaAdminUiBundle::ADMIN_GROUP_NAME], true);
     }
 }
-
-class_alias(IsAdmin::class, 'EzSystems\EzPlatformAdminUi\Specification\SiteAccess\IsAdmin');

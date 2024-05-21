@@ -90,5 +90,3 @@ class FieldTypeChoiceType extends AbstractType
         );
     }
 }
-
-class_alias(FieldTypeChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\FieldTypeChoiceType');

@@ -58,5 +58,3 @@ interface SiteaccessResolverInterface
      */
     public function getSiteaccesses(): array;
 }
-
-class_alias(SiteaccessResolverInterface::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessResolverInterface');

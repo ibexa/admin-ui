@@ -73,5 +73,3 @@ class TabViewRenderEvent extends Event
         $this->parameters = $parameters;
     }
 }
-
-class_alias(TabViewRenderEvent::class, 'EzSystems\EzPlatformAdminUi\Tab\Event\TabViewRenderEvent');

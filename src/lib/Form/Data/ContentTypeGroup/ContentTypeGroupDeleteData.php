@@ -36,5 +36,3 @@ class ContentTypeGroupDeleteData
         $this->contentTypeGroup = $contentTypeGroup;
     }
 }
-
-class_alias(ContentTypeGroupDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupDeleteData');

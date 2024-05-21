@@ -208,5 +208,3 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
         ];
     }
 }
-
-class_alias(RoleAssignmentCreateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleAssignmentCreateData');

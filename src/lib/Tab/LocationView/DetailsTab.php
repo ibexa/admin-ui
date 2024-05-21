@@ -220,5 +220,3 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         $parameters['translations'] = $translationsDataset->getTranslations();
     }
 }
-
-class_alias(DetailsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\DetailsTab');

@@ -108,5 +108,3 @@ class SectionAssign implements EventSubscriberInterface
         return !empty($this->restrictedContentTypes);
     }
 }
-
-class_alias(SectionAssign::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\SectionAssign');

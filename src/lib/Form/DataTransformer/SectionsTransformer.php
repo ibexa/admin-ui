@@ -76,5 +76,3 @@ class SectionsTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(SectionsTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\SectionsTransformer');

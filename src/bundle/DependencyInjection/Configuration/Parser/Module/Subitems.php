@@ -64,5 +64,3 @@ class Subitems extends AbstractParser
         );
     }
 }
-
-class_alias(Subitems::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\Module\Subitems');

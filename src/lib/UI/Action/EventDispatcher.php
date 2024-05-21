@@ -37,5 +37,3 @@ class EventDispatcher implements EventDispatcherInterface
         $this->eventDispatcher->dispatch($event, sprintf('%s.%s.%s', EventDispatcherInterface::EVENT_NAME_PREFIX, $action, $event->getType()));
     }
 }
-
-class_alias(EventDispatcher::class, 'EzSystems\EzPlatformAdminUi\UI\Action\EventDispatcher');

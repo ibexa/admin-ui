@@ -155,5 +155,3 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
         $this->contentType = $contentType;
     }
 }
-
-class_alias(ContentTranslateView::class, 'EzSystems\EzPlatformAdminUi\View\ContentTranslateView');

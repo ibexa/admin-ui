@@ -48,5 +48,3 @@ class LimitationFormMapperPass implements CompilerPassInterface
         }
     }
 }
-
-class_alias(LimitationFormMapperPass::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Compiler\LimitationFormMapperPass');

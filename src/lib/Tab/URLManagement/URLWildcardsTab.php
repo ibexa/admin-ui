@@ -201,5 +201,3 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
         return $query;
     }
 }
-
-class_alias(URLWildcardsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\URLManagement\URLWildcardsTab');

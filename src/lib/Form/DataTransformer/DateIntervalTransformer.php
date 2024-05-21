@@ -66,5 +66,3 @@ class DateIntervalTransformer implements DataTransformerInterface
         return ['start_date' => $startDate, 'end_date' => $endDate];
     }
 }
-
-class_alias(DateIntervalTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\DateIntervalTransformer');

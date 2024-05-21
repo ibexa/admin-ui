@@ -100,5 +100,3 @@ class URLListType extends AbstractType
         return 'ezplatform_content_forms_url_list';
     }
 }
-
-class_alias(URLListType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\URL\URLListType');

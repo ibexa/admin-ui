@@ -64,5 +64,3 @@ class FieldDefinitionMappingEvent extends Event
         return $this->targetLanguage;
     }
 }
-
-class_alias(FieldDefinitionMappingEvent::class, 'EzSystems\EzPlatformAdminUi\Event\FieldDefinitionMappingEvent');

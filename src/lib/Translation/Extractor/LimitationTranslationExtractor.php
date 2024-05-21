@@ -116,5 +116,3 @@ class LimitationTranslationExtractor implements ExtractorInterface
         return implode(' ', $parts);
     }
 }
-
-class_alias(LimitationTranslationExtractor::class, 'EzSystems\EzPlatformAdminUi\Translation\Extractor\LimitationTranslationExtractor');

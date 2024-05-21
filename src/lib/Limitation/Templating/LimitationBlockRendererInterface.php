@@ -21,5 +21,3 @@ interface LimitationBlockRendererInterface
      */
     public function renderLimitationValue(Limitation $limitation, array $parameters = []);
 }
-
-class_alias(LimitationBlockRendererInterface::class, 'EzSystems\EzPlatformAdminUi\Limitation\Templating\LimitationBlockRendererInterface');

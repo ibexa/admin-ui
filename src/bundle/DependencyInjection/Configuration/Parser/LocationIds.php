@@ -71,5 +71,3 @@ class LocationIds extends AbstractParser
         }
     }
 }
-
-class_alias(LocationIds::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\LocationIds');

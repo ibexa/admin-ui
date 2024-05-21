@@ -50,5 +50,3 @@ class PathService
         }, $searchResult->searchHits);
     }
 }
-
-class_alias(PathService::class, 'EzSystems\EzPlatformAdminUi\UI\Service\PathService');

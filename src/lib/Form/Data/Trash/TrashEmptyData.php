@@ -48,5 +48,3 @@ class TrashEmptyData
         $this->emptyTrash = $emptyTrash;
     }
 }
-
-class_alias(TrashEmptyData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Trash\TrashEmptyData');

@@ -50,5 +50,3 @@ class RoleCopyMapper implements DataMapperInterface
         ]);
     }
 }
-
-class_alias(RoleCopyMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\RoleCopyMapper');

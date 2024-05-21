@@ -88,5 +88,3 @@ final class ReadAllowedContentTypes implements EventSubscriberInterface
         $event->setConfig($config);
     }
 }
-
-class_alias(ReadAllowedContentTypes::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\ReadAllowedContentTypes');

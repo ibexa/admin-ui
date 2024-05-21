@@ -90,5 +90,3 @@ class LocationUpdateData
         return $this->sortOrder;
     }
 }
-
-class_alias(LocationUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationUpdateData');

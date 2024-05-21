@@ -89,5 +89,3 @@ class ContentProxyTranslateEvent extends Event
         return isset($this->response);
     }
 }
-
-class_alias(ContentProxyTranslateEvent::class, 'EzSystems\EzPlatformAdminUi\Event\ContentProxyTranslateEvent');

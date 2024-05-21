@@ -105,5 +105,3 @@ class UserDeleteController extends Controller
         return $this->redirect($this->generateUrl('ibexa.dashboard'));
     }
 }
-
-class_alias(UserDeleteController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\User\UserDeleteController');

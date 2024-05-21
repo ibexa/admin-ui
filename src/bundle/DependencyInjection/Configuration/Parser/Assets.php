@@ -63,5 +63,3 @@ class Assets extends AbstractParser
         }
     }
 }
-
-class_alias(Assets::class, 'Ibexa\Platform\Bundle\Assets\DependencyInjection\Configuration\Parser\Assets');

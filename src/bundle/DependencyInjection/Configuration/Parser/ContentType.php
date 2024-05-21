@@ -60,5 +60,3 @@ class ContentType extends AbstractParser
             ->end();
     }
 }
-
-class_alias(ContentType::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\ContentType');

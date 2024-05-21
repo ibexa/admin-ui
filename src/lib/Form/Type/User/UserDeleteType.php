@@ -40,5 +40,3 @@ class UserDeleteType extends AbstractType
         ]);
     }
 }
-
-class_alias(UserDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\User\UserDeleteType');

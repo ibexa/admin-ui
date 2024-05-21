@@ -76,5 +76,3 @@ class UserPasswordChangeRightSidebarListener implements EventSubscriberInterface
         ];
     }
 }
-
-class_alias(UserPasswordChangeRightSidebarListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\UserPasswordChangeRightSidebarListener');

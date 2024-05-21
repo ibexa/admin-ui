@@ -299,5 +299,3 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
         );
     }
 }
-
-class_alias(LocationsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\LocationsTab');

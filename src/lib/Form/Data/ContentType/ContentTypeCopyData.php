@@ -63,5 +63,3 @@ class ContentTypeCopyData
         $this->contentTypeGroup = $contentTypeGroup;
     }
 }
-
-class_alias(ContentTypeCopyData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentType\ContentTypeCopyData');

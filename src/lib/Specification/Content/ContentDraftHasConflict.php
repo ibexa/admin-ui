@@ -54,5 +54,3 @@ class ContentDraftHasConflict extends AbstractSpecification
         return false;
     }
 }
-
-class_alias(ContentDraftHasConflict::class, 'EzSystems\EzPlatformAdminUi\Specification\Content\ContentDraftHasConflict');

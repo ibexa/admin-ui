@@ -44,5 +44,3 @@ class LocationMoveType extends AbstractType
         ]);
     }
 }
-
-class_alias(LocationMoveType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationMoveType');

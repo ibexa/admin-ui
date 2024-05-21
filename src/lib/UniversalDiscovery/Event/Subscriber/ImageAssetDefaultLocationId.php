@@ -50,5 +50,3 @@ class ImageAssetDefaultLocationId implements EventSubscriberInterface
         $event->setConfig($config);
     }
 }
-
-class_alias(ImageAssetDefaultLocationId::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\ImageAssetDefaultLocationId');

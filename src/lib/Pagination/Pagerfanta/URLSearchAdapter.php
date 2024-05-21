@@ -62,5 +62,3 @@ class URLSearchAdapter implements AdapterInterface
         return $this->urlService->findUrls($query)->items;
     }
 }
-
-class_alias(URLSearchAdapter::class, 'EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\URLSearchAdapter');

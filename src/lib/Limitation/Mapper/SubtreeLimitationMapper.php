@@ -77,5 +77,3 @@ class SubtreeLimitationMapper extends UDWBasedMapper implements TranslationConta
         ];
     }
 }
-
-class_alias(SubtreeLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\SubtreeLimitationMapper');

@@ -55,5 +55,3 @@ class TranslationDeleteType extends AbstractType
         ]);
     }
 }
-
-class_alias(TranslationDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\Translation\TranslationDeleteType');

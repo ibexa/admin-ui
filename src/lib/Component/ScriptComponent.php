@@ -78,5 +78,3 @@ class ScriptComponent implements Renderable
         ] + $parameters);
     }
 }
-
-class_alias(ScriptComponent::class, 'EzSystems\EzPlatformAdminUi\Component\ScriptComponent');

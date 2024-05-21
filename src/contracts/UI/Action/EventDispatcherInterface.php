@@ -17,5 +17,3 @@ interface EventDispatcherInterface
      */
     public function dispatch(UiActionEventInterface $event): void;
 }
-
-class_alias(EventDispatcherInterface::class, 'EzSystems\EzPlatformAdminUi\UI\Action\EventDispatcherInterface');

@@ -45,5 +45,3 @@ class UserPreferencesGlobalExtension extends AbstractExtension implements Global
         ];
     }
 }
-
-class_alias(UserPreferencesGlobalExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\UserPreferencesGlobalExtension');

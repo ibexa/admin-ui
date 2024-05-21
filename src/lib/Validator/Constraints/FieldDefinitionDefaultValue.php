@@ -26,5 +26,3 @@ class FieldDefinitionDefaultValue extends Constraint
         return FieldDefinitionDefaultValueValidator::class;
     }
 }
-
-class_alias(FieldDefinitionDefaultValue::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\FieldDefinitionDefaultValue');

@@ -69,5 +69,3 @@ final class SiteaccessPreviewVoterContext
         return $this->versionInfo;
     }
 }
-
-class_alias(SiteaccessPreviewVoterContext::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessPreviewVoterContext');

@@ -96,5 +96,3 @@ class ConfigureMenuEvent extends Event
         return $this->options ?? [];
     }
 }
-
-class_alias(ConfigureMenuEvent::class, 'EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent');

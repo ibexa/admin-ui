@@ -219,5 +219,3 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
         return array_combine($urlAliasIdList, array_fill_keys($urlAliasIdList, false));
     }
 }
-
-class_alias(UrlsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\UrlsTab');

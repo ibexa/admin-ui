@@ -27,5 +27,3 @@ class LoadSubtreeRequest extends RestValue
         $this->filter = $filter;
     }
 }
-
-class_alias(LoadSubtreeRequest::class, 'EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\LoadSubtreeRequest');

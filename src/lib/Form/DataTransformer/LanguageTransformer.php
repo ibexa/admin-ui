@@ -81,5 +81,3 @@ class LanguageTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(LanguageTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\LanguageTransformer');

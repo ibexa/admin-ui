@@ -27,5 +27,3 @@ class LocationIsNotRoot extends Constraint implements TranslationContainerInterf
         ];
     }
 }
-
-class_alias(LocationIsNotRoot::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationIsNotRoot');

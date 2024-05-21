@@ -47,5 +47,3 @@ class ContentTypeUtil
         return $fieldTypes;
     }
 }
-
-class_alias(ContentTypeUtil::class, 'EzSystems\EzPlatformAdminUi\Util\ContentTypeUtil');

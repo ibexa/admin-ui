@@ -36,5 +36,3 @@ class AddNewTranslationFieldDefinition implements EventSubscriberInterface
         $event->setFieldDefinitionData($fieldDefinitionData);
     }
 }
-
-class_alias(AddNewTranslationFieldDefinition::class, 'EzSystems\EzPlatformAdminUi\EventListener\AddNewTranslationFieldDefinition');

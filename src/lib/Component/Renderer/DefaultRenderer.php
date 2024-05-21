@@ -63,5 +63,3 @@ class DefaultRenderer implements RendererInterface
         return $group[$name]->render($parameters);
     }
 }
-
-class_alias(DefaultRenderer::class, 'EzSystems\EzPlatformAdminUi\Component\Renderer\DefaultRenderer');

@@ -218,5 +218,3 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
         return $contentCreateStruct;
     }
 }
-
-class_alias(ContentCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\ContentCreateRightSidebarBuilder');

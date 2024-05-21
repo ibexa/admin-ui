@@ -69,5 +69,3 @@ class UiConfigExtension extends AbstractExtension implements GlobalsInterface
         return $factory->createProxy(ConfigWrapper::class, $initializer);
     }
 }
-
-class_alias(UiConfigExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\UiConfigExtension');

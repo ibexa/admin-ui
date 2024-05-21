@@ -16,5 +16,3 @@ use Ibexa\Contracts\Core\Specification\SpecificationInterface as BaseSpecificati
 interface SpecificationInterface extends BaseSpecificationInterface
 {
 }
-
-class_alias(SpecificationInterface::class, 'EzSystems\EzPlatformAdminUi\Specification\SpecificationInterface');

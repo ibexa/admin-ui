@@ -57,5 +57,3 @@ class UserGroupIdentifier extends AbstractParser
         );
     }
 }
-
-class_alias(UserGroupIdentifier::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\UserGroupIdentifier');

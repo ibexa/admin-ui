@@ -179,5 +179,3 @@ class ContentTranslateViewFilter implements EventSubscriberInterface
         );
     }
 }
-
-class_alias(ContentTranslateViewFilter::class, 'EzSystems\EzPlatformAdminUi\View\Filter\ContentTranslateViewFilter');

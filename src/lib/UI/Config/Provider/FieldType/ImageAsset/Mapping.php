@@ -42,5 +42,3 @@ class Mapping implements ProviderInterface
         ];
     }
 }
-
-class_alias(Mapping::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\FieldType\ImageAsset\Mapping');

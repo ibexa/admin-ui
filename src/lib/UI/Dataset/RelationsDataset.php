@@ -77,5 +77,3 @@ class RelationsDataset
         return $this->reverseRelations;
     }
 }
-
-class_alias(RelationsDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\RelationsDataset');

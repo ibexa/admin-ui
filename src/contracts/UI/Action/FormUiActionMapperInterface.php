@@ -31,5 +31,3 @@ interface FormUiActionMapperInterface
      */
     public function supports(FormInterface $form): bool;
 }
-
-class_alias(FormUiActionMapperInterface::class, 'EzSystems\EzPlatformAdminUi\UI\Action\FormUiActionMapperInterface');

@@ -19,5 +19,3 @@ interface SiteaccessPreviewVoterInterface
      */
     public function vote(SiteaccessPreviewVoterContext $context): bool;
 }
-
-class_alias(SiteaccessPreviewVoterInterface::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessPreviewVoterInterface');

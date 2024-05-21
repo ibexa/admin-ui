@@ -300,5 +300,3 @@ class ObjectStateGroupController extends Controller
         return array_combine($groupsIds, array_fill_keys($groupsIds, false));
     }
 }
-
-class_alias(ObjectStateGroupController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ObjectStateGroupController');

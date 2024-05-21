@@ -65,5 +65,3 @@ class ContentTranslateViewFilterParametersListener implements EventSubscriberInt
         ]);
     }
 }
-
-class_alias(ContentTranslateViewFilterParametersListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\ContentTranslateViewFilterParametersListener');

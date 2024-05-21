@@ -270,5 +270,3 @@ class ContentViewParameterSupplier
         return $createPermissionsInMfu;
     }
 }
-
-class_alias(ContentViewParameterSupplier::class, 'EzSystems\EzPlatformAdminUi\UI\Module\Subitems\ContentViewParameterSupplier');

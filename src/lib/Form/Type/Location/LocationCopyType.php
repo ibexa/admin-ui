@@ -20,5 +20,3 @@ class LocationCopyType extends AbstractLocationCopyType
         ]);
     }
 }
-
-class_alias(LocationCopyType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationCopyType');

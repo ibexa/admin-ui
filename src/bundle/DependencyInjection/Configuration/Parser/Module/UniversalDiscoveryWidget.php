@@ -55,5 +55,3 @@ class UniversalDiscoveryWidget extends AbstractParser
         );
     }
 }
-
-class_alias(UniversalDiscoveryWidget::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\Module\UniversalDiscoveryWidget');

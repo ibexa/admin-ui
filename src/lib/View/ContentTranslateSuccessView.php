@@ -27,5 +27,3 @@ class ContentTranslateSuccessView extends BaseView
         $this->setControllerReference(new ControllerReference('Ibexa\Bundle\AdminUi\Controller\ContentEditController::translationSuccessAction'));
     }
 }
-
-class_alias(ContentTranslateSuccessView::class, 'EzSystems\EzPlatformAdminUi\View\ContentTranslateSuccessView');

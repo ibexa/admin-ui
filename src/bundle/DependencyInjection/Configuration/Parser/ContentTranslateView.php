@@ -15,5 +15,3 @@ class ContentTranslateView extends View
     public const NODE_KEY = 'content_translate_view';
     public const INFO = 'Template selection settings when displaying a content translate form';
 }
-
-class_alias(ContentTranslateView::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\ContentTranslateView');

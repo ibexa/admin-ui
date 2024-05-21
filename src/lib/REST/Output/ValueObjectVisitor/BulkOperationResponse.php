@@ -56,5 +56,3 @@ class BulkOperationResponse extends ValueObjectVisitor
         $generator->endObjectElement('BulkOperationResponse');
     }
 }
-
-class_alias(BulkOperationResponse::class, 'EzSystems\EzPlatformAdminUi\REST\Output\ValueObjectVisitor\BulkOperationResponse');

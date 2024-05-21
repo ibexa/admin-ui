@@ -114,5 +114,3 @@ class RoleEditRightSidebarBuilder extends AbstractBuilder implements Translation
         ];
     }
 }
-
-class_alias(RoleEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\Role\RoleEditRightSidebarBuilder');

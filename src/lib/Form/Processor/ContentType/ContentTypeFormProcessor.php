@@ -221,5 +221,3 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         return $fieldDefinitionIdentifier;
     }
 }
-
-class_alias(ContentTypeFormProcessor::class, 'EzSystems\EzPlatformAdminUi\Form\Processor\ContentType\ContentTypeFormProcessor');

@@ -34,5 +34,3 @@ final class URLWildcardDeleteData
         $this->urlWildcardsChoices = $urlWildcardsChoices;
     }
 }
-
-class_alias(URLWildcardDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\URLWildcard\URLWildcardDeleteData');

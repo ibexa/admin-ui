@@ -75,5 +75,3 @@ class TrashItemTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(TrashItemTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\TrashItemTransformer');

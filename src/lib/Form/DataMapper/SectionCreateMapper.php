@@ -57,5 +57,3 @@ class SectionCreateMapper implements DataMapperInterface
         ]);
     }
 }
-
-class_alias(SectionCreateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\SectionCreateMapper');

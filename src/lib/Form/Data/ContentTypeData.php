@@ -149,5 +149,3 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
         ];
     }
 }
-
-class_alias(ContentTypeData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData');

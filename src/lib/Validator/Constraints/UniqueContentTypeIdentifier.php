@@ -44,5 +44,3 @@ class UniqueContentTypeIdentifier extends Constraint implements TranslationConta
         return self::CLASS_CONSTRAINT;
     }
 }
-
-class_alias(UniqueContentTypeIdentifier::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\UniqueContentTypeIdentifier');

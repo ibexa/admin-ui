@@ -117,5 +117,3 @@ class UrlAliasController extends Controller
         return $this->redirectToRoute('ibexa.dashboard');
     }
 }
-
-class_alias(UrlAliasController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\UrlAliasController');

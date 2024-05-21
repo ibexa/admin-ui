@@ -167,5 +167,3 @@ class AssetController extends Controller
         );
     }
 }
-
-class_alias(AssetController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\AssetController');

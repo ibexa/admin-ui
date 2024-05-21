@@ -44,5 +44,3 @@ class Notifications implements ProviderInterface
         return $config;
     }
 }
-
-class_alias(Notifications::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Notifications');

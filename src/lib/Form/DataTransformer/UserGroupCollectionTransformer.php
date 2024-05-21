@@ -73,5 +73,3 @@ class UserGroupCollectionTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(UserGroupCollectionTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\UserGroupCollectionTransformer');

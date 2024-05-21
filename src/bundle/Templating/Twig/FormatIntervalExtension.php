@@ -72,5 +72,3 @@ class FormatIntervalExtension extends AbstractExtension implements TranslationCo
         ];
     }
 }
-
-class_alias(FormatIntervalExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\FormatIntervalExtension');

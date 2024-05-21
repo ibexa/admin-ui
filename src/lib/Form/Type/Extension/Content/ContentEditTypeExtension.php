@@ -50,5 +50,3 @@ class ContentEditTypeExtension extends AbstractTypeExtension
         return [ContentEditType::class];
     }
 }
-
-class_alias(ContentEditTypeExtension::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Extension\Content\ContentEditTypeExtension');

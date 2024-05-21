@@ -65,5 +65,3 @@ class SectionParamConverter implements ParamConverterInterface
         return Section::class === $configuration->getClass();
     }
 }
-
-class_alias(SectionParamConverter::class, 'EzSystems\EzPlatformAdminUiBundle\ParamConverter\SectionParamConverter');

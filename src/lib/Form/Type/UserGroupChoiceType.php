@@ -58,5 +58,3 @@ class UserGroupChoiceType extends AbstractType
         return ChoiceType::class;
     }
 }
-
-class_alias(UserGroupChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\UserGroupChoiceType');

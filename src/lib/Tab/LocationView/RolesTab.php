@@ -141,5 +141,3 @@ class RolesTab extends AbstractEventDispatchingTab implements OrderedTabInterfac
         return array_replace($contextParameters, $viewParameters);
     }
 }
-
-class_alias(RolesTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\RolesTab');

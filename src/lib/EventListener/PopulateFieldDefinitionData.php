@@ -40,5 +40,3 @@ class PopulateFieldDefinitionData implements EventSubscriberInterface
         $event->setFieldDefinitionData($fieldDefinitionData);
     }
 }
-
-class_alias(PopulateFieldDefinitionData::class, 'EzSystems\EzPlatformAdminUi\EventListener\PopulateFieldDefinitionData');

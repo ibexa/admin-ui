@@ -59,5 +59,3 @@ class LoadSubtreeRequest extends CriterionParser
         return (count($criteria) === 1) ? $criteria[0] : new Criterion\LogicalAnd($criteria);
     }
 }
-
-class_alias(LoadSubtreeRequest::class, 'EzSystems\EzPlatformAdminUi\REST\Input\Parser\ContentTree\LoadSubtreeRequest');

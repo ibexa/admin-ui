@@ -70,5 +70,3 @@ class FieldEditRenderingExtension extends AbstractExtension
         }
     }
 }
-
-class_alias(FieldEditRenderingExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\FieldEditRenderingExtension');

@@ -40,5 +40,3 @@ class UniversalDiscoveryWidget implements ProviderInterface
         return $this->configResolver->getConfig(ConfigResolver::DEFAULT_CONFIGURATION_KEY)['starting_location_id'];
     }
 }
-
-class_alias(UniversalDiscoveryWidget::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Module\UniversalDiscoveryWidget');

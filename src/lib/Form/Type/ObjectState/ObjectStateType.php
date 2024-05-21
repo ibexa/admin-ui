@@ -37,5 +37,3 @@ class ObjectStateType extends AbstractType
         return HiddenType::class;
     }
 }
-
-class_alias(ObjectStateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateType');

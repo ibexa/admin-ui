@@ -47,5 +47,3 @@ class RoleCreateType extends AbstractType
         ]);
     }
 }
-
-class_alias(RoleCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Role\RoleCreateType');

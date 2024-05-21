@@ -54,5 +54,3 @@ class TrashItemRestoreType extends AbstractType
         ]);
     }
 }
-
-class_alias(TrashItemRestoreType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Trash\TrashItemRestoreType');

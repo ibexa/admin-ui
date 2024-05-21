@@ -64,5 +64,3 @@ class ContentMainLocationUpdateType extends AbstractType
         ]);
     }
 }
-
-class_alias(ContentMainLocationUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\Location\ContentMainLocationUpdateType');

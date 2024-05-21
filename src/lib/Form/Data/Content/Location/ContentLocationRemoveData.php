@@ -73,5 +73,3 @@ class ContentLocationRemoveData
         $this->locations = $locations;
     }
 }
-
-class_alias(ContentLocationRemoveData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentLocationRemoveData');

@@ -58,5 +58,3 @@ class ContentHaveUniqueRelation extends AbstractSpecification
         return true;
     }
 }
-
-class_alias(ContentHaveUniqueRelation::class, 'EzSystems\EzPlatformAdminUi\Specification\Content\ContentHaveUniqueRelation');

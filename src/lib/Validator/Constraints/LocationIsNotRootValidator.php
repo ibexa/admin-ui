@@ -34,5 +34,3 @@ class LocationIsNotRootValidator extends ConstraintValidator
         }
     }
 }
-
-class_alias(LocationIsNotRootValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationIsNotRootValidator');

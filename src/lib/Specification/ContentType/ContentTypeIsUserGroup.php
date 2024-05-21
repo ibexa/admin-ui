@@ -43,5 +43,3 @@ class ContentTypeIsUserGroup extends AbstractSpecification
         return in_array($contentType->identifier, $this->userGroupContentTypeIdentifier, true);
     }
 }
-
-class_alias(ContentTypeIsUserGroup::class, 'EzSystems\EzPlatformAdminUi\Specification\ContentType\ContentTypeIsUserGroup');

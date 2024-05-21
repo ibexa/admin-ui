@@ -63,5 +63,3 @@ class ContentTypeGroupParamConverter implements ParamConverterInterface
         return ContentTypeGroup::class === $configuration->getClass();
     }
 }
-
-class_alias(ContentTypeGroupParamConverter::class, 'EzSystems\EzPlatformAdminUiBundle\ParamConverter\ContentTypeGroupParamConverter');

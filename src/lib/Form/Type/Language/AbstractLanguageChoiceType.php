@@ -42,5 +42,3 @@ abstract class AbstractLanguageChoiceType extends AbstractType
             ]);
     }
 }
-
-class_alias(AbstractLanguageChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Language\AbstractLanguageChoiceType');

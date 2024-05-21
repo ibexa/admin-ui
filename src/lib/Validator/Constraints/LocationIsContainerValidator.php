@@ -34,5 +34,3 @@ class LocationIsContainerValidator extends ConstraintValidator
         }
     }
 }
-
-class_alias(LocationIsContainerValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationIsContainerValidator');

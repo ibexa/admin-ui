@@ -39,5 +39,3 @@ class ValidatorConfigurationValidator extends FieldTypeValidator
         return 'defaultValue';
     }
 }
-
-class_alias(ValidatorConfigurationValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\ValidatorConfigurationValidator');

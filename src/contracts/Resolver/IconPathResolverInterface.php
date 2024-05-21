@@ -12,5 +12,3 @@ interface IconPathResolverInterface
 {
     public function resolve(string $icon, ?string $set = null): string;
 }
-
-class_alias(IconPathResolverInterface::class, 'Ibexa\Platform\Assets\Resolver\IconPathResolverInterface');

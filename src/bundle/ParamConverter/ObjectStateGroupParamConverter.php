@@ -62,5 +62,3 @@ class ObjectStateGroupParamConverter implements ParamConverterInterface
         return ObjectStateGroup::class === $configuration->getClass();
     }
 }
-
-class_alias(ObjectStateGroupParamConverter::class, 'EzSystems\EzPlatformAdminUiBundle\ParamConverter\ObjectStateGroupParamConverter');

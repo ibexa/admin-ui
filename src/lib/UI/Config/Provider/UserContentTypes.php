@@ -32,5 +32,3 @@ class UserContentTypes implements ProviderInterface
         return $this->configResolver->getParameter('user_content_type_identifier');
     }
 }
-
-class_alias(UserContentTypes::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\UserContentTypes');

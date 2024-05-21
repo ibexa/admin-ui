@@ -58,5 +58,3 @@ class UniqueContentTypeIdentifierValidator extends ConstraintValidator
         }
     }
 }
-
-class_alias(UniqueContentTypeIdentifierValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\UniqueContentTypeIdentifierValidator');

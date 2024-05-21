@@ -113,5 +113,3 @@ class RolesDataset
         return $this->data;
     }
 }
-
-class_alias(RolesDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\RolesDataset');

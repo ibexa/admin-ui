@@ -106,5 +106,3 @@ class Node extends RestValue
         $this->pathString = $pathString;
     }
 }
-
-class_alias(Node::class, 'EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\Node');

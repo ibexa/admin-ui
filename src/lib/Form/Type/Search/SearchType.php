@@ -126,5 +126,3 @@ final class SearchType extends AbstractType
         ];
     }
 }
-
-class_alias(SearchType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Search\SearchType');

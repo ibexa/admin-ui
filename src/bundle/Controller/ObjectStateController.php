@@ -385,5 +385,3 @@ class ObjectStateController extends Controller
         return array_combine($statesIds, array_fill_keys($statesIds, false));
     }
 }
-
-class_alias(ObjectStateController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ObjectStateController');

@@ -87,5 +87,3 @@ class MediaFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(MediaFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\MediaFormMapper');

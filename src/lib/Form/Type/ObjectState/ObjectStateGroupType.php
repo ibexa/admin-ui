@@ -37,5 +37,3 @@ class ObjectStateGroupType extends AbstractType
         return HiddenType::class;
     }
 }
-
-class_alias(ObjectStateGroupType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateGroupType');

@@ -40,5 +40,3 @@ class LanguagesDeleteData
         $this->languages = $languages;
     }
 }
-
-class_alias(LanguagesDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguagesDeleteData');

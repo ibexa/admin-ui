@@ -51,5 +51,3 @@ class FieldDefinitionGroupsUtil
         return $fieldDefinitionsByGroup;
     }
 }
-
-class_alias(FieldDefinitionGroupsUtil::class, 'EzSystems\EzPlatformAdminUi\Util\FieldDefinitionGroupsUtil');

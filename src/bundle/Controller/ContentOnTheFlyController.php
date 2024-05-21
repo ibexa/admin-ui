@@ -374,5 +374,3 @@ class ContentOnTheFlyController extends Controller
         return $view;
     }
 }
-
-class_alias(ContentOnTheFlyController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentOnTheFlyController');

@@ -48,5 +48,3 @@ class UserSelectionAllowedContentTypes implements EventSubscriberInterface
         $event->setConfig($config);
     }
 }
-
-class_alias(UserSelectionAllowedContentTypes::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\UserSelectionAllowedContentTypes');

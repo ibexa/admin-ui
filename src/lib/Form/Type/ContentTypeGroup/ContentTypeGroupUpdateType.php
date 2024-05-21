@@ -48,5 +48,3 @@ class ContentTypeGroupUpdateType extends AbstractType
         ]);
     }
 }
-
-class_alias(ContentTypeGroupUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupUpdateType');

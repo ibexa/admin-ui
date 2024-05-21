@@ -104,5 +104,3 @@ class RoleCopyRightSidebarBuilder extends AbstractBuilder implements Translation
         ];
     }
 }
-
-class_alias(RoleCopyRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\Role\RoleCopyRightSidebarBuilder');

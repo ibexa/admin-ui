@@ -150,5 +150,3 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
             ->setAllowedTypes('language', Language::class);
     }
 }
-
-class_alias(ContentTypeDraftMapper::class, 'EzSystems\EzPlatformAdminUi\Form\Data\FormMapper\ContentTypeDraftMapper');

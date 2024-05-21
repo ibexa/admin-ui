@@ -63,5 +63,3 @@ class DateTimePickerTransformer implements DataTransformerInterface
         return DateTime::createFromFormat('U', (string)$value);
     }
 }
-
-class_alias(DateTimePickerTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\DateTimePickerTransformer');

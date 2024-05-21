@@ -33,5 +33,3 @@ class RoleCreateData
         return $this;
     }
 }
-
-class_alias(RoleCreateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleCreateData');

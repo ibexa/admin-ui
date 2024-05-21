@@ -177,5 +177,3 @@ class NotificationController extends Controller
         return $response;
     }
 }
-
-class_alias(NotificationController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\NotificationController');

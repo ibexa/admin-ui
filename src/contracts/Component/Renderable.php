@@ -12,5 +12,3 @@ interface Renderable
 {
     public function render(array $parameters = []): string;
 }
-
-class_alias(Renderable::class, 'EzSystems\EzPlatformAdminUi\Component\Renderable');

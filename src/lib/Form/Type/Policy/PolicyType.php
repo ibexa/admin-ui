@@ -25,5 +25,3 @@ class PolicyType extends AbstractType
         return HiddenType::class;
     }
 }
-
-class_alias(PolicyType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Policy\PolicyType');

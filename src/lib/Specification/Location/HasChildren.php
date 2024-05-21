@@ -36,5 +36,3 @@ class HasChildren extends AbstractSpecification
         return 0 < $childCount;
     }
 }
-
-class_alias(HasChildren::class, 'EzSystems\EzPlatformAdminUi\Specification\Location\HasChildren');

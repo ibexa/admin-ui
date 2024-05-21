@@ -27,5 +27,3 @@ class LocationIsContainer extends Constraint implements TranslationContainerInte
         ];
     }
 }
-
-class_alias(LocationIsContainer::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationIsContainer');

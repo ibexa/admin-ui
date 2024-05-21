@@ -42,5 +42,3 @@ class SectionDeleteType extends AbstractType
         ]);
     }
 }
-
-class_alias(SectionDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Section\SectionDeleteType');

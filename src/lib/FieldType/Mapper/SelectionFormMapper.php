@@ -97,5 +97,3 @@ class SelectionFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(SelectionFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\SelectionFormMapper');

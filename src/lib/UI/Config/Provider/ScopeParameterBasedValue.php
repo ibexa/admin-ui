@@ -47,5 +47,3 @@ class ScopeParameterBasedValue implements ProviderInterface
         return $this->configResolver->getParameter($this->parameterName, $this->namespace, $this->scope);
     }
 }
-
-class_alias(ScopeParameterBasedValue::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\ScopeParameterBasedValue');

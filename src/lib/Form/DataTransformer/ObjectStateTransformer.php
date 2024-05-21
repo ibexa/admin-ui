@@ -56,5 +56,3 @@ class ObjectStateTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(ObjectStateTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\ObjectStateTransformer');

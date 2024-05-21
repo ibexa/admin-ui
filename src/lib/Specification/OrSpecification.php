@@ -28,5 +28,3 @@ class OrSpecification extends AbstractSpecification
         return $this->baseSpecification->isSatisfiedBy($item);
     }
 }
-
-class_alias(OrSpecification::class, 'EzSystems\EzPlatformAdminUi\Specification\OrSpecification');

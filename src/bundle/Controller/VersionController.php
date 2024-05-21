@@ -125,5 +125,3 @@ class VersionController extends Controller
         ]));
     }
 }
-
-class_alias(VersionController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\VersionController');

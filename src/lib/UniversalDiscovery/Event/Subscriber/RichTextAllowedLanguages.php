@@ -44,5 +44,3 @@ class RichTextAllowedLanguages implements EventSubscriberInterface
         $event->setConfig($config);
     }
 }
-
-class_alias(RichTextAllowedLanguages::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\RichTextAllowedLanguages');

@@ -68,5 +68,3 @@ class RenderGroupEvent extends Event
         return $this->parameters;
     }
 }
-
-class_alias(RenderGroupEvent::class, 'EzSystems\EzPlatformAdminUi\Component\Event\RenderGroupEvent');

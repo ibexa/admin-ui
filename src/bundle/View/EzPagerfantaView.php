@@ -36,5 +36,3 @@ class EzPagerfantaView extends DefaultView
         return 'ibexa';
     }
 }
-
-class_alias(EzPagerfantaView::class, 'EzSystems\EzPlatformAdminUiBundle\View\EzPagerfantaView');

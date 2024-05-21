@@ -74,5 +74,3 @@ class SubtreePath extends AbstractParser
         }
     }
 }
-
-class_alias(SubtreePath::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\SubtreePath');

@@ -34,5 +34,3 @@ final class NonAdminRESTRequestMatcher implements RequestMatcherInterface
         return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
     }
 }
-
-class_alias(NonAdminRESTRequestMatcher::class, 'EzSystems\EzPlatformAdminUi\REST\Security\NonAdminRESTRequestMatcher');

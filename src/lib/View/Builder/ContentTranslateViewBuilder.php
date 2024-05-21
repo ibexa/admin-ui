@@ -285,5 +285,3 @@ class ContentTranslateViewBuilder implements ViewBuilder
         return null;
     }
 }
-
-class_alias(ContentTranslateViewBuilder::class, 'EzSystems\EzPlatformAdminUi\View\Builder\ContentTranslateViewBuilder');

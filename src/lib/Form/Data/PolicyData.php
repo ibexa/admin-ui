@@ -82,5 +82,3 @@ class PolicyData
         return $data;
     }
 }
-
-class_alias(PolicyData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\PolicyData');

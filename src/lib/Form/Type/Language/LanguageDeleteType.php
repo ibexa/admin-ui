@@ -38,5 +38,3 @@ class LanguageDeleteType extends AbstractType
         ]);
     }
 }
-
-class_alias(LanguageDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Language\LanguageDeleteType');

@@ -51,5 +51,3 @@ class ContentTypeDraftParamConverter implements ParamConverterInterface
         return ContentTypeDraft::class === $configuration->getClass();
     }
 }
-
-class_alias(ContentTypeDraftParamConverter::class, 'EzSystems\EzPlatformAdminUiBundle\ParamConverter\ContentTypeDraftParamConverter');

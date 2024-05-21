@@ -73,5 +73,3 @@ abstract class SubtreeQueryType extends OptionsResolverBasedQueryType implements
 
     abstract protected function getSubtreePathFromConfiguration(): string;
 }
-
-class_alias(SubtreeQueryType::class, 'EzSystems\EzPlatformAdminUi\QueryType\SubtreeQueryType');

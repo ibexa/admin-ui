@@ -76,5 +76,3 @@ final class VersionInfoTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(VersionInfoTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\VersionInfoTransformer');

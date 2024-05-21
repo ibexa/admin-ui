@@ -50,5 +50,3 @@ class SectionType extends AbstractType
         return HiddenType::class;
     }
 }
-
-class_alias(SectionType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Embedded\SectionType');

@@ -60,5 +60,3 @@ class DatePeriodChoiceLoader extends BaseChoiceLoader
         ];
     }
 }
-
-class_alias(DatePeriodChoiceLoader::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\DatePeriodChoiceLoader');

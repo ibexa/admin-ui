@@ -66,5 +66,3 @@ class LocationUpdateVisibilityData
         $this->hidden = $hidden;
     }
 }
-
-class_alias(LocationUpdateVisibilityData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationUpdateVisibilityData');

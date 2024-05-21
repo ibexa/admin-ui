@@ -27,5 +27,3 @@ class LocationIsWithinCopySubtreeLimit extends Constraint implements Translation
         ];
     }
 }
-
-class_alias(LocationIsWithinCopySubtreeLimit::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimit');

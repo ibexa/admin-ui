@@ -126,5 +126,3 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         return array_merge($saLanguages, array_values($languagesByCode));
     }
 }
-
-class_alias(ContentTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\ContentTab');

@@ -36,5 +36,3 @@ class LocationCopySubtreeData extends AbstractLocationCopyData
      */
     protected $newParentLocation;
 }
-
-class_alias(LocationCopySubtreeData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationCopySubtreeData');

@@ -73,5 +73,3 @@ class ContentTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(ContentTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\ContentTransformer');

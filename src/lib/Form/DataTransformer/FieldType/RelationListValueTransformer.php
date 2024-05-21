@@ -40,5 +40,3 @@ class RelationListValueTransformer implements DataTransformerInterface
         return new Value($destinationContentIds);
     }
 }
-
-class_alias(RelationListValueTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType\RelationListValueTransformer');

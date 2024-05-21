@@ -40,5 +40,3 @@ class RoleData
         return new self($role->identifier);
     }
 }
-
-class_alias(RoleData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\RoleData');

@@ -108,5 +108,3 @@ class TranslationAddData
         return $this;
     }
 }
-
-class_alias(TranslationAddData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\TranslationAddData');

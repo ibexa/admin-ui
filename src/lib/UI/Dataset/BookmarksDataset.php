@@ -62,5 +62,3 @@ class BookmarksDataset
         return $this->data;
     }
 }
-
-class_alias(BookmarksDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\BookmarksDataset');
