@@ -29,7 +29,7 @@ const checkIsEmpty = (field) => {
     }
 
     return {
-        isValid: input.value,
+        isValid: input?.value ?? true,
         errorMessage,
     };
 };
@@ -40,9 +40,11 @@ const validateIsEmptyField = (field) => {
     const validatorOutput = checkIsEmpty(field);
     const { isValid, errorMessage } = validatorOutput;
 
-    input.classList.toggle('is-invalid', !isValid);
+    if (input) {
+        input.classList.toggle('is-invalid', !isValid);
+    }
 
-    if (label) {
+    if (label && input) {
         label.classList.toggle('is-invalid', !isValid);
     }
 
