@@ -80,7 +80,8 @@ services:
     Ibexa\Bundle\AdminUi\Controller\ContentViewController:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
 
-    Ibexa\Bundle\AdminUi\Controller\DashboardController: ~
+    Ibexa\Bundle\AdminUi\Controller\DashboardController:
+        parent: Ibexa\Contracts\AdminUi\Controller\Controller
 
     Ibexa\Bundle\AdminUi\Controller\LanguageController:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
