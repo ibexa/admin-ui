@@ -3801,11 +3801,6 @@ parameters:
 			path: src/lib/Exception/ValueMapperNotFoundException.php
 
 		-
-			message: "#^Class EzSystems\\\\RepositoryForms\\\\FieldType\\\\FieldDefinitionFormMapperInterface not found\\.$#"
-			count: 1
-			path: src/lib/FieldType/FieldDefinitionFormMapperInterface.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\FieldType\\\\Mapper\\\\AuthorFormMapper\\:\\:mapFieldValueForm\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/FieldType/Mapper/AuthorFormMapper.php
@@ -4194,11 +4189,6 @@ parameters:
 			message: "#^Property Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\ContentTypeGroupData\\:\\:\\$identifier \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: src/lib/Form/Data/ContentTypeGroupData.php
-
-		-
-			message: "#^Class EzSystems\\\\RepositoryForms\\\\Data\\\\FieldDefinitionData not found\\.$#"
-			count: 1
-			path: src/lib/Form/Data/FieldDefinitionData.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\FieldDefinitionData\\:\\:getFieldTypeIdentifier\\(\\) has no return type specified\\.$#"
@@ -7281,11 +7271,6 @@ parameters:
 			path: src/lib/Form/Type/RoleAssignment/RoleAssignmentType.php
 
 		-
-			message: "#^If condition is always false\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Search/DateIntervalType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Search\\\\SearchType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Form/Type/Search/SearchType.php
@@ -7581,11 +7566,6 @@ parameters:
 			path: src/lib/Form/Type/Version/VersionRemoveType.php
 
 		-
-			message: "#^Class EzSystems\\\\RepositoryForms\\\\Limitation\\\\LimitationFormMapperInterface not found\\.$#"
-			count: 1
-			path: src/lib/Limitation/LimitationFormMapperInterface.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Limitation\\\\LimitationFormMapperInterface\\:\\:filterLimitationValues\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Limitation/LimitationFormMapperInterface.php
@@ -7601,11 +7581,6 @@ parameters:
 			path: src/lib/Limitation/LimitationFormMapperRegistry.php
 
 		-
-			message: "#^Class EzSystems\\\\RepositoryForms\\\\Limitation\\\\LimitationFormMapperRegistryInterface not found\\.$#"
-			count: 1
-			path: src/lib/Limitation/LimitationFormMapperRegistryInterface.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Limitation\\\\LimitationFormMapperRegistryInterface\\:\\:addMapper\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Limitation/LimitationFormMapperRegistryInterface.php
@@ -7616,19 +7591,9 @@ parameters:
 			path: src/lib/Limitation/LimitationFormMapperRegistryInterface.php
 
 		-
-			message: "#^Class EzSystems\\\\RepositoryForms\\\\Limitation\\\\LimitationValueMapperInterface not found\\.$#"
-			count: 1
-			path: src/lib/Limitation/LimitationValueMapperInterface.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Limitation\\\\LimitationValueMapperRegistry\\:\\:addMapper\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Limitation/LimitationValueMapperRegistry.php
-
-		-
-			message: "#^Class EzSystems\\\\RepositoryForms\\\\Limitation\\\\LimitationValueMapperRegistryInterface not found\\.$#"
-			count: 1
-			path: src/lib/Limitation/LimitationValueMapperRegistryInterface.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Limitation\\\\LimitationValueMapperRegistryInterface\\:\\:addMapper\\(\\) has no return type specified\\.$#"
