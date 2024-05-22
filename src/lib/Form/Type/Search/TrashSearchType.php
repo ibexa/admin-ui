@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Form\Type\Search;
 use Ibexa\AdminUi\Form\Data\Search\TrashSearchData;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\DatePeriodChoiceLoader;
 use Ibexa\AdminUi\Form\Type\Content\SortType;
+use Ibexa\AdminUi\Form\Type\Date\DateIntervalType;
 use Ibexa\AdminUi\Form\Type\Section\SectionChoiceType;
 use Ibexa\AdminUi\Form\Type\Trash\ChoiceList\Loader\SearchContentTypeChoiceLoader;
 use Ibexa\AdminUi\Form\Type\User\UserType;
