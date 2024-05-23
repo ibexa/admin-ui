@@ -62,6 +62,9 @@ jobs:
           dependency-versions: "highest"
           composer-options: "--prefer-dist --no-progress"
 
+      - name: 'Use dev dependency'
+        run: composer req ibexa/core:'dev-ibx-7911-drop-magic-getters as 4.6.x-dev' ibexa/user:'dev-ibx-7911-drop-magic-getters as 4.6.x-dev'
+
       - name: Setup problem matchers for PHPUnit
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
@@ -112,6 +115,9 @@ jobs:
       -   uses: ramsey/composer-install@v2
           with:
             dependency-versions: "highest"
+
+      -   name: 'Use dev dependency'
+          run: composer req ibexa/core:'dev-ibx-7911-drop-magic-getters as 4.6.x-dev' ibexa/user:'dev-ibx-7911-drop-magic-getters as 4.6.x-dev'
 
       -   name: Setup problem matchers for PHPUnit
           run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
@@ -167,6 +173,9 @@ jobs:
       -   uses: ramsey/composer-install@v2
           with:
             dependency-versions: "highest"
+
+      -   name: 'Use dev dependency'
+          run: composer req ibexa/core:'dev-ibx-7911-drop-magic-getters as 4.6.x-dev' ibexa/user:'dev-ibx-7911-drop-magic-getters as 4.6.x-dev'
 
       -   name: Setup problem matchers for PHPUnit
           run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
