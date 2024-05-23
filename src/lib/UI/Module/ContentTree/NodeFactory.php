@@ -392,7 +392,7 @@ final class NodeFactory
         }
 
         $translations = $versionInfo->getLanguageCodes();
-        $mainLanguageCode = $content->contentInfo->mainLanguageCode;
+        $mainLanguageCode = $versionInfo->getContentInfo()->getMainLanguageCode();
 
         return new Node(
             $depth,

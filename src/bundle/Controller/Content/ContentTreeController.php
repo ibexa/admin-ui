@@ -269,6 +269,17 @@ class ContentTreeController extends RestController
         Content $content,
         string $languageCode
     ): bool {
+        $canPreview = $this->permissionResolver->canUser(
+            'content',
+            'versionread',
+            $content,
+            [$location]
+        );
+
+        if (!$canPreview) {
+            return false;
+        }
+
         $versionNo = $content->getVersionInfo()->getVersionNo();
 
         $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
@@ -277,14 +288,7 @@ class ContentTreeController extends RestController
             $languageCode
         );
 
-        $canPreview = $this->permissionResolver->canUser(
-            'content',
-            'versionread',
-            $content,
-            [$location]
-        );
-
-        return $canPreview && !empty($siteAccesses);
+        return !empty($siteAccesses);
     }
 }
 
