@@ -23,5 +23,7 @@
     <function name="hide">
         <hasAccess>false</hasAccess>
     </function>
-    <previewableTranslations />
+    <previewableTranslations>
+        <value>eng-GB</value>
+    </previewableTranslations>
 </ContentTreeNodeExtendedInfo>

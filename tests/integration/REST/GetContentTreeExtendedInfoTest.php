@@ -35,6 +35,7 @@ final class GetContentTreeExtendedInfoTest extends BaseAdminUiRestWebTestCase
                 [
                     'user/login' => [],
                     'content/read' => [],
+                    'content/versionread' => [],
                     'content/create' => [
                         new ContentTypeLimitation(
                             ['limitationValues' => ['1', '16']]
