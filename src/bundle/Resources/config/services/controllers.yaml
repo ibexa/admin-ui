@@ -77,9 +77,11 @@ services:
         tags:
             - controller.service_arguments
 
-    Ibexa\Bundle\AdminUi\Controller\ContentViewController: ~
+    Ibexa\Bundle\AdminUi\Controller\ContentViewController:
+        parent: Ibexa\Contracts\AdminUi\Controller\Controller
 
-    Ibexa\Bundle\AdminUi\Controller\DashboardController: ~
+    Ibexa\Bundle\AdminUi\Controller\DashboardController:
+        parent: Ibexa\Contracts\AdminUi\Controller\Controller
 
     Ibexa\Bundle\AdminUi\Controller\LanguageController:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
@@ -225,8 +227,6 @@ services:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         arguments:
             $translationHelper: '@Ibexa\Core\Helper\TranslationHelper'
-
-    Ibexa\Contracts\AdminUi\Controller\Controller: ~
 
     Ibexa\Bundle\AdminUi\Controller\FieldDefinitionController:
         parent: Ibexa\Rest\Server\Controller
