@@ -33,6 +33,18 @@ jobs:
       - name: Run code style check
         run: composer run-script check-cs -- --format=checkstyle | cs2pr
 
+  linters:
+    name: Run linters
+    runs-on: "ubuntu-22.04"
+    strategy:
+      matrix:
+        php:
+          - '8.3'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ibiqlik/action-yamllint@v3
+
   tests:
     name: Tests
     runs-on: "ubuntu-22.04"
