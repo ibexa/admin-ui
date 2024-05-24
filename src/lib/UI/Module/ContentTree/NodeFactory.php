@@ -181,7 +181,7 @@ final class NodeFactory
             $contentTypeCriterion = new Criterion\ContentTypeIdentifier($this->getSetting('allowed_content_types'));
         }
 
-        if (empty($this->allowedContentTypes) && !empty($this->getSetting('ignored_content_types'))) {
+        if (!empty($this->getSetting('ignored_content_types'))) {
             $contentTypeCriterion = new Criterion\LogicalNot(
                 new Criterion\ContentTypeIdentifier($this->getSetting('ignored_content_types'))
             );
