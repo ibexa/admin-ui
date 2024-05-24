@@ -411,7 +411,7 @@ final class NodeFactory
             $previewableTranslations,
             '', // node name will be provided later by `supplyTranslatedContentName` method
             null !== $contentType ? $contentType->getIdentifier() : '',
-            !(null !== $contentType) || $contentType->isContainer(),
+            null === $contentType || $contentType->isContainer(),
             $location->isInvisible() || $location->isHidden(),
             $limit,
             $totalChildrenCount,
