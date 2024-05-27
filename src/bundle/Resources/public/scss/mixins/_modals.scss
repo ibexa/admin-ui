@@ -6,7 +6,7 @@
 }
 
 @mixin modal-content() {
-    padding: 0 calculateRem(24px);
+    padding: 0 calculateRem(32px);
 }
 
 @mixin modal-header() {
@@ -34,7 +34,7 @@
     position: absolute;
     display: block;
     align-items: center;
-    top: calculateRem(24px);
+    top: calculateRem(34px);
     right: 0;
     cursor: pointer;
     opacity: 1;
