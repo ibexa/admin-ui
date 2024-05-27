@@ -129,6 +129,35 @@
 {% endblock %}
 
 {% block content %}
+<!-- Button trigger modal -->
+
+<button
+    id="x"
+    type="button"
+    class="btn ibexa-btn ibexa-btn--ghost"
+    data-bs-toggle="modal"
+    data-bs-target="#xx"
+>
+    Test
+</button>
+
+{% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
+    class: 'ibexa-modal--send-to-trash',
+    no_header: true,
+    id: 'xx',
+    message: 'xxxxxxxxxxx',
+} %}
+    {% block footer_content %}
+        <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
+            {{ 'modal.cancel'|trans|desc('Cancel') }}
+        </button>
+    {% endblock %}
+{% endembed %}
+
+
+<!-- Modal -->
+
+
     <div class="align-items-stretch ibexa-main-row">
         <div class="ibexa-content-container">
             <div class="panel panel-primary">

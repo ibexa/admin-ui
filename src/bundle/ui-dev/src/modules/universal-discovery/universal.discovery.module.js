@@ -340,7 +340,6 @@ const UniversalDiscoveryModule = (props) => {
 
     useEffect(() => {
         abortControllerRef.current?.abort();
-
         abortControllerRef.current = new AbortController();
 
         Promise.all([loadPermissions(), loadVersions(abortControllerRef.current.signal)]).then((response) => {

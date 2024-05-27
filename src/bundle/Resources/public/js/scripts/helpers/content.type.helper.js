@@ -93,6 +93,10 @@ const getContentTypeNameByHref = (contentTypeHref) => {
     return getContentTypeDataByHref(contentTypeHref)?.name ?? null;
 };
 
+const getContentTypeIdentifierByHref = (contentTypeHref) => {
+    return getContentTypeDataByHref(contentTypeHref)?.identifier ?? null;
+};
+
 const getContentTypeDataByHref = (contentTypeHref) => {
     if (!contentTypesDataMapByHref) {
         contentTypesDataMapByHref = createContentTypeDataMapByHref();
@@ -113,4 +117,5 @@ export {
     getContentTypeIconUrlByHref,
     getContentTypeDataByHref,
     getContentTypeNameByHref,
+    getContentTypeIdentifierByHref
 };

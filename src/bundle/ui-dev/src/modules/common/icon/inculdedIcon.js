@@ -10,6 +10,7 @@ import Blog from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/blog.svg
 import BlogPost from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/blog_post.svg';
 import CaretDown from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/caret-down.svg';
 import CaretUp from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/caret-up.svg';
+import CircleClose from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/circle-close.svg';
 import Create from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/create.svg';
 import Checkmark from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/checkmark.svg';
 import ContentTree from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/content-tree.svg';
@@ -32,6 +33,7 @@ import Product from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/produ
 import QaForm from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/qa-form.svg';
 import Search from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/search.svg';
 import Spinner from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/spinner.svg';
+import SystemInformation from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/system-information.svg';
 import Trash from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/trash.svg';
 import Video from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/video.svg';
 import View from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/view.svg';
@@ -51,9 +53,10 @@ const iconsMap = {
     back: Back,
     blog: Blog,
     blog_post: BlogPost,
-    create: Create,
     'caret-down': CaretDown,
     'caret-up': CaretUp,
+    'circle-close': CircleClose,
+    create: Create,
     checkmark: Checkmark,
     'content-tree': ContentTree,
     date: Date,
@@ -75,6 +78,7 @@ const iconsMap = {
     'qa-form': QaForm,
     search: Search,
     spinner: Spinner,
+    'system-information': SystemInformation,
     trash: Trash,
     video: Video,
     view: View,
