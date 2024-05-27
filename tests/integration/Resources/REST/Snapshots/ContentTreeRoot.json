@@ -5,10 +5,10 @@
       {
         "_media-type": "application\/vnd.ibexa.api.ContentTreeNode+json",
         "locationId": 2,
+        "mainLanguageCode": "eng-GB",
         "contentId": 57,
         "versionNo": 1,
         "translations": "eng-GB",
-        "previewableTranslations": "eng-GB",
         "name": "Home",
         "pathString": "/1/2/",
         "contentTypeIdentifier": "landing_page",
@@ -22,10 +22,10 @@
           {
             "_media-type": "application\/vnd.ibexa.api.ContentTreeNode+json",
             "locationId": 60,
+            "mainLanguageCode": "eng-GB",
             "contentId": 58,
             "versionNo": 1,
             "translations": "eng-GB",
-            "previewableTranslations": "eng-GB",
             "name": "Contact Us",
             "pathString": "/1/2/60/",
             "contentTypeIdentifier": "feedback_form",
