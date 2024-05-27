@@ -191,7 +191,7 @@ select {
 }
 
 .ibexa-container {
-    padding: calculateRem(32px);
+    padding: calculateRem(24px);
     background: $ibexa-color-white;
     border: calculateRem(1px) solid $ibexa-color-light;
     border-radius: $ibexa-border-radius;

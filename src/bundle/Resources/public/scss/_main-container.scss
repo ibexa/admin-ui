@@ -13,6 +13,10 @@
         height: 100%;
         overflow-y: auto;
         box-shadow: $ibexa-edit-content-box-shadow;
+
+        & > .container {
+            padding: 0 calculateRem(32px);
+        }
     }
 
     &--edit-container {
