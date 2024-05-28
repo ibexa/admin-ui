@@ -148,7 +148,7 @@ const ContentCreateWidget = () => {
     );
     const instantFilterInputWrapperClassName = createCssClassNames({
         'ibexa-instant-filter__input-wrapper': true,
-        'ibexa-instant-filter__input-wrapper--hidden': allGroupsItemsCount < MINIMUM_ITEMS_COUNT_FOR_SEARCH_TO_APPEAR,
+        'ibexa-instant-filter__input-wrapper--hidden': allGroupsItemsCount <= MINIMUM_ITEMS_COUNT_FOR_SEARCH_TO_APPEAR,
     });
 
     useEffect(() => {
