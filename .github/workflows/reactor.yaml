@@ -10,4 +10,4 @@ jobs:
     uses: ibexa/gh-workflows/.github/workflows/repo-reactor.yml@main
     secrets: inherit
     with:
-      feature_linter: "true"
+      feature_linter: true
