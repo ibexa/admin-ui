@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, { useContext, useState, useEffect, useRef, useMemo } from 'react';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
@@ -18,6 +18,8 @@ import {
 
 import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+
+const MINIMUM_ITEMS_COUNT_FOR_SEARCH_TO_APPEAR = 10;
 
 const ContentCreateWidget = () => {
     const Translator = getTranslator();
@@ -108,6 +110,47 @@ const ContentCreateWidget = () => {
     const contentTypesWithSuggestions = Object.entries(contentTypes);
     const suggestions = suggestionsStorage[selectedLocation?.parentLocationId] ?? [];
 
+    if (suggestions) {
+        contentTypesWithSuggestions.unshift(['Suggestions', suggestions.map(({ data }) => data)]);
+    }
+
+    const { contentTypesToShow, allGroupsItemsCount } = useMemo(
+        () =>
+            contentTypesWithSuggestions.reduce(
+                (
+                    { contentTypesToShow: contentTypesToShowPrevious, allGroupsItemsCount: allGroupsItemsCountPrevious },
+                    [groupName, groupItems],
+                ) => {
+                    const restrictedContentTypeIds = selectedLocation?.permissions?.create.restrictedContentTypeIds ?? [];
+                    const groupFilteredItems = [...groupItems].filter((groupItem) => {
+                        const hasNotPermission =
+                            restrictedContentTypeIds.length && !restrictedContentTypeIds.includes(groupItem.id.toString());
+                        const isNotAllowedContentType = allowedContentTypes && !allowedContentTypes.includes(groupItem.identifier);
+                        const isHiddenByConfig = groupItem.isHidden;
+
+                        return !hasNotPermission && !isNotAllowedContentType && !isHiddenByConfig;
+                    });
+
+                    const hasAnyItems = !!groupFilteredItems.length;
+
+                    if (!hasAnyItems) {
+                        return { contentTypesToShow: contentTypesToShowPrevious, allGroupsItemsCount: allGroupsItemsCountPrevious };
+                    }
+
+                    return {
+                        contentTypesToShow: [...contentTypesToShowPrevious, [groupName, groupFilteredItems]],
+                        allGroupsItemsCount: allGroupsItemsCountPrevious + groupFilteredItems.length,
+                    };
+                },
+                { contentTypesToShow: [], allGroupsItemsCount: 0 },
+            ),
+        [contentTypesWithSuggestions, selectedLocation, allowedContentTypes],
+    );
+    const instantFilterInputWrapperClassName = createCssClassNames({
+        'ibexa-instant-filter__input-wrapper': true,
+        'ibexa-instant-filter__input-wrapper--hidden': allGroupsItemsCount <= MINIMUM_ITEMS_COUNT_FOR_SEARCH_TO_APPEAR,
+    });
+
     useEffect(() => {
         setSelectedLanguage(preselectedLanguage || firstLanguageCode);
     }, [preselectedLanguage, firstLanguageCode]);
@@ -115,10 +158,6 @@ const ContentCreateWidget = () => {
     useEffect(() => {
         parseTooltip(refContentTree.current);
     }, []);
-
-    if (suggestions) {
-        contentTypesWithSuggestions.unshift(['Suggestions', suggestions.map(({ data }) => data)]);
-    }
 
     return (
         <div className="ibexa-extra-actions-container">
@@ -142,7 +181,7 @@ const ContentCreateWidget = () => {
                     </div>
                     <div className="ibexa-extra-actions__section-content ibexa-extra-actions__section-content--content-type">
                         <div className="ibexa-instant-filter">
-                            <div className="ibexa-instant-filter__input-wrapper">
+                            <div className={instantFilterInputWrapperClassName}>
                                 <input
                                     autoFocus={true}
                                     className="ibexa-instant-filter__input ibexa-input ibexa-input--text form-control"
@@ -154,44 +193,22 @@ const ContentCreateWidget = () => {
                         </div>
                         <div className="ibexa-instant-filter__desc">{filtersDescLabel}</div>
                         <div className="ibexa-instant-filter__items">
-                            {contentTypesWithSuggestions.map(([groupName, groupItems], index) => {
+                            {contentTypesToShow.map(([groupName, groupItems], index) => {
                                 const isSuggestionGroup = !!suggestions.length && index === 0;
-                                const restrictedContentTypeIds = selectedLocation?.permissions?.create.restrictedContentTypeIds ?? [];
-                                const isHiddenGroup = groupItems.every((groupItem) => {
-                                    const isNotSearchedName = filterQuery && !groupItem.name.toLowerCase().includes(filterQuery);
-                                    const hasNotPermission =
-                                        restrictedContentTypeIds.length && !restrictedContentTypeIds.includes(groupItem.id.toString());
-                                    const isNotAllowedContentType =
-                                        allowedContentTypes && !allowedContentTypes.includes(groupItem.identifier);
-                                    const isHiddenByConfig = groupItem.isHidden;
+                                const visibleGroupItems = groupItems.filter((groupItem) => {
+                                    const isSearchedName = !filterQuery || groupItem.name.toLowerCase().includes(filterQuery);
 
-                                    return (
-                                        isNotSearchedName ||
-                                        hasNotPermission ||
-                                        isNotAllowedContentType ||
-                                        isHiddenByConfig ||
-                                        (isNotSearchedName && isSuggestionGroup)
-                                    );
+                                    return isSearchedName;
                                 });
 
-                                if (isHiddenGroup) {
+                                if (visibleGroupItems.length === 0) {
                                     return null;
                                 }
 
                                 return (
                                     <div className="ibexa-instant-filter__group" key={groupName}>
                                         <div className="ibexa-instant-filter__group-name">{groupName}</div>
-                                        {groupItems.map(({ name, thumbnail, identifier, id, isHidden: isHiddenByConfig }) => {
-                                            const isHidden =
-                                                isHiddenByConfig ||
-                                                (filterQuery && !name.toLowerCase().includes(filterQuery)) ||
-                                                (selectedLocation &&
-                                                    selectedLocation.permissions &&
-                                                    selectedLocation.permissions.create.restrictedContentTypeIds.length &&
-                                                    !selectedLocation.permissions.create.restrictedContentTypeIds.includes(
-                                                        id.toString(),
-                                                    )) ||
-                                                (allowedContentTypes && !allowedContentTypes.includes(identifier));
+                                        {visibleGroupItems.map(({ name, thumbnail, identifier }) => {
                                             const className = createCssClassNames({
                                                 'ibexa-instant-filter__group-item': true,
                                                 'ibexa-instant-filter__group-item--selected':
@@ -202,17 +219,8 @@ const ContentCreateWidget = () => {
                                                 setIsSelectedSuggestion(isSuggestionGroup);
                                             };
 
-                                            if (isHidden) {
-                                                return null;
-                                            }
-
                                             return (
-                                                <div
-                                                    hidden={isHidden}
-                                                    key={identifier}
-                                                    className={className}
-                                                    onClick={updateSelectedContentType}
-                                                >
+                                                <div key={identifier} className={className} onClick={updateSelectedContentType}>
                                                     <Icon customPath={thumbnail} extraClasses="ibexa-icon--small" />
                                                     <div className="form-check">
                                                         <div className="ibexa-label ibexa-label--checkbox-radio form-check-label">
