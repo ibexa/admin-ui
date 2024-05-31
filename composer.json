@@ -28,6 +28,7 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
+        "ext-zip": "*",
         "symfony/deprecation-contracts": "^2.5",
         "symfony/http-foundation": "^5.0",
         "symfony/security-core": "^5.0",
