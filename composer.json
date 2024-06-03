@@ -28,7 +28,6 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
-        "ext-zip": "*",
         "symfony/deprecation-contracts": "^2.5",
         "symfony/http-foundation": "^5.0",
         "symfony/security-core": "^5.0",
@@ -64,6 +63,7 @@
         "twig/string-extra": "^3.0"
     },
     "require-dev": {
+        "ext-zip": "*",
         "dama/doctrine-test-bundle": "^v6.7",
         "ibexa/ci-scripts": "^0.2@dev",
         "ibexa/behat": "~4.6.0@dev",
