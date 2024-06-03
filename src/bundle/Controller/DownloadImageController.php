@@ -107,7 +107,9 @@ final class DownloadImageController extends Controller
         }
 
         if (!extension_loaded('zip')) {
-            throw new RuntimeException('ZIP extension is not loaded.');
+            throw new RuntimeException(
+                'ZIP extension is not loaded. Enable the extension or use single download instead.'
+            );
         }
 
         $contentList = [];
