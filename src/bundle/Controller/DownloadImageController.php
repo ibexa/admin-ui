@@ -159,7 +159,7 @@ final class DownloadImageController extends Controller
         if (!$value instanceof Value) {
             throw new RuntimeException(
                 sprintf(
-                    'Field value should be type of %s. "%s" given.',
+                    'Field value should be of type %s. "%s" given.',
                     Value::class,
                     get_debug_type($value)
                 )
