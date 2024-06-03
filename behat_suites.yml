@@ -1,7 +1,7 @@
 browser:
     extensions:
         Behat\MinkExtension:
-            files_path: '%paths.base%/vendor/ibexa/admin-ui/src/lib/Behat/TestFiles/'
+            files_path: '%paths.base%/vendor/ibexa/behat/src/lib/Behat/TestFiles/'
     suites:
         admin-ui:
             paths:
