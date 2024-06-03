@@ -8,12 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
+use DateTimeImmutable;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Ibexa\Core\FieldType\Image\Value;
 use Ibexa\Rest\Server\Controller;
+use Ibexa\User\UserSetting\Setting\DateTimeFormatSerializer;
+use Ibexa\User\UserSetting\UserSettingService;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +26,8 @@ final class DownloadImageController extends Controller
 {
     private const ARCHIVE_NAME_PATTERN = 'images_%s.zip';
 
+    private DateTimeFormatSerializer $dateTimeFormatSerializer;
+
     private int $downloadLimit;
 
     /** @var array<string, mixed> */
@@ -30,17 +35,23 @@ final class DownloadImageController extends Controller
 
     private SearchService $searchService;
 
+    private UserSettingService $userSettingService;
+
     /**
      * @param array<string, mixed> $imageMappings
      */
     public function __construct(
+        DateTimeFormatSerializer $dateTimeFormatSerializer,
         int $downloadLimit,
         array $imageMappings,
-        SearchService $searchService
+        SearchService $searchService,
+        UserSettingService $userSettingService
     ) {
+        $this->dateTimeFormatSerializer = $dateTimeFormatSerializer;
         $this->downloadLimit = $downloadLimit;
         $this->imageMappings = $imageMappings;
         $this->searchService = $searchService;
+        $this->userSettingService = $userSettingService;
     }
 
     /**
@@ -55,7 +66,25 @@ final class DownloadImageController extends Controller
             explode(',', $contentIdList)
         );
 
-        if (count($splitContentIdList) > $this->downloadLimit) {
+        $this->assertDownloadLimitNotExceeded($splitContentIdList);
+
+        $images = $this->loadImages($splitContentIdList);
+        if (0 === $images->totalCount) {
+            return new Response(
+                'No results found.',
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
+        return $this->processDownloading($images);
+    }
+
+    /**
+     * @param array<int> $contentIdList
+     */
+    private function assertDownloadLimitNotExceeded(array $contentIdList): void
+    {
+        if (count($contentIdList) > $this->downloadLimit) {
             throw new RuntimeException(
                 sprintf(
                     'Total download limit in one request is %d.',
@@ -63,27 +92,28 @@ final class DownloadImageController extends Controller
                 )
             );
         }
+    }
 
-        $images = $this->loadImages($splitContentIdList);
-
-        $numberOfResults = $images->totalCount;
-        if (0 === $numberOfResults) {
-            return new Response(
-                'No results found.',
-                Response::HTTP_NOT_FOUND
+    /**
+     * @throws \Random\RandomException
+     * @throws \Exception
+     */
+    private function processDownloading(SearchResult $result): Response
+    {
+        if (1 === $result->totalCount) {
+            return $this->downloadSingleImage(
+                $result->getIterator()->current()->valueObject
             );
         }
 
-        if (1 === $numberOfResults) {
-            return $this->downloadSingleImage(
-                $images->getIterator()->current()->valueObject
-            );
+        if (!extension_loaded('zip')) {
+            throw new RuntimeException('ZIP extension is not loaded.');
         }
 
         $contentList = [];
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit $image */
-        foreach ($images as $image) {
+        foreach ($result as $image) {
             /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
             $content = $image->valueObject;
             $contentList[] = $content;
@@ -92,6 +122,9 @@ final class DownloadImageController extends Controller
         return $this->downloadArchiveWithImages($contentList);
     }
 
+    /**
+     * @throws \Random\RandomException
+     */
     private function downloadSingleImage(Content $content): Response
     {
         $value = $this->getImageValue($content);
@@ -119,12 +152,16 @@ final class DownloadImageController extends Controller
 
     /**
      * @param array<\Ibexa\Contracts\Core\Repository\Values\Content\Content> $contentList
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Random\RandomException
      */
     private function downloadArchiveWithImages(array $contentList): Response
     {
         $archiveName = sprintf(
             self::ARCHIVE_NAME_PATTERN,
-            time()
+            $this->generateRandomFileName()
         );
 
         $this->createArchive($archiveName, $contentList);
@@ -134,7 +171,8 @@ final class DownloadImageController extends Controller
             throw new RuntimeException('Failed to read archive with images.');
         }
 
-        $response = $this->createResponse($content, $archiveName);
+        $fileName = (new DateTimeImmutable())->format($this->getUserDateTimeFormat());
+        $response = $this->createResponse($content, $fileName);
         $response->headers->set('Content-Type', 'application/zip');
 
         unlink($archiveName);
@@ -194,9 +232,12 @@ final class DownloadImageController extends Controller
         return ltrim($uri, '/');
     }
 
+    /**
+     * @throws \Random\RandomException
+     */
     private function getImageFileName(Value $value): string
     {
-        return $value->fileName ?? 'image_' . time();
+        return $value->fileName ?? 'image_' . $this->generateRandomFileName();
     }
 
     /**
@@ -211,11 +252,25 @@ final class DownloadImageController extends Controller
         $query->filter = new Query\Criterion\LogicalAnd(
             [
                 new Query\Criterion\ContentId($contentIdList),
+                new Query\Criterion\ContentTypeIdentifier($this->getContentTypeIdentifiers()),
             ]
         );
         $query->limit = $this->downloadLimit;
 
         return $this->searchService->findContent($query);
+    }
+
+    /**
+     * @return array<string>
+     */
+    private function getContentTypeIdentifiers(): array
+    {
+        $contentTypeIdentifiers = [];
+        foreach ($this->imageMappings as $contentTypeIdentifier => $mapping) {
+            $contentTypeIdentifiers[] = $contentTypeIdentifier;
+        }
+
+        return $contentTypeIdentifiers;
     }
 
     private function createResponse(
@@ -239,6 +294,8 @@ final class DownloadImageController extends Controller
 
     /**
      * @param array<\Ibexa\Contracts\Core\Repository\Values\Content\Content> $contentList
+     *
+     * @throws \Random\RandomException
      */
     private function createArchive(string $name, array $contentList): void
     {
@@ -254,5 +311,24 @@ final class DownloadImageController extends Controller
         }
 
         $zipArchive->close();
+    }
+
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     */
+    private function getUserDateTimeFormat(): string
+    {
+        return (string)$this->dateTimeFormatSerializer->deserialize(
+            $this->userSettingService->getUserSetting('full_datetime_format')->value
+        );
+    }
+
+    /**
+     * @throws \Random\RandomException
+     */
+    private function generateRandomFileName(): string
+    {
+        return bin2hex(random_bytes(12));
     }
 }
