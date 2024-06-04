@@ -8,6 +8,10 @@ const restInfo = {
     siteaccess: document.querySelector('meta[name="SiteAccess"]')?.content,
 };
 
+export const SYSTEM_ROOT_LOCATION_ID = 1;
+export const SYSTEM_ROOT_LOCATION_PATH = `/${SYSTEM_ROOT_LOCATION_ID}/`;
+export const SYSTEM_ROOT_LOCATION = { pathString: SYSTEM_ROOT_LOCATION_PATH };
+
 export const setRestInfo = ({ instanceUrl, accessToken, token, siteaccess }) => {
     restInfo.instanceUrl = instanceUrl ?? restInfo.instanceUrl;
     restInfo.accessToken = accessToken ?? restInfo.accessToken;

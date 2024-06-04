@@ -7,7 +7,6 @@ import TranslationSelector from '../translation-selector/translation.selector';
 import { getAdminUiConfig, getRouting } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { createDraft } from '../../services/universal.discovery.service';
 import {
-    RestInfoContext,
     EditOnTheFlyDataContext,
     AllowRedirectsContext,
     ActiveTabContext,
@@ -17,7 +16,6 @@ import {
 const ContentEditButton = ({ version, location, isDisabled, label }) => {
     const Routing = getRouting();
     const adminUiConfig = getAdminUiConfig();
-    const restInfo = useContext(RestInfoContext);
     const allowRedirects = useContext(AllowRedirectsContext);
     const [, setEditOnTheFlyData] = useContext(EditOnTheFlyDataContext);
     const [, setActiveTab] = useContext(ActiveTabContext);
@@ -34,9 +32,8 @@ const ContentEditButton = ({ version, location, isDisabled, label }) => {
         setIsTranslationSelectorVisible(false);
     }, [version]);
 
-    const hideTranslationSelector = () => {
-        setIsTranslationSelectorVisible(false);
-    };
+
+    const hideTranslationSelector = () => setIsTranslationSelectorVisible(false);
     const toggleTranslationSelectorVisibility = () => {
         const languageCodes = version.VersionInfo.languageCodes.split(',');
 
@@ -91,11 +88,7 @@ const ContentEditButton = ({ version, location, isDisabled, label }) => {
             return;
         }
 
-        createDraft(
-            {
-                ...restInfo,
-                contentId,
-            },
+        createDraft({ contentId },
             (response) => redirectToContentEdit(contentId, response.Version.VersionInfo.versionNo, languageCode, location.id),
         );
     };

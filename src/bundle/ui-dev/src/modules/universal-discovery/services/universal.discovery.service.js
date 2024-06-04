@@ -1,4 +1,5 @@
-import { getRequestHeaders, getRequestMode } from '../../../../../Resources/public/js/scripts/helpers/request.helper.js';
+import { getRestInfo } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { getRequestHeaders, getRequestMode } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/request.helper.js';
 import { showErrorNotification } from '../../common/services/notification.service';
 import { handleRequestResponse, handleRequestResponseStatus } from '../../common/helpers/request.helper.js';
 
@@ -23,7 +24,6 @@ const showErrorNotificationAbortWrapper = (error) => {
 
     return showErrorNotification(error);
 };
-
 const mapSubitems = (subitems) => {
     return subitems.locations.map((location) => {
         const mappedSubitems = {
@@ -384,7 +384,8 @@ export const loadContentTypes = ({ token, siteaccess, accessToken, instanceUrl =
     fetch(request).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
 };
 
-export const createDraft = ({ token, siteaccess, accessToken, contentId, instanceUrl = DEFAULT_INSTANCE_URL }, callback) => {
+export const createDraft = ({ contentId }, callback) => {
+    const { token, siteaccess, accessToken, instanceUrl } = getRestInfo();
     const request = new Request(`${instanceUrl}/api/ibexa/v2/content/objects/${contentId}/currentversion`, {
         method: 'COPY',
         headers: getRequestHeaders({
