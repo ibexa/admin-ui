@@ -39,14 +39,14 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
     let resizeStartPositionX = 0;
     let branchCurrentWidth = 0;
     const loadMore = ({ target }) => {
-        const areAllItemsLoaded = locationData.subitems.length >= loadedLocations.totalCount;
+        const areAllItemsLoaded = locationData.subitems.length >= locationData.totalCount;
         const isOffsetReached = target.scrollHeight - target.clientHeight - target.scrollTop < SCROLL_OFFSET;
 
         if (areAllItemsLoaded || !isOffsetReached || isLoading) {
             return;
         }
 
-        setOffset(Math.min(offset + itemsPerPage, loadedLocations.totalCount));
+        setOffset(Math.min(offset + itemsPerPage, locationData.totalCount));
     };
     const expandBranch = () => {
         dispatchLoadedLocationsAction({ type: 'UPDATE_LOCATIONS', data: { ...locationData, collapsed: false } });
