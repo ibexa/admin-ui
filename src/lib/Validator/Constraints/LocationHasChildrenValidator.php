@@ -47,5 +47,3 @@ class LocationHasChildrenValidator extends ConstraintValidator
         }
     }
 }
-
-class_alias(LocationHasChildrenValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationHasChildrenValidator');

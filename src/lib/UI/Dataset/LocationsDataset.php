@@ -75,5 +75,3 @@ class LocationsDataset
         return $this->data;
     }
 }
-
-class_alias(LocationsDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\LocationsDataset');

@@ -21,5 +21,3 @@ class LocationCopySubtreeType extends AbstractLocationCopyType
         ]);
     }
 }
-
-class_alias(LocationCopySubtreeType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationCopySubtreeType');

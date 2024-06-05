@@ -94,5 +94,3 @@ class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
         return 'templates/' . $tpl;
     }
 }
-
-class_alias(FieldEditRenderingExtensionTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\Templating\Twig\FieldEditRenderingExtensionTest');

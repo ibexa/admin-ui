@@ -94,5 +94,3 @@ class PolicyUpdateMapperTest extends TestCase
         return new PolicyUpdateData(['module' => $properties['module'], 'function' => $properties['function']]);
     }
 }
-
-class_alias(PolicyUpdateMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataMapper\PolicyUpdateMapperTest');

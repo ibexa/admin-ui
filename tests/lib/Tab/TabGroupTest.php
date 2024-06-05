@@ -87,5 +87,3 @@ class TabGroupTest extends TestCase
         $tabGroup->removeTab($tabIdentifier);
     }
 }
-
-class_alias(TabGroupTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Tab\TabGroupTest');

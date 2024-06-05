@@ -12,5 +12,3 @@ use Exception;
 class MenuItemNotExists extends Exception
 {
 }
-
-class_alias(MenuItemNotExists::class, 'EzSystems\EzPlatformAdminUi\Exception\MenuItemNotExists');

@@ -43,5 +43,3 @@ abstract class AbstractRelationFormMapper implements FieldDefinitionFormMapperIn
         return $contentTypeHash;
     }
 }
-
-class_alias(AbstractRelationFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\AbstractRelationFormMapper');

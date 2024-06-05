@@ -129,5 +129,3 @@ class ContentDraftsDataset
         ];
     }
 }
-
-class_alias(ContentDraftsDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\ContentDraftsDataset');

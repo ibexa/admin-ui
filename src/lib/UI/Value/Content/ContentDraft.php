@@ -69,5 +69,3 @@ class ContentDraft implements ContentDraftInterface
         return true;
     }
 }
-
-class_alias(ContentDraft::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\ContentDraft');

@@ -110,5 +110,3 @@ class ObjectStateGroupCreateRightSidebarBuilder extends AbstractBuilder implemen
         ];
     }
 }
-
-class_alias(ObjectStateGroupCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\ObjectState\ObjectStateGroupCreateRightSidebarBuilder');

@@ -589,5 +589,3 @@ class ContentViewController extends Controller
         );
     }
 }
-
-class_alias(ContentViewController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentViewController');

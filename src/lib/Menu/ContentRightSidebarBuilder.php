@@ -514,5 +514,3 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         );
     }
 }
-
-class_alias(ContentRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\ContentRightSidebarBuilder');

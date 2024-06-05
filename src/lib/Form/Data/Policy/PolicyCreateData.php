@@ -99,5 +99,3 @@ class PolicyCreateData
         $this->limitations = $limitations;
     }
 }
-
-class_alias(PolicyCreateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyCreateData');

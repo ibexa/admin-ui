@@ -125,5 +125,3 @@ class VersionsDataset
         return array_values(array_filter($versions, $callable));
     }
 }
-
-class_alias(VersionsDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\VersionsDataset');

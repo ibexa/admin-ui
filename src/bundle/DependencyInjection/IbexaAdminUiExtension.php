@@ -163,5 +163,3 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
             && true === $container->getParameter('ibexa.behat.browser.enabled');
     }
 }
-
-class_alias(IbexaAdminUiExtension::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\EzPlatformAdminUiExtension');

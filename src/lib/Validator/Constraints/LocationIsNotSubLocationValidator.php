@@ -25,5 +25,3 @@ class LocationIsNotSubLocationValidator extends AbstractComparisonValidator
         return stripos($targetLocation->pathString, $sourceLocation->pathString) === false;
     }
 }
-
-class_alias(LocationIsNotSubLocationValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationIsNotSubLocationValidator');

@@ -68,5 +68,3 @@ class TrashItemRestoreData
         $this->location = $location;
     }
 }
-
-class_alias(TrashItemRestoreData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Trash\TrashItemRestoreData');

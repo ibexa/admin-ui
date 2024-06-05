@@ -65,5 +65,3 @@ final class ReverseRelationAdapter implements AdapterInterface
             ->getReverseRelations();
     }
 }
-
-class_alias(ReverseRelationAdapter::class, 'EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\ReverseRelationAdapter');

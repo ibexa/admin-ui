@@ -60,5 +60,3 @@ class ContentMainLocationUpdateMapper implements DataMapperInterface
         ]);
     }
 }
-
-class_alias(ContentMainLocationUpdateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\ContentMainLocationUpdateMapper');

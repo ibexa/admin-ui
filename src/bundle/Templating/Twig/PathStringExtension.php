@@ -57,5 +57,3 @@ class PathStringExtension extends AbstractExtension
         return $this->locationService->loadLocationList($locationIds);
     }
 }
-
-class_alias(PathStringExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\PathStringExtension');

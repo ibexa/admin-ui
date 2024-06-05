@@ -63,5 +63,3 @@ class RoleAssignmentsDeleteData
         $this->roleAssignments = $roleAssignments;
     }
 }
-
-class_alias(RoleAssignmentsDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleAssignmentsDeleteData');

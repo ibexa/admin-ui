@@ -60,5 +60,3 @@ class RoleCreateMapper implements DataMapperInterface
         ]);
     }
 }
-
-class_alias(RoleCreateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\RoleCreateMapper');

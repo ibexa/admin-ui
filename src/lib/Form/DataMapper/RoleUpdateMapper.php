@@ -60,5 +60,3 @@ class RoleUpdateMapper implements DataMapperInterface
         ]);
     }
 }
-
-class_alias(RoleUpdateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\RoleUpdateMapper');

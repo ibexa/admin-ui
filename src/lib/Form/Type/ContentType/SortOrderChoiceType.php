@@ -79,5 +79,3 @@ class SortOrderChoiceType extends AbstractType
         ];
     }
 }
-
-class_alias(SortOrderChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\SortOrderChoiceType');

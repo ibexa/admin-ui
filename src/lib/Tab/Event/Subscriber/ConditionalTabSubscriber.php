@@ -65,5 +65,3 @@ class ConditionalTabSubscriber implements EventSubscriberInterface
         $tabGroupEvent->setData($tabGroup);
     }
 }
-
-class_alias(ConditionalTabSubscriber::class, 'EzSystems\EzPlatformAdminUi\Tab\Event\Subscriber\ConditionalTabSubscriber');

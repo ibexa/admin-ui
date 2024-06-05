@@ -71,5 +71,3 @@ class TranslationFormProcessor implements EventSubscriberInterface
         $event->setData($contentUpdateData);
     }
 }
-
-class_alias(TranslationFormProcessor::class, 'EzSystems\EzPlatformAdminUi\Form\Processor\TranslationFormProcessor');

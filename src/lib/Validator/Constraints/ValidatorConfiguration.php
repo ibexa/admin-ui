@@ -26,5 +26,3 @@ class ValidatorConfiguration extends Constraint
         return 'ezplatform.content_forms.validator.validator_configuration';
     }
 }
-
-class_alias(ValidatorConfiguration::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\ValidatorConfiguration');

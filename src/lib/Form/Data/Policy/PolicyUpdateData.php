@@ -100,5 +100,3 @@ class PolicyUpdateData
         ];
     }
 }
-
-class_alias(PolicyUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyUpdateData');

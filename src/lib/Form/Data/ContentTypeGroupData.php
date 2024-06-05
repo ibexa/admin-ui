@@ -43,5 +43,3 @@ class ContentTypeGroupData
         return $data;
     }
 }
-
-class_alias(ContentTypeGroupData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroupData');

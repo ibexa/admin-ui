@@ -70,5 +70,3 @@ class CustomUrlRemoveData
         return $this;
     }
 }
-
-class_alias(CustomUrlRemoveData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData');

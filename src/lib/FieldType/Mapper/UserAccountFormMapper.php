@@ -130,5 +130,3 @@ final class UserAccountFormMapper implements FieldDefinitionFormMapperInterface,
         ];
     }
 }
-
-class_alias(UserAccountFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\UserAccountFormMapper');

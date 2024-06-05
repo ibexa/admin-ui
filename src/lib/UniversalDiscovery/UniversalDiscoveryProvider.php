@@ -397,5 +397,3 @@ class UniversalDiscoveryProvider implements Provider
         return $locations;
     }
 }
-
-class_alias(UniversalDiscoveryProvider::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\UniversalDiscoveryProvider');

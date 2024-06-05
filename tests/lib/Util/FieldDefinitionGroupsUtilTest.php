@@ -47,5 +47,3 @@ class FieldDefinitionGroupsUtilTest extends TestCase
         self::assertEquals($groupedFieldDefinitions, $util->groupFieldDefinitions($fieldDefinitions));
     }
 }
-
-class_alias(FieldDefinitionGroupsUtilTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Util\FieldDefinitionGroupsUtilTest');

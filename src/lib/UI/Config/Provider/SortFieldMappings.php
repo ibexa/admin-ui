@@ -35,5 +35,3 @@ class SortFieldMappings implements ProviderInterface
         ];
     }
 }
-
-class_alias(SortFieldMappings::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\SortFieldMappings');

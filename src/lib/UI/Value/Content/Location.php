@@ -88,5 +88,3 @@ class Location extends CoreLocation
         return $this->userCanEdit;
     }
 }
-
-class_alias(Location::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\Location');

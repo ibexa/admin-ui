@@ -61,5 +61,3 @@ class TimeValueTransformer implements DataTransformerInterface
         return new Value($value);
     }
 }
-
-class_alias(TimeValueTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType\TimeValueTransformer');

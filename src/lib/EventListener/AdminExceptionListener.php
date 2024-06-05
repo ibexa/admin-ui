@@ -175,5 +175,3 @@ class AdminExceptionListener implements LoggerAwareInterface
         return sprintf('%s [in %s:%d]', $message, $relativePathname, $line);
     }
 }
-
-class_alias(AdminExceptionListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\AdminExceptionListener');

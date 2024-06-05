@@ -104,5 +104,3 @@ class ConfiguredLanguagesChoiceLoader implements ChoiceLoaderInterface
         return array_merge($orderedLanguages, array_values($languagesAssoc));
     }
 }
-
-class_alias(ConfiguredLanguagesChoiceLoader::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\ConfiguredLanguagesChoiceLoader');

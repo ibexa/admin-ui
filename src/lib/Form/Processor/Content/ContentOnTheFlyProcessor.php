@@ -96,5 +96,3 @@ class ContentOnTheFlyProcessor implements EventSubscriberInterface
         );
     }
 }
-
-class_alias(ContentOnTheFlyProcessor::class, 'EzSystems\EzPlatformAdminUi\Form\Processor\Content\ContentOnTheFlyProcessor');

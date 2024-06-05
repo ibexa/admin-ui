@@ -58,5 +58,3 @@ class SubtreeOperations extends AbstractParser
             ->end();
     }
 }
-
-class_alias(SubtreeOperations::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\SubtreeOperations');

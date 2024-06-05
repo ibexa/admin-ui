@@ -90,5 +90,3 @@ class URLEditRightSidebarBuilder extends AbstractBuilder implements TranslationC
         ];
     }
 }
-
-class_alias(URLEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\URLEditRightSidebarBuilder');

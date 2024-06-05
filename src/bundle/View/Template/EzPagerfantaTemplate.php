@@ -32,5 +32,3 @@ class EzPagerfantaTemplate extends TwitterBootstrap4Template
         ]);
     }
 }
-
-class_alias(EzPagerfantaTemplate::class, 'EzSystems\EzPlatformAdminUiBundle\View\Template\EzPagerfantaTemplate');

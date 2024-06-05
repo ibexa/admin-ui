@@ -117,5 +117,3 @@ class PolicyCreateWithLimitationType extends AbstractType
         return $limitations;
     }
 }
-
-class_alias(PolicyCreateWithLimitationType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Policy\PolicyCreateWithLimitationType');

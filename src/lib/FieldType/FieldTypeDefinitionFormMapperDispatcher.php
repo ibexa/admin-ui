@@ -48,5 +48,3 @@ class FieldTypeDefinitionFormMapperDispatcher implements FieldTypeDefinitionForm
         $this->mappers[$fieldTypeIdentifier]->mapFieldDefinitionForm($fieldForm, $data);
     }
 }
-
-class_alias(FieldTypeDefinitionFormMapperDispatcher::class, 'EzSystems\EzPlatformAdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcher');

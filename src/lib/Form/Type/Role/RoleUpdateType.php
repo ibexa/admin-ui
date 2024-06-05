@@ -43,5 +43,3 @@ class RoleUpdateType extends AbstractType
         ]);
     }
 }
-
-class_alias(RoleUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Role\RoleUpdateType');

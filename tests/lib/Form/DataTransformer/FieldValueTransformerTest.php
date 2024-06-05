@@ -83,5 +83,3 @@ class FieldValueTransformerTest extends TestCase
         self::assertSame($expected, $result);
     }
 }
-
-class_alias(FieldValueTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\FieldValueTransformerTest');

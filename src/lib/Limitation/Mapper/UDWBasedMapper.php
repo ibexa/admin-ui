@@ -135,5 +135,3 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
         ];
     }
 }
-
-class_alias(UDWBasedMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\UDWBasedMapper');

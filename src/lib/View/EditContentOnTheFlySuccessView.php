@@ -13,5 +13,3 @@ use Ibexa\Core\MVC\Symfony\View\ContentView;
 class EditContentOnTheFlySuccessView extends ContentView
 {
 }
-
-class_alias(EditContentOnTheFlySuccessView::class, 'EzSystems\EzPlatformAdminUi\View\EditContentOnTheFlySuccessView');

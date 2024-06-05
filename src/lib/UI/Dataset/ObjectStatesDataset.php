@@ -68,5 +68,3 @@ class ObjectStatesDataset
         return $this->data;
     }
 }
-
-class_alias(ObjectStatesDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\ObjectStatesDataset');

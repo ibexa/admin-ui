@@ -53,5 +53,3 @@ class LimitationValueMapperRegistry implements LimitationValueMapperRegistryInte
         $this->limitationValueMappers[$limitationType] = $mapper;
     }
 }
-
-class_alias(LimitationValueMapperRegistry::class, 'EzSystems\EzPlatformAdminUi\Limitation\LimitationValueMapperRegistry');

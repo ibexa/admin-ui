@@ -28,5 +28,3 @@ class Autosave implements ProviderInterface
         ];
     }
 }
-
-class_alias(Autosave::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Autosave');

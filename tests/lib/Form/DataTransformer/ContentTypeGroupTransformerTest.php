@@ -152,5 +152,3 @@ final class ContentTypeGroupTransformerTest extends TestCase
         $this->transformer->reverseTransform(self::EXAMPLE_CONTENT_TYPE_GROUP_ID);
     }
 }
-
-class_alias(ContentTypeGroupTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\ContentTypeGroupTransformerTest');

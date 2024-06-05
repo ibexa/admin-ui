@@ -47,5 +47,3 @@ class TwigComponent implements Renderable
         return $this->twig->render($this->template, $parameters + $this->parameters);
     }
 }
-
-class_alias(TwigComponent::class, 'EzSystems\EzPlatformAdminUi\Component\TwigComponent');

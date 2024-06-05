@@ -101,5 +101,3 @@ class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implements Tran
         ];
     }
 }
-
-class_alias(ObjectStateEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\ObjectState\ObjectStateEditRightSidebarBuilder');

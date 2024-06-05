@@ -97,5 +97,3 @@ class TranslationsDataset
         return array_column($this->data, 'languageCode');
     }
 }
-
-class_alias(TranslationsDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\TranslationsDataset');

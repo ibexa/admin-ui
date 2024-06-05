@@ -27,5 +27,3 @@ class LocationHaveUniqueAssetRelation extends Constraint implements TranslationC
         ];
     }
 }
-
-class_alias(LocationHaveUniqueAssetRelation::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationHaveUniqueAssetRelation');

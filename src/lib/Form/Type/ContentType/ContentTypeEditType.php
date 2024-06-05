@@ -89,5 +89,3 @@ class ContentTypeEditType extends AbstractType
             ->setAllowedTypes('contentType', ContentType::class);
     }
 }
-
-class_alias(ContentTypeEditType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\ContentTypeEditType');

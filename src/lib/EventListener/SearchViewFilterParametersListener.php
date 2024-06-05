@@ -80,5 +80,3 @@ final class SearchViewFilterParametersListener implements EventSubscriberInterfa
         return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
     }
 }
-
-class_alias(SearchViewFilterParametersListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\SearchViewFilterParametersListener');

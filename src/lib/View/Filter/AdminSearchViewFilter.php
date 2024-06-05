@@ -154,5 +154,3 @@ class AdminSearchViewFilter implements EventSubscriberInterface
         return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
     }
 }
-
-class_alias(AdminSearchViewFilter::class, 'EzSystems\EzPlatformAdminUi\View\Filter\AdminSearchViewFilter');

@@ -166,5 +166,3 @@ class ContentTree extends AbstractParser
         }
     }
 }
-
-class_alias(ContentTree::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\Module\ContentTree');

@@ -41,5 +41,3 @@ final class ImageAssetAllowedContentTypes implements EventSubscriberInterface
         $event->setConfig($config);
     }
 }
-
-class_alias(ImageAssetAllowedContentTypes::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\ImageAssetAllowedContentTypes');

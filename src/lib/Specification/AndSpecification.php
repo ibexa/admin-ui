@@ -28,5 +28,3 @@ class AndSpecification extends AbstractSpecification
         return $this->baseSpecification->isSatisfiedBy($item);
     }
 }
-
-class_alias(AndSpecification::class, 'EzSystems\EzPlatformAdminUi\Specification\AndSpecification');

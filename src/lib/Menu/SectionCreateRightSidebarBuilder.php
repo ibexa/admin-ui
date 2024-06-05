@@ -108,5 +108,3 @@ class SectionCreateRightSidebarBuilder extends AbstractBuilder implements Transl
         ];
     }
 }
-
-class_alias(SectionCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\SectionCreateRightSidebarBuilder');

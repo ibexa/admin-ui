@@ -65,5 +65,3 @@ class FieldDefinitionDefaultValueValidator extends FieldTypeValidator
         return 'defaultValue';
     }
 }
-
-class_alias(FieldDefinitionDefaultValueValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\FieldDefinitionDefaultValueValidator');

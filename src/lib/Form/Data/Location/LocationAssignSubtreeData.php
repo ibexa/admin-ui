@@ -66,5 +66,3 @@ class LocationAssignSubtreeData
         $this->location = $location;
     }
 }
-
-class_alias(LocationAssignSubtreeData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationAssignSubtreeData');

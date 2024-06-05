@@ -59,5 +59,3 @@ class ViewTab extends AbstractEventDispatchingTab implements OrderedTabInterface
         return $contextParameters;
     }
 }
-
-class_alias(ViewTab::class, 'EzSystems\EzPlatformAdminUi\Tab\ContentType\ViewTab');

@@ -124,5 +124,3 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
         return array_replace($contextParameters, $viewParameters);
     }
 }
-
-class_alias(TranslationsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\ContentType\TranslationsTab');

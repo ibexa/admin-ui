@@ -81,5 +81,3 @@ class TabRegistry
         $this->tabGroups[$group]->addTab($tab);
     }
 }
-
-class_alias(TabRegistry::class, 'EzSystems\EzPlatformAdminUi\Tab\TabRegistry');

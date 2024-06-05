@@ -31,5 +31,3 @@ class FieldSettingsValidator extends FieldTypeValidator
         return 'fieldSettings' . $errorTarget;
     }
 }
-
-class_alias(FieldSettingsValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\FieldSettingsValidator');

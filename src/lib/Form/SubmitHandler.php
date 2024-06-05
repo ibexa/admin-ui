@@ -159,5 +159,3 @@ class SubmitHandler implements UserActionsSubmitHandler
         );
     }
 }
-
-class_alias(SubmitHandler::class, 'EzSystems\EzPlatformAdminUi\Form\SubmitHandler');

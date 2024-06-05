@@ -60,5 +60,3 @@ class LanguageUpdateType extends AbstractType
         ]);
     }
 }
-
-class_alias(LanguageUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Language\LanguageUpdateType');

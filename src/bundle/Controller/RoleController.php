@@ -351,5 +351,3 @@ class RoleController extends Controller
         return new RedirectResponse($this->generateUrl('ibexa.role.list'));
     }
 }
-
-class_alias(RoleController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\RoleController');

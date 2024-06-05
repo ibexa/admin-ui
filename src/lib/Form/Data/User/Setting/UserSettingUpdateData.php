@@ -66,5 +66,3 @@ class UserSettingUpdateData
         $this->value = $value;
     }
 }
-
-class_alias(UserSettingUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\User\Setting\UserSettingUpdateData');

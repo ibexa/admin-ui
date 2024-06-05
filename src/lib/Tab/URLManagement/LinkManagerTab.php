@@ -163,5 +163,3 @@ class LinkManagerTab extends AbstractTab implements OrderedTabInterface, Conditi
         return $query;
     }
 }
-
-class_alias(LinkManagerTab::class, 'EzSystems\EzPlatformAdminUi\Tab\URLManagement\LinkManagerTab');

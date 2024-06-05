@@ -67,5 +67,3 @@ class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements L
         ];
     }
 }
-
-class_alias(LanguageLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\LanguageLimitationMapper');

@@ -83,5 +83,3 @@ class User implements ProviderInterface
         return null;
     }
 }
-
-class_alias(User::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\User');

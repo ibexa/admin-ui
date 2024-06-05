@@ -51,5 +51,3 @@ class EveryoneMediaTab extends AbstractMediaTab implements OrderedTabInterface
         ]);
     }
 }
-
-class_alias(EveryoneMediaTab::class, 'EzSystems\EzPlatformAdminUi\Tab\Dashboard\EveryoneMediaTab');

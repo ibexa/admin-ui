@@ -175,5 +175,3 @@ class RelationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
         return array_replace($contextParameters, $viewParameters);
     }
 }
-
-class_alias(RelationsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\RelationsTab');

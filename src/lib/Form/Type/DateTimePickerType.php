@@ -41,5 +41,3 @@ class DateTimePickerType extends AbstractType
             ->setAllowedTypes('with_seconds', 'bool');
     }
 }
-
-class_alias(DateTimePickerType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\DateTimePickerType');

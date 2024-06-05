@@ -41,5 +41,3 @@ class ContentRemoveData
         return $this;
     }
 }
-
-class_alias(ContentRemoveData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentRemoveData');

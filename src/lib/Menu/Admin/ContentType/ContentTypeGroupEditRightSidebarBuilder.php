@@ -112,5 +112,3 @@ class ContentTypeGroupEditRightSidebarBuilder extends AbstractBuilder implements
         ];
     }
 }
-
-class_alias(ContentTypeGroupEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\ContentType\ContentTypeGroupEditRightSidebarBuilder');

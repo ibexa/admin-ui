@@ -43,5 +43,3 @@ class VersionRemoveType extends AbstractType
         ]);
     }
 }
-
-class_alias(VersionRemoveType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Version\VersionRemoveType');

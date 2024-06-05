@@ -90,5 +90,3 @@ class ContentDraftListDataset
         return $this->data;
     }
 }
-
-class_alias(ContentDraftListDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\ContentDraftListDataset');

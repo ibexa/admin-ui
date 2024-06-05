@@ -53,5 +53,3 @@ class TabPassTest extends AbstractCompilerPassTestCase
         );
     }
 }
-
-class_alias(TabPassTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\DependencyInjection\Compiler\TabPassTest');

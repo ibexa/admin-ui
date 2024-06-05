@@ -294,5 +294,3 @@ class SetViewParametersListener implements EventSubscriberInterface
         return array_merge($ignoredFieldIdentifiers, $metaFieldIdentifiers);
     }
 }
-
-class_alias(SetViewParametersListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\SetViewParametersListener');

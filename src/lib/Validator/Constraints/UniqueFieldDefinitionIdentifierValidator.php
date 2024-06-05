@@ -45,5 +45,3 @@ class UniqueFieldDefinitionIdentifierValidator extends ConstraintValidator
         }
     }
 }
-
-class_alias(UniqueFieldDefinitionIdentifierValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifierValidator');

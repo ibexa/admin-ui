@@ -35,5 +35,3 @@ abstract class FieldTypeValidator extends BaseFieldTypeValidator
         );
     }
 }
-
-class_alias(FieldTypeValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\FieldTypeValidator');

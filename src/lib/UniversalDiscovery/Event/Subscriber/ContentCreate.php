@@ -143,5 +143,3 @@ class ContentCreate implements EventSubscriberInterface
         return !empty($this->restrictedLanguagesCodes);
     }
 }
-
-class_alias(ContentCreate::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\ContentCreate');

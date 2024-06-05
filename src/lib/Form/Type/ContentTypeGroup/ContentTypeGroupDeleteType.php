@@ -40,5 +40,3 @@ class ContentTypeGroupDeleteType extends AbstractType
         ]);
     }
 }
-
-class_alias(ContentTypeGroupDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupDeleteType');

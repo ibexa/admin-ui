@@ -33,5 +33,3 @@ class OperationResponse extends RestValue
         $this->content = $content;
     }
 }
-
-class_alias(OperationResponse::class, 'EzSystems\EzPlatformAdminUi\REST\Value\OperationResponse');

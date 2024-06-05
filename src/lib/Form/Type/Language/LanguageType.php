@@ -37,5 +37,3 @@ class LanguageType extends AbstractType
         return HiddenType::class;
     }
 }
-
-class_alias(LanguageType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Language\LanguageType');

@@ -28,5 +28,3 @@ class NullLimitationMapperTest extends TestCase
         self::assertEquals($values, $result);
     }
 }
-
-class_alias(NullLimitationMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\NullLimitationMapperTest');

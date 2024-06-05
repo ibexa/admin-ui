@@ -39,5 +39,3 @@ final class UnauthorizedRelation implements RelationInterface
         return false;
     }
 }
-
-class_alias(UnauthorizedRelation::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\UnauthorizedRelation');

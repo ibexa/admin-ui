@@ -69,5 +69,3 @@ abstract class MultipleSelectionBasedMapper implements LimitationFormMapperInter
     {
     }
 }
-
-class_alias(MultipleSelectionBasedMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\MultipleSelectionBasedMapper');

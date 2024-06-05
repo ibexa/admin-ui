@@ -99,5 +99,3 @@ class SectionUpdateData
         $this->section = $section;
     }
 }
-
-class_alias(SectionUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionUpdateData');

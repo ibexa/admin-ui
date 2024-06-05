@@ -74,5 +74,3 @@ class TranslationLanguageParamConverter implements ParamConverterInterface
         return $language;
     }
 }
-
-class_alias(TranslationLanguageParamConverter::class, 'EzSystems\EzPlatformAdminUiBundle\ParamConverter\TranslationLanguageParamConverter');

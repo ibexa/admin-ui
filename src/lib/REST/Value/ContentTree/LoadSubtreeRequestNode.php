@@ -42,5 +42,3 @@ class LoadSubtreeRequestNode extends RestValue
         $this->offset = $offset;
     }
 }
-
-class_alias(LoadSubtreeRequestNode::class, 'EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode');

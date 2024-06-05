@@ -37,5 +37,3 @@ class UserGroupCollectionType extends AbstractType
         return HiddenType::class;
     }
 }
-
-class_alias(UserGroupCollectionType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\User\UserGroupCollectionType');

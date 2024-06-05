@@ -39,5 +39,3 @@ class Timezone implements ProviderInterface
         return $timezone->value;
     }
 }
-
-class_alias(Timezone::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Timezone');

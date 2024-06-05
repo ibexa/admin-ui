@@ -31,5 +31,3 @@ interface TabInterface
      */
     public function renderView(array $parameters): string;
 }
-
-class_alias(TabInterface::class, 'EzSystems\EzPlatformAdminUi\Tab\TabInterface');

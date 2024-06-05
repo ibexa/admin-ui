@@ -39,5 +39,3 @@ class Root extends ValueObjectVisitor
         $generator->endObjectElement('ContentTreeRoot');
     }
 }
-
-class_alias(Root::class, 'EzSystems\EzPlatformAdminUi\REST\Output\ValueObjectVisitor\ContentTree\Root');

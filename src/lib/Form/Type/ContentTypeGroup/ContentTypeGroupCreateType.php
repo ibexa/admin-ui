@@ -48,5 +48,3 @@ class ContentTypeGroupCreateType extends AbstractType
         ]);
     }
 }
-
-class_alias(ContentTypeGroupCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupCreateType');

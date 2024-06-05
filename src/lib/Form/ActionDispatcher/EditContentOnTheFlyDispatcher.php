@@ -18,5 +18,3 @@ class EditContentOnTheFlyDispatcher extends ContentDispatcher
         return ContentOnTheFlyEvents::CONTENT_EDIT;
     }
 }
-
-class_alias(EditContentOnTheFlyDispatcher::class, 'EzSystems\EzPlatformAdminUi\Form\ActionDispatcher\EditContentOnTheFlyDispatcher');

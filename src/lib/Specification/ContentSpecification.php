@@ -20,5 +20,3 @@ interface ContentSpecification
      */
     public function isSatisfiedBy(Content $content): bool;
 }
-
-class_alias(ContentSpecification::class, 'EzSystems\EzPlatformAdminUi\Specification\ContentSpecification');

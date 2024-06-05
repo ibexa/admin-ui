@@ -126,5 +126,3 @@ class PolicyUpdateType extends AbstractType
         return $limitations;
     }
 }
-
-class_alias(PolicyUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Policy\PolicyUpdateType');

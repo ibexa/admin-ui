@@ -112,5 +112,3 @@ class LanguageCreateRightSidebarBuilder extends AbstractBuilder implements Trans
         ];
     }
 }
-
-class_alias(LanguageCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\Language\LanguageCreateRightSidebarBuilder');

@@ -310,5 +310,3 @@ class ContentTypeGroupController extends Controller
         return array_combine($contentTypeGroupsNumbers, array_fill_keys($contentTypeGroupsNumbers, false));
     }
 }
-
-class_alias(ContentTypeGroupController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentTypeGroupController');

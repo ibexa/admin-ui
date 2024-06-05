@@ -51,5 +51,3 @@ class EveryoneContentTab extends AbstractContentTab implements OrderedTabInterfa
         ]);
     }
 }
-
-class_alias(EveryoneContentTab::class, 'EzSystems\EzPlatformAdminUi\Tab\Dashboard\EveryoneContentTab');

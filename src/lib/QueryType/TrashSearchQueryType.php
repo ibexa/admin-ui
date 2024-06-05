@@ -113,5 +113,3 @@ final class TrashSearchQueryType extends OptionsResolverBasedQueryType
         }
     }
 }
-
-class_alias(TrashSearchQueryType::class, 'EzSystems\EzPlatformAdminUi\QueryType\TrashSearchQueryType');

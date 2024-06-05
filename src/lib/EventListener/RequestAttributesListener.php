@@ -129,5 +129,3 @@ class RequestAttributesListener implements EventSubscriberInterface
         return \in_array($siteAccess->name, $this->siteAccessGroups[IbexaAdminUiBundle::ADMIN_GROUP_NAME], true);
     }
 }
-
-class_alias(RequestAttributesListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\RequestAttributesListener');

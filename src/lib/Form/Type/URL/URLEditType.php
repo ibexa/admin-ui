@@ -62,5 +62,3 @@ class URLEditType extends AbstractType
         return 'ezplatform_content_forms_url_edit';
     }
 }
-
-class_alias(URLEditType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\URL\URLEditType');

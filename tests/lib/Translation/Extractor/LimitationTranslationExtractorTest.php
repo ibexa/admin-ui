@@ -60,5 +60,3 @@ class LimitationTranslationExtractorTest extends TestCase
         return $messageCatalogue;
     }
 }
-
-class_alias(LimitationTranslationExtractorTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Translation\Extractor\LimitationTranslationExtractorTest');

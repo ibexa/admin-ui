@@ -43,5 +43,3 @@ class UiConfigProviderPass implements CompilerPassInterface
         }
     }
 }
-
-class_alias(UiConfigProviderPass::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Compiler\UiConfigProviderPass');

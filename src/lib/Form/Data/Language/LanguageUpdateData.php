@@ -78,5 +78,3 @@ class LanguageUpdateData
         $this->enabled = $enabled;
     }
 }
-
-class_alias(LanguageUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageUpdateData');

@@ -75,5 +75,3 @@ class LocationTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(LocationTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\LocationTransformer');

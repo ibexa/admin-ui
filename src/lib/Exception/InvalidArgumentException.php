@@ -13,5 +13,3 @@ use Ibexa\Core\Base\Exceptions\InvalidArgumentException as BaseInvalidArgumentEx
 class InvalidArgumentException extends BaseInvalidArgumentException
 {
 }
-
-class_alias(InvalidArgumentException::class, 'EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException');

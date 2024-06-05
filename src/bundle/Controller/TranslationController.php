@@ -153,5 +153,3 @@ class TranslationController extends Controller
         ]));
     }
 }
-
-class_alias(TranslationController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\TranslationController');

@@ -58,5 +58,3 @@ final class HasReverseRelations implements TrashLocationOptionProvider
             ]);
     }
 }
-
-class_alias(HasReverseRelations::class, 'EzSystems\EzPlatformAdminUi\Form\TrashLocationOptionProvider\HasReverseRelations');

@@ -141,5 +141,3 @@ class UniqueURLValidatorTest extends TestCase
         ]), new UniqueURL());
     }
 }
-
-class_alias(UniqueURLValidatorTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\UniqueURLValidatorTest');

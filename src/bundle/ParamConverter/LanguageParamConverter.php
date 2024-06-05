@@ -72,5 +72,3 @@ class LanguageParamConverter implements ParamConverterInterface
         return Language::class === $configuration->getClass();
     }
 }
-
-class_alias(LanguageParamConverter::class, 'EzSystems\EzPlatformAdminUiBundle\ParamConverter\LanguageParamConverter');

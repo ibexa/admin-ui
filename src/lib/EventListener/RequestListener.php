@@ -78,5 +78,3 @@ class RequestListener implements EventSubscriberInterface
         throw new NotFoundHttpException('The route is not allowed in the current SiteAccess');
     }
 }
-
-class_alias(RequestListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\RequestListener');

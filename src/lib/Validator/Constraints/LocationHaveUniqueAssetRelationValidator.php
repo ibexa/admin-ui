@@ -54,5 +54,3 @@ class LocationHaveUniqueAssetRelationValidator extends ConstraintValidator
         }
     }
 }
-
-class_alias(LocationHaveUniqueAssetRelationValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationHaveUniqueAssetRelationValidator');

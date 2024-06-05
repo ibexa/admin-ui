@@ -62,5 +62,3 @@ class Language extends APILanguage
         return $this->userCanEdit;
     }
 }
-
-class_alias(Language::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\Language');

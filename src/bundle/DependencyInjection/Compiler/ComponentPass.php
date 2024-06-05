@@ -49,5 +49,3 @@ class ComponentPass implements CompilerPassInterface
         }
     }
 }
-
-class_alias(ComponentPass::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Compiler\ComponentPass');

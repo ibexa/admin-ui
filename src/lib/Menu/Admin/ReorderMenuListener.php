@@ -28,5 +28,3 @@ class ReorderMenuListener
         $manipulator->moveToLastPosition($menu[MainMenuBuilder::ITEM_ADMIN]);
     }
 }
-
-class_alias(ReorderMenuListener::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\ReorderMenuListener');

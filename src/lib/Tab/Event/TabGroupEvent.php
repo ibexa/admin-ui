@@ -51,5 +51,3 @@ class TabGroupEvent extends Event
         $this->parameters = $parameters;
     }
 }
-
-class_alias(TabGroupEvent::class, 'EzSystems\EzPlatformAdminUi\Tab\Event\TabGroupEvent');

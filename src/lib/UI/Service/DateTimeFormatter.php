@@ -95,5 +95,3 @@ final class DateTimeFormatter implements DateTimeFormatterInterface, Translation
         ];
     }
 }
-
-class_alias(DateTimeFormatter::class, 'EzSystems\EzPlatformAdminUi\UI\Service\DateTimeFormatter');

@@ -37,5 +37,3 @@ class UserType extends AbstractType
         return HiddenType::class;
     }
 }
-
-class_alias(UserType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\User\UserType');

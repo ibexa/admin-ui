@@ -33,5 +33,3 @@ abstract class Controller extends AbstractController
         ]);
     }
 }
-
-class_alias(Controller::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\Controller');

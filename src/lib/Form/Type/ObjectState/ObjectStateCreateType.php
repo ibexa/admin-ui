@@ -51,5 +51,3 @@ class ObjectStateCreateType extends AbstractType
         ]);
     }
 }
-
-class_alias(ObjectStateCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateCreateType');

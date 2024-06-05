@@ -191,5 +191,3 @@ class FieldDefinitionType extends AbstractType
         return 'ezplatform_content_forms_fielddefinition_update';
     }
 }
-
-class_alias(FieldDefinitionType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\FieldDefinition\FieldDefinitionType');

@@ -56,5 +56,3 @@ final class URLWildcardUpdateType extends AbstractType
         ]);
     }
 }
-
-class_alias(URLWildcardUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\URLWildcard\URLWildcardUpdateType');

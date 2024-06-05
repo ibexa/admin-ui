@@ -56,5 +56,3 @@ final class LocationPathQueryType extends OptionsResolverBasedQueryType
         return array_map('intval', $parentPath);
     }
 }
-
-class_alias(LocationPathQueryType::class, 'EzSystems\EzPlatformAdminUi\QueryType\LocationPathQueryType');

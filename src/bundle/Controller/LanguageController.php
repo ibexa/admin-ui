@@ -300,5 +300,3 @@ class LanguageController extends Controller
         return array_combine($languagesNumbers, array_fill_keys($languagesNumbers, false));
     }
 }
-
-class_alias(LanguageController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\LanguageController');

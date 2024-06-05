@@ -108,5 +108,3 @@ class ContentTypeRightSidebarBuilder extends AbstractBuilder implements Translat
         ];
     }
 }
-
-class_alias(ContentTypeRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\ContentTypeRightSidebarBuilder');

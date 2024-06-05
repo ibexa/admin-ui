@@ -59,5 +59,3 @@ class GroupLimitationMapper extends MultipleSelectionBasedMapper implements Limi
         ];
     }
 }
-
-class_alias(GroupLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\GroupLimitationMapper');

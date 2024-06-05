@@ -43,5 +43,3 @@ abstract class AbstractControllerBasedTab extends AbstractTab
      */
     abstract public function getControllerReference(array $parameters): ControllerReference;
 }
-
-class_alias(AbstractControllerBasedTab::class, 'EzSystems\EzPlatformAdminUi\Tab\AbstractControllerBasedTab');

@@ -81,5 +81,3 @@ abstract class AbstractBinaryBaseTransformer
         return new $this->valueClass($properties);
     }
 }
-
-class_alias(AbstractBinaryBaseTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType\AbstractBinaryBaseTransformer');

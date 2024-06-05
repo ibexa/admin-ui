@@ -58,5 +58,3 @@ abstract class AbstractEventDispatchingTab extends AbstractTab
      */
     abstract public function getTemplateParameters(array $contextParameters = []): array;
 }
-
-class_alias(AbstractEventDispatchingTab::class, 'EzSystems\EzPlatformAdminUi\Tab\AbstractEventDispatchingTab');

@@ -104,5 +104,3 @@ class PolicyTranslationExtractor implements ExtractorInterface
         return ucfirst(trim(str_replace($search, $replace, strtolower(preg_replace(['/([A-Z])/', '/[_\s]+/'], ['_$1', ' '], $text)))));
     }
 }
-
-class_alias(PolicyTranslationExtractor::class, 'EzSystems\EzPlatformAdminUi\Translation\Extractor\PolicyTranslationExtractor');

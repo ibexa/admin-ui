@@ -668,5 +668,3 @@ class LocationController extends Controller
         return $this->redirectToRoute('ibexa.dashboard');
     }
 }
-
-class_alias(LocationController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\LocationController');

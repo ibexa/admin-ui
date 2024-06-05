@@ -106,5 +106,3 @@ class ContentEditController extends Controller
         return $response ?? $this->redirectToLocation($referrerlocation);
     }
 }
-
-class_alias(ContentEditController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentEditController');

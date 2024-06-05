@@ -176,5 +176,3 @@ final class UniqueContentTypeIdentifierValidatorTest extends TestCase
         ]);
     }
 }
-
-class_alias(UniqueContentTypeIdentifierValidatorTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\UniqueContentTypeIdentifierValidatorTest');

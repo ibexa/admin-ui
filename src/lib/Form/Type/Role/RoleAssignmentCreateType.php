@@ -84,5 +84,3 @@ class RoleAssignmentCreateType extends AbstractType
         ]);
     }
 }
-
-class_alias(RoleAssignmentCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Role\RoleAssignmentCreateType');

@@ -54,5 +54,3 @@ class LocationUpdateType extends AbstractType
         ]);
     }
 }
-
-class_alias(LocationUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationUpdateType');

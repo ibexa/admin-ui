@@ -37,5 +37,3 @@ class ContentTypeGroupType extends AbstractType
         return HiddenType::class;
     }
 }
-
-class_alias(ContentTypeGroupType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupType');

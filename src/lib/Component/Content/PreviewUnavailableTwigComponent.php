@@ -83,5 +83,3 @@ class PreviewUnavailableTwigComponent implements Renderable
         return '';
     }
 }
-
-class_alias(PreviewUnavailableTwigComponent::class, 'EzSystems\EzPlatformAdminUi\Component\Content\PreviewUnavailableTwigComponent');

@@ -34,5 +34,3 @@ final class OptionsFactory
         }
     }
 }
-
-class_alias(OptionsFactory::class, 'EzSystems\EzPlatformAdminUi\Form\TrashLocationOptionProvider\OptionsFactory');

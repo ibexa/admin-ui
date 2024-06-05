@@ -32,5 +32,3 @@ final class IconPaths implements ProviderInterface
         ];
     }
 }
-
-class_alias(IconPaths::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\IconPaths');

@@ -80,5 +80,3 @@ class UserTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(UserTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\UserTransformer');

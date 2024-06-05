@@ -98,5 +98,3 @@ class RoleCreateMapperTest extends TestCase
             ->setIdentifier($properties['identifier']);
     }
 }
-
-class_alias(RoleCreateMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataMapper\RoleCreateMapperTest');

@@ -63,5 +63,3 @@ class LocationMoveData
         $this->newParentLocation = $newParentLocation;
     }
 }
-
-class_alias(LocationMoveData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationMoveData');

@@ -94,5 +94,3 @@ class SectionCreateData implements TranslationContainerInterface
         ];
     }
 }
-
-class_alias(SectionCreateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionCreateData');

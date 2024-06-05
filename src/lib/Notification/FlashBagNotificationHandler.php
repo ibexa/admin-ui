@@ -63,5 +63,3 @@ final class FlashBagNotificationHandler implements NotificationHandlerInterface
         $this->session->getFlashBag()->add(self::TYPE_ERROR, $message);
     }
 }
-
-class_alias(FlashBagNotificationHandler::class, 'EzSystems\EzPlatformAdminUi\Notification\FlashBagNotificationHandler');

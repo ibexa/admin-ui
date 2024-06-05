@@ -77,5 +77,3 @@ class ContentMainLocationUpdateData
         $this->location = $location;
     }
 }
-
-class_alias(ContentMainLocationUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData');

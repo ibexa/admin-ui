@@ -22,5 +22,3 @@ class IsRoot extends AbstractSpecification
         return 1 === $item->depth;
     }
 }
-
-class_alias(IsRoot::class, 'EzSystems\EzPlatformAdminUi\Specification\Location\IsRoot');

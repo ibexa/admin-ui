@@ -54,5 +54,3 @@ class ObjectRelationStartingLocationId implements EventSubscriberInterface
         $event->setConfig($config);
     }
 }
-
-class_alias(ObjectRelationStartingLocationId::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\ObjectRelationStartingLocationId');

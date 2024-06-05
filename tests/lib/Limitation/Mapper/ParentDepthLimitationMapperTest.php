@@ -23,5 +23,3 @@ class ParentDepthLimitationMapperTest extends TestCase
         self::assertEquals([256], $result);
     }
 }
-
-class_alias(ParentDepthLimitationMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\ParentDepthLimitationMapperTest');

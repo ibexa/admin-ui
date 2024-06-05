@@ -37,5 +37,3 @@ class ContentTypeSubmitType extends AbstractType
         return SubmitType::class;
     }
 }
-
-class_alias(ContentTypeSubmitType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\ContentTypeSubmitType');

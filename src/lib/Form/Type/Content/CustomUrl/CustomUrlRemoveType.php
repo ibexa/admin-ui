@@ -51,5 +51,3 @@ class CustomUrlRemoveType extends AbstractType
             );
     }
 }
-
-class_alias(CustomUrlRemoveType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\CustomUrl\CustomUrlRemoveType');

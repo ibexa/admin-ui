@@ -82,5 +82,3 @@ class UserEditRightSidebarBuilder extends AbstractBuilder implements Translation
         ];
     }
 }
-
-class_alias(UserEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\UserEditRightSidebarBuilder');

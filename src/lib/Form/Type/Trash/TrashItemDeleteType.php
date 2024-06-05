@@ -49,5 +49,3 @@ class TrashItemDeleteType extends AbstractType
         ]);
     }
 }
-
-class_alias(TrashItemDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Trash\TrashItemDeleteType');

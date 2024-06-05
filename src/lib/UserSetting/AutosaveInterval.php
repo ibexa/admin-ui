@@ -89,5 +89,3 @@ class AutosaveInterval implements ValueDefinitionInterface, FormMapperInterface
         );
     }
 }
-
-class_alias(AutosaveInterval::class, 'EzSystems\EzPlatformAdminUi\UserSetting\AutosaveInterval');

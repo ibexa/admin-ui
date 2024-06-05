@@ -104,5 +104,3 @@ class SectionParamConverterTest extends AbstractParamConverterTest
         ];
     }
 }
-
-class_alias(SectionParamConverterTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\ParamConverter\SectionParamConverterTest');

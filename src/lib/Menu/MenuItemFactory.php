@@ -80,5 +80,3 @@ class MenuItemFactory implements FactoryInterface
         return $item;
     }
 }
-
-class_alias(MenuItemFactory::class, 'EzSystems\EzPlatformAdminUi\Menu\MenuItemFactory');

@@ -62,5 +62,3 @@ class ContentLocationAddData
         $this->newLocations = $newLocations;
     }
 }
-
-class_alias(ContentLocationAddData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentLocationAddData');

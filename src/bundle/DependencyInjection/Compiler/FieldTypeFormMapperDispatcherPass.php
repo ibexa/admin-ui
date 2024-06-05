@@ -48,5 +48,3 @@ class FieldTypeFormMapperDispatcherPass implements CompilerPassInterface
         }
     }
 }
-
-class_alias(FieldTypeFormMapperDispatcherPass::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Compiler\FieldTypeFormMapperDispatcherPass');

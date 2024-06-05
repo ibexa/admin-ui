@@ -30,5 +30,3 @@ class UniqueContentTypeIdentifierTest extends TestCase
         self::assertSame(UniqueContentTypeIdentifier::CLASS_CONSTRAINT, $constraint->getTargets());
     }
 }
-
-class_alias(UniqueContentTypeIdentifierTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\UniqueContentTypeIdentifierTest');

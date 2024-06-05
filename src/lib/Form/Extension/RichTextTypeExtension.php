@@ -43,5 +43,3 @@ class RichTextTypeExtension extends AbstractTypeExtension
         return [RichTextType::class];
     }
 }
-
-class_alias(RichTextTypeExtension::class, 'EzSystems\EzPlatformAdminUi\Form\Extension\RichTextTypeExtension');

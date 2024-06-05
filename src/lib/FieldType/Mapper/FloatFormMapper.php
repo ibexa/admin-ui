@@ -67,5 +67,3 @@ class FloatFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(FloatFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\FloatFormMapper');

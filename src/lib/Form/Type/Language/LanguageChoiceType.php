@@ -25,5 +25,3 @@ class LanguageChoiceType extends AbstractLanguageChoiceType
         parent::__construct($languageChoiceLoader);
     }
 }
-
-class_alias(LanguageChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Language\LanguageChoiceType');

@@ -45,5 +45,3 @@ final class ContentTypeThumbnailStrategy implements ThumbnailStrategy
         }
     }
 }
-
-class_alias(ContentTypeThumbnailStrategy::class, 'EzSystems\EzPlatformAdminUi\Strategy\ContentTypeThumbnailStrategy');

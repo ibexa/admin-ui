@@ -116,5 +116,3 @@ class VersionDraftConflictController extends Controller
         return new Response();
     }
 }
-
-class_alias(VersionDraftConflictController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\Content\VersionDraftConflictController');

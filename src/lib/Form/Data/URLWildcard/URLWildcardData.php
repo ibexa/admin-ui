@@ -81,5 +81,3 @@ class URLWildcardData
         $this->forward = $forward;
     }
 }
-
-class_alias(URLWildcardData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\URLWildcard\URLWildcardData');

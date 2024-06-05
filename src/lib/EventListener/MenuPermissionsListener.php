@@ -47,5 +47,3 @@ class MenuPermissionsListener implements EventSubscriberInterface
         }
     }
 }
-
-class_alias(MenuPermissionsListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\MenuPermissionsListener');

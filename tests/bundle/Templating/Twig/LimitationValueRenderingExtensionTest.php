@@ -191,5 +191,3 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
         return $mock;
     }
 }
-
-class_alias(LimitationValueRenderingExtensionTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\Templating\Twig\LimitationValueRenderingExtensionTest');

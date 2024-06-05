@@ -35,5 +35,3 @@ class AdminSiteaccessPreviewVoter extends AbstractSiteaccessPreviewVoter
         return $locationIds;
     }
 }
-
-class_alias(AdminSiteaccessPreviewVoter::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\AdminSiteaccessPreviewVoter');

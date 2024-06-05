@@ -195,5 +195,3 @@ final class URLWildcardController extends Controller
         ]));
     }
 }
-
-class_alias(URLWildcardController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\URLWildcardController');

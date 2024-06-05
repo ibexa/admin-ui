@@ -31,5 +31,3 @@ class FieldSettingsTest extends TestCase
         self::assertSame(Constraint::CLASS_CONSTRAINT, $constraint->getTargets());
     }
 }
-
-class_alias(FieldSettingsTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\FieldSettingsTest');

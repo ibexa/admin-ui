@@ -60,5 +60,3 @@ class Role extends RoleAssignment
         $this->limitation = $roleAssignment->limitation;
     }
 }
-
-class_alias(Role::class, 'EzSystems\EzPlatformAdminUi\UI\Value\User\Role');

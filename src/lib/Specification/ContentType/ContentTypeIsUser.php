@@ -49,5 +49,3 @@ class ContentTypeIsUser extends AbstractSpecification
         return $contentType->hasFieldDefinitionOfType(self::EZUSER_FIELD_TYPE_IDENTIFIER);
     }
 }
-
-class_alias(ContentTypeIsUser::class, 'EzSystems\EzPlatformAdminUi\Specification\ContentType\ContentTypeIsUser');

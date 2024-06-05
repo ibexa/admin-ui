@@ -18,5 +18,3 @@ final class URLManagementController extends Controller
         return $this->render('@ibexadesign/url_management/url_management.html.twig');
     }
 }
-
-class_alias(URLManagementController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\URLManagementController');

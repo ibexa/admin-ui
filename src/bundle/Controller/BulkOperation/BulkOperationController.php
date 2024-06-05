@@ -92,5 +92,3 @@ class BulkOperationController extends RestController
         return $subRequest;
     }
 }
-
-class_alias(BulkOperationController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\BulkOperation\BulkOperationController');

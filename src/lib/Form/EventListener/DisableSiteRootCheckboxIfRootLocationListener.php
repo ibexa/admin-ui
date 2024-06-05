@@ -33,5 +33,3 @@ class DisableSiteRootCheckboxIfRootLocationListener
         }
     }
 }
-
-class_alias(DisableSiteRootCheckboxIfRootLocationListener::class, 'EzSystems\EzPlatformAdminUi\Form\EventListener\DisableSiteRootCheckboxIfRootLocationListener');

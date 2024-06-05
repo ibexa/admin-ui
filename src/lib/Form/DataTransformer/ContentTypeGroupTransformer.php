@@ -57,5 +57,3 @@ final class ContentTypeGroupTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(ContentTypeGroupTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\ContentTypeGroupTransformer');

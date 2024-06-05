@@ -41,10 +41,3 @@ interface LimitationFormMapperRegistryInterface
      */
     public function addMapper(LimitationFormMapperInterface $mapper, $limitationIdentifier);
 }
-
-class_alias(
-    LimitationFormMapperRegistryInterface::class,
-    \EzSystems\RepositoryForms\Limitation\LimitationFormMapperRegistryInterface::class
-);
-
-class_alias(LimitationFormMapperRegistryInterface::class, 'EzSystems\EzPlatformAdminUi\Limitation\LimitationFormMapperRegistryInterface');

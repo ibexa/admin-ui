@@ -60,5 +60,3 @@ abstract class AbstractLocationCopyData
         $this->newParentLocation = $newParentLocation;
     }
 }
-
-class_alias(AbstractLocationCopyData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Location\AbstractLocationCopyData');

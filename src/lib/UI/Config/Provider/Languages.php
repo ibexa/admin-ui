@@ -112,5 +112,3 @@ class Languages implements ProviderInterface
         return array_merge($languages, $unused);
     }
 }
-
-class_alias(Languages::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Languages');

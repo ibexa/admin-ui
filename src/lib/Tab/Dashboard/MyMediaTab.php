@@ -57,5 +57,3 @@ class MyMediaTab extends AbstractMediaTab implements OrderedTabInterface
         ]);
     }
 }
-
-class_alias(MyMediaTab::class, 'EzSystems\EzPlatformAdminUi\Tab\Dashboard\MyMediaTab');

@@ -25,5 +25,3 @@ interface FormDataMapperInterface
      */
     public function mapToFormData(ValueObject $repositoryValueObject, array $params = []);
 }
-
-class_alias(FormDataMapperInterface::class, 'EzSystems\EzPlatformAdminUi\Form\Data\FormMapper\FormDataMapperInterface');

@@ -125,5 +125,3 @@ class LanguageTransformerTest extends TestCase
         ];
     }
 }
-
-class_alias(LanguageTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\LanguageTransformerTest');

@@ -47,5 +47,3 @@ final class URLWildcardDeleteType extends AbstractType
         ]);
     }
 }
-
-class_alias(URLWildcardDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\URLWildcard\URLWildcardDeleteType');

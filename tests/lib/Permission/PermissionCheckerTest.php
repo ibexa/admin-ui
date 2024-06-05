@@ -193,5 +193,3 @@ class PermissionCheckerTest extends TestCase
         return new CoreUser(['content' => $content]);
     }
 }
-
-class_alias(PermissionCheckerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Permission\PermissionCheckerTest');

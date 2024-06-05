@@ -527,5 +527,3 @@ class SectionController extends Controller
         return true;
     }
 }
-
-class_alias(SectionController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\SectionController');

@@ -85,5 +85,3 @@ final class TranslatableNotificationHandler implements TranslatableNotificationH
         );
     }
 }
-
-class_alias(TranslatableNotificationHandler::class, 'EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandler');

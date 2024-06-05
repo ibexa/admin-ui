@@ -54,5 +54,3 @@ final class Mapper
         return $locations;
     }
 }
-
-class_alias(Mapper::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\Location\Mapper');

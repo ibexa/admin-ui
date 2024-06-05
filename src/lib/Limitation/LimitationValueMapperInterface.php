@@ -23,10 +23,3 @@ interface LimitationValueMapperInterface
      */
     public function mapLimitationValue(Limitation $limitation);
 }
-
-class_alias(
-    LimitationValueMapperInterface::class,
-    \EzSystems\RepositoryForms\Limitation\LimitationValueMapperInterface::class
-);
-
-class_alias(LimitationValueMapperInterface::class, 'EzSystems\EzPlatformAdminUi\Limitation\LimitationValueMapperInterface');

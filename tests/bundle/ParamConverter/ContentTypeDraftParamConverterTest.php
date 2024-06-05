@@ -79,5 +79,3 @@ class ContentTypeDraftParamConverterTest extends AbstractParamConverterTest
         ];
     }
 }
-
-class_alias(ContentTypeDraftParamConverterTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\ParamConverter\ContentTypeDraftParamConverterTest');

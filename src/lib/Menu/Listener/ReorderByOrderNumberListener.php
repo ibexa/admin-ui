@@ -50,5 +50,3 @@ final class ReorderByOrderNumberListener
         );
     }
 }
-
-class_alias(ReorderByOrderNumberListener::class, 'EzSystems\EzPlatformAdminUi\Menu\Listener\ReorderByOrderNumberListener');

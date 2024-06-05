@@ -32,5 +32,3 @@ class GroupLimitationMapperTest extends TestCase
         self::assertEquals($expected, $result);
     }
 }
-
-class_alias(GroupLimitationMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\GroupLimitationMapperTest');

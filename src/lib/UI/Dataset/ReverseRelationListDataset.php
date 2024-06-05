@@ -84,5 +84,3 @@ final class ReverseRelationListDataset
         return $this->reverseRelations;
     }
 }
-
-class_alias(ReverseRelationListDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\ReverseRelationListDataset');

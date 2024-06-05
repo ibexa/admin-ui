@@ -68,5 +68,3 @@ class TabService
         return $tabs[$tabIdentifier];
     }
 }
-
-class_alias(TabService::class, 'EzSystems\EzPlatformAdminUi\UI\Service\TabService');

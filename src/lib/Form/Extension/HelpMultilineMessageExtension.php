@@ -31,5 +31,3 @@ final class HelpMultilineMessageExtension extends AbstractTypeExtension
         $resolver->setDefaults(['help_multiline' => null]);
     }
 }
-
-class_alias(HelpMultilineMessageExtension::class, 'EzSystems\EzPlatformAdminUi\Form\Extension\HelpMultilineMessageExtension');

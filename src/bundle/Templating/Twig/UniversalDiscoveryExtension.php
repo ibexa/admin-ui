@@ -85,5 +85,3 @@ class UniversalDiscoveryExtension extends AbstractExtension
         return lcfirst(implode('', $words));
     }
 }
-
-class_alias(UniversalDiscoveryExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\UniversalDiscoveryExtension');

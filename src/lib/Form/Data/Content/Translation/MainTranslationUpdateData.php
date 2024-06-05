@@ -71,5 +71,3 @@ class MainTranslationUpdateData
         $this->languageCode = $languageCode;
     }
 }
-
-class_alias(MainTranslationUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\MainTranslationUpdateData');

@@ -59,5 +59,3 @@ class TextLineFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(TextLineFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\TextLineFormMapper');

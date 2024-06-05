@@ -230,5 +230,3 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
         return '.js' === substr($file->getRealPath(), -3) && '.min.js' !== substr($file->getRealPath(), -7);
     }
 }
-
-class_alias(JavaScriptFileVisitor::class, 'EzSystems\EzPlatformAdminUi\Translation\Extractor\JavaScriptFileVisitor');

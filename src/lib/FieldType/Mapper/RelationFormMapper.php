@@ -53,5 +53,3 @@ class RelationFormMapper extends AbstractRelationFormMapper
             ]);
     }
 }
-
-class_alias(RelationFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\RelationFormMapper');

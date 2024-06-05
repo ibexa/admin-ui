@@ -63,5 +63,3 @@ class LocationIsWithinCopySubtreeLimitValidator extends ConstraintValidator
         }
     }
 }
-
-class_alias(LocationIsWithinCopySubtreeLimitValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimitValidator');

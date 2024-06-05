@@ -22,5 +22,3 @@ final class UserOnTheFlyEvents
     /** @var string */
     public const USER_EDIT_PUBLISH = 'ibexa.user_on_the_fly.edit.update';
 }
-
-class_alias(UserOnTheFlyEvents::class, 'EzSystems\EzPlatformAdminUi\Event\UserOnTheFlyEvents');

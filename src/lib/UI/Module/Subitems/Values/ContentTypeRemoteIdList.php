@@ -23,5 +23,3 @@ class ContentTypeRemoteIdList extends RestValue
         $this->contentTypes = $contentTypes;
     }
 }
-
-class_alias(ContentTypeRemoteIdList::class, 'EzSystems\EzPlatformAdminUi\UI\Module\Subitems\Values\ContentTypeRemoteIdList');

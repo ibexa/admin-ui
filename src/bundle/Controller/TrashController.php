@@ -343,5 +343,3 @@ class TrashController extends Controller
         return $this->userService->loadUser($trashItem->getContentInfo()->ownerId);
     }
 }
-
-class_alias(TrashController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\TrashController');

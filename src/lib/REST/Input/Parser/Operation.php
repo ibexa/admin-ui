@@ -56,5 +56,3 @@ class Operation extends BaseParser
         return $operation;
     }
 }
-
-class_alias(Operation::class, 'EzSystems\EzPlatformAdminUi\REST\Input\Parser\Operation');

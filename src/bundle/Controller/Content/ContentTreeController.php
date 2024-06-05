@@ -246,5 +246,3 @@ class ContentTreeController extends RestController
         );
     }
 }
-
-class_alias(ContentTreeController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\Content\ContentTreeController');

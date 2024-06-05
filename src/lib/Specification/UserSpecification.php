@@ -18,5 +18,3 @@ interface UserSpecification
      */
     public function isSatisfiedBy($userId): bool;
 }
-
-class_alias(UserSpecification::class, 'EzSystems\EzPlatformAdminUi\Specification\UserSpecification');

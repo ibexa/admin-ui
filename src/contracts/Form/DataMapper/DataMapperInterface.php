@@ -32,5 +32,3 @@ interface DataMapperInterface
      */
     public function reverseMap($data);
 }
-
-class_alias(DataMapperInterface::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\DataMapperInterface');

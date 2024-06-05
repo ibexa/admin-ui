@@ -11,5 +11,3 @@ namespace Ibexa\AdminUi\Form\Data\Location;
 class LocationCopyData extends AbstractLocationCopyData
 {
 }
-
-class_alias(LocationCopyData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationCopyData');

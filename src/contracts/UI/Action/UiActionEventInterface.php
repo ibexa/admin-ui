@@ -56,5 +56,3 @@ interface UiActionEventInterface
      */
     public function setResponse(?Response $response): void;
 }
-
-class_alias(UiActionEventInterface::class, 'EzSystems\EzPlatformAdminUi\UI\Action\UiActionEventInterface');

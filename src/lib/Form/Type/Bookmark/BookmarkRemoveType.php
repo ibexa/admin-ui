@@ -40,5 +40,3 @@ class BookmarkRemoveType extends AbstractType
             );
     }
 }
-
-class_alias(BookmarkRemoveType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Bookmark\BookmarkRemoveType');

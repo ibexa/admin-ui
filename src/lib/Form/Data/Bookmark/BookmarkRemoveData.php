@@ -43,5 +43,3 @@ class BookmarkRemoveData
         $this->bookmarks = $bookmarks;
     }
 }
-
-class_alias(BookmarkRemoveData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Bookmark\BookmarkRemoveData');

@@ -129,5 +129,3 @@ class Autosave implements ValueDefinitionInterface, FormMapperInterface
         );
     }
 }
-
-class_alias(Autosave::class, 'EzSystems\EzPlatformAdminUi\UserSetting\Autosave');

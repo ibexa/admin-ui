@@ -18,5 +18,3 @@ class ContentTypeIconNotFoundException extends RuntimeException
         parent::__construct("No icon found for '$contentType' content type", $code, $previous);
     }
 }
-
-class_alias(ContentTypeIconNotFoundException::class, 'EzSystems\EzPlatformAdminUi\Exception\ContentTypeIconNotFoundException');

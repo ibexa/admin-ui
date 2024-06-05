@@ -56,5 +56,3 @@ class ContentUpdateMapper implements FormDataMapperInterface
             ->setAllowedTypes('contentType', ContentType::class);
     }
 }
-
-class_alias(ContentUpdateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\Data\FormMapper\ContentUpdateMapper');

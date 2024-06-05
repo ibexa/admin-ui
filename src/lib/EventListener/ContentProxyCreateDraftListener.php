@@ -154,5 +154,3 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
         }, $translatableFields);
     }
 }
-
-class_alias(ContentProxyCreateDraftListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\ContentProxyCreateDraftListener');

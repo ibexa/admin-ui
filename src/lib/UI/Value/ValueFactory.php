@@ -407,5 +407,3 @@ class ValueFactory
         return '';
     }
 }
-
-class_alias(ValueFactory::class, 'EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory');

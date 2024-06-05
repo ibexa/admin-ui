@@ -63,5 +63,3 @@ class RoleParamConverter implements ParamConverterInterface
         return Role::class === $configuration->getClass();
     }
 }
-
-class_alias(RoleParamConverter::class, 'EzSystems\EzPlatformAdminUiBundle\ParamConverter\RoleParamConverter');

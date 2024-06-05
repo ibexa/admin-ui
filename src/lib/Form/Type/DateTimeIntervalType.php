@@ -48,5 +48,3 @@ class DateTimeIntervalType extends AbstractType
             ->add('second', IntegerType::class);
     }
 }
-
-class_alias(DateTimeIntervalType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\DateTimeIntervalType');

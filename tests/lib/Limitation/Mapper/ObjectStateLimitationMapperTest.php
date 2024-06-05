@@ -113,5 +113,3 @@ class ObjectStateLimitationMapperTest extends TestCase
         return $stateMock;
     }
 }
-
-class_alias(ObjectStateLimitationMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\ObjectStateLimitationMapperTest');

@@ -81,5 +81,3 @@ final class ContentTypeIconResolver
         return sprintf(self::PARAM_NAME_FORMAT, $identifier);
     }
 }
-
-class_alias(ContentTypeIconResolver::class, 'EzSystems\EzPlatformAdminUi\UI\Service\ContentTypeIconResolver');

@@ -29,10 +29,3 @@ interface FieldDefinitionFormMapperInterface
      */
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void;
 }
-
-class_alias(
-    FieldDefinitionFormMapperInterface::class,
-    \EzSystems\RepositoryForms\FieldType\FieldDefinitionFormMapperInterface::class
-);
-
-class_alias(FieldDefinitionFormMapperInterface::class, 'EzSystems\EzPlatformAdminUi\FieldType\FieldDefinitionFormMapperInterface');

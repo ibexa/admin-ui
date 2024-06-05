@@ -28,5 +28,3 @@ class SubitemsList extends RestValue
         $this->childrenCount = $childrenCount;
     }
 }
-
-class_alias(SubitemsList::class, 'EzSystems\EzPlatformAdminUi\UI\Module\Subitems\Values\SubitemsList');

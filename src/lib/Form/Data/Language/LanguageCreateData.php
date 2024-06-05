@@ -78,5 +78,3 @@ class LanguageCreateData
         return $this;
     }
 }
-
-class_alias(LanguageCreateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageCreateData');

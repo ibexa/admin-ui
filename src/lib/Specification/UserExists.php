@@ -42,5 +42,3 @@ class UserExists implements UserSpecification
         }
     }
 }
-
-class_alias(UserExists::class, 'EzSystems\EzPlatformAdminUi\Specification\UserExists');

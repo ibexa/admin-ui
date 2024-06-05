@@ -25,5 +25,3 @@ class UniqueFieldDefinitionIdentifierTest extends TestCase
         self::assertSame(Constraint::CLASS_CONSTRAINT, $constraint->getTargets());
     }
 }
-
-class_alias(UniqueFieldDefinitionIdentifierTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\UniqueFieldDefinitionIdentifierTest');

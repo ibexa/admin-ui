@@ -121,5 +121,3 @@ class PolicyChoiceType extends AbstractType
         return $policyChoices;
     }
 }
-
-class_alias(PolicyChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Policy\PolicyChoiceType');

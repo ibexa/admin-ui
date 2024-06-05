@@ -30,5 +30,3 @@ class FieldDefinitionDataTest extends TestCase
         self::assertSame($fieldTypeIdentifier, $data->getFieldTypeIdentifier());
     }
 }
-
-class_alias(FieldDefinitionDataTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\Data\FieldDefinitionDataTest');

@@ -60,5 +60,3 @@ final class ContentDraftAdapter implements AdapterInterface
             ->getContentDrafts();
     }
 }
-
-class_alias(ContentDraftAdapter::class, 'EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\ContentDraftAdapter');

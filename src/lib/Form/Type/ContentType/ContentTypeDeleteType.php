@@ -41,5 +41,3 @@ class ContentTypeDeleteType extends AbstractType
             ->add('delete', SubmitType::class, ['label' => /** @Desc("Delete") */ 'content_type.delete']);
     }
 }
-
-class_alias(ContentTypeDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\ContentTypeDeleteType');

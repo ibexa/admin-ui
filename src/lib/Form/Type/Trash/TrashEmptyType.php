@@ -51,5 +51,3 @@ class TrashEmptyType extends AbstractType
         ]);
     }
 }
-
-class_alias(TrashEmptyType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Trash\TrashEmptyType');

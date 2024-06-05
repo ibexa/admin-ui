@@ -231,5 +231,3 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
         return $this->formFactory->removeVersion($data, $formName);
     }
 }
-
-class_alias(VersionsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\VersionsTab');

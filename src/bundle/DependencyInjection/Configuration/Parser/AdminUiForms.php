@@ -244,5 +244,3 @@ class AdminUiForms extends AbstractParser
         return array_column($formTemplates, 'template');
     }
 }
-
-class_alias(AdminUiForms::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\AdminUiForms');

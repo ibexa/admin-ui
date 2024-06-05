@@ -98,5 +98,3 @@ class UrlRedirectProcessor implements EventSubscriberInterface
         return (new IsAdmin($this->siteaccessGroups))->isSatisfiedBy($this->siteaccess);
     }
 }
-
-class_alias(UrlRedirectProcessor::class, 'EzSystems\EzPlatformAdminUi\Form\Processor\Content\UrlRedirectProcessor');

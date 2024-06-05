@@ -18,5 +18,3 @@ interface ProviderInterface
      */
     public function getConfig();
 }
-
-class_alias(ProviderInterface::class, 'EzSystems\EzPlatformAdminUi\UI\Config\ProviderInterface');

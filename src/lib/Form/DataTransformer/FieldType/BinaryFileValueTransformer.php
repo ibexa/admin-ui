@@ -52,5 +52,3 @@ class BinaryFileValueTransformer extends AbstractBinaryBaseTransformer implement
         return $valueObject;
     }
 }
-
-class_alias(BinaryFileValueTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType\BinaryFileValueTransformer');

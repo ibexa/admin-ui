@@ -110,5 +110,3 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
         ];
     }
 }
-
-class_alias(UserSettingUpdateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\UserSetting\UserSettingUpdateRightSidebarBuilder');

@@ -31,5 +31,3 @@ class UniqueSectionIdentifier extends Constraint
         return self::CLASS_CONSTRAINT;
     }
 }
-
-class_alias(UniqueSectionIdentifier::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\UniqueSectionIdentifier');

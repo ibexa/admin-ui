@@ -113,5 +113,3 @@ class UniversalDiscoveryWidgetType extends AbstractType
         );
     }
 }
-
-class_alias(UniversalDiscoveryWidgetType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\UniversalDiscoveryWidget\UniversalDiscoveryWidgetType');

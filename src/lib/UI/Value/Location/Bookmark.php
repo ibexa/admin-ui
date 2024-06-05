@@ -30,5 +30,3 @@ class Bookmark extends CoreLocation
         parent::__construct(get_object_vars($location) + $properties);
     }
 }
-
-class_alias(Bookmark::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Location\Bookmark');

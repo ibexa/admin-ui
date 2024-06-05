@@ -76,5 +76,3 @@ class OrderedTabSubscriber implements EventSubscriberInterface
         return $tab1->getOrder() <=> $tab2->getOrder();
     }
 }
-
-class_alias(OrderedTabSubscriber::class, 'EzSystems\EzPlatformAdminUi\Tab\Event\Subscriber\OrderedTabSubscriber');

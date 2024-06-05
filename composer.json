@@ -10,12 +10,7 @@
         "psr-4": {
             "Ibexa\\AdminUi\\": "src/lib/",
             "Ibexa\\Bundle\\AdminUi\\": "src/bundle/",
-            "Ibexa\\Contracts\\AdminUi\\": "src/contracts/",
-            "EzSystems\\EzPlatformAdminUiBundle\\": "src/bundle/",
-            "EzSystems\\EzPlatformAdminUi\\": "src/lib/",
-            "EzSystems\\EzPlatformEncoreBundle\\": "src/bundle/",
-            "Ibexa\\Platform\\Bundle\\Assets\\": "src/bundle/",
-            "Ibexa\\Platform\\Assets\\": "src/lib/"
+            "Ibexa\\Contracts\\AdminUi\\": "src/contracts/"
         }
     },
     "autoload-dev": {
@@ -77,8 +72,7 @@
         "phpstan/phpstan": "^1.10",
         "phpstan/phpstan-phpunit": "^1.3",
         "phpstan/phpstan-symfony": "^1.3",
-        "phpunit/phpunit": "^9.5",
-        "symfony/webpack-encore-bundle": "^1.17.2"
+        "phpunit/phpunit": "^9.5"
     },
     "config": {
         "allow-plugins": {

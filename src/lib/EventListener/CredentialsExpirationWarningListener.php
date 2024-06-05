@@ -114,5 +114,3 @@ final class CredentialsExpirationWarningListener implements EventSubscriberInter
         return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
     }
 }
-
-class_alias(CredentialsExpirationWarningListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\CredentialsExpirationWarningListener');

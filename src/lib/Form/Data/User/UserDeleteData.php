@@ -39,5 +39,3 @@ class UserDeleteData
         $this->contentInfo = $contentInfo;
     }
 }
-
-class_alias(UserDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\User\UserDeleteData');

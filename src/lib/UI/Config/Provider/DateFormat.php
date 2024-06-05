@@ -55,5 +55,3 @@ class DateFormat implements ProviderInterface
         ];
     }
 }
-
-class_alias(DateFormat::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\DateFormat');

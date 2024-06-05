@@ -50,5 +50,3 @@ class ParentDepthLimitationMapper extends MultipleSelectionBasedMapper implement
         ];
     }
 }
-
-class_alias(ParentDepthLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\ParentDepthLimitationMapper');

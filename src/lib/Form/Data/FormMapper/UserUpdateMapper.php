@@ -66,5 +66,3 @@ class UserUpdateMapper
             ->setRequired(['languageCode']);
     }
 }
-
-class_alias(UserUpdateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\Data\FormMapper\UserUpdateMapper');

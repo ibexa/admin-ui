@@ -85,5 +85,3 @@ class FormUiActionMappingDispatcher
         return $this->defaultMapper->map($form);
     }
 }
-
-class_alias(FormUiActionMappingDispatcher::class, 'EzSystems\EzPlatformAdminUi\UI\Action\FormUiActionMappingDispatcher');

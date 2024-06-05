@@ -22,5 +22,3 @@ final class ContentOnTheFlyEvents
     /** @var string */
     public const CONTENT_EDIT_PUBLISH = 'ibexa.content_on_the_fly.edit.publish';
 }
-
-class_alias(ContentOnTheFlyEvents::class, 'EzSystems\EzPlatformAdminUi\Event\ContentOnTheFlyEvents');

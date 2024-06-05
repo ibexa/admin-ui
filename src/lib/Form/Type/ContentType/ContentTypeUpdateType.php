@@ -122,5 +122,3 @@ class ContentTypeUpdateType extends AbstractType
         ;
     }
 }
-
-class_alias(ContentTypeUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\ContentTypeUpdateType');

@@ -23,5 +23,3 @@ class Root extends RestValue
         $this->elements = $elements;
     }
 }
-
-class_alias(Root::class, 'EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\Root');

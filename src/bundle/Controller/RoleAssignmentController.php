@@ -276,5 +276,3 @@ class RoleAssignmentController extends Controller
         return $limitations;
     }
 }
-
-class_alias(RoleAssignmentController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\RoleAssignmentController');

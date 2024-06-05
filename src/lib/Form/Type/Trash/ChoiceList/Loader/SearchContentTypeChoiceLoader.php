@@ -54,5 +54,3 @@ class SearchContentTypeChoiceLoader extends ContentTypeChoiceLoader
         return new ArrayChoiceList($contentTypesGroups, $value);
     }
 }
-
-class_alias(SearchContentTypeChoiceLoader::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Trash\ChoiceList\Loader\SearchContentTypeChoiceLoader');

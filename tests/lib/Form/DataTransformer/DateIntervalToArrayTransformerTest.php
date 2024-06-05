@@ -72,5 +72,3 @@ class DateIntervalToArrayTransformerTest extends TestCase
         self::assertNull($transformer->reverseTransform($value));
     }
 }
-
-class_alias(DateIntervalToArrayTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\DateIntervalToArrayTransformerTest');

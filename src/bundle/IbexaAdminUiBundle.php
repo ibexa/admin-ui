@@ -78,5 +78,3 @@ class IbexaAdminUiBundle extends Bundle
         ];
     }
 }
-
-class_alias(IbexaAdminUiBundle::class, 'EzSystems\EzPlatformAdminUiBundle\EzPlatformAdminUiBundle');

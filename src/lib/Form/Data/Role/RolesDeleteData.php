@@ -37,5 +37,3 @@ class RolesDeleteData
         $this->roles = $roles;
     }
 }
-
-class_alias(RolesDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Role\RolesDeleteData');

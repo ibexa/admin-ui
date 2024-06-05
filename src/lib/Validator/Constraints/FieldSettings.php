@@ -26,5 +26,3 @@ class FieldSettings extends Constraint
         return 'ezplatform.content_forms.validator.field_settings';
     }
 }
-
-class_alias(FieldSettings::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\FieldSettings');

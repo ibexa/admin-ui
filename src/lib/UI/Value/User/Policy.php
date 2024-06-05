@@ -45,5 +45,3 @@ class Policy extends APIPolicy
         return $this->limitations;
     }
 }
-
-class_alias(Policy::class, 'EzSystems\EzPlatformAdminUi\UI\Value\User\Policy');

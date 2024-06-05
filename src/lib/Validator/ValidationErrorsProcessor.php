@@ -36,5 +36,3 @@ final class ValidationErrorsProcessor
         $this->validationErrorsProcessor->processValidationErrors($validationErrors);
     }
 }
-
-class_alias(ValidationErrorsProcessor::class, 'EzSystems\EzPlatformAdminUi\Validator\ValidationErrorsProcessor');

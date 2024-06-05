@@ -293,5 +293,3 @@ class PreviewFormProcessorTest extends TestCase
         return $contentDraft;
     }
 }
-
-class_alias(PreviewFormProcessorTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\Processor\PreviewFormProcessorTest');

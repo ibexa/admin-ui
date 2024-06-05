@@ -194,5 +194,3 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
         ];
     }
 }
-
-class_alias(LanguageParamConverterTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\ParamConverter\LanguageParamConverterTest');

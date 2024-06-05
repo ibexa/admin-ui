@@ -50,5 +50,3 @@ class ContentLocationAddType extends AbstractType
         ]);
     }
 }
-
-class_alias(ContentLocationAddType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\Location\ContentLocationAddType');

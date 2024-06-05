@@ -21,5 +21,3 @@ class UrlAlias extends CoreURLAlias
         parent::__construct(get_object_vars($urlAlias) + $properties);
     }
 }
-
-class_alias(UrlAlias::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\UrlAlias');

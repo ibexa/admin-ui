@@ -71,5 +71,3 @@ class PolicyCreateMapper implements DataMapperInterface
         return $policyCreateStruct;
     }
 }
-
-class_alias(PolicyCreateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\PolicyCreateMapper');

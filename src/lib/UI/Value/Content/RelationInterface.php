@@ -15,5 +15,3 @@ interface RelationInterface
      */
     public function isAccessible(): bool;
 }
-
-class_alias(RelationInterface::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\RelationInterface');

@@ -38,5 +38,3 @@ class ContentTypeGroupDeleteType extends AbstractType
         $resolver->setDefaults(['translation_domain' => 'ibexa_content_type']);
     }
 }
-
-class_alias(ContentTypeGroupDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\ContentTypeGroupDeleteType');

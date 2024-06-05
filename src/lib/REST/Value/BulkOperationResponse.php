@@ -23,5 +23,3 @@ class BulkOperationResponse extends RestValue
         $this->operations = $operations;
     }
 }
-
-class_alias(BulkOperationResponse::class, 'EzSystems\EzPlatformAdminUi\REST\Value\BulkOperationResponse');

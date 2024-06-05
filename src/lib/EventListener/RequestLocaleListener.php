@@ -111,5 +111,3 @@ class RequestLocaleListener implements EventSubscriberInterface
         return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
     }
 }
-
-class_alias(RequestLocaleListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\RequestLocaleListener');

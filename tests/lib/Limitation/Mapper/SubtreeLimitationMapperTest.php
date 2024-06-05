@@ -92,5 +92,3 @@ class SubtreeLimitationMapperTest extends TestCase
         return new SearchResult(['searchHits' => $hits]);
     }
 }
-
-class_alias(SubtreeLimitationMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\SubtreeLimitationMapperTest');

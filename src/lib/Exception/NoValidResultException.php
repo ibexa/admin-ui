@@ -26,5 +26,3 @@ class NoValidResultException extends Exception
         parent::__construct($message, $code, $previous);
     }
 }
-
-class_alias(NoValidResultException::class, 'EzSystems\EzPlatformAdminUi\Exception\NoValidResultException');

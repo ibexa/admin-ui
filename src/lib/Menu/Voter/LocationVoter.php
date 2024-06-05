@@ -52,5 +52,3 @@ class LocationVoter implements VoterInterface
         return null;
     }
 }
-
-class_alias(LocationVoter::class, 'EzSystems\EzPlatformAdminUi\Menu\Voter\LocationVoter');

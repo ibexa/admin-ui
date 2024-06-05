@@ -32,5 +32,3 @@ class SelectionMultilingualOptionsDataListener
         $event->setData($data[$this->languageCode] ?? []);
     }
 }
-
-class_alias(SelectionMultilingualOptionsDataListener::class, 'EzSystems\EzPlatformAdminUi\Form\EventListener\SelectionMultilingualOptionsDataListener');

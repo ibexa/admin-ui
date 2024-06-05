@@ -38,5 +38,3 @@ class URLWildcardUpdateData extends URLWildcardData
         $this->urlWildcard = $urlWildcard;
     }
 }
-
-class_alias(URLWildcardUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\URLWildcard\URLWildcardUpdateData');

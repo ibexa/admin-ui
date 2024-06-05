@@ -99,5 +99,3 @@ class RequestListenerTest extends TestCase
         self::assertSame([KernelEvents::REQUEST => ['onKernelRequest', 13]], $this->requestListener::getSubscribedEvents());
     }
 }
-
-class_alias(RequestListenerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\EventListener\RequestListenerTest');

@@ -48,5 +48,3 @@ class SectionChoiceType extends AbstractType
         return ChoiceType::class;
     }
 }
-
-class_alias(SectionChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Section\SectionChoiceType');

@@ -102,5 +102,3 @@ class ContentEditNotificationFormProcessor implements EventSubscriberInterface
         return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
     }
 }
-
-class_alias(ContentEditNotificationFormProcessor::class, 'EzSystems\EzPlatformAdminUi\Form\Processor\ContentEditNotificationFormProcessor');

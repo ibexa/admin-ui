@@ -96,5 +96,3 @@ final class URLWildcardEditRightSidebarBuilder extends AbstractBuilder implement
         return $menu;
     }
 }
-
-class_alias(URLWildcardEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\URLWildcardEditRightSidebarBuilder');

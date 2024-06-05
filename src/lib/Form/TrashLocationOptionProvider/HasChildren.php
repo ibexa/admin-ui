@@ -55,5 +55,3 @@ final class HasChildren implements TrashLocationOptionProvider
             ]);
     }
 }
-
-class_alias(HasChildren::class, 'EzSystems\EzPlatformAdminUi\Form\TrashLocationOptionProvider\HasChildren');

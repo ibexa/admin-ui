@@ -27,5 +27,3 @@ class LocationIsNotSubLocation extends AbstractComparison implements Translation
         ];
     }
 }
-
-class_alias(LocationIsNotSubLocation::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationIsNotSubLocation');

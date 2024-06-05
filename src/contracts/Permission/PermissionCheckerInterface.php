@@ -43,5 +43,3 @@ interface PermissionCheckerInterface
      */
     public function getContentUpdateLimitations(Location $location): LookupLimitationResult;
 }
-
-class_alias(PermissionCheckerInterface::class, 'EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface');

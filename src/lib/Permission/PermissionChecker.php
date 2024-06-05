@@ -254,5 +254,3 @@ class PermissionChecker implements PermissionCheckerInterface
         return $allUserGroups;
     }
 }
-
-class_alias(PermissionChecker::class, 'EzSystems\EzPlatformAdminUi\Permission\PermissionChecker');

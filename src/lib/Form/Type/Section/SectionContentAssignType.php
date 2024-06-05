@@ -57,5 +57,3 @@ class SectionContentAssignType extends AbstractType
         ]);
     }
 }
-
-class_alias(SectionContentAssignType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Section\SectionContentAssignType');

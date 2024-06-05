@@ -199,5 +199,3 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         return null;
     }
 }
-
-class_alias(NotificationTranslationExtractor::class, 'EzSystems\EzPlatformAdminUi\Translation\Extractor\NotificationTranslationExtractor');

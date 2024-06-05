@@ -91,5 +91,3 @@ class LimitationType extends AbstractType
         return 'ezplatform_content_forms_policy_limitation_edit';
     }
 }
-
-class_alias(LimitationType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Role\LimitationType');

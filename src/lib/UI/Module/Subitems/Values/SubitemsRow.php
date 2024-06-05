@@ -30,5 +30,3 @@ class SubitemsRow extends RestValue
         $this->restContent = $restContent;
     }
 }
-
-class_alias(SubitemsRow::class, 'EzSystems\EzPlatformAdminUi\UI\Module\Subitems\Values\SubitemsRow');

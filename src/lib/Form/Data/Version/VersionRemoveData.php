@@ -63,5 +63,3 @@ class VersionRemoveData
         $this->versions = $versions;
     }
 }
-
-class_alias(VersionRemoveData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Version\VersionRemoveData');

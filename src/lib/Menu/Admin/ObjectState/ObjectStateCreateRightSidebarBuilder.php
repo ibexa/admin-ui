@@ -99,5 +99,3 @@ class ObjectStateCreateRightSidebarBuilder extends AbstractBuilder implements Tr
         ];
     }
 }
-
-class_alias(ObjectStateCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\ObjectState\ObjectStateCreateRightSidebarBuilder');

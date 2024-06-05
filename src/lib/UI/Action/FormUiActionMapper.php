@@ -33,5 +33,3 @@ class FormUiActionMapper implements FormUiActionMapperInterface
         return true;
     }
 }
-
-class_alias(FormUiActionMapper::class, 'EzSystems\EzPlatformAdminUi\UI\Action\FormUiActionMapper');

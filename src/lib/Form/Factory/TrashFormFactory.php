@@ -69,5 +69,3 @@ class TrashFormFactory
         return $this->formFactory->createNamed($name, TrashSearchType::class, $data);
     }
 }
-
-class_alias(TrashFormFactory::class, 'EzSystems\EzPlatformAdminUi\Form\Factory\TrashFormFactory');

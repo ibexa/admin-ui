@@ -39,5 +39,3 @@ class UnauthorizedContentDraft implements ContentDraftInterface
         return false;
     }
 }
-
-class_alias(UnauthorizedContentDraft::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\UnauthorizedContentDraft');

@@ -98,5 +98,3 @@ class ContentTypeFormFactory
         return $this->formFactory->createNamed($name, ContentTypeCopyType::class, $data, $options);
     }
 }
-
-class_alias(ContentTypeFormFactory::class, 'EzSystems\EzPlatformAdminUi\Form\Factory\ContentTypeFormFactory');

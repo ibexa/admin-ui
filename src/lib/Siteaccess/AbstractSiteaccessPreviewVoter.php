@@ -75,5 +75,3 @@ abstract class AbstractSiteaccessPreviewVoter implements SiteaccessPreviewVoterI
      */
     abstract protected function getRootLocationIds(string $siteaccess): array;
 }
-
-class_alias(AbstractSiteaccessPreviewVoter::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\AbstractSiteaccessPreviewVoter');

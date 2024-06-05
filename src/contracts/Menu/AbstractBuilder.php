@@ -83,5 +83,3 @@ abstract class AbstractBuilder
 
     abstract protected function createStructure(array $options): ItemInterface;
 }
-
-class_alias(AbstractBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\AbstractBuilder');

@@ -99,5 +99,3 @@ class PolicyCreateMapperTest extends TestCase
             ->setFunction($properties['function']);
     }
 }
-
-class_alias(PolicyCreateMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataMapper\PolicyCreateMapperTest');

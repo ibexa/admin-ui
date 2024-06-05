@@ -34,5 +34,3 @@ class SectionType extends AbstractType
         ]);
     }
 }
-
-class_alias(SectionType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Section\SectionType');

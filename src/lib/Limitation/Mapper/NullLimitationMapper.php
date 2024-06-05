@@ -55,5 +55,3 @@ class NullLimitationMapper implements LimitationFormMapperInterface, LimitationV
         ];
     }
 }
-
-class_alias(NullLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\NullLimitationMapper');

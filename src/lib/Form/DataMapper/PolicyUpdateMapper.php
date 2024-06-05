@@ -55,5 +55,3 @@ class PolicyUpdateMapper implements DataMapperInterface
         return $policyUpdateStruct;
     }
 }
-
-class_alias(PolicyUpdateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\PolicyUpdateMapper');

@@ -79,5 +79,3 @@ class TrashItemAdapter implements AdapterInterface
         return $trashItems->items;
     }
 }
-
-class_alias(TrashItemAdapter::class, 'EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\TrashItemAdapter');

@@ -61,5 +61,3 @@ class ContentTypeDiscardChangesFormProcessor implements EventSubscriberInterface
         );
     }
 }
-
-class_alias(ContentTypeDiscardChangesFormProcessor::class, 'EzSystems\EzPlatformAdminUi\Form\Processor\ContentType\ContentTypeDiscardChangesFormProcessor');

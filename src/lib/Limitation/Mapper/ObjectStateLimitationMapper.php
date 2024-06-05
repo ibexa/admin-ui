@@ -87,5 +87,3 @@ class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implement
         ];
     }
 }
-
-class_alias(ObjectStateLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\ObjectStateLimitationMapper');

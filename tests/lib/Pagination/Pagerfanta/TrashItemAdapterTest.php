@@ -110,5 +110,3 @@ class TrashItemAdapterTest extends TestCase
         self::assertSame($nbResults, $adapter->getNbResults());
     }
 }
-
-class_alias(TrashItemAdapterTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Pagination\Pagerfanta\TrashItemAdapterTest');

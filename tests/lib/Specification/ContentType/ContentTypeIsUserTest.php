@@ -97,5 +97,3 @@ class ContentTypeIsUserTest extends TestCase
         return $contentType;
     }
 }
-
-class_alias(ContentTypeIsUserTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Specification\ContentType\ContentTypeIsUserTest');

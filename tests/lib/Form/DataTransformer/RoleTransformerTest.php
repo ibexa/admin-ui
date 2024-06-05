@@ -148,5 +148,3 @@ class RoleTransformerTest extends TestCase
         ];
     }
 }
-
-class_alias(RoleTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\RoleTransformerTest');

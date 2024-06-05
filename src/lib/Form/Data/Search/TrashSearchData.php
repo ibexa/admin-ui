@@ -155,5 +155,3 @@ class TrashSearchData
             !empty($trashed);
     }
 }
-
-class_alias(TrashSearchData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Search\TrashSearchData');

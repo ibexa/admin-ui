@@ -112,5 +112,3 @@ class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
         $this->validator->validate($fieldDefData1, $constraint);
     }
 }
-
-class_alias(UniqueFieldDefinitionIdentifierValidatorTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\UniqueFieldDefinitionIdentifierValidatorTest');

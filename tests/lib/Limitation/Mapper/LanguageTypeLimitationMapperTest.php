@@ -82,5 +82,3 @@ class LanguageTypeLimitationMapperTest extends TestCase
         self::assertEmpty($actual);
     }
 }
-
-class_alias(LanguageTypeLimitationMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\LanguageTypeLimitationMapperTest');

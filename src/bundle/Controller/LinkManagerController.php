@@ -139,5 +139,3 @@ final class LinkManagerController extends Controller
         ]);
     }
 }
-
-class_alias(LinkManagerController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\LinkManagerController');

@@ -123,5 +123,3 @@ class PolicyDeleteData
         $this->id = $id;
     }
 }
-
-class_alias(PolicyDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyDeleteData');

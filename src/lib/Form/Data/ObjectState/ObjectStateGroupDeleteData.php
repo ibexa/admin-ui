@@ -41,5 +41,3 @@ class ObjectStateGroupDeleteData
         $this->objectStateGroup = $objectStateGroup;
     }
 }
-
-class_alias(ObjectStateGroupDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateGroupDeleteData');

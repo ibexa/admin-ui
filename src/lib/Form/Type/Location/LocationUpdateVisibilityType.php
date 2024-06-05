@@ -47,5 +47,3 @@ class LocationUpdateVisibilityType extends AbstractType
         ]);
     }
 }
-
-class_alias(LocationUpdateVisibilityType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationUpdateVisibilityType');

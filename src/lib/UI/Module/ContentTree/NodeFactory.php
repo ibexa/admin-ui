@@ -496,5 +496,3 @@ final class NodeFactory
         return $canPreview && !empty($siteAccesses);
     }
 }
-
-class_alias(NodeFactory::class, 'EzSystems\EzPlatformAdminUi\UI\Module\ContentTree\NodeFactory');

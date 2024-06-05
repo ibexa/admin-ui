@@ -151,5 +151,3 @@ class ContentTypeMappings implements ProviderInterface
         return $this->maxFileSize;
     }
 }
-
-class_alias(ContentTypeMappings::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\ContentTypeMappings');

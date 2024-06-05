@@ -18,5 +18,3 @@ class CreateUserOnTheFlyDispatcher extends ContentDispatcher
         return UserOnTheFlyEvents::USER_CREATE;
     }
 }
-
-class_alias(CreateUserOnTheFlyDispatcher::class, 'EzSystems\EzPlatformAdminUi\Form\ActionDispatcher\CreateUserOnTheFlyDispatcher');

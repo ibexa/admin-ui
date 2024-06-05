@@ -49,5 +49,3 @@ class TabPass implements CompilerPassInterface
         }
     }
 }
-
-class_alias(TabPass::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Compiler\TabPass');

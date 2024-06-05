@@ -73,5 +73,3 @@ class TranslationRemoveType extends AbstractType
         ]);
     }
 }
-
-class_alias(TranslationRemoveType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\Translation\TranslationRemoveType');

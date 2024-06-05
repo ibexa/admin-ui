@@ -42,5 +42,3 @@ class PolicyCreateType extends AbstractType
         ]);
     }
 }
-
-class_alias(PolicyCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Policy\PolicyCreateType');

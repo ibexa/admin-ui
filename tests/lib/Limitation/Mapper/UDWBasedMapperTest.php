@@ -102,5 +102,3 @@ class UDWBasedMapperTest extends TestCase
         return new SearchResult(['searchHits' => $hits]);
     }
 }
-
-class_alias(UDWBasedMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\UDWBasedMapperTest');

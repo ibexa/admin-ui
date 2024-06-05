@@ -44,5 +44,3 @@ class TranslateEzSelectionMultilingualOptions implements EventSubscriberInterfac
         $event->setFieldDefinitionData($fieldDefinitionData);
     }
 }
-
-class_alias(TranslateEzSelectionMultilingualOptions::class, 'EzSystems\EzPlatformAdminUi\EventListener\TranslateEzSelectionMultilingualOptions');

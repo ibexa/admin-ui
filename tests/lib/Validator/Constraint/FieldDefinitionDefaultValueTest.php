@@ -32,5 +32,3 @@ class FieldDefinitionDefaultValueTest extends TestCase
         self::assertSame(Constraint::CLASS_CONSTRAINT, $constraint->getTargets());
     }
 }
-
-class_alias(FieldDefinitionDefaultValueTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\FieldDefinitionDefaultValueTest');

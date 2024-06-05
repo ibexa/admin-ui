@@ -144,5 +144,3 @@ final class ReadAllowedContentTypesTest extends TestCase
         }, $identifiers);
     }
 }
-
-class_alias(ReadAllowedContentTypesTest::class, 'EzSystems\EzPlatformAdminUi\Tests\UniversalDiscovery\Event\Subscriber\RichTextEmbedAllowedContentTypesTest');

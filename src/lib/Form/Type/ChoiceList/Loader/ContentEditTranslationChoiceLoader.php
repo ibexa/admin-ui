@@ -115,5 +115,3 @@ class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
         return $languages;
     }
 }
-
-class_alias(ContentEditTranslationChoiceLoader::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\ContentEditTranslationChoiceLoader');

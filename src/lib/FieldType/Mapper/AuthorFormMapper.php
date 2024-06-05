@@ -77,5 +77,3 @@ class AuthorFormMapper implements FieldDefinitionFormMapperInterface, FieldValue
             ]);
     }
 }
-
-class_alias(AuthorFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\AuthorFormMapper');

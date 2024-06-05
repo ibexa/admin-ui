@@ -102,5 +102,3 @@ class UserOnTheFlyProcessor implements EventSubscriberInterface
         }
     }
 }
-
-class_alias(UserOnTheFlyProcessor::class, 'EzSystems\EzPlatformAdminUi\Form\Processor\User\UserOnTheFlyProcessor');

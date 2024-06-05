@@ -49,5 +49,3 @@ class MainTranslationUpdateMapper implements DataMapperInterface
         ]);
     }
 }
-
-class_alias(MainTranslationUpdateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\MainTranslationUpdateMapper');

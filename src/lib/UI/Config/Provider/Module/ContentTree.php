@@ -42,5 +42,3 @@ class ContentTree implements ProviderInterface
         ];
     }
 }
-
-class_alias(ContentTree::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Module\ContentTree');

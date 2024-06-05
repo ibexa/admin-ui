@@ -43,5 +43,3 @@ class ObjectStateGroupsDeleteType extends AbstractType
         ]);
     }
 }
-
-class_alias(ObjectStateGroupsDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateGroupsDeleteType');

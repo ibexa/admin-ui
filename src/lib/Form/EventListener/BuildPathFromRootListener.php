@@ -70,5 +70,3 @@ class BuildPathFromRootListener
         return $urlAlias->path . '/' . $path;
     }
 }
-
-class_alias(BuildPathFromRootListener::class, 'EzSystems\EzPlatformAdminUi\Form\EventListener\BuildPathFromRootListener');

@@ -323,5 +323,3 @@ final class ContentTypeDraftMapperTest extends TestCase
             ->willReturn('foo');
     }
 }
-
-class_alias(ContentTypeDraftMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\Data\FormMapper\ContentTypeDraftMapperTest');

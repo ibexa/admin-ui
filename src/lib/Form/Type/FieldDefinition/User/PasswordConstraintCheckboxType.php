@@ -65,5 +65,3 @@ class PasswordConstraintCheckboxType extends AbstractType
         return strtolower(preg_replace('/[A-Z]/', '_\\0', lcfirst($string)));
     }
 }
-
-class_alias(PasswordConstraintCheckboxType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\FieldDefinition\User\PasswordConstraintCheckboxType');

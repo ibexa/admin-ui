@@ -62,5 +62,3 @@ class TimeFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(TimeFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\TimeFormMapper');

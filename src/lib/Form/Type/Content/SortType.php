@@ -44,5 +44,3 @@ class SortType extends AbstractType
         $optionsResolver->setAllowedTypes('default', 'array');
     }
 }
-
-class_alias(SortType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\SortType');

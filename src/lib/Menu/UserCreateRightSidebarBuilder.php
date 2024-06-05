@@ -82,5 +82,3 @@ class UserCreateRightSidebarBuilder extends AbstractBuilder implements Translati
         ];
     }
 }
-
-class_alias(UserCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\UserCreateRightSidebarBuilder');

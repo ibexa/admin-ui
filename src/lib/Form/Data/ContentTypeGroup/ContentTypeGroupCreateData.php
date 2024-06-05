@@ -29,5 +29,3 @@ class ContentTypeGroupCreateData
         $this->identifier = $identifier;
     }
 }
-
-class_alias(ContentTypeGroupCreateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupCreateData');

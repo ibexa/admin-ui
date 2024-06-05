@@ -48,5 +48,3 @@ class ObjectStateGroupCreateData
         $this->name = $name;
     }
 }
-
-class_alias(ObjectStateGroupCreateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateGroupCreateData');

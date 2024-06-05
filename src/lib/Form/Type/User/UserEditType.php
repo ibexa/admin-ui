@@ -96,5 +96,3 @@ class UserEditType extends AbstractType
         return $languageOptions;
     }
 }
-
-class_alias(UserEditType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\User\UserEditType');

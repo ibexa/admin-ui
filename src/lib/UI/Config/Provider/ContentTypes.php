@@ -126,5 +126,3 @@ class ContentTypes implements ProviderInterface
         ];
     }
 }
-
-class_alias(ContentTypes::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\ContentTypes');

@@ -110,5 +110,3 @@ class ContentEditType extends AbstractType
         return $languageOptions;
     }
 }
-
-class_alias(ContentEditType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\Draft\ContentEditType');

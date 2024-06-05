@@ -85,5 +85,3 @@ class UserChoiceType extends AbstractType
         });
     }
 }
-
-class_alias(UserChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\UserChoiceType');

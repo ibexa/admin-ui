@@ -58,5 +58,3 @@ class SectionUpdateMapper implements DataMapperInterface
         ]);
     }
 }
-
-class_alias(SectionUpdateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\SectionUpdateMapper');

@@ -43,5 +43,3 @@ class BulkOperation extends BaseParser
         return new BulkOperationValue($operations);
     }
 }
-
-class_alias(BulkOperation::class, 'EzSystems\EzPlatformAdminUi\REST\Input\Parser\BulkOperation');

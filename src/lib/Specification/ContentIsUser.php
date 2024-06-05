@@ -36,5 +36,3 @@ class ContentIsUser implements ContentSpecification
         return $this->userService->isUser($content);
     }
 }
-
-class_alias(ContentIsUser::class, 'EzSystems\EzPlatformAdminUi\Specification\ContentIsUser');

@@ -51,5 +51,3 @@ class URLUsagesAdapter implements AdapterInterface
         return $this->urlService->findUsages($this->url, $offset, $length)->items;
     }
 }
-
-class_alias(URLUsagesAdapter::class, 'EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\URLUsagesAdapter');

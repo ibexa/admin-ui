@@ -103,5 +103,3 @@ class TrashItemData
         return $this->creator;
     }
 }
-
-class_alias(TrashItemData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\TrashItemData');

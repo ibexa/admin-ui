@@ -65,5 +65,3 @@ class NotificationAdapter implements AdapterInterface
         return $notifications;
     }
 }
-
-class_alias(NotificationAdapter::class, 'EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\NotificationAdapter');

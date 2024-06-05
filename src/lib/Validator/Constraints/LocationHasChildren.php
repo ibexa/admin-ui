@@ -27,5 +27,3 @@ class LocationHasChildren extends Constraint implements TranslationContainerInte
         ];
     }
 }
-
-class_alias(LocationHasChildren::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationHasChildren');

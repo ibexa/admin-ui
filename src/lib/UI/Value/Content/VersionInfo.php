@@ -51,5 +51,3 @@ class VersionInfo extends CoreVersionInfo
         return $this->userCanRemove;
     }
 }
-
-class_alias(VersionInfo::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\VersionInfo');

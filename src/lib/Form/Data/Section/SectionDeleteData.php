@@ -42,5 +42,3 @@ class SectionDeleteData
         $this->section = $section;
     }
 }
-
-class_alias(SectionDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionDeleteData');

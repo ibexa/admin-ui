@@ -79,5 +79,3 @@ final class RelationListDataset
         return $this->relations;
     }
 }
-
-class_alias(RelationListDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\RelationListDataset');

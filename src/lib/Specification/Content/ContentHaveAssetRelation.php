@@ -52,5 +52,3 @@ class ContentHaveAssetRelation extends AbstractSpecification
         return false;
     }
 }
-
-class_alias(ContentHaveAssetRelation::class, 'EzSystems\EzPlatformAdminUi\Specification\Content\ContentHaveAssetRelation');

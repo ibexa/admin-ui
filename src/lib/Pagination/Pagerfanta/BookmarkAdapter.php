@@ -60,5 +60,3 @@ class BookmarkAdapter implements AdapterInterface
             ->getBookmarks();
     }
 }
-
-class_alias(BookmarkAdapter::class, 'EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\BookmarkAdapter');

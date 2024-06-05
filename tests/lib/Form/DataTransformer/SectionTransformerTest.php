@@ -132,5 +132,3 @@ class SectionTransformerTest extends TestCase
         ];
     }
 }
-
-class_alias(SectionTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\SectionTransformerTest');

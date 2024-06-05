@@ -234,5 +234,3 @@ final class VersionInfoTransformerTest extends TestCase
         return $versionInfo;
     }
 }
-
-class_alias(VersionInfoTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\VersionInfoTransformerTest');

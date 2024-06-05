@@ -46,5 +46,3 @@ class TrashItemDeleteData
         $this->trashItems = $trashItems;
     }
 }
-
-class_alias(TrashItemDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Trash\TrashItemDeleteData');

@@ -103,5 +103,3 @@ class UDWBasedValueModelTransformer implements DataTransformerInterface
         return (int)$locationId;
     }
 }
-
-class_alias(UDWBasedValueModelTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\UDWBasedValueModelTransformer');

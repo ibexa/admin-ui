@@ -69,5 +69,3 @@ class UiConfigProviderPassTest extends AbstractCompilerPassTestCase
         );
     }
 }
-
-class_alias(UiConfigProviderPassTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\DependencyInjection\Compiler\UiConfigProviderPassTest');

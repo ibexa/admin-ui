@@ -27,5 +27,3 @@ class LanguageChoiceLoader extends ConfiguredLanguagesChoiceLoader
         return $enabledLanguages;
     }
 }
-
-class_alias(LanguageChoiceLoader::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader');

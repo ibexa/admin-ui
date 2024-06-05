@@ -111,5 +111,3 @@ class LocationTrashType extends AbstractType
         ]);
     }
 }
-
-class_alias(LocationTrashType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationTrashType');

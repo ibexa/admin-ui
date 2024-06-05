@@ -63,5 +63,3 @@ class SiteAccessLimitationMapper extends MultipleSelectionBasedMapper implements
         ];
     }
 }
-
-class_alias(SiteAccessLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\SiteAccessLimitationMapper');

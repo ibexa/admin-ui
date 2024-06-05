@@ -27,5 +27,3 @@ trait NewnessChecker
      */
     abstract protected function getIdentifierValue(): string;
 }
-
-class_alias(NewnessChecker::class, 'EzSystems\EzPlatformAdminUi\Form\Data\NewnessChecker');

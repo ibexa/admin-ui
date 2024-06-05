@@ -89,5 +89,3 @@ class ContentTranslationMapper implements FormDataMapperInterface
             ->setAllowedTypes('language', Language::class);
     }
 }
-
-class_alias(ContentTranslationMapper::class, 'EzSystems\EzPlatformAdminUi\Form\Data\FormMapper\ContentTranslationMapper');

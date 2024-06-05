@@ -85,5 +85,3 @@ class RoleAssignmentCreateRightSidebarBuilder extends AbstractBuilder implements
         ];
     }
 }
-
-class_alias(RoleAssignmentCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\Role\RoleAssignmentCreateRightSidebarBuilder');

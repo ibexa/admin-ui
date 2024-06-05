@@ -42,5 +42,3 @@ class BaseTranslationLanguageChoiceLoader extends BaseChoiceLoader
         );
     }
 }
-
-class_alias(BaseTranslationLanguageChoiceLoader::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\BaseTranslationLanguageChoiceLoader');

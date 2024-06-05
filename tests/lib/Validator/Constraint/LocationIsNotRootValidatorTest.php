@@ -59,5 +59,3 @@ class LocationIsNotRootValidatorTest extends TestCase
         $this->validator->validate($location, new LocationIsNotRoot());
     }
 }
-
-class_alias(LocationIsNotRootValidatorTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\LocationIsNotRootValidatorTest');

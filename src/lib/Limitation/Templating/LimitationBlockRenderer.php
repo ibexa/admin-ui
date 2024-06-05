@@ -161,5 +161,3 @@ class LimitationBlockRenderer implements LimitationBlockRendererInterface
         return array_column($resources, 'template');
     }
 }
-
-class_alias(LimitationBlockRenderer::class, 'EzSystems\EzPlatformAdminUi\Limitation\Templating\LimitationBlockRenderer');

@@ -868,5 +868,3 @@ class ContentTypeController extends Controller
         }
     }
 }
-
-class_alias(ContentTypeController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentTypeController');

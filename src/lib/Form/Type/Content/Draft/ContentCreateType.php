@@ -150,5 +150,3 @@ class ContentCreateType extends AbstractType
         );
     }
 }
-
-class_alias(ContentCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\Draft\ContentCreateType');

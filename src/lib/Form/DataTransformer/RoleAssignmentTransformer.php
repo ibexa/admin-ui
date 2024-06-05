@@ -79,5 +79,3 @@ class RoleAssignmentTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(RoleAssignmentTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\RoleAssignmentTransformer');

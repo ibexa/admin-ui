@@ -135,5 +135,3 @@ class PolicyTransformerTest extends TestCase
         ];
     }
 }
-
-class_alias(PolicyTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\PolicyTransformerTest');

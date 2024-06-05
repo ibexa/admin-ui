@@ -57,5 +57,3 @@ class MyContentTab extends AbstractContentTab implements OrderedTabInterface
         ]);
     }
 }
-
-class_alias(MyContentTab::class, 'EzSystems\EzPlatformAdminUi\Tab\Dashboard\MyContentTab');

@@ -80,5 +80,3 @@ class Relation extends CoreRelation implements RelationInterface
         return true;
     }
 }
-
-class_alias(Relation::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\Relation');

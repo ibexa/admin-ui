@@ -66,5 +66,3 @@ class IntegerFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(IntegerFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\IntegerFormMapper');

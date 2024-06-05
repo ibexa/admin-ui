@@ -29,5 +29,3 @@ abstract class AbstractTab implements TabInterface
         $this->translator = $translator;
     }
 }
-
-class_alias(AbstractTab::class, 'EzSystems\EzPlatformAdminUi\Tab\AbstractTab');

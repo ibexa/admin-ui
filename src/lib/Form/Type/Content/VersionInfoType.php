@@ -43,5 +43,3 @@ class VersionInfoType extends AbstractType
             ->addViewTransformer(new VersionInfoTransformer($this->contentService));
     }
 }
-
-class_alias(VersionInfoType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\VersionInfoType');
