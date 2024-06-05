@@ -97,7 +97,7 @@ export default class MultiFileUploadModule extends Component {
     }
 
     showUploadPopup() {
-        this.setState((state) => ({ ...state, popupVisible: true, itemsToUpload: [] }));
+        this.setState((state) => ({ ...state, popupVisible: true, itemsToUpload: [], allowDropOnWindow: false }));
     }
 
     handleAfterUpload(itemsUploaded) {
