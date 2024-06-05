@@ -63,6 +63,7 @@
         "twig/string-extra": "^3.0"
     },
     "require-dev": {
+        "ext-zip": "*",
         "dama/doctrine-test-bundle": "^v6.7",
         "ibexa/ci-scripts": "^0.2@dev",
         "ibexa/behat": "~4.6.0@dev",

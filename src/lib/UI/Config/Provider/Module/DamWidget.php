@@ -35,6 +35,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
  *     contentTypeIdentifiers: array<string>,
  *     aggregations: array<string, array<string, string>>,
  *     showImageFilters: bool,
+ *     enableMultipleDownload: bool,
  *     mappings: array<
  *         string,
  *         array{
@@ -100,6 +101,7 @@ final class DamWidget implements ProviderInterface
         $imageConfig = [
             'showImageFilters' => $this->showImageFilters(),
             'aggregations' => $this->config['image']['aggregations'],
+            'enableMultipleDownload' => extension_loaded('zip'),
         ];
 
         $mappings = [];

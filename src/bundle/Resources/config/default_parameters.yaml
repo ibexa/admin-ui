@@ -92,4 +92,6 @@ parameters:
             contentTypeIdentifier: image
             fieldDefinitionIdentifier: tags
 
+    ibexa.dam_widget.image.download_limit: 25
+
     ibexa.dam_widget.folder.content_type_identifier: folder

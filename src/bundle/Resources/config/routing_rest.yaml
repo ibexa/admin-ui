@@ -119,3 +119,10 @@ ibexa.rest.application_config:
     methods: [GET]
     options:
         expose: true
+
+ibexa.rest.image.download:
+    path: /image/download/{contentIdList}
+    controller: 'Ibexa\Bundle\AdminUi\Controller\DownloadImageController::downloadAction'
+    methods: GET
+    requirements:
+        contentIdList: '^\d+(,\d+)*$'

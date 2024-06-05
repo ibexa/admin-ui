@@ -244,3 +244,11 @@ services:
         autowire: true
         tags:
             - controller.service_arguments
+
+    Ibexa\Bundle\AdminUi\Controller\DownloadImageController:
+        arguments:
+            $downloadLimit: '%ibexa.dam_widget.image.download_limit%'
+            $formatter: '@ibexa.user.settings.full_datetime_format.formatter'
+            $imageMappings: '%ibexa.dam_widget.image.mappings%'
+        tags:
+            - controller.service_arguments
