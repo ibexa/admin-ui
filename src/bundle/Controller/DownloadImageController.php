@@ -15,8 +15,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Ibexa\Core\FieldType\Image\Value;
 use Ibexa\Rest\Server\Controller;
-use Ibexa\User\UserSetting\Setting\DateTimeFormatSerializer;
-use Ibexa\User\UserSetting\UserSettingService;
+use Ibexa\User\UserSetting\DateTimeFormat\FormatterInterface;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,34 +23,32 @@ use ZipArchive;
 
 final class DownloadImageController extends Controller
 {
-    private const ARCHIVE_NAME_PATTERN = 'images_%s.zip';
+    private const EXTENSION_ZIP = '.zip';
 
-    private DateTimeFormatSerializer $dateTimeFormatSerializer;
+    private const ARCHIVE_NAME_PATTERN = 'images_%s' . self::EXTENSION_ZIP;
 
     private int $downloadLimit;
+
+    private FormatterInterface $formatter;
 
     /** @var array<string, mixed> */
     private array $imageMappings;
 
     private SearchService $searchService;
 
-    private UserSettingService $userSettingService;
-
     /**
      * @param array<string, mixed> $imageMappings
      */
     public function __construct(
-        DateTimeFormatSerializer $dateTimeFormatSerializer,
         int $downloadLimit,
+        FormatterInterface $formatter,
         array $imageMappings,
-        SearchService $searchService,
-        UserSettingService $userSettingService
+        SearchService $searchService
     ) {
-        $this->dateTimeFormatSerializer = $dateTimeFormatSerializer;
         $this->downloadLimit = $downloadLimit;
+        $this->formatter = $formatter;
         $this->imageMappings = $imageMappings;
         $this->searchService = $searchService;
-        $this->userSettingService = $userSettingService;
     }
 
     /**
@@ -155,8 +152,6 @@ final class DownloadImageController extends Controller
     /**
      * @param array<\Ibexa\Contracts\Core\Repository\Values\Content\Content> $contentList
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Random\RandomException
      */
     private function downloadArchiveWithImages(array $contentList): Response
@@ -173,7 +168,7 @@ final class DownloadImageController extends Controller
             throw new RuntimeException('Failed to read archive with images.');
         }
 
-        $fileName = (new DateTimeImmutable())->format($this->getUserDateTimeFormat());
+        $fileName = $this->formatter->format(new DateTimeImmutable()) . self::EXTENSION_ZIP;
         $response = $this->createResponse($content, $fileName);
         $response->headers->set('Content-Type', 'application/zip');
 
@@ -259,7 +254,7 @@ final class DownloadImageController extends Controller
         );
         $query->limit = $this->downloadLimit;
 
-        return $this->searchService->findContent($query);
+        return $this->searchService->findContent($query, [], false);
     }
 
     /**
@@ -313,17 +308,6 @@ final class DownloadImageController extends Controller
         }
 
         $zipArchive->close();
-    }
-
-    /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     */
-    private function getUserDateTimeFormat(): string
-    {
-        return (string)$this->dateTimeFormatSerializer->deserialize(
-            $this->userSettingService->getUserSetting('full_datetime_format')->value
-        );
     }
 
     /**
