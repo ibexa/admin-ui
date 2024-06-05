@@ -229,6 +229,7 @@ final class DamWidgetTest extends TestCase
                 ],
                 'aggregations' => self::IMAGE_AGGREGATIONS,
                 'showImageFilters' => $showImageFilters,
+                'enableMultipleDownload' => true,
                 'mappings' => self::IMAGE_MAPPINGS,
             ],
             'folder' => [
