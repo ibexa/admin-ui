@@ -13,12 +13,14 @@ use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode;
 use Ibexa\AdminUi\REST\Value\ContentTree\Node;
 use Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo;
 use Ibexa\AdminUi\REST\Value\ContentTree\Root;
+use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\UI\Module\ContentTree\NodeFactory;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
@@ -44,13 +46,16 @@ class ContentTreeController extends RestController
 
     private ConfigResolverInterface $configResolver;
 
+    private SiteaccessResolverInterface  $siteaccessResolver;
+
     public function __construct(
         LocationService $locationService,
         PermissionCheckerInterface $permissionChecker,
         LookupLimitationsTransformer $lookupLimitationsTransformer,
         NodeFactory $contentTreeNodeFactory,
         PermissionResolver $permissionResolver,
-        ConfigResolverInterface $configResolver
+        ConfigResolverInterface $configResolver,
+        SiteaccessResolverInterface $siteaccessResolver
     ) {
         $this->locationService = $locationService;
         $this->permissionChecker = $permissionChecker;
@@ -58,6 +63,7 @@ class ContentTreeController extends RestController
         $this->contentTreeNodeFactory = $contentTreeNodeFactory;
         $this->permissionResolver = $permissionResolver;
         $this->configResolver = $configResolver;
+        $this->siteaccessResolver = $siteaccessResolver;
     }
 
     /**
@@ -145,7 +151,15 @@ class ContentTreeController extends RestController
     {
         $locationPermissionRestrictions = $this->getLocationPermissionRestrictions($location);
 
-        return new NodeExtendedInfo($locationPermissionRestrictions);
+        $content = $location->getContent();
+        $versionInfo = $content->getVersionInfo();
+        $translations = $versionInfo->languageCodes;
+        $previewableTranslations = array_filter(
+            $translations,
+            fn (string $languageCode): bool => $this->isPreviewable($location, $content, $languageCode)
+        );
+
+        return new NodeExtendedInfo($locationPermissionRestrictions, $previewableTranslations);
     }
 
     /**
@@ -244,6 +258,37 @@ class ContentTreeController extends RestController
             $content,
             [$target]
         );
+    }
+
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
+    private function isPreviewable(
+        Location $location,
+        Content $content,
+        string $languageCode
+    ): bool {
+        $canPreview = $this->permissionResolver->canUser(
+            'content',
+            'versionread',
+            $content,
+            [$location]
+        );
+
+        if (!$canPreview) {
+            return false;
+        }
+
+        $versionNo = $content->getVersionInfo()->getVersionNo();
+
+        $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
+            $location,
+            $versionNo,
+            $languageCode
+        );
+
+        return !empty($siteAccesses);
     }
 }
 
