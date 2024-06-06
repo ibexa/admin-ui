@@ -5,7 +5,7 @@ system:
                 meta_field_groups_list:
                     - metadata
                 form_templates:
-                    - { template: '@ibexadesign/content/form_fields.html.twig', priority: 0 }
+                    - { template: '@ibexadesign/content/form_fields.html.twig', priority: 0
 
         field_templates:
             - { template: '@ibexadesign/ui/field_type/preview/content_fields.html.twig', priority: 20 }
