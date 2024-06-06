@@ -34,7 +34,7 @@ final class ContentTypeThumbnailStrategy implements ThumbnailStrategy
         ?VersionInfo $versionInfo = null
     ): ?Thumbnail {
         try {
-            $contentTypeIcon = $this->contentTypeIconResolver->getContentTypeIcon($contentType->identifier);
+            $contentTypeIcon = $this->contentTypeIconResolver->getContentTypeIcon($contentType->getIdentifier());
 
             return new Thumbnail([
                 'resource' => $contentTypeIcon,

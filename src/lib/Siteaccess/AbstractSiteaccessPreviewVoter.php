@@ -36,7 +36,7 @@ abstract class AbstractSiteaccessPreviewVoter implements SiteaccessPreviewVoterI
         $location = $context->getLocation();
         $languageCode = $context->getLanguageCode();
 
-        if (empty(array_intersect($this->getRootLocationIds($siteAccess), $location->path))) {
+        if (empty(array_intersect($this->getRootLocationIds($siteAccess), $location->getPath()))) {
             return false;
         }
 

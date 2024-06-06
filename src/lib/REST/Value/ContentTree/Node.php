@@ -26,9 +26,6 @@ class Node extends RestValue
     /** @var string[] */
     public array $translations;
 
-    /** @var string[] */
-    public array $previewableTranslations;
-
     /** @var string */
     public $name;
 
@@ -56,12 +53,13 @@ class Node extends RestValue
 
     public string $pathString;
 
+    public string $mainLanguageCode;
+
     /**
      * @param int $depth
      * @param int $locationId
      * @param int $contentId
      * @param string[] $translations
-     * @param string[] $previewableTranslations
      * @param string $name
      * @param string $contentTypeIdentifier
      * @param bool $isContainer
@@ -76,7 +74,6 @@ class Node extends RestValue
         int $contentId,
         int $versionNo,
         array $translations,
-        array $previewableTranslations,
         string $name,
         string $contentTypeIdentifier,
         bool $isContainer,
@@ -85,6 +82,7 @@ class Node extends RestValue
         int $totalChildrenCount,
         int $reverseRelationsCount,
         bool $isBookmarked,
+        string $mainLanguageCode,
         array $children = [],
         string $pathString = ''
     ) {
@@ -93,7 +91,6 @@ class Node extends RestValue
         $this->contentId = $contentId;
         $this->versionNo = $versionNo;
         $this->translations = $translations;
-        $this->previewableTranslations = $previewableTranslations;
         $this->name = $name;
         $this->isInvisible = $isInvisible;
         $this->contentTypeIdentifier = $contentTypeIdentifier;
@@ -104,5 +101,6 @@ class Node extends RestValue
         $this->isBookmarked = $isBookmarked;
         $this->children = $children;
         $this->pathString = $pathString;
+        $this->mainLanguageCode = $mainLanguageCode;
     }
 }

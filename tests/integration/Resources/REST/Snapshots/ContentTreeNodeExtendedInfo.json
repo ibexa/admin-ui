@@ -35,6 +35,9 @@
                 "_name": "hide",
                 "hasAccess": false
             }
-        ]
+        ],
+        "previewableTranslations": {
+            "values": ["eng-GB"]
+        }
     }
 }
