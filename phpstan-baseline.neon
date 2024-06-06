@@ -9521,11 +9521,6 @@ parameters:
 			path: src/lib/UI/Dataset/VersionsDataset.php
 
 		-
-			message: "#^Access to an undefined property Ibexa\\\\AdminUi\\\\UI\\\\Module\\\\ContentTree\\\\NodeFactory\\:\\:\\$allowedContentTypes\\.$#"
-			count: 1
-			path: src/lib/UI/Module/ContentTree/NodeFactory.php
-
-		-
 			message: "#^Call to an undefined method Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\PermissionResolver\\:\\:sudo\\(\\)\\.$#"
 			count: 1
 			path: src/lib/UI/Module/ContentTree/NodeFactory.php
